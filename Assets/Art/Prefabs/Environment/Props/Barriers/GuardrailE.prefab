@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2337889620351937005}
   - component: {fileID: 928595754953482304}
   - component: {fileID: 9222976581326991174}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3542649426632292920}
   - component: {fileID: 3080258160332582098}
   - component: {fileID: 755993054444683946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GuardrailE
   m_TagString: Untagged
   m_Icon: {fileID: 0}

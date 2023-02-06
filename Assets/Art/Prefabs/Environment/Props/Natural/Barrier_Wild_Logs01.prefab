@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 470730916266070478}
   - component: {fileID: 997679471086554214}
   - component: {fileID: 5447875417188213385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier_Wild_Logs01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &470730916266070478
 Transform:

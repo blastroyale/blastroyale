@@ -197,12 +197,12 @@ GameObject:
   - component: {fileID: 7388537846219571238}
   - component: {fileID: 3226700575995664540}
   - component: {fileID: 3385718350521024483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7388537846219571238
 Transform:
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 7970885477398929753}
   - component: {fileID: 8748805233734344309}
   - component: {fileID: 2399689880229977227}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

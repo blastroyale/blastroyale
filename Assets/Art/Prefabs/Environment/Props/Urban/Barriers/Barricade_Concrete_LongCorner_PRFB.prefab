@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 148449748187469849}
   - component: {fileID: 2131619841775660370}
   - component: {fileID: 3159450006465106028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barricade_Concrete_LongCorner_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1777967442585230945
 Transform:
@@ -152,6 +152,18 @@ PrefabInstance:
     - target: {fileID: 2689283797308217446, guid: c63deaa2eb86c044fbc26937a3d0b09e, type: 3}
       propertyPath: m_Name
       value: Barricade_Concrete_LowDamage_PRFB
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689283797308217446, guid: c63deaa2eb86c044fbc26937a3d0b09e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689283797308217446, guid: c63deaa2eb86c044fbc26937a3d0b09e, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689283797308217446, guid: c63deaa2eb86c044fbc26937a3d0b09e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4105583715026849722, guid: c63deaa2eb86c044fbc26937a3d0b09e, type: 3}
       propertyPath: m_Size.y

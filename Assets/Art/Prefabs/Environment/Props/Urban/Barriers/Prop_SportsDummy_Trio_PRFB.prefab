@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 5177099825469037517}
   - component: {fileID: 6934478641308987143}
   - component: {fileID: 9139702802146850708}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Prop_SportsDummy_Trio_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8103976058478302312
 Transform:

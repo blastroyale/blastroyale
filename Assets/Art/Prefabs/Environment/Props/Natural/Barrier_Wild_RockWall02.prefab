@@ -152,12 +152,12 @@ GameObject:
   - component: {fileID: 127782086109378171}
   - component: {fileID: 4772837914927515842}
   - component: {fileID: 8361145668485850555}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier_Wild_RockWall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &127782086109378171
 Transform:

@@ -169,12 +169,12 @@ GameObject:
   - component: {fileID: 4724516592184976516}
   - component: {fileID: 6027787597150619120}
   - component: {fileID: 5344330370927199789}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pine_M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4724516592184976516
 Transform:

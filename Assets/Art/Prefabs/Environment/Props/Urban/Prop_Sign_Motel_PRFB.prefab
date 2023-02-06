@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3812230941274653702}
   - component: {fileID: 1369996565841522892}
   - component: {fileID: 6323768808865302526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Prop_Sign_Motel_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &236465654706916259
 Transform:

@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 3973398085841560178}
   - component: {fileID: 8628775089987827835}
   - component: {fileID: 6956218663365393306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Concert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 3116769225127750503}
   - component: {fileID: 8897956904621092885}
   - component: {fileID: 1046998423124464410}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Rebels_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 902124224989402284}
   - component: {fileID: 8436658534225819276}
   - component: {fileID: 2881292374178606284}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Catpocalypse_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,12 +563,12 @@ GameObject:
   - component: {fileID: 4759483022045558332}
   - component: {fileID: 9049381564529729110}
   - component: {fileID: 7647387774387929955}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FancyFacade_2_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4759483022045558332
 Transform:
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 2438897390839330560}
   - component: {fileID: 6085376318861503424}
   - component: {fileID: 267276806416898425}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

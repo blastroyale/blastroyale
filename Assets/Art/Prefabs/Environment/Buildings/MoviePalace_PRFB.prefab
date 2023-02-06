@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 7955289255858646270}
   - component: {fileID: 2003522020140462142}
   - component: {fileID: 5479728434355323527}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,12 +506,12 @@ GameObject:
   - component: {fileID: 7421582937403671254}
   - component: {fileID: 2598008402507309147}
   - component: {fileID: 8665988024707273122}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MoviePalace_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7421582937403671254
 Transform:

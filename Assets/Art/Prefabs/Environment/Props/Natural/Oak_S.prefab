@@ -169,12 +169,12 @@ GameObject:
   - component: {fileID: 4428215592682049390}
   - component: {fileID: 6367015376699922830}
   - component: {fileID: 6033361402465462428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Oak_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4428215592682049390
 Transform:

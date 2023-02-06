@@ -360,12 +360,12 @@ GameObject:
   - component: {fileID: 5186692575415969359}
   - component: {fileID: 6870570854991611751}
   - component: {fileID: 1828225480663996763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier_Wild_Palms01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &5186692575415969359
 Transform:

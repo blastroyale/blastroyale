@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 5614635422134639988}
   - component: {fileID: 4053271478888792500}
   - component: {fileID: 8036123490259956493}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,12 +450,12 @@ GameObject:
   - component: {fileID: 4266457801019896747}
   - component: {fileID: 6523407710850176541}
   - component: {fileID: 2737027978609176609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Clapperboard_2_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4266457801019896747
 Transform:

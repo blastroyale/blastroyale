@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2581029836184493429}
   - component: {fileID: 8304843789833483077}
   - component: {fileID: 2745714383081144492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel04_A1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2581029836184493429
 Transform:
@@ -94,12 +94,12 @@ GameObject:
   - component: {fileID: 2201133099220784950}
   - component: {fileID: 6366568482662579117}
   - component: {fileID: 7958226124526643169}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel04_A1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2201133099220784950
 Transform:
@@ -357,12 +357,12 @@ GameObject:
   - component: {fileID: 784647084272147561}
   - component: {fileID: 6137902389214862898}
   - component: {fileID: 6887850066052972092}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel04_A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &784647084272147561
 Transform:
@@ -440,12 +440,12 @@ GameObject:
   - component: {fileID: 9112101605754614831}
   - component: {fileID: 6136216651287091023}
   - component: {fileID: 6873489528712477120}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel03_A1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &9112101605754614831
 Transform:
@@ -523,12 +523,12 @@ GameObject:
   - component: {fileID: 1525516371347879424}
   - component: {fileID: 6575872472930528226}
   - component: {fileID: 4422551931362420118}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel04_A1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1525516371347879424
 Transform:
@@ -606,12 +606,12 @@ GameObject:
   - component: {fileID: 5377060456404437666}
   - component: {fileID: 7281116086897423964}
   - component: {fileID: 3779726803416222198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel04_A1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5377060456404437666
 Transform:
@@ -689,12 +689,12 @@ GameObject:
   - component: {fileID: 467055309152820951}
   - component: {fileID: 1933726429929856087}
   - component: {fileID: 605135377019997590}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barrel02_A1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &467055309152820951
 Transform:

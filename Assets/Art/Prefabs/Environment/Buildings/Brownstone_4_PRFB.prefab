@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8900637294541087655}
   - component: {fileID: 6219620912759067078}
   - component: {fileID: 6334026932847746341}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Brownstone_4_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8900637294541087655
 Transform:
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 9095121487089541651}
   - component: {fileID: 8908822488499250370}
   - component: {fileID: 1072006773328141710}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_CupsAndCakes_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 5375329167996862614}
   - component: {fileID: 5039734777160524867}
   - component: {fileID: 55528972742106288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Rebels_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}

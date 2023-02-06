@@ -15,7 +15,7 @@ GameObject:
   m_Name: Prop_StreetLight_TrafficLight_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2390594284724931703
@@ -99,8 +99,8 @@ GameObject:
   m_Name: Prop_StreetLight_TrafficLight_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5075107573487078018
 Transform:

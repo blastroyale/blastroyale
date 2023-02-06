@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 8107370857487226706}
   - component: {fileID: 371554749392866194}
   - component: {fileID: 5975731625203710251}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,12 +463,12 @@ GameObject:
   - component: {fileID: 8695485160436639474}
   - component: {fileID: 7529530778647075396}
   - component: {fileID: 3053622192109260800}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shops_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8695485160436639474
 Transform:

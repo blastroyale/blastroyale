@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 5394018402945410496}
   - component: {fileID: 4501643551437534365}
   - component: {fileID: 6218017567336998015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barricade_Concrete_High_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8861096166508752027
 Transform:

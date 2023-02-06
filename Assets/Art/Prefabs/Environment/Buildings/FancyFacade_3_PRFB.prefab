@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4482727250796247446}
   - component: {fileID: 7930488331133723364}
   - component: {fileID: 2013823935783485931}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Rebels_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3712978251382781510}
   - component: {fileID: 9093826021462318891}
   - component: {fileID: 8338007437064628135}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_CupsAndCakes_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4688575070242712037}
   - component: {fileID: 152184869233500687}
   - component: {fileID: 1035447770730193402}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_Wifi_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,12 +260,12 @@ GameObject:
   - component: {fileID: 2957149874386292854}
   - component: {fileID: 1775156809108042083}
   - component: {fileID: 301531733078483471}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FancyFacade_3_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2957149874386292854
 Transform:
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 2223610863674165963}
   - component: {fileID: 7741959927185610251}
   - component: {fileID: 4374931319512851634}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

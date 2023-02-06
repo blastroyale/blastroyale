@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 6475868522060075331}
   - component: {fileID: 7367155738729672243}
   - component: {fileID: 2722119593837308139}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pine_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6475868522060075331
 Transform:

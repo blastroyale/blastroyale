@@ -329,12 +329,12 @@ GameObject:
   - component: {fileID: 6157665363035323941}
   - component: {fileID: 6856445347635232821}
   - component: {fileID: 4411586715932380994}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier_Wild_Cacti01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &6157665363035323941
 Transform:

@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 8625796481756564386}
   - component: {fileID: 153071770019075938}
   - component: {fileID: 6186193976490386907}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,12 +702,12 @@ GameObject:
   - component: {fileID: 619629130590503055}
   - component: {fileID: 711604631839117748}
   - component: {fileID: 5723937603519060452}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Garage_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &619629130590503055
 Transform:

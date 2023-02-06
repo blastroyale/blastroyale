@@ -159,12 +159,12 @@ GameObject:
   - component: {fileID: 7676188940607037114}
   - component: {fileID: 7475221101003680079}
   - component: {fileID: 6311768492546706055}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Clapperboard_1_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7676188940607037114
 Transform:

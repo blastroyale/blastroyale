@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 6489028393900691447}
   - component: {fileID: 2312712486702214168}
   - component: {fileID: 7941646309983890076}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedBrick_2_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6489028393900691447
 Transform:

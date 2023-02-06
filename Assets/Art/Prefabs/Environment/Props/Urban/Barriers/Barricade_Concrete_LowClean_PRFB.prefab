@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7678339996187775312}
   - component: {fileID: 8686866247671200327}
   - component: {fileID: 38607901304163358}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barricade_Concrete_LowClean_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8473171952710210080
 Transform:

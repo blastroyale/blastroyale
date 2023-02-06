@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7457359854197346936}
   - component: {fileID: 7634751414402426598}
   - component: {fileID: 8845142468885593540}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pine_Cluster_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7457359854197346936
 Transform:

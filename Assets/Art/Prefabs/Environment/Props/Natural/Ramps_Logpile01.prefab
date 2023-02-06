@@ -372,8 +372,12 @@ PrefabInstance:
       value: RampLogpile01
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5e667b0da7ce5c146a749141cc678dce, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5e667b0da7ce5c146a749141cc678dce, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967255
+      value: 95
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e667b0da7ce5c146a749141cc678dce, type: 3}

@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 135423082704383161}
   - component: {fileID: 1689893889601790121}
   - component: {fileID: 6783940754191192399}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrier_Wild_Boulders02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

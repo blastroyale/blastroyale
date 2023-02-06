@@ -510,12 +510,12 @@ GameObject:
   - component: {fileID: 171761429782651448}
   - component: {fileID: 3461829719466165904}
   - component: {fileID: 3825521739045692564}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Motel_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &171761429782651448
 Transform:
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 2417579242038703073}
   - component: {fileID: 6064055423380074273}
   - component: {fileID: 279730140033310104}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

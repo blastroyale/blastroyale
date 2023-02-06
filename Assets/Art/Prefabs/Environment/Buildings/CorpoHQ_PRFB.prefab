@@ -44,12 +44,12 @@ GameObject:
   - component: {fileID: 5174830760281086207}
   - component: {fileID: 4751974419652171176}
   - component: {fileID: 3876278777698099029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CorpoHQ_GEOShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5174830760281086207
 Transform:

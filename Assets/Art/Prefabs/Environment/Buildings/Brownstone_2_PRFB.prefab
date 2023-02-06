@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 1086150636820543712}
   - component: {fileID: 4802575144622772621}
   - component: {fileID: 5702511116067154177}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_CupsAndCakes_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 8099670789963307799}
   - component: {fileID: 2543659617062391213}
   - component: {fileID: 277913408253667048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_WantedFemale_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,12 +432,12 @@ GameObject:
   - component: {fileID: 5345520270695937407}
   - component: {fileID: 7319090267768516040}
   - component: {fileID: 1912981248858238899}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Brownstone_2_Base_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5345520270695937407
 Transform:
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 1079654804111613575}
   - component: {fileID: 5171006712504855679}
   - component: {fileID: 4501327352608205802}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Poster_WantedMale_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ GameObject:
   - component: {fileID: 4220511667785136220}
   - component: {fileID: 5708709194940802204}
   - component: {fileID: 1801298665290962469}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

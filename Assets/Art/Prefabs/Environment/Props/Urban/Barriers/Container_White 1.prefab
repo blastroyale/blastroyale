@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7011908420618850248}
   - component: {fileID: 6879752690031320909}
   - component: {fileID: 6043825454009917098}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Container_White 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7011908420618850248
 Transform:
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3773910209543397204}
   - component: {fileID: 8127694379021027531}
   - component: {fileID: 7037061518998797125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Coll_01 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

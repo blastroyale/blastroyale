@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -10,15 +11,12 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsTutorial : AnalyticsCalls
 	{
-		private readonly IGameServices _services;
-		
-		public AnalyticsCallsTutorial(IAnalyticsService analyticsService, IGameServices services) : base(analyticsService)
+		public AnalyticsCallsTutorial(IAnalyticsService analyticsService) : base(analyticsService)
 		{
-			_services = services;
 		}
 		
 		/// <summary>
-		/// Logs when the user purchases a product
+		/// Logs when player completes a tutorial step
 		/// </summary>
 		public void CompleteTutorialStep(string sectionName, int sectionVersion, int sectionStep, int totalStep, string stepName)
 		{
@@ -31,7 +29,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"step_name", stepName},
 			};
 			
-			Debug.LogError($"S:{sectionName} v{sectionVersion} | CS:{sectionStep} TS:{totalStep} N:{stepName}");
+			FLog.Verbose($"Tutorial step complete analytic sending - {sectionName} v{sectionVersion} | Step:{sectionStep} {stepName} Total:{totalStep}");
 
 			_analyticsService.LogEvent(AnalyticsEvents.TutorialStepCompleted, data);
 		}

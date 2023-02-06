@@ -109,7 +109,7 @@ namespace FirstLight.Game.Services
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			EconomyCalls = new AnalyticsCallsEconomy(this);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
-			TutorialCalls = new AnalyticsCallsTutorial(this, services);
+			TutorialCalls = new AnalyticsCallsTutorial(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
@@ -118,8 +118,6 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
-			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
-			
 			try
 			{
 				//PlayFab Analytics

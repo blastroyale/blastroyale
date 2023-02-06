@@ -69,6 +69,8 @@ namespace FirstLight.Game.StateMachines
 
 			playingMatch.Event(MatchState.MatchStateEndingEvent).Target(final);
 			playingMatch.OnExit(() => { SendAnalyticsIncrementStep("TutorialEnd"); });
+			
+			final.OnEnter(SendStepAnalytics);
 		}
 
 		private void StartFirstTutorialMatch()
@@ -78,11 +80,16 @@ namespace FirstLight.Game.StateMachines
 
 		public void SendAnalyticsIncrementStep(string newStepName)
 		{
-			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
-				CurrentTotalStep, CurrentStepName);
+			SendStepAnalytics();
 
 			CurrentStep += 1;
 			CurrentStepName = newStepName;
+		}
+
+		public void SendStepAnalytics()
+		{
+			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
+				CurrentTotalStep, CurrentStepName);
 		}
 
 		private void SubscribeMessages()

@@ -72,7 +72,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.False(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards._section));
 			
-			TestServices.CommandService.ExecuteCommand(new CompleteTutorialStepCommand()
+			TestServices.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
 				Section = tutorialRewards._section
 			});

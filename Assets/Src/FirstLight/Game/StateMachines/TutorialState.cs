@@ -41,21 +41,22 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(idle);
 			initial.OnExit(SubscribeMessages);
 
-			idle.OnEnter(() => SetCurrentTutorialStep(TutorialSection.NONE));
+			idle.OnEnter(() => SetCurrentSection(TutorialSection.NONE));
 			idle.Event(StartFirstGameTutorialEvent).Target(firstGameTutorial);
 
-			firstGameTutorial.OnEnter(() => SetCurrentTutorialStep(TutorialSection.FIRST_GUIDE_MATCH));
+			firstGameTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_GUIDE_MATCH));
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
-			firstGameTutorial.OnExit(() => SendTutorialStepCompleted(TutorialSection.FIRST_GUIDE_MATCH));
+			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 		}
 
-		private void SetCurrentTutorialStep(TutorialSection section)
+		private void SetCurrentSection(TutorialSection section)
 		{
 			_tutorialService.CurrentRunningTutorial.Value = section;
 		}
 		
-		private void SendTutorialStepCompleted(TutorialSection section)
+		private void SendSectionCompleted(TutorialSection section)
 		{
+			Debug.LogError("WHY U COMPLETIN!!!!!!");
 			_tutorialService.CompleteTutorialSection(section);
 		}
 
@@ -105,5 +106,10 @@ namespace FirstLight.Game.StateMachines
 		/// Sends current step analytics, and updates to a new step
 		/// </summary>
 		public void SendAnalyticsIncrementStep(string newStepName);
+		
+		/// <summary>
+		/// Sends current step analytics only
+		/// </summary>
+		public void SendStepAnalytics();
 	}
 }

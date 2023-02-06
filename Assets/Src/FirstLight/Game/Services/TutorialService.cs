@@ -80,7 +80,7 @@ namespace FirstLight.Game.Services
 
 		public void CompleteTutorialSection(TutorialSection section)
 		{
-			_services.CommandService.ExecuteCommand(new CompleteTutorialStepCommand()
+			_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
 				Section = section
 			});

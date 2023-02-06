@@ -11,7 +11,7 @@ namespace FirstLight.Game.Commands
 	/// Completes a given tutorial step.
 	/// Will grant rewards of the given step.
 	/// </summary>
-	public struct CompleteTutorialStepCommand : IGameCommand
+	public struct CompleteTutorialSectionCommand : IGameCommand
 	{
 
 		public TutorialSection Section;

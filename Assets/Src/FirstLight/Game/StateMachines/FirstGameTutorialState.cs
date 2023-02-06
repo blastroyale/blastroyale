@@ -45,9 +45,7 @@ namespace FirstLight.Game.StateMachines
 			
 			waitingForStart.Event(GameSimulationState.SimulationStartedEvent).Target(playingMatch);
 			
-			playingMatch.Event(MatchState.MatchEndedEvent).Target(final);
-			playingMatch.Event(MatchState.MatchEndedExitEvent).Target(final);
-			playingMatch.Event(MatchState.MatchQuitEvent).Target(final);
+			playingMatch.Event(MatchState.MatchStateEndingEvent).Target(final);
 		}
 
 		private void StartFirstTutorialMatch()

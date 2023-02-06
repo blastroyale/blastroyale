@@ -523,13 +523,21 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoadingComplete()
 		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
+			CloseTransitions();
 			SetCurrentScreen<HomeScreenPresenter>();
 		}
-
-		private void OpenLoadingScreen()
+		
+		private void CloseTransitions()
 		{
-			_uiService.OpenScreen<LoadingScreenPresenter>();
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
+			{
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
+			}
+			
+			if (_uiService.HasUiPresenter<LoadingScreenPresenter>())
+			{
+				_uiService.CloseUi<LoadingScreenPresenter>(true);
+			}
 		}
 
 		private void InvalidScreen()
@@ -581,12 +589,9 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 			
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-			
-			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 

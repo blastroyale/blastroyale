@@ -44,6 +44,7 @@ namespace FirstLight.Game.Services
 		public static readonly string InitialLoadingComplete = "initial_loading_complete";
 		public static readonly string LoadCoreAssetsComplete = "load_core_assets_complete";
 		public static readonly string LoadMatchAssetsComplete = "load_match_assets_complete";
+		public static readonly string TutorialStepCompleted = "tutorial_step_completed";
 	}
 	
 	/// <summary>
@@ -53,16 +54,24 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="AnalyticsCallsSession"/>
 		public AnalyticsCallsSession SessionCalls { get; }
+		
 		/// <inheritdoc cref="AnalyticsCallsMatch"/>
 		public AnalyticsCallsMatch MatchCalls { get; }
-		/// <inheritdoc cref="AnalyticsEconomy"/>
-		public AnalyticsEconomy EconomyCalls { get; }
+		
+		/// <inheritdoc cref="AnalyticsCallsEconomy"/>
+		public AnalyticsCallsEconomy EconomyCalls { get; }
+		
 		/// <inheritdoc cref="AnalyticsCallsErrors"/>
 		public AnalyticsCallsErrors ErrorsCalls { get; }
+		
 		/// <inheritdoc cref="AnalyticsCallsUi"/>
 		public AnalyticsCallsUi UiCalls { get; }
+		
 		/// <inheritdoc cref="AnalyticsCallsEquipment"/>
 		public AnalyticsCallsEquipment EquipmentCalls { get; }
+		
+		/// <inheritdoc cref="AnalyticsCallsTutorial"/>
+		public AnalyticsCallsTutorial TutorialCalls { get; }
 
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
@@ -86,7 +95,8 @@ namespace FirstLight.Game.Services
 	{
 		public AnalyticsCallsSession SessionCalls { get; }
 		public AnalyticsCallsMatch MatchCalls { get; }
-		public AnalyticsEconomy EconomyCalls { get; }
+		public AnalyticsCallsEconomy EconomyCalls { get; }
+		public AnalyticsCallsTutorial TutorialCalls { get; }
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 		public AnalyticsCallsUi UiCalls { get; }
 		public AnalyticsCallsEquipment EquipmentCalls { get; }
@@ -97,7 +107,9 @@ namespace FirstLight.Game.Services
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
-			EconomyCalls = new AnalyticsEconomy(this);
+			EconomyCalls = new AnalyticsCallsEconomy(this);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
+			TutorialCalls = new AnalyticsCallsTutorial(this, services);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);

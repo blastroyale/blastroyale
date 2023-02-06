@@ -21,7 +21,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
 			var rewardConfigs = TestConfigs.GetConfigsList<EquipmentRewardConfig>().Where(c => tutorialRewards.RewardIds.Contains((uint)c.Id));
 
-			var itemsToBeRewarded = TestLogic.RewardLogic.GetRewardsFromTutorial(tutorialRewards.Step);
+			var itemsToBeRewarded = TestLogic.RewardLogic.GetRewardsFromTutorial(tutorialRewards._section);
 			
 			Assert.AreEqual(itemsToBeRewarded.Count, rewardConfigs.Count());
 			Assert.IsTrue(itemsToBeRewarded.Select(i => i.Id).SequenceEqual(rewardConfigs.Select(c => c.GameId)));
@@ -70,14 +70,14 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
 
-			Assert.False(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards.Step));
+			Assert.False(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards._section));
 			
 			TestServices.CommandService.ExecuteCommand(new CompleteTutorialStepCommand()
 			{
-				Step = tutorialRewards.Step
+				Section = tutorialRewards._section
 			});
 			
-			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards.Step));
+			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards._section));
 		}
 	}
 }

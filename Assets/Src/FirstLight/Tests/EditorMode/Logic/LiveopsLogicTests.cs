@@ -22,11 +22,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestLiveopsTutorialFlags()
 		{
-			Assert.IsFalse(_logic.HasTutorialStep(TutorialStep.PLAYED_MATCH));
+			Assert.IsFalse(_logic.HasTutorialStep(TutorialSection.FIRST_GUIDE_MATCH));
 			
-			_logic.MarkTutorialStepCompleted(TutorialStep.PLAYED_MATCH);
+			_logic.MarkTutorialStepCompleted(TutorialSection.FIRST_GUIDE_MATCH);
 			
-			Assert.IsTrue(_logic.HasTutorialStep(TutorialStep.PLAYED_MATCH));
+			Assert.IsTrue(_logic.HasTutorialStep(TutorialSection.FIRST_GUIDE_MATCH));
 		}
 	}
 }

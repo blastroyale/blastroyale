@@ -57,7 +57,7 @@ MonoBehaviour:
         X:
           RawValue: -1635778
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
           RawValue: 310640
       PhysicsMaterial:
@@ -70,7 +70,7 @@ MonoBehaviour:
         X:
           RawValue: 21073
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 460536
       SmoothSphereMeshCollisions: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
         X:
           RawValue: -1161297
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
           RawValue: 528220
       PhysicsMaterial:
@@ -111,7 +111,7 @@ MonoBehaviour:
         X:
           RawValue: 21073
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 363858
       SmoothSphereMeshCollisions: 0
@@ -137,11 +137,11 @@ MonoBehaviour:
           RawValue: -46262
       Position:
         X:
-          RawValue: -1408368
+          RawValue: -1336934
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
-          RawValue: 563609
+          RawValue: 668467
       PhysicsMaterial:
         Id:
           Value: 0
@@ -150,11 +150,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 21073
+          RawValue: 131671
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
-          RawValue: 363858
+          RawValue: 187922
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (2)
@@ -178,11 +178,11 @@ MonoBehaviour:
           RawValue: -46262
       Position:
         X:
-          RawValue: -1448017
+          RawValue: -1446707
         Y:
-          RawValue: 252968
+          RawValue: 286202
         Z:
-          RawValue: 534773
+          RawValue: 540737
       PhysicsMaterial:
         Id:
           Value: 0
@@ -193,9 +193,9 @@ MonoBehaviour:
         X:
           RawValue: 29943
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
-          RawValue: 28312
+          RawValue: 23310
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: _Coll (3)
@@ -221,7 +221,7 @@ MonoBehaviour:
         X:
           RawValue: -1396572
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
           RawValue: -133038
       PhysicsMaterial:
@@ -234,7 +234,7 @@ MonoBehaviour:
         X:
           RawValue: 270196
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 33446
       SmoothSphereMeshCollisions: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
         X:
           RawValue: -1021050
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
           RawValue: -81920
       PhysicsMaterial:
@@ -275,7 +275,7 @@ MonoBehaviour:
         X:
           RawValue: 159913
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 40370
       SmoothSphereMeshCollisions: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
         X:
           RawValue: -1008599
         Y:
-          RawValue: 209715
+          RawValue: 176481
         Z:
           RawValue: 213712
       PhysicsMaterial:
@@ -316,7 +316,7 @@ MonoBehaviour:
         X:
           RawValue: 157130
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 40370
       SmoothSphereMeshCollisions: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
         X:
           RawValue: -868581
         Y:
-          RawValue: 212175
+          RawValue: 182727
         Z:
           RawValue: -284630
       PhysicsMaterial:
@@ -357,7 +357,7 @@ MonoBehaviour:
         X:
           RawValue: 21073
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 243093
       SmoothSphereMeshCollisions: 0
@@ -385,7 +385,7 @@ MonoBehaviour:
         X:
           RawValue: -611450
         Y:
-          RawValue: 212175
+          RawValue: 182727
         Z:
           RawValue: -471859
       PhysicsMaterial:
@@ -398,7 +398,7 @@ MonoBehaviour:
         X:
           RawValue: 319580
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 22893
       SmoothSphereMeshCollisions: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
         X:
           RawValue: -193986
         Y:
-          RawValue: 212175
+          RawValue: 182727
         Z:
           RawValue: -341442
       PhysicsMaterial:
@@ -439,7 +439,7 @@ MonoBehaviour:
         X:
           RawValue: 176882
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 152063
       SmoothSphereMeshCollisions: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
         X:
           RawValue: -191365
         Y:
-          RawValue: 212175
+          RawValue: 182727
         Z:
           RawValue: 306708
       PhysicsMaterial:
@@ -480,7 +480,7 @@ MonoBehaviour:
         X:
           RawValue: 176882
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 233492
       SmoothSphereMeshCollisions: 0
@@ -508,7 +508,7 @@ MonoBehaviour:
         X:
           RawValue: -869698
         Y:
-          RawValue: 215000
+          RawValue: 189890
         Z:
           RawValue: 329553
       PhysicsMaterial:
@@ -521,7 +521,7 @@ MonoBehaviour:
         X:
           RawValue: 17131
         Y:
-          RawValue: 58988
+          RawValue: 149627
         Z:
           RawValue: 154042
       SmoothSphereMeshCollisions: 0
@@ -562,7 +562,7 @@ MonoBehaviour:
         X:
           RawValue: 12714
         Y:
-          RawValue: 58988
+          RawValue: 122327
         Z:
           RawValue: 152063
       SmoothSphereMeshCollisions: 0
@@ -1367,6 +1367,129 @@ MonoBehaviour:
           RawValue: 65536
       Position:
         X:
+          RawValue: -1537474
+        Y:
+          RawValue: 242483
+        Z:
+          RawValue: 39976
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 59179
+        Y:
+          RawValue: 65956
+        Z:
+          RawValue: 159999
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (32)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 32
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
+          RawValue: -1572864
+        Y:
+          RawValue: 242483
+        Z:
+          RawValue: 418775
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 72672
+        Y:
+          RawValue: 65956
+        Z:
+          RawValue: 66320
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (33)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 33
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 46419
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -46262
+      Position:
+        X:
+          RawValue: -1533542
+        Y:
+          RawValue: 176481
+        Z:
+          RawValue: 730071
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 24724
+        Y:
+          RawValue: 149627
+        Z:
+          RawValue: 187922
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: _Coll (34)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 34
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 65536
+      Position:
+        X:
           RawValue: -1412956
         Y:
           RawValue: 188088
@@ -1394,7 +1517,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 32
+        ColliderIndex: 35
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1435,7 +1558,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 33
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1476,7 +1599,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 34
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1517,7 +1640,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 35
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1558,7 +1681,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 36
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1599,7 +1722,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 37
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1640,7 +1763,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 38
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1681,7 +1804,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 39
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1722,7 +1845,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 40
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1763,7 +1886,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 41
+        ColliderIndex: 44
         MutableMode: 0
       MutableMode: 0
     MapEntities: []

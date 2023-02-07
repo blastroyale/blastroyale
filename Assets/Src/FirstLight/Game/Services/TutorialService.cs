@@ -88,12 +88,12 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = "BattleRoyale";
+			var gameModeId = GameConstants.Tutorial.TUTORIAL_MODE_ID;
 
 			var roomSetup = new MatchRoomSetup()
 			{
 				GameModeHash = gameModeId.GetHashCode(),
-				MapId = GameId.BRGenesis.GetHashCode(),
+				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
 				Mutators = Array.Empty<string>()
 			};

@@ -88,7 +88,7 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = "BattleRoyale";
+			var gameModeId = "Tutorial";
 
 			var roomSetup = new MatchRoomSetup()
 			{

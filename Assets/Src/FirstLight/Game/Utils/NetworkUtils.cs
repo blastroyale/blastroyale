@@ -167,7 +167,7 @@ namespace FirstLight.Game.Utils
 			var properties = GetJoinRoomProperties(setup);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
-			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode.AllowBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
 
 			// TODO - RENAME "SpawnPattern"
 			if (setup.GameMode().SpawnPattern)

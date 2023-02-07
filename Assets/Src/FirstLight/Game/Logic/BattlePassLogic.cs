@@ -168,7 +168,7 @@ namespace FirstLight.Game.Logic
 		
 		public BattlePassConfig GetBattlePassConfig()
 		{
-			if (!GameLogic.PlayerDataProvider.HasTutorialStep(TutorialStep.TUTORIAL_BP))
+			if (!GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP))
 			{
 				return GameLogic.ConfigsProvider.GetConfig<TutorialBattlePassConfig>().ToBattlePassConfig();
 			}
@@ -259,7 +259,7 @@ namespace FirstLight.Game.Logic
 
 		public bool IsTutorial()
 		{
-			return !GameLogic.PlayerDataProvider.HasTutorialStep(TutorialStep.TUTORIAL_BP);
+			return !GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP);
 		}
 
 		public uint GetRequiredPointsForLevel(int desiredLevel)

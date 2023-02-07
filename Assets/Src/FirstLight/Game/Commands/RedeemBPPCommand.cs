@@ -29,7 +29,7 @@ namespace FirstLight.Game.Commands
 				{
 					if (newLevel >= ctx.Logic.BattlePassLogic().MaxLevel)
 					{
-						ctx.Logic.PlayerLogic().MarkTutorialStepCompleted(TutorialStep.TUTORIAL_BP);
+						ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(TutorialSection.TUTORIAL_BP);
 						ctx.Logic.BattlePassLogic().Reset();
 						ctx.Services.MessageBrokerService().Publish(new TutorialBattlePassCompleted());
 					}

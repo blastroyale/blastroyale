@@ -88,12 +88,13 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = "BattleRoyale";
-
+			var gameModeId = "Tutorial";
+			var gameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.FtueDeck.GetHashCode());
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()),
-				Map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode()),
+				GameMode = gameMode,
+				Map = map,
 				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
 				Mutators = Array.Empty<string>()
 			};

@@ -165,7 +165,6 @@ namespace Quantum {
     BlimpDeck = 8,
     BRGenesis = 9,
     TestScene = 11,
-    GameplayTutorial = 63,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,

@@ -154,12 +154,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.GameplayTutorial, new List<GameIdGroup>
-					{
-						GameIdGroup.Map
-					}.AsReadOnly()
-				},
-				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
@@ -814,8 +808,7 @@ namespace Quantum
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
-						GameId.TestScene,
-						GameId.GameplayTutorial
+						GameId.TestScene
 					}.AsReadOnly()
 				},
 				{

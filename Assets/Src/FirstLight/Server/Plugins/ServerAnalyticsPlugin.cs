@@ -56,6 +56,8 @@ namespace Src.FirstLight.Server
 				{"first_death_time", player.Data.FirstDeathTime.AsLong.ToString() },
 				{"last_death_position", player.Data.LastDeathPosition.ToString() },
 				{"specials_used", player.Data.SpecialsUsedCount.ToString() },
+				{"team_size", cmd.TeamSize },
+				{"team_id", player.Data.TeamId },
 			};
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
 		}

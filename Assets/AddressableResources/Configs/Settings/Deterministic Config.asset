@@ -33,5 +33,5 @@ MonoBehaviour:
     InputDelayMin: 0
     InputDelayMax: 60
     InputDelayPingStart: 100
-    InputFixedSizeEnabled: 0
+    InputFixedSizeEnabled: 1
     InputFixedSize: 0

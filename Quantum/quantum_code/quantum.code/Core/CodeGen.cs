@@ -165,7 +165,6 @@ namespace Quantum {
     BlimpDeck = 8,
     BRGenesis = 9,
     TestScene = 11,
-    GameplayTutorial = 63,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,
@@ -2717,22 +2716,16 @@ namespace Quantum {
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
     public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 1;
-    [FieldOffset(3)]
-    private fixed Byte _alignment_padding_[1];
-    [FieldOffset(0)]
-    public Byte AimButtonState;
-    [FieldOffset(1)]
-    public Byte AimingDirectionEncoded;
+    public const Int32 ALIGNMENT = 2;
     [FieldOffset(2)]
-    public Byte MoveDirectionEncoded;
+    private fixed Byte _alignment_padding_[2];
+    [FieldOffset(0)]
+    public UInt16 CompressedInput;
     public const int MAX_COUNT = 32;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 317;
-        hash = hash * 31 + AimButtonState.GetHashCode();
-        hash = hash * 31 + AimingDirectionEncoded.GetHashCode();
-        hash = hash * 31 + MoveDirectionEncoded.GetHashCode();
+        hash = hash * 31 + CompressedInput.GetHashCode();
         return hash;
       }
     }
@@ -2756,9 +2749,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        serializer.Stream.Serialize(&p->AimButtonState);
-        serializer.Stream.Serialize(&p->AimingDirectionEncoded);
-        serializer.Stream.Serialize(&p->MoveDirectionEncoded);
+        serializer.Stream.Serialize(&p->CompressedInput);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -5286,9 +5277,7 @@ namespace Quantum {
     public void SetPlayerInput(Int32 player, Input input) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
-      i->MoveDirectionEncoded = input.MoveDirectionEncoded;
-      i->AimingDirectionEncoded = input.AimingDirectionEncoded;
-      i->AimButtonState = input.AimButtonState;
+      i->CompressedInput = input.CompressedInput;
     }
     public Input* GetPlayerInput(Int32 player) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -10628,14 +10617,10 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Input))]
   public sealed unsafe partial class Input_Prototype : StructPrototype {
-    public Byte MoveDirectionEncoded;
-    public Byte AimingDirectionEncoded;
-    public Byte AimButtonState;
+    public UInt16 CompressedInput;
     partial void MaterializeUser(Frame frame, ref Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Input result, in PrototypeMaterializationContext context) {
-      result.AimButtonState = this.AimButtonState;
-      result.AimingDirectionEncoded = this.AimingDirectionEncoded;
-      result.MoveDirectionEncoded = this.MoveDirectionEncoded;
+      result.CompressedInput = this.CompressedInput;
       MaterializeUser(frame, ref result, in context);
     }
   }

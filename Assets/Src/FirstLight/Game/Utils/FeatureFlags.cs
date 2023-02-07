@@ -82,6 +82,11 @@ namespace FirstLight.Game.Utils
 		/// Flag to determine if we should use playfab matchmaking
 		/// </summary>
 		public static bool PLAYFAB_MATCHMAKING = false;
+
+		/// <summary>
+		/// If should have specific tutorial battle pass for newbies
+		/// </summary>
+		public static bool TUTORIAL_BATTLE_PASS = true;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

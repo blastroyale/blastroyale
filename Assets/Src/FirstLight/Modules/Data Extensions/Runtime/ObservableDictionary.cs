@@ -73,7 +73,6 @@ namespace FirstLight
 
 	/// <inheritdoc />
 	public interface IObservableDictionary<TKey, TValue> : IObservableDictionaryReader<TKey, TValue>
-		where TValue : struct
 	{
 		/// <summary>
 		/// Changes the given <paramref name="key"/> in the dictionary.
@@ -95,7 +94,6 @@ namespace FirstLight
 
 	/// <inheritdoc />
 	public class ObservableDictionary<TKey, TValue> : IObservableDictionary<TKey, TValue>
-		where TValue : struct
 	{
 		private readonly IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> _keyUpdateActions = 
 			new Dictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>>();

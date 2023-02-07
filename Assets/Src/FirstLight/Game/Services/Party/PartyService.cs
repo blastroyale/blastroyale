@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using UnityEngine;
@@ -210,6 +211,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Create");
 		}
 
 		/// <inheritdoc/>
@@ -294,6 +296,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Join");
 		}
 
 		/// <inheritdoc/>
@@ -329,6 +332,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Kick");
 		}
 
 		/// <inheritdoc/>
@@ -369,6 +373,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Leave");
 		}
 
 
@@ -557,6 +562,7 @@ namespace FirstLight.Game.Services.Party
 		private void LocalPlayerKicked()
 		{
 			ResetState();
+			SendAnalyticsAction("Kicked");
 		}
 
 
@@ -573,6 +579,22 @@ namespace FirstLight.Game.Services.Party
 			{
 				LobbyProperties.Remove(key);
 			}
+		}
+
+		private void SendAnalyticsAction(string action)
+		{
+			var members = "";
+			if (_lobby?.Members != null && _lobby.Members.Count > 0)
+			{
+				members = string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
+			}
+			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
+			{
+				{ "action ", action },
+				{ "userid", PlayFabSettings.staticPlayer.PlayFabId },
+				{ "teamid ", _lobbyId },
+				{ "members", members }
+			});
 		}
 	}
 }

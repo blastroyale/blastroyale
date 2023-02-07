@@ -19,7 +19,7 @@ namespace FirstLight.Game.Services
 		/// Requests the current running tutorial step
 		/// </summary>
 		IObservableFieldReader<TutorialStep> CurrentRunningTutorial { get; }
-		
+
 		/// <summary>
 		/// Requests check if a tutorial is currently in progress
 		/// </summary>
@@ -36,7 +36,7 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="ITutorialService.CurrentRunningTutorial" />
 		new IObservableField<TutorialStep> CurrentRunningTutorial { get; }
-		
+
 		/// <summary>
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
 		/// </summary>
@@ -54,20 +54,20 @@ namespace FirstLight.Game.Services
 		private readonly IGameUiService _uiService;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
-		
+
 		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialStep.NONE;
 
 		public IObservableField<TutorialStep> CurrentRunningTutorial { get; }
 
 		IObservableFieldReader<TutorialStep> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
-		
+
 		public TutorialService(IGameUiService uiService)
 		{
 			_uiService = uiService;
 
 			CurrentRunningTutorial = new ObservableField<TutorialStep>(TutorialStep.NONE);
 		}
-		
+
 		/// <summary>
 		/// Binds services and data to the object, and starts starts ticking quantum client.
 		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_dataProvider = dataProvider;
 		}
-		
+
 		public void CompleteTutorialStep(TutorialStep step)
 		{
 			_services.CommandService.ExecuteCommand(new CompleteTutorialStepCommand()
@@ -92,15 +92,15 @@ namespace FirstLight.Game.Services
 
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()),
-				Map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode()),
+				MapId = GameId.BRGenesis.GetHashCode(),
+				GameModeHash = gameModeId.GetHashCode(),
 				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
 				Mutators = Array.Empty<string>()
 			};
-			
+
 			_services.NetworkService.CreateRoom(roomSetup, false);
 		}
-		
+
 		public bool HasCompletedTutorialStep(TutorialStep step)
 		{
 			return _dataProvider.PlayerDataProvider.HasTutorialStep(step);

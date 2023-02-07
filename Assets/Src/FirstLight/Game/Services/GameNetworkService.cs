@@ -483,7 +483,7 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), setup.GameMode.AllowBots);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), setup.GameMode().AllowBots);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
@@ -616,7 +616,7 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyCode.Value}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyID.Value}
 			};
 
 			SetPlayerCustomProperties(playerProps);

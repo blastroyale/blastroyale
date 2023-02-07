@@ -130,6 +130,11 @@ namespace FirstLight.Game.Logic
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <inheritdoc />
 		public uint GetUnlockSystemLevel(UnlockSystem unlockSystem)
 		{

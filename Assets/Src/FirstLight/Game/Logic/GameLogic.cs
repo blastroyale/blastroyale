@@ -21,6 +21,13 @@ namespace FirstLight.Game.Logic
 		/// Initializes the Game Logic states to its default values
 		/// </summary>
 		void Init();
+		
+		/// <summary>
+		/// Reinitializes the Game Logic states to its default values, and copies over any relevant values that would be
+		/// otherwise lost by doing a simple init. E.g. copying over observable listeners from already initialized
+		/// observable fields
+		/// </summary>
+		void ReInit();
 	}
 	
 	/// <summary>
@@ -90,8 +97,10 @@ namespace FirstLight.Game.Logic
 	{
 		/// <inheritdoc />
 		public IMessageBrokerService MessageBrokerService { get; }
+		
 		/// <inheritdoc />
 		public ITimeService TimeService { get; }
+		
 		/// <inheritdoc />
 		public IAnalyticsService AnalyticsService { get; }
 
@@ -183,6 +192,19 @@ namespace FirstLight.Game.Logic
 			(RewardLogic as IGameLogicInitializer).Init();
 			(BattlePassLogic as IGameLogicInitializer).Init();
 			(LiveopsLogic as IGameLogicInitializer).Init();
+		}
+
+		public void ReInit()
+		{
+			AppLogic.ReInit();
+			(UniqueIdLogic as IGameLogicInitializer).ReInit();
+			(CurrencyLogic as IGameLogicInitializer).ReInit();
+			(ResourceLogic as IGameLogicInitializer).ReInit();
+			(PlayerLogic as IGameLogicInitializer).ReInit();
+			(EquipmentLogic as IGameLogicInitializer).ReInit();
+			(RewardLogic as IGameLogicInitializer).ReInit();
+			(BattlePassLogic as IGameLogicInitializer).ReInit();
+			(LiveopsLogic as IGameLogicInitializer).ReInit();
 		}
 	}
 	

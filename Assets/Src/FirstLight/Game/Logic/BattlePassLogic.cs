@@ -116,6 +116,11 @@ namespace FirstLight.Game.Logic
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)
 		{
 			var level = _currentLevel.Value;

@@ -66,6 +66,11 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <inheritdoc />
 		public ResourcePoolInfo GetResourcePoolInfo(GameId poolType)
 		{

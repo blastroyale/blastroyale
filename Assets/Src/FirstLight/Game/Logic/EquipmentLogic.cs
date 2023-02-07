@@ -169,6 +169,11 @@ namespace FirstLight.Game.Logic
 			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
 		{
 			var resourceType = isNft ? GameId.CS : GameId.COIN;

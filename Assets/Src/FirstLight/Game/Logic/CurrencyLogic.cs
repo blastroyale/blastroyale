@@ -76,6 +76,11 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <inheritdoc />
 		public ulong GetCurrencyAmount(GameId currency)
 		{

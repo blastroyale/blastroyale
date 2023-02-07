@@ -43,7 +43,12 @@ namespace FirstLight.Game.Logic
 			_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
 
 		}
-		
+
+		public void ReInit()
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public LiveopsLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}

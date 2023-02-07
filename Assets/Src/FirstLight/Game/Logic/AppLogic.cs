@@ -303,6 +303,11 @@ namespace FirstLight.Game.Logic
 				new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
 		}
 
+		public void ReInit()
+		{
+			throw new NotImplementedException();
+		}
+
 		public void SetLastCustomGameOptions(CustomGameOptions options)
 		{
 			Data.LastCustomGameOptions = options;

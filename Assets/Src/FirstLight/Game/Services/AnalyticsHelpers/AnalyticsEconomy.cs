@@ -4,9 +4,9 @@ using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
-	public class AnalyticsEconomy : AnalyticsCalls
+	public class AnalyticsCallsEconomy : AnalyticsCalls
 	{
-		public AnalyticsEconomy(IAnalyticsService analyticsService) : base(analyticsService)
+		public AnalyticsCallsEconomy(IAnalyticsService analyticsService) : base(analyticsService)
 		{
 		}
 		

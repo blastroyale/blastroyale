@@ -1,6 +1,4 @@
 input
 {
-	Byte MoveDirectionEncoded;
-	Byte AimingDirectionEncoded;
-	Byte AimButtonState;
+	ushort CompressedInput;
 }

@@ -22,9 +22,9 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, DateTime endTime = default)
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, DateTime endTime = default)
 		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads);
 			EndTime = endTime;
 		}
 

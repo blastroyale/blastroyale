@@ -32,6 +32,16 @@ namespace FirstLight.Game.Utils
 
 		private static Func<LeaveLobbyRequest, Task<LobbyEmptyResult>> LeaveLobbyFunc { get; }
 			= Wrap<LeaveLobbyRequest, LobbyEmptyResult>(PlayFabMultiplayerAPI.LeaveLobby);
+	
+		private static Func<UpdateLobbyRequest, Task<LobbyEmptyResult>> UpdateLobbyFunc { get; }
+			= Wrap<UpdateLobbyRequest, LobbyEmptyResult>(PlayFabMultiplayerAPI.UpdateLobby);
+		
+		/// <inheritdoc cref="PlayFabMultiplayerAPI.UpdateLobby"/>
+		public static Task<LobbyEmptyResult> UpdateLobby(UpdateLobbyRequest req)
+		{
+			return UpdateLobbyFunc(req);
+		}
+
 
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.LeaveLobby"/>
 		public static Task<LobbyEmptyResult> LeaveLobby(LeaveLobbyRequest req)

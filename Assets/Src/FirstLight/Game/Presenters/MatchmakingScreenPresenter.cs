@@ -128,10 +128,12 @@ namespace FirstLight.Game.Presenters
 		private void RefreshPartyList()
 		{
 			// TODO: We might want to use PartyService here
-			var partyId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetPartyId();
-
-			if (!string.IsNullOrEmpty(partyId))
+			var isSquadGame = _services.GameModeService.SelectedGameMode.Value.Entry.Squads;
+			
+			if (isSquadGame)
 			{
+				var partyId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetPartyId();
+
 				_squadContainer.SetDisplay(true);
 				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
 					.Where(p => p.GetPartyId() == partyId)
@@ -150,6 +152,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_squadContainer.SetDisplay(false);
 				_squadMembers.Clear();
+				_partyMarkers.Clear();
 			}
 		}
 

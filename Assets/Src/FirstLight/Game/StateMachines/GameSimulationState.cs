@@ -284,6 +284,8 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
+
+			_services.NetworkService.EnableQuantumUpdate(false);
 		}
 
 
@@ -291,6 +293,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage { Game = QuantumRunner.Default.Game });
 			QuantumRunner.ShutdownAll();
+			_services.NetworkService.EnableQuantumUpdate(true);
 		}
 		
 		private void CleanUpMatch()

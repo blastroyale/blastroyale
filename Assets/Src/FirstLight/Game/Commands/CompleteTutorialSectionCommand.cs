@@ -11,10 +11,9 @@ namespace FirstLight.Game.Commands
 	/// Completes a given tutorial step.
 	/// Will grant rewards of the given step.
 	/// </summary>
-	public struct CompleteTutorialStepCommand : IGameCommand
+	public struct CompleteTutorialSectionCommand : IGameCommand
 	{
-
-		public TutorialStep Step;
+		public TutorialSection Section;
 		
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
@@ -23,12 +22,12 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (ctx.Logic.PlayerLogic().HasTutorialStep(Step))
+			if (ctx.Logic.PlayerLogic().HasTutorialSection(Section))
 			{
-				throw new LogicException("Already completed tutorial step " + Step.ToString());
+				throw new LogicException("Already completed tutorial section " + Section);
 			}
-			ctx.Logic.PlayerLogic().MarkTutorialStepCompleted(Step);
-			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Step);
+			ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
+			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
 			ctx.Logic.RewardLogic().GiveItems(rewardItems);
 		}
 	}

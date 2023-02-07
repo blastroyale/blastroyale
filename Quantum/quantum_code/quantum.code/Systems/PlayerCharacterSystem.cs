@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
@@ -194,22 +195,27 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
+			
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 
-			if (input->IsMoveButtonDown)
+			var direction = input->Direction;
+			var aim = input->AimingDirection;
+			var shooting = input->IsShooting;
+
+			if (direction != FPVector2.Zero)
 			{
-				rotation = input->Direction;
+				rotation = direction;
 				movedirection = rotation;
 			}
 
-			if (input->AimingDirection.SqrMagnitude > FP._0)
+			if (aim.SqrMagnitude > FP._0)
 			{
-				rotation = input->AimingDirection;
+				rotation = aim;
 			}
 
-			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
+			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}

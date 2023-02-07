@@ -16,6 +16,8 @@ public partial class SROptions
 	private IGenericDialogService _dialogService;
 	private IPartyService _partyService;
 
+	private readonly bool _observeChanges = false;
+
 	void InitPartyDebug()
 	{
 		if (_initiatedParty)
@@ -28,61 +30,63 @@ public partial class SROptions
 
 		_initiatedParty = true;
 
-
-		_partyService.Members.Observe((i, memberBefore, memberAfter, updateType) =>
+		if (_observeChanges)
 		{
-			// Party not fully loaded yet
-			if (!_partyService.HasParty.Value)
+			_partyService.Members.Observe((i, memberBefore, memberAfter, updateType) =>
 			{
-				return;
-			}
-
-			bool isLocalMember = memberBefore is { Local: true } || memberAfter is { Local: true };
-
-			if (!isLocalMember)
-			{
-				if (updateType == ObservableUpdateType.Added)
+				// Party not fully loaded yet
+				if (!_partyService.HasParty.Value)
 				{
-					ShowMessage("" + memberAfter.DisplayName + " joined the party!");
-				}
-
-				if (updateType == ObservableUpdateType.Removed)
-				{
-					ShowMessage("" + memberBefore.DisplayName + " left the party!");
-				}
-			}
-		});
-		_partyService.HasParty.Observe((before, after) =>
-		{
-			PartyId = _partyService.PartyCode.Value;
-			// Joined party
-			if (after)
-			{
-				// Only have one member means and the player just joined means it was created
-				if (_partyService.Members.Count == 1)
-				{
-					ShowMessage("Party created " + _partyService.PartyCode.Value + " !");
 					return;
 				}
 
-				var leader = _partyService.Members.FirstOrDefault(m => m.Leader)?.DisplayName ?? "No Name";
-				ShowMessage("You joined the party " + _partyService.PartyCode.Value + " of " + leader);
-			}
-			else
-			{
-				// Left party
-				// If the player HasParty is set to `false` and player is not a member, it got kicked, otherwise the player left
-				bool isMember = _partyService.Members.Any(m => m.Local);
-				if (isMember)
+				bool isLocalMember = memberBefore is {Local: true} || memberAfter is {Local: true};
+
+				if (!isLocalMember)
 				{
-					ShowMessage("You left the party " + _partyService.PartyCode.Value);
+					if (updateType == ObservableUpdateType.Added)
+					{
+						ShowMessage("" + memberAfter.DisplayName + " joined the party!");
+					}
+
+					if (updateType == ObservableUpdateType.Removed)
+					{
+						ShowMessage("" + memberBefore.DisplayName + " left the party!");
+					}
+				}
+			});
+			_partyService.HasParty.Observe((before, after) =>
+			{
+				PartyId = _partyService.PartyCode.Value;
+				// Joined party
+				if (after)
+				{
+					// Only have one member means and the player just joined means it was created
+					if (_partyService.Members.Count == 1)
+					{
+						ShowMessage("Party created " + _partyService.PartyCode.Value + " !");
+						return;
+					}
+
+					var leader = _partyService.Members.FirstOrDefault(m => m.Leader)?.DisplayName ?? "No Name";
+					ShowMessage("You joined the party " + _partyService.PartyCode.Value + " of " + leader);
 				}
 				else
 				{
-					ShowMessage("You got kicked from the party! \nStop being so annoying!!!");
+					// Left party
+					// If the player HasParty is set to `false` and player is not a member, it got kicked, otherwise the player left
+					bool isMember = _partyService.Members.Any(m => m.Local);
+					if (isMember)
+					{
+						ShowMessage("You left the party " + _partyService.PartyCode.Value);
+					}
+					else
+					{
+						ShowMessage("You got kicked from the party! \nStop being so annoying!!!");
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	public void ShowMessage(string str)
@@ -93,10 +97,10 @@ public partial class SROptions
 			ButtonOnClick = () => { _dialogService.CloseDialog(); }
 		};
 		_dialogService.OpenButtonDialog(
-										"Party",
-										str,
-										false,
-										confirmButton);
+			"Party",
+			str,
+			false,
+			confirmButton);
 	}
 
 	[Category("Party")] [Sort(0)] public String PartyId { get; set; }
@@ -173,9 +177,8 @@ public partial class SROptions
 					builder.AppendLine(Display(partyServiceMember));
 				}
 			}
-
-			
 		}
+
 		ShowMessage(builder.ToString());
 	}
 

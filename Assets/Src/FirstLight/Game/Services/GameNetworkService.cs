@@ -252,7 +252,8 @@ namespace FirstLight.Game.Services
 	{
 		private const int LAG_RTT_THRESHOLD_MS = 280;
 		private const int STORE_RTT_AMOUNT = 10;
-		private const float QUANTUM_TICK_SECONDS = 0.1f;
+		private const float QUANTUM_TICK_SECONDS = 0.25f;
+		private const float QUANTUM_PING_TICK_SECONDS = 1f;
 
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
@@ -363,6 +364,20 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_dataProvider = dataProvider;
 		}
+
+		public void EnableQuantumPingCheck(bool enabled)
+		{
+			if (_services == null) return;
+
+			if (enabled)
+			{
+				_services.TickService.SubscribeOnUpdate(TickPingCheck, QUANTUM_PING_TICK_SECONDS, true, true);
+			}
+			else
+			{
+				_services.TickService.Unsubscribe(TickPingCheck);
+			}
+		}
 		
 		public void EnableQuantumUpdate(bool enabled)
 		{
@@ -374,13 +389,17 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				_services.TickService.UnsubscribeAll(this);
+				_services.TickService.Unsubscribe(TickQuantumClient);
 			}
 		}
 
 		private void TickQuantumClient(float deltaTime)
 		{
 			QuantumClient.Service();
+		}
+		
+		private void TickPingCheck(float deltaTime)
+		{
 			CalculateUpdateLag();
 		}
 		

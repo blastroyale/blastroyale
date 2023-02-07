@@ -92,8 +92,8 @@ namespace FirstLight.Game.Services
 
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()),
-				Map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode()),
+				GameModeHash = gameModeId.GetHashCode(),
+				MapId = GameId.BRGenesis.GetHashCode(),
 				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
 				Mutators = Array.Empty<string>()
 			};

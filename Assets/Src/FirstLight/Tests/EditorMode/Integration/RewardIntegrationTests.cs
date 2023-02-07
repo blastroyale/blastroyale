@@ -16,7 +16,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 	public class RewardIntegrationTests : IntegrationTestFixture
 	{
 		[Test]
-		public void TestTutorialStepRewardList()
+		public void TestTutorialSectionRewardList()
 		{
 			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
 			var rewardConfigs = TestConfigs.GetConfigsList<EquipmentRewardConfig>().Where(c => tutorialRewards.RewardIds.Contains((uint)c.Id));

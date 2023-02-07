@@ -22,7 +22,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot, bool gameHasBots)
+		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
 			if (FeatureFlags.FORCE_RANKED)
 			{
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(setup, dropzonePosRot, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(setup, dropzonePosRot),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -162,13 +162,12 @@ namespace FirstLight.Game.Utils
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(MatchRoomSetup setup, Vector3 dropzonePosRot, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
 			var properties = GetJoinRoomProperties(setup);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
-			
-			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode.AllowBots);
 
 			// TODO - RENAME "SpawnPattern"
 			if (setup.GameMode.SpawnPattern)

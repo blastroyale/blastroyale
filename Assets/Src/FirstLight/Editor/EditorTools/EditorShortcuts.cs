@@ -98,9 +98,9 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 		[MenuItem("FLG/Cheats/Skip Tutorial Step %o")]
-		private static void SkipTutorialStep()
+		private static void SkipTutorialSection()
 		{
-			SROptions.Current.SkipTutorialStep();
+			SROptions.Current.SkipTutorialSection();
 		}
 #endif
 		private static string GetScenePath(string scene)

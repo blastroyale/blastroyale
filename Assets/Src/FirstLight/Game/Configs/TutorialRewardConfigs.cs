@@ -5,6 +5,7 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Configs
 {
@@ -14,7 +15,7 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct TutorialRewardConfig
 	{
-		public TutorialStep Step;
+		[FormerlySerializedAs("Step")] public TutorialSection _section;
 		public List<uint> RewardIds;
 
 	}

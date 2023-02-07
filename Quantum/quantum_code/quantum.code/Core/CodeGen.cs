@@ -3759,7 +3759,7 @@ namespace Quantum {
   public unsafe partial struct BotCharacter : Quantum.IComponent {
     public const Int32 SIZE = 264;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(20)]
+    [FieldOffset(24)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
@@ -3787,7 +3787,9 @@ namespace Quantum {
     public GameId DeathMarker;
     [FieldOffset(128)]
     public FP DecisionInterval;
-    [FieldOffset(24)]
+    [FieldOffset(20)]
+    public QBoolean FixedSpawn;
+    [FieldOffset(28)]
     public UInt32 LoadoutGearNumber;
     [FieldOffset(136)]
     public FP LookForTargetsToShootAtInterval;
@@ -3844,6 +3846,7 @@ namespace Quantum {
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
+        hash = hash * 31 + FixedSpawn.GetHashCode();
         hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3874,6 +3877,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->TeamSize);
+        QBoolean.Serialize(&p->FixedSpawn, serializer);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
@@ -5085,6 +5089,7 @@ namespace Quantum {
     }
   }
   public unsafe partial class Frame {
+    private ISignalAllPlayersSpawned[] _ISignalAllPlayersSpawnedSystems;
     private ISignalAllPlayersJoined[] _ISignalAllPlayersJoinedSystems;
     private ISignalGameEnded[] _ISignalGameEndedSystems;
     private ISignalPlayerDead[] _ISignalPlayerDeadSystems;
@@ -5151,6 +5156,7 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
+      _ISignalAllPlayersSpawnedSystems = BuildSignalsArray<ISignalAllPlayersSpawned>();
       _ISignalAllPlayersJoinedSystems = BuildSignalsArray<ISignalAllPlayersJoined>();
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
       _ISignalPlayerDeadSystems = BuildSignalsArray<ISignalPlayerDead>();
@@ -5284,6 +5290,15 @@ namespace Quantum {
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
+      public void AllPlayersSpawned() {
+        var array = _f._ISignalAllPlayersSpawnedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.AllPlayersSpawned(_f);
+          }
+        }
+      }
       public void AllPlayersJoined() {
         var array = _f._ISignalAllPlayersJoinedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -6331,6 +6346,9 @@ namespace Quantum {
          return _f.FindAsset<QuantumMutatorConfigs>(assetRef.Id);
       }
     }
+  }
+  public unsafe interface ISignalAllPlayersSpawned : ISignal {
+    void AllPlayersSpawned(Frame f);
   }
   public unsafe interface ISignalAllPlayersJoined : ISignal {
     void AllPlayersJoined(Frame f);
@@ -10009,6 +10027,7 @@ namespace Quantum.Prototypes {
     public FP MaxAimingRange;
     public FP MovementSpeedMultiplier;
     public FP MaxDistanceToTeammateSquared;
+    public QBoolean FixedSpawn;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -10030,6 +10049,7 @@ namespace Quantum.Prototypes {
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
+      result.FixedSpawn = this.FixedSpawn;
       result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;

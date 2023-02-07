@@ -11,7 +11,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
 	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
-											 ISignalAllPlayersJoined
+											 ISignalAllPlayersSpawned
 	{
 		public struct BotCharacterFilter
 		{
@@ -23,7 +23,7 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void AllPlayersJoined(Frame f)
+		public void AllPlayersSpawned(Frame f)
 		{
 			var averagePlayerTrophies = Convert.ToUInt32(
 				Math.Round(
@@ -1093,23 +1093,43 @@ namespace Quantum.Systems
 			var navMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id);
 
 			var overrideTeam = f.Context.GameModeConfig.BotsTeamOverride;
-			var lastTeamId = -100;
 			var rngSpawnIndex = 0;
 			var spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
+			
+			var playersByTeam = new Dictionary<int, List<EntityRef>>();
+			foreach (var player in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
+			{
+				var teamId = player.Component->TeamId;
+				if (teamId > 0)
+				{
+					if (!playersByTeam.TryGetValue(teamId, out var entities))
+					{
+						entities = new List<EntityRef>();
+						playersByTeam[teamId] = entities;
+					}
+					entities.Add(player.Entity);
+				}
+			}
 			
 			foreach (var id in botIds)
 			{
 				var teamId = overrideTeam > 0 ? overrideTeam : FPMath.FloorToInt(id / teamSize);
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
-				
-				// Get new spawner for each new team
-				if (lastTeamId != teamId)
+				var lastTeamId = -100;
+				var withPlayer = false;
+
+				if(playersByTeam.TryGetValue(teamId, out var teamMembers) && teamMembers.Count > 0)
+				{
+					spawnerTransform = f.Get<Transform3D>(teamMembers.First());
+					withPlayer = true;
+				} 
+				else if (lastTeamId != teamId)
 				{
 					rngSpawnIndex = GetSpawnPointIndexByTypeOfBot(f, playerSpawners, botConfig.BehaviourType);
 					spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
 				}
-				
+
 				var botEntity = f.Create(playerCharacterPrototypeAsset);
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var navMeshAgent = new NavMeshSteeringAgent();
@@ -1151,13 +1171,14 @@ namespace Quantum.Systems
 					MaxAimingRange = botConfig.MaxAimingRange,
 					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier,
 					TeamSize = teamSize,
-					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared
+					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared,
+					FixedSpawn = withPlayer
 				};
 
 				botNamesIndices.RemoveAt(listNamesIndex);
-
+				
 				// Remove a spawner from list when we took a new one for another team; update stored teamId
-				if (lastTeamId != teamId && playerSpawners.Count > 1)
+				if (!withPlayer && lastTeamId != teamId && playerSpawners.Count > 1)
 				{
 					lastTeamId = teamId;
 					playerSpawners.RemoveAt(rngSpawnIndex);

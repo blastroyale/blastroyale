@@ -90,6 +90,9 @@ component BotCharacter
 	
 	// If teammate is further than this distance then I'll try to get closer
 	FP MaxDistanceToTeammateSquared;
+	
+	// Wont teleport to spawner at begining of the match
+	bool FixedSpawn;
 }
 
 synced event OnDummyCharacterKilled

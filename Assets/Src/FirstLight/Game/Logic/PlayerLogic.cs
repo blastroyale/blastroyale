@@ -132,7 +132,27 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			{
+				var listeners = _trophies.GetListeners();
+				_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+				_trophies.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = SystemsTagged.GetListeners();
+				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
+				SystemsTagged.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = _tutorialSections.GetListeners();
+				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
+				_tutorialSections.AddListeners(listeners);
+			}
+			
+			_trophies.InvokeUpdate();
+			SystemsTagged.InvokeUpdate();
+			_tutorialSections.InvokeUpdate();
 		}
 
 		/// <inheritdoc />

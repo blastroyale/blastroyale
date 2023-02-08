@@ -139,7 +139,13 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			{
+				var listeners = _unclaimedRewards.GetListeners();
+				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+				_unclaimedRewards.AddListeners(listeners);
+			}
+			
+			_unclaimedRewards.InvokeUpdate();
 		}
 
 		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)

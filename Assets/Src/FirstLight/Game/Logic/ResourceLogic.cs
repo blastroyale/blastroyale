@@ -68,7 +68,23 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			var defaultValues = new PlayerData().ResourcePools;
+			
+			{
+				var listeners = _resourcePools.GetListeners();
+				_resourcePools = new ObservableDictionary<GameId, ResourcePoolData>(Data.ResourcePools);
+				_resourcePools.AddListeners(listeners);
+			}
+			
+			foreach (var pair in defaultValues)
+			{
+				if (!_resourcePools.ContainsKey(pair.Key))
+				{
+					_resourcePools.Add(pair.Key, pair.Value);
+				}
+			}
+			
+			_resourcePools.InvokeUpdate();
 		}
 
 		/// <inheritdoc />

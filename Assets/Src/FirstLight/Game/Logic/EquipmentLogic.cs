@@ -171,7 +171,27 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			{
+				var listeners = _loadout.GetListeners();
+				_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
+				_loadout.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = _inventory.GetListeners();
+				_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
+				_inventory.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = _nftInventory.GetListeners();
+				_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
+				_nftInventory.AddListeners(listeners);
+			}
+			
+			_loadout.InvokeUpdate();
+			_inventory.InvokeUpdate();
+			_nftInventory.InvokeUpdate();
 		}
 
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)

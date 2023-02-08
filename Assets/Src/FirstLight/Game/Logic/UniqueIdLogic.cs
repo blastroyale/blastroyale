@@ -64,7 +64,20 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new System.NotImplementedException();
+			{
+				var listeners = _ids.GetListeners();
+				_ids = new ObservableDictionary<UniqueId, GameId>(Data.GameIds);
+				_ids.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = _newIds.GetListeners();
+				_newIds = new ObservableList<UniqueId>(Data.NewIds);
+				_newIds.AddListeners(listeners);
+			}
+			
+			_ids.InvokeUpdate();
+			_newIds.InvokeUpdate();
 		}
 
 		public UniqueId GenerateNewUniqueId(GameId gameId)

@@ -59,7 +59,6 @@ namespace FirstLight.Game.StateMachines
 			var connectId = stateFactory.State("Connect ID Screen");
 			var serverSelect = stateFactory.State("Server Select");
 			var logoutWait = stateFactory.State("Wait For Logout");
-			var closeGameTemp = stateFactory.State("Closing Game");
 
 			initial.Transition().Target(settingsMenu);
 			initial.OnExit(SubscribeEvents);
@@ -73,11 +72,9 @@ namespace FirstLight.Game.StateMachines
 			connectId.OnEnter(OpenConnectIdUI);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
 			connectId.Event(_connectIdRegisterSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
-			connectId.Event(_connectIdLoginSuccessEvent).Target(closeGameTemp);
+			connectId.Event(_connectIdLoginSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
 			connectId.Event(_connectIdFailedEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectUI);
-			
-			closeGameTemp.OnEnter(OpenGameClosePopup);
 
 			serverSelect.OnEnter(OpenServerSelectUI);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);

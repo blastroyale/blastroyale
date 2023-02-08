@@ -118,7 +118,20 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			{
+				var listeners = _currentLevel.GetListeners();
+				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
+				_currentLevel.AddListeners(listeners);
+			}
+			
+			{
+				var listeners = _currentPoints.GetListeners();
+				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
+				_currentPoints.AddListeners(listeners);
+			}
+			
+			_currentLevel.InvokeUpdate();
+			_currentPoints.InvokeUpdate();
 		}
 
 		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)

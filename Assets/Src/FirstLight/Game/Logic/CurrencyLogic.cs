@@ -78,7 +78,23 @@ namespace FirstLight.Game.Logic
 
 		public void ReInit()
 		{
-			throw new NotImplementedException();
+			var defaultValues = new PlayerData().Currencies;
+			
+			{
+				var listeners = _currencies.GetListeners();
+				_currencies = new ObservableDictionary<GameId, ulong>(Data.Currencies);
+				_currencies.AddListeners(listeners);
+			}
+			
+			foreach (var pair in defaultValues)
+			{
+				if (!_currencies.ContainsKey(pair.Key))
+				{
+					_currencies.Add(pair.Key, pair.Value);
+				}
+			}
+			
+			_currencies.InvokeUpdate();
 		}
 
 		/// <inheritdoc />

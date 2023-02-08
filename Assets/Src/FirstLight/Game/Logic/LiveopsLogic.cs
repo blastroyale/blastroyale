@@ -26,8 +26,6 @@ namespace FirstLight.Game.Logic
 		/// Adds a triggered action to the triggered action list.
 		/// </summary>
 		void MarkTriggeredSegmentationAction(int actionIdentifier);
-
-
 	}
 
 	/// <inheritdoc cref="IPlayerLogic"/>
@@ -41,12 +39,17 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
-
 		}
 
 		public void ReInit()
 		{
-			throw new System.NotImplementedException();
+			{
+				var listeners = _triggeredActions.GetListeners();
+				_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
+				_triggeredActions.AddListeners(listeners);
+			}
+			
+			_triggeredActions.InvokeUpdate();
 		}
 
 		public LiveopsLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)

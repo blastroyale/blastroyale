@@ -57,8 +57,16 @@ namespace Quantum
 			CurrentStatusModifierType = StatusModifierType.None;
 			CurrentShield = 0;
 			IsImmune = false;
-			
-			f.ResolveList(Modifiers).Clear();
+
+			var modifiersList = f.ResolveList(Modifiers);
+			foreach (var modifier in modifiersList)
+			{
+				// We won't remove modifiers that are meant to stay forever.
+				if (modifier.Duration != FP.MaxValue)
+				{
+					modifiersList.Remove(modifier);
+				}
+			}
 			RefreshStats(f, weapon, gear);
 			
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
@@ -104,6 +112,7 @@ namespace Quantum
 		{
 			var list = f.ResolveList(Modifiers);
 			var modifier = list[index];
+			Log.Error("Remove modiefier: "+modifier.Type);
 			
 			ApplyModifierUpdate(modifier, true);
 			
@@ -197,6 +206,7 @@ namespace Quantum
 			{
 				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Shield,
+				OpType = OperationType.Multiply,
 				Power = modifierPower,
 				Duration = FP.MaxValue,
 				StartTime = FP._0,
@@ -235,6 +245,7 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
+			
 			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell.PowerAmount).AsInt);
 
 			totalDamage = (int)(totalDamage * healthMultiplier);
@@ -349,7 +360,7 @@ namespace Quantum
 			{
 				ApplyModifierUpdate(modifier, false);
 			}
-
+			
 			return might;
 		}
 		
@@ -386,16 +397,23 @@ namespace Quantum
 		{
 			var statData = Values[(int) modifier.Type];
 			var multiplier = modifier.IsNegative ? -1 : 1;
-			var additiveValue = statData.BaseValue * modifier.Power * multiplier;
 
+			var additiveValue = modifier.OpType switch
+			{
+				OperationType.Add      => modifier.Power * multiplier,
+				OperationType.Multiply => statData.BaseValue * modifier.Power * multiplier,
+				_                      => statData.BaseValue * modifier.Power * multiplier
+			};
+			
 			if (modifier.Type != StatType.Speed)
 			{
 				additiveValue = FPMath.CeilToInt(additiveValue);
 			}
-
+			
 			statData.StatValue += toRemove ? additiveValue * -FP._1 : additiveValue;
 
 			Values[(int) modifier.Type] = statData;
+
 		}
 	}
 }

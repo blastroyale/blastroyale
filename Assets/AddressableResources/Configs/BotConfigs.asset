@@ -63,9 +63,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -112,9 +112,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -161,9 +161,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -210,9 +210,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -259,9 +259,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -308,9 +308,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -357,9 +357,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -406,9 +406,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -455,9 +455,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -504,9 +504,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -553,9 +553,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -602,9 +602,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -651,9 +651,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -700,9 +700,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -749,9 +749,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -798,9 +798,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -847,9 +847,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -896,9 +896,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -945,9 +945,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -994,9 +994,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1043,9 +1043,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1092,9 +1092,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -1141,9 +1141,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1190,9 +1190,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1239,9 +1239,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1288,9 +1288,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1337,9 +1337,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -1386,9 +1386,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1435,9 +1435,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1484,9 +1484,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1533,9 +1533,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1582,9 +1582,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -1631,9 +1631,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1680,9 +1680,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1729,9 +1729,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1778,9 +1778,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1827,9 +1827,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
@@ -1876,9 +1876,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: Deathmatch
@@ -1925,9 +1925,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: Deathmatch
@@ -1974,9 +1974,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2023,9 +2023,9 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2072,9 +2072,9 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2121,9 +2121,9 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2170,9 +2170,9 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2219,9 +2219,9 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2268,9 +2268,9 @@ MonoBehaviour:
         RawValue: 49152
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2317,9 +2317,9 @@ MonoBehaviour:
         RawValue: 49152
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2366,9 +2366,9 @@ MonoBehaviour:
         RawValue: 49152
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2415,9 +2415,9 @@ MonoBehaviour:
         RawValue: 49152
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2464,9 +2464,9 @@ MonoBehaviour:
         RawValue: 49152
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2513,9 +2513,9 @@ MonoBehaviour:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2562,9 +2562,9 @@ MonoBehaviour:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2611,9 +2611,9 @@ MonoBehaviour:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2660,9 +2660,9 @@ MonoBehaviour:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -2709,9 +2709,9 @@ MonoBehaviour:
         RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2758,9 +2758,9 @@ MonoBehaviour:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2807,9 +2807,9 @@ MonoBehaviour:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -2856,9 +2856,9 @@ MonoBehaviour:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -2905,9 +2905,9 @@ MonoBehaviour:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -2954,9 +2954,9 @@ MonoBehaviour:
         RawValue: 58982
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3003,9 +3003,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3052,9 +3052,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3101,9 +3101,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3150,9 +3150,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -3199,9 +3199,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3248,9 +3248,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3297,9 +3297,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3346,9 +3346,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3395,9 +3395,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -3444,9 +3444,9 @@ MonoBehaviour:
         RawValue: 65536
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3493,9 +3493,9 @@ MonoBehaviour:
         RawValue: 68813
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3542,9 +3542,9 @@ MonoBehaviour:
         RawValue: 68813
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3591,9 +3591,9 @@ MonoBehaviour:
         RawValue: 68813
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3640,9 +3640,9 @@ MonoBehaviour:
         RawValue: 68813
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -3689,9 +3689,9 @@ MonoBehaviour:
         RawValue: 68813
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3738,9 +3738,9 @@ MonoBehaviour:
         RawValue: 72090
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3787,9 +3787,9 @@ MonoBehaviour:
         RawValue: 72090
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
@@ -3836,9 +3836,9 @@ MonoBehaviour:
         RawValue: 72090
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 3
       GameMode: BattleRoyale
@@ -3885,9 +3885,9 @@ MonoBehaviour:
         RawValue: 72090
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 4
       GameMode: BattleRoyale
@@ -3934,9 +3934,9 @@ MonoBehaviour:
         RawValue: 72090
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 65536
       DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Tutorial
@@ -3983,10 +3983,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 1
@@ -4032,10 +4032,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 2
@@ -4081,10 +4081,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 3
@@ -4130,10 +4130,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 4
@@ -4179,10 +4179,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 5
@@ -4228,10 +4228,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 6
@@ -4277,10 +4277,10 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 7
@@ -4326,7 +4326,7 @@ MonoBehaviour:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
-      DamageTakenMultiplier:
-        RawValue: 131072
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144

@@ -285,6 +285,10 @@ namespace Quantum {
     Deathmatch,
     BattleRoyale,
   }
+  public enum OperationType : int {
+    Multiply,
+    Add,
+  }
   public enum QuantumServerCommand : int {
     EndOfGameRewards,
   }
@@ -2767,15 +2771,17 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public FP Duration;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 Id;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     public QBoolean IsNegative;
+    [FieldOffset(0)]
+    public OperationType OpType;
     [FieldOffset(24)]
     public FP Power;
     [FieldOffset(32)]
     public FP StartTime;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public StatType Type;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2783,6 +2789,7 @@ namespace Quantum {
         hash = hash * 31 + Duration.GetHashCode();
         hash = hash * 31 + Id.GetHashCode();
         hash = hash * 31 + IsNegative.GetHashCode();
+        hash = hash * 31 + (Int32)OpType;
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + (Int32)Type;
@@ -2791,6 +2798,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Modifier*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->OpType);
         QBoolean.Serialize(&p->IsNegative, serializer);
         serializer.Stream.Serialize((Int32*)&p->Type);
         serializer.Stream.Serialize(&p->Id);
@@ -9248,6 +9256,7 @@ namespace Quantum {
       Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
       Register(typeof(NullableNonNegativeFP), NullableNonNegativeFP.SIZE);
+      Register(typeof(Quantum.OperationType), 4);
       Register(typeof(PhysicsBody2D), PhysicsBody2D.SIZE);
       Register(typeof(PhysicsBody3D), PhysicsBody3D.SIZE);
       Register(typeof(PhysicsCollider2D), PhysicsCollider2D.SIZE);
@@ -9362,6 +9371,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameSimulationStateMachine>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.OperationType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.QuantumServerCommand>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
@@ -9596,6 +9606,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator GameSimulationStateMachine_Prototype(GameSimulationStateMachine value) {
         return new GameSimulationStateMachine_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(OperationType))]
+  public unsafe partial struct OperationType_Prototype {
+    public Int32 Value;
+    public static implicit operator OperationType(OperationType_Prototype value) {
+        return (OperationType)value.Value;
+    }
+    public static implicit operator OperationType_Prototype(OperationType value) {
+        return new OperationType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -10674,6 +10695,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Modifier_Prototype : StructPrototype {
     public UInt32 Id;
     public StatType_Prototype Type;
+    public OperationType_Prototype OpType;
     public FP Power;
     public FP Duration;
     public FP StartTime;
@@ -10683,6 +10705,7 @@ namespace Quantum.Prototypes {
       result.Duration = this.Duration;
       result.Id = this.Id;
       result.IsNegative = this.IsNegative;
+      result.OpType = this.OpType;
       result.Power = this.Power;
       result.StartTime = this.StartTime;
       result.Type = this.Type;

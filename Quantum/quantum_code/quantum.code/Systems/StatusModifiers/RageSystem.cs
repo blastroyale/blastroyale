@@ -22,6 +22,7 @@ namespace Quantum.Systems
 			{
 				Id = component->PowerModifierId,
 				Type = StatType.Power,
+				OpType = OperationType.Multiply,
 				Power = component->Power,
 				Duration = component->Duration,
 				StartTime = f.Time,

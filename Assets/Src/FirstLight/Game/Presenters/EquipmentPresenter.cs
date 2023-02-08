@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -63,6 +64,8 @@ namespace FirstLight.Game.Presenters
 			RefreshCategories();
 			RefreshSpecials();
 			RefreshMight();
+			
+			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
 		}
 
 		private void RefreshCategories()

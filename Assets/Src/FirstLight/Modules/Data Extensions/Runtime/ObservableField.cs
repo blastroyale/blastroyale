@@ -50,6 +50,16 @@ namespace FirstLight
 		/// The field value with possibility to be changed
 		/// </summary>
 		new T Value { get; set; }
+
+		/// <summary>
+		/// Requests the list of current listeners observing this field
+		/// </summary>
+		IList<Action<T, T>> GetListeners();
+
+		/// <summary>
+		/// Adds a list of listeners to observe this field
+		/// </summary>
+		void AddListeners(IList<Action<T, T>> actions);
 	}
 	
 	/// <inheritdoc />
@@ -69,6 +79,19 @@ namespace FirstLight
 				
 				_value = value;
 				InvokeUpdate(previousValue);
+			}
+		}
+
+		public IList<Action<T, T>> GetListeners()
+		{
+			return _updateActions;
+		}
+
+		public void AddListeners(IList<Action<T, T>> actions)
+		{
+			foreach (var onUpdate in actions)
+			{
+				_updateActions.Add(onUpdate);
 			}
 		}
 

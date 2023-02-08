@@ -84,9 +84,24 @@ namespace FirstLight
 		void Clear();
 		
 		/// <remarks>
-		/// It invokes any update method that is observing to the given <paramref name="index"/> on this list
+		/// This invokes any update method that is observing to the given <paramref name="index"/> on this list
 		/// </remarks>
 		void InvokeUpdate(int index);
+		
+		/// <remarks>
+		/// This invokes all update methods on every index of the list
+		/// </remarks>
+		void InvokeUpdate();
+		
+		/// <summary>
+		/// Requests the list of current listeners observing this list
+		/// </summary>
+		IList<Action<int, T, T, ObservableUpdateType>> GetListeners();
+
+		/// <summary>
+		/// Adds a list of listeners to observe this list
+		/// </summary>
+		void AddListeners(IList<Action<int, T, T, ObservableUpdateType>> actions);
 	}
 	
 	/// <inheritdoc />
@@ -207,6 +222,27 @@ namespace FirstLight
 		public void InvokeUpdate(int index)
 		{
 			InvokeUpdate(index, List[index]);
+		}
+
+		public void InvokeUpdate()
+		{
+			for (int i = 0; i < List.Count; i++)
+			{
+				InvokeUpdate(i, List[i]);
+			}
+		}
+
+		public IList<Action<int, T, T, ObservableUpdateType>> GetListeners()
+		{
+			return _updateActions;
+		}
+
+		public void AddListeners(IList<Action<int, T, T, ObservableUpdateType>> actions)
+		{
+			foreach (var onUpdate in actions)
+			{
+				_updateActions.Add(onUpdate);
+			}
 		}
 
 		/// <inheritdoc />

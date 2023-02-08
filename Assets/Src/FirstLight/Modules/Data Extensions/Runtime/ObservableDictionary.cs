@@ -69,6 +69,26 @@ namespace FirstLight
 		/// If the given <paramref name="subscriber"/> is null then will stop observing from everything.
 		/// </summary>
 		void StopObservingAll(object subscriber = null);
+		
+		/// <summary>
+		/// Requests the list of current listeners observing this dictionary
+		/// </summary>
+		IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetListeners();
+
+		/// <summary>
+		/// Adds a list of listeners to observe this dictionary
+		/// </summary>
+		void AddListeners(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions);
+
+		/// <summary>
+		/// Requests the list of current listeners observing this dictionary key changes
+		/// </summary>
+		IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyListeners();
+
+		/// <summary>
+		/// Adds a list of listeners to observe this dictionary key changes
+		/// </summary>
+		void AddKeyListeners(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions);
 	}
 
 	/// <inheritdoc />
@@ -87,9 +107,14 @@ namespace FirstLight
 		bool Remove(TKey key);
 		
 		/// <remarks>
-		/// It invokes any update method that is observing to the given <paramref name="key"/> on this dictionary
+		/// This invokes any update method that is observing to the given <paramref name="key"/> on this dictionary
 		/// </remarks>
 		void InvokeUpdate(TKey key);
+		
+		/// <remarks>
+		/// This invokes all update methods on all keys of this dictionary
+		/// </remarks>
+		void InvokeUpdate();
 	}
 
 	/// <inheritdoc />
@@ -203,6 +228,14 @@ namespace FirstLight
 			InvokeUpdate(key, Dictionary[key]);
 		}
 
+		public void InvokeUpdate()
+		{
+			foreach (var key in Dictionary.Keys)
+			{
+				InvokeUpdate(key, Dictionary[key]);
+			}
+		}
+
 		/// <inheritdoc />
 		public void StopObserving(TKey key)
 		{
@@ -289,7 +322,33 @@ namespace FirstLight
 				}
 			}
 		}
-		
+
+		public IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetListeners()
+		{
+			return _updateActions;
+		}
+
+		public void AddListeners(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions)
+		{
+			foreach (var onUpdate in actions)
+			{
+				_updateActions.Add(onUpdate);
+			}
+		}
+
+		public IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyListeners()
+		{
+			return _keyUpdateActions;
+		}
+
+		public void AddKeyListeners(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions)
+		{
+			foreach (var onUpdate in actions)
+			{
+				_keyUpdateActions.Add(onUpdate);
+			}
+		}
+
 		protected void InvokeUpdate(TKey key, TValue previousValue)
 		{
 			var value = Dictionary[key];

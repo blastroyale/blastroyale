@@ -129,6 +129,22 @@
 }
 
 .battle-pass-button__title {
+    text-shadow: -5px 5px 0 rgb(10, 10, 10);
+    font-size: 55px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(10, 10, 10);
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    left: 43px;
+    right: 28px;
+    top: 28px;
+    position: absolute;
+}
+
+.battle-pass-button__title_claim_reward {
     text-shadow: -5px 5px 0 rgb(107, 4, 2);
     font-size: 55px;
     -unity-font-style: bold;
@@ -140,13 +156,13 @@
     padding: 0;
     left: 43px;
     right: 28px;
-    top: 26px;
+    top: 56px;
     position: absolute;
 }
 
 .battle-pass-level-holder {
     left: 376px;
-    top: -47px;
+    top: -53px;
     width: 68px;
     height: 55px;
     align-items: flex-end;
@@ -159,7 +175,7 @@
     -unity-text-align: middle-right;
     font-size: 46px;
     -unity-font-definition: var(--font-bold);
-    color: rgb(138, 22, 0);
+    color: rgb(255, 255, 255);
     -unity-font-style: bold;
     position: relative;
     flex-grow: 1;
@@ -167,7 +183,7 @@
 
 .battle-pass-button__leveltext {
     font-size: 36px;
-    color: rgb(138, 22, 0);
+    color: rgb(255, 255, 255);
     margin: 18px 4px 4px 2px;
     padding: 1px 2px 4px 4px;
     position: relative;
@@ -182,7 +198,7 @@
     background-image: var(--sprite-home__progress-battlepassbtn-bg);
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
-    bottom: 40px;
+    bottom: 42px;
     left: 57px;
     right: 19px;
 }

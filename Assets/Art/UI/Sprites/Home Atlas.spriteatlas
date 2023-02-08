@@ -43,6 +43,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2e23a02006fae42c4987504138aa144e, type: 3}
   - {fileID: 21300000, guid: 7ffb27509a1d146a8957bdb2a5922475, type: 3}
   - {fileID: 21300000, guid: 1c482670299c848719f57b20a568dcf6, type: 3}
+  - {fileID: 21300000, guid: ea6db7801a33e6345886ae6af5d61a13, type: 3}
   - {fileID: 21300000, guid: c353a5b0b54fa1a428fbd490ac07c187, type: 3}
   - {fileID: 21300000, guid: 6339c6b0a31c24805b10881f10e793c3, type: 3}
   - {fileID: 21300000, guid: 632d33d0731fc4f2b8fc83cc741aaa9e, type: 3}
@@ -142,6 +143,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2206ee2ba2c39a24f845558284e4eb2b, type: 3}
   - {fileID: 21300000, guid: c22a553b62989408b9d98c56b4ea4f6a, type: 3}
   - {fileID: 21300000, guid: e318734b31d2e4a8da8595920a488e8a, type: 3}
+  - {fileID: 21300000, guid: 7938665bbd2300d46b396e4098776518, type: 3}
   - {fileID: 21300000, guid: 53c2217b3aa7543e7bb305d2bf11dc78, type: 3}
   - {fileID: 21300000, guid: adc63d7b6bc53457b8f58dde7518e226, type: 3}
   - {fileID: 21300000, guid: f38351ab1b9b9440b872297f5d0d6ade, type: 3}
@@ -191,6 +193,7 @@ SpriteAtlas:
   - icon-emptyslot-weapon
   - background-gamemode-deathmatch-top
   - button-equipmentslot-uncommon-pressed
+  - button-battlepass-claim-reward
   - pattern-rewardglow-uncommon
   - background-gamemode-battleroyale-top
   - background-modeselection-casual
@@ -290,6 +293,7 @@ SpriteAtlas:
   - icon-show-purple
   - icon-special-shieldself
   - icon-spinner-thick
+  - button-battlepass-claim-reward-pressed
   - icon-core-rare
   - button-gamemode-pressed
   - icon-arrow-level

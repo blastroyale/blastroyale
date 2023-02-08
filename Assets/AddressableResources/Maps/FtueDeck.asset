@@ -1941,129 +1941,6 @@ MonoBehaviour:
           RawValue: 65536
       Position:
         X:
-          RawValue: 310181
-        Y:
-          RawValue: 546991
-        Z:
-          RawValue: -16724
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 5367
-        Y:
-          RawValue: 84849
-        Z:
-          RawValue: 41576
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: polySurface417
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 46
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 310181
-        Y:
-          RawValue: 546991
-        Z:
-          RawValue: -99876
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 5367
-        Y:
-          RawValue: 84849
-        Z:
-          RawValue: 41576
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: polySurface418
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 47
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: -1
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -673299
-        Y:
-          RawValue: 284313
-        Z:
-          RawValue: 412811
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 49766
-        Y:
-          RawValue: 60192
-        Z:
-          RawValue: 3904
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Gate
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 48
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
           RawValue: 1111515
         Y:
           RawValue: -581459
@@ -2091,7 +1968,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 49
+        ColliderIndex: 46
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -3293,16 +3170,16 @@ MonoBehaviour:
           RawValue: 0
         PositionOffset:
           X:
-            RawValue: 0
+            RawValue: -31457
           Y:
             RawValue: 0
           Z:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 85196
+            RawValue: 98304
           Y:
-            RawValue: 32768
+            RawValue: 98304
           Z:
             RawValue: 13107
         RotationOffset:
@@ -3414,18 +3291,18 @@ MonoBehaviour:
           RawValue: 0
         PositionOffset:
           X:
-            RawValue: 0
+            RawValue: 45875
           Y:
-            RawValue: 0
+            RawValue: -52428
           Z:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 85196
+            RawValue: 52428
           Y:
-            RawValue: 32768
+            RawValue: 65536
           Z:
-            RawValue: 13107
+            RawValue: 6553
         RotationOffset:
           X:
             RawValue: 0
@@ -3451,11 +3328,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1093664
+          RawValue: -721092
         Y:
-          RawValue: -486473
+          RawValue: 334692
         Z:
-          RawValue: 216203
+          RawValue: 414056
       Rotation:
         X:
           RawValue: 0

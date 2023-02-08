@@ -1431,7 +1431,6 @@ GameObject:
   - component: {fileID: 367859430}
   - component: {fileID: 367859429}
   - component: {fileID: 367859428}
-  - component: {fileID: 367859431}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -1517,49 +1516,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367859426}
   m_Mesh: {fileID: -1556410543170635569, guid: e0e820510ef04de43afe179861291f42, type: 3}
---- !u!114 &367859431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367859426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 367859428}
-  Size:
-    X:
-      RawValue: 9953253
-    Y:
-      RawValue: 12038410
-    Z:
-      RawValue: 780896
-  PositionOffset:
-    X:
-      RawValue: 4667885
-    Y:
-      RawValue: -5005091
-    Z:
-      RawValue: 9
-  RotationOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-    Z:
-      RawValue: 0
-  Settings:
-    MutableMode: 0
-    PhysicsMaterial:
-      Id:
-        Value: 0
-    Asset:
-      Id:
-        Value: 0
-    Trigger: 0
 --- !u!1 &388678507
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,7 +3889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Asset: {fileID: 11400000, guid: 91389158269995f4f8b5e35f5cb3f394, type: 2}
   DrawGridMode: 0
-  BakeAllMode: 64
+  BakeAllMode: 102
   StaticCollider2DReferences: []
   StaticCollider3DReferences:
   - {fileID: 455355087}
@@ -3982,9 +3938,6 @@ MonoBehaviour:
   - {fileID: 1737837017}
   - {fileID: 85046270}
   - {fileID: 701512569}
-  - {fileID: 7398041109418252647}
-  - {fileID: 6056862037142630300}
-  - {fileID: 367859431}
   - {fileID: 2031724307}
   MapEntityReferences:
   - {fileID: 5927150147702384531}
@@ -8514,14 +8467,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028925619}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.19509031, z: 0, w: 0.98078537}
   m_LocalPosition: {x: 0, y: -7.64, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -22.5, z: 0}
 --- !u!114 &2031724307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9477,7 +9430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829141750310827761}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.702, y: 12.525, z: 2.9999998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9763,16 +9716,16 @@ MonoBehaviour:
         RawValue: 0
       PositionOffset:
         X:
-          RawValue: 0
+          RawValue: -31457
         Y:
           RawValue: 0
         Z:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 85196
+          RawValue: 98304
         Y:
-          RawValue: 32768
+          RawValue: 98304
         Z:
           RawValue: 13107
       RotationOffset:
@@ -9911,18 +9864,18 @@ MonoBehaviour:
         RawValue: 0
       PositionOffset:
         X:
-          RawValue: 0
+          RawValue: 45875
         Y:
-          RawValue: 0
+          RawValue: -52428
         Z:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 85196
+          RawValue: 52428
         Y:
-          RawValue: 32768
+          RawValue: 65536
         Z:
-          RawValue: 13107
+          RawValue: 6553
       RotationOffset:
         X:
           RawValue: 0
@@ -10026,7 +9979,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824022440563612273}
   m_LocalRotation: {x: -0, y: -0, z: -0.00000037252897, w: 1}
-  m_LocalPosition: {x: -16.688, y: -7.423, z: 3.299}
+  m_LocalPosition: {x: -11.003, y: 5.107, z: 6.318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10282,7 +10235,6 @@ GameObject:
   - component: {fileID: 7176572770364525545}
   - component: {fileID: 814215094325449694}
   - component: {fileID: 7398041109418252646}
-  - component: {fileID: 7398041109418252647}
   m_Layer: 0
   m_Name: polySurface417
   m_TagString: Untagged
@@ -10464,7 +10416,6 @@ GameObject:
   - component: {fileID: 6056862037142630298}
   - component: {fileID: 1454954034293561007}
   - component: {fileID: 6056862037142630299}
-  - component: {fileID: 6056862037142630300}
   m_Layer: 0
   m_Name: polySurface418
   m_TagString: Untagged
@@ -10790,49 +10741,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12.601233, y: 199.18364, z: 97.60023}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6056862037142630300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3882917323648518015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 6056862037142630299}
-  Size:
-    X:
-      RawValue: 825834
-    Y:
-      RawValue: 13053699
-    Z:
-      RawValue: 6396328
-  PositionOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-    Z:
-      RawValue: 0
-  RotationOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-    Z:
-      RawValue: 0
-  Settings:
-    MutableMode: 0
-    PhysicsMaterial:
-      Id:
-        Value: 0
-    Asset:
-      Id:
-        Value: 0
-    Trigger: 0
 --- !u!4 &6137344953555832393
 Transform:
   m_ObjectHideFlags: 0
@@ -11027,49 +10935,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12.601233, y: 199.18364, z: 97.600235}
   m_Center: {x: 0, y: 0, z: 0.000015258789}
---- !u!114 &7398041109418252647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3104752785884796477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 7398041109418252646}
-  Size:
-    X:
-      RawValue: 825834
-    Y:
-      RawValue: 13053699
-    Z:
-      RawValue: 6396329
-  PositionOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-    Z:
-      RawValue: 1
-  RotationOffset:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 0
-    Z:
-      RawValue: 0
-  Settings:
-    MutableMode: 0
-    PhysicsMaterial:
-      Id:
-        Value: 0
-    Asset:
-      Id:
-        Value: 0
-    Trigger: 0
 --- !u!33 &7418068916208780781
 MeshFilter:
   m_ObjectHideFlags: 0

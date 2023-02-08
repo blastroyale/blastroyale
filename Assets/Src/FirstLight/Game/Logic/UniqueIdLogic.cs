@@ -65,15 +65,15 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _ids.GetListeners();
+				var listeners = _ids.GetObservers();
 				_ids = new ObservableDictionary<UniqueId, GameId>(Data.GameIds);
-				_ids.AddListeners(listeners);
+				_ids.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _newIds.GetListeners();
+				var listeners = _newIds.GetObservers();
 				_newIds = new ObservableList<UniqueId>(Data.NewIds);
-				_newIds.AddListeners(listeners);
+				_newIds.AddObservers(listeners);
 			}
 			
 			_ids.InvokeUpdate();

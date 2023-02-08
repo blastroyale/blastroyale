@@ -44,9 +44,9 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _triggeredActions.GetListeners();
+				var listeners = _triggeredActions.GetObservers();
 				_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
-				_triggeredActions.AddListeners(listeners);
+				_triggeredActions.AddObservers(listeners);
 			}
 			
 			_triggeredActions.InvokeUpdate();

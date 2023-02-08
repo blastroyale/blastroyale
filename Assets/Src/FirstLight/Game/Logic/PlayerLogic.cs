@@ -142,27 +142,27 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _trophies.GetListeners();
+				var listeners = _trophies.GetObservers();
 				_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
-				_trophies.AddListeners(listeners);
+				_trophies.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = SystemsTagged.GetListeners();
+				var listeners = SystemsTagged.GetObservers();
 				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-				SystemsTagged.AddListeners(listeners);
+				SystemsTagged.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _tutorialSections.GetListeners();
+				var listeners = _tutorialSections.GetObservers();
 				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
-				_tutorialSections.AddListeners(listeners);
+				_tutorialSections.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _playerSkin.GetListeners();
+				var listeners = _playerSkin.GetObservers();
 				_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
-				_playerSkin.AddListeners(listeners);
+				_playerSkin.AddObservers(listeners);
 			}
 			
 			_trophies.InvokeUpdate();

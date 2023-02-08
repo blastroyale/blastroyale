@@ -119,15 +119,15 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _currentLevel.GetListeners();
+				var listeners = _currentLevel.GetObservers();
 				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
-				_currentLevel.AddListeners(listeners);
+				_currentLevel.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _currentPoints.GetListeners();
+				var listeners = _currentPoints.GetObservers();
 				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
-				_currentPoints.AddListeners(listeners);
+				_currentPoints.AddObservers(listeners);
 			}
 			
 			_currentLevel.InvokeUpdate();

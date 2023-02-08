@@ -306,27 +306,27 @@ namespace FirstLight.Game.Logic
 			IsDialogueEnabled = Data.DialogueEnabled;
 
 			{
-				var listeners = DisplayName.GetListeners();
+				var listeners = DisplayName.GetObservers();
 				DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-				DisplayName.AddListeners(listeners);
+				DisplayName.AddObservers(listeners);
 			}
 
 			{
-				var listeners = ConnectionRegion.GetListeners();
+				var listeners = ConnectionRegion.GetObservers();
 				ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
-				ConnectionRegion.AddListeners(listeners);
+				ConnectionRegion.AddObservers(listeners);
 			}
 
 			{
-				var listeners = DeviceID.GetListeners();
+				var listeners = DeviceID.GetObservers();
 				DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-				DeviceID.AddListeners(listeners);
+				DeviceID.AddObservers(listeners);
 			}
 
 			{
-				var listeners = LastLoginEmail.GetListeners();
+				var listeners = LastLoginEmail.GetObservers();
 				LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
-				LastLoginEmail.AddListeners(listeners);
+				LastLoginEmail.AddObservers(listeners);
 			}
 			
 			DisplayName.InvokeUpdate();

@@ -73,22 +73,22 @@ namespace FirstLight
 		/// <summary>
 		/// Requests the list of current listeners observing this dictionary
 		/// </summary>
-		IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetListeners();
+		IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetObservers();
 
 		/// <summary>
 		/// Adds a list of listeners to observe this dictionary
 		/// </summary>
-		void AddListeners(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions);
+		void AddObservers(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions);
 
 		/// <summary>
 		/// Requests the list of current listeners observing this dictionary key changes
 		/// </summary>
-		IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyListeners();
+		IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyObservers();
 
 		/// <summary>
 		/// Adds a list of listeners to observe this dictionary key changes
 		/// </summary>
-		void AddKeyListeners(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions);
+		void AddKeyObservers(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions);
 	}
 
 	/// <inheritdoc />
@@ -323,12 +323,12 @@ namespace FirstLight
 			}
 		}
 
-		public IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetListeners()
+		public IList<Action<TKey, TValue, TValue, ObservableUpdateType>> GetObservers()
 		{
 			return _updateActions;
 		}
 
-		public void AddListeners(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions)
+		public void AddObservers(IList<Action<TKey, TValue, TValue, ObservableUpdateType>> actions)
 		{
 			foreach (var onUpdate in actions)
 			{
@@ -336,12 +336,12 @@ namespace FirstLight
 			}
 		}
 
-		public IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyListeners()
+		public IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> GetKeyObservers()
 		{
 			return _keyUpdateActions;
 		}
 
-		public void AddKeyListeners(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions)
+		public void AddKeyObservers(IDictionary<TKey, IList<Action<TKey, TValue, TValue, ObservableUpdateType>>> actions)
 		{
 			foreach (var onUpdate in actions)
 			{

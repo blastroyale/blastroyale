@@ -81,9 +81,9 @@ namespace FirstLight.Game.Logic
 			var defaultValues = new PlayerData().Currencies;
 			
 			{
-				var listeners = _currencies.GetListeners();
+				var listeners = _currencies.GetObservers();
 				_currencies = new ObservableDictionary<GameId, ulong>(Data.Currencies);
-				_currencies.AddListeners(listeners);
+				_currencies.AddObservers(listeners);
 			}
 			
 			foreach (var pair in defaultValues)

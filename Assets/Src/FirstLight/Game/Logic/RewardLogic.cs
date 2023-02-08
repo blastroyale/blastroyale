@@ -140,9 +140,9 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _unclaimedRewards.GetListeners();
+				var listeners = _unclaimedRewards.GetObservers();
 				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
-				_unclaimedRewards.AddListeners(listeners);
+				_unclaimedRewards.AddObservers(listeners);
 			}
 			
 			_unclaimedRewards.InvokeUpdate();

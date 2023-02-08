@@ -172,21 +172,21 @@ namespace FirstLight.Game.Logic
 		public void ReInit()
 		{
 			{
-				var listeners = _loadout.GetListeners();
+				var listeners = _loadout.GetObservers();
 				_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
-				_loadout.AddListeners(listeners);
+				_loadout.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _inventory.GetListeners();
+				var listeners = _inventory.GetObservers();
 				_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
-				_inventory.AddListeners(listeners);
+				_inventory.AddObservers(listeners);
 			}
 			
 			{
-				var listeners = _nftInventory.GetListeners();
+				var listeners = _nftInventory.GetObservers();
 				_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
-				_nftInventory.AddListeners(listeners);
+				_nftInventory.AddObservers(listeners);
 			}
 			
 			_loadout.InvokeUpdate();

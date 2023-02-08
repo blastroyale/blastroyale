@@ -54,12 +54,12 @@ namespace FirstLight
 		/// <summary>
 		/// Requests the list of current listeners observing this field
 		/// </summary>
-		IList<Action<T, T>> GetListeners();
+		IList<Action<T, T>> GetObservers();
 
 		/// <summary>
 		/// Adds a list of listeners to observe this field
 		/// </summary>
-		void AddListeners(IList<Action<T, T>> actions);
+		void AddObservers(IList<Action<T, T>> actions);
 	}
 	
 	/// <inheritdoc />
@@ -82,12 +82,12 @@ namespace FirstLight
 			}
 		}
 
-		public IList<Action<T, T>> GetListeners()
+		public IList<Action<T, T>> GetObservers()
 		{
 			return _updateActions;
 		}
 
-		public void AddListeners(IList<Action<T, T>> actions)
+		public void AddObservers(IList<Action<T, T>> actions)
 		{
 			foreach (var onUpdate in actions)
 			{

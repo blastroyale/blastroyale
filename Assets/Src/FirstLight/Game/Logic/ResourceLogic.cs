@@ -71,9 +71,9 @@ namespace FirstLight.Game.Logic
 			var defaultValues = new PlayerData().ResourcePools;
 			
 			{
-				var listeners = _resourcePools.GetListeners();
+				var listeners = _resourcePools.GetObservers();
 				_resourcePools = new ObservableDictionary<GameId, ResourcePoolData>(Data.ResourcePools);
-				_resourcePools.AddListeners(listeners);
+				_resourcePools.AddObservers(listeners);
 			}
 			
 			foreach (var pair in defaultValues)

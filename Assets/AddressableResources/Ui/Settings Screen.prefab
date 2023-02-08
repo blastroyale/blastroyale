@@ -762,7 +762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Register new First Light ID
+  m_text: Connect
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7b331517660d474596db465e3089916, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b83504fa082014114bc4bea2cb0e9cc4, type: 2}
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.3
+  m_fontSize: 44.7
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTerm: MainMenu/RegisterFirstLightId
+  mTerm: UITSettings/connect
   mTermSecondary: 
   PrimaryTermModifier: 0
   SecondaryTermModifier: 0
@@ -7200,7 +7200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_text
-      value: Dynamic Camera Movement
+      value: Dynamic Aiming Camera
       objectReference: {fileID: 0}
     - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_fontSize

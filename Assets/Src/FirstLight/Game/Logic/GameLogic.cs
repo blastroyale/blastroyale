@@ -187,8 +187,8 @@ namespace FirstLight.Game.Logic
 			(UniqueIdLogic as IGameLogicInitializer).Init();
 			(CurrencyLogic as IGameLogicInitializer).Init();
 			(ResourceLogic as IGameLogicInitializer).Init();
-			(PlayerLogic as IGameLogicInitializer).Init();
 			(EquipmentLogic as IGameLogicInitializer).Init();
+			(PlayerLogic as IGameLogicInitializer).Init();
 			(RewardLogic as IGameLogicInitializer).Init();
 			(BattlePassLogic as IGameLogicInitializer).Init();
 			(LiveopsLogic as IGameLogicInitializer).Init();
@@ -200,8 +200,8 @@ namespace FirstLight.Game.Logic
 			(UniqueIdLogic as IGameLogicInitializer).ReInit();
 			(CurrencyLogic as IGameLogicInitializer).ReInit();
 			(ResourceLogic as IGameLogicInitializer).ReInit();
-			(PlayerLogic as IGameLogicInitializer).ReInit();
 			(EquipmentLogic as IGameLogicInitializer).ReInit();
+			(PlayerLogic as IGameLogicInitializer).ReInit();
 			(RewardLogic as IGameLogicInitializer).ReInit();
 			(BattlePassLogic as IGameLogicInitializer).ReInit();
 			(LiveopsLogic as IGameLogicInitializer).ReInit();

@@ -111,15 +111,14 @@ namespace FirstLight.Game.Presenters
 			{
 				_connectIdButton.gameObject.SetActive(true);
 				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_not_connected;
 			}
 			else
 			{
 				_connectIdButton.gameObject.SetActive(false);
 				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
-					_gameDataProvider.AppDataProvider.DisplayName.Value);
+				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 		}
 

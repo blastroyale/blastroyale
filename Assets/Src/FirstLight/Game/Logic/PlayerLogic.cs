@@ -21,6 +21,11 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> Trophies { get; }
 		
 		/// <summary>
+		/// Request the player's current skin
+		/// </summary>
+		IObservableFieldReader<GameId> PlayerSkin { get; }
+		
+		/// <summary>
 		/// Requests a list of systems already seen by the player.
 		/// </summary>
 		IObservableList<UnlockSystem> SystemsTagged { get; }
@@ -75,13 +80,16 @@ namespace FirstLight.Game.Logic
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
 		private IObservableField<uint> _trophies;
+		private IObservableField<GameId> _playerSkin;
 
 		private IObservableField<TutorialSection> _tutorialSections;
 		
 		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
-		
+
+		public IObservableFieldReader<GameId> PlayerSkin => _playerSkin;
+
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
 
@@ -107,7 +115,7 @@ namespace FirstLight.Game.Logic
 					TotalCollectedXp = totalXp,
 					MaxLevel = maxLevel,
 					Config = config,
-					Skin = Data.PlayerSkinId,
+					Skin = _playerSkin.Value,
 					DeathMarker = Data.DeathMarker,
 					TotalTrophies = _trophies.Value,
 					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
@@ -126,8 +134,9 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
-			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
+			_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
+			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
 
 		public void ReInit()
@@ -150,9 +159,16 @@ namespace FirstLight.Game.Logic
 				_tutorialSections.AddListeners(listeners);
 			}
 			
+			{
+				var listeners = _playerSkin.GetListeners();
+				_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
+				_playerSkin.AddListeners(listeners);
+			}
+			
 			_trophies.InvokeUpdate();
-			SystemsTagged.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
+			_playerSkin.InvokeUpdate();
+			SystemsTagged.InvokeUpdate();
 		}
 
 		/// <inheritdoc />
@@ -231,7 +247,7 @@ namespace FirstLight.Game.Logic
 				throw new LogicException($"Skin Id '{skin.ToString()}' is not part of the Game Id Group PlayerSkin.");
 			}
 
-			Data.PlayerSkinId = skin;
+			_playerSkin.Value = skin;
 		}
 		
 		

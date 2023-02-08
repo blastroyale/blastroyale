@@ -17,12 +17,14 @@ namespace FirstLight.Game.Presenters
 	public class LoadingScreenPresenter : UiPresenter
 	{
 		[SerializeField, Required] private Animation _animation;
-
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
 			_animation.Rewind();
 			_animation.Play();
+			_versionText.text = $"v{VersionUtils.VersionExternal}";
 		}
 		
 		/// <inheritdoc />

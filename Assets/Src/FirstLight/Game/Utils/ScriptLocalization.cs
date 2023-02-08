@@ -1313,15 +1313,18 @@ namespace I2.Loc
 			public static string connect_flg_id_advice 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id_advice"); } }
 			public static string delete_account 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account"); } }
 			public static string delete_account_request_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_request_desc"); } }
-			public static string flg_id_connect_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connect_fail"); } }
+			public static string failure 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/failure"); } }
 			public static string flg_id_connect_login_success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connect_login_success"); } }
 			public static string flg_id_connect_register_success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connect_register_success"); } }
 			public static string flg_id_connected 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connected"); } }
+			public static string flg_id_login_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_login_fail"); } }
 			public static string flg_id_not_connected 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_not_connected"); } }
+			public static string flg_id_register_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_register_fail"); } }
 			public static string logout 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout"); } }
 			public static string logout_confirm_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_confirm_desc"); } }
 			public static string logout_success_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_desc"); } }
 			public static string logout_success_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_title"); } }
+			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
 		}
 
 		public static class UITShared
@@ -2692,15 +2695,18 @@ namespace I2.Loc
 		    public const string connect_flg_id_advice = "UITSettings/connect_flg_id_advice";
 		    public const string delete_account = "UITSettings/delete_account";
 		    public const string delete_account_request_desc = "UITSettings/delete_account_request_desc";
-		    public const string flg_id_connect_fail = "UITSettings/flg_id_connect_fail";
+		    public const string failure = "UITSettings/failure";
 		    public const string flg_id_connect_login_success = "UITSettings/flg_id_connect_login_success";
 		    public const string flg_id_connect_register_success = "UITSettings/flg_id_connect_register_success";
 		    public const string flg_id_connected = "UITSettings/flg_id_connected";
+		    public const string flg_id_login_fail = "UITSettings/flg_id_login_fail";
 		    public const string flg_id_not_connected = "UITSettings/flg_id_not_connected";
+		    public const string flg_id_register_fail = "UITSettings/flg_id_register_fail";
 		    public const string logout = "UITSettings/logout";
 		    public const string logout_confirm_desc = "UITSettings/logout_confirm_desc";
 		    public const string logout_success_desc = "UITSettings/logout_success_desc";
 		    public const string logout_success_title = "UITSettings/logout_success_title";
+		    public const string success = "UITSettings/success";
 		}
 
 		public static class UITShared

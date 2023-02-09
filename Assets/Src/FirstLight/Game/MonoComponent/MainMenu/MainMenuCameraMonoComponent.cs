@@ -2,6 +2,7 @@ using Cinemachine;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,8 +16,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		[SerializeField, Required] private CinemachineVirtualCamera _shopCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _lootCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _mainCamera;
-		[SerializeField, Required] private CinemachineVirtualCamera _socialCamera;
-		[SerializeField, Required] private CinemachineVirtualCamera _cratesCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _skinsCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _helmetCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _armorCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _shieldCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _amuletCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _weaponCamera;
 		
 		[HideInInspector]
 		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
@@ -33,6 +38,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpened);
+			_services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(OnShopScreenOpened);
+			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
+			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpened);
+			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
+			_services.MessageBrokerService.Subscribe<EquipmentSlotOpenedMessage>(OnEquipmentSlotOpened);
 		}
 
 		private void OnDestroy()
@@ -42,8 +52,51 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void OnPlayScreenOpened(PlayScreenOpenedMessage data)
 		{
+			
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 			_mainCamera.gameObject.SetActive(true);
+		}
+		
+		private void OnShopScreenOpened(ShopScreenOpenedMessage data)
+		{
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			_shopCamera.gameObject.SetActive(true);
+		}
+		
+		private void OnSkinsScreenOpened(SkinsScreenOpenedMessage data)
+		{
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			_skinsCamera.gameObject.SetActive(true);
+		}
+		
+		private void OnEquipmentScreenOpened(EquipmentScreenOpenedMessage data)
+		{
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			_lootCamera.gameObject.SetActive(true);
+		}
+		
+		private void OnEquipmentSlotOpened(EquipmentSlotOpenedMessage data)
+		{
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			
+			switch (data.Slot)
+			{
+				case GameIdGroup.Weapon :
+					_weaponCamera.gameObject.SetActive(true);
+					break;
+				case GameIdGroup.Armor :
+					_armorCamera.gameObject.SetActive(true);
+					break;
+				case GameIdGroup.Shield :
+					_shieldCamera.gameObject.SetActive(true);
+					break;
+				case GameIdGroup.Amulet :
+					_amuletCamera.gameObject.SetActive(true);
+					break;
+				default: // helmet camera is ok to be default one as well as it points to face, just in case
+					_helmetCamera.gameObject.SetActive(true);
+					break;
+			}
 		}
 	}
 }

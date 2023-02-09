@@ -55,6 +55,8 @@ namespace Quantum.Systems
 
 				InstantiatePlayer(f, i, playerData, teamId);
 			}
+			
+			f.Signals.AllPlayersSpawned();
 		}
 
 		/// <inheritdoc />

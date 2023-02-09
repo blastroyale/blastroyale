@@ -439,6 +439,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
 		private void PurchaseItem(string id)
@@ -476,6 +477,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
 		}
 
 		private void OpenRoomJoinCreateMenuUI()

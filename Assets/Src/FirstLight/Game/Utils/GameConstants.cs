@@ -289,6 +289,7 @@ namespace FirstLight.Game.Utils
 		public static class Tutorial
 		{
 			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
+			public const string TUTORIAL_MODE_ID = "Tutorial";
 			
 			// TODO - UPDATE ONCE TUTORIALS ARE IN
 			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 0;

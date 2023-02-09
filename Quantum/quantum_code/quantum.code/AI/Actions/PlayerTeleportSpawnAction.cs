@@ -13,6 +13,14 @@ namespace Quantum
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			if (f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot))
+			{
+				if (bot->FixedSpawn)
+				{
+					player->Spawn(f, e);
+					return;
+				}
+			}
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e);
 

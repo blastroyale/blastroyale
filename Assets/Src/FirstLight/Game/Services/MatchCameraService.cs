@@ -11,6 +11,13 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IMatchCameraService
 	{
+		/// <summary>
+		/// Shakes the camera
+		/// </summary>
+		/// <param name="shape">Defines which Cinemachine ImpulseShape to use</param>
+		/// <param name="duration">For how long should the screen shake</param>
+		/// <param name="strength">How strong is the shake</param>
+		/// <param name="position">The position of the place where the shake was started from</param>
 		void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength,
 							  Vector3 position = default);
 	}
@@ -33,6 +40,14 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_cameraServiceObject = new GameObject("CameraService", typeof(CinemachineImpulseSource));
 			_impulseSource = _cameraServiceObject.GetComponent<CinemachineImpulseSource>();
+			
+			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 		}
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
@@ -61,14 +76,6 @@ namespace FirstLight.Game.Services
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
 		
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			if (_services.NetworkService.LocalPlayer.IsSpectator())
-			{
-				_followObject = next.Transform.gameObject;
-			}
-		}
-
 		public void Dispose()
 		{
 			Object.Destroy(_cameraServiceObject);
@@ -82,6 +89,144 @@ namespace FirstLight.Game.Services
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
+		}
+		
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
+		{
+			if (_services.NetworkService.LocalPlayer.IsSpectator())
+			{
+				_followObject = next.Transform.gameObject;
+			}
+		}
+		
+		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
+		{
+			var f = callback.Game.Frames.Verified;
+			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
+				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
+				callback.Entity.GetPosition(f).ToUnityVector3());
+		}
+		
+		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
+		{
+			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Explosion,
+				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH);
+		}
+
+		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			// If not a kill of spectated player, or spectated player committed suicide
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller ||
+				callback.EntityKiller == callback.EntityDead)
+			{
+				return;
+			}
+			
+			var shakePower = GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH;
+
+			// Kill SFX
+			switch (callback.CurrentMultiKill)
+			{
+				case 3:
+					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
+					break;
+
+				case 4:
+					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
+					break;
+
+				case 5:
+					shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
+					break;
+
+				default:
+					if (callback.CurrentMultiKill > 5)
+					{
+						shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
+					}
+
+					break;
+			}
+			
+			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Bump, 
+				GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, shakePower);
+		}
+		
+		private void OnEventOnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		{
+			ExplosionScreenShake(callback.sourceId, callback.EndPosition.ToUnityVector3());
+		}
+
+		private void OnEventHazardLand(EventOnHazardLand callback)
+		{
+			ExplosionScreenShake(callback.sourceId, callback.HitPosition.ToUnityVector3());
+		}
+
+		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
+		{
+			ExplosionScreenShake(callback.sourceId, callback.EndPosition.ToUnityVector3());
+		}
+		
+		private void OnEntityDamaged(EventOnEntityDamaged callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) || 
+				callback.Player == PlayerRef.None) // TODO: a sound for things that are not players.
+			{
+				return;
+			}
+
+			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
+			var f = callback.Game.Frames.Verified;
+
+			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
+			{
+				if(damagedPlayerIsLocal)
+				{
+					_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Recoil,
+						GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH,
+						callback.Entity.GetPosition(f).ToUnityVector3());
+				}
+			}
+		}
+		
+		private void ExplosionScreenShake(GameId sourceId, Vector3 endPosition)
+		{
+			var shake = false;
+			var shakePower = GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH;
+			var shakeDuration = GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION;
+
+			switch (sourceId)
+			{
+				case GameId.SpecialAimingGrenade:
+					shake = true;
+					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
+					shakeDuration = GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION;
+					break;
+				case GameId.SpecialAimingAirstrike:
+					shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
+					shakeDuration = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_DURATION;
+					shake = true;
+					break;
+				case GameId.SpecialAimingStunGrenade:
+					shake = true;
+					break;
+				case GameId.SpecialSkyLaserBeam:
+					shake = true;
+					break;
+				case GameId.ApoRPG:
+				case GameId.ModLauncher:
+				case GameId.SciCannon:
+					break;
+				case GameId.Barrel:
+					shake = true;
+					break;
+			}
+			
+			if(shake)
+			{
+				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Explosion, 
+					shakeDuration, shakePower, endPosition);
+			}
 		}
 	}
 }

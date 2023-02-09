@@ -421,9 +421,6 @@ namespace FirstLight.Game.StateMachines
 			var f = callback.Game.Frames.Verified;
 
 			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
-			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
-				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
-				callback.Entity.GetPosition(f).ToUnityVector3());
 		}
 
 		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
@@ -595,8 +592,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion,
-				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -613,7 +608,6 @@ namespace FirstLight.Game.StateMachines
 			var killAudio = AudioId.None;
 			var voMultiKillAudio = AudioId.None;
 			var voKillstreakAudio = AudioId.None;
-			var shakePower = GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH;
 
 			// Kill SFX
 			switch (callback.CurrentMultiKill)
@@ -631,19 +625,16 @@ namespace FirstLight.Game.StateMachines
 				case 3:
 					killAudio = AudioId.PlayerKillLevel3;
 					voMultiKillAudio = AudioId.Vo_Kills3;
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
 					break;
 
 				case 4:
 					killAudio = AudioId.PlayerKillLevel4;
 					voMultiKillAudio = AudioId.Vo_Kills4;
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
 					break;
 
 				case 5:
 					killAudio = AudioId.PlayerKillLevel5;
 					voMultiKillAudio = AudioId.Vo_Kills5;
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
 					break;
 
 				default:
@@ -651,7 +642,6 @@ namespace FirstLight.Game.StateMachines
 					{
 						killAudio = AudioId.PlayerKillLevel6;
 						voMultiKillAudio = AudioId.Vo_Kills5;
-						shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
 					}
 					break;
 			}
@@ -677,8 +667,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Kill SFX
 			_services.AudioFxService.PlayClip2D(killAudio);
-			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Bump, 
-				GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, shakePower);
+
 
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
@@ -736,31 +725,20 @@ namespace FirstLight.Game.StateMachines
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
 			var audio = AudioId.None;
-			var shake = false;
-			var shakePower = GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH;
-			var shakeDuration = GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION;
 
 			switch (sourceId)
 			{
 				case GameId.SpecialAimingGrenade:
 					audio = AudioId.ExplosionMedium;
-					shake = true;
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
-					shakeDuration = GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION;
 					break;
 				case GameId.SpecialAimingAirstrike:
 					audio = AudioId.ExplosionLarge;
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
-					shakeDuration = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_DURATION;
-					shake = true;
 					break;
 				case GameId.SpecialAimingStunGrenade:
 					audio = AudioId.ExplosionFlashBang;
-					shake = true;
 					break;
 				case GameId.SpecialSkyLaserBeam:
 					audio = AudioId.ExplosionSciFi;
-					shake = true;
 					break;
 				//weapons
 				case GameId.ApoRPG:
@@ -774,18 +752,12 @@ namespace FirstLight.Game.StateMachines
 					break;
 				case GameId.Barrel:
 					audio = AudioId.ExplosionMedium;
-					shake = true;
 					break;
 			}
 
 			if (audio != AudioId.None)
 			{
 				_services.AudioFxService.PlayClip3D(audio, endPosition);
-			}
-			if(shake)
-			{
-				_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion, 
-					shakeDuration, shakePower, endPosition);
 			}
 		}
 
@@ -919,8 +891,7 @@ namespace FirstLight.Game.StateMachines
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			var f = callback.Game.Frames.Verified;
-			
+
 			if (damagedPlayerIsLocal)
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
@@ -933,12 +904,6 @@ namespace FirstLight.Game.StateMachines
 			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
 			{
 				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
-				if(damagedPlayerIsLocal)
-				{
-					_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Recoil,
-						GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH,
-						callback.Entity.GetPosition(f).ToUnityVector3());
-				}
 			}
 
 			if (spectatedEntity == callback.Entity || spectatedEntity == callback.Attacker)

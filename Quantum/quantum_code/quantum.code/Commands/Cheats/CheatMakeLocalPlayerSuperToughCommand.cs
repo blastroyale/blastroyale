@@ -23,6 +23,7 @@ namespace Quantum.Commands
 			{
 				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Health,
+				OpType = OperationType.Multiply,
 				Power = FP._1000,
 				Duration = FP.MaxValue,
 				StartTime = FP._0,

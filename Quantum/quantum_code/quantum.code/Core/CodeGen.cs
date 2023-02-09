@@ -284,6 +284,10 @@ namespace Quantum {
     Deathmatch,
     BattleRoyale,
   }
+  public enum OperationType : int {
+    Multiply,
+    Add,
+  }
   public enum QuantumServerCommand : int {
     EndOfGameRewards,
   }
@@ -2758,15 +2762,17 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public FP Duration;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 Id;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     public QBoolean IsNegative;
+    [FieldOffset(0)]
+    public OperationType OpType;
     [FieldOffset(24)]
     public FP Power;
     [FieldOffset(32)]
     public FP StartTime;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public StatType Type;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2774,6 +2780,7 @@ namespace Quantum {
         hash = hash * 31 + Duration.GetHashCode();
         hash = hash * 31 + Id.GetHashCode();
         hash = hash * 31 + IsNegative.GetHashCode();
+        hash = hash * 31 + (Int32)OpType;
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + (Int32)Type;
@@ -2782,6 +2789,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Modifier*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->OpType);
         QBoolean.Serialize(&p->IsNegative, serializer);
         serializer.Stream.Serialize((Int32*)&p->Type);
         serializer.Stream.Serialize(&p->Id);
@@ -3757,7 +3765,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 264;
+    public const Int32 SIZE = 280;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public UInt32 AccuracySpreadAngle;
@@ -3783,51 +3791,55 @@ namespace Quantum {
     public FP CloseFightIntolerance;
     [FieldOffset(120)]
     public FP CurrentEvasionStepEndTime;
+    [FieldOffset(128)]
+    public FP DamageDoneMultiplier;
+    [FieldOffset(136)]
+    public FP DamageTakenMultiplier;
     [FieldOffset(4)]
     public GameId DeathMarker;
-    [FieldOffset(128)]
+    [FieldOffset(144)]
     public FP DecisionInterval;
     [FieldOffset(20)]
     public QBoolean FixedSpawn;
     [FieldOffset(28)]
     public UInt32 LoadoutGearNumber;
-    [FieldOffset(136)]
-    public FP LookForTargetsToShootAtInterval;
-    [FieldOffset(144)]
-    public FP LowAmmoSensitivity;
     [FieldOffset(152)]
-    public FP LowArmourSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(160)]
-    public FP LowHealthSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(168)]
-    public FP MaxAimingRange;
+    public FP LowArmourSensitivity;
     [FieldOffset(176)]
+    public FP LowHealthSensitivity;
+    [FieldOffset(184)]
+    public FP MaxAimingRange;
+    [FieldOffset(192)]
     public FP MaxDistanceToTeammateSquared;
     [FieldOffset(32)]
     public EntityRef MoveTarget;
-    [FieldOffset(184)]
-    public FP MovementSpeedMultiplier;
-    [FieldOffset(192)]
-    public FP NextDecisionTime;
     [FieldOffset(200)]
+    public FP MovementSpeedMultiplier;
+    [FieldOffset(208)]
+    public FP NextDecisionTime;
+    [FieldOffset(216)]
     public FP NextLookForTargetsToShootAtTime;
     [FieldOffset(40)]
     public EntityRef RandomTeammate;
-    [FieldOffset(208)]
+    [FieldOffset(224)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(8)]
     public GameId Skin;
-    [FieldOffset(216)]
+    [FieldOffset(232)]
     public FP SpecialAimingDeviation;
-    [FieldOffset(240)]
+    [FieldOffset(256)]
     public FPVector3 StuckDetectionPosition;
     [FieldOffset(48)]
     public EntityRef Target;
     [FieldOffset(16)]
     public Int32 TeamSize;
-    [FieldOffset(224)]
+    [FieldOffset(240)]
     public FP VisionRangeSqr;
-    [FieldOffset(232)]
+    [FieldOffset(248)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3844,6 +3856,8 @@ namespace Quantum {
         hash = hash * 31 + ChanceToUseSpecial.GetHashCode();
         hash = hash * 31 + CloseFightIntolerance.GetHashCode();
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
+        hash = hash * 31 + DamageDoneMultiplier.GetHashCode();
+        hash = hash * 31 + DamageTakenMultiplier.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
         hash = hash * 31 + FixedSpawn.GetHashCode();
@@ -3892,6 +3906,8 @@ namespace Quantum {
         FP.Serialize(&p->ChanceToUseSpecial, serializer);
         FP.Serialize(&p->CloseFightIntolerance, serializer);
         FP.Serialize(&p->CurrentEvasionStepEndTime, serializer);
+        FP.Serialize(&p->DamageDoneMultiplier, serializer);
+        FP.Serialize(&p->DamageTakenMultiplier, serializer);
         FP.Serialize(&p->DecisionInterval, serializer);
         FP.Serialize(&p->LookForTargetsToShootAtInterval, serializer);
         FP.Serialize(&p->LowAmmoSensitivity, serializer);
@@ -9247,6 +9263,7 @@ namespace Quantum {
       Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
       Register(typeof(NullableNonNegativeFP), NullableNonNegativeFP.SIZE);
+      Register(typeof(Quantum.OperationType), 4);
       Register(typeof(PhysicsBody2D), PhysicsBody2D.SIZE);
       Register(typeof(PhysicsBody3D), PhysicsBody3D.SIZE);
       Register(typeof(PhysicsCollider2D), PhysicsCollider2D.SIZE);
@@ -9361,6 +9378,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameSimulationStateMachine>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.OperationType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.QuantumServerCommand>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
@@ -9595,6 +9613,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator GameSimulationStateMachine_Prototype(GameSimulationStateMachine value) {
         return new GameSimulationStateMachine_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(OperationType))]
+  public unsafe partial struct OperationType_Prototype {
+    public Int32 Value;
+    public static implicit operator OperationType(OperationType_Prototype value) {
+        return (OperationType)value.Value;
+    }
+    public static implicit operator OperationType_Prototype(OperationType value) {
+        return new OperationType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -10028,6 +10057,8 @@ namespace Quantum.Prototypes {
     public FP MovementSpeedMultiplier;
     public FP MaxDistanceToTeammateSquared;
     public QBoolean FixedSpawn;
+    public FP DamageTakenMultiplier;
+    public FP DamageDoneMultiplier;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -10047,6 +10078,8 @@ namespace Quantum.Prototypes {
       result.ChanceToUseSpecial = this.ChanceToUseSpecial;
       result.CloseFightIntolerance = this.CloseFightIntolerance;
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
+      result.DamageDoneMultiplier = this.DamageDoneMultiplier;
+      result.DamageTakenMultiplier = this.DamageTakenMultiplier;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
       result.FixedSpawn = this.FixedSpawn;
@@ -10667,6 +10700,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Modifier_Prototype : StructPrototype {
     public UInt32 Id;
     public StatType_Prototype Type;
+    public OperationType_Prototype OpType;
     public FP Power;
     public FP Duration;
     public FP StartTime;
@@ -10676,6 +10710,7 @@ namespace Quantum.Prototypes {
       result.Duration = this.Duration;
       result.Id = this.Id;
       result.IsNegative = this.IsNegative;
+      result.OpType = this.OpType;
       result.Power = this.Power;
       result.StartTime = this.StartTime;
       result.Type = this.Type;

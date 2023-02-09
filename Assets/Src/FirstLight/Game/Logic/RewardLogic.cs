@@ -325,8 +325,7 @@ namespace FirstLight.Game.Logic
 			var rewards = new List<ItemData>();
 			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg
-				.Where(c => tutorialRewardsCfg.First(c => c._section == section).RewardIds.Contains((uint)c.Id));
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c._section == section).RewardIds.Contains((uint)c.Id));
 			foreach (var rewardConfig in rewardsConfigs)
 			{
 				if (rewardConfig.IsEquipment())
@@ -341,9 +340,14 @@ namespace FirstLight.Game.Logic
 				}
 				else
 				{
+					// We always want to give a set amount of BPP only to complete first BP level during tutorial
+					var finalAmount = section == TutorialSection.FIRST_GUIDE_MATCH && rewardConfig.GameId == GameId.BPP
+						? (int) GameLogic.BattlePassLogic.GetRequiredPointsForLevel()
+						: rewardConfig.Amount;
+					
 					rewards.Add(new ItemData()
 					{
-						Amount = rewardConfig.Amount,
+						Amount = finalAmount,
 						Id = rewardConfig.GameId,
 					});
 				}
@@ -412,7 +416,7 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
+				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
 
 				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
 

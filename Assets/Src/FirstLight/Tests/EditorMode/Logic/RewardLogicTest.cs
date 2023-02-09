@@ -250,7 +250,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var resourceInfoBPP = new ResourcePoolInfo {CurrentAmount = RESOURCEINFO_BPP_STARTAMOUNT};
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 
-			GameLogic.BattlePassLogic.GetRemainingPointsOfBp().Returns<uint>(100);
+			GameLogic.BattlePassLogic.GetRemainingPoints().Returns<uint>(100);
 
 			_matchData = new List<QuantumPlayerMatchData> {new()};
 			SetPlayerRank(1, 10);

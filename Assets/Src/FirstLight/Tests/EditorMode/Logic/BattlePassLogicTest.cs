@@ -118,7 +118,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(4, _battlePassLogic.CurrentLevel.Value);
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(4, rewards.Count);
-			Assert.AreEqual(_battlePassLogic.GetRemainingPointsOfBp(), 0);
+			Assert.AreEqual(_battlePassLogic.GetRemainingPoints(), 0);
 			
 			Assert.IsTrue(redeemed);
 		}
@@ -137,11 +137,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			_battlePassLogic.AddBPP(34);
 
-			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
+			Assert.AreEqual(6, _battlePassLogic.GetRemainingPoints());
 
 			_battlePassLogic.RedeemBPP(out _, out _);
 
-			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
+			Assert.AreEqual(6, _battlePassLogic.GetRemainingPoints());
 		}
 
 		[Test]

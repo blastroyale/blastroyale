@@ -38,5 +38,25 @@ namespace Quantum
 				return isReverse ? rank * -1 : rank;
 			});
 		}
+
+		public static void CopyFixedArray<T>(this FixedArray<T> array, FixedArray<T> otherArray) where T : unmanaged
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				array[i] = otherArray[i];
+			}
+		}
+		
+		public static List<T> ToList<T>(this FixedArray<T> array) where T : unmanaged
+		{
+			var list = new List<T>();
+			
+			for (int i = 0; i < array.Length; i++)
+			{
+				list.Add(array[i]);
+			}
+
+			return list;
+		}
 	}
 }

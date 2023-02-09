@@ -56,6 +56,7 @@ namespace FirstLight.Game.Presenters
 		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
 
 		private Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards;
+		private bool _finishedTutorial = false;
 
 		private void Awake()
 		{
@@ -66,7 +67,7 @@ namespace FirstLight.Game.Presenters
 			_pendingRewards = new Queue<KeyValuePair<UniqueId,Equipment>>();
 			
 		}
-		
+
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
@@ -95,7 +96,6 @@ namespace FirstLight.Game.Presenters
 			
 			// Has to be done 1 frame after the segments are spawned, otherwise they don't init correctly
 			InitSegments();
-			
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
 			if (predictedProgress.Item1 > 1)
@@ -108,6 +108,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.SubscribeToEvents();
 			
+			_services.MessageBrokerService.Subscribe<TutorialBattlePassCompleted>(OnTutorialBattlePassCompleted);
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
@@ -142,8 +143,8 @@ namespace FirstLight.Game.Presenters
 		private void InitScreen()
 		{
 			_segmentData.Clear();
-			
-			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
+
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetBattlePassConfig();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			var currentLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
@@ -156,7 +157,15 @@ namespace FirstLight.Game.Presenters
 			
 			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
 
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, battlePassConfig.CurrentSeason));
+			if (_dataProvider.BattlePassDataProvider.IsTutorial())
+			{
+				_screenHeader.SetTitle(ScriptLocalization.FTUE.BPName,"");
+			}
+			else
+			{
+				_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, battlePassConfig.CurrentSeason));
+			}
+			
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
 			_nextLevelRoot.SetDisplay(predictedProgress.Item1 < _dataProvider.BattlePassDataProvider.MaxLevel);
 			
@@ -237,6 +246,11 @@ namespace FirstLight.Game.Presenters
 			filler.AddToClassList(UssBpSegmentFiller);
 		}
 
+		private void OnTutorialBattlePassCompleted(TutorialBattlePassCompleted message)
+		{
+			_finishedTutorial = true;
+		}
+
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
@@ -252,6 +266,21 @@ namespace FirstLight.Game.Presenters
 			TryShowNextReward();
 		}
 
+		// TODO: Add some faff jazz & wiggs
+		private void CompleteTutorialPass()
+		{
+			_services.GenericDialogService.OpenButtonDialog("",ScriptLocalization.FTUE.BPComplete, false, new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					ScrollToBpLevel(0, 1000);
+					InitScreen();
+					InitSegments();
+				}
+			});
+		}
+
 		private async void TryShowNextReward()
 		{
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
@@ -264,6 +293,10 @@ namespace FirstLight.Game.Presenters
 
 			if (!_pendingRewards.TryDequeue(out var reward))
 			{
+				if (_finishedTutorial)
+				{
+					CompleteTutorialPass();
+				}
 				return;
 			}
 

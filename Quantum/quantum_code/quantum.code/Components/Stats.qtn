@@ -33,10 +33,17 @@ struct StatData
 	FP StatValue;
 }
 
+enum OperationType
+{
+    Multiply,
+    Add,
+}
+
 struct Modifier
 {
 	UInt32 Id;
 	StatType Type;
+	OperationType OpType;
 	FP Power;
 	FP Duration;
 	FP StartTime;

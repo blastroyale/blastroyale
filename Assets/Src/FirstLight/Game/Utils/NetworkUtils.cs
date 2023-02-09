@@ -22,17 +22,17 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot, bool gameHasBots)
+		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
 			if (FeatureFlags.FORCE_RANKED)
 			{
 				setup.MatchType = MatchType.Ranked;
 			}
-			var isRandomMatchmaking = string.IsNullOrWhiteSpace(setup.RoomIdentifier);
+			var isRandomMatchmaking = setup.MatchType != MatchType.Custom;
 
-			var roomNameFinal = isRandomMatchmaking ? null : setup.RoomIdentifier;
+			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;
-			var maxPlayers = GetMaxPlayers(setup.GameMode, setup.Map);
+			var maxPlayers = GetMaxPlayers(setup.GameMode(), setup.Map());
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(setup, dropzonePosRot, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(setup, dropzonePosRot),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Utils
 			return new OpJoinRandomRoomParams
 			{
 				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup),
-				ExpectedMaxPlayers = (byte) GetMaxPlayers(setup.GameMode, setup.Map),
+				ExpectedMaxPlayers = (byte) GetMaxPlayers(setup.GameMode(), setup.Map()),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -162,16 +162,15 @@ namespace FirstLight.Game.Utils
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(MatchRoomSetup setup, Vector3 dropzonePosRot, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
 			var properties = GetJoinRoomProperties(setup);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
-			
-			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
 
 			// TODO - RENAME "SpawnPattern"
-			if (setup.GameMode.SpawnPattern)
+			if (setup.GameMode().SpawnPattern)
 			{
 				properties.Add(GameConstants.Network.DROP_ZONE_POS_ROT, dropzonePosRot);
 			}
@@ -187,13 +186,13 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, setup.Map.Map},
+				{GameConstants.Network.ROOM_PROPS_MAP, setup.Map().Map},
 				
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_MATCH_TYPE, setup.MatchType.ToString()},
 
 				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode.Id},
+				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode().Id},
 				
 				// A list of mutators used in this room
 				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}

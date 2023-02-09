@@ -1,3 +1,4 @@
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -24,6 +25,15 @@ namespace FirstLight.Game.Commands
 					Rewards = rewards,
 					newLevel = newLevel
 				});
+				if (ctx.Logic.BattlePassLogic().IsTutorial())
+				{
+					if (newLevel >= ctx.Logic.BattlePassLogic().MaxLevel)
+					{
+						ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(TutorialSection.TUTORIAL_BP);
+						ctx.Logic.BattlePassLogic().Reset();
+						ctx.Services.MessageBrokerService().Publish(new TutorialBattlePassCompleted());
+					}
+				}
 			}
 		}
 	}

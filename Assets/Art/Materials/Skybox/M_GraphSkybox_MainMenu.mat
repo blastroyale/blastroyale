@@ -40,7 +40,7 @@ Material:
     - Vector1_3F7EACDD: 1
     - Vector1_70D6C424: 0.1
     - Vector1_910C4AAA: 0
-    - Vector1_A451679A: 15
+    - Vector1_A451679A: 20
     - Vector1_D6B3B009: 1
     - Vector1_DDEF11E3: 500
     - Vector1_DEBD983F: 0.13
@@ -48,10 +48,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_49AC444C: {r: 13.113688, g: 33.252567, b: 44.727043, a: 1}
-    - Color_CB580CB6: {r: 0.19496846, g: 0.31585956, b: 1, a: 1}
+    - Color_49AC444C: {r: 13.113691, g: 44.72706, b: 44.72706, a: 1}
+    - Color_CB580CB6: {r: 0.07564967, g: 0.10380671, b: 0.4811321, a: 1}
     - Color_E46740D2: {r: 0, g: 0.014607619, b: 0.2735849, a: 0}
-    - Color_F1A1AA80: {r: 0.31565183, g: 1.2823355, b: 2.6415095, a: 1}
+    - Color_F1A1AA80: {r: 1.0812681, g: 1.5374995, b: 2.1762233, a: 1}
     - Vector3_75B35D82: {r: 40.7, g: -14, b: -32, a: 0}
     - _SunDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

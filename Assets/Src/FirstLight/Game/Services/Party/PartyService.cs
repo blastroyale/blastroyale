@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using UnityEngine;
@@ -59,11 +60,31 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		IObservableFieldReader<string> PartyCode { get; }
 
+
+		/// <summary>
+		/// Playfab lobby generated id, unique string used to identify a party
+		/// Use this instead of PartyCode when you need uniqueness
+		/// </summary>
+		IObservableFieldReader<string> PartyID { get; }
+
+
 		/// <summary>
 		/// The members of the local player party, it changes when any player join/leave the party
 		/// If the local player removed from this list and <see cref="HasParty"/> is true, means the player was kicked.
 		/// </summary>
 		IObservableListReader<PartyMember> Members { get; }
+
+		/// <summary>
+		/// Private properties of a lobby, this is only settable by the leader
+		/// </summary>
+		IObservableDictionaryReader<string, string> LobbyProperties { get; }
+
+		/// <summary>
+		/// Set a lobby property
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="value"></param>
+		void SetLobbyProperty(string key, string value);
 	}
 
 
@@ -79,6 +100,35 @@ namespace FirstLight.Game.Services.Party
 		/// <inheritdoc/>
 		IObservableFieldReader<bool> IPartyService.HasParty => HasParty;
 
+		/// <inheritdoc/>
+		IObservableDictionaryReader<string, string> IPartyService.LobbyProperties => LobbyProperties;
+
+		/// <inheritdoc/>
+		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
+
+
+		public async void SetLobbyProperty(string key, string value)
+		{
+			if (!HasParty.Value)
+			{
+				throw new PartyException(PartyErrors.NoParty);
+			}
+
+			if (!LocalPartyMember().Leader)
+			{
+				throw new PartyException(PartyErrors.NoPermission);
+			}
+
+			Debug.Log($"setting property {key} to " + _lobbyId);
+			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			{
+				LobbyId = _lobbyId,
+				LobbyData = new Dictionary<string, string>()
+				{
+					{key, value}
+				}
+			});
+		}
 
 		// Services
 		private IPlayfabPubSubService _pubsub;
@@ -99,6 +149,11 @@ namespace FirstLight.Game.Services.Party
 		private IObservableField<string> PartyCode { get; }
 		private IObservableList<PartyMember> Members { get; }
 
+		private IObservableDictionary<string, string> LobbyProperties { get; }
+
+		private IObservableField<string> PartyID { get; }
+
+
 		public PartyService(IPlayfabPubSubService pubsub, IPlayerDataProvider playerDataProvider, IAppDataProvider appDataProvider)
 		{
 			_playerDataProvider = playerDataProvider;
@@ -107,6 +162,8 @@ namespace FirstLight.Game.Services.Party
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
 			PartyCode = new ObservableField<string>(null);
+			PartyID = new ObservableField<string>(null);
+			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
 		}
 
 		/// <inheritdoc/>
@@ -143,6 +200,7 @@ namespace FirstLight.Game.Services.Party
 				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
 				ListenForLobbyUpdates();
 				PartyCode.Value = code;
+				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
 			}
 			catch (Exception ex)
@@ -153,6 +211,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Create");
 		}
 
 		/// <inheritdoc/>
@@ -168,7 +227,6 @@ namespace FirstLight.Game.Services.Party
 
 				var normalizedCode = NormalizeCode(code);
 				var filter = $"{CodeSearchProperty} eq '{normalizedCode}'";
-
 				var req = new FindLobbiesRequest()
 				{
 					Filter = filter
@@ -228,6 +286,7 @@ namespace FirstLight.Game.Services.Party
 #pragma warning restore CS4014
 				HasParty.Value = true;
 				PartyCode.Value = normalizedCode;
+				PartyID.Value = _lobbyId;
 			}
 			catch (Exception ex)
 			{
@@ -237,6 +296,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Join");
 		}
 
 		/// <inheritdoc/>
@@ -272,6 +332,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Kick");
 		}
 
 		/// <inheritdoc/>
@@ -312,6 +373,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+			SendAnalyticsAction("Leave");
 		}
 
 
@@ -406,12 +468,13 @@ namespace FirstLight.Game.Services.Party
 			{
 				var req = new GetLobbyRequest()
 				{
-					LobbyId = _lobbyId
+					LobbyId = _lobbyId,
 				};
 				var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
 				_lobby = result.Lobby;
 				_lobbyId = result.Lobby.LobbyId;
 				UpdateMembers();
+				UpdateProperties();
 			}
 			catch (Exception ex)
 			{
@@ -422,6 +485,36 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
+		private void UpdateProperties()
+		{
+			// Remove/update
+			foreach (var (key, value) in LobbyProperties)
+			{
+				if (_lobby.LobbyData.TryGetValue(key, out var newValue))
+				{
+					if (newValue != value)
+					{
+						LobbyProperties.Add(key, value);
+					}
+				}
+				else
+				{
+					LobbyProperties.Remove(key);
+				}
+			}
+
+			// Insert
+			if (_lobby?.LobbyData != null)
+			{
+				foreach (var (key, value) in _lobby.LobbyData)
+				{
+					if (!LobbyProperties.ContainsKey(key))
+					{
+						LobbyProperties.Add(key, value);
+					}
+				}
+			}
+		}
 
 		private void UpdateMembers()
 		{
@@ -469,6 +562,7 @@ namespace FirstLight.Game.Services.Party
 		private void LocalPlayerKicked()
 		{
 			ResetState();
+			SendAnalyticsAction("Kicked");
 		}
 
 
@@ -479,7 +573,28 @@ namespace FirstLight.Game.Services.Party
 			_lobbyTopic = null;
 			HasParty.Value = false;
 			PartyCode.Value = null;
+			PartyID.Value = null;
 			Members.Clear();
+			foreach (var key in LobbyProperties.ReadOnlyDictionary.Keys)
+			{
+				LobbyProperties.Remove(key);
+			}
+		}
+
+		private void SendAnalyticsAction(string action)
+		{
+			var members = "";
+			if (_lobby?.Members != null && _lobby.Members.Count > 0)
+			{
+				members = string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
+			}
+			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
+			{
+				{ "action ", action },
+				{ "userid", PlayFabSettings.staticPlayer.PlayFabId },
+				{ "teamid ", _lobbyId },
+				{ "members", members }
+			});
 		}
 	}
 }

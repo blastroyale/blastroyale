@@ -139,6 +139,7 @@ namespace FirstLight.Game.StateMachines
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
 
+			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -161,17 +162,19 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
-
+			homeMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(roomWait);
 			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage).Target(roomWait);
+			
 
 			roomWait.OnEnter(CloseCurrentScreen);
-			roomWait.Event(NetworkState.JoinedMatchmakingEvent).Target(final);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+				
 
+			
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
@@ -436,6 +439,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
 		private void PurchaseItem(string id)
@@ -473,6 +477,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
 		}
 
 		private void OpenRoomJoinCreateMenuUI()
@@ -523,13 +528,21 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoadingComplete()
 		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
+			CloseTransitions();
 			SetCurrentScreen<HomeScreenPresenter>();
 		}
-
-		private void OpenLoadingScreen()
+		
+		private void CloseTransitions()
 		{
-			_uiService.OpenScreen<LoadingScreenPresenter>();
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
+			{
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
+			}
+			
+			if (_uiService.HasUiPresenter<LoadingScreenPresenter>())
+			{
+				_uiService.CloseUi<LoadingScreenPresenter>(true);
+			}
 		}
 
 		private void InvalidScreen()
@@ -581,12 +594,9 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 			
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.5f);
 
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>().ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
-			
-			_uiService.GetUi<LoadingScreenPresenter>().SetLoadingPercentage(0.8f);
 
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 

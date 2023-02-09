@@ -58,6 +58,16 @@ namespace FirstLight.Game.Logic
 		/// the next level.
 		/// </summary>
 		bool IsRedeemable(int pointOverride = -1);
+
+		/// <summary>
+		/// Obtains the current desired battle pass config
+		/// </summary>
+		BattlePassConfig GetBattlePassConfig();
+
+		/// <summary>
+		/// Returns true if the given battle pass is the tutorial one
+		/// </summary>
+		bool IsTutorial();
 	}
 
 	/// <inheritdoc />
@@ -78,6 +88,11 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		/// TODO: Use the reward logic & commands to award the blast rewards
 		bool RedeemBPP(out List<KeyValuePair<UniqueId,Equipment>> rewards, out uint newLevel);
+
+		/// <summary>
+		/// Resets battle pass to original state
+		/// </summary>
+		void Reset();
 	}
 
 	public class BattlePassLogic : AbstractBaseLogic<PlayerData>, IBattlePassLogic, IGameLogicInitializer
@@ -88,8 +103,8 @@ namespace FirstLight.Game.Logic
 		public IObservableFieldReader<uint> CurrentLevel => _currentLevel;
 		
 		public IObservableFieldReader<uint> CurrentPoints => _currentPoints;
-		
-		public uint MaxLevel { get; private set; }
+
+		public uint MaxLevel => (uint)GetBattlePassConfig().Levels.Count;
 		
 		public BattlePassLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -97,7 +112,6 @@ namespace FirstLight.Game.Logic
 		
 		public void Init()
 		{
-			MaxLevel = (uint) GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().Levels.Count;
 			_currentLevel = new ObservableResolverField<uint>(() => Data.BPLevel, val => Data.BPLevel = val);
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
 		}
@@ -151,10 +165,28 @@ namespace FirstLight.Game.Logic
 			
 			return maxAvailablePoints - totalAccumulatedPoints;
 		}
+		
+		public BattlePassConfig GetBattlePassConfig()
+		{
+			if (!GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP))
+			{
+				return GameLogic.ConfigsProvider.GetConfig<TutorialBattlePassConfig>().ToBattlePassConfig();
+			}
+			else
+			{
+				return GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			}
+		}
+
+		public void Reset()
+		{
+			_currentPoints.Value = 0;
+			_currentLevel.Value = 0;
+		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var config = GetBattlePassConfig();
 			var levelConfig = config.Levels[(int) level - 1];
 
 			return GameLogic.ConfigsProvider.GetConfig<EquipmentRewardConfig>(levelConfig.RewardId);
@@ -181,12 +213,12 @@ namespace FirstLight.Game.Logic
 			AddBPP(GetRequiredPointsForLevel((int)_currentLevel.Value) * amount);
 			RedeemBPP(out rewards, out newLevel);
 		}
-
+		
 		public bool RedeemBPP(out List<KeyValuePair<UniqueId,Equipment>> rewards, out uint newLevel)
 		{
 			var level = _currentLevel.Value;
 			var points = _currentPoints.Value;
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var config = GetBattlePassConfig();
 			var levels = new List<EquipmentRewardConfig>();
 
 			var currentPointsPerLevel = GetRequiredPointsForLevel((int)_currentLevel.Value);
@@ -225,9 +257,14 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public bool IsTutorial()
+		{
+			return !GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP);
+		}
+
 		public uint GetRequiredPointsForLevel(int desiredLevel)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var config = GetBattlePassConfig();
 
 			if (desiredLevel >= MaxLevel)
 			{

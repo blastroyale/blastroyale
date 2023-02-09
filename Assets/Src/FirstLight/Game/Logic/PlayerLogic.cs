@@ -43,7 +43,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Checks if a given player has completed a given tutorial step
 		/// </summary>
-		bool HasTutorialStep(TutorialStep step);
+		bool HasTutorialSection(TutorialSection section);
 	}
 
 	/// <inheritdoc />
@@ -68,7 +68,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Flags that the given tutorial step is completed
 		/// </summary>
-		void MarkTutorialStepCompleted(TutorialStep step);
+		void MarkTutorialSectionCompleted(TutorialSection section);
 	}
 	
 	/// <inheritdoc cref="IPlayerLogic"/>
@@ -76,9 +76,9 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableField<uint> _trophies;
 
-		private IObservableField<TutorialStep> _tutorialSteps;
+		private IObservableField<TutorialSection> _tutorialSections;
 		
-		public IObservableFieldReader<TutorialStep> TutorialSteps => _tutorialSteps;
+		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
 		
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Logic
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-			_tutorialSteps = new ObservableField<TutorialStep>(DataProvider.GetData<TutorialData>().TutorialSteps);
+			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 		}
 
 		/// <inheritdoc />
@@ -210,16 +210,16 @@ namespace FirstLight.Game.Logic
 		}
 		
 		
-		public bool HasTutorialStep(TutorialStep step)
+		public bool HasTutorialSection(TutorialSection section)
 		{
-			return DataProvider.GetData<TutorialData>().TutorialSteps.HasFlag(step);
+			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);
 		}
 		
-		public void MarkTutorialStepCompleted(TutorialStep step)
+		public void MarkTutorialSectionCompleted(TutorialSection section)
 		{
 			var data = DataProvider.GetData<TutorialData>();
-			data.TutorialSteps |= step;
-			_tutorialSteps.Value = data.TutorialSteps; // trigger observables after bitshift
+			data.TutorialSections |= section;
+			_tutorialSections.Value = data.TutorialSections; // trigger observables after bitshift
 		}
 	}
 }

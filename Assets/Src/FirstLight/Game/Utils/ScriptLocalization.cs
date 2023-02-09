@@ -384,6 +384,8 @@ namespace I2.Loc
 		public static class FTUE
 		{
 			public static string AttackDummy 		{ get{ return LocalizationManager.GetTranslation ("FTUE/AttackDummy"); } }
+			public static string BPComplete 		{ get{ return LocalizationManager.GetTranslation ("FTUE/BPComplete"); } }
+			public static string BPName 		{ get{ return LocalizationManager.GetTranslation ("FTUE/BPName"); } }
 			public static string CollectWeapon 		{ get{ return LocalizationManager.GetTranslation ("FTUE/CollectWeapon"); } }
 			public static string CollectWeaponTip 		{ get{ return LocalizationManager.GetTranslation ("FTUE/CollectWeaponTip"); } }
 			public static string EnterDeathmatch 		{ get{ return LocalizationManager.GetTranslation ("FTUE/EnterDeathmatch"); } }
@@ -922,6 +924,7 @@ namespace I2.Loc
 			public static string RoomLeaveButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLeaveButton"); } }
 			public static string RoomLock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLock"); } }
 			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SFX"); } }
+			public static string ScreenShakeSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ScreenShakeSetting"); } }
 			public static string SelectDropZone 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectDropZone"); } }
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }
@@ -1750,6 +1753,8 @@ namespace I2.Loc
 		public static class FTUE
 		{
 		    public const string AttackDummy = "FTUE/AttackDummy";
+		    public const string BPComplete = "FTUE/BPComplete";
+		    public const string BPName = "FTUE/BPName";
 		    public const string CollectWeapon = "FTUE/CollectWeapon";
 		    public const string CollectWeaponTip = "FTUE/CollectWeaponTip";
 		    public const string EnterDeathmatch = "FTUE/EnterDeathmatch";
@@ -2288,6 +2293,7 @@ namespace I2.Loc
 		    public const string RoomLeaveButton = "MainMenu/RoomLeaveButton";
 		    public const string RoomLock = "MainMenu/RoomLock";
 		    public const string SFX = "MainMenu/SFX";
+		    public const string ScreenShakeSetting = "MainMenu/ScreenShakeSetting";
 		    public const string SelectDropZone = "MainMenu/SelectDropZone";
 		    public const string SelectGameMap = "MainMenu/SelectGameMap";
 		    public const string SelectGameMode = "MainMenu/SelectGameMode";

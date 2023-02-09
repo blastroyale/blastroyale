@@ -32,6 +32,9 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
+		private Vector2 _direction;
+		private Vector2 _aim;
+		private bool _shooting;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
 		private bool _allowPing = true;
@@ -68,7 +71,6 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 
 			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS);
@@ -94,17 +96,14 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMove(InputAction.CallbackContext context)
 		{
-			var direction = context.ReadValue<Vector2>();
-
-			_quantumInput.Direction = direction.ToFPVector2();
-
-			_indicatorContainerView.OnMoveUpdate(direction, _quantumInput.IsMoveButtonDown);
+			_direction = context.ReadValue<Vector2>();
+			_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
 		}
 
 		/// <inheritdoc />
 		public void OnAim(InputAction.CallbackContext context)
 		{
-			_quantumInput.AimingDirection = context.ReadValue<Vector2>().ToFPVector2();
+			_aim = context.ReadValue<Vector2>();
 		}
 
 		/// <inheritdoc />
@@ -122,11 +121,18 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		void Update()
+		{
+			if (QuantumRunner.Default?.Game != null)
+			{
+				_indicatorContainerView.OnUpdateAim(QuantumRunner.Default.Game.Frames.Predicted, _aim.ToFPVector2(), _shooting);
+			}
+		}
+
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			_quantumInput.AimButtonState =
-				context.ReadValueAsButton() ? Quantum.Input.DownState : Quantum.Input.ReleaseState;
+			_shooting = context.ReadValueAsButton();
 		}
 
 		/// <inheritdoc />
@@ -292,11 +298,6 @@ namespace FirstLight.Game.Presenters
 			InitSlotsView(playerCharacter);
 		}
 
-		private void OnUpdateView(CallbackUpdateView callback)
-		{
-			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
-		}
-
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
 			_indicatorContainerView.InstantiateAllIndicators();
@@ -353,7 +354,7 @@ namespace FirstLight.Game.Presenters
 
 			Init(f, callback.Entity);
 		}
-
+		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
@@ -460,6 +461,7 @@ namespace FirstLight.Game.Presenters
 
 		private void PollInput(CallbackPollInput callback)
 		{
+			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting);
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 

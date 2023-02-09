@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -30,8 +29,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref SpellFilter filter)
 		{
-			var healthMultiplier = 1f;
-			
 			if (f.Time > filter.Spell->EndTime)
 			{
 				f.Remove<Spell>(filter.Entity);
@@ -48,22 +45,14 @@ namespace Quantum.Systems
 			
 			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
 			{
-				var powerMultiplier = 1.0f;
-
-				if (f.TryGet(filter.Spell->Attacker, out BotCharacter botCharacter))
-				{
-					powerMultiplier = botCharacter.DamageDoneMultiplier.AsFloat;
-					healthMultiplier = botCharacter.DamageTakenMultiplier.AsFloat;
-				}
-				
 				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
-				                           filter.Spell->OriginalHitPosition, (uint)(filter.Spell->PowerAmount*powerMultiplier));
+				                           filter.Spell->OriginalHitPosition, (uint)(filter.Spell->PowerAmount));
 			}
 			
-			HandleHealth(f, *filter.Spell, false, healthMultiplier);
+			HandleHealth(f, *filter.Spell, false);
 		}
 
-		private void HandleHealth(Frame f, Spell spell, bool isHealing, float healthMultiplier)
+		private void HandleHealth(Frame f, Spell spell, bool isHealing)
 		{
 			if (!f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats) || spell.PowerAmount == 0)
 			{
@@ -76,7 +65,7 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				stats->ReduceHealth(f, spell.Victim, spell, healthMultiplier);
+				stats->ReduceHealth(f, spell.Victim, spell);
 			}
 		}
 

@@ -112,8 +112,7 @@ namespace Quantum
 		{
 			var list = f.ResolveList(Modifiers);
 			var modifier = list[index];
-			Log.Error("Remove modiefier: "+modifier.Type);
-			
+
 			ApplyModifierUpdate(modifier, true);
 			
 			list.RemoveAt(index);
@@ -233,7 +232,7 @@ namespace Quantum
 		/// <summary>
 		/// Reduces the health of this <paramref name="entity"/> based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell, float healthMultiplier = 1)
+		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
@@ -248,8 +247,6 @@ namespace Quantum
 			
 			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell.PowerAmount).AsInt);
 
-			totalDamage = (int)(totalDamage * healthMultiplier);
-			
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
 

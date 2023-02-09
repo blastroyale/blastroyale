@@ -15,7 +15,7 @@ namespace FirstLight.Game.Data
 	}
 	
 	/// <summary>
-	/// Represents the tutorial data state of this player
+	/// Represents the liveops state of this player
 	/// </summary>
 	[Serializable]
 	public class TutorialData

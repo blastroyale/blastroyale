@@ -14,10 +14,10 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
+		
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
-		public bool RunningTutorialMode = false;
 		public uint TeamSize;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
@@ -27,7 +27,7 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (!ValidRewardsFromFrame || RunningTutorialMode)
+			if (!ValidRewardsFromFrame)
 			{
 				return;
 			}
@@ -43,7 +43,6 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count
 			};
-			
 			var playerMatchData = matchData[QuantumValues.ExecutingPlayer];
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
@@ -61,8 +60,6 @@ namespace FirstLight.Game.Commands
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
-			RunningTutorialMode = PlayersMatchData[QuantumValues.ExecutingPlayer].GameModeId.Contains("Tutorial");
-				
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{

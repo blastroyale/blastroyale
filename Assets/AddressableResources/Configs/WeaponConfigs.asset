@@ -267,7 +267,7 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 84
-      FiringMode: 1
+      FiringMode: 0
       InitialAmmoFilled:
         Default:
           RawValue: 19661
@@ -317,7 +317,7 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 86
-      FiringMode: 1
+      FiringMode: 0
       InitialAmmoFilled:
         Default:
           RawValue: 19661
@@ -465,7 +465,7 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 90
-      FiringMode: 1
+      FiringMode: 0
       InitialAmmoFilled:
         Default:
           RawValue: 19661
@@ -615,7 +615,7 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 93
-      FiringMode: 1
+      FiringMode: 0
       InitialAmmoFilled:
         Default:
           RawValue: 19661
@@ -765,7 +765,7 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 96
-      FiringMode: 1
+      FiringMode: 0
       InitialAmmoFilled:
         Default:
           RawValue: 19661

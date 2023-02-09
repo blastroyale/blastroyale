@@ -165,7 +165,6 @@ namespace Quantum {
     BlimpDeck = 8,
     BRGenesis = 9,
     TestScene = 11,
-    GameplayTutorial = 63,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,
@@ -2721,22 +2720,16 @@ namespace Quantum {
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
     public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 1;
-    [FieldOffset(3)]
-    private fixed Byte _alignment_padding_[1];
-    [FieldOffset(0)]
-    public Byte AimButtonState;
-    [FieldOffset(1)]
-    public Byte AimingDirectionEncoded;
+    public const Int32 ALIGNMENT = 2;
     [FieldOffset(2)]
-    public Byte MoveDirectionEncoded;
+    private fixed Byte _alignment_padding_[2];
+    [FieldOffset(0)]
+    public UInt16 CompressedInput;
     public const int MAX_COUNT = 32;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 317;
-        hash = hash * 31 + AimButtonState.GetHashCode();
-        hash = hash * 31 + AimingDirectionEncoded.GetHashCode();
-        hash = hash * 31 + MoveDirectionEncoded.GetHashCode();
+        hash = hash * 31 + CompressedInput.GetHashCode();
         return hash;
       }
     }
@@ -2760,9 +2753,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        serializer.Stream.Serialize(&p->AimButtonState);
-        serializer.Stream.Serialize(&p->AimingDirectionEncoded);
-        serializer.Stream.Serialize(&p->MoveDirectionEncoded);
+        serializer.Stream.Serialize(&p->CompressedInput);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3776,7 +3767,7 @@ namespace Quantum {
   public unsafe partial struct BotCharacter : Quantum.IComponent {
     public const Int32 SIZE = 280;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(20)]
+    [FieldOffset(24)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
@@ -3808,7 +3799,9 @@ namespace Quantum {
     public GameId DeathMarker;
     [FieldOffset(144)]
     public FP DecisionInterval;
-    [FieldOffset(24)]
+    [FieldOffset(20)]
+    public QBoolean FixedSpawn;
+    [FieldOffset(28)]
     public UInt32 LoadoutGearNumber;
     [FieldOffset(152)]
     public FP LookForTargetsToShootAtInterval;
@@ -3867,6 +3860,7 @@ namespace Quantum {
         hash = hash * 31 + DamageTakenMultiplier.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
+        hash = hash * 31 + FixedSpawn.GetHashCode();
         hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3897,6 +3891,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->TeamSize);
+        QBoolean.Serialize(&p->FixedSpawn, serializer);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
@@ -5110,6 +5105,7 @@ namespace Quantum {
     }
   }
   public unsafe partial class Frame {
+    private ISignalAllPlayersSpawned[] _ISignalAllPlayersSpawnedSystems;
     private ISignalAllPlayersJoined[] _ISignalAllPlayersJoinedSystems;
     private ISignalGameEnded[] _ISignalGameEndedSystems;
     private ISignalPlayerDead[] _ISignalPlayerDeadSystems;
@@ -5176,6 +5172,7 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
+      _ISignalAllPlayersSpawnedSystems = BuildSignalsArray<ISignalAllPlayersSpawned>();
       _ISignalAllPlayersJoinedSystems = BuildSignalsArray<ISignalAllPlayersJoined>();
       _ISignalGameEndedSystems = BuildSignalsArray<ISignalGameEnded>();
       _ISignalPlayerDeadSystems = BuildSignalsArray<ISignalPlayerDead>();
@@ -5302,15 +5299,22 @@ namespace Quantum {
     public void SetPlayerInput(Int32 player, Input input) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
-      i->MoveDirectionEncoded = input.MoveDirectionEncoded;
-      i->AimingDirectionEncoded = input.AimingDirectionEncoded;
-      i->AimButtonState = input.AimButtonState;
+      i->CompressedInput = input.CompressedInput;
     }
     public Input* GetPlayerInput(Int32 player) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
+      public void AllPlayersSpawned() {
+        var array = _f._ISignalAllPlayersSpawnedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.AllPlayersSpawned(_f);
+          }
+        }
+      }
       public void AllPlayersJoined() {
         var array = _f._ISignalAllPlayersJoinedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -6358,6 +6362,9 @@ namespace Quantum {
          return _f.FindAsset<QuantumMutatorConfigs>(assetRef.Id);
       }
     }
+  }
+  public unsafe interface ISignalAllPlayersSpawned : ISignal {
+    void AllPlayersSpawned(Frame f);
   }
   public unsafe interface ISignalAllPlayersJoined : ISignal {
     void AllPlayersJoined(Frame f);
@@ -10049,6 +10056,7 @@ namespace Quantum.Prototypes {
     public FP MaxAimingRange;
     public FP MovementSpeedMultiplier;
     public FP MaxDistanceToTeammateSquared;
+    public QBoolean FixedSpawn;
     public FP DamageTakenMultiplier;
     public FP DamageDoneMultiplier;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
@@ -10074,6 +10082,7 @@ namespace Quantum.Prototypes {
       result.DamageTakenMultiplier = this.DamageTakenMultiplier;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
+      result.FixedSpawn = this.FixedSpawn;
       result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
@@ -10661,14 +10670,10 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Input))]
   public sealed unsafe partial class Input_Prototype : StructPrototype {
-    public Byte MoveDirectionEncoded;
-    public Byte AimingDirectionEncoded;
-    public Byte AimButtonState;
+    public UInt16 CompressedInput;
     partial void MaterializeUser(Frame frame, ref Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Input result, in PrototypeMaterializationContext context) {
-      result.AimButtonState = this.AimButtonState;
-      result.AimingDirectionEncoded = this.AimingDirectionEncoded;
-      result.MoveDirectionEncoded = this.MoveDirectionEncoded;
+      result.CompressedInput = this.CompressedInput;
       MaterializeUser(frame, ref result, in context);
     }
   }

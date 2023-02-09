@@ -7,6 +7,6 @@ namespace FirstLight.Editor.SheetImporters
 	public class TutorialRewardsImporter : GoogleSheetConfigsImporter<TutorialRewardConfig, TutorialRewardConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1345410922";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=960305757";
 	}
 }

@@ -63,22 +63,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 
 		/// <summary>
-		/// Updates this container of <see cref="IIndicator"/>
-		/// </summary>
-		public void OnUpdate(Frame f)
-		{
-			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
-			    !f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
-			{
-				return;
-			}
-
-			var playerInput = f.GetPlayerInput(playerCharacter->Player);
-
-			OnUpdateAim(f, playerInput, playerCharacter, kcc);
-		}
-
-		/// <summary>
 		/// Updates the a move update indicators with the given data
 		/// </summary>
 		public void OnMoveUpdate(Vector2 direction, bool isPressed)
@@ -143,12 +127,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
+		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
+			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
+				!f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
+			{
+				return;
+			}
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
-			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
+			var aimDirection = QuantumHelpers.GetAimDirection(aim, transform->Rotation).Normalized.ToUnityVector2();
 
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
 			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
@@ -171,7 +160,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(input->IsShootButtonDown || input->AimingDirection != FPVector2.Zero, isEmptied || reloading);
+			ShootIndicator.SetVisualState(shooting || aim != FPVector2.Zero, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}
 

@@ -18,7 +18,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the current running tutorial step
 		/// </summary>
-		IObservableFieldReader<TutorialStep> CurrentRunningTutorial { get; }
+		IObservableFieldReader<TutorialSection> CurrentRunningTutorial { get; }
 		
 		/// <summary>
 		/// Requests check if a tutorial is currently in progress
@@ -28,19 +28,19 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests to check if a tutorial step has been completed
 		/// </summary>
-		bool HasCompletedTutorialStep(TutorialStep step);
+		bool HasCompletedTutorialSection(TutorialSection section);
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
 	public interface IInternalTutorialService : ITutorialService
 	{
 		/// <inheritdoc cref="ITutorialService.CurrentRunningTutorial" />
-		new IObservableField<TutorialStep> CurrentRunningTutorial { get; }
+		new IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 		
 		/// <summary>
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
 		/// </summary>
-		void CompleteTutorialStep(TutorialStep step);
+		void CompleteTutorialSection(TutorialSection section);
 
 		/// <summary>
 		/// Creates first match tutorial room and joins it
@@ -55,17 +55,17 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		
-		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialStep.NONE;
+		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialSection.NONE;
 
-		public IObservableField<TutorialStep> CurrentRunningTutorial { get; }
+		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
-		IObservableFieldReader<TutorialStep> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
+		IObservableFieldReader<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
 		
 		public TutorialService(IGameUiService uiService)
 		{
 			_uiService = uiService;
 
-			CurrentRunningTutorial = new ObservableField<TutorialStep>(TutorialStep.NONE);
+			CurrentRunningTutorial = new ObservableField<TutorialSection>(TutorialSection.NONE);
 		}
 		
 		/// <summary>
@@ -77,23 +77,23 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_dataProvider = dataProvider;
 		}
-		
-		public void CompleteTutorialStep(TutorialStep step)
+
+		public void CompleteTutorialSection(TutorialSection section)
 		{
-			_services.CommandService.ExecuteCommand(new CompleteTutorialStepCommand()
+			_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
-				Step = step
+				Section = section
 			});
 		}
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = "BattleRoyale";
+			var gameModeId = GameConstants.Tutorial.TUTORIAL_MODE_ID;
 
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()),
-				Map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode()),
+				GameModeHash = gameModeId.GetHashCode(),
+				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
 				Mutators = Array.Empty<string>()
 			};
@@ -101,9 +101,9 @@ namespace FirstLight.Game.Services
 			_services.NetworkService.CreateRoom(roomSetup, false);
 		}
 		
-		public bool HasCompletedTutorialStep(TutorialStep step)
+		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
-			return _dataProvider.PlayerDataProvider.HasTutorialStep(step);
+			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
 		}
 	}
 }

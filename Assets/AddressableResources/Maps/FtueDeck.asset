@@ -3483,7 +3483,7 @@ MonoBehaviour:
       TimeToDestroy:
         RawValue: 0
       Health:
-        RawValue: 19660800
+        RawValue: 39321600
       DamagePower:
         RawValue: 0
       SplashRadius:
@@ -3549,7 +3549,7 @@ MonoBehaviour:
           X:
             RawValue: 0
           Y:
-            RawValue: 0
+            RawValue: -5898240
           Z:
             RawValue: 0
         UserTag: 0
@@ -3570,16 +3570,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1142030
+          RawValue: -1141637
         Y:
-          RawValue: 228458
+          RawValue: 226099
         Z:
-          RawValue: 53411
+          RawValue: 61079
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 17694720
         Z:
           RawValue: 0
     View: []

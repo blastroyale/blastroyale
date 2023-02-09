@@ -10,7 +10,6 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -31,14 +30,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
-		private CinemachineImpulseSource _impulseSource;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_impulseSource = GetComponent<CinemachineImpulseSource>();
 
 			var input = _services.PlayerInputService.Input.Gameplay;
 
@@ -88,31 +85,6 @@ namespace FirstLight.Game.MonoComponent.Match
 				var playerPos = view.gameObject.transform.position;
 				_followObject.transform.position = Vector3.Lerp(_followObject.transform.position, playerPos + dir, Time.deltaTime / scalar);
 			}
-		}
-
-		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes Shape, float duration, float strength, Vector3 position = default)
-		{
-			if(!_gameDataProvider.AppDataProvider.UseScreenShake)
-				return;
-
-			var newImpulse = new CinemachineImpulseDefinition
-			{
-				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
-				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
-				m_ImpulseShape = Shape,
-				m_ImpulseDuration = duration,
-				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
-				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
-			};
-
-			var vel = Random.insideUnitCircle.normalized;
-			_impulseSource.m_ImpulseDefinition = newImpulse;
-			if(position == default)
-			{
-				position = _followObject.transform.position;
-			}
-
-			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
 
 		private void OnDestroy()

@@ -5,14 +5,12 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using Quantum;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -28,7 +26,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private FixedAdventureCameraMonoComponent _camera;
 
 		private IMatchServices _matchServices;
 		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
@@ -148,7 +145,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMatchEvents()
 		{
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-			_camera = Camera.main.GetComponent<FixedAdventureCameraMonoComponent>();
+
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
@@ -424,7 +421,7 @@ namespace FirstLight.Game.StateMachines
 			var f = callback.Game.Frames.Verified;
 
 			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
-			_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
+			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
 				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
 				callback.Entity.GetPosition(f).ToUnityVector3());
 		}
@@ -598,7 +595,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-			_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion,
+			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion,
 				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH);
 		}
 
@@ -680,7 +677,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Kill SFX
 			_services.AudioFxService.PlayClip2D(killAudio);
-			_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Bump, 
+			_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Bump, 
 				GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, shakePower);
 
 			// Multikill announcer
@@ -787,7 +784,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			if(shake)
 			{
-				_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion, 
+				_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Explosion, 
 					shakeDuration, shakePower, endPosition);
 			}
 		}
@@ -938,7 +935,7 @@ namespace FirstLight.Game.StateMachines
 				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
 				if(damagedPlayerIsLocal)
 				{
-					_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Recoil,
+					_matchServices.MatchCameraService.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Recoil,
 						GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH,
 						callback.Entity.GetPosition(f).ToUnityVector3());
 				}

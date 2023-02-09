@@ -193,7 +193,7 @@ SpriteAtlas:
   - icon-emptyslot-weapon
   - background-gamemode-deathmatch-top
   - button-equipmentslot-uncommon-pressed
-  - button-battlepass-claim-reward
+  - button-battlepass-claimreward
   - pattern-rewardglow-uncommon
   - background-gamemode-battleroyale-top
   - background-modeselection-casual
@@ -293,7 +293,7 @@ SpriteAtlas:
   - icon-show-purple
   - icon-special-shieldself
   - icon-spinner-thick
-  - button-battlepass-claim-reward-pressed
+  - button-battlepass-claimreward-pressed
   - icon-core-rare
   - button-gamemode-pressed
   - icon-arrow-level

@@ -72,6 +72,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassCrownIcon;
 		private VisualElement _battlePassLevelHolder;
 		private VisualElement _battlePassProgressBg;
+		private ImageButton _battlePassButton;
 
 		private VisualElement _trophiesHolder;
 
@@ -126,6 +127,7 @@ namespace FirstLight.Game.Presenters
 			_battlePassTitleClaimReward = root.Q<LocalizedLabel>("BattlePassTitleClaimReward").Required();
 			_battlePassLevelHolder = root.Q<VisualElement>("BattlePassLevelHolder").Required();
 			_battlePassProgressBg = root.Q<VisualElement>("BattlePassProgressBg").Required();
+			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 
@@ -416,6 +418,8 @@ namespace FirstLight.Game.Presenters
 			_battlePassTitle.visible = !hasRewards;
 			_battlePassLevelHolder.visible = !hasRewards;
 			_battlePassProgressBg.visible = !hasRewards;
+			
+			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			UpdateBattlePassLevel(predictedLevel);
 		}

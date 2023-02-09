@@ -69,6 +69,11 @@ MonoBehaviour:
         Id:
           Value: 261474022001638259
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFPDecision_33]
+    - Path: AddressableResources/Maps/MapTestScene_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 284354135744090335
+      Address: Maps/MapTestScene_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_4
       AssetRef:
         Id:
@@ -169,6 +174,11 @@ MonoBehaviour:
         Id:
           Value: 562045426505754909
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_36]
+    - Path: AddressableResources/Maps/MapTestScene
+      AssetRef:
+        Id:
+          Value: 564143260845836062
+      Address: Maps/MapTestScene.asset
     - Path: AddressableResources/Maps/BRGenesis
       AssetRef:
         Id:
@@ -757,6 +767,11 @@ MonoBehaviour:
         Id:
           Value: 3342403806395204298
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerMoveAction_24]
+    - Path: AddressableResources/Maps/MapTestScene_mesh
+      AssetRef:
+        Id:
+          Value: 3417993765677673255
+      Address: Maps/MapTestScene_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_40
       AssetRef:
         Id:
@@ -952,6 +967,11 @@ MonoBehaviour:
         Id:
           Value: 4374446875972627061
       Address: Maps/TinyTemple_mesh.asset
+    - Path: AddressableResources/Maps/MapTestScene_NavMesh
+      AssetRef:
+        Id:
+          Value: 4376691450385126578
+      Address: Maps/MapTestScene_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|AttackShape_12
       AssetRef:
         Id:

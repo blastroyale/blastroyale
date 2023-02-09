@@ -4654,7 +4654,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 
+      - Screen Shake
       - 
       - 
       Flags: 000000
@@ -11463,6 +11463,33 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
+    - Term: FTUE/BPComplete
+      TermType: 0
+      Description: 
+      Languages:
+      - You completed the starting battle pass ! New rewards awaits you !
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: FTUE/BPName
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastPass
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/MapTestScene
+      TermType: 0
+      Description: 
+      Languages:
+      - Map Test Scene
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -11481,7 +11508,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1675355862799
+    Google_LastUpdatedVersion: 1675681599188
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

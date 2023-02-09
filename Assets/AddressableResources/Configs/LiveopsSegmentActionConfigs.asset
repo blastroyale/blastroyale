@@ -19,3 +19,9 @@ MonoBehaviour:
     ActionParameter:
     - Nice one
     - You played at least one game
+  - ActionIdentifier: 2
+    PlayerSegment: NikTest
+    Action: 0
+    ActionParameter:
+    - WOW
+    - you played 10 games !

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using ExitGames.Client.Photon;
@@ -11,6 +12,7 @@ using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services
 {
@@ -261,6 +263,7 @@ namespace FirstLight.Game.Services
 		private bool _isJoiningNewRoom;
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
+		private Coroutine _tickQuantumClientCoroutine;
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
@@ -370,18 +373,31 @@ namespace FirstLight.Game.Services
 
 			if (enabled)
 			{
-				_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+				_services.CoroutineService.StartCoroutine(TickQuantumClient());
+				//_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
 			}
 			else
 			{
-				_services.TickService.UnsubscribeAll(this);
+				if (_tickQuantumClientCoroutine != null)
+				{
+					_services.CoroutineService.StopCoroutine(_tickQuantumClientCoroutine);
+					_tickQuantumClientCoroutine = null;
+				}
+				//_services.TickService.UnsubscribeAll(this);
 			}
 		}
 
-		private void TickQuantumClient(float deltaTime)
+		private IEnumerator TickQuantumClient()
 		{
-			QuantumClient.Service();
-			CalculateUpdateLag();
+			var waitForSeconds = new WaitForSeconds(QUANTUM_TICK_SECONDS);
+
+			while (true)
+			{
+				yield return waitForSeconds;
+				
+				QuantumClient.Service();
+				CalculateUpdateLag();
+			}
 		}
 		
 		private void CalculateUpdateLag()

@@ -148,13 +148,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.TestScene, new List<GameIdGroup>
+					GameId.MapTestScene, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
 				},
 				{
-					GameId.GameplayTutorial, new List<GameIdGroup>
+					GameId.TestScene, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
@@ -814,8 +814,8 @@ namespace Quantum
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
-						GameId.TestScene,
-						GameId.GameplayTutorial
+						GameId.MapTestScene,
+						GameId.TestScene
 					}.AsReadOnly()
 				},
 				{

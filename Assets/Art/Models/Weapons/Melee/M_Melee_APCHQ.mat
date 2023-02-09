@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Melee_APC
-  m_Shader: {fileID: -6465566751694194690, guid: d9dfbf9d63b50c84fa42b9f84d42d33e, type: 3}
+  m_Name: M_Melee_APCHQ
+  m_Shader: {fileID: -6465566751694194690, guid: 54226dad6a35e0b4990fe57845222f7a, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -108,7 +108,7 @@ Material:
     m_Ints: []
     m_Floats:
     - BrightenMainTexture: 1.5
-    - Vector1_A3CA1DE4: 1
+    - Vector1_A3CA1DE4: 0.7
     - Vector1_FA9A29A7: 1
     - _AlphaClip: 0
     - _Blend: 0
@@ -129,7 +129,7 @@ Material:
     - _Glossiness: 0
     - _GlossinessSource: 0
     - _GlossyReflections: 0
-    - _Hit: 0
+    - _Hit: 0.1
     - _Metallic: 0
     - _Normal_Strength: 0
     - _OcclusionStrength: 1
@@ -150,7 +150,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_1982176cf2404a43b37721aa91e37a76: {r: 5.992157, g: 0, b: 0, a: 0}
-    - Color_F2EE02DC: {r: 64, g: 19.57647, b: 0, a: 1}
+    - Color_F2EE02DC: {r: 32.19777, g: 48.95819, b: 70.129395, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 135.58704, g: 135.58704, b: 135.58704, a: 1}

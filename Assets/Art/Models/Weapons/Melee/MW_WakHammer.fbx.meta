@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Melee
-    second: {fileID: 2100000, guid: 060bc7058ab345446a1949a9dc9f677d, type: 2}
+    second: {fileID: 2100000, guid: 0d01035e20458724da5350051518f11b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

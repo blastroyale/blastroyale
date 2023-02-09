@@ -237,7 +237,7 @@ MonoBehaviour:
     </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>05a63954-caba-4c7a-921d-274067f0688f</Key>\r\n   
     <Node>\r\n      <Id>05a63954-caba-4c7a-921d-274067f0688f</Id>\r\n      <Name>CheckBlackboardBool</Name>\r\n     
-    <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decision/CheckBlackboardBool</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-653|147||0</Position>\r\n      <StaticIn
     Count=\"3\">\r\n        <Slot>\r\n          <Id>Key</Id>\r\n          <Name>Key</Name>\r\n         
@@ -1665,7 +1665,7 @@ MonoBehaviour:
     Type=\"System.Int64, mscorlib\">2019940667193210099</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>695bfdb0-89cb-404d-baf2-acbdf0c177c3</Key>\r\n    <Node>\r\n      <Id>695bfdb0-89cb-404d-baf2-acbdf0c177c3</Id>\r\n     
-    <Name>CheckFiringMode</Name>\r\n      <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Name>CheckFiringMode</Name>\r\n      <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decision/CheckFiringMode</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-475|40||0</Position>\r\n      <StaticIn
     Count=\"2\">\r\n        <Slot>\r\n          <Id>DesiredValue</Id>\r\n         
@@ -1866,7 +1866,7 @@ MonoBehaviour:
     </Data>\r\n      </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n   
     </Node>\r\n    <Key>738d6231-a277-4c2a-b37f-bc1868e2d803</Key>\r\n    <Node>\r\n     
     <Id>738d6231-a277-4c2a-b37f-bc1868e2d803</Id>\r\n      <Name>IsAimPressed</Name>\r\n     
-    <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-837|148||0</Position>\r\n      <StaticIn
     Count=\"0\" />\r\n      <StaticOut Count=\"2\">\r\n        <Slot>\r\n         
@@ -3044,7 +3044,7 @@ MonoBehaviour:
     Type=\"System.Int64, mscorlib\">2794687721108520062</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>c161e598-a01b-40e0-bff9-05008b18cd72</Key>\r\n    <Node>\r\n      <Id>c161e598-a01b-40e0-bff9-05008b18cd72</Id>\r\n     
-    <Name>CheckFiringMode</Name>\r\n      <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Name>CheckFiringMode</Name>\r\n      <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decision/CheckFiringMode</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-663|84||0</Position>\r\n      <StaticIn
     Count=\"2\">\r\n        <Slot>\r\n          <Id>DesiredValue</Id>\r\n         
@@ -3772,7 +3772,7 @@ MonoBehaviour:
     </Data>\r\n      </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n   
     </Node>\r\n    <Key>ec3b733e-44b9-4691-8149-1e3ee6d98ab5</Key>\r\n    <Node>\r\n     
     <Id>ec3b733e-44b9-4691-8149-1e3ee6d98ab5</Id>\r\n      <Name>(Logical) AND</Name>\r\n     
-    <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decisionAnd</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
     <Position>-50|-17||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
     <Id>$a</Id>\r\n          <Name></Name>\r\n          <Value />\r\n          <Type>$decision</Type>\r\n         
@@ -3993,7 +3993,7 @@ MonoBehaviour:
     Type=\"System.Int64, mscorlib\">3533206314671626963</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>f41421c6-3f2b-472a-a54a-5fcac5189731</Key>\r\n    <Node>\r\n      <Id>f41421c6-3f2b-472a-a54a-5fcac5189731</Id>\r\n     
-    <Name>(Logical) OR</Name>\r\n      <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    <Name>(Logical) OR</Name>\r\n      <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decisionOr</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
     <Position>-180|58||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
     <Id>$a</Id>\r\n          <Name></Name>\r\n          <Value />\r\n          <Type>$decision</Type>\r\n         
@@ -4093,7 +4093,7 @@ MonoBehaviour:
     Count=\"0\" />\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>f75762cf-9fb4-4458-9e72-3da097ea5599</Key>\r\n   
     <Node>\r\n      <Id>f75762cf-9fb4-4458-9e72-3da097ea5599</Id>\r\n      <Name>(Logical)
-    AND</Name>\r\n      <Comment />\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
+    AND</Name>\r\n      <Comment></Comment>\r\n      <Graph>2e449319-95aa-4764-b706-60ef6fb42f8c</Graph>\r\n     
     <Parent>$decisionAnd</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
     <Position>-425|127||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
     <Id>$a</Id>\r\n          <Name></Name>\r\n          <Value />\r\n          <Type>$decision</Type>\r\n         
@@ -4782,8 +4782,8 @@ MonoBehaviour:
     <Id>2055945d-9b14-496b-9555-5bf9f663ace4</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>538|198||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>2e449319-95aa-4764-b706-60ef6fb42f8c</Key>\r\n    <GraphData>\r\n     
-    <Id>2e449319-95aa-4764-b706-60ef6fb42f8c</Id>\r\n      <ZoomLevel>0.88</ZoomLevel>\r\n     
-    <ZoomOffset>64|36||0</ZoomOffset>\r\n      <PanOffset>592|167||0</PanOffset>\r\n   
+    <Id>2e449319-95aa-4764-b706-60ef6fb42f8c</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
+    <ZoomOffset>39|20||0</ZoomOffset>\r\n      <PanOffset>696|135||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>33945cb4-e623-430d-8d5b-8c703cd99137</Key>\r\n    <GraphData>\r\n     
     <Id>33945cb4-e623-430d-8d5b-8c703cd99137</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>257|152||0</PanOffset>\r\n   

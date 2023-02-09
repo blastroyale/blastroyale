@@ -8,6 +8,7 @@ namespace Quantum
 	public struct QuantumWeaponConfig
 	{
 		public GameId Id;
+		public FiringMode FiringMode;
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
 		public int MagazineSize;
@@ -31,7 +32,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public uint KnockbackAmount;
-		public FiringMode FiringMode;
+		
 		
 		/// <summary>
 		/// Requests if this config is from a melee weapon

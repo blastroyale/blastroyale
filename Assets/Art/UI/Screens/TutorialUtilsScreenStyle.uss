@@ -1,0 +1,8 @@
+.blocker-root {
+   color: rgba(0,0,0,0);
+}
+
+.blocker-element-blocker {
+    display: flex;
+    position: absolute;
+}

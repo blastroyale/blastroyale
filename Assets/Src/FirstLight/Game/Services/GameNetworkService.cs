@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using ExitGames.Client.Photon;
@@ -12,7 +11,6 @@ using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services
 {
@@ -254,7 +252,8 @@ namespace FirstLight.Game.Services
 	{
 		private const int LAG_RTT_THRESHOLD_MS = 280;
 		private const int STORE_RTT_AMOUNT = 10;
-		private const float QUANTUM_TICK_SECONDS = 0.1f;
+		private const float QUANTUM_TICK_SECONDS = 0.25f;
+		private const float QUANTUM_PING_TICK_SECONDS = 1f;
 
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
@@ -263,7 +262,6 @@ namespace FirstLight.Game.Services
 		private bool _isJoiningNewRoom;
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
-		private Coroutine _tickQuantumClientCoroutine;
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
@@ -366,6 +364,20 @@ namespace FirstLight.Game.Services
 			_services = services;
 			_dataProvider = dataProvider;
 		}
+
+		public void EnableQuantumPingCheck(bool enabled)
+		{
+			if (_services == null) return;
+
+			if (enabled)
+			{
+				_services.TickService.SubscribeOnUpdate(TickPingCheck, QUANTUM_PING_TICK_SECONDS, true, true);
+			}
+			else
+			{
+				_services.TickService.Unsubscribe(TickPingCheck);
+			}
+		}
 		
 		public void EnableQuantumUpdate(bool enabled)
 		{
@@ -373,31 +385,22 @@ namespace FirstLight.Game.Services
 
 			if (enabled)
 			{
-				_services.CoroutineService.StartCoroutine(TickQuantumClient());
-				//_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+				_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
 			}
 			else
 			{
-				if (_tickQuantumClientCoroutine != null)
-				{
-					_services.CoroutineService.StopCoroutine(_tickQuantumClientCoroutine);
-					_tickQuantumClientCoroutine = null;
-				}
-				//_services.TickService.UnsubscribeAll(this);
+				_services.TickService.Unsubscribe(TickQuantumClient);
 			}
 		}
 
-		private IEnumerator TickQuantumClient()
+		private void TickQuantumClient(float deltaTime)
 		{
-			var waitForSeconds = new WaitForSeconds(QUANTUM_TICK_SECONDS);
-
-			while (true)
-			{
-				yield return waitForSeconds;
-				
-				QuantumClient.Service();
-				CalculateUpdateLag();
-			}
+			QuantumClient.Service();
+		}
+		
+		private void TickPingCheck(float deltaTime)
+		{
+			CalculateUpdateLag();
 		}
 		
 		private void CalculateUpdateLag()
@@ -466,7 +469,7 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), false);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 
 			QuantumRunnerConfigs.IsOfflineMode = offlineMode;
 			
@@ -482,7 +485,7 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), false);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -499,7 +502,7 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), setup.GameMode.AllowBots);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
@@ -632,7 +635,7 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyCode.Value}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyID.Value}
 			};
 
 			SetPlayerCustomProperties(playerProps);

@@ -1,64 +1,56 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
 {
+	/// <summary>
+	/// The input structure is a 16 bits vector. Start reading this vector from right to left.
+	/// - The first bit is the isShooting flag.
+	/// - The next 6 bits are the movement, up to 45 which is compressed by a factor of 8.
+	/// - The last 9 bits are uncompressed int angle ranging from 0 to 360 to have precision on aim.
+	///
+	/// Note:
+	/// Be super mindful of adding new data on input.
+	/// One extra byte on input, means one extra byte per frame per player.
+	/// So 30 players = 30 bytes, 60 frames per second its 1.8KB every second.
+	/// A match that lasts for a minute is 1MB per minute of inputs just for an extra byte.
+	/// Bear in mind that the client caches those inputs and we might want to save them for replays too.
+	/// </summary>
 	public unsafe partial struct Input
 	{
-		// These numbers are used to distinct the states and can be anything except 0
-		// because 0 is the default initial state 
-		public const byte DownState = 1;
-		public const byte ReleaseState = 2;
+		private static readonly UInt16 MASK_6_BITS = (1 << 6) - 1;
+		private static readonly UInt16 MASK_9_BITS = (1 << 9) - 1;
 		
-		public FPVector2 Direction
-		{
-			get => DecodeDirection(MoveDirectionEncoded);
-			set => MoveDirectionEncoded = EncodeDirection(value);
-		}
-		
-		public FPVector2 AimingDirection
-		{
-			get => DecodeDirection(AimingDirectionEncoded);
-			set => AimingDirectionEncoded = EncodeDirection(value);
-		}
-
-		public bool IsMoveButtonDown => MoveDirectionEncoded > byte.MinValue;
-		
-		public bool IsShootButtonDown => AimButtonState == DownState;
-		public bool IsShootButtonReleased => AimButtonState == ReleaseState;
+		public FPVector2 Direction => DecodeVector((CompressedInput >> 1) & MASK_6_BITS, 8);
+		public FPVector2 AimingDirection => DecodeVector(CompressedInput >> 7 & MASK_9_BITS, 1);
+		public bool IsShooting => (CompressedInput & 1) == 1;
 
 		/// <summary>
-		/// Encodes a FPVector2 direction to a single byte.
+		/// Called from client. Sets the compressed input from client input.
 		/// </summary>
-		/// <remarks>
-		/// This is lossy encoding. The decoded angle will have a potential error of (+/-)1 degree and the
-		/// magnitude of the original direction will be lost.
-		/// </remarks>
-		private static byte EncodeDirection(FPVector2 dir)
+		public void SetInput(FPVector2 aim, FPVector2 movement, bool isShooting)
+		{
+			CompressedInput = (UInt16)(EncodeVector(aim, 1) << 7 | EncodeVector(movement, 8) << 1 | (isShooting ? 1 : 0));
+		}
+		
+		private static int EncodeVector(FPVector2 dir, int divisor)
 		{
 			if (dir == FPVector2.Zero)
 			{
 				return byte.MinValue;
 			}
-
-			var angle = FPVector2.RadiansSigned(FPVector2.Up, dir) * FP.Rad2Deg;
-				
-			// make sure we are in the range [0, 360]
-			angle = (angle + 360) % 360;
-				
-			// compress to 180 values and offset by 1 to allow for 0 = no input
-			var encodedAngle = FPMath.RoundToInt((angle / 2) + 1);
-			return (byte)encodedAngle;
+			var angle = (FPVector2.RadiansSigned(FPVector2.Up, dir) * FP.Rad2Deg + 360) % 360;
+			var encodedAngle = FPMath.RoundToInt(angle / divisor + 1);
+			return encodedAngle;
 		}
 
-		private static FPVector2 DecodeDirection(byte encoded)
+		private static FPVector2 DecodeVector(int encoded, int divisor)
 		{
 			if (encoded == byte.MinValue)
 			{
 				return FPVector2.Zero;
 			}
-
-			var angle = ((int)encoded - 1) * 2;
-			return FPVector2.Rotate(FPVector2.Up, angle * FP.Deg2Rad);
+			return FPVector2.Rotate(FPVector2.Up, ((encoded - 1) * divisor) * FP.Deg2Rad);
 		}
 	}
 }

@@ -18,6 +18,7 @@ namespace FirstLight.Game.Commands
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
+		public uint TeamSize;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -58,7 +59,7 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
-
+			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{

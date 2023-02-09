@@ -83,7 +83,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Obtains the rewards for a given tutorial step
 		/// </summary>
-		List<ItemData> GetRewardsFromTutorial(TutorialStep step);
+		List<ItemData> GetRewardsFromTutorial(TutorialSection section);
 	}
 
 	/// <inheritdoc />
@@ -309,13 +309,13 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		public List<ItemData> GetRewardsFromTutorial(TutorialStep step)
+		public List<ItemData> GetRewardsFromTutorial(TutorialSection section)
 		{
 			var rewards = new List<ItemData>();
 			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var rewardsConfigs = rewardsCfg
-				.Where(c => tutorialRewardsCfg.First(c => c.Step == step).RewardIds.Contains((uint)c.Id));
+				.Where(c => tutorialRewardsCfg.First(c => c._section == section).RewardIds.Contains((uint)c.Id));
 			foreach (var rewardConfig in rewardsConfigs)
 			{
 				if (rewardConfig.IsEquipment())

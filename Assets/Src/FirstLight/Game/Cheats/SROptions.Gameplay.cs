@@ -78,7 +78,7 @@ public partial class SROptions
 	}
 	
 	[Category("Gameplay")]
-	public void SkipTutorialStep()
+	public void SkipTutorialSection()
 	{
 		Object.FindObjectOfType<PlayableDirector>().playableGraph.PlayTimeline();
 	}

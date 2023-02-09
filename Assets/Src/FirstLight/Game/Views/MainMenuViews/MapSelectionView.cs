@@ -1,18 +1,13 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
-using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {

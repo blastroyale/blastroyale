@@ -19,6 +19,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -143,18 +144,17 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
 
-			if (FeatureFlags.PLAYFAB_MATCHMAKING)
-			{
-				_services.MatchmakingService.OnGameMatched += OnGameMatched;
-			}
-			
+			_services.MatchmakingService.OnGameMatched += OnGameMatched;
+			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
 		}
+
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			//_services?.TickService?.UnsubscribeAll(this);
 			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
+			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
 		}
 
 		private void SubscribeDisconnectEvents()
@@ -269,28 +269,28 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		
 		private void OnGameMatched(GameMatched match)
 		{
-			_services.NetworkService.JoinOrCreateRandomRoom(match.RoomSetup);
+			_services.NetworkService.JoinOrCreateRoom(match.RoomSetup);
 			_services.GenericDialogService.CloseDialog();
 		}
-		
+
+		private void OnMatchmakingJoined(JoinedMatchmaking match)
+		{
+			_statechartTrigger(JoinedMatchmakingEvent);
+			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "[Dev UI] Matchmaking...", false, new GenericDialogButton());
+		}
+
 		private void StartRandomMatchmaking(MatchRoomSetup setup)
 		{
-			if (FeatureFlags.PLAYFAB_MATCHMAKING || setup.GameMode.Teams)
+			if (FeatureFlags.PLAYFAB_MATCHMAKING || setup.GameMode().Teams)
 			{
 				_services.MatchmakingService.JoinMatchmaking(setup);
-				_statechartTrigger(JoinedMatchmakingEvent);
-				
-				_services.GenericDialogService.OpenButtonDialog("Matchmaking", "[Dev UI] Matchmaking...", false, new GenericDialogButton());
-				
 			}
 			else
 			{
 				_networkService.JoinOrCreateRandomRoom(setup);
 			}
-			
 		}
 
 		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
@@ -644,11 +644,10 @@ namespace FirstLight.Game.StateMachines
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			var matchmakingSetup = new MatchRoomSetup()
 			{
-				GameMode = gameModeConfig,
-				Map = mapConfig,
+				MapId = (int) mapConfig.Map,
+				GameModeHash = gameModeId.GetHashCode(),
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
 			};
@@ -657,31 +656,28 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
-			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			
-			StartRandomMatchmaking(new MatchRoomSetup()
+			var setup = new MatchRoomSetup()
 			{
-				GameMode = gameModeConfig, 
-				Map = mapConfig, 
+				GameModeHash = gameModeId.GetHashCode(),
+				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
 				Mutators = selectedGameMode.Entry.Mutators,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
-			});
+				MapId = msg.MapId
+			};
+			StartRandomMatchmaking(setup);
 		}
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
 			// TODO - REMOVE THE GETTING OF CONFIG - DOES IT JUST WORK?
 			var gameModeId = msg.GameModeConfig.Id;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
 			var setup = new MatchRoomSetup()
 			{
-				GameMode = gameModeConfig,
-				Map = msg.MapConfig,
+				GameModeHash = gameModeId.GetHashCode(),
+				MapId = (int) msg.MapConfig.Map,
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName

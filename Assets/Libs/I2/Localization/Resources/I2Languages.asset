@@ -3801,6 +3801,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: FTUE/BPComplete
+      TermType: 0
+      Description: 
+      Languages:
+      - You completed the starting battle pass ! New rewards awaits you !
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: FTUE/BPName
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastPass
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MapDropPoints/Aircraft
       TermType: 0
       Description: 

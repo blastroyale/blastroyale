@@ -289,7 +289,13 @@ namespace FirstLight.Game.Utils
 		public static class Tutorial
 		{
 			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
-			public const int FIRST_MATCH_TRANSITION_CLOSE_DELAY = 1000;
+			public const string TUTORIAL_MODE_ID = "Tutorial";
+			
+			// TODO - UPDATE ONCE TUTORIALS ARE IN
+			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 0;
+			public const int TOTAL_STEPS_SECOND_BOT_MATCH = 10;
+			public const int TOTAL_STEPS_BP_EQUIPMENT_GUIDE = 20;
+			
 		}
 
 		public static class GameModeId

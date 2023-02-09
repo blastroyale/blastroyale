@@ -2,6 +2,7 @@
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
@@ -171,6 +172,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_equipmentSlotTypePicked = slot;
 			_statechartTrigger(_slotClickedEvent);
+			
+			_services.MessageBrokerService.Publish(new EquipmentSlotOpenedMessage() {Slot = slot} );
 		}
 
 		private void OpenEquipmentSelectionScreen()

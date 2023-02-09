@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6521feba275d9a142af8aa5b670f9f88, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d01035e20458724da5350051518f11b, type: 2}
     - target: {fileID: 919132149155446097, guid: 6521feba275d9a142af8aa5b670f9f88, type: 3}
       propertyPath: m_Name
       value: MW_WakHammer

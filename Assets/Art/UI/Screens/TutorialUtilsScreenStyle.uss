@@ -1,8 +1,16 @@
 .blocker-root {
-   color: rgba(0,0,0,0);
+    color: rgba(0, 0, 0, 0);
 }
 
 .blocker-element-blocker {
     display: flex;
     position: absolute;
+}
+
+.highlight-element {
+    display: flex;
+    position: absolute;
+    background-image: url('/Assets/Art/UI/Vectors/TransparentCircleDark.svg');
+    background-color: rgba(0,0,0,0);
+    scale: 3 3;
 }

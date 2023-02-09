@@ -1,6 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Numerics;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -15,7 +19,14 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
+		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
+
+		private const float circleDefaultSize = 32;
+		private const float squareDefaultSize = 512;
+
+		private const int HIGHLIGHT_ANIM_TIME = 3;
+		private const int HIGHLIGHT_ANIM_SCALE_VALUE = 3;
 
 		private IGameServices _services;
 		private VisualElement _root;
@@ -24,6 +35,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blockerElementLeft;
 		private VisualElement _blockerElementBottom;
 		private VisualElement _blockerElementTop;
+
+		private VisualElement _highlighterElement;
 
 
 		private void Awake()
@@ -36,7 +49,6 @@ namespace FirstLight.Game.Presenters
 			_root = root;
 			_root.AddToClassList(PARENT_ELEMENT_STYLE);
 			_root.parent.AddToClassList(PARENT_ELEMENT_STYLE);
-
 			root.pickingMode = PickingMode.Ignore;
 			root.SetupClicks(_services);
 		}
@@ -55,14 +67,22 @@ namespace FirstLight.Game.Presenters
 			_root.Remove(_blockerElementBottom);
 		}
 
-		public void HighlightElement(UIDocument doc, string veClass, int percentage)
+		public void HighlightElement(UIDocument doc, string veClass, float sizeMultiplier)
 		{
-			//TODO
+			doc.rootVisualElement.Query(className: veClass)
+				.ForEach(element => CreateHighlight(element, sizeMultiplier));
 		}
 
 		public void RemoveHighlight()
 		{
-			//TODO
+			StartCoroutine(RemoveHighlightIE());
+		}
+
+		IEnumerator RemoveHighlightIE()
+		{
+			_highlighterElement.experimental.animation.Scale(HIGHLIGHT_ANIM_SCALE_VALUE, HIGHLIGHT_ANIM_TIME);
+			yield return new WaitForSeconds(HIGHLIGHT_ANIM_TIME);
+			_root.Remove(_highlighterElement);
 		}
 
 		private void CreateBlockers(VisualElement objElement)
@@ -106,6 +126,34 @@ namespace FirstLight.Game.Presenters
 			blocker.style.width = width;
 			blocker.style.top = top;
 			blocker.style.left = left;
+		}
+
+		private void CreateHighlight(VisualElement objElement, float sizeMultiplier)
+		{
+			_highlighterElement = new VisualElement();
+
+			_root.Add(_highlighterElement);
+			_highlighterElement.pickingMode = PickingMode.Ignore;
+
+			float objSize = objElement.resolvedStyle.width >= objElement.resolvedStyle.height
+				? objElement.resolvedStyle.width
+				: objElement
+					.resolvedStyle.height;
+			
+			objSize *= sizeMultiplier;
+			
+			float squareSize = squareDefaultSize * objSize / circleDefaultSize;
+			
+			_highlighterElement.style.width = squareSize;
+			_highlighterElement.style.height = squareSize;
+			_highlighterElement.style.top =
+				objElement.worldBound.y - squareSize / 2 + objElement.resolvedStyle.height / 2;
+			_highlighterElement.style.left =
+				objElement.worldBound.x - squareSize / 2 + objElement.resolvedStyle.width / 2;
+
+			_highlighterElement.AddToClassList(HIGHLIGHT_ELEMENT_STYLE);
+
+			_highlighterElement.experimental.animation.Scale(1, HIGHLIGHT_ANIM_TIME);
 		}
 	}
 }

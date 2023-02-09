@@ -31,6 +31,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public uint KnockbackAmount;
+		public FiringMode FiringMode;
 		
 		/// <summary>
 		/// Requests if this config is from a melee weapon
@@ -40,6 +41,12 @@ namespace Quantum
 		/// </remarks>
 		/// </summary>
 		public bool IsMeleeWeapon => Id == GameId.Hammer;
+	}
+
+	public enum FiringMode
+	{
+		FullyAutomatic = 0,
+		SemiAutomatic = 1,
 	}
 
 	/// <summary>

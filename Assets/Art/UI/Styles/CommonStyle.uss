@@ -272,8 +272,8 @@
 
 .notification-icon {
     background-image: var(--sprite-home__icon-notification);
-    width: 38px;
-    height: 38px;
+    width: 45px;
+    height: 45px;
 }
 
 .button-long {

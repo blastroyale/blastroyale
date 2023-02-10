@@ -13,8 +13,11 @@ namespace Quantum
 
 		public override unsafe bool Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			var config = frame.WeaponConfigs.GetConfig(frame.Unsafe.GetPointer<PlayerCharacter>(entity)->CurrentWeapon.GameId);
-			return config.FiringMode == DesiredValue;
+			if(frame.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			{
+				return frame.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId).FiringMode == DesiredValue;
+			}
+			return false;
 		}
 	}
 }

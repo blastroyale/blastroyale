@@ -116,6 +116,7 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_DISSAPATION_RATE_DEFAULT = 0.8f;
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 3;
+			public const float SCREENSHAKE_HARD_CUTOFF_DISTANCE = 15;
 
 			public const float SCREENSHAKE_SMALL_STRENGTH = 0.35f;
 			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;

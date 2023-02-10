@@ -61,6 +61,8 @@ namespace FirstLight.Game.Commands
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
+			
+			// TODO: Find better way to determine tutorial mode. GameConstants ID perhaps? Something that backend has access to
 			RunningTutorialMode = PlayersMatchData[QuantumValues.ExecutingPlayer].GameModeId.Contains("Tutorial");
 				
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&

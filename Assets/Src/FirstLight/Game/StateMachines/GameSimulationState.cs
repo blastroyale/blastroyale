@@ -285,15 +285,20 @@ namespace FirstLight.Game.StateMachines
 			
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 
-			_services.NetworkService.EnableQuantumUpdate(false);
+			_services.NetworkService.EnableClientUpdate(false);
 		}
 
 
+		/// <summary>
+		/// This StopSimulation method is only used for disconnection flow.
+		/// There is another StopSimulation method in MatchState which handles stopping simulation once the player
+		/// has reached the complete end of flow, past any disconnection cases.
+		/// </summary>
 		private void StopSimulation()
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage { Game = QuantumRunner.Default.Game });
+			_services.NetworkService.EnableClientUpdate(true);
 			QuantumRunner.ShutdownAll();
-			_services.NetworkService.EnableQuantumUpdate(true);
 		}
 		
 		private void CleanUpMatch()

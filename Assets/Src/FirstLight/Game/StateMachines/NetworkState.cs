@@ -298,6 +298,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void LeaveRoom()
 		{
+			FLog.Error("LEAVING ROOM CALLED");
 			_networkService.LeaveRoom(false, true);
 		}
 
@@ -437,7 +438,7 @@ namespace FirstLight.Game.StateMachines
 		
 		public void OnLeftRoom()
 		{
-			FLog.Info("OnLeftRoom");
+			FLog.Error("OnLeftRoom");
 
 			if (_matchmakingCoroutine != null)
 			{

@@ -134,9 +134,9 @@ namespace FirstLight.Game.Services
 		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 
 		/// <summary>
-		/// Enables or disables quantum ticking update and lag detection
+		/// Enables or disables client ticking update and lag detection
 		/// </summary>
-		void EnableQuantumUpdate(bool enabled);
+		void EnableClientUpdate(bool enabled);
 
 		/// <summary>
 		/// Requests the current room that the local player is in
@@ -379,10 +379,10 @@ namespace FirstLight.Game.Services
 			}
 		}
 		
-		public void EnableQuantumUpdate(bool enabled)
+		public void EnableClientUpdate(bool enabled)
 		{
 			if (_services == null) return;
-
+			
 			if (enabled)
 			{
 				_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);

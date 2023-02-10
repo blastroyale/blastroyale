@@ -63,7 +63,7 @@ namespace FirstLight.Tests.EditorMode
 			TestNetwork = new GameNetworkService(TestConfigs);
 			TestTutorial = new TutorialService(TestUI);
 			TestNetwork.BindServicesAndData(TestLogic, TestServices);
-			TestNetwork.EnableQuantumUpdate(true);
+			TestNetwork.EnableClientUpdate(true);
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);

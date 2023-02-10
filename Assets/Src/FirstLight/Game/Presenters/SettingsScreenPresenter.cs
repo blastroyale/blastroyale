@@ -38,6 +38,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
 		[SerializeField, Required] private UiToggleButtonView _dynamicCameraToggle;
+		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
@@ -69,6 +70,7 @@ namespace FirstLight.Game.Presenters
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
 			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
+			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -183,6 +185,11 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnDynamicCameraChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
+		}
+
+		private void OnScreenshakeToggleChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
 		}

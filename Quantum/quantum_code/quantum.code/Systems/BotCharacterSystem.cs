@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -1172,7 +1170,9 @@ namespace Quantum.Systems
 					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier,
 					TeamSize = teamSize,
 					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared,
-					FixedSpawn = withPlayer
+					FixedSpawn = withPlayer,
+					DamageTakenMultiplier = botConfig.DamageTakenMultiplier,
+					DamageDoneMultiplier = botConfig.DamageDoneMultiplier
 				};
 
 				botNamesIndices.RemoveAt(listNamesIndex);
@@ -1206,8 +1206,43 @@ namespace Quantum.Systems
 					new Equipment(GameId.RiotShield, EquipmentEdition.Genesis, equipmentRarity),
 				};*/
 
+				List<Modifier> modifiers = null;
+				
+				if (botConfig.DamageDoneMultiplier != FP._1 || botConfig.DamageTakenMultiplier != FP._1)
+				{
+					modifiers = new List<Modifier>();
+
+					if (botConfig.DamageTakenMultiplier != FP._1)
+					{
+						modifiers.Add(new Modifier
+						{
+							Id = ++f.Global->ModifierIdCount,
+							Type = StatType.Armour,
+							OpType = OperationType.Add,
+							Power = FP._100 * (botConfig.DamageTakenMultiplier-1),
+							Duration = FP.MaxValue,
+							StartTime = FP._0,
+							IsNegative = true
+						});
+					}
+					
+					if (botConfig.DamageDoneMultiplier != FP._1)
+					{
+						modifiers.Add(new Modifier
+						{
+							Id = ++f.Global->ModifierIdCount,
+							Type = StatType.Power,
+							OpType = OperationType.Multiply,
+							Power = FP._1 - botConfig.DamageDoneMultiplier,
+							Duration = FP.MaxValue,
+							StartTime = FP._0,
+							IsNegative = true
+						});
+					}
+				}
+
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-					botCharacter.DeathMarker, teamId, Array.Empty<Equipment>(), Equipment.None);
+					botCharacter.DeathMarker, teamId, Array.Empty<Equipment>(), Equipment.None, modifiers);
 			}
 		}
 

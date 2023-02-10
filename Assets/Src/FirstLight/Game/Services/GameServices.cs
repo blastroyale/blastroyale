@@ -172,7 +172,7 @@ namespace FirstLight.Game.Services
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			TutorialService = tutorialService;
-			
+
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);

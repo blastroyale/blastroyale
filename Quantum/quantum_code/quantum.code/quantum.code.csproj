@@ -77,6 +77,7 @@
     <Compile Include="AI\Actions\PlayerMoveAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
+    <Compile Include="AI\Decisions\HFSM.CheckFiringMode.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckIntDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckFPDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />

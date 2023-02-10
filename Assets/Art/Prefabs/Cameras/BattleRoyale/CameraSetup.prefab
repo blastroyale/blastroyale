@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_ApplyAfter: 2
   m_ChannelMask: 1
   m_Gain: 1
-  m_Use2DDistance: 1
+  m_Use2DDistance: 0
   m_UseCameraSpace: 0
   m_ReactionSettings:
     m_SecondaryNoise: {fileID: 0}

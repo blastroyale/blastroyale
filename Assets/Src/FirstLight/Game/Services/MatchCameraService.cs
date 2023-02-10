@@ -20,6 +20,9 @@ namespace FirstLight.Game.Services
 		/// <param name="position">The position of the place where the shake was started from</param>
 		void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength,
 							  Vector3 position = default);
+
+
+		void SetCameras(CinemachineVirtualCamera adventureCamera);
 	}
 	
 	/// <inheritdoc />
@@ -32,6 +35,7 @@ namespace FirstLight.Game.Services
 		private CinemachineImpulseSource _impulseSource;
 		private GameObject _cameraServiceObject;
 		private GameObject _followObject;
+		private CinemachineVirtualCamera _adventureCamera;
 		
 		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices, IGameServices services)
 		{
@@ -57,25 +61,29 @@ namespace FirstLight.Game.Services
 
 			var newImpulse = new CinemachineImpulseDefinition
 			{
-				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
+				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Dissipating,
 				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
 				m_ImpulseShape = shape,
 				m_ImpulseDuration = duration,
-				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
+				m_DissipationDistance = 15,
 				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
 
 			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;
-			
-			if(position == default && _followObject != null & _followObject != null)
-			{
-				position = _followObject.transform.position;
-			}
 
+			var cameraSkew = _adventureCamera.transform.position - _adventureCamera.Follow.position;
+			position += cameraSkew;
+
+			Debug.LogError("Impulse pos:"+position.ToString()+", follow pos:"+(_followObject!=null?_followObject.transform.position.ToString():"Nothing"));
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
-		
+
+		public void SetCameras(CinemachineVirtualCamera adventureCamera)
+		{
+			_adventureCamera = adventureCamera;
+		}
+
 		public void Dispose()
 		{
 			Object.Destroy(_cameraServiceObject);
@@ -93,7 +101,7 @@ namespace FirstLight.Game.Services
 		
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (_services.NetworkService.LocalPlayer.IsSpectator())
+			if (next.Entity != EntityRef.None)
 			{
 				_followObject = next.Transform.gameObject;
 			}

@@ -21,7 +21,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
-			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
+			_gameDataProvider.PlayerDataProvider.PlayerSkin.Observe(OnCharacterSkinUpdated);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
@@ -86,11 +86,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private async void OnChangeCharacterSkinMessage(PlayerSkinUpdatedMessage callback)
+		private async void OnCharacterSkinUpdated(GameId previousSkin, GameId newSkin)
 		{
 			Destroy(_characterViewComponent.gameObject);
 			
-			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
+			await UpdateSkin(newSkin, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
 	}
 }

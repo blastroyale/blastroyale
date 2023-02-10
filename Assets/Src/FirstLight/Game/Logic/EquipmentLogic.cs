@@ -169,6 +169,31 @@ namespace FirstLight.Game.Logic
 			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
 
+		public void ReInit()
+		{
+			{
+				var listeners = _loadout.GetObservers();
+				_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
+				_loadout.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = _inventory.GetObservers();
+				_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
+				_inventory.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = _nftInventory.GetObservers();
+				_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
+				_nftInventory.AddObservers(listeners);
+			}
+			
+			_loadout.InvokeUpdate();
+			_inventory.InvokeUpdate();
+			_nftInventory.InvokeUpdate();
+		}
+
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
 		{
 			var resourceType = isNft ? GameId.CS : GameId.COIN;

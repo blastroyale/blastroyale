@@ -95,6 +95,8 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IGameLogic"/>
 	public class GameLogic : IGameLogic, IGameLogicInitializer
 	{
+		private List<IGameLogicInitializer> _logicInitializers;
+		
 		/// <inheritdoc />
 		public IMessageBrokerService MessageBrokerService { get; }
 		
@@ -166,6 +168,18 @@ namespace FirstLight.Game.Logic
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
+
+			_logicInitializers = new List<IGameLogicInitializer>();
+			
+			_logicInitializers.Add(AppLogic);
+			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
+			_logicInitializers.Add(CurrencyLogic as IGameLogicInitializer);
+			_logicInitializers.Add(ResourceLogic as IGameLogicInitializer);
+			_logicInitializers.Add(EquipmentLogic as IGameLogicInitializer);
+			_logicInitializers.Add(PlayerLogic as IGameLogicInitializer);
+			_logicInitializers.Add(RewardLogic as IGameLogicInitializer);
+			_logicInitializers.Add(BattlePassLogic as IGameLogicInitializer);
+			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
 		}
 		
 		/// <summary>
@@ -173,38 +187,25 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		public void InitLocal()
 		{
-			// ReSharper disable PossibleNullReferenceException
-			
 			// AppLogic is initialized separately, earlier than rest of logic which requires data after auth
-			(AppLogic as IGameLogicInitializer).Init();
+			AppLogic.Init();
 		}
 
 		/// <inheritdoc />
 		public void Init()
 		{
-			// ReSharper disable PossibleNullReferenceException
-			AppLogic.Init();
-			(UniqueIdLogic as IGameLogicInitializer).Init();
-			(CurrencyLogic as IGameLogicInitializer).Init();
-			(ResourceLogic as IGameLogicInitializer).Init();
-			(EquipmentLogic as IGameLogicInitializer).Init();
-			(PlayerLogic as IGameLogicInitializer).Init();
-			(RewardLogic as IGameLogicInitializer).Init();
-			(BattlePassLogic as IGameLogicInitializer).Init();
-			(LiveopsLogic as IGameLogicInitializer).Init();
+			foreach (var logicInitializer in _logicInitializers)
+			{
+				logicInitializer.Init();
+			}
 		}
 
 		public void ReInit()
 		{
-			AppLogic.ReInit();
-			(UniqueIdLogic as IGameLogicInitializer).ReInit();
-			(CurrencyLogic as IGameLogicInitializer).ReInit();
-			(ResourceLogic as IGameLogicInitializer).ReInit();
-			(EquipmentLogic as IGameLogicInitializer).ReInit();
-			(PlayerLogic as IGameLogicInitializer).ReInit();
-			(RewardLogic as IGameLogicInitializer).ReInit();
-			(BattlePassLogic as IGameLogicInitializer).ReInit();
-			(LiveopsLogic as IGameLogicInitializer).ReInit();
+			foreach (var logicInitializer in _logicInitializers)
+			{
+				logicInitializer.ReInit();
+			}
 		}
 	}
 	

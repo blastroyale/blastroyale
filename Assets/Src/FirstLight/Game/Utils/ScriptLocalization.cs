@@ -483,6 +483,7 @@ namespace I2.Loc
 			public static string MainDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MainDeck"); } }
 			public static string Male01Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male01Avatar"); } }
 			public static string Male02Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male02Avatar"); } }
+			public static string MapTestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MapTestScene"); } }
 			public static string MausHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MausHelmet"); } }
 			public static string MausHelmetDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MausHelmetDescription"); } }
 			public static string ModHeavyMachineGun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ModHeavyMachineGun"); } }
@@ -1226,6 +1227,8 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string blast_pass_claim_reward 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass_claim_reward"); } }
+			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/cancel"); } }
 			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/create_party"); } }
 			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
@@ -1241,6 +1244,7 @@ namespace I2.Loc
 			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
 			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
+			public static string ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/ready"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
 			public static string resource_pool_restock_time 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock_time"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
@@ -1306,12 +1310,23 @@ namespace I2.Loc
 		{
 			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
 			public static string account_deleted_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_title"); } }
+			public static string connect 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect"); } }
+			public static string connect_flg_id 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id"); } }
+			public static string connect_flg_id_advice 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id_advice"); } }
 			public static string delete_account 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account"); } }
 			public static string delete_account_request_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_request_desc"); } }
+			public static string failure 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/failure"); } }
+			public static string flg_id_connect_login_success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connect_login_success"); } }
+			public static string flg_id_connect_register_success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connect_register_success"); } }
+			public static string flg_id_connected 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_connected"); } }
+			public static string flg_id_login_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_login_fail"); } }
+			public static string flg_id_not_connected 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_not_connected"); } }
+			public static string flg_id_register_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_register_fail"); } }
 			public static string logout 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout"); } }
 			public static string logout_confirm_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_confirm_desc"); } }
 			public static string logout_success_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_desc"); } }
 			public static string logout_success_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_title"); } }
+			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
 		}
 
 		public static class UITShared
@@ -1852,6 +1867,7 @@ namespace I2.Loc
 		    public const string MainDeck = "GameIds/MainDeck";
 		    public const string Male01Avatar = "GameIds/Male01Avatar";
 		    public const string Male02Avatar = "GameIds/Male02Avatar";
+		    public const string MapTestScene = "GameIds/MapTestScene";
 		    public const string MausHelmet = "GameIds/MausHelmet";
 		    public const string MausHelmetDescription = "GameIds/MausHelmetDescription";
 		    public const string ModHeavyMachineGun = "GameIds/ModHeavyMachineGun";
@@ -2595,6 +2611,8 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string blast_pass_claim_reward = "UITHomeScreen/blast_pass_claim_reward";
+		    public const string cancel = "UITHomeScreen/cancel";
 		    public const string create_party = "UITHomeScreen/create_party";
 		    public const string discord = "UITHomeScreen/discord";
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
@@ -2610,6 +2628,7 @@ namespace I2.Loc
 		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
 		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
 		    public const string play = "UITHomeScreen/play";
+		    public const string ready = "UITHomeScreen/ready";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
 		    public const string resource_pool_restock_time = "UITHomeScreen/resource_pool_restock_time";
 		    public const string shop = "UITHomeScreen/shop";
@@ -2675,12 +2694,23 @@ namespace I2.Loc
 		{
 		    public const string account_deleted_desc = "UITSettings/account_deleted_desc";
 		    public const string account_deleted_title = "UITSettings/account_deleted_title";
+		    public const string connect = "UITSettings/connect";
+		    public const string connect_flg_id = "UITSettings/connect_flg_id";
+		    public const string connect_flg_id_advice = "UITSettings/connect_flg_id_advice";
 		    public const string delete_account = "UITSettings/delete_account";
 		    public const string delete_account_request_desc = "UITSettings/delete_account_request_desc";
+		    public const string failure = "UITSettings/failure";
+		    public const string flg_id_connect_login_success = "UITSettings/flg_id_connect_login_success";
+		    public const string flg_id_connect_register_success = "UITSettings/flg_id_connect_register_success";
+		    public const string flg_id_connected = "UITSettings/flg_id_connected";
+		    public const string flg_id_login_fail = "UITSettings/flg_id_login_fail";
+		    public const string flg_id_not_connected = "UITSettings/flg_id_not_connected";
+		    public const string flg_id_register_fail = "UITSettings/flg_id_register_fail";
 		    public const string logout = "UITSettings/logout";
 		    public const string logout_confirm_desc = "UITSettings/logout_confirm_desc";
 		    public const string logout_success_desc = "UITSettings/logout_success_desc";
 		    public const string logout_success_title = "UITSettings/logout_success_title";
+		    public const string success = "UITSettings/success";
 		}
 
 		public static class UITShared

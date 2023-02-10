@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 			_closeButton.onClick.AddListener(() => Data.OnCloseClicked());
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
-			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnUpdatePlayerSkinMessage);
+			_gameDataProvider.PlayerDataProvider.PlayerSkin.Observe(OnCharacterSkinUpdated);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
@@ -116,10 +116,10 @@ namespace FirstLight.Game.Presenters
 		}
 		
 
-		private void OnUpdatePlayerSkinMessage(PlayerSkinUpdatedMessage updatedMessage)
+		private void OnCharacterSkinUpdated(GameId previousSkin, GameId newSkin)
 		{
 			UpdatePlayerSkinMenu();
-			UpdateSelectedButtonImage(updatedMessage.SkinId);
+			UpdateSelectedButtonImage(newSkin);
 		}
 
 		private void OnAvatarClicked(GameId skin)

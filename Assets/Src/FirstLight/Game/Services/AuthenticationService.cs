@@ -433,7 +433,7 @@ namespace FirstLight.Game.Services
 
 			if (previouslyLoggedIn)
 			{
-				_logicInit.Init();
+				_logicInit.ReInit();
 				_services.MessageBrokerService.Publish(new ReinitializeMenuViewsMessage());
 			}
 		}

@@ -130,12 +130,15 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnRegisterSuccess(LoginData data)
 		{
+			var title = ScriptLocalization.UITSettings.success;
+			var desc = ScriptLocalization.UITSettings.flg_id_connect_register_success;
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog("Success", "Registration success.", false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterSuccess();
@@ -143,12 +146,15 @@ namespace FirstLight.Game.Presenters
 
 		void OnRegisterFail(PlayFabError error)
 		{
+			var title = ScriptLocalization.UITSettings.failure;
+			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_register_fail, error.ErrorMessage);
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog("Fail", error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 			Data.AuthRegisterFail();
@@ -180,12 +186,15 @@ namespace FirstLight.Game.Presenters
 		
 		void OnLoginSuccess(LoginData data)
 		{
+			var title = ScriptLocalization.UITSettings.success;
+			var desc = ScriptLocalization.UITSettings.flg_id_connect_login_success;
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog("Success", "Login success.", false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 			Data.AuthLoginSuccess();
@@ -193,12 +202,15 @@ namespace FirstLight.Game.Presenters
 
 		void OnLoginFail(PlayFabError error)
 		{
+			var title = ScriptLocalization.UITSettings.failure;
+			var desc = string.Format(ScriptLocalization.UITSettings.flg_id_login_fail, error.ErrorMessage);
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenButtonDialog("Fail", error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 				
 			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
 			Data.AuthLoginFail();

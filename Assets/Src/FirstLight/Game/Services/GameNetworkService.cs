@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using ExitGames.Client.Photon;
@@ -7,10 +8,10 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using Photon.Deterministic;
 using Photon.Realtime;
-using Quantum;
 using UnityEngine;
+using Quantum;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services
 {
@@ -262,6 +263,8 @@ namespace FirstLight.Game.Services
 		private bool _isJoiningNewRoom;
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
+		private Coroutine _tickUpdateCoroutine;
+		private Coroutine _tickPingCheckCoroutine;
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
@@ -371,11 +374,17 @@ namespace FirstLight.Game.Services
 
 			if (enabled)
 			{
-				_services.TickService.SubscribeOnUpdate(TickPingCheck, QUANTUM_PING_TICK_SECONDS, true, true);
+				_tickPingCheckCoroutine = _services.CoroutineService.StartCoroutine(TickPingCheck());
+				//_services.TickService.SubscribeOnUpdate(TickPingCheck, QUANTUM_PING_TICK_SECONDS, true, true);
 			}
 			else
 			{
-				_services.TickService.Unsubscribe(TickPingCheck);
+				if (_tickPingCheckCoroutine != null)
+				{
+					_services.CoroutineService.StopCoroutine(_tickPingCheckCoroutine);
+					_tickPingCheckCoroutine = null;
+				}
+				//_services.TickService.Unsubscribe(TickPingCheck);
 			}
 		}
 		
@@ -385,22 +394,42 @@ namespace FirstLight.Game.Services
 
 			if (enabled)
 			{
-				_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+				_tickUpdateCoroutine = _services.CoroutineService.StartCoroutine(TickQuantumClient());
+				//_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
 			}
 			else
 			{
-				_services.TickService.Unsubscribe(TickQuantumClient);
+				if (_tickUpdateCoroutine != null)
+				{
+					_services.CoroutineService.StopCoroutine(_tickUpdateCoroutine);
+					_tickUpdateCoroutine = null;
+				}
+				//_services.TickService.Unsubscribe(TickQuantumClient);
 			}
 		}
 
-		private void TickQuantumClient(float deltaTime)
+		private IEnumerator TickQuantumClient()
 		{
-			QuantumClient.Service();
+			var waitForSeconds = new WaitForSeconds(QUANTUM_TICK_SECONDS);
+
+			while (true)
+			{
+				QuantumClient.Service();
+
+				yield return waitForSeconds;
+			}
 		}
 		
-		private void TickPingCheck(float deltaTime)
+		private IEnumerator TickPingCheck()
 		{
-			CalculateUpdateLag();
+			var waitForSeconds = new WaitForSeconds(QUANTUM_PING_TICK_SECONDS);
+
+			while (true)
+			{
+				yield return waitForSeconds;
+				
+				CalculateUpdateLag();
+			}
 		}
 		
 		private void CalculateUpdateLag()

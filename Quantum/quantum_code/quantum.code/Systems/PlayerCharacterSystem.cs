@@ -197,24 +197,32 @@ namespace Quantum.Systems
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-			
+
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
 
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
 
-			if (direction != FPVector2.Zero)
+			if (direction != FPVector2.Zero) 
+			{
+				movedirection = direction;
+			}
+			if(!bb->GetBoolean(f, Constants.IsShootingKey))
 			{
 				rotation = direction;
-				movedirection = rotation;
 			}
-
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
+			}
+			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
+			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey)) 
+			{
+				rotation = prevRotation;
 			}
 
 			bb->Set(f, Constants.IsAimPressedKey, shooting);

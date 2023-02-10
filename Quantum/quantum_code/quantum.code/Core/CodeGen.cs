@@ -345,12 +345,6 @@ namespace Quantum {
     Player,
     Equipment,
   }
-  public enum TeamType : int {
-    Player,
-    Enemy,
-    Neutral,
-    TOTAL,
-  }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
   }
@@ -3799,8 +3793,6 @@ namespace Quantum {
     public GameId DeathMarker;
     [FieldOffset(144)]
     public FP DecisionInterval;
-    [FieldOffset(20)]
-    public QBoolean FixedSpawn;
     [FieldOffset(28)]
     public UInt32 LoadoutGearNumber;
     [FieldOffset(152)]
@@ -3829,6 +3821,8 @@ namespace Quantum {
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(8)]
     public GameId Skin;
+    [FieldOffset(20)]
+    public QBoolean SpawnWithPlayer;
     [FieldOffset(232)]
     public FP SpecialAimingDeviation;
     [FieldOffset(256)]
@@ -3860,7 +3854,6 @@ namespace Quantum {
         hash = hash * 31 + DamageTakenMultiplier.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
-        hash = hash * 31 + FixedSpawn.GetHashCode();
         hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3875,6 +3868,7 @@ namespace Quantum {
         hash = hash * 31 + RandomTeammate.GetHashCode();
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
+        hash = hash * 31 + SpawnWithPlayer.GetHashCode();
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
         hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
@@ -3891,7 +3885,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->TeamSize);
-        QBoolean.Serialize(&p->FixedSpawn, serializer);
+        QBoolean.Serialize(&p->SpawnWithPlayer, serializer);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
@@ -9315,7 +9309,6 @@ namespace Quantum {
       Register(typeof(Quantum.Targetable), Quantum.Targetable.SIZE);
       Register(typeof(Quantum.TargetingType), 4);
       Register(typeof(Quantum.TeamPingType), 4);
-      Register(typeof(Quantum.TeamType), 4);
       Register(typeof(Transform2D), Transform2D.SIZE);
       Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       Register(typeof(Transform3D), Transform3D.SIZE);
@@ -9399,7 +9392,6 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TargetingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamPingType>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamType>();
     }
   }
 }
@@ -9737,17 +9729,6 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(TeamType))]
-  public unsafe partial struct TeamType_Prototype {
-    public Int32 Value;
-    public static implicit operator TeamType(TeamType_Prototype value) {
-        return (TeamType)value.Value;
-    }
-    public static implicit operator TeamType_Prototype(TeamType value) {
-        return new TeamType_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
   [Prototype(typeof(InputButtons))]
   public unsafe partial struct InputButtons_Prototype {
     public Int32 Value;
@@ -10067,7 +10048,7 @@ namespace Quantum.Prototypes {
     public FP MaxAimingRange;
     public FP MovementSpeedMultiplier;
     public FP MaxDistanceToTeammateSquared;
-    public QBoolean FixedSpawn;
+    public QBoolean SpawnWithPlayer;
     public FP DamageTakenMultiplier;
     public FP DamageDoneMultiplier;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
@@ -10093,7 +10074,6 @@ namespace Quantum.Prototypes {
       result.DamageTakenMultiplier = this.DamageTakenMultiplier;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
-      result.FixedSpawn = this.FixedSpawn;
       result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
@@ -10108,6 +10088,7 @@ namespace Quantum.Prototypes {
       PrototypeValidator.FindMapEntity(this.RandomTeammate, in context, out result.RandomTeammate);
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
+      result.SpawnWithPlayer = this.SpawnWithPlayer;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
       result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);

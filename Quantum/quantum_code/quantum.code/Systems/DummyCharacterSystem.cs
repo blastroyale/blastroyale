@@ -21,7 +21,7 @@ namespace Quantum.Systems
 		{
 			var targetable = new Targetable
 			{
-				Team = (int) TeamType.Neutral
+				Team = Constants.TEAM_ID_NEUTRAL
 			};
 			
 			f.Add(entity, new PlayerCharacter());

@@ -10,7 +10,9 @@ using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
+using SRF;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -38,6 +40,11 @@ namespace FirstLight.Game.Services
 		/// Get a list of all my current active tickets
 		/// </summary>
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback);
+
+		/// <summary>
+		/// Get a match object, this contains members with team ids
+		/// </summary>
+		public void GetMatch(string matchId, Action<GetMatchResult> callback);
 
 		/// <summary>
 		/// Joins matchmaking queue
@@ -79,6 +86,7 @@ namespace FirstLight.Game.Services
 	public class GameMatched
 	{
 		public string MatchIdentifier;
+		public string TeamId;
 		public MatchRoomSetup RoomSetup;
 	}
 
@@ -184,8 +192,19 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			}, callback, null);
+			}, callback, Debug.LogError);
 		}
+
+		public void GetMatch(string matchId, Action<GetMatchResult> callback)
+		{
+			PlayFabMultiplayerAPI.GetMatch(new GetMatchRequest()
+			{
+				ReturnMemberAttributes = false,
+				MatchId = matchId,
+				QueueName = QUEUE_NAME
+			}, callback, Debug.LogError);
+		}
+
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
 		{
@@ -285,12 +304,26 @@ namespace FirstLight.Game.Services
 					// TODO: Check when ticket expired and expose event
 					if (ticket.Status == "Matched")
 					{
-						// TODO: Invoke this when websocket is received
-						_service.InvokeMatchFound(new GameMatched()
+						// lets ride this callback hell YEEEEEEEEHAAAAAAAAA
+						_service.GetMatch(ticket.MatchId, result =>
 						{
-							MatchIdentifier = ticket.MatchId,
-							RoomSetup = _setup
+							// Distribute teams
+							var membersWithTeam = result.Members
+								.ToDictionary(player => player.Entity.Id,
+									player => player.TeamId
+								);
+
+							// This distribution should be deterministic and used in the server to validate if anyone is exploiting
+							membersWithTeam = TeamDistribution.Distribute(membersWithTeam, _setup.GameMode().MaxPlayersInTeam);
+
+							_service.InvokeMatchFound(new GameMatched()
+							{
+								MatchIdentifier = ticket.MatchId,
+								RoomSetup = _setup,
+								TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
+							});
 						});
+
 						_pooling = false;
 					}
 				});

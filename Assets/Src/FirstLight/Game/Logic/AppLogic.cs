@@ -66,6 +66,11 @@ namespace FirstLight.Game.Logic
 		bool UseDynamicCamera { get; set; }
 
 		/// <summary>
+		/// Requests the enable property for screenshake
+		/// </summary>
+		bool UseScreenShake { get; set; }
+
+		/// <summary>
 		/// Requests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
@@ -241,6 +246,13 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
+		public bool UseScreenShake
+		{
+			get => Data.UseScreenShake;
+			set => Data.UseScreenShake = value;
+		}
+
+		/// <inheritdoc />
 		public GraphicsConfig.DetailLevel CurrentDetailLevel
 		{
 			get => Data.CurrentDetailLevel;
@@ -292,15 +304,47 @@ namespace FirstLight.Game.Logic
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
-			//CurrentDetailLevel = Data.CurrentDetailLevel;
-			//FpsTarget = Data.FpsTarget;
-			//IsHapticOn = Data.HapticEnabled;
+
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion,
-				region => Data.ConnectionRegion = region);
+			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			LastLoginEmail =
-				new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+		}
+
+		public void ReInit()
+		{
+			IsSfxEnabled = Data.SfxEnabled;
+			IsBgmEnabled = Data.BgmEnabled;
+			IsDialogueEnabled = Data.DialogueEnabled;
+
+			{
+				var listeners = DisplayName.GetObservers();
+				DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
+				DisplayName.AddObservers(listeners);
+			}
+
+			{
+				var listeners = ConnectionRegion.GetObservers();
+				ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
+				ConnectionRegion.AddObservers(listeners);
+			}
+
+			{
+				var listeners = DeviceID.GetObservers();
+				DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
+				DeviceID.AddObservers(listeners);
+			}
+
+			{
+				var listeners = LastLoginEmail.GetObservers();
+				LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+				LastLoginEmail.AddObservers(listeners);
+			}
+			
+			DisplayName.InvokeUpdate();
+			ConnectionRegion.InvokeUpdate();
+			DeviceID.InvokeUpdate();
+			LastLoginEmail.InvokeUpdate();
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)

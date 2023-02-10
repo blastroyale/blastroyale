@@ -22,6 +22,8 @@
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
+    --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
+    --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
     --sprite-home__button-battlepass-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-pressed.png');
     --sprite-home__button-bpreward: url('/Assets/Art/UI/Sprites/Home/button-bpreward.png');
     --sprite-home__button-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/button-bpreward-outline.png');
@@ -235,6 +237,14 @@
 
 .sprite-home__button-battlepass {
     background-image: var(--sprite-home__button-battlepass);
+}
+
+.sprite-home__button-battlepass-claimreward {
+    background-image: var(--sprite-home__button-battlepass-claimreward);
+}
+
+.sprite-home__button-battlepass-claimreward:active {
+    background-image: var(--sprite-home__button-battlepass-claimreward-pressed);
 }
 
 .sprite-home__button-battlepass:active {

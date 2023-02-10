@@ -112,6 +112,11 @@ namespace FirstLight.Game.Presenters
 
 				canQuitMatch = !valid || !exists;
 			}
+			else
+			{
+				canQuitMatch = !_services.TutorialService.IsTutorialRunning || 
+					(_services.TutorialService.IsTutorialRunning && !FeatureFlags.TUTORIAL);
+			}
 
 			_quitButton.gameObject.SetActive(canQuitMatch);
 		}

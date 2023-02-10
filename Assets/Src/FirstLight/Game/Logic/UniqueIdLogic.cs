@@ -62,6 +62,24 @@ namespace FirstLight.Game.Logic
 			_newIds = new ObservableList<UniqueId>(Data.NewIds);
 		}
 
+		public void ReInit()
+		{
+			{
+				var listeners = _ids.GetObservers();
+				_ids = new ObservableDictionary<UniqueId, GameId>(Data.GameIds);
+				_ids.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = _newIds.GetObservers();
+				_newIds = new ObservableList<UniqueId>(Data.NewIds);
+				_newIds.AddObservers(listeners);
+			}
+			
+			_ids.InvokeUpdate();
+			_newIds.InvokeUpdate();
+		}
+
 		public UniqueId GenerateNewUniqueId(GameId gameId)
 		{
 			Data.UniqueIdCounter = Data.UniqueIdCounter.Id + 1;

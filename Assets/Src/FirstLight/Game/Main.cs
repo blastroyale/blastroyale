@@ -65,7 +65,7 @@ namespace FirstLight.Game
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService, audioFxService, uiService);
 			
 			networkService.BindServicesAndData(gameLogic, gameServices);
-			networkService.EnableQuantumUpdate(true); // TODO: Remove, we should only have one code ticking quantum
+			networkService.EnableClientUpdate(true);
 			networkService.EnableQuantumPingCheck(true);
 			tutorialService.BindServicesAndData(gameLogic, gameServices);
 			

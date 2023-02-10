@@ -137,6 +137,17 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
+		public void ReInit()
+		{
+			{
+				var listeners = _unclaimedRewards.GetObservers();
+				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+				_unclaimedRewards.AddObservers(listeners);
+			}
+			
+			_unclaimedRewards.InvokeUpdate();
+		}
+
 		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();

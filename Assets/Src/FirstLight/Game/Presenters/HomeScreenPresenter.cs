@@ -29,7 +29,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const float CURRENCY_ANIM_DELAY = 1.25f;
+		private const float CURRENCY_ANIM_DELAY = 2f;
 
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
@@ -67,8 +67,13 @@ namespace FirstLight.Game.Presenters
 		private Label _blstAmountLabel;
 
 		private Label _battlePassLevelLabel;
+		private LocalizedLabel _battlePassTitle;
+		private LocalizedLabel _battlePassTitleClaimReward;
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
+		private VisualElement _battlePassLevelHolder;
+		private VisualElement _battlePassProgressBg;
+		private ImageButton _battlePassButton;
 
 		private VisualElement _trophiesHolder;
 
@@ -119,6 +124,11 @@ namespace FirstLight.Game.Presenters
 			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
+			_battlePassTitle = root.Q<LocalizedLabel>("BattlePassTitle").Required();
+			_battlePassTitleClaimReward = root.Q<LocalizedLabel>("BattlePassTitleClaimReward").Required();
+			_battlePassLevelHolder = root.Q<VisualElement>("BattlePassLevelHolder").Required();
+			_battlePassProgressBg = root.Q<VisualElement>("BattlePassProgressBg").Required();
+			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 
@@ -417,13 +427,23 @@ namespace FirstLight.Game.Presenters
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
 			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
 
-			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
-			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
+			_battlePassProgressElement.style.flexGrow =
+				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
+			_battlePassCrownIcon.visible = hasRewards;
+			_battlePassTitleClaimReward.visible = hasRewards;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				_battlePassProgressElement.style.flexGrow = 1f;
 			}
+
+			_battlePassProgressElement.visible = !hasRewards;
+			_battlePassLevelLabel.visible = !hasRewards;
+			_battlePassTitle.visible = !hasRewards;
+			_battlePassLevelHolder.visible = !hasRewards;
+			_battlePassProgressBg.visible = !hasRewards;
+			
+			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			UpdateBattlePassLevel(predictedLevel);
 		}

@@ -8,6 +8,7 @@ namespace Quantum
 	public struct QuantumWeaponConfig
 	{
 		public GameId Id;
+		public FiringMode FiringMode;
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
 		public int MagazineSize;
@@ -32,6 +33,7 @@ namespace Quantum
 		public FP InitialAttackRampUpTime;
 		public uint KnockbackAmount;
 		
+		
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// <remarks>
@@ -40,6 +42,12 @@ namespace Quantum
 		/// </remarks>
 		/// </summary>
 		public bool IsMeleeWeapon => Id == GameId.Hammer;
+	}
+
+	public enum FiringMode
+	{
+		FullyAutomatic = 0,
+		SemiAutomatic = 1,
 	}
 
 	/// <summary>

@@ -66,6 +66,27 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public void ReInit()
+		{
+			var defaultValues = new PlayerData().ResourcePools;
+			
+			{
+				var listeners = _resourcePools.GetObservers();
+				_resourcePools = new ObservableDictionary<GameId, ResourcePoolData>(Data.ResourcePools);
+				_resourcePools.AddObservers(listeners);
+			}
+			
+			foreach (var pair in defaultValues)
+			{
+				if (!_resourcePools.ContainsKey(pair.Key))
+				{
+					_resourcePools.Add(pair.Key, pair.Value);
+				}
+			}
+			
+			_resourcePools.InvokeUpdate();
+		}
+
 		/// <inheritdoc />
 		public ResourcePoolInfo GetResourcePoolInfo(GameId poolType)
 		{

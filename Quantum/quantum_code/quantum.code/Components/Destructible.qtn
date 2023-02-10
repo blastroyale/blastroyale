@@ -1,13 +1,15 @@
 component Destructible
 {
 	[HideInInspector] bool IsDestructing;
+    [HideInInspector] EntityRef Destroyer;
 	[HideInInspector] FP TimeToDestroy;
 	
 	FP Health;
 	FP DamagePower;
 	FP SplashRadius;
-	FP DestructionLengthTime;
+	array<FP>[2] DestructionLengthTime;
 	GameId GameId;
+
 }
 
 synced event OnDestructibleScheduled

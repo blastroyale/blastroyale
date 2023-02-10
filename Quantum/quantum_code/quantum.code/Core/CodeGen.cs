@@ -4149,29 +4149,39 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Destructible : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public FP DamagePower;
     [FieldOffset(16)]
-    public FP DestructionLengthTime;
+    public FP DamagePower;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public EntityRef Destroyer;
+    [FieldOffset(24)]
+    [FramePrinter.FixedArrayAttribute(typeof(FP), 2)]
+    private fixed Byte _DestructionLengthTime_[16];
     [FieldOffset(0)]
     public GameId GameId;
-    [FieldOffset(24)]
+    [FieldOffset(40)]
     public FP Health;
     [FieldOffset(4)]
     [HideInInspector()]
     public QBoolean IsDestructing;
-    [FieldOffset(32)]
+    [FieldOffset(48)]
     public FP SplashRadius;
-    [FieldOffset(40)]
+    [FieldOffset(56)]
     [HideInInspector()]
     public FP TimeToDestroy;
+    public FixedArray<FP> DestructionLengthTime {
+      get {
+        fixed (byte* p = _DestructionLengthTime_) { return new FixedArray<FP>(p, 8, 2); }
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 491;
         hash = hash * 31 + DamagePower.GetHashCode();
-        hash = hash * 31 + DestructionLengthTime.GetHashCode();
+        hash = hash * 31 + Destroyer.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(DestructionLengthTime);
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + Health.GetHashCode();
         hash = hash * 31 + IsDestructing.GetHashCode();
@@ -4184,8 +4194,9 @@ namespace Quantum {
         var p = (Destructible*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         QBoolean.Serialize(&p->IsDestructing, serializer);
+        EntityRef.Serialize(&p->Destroyer, serializer);
         FP.Serialize(&p->DamagePower, serializer);
-        FP.Serialize(&p->DestructionLengthTime, serializer);
+        FixedArray.Serialize(p->DestructionLengthTime, serializer, StaticDelegates.SerializeFP);
         FP.Serialize(&p->Health, serializer);
         FP.Serialize(&p->SplashRadius, serializer);
         FP.Serialize(&p->TimeToDestroy, serializer);
@@ -10324,11 +10335,14 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public QBoolean IsDestructing;
     [HideInInspector()]
+    public MapEntityId Destroyer;
+    [HideInInspector()]
     public FP TimeToDestroy;
     public FP Health;
     public FP DamagePower;
     public FP SplashRadius;
-    public FP DestructionLengthTime;
+    [ArrayLengthAttribute(2)]
+    public FP[] DestructionLengthTime = new FP[2];
     public GameId_Prototype GameId;
     partial void MaterializeUser(Frame frame, ref Destructible result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -10338,7 +10352,10 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Destructible result, in PrototypeMaterializationContext context) {
       result.DamagePower = this.DamagePower;
-      result.DestructionLengthTime = this.DestructionLengthTime;
+      PrototypeValidator.FindMapEntity(this.Destroyer, in context, out result.Destroyer);
+      for (int i = 0, count = PrototypeValidator.CheckLength(DestructionLengthTime, 2, in context); i < count; ++i) {
+        *result.DestructionLengthTime.GetPointer(i) = this.DestructionLengthTime[i];
+      }
       result.GameId = this.GameId;
       result.Health = this.Health;
       result.IsDestructing = this.IsDestructing;

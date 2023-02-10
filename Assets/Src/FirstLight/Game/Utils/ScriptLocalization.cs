@@ -1228,6 +1228,7 @@ namespace I2.Loc
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
 			public static string blast_pass_claim_reward 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass_claim_reward"); } }
+			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/cancel"); } }
 			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/create_party"); } }
 			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
@@ -1243,6 +1244,7 @@ namespace I2.Loc
 			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
 			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
+			public static string ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/ready"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
 			public static string resource_pool_restock_time 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock_time"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
@@ -2610,6 +2612,7 @@ namespace I2.Loc
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
 		    public const string blast_pass_claim_reward = "UITHomeScreen/blast_pass_claim_reward";
+		    public const string cancel = "UITHomeScreen/cancel";
 		    public const string create_party = "UITHomeScreen/create_party";
 		    public const string discord = "UITHomeScreen/discord";
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
@@ -2625,6 +2628,7 @@ namespace I2.Loc
 		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
 		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
 		    public const string play = "UITHomeScreen/play";
+		    public const string ready = "UITHomeScreen/ready";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
 		    public const string resource_pool_restock_time = "UITHomeScreen/resource_pool_restock_time";
 		    public const string shop = "UITHomeScreen/shop";

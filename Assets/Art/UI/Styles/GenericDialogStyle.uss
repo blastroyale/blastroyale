@@ -15,6 +15,12 @@
     width: 725px;
     background-color: rgb(0, 0, 0);
     height: auto;
+    border-radius: 20px;
+}
+
+.popup--large {
+    width: 1000px;
+    height: auto;
 }
 
 .popup__window {
@@ -24,6 +30,7 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
+    border-radius: 20px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);

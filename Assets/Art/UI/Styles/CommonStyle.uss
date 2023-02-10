@@ -449,6 +449,10 @@
     height: 125px;
 }
 
+.height-spacer--xxxxl {
+    height: 175px;
+}
+
 .width-spacer {
     height: 0;
     width: 5px;
@@ -476,6 +480,10 @@
 
 .width-spacer--xxxl {
     width: 125px;
+}
+
+.width-spacer--xxxxl {
+    width: 175px;
 }
 
 .unity-scroll-view .unity-list-view__empty-label {

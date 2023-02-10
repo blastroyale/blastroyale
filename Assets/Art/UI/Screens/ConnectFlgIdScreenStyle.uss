@@ -9,12 +9,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.container__or-text {
-    color: rgb(122, 118, 167);
-    font-size: 30px;
-    margin-bottom: 8px;
-}
-
 .register-button {
     -unity-text-outline-color: rgb(59, 29, 144);
     -unity-background-image-tint-color: rgb(59, 29, 144);
@@ -35,19 +29,19 @@
     width: 51px;
 }
 
-LocalizedTextField > Label {
+.unity-text-field__label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
 }
 
-LocalizedButton {
-    -unity-text-align: middle-center;
-}
-
-#unity-text-input {
+.unity-text-field__input {
     flex-grow: 1;
     -unity-font-definition: var(--font-italic-dynamic);
+}
+
+.button-flat {
+    -unity-text-align: middle-center;
 }
 
 .safe-area {

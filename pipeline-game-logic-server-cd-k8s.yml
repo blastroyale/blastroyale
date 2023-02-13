@@ -128,6 +128,7 @@ stages:
       --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
       --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
       --set env.DEV_MODE=false \
+      --set env.REMOTE_CONFIGURATION=true \
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \

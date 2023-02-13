@@ -62,7 +62,7 @@ namespace FirstLight.Game.StateMachines
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var joinTutorialRoom = stateFactory.State("Room Join Wait");
-			var connectionWait = stateFactory.Wait("Connection Wait");
+			var connectionWait = stateFactory.TaskWait("Connection Wait");
 			
 			initial.Transition().Target(connectionWait);
 			initial.OnExit(SubscribeEvents);
@@ -84,14 +84,12 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private async void WaitForPhotonConnection(IWaitActivity activity)
+		private async Task WaitForPhotonConnection()
 		{
 			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady)
 			{
 				await Task.Yield();
 			}
-			
-			activity.Complete();
 		}
 
 		private async void AttemptJoinTutorialRoom()

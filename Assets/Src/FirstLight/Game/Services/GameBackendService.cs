@@ -25,7 +25,7 @@ using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
-	public struct BackendEnvironmentData
+	public class BackendEnvironmentData
 	{
 		public string EnvironmentID;
 		public string TitleID;
@@ -155,10 +155,13 @@ namespace FirstLight.Game.Services
 
 		public void SetupBackendEnvironment()
 		{
+			if (CurrentEnvironmentData != null)
+			{
+				return;
+			}
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
-		
 #if LIVE_SERVER
 			envData.EnvironmentID = "live";
 			envData.TitleID = "***REMOVED***";
@@ -365,7 +368,7 @@ namespace FirstLight.Game.Services
 		public bool IsGameInMaintenance()
 		{
 			var titleData = _dataService.GetData<AppData>().TitleData;
-			
+
 			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && 
 				   VersionUtils.IsOutdatedVersion(version);
 		}

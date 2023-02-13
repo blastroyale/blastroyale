@@ -422,6 +422,11 @@ namespace FirstLight.Game.Services
 
 		public bool ConnectPhotonToMaster()
 		{
+			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
+			{
+				Debug.Log("Not connecting photon due to status "+QuantumClient.LoadBalancingPeer.PeerState);
+				return false;
+			}
 			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
 				_dataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
@@ -622,13 +627,16 @@ namespace FirstLight.Game.Services
 
 			var preloadIds = new List<int>();
 
-			foreach (var item in _dataProvider.EquipmentDataProvider.Loadout)
+			if (_dataProvider.EquipmentDataProvider.Loadout != null)
 			{
-				var equipmentDataInfo = _dataProvider.EquipmentDataProvider.Inventory[item.Value];
-				preloadIds.Add((int) equipmentDataInfo.GameId);
-			}
+				foreach (var item in _dataProvider.EquipmentDataProvider.Loadout)
+				{
+					var equipmentDataInfo = _dataProvider.EquipmentDataProvider.Inventory[item.Value];
+					preloadIds.Add((int) equipmentDataInfo.GameId);
+				}
 
-			preloadIds.Add((int) _dataProvider.PlayerDataProvider.PlayerInfo.Skin);
+				preloadIds.Add((int) _dataProvider.PlayerDataProvider.PlayerInfo.Skin);
+			}
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},

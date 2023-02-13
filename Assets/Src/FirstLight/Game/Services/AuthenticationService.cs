@@ -309,6 +309,22 @@ namespace FirstLight.Game.Services
 			_networkService.UserId.Value = result.PlayFabId;
 			
 			//AppleApprovalHack(result);
+			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
+			{
+				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
+				_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime = photonAppId;
+				FLog.Verbose("Setting up photon app id by playfab title data");
+			}
+			
+			var requiredServices = 2;
+			var doneServices = 0;
+			void ServiceConnection(LoginData data)
+			{
+				if (++doneServices >= requiredServices) onSuccess(loginData);
+			}
+			AuthenticateGameNetwork(loginData, ServiceConnection, onError);
+			GetPlayerData(loginData,ServiceConnection, onError, previouslyLoggedIn);
 			
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
@@ -342,13 +358,6 @@ namespace FirstLight.Game.Services
 				FeatureFlags.ParseFlags(liveopsFeatureFlags);
 			});
 
-			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
-			{
-				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
-				FLog.Verbose("Setting up photon app id by playfab title data");
-			}
-
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -380,8 +389,6 @@ namespace FirstLight.Game.Services
 
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId,
 				_dataProvider.AppDataProvider.IsGuest);
-
-			GetPlayerData(loginData, onSuccess, onError, previouslyLoggedIn);
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
@@ -450,6 +457,7 @@ namespace FirstLight.Game.Services
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
+				_services.NetworkService.ConnectPhotonToMaster();
 				onSuccess?.Invoke(loginData);
 			}
 		}
@@ -588,29 +596,6 @@ namespace FirstLight.Game.Services
 		public bool IsAccountDeleted()
 		{
 			return _dataService.GetData<PlayerData>().Flags.HasFlag(PlayerFlags.Deleted);
-		}
-
-		/// <summary>
-		/// To help pass apple approval submission tests hack.
-		/// This forces all communication with quantum to be TCP and not UDP with a flag from the backend, but just
-		/// to be turned on during submission because sometimes Apple testers have their home network setup wrong.
-		/// </summary>
-		private async void AppleApprovalHack(LoginResult result)
-		{
-			var titleData = result.InfoResultPayload.TitleData;
-			var address = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
-			var config = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(address);
-			var connection = ConnectionProtocol.Udp;
-
-			if (!titleData.TryGetValue($"{nameof(Application.version)} apple", out var version) ||
-			    version != Application.version)
-			{
-				connection = ConnectionProtocol.Tcp;
-			}
-
-			config.PhotonServerSettings.AppSettings.Protocol = connection;
-
-			_services.AssetResolverService.UnloadAsset(config);
 		}
 	}
 }

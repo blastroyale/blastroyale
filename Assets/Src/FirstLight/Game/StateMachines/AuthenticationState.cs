@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -54,7 +55,9 @@ namespace FirstLight.Game.StateMachines
 		private IConfigsAdder _configsAdder;
 		private string _passwordRecoveryEmailTemplateId = "";
 		private string _lastUsedRecoveryEmail = "";
+		private Task _asyncLogin = null;
 
+		
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
 								   IDataService dataService, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -80,16 +83,20 @@ namespace FirstLight.Game.StateMachines
 			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
 			var gameBlocked = stateFactory.State("Game Blocked Dialog");
 			var gameUpdate = stateFactory.State("Game Update Dialog");
-
+			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
+			
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetupBackendEnvironmentData);
 
+			autoAuthCheck.Transition().Condition(IsAsyncLogin).Target(asyncLoginWait);
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Target(authLoginGuest);
 
 			authFail.Event(_authFailContinueEvent).Target(autoAuthCheck);
 
+			asyncLoginWait.WaitingFor(WaitForAsyncLogin).Target(postAuthCheck);
+			
 			authLoginGuest.OnEnter(SetupLoginGuest);
 			authLoginGuest.Event(_authSuccessEvent).Target(final);
 			authLoginGuest.Event(_authFailEvent).Target(authFail);
@@ -111,6 +118,58 @@ namespace FirstLight.Game.StateMachines
 			gameUpdate.OnEnter(OpenGameUpdateDialog);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+		
+		private async Task WaitForAsyncLogin()
+		{
+			await _asyncLogin;
+		}
+		private async Task AsyncDeviceLogin()
+		{
+			bool complete = false;
+			_services.AuthenticationService.LoginWithDevice(r =>
+			{
+				complete = true;
+			}, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
+			await WaitFor(() => complete);
+		}
+		
+		private async Task AsyncGuestLogin()
+		{
+			bool complete = false;
+			_services.AuthenticationService.LoginSetupGuest(r =>
+			{
+				complete = true;
+			}, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
+			await WaitFor(() => complete);
+		}
+		
+		private async Task WaitFor(Func<bool> condition)
+		{
+			while (!condition()) await Task.Delay(2);
+		}
+		
+		public async void QuickAsyncLogin()
+		{
+			_services.GameBackendService.SetupBackendEnvironment();
+			if(HasLinkedDevice())
+			{
+				_asyncLogin = AsyncDeviceLogin();
+			}
+			else
+			{
+				_asyncLogin = AsyncGuestLogin();
+			}
+		}
+		private bool IsAsyncLogin()
+		{
+			return _asyncLogin != null;
 		}
 
 		private void SubscribeEvents()

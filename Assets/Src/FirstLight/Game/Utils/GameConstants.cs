@@ -311,7 +311,6 @@ namespace FirstLight.Game.Utils
 			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 0;
 			public const int TOTAL_STEPS_SECOND_BOT_MATCH = 10;
 			public const int TOTAL_STEPS_BP_EQUIPMENT_GUIDE = 20;
-			
 		}
 
 		public static class GameModeId

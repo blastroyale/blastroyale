@@ -15,7 +15,7 @@ namespace Quantum
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			if (f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot))
 			{
-				if (bot->FixedSpawn)
+				if (bot->SpawnWithPlayer)
 				{
 					player->Spawn(f, e);
 					return;

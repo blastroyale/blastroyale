@@ -53,7 +53,7 @@ namespace FirstLight.Game.Services
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
-			if(!_gameDataProvider.AppDataProvider.UseScreenShake)
+			if (!_gameDataProvider.AppDataProvider.UseScreenShake)
 				return;
 
 			var newImpulse = new CinemachineImpulseDefinition
@@ -65,6 +65,10 @@ namespace FirstLight.Game.Services
 				m_DissipationDistance = 15,
 				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
+
+			var dist = Vector3.Distance(_matchServices.SpectateService.SpectatedPlayer.Value.Transform.position, position);
+			if (dist > GameConstants.Screenshake.SCREENSHAKE_HARD_CUTOFF_DISTANCE)
+				return;
 
 			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;

@@ -211,6 +211,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Create");
 		}
 
@@ -296,6 +297,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Join");
 		}
 
@@ -332,6 +334,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Kick");
 		}
 
@@ -373,6 +376,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Leave");
 		}
 
@@ -588,12 +592,13 @@ namespace FirstLight.Game.Services.Party
 			{
 				members = string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
 			}
+
 			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
 			{
-				{ "action ", action },
-				{ "userid", PlayFabSettings.staticPlayer.PlayFabId },
-				{ "teamid ", _lobbyId },
-				{ "members", members }
+				{"action ", action},
+				{"userid", PlayFabSettings.staticPlayer.PlayFabId},
+				{"teamid ", _lobbyId},
+				{"members", members}
 			});
 		}
 	}

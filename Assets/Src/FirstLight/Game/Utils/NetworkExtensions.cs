@@ -17,5 +17,12 @@ namespace FirstLight.Game.Utils
 			var cfgProvider = MainInstaller.Resolve<IGameServices>().ConfigsProvider;
 			return cfgProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeHash);
 		}
+
+
+
+		public static bool ShouldUsePlayfabMatchmaking(this QuantumGameModeConfig config)
+		{
+			return config.Teams;
+		}
 	}
 }

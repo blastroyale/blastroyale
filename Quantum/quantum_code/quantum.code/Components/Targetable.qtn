@@ -4,14 +4,6 @@ component Targetable
 	bool IsUntargetable;
 }
 
-enum TeamType
-{
-	Player,
-	Enemy,
-	Neutral,
-	TOTAL            // Used to know the total amount of this type without the need of reflection
-}
-
 enum TargetingType
 {
 	Nearest = 1,

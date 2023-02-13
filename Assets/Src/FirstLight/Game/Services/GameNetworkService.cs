@@ -85,7 +85,7 @@ namespace FirstLight.Game.Services
 		/// <returns>True if the operation was sent successfully</returns>
 		/// <remarks>Note, in order to join a room, the "entry params" that are generated, need to match a created room exactly
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.</remarks>
-		bool JoinOrCreateRoom(MatchRoomSetup setup);
+		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null);
 
 		/// <summary>
 		/// Joins a random room of matching parameters if it exists, or creates a new one if it doesn't
@@ -481,7 +481,8 @@ namespace FirstLight.Game.Services
 			return QuantumClient.OpCreateRoom(createParams);
 		}
 
-		public bool JoinOrCreateRoom(MatchRoomSetup setup)
+
+		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null)
 		{
 			if (InRoom) return false;
 			
@@ -489,7 +490,7 @@ namespace FirstLight.Game.Services
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetQuantumProperties();
+			ResetQuantumProperties(teamID);
 			SetSpectatePlayerProperty(false);
 			IsJoiningNewMatch.Value = true;
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
@@ -613,7 +614,7 @@ namespace FirstLight.Game.Services
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
 
-		private void ResetQuantumProperties()
+		private void ResetQuantumProperties(string teamId = null)
 		{
 			QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			QuantumClient.EnableProtocolFallback = true;
@@ -628,14 +629,13 @@ namespace FirstLight.Game.Services
 			}
 
 			preloadIds.Add((int) _dataProvider.PlayerDataProvider.PlayerInfo.Skin);
-
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyID.Value}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId}
 			};
 
 			SetPlayerCustomProperties(playerProps);

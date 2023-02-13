@@ -30,18 +30,15 @@ namespace FirstLight.Game.Services
 	{
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
-		private IGameServices _services;
-		
+
 		private CinemachineImpulseSource _impulseSource;
 		private GameObject _cameraServiceObject;
-		private GameObject _followObject;
 		private CinemachineVirtualCamera _adventureCamera;
 		
-		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices, IGameServices services)
+		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices)
 		{
 			_gameDataProvider = gameDataProvider;
 			_matchServices = matchServices;
-			_services = services;
 			_cameraServiceObject = new GameObject("CameraService", typeof(CinemachineImpulseSource));
 			_impulseSource = _cameraServiceObject.GetComponent<CinemachineImpulseSource>();
 			
@@ -74,8 +71,7 @@ namespace FirstLight.Game.Services
 
 			var cameraSkew = _adventureCamera.transform.position - _adventureCamera.Follow.position;
 			position += cameraSkew;
-
-			Debug.LogError("Impulse pos:"+position.ToString()+", follow pos:"+(_followObject!=null?_followObject.transform.position.ToString():"Nothing"));
+			
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
 
@@ -91,22 +87,12 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 		}
-		
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			if (next.Entity != EntityRef.None)
-			{
-				_followObject = next.Transform.gameObject;
-			}
-		}
-		
+
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			var f = callback.Game.Frames.Verified;

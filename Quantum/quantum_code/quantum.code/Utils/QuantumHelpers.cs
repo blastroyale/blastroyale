@@ -77,7 +77,7 @@ namespace Quantum
 		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			var neutral = (int)TeamType.Neutral;
+			var neutral = Constants.TEAM_ID_NEUTRAL;
 			
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{

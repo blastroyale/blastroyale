@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 		public bool UseLocalConfigs = false;
 
 		/// <summary>
-		/// If the tutorial should be skiped
+		/// If the tutorial should be skipped
 		/// </summary>
 		public bool DisableTutorial = false;
 	}

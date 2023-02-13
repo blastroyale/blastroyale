@@ -27,20 +27,14 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void AllPlayersJoined(Frame f)
 		{
-			var parties = new Dictionary<string, int>();
-
-			int partyIndex = Constants.TEAM_ID_START_PARTIES;
-
-			for (var i = 0; i < f.PlayerCount; i++)
+			Dictionary<int, int> teamsByPlayer;
+			if (f.Context.GameModeConfig.Teams)
 			{
-				var playerData = f.GetPlayerData(i);
-
-				if (playerData != null &&
-					!string.IsNullOrEmpty(playerData.PartyId) &&
-					!parties.ContainsKey(playerData.PartyId))
-				{
-					parties.Add(playerData.PartyId, partyIndex++);
-				}
+				teamsByPlayer = GeneratePlayerTeamIds(f);
+			}
+			else
+			{
+				teamsByPlayer = new Dictionary<int, int>();
 			}
 
 			for (var i = 0; i < f.PlayerCount; i++)
@@ -49,15 +43,63 @@ namespace Quantum.Systems
 
 				if (playerData == null) continue;
 
-				var teamId = !string.IsNullOrEmpty(playerData.PartyId)
-					? parties[playerData.PartyId]
+				var teamId = teamsByPlayer.ContainsKey(i)
+					? teamsByPlayer[i]
 					: Constants.TEAM_ID_START_PLAYERS + i;
 
 				InstantiatePlayer(f, i, playerData, teamId);
 			}
-			
+
 			f.Signals.AllPlayersSpawned();
 		}
+
+		/// <summary>
+		/// Returns a dictionary containing PLAYER_ID:TEAM_ID
+		/// </summary>
+		/// <param name="f"></param>
+		/// <returns></returns>
+		private Dictionary<int, int> GeneratePlayerTeamIds(Frame f)
+		{
+			var membersByTeam = new Dictionary<string, HashSet<int>>();
+
+
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				var playerData = f.GetPlayerData(i);
+
+				if (playerData != null &&
+				    !string.IsNullOrEmpty(playerData.PartyId))
+				{
+					if (!membersByTeam.TryGetValue(playerData.PartyId, out var data))
+					{
+						data = new HashSet<int>();
+						membersByTeam[playerData.PartyId] = data;
+					}
+
+					data.Add(i);
+				}
+				else
+				{
+					membersByTeam["p" + i] = new HashSet<int>() {i};
+				}
+			}
+
+
+			int partyIndex = Constants.TEAM_ID_START_PARTIES;
+			var teamByPlayer = new Dictionary<int, int>();
+			foreach (var kv in membersByTeam)
+			{
+				foreach (var i in kv.Value)
+				{
+					teamByPlayer[i] = partyIndex;
+				}
+
+				partyIndex++;
+			}
+
+			return teamByPlayer;
+		}
+
 
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
@@ -75,8 +117,8 @@ namespace Quantum.Systems
 
 			// Try to drop player weapon
 			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly ||
-					gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) &&
-				!playerDead->HasMeleeWeapon(f, entity))
+				    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) &&
+			    !playerDead->HasMeleeWeapon(f, entity))
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
@@ -101,7 +143,7 @@ namespace Quantum.Systems
 
 			//drop a chest based on how many items the player has collected
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box ||
-				gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
+			    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
 			{
 				//drop a box based on the number of items the player has collected
 				var dropBox = GameId.ChestCommon;
@@ -116,13 +158,12 @@ namespace Quantum.Systems
 
 				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
 				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition, entity);
-
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
 				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
-					!f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
+				    !f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
 				{
 					return;
 				}
@@ -191,30 +232,38 @@ namespace Quantum.Systems
 		{
 			// Do not process input if player is stunned or not alive
 			if (!f.Has<AlivePlayerCharacter>(filter.Entity) || f.Has<Stun>(filter.Entity) ||
-				f.Has<BotCharacter>(filter.Entity))
+			    f.Has<BotCharacter>(filter.Entity))
 			{
 				return;
 			}
 
 			var input = f.GetPlayerInput(filter.Player->Player);
-			
+
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
 
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
 
-			if (direction != FPVector2.Zero)
+			if (direction != FPVector2.Zero) 
+			{
+				movedirection = direction;
+			}
+			if(!bb->GetBoolean(f, Constants.IsShootingKey))
 			{
 				rotation = direction;
-				movedirection = rotation;
 			}
-
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
+			}
+			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
+			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey)) 
+			{
+				rotation = prevRotation;
 			}
 
 			bb->Set(f, Constants.IsAimPressedKey, shooting);

@@ -8,7 +8,7 @@ namespace Quantum
 		internal void Init(Frame f, EntityRef e)
 		{
 			var targetable = new Targetable();
-			targetable.Team = (int) TeamType.Neutral;
+			targetable.Team = Constants.TEAM_ID_NEUTRAL;
 			targetable.IsUntargetable = true;
 			
 			f.Add(e, targetable);

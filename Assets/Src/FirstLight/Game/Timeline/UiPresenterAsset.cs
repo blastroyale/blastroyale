@@ -31,11 +31,12 @@ namespace FirstLight.Game.Timeline
 			{
 				return playable;
 			}
-			
-			var guiService = MainInstaller.Resolve<IGameServices>().GuidService;
+
+			var services = MainInstaller.Resolve<IGameServices>();
+			var guiService = services.GuidService;
 			var behaviour = playable.GetBehaviour();
-			
-			behaviour.UiService = guiService.GetElement(GuidId.Main).Elements[0].GetComponent<Main>().UiService;
+
+			behaviour.UiService = services.GameUiService;
 			behaviour.UiPresenter = presenter.GetType();
 
 			return playable;

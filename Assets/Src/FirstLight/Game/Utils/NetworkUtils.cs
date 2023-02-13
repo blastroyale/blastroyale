@@ -18,7 +18,7 @@ namespace FirstLight.Game.Utils
 	public static class NetworkUtils
 	{
 		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
-		
+
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -28,12 +28,13 @@ namespace FirstLight.Game.Utils
 			{
 				setup.MatchType = MatchType.Ranked;
 			}
+
 			var isRandomMatchmaking = setup.MatchType != MatchType.Custom;
 
 			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;
 			var maxPlayers = GetMaxPlayers(setup.GameMode(), setup.Map());
-			
+
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
 				roomNameFinal += RoomCommitLockData;
@@ -42,8 +43,8 @@ namespace FirstLight.Game.Utils
 			if (!isRandomMatchmaking)
 			{
 				emptyTtl = roomNameFinal.IsPlayTestRoom()
-					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					           : GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
+					? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+					: GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 			else
 			{
@@ -71,10 +72,10 @@ namespace FirstLight.Game.Utils
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
-						             ? (byte) maxPlayers
-						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+						? (byte) maxPlayers
+						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
-				}
+				},
 			};
 
 			return roomParams;
@@ -96,7 +97,7 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,	
+				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -187,13 +188,13 @@ namespace FirstLight.Game.Utils
 
 				// Set the game map Id for the same matchmaking
 				{GameConstants.Network.ROOM_PROPS_MAP, setup.Map().Map},
-				
+
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_MATCH_TYPE, setup.MatchType.ToString()},
 
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode().Id},
-				
+
 				// A list of mutators used in this room
 				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}
 			};
@@ -214,7 +215,7 @@ namespace FirstLight.Game.Utils
 		{
 			return Application.internetReachability != NetworkReachability.NotReachable;
 		}
-		
+
 		/// <summary>
 		/// Requests to check if the device is offline
 		/// </summary>
@@ -230,7 +231,7 @@ namespace FirstLight.Game.Utils
 		{
 			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
 		}
-		
+
 		/// <summary>
 		/// Requests to check if the device is disconnted from internet, or Photon is disconnected
 		/// </summary>
@@ -253,15 +254,28 @@ namespace FirstLight.Game.Utils
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Returns a random dropzone vector to be added to room creation params
 		/// </summary>
 		public static Vector3 GetRandomDropzonePosRot()
 		{
 			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
-			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
-							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
+			return new Vector3(Random.Range(-radiusPosPercent, radiusPosPercent),
+				Random.Range(-radiusPosPercent, radiusPosPercent), Random.Range(0, 360));
+		}
+
+
+		public static float GetMatchmakingTime(MatchType type, QuantumGameModeConfig gameModeConfig, QuantumGameConfig quantumGameConfig)
+		{
+			if (type == MatchType.Ranked)
+			{
+				return quantumGameConfig.RankedMatchmakingTime.AsFloat;
+			}
+
+			return gameModeConfig.ShouldUsePlayfabMatchmaking()
+				? quantumGameConfig.PlayfabMatchmakingTime.AsFloat
+				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
 		}
 	}
 }

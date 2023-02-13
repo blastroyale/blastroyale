@@ -19,8 +19,9 @@ namespace Quantum
 		public static readonly FP TAP_TO_USE_SPECIAL_AIMING_OFFSET = FP._0_75 + FP._0_10;
 		
 		public static readonly int TEAM_ID_NEUTRAL = 0;
-		public static readonly int TEAM_ID_START_PLAYERS = 1;
-		public static readonly int TEAM_ID_START_PARTIES = 100;
+		public static readonly int TEAM_ID_START_PLAYERS = 100;
+		public static readonly int TEAM_ID_START_PARTIES = 200;
+		public static readonly int TEAM_ID_START_BOT_PARTIES = 300;
 
 		public static readonly string DeadEvent = "OnDead";
 		public static readonly string RespawnEvent = "OnRespawn";

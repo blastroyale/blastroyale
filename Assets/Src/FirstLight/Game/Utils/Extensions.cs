@@ -467,7 +467,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Requests the team id of the player (-1 for no team).
 		/// </summary>
-		public static string GetPartyId(this Player player)
+		public static string GetTeamId(this Player player)
 		{
 			if (player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_TEAM_ID, out var teamId))
 			{

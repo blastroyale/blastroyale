@@ -43,6 +43,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IIAPService IAPService { get; }
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
+		public IGameUiService GameUiService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -81,6 +82,7 @@ namespace FirstLight.Tests.EditorMode
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
+			GameUiService = uiService;
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			PartyService = Substitute.For<PartyService>();

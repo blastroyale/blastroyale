@@ -76,6 +76,27 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public void ReInit()
+		{
+			var defaultValues = new PlayerData().Currencies;
+			
+			{
+				var listeners = _currencies.GetObservers();
+				_currencies = new ObservableDictionary<GameId, ulong>(Data.Currencies);
+				_currencies.AddObservers(listeners);
+			}
+			
+			foreach (var pair in defaultValues)
+			{
+				if (!_currencies.ContainsKey(pair.Key))
+				{
+					_currencies.Add(pair.Key, pair.Value);
+				}
+			}
+			
+			_currencies.InvokeUpdate();
+		}
+
 		/// <inheritdoc />
 		public ulong GetCurrencyAmount(GameId currency)
 		{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using FirstLight.FLogger;
@@ -66,8 +67,13 @@ namespace FirstLight.Game.Presenters
 		private Label _blstAmountLabel;
 
 		private Label _battlePassLevelLabel;
+		private LocalizedLabel _battlePassTitle;
+		private LocalizedLabel _battlePassTitleClaimReward;
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
+		private VisualElement _battlePassLevelHolder;
+		private VisualElement _battlePassProgressBg;
+		private ImageButton _battlePassButton;
 
 		private VisualElement _trophiesHolder;
 
@@ -119,6 +125,11 @@ namespace FirstLight.Game.Presenters
 			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
+			_battlePassTitle = root.Q<LocalizedLabel>("BattlePassTitle").Required();
+			_battlePassTitleClaimReward = root.Q<LocalizedLabel>("BattlePassTitleClaimReward").Required();
+			_battlePassLevelHolder = root.Q<VisualElement>("BattlePassLevelHolder").Required();
+			_battlePassProgressBg = root.Q<VisualElement>("BattlePassProgressBg").Required();
+			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 
@@ -374,16 +385,40 @@ namespace FirstLight.Game.Presenters
 		{
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
-			var pointsDiff = current - previous;
-			var pointsToAnimate = Mathf.Clamp(current - previous, 3, 10);
-			var pointsModifier = pointsDiff / pointsToAnimate;
-			for (int i = 0; i < pointsToAnimate; i++)
+			var pointsDiff = (int) current - (int) previous;
+			var pointsToAnimate = Mathf.Clamp(current - previous, 3, 10) + 1;
+			var pointSegment = Mathf.RoundToInt(pointsDiff / pointsToAnimate);
+
+			var pointSegments = new List<int>();
+
+			// Split all points to animate into segments without any precision related errors due to division
+			while (pointsDiff > 0)
 			{
-				int points = (int) previous + Mathf.RoundToInt(i * pointsModifier) + 1;
+				var newSegment = pointSegment;
+
+				if (pointSegment > pointsDiff)
+				{
+					newSegment = pointsDiff;
+				}
+				
+				pointsDiff -= newSegment;
+				pointSegments.Add(newSegment);
+			}
+
+			var totalSegmentPointsRedeemed = 0;
+			var segmentIndex = 0;
+			
+			// Fire point segment VFX and update points
+			foreach (var segment in pointSegments)
+			{
+				totalSegmentPointsRedeemed += segment;
+				segmentIndex += 1;
+				
+				var points = (int) previous + totalSegmentPointsRedeemed;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
-					i * 0.1f,
+					segmentIndex * 0.1f,
 					_playButton.GetPositionOnScreen(Root),
 					_battlePassProgressElement.GetPositionOnScreen(Root),
 					() =>
@@ -404,17 +439,25 @@ namespace FirstLight.Game.Presenters
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
-			var currentPointsPerLevel =
-				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
+			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
 
 			_battlePassProgressElement.style.flexGrow =
 				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
-			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
+			_battlePassCrownIcon.visible = hasRewards;
+			_battlePassTitleClaimReward.visible = hasRewards;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				_battlePassProgressElement.style.flexGrow = 1f;
 			}
+
+			_battlePassProgressElement.visible = !hasRewards;
+			_battlePassLevelLabel.visible = !hasRewards;
+			_battlePassTitle.visible = !hasRewards;
+			_battlePassLevelHolder.visible = !hasRewards;
+			_battlePassProgressBg.visible = !hasRewards;
+			
+			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			UpdateBattlePassLevel(predictedLevel);
 		}

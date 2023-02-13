@@ -51,8 +51,7 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
-		private Camera _mainOverlayCamera;
-		
+
 		public MatchState(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -66,8 +65,6 @@ namespace FirstLight.Game.StateMachines
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, networkService, uiService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
-			
-			_mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
 		}
 
 		/// <summary>
@@ -481,7 +478,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 			
-			_mainOverlayCamera.gameObject.SetActive(true);
+			Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"))?.gameObject.SetActive(true);
 			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
@@ -570,7 +567,9 @@ namespace FirstLight.Game.StateMachines
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
 				_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage {Game = QuantumRunner.Default.Game});
+				_services.NetworkService.EnableClientUpdate(true);
 				QuantumRunner.ShutdownAll();
+				
 			}
 		}
 		

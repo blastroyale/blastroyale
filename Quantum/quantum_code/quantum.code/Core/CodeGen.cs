@@ -285,6 +285,10 @@ namespace Quantum {
     Deathmatch,
     BattleRoyale,
   }
+  public enum OperationType : int {
+    Multiply,
+    Add,
+  }
   public enum QuantumServerCommand : int {
     EndOfGameRewards,
   }
@@ -341,12 +345,6 @@ namespace Quantum {
     Chest,
     Player,
     Equipment,
-  }
-  public enum TeamType : int {
-    Player,
-    Enemy,
-    Neutral,
-    TOTAL,
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
@@ -2759,15 +2757,17 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public FP Duration;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public UInt32 Id;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     public QBoolean IsNegative;
+    [FieldOffset(0)]
+    public OperationType OpType;
     [FieldOffset(24)]
     public FP Power;
     [FieldOffset(32)]
     public FP StartTime;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public StatType Type;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2775,6 +2775,7 @@ namespace Quantum {
         hash = hash * 31 + Duration.GetHashCode();
         hash = hash * 31 + Id.GetHashCode();
         hash = hash * 31 + IsNegative.GetHashCode();
+        hash = hash * 31 + (Int32)OpType;
         hash = hash * 31 + Power.GetHashCode();
         hash = hash * 31 + StartTime.GetHashCode();
         hash = hash * 31 + (Int32)Type;
@@ -2783,6 +2784,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Modifier*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->OpType);
         QBoolean.Serialize(&p->IsNegative, serializer);
         serializer.Stream.Serialize((Int32*)&p->Type);
         serializer.Stream.Serialize(&p->Id);
@@ -3758,7 +3760,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 264;
+    public const Int32 SIZE = 280;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public UInt32 AccuracySpreadAngle;
@@ -3784,51 +3786,55 @@ namespace Quantum {
     public FP CloseFightIntolerance;
     [FieldOffset(120)]
     public FP CurrentEvasionStepEndTime;
+    [FieldOffset(128)]
+    public FP DamageDoneMultiplier;
+    [FieldOffset(136)]
+    public FP DamageTakenMultiplier;
     [FieldOffset(4)]
     public GameId DeathMarker;
-    [FieldOffset(128)]
+    [FieldOffset(144)]
     public FP DecisionInterval;
-    [FieldOffset(20)]
-    public QBoolean FixedSpawn;
     [FieldOffset(28)]
     public UInt32 LoadoutGearNumber;
-    [FieldOffset(136)]
-    public FP LookForTargetsToShootAtInterval;
-    [FieldOffset(144)]
-    public FP LowAmmoSensitivity;
     [FieldOffset(152)]
-    public FP LowArmourSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(160)]
-    public FP LowHealthSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(168)]
-    public FP MaxAimingRange;
+    public FP LowArmourSensitivity;
     [FieldOffset(176)]
+    public FP LowHealthSensitivity;
+    [FieldOffset(184)]
+    public FP MaxAimingRange;
+    [FieldOffset(192)]
     public FP MaxDistanceToTeammateSquared;
     [FieldOffset(32)]
     public EntityRef MoveTarget;
-    [FieldOffset(184)]
-    public FP MovementSpeedMultiplier;
-    [FieldOffset(192)]
-    public FP NextDecisionTime;
     [FieldOffset(200)]
+    public FP MovementSpeedMultiplier;
+    [FieldOffset(208)]
+    public FP NextDecisionTime;
+    [FieldOffset(216)]
     public FP NextLookForTargetsToShootAtTime;
     [FieldOffset(40)]
     public EntityRef RandomTeammate;
-    [FieldOffset(208)]
+    [FieldOffset(224)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(8)]
     public GameId Skin;
-    [FieldOffset(216)]
+    [FieldOffset(20)]
+    public QBoolean SpawnWithPlayer;
+    [FieldOffset(232)]
     public FP SpecialAimingDeviation;
-    [FieldOffset(240)]
+    [FieldOffset(256)]
     public FPVector3 StuckDetectionPosition;
     [FieldOffset(48)]
     public EntityRef Target;
     [FieldOffset(16)]
     public Int32 TeamSize;
-    [FieldOffset(224)]
+    [FieldOffset(240)]
     public FP VisionRangeSqr;
-    [FieldOffset(232)]
+    [FieldOffset(248)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3845,9 +3851,10 @@ namespace Quantum {
         hash = hash * 31 + ChanceToUseSpecial.GetHashCode();
         hash = hash * 31 + CloseFightIntolerance.GetHashCode();
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
+        hash = hash * 31 + DamageDoneMultiplier.GetHashCode();
+        hash = hash * 31 + DamageTakenMultiplier.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
-        hash = hash * 31 + FixedSpawn.GetHashCode();
         hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
@@ -3862,6 +3869,7 @@ namespace Quantum {
         hash = hash * 31 + RandomTeammate.GetHashCode();
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
+        hash = hash * 31 + SpawnWithPlayer.GetHashCode();
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
         hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
@@ -3878,7 +3886,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->TeamSize);
-        QBoolean.Serialize(&p->FixedSpawn, serializer);
+        QBoolean.Serialize(&p->SpawnWithPlayer, serializer);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
@@ -3893,6 +3901,8 @@ namespace Quantum {
         FP.Serialize(&p->ChanceToUseSpecial, serializer);
         FP.Serialize(&p->CloseFightIntolerance, serializer);
         FP.Serialize(&p->CurrentEvasionStepEndTime, serializer);
+        FP.Serialize(&p->DamageDoneMultiplier, serializer);
+        FP.Serialize(&p->DamageTakenMultiplier, serializer);
         FP.Serialize(&p->DecisionInterval, serializer);
         FP.Serialize(&p->LookForTargetsToShootAtInterval, serializer);
         FP.Serialize(&p->LowAmmoSensitivity, serializer);
@@ -4134,29 +4144,39 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Destructible : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
-    public FP DamagePower;
     [FieldOffset(16)]
-    public FP DestructionLengthTime;
+    public FP DamagePower;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public EntityRef Destroyer;
+    [FieldOffset(24)]
+    [FramePrinter.FixedArrayAttribute(typeof(FP), 2)]
+    private fixed Byte _DestructionLengthTime_[16];
     [FieldOffset(0)]
     public GameId GameId;
-    [FieldOffset(24)]
+    [FieldOffset(40)]
     public FP Health;
     [FieldOffset(4)]
     [HideInInspector()]
     public QBoolean IsDestructing;
-    [FieldOffset(32)]
+    [FieldOffset(48)]
     public FP SplashRadius;
-    [FieldOffset(40)]
+    [FieldOffset(56)]
     [HideInInspector()]
     public FP TimeToDestroy;
+    public FixedArray<FP> DestructionLengthTime {
+      get {
+        fixed (byte* p = _DestructionLengthTime_) { return new FixedArray<FP>(p, 8, 2); }
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 491;
         hash = hash * 31 + DamagePower.GetHashCode();
-        hash = hash * 31 + DestructionLengthTime.GetHashCode();
+        hash = hash * 31 + Destroyer.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(DestructionLengthTime);
         hash = hash * 31 + (Int32)GameId;
         hash = hash * 31 + Health.GetHashCode();
         hash = hash * 31 + IsDestructing.GetHashCode();
@@ -4169,8 +4189,9 @@ namespace Quantum {
         var p = (Destructible*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         QBoolean.Serialize(&p->IsDestructing, serializer);
+        EntityRef.Serialize(&p->Destroyer, serializer);
         FP.Serialize(&p->DamagePower, serializer);
-        FP.Serialize(&p->DestructionLengthTime, serializer);
+        FixedArray.Serialize(p->DestructionLengthTime, serializer, StaticDelegates.SerializeFP);
         FP.Serialize(&p->Health, serializer);
         FP.Serialize(&p->SplashRadius, serializer);
         FP.Serialize(&p->TimeToDestroy, serializer);
@@ -9248,6 +9269,7 @@ namespace Quantum {
       Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
       Register(typeof(NullableNonNegativeFP), NullableNonNegativeFP.SIZE);
+      Register(typeof(Quantum.OperationType), 4);
       Register(typeof(PhysicsBody2D), PhysicsBody2D.SIZE);
       Register(typeof(PhysicsBody3D), PhysicsBody3D.SIZE);
       Register(typeof(PhysicsCollider2D), PhysicsCollider2D.SIZE);
@@ -9288,7 +9310,6 @@ namespace Quantum {
       Register(typeof(Quantum.Targetable), Quantum.Targetable.SIZE);
       Register(typeof(Quantum.TargetingType), 4);
       Register(typeof(Quantum.TeamPingType), 4);
-      Register(typeof(Quantum.TeamType), 4);
       Register(typeof(Transform2D), Transform2D.SIZE);
       Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       Register(typeof(Transform3D), Transform3D.SIZE);
@@ -9362,6 +9383,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameSimulationStateMachine>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.OperationType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.QuantumServerCommand>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
@@ -9371,7 +9393,6 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TargetingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamPingType>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamType>();
     }
   }
 }
@@ -9599,6 +9620,17 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(OperationType))]
+  public unsafe partial struct OperationType_Prototype {
+    public Int32 Value;
+    public static implicit operator OperationType(OperationType_Prototype value) {
+        return (OperationType)value.Value;
+    }
+    public static implicit operator OperationType_Prototype(OperationType value) {
+        return new OperationType_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(QuantumServerCommand))]
   public unsafe partial struct QuantumServerCommand_Prototype {
     public Int32 Value;
@@ -9695,17 +9727,6 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator TeamPingType_Prototype(TeamPingType value) {
         return new TeamPingType_Prototype() { Value = (Int32)value };
-    }
-  }
-  [System.SerializableAttribute()]
-  [Prototype(typeof(TeamType))]
-  public unsafe partial struct TeamType_Prototype {
-    public Int32 Value;
-    public static implicit operator TeamType(TeamType_Prototype value) {
-        return (TeamType)value.Value;
-    }
-    public static implicit operator TeamType_Prototype(TeamType value) {
-        return new TeamType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -10028,7 +10049,9 @@ namespace Quantum.Prototypes {
     public FP MaxAimingRange;
     public FP MovementSpeedMultiplier;
     public FP MaxDistanceToTeammateSquared;
-    public QBoolean FixedSpawn;
+    public QBoolean SpawnWithPlayer;
+    public FP DamageTakenMultiplier;
+    public FP DamageDoneMultiplier;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -10048,9 +10071,10 @@ namespace Quantum.Prototypes {
       result.ChanceToUseSpecial = this.ChanceToUseSpecial;
       result.CloseFightIntolerance = this.CloseFightIntolerance;
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
+      result.DamageDoneMultiplier = this.DamageDoneMultiplier;
+      result.DamageTakenMultiplier = this.DamageTakenMultiplier;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
-      result.FixedSpawn = this.FixedSpawn;
       result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
@@ -10065,6 +10089,7 @@ namespace Quantum.Prototypes {
       PrototypeValidator.FindMapEntity(this.RandomTeammate, in context, out result.RandomTeammate);
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
+      result.SpawnWithPlayer = this.SpawnWithPlayer;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
       result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
@@ -10292,11 +10317,14 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public QBoolean IsDestructing;
     [HideInInspector()]
+    public MapEntityId Destroyer;
+    [HideInInspector()]
     public FP TimeToDestroy;
     public FP Health;
     public FP DamagePower;
     public FP SplashRadius;
-    public FP DestructionLengthTime;
+    [ArrayLengthAttribute(2)]
+    public FP[] DestructionLengthTime = new FP[2];
     public GameId_Prototype GameId;
     partial void MaterializeUser(Frame frame, ref Destructible result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -10306,7 +10334,10 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Destructible result, in PrototypeMaterializationContext context) {
       result.DamagePower = this.DamagePower;
-      result.DestructionLengthTime = this.DestructionLengthTime;
+      PrototypeValidator.FindMapEntity(this.Destroyer, in context, out result.Destroyer);
+      for (int i = 0, count = PrototypeValidator.CheckLength(DestructionLengthTime, 2, in context); i < count; ++i) {
+        *result.DestructionLengthTime.GetPointer(i) = this.DestructionLengthTime[i];
+      }
       result.GameId = this.GameId;
       result.Health = this.Health;
       result.IsDestructing = this.IsDestructing;
@@ -10668,6 +10699,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Modifier_Prototype : StructPrototype {
     public UInt32 Id;
     public StatType_Prototype Type;
+    public OperationType_Prototype OpType;
     public FP Power;
     public FP Duration;
     public FP StartTime;
@@ -10677,6 +10709,7 @@ namespace Quantum.Prototypes {
       result.Duration = this.Duration;
       result.Id = this.Id;
       result.IsNegative = this.IsNegative;
+      result.OpType = this.OpType;
       result.Power = this.Power;
       result.StartTime = this.StartTime;
       result.Type = this.Type;

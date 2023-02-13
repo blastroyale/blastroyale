@@ -69,8 +69,9 @@ namespace FirstLight.Game.StateMachines
 			
 			connectionWait.WaitingFor(WaitForPhotonConnection).Target(firstMatchCheck);
 			
-			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
-			firstMatchCheck.Transition().Target(joinTutorialRoom);
+			firstMatchCheck.Transition().Target(mainMenu);
+			//firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
+			//firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 

@@ -58,6 +58,9 @@
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
     --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
+    --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
+    --sprite-home__button-play-ready: url('/Assets/Art/UI/Sprites/Home/button-play-ready.png');
+    --sprite-home__button-play-ready-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-ready-pressed.png');
     --sprite-home__button-popup-equipment-close: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close.png');
     --sprite-home__button-popup-equipment-close-pressed: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close-pressed.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');

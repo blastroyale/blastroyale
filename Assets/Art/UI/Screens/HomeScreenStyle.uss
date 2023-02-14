@@ -222,7 +222,6 @@
 }
 
 .play-button {
-    background-image: var(--sprite-home__button-play);
     width: 535px;
     height: 193px;
     font-size: 70px;
@@ -239,12 +238,25 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
+    background-image: var(--sprite-home__button-play);
+}
+
+.play-button--disabled {
+    background-image: var(--sprite-home__button-play-disabled);
+}
+
+.play-button--ready {
+    background-image: var(--sprite-home__button-play-ready);
 }
 
 .play-button:active {
     background-image: var(--sprite-home__button-play-pressed);
     padding-left: 50px;
     padding-top: 27px;
+}
+
+.play-button--ready:active {
+    background-image: var(--sprite-home__button-play-ready-pressed);
 }
 
 .game-mode-button {
@@ -289,8 +301,8 @@
     color: rgb(146, 137, 162);
 }
 
-.game-mode-button__trios {
-     font-size: 42px !important;
+.game-mode-button--trios {
+    font-size: 42px;
 }
 
 .resource-pool {

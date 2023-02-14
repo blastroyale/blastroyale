@@ -1250,6 +1250,7 @@ namespace I2.Loc
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
 			public static string waitforrewards_popup_description 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_description"); } }
 			public static string waitforrewards_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_title"); } }
+			public static string waiting_for_members 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waiting_for_members"); } }
 		}
 
 		public static class UITLeaderboards
@@ -2634,6 +2635,7 @@ namespace I2.Loc
 		    public const string shop = "UITHomeScreen/shop";
 		    public const string waitforrewards_popup_description = "UITHomeScreen/waitforrewards_popup_description";
 		    public const string waitforrewards_popup_title = "UITHomeScreen/waitforrewards_popup_title";
+		    public const string waiting_for_members = "UITHomeScreen/waiting_for_members";
 		}
 
 		public static class UITLeaderboards

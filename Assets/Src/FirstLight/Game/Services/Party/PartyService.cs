@@ -34,7 +34,7 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
 		Task JoinParty(string code);
-		
+
 		/// <summary>
 		/// Set ready status in a party
 		/// </summary>
@@ -96,8 +96,13 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="value"></param>
-		void SetLobbyProperty(string key, string value);
-		
+		Task SetLobbyProperty(string key, string value);
+
+		/// <summary>
+		/// Delete a lobby property
+		/// </summary>
+		Task DeleteLobbyProperty(string key);
+
 		/// <summary>
 		/// Get local player object as <see cref="PartyMember"/> from lobby <see cref="Members"/> list
 		/// </summary>
@@ -127,7 +132,7 @@ namespace FirstLight.Game.Services.Party
 		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
 
 
-		public async void SetLobbyProperty(string key, string value)
+		public async Task SetLobbyProperty(string key, string value)
 		{
 			if (!HasParty.Value)
 			{
@@ -147,6 +152,26 @@ namespace FirstLight.Game.Services.Party
 				{
 					{key, value}
 				}
+			});
+		}
+
+		public async Task DeleteLobbyProperty(string key)
+		{
+			if (!HasParty.Value)
+			{
+				throw new PartyException(PartyErrors.NoParty);
+			}
+
+			if (!LocalPartyMember().Leader)
+			{
+				throw new PartyException(PartyErrors.NoPermission);
+			}
+
+			Debug.Log($"setting property {key} to " + _lobbyId);
+			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			{
+				LobbyId = _lobbyId,
+				LobbyDataToDelete = new List<string> {key}
 			});
 		}
 
@@ -225,7 +250,6 @@ namespace FirstLight.Game.Services.Party
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
 				PartyReady.Value = true;
-				
 			}
 			catch (Exception ex)
 			{
@@ -353,7 +377,6 @@ namespace FirstLight.Game.Services.Party
 						{"ready", ready.ToString()}
 					}
 				});
-				
 			}
 			catch (Exception ex)
 			{
@@ -363,6 +386,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction($"Ready {ready}");
 		}
 
@@ -444,16 +468,16 @@ namespace FirstLight.Game.Services.Party
 
 			SendAnalyticsAction("Leave");
 		}
-		
+
 		[CanBeNull]
 		public PartyMember GetLocalMember()
 		{
 			return LocalPartyMember();
 		}
-		
+
 		private void CheckPartyReadyStatus()
 		{
-			PartyReady.Value = Members.Count == 1 || Members.Where(m=>!m.Leader).ToList().TrueForAll(m => m.Ready);
+			PartyReady.Value = Members.Count == 1 || Members.Where(m => !m.Leader).ToList().TrueForAll(m => m.Ready);
 		}
 
 		private async Task UnsubscribeToLobbyUpdates()
@@ -567,13 +591,13 @@ namespace FirstLight.Game.Services.Party
 		private void UpdateProperties()
 		{
 			// Remove/update
-			foreach (var (key, value) in LobbyProperties)
+			foreach (var (key, value) in new Dictionary<string,string>(LobbyProperties))
 			{
-				if (_lobby.LobbyData.TryGetValue(key, out var newValue))
+				if (_lobby?.LobbyData != null && _lobby.LobbyData.TryGetValue(key, out var newValue))
 				{
 					if (newValue != value)
 					{
-						LobbyProperties.Add(key, value);
+						LobbyProperties[key] = value;
 					}
 				}
 				else
@@ -583,14 +607,13 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// Insert
-			if (_lobby?.LobbyData != null)
+			if (_lobby?.LobbyData == null) return;
+
+			foreach (var (key, value) in _lobby.LobbyData)
 			{
-				foreach (var (key, value) in _lobby.LobbyData)
+				if (!LobbyProperties.ContainsKey(key))
 				{
-					if (!LobbyProperties.ContainsKey(key))
-					{
-						LobbyProperties.Add(key, value);
-					}
+					LobbyProperties.Add(key, value);
 				}
 			}
 		}

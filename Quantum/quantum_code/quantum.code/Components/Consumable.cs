@@ -37,51 +37,15 @@ namespace Quantum
 			{
 				case ConsumableType.Health:
 					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) Amount.AsInt});
-					
-					if (isTeamsMode)
-					{
-						foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
-						{
-							if (!QuantumHelpers.IsDestroyed(f, teammateCandidate.Entity) && teammateCandidate.Component->Team == team)
-							{
-								stats->GainHealth(f, teammateCandidate.Entity, new Spell { PowerAmount = (uint) Amount.AsInt});
-							}
-						}
-					}
-					
 					break;
 				case ConsumableType.Rage:
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, Amount.AsInt);
 					break;
 				case ConsumableType.Ammo:
 					f.Unsafe.GetPointer<Stats>(playerEntity)->GainAmmoPercent(f, playerEntity, Amount);
-					
-					if (isTeamsMode)
-					{
-						foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
-						{
-							if (!QuantumHelpers.IsDestroyed(f, teammateCandidate.Entity) && teammateCandidate.Component->Team == team)
-							{
-								f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity)->GainAmmoPercent(f, teammateCandidate.Entity, Amount);
-							}
-						}
-					}
-					
 					break;
 				case ConsumableType.Shield:
 					stats->GainShield(f, playerEntity, Amount.AsInt);
-					
-					if (isTeamsMode)
-					{
-						foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
-						{
-							if (!QuantumHelpers.IsDestroyed(f, teammateCandidate.Entity) && teammateCandidate.Component->Team == team)
-							{
-								stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
-							}
-						}
-					}
-					
 					break;
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
@@ -89,8 +53,44 @@ namespace Quantum
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-
+			
+			if (isTeamsMode)
+			{
+				ShareCollectWithTeammates(f, playerEntity, team);
+			}
+			
 			f.Events.OnConsumableCollected(entity, player, playerEntity, this);
+		}
+		
+		private void ShareCollectWithTeammates(Frame f, EntityRef playerEntity, int team)
+		{
+			// Rage and ShieldsCapacity are not shared with teammates
+			if (ConsumableType == ConsumableType.Rage || ConsumableType == ConsumableType.ShieldCapacity)
+			{
+				return;
+			}
+			
+			foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
+			{
+				if (teammateCandidate.Entity != playerEntity &&
+					!QuantumHelpers.IsDestroyed(f, teammateCandidate.Entity) &&
+					teammateCandidate.Component->Team == team)
+				{
+					var stats = f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity);
+					switch (ConsumableType)
+					{
+						case ConsumableType.Health:
+							stats->GainHealth(f, teammateCandidate.Entity, new Spell { PowerAmount = (uint)Amount.AsInt });
+							break;
+						case ConsumableType.Ammo:
+							f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity)->GainAmmoPercent(f, teammateCandidate.Entity, Amount);
+							break;
+						case ConsumableType.Shield:
+							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
+							break;
+					}
+				}
+			}
 		}
 	}
 }

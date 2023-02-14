@@ -59,16 +59,11 @@ namespace FirstLight.Game.Services
 			var newImpulse = new CinemachineImpulseDefinition
 			{
 				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Dissipating,
-				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
 				m_ImpulseShape = shape,
 				m_ImpulseDuration = duration,
-				m_DissipationDistance = 15,
+				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
 				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
-
-			var dist = Vector3.Distance(_matchServices.SpectateService.SpectatedPlayer.Value.Transform.position, position);
-			if (dist > GameConstants.Screenshake.SCREENSHAKE_HARD_CUTOFF_DISTANCE)
-				return;
 
 			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;

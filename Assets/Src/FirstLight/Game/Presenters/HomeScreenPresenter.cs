@@ -278,7 +278,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
-			//_services.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
+
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -294,7 +294,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
-			//_services.TickService.UnsubscribeAll(this);
+
 			if (_updatePoolsCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);

@@ -37,7 +37,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnGameCompleted);
-			//_services.TickService.SubscribeOnUpdate(UpdateTick);
 		}
 
 		private void Start()
@@ -52,7 +51,6 @@ namespace FirstLight.Game.MonoComponent.Match
 				_services?.CoroutineService.StopCoroutine(_updateTickCoroutine);
 				_updateTickCoroutine = null;
 			}
-			//_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
 		}
 
 		private IEnumerator UpdateTick()
@@ -79,7 +77,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_standings.Initialise(playerData.Count, true, true);
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
-			//_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+
 			if (_updateTickCoroutine != null)
 			{
 				_services?.CoroutineService.StopCoroutine(_updateTickCoroutine);

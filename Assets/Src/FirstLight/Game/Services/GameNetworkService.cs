@@ -375,7 +375,6 @@ namespace FirstLight.Game.Services
 			if (enabled)
 			{
 				_tickPingCheckCoroutine = _services.CoroutineService.StartCoroutine(TickPingCheck());
-				//_services.TickService.SubscribeOnUpdate(TickPingCheck, QUANTUM_PING_TICK_SECONDS, true, true);
 			}
 			else
 			{
@@ -384,7 +383,6 @@ namespace FirstLight.Game.Services
 					_services.CoroutineService.StopCoroutine(_tickPingCheckCoroutine);
 					_tickPingCheckCoroutine = null;
 				}
-				//_services.TickService.Unsubscribe(TickPingCheck);
 			}
 		}
 		
@@ -395,7 +393,6 @@ namespace FirstLight.Game.Services
 			if (enabled)
 			{
 				_tickUpdateCoroutine = _services.CoroutineService.StartCoroutine(TickQuantumClient());
-				//_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
 			}
 			else
 			{
@@ -404,7 +401,6 @@ namespace FirstLight.Game.Services
 					_services.CoroutineService.StopCoroutine(_tickUpdateCoroutine);
 					_tickUpdateCoroutine = null;
 				}
-				//_services.TickService.Unsubscribe(TickQuantumClient);
 			}
 		}
 

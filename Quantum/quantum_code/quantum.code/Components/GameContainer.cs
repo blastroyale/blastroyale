@@ -95,8 +95,7 @@ namespace Quantum
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		/// TODO: Rename to GeneratePlayersMatchData
-		public List<QuantumPlayerMatchData> GetPlayersMatchData(Frame f, out PlayerRef leader)
+		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader)
 		{
 			var data = PlayersData;
 			var gameModeConfig = f.Context.GameModeConfig;

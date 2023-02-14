@@ -15,7 +15,7 @@ namespace FirstLight.Game.Services
 	{
 		// TODO: Remove this property once all the match end screens are redone and use PlayerMatchData instead
 		/// <summary>
-		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GetPlayersMatchData
+		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GeneratePlayersMatchData
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
 		
@@ -192,7 +192,7 @@ namespace FirstLight.Game.Services
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			
-			QuantumPlayerMatchData = gameContainer.GetPlayersMatchData(frame, out _);
+			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _);
 
 			PlayerMatchData.Clear();
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)

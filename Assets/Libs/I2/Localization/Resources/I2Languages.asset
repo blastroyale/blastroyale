@@ -1543,13 +1543,46 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionMenu/collection
+    - Term: UITCollectionScreen/collection
       TermType: 0
       Description: 
       Languages:
       - YOUR COLLECTION
       - "\u0412\u0430\u0448\u0430 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F"
       - "Sua cole\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/characters
+      TermType: 0
+      Description: 
+      Languages:
+      - CHARACTERS
+      - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
+      - PERSONAGENS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/banners
+      TermType: 0
+      Description: 
+      Languages:
+      - BANNERS
+      - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
+      - Banners
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/gliders
+      TermType: 0
+      Description: 
+      Languages:
+      - GLIDERS
+      - "\u0413\u043B\u0438\u043D\u0435\u0440\u044B"
+      - Planadores
       - 
       - 
       Flags: 0000000000
@@ -14932,7 +14965,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676394452294
+    Google_LastUpdatedVersion: 1676397061237
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

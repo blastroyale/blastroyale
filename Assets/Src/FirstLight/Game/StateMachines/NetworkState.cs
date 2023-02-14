@@ -55,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _criticalDisconnectCoroutine;
+		private Coroutine _tickReconnectAttemptCoroutine;
 		private Coroutine _matchmakingCoroutine;
 		private bool _requiresManualRoomReconnection;
 
@@ -151,32 +152,43 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.TickService?.UnsubscribeAll(this);
 			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
 			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
 		}
 
 		private void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			_tickReconnectAttemptCoroutine = _services.CoroutineService.StartCoroutine(TickReconnectAttempt());
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 		
 		private void UnsubscribeDisconnectEvents()
 		{
-			_services.TickService.Unsubscribe(TickReconnectAttempt);
-
+			if (_tickReconnectAttemptCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_tickReconnectAttemptCoroutine);
+				_tickReconnectAttemptCoroutine = null;
+			}
+			
 			if (_criticalDisconnectCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_criticalDisconnectCoroutine);
+				_criticalDisconnectCoroutine = null;
 			}
 		}
 		
-		private void TickReconnectAttempt(float deltaTime)
+		private IEnumerator TickReconnectAttempt()
 		{
-			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
+			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			
+			while (true)
 			{
-				ReconnectPhoton();
+				if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
+				{
+					ReconnectPhoton();
+				}
+
+				yield return waitForSeconds;	
 			}
 		}
 		

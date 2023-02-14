@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_ShrinkingCircle
   m_Shader: {fileID: -6465566751694194690, guid: f6efd959b7a63824a8f020fba9fd79d1, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -35,8 +36,11 @@ Material:
     m_Floats:
     - Vector1_6ae01ae6587d4676927694421b1c8a49: 0.01
     - Vector1_cd047edbde144e149b5ea1510e81c375: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_c456f3cd5c7a48ceb6529b327462c057: {r: 1, g: 0, b: 0, a: 0}
+    - Position: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1293336982441041999
 MonoBehaviour:

@@ -88,6 +88,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton _partyButton;
 		private VisualElement _partyContainer;
 		private HomePartyView _partyView;
+		private Coroutine _updatePoolsCoroutine;
 
 		private void Awake()
 		{
@@ -272,7 +273,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			_services.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
+			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
+
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -288,7 +290,12 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
-			_services.TickService.UnsubscribeAll(this);
+
+			if (_updatePoolsCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
+				_updatePoolsCoroutine = null;
+			}
 		}
 
 		private void OnPlayButtonClicked()
@@ -350,12 +357,19 @@ namespace FirstLight.Game.Presenters
 			UpdatePoolLabels();
 		}
 
-		private void UpdatePoolLabels(float _ = 0)
+		private IEnumerator UpdatePoolLabels()
 		{
-			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
-				_bppPoolAmountLabel);
-			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
-				_csPoolAmountLabel);
+			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+
+			while (true)
+			{
+				UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
+					_bppPoolAmountLabel);
+				UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
+					_csPoolAmountLabel);
+
+				yield return waitForSeconds;
+			}
 		}
 
 		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label restockAmountLabel,

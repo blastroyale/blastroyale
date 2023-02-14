@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private List<EquipmentSlotElement> _categories;
+		private List<CollectionMenuSlotElement> _collectionCategories; 
 		private VisualElement _specialsHolder;
 		private MightElement _might;
 

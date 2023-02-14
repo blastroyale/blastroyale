@@ -328,6 +328,46 @@ namespace FirstLight.Game.Services
 			_routines.StopCoroutine(_task);
 		}
 
+		private void HandleCancellation(GetMatchmakingTicketResult ticket)
+		{
+			if (ticket.CancellationReasonString == "Timeout")
+			{
+				string matchId = "timeout-match-" + ticket.TicketId;
+				_service.InvokeMatchFound(new GameMatched()
+				{
+					MatchIdentifier = matchId,
+					RoomSetup = _setup,
+					// Since this game is only going to be this ticket, all the players should be in the same team
+					TeamId = "team1"
+				});
+			}
+			
+		}
+		
+		private void HandleMatched(GetMatchmakingTicketResult ticket)
+		{
+			_service.GetMatch(ticket.MatchId, result =>
+			{
+				// Distribute teams
+				var membersWithTeam = result.Members
+					.ToDictionary(player => player.Entity.Id,
+						player => player.TeamId
+					);
+
+				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
+				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, _setup.GameMode().MaxPlayersInTeam);
+
+				_service.InvokeMatchFound(new GameMatched()
+				{
+					MatchIdentifier = ticket.MatchId,
+					RoomSetup = _setup,
+					TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
+				});
+			});
+			
+		}
+
+
 		private IEnumerator Runnable()
 		{
 			var delay = new WaitForSeconds(7);
@@ -340,26 +380,14 @@ namespace FirstLight.Game.Services
 					// TODO: Check when ticket expired and expose event
 					if (ticket.Status == "Matched")
 					{
-						// lets ride this callback hell YEEEEEEEEHAAAAAAAAA
-						_service.GetMatch(ticket.MatchId, result =>
-						{
-							// Distribute teams
-							var membersWithTeam = result.Members
-								.ToDictionary(player => player.Entity.Id,
-									player => player.TeamId
-								);
+					
+						HandleMatched(ticket);
+						_pooling = false;
+					}
 
-							// This distribution should be deterministic and used in the server to validate if anyone is exploiting
-							membersWithTeam = TeamDistribution.Distribute(membersWithTeam, _setup.GameMode().MaxPlayersInTeam);
-
-							_service.InvokeMatchFound(new GameMatched()
-							{
-								MatchIdentifier = ticket.MatchId,
-								RoomSetup = _setup,
-								TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
-							});
-						});
-
+					if (ticket.Status == "Canceled")
+					{
+						HandleCancellation(ticket);
 						_pooling = false;
 					}
 				});

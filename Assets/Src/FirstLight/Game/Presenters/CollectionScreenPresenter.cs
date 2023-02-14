@@ -27,8 +27,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private List<EquipmentSlotElement> _categories;
-		private List<CollectionMenuSlotElement> _collectionCategories; 
-		private VisualElement _specialsHolder;
+		private List<CollectionMenuSlotElement> _collectionCategories;
 		private MightElement _might;
 
 		private IGameServices _services;
@@ -42,8 +41,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_specialsHolder = root.Q("SpecialsHolder").Required();
-			_might = root.Q<MightElement>("Might").Required();
 			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
 
 			foreach (var cat in _categories)
@@ -92,34 +89,14 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshSpecials()
 		{
-			_specialsHolder.Clear();
 
-			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var uniqueId))
-			{
-				var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
-
-				foreach (var (type, value) in info.Stats)
-				{
-					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
-					{
-						var specialId = (GameId) value;
-						var element = new SpecialDisplayElement(specialId);
-						element.clicked += () =>
-							element.OpenTooltip(Root, specialId.GetDescriptionLocalization(), TooltipDirection.TopRight,
-								TooltipPosition.BottomLeft, 20, 20);
-
-						_specialsHolder.Add(element);
-					}
-				}
-			}
 		}
 
 		private void RefreshMight()
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider);
-
-			_might.SetMight(might, false);
+			// var might = loadout.GetTotalMight(_services.ConfigsProvider);
+			// _might.SetMight(might, false);
 		}
 	}
 }

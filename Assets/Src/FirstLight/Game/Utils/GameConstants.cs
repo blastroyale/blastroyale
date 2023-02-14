@@ -113,8 +113,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Screenshake
 		{
-			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 10;
-			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 20;
+			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
+			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 15;
 
 			public const float SCREENSHAKE_SMALL_STRENGTH = 0.35f;
 			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;

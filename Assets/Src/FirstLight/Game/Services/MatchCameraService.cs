@@ -53,7 +53,7 @@ namespace FirstLight.Game.Services
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
-			if (!_gameDataProvider.AppDataProvider.UseScreenShake)
+			if (!_gameDataProvider.AppDataProvider.UseScreenShake || _adventureCamera == null)
 				return;
 
 			var newImpulse = new CinemachineImpulseDefinition
@@ -95,9 +95,12 @@ namespace FirstLight.Game.Services
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
+			if(callback.Entity.IsAlive(f))
+			{
+				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble,
 				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
 				callback.Entity.GetPosition(f).ToUnityVector3());
+			}
 		}
 		
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

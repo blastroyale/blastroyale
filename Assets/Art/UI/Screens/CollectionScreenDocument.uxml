@@ -1,18 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/EquipmentScreenStyle.uss?fileID=7433441132597879392&amp;guid=4db877ea6f2aa4a9e89b2280626e6649&amp;type=3#EquipmentScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/CollectionMenuSlotStyle.uss?fileID=7433441132597879392&amp;guid=2b3437908880e4d96b929057a7f74f84&amp;type=3#CollectionMenuSlotStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore">
-            <ui:VisualElement name="CategoryHolder" class="category-holder">
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Weapon" name="WeaponCategory" class="anim-delay-4 anim-translate anim-translate--right-xxl" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Helmet" name="HelmetCategory" class="anim-delay-3 anim-translate anim-translate--right-xxl" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Shield" name="ShieldCategory" class="anim-delay-2 anim-translate anim-translate--right-xxl" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Amulet" name="AmuletCategory" class="anim-delay-1 anim-translate anim-translate--right-xxl" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Armor" name="ArmorCategory" class="anim-delay-0 anim-translate anim-translate--right-xxl" />
-            </ui:VisualElement>
-            <ui:VisualElement name="SpecialsHolder" class="specials-holder anim-delay-0 anim-translate anim-translate--left-m">
-                <FirstLight.Game.UIElements.SpecialDisplayElement />
-                <FirstLight.Game.UIElements.SpecialDisplayElement />
+            <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: stretch; border-top-width: 200px;">
+                <FirstLight.Game.UIElements.EquipmentSlotElement category="Helmet" name="CharactersCategory" class="anim-delay-3 anim-translate anim-translate--right-xxl" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement category="Shield" name="BannersCategory" class="anim-delay-2 anim-translate anim-translate--right-xxl">
+                    <FirstLight.Game.UIElements.EquipmentSlotElement category="Weapon" name="WeaponCategory" class="anim-delay-4 anim-translate anim-translate--right-xxl" />
+                </FirstLight.Game.UIElements.EquipmentSlotElement>
+                <FirstLight.Game.UIElements.EquipmentSlotElement category="Amulet" name="GlidersCategory" class="anim-delay-1 anim-translate anim-translate--right-xxl" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionMenu/collection" subtitle-back="true" name="Header" />

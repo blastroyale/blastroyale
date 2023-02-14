@@ -60,7 +60,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseEquipmentPopup()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>();
+			_uiService.CloseUi<CollectionScreenPresenter>();
 		}
 
 		private void OpenEquipmentScreen()
@@ -84,7 +84,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<CollectionScreenPresenter, CollectionScreenPresenter.StateData>(data);
 			
 			
-			_services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
+			// _services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
 		}
 
 		private void SendLoadoutUpdateCommand()

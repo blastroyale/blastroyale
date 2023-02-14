@@ -42,7 +42,7 @@
                     <ui:VisualElement class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl main-button-margin">

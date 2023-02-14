@@ -325,6 +325,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/collection
+      TermType: 0
+      Description: 
+      Languages:
+      - COLLECTION
+      - "\u041A\u041E\u041B\u041B\u0415\u041A\u0426\u0418\u042F"
+      - "COLE\xC7\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/join
       TermType: 0
       Description: 
@@ -14921,7 +14932,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676388934714
+    Google_LastUpdatedVersion: 1676394452294
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -152,8 +152,6 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = new List<RewardData>();
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
-			var teamSize = 1; // TODO: Read teamSize from a proper source
-			var maxTeamsInMatch = 30 / teamSize;
 			trophyChange = 0;
 
 			if (localMatchData.PlayerRank == 0)
@@ -161,6 +159,11 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
+			var gameModeConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId.GetHashCode());
+			var teamSize = Math.Max(1, gameModeConfig.MaxPlayers);
+			var maxTeamsInMatch = 30 / teamSize;
+			
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider

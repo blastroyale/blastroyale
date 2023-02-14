@@ -86,7 +86,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			PartyService = Substitute.For<PartyService>();
-			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService);
+			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService, MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<PlayfabPubSubService>();

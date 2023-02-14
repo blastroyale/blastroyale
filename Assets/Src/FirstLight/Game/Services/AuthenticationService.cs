@@ -389,6 +389,7 @@ namespace FirstLight.Game.Services
 
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId,
 				_dataProvider.AppDataProvider.IsGuest);
+			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)

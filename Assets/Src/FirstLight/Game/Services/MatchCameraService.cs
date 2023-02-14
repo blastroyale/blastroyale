@@ -20,6 +20,9 @@ namespace FirstLight.Game.Services
 		/// <param name="position">The position of the place where the shake was started from</param>
 		void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength,
 							  Vector3 position = default);
+
+
+		void SetCameras(CinemachineVirtualCamera adventureCamera);
 	}
 	
 	/// <inheritdoc />
@@ -27,17 +30,15 @@ namespace FirstLight.Game.Services
 	{
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
-		private IGameServices _services;
-		
+
 		private CinemachineImpulseSource _impulseSource;
 		private GameObject _cameraServiceObject;
-		private GameObject _followObject;
+		private CinemachineVirtualCamera _adventureCamera;
 		
-		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices, IGameServices services)
+		public MatchCameraService(IGameDataProvider gameDataProvider, IMatchServices matchServices)
 		{
 			_gameDataProvider = gameDataProvider;
 			_matchServices = matchServices;
-			_services = services;
 			_cameraServiceObject = new GameObject("CameraService", typeof(CinemachineImpulseSource));
 			_impulseSource = _cameraServiceObject.GetComponent<CinemachineImpulseSource>();
 			
@@ -57,11 +58,11 @@ namespace FirstLight.Game.Services
 
 			var newImpulse = new CinemachineImpulseDefinition
 			{
-				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
+				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Dissipating,
 				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
 				m_ImpulseShape = shape,
 				m_ImpulseDuration = duration,
-				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
+				m_DissipationDistance = 15,
 				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
 
@@ -71,15 +72,18 @@ namespace FirstLight.Game.Services
 
 			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;
-			
-			if(position == default && _followObject != null)
-			{
-				position = _followObject.transform.position;
-			}
 
+			var cameraSkew = _adventureCamera.transform.position - _adventureCamera.Follow.position;
+			position += cameraSkew;
+			
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
-		
+
+		public void SetCameras(CinemachineVirtualCamera adventureCamera)
+		{
+			_adventureCamera = adventureCamera;
+		}
+
 		public void Dispose()
 		{
 			Object.Destroy(_cameraServiceObject);
@@ -87,22 +91,12 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 		}
-		
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			if (_services.NetworkService.LocalPlayer.IsSpectator())
-			{
-				_followObject = next.Transform.gameObject;
-			}
-		}
-		
+
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			var f = callback.Game.Frames.Verified;

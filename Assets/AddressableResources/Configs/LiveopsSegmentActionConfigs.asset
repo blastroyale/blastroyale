@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: LiveopsSegmentActionConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - ActionIdentifier: 1
-    PlayerSegment: PlayedOneGame
-    Action: 0
-    ActionParameter:
-    - Nice one
-    - You played at least one game
   - ActionIdentifier: 2
-    PlayerSegment: NikTest
+    PlayerSegment: EarlyEngagedPlayers
     Action: 0
     ActionParameter:
-    - WOW
-    - you played 10 games !
+    - BLAST NEWS
+    - You're a natural! Want to take your skills to the next level? Join our Discord
+      community for daily challenges, sweet rewards, epic tournaments, and loads
+      of fun activities. Just hit the Discord icon in the top right corner.
+  - ActionIdentifier: 3
+    PlayerSegment: EngagedWithNoNFTs
+    Action: 0
+    ActionParameter:
+    - BLAST NEWS
+    - 'Did you know you can buy amazing equipment from other players on the Blast
+      Hub? Buy from other players, own the gear, and earn Craft Spice. Get ready
+      to level up your game! Check it out at the: hub.blastroyale.com'

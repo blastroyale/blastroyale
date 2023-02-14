@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
@@ -166,13 +164,15 @@ namespace FirstLight.Game.StateMachines
 			
 			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
+			playClickedCheck.Transition().Condition(CheckPartyReady).Target(homeMenu);
+			playClickedCheck.Transition().Condition(CheckPartyMemberStatus).OnTransition(TogglePartyReadyStatus).Target(homeMenu);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage).Target(roomWait);
-			
+
 			roomWait.OnEnter(CloseCurrentScreen);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
-			
+
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
@@ -318,12 +318,29 @@ namespace FirstLight.Game.StateMachines
 
 			return infos.Count != _gameDataProvider.EquipmentDataProvider.Loadout.Count;
 		}
+		
+		private bool CheckPartyMemberStatus()
+		{
+			if (!_services.PartyService.HasParty.Value) return false;
+			
+			return !(_services.PartyService.GetLocalMember().Leader && _services.PartyService.PartyReady.Value);
+		}
+		private bool CheckPartyReady()
+		{
+			return _services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember().Leader && !_services.PartyService.PartyReady.Value;
+		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
 		}
 
+		private async void TogglePartyReadyStatus()
+		{
+			var local = _services.PartyService.GetLocalMember();
+			await _services.PartyService.Ready(!local?.Ready ?? false);
+		}
+		
 		private async void OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);

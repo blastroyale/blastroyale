@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
+using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using UnityEngine;
@@ -33,6 +34,12 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
 		Task JoinParty(string code);
+		
+		/// <summary>
+		/// Set ready status in a party
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
+		Task Ready(bool ready);
 
 		/// <summary>
 		/// Leave a previous joined/created party <see cref="CreateParty"/>
@@ -53,6 +60,11 @@ namespace FirstLight.Game.Services.Party
 		/// To distinct the two you should look at <see cref="Members"/>
 		/// </summary>
 		IObservableFieldReader<bool> HasParty { get; }
+
+		/// <summary>
+		/// Party ready status observable, it changes when the all party Members has it property Ready equals true
+		/// </summary>
+		IObservableFieldReader<bool> PartyReady { get; }
 
 		/// <summary>
 		/// PartyCode observable, it changes when the local player create/join/leave a party
@@ -85,6 +97,11 @@ namespace FirstLight.Game.Services.Party
 		/// <param name="key"></param>
 		/// <param name="value"></param>
 		void SetLobbyProperty(string key, string value);
+		
+		/// <summary>
+		/// Get local player object as <see cref="PartyMember"/> from lobby <see cref="Members"/> list
+		/// </summary>
+		PartyMember GetLocalMember();
 	}
 
 
@@ -99,6 +116,9 @@ namespace FirstLight.Game.Services.Party
 
 		/// <inheritdoc/>
 		IObservableFieldReader<bool> IPartyService.HasParty => HasParty;
+
+		/// <inheritdoc/>
+		IObservableFieldReader<bool> IPartyService.PartyReady => PartyReady;
 
 		/// <inheritdoc/>
 		IObservableDictionaryReader<string, string> IPartyService.LobbyProperties => LobbyProperties;
@@ -146,6 +166,7 @@ namespace FirstLight.Game.Services.Party
 		SemaphoreSlim accessSemaphore = new SemaphoreSlim(1, 1);
 
 		private IObservableField<bool> HasParty { get; }
+		private IObservableField<bool> PartyReady { get; }
 		private IObservableField<string> PartyCode { get; }
 		private IObservableList<PartyMember> Members { get; }
 
@@ -161,6 +182,7 @@ namespace FirstLight.Game.Services.Party
 			_pubsub = pubsub;
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
+			PartyReady = new ObservableField<bool>(false);
 			PartyCode = new ObservableField<string>(null);
 			PartyID = new ObservableField<string>(null);
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
@@ -202,6 +224,8 @@ namespace FirstLight.Game.Services.Party
 				PartyCode.Value = code;
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
+				PartyReady.Value = true;
+				
 			}
 			catch (Exception ex)
 			{
@@ -302,6 +326,47 @@ namespace FirstLight.Game.Services.Party
 		}
 
 		/// <inheritdoc/>
+		public async Task Ready(bool ready)
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (!HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.NoParty);
+				}
+
+				var localPartyMember = LocalPartyMember();
+				if (localPartyMember == null)
+				{
+					throw new PartyException(PartyErrors.NoPermission);
+				}
+
+				if (localPartyMember.Ready == ready) return;
+
+				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+				{
+					LobbyId = _lobbyId,
+					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
+					MemberData = new Dictionary<string, string>()
+					{
+						{"ready", ready.ToString()}
+					}
+				});
+				
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+			SendAnalyticsAction($"Ready {ready}");
+		}
+
+		/// <inheritdoc/>
 		public async Task Kick(string playfabID)
 		{
 			try
@@ -379,7 +444,17 @@ namespace FirstLight.Game.Services.Party
 
 			SendAnalyticsAction("Leave");
 		}
-
+		
+		[CanBeNull]
+		public PartyMember GetLocalMember()
+		{
+			return LocalPartyMember();
+		}
+		
+		private void CheckPartyReadyStatus()
+		{
+			PartyReady.Value = Members.Count == 1 || Members.Where(m=>!m.Leader).ToList().TrueForAll(m => m.Ready);
+		}
 
 		private async Task UnsubscribeToLobbyUpdates()
 		{
@@ -553,6 +628,7 @@ namespace FirstLight.Game.Services.Party
 					if (!alreadyCreatedMember.Equals(generatedMember))
 					{
 						generatedMember.CopyPropertiesShallowTo(alreadyCreatedMember);
+						Members.InvokeUpdate(Members.IndexOf(alreadyCreatedMember));
 					}
 				}
 				else
@@ -561,6 +637,8 @@ namespace FirstLight.Game.Services.Party
 					Members.Add(generatedMember);
 				}
 			}
+
+			CheckPartyReadyStatus();
 		}
 
 		private void LocalPlayerKicked()
@@ -576,6 +654,7 @@ namespace FirstLight.Game.Services.Party
 			_lobbyId = null;
 			_lobbyTopic = null;
 			HasParty.Value = false;
+			PartyReady.Value = false;
 			PartyCode.Value = null;
 			PartyID.Value = null;
 			Members.Clear();

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
@@ -52,7 +51,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
 
-		private Button _playButton;
+		private LocalizedButton _playButton;
 
 		private ImageButton _header;
 		private Label _playerNameLabel;
@@ -133,7 +132,7 @@ namespace FirstLight.Game.Presenters
 
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 
-			_playButton = root.Q<Button>("PlayButton");
+			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
@@ -151,6 +150,8 @@ namespace FirstLight.Game.Presenters
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.clicked += OnPartyClicked;
 			_services.PartyService.HasParty.InvokeObserve(OnHasPartyChanged);
+			_services.PartyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
+			_services.PartyService.Members.Observe(OnMembersChanged);
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
@@ -164,11 +165,60 @@ namespace FirstLight.Game.Presenters
 			};
 
 			root.SetupClicks(_services);
+			UpdatePlayButton();
 		}
 
 		private void OnHasPartyChanged(bool _, bool hasParty)
 		{
 			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
+			UpdatePlayButton();
+		}
+
+		private void OnPartyReadyChanged(bool _, bool isReady)
+		{
+			UpdatePlayButton();
+		}
+
+		private void OnMembersChanged(int i, PartyMember _, PartyMember Member, ObservableUpdateType type)
+		{
+			if (Member?.Local ?? false)
+			{
+				UpdatePlayButton();
+			}
+		}
+
+		private void UpdatePlayButton()
+		{
+			var translationKey = ScriptTerms.UITHomeScreen.play;
+			var buttonClass = "play-button";
+			var classes = new List<string>() {"play-button--disabled", "play-button", "play-button--ready"};
+
+			if (_services.PartyService.HasParty.Value)
+			{
+				var leader = _services.PartyService.GetLocalMember().Leader;
+				if (leader)
+				{
+					if (!_services.PartyService.PartyReady.Value)
+					{
+						buttonClass = "play-button--disabled";
+						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
+					}
+					else
+					{
+						translationKey = ScriptTerms.UITHomeScreen.play;
+					}
+				}
+				else
+				{
+					buttonClass = "play-button--ready";
+					var isReady = _services.PartyService.GetLocalMember()!.Ready;
+					translationKey = isReady ? ScriptTerms.UITHomeScreen.cancel : ScriptTerms.UITHomeScreen.ready;
+				}
+			}
+
+			_playButton.RemoveModifiers();
+			_playButton.EnableInClassList(buttonClass, true);
+			_playButton.Localize(translationKey);
 		}
 
 		private async void OnPartyClicked()
@@ -255,7 +305,6 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayButtonClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
 			Data.OnPlayButtonClicked();
 		}
 
@@ -283,16 +332,7 @@ namespace FirstLight.Game.Presenters
 			_csPoolContainer.style.display =
 				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
 
-			// TODO: Remove this adhoc style change
-			if (_gameModeLabel.text == "BATTLEROYALETRIOS")
-			{
-				_gameModeLabel.AddToClassList("game-mode-button__trios");
-			}
-			else
-			{
-
-				_gameModeLabel.RemoveFromClassList("game-mode-button__trios");
-			}
+			_gameModeLabel.EnableInClassList("game-mode-button--trios", _gameModeLabel.text == "BATTLEROYALETRIOS");
 		}
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
@@ -369,7 +409,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -400,20 +440,20 @@ namespace FirstLight.Game.Presenters
 				{
 					newSegment = pointsDiff;
 				}
-				
+
 				pointsDiff -= newSegment;
 				pointSegments.Add(newSegment);
 			}
 
 			var totalSegmentPointsRedeemed = 0;
 			var segmentIndex = 0;
-			
+
 			// Fire point segment VFX and update points
 			foreach (var segment in pointSegments)
 			{
 				totalSegmentPointsRedeemed += segment;
 				segmentIndex += 1;
-				
+
 				var points = (int) previous + totalSegmentPointsRedeemed;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
@@ -456,7 +496,7 @@ namespace FirstLight.Game.Presenters
 			_battlePassTitle.visible = !hasRewards;
 			_battlePassLevelHolder.visible = !hasRewards;
 			_battlePassProgressBg.visible = !hasRewards;
-			
+
 			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			UpdateBattlePassLevel(predictedLevel);

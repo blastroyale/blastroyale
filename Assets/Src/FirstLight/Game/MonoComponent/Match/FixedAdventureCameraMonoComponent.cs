@@ -36,6 +36,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
+			_matchServices.MatchCameraService.SetCameras(_adventureCamera);
 
 			var input = _services.PlayerInputService.Input.Gameplay;
 

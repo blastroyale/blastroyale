@@ -53,22 +53,17 @@ namespace FirstLight.Game.Services
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
 		{
-			if (!_gameDataProvider.AppDataProvider.UseScreenShake)
+			if (!_gameDataProvider.AppDataProvider.UseScreenShake || _adventureCamera == null)
 				return;
 
 			var newImpulse = new CinemachineImpulseDefinition
 			{
 				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Dissipating,
-				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
 				m_ImpulseShape = shape,
 				m_ImpulseDuration = duration,
-				m_DissipationDistance = 15,
+				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
 				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
-
-			var dist = Vector3.Distance(_matchServices.SpectateService.SpectatedPlayer.Value.Transform.position, position);
-			if (dist > GameConstants.Screenshake.SCREENSHAKE_HARD_CUTOFF_DISTANCE)
-				return;
 
 			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;
@@ -100,9 +95,12 @@ namespace FirstLight.Game.Services
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble, 
+			if(callback.Entity.IsAlive(f))
+			{
+				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble,
 				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
 				callback.Entity.GetPosition(f).ToUnityVector3());
+			}
 		}
 		
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)

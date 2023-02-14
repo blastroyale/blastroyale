@@ -12,6 +12,7 @@ namespace Quantum
 		public FP MatchmakingTime;
 		public FP CasualMatchmakingTime;
 		public FP RankedMatchmakingTime;
+		public FP PlayfabMatchmakingTime;
 		public int RankedMatchmakingMinPlayers;
 		public int BotsNameCount;
 		public FP PlayerRespawnTime;

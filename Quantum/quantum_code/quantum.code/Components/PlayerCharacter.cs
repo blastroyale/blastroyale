@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -19,7 +20,8 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, Equipment loadoutWeapon)
+		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, 
+						   Equipment loadoutWeapon, List<Modifier> modifiers = null)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
@@ -60,8 +62,16 @@ namespace Quantum
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
-			
-			f.Add<Stats>(e);
+
+			f.AddOrGet<Stats>(e, out var stats);
+			if (modifiers != null)
+			{
+				foreach (var modifier in modifiers)
+				{
+					stats->AddModifier(f, e, modifier);
+				}
+			}
+
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
@@ -175,7 +185,10 @@ namespace Quantum
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 
-			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
+			var equipmentData = new EquipmentEventData();
+			equipmentData.Gear.CopyFixedArray(Gear);
+			equipmentData.CurrentWeapon = CurrentWeapon;
+			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 			f.Signals.PlayerDead(Player, e);
 

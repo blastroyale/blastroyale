@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -35,41 +36,36 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
-		private readonly IStatechartEvent _goToRegisterClickedEvent =
-			new StatechartEvent("Go To Register Clicked Event");
-
+		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
 		private readonly IStatechartEvent _loginAsGuestEvent = new StatechartEvent("Login as Guest Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
-
-		private readonly IStatechartEvent _loginRegisterTransitionEvent =
-			new StatechartEvent("Login Register Transition Clicked Event");
-
-		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
-		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
-
-		private readonly IStatechartEvent _authenticationRegisterFailEvent = new StatechartEvent("Authentication Register Fail Event");
+		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
+		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
+		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
+		private readonly IStatechartEvent _authFailContinueEvent = new StatechartEvent("Authentication Fail Continue Event");
+		private readonly IStatechartEvent _authFailMaintenanceEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailOutdatedVersionEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailAccountDeletedEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
-		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
 		private string _passwordRecoveryEmailTemplateId = "";
 		private string _lastUsedRecoveryEmail = "";
+		private Task _asyncLogin = null;
 
+		
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
-			IDataService dataService,
-			IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
+								   IDataService dataService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
-			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-			_configsAdder = cfgs;
 		}
 
 		/// <summary>
@@ -79,149 +75,191 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var guestOrRegisteredSelection = stateFactory.State("LoginRegisterSelection");
-			var login = stateFactory.State("Login");
-			var accountDeleted = stateFactory.State("Account Deleted");
-			var guestLogin = stateFactory.State("Guest Login");
+			var authLoginGuest = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
-			var accountStateCheck = stateFactory.Choice("Account Deleted");
-			var register = stateFactory.State("Register");
-			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
-			var getServerState = stateFactory.Wait("Get Server State");
-
+			var authFail = stateFactory.State("Authentication Fail Dialog");
+			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
+			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
+			var gameBlocked = stateFactory.State("Game Blocked Dialog");
+			var gameUpdate = stateFactory.State("Game Update Dialog");
+			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
+			
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(SetAuthenticationData);
+			initial.OnExit(SetupBackendEnvironmentData);
 
+			autoAuthCheck.Transition().Condition(IsAsyncLogin).Target(asyncLoginWait);
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
-			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(() => { SetLinkedDevice(true); }).Target(authLoginDevice);
-			autoAuthCheck.Transition().Target(guestOrRegisteredSelection);
+			autoAuthCheck.Transition().Target(authLoginGuest);
 
-			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
-			guestOrRegisteredSelection.Event(_loginAsGuestEvent).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnGuestOrRegisteredToLogin).Target(login);
-			guestOrRegisteredSelection.OnExit(CloseLoadingScreen);
+			authFail.Event(_authFailContinueEvent).Target(autoAuthCheck);
+
+			asyncLoginWait.WaitingFor(WaitForAsyncLogin).Target(postAuthCheck);
 			
-			login.OnEnter(OnEnterLogin);
-			login.Event(_goToRegisterClickedEvent).Target(register);
-			login.Event(_loginAsGuestEvent).Target(guestLogin);
-			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
+			authLoginGuest.OnEnter(SetupLoginGuest);
+			authLoginGuest.Event(_authSuccessEvent).Target(final);
+			authLoginGuest.Event(_authFailEvent).Target(authFail);
 
-			guestLogin.OnEnter(OnEnterGuestLogin);
-			guestLogin.Event(_loginCompletedEvent).Target(authLoginDevice);
-			guestLogin.Event(_authenticationFailEvent).OnTransition(() => { DimLoginRegisterScreens(false); }).Target(login);
-
-			register.OnEnter(OnEnterRegister);
-			register.Event(_goToLoginClickedEvent).Target(login);
-			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
-
-			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
-			authLoginDevice.OnEnter(UnloadLoginRegisterScreens);
-			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
-			authLoginDevice.Event(_authenticationFailEvent).OnTransition(() => { SetLinkedDevice(false); }).Target(login);
-			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
-			
-			authLogin.OnEnter(OnEnterAuthLogin);
-			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).OnTransition(UnloadLoginRegisterScreens).Target(getServerState);
-			authLogin.Event(_authenticationFailEvent).Target(login);
-			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
-			authLogin.OnExit(() => DimLoginRegisterScreens(false));
-			
-			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
+			authLoginDevice.Event(_authSuccessEvent).Target(final);
+			authLoginDevice.Event(_authFailEvent).Target(authFail);
+			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
-			accountDeleted.OnEnter(ShowAccountDeletedPopup);
+			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
+			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
+			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
+			postAuthCheck.Transition().Target(final);
 
-			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
-			accountStateCheck.Transition().Target(final);
+			accountDeleted.WaitingFor(OpenAccountDeletedDialog).Target(authLoginGuest);
+
+			gameBlocked.OnEnter(OpenGameBlockedDialog);
+
+			gameUpdate.OnEnter(OpenGameUpdateDialog);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
+		private async Task WaitForAsyncLogin()
+		{
+			await _asyncLogin;
+		}
+		private async Task AsyncDeviceLogin()
+		{
+			bool complete = false;
+			_services.AuthenticationService.LoginWithDevice(r =>
+			{
+				complete = true;
+			}, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
+			await WaitFor(() => complete);
+		}
+		
+		private async Task AsyncGuestLogin()
+		{
+			bool complete = false;
+			_services.AuthenticationService.LoginSetupGuest(r =>
+			{
+				complete = true;
+			}, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
+			await WaitFor(() => complete);
+		}
+		
+		private async Task WaitFor(Func<bool> condition)
+		{
+			while (!condition()) await Task.Delay(2);
+		}
+		
+		public async void QuickAsyncLogin()
+		{
+			_services.GameBackendService.SetupBackendEnvironment();
+			if(HasLinkedDevice())
+			{
+				_asyncLogin = AsyncDeviceLogin();
+			}
+			else
+			{
+				_asyncLogin = AsyncGuestLogin();
+			}
+		}
+		private bool IsAsyncLogin()
+		{
+			return _asyncLogin != null;
+		}
+
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 		}
 
 		private void UnsubscribeEvents()
 		{
-			// TODO: Re-add the unsubscription when we can have global state for the authentication or just the re-login on the connection loss
-			//_services.MessageBrokerService?.UnsubscribeAll(this);
-		}
-
-		private void UnloadLoginRegisterScreens()
-		{
-			_uiService.UnloadUiSet((int)UiSetId.AuthenticationUi);
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 		
-		/// <summary>
-		/// Create a new account by a random customID
-		/// And links the current device to that account
-		/// </summary>
-		private void SetupGuestAccount()
+		private bool IsAccountDeleted()
 		{
-			FLog.Verbose($"Creating guest account");
-			var login = new LoginWithCustomIDRequest
-			{
-				CreateAccount = true,
-				CustomId = Guid.NewGuid().ToString(),
-			};
-			PlayFabClientAPI.LoginWithCustomID(login, res =>
-			{
-				FLog.Verbose($"Created guest account {res.PlayFabId} linking device");
-				_services.PlayfabService.LinkDeviceID(() =>
-				{
-					FLog.Verbose("Device linked to new account");
-					SetLinkedDevice(true);
-					CloseLoginScreen();
-					_statechartTrigger(_loginCompletedEvent);
-				});
-			}, OnAuthenticationFail);
+			return _services.AuthenticationService.IsAccountDeleted();
+		}
+		
+		private bool IsGameInMaintenance()
+		{
+			return _services.GameBackendService.IsGameInMaintenance();
 		}
 
-		private void OnConnectionError(ServerHttpErrorMessage msg)
+		private bool IsGameOutdated()
 		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session,
-				"Invalid Session Ticket:" + msg.Message);
-
-			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
+			return _services.GameBackendService.IsGameOutdated();
+		}
+		
+		private bool HasLinkedDevice()
+		{
+			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
+		}
+		
+		private void SetupBackendEnvironmentData()
+		{
+			_services.GameBackendService.SetupBackendEnvironment();
+		}
+		
+		private void LoginWithDevice()
+		{
+			_services.AuthenticationService.LoginWithDevice(OnAuthSuccess, error =>
 			{
-				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
+				OnAuthFail(error, true);
+			});
+		}
+		
+		private void SetupLoginGuest()
+		{
+			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
+		}
+
+		private void OnAuthSuccess(LoginData data)
+		{
+			_statechartTrigger(_authSuccessEvent);
+		}
+
+		private void OnAuthFail(PlayFabError error, bool automaticLogin)
+		{
+			_services.AuthenticationService.SetLinkedDevice(false);
+			OnPlayFabError(error, automaticLogin);
+			
+			// If unauthorized/session ticket expired, try to re-log without moving the state machine
+			if ((HttpStatusCode) error.HttpCode == HttpStatusCode.Unauthorized)
+			{
+				LoginWithDevice();
+				return;
 			}
-
-			LoginWithDevice();
-
-			_services.PlayfabService.CallFunction("GetPlayerData", res =>
-				OnPlayerDataObtained(res, null), OnPlayFabError);
+			
+			_statechartTrigger(_authFailEvent);
 		}
 
-		/// <summary>
-		/// Callback for game-stopping errors. Prompts user to close the game.
-		/// </summary>
-		private void OnCriticalPlayFabError(PlayFabError error)
+		private void OnPlayFabError(PlayFabError error, bool automaticLogin)
 		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-			var button = new AlertButton
+			string errorMessage = error.ErrorMessage;
+			
+			if (automaticLogin)
 			{
-				Callback = () => { _services.QuitGame("Closing playfab critical error alert"); },
-				Style = AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
-		}
-
-		private void OnPlayFabError(PlayFabError error)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				error.ErrorMessage);
-
+				errorMessage = $"AutomaticLogin: {error.ErrorMessage}";
+			}
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
+				ButtonOnClick = () =>
+				{
+					_services.GenericDialogService.CloseDialog();
+					_statechartTrigger(_authFailContinueEvent);
+				}
 			};
 
 			if (error.ErrorDetails != null)
@@ -229,315 +267,28 @@ namespace FirstLight.Game.StateMachines
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
-
-			DimLoginRegisterScreens(false);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage,
+															false, confirmButton);
 		}
 
-		private void OnAuthenticationFail(PlayFabError error)
-		{
-			OnPlayFabError(error);
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authenticationFailEvent);
-		}
-
-		private void OnAuthenticationRegisterFail(PlayFabError error)
-		{
-			OnPlayFabError(error);
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authenticationRegisterFailEvent);
-		}
-
-		private void OnAutomaticAuthenticationFail(PlayFabError error)
-		{
-			_dataService.GetData<AppData>().DeviceId = null;
-			_dataService.SaveData<AppData>();
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authenticationFailEvent);
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				"AutomaticLogin:" + error.ErrorMessage);
-		}
-
-		private bool HasLinkedDevice()
-		{
-			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
-		}
-
-		public void LoginWithDevice()
-		{
-			FLog.Verbose("Logging in with device ID");
-			var deviceId = _dataService.GetData<AppData>().DeviceId;
-			var infoParams = new GetPlayerCombinedInfoRequestParams
-			{
-				GetPlayerProfile = true,
-				GetUserAccountInfo = true,
-				GetTitleData = true
-			};
-
-#if UNITY_EDITOR
-			var login = new LoginWithCustomIDRequest
-			{
-				CreateAccount = false,
-				CustomId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-
-#elif UNITY_ANDROID
-			var login = new LoginWithAndroidDeviceIDRequest()
-			{
-				CreateAccount = false,
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-#elif UNITY_IOS
-			var login = new LoginWithIOSDeviceIDRequest()
-			{
-				CreateAccount = false,
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-#endif
-		}
-
-		private void SetAuthenticationData()
-		{
-			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			var appData = _dataService.GetData<AppData>();
-			var environment = "";
-#if LIVE_SERVER
-			environment = "live";
-			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-#elif LIVE_TESTNET_SERVER
-			environment = "live testnet";
-			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-#elif STAGE_SERVER
-			environment = "stage";
-			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-#else
-			PlayFabSettings.TitleId = "***REMOVED***";
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-#endif
-
-			if (environment != appData.Environment)
-			{
-				var newData = appData.CopyForNewEnvironment();
-
-				newData.Environment = environment;
-
-				_dataService.AddData(newData, true);
-				_dataService.SaveData<AppData>();
-			}
-		}
-
-		private void ProcessAuthentication(LoginResult result)
-		{
-			var titleData = result.InfoResultPayload.TitleData;
-			var appData = _dataService.GetData<AppData>();
-
-			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			
-			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
-			//AppleApprovalHack(result);
-
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
-			{
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
-
-			if (IsOutdated(titleVersion))
-			{
-				OpenGameUpdateDialog(titleVersion);
-				return;
-			}
-
-			if (titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && IsOutdated(version))
-			{
-				OpenGameBlockedDialog();
-				return;
-			}
-
-			FeatureFlags.ParseFlags(titleData);
-			FeatureFlags.ParseLocalFeatureFlags();
-			_services.LiveopsService.FetchSegments(_ =>
-			{
-				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
-				FeatureFlags.ParseFlags(liveopsFeatureFlags);
-			});
-			
-			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
-			{
-				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
-				FLog.Verbose("Setting up photon app id by playfab title data");
-			}
-
-			_networkService.UserId.Value = result.PlayFabId;
-			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
-			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
-			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
-			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
-			appData.IsFirstSession = result.NewlyCreated;
-			appData.PlayerId = result.PlayFabId;
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-
-			if (FeatureFlags.REMOTE_CONFIGURATION)
-			{
-				FLog.Verbose("Parsing Remote Configurations");
-				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
-				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose(
-					$"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
-				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
-				{
-					NewConfig = remoteConfig,
-					OldConfig = _configsAdder
-				});
-				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
-			}
-			_dataService.SaveData<AppData>();
-			FLog.Verbose("Saved AppData");
-			
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
-		}
-
-		private void FinalStepsAuthentication(IWaitActivity activity)
-		{
-			FLog.Verbose("Obtaining player data");
-			_services.PlayfabService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity),
-				OnPlayFabError);
-
-			PhotonAuthentication(activity.Split());
-		}
-
-		private void PhotonAuthentication(IWaitActivity activity)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
-			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
-			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
-
-			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
-			{
-				_networkService.QuantumClient.AuthValues.AddAuthParameter("token",
-					result.PhotonCustomAuthenticationToken);
-				activity.Complete();
-			}
-		}
-
-		private void ShowAccountDeletedPopup()
+		private void OpenAccountDeletedDialog(IWaitActivity activity)
 		{
 			var title = ScriptLocalization.UITSettings.account_deleted_title;
 			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITShared.ok,
-				ButtonOnClick = () => { _services.QuitGame("Deleted User"); }
+				ButtonOnClick = () =>
+				{
+					activity.Complete();
+					_services.QuitGame("Deleted User");
+				}
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
-
-		private bool IsAccountDeleted()
-		{
-			var playerData = _dataService.GetData<PlayerData>();
-			if (playerData.Flags.HasFlag(PlayerFlags.Deleted))
-			{
-				return true;
-			}
-
-			return false;
-		}
-
-		/// <summary>
-		/// Add all of the data in <paramref name="state"/> to the data service 
-		/// </summary>
-		private void AddDataToService(IWaitActivity activity, Dictionary<string, string> state)
-		{
-			foreach (var typeFullName in state.Keys)
-			{
-				try
-				{
-					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
-				}
-				catch (Exception e)
-				{
-					FLog.Error("Error reading data type "+typeFullName);
-				}
-			}
-			activity?.Complete();
-		}
-
-		private void OnGuestOrRegisteredToLogin()
-		{
-			_uiService.OpenUi<LoginScreenBackgroundPresenter>();
-		}
-
-		private void OnEnterLogin()
-		{
-			OpenLoginScreen();
-			CloseRegisterScreen();
-			CloseGuestOrRegisteredSelectionScreen();
-		}
-
-		private void OnEnterRegister()
-		{
-			OpenRegisterScreen();
-			CloseLoginScreen();
-		}
-
-		private void OnEnterGuestLogin()
-		{			
-			OpenLoadingScreen();
-			CloseLoginRegisterScreens();
-			SetupGuestAccount();
-		}
-
-		private void OnEnterAuthLogin()
-		{			
-			OpenLoadingScreen();
-			CloseLoginRegisterScreens();
-		}
-
-		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
-		{
-			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
-			var data = serverResult.Result.Data;
-
-			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
-			{
-				_services.PlayfabService.FetchServerState(state =>
-				{
-					AddDataToService(activity, state);
-					FLog.Verbose("Downloaded state from playfab");
-				});
-				return;
-			}
-
-			AddDataToService(activity, data);
-			FLog.Verbose("Downloaded state from server");
-		}
-
-		private void OpenGameUpdateDialog(string version)
+		
+		private void OpenGameUpdateDialog()
 		{
 			var confirmButton = new AlertButton
 			{
@@ -546,8 +297,9 @@ namespace FirstLight.Game.StateMachines
 				Callback = OpenStore
 			};
 
-			var message = string.Format(ScriptLocalization.General.UpdateGame,
-				VersionUtils.VersionExternal, version);
+
+			var message = string.Format(ScriptLocalization.General.UpdateGame, VersionUtils.VersionExternal, 
+										_services.GameBackendService.GetTitleVersion());
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
 
@@ -570,314 +322,13 @@ namespace FirstLight.Game.StateMachines
 				Callback = () => { _services.QuitGame("Closing game blocked dialog"); }
 			};
 
-			var message = string.Format(ScriptLocalization.General.MaintenanceDescription,
-				VersionUtils.VersionExternal);
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, message, confirmButton);
-		}
-
-		private void LoginClicked(string email, string password)
-		{
-			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
-			{
-				_statechartTrigger(_loginRegisterTransitionEvent);
-
-				var infoParams = new GetPlayerCombinedInfoRequestParams
-				{
-					GetPlayerProfile = true,
-					GetUserAccountInfo = true,
-					GetTitleData = true
-				};
-
-				var login = new LoginWithEmailAddressRequest
-				{
-					Email = email,
-					Password = password,
-					InfoRequestParameters = infoParams
-				};
-
-				PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnAuthenticationFail);
-			}
-			else
-			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-
-				string errorMessage =
-					LocalizationManager.TryGetTranslation("UITLoginRegister/invalid_input", out var translation)
-						? translation
-						: $"#{"UITLoginRegister/invalid_input"}#";
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
-					confirmButton, () => DimLoginRegisterScreens(false));
-			}
-		}
-
-		private void OnLoginSuccess(LoginResult result)
-		{
-			var appData = _dataService.GetData<AppData>();
-			var userId = result.PlayFabId;
-			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			var userName = result.InfoResultPayload.AccountInfo.Username;
-			var emails = result.InfoResultPayload?.PlayerProfile?.ContactEmailAddresses;
-			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
-			if (email != null && email.Contains("@") && isMissingContactEmail)
-			{
-				_services.PlayfabService.UpdateContactEmail(email);
-			}
-
-			_services.HelpdeskService.Login(userId, email, userName);
-
-			if (string.IsNullOrWhiteSpace(appData.DeviceId))
-			{
-				_services.PlayfabService.LinkDeviceID(null, null);
-			}
-
-			ProcessAuthentication(result);
-
-			_statechartTrigger(_loginCompletedEvent);
-		}
-
-		private void RegisterClicked(string email, string username, string password)
-		{
-			if (AuthenticationUtils.IsUsernameFieldValid(username) 
-			    && AuthenticationUtils.IsEmailFieldValid(email) 
-			    && AuthenticationUtils.IsPasswordFieldValid(password))
-			{
-				_statechartTrigger(_loginRegisterTransitionEvent);
-
-				var register = new RegisterPlayFabUserRequest
-				{
-					Email = email,
-					DisplayName = username,
-					Username = username.Replace(" ", ""),
-					Password = password
-				};
-				PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password),
-					OnAuthenticationRegisterFail);
-			}
-			else
-			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-
-				string errorMessage =
-					LocalizationManager.TryGetTranslation("UITLoginRegister/invalid_input", out var translation)
-						? translation
-						: $"#{"UITLoginRegister/invalid_input"}#";
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
-					confirmButton,() => DimLoginRegisterScreens(false));
-			}
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 
+			                               ScriptLocalization.General.MaintenanceDescription, confirmButton);
 		}
 
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();
-		}
-
-		private void CloseLoginScreen()
-		{
-			_uiService.CloseUi<LoginScreenPresenter>();
-		}
-
-		private void CloseLoadingScreen()
-		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-
-		private void CloseGuestOrRegisteredSelectionScreen()
-		{
-			_uiService.CloseUi<GuestOrRegisteredPresenter>();
-		}
-
-		private void CloseRegisterScreen()
-		{
-			_uiService.CloseUi<RegisterScreenPresenter>();
-		}
-
-		private void CloseLoginRegisterScreens()
-		{			
-			_uiService.CloseUi<LoginScreenBackgroundPresenter>();
-			_uiService.CloseUi<LoginScreenPresenter>();
-			_uiService.CloseUi<RegisterScreenPresenter>();
-		}
-
-		private void DimLoginRegisterScreens(bool dimmed)
-		{
-			if (_uiService.HasUiPresenter<LoginScreenPresenter>())
-			{
-				_uiService.GetUi<LoginScreenPresenter>().SetFrontDimBlockerActive(dimmed);
-			}
-
-			if (_uiService.HasUiPresenter<RegisterScreenPresenter>())
-			{
-				_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
-			}
-		}
-
-		private void OpenGuestOrRegisteredSelectionScreen()
-		{
-			var data = new GuestOrRegisteredPresenter.StateData
-			{
-				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent),
-				PlayAsGuestClicked = () =>
-				{
-					DimLoginRegisterScreens(true);
-					_statechartTrigger(_loginAsGuestEvent);
-				},
-			};
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_uiService.OpenUiAsync<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
-		}
-
-		private void OpenLoginScreen()
-		{
-			var data = new LoginScreenPresenter.StateData
-			{
-				LoginClicked = LoginClicked,
-				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
-				PlayAsGuestClicked = () =>
-				{
-					DimLoginRegisterScreens(true);
-					_statechartTrigger(_loginAsGuestEvent);
-				},
-				ForgotPasswordClicked = SendRecoveryEmail
-			};
-
-			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
-		}
-
-		private void OpenRegisterScreen()
-		{
-			CloseLoginScreen();
-			var data = new RegisterScreenPresenter.StateData
-			{
-				RegisterClicked = RegisterClicked,
-				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent)
-			};
-
-			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
-		}
-
-		private void SendRecoveryEmail(string email)
-		{
-			_lastUsedRecoveryEmail = email;
-			
-			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
-			{
-				TitleId = PlayFabSettings.TitleId,
-				Email = email,
-				EmailTemplateId = _passwordRecoveryEmailTemplateId,
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
-
-			PlayFabClientAPI.SendAccountRecoveryEmail(request, OnAccountRecoveryResult, OnPlayFabErrorSendRecoveryEmail);
-		}
-
-		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
-		{
-			_services.GenericDialogService.CloseDialog();
-
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
-				confirmButton);
-		}
-		
-		private void OnPlayFabErrorSendRecoveryEmail(PlayFabError error)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-					error.ErrorMessage);
-
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () =>
-				{
-					_services.GenericDialogService.CloseDialog();
-					_uiService.GetUi<LoginScreenPresenter>().OpenPasswordRecoveryPopup(_lastUsedRecoveryEmail);
-				}
-			};
-
-			if (error.ErrorDetails != null)
-			{
-				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
-			}
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
-
-			DimLoginRegisterScreens(false);
-		}		
-		
-		private void SetLinkedDevice(bool linked)
-		{
-			var uniqueId = PlayFabSettings.DeviceUniqueIdentifier;
-#if UNITY_EDITOR
-			if (ParrelSync.ClonesManager.IsClone())
-			{
-				uniqueId = uniqueId + "_clone_" + ParrelSync.ClonesManager.GetArgument();
-			}
-#endif
-			_dataProvider.AppDataProvider.DeviceID.Value = linked ? uniqueId : "";
-			_dataService.SaveData<AppData>();
-		}
-
-		private bool IsOutdated(string version)
-		{
-			var appVersion = VersionUtils.VersionExternal.Split('.');
-			var serverVersion = version.Split('.');
-			var majorApp = int.Parse(appVersion[0]);
-			var majorServer = int.Parse(serverVersion[0]);
-			var minorApp = int.Parse(appVersion[1]);
-			var minorServer = int.Parse(serverVersion[1]);
-			var patchApp = int.Parse(appVersion[2]);
-			var patchServer = int.Parse(serverVersion[2]);
-
-			if (majorApp != majorServer)
-			{
-				return majorServer > majorApp;
-			}
-
-			if (minorApp != minorServer)
-			{
-				return minorServer > minorApp;
-			}
-
-			return patchServer > patchApp;
-		}
-
-		/// <summary>
-		/// To help pass apple approval submission tests hack.
-		/// This forces all communication with quantum to be TCP and not UDP with a flag from the backend, but just
-		/// to be turned on during submission because sometimes Apple testers have their home network setup wrong.
-		/// </summary>
-		private async void AppleApprovalHack(LoginResult result)
-		{
-			var titleData = result.InfoResultPayload.TitleData;
-			var address = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
-			var config = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(address);
-			var connection = ConnectionProtocol.Udp;
-
-			if (!titleData.TryGetValue($"{nameof(Application.version)} apple", out var version) ||
-			    version != Application.version)
-			{
-				connection = ConnectionProtocol.Tcp;
-			}
-
-			config.PhotonServerSettings.AppSettings.Protocol = connection;
-
-			_services.AssetResolverService.UnloadAsset(config);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage msg)

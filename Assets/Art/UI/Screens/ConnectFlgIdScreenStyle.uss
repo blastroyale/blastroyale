@@ -1,0 +1,61 @@
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.container__or-text {
+    color: rgb(122, 118, 167);
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.register-button {
+    -unity-text-outline-color: rgb(59, 29, 144);
+    -unity-background-image-tint-color: rgb(59, 29, 144);
+}
+
+.login-button {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.reset_guest_container {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.reset_guest_container__separator {
+    height: 0;
+    width: 51px;
+}
+
+LocalizedTextField > Label {
+    margin-right: 15px;
+    width: 150px;
+    font-size: 33px;
+}
+
+LocalizedButton {
+    -unity-text-align: middle-center;
+}
+
+#unity-text-input {
+    flex-grow: 1;
+    -unity-font-definition: var(--font-italic-dynamic);
+}
+
+.safe-area {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}

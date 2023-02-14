@@ -79,7 +79,7 @@ namespace FirstLight.Game.Presenters
 
 			// Leaderboard is requested and displayed in 2 parts
 			// First - top players, then, if needed - current player and neighbors, in a separate anchored section
-			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+			_services.GameBackendService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
 			                                               OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
 		}
 
@@ -124,7 +124,7 @@ namespace FirstLight.Game.Presenters
 
 			if (localPlayerInTopRanks) return;
 
-			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+			_services.GameBackendService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
 			                                                    OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
 		}
 

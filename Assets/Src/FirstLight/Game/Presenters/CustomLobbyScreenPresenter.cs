@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -99,6 +100,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
+			
 			_rootObject.SetActive(true);
 
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
@@ -458,7 +461,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() { AddBots = _botsToggle.isOn });
 		}
 
 		private void OnLeaveRoomClicked()

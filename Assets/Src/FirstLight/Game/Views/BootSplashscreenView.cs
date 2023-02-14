@@ -7,6 +7,7 @@ using Firebase;
 using Firebase.Analytics;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Data;
+using FirstLight.Game.Services;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
@@ -54,6 +55,14 @@ namespace FirstLight.Game.Views
 #endif
 			StartSplashScreen();
 			MergeScenes(asyncOperation);
+		}
+
+		private async Task WaitForInstaller()
+		{
+			while (!MainInstaller.TryResolve<IGameServices>(out var _))
+			{
+				await Task.Yield();
+			}
 		}
 
 		private async Task InitAtt()
@@ -114,6 +123,8 @@ namespace FirstLight.Game.Views
 			{
 				await Task.Yield();
 			}
+			
+			await WaitForInstaller();
 
 			SceneManager.MergeScenes(SceneManager.GetSceneByName(_bootSceneName),
 			                         SceneManager.GetSceneByName(_mainSceneName));

@@ -24,6 +24,11 @@ namespace FirstLight.Game.Utils
 		/// To use local configurations as opposed to remote configurations.
 		/// </summary>
 		public bool UseLocalConfigs = false;
+
+		/// <summary>
+		/// If the tutorial should be skipped
+		/// </summary>
+		public bool DisableTutorial = false;
 	}
 	
 	
@@ -34,12 +39,6 @@ namespace FirstLight.Game.Utils
 	public static class FeatureFlags
 	{
 		private static LocalFeatureFlagConfig _localConfig = null;
-		
-		/// <summary>
-		/// If true will use email/pass authentication.
-		/// If false will only use device id authentication.
-		/// </summary>
-		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit
@@ -88,6 +87,16 @@ namespace FirstLight.Game.Utils
 		/// Flag to determine if we should use playfab matchmaking
 		/// </summary>
 		public static bool PLAYFAB_MATCHMAKING = false;
+
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool TUTORIAL = true;
+		
+		/// <summary>
+		/// If should have specific tutorial battle pass for newbies
+		/// </summary>
+		public static bool TUTORIAL_BATTLE_PASS = true;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -155,6 +164,11 @@ namespace FirstLight.Game.Utils
 			if (_localConfig.UseLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+
+			if (_localConfig.DisableTutorial)
+			{
+				TUTORIAL = false;
 			}
 		}
 

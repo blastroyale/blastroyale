@@ -651,9 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 4271545850543195364}
-  _loadingBar: {fileID: 3981963759281798839}
-  _loadingBarContainer: {fileID: 4904980277333228632}
-  _loadingBarText: {fileID: 5133683580631236413}
+  _versionText: {fileID: 5133683580631236413}
 --- !u!1 &5015068528759575689
 GameObject:
   m_ObjectHideFlags: 0

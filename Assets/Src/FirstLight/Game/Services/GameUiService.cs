@@ -38,10 +38,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public async Task LoadGameUiSet(UiSetId uiSetId, float loadingCap)
 		{
-			var loadingScreen = GetUi<LoadingScreenPresenter>();
 			var tasks = LoadUiSetAsync((int) uiSetId);
-			var initialLoadingPercentage = loadingScreen.LoadingPercentage;
-			var loadingBuffer = tasks.Length / loadingCap - initialLoadingPercentage;
 			var loadedUiCount = 0f;
 
 			// Load all initial uis
@@ -50,11 +47,7 @@ namespace FirstLight.Game.Services
 				await await taskTemplate;
 
 				loadedUiCount++;
-
-				loadingScreen.SetLoadingPercentage(initialLoadingPercentage + loadedUiCount / loadingBuffer);
 			}
-
-			loadingScreen.SetLoadingPercentage(loadingCap);
 		}
 	}
 }

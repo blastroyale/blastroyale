@@ -1,0 +1,67 @@
+# Android build and release pipeline
+# This pipeline is respsonsible for building the Android APK, and uploading to Azure Storage.
+
+name: $(Rev:r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - 'develop'
+pr: none
+
+resources:
+  repositories:
+  - repository: self
+  - repository: templates
+    type: git
+    ref: main
+    name: Infrastructure/core-templates
+    
+variables:
+- group: Secrets
+- group: Non-secrets
+- name: unity_password
+  value: $(UNITY-PASSWORD)
+- name: unity_serial
+  value: $(UNITY-SERIAL)
+- name: branchName
+  value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+
+pool: macos
+
+stages:
+- stage: AutoBuilds
+  displayName: Auto Builds
+  jobs:
+    - job: AndroidBuild
+      displayName: Android Build
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/unity-build.yml@templates
+        parameters:
+          configuration: Debug
+          platform: Android
+          unity_username: ian.moroney@firstlight.games
+          unity_password: $(unity_password)
+          unity_serial: $(unity_serial)
+          workingDirectory: .
+          branchName: $(branchName)
+    - job: iOSBuild
+      displayName: iOS Build
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/unity-build.yml@templates
+        parameters:
+          configuration: Debug
+          platform: iOS
+          unity_username: ian.moroney@firstlight.games
+          unity_password: $(unity_password)
+          unity_serial: $(unity_serial)
+          certPwd: $(certPwd)
+          workingDirectory: .
+          branchName: $(branchName)

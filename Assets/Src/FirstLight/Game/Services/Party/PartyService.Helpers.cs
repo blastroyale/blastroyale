@@ -61,6 +61,12 @@ namespace FirstLight.Game.Services.Party
 				trophiesInt = 0;
 			}
 
+			// Parse Ready Status
+			if (!m.MemberData.ContainsKey(ReadyProperty) || !bool.TryParse(m.MemberData[ReadyProperty], out var readyBool))
+			{
+				readyBool = false;
+			}
+
 
 			return new PartyMember(
 								   playfabID: m.MemberEntity.Id,
@@ -68,7 +74,8 @@ namespace FirstLight.Game.Services.Party
 								   trophies: trophiesInt,
 								   bppLevel: bppLevelInt,
 								   local: Local().EntityId == m.MemberEntity.Id,
-								   leader: l.Owner.Id == m.MemberEntity.Id
+								   leader: l.Owner.Id == m.MemberEntity.Id,
+								   ready: readyBool
 								  );
 		}
 

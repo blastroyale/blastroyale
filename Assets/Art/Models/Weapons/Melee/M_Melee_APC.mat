@@ -77,6 +77,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 6cdb34bb88eee1147bf01f9511025e88, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -120,12 +124,14 @@ Material:
     - _DstBlend: 0
     - _EmissTexAmount: 5
     - _EnvironmentReflections: 1
+    - _Fresnel_Power: 3
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Hit: 0
     - _Metallic: 0
+    - _Normal_Strength: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -149,4 +155,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 135.58704, g: 135.58704, b: 135.58704, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

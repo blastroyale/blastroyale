@@ -28,12 +28,12 @@ namespace FirstLight.Game.Services
 		private readonly ServerCommandQueue _serverCommandQueue;
 		private readonly CommandExecutionContext _commandContext;
 
-		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
+		public GameCommandService(IGameBackendService gameBackendService, IGameLogic gameLogic, IDataService dataService,
 			IGameServices services)
 		{
 			_dataService = dataService;
 			_services = services;
-			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, playfabService, services);
+			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, gameBackendService, services);
 			_commandContext = new CommandExecutionContext(
 				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}

@@ -22,6 +22,8 @@
     --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
+    --sprite-home__button-battlepass-claimreward: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward.png');
+    --sprite-home__button-battlepass-claimreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-claimreward-pressed.png');
     --sprite-home__button-battlepass-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-pressed.png');
     --sprite-home__button-bpreward: url('/Assets/Art/UI/Sprites/Home/button-bpreward.png');
     --sprite-home__button-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/button-bpreward-outline.png');
@@ -56,6 +58,9 @@
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
     --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
+    --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
+    --sprite-home__button-play-ready: url('/Assets/Art/UI/Sprites/Home/button-play-ready.png');
+    --sprite-home__button-play-ready-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-ready-pressed.png');
     --sprite-home__button-popup-equipment-close: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close.png');
     --sprite-home__button-popup-equipment-close-pressed: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close-pressed.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
@@ -235,6 +240,14 @@
 
 .sprite-home__button-battlepass {
     background-image: var(--sprite-home__button-battlepass);
+}
+
+.sprite-home__button-battlepass-claimreward {
+    background-image: var(--sprite-home__button-battlepass-claimreward);
+}
+
+.sprite-home__button-battlepass-claimreward:active {
+    background-image: var(--sprite-home__button-battlepass-claimreward-pressed);
 }
 
 .sprite-home__button-battlepass:active {

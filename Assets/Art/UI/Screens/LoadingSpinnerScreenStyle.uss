@@ -1,0 +1,16 @@
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.loading-spinner {
+    width: 100px;
+    height: 100px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
+}

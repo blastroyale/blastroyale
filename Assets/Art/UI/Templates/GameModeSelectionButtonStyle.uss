@@ -214,7 +214,7 @@
 }
 
 .game-mode-button-trios__label {
-    font-size: 42px !important;
+    font-size: 42px;
 }
 
 .game-mode-button--ranked .game-mode-button__label {

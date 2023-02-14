@@ -105,11 +105,12 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(initialConfigs);
 			initial.OnExit(SubscribeEvents);
 			
+			initialConfigs.OnEnter(CheckDeviceSetup);
 			initialConfigs.WaitingFor(LoadInitialConfigs).Target(initialAssets);
 
 			initialAssets.OnEnter(_authenticationState.QuickAsyncLogin);
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
-
+			
 			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp)
 				.Target(final);
 			internetCheck.Transition().Target(initialLoading);
@@ -128,7 +129,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadInitialConfigs()
 		{
-			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
 			await LoadRequiredAuthenticationConfigs();
 			await VersionUtils.LoadVersionDataAsync();
@@ -151,6 +151,22 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
+		}
+
+		private void CheckDeviceSetup()
+		{
+			_dataService.LoadData<AppData>();
+#if UNITY_ANDROID
+			if (SystemInfo.systemMemorySize <= 5000)
+			{
+				var appData = _dataService.GetData<AppData>();
+				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
+				{
+					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
+					_dataService.SaveData<AppData>();
+				}
+			}
+#endif
 		}
 
 		private void InitializeRemainingLogic()

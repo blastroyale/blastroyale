@@ -152,7 +152,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			//_services?.TickService?.UnsubscribeAll(this);
 			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
 			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
 		}

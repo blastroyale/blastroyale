@@ -161,8 +161,8 @@ namespace FirstLight.Game.Logic
 
 			var gameModeConfig =
 				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId.GetHashCode());
-			var teamSize = Math.Max(1, gameModeConfig.MaxPlayers);
-			var maxTeamsInMatch = 30 / teamSize;
+			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
+			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
 			
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.

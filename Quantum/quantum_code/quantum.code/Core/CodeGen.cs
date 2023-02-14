@@ -4962,14 +4962,16 @@ namespace Quantum {
     public FP CurrentStatusModifierDuration;
     [FieldOffset(40)]
     public FP CurrentStatusModifierEndTime;
-    [FieldOffset(24)]
+    [FieldOffset(28)]
     public StatusModifierType CurrentStatusModifierType;
-    [FieldOffset(12)]
-    public QBoolean IsImmune;
     [FieldOffset(16)]
+    public QBoolean IsImmune;
+    [FieldOffset(12)]
+    public Int32 MinimumHealth;
+    [FieldOffset(20)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
     private Quantum.Ptr ModifiersPtr;
-    [FieldOffset(20)]
+    [FieldOffset(24)]
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
     private Quantum.Ptr SpellEffectsPtr;
     [FieldOffset(48)]
@@ -5006,6 +5008,7 @@ namespace Quantum {
         hash = hash * 31 + CurrentStatusModifierEndTime.GetHashCode();
         hash = hash * 31 + (Int32)CurrentStatusModifierType;
         hash = hash * 31 + IsImmune.GetHashCode();
+        hash = hash * 31 + MinimumHealth.GetHashCode();
         hash = hash * 31 + ModifiersPtr.GetHashCode();
         hash = hash * 31 + SpellEffectsPtr.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Values);
@@ -5025,6 +5028,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->CurrentAmmo);
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentShield);
+        serializer.Stream.Serialize(&p->MinimumHealth);
         QBoolean.Serialize(&p->IsImmune, serializer);
         QList.Serialize(p->Modifiers, &p->ModifiersPtr, serializer, StaticDelegates.SerializeModifier);
         QList.Serialize(p->SpellEffects, &p->SpellEffectsPtr, serializer, StaticDelegates.SerializeEntityRef);
@@ -11180,6 +11184,7 @@ namespace Quantum.Prototypes {
     public Int32 CurrentHealth;
     public Int32 CurrentShield;
     public Int32 CurrentAmmo;
+    public Int32 MinimumHealth;
     public QBoolean IsImmune;
     [ArrayLengthAttribute(8)]
     public StatData_Prototype[] Values = new StatData_Prototype[8];
@@ -11204,6 +11209,7 @@ namespace Quantum.Prototypes {
       result.CurrentStatusModifierEndTime = this.CurrentStatusModifierEndTime;
       result.CurrentStatusModifierType = this.CurrentStatusModifierType;
       result.IsImmune = this.IsImmune;
+      result.MinimumHealth = this.MinimumHealth;
       if (this.Modifiers.Length == 0) {
         result.Modifiers = default;
       } else {

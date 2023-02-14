@@ -225,7 +225,7 @@ namespace Quantum.Systems
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
 				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, teamId,
-				playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
+				playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

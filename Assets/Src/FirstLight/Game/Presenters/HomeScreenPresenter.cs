@@ -180,17 +180,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OnMembersChanged(int i, PartyMember _, PartyMember Member, ObservableUpdateType type)
 		{
-			if (Member?.Local ?? false)
-			{
-				UpdatePlayButton();
-			}
+			UpdatePlayButton();
 		}
 
 		private void UpdatePlayButton()
 		{
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = "play-button";
-			var classes = new List<string>() {"play-button--disabled", "play-button", "play-button--ready"};
 
 			if (_services.PartyService.HasParty.Value)
 			{

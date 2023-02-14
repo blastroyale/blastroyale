@@ -54,7 +54,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly EquipmentMenuState _equipmentMenuState;
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
-		
+		private readonly CollectionMenuState _collectionMenuState;
+
 		private Type _currentScreen;
 		private int _unclaimedCountCheck;
 
@@ -67,6 +68,7 @@ namespace FirstLight.Game.StateMachines
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
 			_equipmentMenuState = new EquipmentMenuState(services, uiService, gameLogic, statechartTrigger);
+			_collectionMenuState = new CollectionMenuState(services, uiService, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
 			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
 		}
@@ -125,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 			var screenCheck = stateFactory.Choice("Main Screen Check");
 			var homeMenu = stateFactory.State("Home Menu");
 			var equipmentMenu = stateFactory.Nest("Equipment Menu");
-			var heroesMenu = stateFactory.State("Heroes Menu");
+			var collectionMenu = stateFactory.Nest("Collection Menu");
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
@@ -138,7 +140,6 @@ namespace FirstLight.Game.StateMachines
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
@@ -146,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(equipmentMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(collectionMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
@@ -196,8 +197,8 @@ namespace FirstLight.Game.StateMachines
 			
 			equipmentMenu.Nest(_equipmentMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
-			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
-
+			collectionMenu.Nest(_collectionMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);

@@ -15043,7 +15043,7 @@ MonoBehaviour:
     - Name: File
       Code: 
       Flags: 0
-    IgnoreDeviceLanguage: 0
+    IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***

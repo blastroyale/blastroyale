@@ -47,12 +47,22 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 		}
 
+		/// <summary>
+		/// Creates blocker elements around ui element object with passed class
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="veClass"></param>
+		/// <returns></returns>
 		public void BlockAround(UIDocument doc, string veClass)
 		{
 			doc.rootVisualElement.Query(className: veClass)
 				.ForEach(CreateBlockers);
 		}
 
+		/// <summary>
+		/// Removes blockers
+		/// </summary>
+		/// <returns></returns>
 		public void Unblock()
 		{
 			Root.Remove(_blockerElementRight);
@@ -61,12 +71,22 @@ namespace FirstLight.Game.Presenters
 			Root.Remove(_blockerElementBottom);
 		}
 
+		/// <summary>
+		/// Highligts the ui element object with passed class, with an animation of a circle shringking. 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="veClass"></param>
+		/// <param name="sizeMultiplier">How big the final circle should be relative to the size of objective ui element</param>
+		/// <returns></returns>
 		public void HighlightElement(UIDocument doc, string veClass, float sizeMultiplier)
 		{
 			doc.rootVisualElement.Query(className: veClass)
 				.ForEach(element => CreateHighlight(element, sizeMultiplier));
 		}
-
+		
+		/// <summary>
+		///  Removes the highlight circle with an increasing animation. Then destroys the highligh element
+		/// </summary>
 		public void RemoveHighlight()
 		{
 			_highlighterElement.experimental.animation.Scale(_initialScale, HIGHLIGHT_ANIM_TIME)

@@ -274,9 +274,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CREATE PARTY
-      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0443"
-      - Criar festa
+      - CREATE SQUAD
+      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
+      - "Criar esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -351,10 +351,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JOIN PARTY
+      - JOIN SQUAD
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
-        \u043A \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0435"
-      - "Junte -se \xE0 festa"
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435"
+      - "Junte -se \xE0 equipe"
       - 
       - 
       Flags: 0000000000
@@ -374,9 +374,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LEAVE PARTY
-      - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0443"
-      - DEIXAR A FESTA
+      - LEAVE SQUAD
+      - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
+      - "Deixe o esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -397,9 +397,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PARTY
-      - "\u0412\u0415\u0427\u0415\u0420\u0418\u041D\u041A\u0410"
-      - FESTA
+      - SQUAD
+      - "\u041E\u0422\u0420\u042F\u0414"
+      - "ESQUADR\xC3O"
       - 
       - 
       Flags: 0000000000
@@ -408,10 +408,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PARTY ID
+      - SQUAD ID
       - "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0438"
-      - ID da festa
+        \u043E\u0442\u0440\u044F\u0434\u0430"
+      - "ID do esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -420,11 +420,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Input the party id you want to join.
+      - Input the squad id you want to join.
       - "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0430\u0440\u0442\u0438\u0438, \u043A \u043A\u043E\u0442\u043E\u0440\u043E\u043C\u0443
+        \u043A\u043E\u043C\u0430\u043D\u0434\u044B, \u043A\u043E\u0442\u043E\u0440\u044B\u0439
         \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F."
-      - "Insira o ID da festa que voc\xEA deseja participar."
+      - "Insira o ID do esquadr\xE3o que voc\xEA deseja participar."
       - 
       - 
       Flags: 0000000000
@@ -433,10 +433,22 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Create or Join a party!
-      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F
-        \u043A \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0435!"
-      - Crie ou participe de uma festa!
+      - Create or Join a squad!
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Crie ou junte -se a um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_popup_join_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Join a squad!
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Junte -se a um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -2245,6 +2257,54 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Recover your account by receiving password reset link via email.
+
+
+        Enter
+        your email below'
+      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
+        \u0441\u0432\u043E\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C,
+        \u043F\u043E\u043B\u0443\u0447\u0438\u0432 \u0441\u0441\u044B\u043B\u043A\u0443
+        \u0441\u0431\u0440\u043E\u0441\u0430 \u043F\u0430\u0440\u043E\u043B\u044F
+        \u043F\u043E \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u0435.\n\n\u0412\u0432\u0435\u0434\u0438\u0442\u0435
+        \u0441\u0432\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u044B \u043D\u0438\u0436\u0435"
+      - "Recupere sua conta recebendo link de redefini\xE7\xE3o de senha por e -mail.\n\nDigite
+        seu e -mail abaixo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_button
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET
+      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
+      - REINICIAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - A recovery link has been sent to the email.
+      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
+        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
+        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E."
+      - "Um link de recupera\xE7\xE3o foi enviado para o email."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/username
       TermType: 0
       Description: 
@@ -2252,17 +2312,6 @@ MonoBehaviour:
       - USERNAME
       - "\u0418\u041C\u042F \u041F\u041E\u041B\u042C\u0417\u041E\u0412\u0410\u0422\u0415\u041B\u042F"
       - "NOME DE USU\xC1RIO"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/create_one
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE ONE
-      - "\u0421\u041E\u0417\u0414\u0410\u0419"
-      - CRIE UM
       - 
       - 
       Flags: 0000000000
@@ -15048,7 +15097,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676466871594
+    Google_LastUpdatedVersion: 1676480820019
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

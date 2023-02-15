@@ -1253,6 +1253,7 @@ namespace I2.Loc
 			public static string party_id 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id"); } }
 			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
 			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
+			public static string party_popup_join_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_join_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/ready"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
@@ -1277,7 +1278,6 @@ namespace I2.Loc
 
 		public static class UITLoginRegister
 		{
-			public static string create_one 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/create_one"); } }
 			public static string email 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/email"); } }
 			public static string guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/guest"); } }
 			public static string i_dont_have_account 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/i_dont_have_account"); } }
@@ -1294,7 +1294,10 @@ namespace I2.Loc
 			public static string register_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_fl_id"); } }
 			public static string register_login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_login"); } }
 			public static string register_new_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_new_fl_id"); } }
+			public static string reset_button 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_button"); } }
 			public static string reset_password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password"); } }
+			public static string reset_password_confirm 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password_confirm"); } }
+			public static string reset_password_desc 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password_desc"); } }
 			public static string secure_progress 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/secure_progress"); } }
 			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
 			public static string username 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/username"); } }
@@ -2654,6 +2657,7 @@ namespace I2.Loc
 		    public const string party_id = "UITHomeScreen/party_id";
 		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
 		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
+		    public const string party_popup_join_desc = "UITHomeScreen/party_popup_join_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string ready = "UITHomeScreen/ready";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
@@ -2678,7 +2682,6 @@ namespace I2.Loc
 
 		public static class UITLoginRegister
 		{
-		    public const string create_one = "UITLoginRegister/create_one";
 		    public const string email = "UITLoginRegister/email";
 		    public const string guest = "UITLoginRegister/guest";
 		    public const string i_dont_have_account = "UITLoginRegister/i_dont_have_account";
@@ -2695,7 +2698,10 @@ namespace I2.Loc
 		    public const string register_fl_id = "UITLoginRegister/register_fl_id";
 		    public const string register_login = "UITLoginRegister/register_login";
 		    public const string register_new_fl_id = "UITLoginRegister/register_new_fl_id";
+		    public const string reset_button = "UITLoginRegister/reset_button";
 		    public const string reset_password = "UITLoginRegister/reset_password";
+		    public const string reset_password_confirm = "UITLoginRegister/reset_password_confirm";
+		    public const string reset_password_desc = "UITLoginRegister/reset_password_desc";
 		    public const string secure_progress = "UITLoginRegister/secure_progress";
 		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";
 		    public const string username = "UITLoginRegister/username";

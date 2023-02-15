@@ -77,14 +77,7 @@ namespace FirstLight.Game.Presenters
 			_closeButton.clicked += OnCloseClicked;
 
 			root.SetupClicks(_services);
-			
-			/*// Clear all text fields on startup
-			_registerEmailField.SetValueWithoutNotify("");
-			_registerPasswordField.SetValueWithoutNotify("");
-			_registerUsernameField.SetValueWithoutNotify("");
-			_loginEmailField.SetValueWithoutNotify("");
-			_loginPasswordField.SetValueWithoutNotify("");*/
-			
+
 			ShowRegisterScreen();
 		}
 
@@ -108,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			_registerPopupRoot.SetDisplay(false);
 
 			_switchScreenDesc.text = ScriptLocalization.UITLoginRegister.i_dont_have_account;
-			_switchScreenButton.text = ScriptLocalization.UITLoginRegister.create_one;
+			_switchScreenButton.text = ScriptLocalization.UITLoginRegister.register;
 		}
 
 		private void ShowRegisterScreen()
@@ -250,15 +243,15 @@ namespace FirstLight.Game.Presenters
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.UITShared.ok,
+				ButtonText = ScriptLocalization.UITLoginRegister.reset_button,
 				ButtonOnClick = (input) =>
 				{
 					_services.AuthenticationService.SendAccountRecoveryEmail(input, OnRecoveryEmailSuccess, OnRecoveryEmailError);
 				}
 			};
 
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.UITLoginRegister.send_password_recovery,
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITLoginRegister.reset_password,
+				ScriptLocalization.UITLoginRegister.reset_password_desc,
 				_loginEmailField.value, confirmButton, true);
 		}
 
@@ -278,7 +271,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+				ScriptLocalization.UITLoginRegister.reset_password_confirm, false,
 				confirmButton);
 		}
 

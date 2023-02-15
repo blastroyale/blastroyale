@@ -55,8 +55,7 @@
     justify-content: center;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 25px 12px;
 }
 
 .window__dim {

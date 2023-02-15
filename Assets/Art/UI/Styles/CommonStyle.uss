@@ -289,7 +289,7 @@
     background-color: rgba(0, 0, 0, 0);
     font-size: 42px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0 0 7px;

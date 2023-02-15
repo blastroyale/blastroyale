@@ -1,5 +1,32 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); position: absolute;">
-        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 1460px; height: 1608px; position: absolute;" />
+    <Style src="project://database/Assets/Art/UI/Screens/CharacterDialogScreenStyle.uss?fileID=7433441132597879392&amp;guid=764b815b05125b449970ec53a9436d1c&amp;type=3#CharacterDialogScreenStyle" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); position: absolute; background-image: none; -unity-background-scale-mode: scale-to-fit;">
+        <FirstLight.Game.UIElements.SafeAreaElement>
+            <ui:VisualElement name="TopContainer" style="flex-direction: row; height: 218px;">
+                <ui:VisualElement name="TopLeftContainer" style="width: 50%; height: 100%; flex-direction: row;">
+                    <ui:VisualElement name="CharacterTopLeft" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 200px; height: 201px; left: 131px;" />
+                    <ui:VisualElement name="BubbleTopLeft" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&amp;guid=35385152983ad304b810e71f014bcf70&amp;type=3#DialogBox&apos;); width: 512px; height: 256px; left: 121px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TopRightContainer" style="width: 50%; flex-direction: row-reverse;">
+                    <ui:VisualElement name="CharacterTopRight" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 200px; height: 201px; left: auto; right: 131px; scale: -1 1;" />
+                    <ui:VisualElement name="BubbleTopRight" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&amp;guid=35385152983ad304b810e71f014bcf70&amp;type=3#DialogBox&apos;); width: 512px; height: 256px; left: auto; scale: -1 1; right: 121px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="BottomContainer" style="height: 218px; position: absolute; bottom: 0; width: 100%; flex-direction: row;">
+                <ui:VisualElement name="BottomLeftContainer" style="width: 50%; height: 100%; flex-direction: row;">
+                    <ui:VisualElement name="CharacterBottomLeft" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 200px; height: 201px; left: 131px;" />
+                    <ui:VisualElement name="BubbleBottomLeft" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&amp;guid=35385152983ad304b810e71f014bcf70&amp;type=3#DialogBox&apos;); width: 512px; height: 256px; left: 121px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="BottomRightContainer" style="width: 50%; height: 100%; flex-direction: row-reverse;">
+                    <ui:VisualElement name="CharacterBottomRight" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 200px; height: 201px; left: auto; scale: -1 1; right: 131px;" />
+                    <ui:VisualElement name="BubbleBottomRight" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&amp;guid=35385152983ad304b810e71f014bcf70&amp;type=3#DialogBox&apos;); width: 512px; height: 256px; left: auto; scale: -1 1; right: 121px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="CenterContainer" style="top: 39%; height: 218px; position: absolute; left: 39%; flex-direction: row; align-items: stretch;">
+                <ui:VisualElement name="CharacterCenter" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 200px; height: 201px; left: auto;" />
+                <ui:VisualElement name="BubbleCenter" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&amp;guid=35385152983ad304b810e71f014bcf70&amp;type=3#DialogBox&apos;); width: 512px; height: 256px; left: auto;" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/References/FTUE%20dialogue.png?fileID=2800000&amp;guid=b1ed303befe072b41b66e203c90639de&amp;type=3#FTUE dialogue&apos;); width: 2048px; height: 1024px; -unity-background-scale-mode: scale-to-fit; position: absolute; background-color: rgba(255, 255, 255, 0.16); -unity-background-image-tint-color: rgba(255, 255, 255, 0.22);" />
     </ui:VisualElement>
 </ui:UXML>

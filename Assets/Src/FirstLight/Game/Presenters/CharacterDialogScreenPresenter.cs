@@ -28,17 +28,36 @@ namespace FirstLight.Game.Presenters
 		float femaleHeight = 1608;
 		float maleWidht = 1531; 
 		float maleHeight = 1799;
-		
-		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
-		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
-		private const string PARENT_ELEMENT_STYLE = "blocker-root";
-		
+
+
+		private VisualElement _characterTopLeft;
+		private VisualElement _bubbleTopLeft;
+		private VisualElement _characterTopRight;
+		private VisualElement _bubbleTopRight;
+		private VisualElement _characterBottomLeft;
+		private VisualElement _bubbleBottomLeft;
+		private VisualElement _characterBottomRight;
+		private VisualElement _bubbleBottomRight;
+		private VisualElement _characterCenter;
+		private VisualElement _bubbleCenter;
+
+
 		private IGameServices _services;
 		
 
 		protected override void QueryElements(VisualElement root)
 		{
-			Root.AddToClassList(PARENT_ELEMENT_STYLE);
+			_characterTopLeft = root.Q<VisualElement>("CharacterTopLeft").Required();
+			_bubbleTopLeft = root.Q<VisualElement>("BubbleTopLeft").Required();
+			_characterTopRight = root.Q<VisualElement>("CharacterTopRight").Required();
+			_bubbleTopRight = root.Q<VisualElement>("BubbleTopRight").Required();
+			_characterBottomLeft = root.Q<VisualElement>("CharacterBottomLeft").Required();
+			_bubbleBottomLeft = root.Q<VisualElement>("BubbleBottomLeft").Required();
+			_characterBottomRight = root.Q<VisualElement>("CharacterBottomRight").Required();
+			_bubbleBottomRight = root.Q<VisualElement>("BubbleBottomRight").Required();
+			_characterCenter = root.Q<VisualElement>("CharacterCenter").Required();
+			_bubbleCenter = root.Q<VisualElement>("BubbleCenter").Required();
+
 			root.SetupClicks(_services);
 		}
 
@@ -52,7 +71,7 @@ namespace FirstLight.Game.Presenters
 		public void ShowDialog(string message, CharacterType character, CharacterDialogMoodType mood,
 							   CharacterDialogPosition position)
 		{
-		}-
+		}
 
 
 		/// <summary>

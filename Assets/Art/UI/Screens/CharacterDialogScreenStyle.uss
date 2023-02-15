@@ -1,0 +1,44 @@
+.edge-container {
+    flex-direction: row;
+    height: 218px;
+}
+
+.edge-container--bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.subcontainer {
+    width: 50%;
+    flex-direction: row;
+}
+
+.subcontainer--left {
+    width: 50%;
+    flex-direction: row-reverse;
+}
+
+.subcontainer__center {
+    position: absolute;
+    left: 39%;
+    top: 39%;
+    height: 218px;
+    align-items: stretch;
+}
+
+.top-container-right {
+
+}
+
+.bottom-container-left {
+
+}
+
+.bottom-container-right {
+
+}
+
+.center-container{
+
+}

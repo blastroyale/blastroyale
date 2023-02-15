@@ -140,7 +140,7 @@ MonoBehaviour:
       CompletionStrategy: 2
       CompletionKillCount: 10
       AllowEarlyRewards: 0
-      IsDebugOnly: 0
+      IsDebugOnly: 1
       Systems: []
     - Id: Testing
       MaxPlayers: 1

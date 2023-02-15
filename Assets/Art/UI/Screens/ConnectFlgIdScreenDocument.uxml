@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/ConnectFlgIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#ConnectFlgIdScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
-    <ui:VisualElement name="root" class="background" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Splashscreens%20&amp;%20Logos/LoadingBkNoLogo.png?fileID=2800000&amp;guid=20756f8f6e6857841a5b8bd4d761942a&amp;type=3#LoadingBkNoLogo&apos;); -unity-background-scale-mode: scale-and-crop;">
+    <ui:VisualElement name="root" class="background">
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area" style="top: 0; right: 2px; left: -1px; bottom: 0;">
             <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
-            <ui:VisualElement name="Popups" style="align-items: center; justify-content: center;">
-                <ui:VisualElement name="LoginPopup" class="popup anim-delay-0 anim-translate anim-translate--down-xxxl popup--large" style="display: none;">
+            <ui:VisualElement name="Popups" class="popups">
+                <ui:VisualElement name="LoginPopup" class="popup anim-delay-0 anim-translate anim-translate--down-xxxl popup--large">
                     <ui:VisualElement name="Window" class="popup-radius popup__window">
                         <ui:VisualElement name="Header" class="background-purple window__header">
                             <ui:VisualElement name="TitleDots" class="dots-pattern" />
@@ -28,7 +28,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="ScreenSwitchElement" style="align-items: center; width: 1000px; justify-content: flex-end; position: absolute; bottom: -116px; flex-direction: row;">
+                <ui:VisualElement name="ScreenSwitchElement" class="screen-switch-element">
                     <ui:Label name="SwitchScreenDesc" text="TITLE GOES HERE" class="font-style-h2" />
                     <ui:VisualElement name="Spacer" class="width-spacer width-spacer--l" />
                     <ui:Button name="SwitchScreenButton" text="TEXT" class="button-long" />

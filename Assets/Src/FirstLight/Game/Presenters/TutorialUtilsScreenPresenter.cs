@@ -48,6 +48,31 @@ namespace FirstLight.Game.Presenters
 		}
 
 		/// <summary>
+		/// Blocks full screen
+		/// </summary>
+		/// <param name="doc"></param>
+		public void BlockFullScreen(UIDocument doc)
+		{
+			_blockerElementRight = new VisualElement();
+			_blockerElementRight.AddToClassList(BLOCKER_ELEMENT_STYLE);
+			Root.Add(_blockerElementRight);
+			SetBlockerValues(_blockerElementRight,
+				Root.resolvedStyle.height*2,
+				Root.resolvedStyle.width*2,
+				Root.resolvedStyle.height/2,
+				 Root.worldBound.width/2);
+			
+			_blockerElementLeft = new VisualElement();
+			Root.Add(_blockerElementLeft);
+			
+			_blockerElementBottom = new VisualElement();
+			Root.Add(_blockerElementBottom);
+			
+			_blockerElementTop = new VisualElement();
+			Root.Add(_blockerElementTop);
+		}
+
+		/// <summary>
 		/// Creates blocker elements around ui element object with passed class
 		/// </summary>
 		/// <param name="doc"></param>

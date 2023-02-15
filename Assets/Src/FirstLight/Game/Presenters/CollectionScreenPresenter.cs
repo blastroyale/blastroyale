@@ -32,6 +32,8 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
+		
+		private GameId _selectedId;
 
 		private void Awake()
 		{
@@ -59,11 +61,44 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			UpdatePlayerSkinMenu();
+			
 			RefreshCategories();
 			RefreshSpecials();
 			RefreshMight();
 			
 			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
+		}
+		
+		/// <summary>
+		/// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
+		/// </summary>
+		private async void UpdatePlayerSkinMenu()
+		{
+			var data = GameIdGroup.PlayerSkin.GetIds();
+			
+			var items = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
+				.Where(kvp => kvp.Value.GameId.IsInGroup(Data.EquipmentSlot))
+				.ToList();
+			
+			// var list = new List<PlayerSkinGridItemView.PlayerSkinGridItemData>(data.Count);
+			
+			/*
+			foreach (var id in data)
+			{
+				var viewData = new PlayerSkinGridItemView.PlayerSkinGridItemData
+				{
+					Skin = id,
+					IsSelected = id == _selectedId,
+					OnAvatarClicked = OnAvatarClicked
+				};
+				
+				list.Add(viewData);
+			}
+			*/
+			// _gridView.UpdateData(list);
+			// _itemTitleText.text = _selectedId.GetLocalization();
+			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
 
 		private void RefreshCategories()

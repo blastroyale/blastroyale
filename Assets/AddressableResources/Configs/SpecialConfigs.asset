@@ -162,7 +162,7 @@ MonoBehaviour:
       MaxRange:
         RawValue: 0
       Knockback: 0
-    - Id: 65
+    - Id: 63
       SpecialType: 5
       Indicator: 6
       Cooldown:

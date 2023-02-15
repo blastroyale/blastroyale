@@ -50,7 +50,7 @@
                             <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" />
                             <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxxxl" />
                             <ui:VisualElement name="Controls" class="content__controls">
-                                <FirstLight.Game.UIElements.LocalizedButton name="RegisterButton" text="LOG IN" localization-key="UITLoginRegister/register" class="sfx-click-forwards button-long button-long--yellow button-long--large-font" />
+                                <FirstLight.Game.UIElements.LocalizedButton name="RegisterButton" text="LOG IN" localization-key="UITLoginRegister/register" class="sfx-click-forwards button-long button-long--yellow" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                         </ui:VisualElement>

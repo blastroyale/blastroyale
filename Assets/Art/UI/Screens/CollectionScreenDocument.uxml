@@ -1,17 +1,31 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/CollectionMenuSlotStyle.uss?fileID=7433441132597879392&amp;guid=2b3437908880e4d96b929057a7f74f84&amp;type=3#CollectionMenuSlotStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">
             <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 200px; height: 908px; width: 844px;">
-                <FirstLight.Game.UIElements.EquipmentSlotElement category="Shield" name="CharactersCategory" class="anim-delay-2 anim-translate anim-translate--right-xxl">
-                    <FirstLight.Game.UIElements.EquipmentSlotElement category="Weapon" name="WeaponCategory" class="anim-delay-4 anim-translate anim-translate--right-xxl" />
-                </FirstLight.Game.UIElements.EquipmentSlotElement>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCollectionScreen/characters" name="CharactersButton" text="COLLECTION" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin" style="width: 495px; height: 144px; padding-top: 10px;">
-                    <ui:VisualElement class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 64px; left: 35px; top: 33px; right: 308px;" />
+                    <ui:VisualElement name="category" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 64px; left: 35px; top: 33px; right: 308px;" />
+                    <ui:VisualElement name="notification" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 42px; left: 461px; top: -23px; right: 2px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-notification.png?fileID=21300000&amp;guid=e61fbd36d8e1e4c3d9e11efc4a03f314&amp;type=3#icon-notification&apos;);" />
                 </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCollectionScreen/banners" name="BannersButton" text="COLLECTION" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin" style="width: 495px; height: 144px; padding-top: 10px;">
+                    <ui:VisualElement name="category" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 64px; left: 35px; top: 33px; right: 308px;" />
+                    <ui:VisualElement name="notification" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 42px; left: 461px; top: -23px; right: 2px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-notification.png?fileID=21300000&amp;guid=e61fbd36d8e1e4c3d9e11efc4a03f314&amp;type=3#icon-notification&apos;);" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITCollectionScreen/gliders" name="GlidersButton" text="COLLECTION" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin" style="width: 495px; height: 144px; padding-top: 10px;">
+                    <ui:VisualElement name="category" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 64px; left: 35px; top: 33px; right: 308px;" />
+                    <ui:VisualElement name="notification" class="button-with-icon__icon equipment-slot__category-icon equipment-slot__notification" style="height: 42px; left: 461px; top: -23px; right: 2px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-notification.png?fileID=21300000&amp;guid=e61fbd36d8e1e4c3d9e11efc4a03f314&amp;type=3#icon-notification&apos;);" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonsHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl" style="height: 446px; width: 2424px; align-items: flex-start; margin-top: 400px; margin-left: 0; margin-right: 50px; right: 0; top: 0; left: 80%;">
+                <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" />
+            </ui:VisualElement>
+            <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons" style="align-items: flex-end; left: auto; top: 17px; justify-content: space-between; position: absolute; right: 186px; height: 100px; width: 454px; flex-direction: row-reverse;">
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:ScrollView name="ItemsScrollView" />
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

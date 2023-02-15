@@ -1587,6 +1587,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/buy
+      TermType: 0
+      Description: 
+      Languages:
+      - BUY
+      - "\u041A\u0423\u041F\u0418\u0422\u042C"
+      - COMPRAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -2186,9 +2197,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - EPIC CORE
-      - "\u042D\u043F\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo \xE9pico"
+      - REFINED CORE
+      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
+        \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo refinado"
       - 
       - 
       Flags: 0000000000
@@ -2208,9 +2220,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LEGENDARY CORE
-      - "\u041B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo lend\xE1rio"
+      - EXCELLENT CORE
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "Excelente n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -2230,9 +2242,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RARE CORE
-      - "\u0420\u0435\u0434\u043A\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo raro"
+      - ADVANCED CORE
+      - Advanced Core
+      - "N\xFAcleo avan\xE7ado"
       - 
       - 
       Flags: 0000000000
@@ -11930,9 +11942,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Common Core
-      - "\u041E\u0431\u0449\u0435\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo comum"
+      - Basic Core
+      - "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo b\xE1sico"
       - 
       - 
       Flags: 0000000000
@@ -11941,9 +11953,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Epic Core
-      - "\u042D\u043F\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo \xE9pico"
+      - Refined Core
+      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
+        \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo refinado"
       - 
       - 
       Flags: 0000000000
@@ -11952,9 +11965,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Legendary Core
-      - "\u041B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo lend\xE1rio"
+      - Excellent Core
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "Excelente n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -11963,9 +11976,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rare Core
-      - "\u0420\u0435\u0434\u043A\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo raro"
+      - Advanced Core
+      - Advanced Core
+      - "N\xFAcleo avan\xE7ado"
       - 
       - 
       Flags: 0000000000
@@ -11974,9 +11987,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Uncommon Core
-      - "\u041D\u0435\u043E\u0431\u044B\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo incomum"
+      - Good Core
+      - "\u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u044F\u0434\u0440\u043E"
+      - "Bom n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -12065,9 +12078,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRONZE CORE
-      - "\u0411\u0440\u043E\u043D\u0437\u043E\u0432\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo de bronze"
+      - REFINED CORE
+      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
+        \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo refinado"
       - 
       - 
       Flags: 0000000000
@@ -12379,9 +12393,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GOLDEN CORE
-      - "\u0417\u043E\u043B\u043E\u0442\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - Golden Core
+      - EXCELLENT CORE
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "Excelente n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -12725,9 +12739,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - STEEL CORE
-      - "\u0421\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u044F\u0434\u0440\u043E"
-      - "N\xDACLEO DE A\xC7O"
+      - ADVANCED CORE
+      - Advanced Core
+      - "N\xFAcleo avan\xE7ado"
       - 
       - 
       Flags: 0000000000
@@ -13877,9 +13891,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PLASTIC CORE
-      - "\u041F\u043B\u0430\u0441\u0442\u0438\u043A\u043E\u0432\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo de pl\xE1stico"
+      - GOOD CORE
+      - "\u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u044F\u0434\u0440\u043E"
+      - "Bom n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -14043,9 +14057,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRONZE CORE
-      - "\u0411\u0440\u043E\u043D\u0437\u043E\u0432\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo de bronze"
+      - REFINED CORE
+      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
+        \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo refinado"
       - 
       - 
       Flags: 0000000000
@@ -14054,9 +14069,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GOLDEN CORE
-      - "\u0417\u043E\u043B\u043E\u0442\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - Golden Core
+      - EXCELLENT CORE
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "Excelente n\xFAcleo"
       - 
       - 
       Flags: 0000000000
@@ -14065,9 +14080,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - x5 GOLDEN CORES
-      - "x5 \u0417\u043E\u043B\u043E\u0442\u044B\u0435 \u044F\u0434\u0440\u0430"
-      - "X5 n\xFAcleos dourados"
+      - x5 EXCELLENT CORES
+      - "x5 \u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0435 \u044F\u0434\u0440\u0430"
+      - "x5 Excelentes n\xFAcleos"
       - 
       - 
       Flags: 0000000000
@@ -14076,9 +14091,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - STEEL CORE
-      - "\u0421\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u044F\u0434\u0440\u043E"
-      - "N\xDACLEO DE A\xC7O"
+      - ADVANCED CORE
+      - Advanced Core
+      - "N\xFAcleo avan\xE7ado"
       - 
       - 
       Flags: 0000000000
@@ -14965,7 +14980,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676397061237
+    Google_LastUpdatedVersion: 1676398881135
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

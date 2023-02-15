@@ -27,18 +27,30 @@
     align-items: stretch;
 }
 
-.top-container-right {
-
+.character {
+    width: 200px;
+    height: 200px;
 }
 
-.bottom-container-left {
-
+.character--left {
+    left: 131px;
 }
 
-.bottom-container-right {
-
+.character--right {
+    right: 131px;
+    scale: -1,1;
 }
 
-.center-container{
+.bubble {
+    width: 512px;
+    height: 256px;
+}
 
+.bubble--left {
+    left: 121px;
+}
+
+.bubble--right {
+    right: 121px;
+    scale: -1,1;
 }

@@ -69,11 +69,11 @@
 }
 
 .player__badge--position-2 {
-    background-image: var(--sprite-shared__icon-medal-1st);
+    background-image: var(--sprite-shared__icon-medal-2nd);
 }
 
 .player__badge--position-3 {
-    background-image: var(--sprite-shared__icon-medal-1st);
+    background-image: var(--sprite-shared__icon-medal-3rd);
 }
 
 .safe-area {

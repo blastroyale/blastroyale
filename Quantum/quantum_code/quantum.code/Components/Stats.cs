@@ -17,7 +17,7 @@ namespace Quantum
 	public unsafe partial struct Stats
 	{
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity)
+		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -28,6 +28,7 @@ namespace Quantum
 			IsImmune = false;
 			ModifiersPtr = Ptr.Null;
 			SpellEffectsPtr = Ptr.Null;
+			MinimumHealth = minimumHealth;
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
@@ -268,7 +269,7 @@ namespace Quantum
 
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
-
+			
 			if (damageAmount <= 0)
 			{
 				return;
@@ -314,7 +315,7 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 
 			CurrentHealth = Math.Min(maxHealth, amount);
-			CurrentHealth = Math.Max(CurrentHealth, 0);
+			CurrentHealth = Math.Max(CurrentHealth, MinimumHealth);
 
 			if (CurrentHealth != previousHealth)
 			{

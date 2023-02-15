@@ -18,14 +18,16 @@
                 </FirstLight.Game.UIElements.LocalizedButton>
             </ui:VisualElement>
             <ui:VisualElement name="ButtonsHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl" style="height: 446px; width: 2424px; align-items: flex-start; margin-top: 400px; margin-left: 0; margin-right: 50px; right: 0; top: 0; left: 80%;">
-                <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" />
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" />
+                <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" style="position: absolute; top: 17px; left: -13px;" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" style="position: absolute; top: 129px; left: -11px;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons" style="align-items: flex-end; left: auto; top: 17px; justify-content: space-between; position: absolute; right: 186px; height: 100px; width: 454px; flex-direction: row-reverse;">
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" style="color: rgb(255, 255, 255); font-size: 32px; position: absolute; right: 292px; bottom: 402px;" />
+        <ui:Label text="ITEM DESCRIPTION&#10; GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 24px; position: absolute; right: 266px; bottom: 330px; height: 54px; width: 293px;" />
         <ui:ScrollView name="ItemsScrollView" />
     </ui:VisualElement>
 </ui:UXML>

@@ -518,9 +518,9 @@ namespace Quantum
 			return weaponConfig;
 		}
 
-		private List<GameId> GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
+		private GameId[] GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
 		{
-			var specials = weaponConfig.Specials;
+			var specials = weaponConfig.Specials.ToArray();
 			
 			if (f.Context.GameModeConfig.Id == "Tutorial")
 			{

@@ -3330,8 +3330,9 @@ MonoBehaviour:
         RawValue: 0
       DestructionLengthTime:
       - RawValue: 0
+      - RawValue: 0
       GameId:
-        Value: 109
+        Value: 66
     DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
@@ -3410,16 +3411,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -964563
+          RawValue: -943435
         Y:
           RawValue: 218759
         Z:
-          RawValue: -633752
+          RawValue: -621220
       Rotation:
         X:
-          RawValue: 22282240
+          RawValue: 0
         Y:
-          RawValue: 15313142
+          RawValue: 15533314
         Z:
           RawValue: 0
     View: []

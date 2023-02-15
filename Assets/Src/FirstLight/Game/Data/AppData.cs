@@ -50,7 +50,7 @@ namespace FirstLight.Game.Data
 		
 		public bool DialogueEnabled = true;
 		public int FpsTarget = 30;
-		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
+		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();

@@ -96,11 +96,11 @@ MonoBehaviour:
           RawValue: -62226
       Position:
         X:
-          RawValue: -1248453
+          RawValue: -1252306
         Y:
           RawValue: 176481
         Z:
-          RawValue: -262667
+          RawValue: -254112
       PhysicsMaterial:
         Id:
           Value: 0
@@ -629,11 +629,11 @@ MonoBehaviour:
           RawValue: -62226
       Position:
         X:
-          RawValue: -665929
+          RawValue: -700664
         Y:
           RawValue: 271843
         Z:
-          RawValue: 56520
+          RawValue: 30965
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1162,11 +1162,11 @@ MonoBehaviour:
           RawValue: -62226
       Position:
         X:
-          RawValue: 26815
+          RawValue: 24382
         Y:
           RawValue: 474319
         Z:
-          RawValue: 419200
+          RawValue: 425383
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1531,47 +1531,6 @@ MonoBehaviour:
           RawValue: -62226
       Position:
         X:
-          RawValue: -697549
-        Y:
-          RawValue: 263585
-        Z:
-          RawValue: -2134
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 62082
-        Y:
-          RawValue: 58988
-        Z:
-          RawValue: 8713
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (36)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 36
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 20563
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -62226
-      Position:
-        X:
           RawValue: -1332332
         Y:
           RawValue: 188088
@@ -1599,7 +1558,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 37
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1640,7 +1599,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 38
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1681,7 +1640,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 39
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1722,7 +1681,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 40
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1763,7 +1722,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 41
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1804,7 +1763,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 42
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1845,7 +1804,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 43
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1886,7 +1845,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 44
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1927,7 +1886,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 45
+        ColliderIndex: 44
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1968,7 +1927,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 46
+        ColliderIndex: 45
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -3359,6 +3318,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -3368,7 +3329,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       DestructionLengthTime:
-        RawValue: 0
+      - RawValue: 0
       GameId:
         Value: 109
     DummyCharacter: []

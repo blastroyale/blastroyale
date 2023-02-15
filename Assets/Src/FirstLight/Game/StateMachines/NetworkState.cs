@@ -645,7 +645,7 @@ namespace FirstLight.Game.StateMachines
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				MapId = (int) mapConfig.Map,
-				GameModeHash = gameModeId.GetHashCode(),
+				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
 			};
@@ -658,7 +658,7 @@ namespace FirstLight.Game.StateMachines
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var setup = new MatchRoomSetup()
 			{
-				GameModeHash = gameModeId.GetHashCode(),
+				GameModeId = gameModeId,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
 				Mutators = selectedGameMode.Entry.Mutators,
 				MapId = msg.MapId
@@ -674,7 +674,7 @@ namespace FirstLight.Game.StateMachines
 			_services.DataSaver.SaveData<AppData>();
 			var setup = new MatchRoomSetup()
 			{
-				GameModeHash = gameModeId.GetHashCode(),
+				GameModeId = gameModeId,
 				MapId = (int) msg.MapConfig.Map,
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,

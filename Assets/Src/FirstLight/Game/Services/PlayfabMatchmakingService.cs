@@ -16,6 +16,7 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using SRF;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Services
 {
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Services
 	{
 		// Required at creation
 		public int MapId;
-		public int GameModeHash;
+		public string GameModeId;
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
 

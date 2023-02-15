@@ -77,7 +77,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_gameModeId = room.GetGameModeId();
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameModeConfig =
-				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
+				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			_mapId = ((int) config.Map).ToString();
 			
 			var data = new Dictionary<string, object>
@@ -110,7 +110,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			var totalPlayers = room.PlayerCount;
 			var loadout = _gameData.EquipmentDataProvider.Loadout;
 			var ids = _gameData.UniqueIdDataProvider.Ids;

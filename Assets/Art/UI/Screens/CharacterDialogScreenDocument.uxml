@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); position: absolute;">
+        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png?fileID=2800000&amp;guid=0b02bd0dec325404097783e14e4057c8&amp;type=3#Happy Female&apos;); width: 1460px; height: 1608px; position: absolute;" />
+    </ui:VisualElement>
+</ui:UXML>

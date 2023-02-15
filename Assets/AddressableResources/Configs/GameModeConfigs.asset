@@ -220,5 +220,5 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 0
-      IsDebugOnly: 0
+      IsDebugOnly: 1
       Systems: []

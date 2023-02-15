@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/ConnectFlgIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#ConnectFlgIdScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="root" class="background">
-        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area" style="top: 0; right: 2px; left: -1px; bottom: 0;">
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
             <ui:VisualElement name="Popups" class="popups">
                 <ui:VisualElement name="LoginPopup" class="popup anim-delay-0 anim-translate anim-translate--down-xxxl popup--large">

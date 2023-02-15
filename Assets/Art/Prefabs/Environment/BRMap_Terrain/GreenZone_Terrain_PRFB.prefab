@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2298006890992638917}
   - component: {fileID: 101167764734589784}
+  - component: {fileID: 1917863651580066155}
   m_Layer: 0
   m_Name: GZ_Chunk_2_CLLSN
   m_TagString: Untagged
@@ -46,6 +47,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7615594609224213023, guid: fc6fd4a5668821840826e89b6d9c683d, type: 3}
+--- !u!114 &1917863651580066155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106362533678786763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 7615594609224213023, guid: fc6fd4a5668821840826e89b6d9c683d, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &407041962569395046
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7917780249163118500}
   - component: {fileID: 3640812503767365864}
+  - component: {fileID: 7767696936390008551}
   m_Layer: 0
   m_Name: GZ_Chunk_1_CLLSN
   m_TagString: Untagged
@@ -633,3 +659,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5390168752673015285, guid: fc6fd4a5668821840826e89b6d9c683d, type: 3}
+--- !u!114 &7767696936390008551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293602601314133782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -5390168752673015285, guid: fc6fd4a5668821840826e89b6d9c683d, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0

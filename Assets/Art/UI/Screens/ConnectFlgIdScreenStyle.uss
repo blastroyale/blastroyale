@@ -9,26 +9,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.register-button {
-    -unity-text-outline-color: rgb(59, 29, 144);
-    -unity-background-image-tint-color: rgb(59, 29, 144);
-}
-
-.login-button {
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-.reset_guest_container {
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.reset_guest_container__separator {
-    height: 0;
-    width: 51px;
-}
-
 .unity-text-field__label {
     margin-right: 15px;
     width: 150px;

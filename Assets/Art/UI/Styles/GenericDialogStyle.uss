@@ -121,7 +121,7 @@
 }
 
 .font-style-popup {
-    font-size: 30px;
+    font-size: 34px;
     letter-spacing: 1px;
     color: rgb(90, 86, 125);
 }

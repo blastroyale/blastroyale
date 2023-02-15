@@ -34,9 +34,9 @@ namespace FirstLight.Game.Services.Party
 				MemberEntity = LocalEntityKey(),
 				MemberData = new()
 				{
-					{ DisplayNameMemberProperty, _appDataProvider.GetDisplayName()},
-					{ LevelProperty, _playerDataProvider.PlayerInfo.Level.ToString() },
-					{ TrophiesProperty, _playerDataProvider.PlayerInfo.TotalTrophies.ToString() }
+					{DisplayNameMemberProperty, _appDataProvider.GetDisplayName()},
+					{LevelProperty, _playerDataProvider.PlayerInfo.Level.ToString()},
+					{TrophiesProperty, _playerDataProvider.PlayerInfo.TotalTrophies.ToString()}
 				}
 			};
 		}
@@ -69,14 +69,14 @@ namespace FirstLight.Game.Services.Party
 
 
 			return new PartyMember(
-								   playfabID: m.MemberEntity.Id,
-								   displayName: m.MemberData[DisplayNameMemberProperty],
-								   trophies: trophiesInt,
-								   bppLevel: bppLevelInt,
-								   local: Local().EntityId == m.MemberEntity.Id,
-								   leader: l.Owner.Id == m.MemberEntity.Id,
-								   ready: readyBool
-								  );
+				playfabID: m.MemberEntity.Id,
+				displayName: m.MemberData[DisplayNameMemberProperty],
+				trophies: trophiesInt,
+				bppLevel: bppLevelInt,
+				local: Local().EntityId == m.MemberEntity.Id,
+				leader: l.Owner.Id == m.MemberEntity.Id,
+				ready: readyBool
+			);
 		}
 
 		private String GenerateCode()
@@ -91,10 +91,22 @@ namespace FirstLight.Game.Services.Party
 			return code.ToString();
 		}
 
+		private string MembersAsString()
+		{
+			if (_lobby?.Members == null || _lobby.Members.Count == 0) return "";
+			return string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
+		}
+
+
 		private String NormalizeCode(string code)
 		{
-			// 0 Is not in the allowed characters, replacing for o because of the font
-			return code.ToUpper().Replace("0", "O");
+			string temp = code.ToUpper();
+			foreach (var (from, to) in CharCodeReplaces)
+			{
+				temp = temp.Replace(from, to);
+			}
+
+			return temp;
 		}
 
 
@@ -107,6 +119,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				err = ConvertErrors(playfabEx);
 			}
+
 			throw new PartyException(ex, err);
 		}
 

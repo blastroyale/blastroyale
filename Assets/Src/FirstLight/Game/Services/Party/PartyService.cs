@@ -107,6 +107,13 @@ namespace FirstLight.Game.Services.Party
 		/// Get local player object as <see cref="PartyMember"/> from lobby <see cref="Members"/> list
 		/// </summary>
 		PartyMember GetLocalMember();
+
+		public delegate void OnLocalPlayerKickedHandler();
+
+		/// <summary>
+		/// Event handler that notifies when the local player got kicked
+		/// </summary>
+		public event OnLocalPlayerKickedHandler OnLocalPlayerKicked;
 	}
 
 
@@ -184,9 +191,7 @@ namespace FirstLight.Game.Services.Party
 		// State
 		private Lobby _lobby;
 		private string _lobbyId;
-		private String _lobbyTopic;
-		private bool connecting;
-		private bool connected;
+		
 
 		SemaphoreSlim accessSemaphore = new SemaphoreSlim(1, 1);
 
@@ -245,7 +250,7 @@ namespace FirstLight.Game.Services.Party
 				_lobbyId = result.LobbyId;
 				await RefetchCachedParty();
 				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
-				ListenForLobbyUpdates();
+				ListenForLobbyUpdates(_lobbyId);
 				PartyCode.Value = code;
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
@@ -331,7 +336,7 @@ namespace FirstLight.Game.Services.Party
 				await RefetchCachedParty();
 #pragma warning disable CS4014
 				// Dont wait for the websocket connection, it is slow to connect, and the player is already in the party.
-				ListenForLobbyUpdates();
+				ListenForLobbyUpdates(_lobbyId);
 #pragma warning restore CS4014
 				HasParty.Value = true;
 				PartyCode.Value = normalizedCode;
@@ -430,6 +435,8 @@ namespace FirstLight.Game.Services.Party
 		/// <inheritdoc/>
 		public async Task LeaveParty()
 		{
+			var lobbyId = _lobbyId;
+			var members = MembersAsString();
 			try
 			{
 				await accessSemaphore.WaitAsync();
@@ -466,7 +473,7 @@ namespace FirstLight.Game.Services.Party
 				accessSemaphore.Release();
 			}
 
-			SendAnalyticsAction("Leave");
+			SendAnalyticsAction("Leave", lobbyId, members);
 		}
 
 		[CanBeNull]
@@ -475,93 +482,11 @@ namespace FirstLight.Game.Services.Party
 			return LocalPartyMember();
 		}
 
+		public event IPartyService.OnLocalPlayerKickedHandler OnLocalPlayerKicked;
+
 		private void CheckPartyReadyStatus()
 		{
 			PartyReady.Value = Members.Count == 1 || Members.Where(m => !m.Leader).ToList().TrueForAll(m => m.Ready);
-		}
-
-		private async Task UnsubscribeToLobbyUpdates()
-		{
-			var connStr = await _pubsub.GetConnectionHandle();
-			var req = new UnsubscribeFromLobbyResourceRequest()
-			{
-				Type = SubscriptionType.LobbyChange,
-				EntityKey = LocalEntityKey(),
-				ResourceId = _lobbyId,
-				SubscriptionVersion = 1,
-				PubSubConnectionHandle = connStr
-			};
-			try
-			{
-				await AsyncPlayfabMultiplayerAPI.UnsubscribeFromLobbyResource(req);
-			}
-			catch (Exception ex)
-			{
-				// Ignore error because if the player is the last one in the lobby it will disband it and automatically unsubscribe from updates
-				Debug.LogException(ex);
-			}
-		}
-
-		private async Task ListenForLobbyUpdates()
-		{
-			try
-			{
-				if (connecting || connected) return;
-				connecting = true;
-				var connectionHandle = await _pubsub.GetConnectionHandle(true);
-				var subscribeReq = new SubscribeToLobbyResourceRequest()
-				{
-					Type = SubscriptionType.LobbyChange,
-					EntityKey = new EntityKey() {Type = PlayFabSettings.staticPlayer.EntityType, Id = PlayFabSettings.staticPlayer.EntityId},
-					PubSubConnectionHandle = connectionHandle,
-					SubscriptionVersion = 1,
-					ResourceId = _lobbyId
-				};
-				var result = await AsyncPlayfabMultiplayerAPI.SubscribeToLobbyResource(subscribeReq);
-				_lobbyTopic = result.Topic;
-				_pubsub.ListenTopic<LobbyPayloadMessage>(_lobbyTopic, LobbyMessageHandler);
-				_pubsub.ListenSubscriptionStatus(_lobbyTopic, SubscriptionChangeHandler);
-				connecting = false;
-				connected = true;
-			}
-			catch (Exception ex)
-			{
-				connected = false;
-				connecting = false;
-				// Since this function is never awaited lets log the exception
-				// TODO Proper handling of async exceptions
-				Debug.LogException(ex);
-			}
-		}
-
-		private void SubscriptionChangeHandler(IPlayfabPubSubService.SubscriptionChangeMessage obj)
-		{
-			if (obj.Status == "unsubscribeSuccess" && _memberRemovedReasons.Contains(obj.UnsubscribeReason))
-			{
-				Members.Remove(LocalPartyMember());
-				LocalPlayerKicked();
-				connected = false;
-				connecting = false;
-			}
-		}
-
-
-		/// <summary>
-		/// Handles when there is any change in the party
-		/// </summary>
-		/// <param name="obj"></param>
-		private void LobbyMessageHandler(LobbyPayloadMessage obj)
-		{
-			foreach (var change in obj.LobbyChanges)
-			{
-				if (_lobby.ChangeNumber < change.ChangeNumber)
-				{
-#pragma warning disable CS4014
-					RefetchCachedParty();
-#pragma warning restore CS4014
-					break;
-				}
-			}
 		}
 
 
@@ -591,7 +516,7 @@ namespace FirstLight.Game.Services.Party
 		private void UpdateProperties()
 		{
 			// Remove/update
-			foreach (var (key, value) in new Dictionary<string,string>(LobbyProperties))
+			foreach (var (key, value) in new Dictionary<string, string>(LobbyProperties))
 			{
 				if (_lobby?.LobbyData != null && _lobby.LobbyData.TryGetValue(key, out var newValue))
 				{
@@ -666,8 +591,9 @@ namespace FirstLight.Game.Services.Party
 
 		private void LocalPlayerKicked()
 		{
-			ResetState();
 			SendAnalyticsAction("Kicked");
+			ResetState();
+			OnLocalPlayerKicked?.Invoke();
 		}
 
 
@@ -680,6 +606,7 @@ namespace FirstLight.Game.Services.Party
 			PartyReady.Value = false;
 			PartyCode.Value = null;
 			PartyID.Value = null;
+			_pubSubState = PartySubscriptionState.NotConnected;
 			Members.Clear();
 			foreach (var key in LobbyProperties.ReadOnlyDictionary.Keys)
 			{
@@ -687,19 +614,26 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		private void SendAnalyticsAction(string action)
+
+		private void SendAnalyticsAction(string action, string overwriteLobbyId = null, string overwriteMembersString = null)
 		{
+			var lobby = overwriteLobbyId ?? _lobbyId;
 			var members = "";
-			if (_lobby?.Members != null && _lobby.Members.Count > 0)
+			if (overwriteMembersString != null)
 			{
-				members = string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
+				members = overwriteMembersString;
 			}
+			else if (_lobby?.Members != null && _lobby.Members.Count > 0)
+			{
+				members = MembersAsString();
+			}
+
 
 			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
 			{
 				{"action ", action},
 				{"userid", PlayFabSettings.staticPlayer.PlayFabId},
-				{"teamid ", _lobbyId},
+				{"teamid ", lobby},
 				{"members", members}
 			});
 		}

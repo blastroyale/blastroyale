@@ -289,8 +289,16 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var playerData = container.GetPlayersMatchData(frame, out _);
 			
 			var deadData = playerData[playerDeadEvent.Player];
-			var killerData = playerData[playerDeadEvent.PlayerKiller];
-
+			
+			string killerName = "";
+			bool isKillerBot = false;
+			if (playerDeadEvent.PlayerKiller.IsValid)
+			{
+				var killerData = playerData[playerDeadEvent.PlayerKiller];
+				killerName = killerData.GetPlayerName();
+				isKillerBot = killerData.IsBot;
+			}
+			
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -298,8 +306,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"killed_name", deadData.GetPlayerName()},
-				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
-				{"killer_name", killerData.GetPlayerName()}
+				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(isKillerBot?"bot":"player")},
+				{"killer_name", killerName}
 			};
 			
 			QueueEvent(AnalyticsEvents.MatchDeadAction, data);

@@ -184,11 +184,6 @@ MonoBehaviour:
         Id:
           Value: 581929196288820183
       Address: Maps/BRGenesis.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_41
-      AssetRef:
-        Id:
-          Value: 602376439807427076
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFiringMode_41]
     - Path: AddressableResources/Maps/FtueDeck_mesh
       AssetRef:
         Id:
@@ -279,11 +274,6 @@ MonoBehaviour:
         Id:
           Value: 855484753883037958
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerProjectileAttackAction_0]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_39
-      AssetRef:
-        Id:
-          Value: 884576220807429317
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFiringMode_39]
     - Path: AddressableResources/Maps/BlimpDeck_mesh
       AssetRef:
         Id:

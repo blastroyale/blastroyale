@@ -458,7 +458,7 @@ public partial class SROptions
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{
-		var uiService = Object.FindObjectOfType<Main>().UiService;
+		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
 
 		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
 		{

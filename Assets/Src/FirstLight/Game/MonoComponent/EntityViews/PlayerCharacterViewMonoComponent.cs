@@ -76,6 +76,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
 
 		private void OnDestroy()
@@ -428,6 +429,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			              (callback.HazardData.EndTime - time).AsFloat);
 
 			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
+		}
+		
+		private void HandleOnRadarUsed(EventOnRadarUsed callback)
+		{
+			if (callback.Player != PlayerRef)
+			{
+				return;
+			}
+
+			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
 		}
 
 		private void HandleUpdateView(CallbackUpdateView callback)	

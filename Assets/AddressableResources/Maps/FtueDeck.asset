@@ -3359,6 +3359,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -3368,7 +3370,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 196608
       DestructionLengthTime:
-        RawValue: 6553
+      - RawValue: 0
       GameId:
         Value: 109
     DummyCharacter: []
@@ -3480,6 +3482,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -3489,9 +3493,10 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 0
       DestructionLengthTime:
-        RawValue: 0
+      - RawValue: 0
+      - RawValue: 0
       GameId:
-        Value: 109
+        Value: 66
     DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []

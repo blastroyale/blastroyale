@@ -45,6 +45,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       AllowBots: 1
+      UseBotsFromGamemode: 
       BotSearchForCrates: 1
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
@@ -85,6 +86,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       AllowBots: 1
+      UseBotsFromGamemode: BattleRoyale
       BotSearchForCrates: 1
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
@@ -125,6 +127,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       AllowBots: 1
+      UseBotsFromGamemode: 
       BotSearchForCrates: 0
       BotRespawn: 1
       BotWeaponSearchStrategy: 2
@@ -142,7 +145,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 0b00000005000000
+      AllowedMaps: 0b0000000500000041000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 0
@@ -163,6 +166,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       AllowBots: 0
+      UseBotsFromGamemode: 
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
@@ -201,6 +205,7 @@ MonoBehaviour:
       DeathDropStrategy: 5
       DeathMarker: 0
       AllowBots: 1
+      UseBotsFromGamemode: 
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1

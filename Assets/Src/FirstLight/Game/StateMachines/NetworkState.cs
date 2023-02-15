@@ -55,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _criticalDisconnectCoroutine;
+		private Coroutine _tickReconnectAttemptCoroutine;
 		private Coroutine _matchmakingCoroutine;
 		private bool _requiresManualRoomReconnection;
 
@@ -151,32 +152,43 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.TickService?.UnsubscribeAll(this);
 			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
 			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
 		}
 
 		private void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			_tickReconnectAttemptCoroutine = _services.CoroutineService.StartCoroutine(TickReconnectAttempt());
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 		
 		private void UnsubscribeDisconnectEvents()
 		{
-			_services.TickService.Unsubscribe(TickReconnectAttempt);
-
+			if (_tickReconnectAttemptCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_tickReconnectAttemptCoroutine);
+				_tickReconnectAttemptCoroutine = null;
+			}
+			
 			if (_criticalDisconnectCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_criticalDisconnectCoroutine);
+				_criticalDisconnectCoroutine = null;
 			}
 		}
 		
-		private void TickReconnectAttempt(float deltaTime)
+		private IEnumerator TickReconnectAttempt()
 		{
-			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
+			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			
+			while (true)
 			{
-				ReconnectPhoton();
+				if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
+				{
+					ReconnectPhoton();
+				}
+
+				yield return waitForSeconds;	
 			}
 		}
 		
@@ -256,7 +268,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnGameMatched(GameMatched match)
 		{
-			_services.NetworkService.JoinOrCreateRoom(match.RoomSetup);
+			_services.NetworkService.JoinOrCreateRoom(match.RoomSetup, match.TeamId);
 			_services.GenericDialogService.CloseDialog();
 		}
 
@@ -268,7 +280,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(MatchRoomSetup setup)
 		{
-			if (FeatureFlags.PLAYFAB_MATCHMAKING || setup.GameMode().Teams)
+			if (setup.GameMode().ShouldUsePlayfabMatchmaking())
 			{
 				_services.MatchmakingService.JoinMatchmaking(setup);
 			}
@@ -305,6 +317,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_networkService.LocalPlayer.IsMasterClient ||
 				!_networkService.CurrentRoom.IsMatchmakingRoom() ||
+				!_networkService.CurrentRoomMatchType.HasValue ||
 				!_networkService.CurrentRoomMatchType.HasValue) 
 			{
 				return;
@@ -741,7 +754,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var oneSecond = new WaitForSeconds(1f);
 			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
-			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
+			var qConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var waitSeconds = NetworkUtils.GetMatchmakingTime(_networkService.CurrentRoomMatchType.Value, _networkService.CurrentRoomGameModeConfig.Value, qConfig);
+			
+			var matchmakingEndTime = roomCreationTime.AddSeconds(waitSeconds);
 			var room = _networkService.QuantumClient.CurrentRoom;
 			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
@@ -754,7 +770,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var oneSecond = new WaitForSeconds(1f);
 			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
-			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat);
+			var qConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var waitSeconds = NetworkUtils.GetMatchmakingTime(_networkService.CurrentRoomMatchType!.Value, _networkService.CurrentRoomGameModeConfig!.Value, qConfig);
+
+			var matchmakingEndTime = roomCreationTime.AddSeconds(waitSeconds);
 			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
 			var room = _networkService.QuantumClient.CurrentRoom;
 

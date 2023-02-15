@@ -106,6 +106,13 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.SplashScreen.show = false;
 			PlayerSettings.SplashScreen.showUnityLogo = false;
 			
+			// Search all generic implementations to pre-compile them with IL2CPP
+			PlayerSettings.SetAdditionalIl2CppArgs("--generic-virtual-method-iterations=10");
+			
+			// TODO: Master IL2CPP seems to fail android builds
+			//PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Master);
+			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Master);
+			
 			AddressableAssetSettings.BuildPlayerContent();
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);

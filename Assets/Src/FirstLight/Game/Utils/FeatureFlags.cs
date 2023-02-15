@@ -94,6 +94,11 @@ namespace FirstLight.Game.Utils
 		public static bool TUTORIAL = true;
 		
 		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool ALLOW_SKIP_TUTORIAL = true;
+		
+		/// <summary>
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
 		public static bool TUTORIAL_BATTLE_PASS = true;

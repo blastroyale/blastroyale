@@ -10,6 +10,7 @@ namespace FirstLight.Game.Services.Party
 		private const string DisplayNameMemberProperty = "display_name";
 		private const string LevelProperty = "bpp_level";
 		private const string TrophiesProperty = "trophies";
+		private const string ReadyProperty = "ready";
 		private const int CodeDigits = 4;
 		private const int MaxMembers = 5;
 		private const string JoinCodeAllowedCharacters = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

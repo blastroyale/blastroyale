@@ -79,7 +79,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetPartyId(), _kickPlayerCallback);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
 			}
 			else
 			{
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetPartyId(), _kickPlayerCallback);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
 				}
 			}
 

@@ -41,7 +41,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var partyMember = _partyMembers[index];
 
-			((Label) element).text = (partyMember.Leader ? "[L]" : string.Empty) + partyMember.DisplayName;
+			((Label) element).text = (partyMember.Leader ? "<sprite name=\"Crown\">" : string.Empty) + (partyMember.Ready ? "<sprite name=\"Checked\"> " : string.Empty) + partyMember.DisplayName;
+			((Label) element).enableRichText = true;
 
 			if (CanKick() && !partyMember.Local)
 			{
@@ -58,6 +59,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement CreatePartyListEntry()
 		{
 			var label = new Label();
+			label.enableRichText = true;
 			label.AddToClassList("squad-member");
 			return label;
 		}
@@ -72,6 +74,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnPartyMembersChanged(int index, PartyMember prev, PartyMember current,
 										   ObservableUpdateType updateType)
 		{
+			_partyMemberList.bindItem = BindPartyListEntry;
 			RefreshPartyList();
 		}
 

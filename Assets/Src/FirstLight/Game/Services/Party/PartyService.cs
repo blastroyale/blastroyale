@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
+using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using UnityEngine;
@@ -35,6 +36,12 @@ namespace FirstLight.Game.Services.Party
 		Task JoinParty(string code);
 
 		/// <summary>
+		/// Set ready status in a party
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
+		Task Ready(bool ready);
+
+		/// <summary>
 		/// Leave a previous joined/created party <see cref="CreateParty"/>
 		/// </summary>
 		/// <exception cref="PartyException">throws with exceptional cases like user not in a party</exception>
@@ -53,6 +60,11 @@ namespace FirstLight.Game.Services.Party
 		/// To distinct the two you should look at <see cref="Members"/>
 		/// </summary>
 		IObservableFieldReader<bool> HasParty { get; }
+
+		/// <summary>
+		/// Party ready status observable, it changes when the all party Members has it property Ready equals true
+		/// </summary>
+		IObservableFieldReader<bool> PartyReady { get; }
 
 		/// <summary>
 		/// PartyCode observable, it changes when the local player create/join/leave a party
@@ -84,7 +96,17 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="value"></param>
-		void SetLobbyProperty(string key, string value);
+		Task SetLobbyProperty(string key, string value);
+
+		/// <summary>
+		/// Delete a lobby property
+		/// </summary>
+		Task DeleteLobbyProperty(string key);
+
+		/// <summary>
+		/// Get local player object as <see cref="PartyMember"/> from lobby <see cref="Members"/> list
+		/// </summary>
+		PartyMember GetLocalMember();
 	}
 
 
@@ -101,13 +123,16 @@ namespace FirstLight.Game.Services.Party
 		IObservableFieldReader<bool> IPartyService.HasParty => HasParty;
 
 		/// <inheritdoc/>
+		IObservableFieldReader<bool> IPartyService.PartyReady => PartyReady;
+
+		/// <inheritdoc/>
 		IObservableDictionaryReader<string, string> IPartyService.LobbyProperties => LobbyProperties;
 
 		/// <inheritdoc/>
 		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
 
 
-		public async void SetLobbyProperty(string key, string value)
+		public async Task SetLobbyProperty(string key, string value)
 		{
 			if (!HasParty.Value)
 			{
@@ -130,6 +155,26 @@ namespace FirstLight.Game.Services.Party
 			});
 		}
 
+		public async Task DeleteLobbyProperty(string key)
+		{
+			if (!HasParty.Value)
+			{
+				throw new PartyException(PartyErrors.NoParty);
+			}
+
+			if (!LocalPartyMember().Leader)
+			{
+				throw new PartyException(PartyErrors.NoPermission);
+			}
+
+			Debug.Log($"setting property {key} to " + _lobbyId);
+			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			{
+				LobbyId = _lobbyId,
+				LobbyDataToDelete = new List<string> {key}
+			});
+		}
+
 		// Services
 		private IPlayfabPubSubService _pubsub;
 		private IPlayerDataProvider _playerDataProvider;
@@ -146,6 +191,7 @@ namespace FirstLight.Game.Services.Party
 		SemaphoreSlim accessSemaphore = new SemaphoreSlim(1, 1);
 
 		private IObservableField<bool> HasParty { get; }
+		private IObservableField<bool> PartyReady { get; }
 		private IObservableField<string> PartyCode { get; }
 		private IObservableList<PartyMember> Members { get; }
 
@@ -161,6 +207,7 @@ namespace FirstLight.Game.Services.Party
 			_pubsub = pubsub;
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
+			PartyReady = new ObservableField<bool>(false);
 			PartyCode = new ObservableField<string>(null);
 			PartyID = new ObservableField<string>(null);
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
@@ -202,6 +249,7 @@ namespace FirstLight.Game.Services.Party
 				PartyCode.Value = code;
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;
+				PartyReady.Value = true;
 			}
 			catch (Exception ex)
 			{
@@ -211,6 +259,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Create");
 		}
 
@@ -296,7 +345,49 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Join");
+		}
+
+		/// <inheritdoc/>
+		public async Task Ready(bool ready)
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (!HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.NoParty);
+				}
+
+				var localPartyMember = LocalPartyMember();
+				if (localPartyMember == null)
+				{
+					throw new PartyException(PartyErrors.NoPermission);
+				}
+
+				if (localPartyMember.Ready == ready) return;
+
+				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+				{
+					LobbyId = _lobbyId,
+					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
+					MemberData = new Dictionary<string, string>()
+					{
+						{"ready", ready.ToString()}
+					}
+				});
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+
+			SendAnalyticsAction($"Ready {ready}");
 		}
 
 		/// <inheritdoc/>
@@ -332,6 +423,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Kick");
 		}
 
@@ -373,9 +465,20 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
+
 			SendAnalyticsAction("Leave");
 		}
 
+		[CanBeNull]
+		public PartyMember GetLocalMember()
+		{
+			return LocalPartyMember();
+		}
+
+		private void CheckPartyReadyStatus()
+		{
+			PartyReady.Value = Members.Count == 1 || Members.Where(m => !m.Leader).ToList().TrueForAll(m => m.Ready);
+		}
 
 		private async Task UnsubscribeToLobbyUpdates()
 		{
@@ -488,13 +591,13 @@ namespace FirstLight.Game.Services.Party
 		private void UpdateProperties()
 		{
 			// Remove/update
-			foreach (var (key, value) in LobbyProperties)
+			foreach (var (key, value) in new Dictionary<string,string>(LobbyProperties))
 			{
-				if (_lobby.LobbyData.TryGetValue(key, out var newValue))
+				if (_lobby?.LobbyData != null && _lobby.LobbyData.TryGetValue(key, out var newValue))
 				{
 					if (newValue != value)
 					{
-						LobbyProperties.Add(key, value);
+						LobbyProperties[key] = value;
 					}
 				}
 				else
@@ -504,14 +607,13 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// Insert
-			if (_lobby?.LobbyData != null)
+			if (_lobby?.LobbyData == null) return;
+
+			foreach (var (key, value) in _lobby.LobbyData)
 			{
-				foreach (var (key, value) in _lobby.LobbyData)
+				if (!LobbyProperties.ContainsKey(key))
 				{
-					if (!LobbyProperties.ContainsKey(key))
-					{
-						LobbyProperties.Add(key, value);
-					}
+					LobbyProperties.Add(key, value);
 				}
 			}
 		}
@@ -549,6 +651,7 @@ namespace FirstLight.Game.Services.Party
 					if (!alreadyCreatedMember.Equals(generatedMember))
 					{
 						generatedMember.CopyPropertiesShallowTo(alreadyCreatedMember);
+						Members.InvokeUpdate(Members.IndexOf(alreadyCreatedMember));
 					}
 				}
 				else
@@ -557,6 +660,8 @@ namespace FirstLight.Game.Services.Party
 					Members.Add(generatedMember);
 				}
 			}
+
+			CheckPartyReadyStatus();
 		}
 
 		private void LocalPlayerKicked()
@@ -572,6 +677,7 @@ namespace FirstLight.Game.Services.Party
 			_lobbyId = null;
 			_lobbyTopic = null;
 			HasParty.Value = false;
+			PartyReady.Value = false;
 			PartyCode.Value = null;
 			PartyID.Value = null;
 			Members.Clear();
@@ -588,12 +694,13 @@ namespace FirstLight.Game.Services.Party
 			{
 				members = string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
 			}
+
 			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
 			{
-				{ "action ", action },
-				{ "userid", PlayFabSettings.staticPlayer.PlayFabId },
-				{ "teamid ", _lobbyId },
-				{ "members", members }
+				{"action ", action},
+				{"userid", PlayFabSettings.staticPlayer.PlayFabId},
+				{"teamid ", _lobbyId},
+				{"members", members}
 			});
 		}
 	}

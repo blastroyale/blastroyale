@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FirstLight.Editor.Build
@@ -30,7 +31,10 @@ namespace FirstLight.Editor.Build
         /// </summary>
         public string GetBranch()
         {
-            return ExecuteCommand("rev-parse --abbrev-ref HEAD");
+            if (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("BRANCHNAME")))
+                return Environment.GetEnvironmentVariable("BRANCHNAME");
+            else
+				return ExecuteCommand("rev-parse --abbrev-ref HEAD");
         }
         
         /// <summary>

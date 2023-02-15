@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Services;
@@ -29,25 +30,34 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private int _materialIndex;
 		private float _lastShowTime;
+		private Coroutine _updateTickCoroutine;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnGameCompleted);
-			_services.TickService.SubscribeOnUpdate(UpdateTick);
+		}
+
+		private void Start()
+		{
+			_updateTickCoroutine = _services.CoroutineService.StartCoroutine(UpdateTick());
 		}
 
 		private void OnDestroy()
 		{
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+			if (_updateTickCoroutine != null)
+			{
+				_services?.CoroutineService.StopCoroutine(_updateTickCoroutine);
+				_updateTickCoroutine = null;
+			}
 		}
 
-		private void UpdateTick(float deltaTime)
+		private IEnumerator UpdateTick()
 		{
 			if (Time.time - _lastShowTime < _stadiumScreenMaterials[_materialIndex].ShowTime)
 			{
-				return;
+				yield return null;
 			}
 
 			_materialIndex++;
@@ -67,7 +77,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_standings.Initialise(playerData.Count, true, true);
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
-			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
+
+			if (_updateTickCoroutine != null)
+			{
+				_services?.CoroutineService.StopCoroutine(_updateTickCoroutine);
+				_updateTickCoroutine = null;
+			}
 		}
 	}
 }

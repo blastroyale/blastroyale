@@ -82,7 +82,7 @@ namespace FirstLight.Game.Services
 			SpectateService = Configure(new SpectateService(services, this));
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
-			MatchCameraService = Configure(new MatchCameraService(dataProvider, this, services));
+			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

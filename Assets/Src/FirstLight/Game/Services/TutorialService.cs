@@ -94,7 +94,7 @@ namespace FirstLight.Game.Services
 			{
 				GameModeHash = gameModeId.GetHashCode(),
 				MapId = GameId.FtueDeck.GetHashCode(),
-				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
+				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>()
 			};
 			

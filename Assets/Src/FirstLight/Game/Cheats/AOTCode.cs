@@ -23,7 +23,9 @@ namespace FirstLight.Game.Cheats
 		/// </summary>
 		private void TriggerDefault()
 		{
+#if UNITY_ANDROID || UNITY_IOS
 			Handheld.Vibrate();
+#endif
 		}
 
 		private void Commands()

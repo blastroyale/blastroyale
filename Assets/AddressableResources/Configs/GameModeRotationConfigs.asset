@@ -21,37 +21,46 @@ MonoBehaviour:
         MatchType: 1
         Mutators:
         - SpeedUp
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators: []
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
         - HealthyAir
         - SpeedUp
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
         - HealthyAir
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
         - QuickSpecials
         - SpeedUp
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
         - HealthyAir
         - QuickSpecials
+        Squads: 0
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
         - QuickSpecials
+        Squads: 0
     - Entries:
       - GameModeId: BattleRoyaleTrios
         MatchType: 1
         Mutators: []
+        Squads: 1
     - Entries:
       - GameModeId: BattleRoyale
         MatchType: 2
         Mutators: []
+        Squads: 0

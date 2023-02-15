@@ -127,24 +127,21 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyList()
 		{
-			// TODO: We might want to use PartyService here
-			var isSquadGame = _services.GameModeService.SelectedGameMode.Value.Entry.Squads;
-			
+			var isSquadGame = _services.NetworkService.CurrentRoomGameModeConfig!.Value!.Teams;
+
 			if (isSquadGame)
 			{
-				var partyId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetPartyId();
-
+				var teamId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetTeamId();
+				
 				_squadContainer.SetDisplay(true);
 				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
-					.Where(p => p.GetPartyId() == partyId)
+					.Where(p => p.GetTeamId() == teamId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
 
-				_squadLabel.text = Debug.isDebugBuild
-					? $"{ScriptLocalization.UITMatchmaking.squad} [{partyId}]"
-					: ScriptLocalization.UITMatchmaking.squad;
+				_squadLabel.text = ScriptLocalization.UITMatchmaking.squad;
 
 				RefreshPartyMarkers();
 			}
@@ -163,7 +160,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var squadMember in _squadMembers)
 			{
 				if (squadMember.IsLocal) continue;
-				
+
 				var memberDropPosition = squadMember.GetDropPosition();
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
@@ -271,9 +268,8 @@ namespace FirstLight.Game.Presenters
 			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
-			var matchmakingTime = matchType == MatchType.Ranked
-				? quantumGameConfig.RankedMatchmakingTime.AsFloat
-				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
+
+			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_headerTitleLabel.text = gameMode.GetTranslationGameIdString()?.ToUpper();

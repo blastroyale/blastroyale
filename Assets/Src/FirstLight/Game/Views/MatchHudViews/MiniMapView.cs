@@ -36,8 +36,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
 
-		[SerializeField, Required, Title("Minimap")]
-		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
+		[SerializeField, Required, Title("Minimap")] [ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
 		private Camera _minimapCamera;
 
 		[SerializeField, Required] private RectTransform _rectTransform;
@@ -138,7 +137,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_pingTweener?.Kill();
 				_pingTweener = DOVirtual.Float(0f, 1f, 1f,
 					val => _minimapImage.materialForRendering.SetFloat(_pingProgressPID, val));
-				
+
 				// Maybe not the cleanest, that the Minimap spawns the VFX.
 				var pingVfx = _services.VfxService.Spawn(VfxId.Ping);
 				pingVfx.transform.position = e.Position.ToUnityVector3();
@@ -299,8 +298,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 						continue;
 					}
 
-					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
+					// Dont Show TeamMates
+					if (f.TryGet<Targetable>(entity, out var targetable))
+					{
+						if (IsFriendly(f, entity, targetable))
+						{
+							continue;
+						}
+					}
 
+
+					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 					_enemyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 				}
 
@@ -366,7 +374,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				indicator.UpdateTime(time);
 			}
 		}
-		
+
 		private void UpdatePingIndicators(Vector3 playerViewportPoint)
 		{
 			for (var i = 0; i < _pingPool.SpawnedReadOnly.Count; i++)

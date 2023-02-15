@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 		public bool UseLocalConfigs = false;
 
 		/// <summary>
-		/// If the tutorial should be skiped
+		/// If the tutorial should be skipped
 		/// </summary>
 		public bool DisableTutorial = false;
 	}
@@ -92,6 +92,11 @@ namespace FirstLight.Game.Utils
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool TUTORIAL = true;
+		
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool ALLOW_SKIP_TUTORIAL = true;
 		
 		/// <summary>
 		/// If should have specific tutorial battle pass for newbies

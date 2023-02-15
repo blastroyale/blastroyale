@@ -35,7 +35,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Gets the amount of points requried to complete the specified level
 		/// </summary>
-		uint GetRequiredPointsForLevel(int desiredLevel);
+		uint GetRequiredPointsForLevel(int desiredLevel = -1);
 
 		/// <summary>
 		/// The maximum (highest) level of the BattlePass.
@@ -46,7 +46,7 @@ namespace FirstLight.Game.Logic
 		/// Returns how many points the player is able to earn, before reaching max level (this takes
 		/// into accounts the points they already have)
 		/// </summary>
-		uint GetRemainingPoints();
+		uint GetRemainingPointsOfBp();
 
 		/// <summary>
 		/// Returns the rewards received for a particular level.
@@ -116,6 +116,24 @@ namespace FirstLight.Game.Logic
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
 		}
 
+		public void ReInit()
+		{
+			{
+				var listeners = _currentLevel.GetObservers();
+				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
+				_currentLevel.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = _currentPoints.GetObservers();
+				_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
+				_currentPoints.AddObservers(listeners);
+			}
+			
+			_currentLevel.InvokeUpdate();
+			_currentPoints.InvokeUpdate();
+		}
+
 		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)
 		{
 			var level = _currentLevel.Value;
@@ -138,7 +156,7 @@ namespace FirstLight.Game.Logic
 			return new Tuple<uint, uint>(level,points);
 		}
 
-		public uint GetRemainingPoints()
+		public uint GetRemainingPointsOfBp()
 		{
 			var predictedProgress = GetPredictedLevelAndPoints();
 			var maxAvailablePoints = (uint)0;
@@ -200,7 +218,7 @@ namespace FirstLight.Game.Logic
 
 		public void AddBPP(uint amount)
 		{
-			amount = Math.Min(GetRemainingPoints(), amount);
+			amount = Math.Min(GetRemainingPointsOfBp(), amount);
 
 			if (amount > 0)
 			{
@@ -269,6 +287,11 @@ namespace FirstLight.Game.Logic
 			if (desiredLevel >= MaxLevel)
 			{
 				return 0;
+			}
+			
+			if (desiredLevel < 0)
+			{
+				desiredLevel = (int) _currentLevel.Value;
 			}
 			
 			var levelConfig = config.Levels[desiredLevel];

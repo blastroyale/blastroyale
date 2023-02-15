@@ -9,8 +9,12 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Utils;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
+using SRF;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -38,6 +42,11 @@ namespace FirstLight.Game.Services
 		/// Get a list of all my current active tickets
 		/// </summary>
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback);
+
+		/// <summary>
+		/// Get a match object, this contains members with team ids
+		/// </summary>
+		public void GetMatch(string matchId, Action<GetMatchResult> callback);
 
 		/// <summary>
 		/// Joins matchmaking queue
@@ -79,6 +88,7 @@ namespace FirstLight.Game.Services
 	public class GameMatched
 	{
 		public string MatchIdentifier;
+		public string TeamId;
 		public MatchRoomSetup RoomSetup;
 	}
 
@@ -99,12 +109,35 @@ namespace FirstLight.Game.Services
 		private IPartyService _party;
 		private MatchmakingPooling _pooling;
 
-		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines, IPartyService party)
+		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines, IPartyService party, IMessageBrokerService broker)
 		{
 			_gameBackend = gameBackend;
 			_coroutines = coroutines;
 			_party = party;
 			_party.LobbyProperties.Observe(LOBBY_TICKET_PROPERTY, OnLobbyPropertyUpdate);
+			_party.Members.Observe((i, before, after, type) =>
+			{
+				if (type is ObservableUpdateType.Added or ObservableUpdateType.Removed)
+				{
+					StopMatchmaking();
+				}
+			});
+			broker.Subscribe<SuccessAuthentication>(OnAuthentication);
+		}
+
+		private void StopMatchmaking()
+		{	
+			if (_pooling != null)
+			{
+				LeaveMatchmaking();
+				_pooling.Stop();
+				_pooling = null;
+			}
+			
+		}
+		private void OnAuthentication(SuccessAuthentication _)
+		{
+			LeaveMatchmaking();
 		}
 
 		private void OnLobbyPropertyUpdate(string key, string before, string after, ObservableUpdateType arg4)
@@ -166,7 +199,7 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			}, null, null);
+			}, null, Debug.LogError);
 			FLog.Verbose("Left Matchmaking");
 		}
 
@@ -184,8 +217,19 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			}, callback, null);
+			}, callback, Debug.LogError);
 		}
+
+		public void GetMatch(string matchId, Action<GetMatchResult> callback)
+		{
+			PlayFabMultiplayerAPI.GetMatch(new GetMatchRequest()
+			{
+				ReturnMemberAttributes = false,
+				MatchId = matchId,
+				QueueName = QUEUE_NAME
+			}, callback, Debug.LogError);
+		}
+
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
 		{
@@ -199,7 +243,7 @@ namespace FirstLight.Game.Services
 			{
 				MembersToMatchWith = members, // HERE IS WHERE WE ADD THE SQUAD !!!
 				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = 1000,
+				GiveUpAfterSeconds = 100,
 				Creator = new MatchmakingPlayer()
 				{
 					Entity = new EntityKey()
@@ -231,6 +275,17 @@ namespace FirstLight.Game.Services
 		{
 			match.RoomSetup.RoomIdentifier = match.MatchIdentifier;
 			OnGameMatched?.Invoke(match);
+			if (_party.HasParty.Value)
+			{
+				if (_party.GetLocalMember().Leader)
+				{
+					_party.DeleteLobbyProperty(LOBBY_TICKET_PROPERTY);
+				}
+				else
+				{
+					_party.Ready(false);
+				}
+			}
 		}
 
 		private void InvokeJoinedMatchmaking(JoinedMatchmaking mm)
@@ -273,6 +328,46 @@ namespace FirstLight.Game.Services
 			_routines.StopCoroutine(_task);
 		}
 
+		private void HandleCancellation(GetMatchmakingTicketResult ticket)
+		{
+			if (ticket.CancellationReasonString == "Timeout")
+			{
+				string matchId = "timeout-match-" + ticket.TicketId;
+				_service.InvokeMatchFound(new GameMatched()
+				{
+					MatchIdentifier = matchId,
+					RoomSetup = _setup,
+					// Since this game is only going to be this ticket, all the players should be in the same team
+					TeamId = "team1"
+				});
+			}
+			
+		}
+		
+		private void HandleMatched(GetMatchmakingTicketResult ticket)
+		{
+			_service.GetMatch(ticket.MatchId, result =>
+			{
+				// Distribute teams
+				var membersWithTeam = result.Members
+					.ToDictionary(player => player.Entity.Id,
+						player => player.TeamId
+					);
+
+				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
+				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, _setup.GameMode().MaxPlayersInTeam);
+
+				_service.InvokeMatchFound(new GameMatched()
+				{
+					MatchIdentifier = ticket.MatchId,
+					RoomSetup = _setup,
+					TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
+				});
+			});
+			
+		}
+
+
 		private IEnumerator Runnable()
 		{
 			var delay = new WaitForSeconds(7);
@@ -285,12 +380,14 @@ namespace FirstLight.Game.Services
 					// TODO: Check when ticket expired and expose event
 					if (ticket.Status == "Matched")
 					{
-						// TODO: Invoke this when websocket is received
-						_service.InvokeMatchFound(new GameMatched()
-						{
-							MatchIdentifier = ticket.MatchId,
-							RoomSetup = _setup
-						});
+					
+						HandleMatched(ticket);
+						_pooling = false;
+					}
+
+					if (ticket.Status == "Canceled")
+					{
+						HandleCancellation(ticket);
 						_pooling = false;
 					}
 				});

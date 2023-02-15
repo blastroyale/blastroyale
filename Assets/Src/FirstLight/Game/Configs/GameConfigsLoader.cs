@@ -35,7 +35,7 @@ namespace FirstLight.Game.Configs
 		{
 			_assetLoader = assetLoader;
 		}
-		
+
 		public IEnumerable<Task> LoadConfigTasks(IConfigsAdder configsAdder)
 		{
 			return new List<Task>
@@ -60,7 +60,6 @@ namespace FirstLight.Game.Configs
 				LoadConfig<GraphicsConfig>(AddressableId.Configs_GraphicsConfig, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<BattlePassConfigs>(AddressableId.Configs_BattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<TutorialBattlePassConfigs>(AddressableId.Configs_TutorialBattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
-
 				LoadConfig<EquipmentRewardConfigs>(AddressableId.Configs_EquipmentRewardConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<RarityDataConfigs>(AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Rarity, asset.Configs)),
 				LoadConfig<AdjectiveDataConfigs>(AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Adjective, asset.Configs)),
@@ -72,7 +71,6 @@ namespace FirstLight.Game.Configs
 				LoadConfig<UpgradeDataConfigs>(AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<RepairDataConfigs>(AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<LiveopsSegmentActionConfigs>(AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
-				LoadConfig<LiveopsFeatureFlagConfigs>(AddressableId.Configs_LiveopsFeatureFlagConfigs, asset => configsAdder.AddConfigs(data => data.UniqueIdentifier(), asset.Configs)),
 				LoadConfig<TutorialRewardConfigs>(AddressableId.Configs_TutorialRewardConfigs, asset => configsAdder.AddConfigs(data => data._section.GetHashCode(), asset.Configs)),
 
 			};

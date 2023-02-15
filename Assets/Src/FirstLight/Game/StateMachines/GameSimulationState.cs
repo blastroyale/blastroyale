@@ -23,10 +23,10 @@ using PlayFab;
 using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
-
 using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Extensions = FirstLight.Game.Utils.Extensions;
 using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
 using Random = UnityEngine.Random;
 
@@ -48,9 +48,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameNetworkService _network;
 		private readonly IInternalGameNetworkService _networkService;
 
-		private IMatchServices _matchServices; 
+		private IMatchServices _matchServices;
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IInternalGameNetworkService networkService, 
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IInternalGameNetworkService networkService,
 								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
@@ -76,7 +76,7 @@ namespace FirstLight.Game.StateMachines
 			var startSimulation = stateFactory.State("Start Simulation");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
-			
+
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(OpenLowConnectionScreen);
@@ -85,7 +85,7 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(CloseSwipeTransitionTutorial);
-			
+
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
@@ -106,7 +106,7 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		/// <summary>
 		/// For tutorial, we close the swipe transition when we actually get into the game, instead of
 		/// closing at matchmaking screen opening in matchState. This is to avoid visual glitches with MM screen
@@ -123,10 +123,10 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			
+
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(TO_DELETE_WITH_NEW_START_SEQUENCE);
-			
+
 			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
@@ -138,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(TO_DELETE_WITH_NEW_START_SEQUENCE);
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
-			
+
 			_matchServices = null;
 		}
 
@@ -159,7 +159,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			
+
 			StopSimulation();
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
@@ -185,11 +185,11 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
-		private string GetPartyId()
+		private string GetTeamId()
 		{
-			return _services.NetworkService.LocalPlayer.GetPartyId();
+			return _services.NetworkService.LocalPlayer.GetTeamId();
 		}
-		
+
 		private bool IsCustomMatch()
 		{
 			return _services.NetworkService.CurrentRoom.GetMatchType() == MatchType.Custom;
@@ -198,15 +198,15 @@ namespace FirstLight.Game.StateMachines
 		private bool ShouldUseDeathmatchSM()
 		{
 			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
-			       AudioStateMachine.Deathmatch;
+				AudioStateMachine.Deathmatch;
 		}
-		
+
 		private bool ShouldUseBattleRoyaleSM()
 		{
 			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
-			       AudioStateMachine.BattleRoyale;
+				AudioStateMachine.BattleRoyale;
 		}
-		
+
 		private async void OnGameStart(CallbackGameStarted callback)
 		{
 			// paused on Start means waiting for Snapshot
@@ -260,18 +260,18 @@ namespace FirstLight.Game.StateMachines
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
-			
+
 			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
-		
+
 		private void StartSimulation()
 		{
 			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
-			
+
 			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
-			
+
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
 			    !(bool) gameHasBots)
 			{
@@ -280,22 +280,27 @@ namespace FirstLight.Game.StateMachines
 
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), new FrameSnapshot());
 			startParams.NetworkClient = client;
-			
+
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
-			
+
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 
-			_services.NetworkService.EnableQuantumUpdate(false);
+			_services.NetworkService.EnableClientUpdate(false);
 		}
 
 
+		/// <summary>
+		/// This StopSimulation method is only used for disconnection flow.
+		/// There is another StopSimulation method in MatchState which handles stopping simulation once the player
+		/// has reached the complete end of flow, past any disconnection cases.
+		/// </summary>
 		private void StopSimulation()
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage { Game = QuantumRunner.Default.Game });
+			_services.NetworkService.EnableClientUpdate(true);
 			QuantumRunner.ShutdownAll();
-			_services.NetworkService.EnableQuantumUpdate(true);
 		}
-		
+
 		private void CleanUpMatch()
 		{
 			_services.VfxService.DespawnAll();
@@ -314,7 +319,7 @@ namespace FirstLight.Game.StateMachines
 				SetPlayerMatchData(game);
 			}
 
-			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
+			_services.MessageBrokerService.Publish(new MatchStartedMessage {Game = game, IsResync = isResync});
 		}
 
 		private void SetPlayerMatchData(QuantumGame game)
@@ -323,7 +328,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-			
+
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
@@ -331,26 +336,28 @@ namespace FirstLight.Game.StateMachines
 			var spawnPosition = _services.NetworkService.LocalPlayer.GetDropPosition();
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 			var finalLoadOut = new List<Equipment>();
-			
-			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
+
+			foreach (var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
 				var itemId = inventory[item.Id];
-				if(itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
+				if (itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
 				{
 					continue;
 				}
-				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
-					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
+
+				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) &&
+				    (!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
 				{
 					continue;
 				}
+
 				finalLoadOut.Add(inventory[item.Id]);
 			}
 
 			var loadoutArray = spawnWithloadout
 				? finalLoadOut.ToArray()
 				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
-			
+
 			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
 			{
@@ -367,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
-				PartyId = GetPartyId()
+				PartyId = GetTeamId()
 			});
 		}
 	}

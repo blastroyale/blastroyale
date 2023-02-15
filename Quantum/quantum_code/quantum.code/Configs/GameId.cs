@@ -148,6 +148,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MapTestScene, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.TestScene, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -693,7 +699,19 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TutorialGrenade, new List<GameIdGroup>
+					{
+						GameIdGroup.Special
+					}.AsReadOnly()
+				},
+				{
 					GameId.Barrel, new List<GameIdGroup>
+					{
+						GameIdGroup.Destructible
+					}.AsReadOnly()
+				},
+				{
+					GameId.Barrier, new List<GameIdGroup>
 					{
 						GameIdGroup.Destructible
 					}.AsReadOnly()
@@ -808,6 +826,7 @@ namespace Quantum
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
+						GameId.MapTestScene,
 						GameId.TestScene
 					}.AsReadOnly()
 				},
@@ -1072,13 +1091,15 @@ namespace Quantum
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash,
-						GameId.SpecialRadar
+						GameId.SpecialRadar,
+						GameId.TutorialGrenade
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Destructible, new List<GameId>
 					{
-						GameId.Barrel
+						GameId.Barrel,
+						GameId.Barrier
 					}.AsReadOnly()
 				},
 				{

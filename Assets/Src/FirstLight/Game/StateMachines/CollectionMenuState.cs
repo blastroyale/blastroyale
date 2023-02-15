@@ -51,19 +51,19 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(collectionMenuState);
 
-			collectionMenuState.OnEnter(OpenEquipmentScreen);
+			collectionMenuState.OnEnter(OpenCollectionScreen);
 			collectionMenuState.Event(_backButtonClickedEvent).Target(final);
 			collectionMenuState.Event(_closeButtonClickedEvent).Target(final);
 			
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
 		
-		private void CloseEquipmentPopup()
+		private void CloseCollectionScreen()
 		{
 			_uiService.CloseUi<CollectionScreenPresenter>();
 		}
 
-		private void OpenEquipmentScreen()
+		private void OpenCollectionScreen()
 		{
 			/*
 			var data = new PlayerSkinScreenPresenter.StateData
@@ -78,7 +78,9 @@ namespace FirstLight.Game.StateMachines
 			var data = new CollectionScreenPresenter.StateData
 			{
 				// OnSkinSelected = ItemClicked,
-				OnBackClicked = () => _statechartTrigger(_closeButtonClickedEvent),
+				
+				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent),
+				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
 			};
 
 			_uiService.OpenScreen<CollectionScreenPresenter, CollectionScreenPresenter.StateData>(data);

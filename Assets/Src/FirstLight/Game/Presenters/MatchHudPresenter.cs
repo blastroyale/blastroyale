@@ -114,7 +114,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				canQuitMatch = !_services.TutorialService.IsTutorialRunning || 
+				canQuitMatch = (!_services.TutorialService.IsTutorialRunning || FeatureFlags.ALLOW_SKIP_TUTORIAL) || 
 					(_services.TutorialService.IsTutorialRunning && !FeatureFlags.TUTORIAL);
 			}
 

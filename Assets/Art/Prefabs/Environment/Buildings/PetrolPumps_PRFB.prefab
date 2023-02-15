@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4857433404830471291}
   - component: {fileID: 7245701069783277745}
   - component: {fileID: 8636015874491191098}
+  - component: {fileID: 2626903900669169125}
   m_Layer: 7
   m_Name: PetrolPumps_PRFB
   m_TagString: Untagged
@@ -98,3 +99,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9273452, y: 5.5295105, z: 4.6326246}
   m_Center: {x: -0.24224502, y: 2.7647552, z: 0}
+--- !u!114 &2626903900669169125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191031877936742756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8636015874491191098}
+  Size:
+    X:
+      RawValue: 126310
+    Y:
+      RawValue: 362382
+    Z:
+      RawValue: 303603
+  PositionOffset:
+    X:
+      RawValue: -15875
+    Y:
+      RawValue: 181191
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

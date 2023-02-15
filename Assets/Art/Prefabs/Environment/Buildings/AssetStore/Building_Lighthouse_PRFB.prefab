@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2709861724928223768}
   - component: {fileID: 416372787757552121}
+  - component: {fileID: 8477909501424321539}
   m_Layer: 0
   m_Name: Building_Lighthouse_CLLSN
   m_TagString: Untagged
@@ -46,6 +47,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7924952817768169873, guid: bfae9265d1df9c24f8c91d4ee37ee30b, type: 3}
+--- !u!114 &8477909501424321539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204413984787876974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -7924952817768169873, guid: bfae9265d1df9c24f8c91d4ee37ee30b, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &1553840710749488021
 GameObject:
   m_ObjectHideFlags: 0

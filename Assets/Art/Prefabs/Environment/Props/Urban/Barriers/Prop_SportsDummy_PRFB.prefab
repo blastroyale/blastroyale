@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8797919806782707561}
   - component: {fileID: 6772439923648160675}
   - component: {fileID: 2501756869559194673}
+  - component: {fileID: 138432782590505501}
   m_Layer: 7
   m_Name: Prop_SportsDummy_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75212055, y: 2.0799844, z: 0.3202556}
   m_Center: {x: -0.0000006109478, y: 1.0399922, z: -0.0000046044597}
+--- !u!114 &138432782590505501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115093339956789878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 2501756869559194673}
+  Size:
+    X:
+      RawValue: 49290
+    Y:
+      RawValue: 136313
+    Z:
+      RawValue: 20988
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 68156
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

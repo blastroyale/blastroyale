@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 8502426416480639222}
   - component: {fileID: 6105953090560578412}
   - component: {fileID: 3926624462636607484}
+  - component: {fileID: 723642398568065258}
   m_Layer: 7
   m_Name: Prop_Industrial_Walkway_Long_GEO
   m_TagString: Untagged
@@ -214,3 +215,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.9949574, y: 0.40938178, z: 11.994936}
   m_Center: {x: 0.0475716, y: -0.20469098, z: 0}
+--- !u!114 &723642398568065258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310704737363047453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 3926624462636607484}
+  Size:
+    X:
+      RawValue: 261813
+    Y:
+      RawValue: 26829
+    Z:
+      RawValue: 786100
+  PositionOffset:
+    X:
+      RawValue: 3117
+    Y:
+      RawValue: -13414
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

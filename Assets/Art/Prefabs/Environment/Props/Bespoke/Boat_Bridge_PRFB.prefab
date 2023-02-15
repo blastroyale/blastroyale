@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5956356191990618012}
   - component: {fileID: 7542926669716317082}
   - component: {fileID: 6371014801393717352}
+  - component: {fileID: 1620737073595022482}
   m_Layer: 7
   m_Name: Boat_Bridge_PRFB
   m_TagString: Untagged
@@ -99,6 +100,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5881138532661119389, guid: 9b17cee5925717d45b53a411c51bf9cd, type: 3}
+--- !u!114 &1620737073595022482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226564947873761641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 5881138532661119389, guid: 9b17cee5925717d45b53a411c51bf9cd, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &4478327998864294435
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 156389454979650589}
   - component: {fileID: 2724515221266571479}
   - component: {fileID: 7536229002155182000}
+  - component: {fileID: 5256211126624965215}
   m_Layer: 7
   m_Name: Prop_ShipBollard_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7597851, y: 0.7425641, z: 0.3643651}
   m_Center: {x: 0, y: 0.37128204, z: 0}
+--- !u!114 &5256211126624965215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525994861015499010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 7536229002155182000}
+  Size:
+    X:
+      RawValue: 49793
+    Y:
+      RawValue: 48664
+    Z:
+      RawValue: 23879
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 24332
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

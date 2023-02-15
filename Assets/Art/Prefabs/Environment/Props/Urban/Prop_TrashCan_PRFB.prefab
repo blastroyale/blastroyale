@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8313936469838249645}
   - component: {fileID: 6090553770025896551}
   - component: {fileID: 5908928861907805478}
+  - component: {fileID: 2984462754001081517}
   m_Layer: 7
   m_Name: Prop_TrashCan_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8631436, y: 1.2261027, z: 0.8631436}
   m_Center: {x: 0, y: 0.61305135, z: 0}
+--- !u!114 &2984462754001081517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729988378529688498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 5908928861907805478}
+  Size:
+    X:
+      RawValue: 56566
+    Y:
+      RawValue: 80353
+    Z:
+      RawValue: 56566
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 40176
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

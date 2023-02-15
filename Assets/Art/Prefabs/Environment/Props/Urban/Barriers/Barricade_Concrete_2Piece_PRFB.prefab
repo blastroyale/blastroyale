@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 413986291225408163}
   - component: {fileID: 8161101146588241566}
+  - component: {fileID: 4668388893441022906}
   m_Layer: 7
   m_Name: Barricade_Concrete_2Piece_PRFB
   m_TagString: Untagged
@@ -130,6 +131,49 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.82648075, y: 0.92766434, z: 3.3072846}
   m_Center: {x: -0.07377654, y: 0.44461778, z: 0.009764791}
+--- !u!114 &4668388893441022906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841608845454103804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8161101146588241566}
+  Size:
+    X:
+      RawValue: 54164
+    Y:
+      RawValue: 60795
+    Z:
+      RawValue: 216746
+  PositionOffset:
+    X:
+      RawValue: -4835
+    Y:
+      RawValue: 29138
+    Z:
+      RawValue: 639
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &5854662683336105718
 GameObject:
   m_ObjectHideFlags: 0

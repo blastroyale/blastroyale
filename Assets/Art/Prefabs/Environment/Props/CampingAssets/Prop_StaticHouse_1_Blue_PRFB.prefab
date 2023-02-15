@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6163103170826355246}
   - component: {fileID: 7895967615048513857}
   - component: {fileID: 8968598409409646638}
+  - component: {fileID: 7053465463948839133}
   m_Layer: 7
   m_Name: Prop_StaticHouse_1_Blue_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.2548494, y: 3.1839547, z: 7.7342625}
   m_Center: {x: -0.362087, y: 1.5919764, z: 0}
+--- !u!114 &7053465463948839133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4641344342050294940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8968598409409646638}
+  Size:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

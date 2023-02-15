@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 140147786245424611}
   - component: {fileID: 1139340708524389289}
   - component: {fileID: 6073069202759234770}
+  - component: {fileID: 7862008644533121652}
+  - component: {fileID: 8603946943168211647}
   m_Layer: 0
   m_Name: Buidling_Industrial_Large_CLLSN
   m_TagString: Untagged
@@ -145,6 +147,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4358016485227608572, guid: ebce433ddb6b5124baf9ef3157621d9e, type: 3}
+--- !u!114 &7862008644533121652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671029056117638526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 5881138532661119389, guid: ebce433ddb6b5124baf9ef3157621d9e, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
+--- !u!114 &8603946943168211647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671029056117638526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 4358016485227608572, guid: ebce433ddb6b5124baf9ef3157621d9e, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &5878131861106659948
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5093640895992592647}
   - component: {fileID: 7408244676484891526}
   - component: {fileID: 4820926205961816205}
+  - component: {fileID: 598624892375361678}
   m_Layer: 7
   m_Name: ShippingContainer_White_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.9527617, y: 2.072, z: 1.9845937}
   m_Center: {x: 0.0000019073486, y: 1.0401034, z: 0}
+--- !u!114 &598624892375361678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2633215202483801449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 4820926205961816205}
+  Size:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

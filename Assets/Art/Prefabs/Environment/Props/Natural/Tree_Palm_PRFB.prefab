@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1382885232215016984}
   - component: {fileID: 806326423318882912}
+  - component: {fileID: 2705631914997825987}
   m_Layer: 7
   m_Name: Tree_Palm_CLLSN
   m_TagString: Untagged
@@ -45,6 +46,49 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.84853214, y: 2.8560107, z: 0.84853214}
   m_Center: {x: -0.082281046, y: 1.2724212, z: 0}
+--- !u!114 &2705631914997825987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736762476799529966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 806326423318882912}
+  Size:
+    X:
+      RawValue: 55609
+    Y:
+      RawValue: 187171
+    Z:
+      RawValue: 55609
+  PositionOffset:
+    X:
+      RawValue: -5392
+    Y:
+      RawValue: 83389
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &3061291948921319175
 GameObject:
   m_ObjectHideFlags: 0

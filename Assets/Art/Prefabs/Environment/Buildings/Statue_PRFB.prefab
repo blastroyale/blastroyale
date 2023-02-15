@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3601573688303834569}
   - component: {fileID: 8167133758974982697}
   - component: {fileID: 8385273816944630568}
+  - component: {fileID: 1320682301260455140}
+  - component: {fileID: 6255900153436038915}
   m_Layer: 0
   m_Name: Statue_CLLSN
   m_TagString: Untagged
@@ -59,6 +61,92 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.638354, y: 0.6722245, z: 1.6206505}
   m_Center: {x: -0.25429553, y: 4.860265, z: -0.08657989}
+--- !u!114 &1320682301260455140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929257756026800926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8167133758974982697}
+  Size:
+    X:
+      RawValue: 101922
+    Y:
+      RawValue: 296150
+    Z:
+      RawValue: 101922
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 148075
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &6255900153436038915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929257756026800926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8385273816944630568}
+  Size:
+    X:
+      RawValue: 107371
+    Y:
+      RawValue: 44054
+    Z:
+      RawValue: 106210
+  PositionOffset:
+    X:
+      RawValue: -16665
+    Y:
+      RawValue: 318522
+    Z:
+      RawValue: -5674
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &7249117968488500729
 GameObject:
   m_ObjectHideFlags: 0

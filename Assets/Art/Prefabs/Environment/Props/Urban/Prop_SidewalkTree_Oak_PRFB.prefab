@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4429065546759598316}
   - component: {fileID: 1915090801157080102}
   - component: {fileID: 2576913240088596934}
+  - component: {fileID: 2265123653098585881}
   m_Layer: 7
   m_Name: Prop_SidewalkTree_Oak_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6112254, y: 2.6589146, z: 1.6155984}
   m_Center: {x: 0.006100297, y: 1.3294573, z: 0.016479611}
+--- !u!114 &2265123653098585881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113496674742674931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 2576913240088596934}
+  Size:
+    X:
+      RawValue: 105593
+    Y:
+      RawValue: 174254
+    Z:
+      RawValue: 105879
+  PositionOffset:
+    X:
+      RawValue: 399
+    Y:
+      RawValue: 87127
+    Z:
+      RawValue: 1080
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

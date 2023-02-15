@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 1691588055981165409}
   - component: {fileID: 7566683610732914385}
   - component: {fileID: 6448075993379934852}
+  - component: {fileID: 4780119149572669866}
   m_Layer: 7
   m_Name: Prop_Industrial_Walkway_Pipes_GEO
   m_TagString: Untagged
@@ -213,3 +214,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 1.5999998, z: 3.2605162}
   m_Center: {x: 0, y: -0.8, z: -0.0000006556511}
+--- !u!114 &4780119149572669866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500372859819553015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 6448075993379934852}
+  Size:
+    X:
+      RawValue: 524288
+    Y:
+      RawValue: 104857
+    Z:
+      RawValue: 213681
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: -52428
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

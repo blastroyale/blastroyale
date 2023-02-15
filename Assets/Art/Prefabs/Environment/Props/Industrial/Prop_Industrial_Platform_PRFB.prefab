@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3311233806551815585}
   - component: {fileID: 1073626104807530516}
   - component: {fileID: 2448771358033928432}
+  - component: {fileID: 1586175427976795772}
   m_Layer: 7
   m_Name: Prop_Industrial_Platform_Large_GEO
   m_TagString: Untagged
@@ -131,6 +132,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5787723489808810443, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+--- !u!114 &1586175427976795772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560525496085935077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -5787723489808810443, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &5415995201260772180
 GameObject:
   m_ObjectHideFlags: 0

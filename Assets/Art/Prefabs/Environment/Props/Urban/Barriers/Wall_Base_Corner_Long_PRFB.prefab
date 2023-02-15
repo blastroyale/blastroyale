@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3324908939452633917}
   - component: {fileID: 1728233237750279572}
   - component: {fileID: 3022541082994254357}
+  - component: {fileID: 6284138556942304974}
+  - component: {fileID: 1446769802513558497}
   m_Layer: 7
   m_Name: Wall_Base_Corner_Long_CLLSN
   m_TagString: Untagged
@@ -59,6 +61,92 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5184457, y: 2.2478733, z: 3.7819011}
   m_Center: {x: -0.25922284, y: 1.1239369, z: 1.8909506}
+--- !u!114 &6284138556942304974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845120428110936680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 1728233237750279572}
+  Size:
+    X:
+      RawValue: 544954
+    Y:
+      RawValue: 147316
+    Z:
+      RawValue: 33976
+  PositionOffset:
+    X:
+      RawValue: -272477
+    Y:
+      RawValue: 73658
+    Z:
+      RawValue: 16988
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &1446769802513558497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845120428110936680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 3022541082994254357}
+  Size:
+    X:
+      RawValue: 33976
+    Y:
+      RawValue: 147316
+    Z:
+      RawValue: 247850
+  PositionOffset:
+    X:
+      RawValue: -16988
+    Y:
+      RawValue: 73658
+    Z:
+      RawValue: 123925
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &8709083254887232214
 GameObject:
   m_ObjectHideFlags: 0

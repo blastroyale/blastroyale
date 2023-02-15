@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 6464645594921407082}
   - component: {fileID: 2620390400620050749}
   - component: {fileID: 8708979497760377093}
+  - component: {fileID: 993327007238175794}
+  - component: {fileID: 4483722508859595293}
+  - component: {fileID: 8574354468740383028}
   m_Layer: 7
   m_Name: Rock_Medium_4_PRFB
   m_TagString: Untagged
@@ -126,3 +129,132 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.200386, y: 1.2087166, z: 5.469659}
   m_Center: {x: 0.35048556, y: 0.548676, z: 0}
+--- !u!114 &993327007238175794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048535893951267724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 6464645594921407082}
+  Size:
+    X:
+      RawValue: 380404
+    Y:
+      RawValue: 79214
+    Z:
+      RawValue: 195507
+  PositionOffset:
+    X:
+      RawValue: 20435
+    Y:
+      RawValue: 35958
+    Z:
+      RawValue: -16313
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &4483722508859595293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048535893951267724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 2620390400620050749}
+  Size:
+    X:
+      RawValue: 75299
+    Y:
+      RawValue: 34658
+    Z:
+      RawValue: 63509
+  PositionOffset:
+    X:
+      RawValue: -44604
+    Y:
+      RawValue: -2215
+    Z:
+      RawValue: 228323
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &8574354468740383028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048535893951267724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8708979497760377093}
+  Size:
+    X:
+      RawValue: 275276
+    Y:
+      RawValue: 79214
+    Z:
+      RawValue: 358459
+  PositionOffset:
+    X:
+      RawValue: 22969
+    Y:
+      RawValue: 35958
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

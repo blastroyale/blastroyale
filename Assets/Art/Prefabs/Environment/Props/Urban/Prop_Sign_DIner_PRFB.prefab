@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8312668175185880297}
   - component: {fileID: 6104753403881508899}
   - component: {fileID: 6751661126232713769}
+  - component: {fileID: 32290014372164664}
   m_Layer: 7
   m_Name: Prop_Sign_DIner_PRFB
   m_TagString: Untagged
@@ -98,3 +99,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.318546, y: 7.268957, z: 1.4095917}
   m_Center: {x: -0.01825869, y: 3.6344786, z: 0}
+--- !u!114 &32290014372164664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744495876577522166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 6751661126232713769}
+  Size:
+    X:
+      RawValue: 151948
+    Y:
+      RawValue: 476378
+    Z:
+      RawValue: 92379
+  PositionOffset:
+    X:
+      RawValue: -1196
+    Y:
+      RawValue: 238189
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

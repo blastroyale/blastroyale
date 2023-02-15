@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3812230941274653702}
   - component: {fileID: 1369996565841522892}
   - component: {fileID: 6323768808865302526}
+  - component: {fileID: 1528697701103775469}
   m_Layer: 7
   m_Name: Prop_Sign_Motel_PRFB
   m_TagString: Untagged
@@ -99,3 +100,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.9373264, y: 8.261485, z: 1.3811479}
   m_Center: {x: -0.0606395, y: 4.1307425, z: 0.011928201}
+--- !u!114 &1528697701103775469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577526101976453401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 6323768808865302526}
+  Size:
+    X:
+      RawValue: 323572
+    Y:
+      RawValue: 541424
+    Z:
+      RawValue: 90514
+  PositionOffset:
+    X:
+      RawValue: -3974
+    Y:
+      RawValue: 270712
+    Z:
+      RawValue: 781
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

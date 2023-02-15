@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4128086064928116470}
   - component: {fileID: 2210457276221176380}
   - component: {fileID: 3067923101122405615}
+  - component: {fileID: 5305948496225716971}
   m_Layer: 7
   m_Name: Prop_FireHydrant_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7309963, y: 1.1768943, z: 0.7309963}
   m_Center: {x: 0, y: 0.58844715, z: 0}
+--- !u!114 &5305948496225716971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409233135419038697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 3067923101122405615}
+  Size:
+    X:
+      RawValue: 47906
+    Y:
+      RawValue: 77128
+    Z:
+      RawValue: 47906
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 38564
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

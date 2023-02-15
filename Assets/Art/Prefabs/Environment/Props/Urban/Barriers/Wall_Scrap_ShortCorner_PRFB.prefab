@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6538652595255627775}
   - component: {fileID: 1357499178270520177}
   - component: {fileID: 7024134212895256014}
+  - component: {fileID: 8046145147361889641}
   m_Layer: 7
   m_Name: Wall_Scrap_ShortCorner_PRFB
   m_TagString: Untagged
@@ -98,3 +99,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7601862560822847376, guid: 79a015d02a862e94ab834633acaa7fe7, type: 3}
+--- !u!114 &8046145147361889641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559206835861130510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 7601862560822847376, guid: 79a015d02a862e94ab834633acaa7fe7, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0

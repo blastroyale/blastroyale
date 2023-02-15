@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7434199095384446440}
   - component: {fileID: 7234203247936345412}
   - component: {fileID: 7504240766692118538}
+  - component: {fileID: 2778074070238714889}
   m_Layer: 7
   m_Name: Prop_Industrial_Vent_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.109597, y: 2.053778, z: 4.109596}
   m_Center: {x: -0.0000011920929, y: 1.026889, z: 0}
+--- !u!114 &2778074070238714889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478412789494976001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 7504240766692118538}
+  Size:
+    X:
+      RawValue: 269326
+    Y:
+      RawValue: 134596
+    Z:
+      RawValue: 269326
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 67298
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

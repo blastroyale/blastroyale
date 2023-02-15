@@ -130,6 +130,10 @@ GameObject:
   - component: {fileID: 279831368643578891}
   - component: {fileID: 4600783772529537221}
   - component: {fileID: 15930416857792505}
+  - component: {fileID: 8142314649929190685}
+  - component: {fileID: 3548655824902319958}
+  - component: {fileID: 6600335743365865960}
+  - component: {fileID: 4470683498590486716}
   m_Layer: 0
   m_Name: Brownstone_4_CLLSN
   m_TagString: Untagged
@@ -204,6 +208,178 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8095603, y: 0.7630434, z: 1.0910962}
   m_Center: {x: -2.2044291, y: 10.11466, z: -2.2131443}
+--- !u!114 &8142314649929190685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524055940969853366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 298043833412218463}
+  Size:
+    X:
+      RawValue: 458202
+    Y:
+      RawValue: 618816
+    Z:
+      RawValue: 395834
+  PositionOffset:
+    X:
+      RawValue: 74
+    Y:
+      RawValue: 308695
+    Z:
+      RawValue: 4053
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &3548655824902319958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524055940969853366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 279831368643578891}
+  Size:
+    X:
+      RawValue: 534711
+    Y:
+      RawValue: 31332
+    Z:
+      RawValue: 480841
+  PositionOffset:
+    X:
+      RawValue: 74
+    Y:
+      RawValue: 626017
+    Z:
+      RawValue: 4053
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &6600335743365865960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524055940969853366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 4600783772529537221}
+  Size:
+    X:
+      RawValue: 25228
+    Y:
+      RawValue: 168610
+    Z:
+      RawValue: 36013
+  PositionOffset:
+    X:
+      RawValue: 184016
+    Y:
+      RawValue: 709054
+    Z:
+      RawValue: 147311
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &4470683498590486716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524055940969853366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 15930416857792505}
+  Size:
+    X:
+      RawValue: 118591
+    Y:
+      RawValue: 50006
+    Z:
+      RawValue: 71506
+  PositionOffset:
+    X:
+      RawValue: -144469
+    Y:
+      RawValue: 662874
+    Z:
+      RawValue: -145040
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &4695318725993004176
 GameObject:
   m_ObjectHideFlags: 0

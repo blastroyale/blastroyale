@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4504973991022299446}
   - component: {fileID: 771991470785568639}
   - component: {fileID: 2274915192583339726}
+  - component: {fileID: 1683277694467523245}
   m_Layer: 7
   m_Name: Prop_Industrial_CoolingTower_Bottom_Broken_PRFB
   m_TagString: Untagged
@@ -98,3 +99,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7979396337764292801, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+--- !u!114 &1683277694467523245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8822017977540928802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 7979396337764292801, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0

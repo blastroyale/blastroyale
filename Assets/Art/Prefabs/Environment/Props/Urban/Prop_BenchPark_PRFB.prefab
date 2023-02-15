@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2561796561042420607}
   - component: {fileID: 317964674686568373}
   - component: {fileID: 7030484636226464058}
+  - component: {fileID: 6873245697111938373}
   m_Layer: 0
   m_Name: Prop_BenchPark_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7079769, y: 0.8266514, z: 0.63869464}
   m_Center: {x: 0, y: 0.41332564, z: 0}
+--- !u!114 &6873245697111938373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263445153307911776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 7030484636226464058}
+  Size:
+    X:
+      RawValue: 111933
+    Y:
+      RawValue: 54175
+    Z:
+      RawValue: 41857
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 27087
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

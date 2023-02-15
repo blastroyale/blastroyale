@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5136157946747063720}
   - component: {fileID: 8043151957601740495}
   - component: {fileID: 4852307957313211628}
+  - component: {fileID: 4093236520338972391}
+  - component: {fileID: 8394743973594069010}
   m_Layer: 7
   m_Name: Rock_Medium_2_PRFB
   m_TagString: Untagged
@@ -111,3 +113,89 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.38844, y: 2.3881745, z: 3.0614023}
   m_Center: {x: 0.37715197, y: 0.69408727, z: 0.1857652}
+--- !u!114 &4093236520338972391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5041203222170069478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8043151957601740495}
+  Size:
+    X:
+      RawValue: 199683
+    Y:
+      RawValue: 109084
+    Z:
+      RawValue: 276390
+  PositionOffset:
+    X:
+      RawValue: -25873
+    Y:
+      RawValue: 21774
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+--- !u!114 &8394743973594069010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5041203222170069478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 4852307957313211628}
+  Size:
+    X:
+      RawValue: 418672
+    Y:
+      RawValue: 156511
+    Z:
+      RawValue: 200632
+  PositionOffset:
+    X:
+      RawValue: 24717
+    Y:
+      RawValue: 45487
+    Z:
+      RawValue: 12174
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

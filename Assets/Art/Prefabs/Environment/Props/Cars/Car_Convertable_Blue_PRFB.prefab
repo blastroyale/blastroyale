@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7790778469447611386}
   - component: {fileID: 4988148056990521493}
   - component: {fileID: 7524244213821775089}
+  - component: {fileID: 9126596226092239151}
   m_Layer: 7
   m_Name: Car_Convertable_Blue_PRFB
   m_TagString: Untagged
@@ -99,3 +100,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3212839838674610799, guid: cac035c6fcf399947ae763974a750cf4, type: 3}
+--- !u!114 &9126596226092239151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5061419479009682378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 3212839838674610799, guid: cac035c6fcf399947ae763974a750cf4, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0

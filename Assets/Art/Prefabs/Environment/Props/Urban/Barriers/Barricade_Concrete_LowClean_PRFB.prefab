@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7678339996187775312}
   - component: {fileID: 8686866247671200327}
   - component: {fileID: 38607901304163358}
+  - component: {fileID: 403932469251628577}
   m_Layer: 7
   m_Name: Barricade_Concrete_LowClean_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7303617, y: 0.8834301, z: 1.5999999}
   m_Center: {x: 0.0000006556511, y: 0.441714, z: 0}
+--- !u!114 &403932469251628577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7210797338778725941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 38607901304163358}
+  Size:
+    X:
+      RawValue: 47864
+    Y:
+      RawValue: 57896
+    Z:
+      RawValue: 104857
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 28948
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

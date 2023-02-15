@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6910302570453539126}
   - component: {fileID: 3116431938196792334}
   - component: {fileID: 5090840642943167463}
+  - component: {fileID: 8230987967761427883}
   m_Layer: 7
   m_Name: Rock_Small_2_PRFB
   m_TagString: Untagged
@@ -97,3 +98,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.8341014, y: 1.7524016, z: 4.5133886}
   m_Center: {x: 0, y: 0.6509863, z: -0.21202576}
+--- !u!114 &8230987967761427883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635760580436608328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 5090840642943167463}
+  Size:
+    X:
+      RawValue: 185735
+    Y:
+      RawValue: 114845
+    Z:
+      RawValue: 295789
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 42663
+    Z:
+      RawValue: -13895
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

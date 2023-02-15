@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1135326458874834746}
   - component: {fileID: 480691845922910302}
   - component: {fileID: 1338730676604318276}
+  - component: {fileID: 5329418824002703613}
   m_Layer: 7
   m_Name: Rock_Large_1_PRFB
   m_TagString: Untagged
@@ -99,3 +100,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5881138532661119389, guid: d48e6b98e5e072a4c930344d33e85737, type: 3}
+--- !u!114 &5329418824002703613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2762523925957270505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 5881138532661119389, guid: d48e6b98e5e072a4c930344d33e85737, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0

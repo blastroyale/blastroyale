@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5575021519268733390}
   - component: {fileID: 5751531616078755236}
   - component: {fileID: 30819648487900373}
+  - component: {fileID: 2245491354871035690}
   m_Layer: 7
   m_Name: Prop_Industrial_Platform_Small_GEO
   m_TagString: Untagged
@@ -181,6 +182,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4868024654306761369, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+--- !u!114 &2245491354871035690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2319009304061593628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77e0e138e1b1ba4692b511b31f23385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -4868024654306761369, guid: 2d333d51562b9d44e90c24c69329578a, type: 3}
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
+  SmoothSphereMeshCollisions: 0
+  Mode: 0
 --- !u!1 &8990029521563080188
 GameObject:
   m_ObjectHideFlags: 0

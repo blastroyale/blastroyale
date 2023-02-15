@@ -270,7 +270,7 @@ namespace Quantum
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 			
-			if (damageAmount <= 0 || Math.Max(previousHealth-damageAmount, 0) < MinimumHealth)
+			if (damageAmount <= 0)
 			{
 				return;
 			}
@@ -315,7 +315,7 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 
 			CurrentHealth = Math.Min(maxHealth, amount);
-			CurrentHealth = Math.Max(CurrentHealth, 0);
+			CurrentHealth = Math.Max(CurrentHealth, MinimumHealth);
 
 			if (CurrentHealth != previousHealth)
 			{

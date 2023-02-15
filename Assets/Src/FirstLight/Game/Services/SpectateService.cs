@@ -189,6 +189,7 @@ namespace FirstLight.Game.Services
 			}
 
 			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) ||
+				GetLivingTeamMembers(callback.Game).Count > 0 ||
 				!SetSpectatedEntity(callback.Game.Frames.Verified, callback.EntityKiller, killerPlayer.Player))
 			{
 				SwipeRight(callback.Game);

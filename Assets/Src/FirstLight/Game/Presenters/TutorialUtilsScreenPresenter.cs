@@ -6,30 +6,28 @@ using FirstLight.Game.Services;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Tutorial utils
 	/// </summary>
-	public class TutorialUtilsScreenPresenter : UiToolkitPresenterData<TutorialUtilsScreenPresenter.StateData>
+	public class TutorialUtilsScreenPresenter : UiToolkitPresenter
 	{
-		public struct StateData
-		{
-		}
-
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
-
+		
 		private const float circleDefaultSize = 32;
 		private const float squareDefaultSize = 512;
 
-		private const int HIGHLIGHT_ANIM_TIME = 3;
-		private const int HIGHLIGHT_ANIM_SCALE_VALUE = 3;
+		private const int HIGHLIGHT_ANIM_TIME = 1000;
+
+		private float _initialScale;
+		private float _highlightedScale;
 
 		private IGameServices _services;
-		private VisualElement _root;
 
 		private VisualElement _blockerElementRight;
 		private VisualElement _blockerElementLeft;
@@ -37,8 +35,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blockerElementTop;
 
 		private VisualElement _highlighterElement;
-
-
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -46,10 +43,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_root = root;
-			_root.AddToClassList(PARENT_ELEMENT_STYLE);
-			_root.parent.AddToClassList(PARENT_ELEMENT_STYLE);
-			root.pickingMode = PickingMode.Ignore;
+			Root.AddToClassList(PARENT_ELEMENT_STYLE);
 			root.SetupClicks(_services);
 		}
 
@@ -61,10 +55,10 @@ namespace FirstLight.Game.Presenters
 
 		public void Unblock()
 		{
-			_root.Remove(_blockerElementRight);
-			_root.Remove(_blockerElementLeft);
-			_root.Remove(_blockerElementTop);
-			_root.Remove(_blockerElementBottom);
+			Root.Remove(_blockerElementRight);
+			Root.Remove(_blockerElementLeft);
+			Root.Remove(_blockerElementTop);
+			Root.Remove(_blockerElementBottom);
 		}
 
 		public void HighlightElement(UIDocument doc, string veClass, float sizeMultiplier)
@@ -75,49 +69,48 @@ namespace FirstLight.Game.Presenters
 
 		public void RemoveHighlight()
 		{
-			StartCoroutine(RemoveHighlightIE());
+			_highlighterElement.experimental.animation.Scale(_initialScale, HIGHLIGHT_ANIM_TIME)
+				.OnCompleted(DeleteHighLightElement);
 		}
 
-		IEnumerator RemoveHighlightIE()
+		private void DeleteHighLightElement()
 		{
-			_highlighterElement.experimental.animation.Scale(HIGHLIGHT_ANIM_SCALE_VALUE, HIGHLIGHT_ANIM_TIME);
-			yield return new WaitForSeconds(HIGHLIGHT_ANIM_TIME);
-			_root.Remove(_highlighterElement);
+			Root.Remove(_highlighterElement);
 		}
 
 		private void CreateBlockers(VisualElement objElement)
 		{
 			_blockerElementRight = new VisualElement();
 			_blockerElementRight.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			_root.Add(_blockerElementRight);
+			Root.Add(_blockerElementRight);
 			SetBlockerValues(_blockerElementRight,
-				_root.resolvedStyle.height * 2,
-				_root.resolvedStyle.width,
-				objElement.worldBound.y - _root.resolvedStyle.height,
+				Root.resolvedStyle.height * 2,
+				Root.resolvedStyle.width,
+				objElement.worldBound.y - Root.resolvedStyle.height,
 				objElement.worldBound.x + objElement.worldBound.width);
 
 			_blockerElementLeft = new VisualElement();
 			_blockerElementLeft.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			_root.Add(_blockerElementLeft);
+			Root.Add(_blockerElementLeft);
 			SetBlockerValues(_blockerElementLeft,
-				_root.resolvedStyle.height * 2,
-				_root.resolvedStyle.width,
-				objElement.worldBound.y - _root.resolvedStyle.height,
-				objElement.worldBound.x - _root.worldBound.width);
+				Root.resolvedStyle.height * 2,
+				Root.resolvedStyle.width,
+				objElement.worldBound.y - Root.resolvedStyle.height,
+				objElement.worldBound.x - Root.worldBound.width);
 
 			_blockerElementBottom = new VisualElement();
 			_blockerElementBottom.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			_root.Add(_blockerElementBottom);
-			SetBlockerValues(_blockerElementBottom, _root.resolvedStyle.height,
+			Root.Add(_blockerElementBottom);
+			SetBlockerValues(_blockerElementBottom, Root.resolvedStyle.height,
 				objElement.resolvedStyle.width,
 				objElement.worldBound.y + objElement.worldBound.height,
 				objElement.worldBound.x);
 
 			_blockerElementTop = new VisualElement();
-			_root.Add(_blockerElementTop);
+			Root.Add(_blockerElementTop);
 			_blockerElementTop.AddToClassList(BLOCKER_ELEMENT_STYLE);
-			SetBlockerValues(_blockerElementTop, _root.resolvedStyle.height, objElement.resolvedStyle.width,
-				objElement.worldBound.y - _root.worldBound.height, objElement.worldBound.x);
+			SetBlockerValues(_blockerElementTop, Root.resolvedStyle.height, objElement.resolvedStyle.width,
+				objElement.worldBound.y - Root.worldBound.height, objElement.worldBound.x);
 		}
 
 		void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)
@@ -132,28 +125,31 @@ namespace FirstLight.Game.Presenters
 		{
 			_highlighterElement = new VisualElement();
 
-			_root.Add(_highlighterElement);
+			Root.Add(_highlighterElement);
+			_highlighterElement.AddToClassList(HIGHLIGHT_ELEMENT_STYLE);
 			_highlighterElement.pickingMode = PickingMode.Ignore;
-
+			_highlighterElement.SetDisplay(false);
 			float objSize = objElement.resolvedStyle.width >= objElement.resolvedStyle.height
 				? objElement.resolvedStyle.width
 				: objElement
 					.resolvedStyle.height;
-			
+
 			objSize *= sizeMultiplier;
-			
-			float squareSize = squareDefaultSize * objSize / circleDefaultSize;
-			
-			_highlighterElement.style.width = squareSize;
-			_highlighterElement.style.height = squareSize;
+
+			float circleHighlightingSize = objSize;
+			_initialScale = Root.worldBound.width * 2 / circleDefaultSize;
+			_highlightedScale = circleHighlightingSize / circleDefaultSize;
+
 			_highlighterElement.style.top =
-				objElement.worldBound.y - squareSize / 2 + objElement.resolvedStyle.height / 2;
+				objElement.worldBound.y - squareDefaultSize / 2 + objElement.resolvedStyle.height / 2;
+
 			_highlighterElement.style.left =
-				objElement.worldBound.x - squareSize / 2 + objElement.resolvedStyle.width / 2;
+				objElement.worldBound.x - squareDefaultSize / 2 + objElement.resolvedStyle.width / 2;
+			_highlighterElement.style.scale = new Scale(new Vector3(_initialScale, _initialScale, 1));
 
-			_highlighterElement.AddToClassList(HIGHLIGHT_ELEMENT_STYLE);
+			_highlighterElement.SetDisplay(true);
 
-			_highlighterElement.experimental.animation.Scale(1, HIGHLIGHT_ANIM_TIME);
+			_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
 		}
 	}
 }

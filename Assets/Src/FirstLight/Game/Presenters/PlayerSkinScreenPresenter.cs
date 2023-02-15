@@ -139,5 +139,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnCloseClicked();
 		}
+		
+
 	}
 }

@@ -8,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using FirstLight.Game.Ids;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -65,8 +66,7 @@ namespace FirstLight.Game.Presenters
 			
 			RefreshCategories();
 			RefreshSpecials();
-			RefreshMight();
-			
+
 			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
 		}
 		
@@ -77,12 +77,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var data = GameIdGroup.PlayerSkin.GetIds();
 			
+			/*
 			var items = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
 				.Where(kvp => kvp.Value.GameId.IsInGroup(Data.EquipmentSlot))
 				.ToList();
-			
-			// var list = new List<PlayerSkinGridItemView.PlayerSkinGridItemData>(data.Count);
-			
+			*/
+
 			/*
 			foreach (var id in data)
 			{
@@ -100,6 +100,20 @@ namespace FirstLight.Game.Presenters
 			// _itemTitleText.text = _selectedId.GetLocalization();
 			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
+		
+		/*
+		protected override async void OnUpdateItem(PlayerSkinGridItemData data)
+		{
+			_frameImage.color = data.IsSelected ? _selectedColor : _regularColor;
+
+			_data = data;
+			Text.text = data.Skin.GetLocalization();
+
+			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin == _data.Skin;
+			_selectedFrameImage.SetActive(data.IsSelected);
+			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_data.Skin);
+		}
+		*/
 
 		private void RefreshCategories()
 		{
@@ -127,11 +141,28 @@ namespace FirstLight.Game.Presenters
 
 		}
 
-		private void RefreshMight()
+		private class CollectionListRow
 		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			// var might = loadout.GetTotalMight(_services.ConfigsProvider);
-			// _might.SetMight(might, false);
+			public Item Item1 { get; }
+			public Item Item2 { get; }
+
+			public CollectionListRow(Item item1, Item item2)
+			{
+				Item1 = item1;
+				Item2 = item2;
+			}
+
+			internal class Item
+			{
+				public UniqueId UniqueId { get; }
+				public Equipment Equipment { get; }
+
+				public Item(UniqueId uniqueId, Equipment equipment)
+				{
+					UniqueId = uniqueId;
+					Equipment = equipment;
+				}
+			}
 		}
 	}
 }

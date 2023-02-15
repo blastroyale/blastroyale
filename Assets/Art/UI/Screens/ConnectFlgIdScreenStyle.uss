@@ -9,7 +9,7 @@
     background-color: rgba(0, 0, 0, 0);
     background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
     -unity-background-scale-mode: scale-and-crop;
-    -unity-background-image-tint-color: rgba(153, 135, 174, 255);
+    -unity-background-image-tint-color: rgb(153, 135, 174);
 }
 
 .unity-text-field__label {
@@ -23,10 +23,6 @@
     -unity-font-definition: var(--font-italic-dynamic);
 }
 
-.button-flat {
-    -unity-text-align: middle-center;
-}
-
 .safe-area {
     left: 0;
     top: 0;
@@ -35,18 +31,12 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-}
-
-.popups {
-    align-items: center;
-    justify-content: center;
+    padding-top: 120px;
 }
 
 .screen-switch-element {
     align-items: center;
     width: 1000px;
     justify-content: flex-end;
-    position: absolute;
-    bottom: -116px;
     flex-direction: row;
 }

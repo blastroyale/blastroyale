@@ -234,7 +234,7 @@ namespace FirstLight.Game.Logic
 				                               GameLogic.TimeService.DateTimeUtcNow.Ticks);
 			var restoredAmount = (double) (equipment.MaxDurability - durability);
 			var cost =
-				Math.Pow((int) equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble * restoredAmount,
+				Math.Pow(((int)equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble + 1) * restoredAmount,
 				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
 
 			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));

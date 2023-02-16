@@ -39,4 +39,5 @@
     width: 1000px;
     justify-content: flex-end;
     flex-direction: row;
+    padding-top: 15px;
 }

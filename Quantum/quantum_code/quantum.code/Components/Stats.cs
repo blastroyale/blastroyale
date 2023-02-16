@@ -84,13 +84,11 @@ namespace Quantum
 			var might = RefreshStats(f, weapon, gear);
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
-			var newShieldAmount = Math.Min(CurrentShield + Math.Max(newMaxShield - previousMaxShield, 0), newMaxShield);
 
-			// Adapts the player health & shield if new equipment changes player's HP
+			// Adapts the player health & shield if new equipment changes player's max HP or shields capacity
 			SetCurrentHealth(f, e, newHealthAmount);
-			SetCurrentShield(f, e, newShieldAmount, previousMaxShield);
+			SetCurrentShield(f, e, CurrentShield, previousMaxShield);
 			
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
@@ -258,11 +256,12 @@ namespace Quantum
 			}
 
 			// If there's shields then we reduce it first
-			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
-				damageAmount -= shieldDamageAmount;
+				
+				// We don't do any damage to health if a player had at least 1 shields
+				damageAmount = 0;
 				
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
@@ -285,7 +284,7 @@ namespace Quantum
 
 			CurrentShield = amount > currentShieldCapacity ? currentShieldCapacity : amount;
 			
-			if (CurrentShield != previousShield)
+			if (CurrentShield != previousShield || previousShieldCapacity != currentShieldCapacity)
 			{
 				f.Events.OnShieldChanged(entity, previousShield, CurrentShield, previousShieldCapacity, currentShieldCapacity);
 			}

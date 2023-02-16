@@ -3,13 +3,7 @@
 
 name: $(Rev:r)
 
-trigger:
-  batch: true
-  branches:
-    include:
-    - 'develop'
-    - 'release/*'
-    - 'master'
+trigger: none
 pr: none
 
 resources:
@@ -20,6 +14,24 @@ resources:
     ref: main
     name: Infrastructure/core-templates
 
+parameters:
+  - name: build_type
+    displayName: Select Build Type
+    type: string
+    default: DEVELOPMENT_BUILD
+    values:
+      - DEVELOPMENT_BUILD
+      - RELEASE_BUILD
+      - STORE_BUILD
+  - name: server_environment
+    displayName: Select Target Server Environment
+    type: string
+    default: DEVELOPMENT_SERVER
+    values:
+      - DEVELOPMENT_SERVER
+      - STAGE_SERVER
+      - LIVE_SERVER
+
 variables:
 - group: Secrets
 - group: Non-secrets
@@ -29,34 +41,19 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
+- ${{  if eq(parameters['build_type'], 'DEVELOPMENT_BUILD') }}:
     - name: configuration
       value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'release/*')  }}:
+- ${{  if eq(parameters['build_type'], 'RELEASE_BUILD') }}:
     - name: configuration
       value: "Release"
-    - name: build_type
-      value: "RELEASE_BUILD"
-    - name: server_environment
-      value: "STAGE_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
+- ${{  if eq(parameters['build_type'], 'STORE_BUILD') }}:
     - name: configuration
       value: "Release"
-    - name: build_type
-      value: "STORE_BUILD"
-    - name: server_environment
-      value: "LIVE_SERVER"
-- ${{  else  }}:
-    - name: configuration
-      value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
+- name: build_type
+  value: ${{ parameters.build_type }}
+- name: server_environment
+  value: ${{ parameters.server_environment }}
 pool: macos
 
 stages:
@@ -96,5 +93,5 @@ stages:
           certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
-          build_type: ${{ variables.build_type }}
-          server_environment: ${{ variables.server_environment }}
+          build_type: ${{ parameters.build_type }}
+          server_environment: ${{ parameters.server_environment }}

@@ -249,8 +249,10 @@ namespace FirstLight.Game.Services.Party
 				var result = await AsyncPlayfabMultiplayerAPI.CreateLobby(req);
 				_lobbyId = result.LobbyId;
 				await RefetchCachedParty();
+#pragma warning disable CS4014
 				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
 				ListenForLobbyUpdates(_lobbyId);
+#pragma warning restore CS4014
 				PartyCode.Value = code;
 				PartyID.Value = _lobbyId;
 				HasParty.Value = true;

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
@@ -97,18 +99,34 @@ namespace FirstLight.Game.Presenters
 		}
 
 		/// <summary>
-		/// Highligts the ui element object with passed class, with an animation of a circle shringking. 
+		/// Highligts the ui element object with passed class or name from T, with an animation of a circle shringking. 
 		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="veClass"></param>
-		/// <param name="sizeMultiplier">How big the final circle should be relative to the size of objective ui element</param>
-		/// <returns></returns>
-		public void HighlightElement(UIDocument doc, string veClass, float sizeMultiplier)
+		/// <param name="className"></param>
+		/// <param name="elementName"></param>
+		/// <param name="sizeMultiplier"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <exception cref="Exception"></exception>
+		public void Highlighter<T> ( string className = null, string elementName = null, float sizeMultiplier = 1)
+			where T: UiPresenter
 		{
-			doc.rootVisualElement.Query(className: veClass)
-				.ForEach(element => CreateHighlight(element, sizeMultiplier));
-		}
+			UiPresenter presenter = _uiService.GetUi<T>();
+			VisualElement targetElement = null;
+
+			if (className != null)
+			{
+				targetElement = presenter.Document.rootVisualElement.Q(className: className).Required();
+			}
+
+			if (elementName != null)
+			{
+				targetElement = presenter.Document.rootVisualElement.Q<VisualElement>(elementName).Required();
+			}
+
+			CreateHighlight(targetElement, sizeMultiplier);
 		
+
+		}
+
 		/// <summary>
 		///  Removes the highlight circle with an increasing animation. Then destroys the highligh element
 		/// </summary>

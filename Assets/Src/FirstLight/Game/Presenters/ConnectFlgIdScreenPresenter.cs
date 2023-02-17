@@ -8,7 +8,6 @@ using FirstLight.UiService;
 using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
-using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters

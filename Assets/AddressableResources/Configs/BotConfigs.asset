@@ -3962,12 +3962,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -3978,7 +3978,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4011,12 +4011,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4027,7 +4027,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4060,12 +4060,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4076,7 +4076,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4109,12 +4109,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4125,7 +4125,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4158,12 +4158,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4174,7 +4174,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4207,12 +4207,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4223,7 +4223,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4256,12 +4256,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4272,7 +4272,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4305,12 +4305,12 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 6554
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 180
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4321,7 +4321,7 @@ MonoBehaviour:
         RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 262144
       MovementSpeedMultiplier:
         RawValue: 45875
       MaxDistanceToTeammateSquared:
@@ -4330,3 +4330,52 @@ MonoBehaviour:
         RawValue: 16384
       DamageTakenMultiplier:
         RawValue: 262144
+    - BehaviourType: 4
+      GameMode: Tutorial
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 649462
+      LookForTargetsToShootAtInterval:
+        RawValue: 32768
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 2949120
+      LowHealthSensitivity:
+        RawValue: 4915200
+      LowAmmoSensitivity:
+        RawValue: 4259840
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 1966
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 0
+      ChanceToUseSpecial:
+        RawValue: 65536
+      SpecialAimingDeviation:
+        RawValue: 0
+      ShrinkingCircleRiskTolerance:
+        RawValue: 19661
+      ChanceToSeekChests:
+        RawValue: 32768
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 262144
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 32768

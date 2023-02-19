@@ -233,7 +233,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			container.GetPlayersMatchData(frame, out var leader);
+			container.GeneratePlayersMatchData(frame, out var leader);
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
@@ -259,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var matchData = container.GeneratePlayersMatchData(frame, out var leader);
 			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			

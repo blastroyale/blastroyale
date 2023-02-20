@@ -16,7 +16,7 @@ namespace FirstLight.Game.UIElements
 	{
 		private const string EMPTY_LOC_KEY = "UITEquipment/no_{0}";
 
-		private const string UssBlock = "equipment-card";
+		private const string UssBlock = "collection-card";
 		private const string UssBlockSelected = UssBlock + "--selected";
 		private const string UssBlockHighlighted = UssBlock + "--highlighted";
 		private const string UssSelected = UssBlock + "__selected-bg";
@@ -32,9 +32,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-
-
-
+		
 		public GameIdGroup Category { get; set; }
 		public GameId MenuGameId { get; private set; }
 

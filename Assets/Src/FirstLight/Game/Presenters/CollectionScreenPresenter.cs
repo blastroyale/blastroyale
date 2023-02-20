@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Ids;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -27,8 +28,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnBackClicked;
 		}
 
-		private List<EquipmentSlotElement> _categories;
-		private List<CollectionMenuSlotElement> _collectionCategories;
+		private ListView _collectionList;
+		private List<CollectionListRow> _collectionListRows;
+		private Dictionary<GameId, int> _itemRowMap;
 		private MightElement _might;
 
 		private IGameServices _services;
@@ -44,16 +46,15 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
-
-			foreach (var cat in _categories)
-			{
-				cat.clicked += () => Data.OnSlotButtonClicked(cat.Category);
-			}
-
+			_collectionList = root.Q<ListView>("CollectionList").Required();
+			_collectionList.DisableScrollbars();
+			
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
 			header.homeClicked += Data.OnHomeClicked;
+			
+			_collectionList.makeItem = MakeCollectionListItem;
+			_collectionList.bindItem = BindCollectionListItem;
 
 			root.SetupClicks(_services);
 		}
@@ -63,11 +64,6 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			UpdatePlayerSkinMenu();
-			
-			RefreshCategories();
-			RefreshSpecials();
-
-			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
 		}
 		
 		/// <summary>
@@ -76,91 +72,134 @@ namespace FirstLight.Game.Presenters
 		private async void UpdatePlayerSkinMenu()
 		{
 			var data = GameIdGroup.PlayerSkin.GetIds();
+
+			var listCount = data.Count;
 			
-			/*
-			var items = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
-				.Where(kvp => kvp.Value.GameId.IsInGroup(Data.EquipmentSlot))
-				.ToList();
-			*/
+			_collectionListRows = new List<CollectionListRow>(listCount / 2);
+			_itemRowMap = new Dictionary<GameId, int>(listCount/ 2);
 
-			/*
-			foreach (var id in data)
+			for (var i = 0; i < listCount; i += 2)
 			{
-				var viewData = new PlayerSkinGridItemView.PlayerSkinGridItemData
+				var item1 = data[i];
+
+				if (i + 1 >= data.Count)
 				{
-					Skin = id,
-					IsSelected = id == _selectedId,
-					OnAvatarClicked = OnAvatarClicked
-				};
-				
-				list.Add(viewData);
-			}
-			*/
-			// _gridView.UpdateData(list);
-			// _itemTitleText.text = _selectedId.GetLocalization();
-			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
-		}
-		
-		/*
-		protected override async void OnUpdateItem(PlayerSkinGridItemData data)
-		{
-			_frameImage.color = data.IsSelected ? _selectedColor : _regularColor;
-
-			_data = data;
-			Text.text = data.Skin.GetLocalization();
-
-			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin == _data.Skin;
-			_selectedFrameImage.SetActive(data.IsSelected);
-			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_data.Skin);
-		}
-		*/
-
-		private void RefreshCategories()
-		{
-			foreach (var element in _categories)
-			{
-				var unseenItems = _gameDataProvider.EquipmentDataProvider.Inventory
-					.Any(pair => pair.Value.GameId.IsInGroup(element.Category) &&
-						_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(pair.Key));
-
-				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
-				{
-					var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
-
-					element.SetEquipment(info, false, unseenItems);
+					_collectionListRows.Add(
+						new CollectionListRow(new CollectionListRow.Item(item1), null));
+					_itemRowMap[item1] = _collectionListRows.Count - 1;
 				}
 				else
 				{
-					element.SetEquipment(default, false, unseenItems);
+					var item2 = data[i + 1];
+					_collectionListRows.Add(new CollectionListRow(
+						new CollectionListRow.Item(item1),
+						new CollectionListRow.Item(item2)));
+					_itemRowMap[item1] = _collectionListRows.Count - 1;
+					_itemRowMap[item2] = _collectionListRows.Count - 1;
 				}
 			}
+			
+			_collectionList.itemsSource = _collectionListRows;
+			_collectionList.RefreshItems();
+			
+			/*
+			foreach (var id in data)
+			{
+				Debug.Log("Show Element: " + id.GetLocalization());
+
+				var newElement = new CollectionMenuElement();
+				newElement.SetCollectionElement(id);
+				
+				// _collectionList.Add(newElement);
+			}
+			*/
+
+			// _itemTitleText.text = _selectedId.GetLocalization();
+			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
 
-		private void RefreshSpecials()
+		private VisualElement MakeCollectionListItem()
 		{
+			Debug.Log("Make Collection List");
+			
+			var row = new VisualElement
+			{
+				style =
+				{
+					flexDirection = FlexDirection.Row,
+					flexGrow = 1f,
+					justifyContent = Justify.SpaceBetween,
+					alignItems = Align.Center,
+					paddingLeft = new Length(50, LengthUnit.Pixel),
+					paddingRight = new Length(50, LengthUnit.Pixel)
+				}
+			};
 
+			var item1 = new EquipmentCardElement {name = "item-1"};
+			var item2 = new EquipmentCardElement {name = "item-2"};
+
+			// item1.clicked += OnEquipmentClicked;
+			// item2.clicked += OnEquipmentClicked;
+
+			row.Add(item1);
+			row.Add(item2);
+
+			return row;
 		}
+		
+		private void BindCollectionListItem(VisualElement visualElement, int index)
+		{
+			Debug.Log("Bind Collection List Item");
+			
+			var row = _collectionListRows[index];
 
+			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
+			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
+
+			/*
+			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
+				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
+				row.Item1.UniqueId == _equippedItem,
+				!IsItemSeen(row.Item1.UniqueId));
+
+			if (row.Item2 != null)
+			{
+				card2.SetDisplay(true);
+				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
+					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
+					row.Item2.UniqueId == _equippedItem,
+					!IsItemSeen(row.Item2.UniqueId));
+			}
+			else
+			{
+				card2.SetDisplay(false);
+			}
+
+			card1.SetSelected(card1.UniqueId == SelectedItem);
+			card2.SetSelected(card2.UniqueId == SelectedItem);
+			*/
+		}
+		
 		private class CollectionListRow
 		{
-			public Item Item1 { get; }
+			public Item Item1 { get; } 
 			public Item Item2 { get; }
+			public Item Item3 { get; }
 
 			public CollectionListRow(Item item1, Item item2)
 			{
 				Item1 = item1;
 				Item2 = item2;
+				// Item3 = item3;
 			}
 
 			internal class Item
 			{
-				public UniqueId UniqueId { get; }
-				public Equipment Equipment { get; }
+				public GameId GameId { get; }
 
-				public Item(UniqueId uniqueId, Equipment equipment)
+				public Item(GameId gameId)
 				{
-					UniqueId = uniqueId;
-					Equipment = equipment;
+					GameId = gameId;
 				}
 			}
 		}

@@ -12,7 +12,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays a category of items in the collection screen, e.g. Characters, Banners, Gliders, etc.
 	/// </summary>
-	public class CollectionMenuSlotElement : Button
+	public class CollectionMenuElement : Button
 	{
 		private const string EMPTY_LOC_KEY = "UITEquipment/no_{0}";
 
@@ -65,16 +65,13 @@ namespace FirstLight.Game.UIElements
 
 		private readonly LocalizedLabel _emptyTitle;
 		private readonly VisualElement _emptyEquipmentImage;
-		private readonly VisualElement _plusRarity;
 		private readonly VisualElement _equipmentImage;
 		private readonly VisualElement _equipmentImageShadow;
-		private readonly VisualElement _factionIcon;
-		private readonly VisualElement _durabilityProgress;
 		private readonly VisualElement _badgeNft;
 		private readonly VisualElement _badgeLoaned;
 		private readonly VisualElement _notificationIcon;
 
-		public CollectionMenuSlotElement()
+		public CollectionMenuElement()
 		{
 			AddToClassList(UssBlock);
 			AddToClassList(UssBlockFilled);
@@ -103,9 +100,6 @@ namespace FirstLight.Game.UIElements
 						{name = "level"});
 				_equipmentLevel.AddToClassList(UssEquipmentLevel);
 
-				filledElement.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
-				_plusRarity.AddToClassList(UssPlusRarity);
-
 				filledElement.Add(_equipmentImageShadow = new VisualElement {name = "equipment-image-shadow"});
 				_equipmentImageShadow.AddToClassList(UssEquipmentImage);
 				_equipmentImageShadow.AddToClassList(UssEquipmentImageShadow);
@@ -127,24 +121,6 @@ namespace FirstLight.Game.UIElements
 					_badgeLoaned.AddToClassList(UssBadge);
 					_badgeLoaned.AddToClassList(UssBadgeLoaned);
 				}
-
-				filledElement.Add(_factionIcon = new VisualElement {name = "faction-icon"});
-				_factionIcon.RemoveSpriteClasses();
-				_factionIcon.AddToClassList(UssFactionIcon);
-				_factionIcon.AddToClassList(string.Format(UssSpriteFaction, "celestial"));
-
-				var durabilityProgressBg = new VisualElement {name = "durability-progress-bg"};
-				{
-					filledElement.Add(durabilityProgressBg);
-					durabilityProgressBg.AddToClassList(UssDurabilityProgressBg);
-
-					durabilityProgressBg.Add(_durabilityProgress = new VisualElement {name = "durability-progress"});
-					_durabilityProgress.AddToClassList(UssDurabilityProgress);
-				}
-
-				var durabilityIcon = new VisualElement {name = "durability-icon"};
-				filledElement.Add(durabilityIcon);
-				durabilityIcon.AddToClassList(UssDurabilityIcon);
 			}
 
 			var emptyElement = new VisualElement {name = "empty"};
@@ -173,6 +149,24 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
+		public async void SetCollectionElement(GameId gameId, bool loaned = false, bool notification = false)
+		{
+			this.RemoveSpriteClasses();
+			
+			_equipmentName.text = gameId.GetLocalization();
+
+			Debug.Log("Name: " + _equipmentName.text);
+			
+			// TODO: This should be handled better.
+			var services = MainInstaller.Resolve<IGameServices>();
+			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(gameId, instantiate: false);
+			_equipmentImage.style.backgroundImage =
+				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
+		}
+
+		/// <summary>
+		/// Sets the equipment item that should be displayed on this element. Use default for empty.
+		/// </summary>
 		public async void SetEquipment(EquipmentInfo info, bool loaned, bool notification)
 		{
 			var equipment = info.Equipment;
@@ -195,14 +189,6 @@ namespace FirstLight.Game.UIElements
 				equipment.GameId.GetLocalization());
 			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
-			_factionIcon.RemoveSpriteClasses();
-			_factionIcon.AddToClassList(
-				string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
-
-			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
-
-			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
-
 			_badgeNft.SetDisplay(info.IsNft);
 			_badgeLoaned.SetDisplay(loaned);
 
@@ -214,7 +200,7 @@ namespace FirstLight.Game.UIElements
 				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 		}
 
-		public new class UxmlFactory : UxmlFactory<CollectionMenuSlotElement, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<CollectionMenuElement, UxmlTraits>
 		{
 		}
 
@@ -231,7 +217,7 @@ namespace FirstLight.Game.UIElements
 			{
 				base.Init(ve, bag, cc);
 
-				var ece = (CollectionMenuSlotElement) ve;
+				var ece = (CollectionMenuElement) ve;
 				var cat = _categoryAttribute.GetValueFromBag(bag, cc);
 				var catStr = cat.ToString().ToLowerInvariant();
 

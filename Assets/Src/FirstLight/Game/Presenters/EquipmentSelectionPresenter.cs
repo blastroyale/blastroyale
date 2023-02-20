@@ -51,9 +51,8 @@ namespace FirstLight.Game.Presenters
 		public UniqueId SelectedItem { get; private set; }
 
 		private ScreenHeaderElement _header;
-		private ListView _equipmentList;
+		
 		private MightElement _might;
-
 		private VisualElement _details;
 		private Label _missingEquipment;
 		private Label _equipmentName;
@@ -77,7 +76,8 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-
+		
+		private ListView _equipmentList;
 		private List<EquipmentListRow> _equipmentListRows;
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
@@ -374,6 +374,8 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement MakeEquipmentListItem()
 		{
+			Debug.Log("Make Equipment Element");
+			
 			var row = new VisualElement
 			{
 				style =

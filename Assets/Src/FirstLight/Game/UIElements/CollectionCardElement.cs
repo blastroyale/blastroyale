@@ -130,6 +130,26 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		public void SetCollectable(GameId id, bool loaned = false, bool nft = false,
+								 bool equipped = false, bool notification = false, bool loadEditorSprite = false)
+		{
+			// Assert.IsTrue(equipment.IsValid());
+			
+			_nftBadge.SetDisplay(nft);
+			_equippedBadge.SetDisplay(equipped);
+			_notification.SetDisplay(notification);
+
+			// _name.text = GameId.GetLocalization();
+
+			// Equipment = equipment;
+
+			// if (id == UniqueId) return;
+			// UniqueId = id;
+
+			LoadImage(loadEditorSprite);
+		}
+		
+		
 		public void SetEquipment(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
 								 bool equipped = false, bool notification = false, bool loadEditorSprite = false)
 		{
@@ -148,6 +168,7 @@ namespace FirstLight.Game.UIElements
 
 			LoadImage(loadEditorSprite);
 		}
+		
 
 		private async void LoadImage(bool loadEditorSprite)
 		{

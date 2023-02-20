@@ -1,0 +1,48 @@
+.collection-card {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 255);
+}
+
+.collection-card__image {
+    width: 50px;
+    height: 50px;
+}
+
+.collection-card--selected {
+}
+
+.collection-card--highlighted {
+}
+
+.collection-card__selected-bg {
+}
+
+.collection-card__highlight {
+}
+
+.collection-card__background {
+}
+
+.collection-card__card-holder {
+}
+
+.collection-card--shadow {
+}
+
+.collection-card__name {
+}
+
+.collection-card__badge-holder {
+}
+
+.collection-card__badge-nft {
+}
+
+.collection-card__badge-equipped {
+}
+
+.collection-card__notification {
+}
+
+.notification-icon {
+}

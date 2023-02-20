@@ -16,144 +16,112 @@ namespace FirstLight.Game.UIElements
 	{
 		private const string EMPTY_LOC_KEY = "UITEquipment/no_{0}";
 
-		private const string UssBlock = "equipment-slot";
-		private const string UssBlockFilled = UssBlock + "--filled";
-		private const string UssBlockEmpty = UssBlock + "--empty";
+		private const string UssBlock = "equipment-card";
+		private const string UssBlockSelected = UssBlock + "--selected";
+		private const string UssBlockHighlighted = UssBlock + "--highlighted";
 
-		private const string UssHolder = UssBlock + "__holder";
-		private const string UssHolderFilled = UssHolder + "--filled";
-		private const string UssHolderEmpty = UssHolder + "--empty";
-
-		private const string UssCategoryIcon = UssBlock + "__category-icon";
-		private const string UssCategoryIconEmpty = UssCategoryIcon + "--empty";
+		private const string UssSelected = UssBlock + "__selected-bg";
+		private const string UssHighlight = UssBlock + "__highlight";
+		private const string UssBackground = UssBlock + "__background";
+		private const string UssRarity = UssBlock + "__rarity";
 		private const string UssCardHolder = UssBlock + "__card-holder";
-		private const string UssImage = UssBlock + "__image";
-		
-		private const string UssBadgeHolder = UssBlock + "__badge-holder";
-		private const string UssBadge = UssBlock + "__badge";
-		private const string UssBadgeNft = UssBadge + "--nft";
-		private const string UssBadgeLoaned = UssBadge + "--loaned";
-
-		private const string UssEquipmentLevel = UssBlock + "__level";
-		private const string UssEquipmentTitle = UssBlock + "__title";
-		private const string UssEquipmentTitleName = UssEquipmentTitle + "--name";
-
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
-
-		private const string UssEquipmentImage = UssBlock + "__equipment-image";
-		private const string UssEquipmentImageEmpty = UssEquipmentImage + "--empty";
-		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
-
-		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
-		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
-		private const string UssDurabilityProgress = UssBlock + "__durability-progress";
+		private const string UssImage = UssBlock + "__image";
+		private const string UssImageShadow = UssImage + "--shadow";
+		private const string UssGrade = UssBlock + "__grade";
+		private const string UssFaction = UssBlock + "__faction";
+		private const string UssMaterial = UssBlock + "__material";
+		private const string UssLevel = UssBlock + "__level";
+		private const string UssName = UssBlock + "__name";
+		private const string UssAdjCatHolder = UssBlock + "__adj-cat-holder";
+		private const string UssCategory = UssBlock + "__category";
+		private const string UssAdjective = UssBlock + "__adjective";
+		private const string UssBadgeHolder = UssBlock + "__badge-holder";
+		private const string UssBadgeNft = UssBlock + "__badge-nft";
+		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
+		private const string UssBadgeEquipped = UssBlock + "__badge-equipped";
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-
-		private const string UssSpriteSlotRarity = "sprite-home__button-equipmentslot-{0}";
-		private const string UssSpriteEmptySlot = "sprite-home__icon-emptyslot-{0}";
-		private const string UssSpriteEquipmentCategory = "sprite-home__icon-equipmentcategory-{0}";
+		
+		private const string UssSpriteRarity = "sprite-equipmentcard__card-rarity-{0}";
 		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
+		private const string UssSpriteMaterial = "sprite-equipmentcard__card-material-{0}";
+		private const string UssSpriteCategory = "sprite-equipmentcard__card-category-{0}";
+
 
 		
 		public GameIdGroup Category { get; set; }
 		public GameId MenuGameId { get; private set; }
 
 		private readonly VisualElement _image;
-		private readonly VisualElement _categoryIcon;
-		private readonly VisualElement _emptyCategoryIcon;
-		private readonly Label _equipmentName;
-		private readonly Label _equipmentLevel;
+		private readonly VisualElement _imageShadow;
+		private readonly Label _name;
 
 		private readonly LocalizedLabel _emptyTitle;
 		private readonly VisualElement _emptyEquipmentImage;
-		private readonly VisualElement _equipmentImage;
-		private readonly VisualElement _equipmentImageShadow;
-		private readonly VisualElement _badgeNft;
+		private readonly VisualElement _nftBadge;
+		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _badgeLoaned;
-		private readonly VisualElement _notificationIcon;
+		private readonly VisualElement _notification;
 
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-			AddToClassList(UssBlockFilled);
-			AddToClassList(UIConstants.SFX_CLICK_FORWARDS);
-			AddToClassList(string.Format(UssSpriteSlotRarity, "common"));
 
-			var filledElement = new VisualElement {name = "filled"};
+			var selectedBg = new VisualElement {name = "selected-bg"};
+			Add(selectedBg);
+			selectedBg.AddToClassList(UssSelected);
+
+			var highlight = new VisualElement {name = "highlight"};
+			Add(highlight);
+			highlight.AddToClassList(UssHighlight);
+
+			var background = new VisualElement {name = "background"};
+			Add(background);
+			background.AddToClassList(UssBackground);
+
+			var cardHolder = new VisualElement {name = "holder"};
+			Add(cardHolder);
+			cardHolder.AddToClassList(UssCardHolder);
+
+			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
+			_imageShadow.AddToClassList(UssImage);
+			_imageShadow.AddToClassList(UssImageShadow);
+
+			cardHolder.Add(_image = new VisualElement {name = "item-image"});
+			_image.AddToClassList(UssImage);
+
+			var badgeHolder = new VisualElement {name = "badge-holder"};
+			cardHolder.Add(badgeHolder);
+			badgeHolder.AddToClassList(UssBadgeHolder);
 			{
-				Add(filledElement);
-				filledElement.AddToClassList(UssHolder);
-				filledElement.AddToClassList(UssHolderFilled);
+				badgeHolder.Add(_nftBadge = new VisualElement {name = "badge-nft"});
+				_nftBadge.AddToClassList(UssBadgeNft);
 
-				filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
-				_categoryIcon.AddToClassList(UssCategoryIcon);
-				_categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, "weapon"));
-
-				filledElement.Add(_equipmentName = new AutoSizeLabel(
-					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "SOOPERDOOPER LOOTERSHOOTER"),
-					35, 45
-				) {name = "equipment-name"});
-				_equipmentName.AddToClassList(UssEquipmentTitle);
-				_equipmentName.AddToClassList(UssEquipmentTitleName);
-
-				filledElement.Add(_equipmentLevel =
-					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 17))
-						{name = "level"});
-				_equipmentLevel.AddToClassList(UssEquipmentLevel);
-
-				filledElement.Add(_equipmentImageShadow = new VisualElement {name = "equipment-image-shadow"});
-				_equipmentImageShadow.AddToClassList(UssEquipmentImage);
-				_equipmentImageShadow.AddToClassList(UssEquipmentImageShadow);
-
-				filledElement.Add(_equipmentImage = new VisualElement {name = "equipment-image"});
-				_equipmentImage.AddToClassList(UssEquipmentImage);
-
-				var badgeHolder = new VisualElement {name = "badge-holder"};
-				{
-					filledElement.Add(badgeHolder);
-					badgeHolder.AddToClassList(UssBadgeHolder);
-
-					badgeHolder.Add(_badgeNft = new VisualElement {name = "badge-nft"});
-					_badgeNft.AddToClassList(UssBadge);
-					_badgeNft.AddToClassList(UssBadgeNft);
-
-					badgeHolder.Add(
-						_badgeLoaned = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
-					_badgeLoaned.AddToClassList(UssBadge);
-					_badgeLoaned.AddToClassList(UssBadgeLoaned);
-				}
-				
-				var cardHolder = new VisualElement {name = "holder"};
-				Add(cardHolder);
-				cardHolder.AddToClassList(UssCardHolder);
-				
-				cardHolder.Add(_image = new VisualElement {name = "item-image"});
-				_image.AddToClassList(UssImage);
+				badgeHolder.Add(
+					_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
+				_equippedBadge.AddToClassList(UssBadgeEquipped);
 			}
 
-			var emptyElement = new VisualElement {name = "empty"};
+			cardHolder.Add(_name = new Label("ROCKET LAUNCHER") {name = "name"});
+			_name.AddToClassList(UssName);
+
+			cardHolder.Add(_notification = new VisualElement());
+			_notification.AddToClassList(UssNotification);
+			_notification.AddToClassList(UssNotificationIcon);
+
+			// base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
+
+			// if (highlighted)
 			{
-				Add(emptyElement);
-				emptyElement.AddToClassList(UssHolder);
-				emptyElement.AddToClassList(UssHolderEmpty);
-
-				emptyElement.Add(_emptyCategoryIcon = new VisualElement {name = "category"});
-				_emptyCategoryIcon.AddToClassList(UssCategoryIcon);
-				_emptyCategoryIcon.AddToClassList(UssCategoryIconEmpty);
-
-				emptyElement.Add(_emptyTitle = new LocalizedLabel {name = "title"});
-				_emptyTitle.AddToClassList(UssEquipmentTitle);
-
-				emptyElement.Add(_emptyEquipmentImage = new VisualElement {name = "equipment-image"});
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImage);
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImageEmpty);
+				// AddToClassList(UssBlockHighlighted);
 			}
 
-			Add(_notificationIcon = new VisualElement {name = "notification"});
-			_notificationIcon.AddToClassList(UssNotification);
-			_notificationIcon.AddToClassList(UssNotificationIcon);
+			// if (equipment.IsValid())
+			{
+				SetCollectionElement(GameId.Male01Avatar);
+			}
 		}
 
 		/// <summary>
@@ -165,77 +133,32 @@ namespace FirstLight.Game.UIElements
 			// this.RemoveModifiers();
 			// this.RemoveSpriteClasses();
 
-			_notificationIcon.SetDisplay(notification);
+			_notification.SetDisplay(notification);
 
 			MenuGameId = gameId;
-
-			/*
-			if (!equipment.IsValid() && !equipment.IsDefaultItem())
-			{
-				AddToClassList(UssBlockEmpty);
-				return;
-			}
-			*/
-
-			AddToClassList(UssBlockFilled);
-			// AddToClassList(string.Format(UssSpriteSlotRarity, equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "")));
-
-			_equipmentName.text = gameId.GetLocalization();
+			
+			_name.text = gameId.GetLocalization();
 
 			// _badgeNft.SetDisplay(info.IsNft);
-			_badgeLoaned.SetDisplay(loaned);
-			
+
 			LoadImage();
 		}
 		
 		private async void LoadImage()
 		{
-			Debug.Log("Load Card Image");
 			
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
-			// _image.style.backgroundImage = null;
-			
-			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
-			_equipmentImage.style.backgroundImage =
-				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 
-			Debug.Log("Sprite: " + sprite.name);
+			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
+			_image.style.backgroundImage =
+				_imageShadow.style.backgroundImage = new StyleBackground(sprite);
+
 			_image.style.backgroundImage = new StyleBackground(sprite);
 		}
 
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
 		{
-		}
-
-		public new class UxmlTraits : VisualElement.UxmlTraits
-		{
-			UxmlEnumAttributeDescription<GameIdGroup> _categoryAttribute = new()
-			{
-				name = "category",
-				use = UxmlAttributeDescription.Use.Required,
-				defaultValue = GameIdGroup.Weapon
-			};
-
-			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-			{
-				base.Init(ve, bag, cc);
-
-				var ece = (CollectionCardElement) ve;
-				var cat = _categoryAttribute.GetValueFromBag(bag, cc);
-				var catStr = cat.ToString().ToLowerInvariant();
-
-				ece.Category = cat;
-
-				var emptyCategoryClass = string.Format(UssSpriteEmptySlot, catStr);
-				ece._emptyCategoryIcon.AddToClassList(emptyCategoryClass);
-				ece._emptyEquipmentImage.AddToClassList(emptyCategoryClass);
-				ece._categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, catStr));
-
-				ece._emptyTitle.Localize(
-					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())
-				);
-			}
 		}
 	}
 }

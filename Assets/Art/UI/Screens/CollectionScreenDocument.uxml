@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Styles/CollectionMenuSlotStyle.uss?fileID=7433441132597879392&amp;guid=2b3437908880e4d96b929057a7f74f84&amp;type=3#CollectionMenuSlotStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/CollectionCardElementStyle.uss?fileID=7433441132597879392&amp;guid=2b3437908880e4d96b929057a7f74f84&amp;type=3#CollectionCardElementStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">

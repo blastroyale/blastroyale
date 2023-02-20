@@ -59,7 +59,6 @@ namespace FirstLight.Game.UIElements
 		public GameId MenuGameId { get; private set; }
 
 		private readonly VisualElement _image;
-		private readonly VisualElement _imageShadow;
 		private readonly VisualElement _categoryIcon;
 		private readonly VisualElement _emptyCategoryIcon;
 		private readonly Label _equipmentName;
@@ -189,6 +188,8 @@ namespace FirstLight.Game.UIElements
 		
 		private async void LoadImage()
 		{
+			Debug.Log("Load Card Image");
+			
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
 			// _image.style.backgroundImage = null;

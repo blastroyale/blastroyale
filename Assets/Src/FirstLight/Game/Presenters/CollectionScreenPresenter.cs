@@ -74,17 +74,13 @@ namespace FirstLight.Game.Presenters
 			var data = GameIdGroup.PlayerSkin.GetIds();
 			var listCount = data.Count;
 			
-			Debug.Log("List Count: " + listCount);
-			
 			_collectionListRows = new List<CollectionListRow>(listCount / 3);
 			_itemRowMap = new Dictionary<GameId, int>(listCount/ 3);
 
 			for (var i = 0; i < listCount; i += 3)
 			{
 				var item1 = data[i];
-
-				Debug.Log("Item 1 Game Id: " + item1.GetLocalization());
-
+				
 				if (i + 1 >= data.Count)
 				{
 					_collectionListRows.Add(
@@ -94,10 +90,7 @@ namespace FirstLight.Game.Presenters
 				else
 				{
 					var item2 = data[i + 1];
-					Debug.Log("Item 2 Game Id: " + item2.GetLocalization());
-					
 					var item3 = data[i + 2];
-					Debug.Log("Item 3 Game Id: " + item3.GetLocalization());
 					
 					_collectionListRows.Add(new CollectionListRow(
 						new CollectionListRow.Item(item1),

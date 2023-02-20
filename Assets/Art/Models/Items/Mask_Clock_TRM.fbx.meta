@@ -3,7 +3,12 @@ guid: b5d16e3b64e3fd84d905d854a276a4bd
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: overall_game_item_upgrade_armours_stage_4_american_football_lightning3
+    second: {fileID: 2100000, guid: 646c8019370c8694ab52158c6135a359, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

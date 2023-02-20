@@ -407,7 +407,7 @@ namespace FirstLight.Game.Presenters
 
 			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
 			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
-
+			
 			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
 				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
 				row.Item1.UniqueId == _equippedItem,

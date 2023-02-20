@@ -83,6 +83,8 @@ namespace FirstLight.Game.Presenters
 			{
 				var item1 = data[i];
 
+				Debug.Log("Item 1 Game Id: " + item1.GetLocalization());
+
 				if (i + 1 >= data.Count)
 				{
 					_collectionListRows.Add(
@@ -92,7 +94,11 @@ namespace FirstLight.Game.Presenters
 				else
 				{
 					var item2 = data[i + 1];
+					Debug.Log("Item 2 Game Id: " + item2.GetLocalization());
+					
 					var item3 = data[i + 2];
+					Debug.Log("Item 3 Game Id: " + item3.GetLocalization());
+					
 					_collectionListRows.Add(new CollectionListRow(
 						new CollectionListRow.Item(item1),
 						new CollectionListRow.Item(item2),
@@ -149,28 +155,25 @@ namespace FirstLight.Game.Presenters
 			var card2 = visualElement.Q<CollectionCardElement>("item-2");
 			var card3 = visualElement.Q<CollectionCardElement>("item-3");
 
-			/*
-			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
-				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
-				row.Item1.UniqueId == _equippedItem,
-				!IsItemSeen(row.Item1.UniqueId));
-
+			
+			card1.SetCollectionElement(row.Item1.GameId, false, false);
+			card2.SetDisplay(false);
+			card3.SetDisplay(false);
+			
 			if (row.Item2 != null)
 			{
 				card2.SetDisplay(true);
-				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
-					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
-					row.Item2.UniqueId == _equippedItem,
-					!IsItemSeen(row.Item2.UniqueId));
+				card2.SetCollectionElement(row.Item2.GameId, false, false);
 			}
-			else
+			if (row.Item3 != null)
 			{
-				card2.SetDisplay(false);
+				card3.SetDisplay(true);
+				card3.SetCollectionElement(row.Item3.GameId, false, false);
 			}
 
-			card1.SetSelected(card1.UniqueId == SelectedItem);
-			card2.SetSelected(card2.UniqueId == SelectedItem);
-			*/
+			// card1.SetSelected(card1.UniqueId == SelectedItem);
+			// card2.SetSelected(card2.UniqueId == SelectedItem);
+			
 		}
 		
 		private class CollectionListRow

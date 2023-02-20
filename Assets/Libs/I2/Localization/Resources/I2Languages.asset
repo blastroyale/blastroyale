@@ -15073,6 +15073,17 @@ MonoBehaviour:
       - user.ts
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NewBRMap
+      TermType: 0
+      Description: 
+      Languages:
+      - New BR Map
+      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
+      - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -15097,7 +15108,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676480820019
+    Google_LastUpdatedVersion: 1676893751405
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

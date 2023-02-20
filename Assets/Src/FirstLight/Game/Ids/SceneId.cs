@@ -16,7 +16,8 @@ namespace FirstLight.Game.Ids
 		BlimpDeck,
 		BRGenesis,
 		TestScene,
-		MapTestScene
+		MapTestScene,
+		NewBRMap
 	}
 	
 	/// <summary>

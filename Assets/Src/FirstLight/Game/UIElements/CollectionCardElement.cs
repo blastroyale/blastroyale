@@ -26,6 +26,8 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssCategoryIcon = UssBlock + "__category-icon";
 		private const string UssCategoryIconEmpty = UssCategoryIcon + "--empty";
+		private const string UssCardHolder = UssBlock + "__card-holder";
+		private const string UssImage = UssBlock + "__image";
 		
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadge = UssBlock + "__badge";
@@ -122,6 +124,13 @@ namespace FirstLight.Game.UIElements
 					_badgeLoaned.AddToClassList(UssBadge);
 					_badgeLoaned.AddToClassList(UssBadgeLoaned);
 				}
+				
+				var cardHolder = new VisualElement {name = "holder"};
+				Add(cardHolder);
+				cardHolder.AddToClassList(UssCardHolder);
+				
+				cardHolder.Add(_image = new VisualElement {name = "item-image"});
+				_image.AddToClassList(UssImage);
 			}
 
 			var emptyElement = new VisualElement {name = "empty"};
@@ -153,8 +162,8 @@ namespace FirstLight.Game.UIElements
 		public async void SetCollectionElement(GameId gameId, bool loaned = false, bool notification = false)
 		{
 			// var equipment = info.Equipment;
-			this.RemoveModifiers();
-			this.RemoveSpriteClasses();
+			// this.RemoveModifiers();
+			// this.RemoveSpriteClasses();
 
 			_notificationIcon.SetDisplay(notification);
 
@@ -175,13 +184,6 @@ namespace FirstLight.Game.UIElements
 
 			// _badgeNft.SetDisplay(info.IsNft);
 			_badgeLoaned.SetDisplay(loaned);
-
-			// TODO: This should be handled better.
-			var services = MainInstaller.Resolve<IGameServices>();
-			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
-				gameId, instantiate: false);
-			_equipmentImage.style.backgroundImage =
-				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 			
 			LoadImage();
 		}
@@ -193,7 +195,13 @@ namespace FirstLight.Game.UIElements
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
 			// _image.style.backgroundImage = null;
+			
 			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
+			_equipmentImage.style.backgroundImage =
+				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
+
+			Debug.Log("Sprite: " + sprite.name);
+			_image.style.backgroundImage = new StyleBackground(sprite);
 		}
 
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>

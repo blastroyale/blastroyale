@@ -48,18 +48,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 450
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -65534
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1612500
+          RawValue: -1501721
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -434567
+          RawValue: -719097
       PhysicsMaterial:
         Id:
           Value: 0
@@ -68,14 +68,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 21073
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 460536
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (20)
+        Name: _Coll
         Tag: Untagged
         Layer: 0
         Asset:
@@ -89,18 +89,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 10249
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 64729
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1587285
+          RawValue: -1252306
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -592894
+          RawValue: -254112
       PhysicsMaterial:
         Id:
           Value: 0
@@ -109,14 +109,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 21073
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 363858
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (21)
+        Name: _Coll (1)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -130,18 +130,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 20146
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: 62362
+          RawValue: -29493
       Position:
         X:
-          RawValue: 1513470
+          RawValue: -1473037
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -735380
+          RawValue: -253774
       PhysicsMaterial:
         Id:
           Value: 0
@@ -150,14 +150,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 131671
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 187922
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (22)
+        Name: _Coll (2)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -171,18 +171,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 29754
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: 58392
+          RawValue: -29493
       Position:
         X:
-          RawValue: 1399622
+          RawValue: -1485772
         Y:
-          RawValue: -107602
+          RawValue: 286202
         Z:
-          RawValue: -848426
+          RawValue: -421711
       PhysicsMaterial:
         Id:
           Value: 0
@@ -191,14 +191,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 29943
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 23310
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (23)
+        Name: _Coll (3)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -212,18 +212,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 38407
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 53102
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1256112
+          RawValue: -1046124
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -920246
+          RawValue: -934738
       PhysicsMaterial:
         Id:
           Value: 0
@@ -232,14 +232,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 270196
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 33446
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (24)
+        Name: _Coll (4)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -253,18 +253,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46092
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 46587
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1097516
+          RawValue: -773927
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -944023
+          RawValue: -671037
       PhysicsMaterial:
         Id:
           Value: 0
@@ -273,14 +273,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 159913
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 40370
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (25)
+        Name: _Coll (5)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -294,18 +294,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 52889
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 38699
+          RawValue: -62226
       Position:
         X:
-          RawValue: 939294
+          RawValue: -939082
         Y:
-          RawValue: -107602
+          RawValue: 176481
         Z:
-          RawValue: -918416
+          RawValue: -425522
       PhysicsMaterial:
         Id:
           Value: 0
@@ -314,14 +314,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 157130
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 40370
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (26)
+        Name: _Coll (6)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -335,18 +335,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 58212
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 30104
+          RawValue: -62226
       Position:
         X:
-          RawValue: 797012
+          RawValue: -530990
         Y:
-          RawValue: -107602
+          RawValue: 182727
         Z:
-          RawValue: -844520
+          RawValue: -743974
       PhysicsMaterial:
         Id:
           Value: 0
@@ -355,14 +355,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 21073
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 243093
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (27)
+        Name: _Coll (7)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -376,18 +376,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 62194
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 20660
+          RawValue: -62226
       Position:
         X:
-          RawValue: 684371
+          RawValue: -212920
         Y:
-          RawValue: -107602
+          RawValue: 182727
         Z:
-          RawValue: -730568
+          RawValue: -742420
       PhysicsMaterial:
         Id:
           Value: 0
@@ -396,14 +396,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 319580
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 22893
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (28)
+        Name: _Coll (8)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -417,18 +417,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64735
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 10213
+          RawValue: -62226
       Position:
         X:
-          RawValue: 611367
+          RawValue: 46071
         Y:
-          RawValue: -107602
+          RawValue: 182727
         Z:
-          RawValue: -587849
+          RawValue: -389988
       PhysicsMaterial:
         Id:
           Value: 0
@@ -437,14 +437,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 176882
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 152063
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (29)
+        Name: _Coll (9)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -458,18 +458,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64740
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -10179
+          RawValue: -62226
       Position:
         X:
-          RawValue: 610906
+          RawValue: -335895
         Y:
-          RawValue: -107602
+          RawValue: 182727
         Z:
-          RawValue: -280370
+          RawValue: 133659
       PhysicsMaterial:
         Id:
           Value: 0
@@ -478,14 +478,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 176882
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 233492
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (31)
+        Name: _Coll (10)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -499,18 +499,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 62311
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -20302
+          RawValue: -62226
       Position:
         X:
-          RawValue: 681897
+          RawValue: -895840
         Y:
-          RawValue: -107602
+          RawValue: 189890
         Z:
-          RawValue: -136763
+          RawValue: -249902
       PhysicsMaterial:
         Id:
           Value: 0
@@ -519,14 +519,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 17131
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 96341
+          RawValue: 154042
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (32)
+        Name: _Coll (11)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -540,18 +540,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 58569
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -29403
+          RawValue: -62226
       Position:
         X:
-          RawValue: 793001
+          RawValue: -257494
         Y:
-          RawValue: -107602
+          RawValue: 212175
         Z:
-          RawValue: -21049
+          RawValue: -247190
       PhysicsMaterial:
         Id:
           Value: 0
@@ -560,14 +560,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 12714
         Y:
-          RawValue: 21890
+          RawValue: 122327
         Z:
-          RawValue: 96341
+          RawValue: 152063
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (33)
+        Name: _Coll (12)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -579,20 +579,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 53179
+          RawValue: 19886
         Z:
-          RawValue: 0
+          RawValue: -15831
         W:
-          RawValue: -38299
+          RawValue: -60178
       Position:
         X:
-          RawValue: 935047
+          RawValue: -515509
         Y:
-          RawValue: -107602
+          RawValue: 392757
         Z:
-          RawValue: 53512
+          RawValue: 191907
       PhysicsMaterial:
         Id:
           Value: 0
@@ -601,14 +601,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 213010
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 16433
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (34)
+        Name: _Coll (13)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -622,18 +622,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46720
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -45957
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1093145
+          RawValue: -700664
         Y:
-          RawValue: -107602
+          RawValue: 271843
         Z:
-          RawValue: 81424
+          RawValue: 30965
       PhysicsMaterial:
         Id:
           Value: 0
@@ -642,14 +642,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 70112
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 36353
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (35)
+        Name: _Coll (14)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -661,20 +661,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 38981
+          RawValue: 19886
         Z:
-          RawValue: 0
+          RawValue: -15831
         W:
-          RawValue: -52682
+          RawValue: -60178
       Position:
         X:
-          RawValue: 1252114
+          RawValue: -584247
         Y:
-          RawValue: -107602
+          RawValue: 392757
         Z:
-          RawValue: 58558
+          RawValue: 285345
       PhysicsMaterial:
         Id:
           Value: 0
@@ -683,14 +683,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 213010
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 16433
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (36)
+        Name: _Coll (15)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -704,18 +704,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 30069
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -58230
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1395885
+          RawValue: -869452
         Y:
-          RawValue: -107602
+          RawValue: 263585
         Z:
-          RawValue: -12769
+          RawValue: 100265
       PhysicsMaterial:
         Id:
           Value: 0
@@ -724,14 +724,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 176494
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 36353
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (37)
+        Name: _Coll (16)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -745,18 +745,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 20327
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -62303
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1510343
+          RawValue: -967919
         Y:
-          RawValue: -107602
+          RawValue: 263585
         Z:
-          RawValue: -124986
+          RawValue: -76877
       PhysicsMaterial:
         Id:
           Value: 0
@@ -765,14 +765,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 37878
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 103961
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (38)
+        Name: _Coll (17)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -786,18 +786,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 10579
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -64676
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1585649
+          RawValue: 395265
         Y:
-          RawValue: -107602
+          RawValue: 474319
         Z:
-          RawValue: -266581
+          RawValue: -376938
       PhysicsMaterial:
         Id:
           Value: 0
@@ -806,14 +806,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 231520
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 96341
+          RawValue: 22893
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (19)
+        Name: _Coll (18)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -827,18 +827,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 42428
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 49947
+          RawValue: -62226
       Position:
         X:
-          RawValue: 1100269
+          RawValue: -72024
         Y:
-          RawValue: -140556
+          RawValue: 474319
         Z:
-          RawValue: -431816
+          RawValue: -134343
       PhysicsMaterial:
         Id:
           Value: 0
@@ -847,14 +847,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 655360
+          RawValue: 21074
         Y:
-          RawValue: 19302
+          RawValue: 58988
         Z:
-          RawValue: 655360
+          RawValue: 519833
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Cylinder
+        Name: _Coll (19)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -868,18 +868,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1786467
+          RawValue: -356274
         Y:
-          RawValue: 4512
+          RawValue: 490001
         Z:
-          RawValue: -145285
+          RawValue: 305799
       PhysicsMaterial:
         Id:
           Value: 0
@@ -888,14 +888,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 47041
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 406698
+          RawValue: 19050
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (1)
+        Name: _Coll (20)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -909,18 +909,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1370058
+          RawValue: 482064
         Y:
-          RawValue: 4512
+          RawValue: 474319
         Z:
-          RawValue: -10582
+          RawValue: -103422
       PhysicsMaterial:
         Id:
           Value: 0
@@ -929,14 +929,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 101067
+          RawValue: 20339
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 271996
+          RawValue: 220537
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (2)
+        Name: _Coll (21)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -950,18 +950,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46261
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1632072
+          RawValue: 118180
         Y:
-          RawValue: 4512
+          RawValue: 474319
         Z:
-          RawValue: 254862
+          RawValue: 391222
       PhysicsMaterial:
         Id:
           Value: 0
@@ -970,14 +970,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 20339
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 160946
+          RawValue: 220537
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (3)
+        Name: _Coll (22)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -991,18 +991,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46261
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1533704
+          RawValue: -27638
         Y:
-          RawValue: 4512
+          RawValue: 474319
         Z:
-          RawValue: -558534
+          RawValue: 526401
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1011,14 +1011,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 81972
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 259313
+          RawValue: 58680
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (6)
+        Name: _Coll (23)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1032,18 +1032,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1534173
+          RawValue: -168565
         Y:
-          RawValue: -32768
+          RawValue: 474319
         Z:
-          RawValue: -410277
+          RawValue: 524427
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1052,14 +1052,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 258845
+          RawValue: 81972
         Y:
-          RawValue: 15390
+          RawValue: 58988
         Z:
-          RawValue: 153999
+          RawValue: 58680
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (2)
+        Name: _Coll (24)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1073,18 +1073,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65535
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 74
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1311375
+          RawValue: -345400
         Y:
-          RawValue: 16115
+          RawValue: 490001
         Z:
-          RawValue: -425591
+          RawValue: 481548
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1093,14 +1093,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 26127
+          RawValue: 152312
         Y:
-          RawValue: 33810
+          RawValue: 58988
         Z:
-          RawValue: 98304
+          RawValue: 32942
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: barricade_concrete_High
+        Name: _Coll (25)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1114,18 +1114,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1527836
+          RawValue: 328123
         Y:
-          RawValue: -532077
+          RawValue: 484966
         Z:
-          RawValue: -140740
+          RawValue: -344727
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1134,14 +1134,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 258845
+          RawValue: 34586
         Y:
-          RawValue: 514699
+          RawValue: 58988
         Z:
-          RawValue: 402154
+          RawValue: 58899
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (3)
+        Name: _Coll (26)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1155,18 +1155,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1041366
+          RawValue: 24382
         Y:
-          RawValue: -532077
+          RawValue: 474319
         Z:
-          RawValue: -408552
+          RawValue: 425383
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1175,14 +1175,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 258845
+          RawValue: 81972
         Y:
-          RawValue: 514699
+          RawValue: 58988
         Z:
-          RawValue: 129068
+          RawValue: 58680
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: InvisibleWalkwayCollider
+        Name: _Coll (27)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1196,18 +1196,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46261
+          RawValue: -62226
       Position:
         X:
-          RawValue: -747045
+          RawValue: -572014
         Y:
-          RawValue: 4512
+          RawValue: 239206
         Z:
-          RawValue: -228279
+          RawValue: 57590
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1216,14 +1216,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 115353
+          RawValue: 64864
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 109046
+          RawValue: 52483
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (4)
+        Name: _Coll (28)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1237,18 +1237,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -62226
       Position:
         X:
-          RawValue: -427755
+          RawValue: 472176
         Y:
-          RawValue: 4512
+          RawValue: 474319
         Z:
-          RawValue: -722373
+          RawValue: 132684
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1257,14 +1257,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 111605
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 325980
+          RawValue: 24490
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (16)
+        Name: _Coll (29)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1278,18 +1278,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -478933
+          RawValue: 340637
         Y:
-          RawValue: -401911
+          RawValue: 474319
         Z:
-          RawValue: -420925
+          RawValue: 311491
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1298,14 +1298,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 377158
+          RawValue: 111605
         Y:
-          RawValue: 384533
+          RawValue: 58988
         Z:
-          RawValue: 307999
+          RawValue: 24490
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (3)
+        Name: _Coll (30)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1319,18 +1319,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46261
+          RawValue: -62226
       Position:
         X:
-          RawValue: -747045
+          RawValue: 328
         Y:
-          RawValue: 4512
+          RawValue: 212175
         Z:
-          RawValue: -613572
+          RawValue: -77863
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1339,14 +1339,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 115353
+          RawValue: 77798
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 109046
+          RawValue: 152063
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (5)
+        Name: _Coll (31)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1360,18 +1360,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65535
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 73
+          RawValue: -62226
       Position:
         X:
-          RawValue: -108326
+          RawValue: -1262147
         Y:
-          RawValue: 4512
+          RawValue: 242483
         Z:
-          RawValue: -417947
+          RawValue: -878868
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1380,14 +1380,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 59179
         Y:
-          RawValue: 21890
+          RawValue: 65956
         Z:
-          RawValue: 297874
+          RawValue: 159999
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (18)
+        Name: _Coll (32)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1401,18 +1401,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -3797
+          RawValue: -1515121
         Y:
-          RawValue: -399769
+          RawValue: 242483
         Z:
-          RawValue: -420925
+          RawValue: -594711
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1421,14 +1421,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 101826
+          RawValue: 72672
         Y:
-          RawValue: 384533
+          RawValue: 65956
         Z:
-          RawValue: 159542
+          RawValue: 66320
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (4)
+        Name: _Coll (33)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1442,18 +1442,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -29493
       Position:
         X:
-          RawValue: -189050
+          RawValue: -1667913
         Y:
-          RawValue: 4512
+          RawValue: 176481
         Z:
-          RawValue: -109224
+          RawValue: -320657
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1462,14 +1462,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 19632
+          RawValue: 24724
         Y:
-          RawValue: 21890
+          RawValue: 149627
         Z:
-          RawValue: 179332
+          RawValue: 187922
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (17)
+        Name: _Coll (34)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1483,18 +1483,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -62226
       Position:
         X:
-          RawValue: -695381
+          RawValue: -877960
         Y:
-          RawValue: 4512
+          RawValue: 263585
         Z:
-          RawValue: -109224
+          RawValue: -133470
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1503,14 +1503,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 19632
+          RawValue: 62082
         Y:
-          RawValue: 21890
+          RawValue: 58988
         Z:
-          RawValue: 160461
+          RawValue: 10174
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (19)
+        Name: _Coll (35)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1524,18 +1524,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46314
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 46367
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1050542
+          RawValue: -1332332
         Y:
-          RawValue: -125173
+          RawValue: 188088
         Z:
-          RawValue: -412656
+          RawValue: -573332
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1544,16 +1544,16 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137527
+          RawValue: 240733
         Y:
-          RawValue: 105834
+          RawValue: 32768
         Z:
-          RawValue: 245656
+          RawValue: 448778
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Walkway07
+        Name: _Coll
         Tag: Untagged
-        Layer: 7
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -1565,18 +1565,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 609847
+          RawValue: -858309
         Y:
-          RawValue: 176926
+          RawValue: 188088
         Z:
-          RawValue: -271476
+          RawValue: -554122
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1585,14 +1585,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 154320
         Y:
-          RawValue: 21890
+          RawValue: 32768
         Z:
-          RawValue: 158552
+          RawValue: 116977
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (7)
+        Name: _Coll (1)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1606,18 +1606,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46261
+          RawValue: -62226
       Position:
         X:
-          RawValue: -8085
+          RawValue: -403966
         Y:
-          RawValue: -32263
+          RawValue: 188088
         Z:
-          RawValue: -167024
+          RawValue: -310194
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1626,14 +1626,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54100
+          RawValue: 392852
         Y:
-          RawValue: 187272
+          RawValue: 32768
         Z:
-          RawValue: 93690
+          RawValue: 464761
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (9)
+        Name: _Coll (2)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1647,18 +1647,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -62226
       Position:
         X:
-          RawValue: 76715
+          RawValue: -852245
         Y:
-          RawValue: 176926
+          RawValue: 188088
         Z:
-          RawValue: -119476
+          RawValue: -3416
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1667,14 +1667,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 136006
         Y:
-          RawValue: 21890
+          RawValue: 32768
         Z:
-          RawValue: 178490
+          RawValue: 80624
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (10)
+        Name: _Coll (3)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1686,20 +1686,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 46419
+          RawValue: 19886
         Z:
-          RawValue: 0
+          RawValue: -15831
         W:
-          RawValue: -46262
+          RawValue: -60178
       Position:
         X:
-          RawValue: 352991
+          RawValue: -583665
         Y:
-          RawValue: 176926
+          RawValue: 311596
         Z:
-          RawValue: -722372
+          RawValue: 210923
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1708,14 +1708,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 260835
         Y:
-          RawValue: 21890
+          RawValue: 32768
         Z:
-          RawValue: 260879
+          RawValue: 71175
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (11)
+        Name: _Coll (4)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1729,18 +1729,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -62226
       Position:
         X:
-          RawValue: 524931
+          RawValue: 54817
         Y:
-          RawValue: 176926
+          RawValue: 435159
         Z:
-          RawValue: -106372
+          RawValue: 2901
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1749,14 +1749,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 173851
         Y:
-          RawValue: 21890
+          RawValue: 32768
         Z:
-          RawValue: 91466
+          RawValue: 501120
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (39)
+        Name: _Coll (5)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1770,18 +1770,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 344451
+          RawValue: -307346
         Y:
-          RawValue: 139646
+          RawValue: 435789
         Z:
-          RawValue: -420924
+          RawValue: 394195
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1790,14 +1790,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 258845
+          RawValue: 120297
         Y:
-          RawValue: 15390
+          RawValue: 32768
         Z:
-          RawValue: 307999
+          RawValue: 67614
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (4)
+        Name: _Coll (6)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1809,20 +1809,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: -1
+          RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
-          RawValue: 9561
+          RawValue: 0
         W:
-          RawValue: 64834
+          RawValue: -62226
       Position:
         X:
-          RawValue: -92744
+          RawValue: 257883
         Y:
-          RawValue: 49920
+          RawValue: 435159
         Z:
-          RawValue: 26877
+          RawValue: 94973
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1831,14 +1831,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 312860
+          RawValue: 44280
         Y:
-          RawValue: 15390
+          RawValue: 32768
         Z:
-          RawValue: 117154
+          RawValue: 454954
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (5)
+        Name: _Coll (7)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1852,18 +1852,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 344451
+          RawValue: 372975
         Y:
-          RawValue: -588008
+          RawValue: 432930
         Z:
-          RawValue: -420924
+          RawValue: 219054
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1872,14 +1872,14 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 258845
+          RawValue: 138542
         Y:
-          RawValue: 724405
+          RawValue: 32768
         Z:
-          RawValue: 307999
+          RawValue: 104089
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Floor (7)
+        Name: _Coll (8)
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1893,34 +1893,34 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -1
+          RawValue: -20436
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: 62268
       Position:
         X:
-          RawValue: 85559
+          RawValue: 1034478
         Y:
-          RawValue: 176926
+          RawValue: -581459
         Z:
-          RawValue: -420923
+          RawValue: 469522
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 2
+      ShapeType: 4
       SphereRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 6551
+          RawValue: 0
         Y:
-          RawValue: 21890
+          RawValue: 0
         Z:
-          RawValue: 307999
+          RawValue: 0
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Wall (12)
+        Name: B4
         Tag: Untagged
         Layer: 0
         Asset:
@@ -1928,211 +1928,6 @@ MonoBehaviour:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 45
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: -1
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -394156
-        Y:
-          RawValue: -32768
-        Z:
-          RawValue: 15317
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 166679
-        Y:
-          RawValue: 15390
-        Z:
-          RawValue: 128476
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Floor (6)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 46
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: -1
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 369010
-        Y:
-          RawValue: 139646
-        Z:
-          RawValue: 15555
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 166679
-        Y:
-          RawValue: 15390
-        Z:
-          RawValue: 128476
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Floor (8)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 47
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46419
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -46262
-      Position:
-        X:
-          RawValue: 66496
-        Y:
-          RawValue: 4436
-        Z:
-          RawValue: -254846
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 21890
-        Z:
-          RawValue: 178490
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (13)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 48
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46419
-        Z:
-          RawValue: 0
-        W:
-          RawValue: -46262
-      Position:
-        X:
-          RawValue: 72867
-        Y:
-          RawValue: -543
-        Z:
-          RawValue: -573916
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 21890
-        Z:
-          RawValue: 178490
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (14)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 49
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: -1
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: 607318
-        Y:
-          RawValue: 176926
-        Z:
-          RawValue: -639354
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 21890
-        Z:
-          RawValue: 76466
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (8)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 50
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -2144,6 +1939,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2155,6 +1951,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2164,6 +1961,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 1
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2174,6 +1977,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2192,16 +1996,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1605632
+          RawValue: -1333231
         Y:
-          RawValue: -9175
+          RawValue: 241827
         Z:
-          RawValue: 147456
+          RawValue: -443819
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2214,6 +2018,327 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 4
+      ForceStatic:
+        Value: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1323066
+        Y:
+          RawValue: 24903
+        Z:
+          RawValue: 549430
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -144864
+        Y:
+          RawValue: 232194
+        Z:
+          RawValue: -508565
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -469564
+        Y:
+          RawValue: 232718
+        Z:
+          RawValue: -67186
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -132947
+        Y:
+          RawValue: 232718
+        Z:
+          RawValue: -165330
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride:
+    - ContentsOverride:
+      - Value: 27
+      - Value: 43
+      - Value: 50
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2235,6 +2360,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2252,6 +2378,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2270,16 +2397,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 364314
+          RawValue: 70757
         Y:
-          RawValue: 159645
+          RawValue: 470941
         Z:
-          RawValue: -456982
+          RawValue: -30933
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2292,6 +2419,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2313,6 +2441,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2330,6 +2459,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2348,16 +2478,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1687552
+          RawValue: -1125730
         Y:
-          RawValue: -13565
+          RawValue: 218234
         Z:
-          RawValue: -412876
+          RawValue: -783394
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2370,6 +2500,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2391,6 +2522,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2408,6 +2540,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2426,16 +2559,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -589824
+          RawValue: -900510
         Y:
-          RawValue: -13565
+          RawValue: 215810
         Z:
-          RawValue: -642252
+          RawValue: -581913
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2448,6 +2581,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2469,6 +2603,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2486,6 +2621,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2504,16 +2640,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -491520
+          RawValue: -449404
         Y:
-          RawValue: -13565
+          RawValue: 215810
         Z:
-          RawValue: -642252
+          RawValue: -716246
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2526,6 +2662,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2547,6 +2684,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2564,6 +2702,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2582,16 +2721,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -393216
+          RawValue: -519526
         Y:
-          RawValue: -13565
+          RawValue: 215810
         Z:
-          RawValue: -642252
+          RawValue: -616502
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2604,19 +2743,349 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1323066
+        Y:
+          RawValue: 24903
+        Z:
+          RawValue: 549430
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -144864
+        Y:
+          RawValue: 232194
+        Z:
+          RawValue: -508565
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -469564
+        Y:
+          RawValue: 232718
+        Z:
+          RawValue: -67186
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 5
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 127
+      RarityModifier: 0
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -794930
+        Y:
+          RawValue: 215810
+        Z:
+          RawValue: -504243
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 21211382
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 19660800
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 131072
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2634,6 +3103,15 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 15
+      Data:
+        _field_used_: CHESTOPENTRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2648,21 +3126,21 @@ MonoBehaviour:
     - ShapeConfig:
         ShapeType: 2
         SphereRadius:
-          RawValue: 32768
+          RawValue: 0
         PositionOffset:
           X:
-            RawValue: 0
+            RawValue: -31457
           Y:
-            RawValue: 49152
+            RawValue: 0
           Z:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 26214
+            RawValue: 98304
           Y:
-            RawValue: 49152
+            RawValue: 98304
           Z:
-            RawValue: 26214
+            RawValue: 13107
         RotationOffset:
           X:
             RawValue: 0
@@ -2674,7 +3152,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 0
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2682,22 +3160,22 @@ MonoBehaviour:
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D:
     - CallbackFlags:
-        Value: 448
+        Value: 0
     Transform2D: []
     Transform2DVertical: []
     Transform3D:
     - Position:
         X:
-          RawValue: -171593
+          RawValue: 305001
         Y:
-          RawValue: -16056
+          RawValue: 543031
         Z:
-          RawValue: -291315
+          RawValue: 108844
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11796480
+          RawValue: 3516661
         Z:
           RawValue: 0
     View: []
@@ -2710,19 +3188,25 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 19660800
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 131072
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2740,6 +3224,15 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 16
+      Data:
+        _field_used_: PLAYERSALIVETRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2754,21 +3247,21 @@ MonoBehaviour:
     - ShapeConfig:
         ShapeType: 2
         SphereRadius:
-          RawValue: 32768
+          RawValue: 0
         PositionOffset:
           X:
-            RawValue: 0
+            RawValue: 45875
           Y:
-            RawValue: 49152
+            RawValue: -52428
           Z:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 26214
+            RawValue: 52428
           Y:
-            RawValue: 49152
+            RawValue: 65536
           Z:
-            RawValue: 26214
+            RawValue: 6553
         RotationOffset:
           X:
             RawValue: 0
@@ -2780,7 +3273,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 0
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2788,24 +3281,24 @@ MonoBehaviour:
     PhysicsCallbacks2D: []
     PhysicsCallbacks3D:
     - CallbackFlags:
-        Value: 448
+        Value: 0
     Transform2D: []
     Transform2DVertical: []
     Transform3D:
     - Position:
         X:
-          RawValue: -171659
+          RawValue: -826210
         Y:
-          RawValue: -16056
+          RawValue: 334692
         Z:
-          RawValue: -555884
+          RawValue: -93773
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11796480
+          RawValue: 21211382
         Z:
-          RawValue: 0
+          RawValue: -2
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -2816,112 +3309,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 65536
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 3321
-        Y:
-          RawValue: -1017
-        Z:
-          RawValue: -412032
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 11796480
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2930,23 +3318,27 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
-        RawValue: 6553600
+        RawValue: 39321600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 0
       SplashRadius:
-        RawValue: 65536
+        RawValue: 0
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 0
+      - RawValue: 0
       GameId:
-        Value: 109
+        Value: 66
     DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2964,6 +3356,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2988,23 +3381,23 @@ MonoBehaviour:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 26213
+            RawValue: 38287
           Y:
-            RawValue: 49152
+            RawValue: 55120
           Z:
-            RawValue: 26213
+            RawValue: 100690
         RotationOffset:
           X:
             RawValue: 0
           Y:
-            RawValue: 0
+            RawValue: -5898240
           Z:
             RawValue: 0
         UserTag: 0
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 0
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3018,1432 +3411,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1631
+          RawValue: -943435
         Y:
-          RawValue: -8682
+          RawValue: 218759
         Z:
-          RawValue: -508610
+          RawValue: -621220
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1631
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -328386
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1279583
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -317849
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1279583
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -367001
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1279583
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -416153
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1279583
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -465305
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -1279583
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -514457
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -501350
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -104857
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -452198
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -104857
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -403046
-        Y:
-          RawValue: -8682
-        Z:
-          RawValue: -104857
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 582024
-        Y:
-          RawValue: 155157
-        Z:
-          RawValue: -543817
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694732
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 582025
-        Y:
-          RawValue: 155157
-        Z:
-          RawValue: -494665
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694732
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 6553600
-      DamagePower:
-        RawValue: 6553600
-      SplashRadius:
-        RawValue: 65536
-      DestructionLengthTime:
-        RawValue: 65536
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 582025
-        Y:
-          RawValue: 155157
-        Z:
-          RawValue: -445513
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 17694732
+          RawValue: 15533314
         Z:
           RawValue: 0
     View: []

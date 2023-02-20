@@ -93,7 +93,7 @@ namespace Quantum
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
 				var data = container->PlayersData;
-				var matchData = container->GetPlayersMatchData(_f, out var leader);
+				var matchData = container->GeneratePlayersMatchData(_f, out var leader);
 				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity,
 				                              playerKiller, data[playerKiller].Entity,
 				                              leader, data[leader].Entity, data[playerKiller].CurrentKillStreak,

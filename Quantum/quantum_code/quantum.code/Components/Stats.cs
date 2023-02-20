@@ -17,7 +17,7 @@ namespace Quantum
 	public unsafe partial struct Stats
 	{
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity)
+		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -28,6 +28,7 @@ namespace Quantum
 			IsImmune = false;
 			ModifiersPtr = Ptr.Null;
 			SpellEffectsPtr = Ptr.Null;
+			MinimumHealth = minimumHealth;
 
 			Values[(int) StatType.Health] = new StatData(baseHealth, baseHealth, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
@@ -57,8 +58,16 @@ namespace Quantum
 			CurrentStatusModifierType = StatusModifierType.None;
 			CurrentShield = 0;
 			IsImmune = false;
-			
-			f.ResolveList(Modifiers).Clear();
+
+			var modifiersList = f.ResolveList(Modifiers);
+			foreach (var modifier in modifiersList)
+			{
+				// We won't remove modifiers that are meant to stay forever.
+				if (modifier.Duration != FP.MaxValue)
+				{
+					modifiersList.Remove(modifier);
+				}
+			}
 			RefreshStats(f, weapon, gear);
 			
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
@@ -75,13 +84,11 @@ namespace Quantum
 			var might = RefreshStats(f, weapon, gear);
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
-			var newShieldAmount = Math.Min(CurrentShield + Math.Max(newMaxShield - previousMaxShield, 0), newMaxShield);
 
-			// Adapts the player health & shield if new equipment changes player's HP
+			// Adapts the player health & shield if new equipment changes player's max HP or shields capacity
 			SetCurrentHealth(f, e, newHealthAmount);
-			SetCurrentShield(f, e, newShieldAmount, previousMaxShield);
+			SetCurrentShield(f, e, CurrentShield, previousMaxShield);
 			
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
@@ -104,7 +111,7 @@ namespace Quantum
 		{
 			var list = f.ResolveList(Modifiers);
 			var modifier = list[index];
-			
+
 			ApplyModifierUpdate(modifier, true);
 			
 			list.RemoveAt(index);
@@ -197,6 +204,7 @@ namespace Quantum
 			{
 				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Shield,
+				OpType = OperationType.Multiply,
 				Power = modifierPower,
 				Duration = FP.MaxValue,
 				StartTime = FP._0,
@@ -235,7 +243,9 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
+			
 			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell.PowerAmount).AsInt);
+
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
 
@@ -246,18 +256,19 @@ namespace Quantum
 			}
 
 			// If there's shields then we reduce it first
-			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
-				damageAmount -= shieldDamageAmount;
+				
+				// We don't do any damage to health if a player had at least 1 shields
+				damageAmount = 0;
 				
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
-
+			
 			if (damageAmount <= 0)
 			{
 				return;
@@ -273,7 +284,7 @@ namespace Quantum
 
 			CurrentShield = amount > currentShieldCapacity ? currentShieldCapacity : amount;
 			
-			if (CurrentShield != previousShield)
+			if (CurrentShield != previousShield || previousShieldCapacity != currentShieldCapacity)
 			{
 				f.Events.OnShieldChanged(entity, previousShield, CurrentShield, previousShieldCapacity, currentShieldCapacity);
 			}
@@ -303,7 +314,7 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 
 			CurrentHealth = Math.Min(maxHealth, amount);
-			CurrentHealth = Math.Max(CurrentHealth, 0);
+			CurrentHealth = Math.Max(CurrentHealth, MinimumHealth);
 
 			if (CurrentHealth != previousHealth)
 			{
@@ -346,7 +357,7 @@ namespace Quantum
 			{
 				ApplyModifierUpdate(modifier, false);
 			}
-
+			
 			return might;
 		}
 		
@@ -383,16 +394,23 @@ namespace Quantum
 		{
 			var statData = Values[(int) modifier.Type];
 			var multiplier = modifier.IsNegative ? -1 : 1;
-			var additiveValue = statData.BaseValue * modifier.Power * multiplier;
 
+			var additiveValue = modifier.OpType switch
+			{
+				OperationType.Add      => modifier.Power * multiplier,
+				OperationType.Multiply => statData.BaseValue * modifier.Power * multiplier,
+				_                      => statData.BaseValue * modifier.Power * multiplier
+			};
+			
 			if (modifier.Type != StatType.Speed)
 			{
 				additiveValue = FPMath.CeilToInt(additiveValue);
 			}
-
+			
 			statData.StatValue += toRemove ? additiveValue * -FP._1 : additiveValue;
 
 			Values[(int) modifier.Type] = statData;
+
 		}
 	}
 }

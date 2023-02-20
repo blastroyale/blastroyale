@@ -11,6 +11,10 @@ namespace FirstLight.Game.Messages
 		public List<KeyValuePair<UniqueId,Equipment>> Rewards;
 		public uint newLevel;
 	}
+	
+	public struct TutorialBattlePassCompleted : IMessage
+	{
+	}
 
 	public struct GameCompletedRewardsMessage : IMessage
 	{

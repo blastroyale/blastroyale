@@ -147,7 +147,7 @@ namespace Quantum.Systems
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
 				PowerAmount = (uint) damage,
-				TeamSource = (int) TeamType.Enemy,
+				TeamSource = Constants.TEAM_ID_NEUTRAL,
 				Victim = playerEntity
 			};
 			f.Add(newSpell, spell);

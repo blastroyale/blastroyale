@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -19,14 +20,15 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, Equipment loadoutWeapon)
+		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, 
+						   Equipment loadoutWeapon, List<Modifier> modifiers = null, uint minimumHealth = 0)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			Player = playerRef;
-			TeamId = teamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + teamId;
+			TeamId = teamId;
 			CurrentWeaponSlot = 0;
 			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
@@ -60,8 +62,18 @@ namespace Quantum
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
+
+			f.AddOrGet<Stats>(e, out var stats);
+			if (modifiers != null)
+			{
+				foreach (var modifier in modifiers)
+				{
+					stats->AddModifier(f, e, modifier);
+				}
+			}
 			
-			f.Add<Stats>(e);
+			stats->MinimumHealth = (int)minimumHealth;
+
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
@@ -98,10 +110,10 @@ namespace Quantum
 			{
 				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
-				
+				var specials = GetSpecials(f, weaponConfig);
 				for (var i = 0; i < defaultSlot->Specials.Length; i++)
 				{
-					var id = weaponConfig.Specials[i];
+					var id = specials[i];
 					
 					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
@@ -175,7 +187,10 @@ namespace Quantum
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 
-			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
+			var equipmentData = new EquipmentEventData();
+			equipmentData.Gear.CopyFixedArray(Gear);
+			equipmentData.CurrentWeapon = CurrentWeapon;
+			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 			f.Signals.PlayerDead(Player, e);
 
@@ -227,9 +242,10 @@ namespace Quantum
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
+			var specials = GetSpecials(f, weaponConfig);
 			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
 			{
-				var id = weaponConfig.Specials[i];
+				var id = specials[i];
 				var special	= id == default ? new Special() : new Special(f, id);
 
 				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
@@ -485,6 +501,7 @@ namespace Quantum
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
+			
 			//the total time it takes for a burst to complete should be divded by the burst_interval_divider
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
@@ -501,6 +518,22 @@ namespace Quantum
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 
 			return weaponConfig;
+		}
+
+		private GameId[] GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
+		{
+			var specials = weaponConfig.Specials.ToArray();
+			
+			if (f.Context.GameModeConfig.Id == "Tutorial")
+			{
+				specials[0] = GameId.Random;
+				if (specials[1] != GameId.Random)
+				{
+					specials[1] = GameId.TutorialGrenade;
+				}
+			}
+
+			return specials;
 		}
 	}
 }

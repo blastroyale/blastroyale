@@ -20,22 +20,26 @@ namespace FirstLight.Game.Configs
 			public string GameModeId;
 			public MatchType MatchType;
 			public List<string> Mutators;
-
-			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators)
+			public bool Squads;
+			public bool NFT;
+			
+			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft)
 			{
 				GameModeId = gameModeId;
 				MatchType = matchType;
 				Mutators = mutators;
+				Squads = isSquads;
+				NFT = needNft;
 			}
 
 			public override string ToString()
 			{
-				return $"{GameModeId}, {MatchType}, Mutators({string.Join(",", Mutators)})";
+				return $"{GameModeId}, {MatchType}{(Squads ? ", Squads" : "")}, Mutators({string.Join(",", Mutators)})";
 			}
 
 			public bool Equals(GameModeEntry other)
 			{
-				return GameModeId == other.GameModeId && MatchType == other.MatchType && Equals(Mutators, other.Mutators);
+				return GameModeId == other.GameModeId && MatchType == other.MatchType && Equals(Mutators, other.Mutators) && Squads == other.Squads && NFT == other.NFT;
 			}
 
 			public override bool Equals(object obj)
@@ -45,7 +49,7 @@ namespace FirstLight.Game.Configs
 
 			public override int GetHashCode()
 			{
-				return HashCode.Combine(GameModeId, (int) MatchType, Mutators);
+				return HashCode.Combine(GameModeId, (int) MatchType, Mutators, Squads, NFT);
 			}
 			
 			public static bool operator !=(GameModeEntry obj1, GameModeEntry obj2) => !(obj1.Equals(obj2));

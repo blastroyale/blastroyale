@@ -12,7 +12,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			Disconnection,
 			Session,
 			Login,
-			LinkGuestAccount
+			LinkGuestAccount,
+			MatchLoad
 		}
 		public AnalyticsCallsErrors(IAnalyticsService analyticsService) : base(analyticsService)
 		{

@@ -7,6 +7,13 @@ namespace FirstLight.Game.Messages
 {
 	public struct MainMenuOpenedMessage : IMessage { }
 	public struct PlayScreenOpenedMessage : IMessage { }
+	public struct ShopScreenOpenedMessage : IMessage { }
+	public struct SkinsScreenOpenedMessage : IMessage { }
+	public struct EquipmentScreenOpenedMessage : IMessage { }
+	public struct EquipmentSlotOpenedMessage : IMessage
+	{
+		public GameIdGroup Slot;
+	}
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage
 	{
@@ -36,8 +43,8 @@ namespace FirstLight.Game.Messages
 		public bool JoinIfExists;
 	}
 
-	public struct SetTeamIdMessage : IMessage
+	public struct ReinitializeMenuViewsMessage : IMessage
 	{
-		public int TeamId;
+		
 	}
 }

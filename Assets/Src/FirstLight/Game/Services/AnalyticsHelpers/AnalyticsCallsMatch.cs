@@ -4,9 +4,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
-using PlayFab;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
@@ -54,6 +52,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_services = services;
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(MatchDeadAction);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
@@ -63,7 +62,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				_gameIdsLookup.Add(gameId, gameId.ToString());
 			}
 		}
-
+		
 		/// <summary>
 		/// Logs when we entered the matchmaking room
 		/// </summary>
@@ -77,6 +76,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_matchType = room.GetMatchType().ToString();
 			_gameModeId = room.GetGameModeId();
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			var gameModeConfig =
+				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			_mapId = ((int) config.Map).ToString();
 			
 			var data = new Dictionary<string, object>
@@ -85,6 +86,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
+				{"team_size", gameModeConfig.MaxPlayersInTeam },
 				{"is_spectator", IsSpectator().ToString()},
 				{"playfab_player_id", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
 			};
@@ -108,7 +110,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			var totalPlayers = room.PlayerCount;
 			var loadout = _gameData.EquipmentDataProvider.Loadout;
 			var ids = _gameData.UniqueIdDataProvider.Ids;
@@ -129,6 +131,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"total_players", totalPlayers.ToString()},
 				{"total_bots", (NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers).ToString()},
 				{"map_id", _gameIdsLookup[config.Map]},
+				{"team_size", gameModeConfig.MaxPlayersInTeam },
 				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
 				{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
 				{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
@@ -183,6 +186,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"match_time", f.Time.ToString()},
 				{"player_rank", playerRank.ToString()},
+				{"team_id", localPlayerData.Data.TeamId },
+				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam },
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
@@ -228,7 +233,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", f.Time.ToString()},
 				{"player_rank", playerRank.ToString()},
-				{"player_attacks", _playerNumAttacks.ToString()}
+				{"player_attacks", _playerNumAttacks.ToString()},
+				{"team_id", localPlayerData.Data.TeamId },
+				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
@@ -243,9 +250,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 
-			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
-			if (!(playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
-			    (killerData.IsBot && playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))))
+			// We cannot send this event for everyone every time so we only send if we are the killer or its a suicide
+			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
+					playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
 			{
 				return;
 			}
@@ -259,12 +266,53 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"killed_name", deadData.GetPlayerName()},
-				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
-				{"killer_name", killerData.GetPlayerName()}
+				{"killed_reason", "player"},
+				{"player_name", killerData.GetPlayerName()}
 			};
 			
 			QueueEvent(AnalyticsEvents.MatchKillAction, data);
 		}
+		
+		/// <summary>
+		/// Logs when a player dies
+		/// </summary>
+		private void MatchDeadAction(EventOnLocalPlayerDead playerDeadEvent)
+		{
+			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
+			if (!playerDeadEvent.Game.PlayerIsLocal(playerDeadEvent.Player))
+			{
+				return;
+			}
+
+			var frame = playerDeadEvent.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GeneratePlayersMatchData(frame, out _);
+			
+			var deadData = playerData[playerDeadEvent.Player];
+			
+			string killerName = "";
+			bool isKillerBot = false;
+			if (playerDeadEvent.PlayerKiller.IsValid)
+			{
+				var killerData = playerData[playerDeadEvent.PlayerKiller];
+				killerName = killerData.GetPlayerName();
+				isKillerBot = killerData.IsBot;
+			}
+			
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"killed_name", deadData.GetPlayerName()},
+				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(isKillerBot?"bot":"player")},
+				{"killer_name", killerName}
+			};
+			
+			QueueEvent(AnalyticsEvents.MatchDeadAction, data);
+		}
+
 
 		/// <summary>
 		/// Logs when a chest is opened

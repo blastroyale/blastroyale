@@ -18,23 +18,23 @@ namespace FirstLight.Game.Utils
 	public static class NetworkUtils
 	{
 		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
-		
+
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, Vector3 dropzonePosRot,
-		                                                  string roomName, MatchType matchType, List<string> mutators, bool gameHasBots)
+		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
 			if (FeatureFlags.FORCE_RANKED)
 			{
-				matchType = MatchType.Ranked;
+				setup.MatchType = MatchType.Ranked;
 			}
-			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
-			var roomNameFinal = isRandomMatchmaking ? null : roomName;
+			var isRandomMatchmaking = setup.MatchType != MatchType.Custom;
+
+			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;
-			var maxPlayers = GetMaxPlayers(gameModeConfig, mapConfig);
-			
+			var maxPlayers = GetMaxPlayers(setup.GameMode(), setup.Map());
+
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
 				roomNameFinal += RoomCommitLockData;
@@ -43,8 +43,8 @@ namespace FirstLight.Game.Utils
 			if (!isRandomMatchmaking)
 			{
 				emptyTtl = roomNameFinal.IsPlayTestRoom()
-					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					           : GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
+					? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+					: GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 			else
 			{
@@ -61,7 +61,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, dropzonePosRot, matchType, mutators, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(setup, dropzonePosRot),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -72,10 +72,10 @@ namespace FirstLight.Game.Utils
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
-						             ? (byte) maxPlayers
-						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+						? (byte) maxPlayers
+						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
-				}
+				},
 			};
 
 			return roomParams;
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,	
+				ExpectedUsers = null,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -110,12 +110,12 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MatchType matchType, List<string> mutators)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(MatchRoomSetup setup)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators),
-				ExpectedMaxPlayers = (byte) GetMaxPlayers(gameModeConfig, mapConfig),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup),
+				ExpectedMaxPlayers = (byte) GetMaxPlayers(setup.GameMode(), setup.Map()),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -128,7 +128,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static QuantumMapConfig GetRotationMapConfig(string gameModeId, IGameServices services)
 		{
-			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 			var compatibleMaps = new List<QuantumMapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex =
@@ -163,16 +163,15 @@ namespace FirstLight.Game.Utils
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, Vector3 dropzonePosRot, MatchType matchType, List<string> mutators, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(MatchRoomSetup setup, Vector3 dropzonePosRot)
 		{
-			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators);
+			var properties = GetJoinRoomProperties(setup);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
-			
-			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
 
 			// TODO - RENAME "SpawnPattern"
-			if (gameModeConfig.SpawnPattern)
+			if (setup.GameMode().SpawnPattern)
 			{
 				properties.Add(GameConstants.Network.DROP_ZONE_POS_ROT, dropzonePosRot);
 			}
@@ -180,7 +179,7 @@ namespace FirstLight.Game.Utils
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MatchType matchType, List<string> mutators)
+		private static Hashtable GetJoinRoomProperties(MatchRoomSetup setup)
 		{
 			return new Hashtable
 			{
@@ -188,16 +187,16 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Map},
-				
-				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_MATCH_TYPE, matchType.ToString()},
+				{GameConstants.Network.ROOM_PROPS_MAP, setup.Map().Map},
 
 				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_GAME_MODE, gameModeConfig.Id},
-				
+				{GameConstants.Network.ROOM_PROPS_MATCH_TYPE, setup.MatchType.ToString()},
+
+				// For matchmaking, rooms are segregated by casual/ranked.
+				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode().Id},
+
 				// A list of mutators used in this room
-				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", mutators)}
+				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}
 			};
 		}
 
@@ -216,7 +215,7 @@ namespace FirstLight.Game.Utils
 		{
 			return Application.internetReachability != NetworkReachability.NotReachable;
 		}
-		
+
 		/// <summary>
 		/// Requests to check if the device is offline
 		/// </summary>
@@ -232,7 +231,7 @@ namespace FirstLight.Game.Utils
 		{
 			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
 		}
-		
+
 		/// <summary>
 		/// Requests to check if the device is disconnted from internet, or Photon is disconnected
 		/// </summary>
@@ -255,15 +254,28 @@ namespace FirstLight.Game.Utils
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Returns a random dropzone vector to be added to room creation params
 		/// </summary>
 		public static Vector3 GetRandomDropzonePosRot()
 		{
 			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
-			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
-							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
+			return new Vector3(Random.Range(-radiusPosPercent, radiusPosPercent),
+				Random.Range(-radiusPosPercent, radiusPosPercent), Random.Range(0, 360));
+		}
+
+
+		public static float GetMatchmakingTime(MatchType type, QuantumGameModeConfig gameModeConfig, QuantumGameConfig quantumGameConfig)
+		{
+			if (type == MatchType.Ranked)
+			{
+				return quantumGameConfig.RankedMatchmakingTime.AsFloat;
+			}
+
+			return gameModeConfig.ShouldUsePlayfabMatchmaking()
+				? quantumGameConfig.PlayfabMatchmakingTime.AsFloat
+				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
 		}
 	}
 }

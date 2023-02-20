@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
@@ -24,10 +25,10 @@ namespace Quantum
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_TEAMS)]
 		public bool Teams;
 
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
+		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
 		public uint MaxPlayersInTeam;
 
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
+		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
 		public uint MinPlayersInTeam;
 		
 		[PropertyTooltip(DESC_ALLOWED_MAPS)]
@@ -99,6 +100,10 @@ namespace Quantum
 
 		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_MARKER)]
 		public bool DeathMarker;
+		
+		[FoldoutGroup("Player"), PropertyTooltip(DESC_MINIMUM_HEALTH),
+		 InfoBox("If more than zero the player will never die. Only works with real players, not bots.", InfoMessageType.Warning)]
+		public uint MinimumHealth;
 
 #endregion
 
@@ -107,6 +112,9 @@ namespace Quantum
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
 		public bool AllowBots;
 		
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_USE_ANOTHER_MODE_BOTS)]
+		public string UseBotsFromGamemode;
+
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
 		public bool BotSearchForCrates;
 
@@ -115,6 +123,9 @@ namespace Quantum
 
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
 		public BotWeaponSearchStrategy BotWeaponSearchStrategy;
+
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_TEAM_OVERRIDE)]
+		public int BotsTeamOverride;
 
 #endregion
 
@@ -149,7 +160,7 @@ namespace Quantum
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true), PropertyTooltip(DESC_SYSTEMS)]
 		public List<string> Systems;
 
-#region Odin Helpers
+		#region Odin Helpers
 
 		private IEnumerable<string> GetOptionalSystems()
 		{
@@ -178,6 +189,7 @@ namespace Quantum
 		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
+		private const string DESC_MINIMUM_HEALTH = "Health will not fall below this value. Not for bots.";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
 		private const string DESC_AIRDROP_NEAR_PLAYER = "Airdrop will spawn near player.";
 		private const string DESC_SHRINKING_CIRCLE_CENTERED_ON_PLAYER = "Shrinking circle center is set on player.";
@@ -189,9 +201,11 @@ namespace Quantum
 		private const string DESC_DEATH_DROP_STRATEGY = "Which strategy of drop we use when the player dies.";
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
+		private const string DESC_BOT_USE_ANOTHER_MODE_BOTS = "Use bot configs from another gamemode";
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";
 		private const string DESC_BOT_RESPAWN = "Allows bots to respawn when they get killed.";
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
+		private const string DESC_BOT_TEAM_OVERRIDE = "If >0 it will override all the bot's team number";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";

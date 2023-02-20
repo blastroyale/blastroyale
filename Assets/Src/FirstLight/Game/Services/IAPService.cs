@@ -8,6 +8,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
@@ -57,7 +58,7 @@ namespace FirstLight.Game.Services
 
 		private readonly IGameCommandService _commandService;
 		private readonly IMessageBrokerService _messageBroker;
-		private readonly IPlayfabService _playfabService;
+		private readonly IGameBackendService _gameBackendService;
 		private readonly IAnalyticsService _analyticsService;
 		private readonly IGameDataProvider _gameDataProvider;
 
@@ -65,12 +66,12 @@ namespace FirstLight.Game.Services
 		private ProductCatalog _defaultCatalog;
 
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
-						  IPlayfabService playfabService, IAnalyticsService analyticsService,
+						  IGameBackendService gameBackendService, IAnalyticsService analyticsService,
 						  IGameDataProvider gameDataProvider)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
-			_playfabService = playfabService;
+			_gameBackendService = gameBackendService;
 			_analyticsService = analyticsService;
 			_gameDataProvider = gameDataProvider;
 
@@ -181,7 +182,7 @@ namespace FirstLight.Game.Services
 				}
 			};
 
-			_playfabService.CallFunction(request.Command, result =>
+			_gameBackendService.CallFunction(request.Command, result =>
 			{
 				FLog.Info($"Purchase handled by the server: {product.definition.id}, {result.FunctionName}");
 
@@ -199,7 +200,7 @@ namespace FirstLight.Game.Services
 				_store.ConfirmPendingPurchase(product);
 
 				SendAnalyticsEvent(product, reward);
-			}, _playfabService.HandleError, request);
+			}, null, request);
 		}
 
 		private void ValidateReceipt(Product product)
@@ -219,7 +220,10 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct),
-				_playfabService.HandleError);
+				e =>
+				{
+					_gameBackendService.HandleError(e,null, AnalyticsCallsErrors.ErrorType.Session);
+				});
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest
@@ -230,7 +234,11 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), _playfabService.HandleError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct),
+				e =>
+				{
+					_gameBackendService.HandleError(e,null, AnalyticsCallsErrors.ErrorType.Session);
+				});
 #endif
 		}
 
@@ -249,5 +257,6 @@ namespace FirstLight.Game.Services
 			float price = (float) catalogItem.googlePrice.value;
 			_analyticsService.EconomyCalls.Purchase(product, reward, price, NET_INCOME_MODIFIER);
 		}
+		// TODO - ADD PLAYFAB ERROR HANDLING IDENTIAL TO THE ONE IN GAME BACKEND NETWORK SERVICE
 	}
 }

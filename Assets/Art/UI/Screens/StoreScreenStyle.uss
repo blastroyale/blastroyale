@@ -50,20 +50,20 @@
 }
 
 .store-item__body__title--rare {
-    background-color: rgb(9, 187, 255);
+    background-color: rgb(171, 173, 193);
 }
 
 .store-item__body__title--epic {
-    background-color: rgb(186, 37, 25);
+    background-color: rgb(30, 123, 130);
 }
 
 .store-item__body__title--legendary {
-    background-color: rgb(240, 209, 94);
+    background-color: rgb(162, 52, 206);
 }
 
 .store-item__body__icon {
-    width: 280px;
-    height: 280px;
+    width: 400px;
+    height: 400px;
 }
 
 .store-item__body__price {

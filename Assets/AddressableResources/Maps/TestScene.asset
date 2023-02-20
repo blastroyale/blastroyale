@@ -381,19 +381,25 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 6553600000
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 131072
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -411,6 +417,124 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 1
+      Data:
+        _field_used_: PLAYERSALIVETRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 85196
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 13107
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 0
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -218661
+        Y:
+          RawValue: 59493
+        Z:
+          RawValue: 491420
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter:
+    - Health:
+        RawValue: 6553600000
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -487,6 +611,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -500,6 +625,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -517,6 +643,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -593,6 +720,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -604,6 +732,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -613,6 +742,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -623,6 +758,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -663,6 +799,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -674,6 +811,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -683,6 +821,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -693,6 +837,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -733,6 +878,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -744,6 +890,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -753,6 +900,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -763,6 +916,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -803,6 +957,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -814,6 +969,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -823,6 +979,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -833,6 +995,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -873,6 +1036,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -884,6 +1048,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -893,6 +1058,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -903,6 +1074,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -943,6 +1115,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -954,6 +1127,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -963,6 +1137,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -973,6 +1153,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1013,6 +1194,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1024,6 +1206,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1033,6 +1216,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1043,6 +1232,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1083,6 +1273,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1094,6 +1285,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1103,6 +1295,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1113,6 +1311,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1153,6 +1352,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1164,6 +1364,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1173,6 +1374,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1183,6 +1390,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1223,6 +1431,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1234,6 +1443,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1243,6 +1453,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1253,6 +1469,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1293,6 +1510,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1304,6 +1522,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1313,6 +1532,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1323,6 +1548,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1363,6 +1589,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1374,6 +1601,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1383,6 +1611,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1393,6 +1627,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1433,6 +1668,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1444,6 +1680,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1453,6 +1690,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1463,6 +1706,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1503,6 +1747,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1514,6 +1759,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1523,6 +1769,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1533,6 +1785,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1573,6 +1826,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1584,6 +1838,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1593,6 +1848,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1603,6 +1864,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1643,6 +1905,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1654,6 +1917,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1663,6 +1927,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1673,6 +1943,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1713,6 +1984,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1724,6 +1996,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1733,6 +2006,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1743,6 +2022,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1783,6 +2063,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1794,6 +2075,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1803,6 +2085,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1813,6 +2101,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1853,6 +2142,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1864,6 +2154,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1873,6 +2164,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1883,6 +2180,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1923,6 +2221,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -1934,6 +2233,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1943,6 +2243,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -1953,6 +2259,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -1993,6 +2300,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2004,6 +2312,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2013,6 +2322,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2023,6 +2338,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2063,6 +2379,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2074,6 +2391,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2083,6 +2401,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2093,6 +2417,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2133,6 +2458,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2144,6 +2470,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2153,6 +2480,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2163,6 +2496,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2203,6 +2537,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2214,6 +2549,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2223,6 +2559,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2233,6 +2575,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2273,6 +2616,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2284,6 +2628,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2293,6 +2638,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2303,6 +2654,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2343,6 +2695,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2354,6 +2707,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2363,6 +2717,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2373,6 +2733,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2413,6 +2774,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2424,6 +2786,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2433,6 +2796,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2443,6 +2812,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2483,6 +2853,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2494,6 +2865,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2503,6 +2875,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2513,6 +2891,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2553,6 +2932,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2564,6 +2944,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2573,6 +2954,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2583,6 +2970,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2623,6 +3011,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2634,6 +3023,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2643,6 +3033,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2653,6 +3049,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2693,6 +3090,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2704,6 +3102,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2713,6 +3112,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2723,6 +3128,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2763,6 +3169,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2774,6 +3181,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2783,6 +3191,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2793,6 +3207,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2833,6 +3248,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2844,6 +3260,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2853,6 +3270,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2863,6 +3286,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2903,6 +3327,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2914,6 +3339,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2923,6 +3349,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2933,6 +3365,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -2973,6 +3406,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2984,6 +3418,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2993,6 +3428,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3003,6 +3444,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3043,6 +3485,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3054,6 +3497,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3063,6 +3507,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3073,6 +3523,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3113,6 +3564,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3124,6 +3576,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3133,6 +3586,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3143,6 +3602,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3183,6 +3643,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3194,6 +3655,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3203,6 +3665,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3213,6 +3681,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3253,6 +3722,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3264,6 +3734,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3273,6 +3744,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3283,6 +3760,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3323,6 +3801,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3334,6 +3813,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3343,6 +3823,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3353,6 +3839,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3393,6 +3880,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3404,6 +3892,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3413,6 +3902,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3423,6 +3918,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3463,6 +3959,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3474,6 +3971,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3483,6 +3981,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3493,6 +3997,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3533,6 +4038,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3544,6 +4050,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3553,6 +4060,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3563,6 +4076,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3603,6 +4117,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3614,6 +4129,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3623,6 +4139,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3633,6 +4155,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3673,6 +4196,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3684,6 +4208,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3693,6 +4218,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3703,6 +4234,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3743,6 +4275,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3754,6 +4287,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3763,6 +4297,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3773,6 +4313,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3813,6 +4354,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3824,6 +4366,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3833,6 +4376,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3843,6 +4392,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3883,6 +4433,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3894,6 +4445,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3903,6 +4455,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3913,6 +4471,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3953,6 +4512,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3964,6 +4524,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3973,6 +4534,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -3983,6 +4550,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4023,6 +4591,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4034,6 +4603,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4043,6 +4613,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4053,6 +4629,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4093,6 +4670,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4104,6 +4682,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4113,6 +4692,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4123,6 +4708,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4163,6 +4749,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4174,6 +4761,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4183,6 +4771,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4193,6 +4787,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4233,6 +4828,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4244,6 +4840,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4253,6 +4850,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4263,6 +4866,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4303,6 +4907,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4314,6 +4919,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4323,6 +4929,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4333,6 +4945,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4373,6 +4986,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4384,6 +4998,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4393,6 +5008,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4403,6 +5024,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4443,6 +5065,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4454,6 +5077,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4463,6 +5087,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4473,6 +5103,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4513,6 +5144,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4524,6 +5156,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4533,6 +5166,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4543,6 +5182,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4583,6 +5223,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4594,6 +5235,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4603,6 +5245,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4613,6 +5261,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4653,6 +5302,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4664,6 +5314,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4673,6 +5324,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4683,6 +5340,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4723,6 +5381,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4734,6 +5393,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4743,6 +5403,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4753,6 +5419,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4793,6 +5460,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4804,6 +5472,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4813,6 +5482,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4823,6 +5498,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4863,6 +5539,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4874,6 +5551,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4883,6 +5561,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4893,6 +5577,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -4933,6 +5618,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4944,6 +5630,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4953,6 +5640,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -4963,6 +5656,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5003,6 +5697,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5014,6 +5709,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5023,6 +5719,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5033,6 +5735,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5073,6 +5776,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5084,6 +5788,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5093,6 +5798,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5103,6 +5814,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5143,6 +5855,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5154,6 +5867,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5163,6 +5877,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5173,6 +5893,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5213,6 +5934,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5224,6 +5946,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5233,6 +5956,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5243,6 +5972,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5283,6 +6013,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5294,6 +6025,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5303,6 +6035,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5313,6 +6051,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5353,6 +6092,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5364,6 +6104,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5373,6 +6114,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5383,6 +6130,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5423,6 +6171,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5434,6 +6183,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5443,6 +6193,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5453,6 +6209,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5493,6 +6250,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5504,6 +6262,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5513,6 +6272,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5523,6 +6288,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5563,6 +6329,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5574,6 +6341,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5583,6 +6351,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5593,6 +6367,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5633,6 +6408,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5644,6 +6420,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5653,6 +6430,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5663,6 +6446,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5703,6 +6487,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -5714,6 +6499,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5723,6 +6509,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 0
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -5733,6 +6525,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5773,6 +6566,11 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride:
+    - ContentsOverride:
+      - Value: 27
+      - Value: 43
+      - Value: 50
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -5794,6 +6592,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5811,6 +6610,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5851,6 +6651,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -5872,6 +6673,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5889,6 +6691,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -5929,6 +6732,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -5950,6 +6754,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5967,6 +6772,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6007,6 +6813,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6028,6 +6835,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6045,6 +6853,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6085,6 +6894,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6106,6 +6916,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6123,6 +6934,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6163,6 +6975,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6184,6 +6997,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6201,6 +7015,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6241,6 +7056,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6262,6 +7078,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6279,6 +7096,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6319,6 +7137,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6340,6 +7159,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6357,6 +7177,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6397,6 +7218,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6418,6 +7240,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6435,6 +7258,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6475,6 +7299,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6496,6 +7321,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6513,6 +7339,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6553,6 +7380,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6574,6 +7402,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6591,6 +7420,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6631,6 +7461,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6652,6 +7483,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6669,6 +7501,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6709,6 +7542,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6730,6 +7564,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6747,6 +7582,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6787,6 +7623,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6808,6 +7645,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6825,6 +7663,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6865,6 +7704,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6886,6 +7726,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6903,6 +7744,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -6943,6 +7785,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -6964,6 +7807,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6981,6 +7825,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7021,6 +7866,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7042,6 +7888,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7059,6 +7906,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7099,6 +7947,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7120,6 +7969,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7137,6 +7987,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7177,6 +8028,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7198,6 +8050,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7215,6 +8068,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7255,6 +8109,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7276,6 +8131,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7293,6 +8149,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7333,6 +8190,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7354,6 +8212,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7371,6 +8230,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7411,6 +8271,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7432,6 +8293,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7449,6 +8311,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7489,6 +8352,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7510,6 +8374,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7527,6 +8392,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7567,6 +8433,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7588,6 +8455,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7605,6 +8473,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7645,6 +8514,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7666,6 +8536,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7683,6 +8554,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7723,6 +8595,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7744,6 +8617,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7761,6 +8635,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7801,6 +8676,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7822,6 +8698,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7839,6 +8716,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7879,6 +8757,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7900,6 +8779,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7917,6 +8797,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -7957,6 +8838,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -7978,6 +8860,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7995,6 +8878,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8035,6 +8919,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8056,6 +8941,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8073,6 +8959,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8113,6 +9000,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8134,6 +9022,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8151,6 +9040,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8191,6 +9081,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8212,6 +9103,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8229,6 +9121,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8269,6 +9162,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8290,6 +9184,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8307,6 +9202,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8347,6 +9243,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8368,6 +9265,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8385,6 +9283,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8425,6 +9324,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8446,6 +9346,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8463,6 +9364,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8503,6 +9405,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8524,6 +9427,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8541,6 +9445,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8581,6 +9486,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8602,6 +9508,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8619,6 +9526,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8659,6 +9567,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8680,6 +9589,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8697,6 +9607,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8737,6 +9648,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8758,6 +9670,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8775,6 +9688,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8815,6 +9729,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8836,6 +9751,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8853,6 +9769,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8893,6 +9810,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8914,6 +9832,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8931,6 +9850,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -8971,6 +9891,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -8992,6 +9913,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9009,6 +9931,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9049,6 +9972,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9070,6 +9994,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9087,6 +10012,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9127,6 +10053,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9148,6 +10075,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9165,6 +10093,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9205,6 +10134,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9226,6 +10156,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9243,6 +10174,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9283,6 +10215,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9304,6 +10237,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9321,6 +10255,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9361,6 +10296,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9382,6 +10318,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9399,6 +10336,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9439,6 +10377,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9460,6 +10399,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9477,6 +10417,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9517,6 +10458,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9538,6 +10480,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9555,6 +10498,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9595,6 +10539,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9616,6 +10561,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9633,6 +10579,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9673,6 +10620,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9694,6 +10642,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9711,6 +10660,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9751,6 +10701,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9772,6 +10723,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9789,6 +10741,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9829,6 +10782,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9850,6 +10804,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9867,6 +10822,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9907,6 +10863,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -9928,6 +10885,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9945,6 +10903,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -9985,6 +10944,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10006,6 +10966,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10023,6 +10984,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10063,6 +11025,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10084,6 +11047,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10101,6 +11065,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10141,6 +11106,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10162,6 +11128,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10179,6 +11146,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10219,6 +11187,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10240,6 +11209,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10257,6 +11227,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10297,6 +11268,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10318,6 +11290,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10335,6 +11308,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10375,6 +11349,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10396,6 +11371,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10413,6 +11389,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10453,6 +11430,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10474,6 +11452,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10491,6 +11470,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10531,6 +11511,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10552,6 +11533,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10569,6 +11551,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10609,6 +11592,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10630,6 +11614,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10647,6 +11632,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10687,6 +11673,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10708,6 +11695,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10725,6 +11713,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10765,6 +11754,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10786,6 +11776,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10803,6 +11794,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10843,6 +11835,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10864,6 +11857,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10881,6 +11875,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10921,6 +11916,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -10942,6 +11938,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10959,6 +11956,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -10999,6 +11997,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11020,6 +12019,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11037,6 +12037,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11077,6 +12078,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11098,6 +12100,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11115,6 +12118,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11155,6 +12159,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11176,6 +12181,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11193,6 +12199,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11233,6 +12240,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11254,6 +12262,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11271,6 +12280,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11311,6 +12321,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11332,6 +12343,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11349,6 +12361,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11389,6 +12402,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11410,6 +12424,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11427,6 +12442,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11467,6 +12483,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11488,6 +12505,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11505,6 +12523,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11545,6 +12564,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11566,6 +12586,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11583,6 +12604,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11623,6 +12645,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11644,6 +12667,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11661,6 +12685,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11701,6 +12726,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11722,6 +12748,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11739,6 +12766,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11779,6 +12807,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11800,6 +12829,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11817,6 +12847,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11857,6 +12888,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11878,6 +12910,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11895,6 +12928,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -11935,6 +12969,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -11956,6 +12991,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11973,6 +13009,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12013,6 +13050,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12034,6 +13072,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12051,6 +13090,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12091,6 +13131,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12112,6 +13153,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12129,6 +13171,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12169,6 +13212,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12190,6 +13234,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12207,6 +13252,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12247,6 +13293,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12268,6 +13315,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12285,6 +13333,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12325,6 +13374,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12346,6 +13396,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12363,6 +13414,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12403,6 +13455,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12424,6 +13477,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12441,6 +13495,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12481,6 +13536,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12502,6 +13558,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12519,6 +13576,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12559,6 +13617,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12580,6 +13639,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12597,6 +13657,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12637,6 +13698,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12658,6 +13720,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12675,6 +13738,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12715,6 +13779,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12736,6 +13801,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12753,6 +13819,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12793,6 +13860,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12814,6 +13882,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12831,6 +13900,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12871,6 +13941,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12892,6 +13963,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12909,6 +13981,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -12949,6 +14022,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -12970,6 +14044,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12987,6 +14062,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13027,6 +14103,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -13048,6 +14125,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13065,6 +14143,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13105,6 +14184,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -13126,6 +14206,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13143,6 +14224,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13183,6 +14265,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -13204,6 +14287,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13221,6 +14305,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13261,6 +14346,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -13282,6 +14368,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13299,6 +14386,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13339,6 +14427,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -13360,6 +14449,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13377,6 +14467,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13417,6 +14508,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -13425,6 +14517,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -13434,7 +14528,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -13442,6 +14537,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13459,6 +14555,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13535,6 +14632,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -13543,6 +14641,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -13552,7 +14652,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -13560,6 +14661,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13577,6 +14679,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13653,6 +14756,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -13661,6 +14765,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -13670,7 +14776,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -13678,6 +14785,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13695,6 +14803,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13771,6 +14880,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -13779,6 +14889,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -13788,7 +14900,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -13796,6 +14909,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13813,6 +14927,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -13889,6 +15004,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -13897,6 +15013,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -13906,7 +15024,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -13914,6 +15033,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13931,6 +15051,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14007,6 +15128,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14015,6 +15137,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14024,7 +15148,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14032,6 +15157,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14049,6 +15175,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14125,6 +15252,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14133,6 +15261,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14142,7 +15272,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14150,6 +15281,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14167,6 +15299,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14243,6 +15376,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14251,6 +15385,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14260,7 +15396,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14268,6 +15405,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14285,6 +15423,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14361,6 +15500,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14369,6 +15509,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14378,7 +15520,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14386,6 +15529,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14403,6 +15547,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14479,6 +15624,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14487,6 +15633,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14496,7 +15644,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14504,6 +15653,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14521,6 +15671,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14597,6 +15748,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14605,6 +15757,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14614,7 +15768,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14622,6 +15777,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14639,6 +15795,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14715,6 +15872,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14723,6 +15881,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14732,7 +15892,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14740,6 +15901,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14757,6 +15919,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14833,6 +15996,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14841,6 +16005,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14850,7 +16016,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14858,6 +16025,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14875,6 +16043,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -14951,6 +16120,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -14959,6 +16129,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -14968,7 +16140,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -14976,6 +16149,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14993,6 +16167,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15069,6 +16244,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15077,6 +16253,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15086,7 +16264,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15094,6 +16273,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15111,6 +16291,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15187,6 +16368,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15195,6 +16377,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15204,7 +16388,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15212,6 +16397,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15229,6 +16415,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15305,6 +16492,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15313,6 +16501,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15322,7 +16512,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15330,6 +16521,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15347,6 +16539,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15423,6 +16616,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15431,6 +16625,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15440,7 +16636,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15448,6 +16645,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15465,6 +16663,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15541,6 +16740,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15549,6 +16749,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15558,7 +16760,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15566,6 +16769,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15583,6 +16787,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15659,6 +16864,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15667,6 +16873,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15676,7 +16884,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15684,6 +16893,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15701,6 +16911,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15777,6 +16988,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15785,6 +16997,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15794,7 +17008,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15802,6 +17017,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15819,6 +17035,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -15895,6 +17112,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -15903,6 +17121,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -15912,7 +17132,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -15920,6 +17141,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15937,6 +17159,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16013,6 +17236,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16021,6 +17245,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16030,7 +17256,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16038,6 +17265,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16055,6 +17283,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16131,6 +17360,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16139,6 +17369,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16148,7 +17380,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16156,6 +17389,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16173,6 +17407,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16249,6 +17484,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16257,6 +17493,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16266,7 +17504,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16274,6 +17513,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16291,6 +17531,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16367,6 +17608,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16375,6 +17617,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16384,7 +17628,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16392,6 +17637,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16409,6 +17655,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16485,6 +17732,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16493,6 +17741,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16502,7 +17752,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16510,6 +17761,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16527,6 +17779,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16603,6 +17856,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16611,6 +17865,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16620,7 +17876,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16628,6 +17885,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16645,6 +17903,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16721,6 +17980,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16729,6 +17989,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16738,7 +18000,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16746,6 +18009,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16763,6 +18027,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16839,6 +18104,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16847,6 +18113,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16856,7 +18124,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16864,6 +18133,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16881,6 +18151,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -16957,6 +18228,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -16965,6 +18237,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -16974,7 +18248,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -16982,6 +18257,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -16999,6 +18275,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17075,6 +18352,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17083,6 +18361,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17092,7 +18372,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17100,6 +18381,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17117,6 +18399,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17193,6 +18476,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17201,6 +18485,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17210,7 +18496,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17218,6 +18505,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17235,6 +18523,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17311,6 +18600,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17319,6 +18609,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17328,7 +18620,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17336,6 +18629,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17353,6 +18647,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17429,6 +18724,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17437,6 +18733,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17446,7 +18744,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17454,6 +18753,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17471,6 +18771,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17547,6 +18848,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17555,6 +18857,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17564,7 +18868,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17572,6 +18877,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17589,6 +18895,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17665,6 +18972,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17673,6 +18981,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17682,7 +18992,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17690,6 +19001,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17707,6 +19019,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17783,6 +19096,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17791,6 +19105,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17800,7 +19116,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17808,6 +19125,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17825,6 +19143,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -17901,6 +19220,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -17909,6 +19229,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -17918,7 +19240,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -17926,6 +19249,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -17943,6 +19267,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -18019,6 +19344,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -18027,6 +19353,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -18036,7 +19364,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -18044,6 +19373,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -18061,6 +19391,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -18137,6 +19468,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -18145,6 +19477,8 @@ MonoBehaviour:
     Destructible:
     - IsDestructing:
         Value: 0
+      Destroyer:
+        SceneIndexPlusOne: 0
       TimeToDestroy:
         RawValue: 0
       Health:
@@ -18154,7 +19488,8 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       DestructionLengthTime:
-        RawValue: 65536
+      - RawValue: 49152
+      - RawValue: 163840
       GameId:
         Value: 109
     DummyCharacter: []
@@ -18162,6 +19497,7 @@ MonoBehaviour:
     EquipmentCollectable: []
     GOAPAgent: []
     GameContainer: []
+    Gate: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -18179,6 +19515,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    Trigger: []
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []

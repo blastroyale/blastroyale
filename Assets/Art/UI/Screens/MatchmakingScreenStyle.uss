@@ -8,7 +8,7 @@
 }
 
 .background {
-    background-image: url('/Assets/Art/UI/Textures/background-clouds-fullscreen.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/background-clouds-fullscreen.png?fileID=21300000&guid=3f530cc27360b304985813d124efd4a5&type=3#background-clouds-fullscreen');
     width: 100%;
     height: 100%;
     -unity-background-scale-mode: scale-and-crop;
@@ -19,7 +19,7 @@
 
 .clouds {
     position: absolute;
-    background-image: url('/Assets/Art/UI/Textures/background-clouds.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/background-clouds.png?fileID=21300000&guid=2d0080ea2e7385e498b5def29a77760e&type=3#background-clouds');
     -unity-background-scale-mode: scale-and-crop;
     width: 115%;
     height: 75%;
@@ -156,7 +156,7 @@
 .map {
     width: 100%;
     height: 75%;
-    background-image: url('/Assets/Art/UI/Textures/background-mapselection.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/background-mapselection.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#background-mapselection');
     align-items: center;
     justify-content: center;
     -unity-background-scale-mode: scale-to-fit;
@@ -164,7 +164,7 @@
 
 .map__mask {
     overflow: hidden;
-    background-image: url('/Assets/Art/UI/Vectors/CircleMask.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
     height: 98%;
     width: 98%;
     -unity-background-scale-mode: scale-to-fit;
@@ -177,7 +177,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/Assets/Art/UI/Textures/map-brgenesis.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/map-brgenesis.png?fileID=2800000&guid=d54eb0711a6ab8e45a698fa12ebb578b&type=3#map-brgenesis');
     -unity-background-scale-mode: scale-to-fit;
     width: 100%;
     height: 100%;
@@ -276,4 +276,27 @@
     top: 85px;
     bottom: 0;
     right: 25px;
+}
+
+.map-marker-party {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 172, 255, 255);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.party-markers {
+    justify-content: center;
+    align-items: center;
 }

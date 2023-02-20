@@ -15,6 +15,10 @@ public partial class SROptions
 
 	[Category("Create Game Mode")] public string Mutators { get; set; }
 
+	[Category("Create Game Mode")] public bool Squads { get; set; }
+	
+	[Category("Create Game Mode")] public bool NFT { get; set; }
+
 	[Category("Create Game Mode")]
 	public void SetGameMode()
 	{
@@ -22,14 +26,6 @@ public partial class SROptions
 			new GameModeInfo(GameModeId, MatchType,
 				string.IsNullOrEmpty(Mutators)
 					? new List<string>()
-					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
-	}
-
-	[Category("Squads")] public int TeamId { get; set; }
-
-	[Category("Squads")]
-	public void SetTeamId()
-	{
-		MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new SetTeamIdMessage(){TeamId = TeamId});
+					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(), Squads, NFT);
 	}
 }

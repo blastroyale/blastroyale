@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -12,7 +11,6 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using Quantum;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -85,6 +83,7 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
 			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			mainMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
@@ -134,6 +133,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disconnected.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 		}
 
 		private void SubscribeMessages()
@@ -145,6 +145,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMatchEvents()
 		{
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
@@ -232,7 +233,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			container.GetPlayersMatchData(frame, out var leader);
+			container.GeneratePlayersMatchData(frame, out var leader);
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
@@ -258,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var matchData = container.GeneratePlayersMatchData(frame, out var leader);
 			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			
@@ -382,7 +383,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 			
 			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			// Respawnable game-mode
 			if (gameModeConfig.Lives is 0 or > 1)
@@ -417,6 +418,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			CheckDespawnClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			var f = callback.Game.Frames.Verified;
 
 			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
 		}
@@ -582,10 +584,11 @@ namespace FirstLight.Game.StateMachines
 			CheckDespawnClips(nameof(EventOnPlayerDead), callback.Entity);
 			
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			var f = callback.Game.Frames.Verified;
 
 			_services.AudioFxService.PlayClip3D(AudioId.PlayerDeath, entityView.transform.position);
 		}
-		
+
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
@@ -640,7 +643,6 @@ namespace FirstLight.Game.StateMachines
 						killAudio = AudioId.PlayerKillLevel6;
 						voMultiKillAudio = AudioId.Vo_Kills5;
 					}
-
 					break;
 			}
 
@@ -665,7 +667,8 @@ namespace FirstLight.Game.StateMachines
 
 			// Kill SFX
 			_services.AudioFxService.PlayClip2D(killAudio);
-			
+
+
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
 			{
@@ -679,7 +682,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Killstreak announcer
 			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
-			
+
 			// Clutch announcer
 			if (!frame.TryGet<Stats>(callback.EntityKiller, out var stats))
 			{
@@ -746,6 +749,9 @@ namespace FirstLight.Game.StateMachines
 					break;
 				case GameId.SciCannon:
 					audio = AudioId.ExplosionSciFi;
+					break;
+				case GameId.Barrel:
+					audio = AudioId.ExplosionMedium;
 					break;
 			}
 
@@ -885,7 +891,7 @@ namespace FirstLight.Game.StateMachines
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			
+
 			if (damagedPlayerIsLocal)
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;

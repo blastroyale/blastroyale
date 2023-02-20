@@ -37,6 +37,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
+		[SerializeField, Required] private UiToggleButtonView _dynamicCameraToggle;
+		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
@@ -67,6 +69,8 @@ namespace FirstLight.Game.Presenters
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
+			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
+			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -87,9 +91,10 @@ namespace FirstLight.Game.Presenters
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
+			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
+			_logoutButton.gameObject.SetActive(true);
 
 			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
@@ -108,15 +113,14 @@ namespace FirstLight.Game.Presenters
 			{
 				_connectIdButton.gameObject.SetActive(true);
 				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_not_connected;
 			}
 			else
 			{
 				_connectIdButton.gameObject.SetActive(false);
 				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
-					_gameDataProvider.AppDataProvider.DisplayName.Value);
+				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 		}
 
@@ -179,7 +183,17 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
 		}
-		
+
+		private void OnDynamicCameraChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
+		}
+
+		private void OnScreenshakeToggleChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
+		}
+
 		private void OnHighFpsModeChanged(bool value)
 		{
 			var targetFps = value

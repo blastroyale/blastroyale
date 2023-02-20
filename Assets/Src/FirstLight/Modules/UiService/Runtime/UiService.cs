@@ -643,9 +643,10 @@ namespace FirstLight.UiService
 		{
 			if (!_uiViews.TryGetValue(type, out var uiReference))
 			{
-				OpenLoadingSpinner();
+				// TODO Fix new UITK loading spinner
+				//OpenLoadingSpinner();
 				await LoadUiAsync(type);
-				CloseLoadingSpinner();
+				//CloseLoadingSpinner();
 				
 				if (!_uiViews.TryGetValue(type, out uiReference))
 				{

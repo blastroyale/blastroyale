@@ -23,7 +23,7 @@ namespace FirstLight.Game.Utils
 			public static bool OverrideCurrencyChangedIsCollecting;
 		}
 
-		public static void SaveState(IPlayfabService playfab, IDataProvider dataProvider, Action doneCallback)
+		public static void SaveState(IGameBackendService gameBackend, IDataProvider dataProvider, Action doneCallback)
 		{
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
 			var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
@@ -32,7 +32,7 @@ namespace FirstLight.Game.Utils
 			Directory.CreateDirectory(states);
 
 
-			playfab.FetchServerState(state =>
+			gameBackend.FetchServerState(state =>
 			{
 				foreach (var type in dataProvider.GetKeys())
 				{
@@ -50,7 +50,7 @@ namespace FirstLight.Game.Utils
 
 				FLog.Info($"Writing states to {states}");
 				doneCallback();
-			});
+			}, null);
 #else
 			doneCallback();
 #endif

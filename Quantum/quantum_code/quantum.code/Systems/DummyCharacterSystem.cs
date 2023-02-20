@@ -21,7 +21,7 @@ namespace Quantum.Systems
 		{
 			var targetable = new Targetable
 			{
-				Team = (int) TeamType.Neutral
+				Team = Constants.TEAM_ID_NEUTRAL
 			};
 			
 			f.Add(entity, new PlayerCharacter());
@@ -31,7 +31,7 @@ namespace Quantum.Systems
 			f.GetOrAddSingleton<GameContainer>().AddPlayer(f, playerCharacter->Player, entity, 0, 0, 0, 0, -1);
 
 			f.Add(entity, targetable);
-			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0));
+			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
 		}
 	}

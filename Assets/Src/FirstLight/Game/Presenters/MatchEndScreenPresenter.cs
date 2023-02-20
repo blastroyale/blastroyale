@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var container = f.GetSingleton<GameContainer>();
-			var playersData = container.GetPlayersMatchData(f, out var leader);
+			var playersData = container.GeneratePlayersMatchData(f, out var leader);
 			var localWinner = game.PlayerIsLocal(leader);
 			var localPlayer = playersData[game.GetLocalPlayerRef()];
 			var playerDead = localPlayer.Data.Entity.IsAlive(f);

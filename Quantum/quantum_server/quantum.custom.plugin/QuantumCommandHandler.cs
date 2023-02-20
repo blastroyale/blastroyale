@@ -27,7 +27,6 @@ namespace Quantum
 			int index = ev.Player;
 			if(_plugin.CustomServer.GetPlayFabIdByIndex(ev.Player) == null)
 			{
-				Log.Error("Could not ind playfab id for player " + ev.Player);
 				return;
 			}
 
@@ -95,7 +94,7 @@ namespace Quantum
 			{
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
 				MatchType = _plugin.GetMatchType(),
-				MatchId = _plugin.RoomName
+				MatchId = _plugin.MatchID
 			};
 			commandInstance.FromFrame(frame, quantumValues);
 			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, commandInstance, async);

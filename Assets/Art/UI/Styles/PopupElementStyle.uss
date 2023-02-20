@@ -9,15 +9,18 @@ LocalizedTextField > Label {
 }
 
 .popup-element {
-    width: 1000px;
-    height: 780px;
+    min-width: 400px;
+    min-height: 200px;
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
 }
 
-.popup-element__front {
+.popup-element--big {
     width: 1000px;
     height: 780px;
+}
+
+.popup-element__front {
     border-radius: 20px;
     left: -10px;
     top: -10px;
@@ -29,6 +32,8 @@ LocalizedTextField > Label {
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
+    flex-grow: 1;
+    flex-direction: column;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);

@@ -44,7 +44,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_dimElement = root.Q("Dim").Required();
-			_menuButton =root.Q<Button>("MenuButton").Required();
+			_menuButton = root.Q<Button>("MenuButton").Required();
 			_reconnectButton = root.Q<Button>("ReconnectButton").Required();
 
 			_reconnectButton.clicked += OnReconnectClicked;
@@ -63,13 +63,15 @@ namespace FirstLight.Game.Presenters
 			{
 				OpenNoInternetPopup();
 			}
-			
+
 			// Disconnecting in main menu, players should only be able to reconnect
-			if (_services.NetworkService.LastDisconnectLocation is LastDisconnectionLocation.Menu or LastDisconnectionLocation.Matchmaking)
+			if (_services.NetworkService.LastDisconnectLocation is LastDisconnectionLocation.Menu
+			    or LastDisconnectionLocation.Matchmaking or LastDisconnectionLocation.None)
 			{
 				_menuButton.SetDisplay(false);
 				_reconnectButton.SetDisplay(true);
 			}
+
 			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
@@ -106,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SetFrontDimBlockerActive(true);
-			
+
 			// Just in case reconnect stalls, undim the blocker after X seconds
 			this.LateCoroutineCall(TIMEOUT_DIM_SECONDS, () => { SetFrontDimBlockerActive(false); });
 			Data.ReconnectClicked();
@@ -119,7 +121,7 @@ namespace FirstLight.Game.Presenters
 				Style = AlertButtonStyle.Positive,
 				Text = ScriptLocalization.General.Confirm
 			};
-			
+
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
 				ScriptLocalization.General.NoInternetDescription, button);
 		}

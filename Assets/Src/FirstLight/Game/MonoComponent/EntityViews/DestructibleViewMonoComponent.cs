@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;

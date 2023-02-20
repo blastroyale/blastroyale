@@ -6,6 +6,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'GameLogicService2' " />
     <ItemGroup>
       <PackageReference Include="DistributedLock" Version="2.3.0" />
       <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />

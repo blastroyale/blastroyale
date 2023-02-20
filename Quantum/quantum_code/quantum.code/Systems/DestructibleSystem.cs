@@ -19,17 +19,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref DestructibleFilter filter)
 		{
+
 			if (!filter.Destructible->IsDestructing || f.Time < filter.Destructible->TimeToDestroy)
 			{
 				return;
 			}
 			
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
-			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power, 0,
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.Destructible->Destroyer, filter.Destructible->Destroyer, power, 0,
 			                                filter.Transform->Position);
 
 			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);
-			
+			f.Events.OnHazardLand(filter.Destructible->GameId, filter.Transform->Position, filter.Destructible->Destroyer);
 			f.Add<EntityDestroyer>(filter.Entity);
 		}
 		
@@ -41,9 +42,9 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			destructible->TimeToDestroy = f.Time + destructible->DestructionLengthTime;
+			destructible->TimeToDestroy = f.Time + f.RNG->NextInclusive(destructible->DestructionLengthTime[0], destructible->DestructionLengthTime[1]);
 			destructible->IsDestructing = true;
-			
+			destructible->Destroyer = attacker;
 			f.Events.OnDestructibleScheduled(entity, *destructible);
 		}
 

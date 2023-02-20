@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
-
 	public struct GameModeInfo
 	{
 		public GameModeRotationConfig.GameModeEntry Entry;
@@ -22,9 +23,10 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, DateTime endTime = default)
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft,
+							DateTime endTime = default)
 		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft);
 			EndTime = endTime;
 		}
 
@@ -33,7 +35,7 @@ namespace FirstLight.Game.Services
 			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
 		}
 	}
-	
+
 	/// <summary>
 	/// Stores and provides the currently selected GameMode / MapID to play and provides
 	/// rotational (time limited) game modes.
@@ -44,6 +46,11 @@ namespace FirstLight.Game.Services
 		/// Sets up the initial game mode rotation values - must be called after configs are loaded.
 		/// </summary>
 		void Init();
+
+		/// <summary>
+		/// The currently user Equip data.
+		/// </summary>
+		IEquipmentDataProvider EquipmentDataProvider { get; }
 
 		/// <summary>
 		/// The currently selected GameMode.
@@ -76,11 +83,15 @@ namespace FirstLight.Game.Services
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
+		public IEquipmentDataProvider EquipmentDataProvider { get; }
+
+		public GameModeService(IConfigsProvider configsProvider, IEquipmentDataProvider equipProvider,
+							   IThreadService threadService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
-
+			EquipmentDataProvider = equipProvider;
+			
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe((_, gm) => FLog.Info($"Selected GameMode set to: {gm}"));
@@ -101,7 +112,7 @@ namespace FirstLight.Game.Services
 
 			RefreshGameModes(true);
 		}
-		
+
 		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
@@ -115,6 +126,7 @@ namespace FirstLight.Game.Services
 					}
 				}
 			}
+
 			return false;
 		}
 
@@ -147,7 +159,7 @@ namespace FirstLight.Game.Services
 		}
 
 		private GameModeRotationConfig.GameModeEntry GetCurrentRotationEntry(
-		int slotIndex, out long ticksLeft, out bool rotating)
+			int slotIndex, out long ticksLeft, out bool rotating)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
 

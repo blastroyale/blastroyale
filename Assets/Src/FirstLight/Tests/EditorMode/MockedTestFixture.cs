@@ -42,7 +42,7 @@ namespace FirstLight.Tests.EditorMode
 		// Services
 		protected IGameServices GameServices;
 		protected IDataService DataService;
-		protected IGameBackendNetworkService NetworkService;
+		protected IInternalGameNetworkService NetworkService;
 		protected IMessageBrokerService MessageBrokerService;
 		protected IGameCommandService CommandService;
 		protected IPoolService PoolService;
@@ -70,7 +70,7 @@ namespace FirstLight.Tests.EditorMode
 			// Services
 			GameServices = Substitute.For<IGameServices>();
 			DataService = Substitute.For<IDataService>();
-			NetworkService = Substitute.For<IGameBackendNetworkService>();
+			NetworkService = Substitute.For<IInternalGameNetworkService>();
 			MessageBrokerService = Substitute.For<IMessageBrokerService>();
 			CommandService = Substitute.For<IGameCommandService>();
 			PoolService = Substitute.For<IPoolService>();

@@ -72,7 +72,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerData = container.GeneratePlayersMatchData(frame, out var leader);
 			var playerWinner = playerData[leader];
 
 			_playerWinnerEntity = playerWinner.Data.Entity;

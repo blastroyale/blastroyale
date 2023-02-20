@@ -15,6 +15,7 @@ namespace FirstLight.Game.Views.UITK
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 		private const string DURABILITY_PLUS_AMOUNT = "+{0}";
 
+		private const string UssPriceInsufficient = "requirements--insufficient";
 		private const string UssIconCurrency = "sprite-shared__icon-currency-{0}";
 
 		private VisualElement _durabilityBar;
@@ -46,7 +47,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_durabilityAmount.text =
 				string.Format(DURABILITY_AMOUNT, info.CurrentDurability, info.Equipment.MaxDurability);
-			_durabilityBar.style.flexGrow = info.CurrentDurability / info.Equipment.MaxDurability;
+			_durabilityBar.style.flexGrow = (float) info.CurrentDurability / info.Equipment.MaxDurability;
 
 			_durabilityPlusAmount.text = string.Format(DURABILITY_PLUS_AMOUNT,
 				info.Equipment.MaxDurability - info.CurrentDurability);
@@ -54,6 +55,7 @@ namespace FirstLight.Game.Views.UITK
 			_bottomFiller.SetDisplay(info.IsNft);
 			
 			_repairButton.SetDisplay(!info.IsNft);
+			_repairButton.SetEnabled(!insufficient);
 			_repairButton.SetPrice(info.RepairCost, insufficient);
 
 			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
@@ -64,6 +66,11 @@ namespace FirstLight.Game.Views.UITK
 			_requirementsIcon.RemoveSpriteClasses();
 			_requirementsIcon.AddToClassList(string.Format(UssIconCurrency, info.RepairCost.Key.ToString().ToLowerInvariant()));
 
+			if (insufficient)
+			{
+				_requirements.AddToClassList(UssPriceInsufficient);
+			}
+			
 			_confirmAction = confirmAction;
 		}
 

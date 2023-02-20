@@ -77,7 +77,7 @@ namespace Quantum
 		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			var neutral = (int)TeamType.Neutral;
+			var neutral = Constants.TEAM_ID_NEUTRAL;
 			
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
@@ -257,8 +257,9 @@ namespace Quantum
 		/// A spawn point is valid if no one is in it.
 		/// If all spawn points are filled with players, then the last point on the list will be picked.
 		/// It also activates the return spawn point
+		/// It also changes the bot's Behaviour type if the spawn point has ForceStatic
 		/// </summary>
-		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f)
+		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity )
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
 
@@ -272,12 +273,26 @@ namespace Quantum
 				spawners.Add(pair);
 			}
 
+			BotCharacter* botCharacter = null;
+			var isBot = f.Has<BotCharacter>(playerEntity);
+			if (isBot)
+			{
+				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
+			}
+
+			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter));
+
 			if (spawners.Count == 0)
 			{
 				Log.Error($"There is no {nameof(PlayerSpawner)} active to spawn new a player");
 			}
 
-			var entity = spawners[f.RNG->Next(0, spawners.Count)].Entity;
+			var entity = spawners[0].Entity;
+
+			if (isBot && spawners[0].Component->ForceStatic)
+			{
+				botCharacter->BehaviourType = BotBehaviourType.Static;
+			}
 			
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 
@@ -380,6 +395,50 @@ namespace Quantum
 		{
 			var lookDirection = (rotation * FPVector3.Forward).XZ;
 			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
+		}
+		
+		/// <summary>
+		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
+		/// </summary>
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter)
+		{
+			return (pair, pointerPair) =>
+			{
+				// If its the same spawner type, BotOfType still needs to also compare the Behaviour Type
+				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
+					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
+				{
+					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
+					return f.RNG->Next(-1, 2);
+				}
+				
+				if (!isBot)
+				{
+					if (pair.Component->SpawnerType == SpawnerType.Player)
+					{
+						return -1;
+					}
+				}
+				else
+				{
+					if (pointerPair.Component->SpawnerType == SpawnerType.Player)
+						return -1;
+					if (pair.Component->SpawnerType == SpawnerType.BotOfType)
+					{
+						return pair.Component->BehaviourType == botCharacter->BehaviourType ? -1 : 1;
+					}
+					if (pointerPair.Component->SpawnerType == SpawnerType.BotOfType)
+					{
+						return pointerPair.Component->BehaviourType == botCharacter->BehaviourType ? 1 : -1;
+					}
+					if (pair.Component->SpawnerType == SpawnerType.AnyBot)
+					{
+						return -1;
+					}
+				}
+
+				return 1;
+			};
 		}
 	}
 }

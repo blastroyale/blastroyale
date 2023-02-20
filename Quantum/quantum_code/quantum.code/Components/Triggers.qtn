@@ -1,0 +1,23 @@
+component Trigger
+{
+    EntityRef Target;
+    
+    TriggerData Data;
+}
+
+union TriggerData
+{
+    PlayersAliveTriggerData PlayersAliveTriggerData;
+    ChestOpenTriggerData ChestOpenTriggerData;
+}
+
+struct PlayersAliveTriggerData
+{
+    int PlayersAlive;
+}
+
+struct ChestOpenTriggerData
+{
+}
+
+signal TriggerActivated(entity_ref target, TriggerData triggerData);

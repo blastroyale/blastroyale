@@ -24,6 +24,11 @@ namespace FirstLight.Game.Utils
 		/// To use local configurations as opposed to remote configurations.
 		/// </summary>
 		public bool UseLocalConfigs = false;
+
+		/// <summary>
+		/// If the tutorial should be skipped
+		/// </summary>
+		public bool DisableTutorial = false;
 	}
 	
 	
@@ -34,12 +39,6 @@ namespace FirstLight.Game.Utils
 	public static class FeatureFlags
 	{
 		private static LocalFeatureFlagConfig _localConfig = null;
-		
-		/// <summary>
-		/// If true will use email/pass authentication.
-		/// If false will only use device id authentication.
-		/// </summary>
-		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit
@@ -60,9 +59,14 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
-		/// Enables / disables item durability checks
+		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
-		public static bool ITEM_DURABILITY = false;
+		public static bool ITEM_DURABILITY_NON_NFTS = true;
+		
+		/// <summary>
+		/// Enables / disables item durability checks for NFTs
+		/// </summary>
+		public static bool ITEM_DURABILITY_NFTS = false;
 
 		/// <summary>
 		/// If true all matches will be handled as ranked matches
@@ -78,7 +82,32 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool SQUAD_PINGS = true;
 
+		/// <summary>
+		/// Flag to determine if we should use playfab matchmaking
+		/// </summary>
+		public static bool PLAYFAB_MATCHMAKING = false;
+
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool TUTORIAL = true;
+		
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool ALLOW_SKIP_TUTORIAL = true;
+		
+		/// <summary>
+		/// If should have specific tutorial battle pass for newbies
+		/// </summary>
+		public static bool TUTORIAL_BATTLE_PASS = true;
+		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
@@ -106,9 +135,14 @@ namespace FirstLight.Game.Utils
 				FORCE_RANKED = forceRanked;
 			}
 			
-			if (TrySetFlag("ITEM_DURABILITY", overrideData, out var itemDurability))
+			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
-				ITEM_DURABILITY = itemDurability;
+				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
+			}
+			
+			if (TrySetFlag("ITEM_DURABILITY_NFTS", overrideData, out var itemDurabilityNFTs))
+			{
+				ITEM_DURABILITY_NFTS = itemDurabilityNFTs;
 			}
 			
 			if (TrySetFlag("STORE_ENABLED", overrideData, out var storeEnabled))
@@ -120,8 +154,17 @@ namespace FirstLight.Game.Utils
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
-		}
+			
+			if (TrySetFlag("PLAYFAB_MATCHMAKING", overrideData, out var pfmm))
+			{
+				PLAYFAB_MATCHMAKING = pfmm;
+			}
 
+			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
+			{
+				SQUAD_PINGS = squadPings;
+			}
+		}
 
 		/// <summary>
 		/// Reads locally set feature flags to override feature flags or perform setup needed.
@@ -136,6 +179,11 @@ namespace FirstLight.Game.Utils
 			if (_localConfig.UseLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+
+			if (_localConfig.DisableTutorial)
+			{
+				TUTORIAL = false;
 			}
 		}
 

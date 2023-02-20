@@ -1,17 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -32,6 +29,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AuthenticationState _authenticationState;
 		private readonly AudioState _audioState;
 		private readonly NetworkState _networkState;
+		private readonly TutorialState _tutorialState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
@@ -40,7 +38,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiServiceInit _uiService;
 
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
-								IGameBackendNetworkService networkService, IConfigsAdder configsAdder,
+								IInternalGameNetworkService networkService, IInternalTutorialService tutorialService,
+								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
 								IVfxInternalService<VfxId> vfxService)
 		{
@@ -50,12 +49,30 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
+			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
+			_coreLoopState = new CoreLoopState(services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
+			
+#if DEVELOPMENT_BUILD
+			Statechart.Statechart.OnStateTimed += (state, millis) =>
+			{
+				FLog.Info($"[State Time] {state} took {millis}ms");
+				services.AnalyticsService.LogEvent("state-time", new AnalyticsData()
+				{
+					{"state", state},
+					{"milliseconds", millis},
+					{"device-memory-mb", SystemInfo.systemMemorySize },
+					{"device-model", SystemInfo.deviceModel },
+					{"device-name", SystemInfo.deviceName },
+					{"cpu", SystemInfo.processorType }
+				});
+			};
+#endif
 		}
+		
 
 		/// <inheritdoc cref="IStatechart.Run"/>
 		public void Run()
@@ -67,22 +84,29 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechart.Trigger(eventTrigger);
 		}
+		
+		
 
 		private void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var initialAssets = stateFactory.TaskWait("Initial Asset");
+			var initialConfigs = stateFactory.TaskWait("Initial Configs");
 			var internetCheck = stateFactory.Choice("Internet Check");
 			var initialLoading = stateFactory.Nest("Initial Loading");
 			var authentication = stateFactory.Nest("Authentication");
 			var core = stateFactory.Split("Core");
 
-			initial.Transition().Target(initialAssets);
+			initial.Transition().Target(initialConfigs);
 			initial.OnExit(SubscribeEvents);
+			
+			initialConfigs.OnEnter(CheckDeviceSetup);
+			initialConfigs.WaitingFor(LoadInitialConfigs).Target(initialAssets);
 
+			initialAssets.OnEnter(_authenticationState.QuickAsyncLogin);
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
-
+			
 			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp)
 				.Target(final);
 			internetCheck.Transition().Target(initialLoading);
@@ -93,9 +117,17 @@ namespace FirstLight.Game.StateMachines
 			authentication.Nest(_authenticationState.Setup).Target(core);
 			authentication.OnExit(InitializeRemainingLogic);
 
-			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
+			core.Split(_networkState.Setup, _audioState.Setup, _tutorialState.Setup, _coreLoopState.Setup).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+
+		private async Task LoadInitialConfigs()
+		{
+			_gameLogic.InitLocal();
+			await LoadRequiredAuthenticationConfigs();
+			await VersionUtils.LoadVersionDataAsync();
 		}
 
 		private void SubscribeEvents()
@@ -109,15 +141,28 @@ namespace FirstLight.Game.StateMachines
 
 		private void InitializeLocalLogic()
 		{
-			_dataService.LoadData<AppData>();
-			_gameLogic.InitLocal();
-
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
 
 			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
+		}
+
+		private void CheckDeviceSetup()
+		{
+			_dataService.LoadData<AppData>();
+#if UNITY_ANDROID
+			if (SystemInfo.systemMemorySize <= 5000)
+			{
+				var appData = _dataService.GetData<AppData>();
+				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
+				{
+					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
+					_dataService.SaveData<AppData>();
+				}
+			}
+#endif
 		}
 
 		private void InitializeRemainingLogic()
@@ -150,25 +195,28 @@ namespace FirstLight.Game.StateMachines
 				ScriptLocalization.General.NoInternetDescription, button);
 #endif
 		}
+		
+		private async Task LoadRequiredAuthenticationConfigs()
+		{
+			var quantumAsset = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address);
+			_configsAdder.AddSingletonConfig(quantumAsset);
+			_services.AssetResolverService.UnloadAsset(quantumAsset);
+			
+			var liveopsFeatureFlags = await _services.AssetResolverService.LoadAssetAsync<LiveopsFeatureFlagConfigs>(AddressableId.Configs_LiveopsFeatureFlagConfigs.GetConfig().Address);
+			_configsAdder.AddConfigs(data => data.UniqueIdentifier(), liveopsFeatureFlags.Configs);
+			_services.AssetResolverService.UnloadAsset(liveopsFeatureFlags);
+		}
 
 		private async Task LoadCoreAssets()
 		{
 			var time = Time.realtimeSinceStartup;
-			
-			await VersionUtils.LoadVersionDataAsync();
-
 			var uiAddress = AddressableId.Configs_Settings_UiConfigs.GetConfig().Address;
-			var quantumAddress = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
 			var asset = await _services.AssetResolverService.LoadAssetAsync<UiConfigs>(uiAddress);
-			var quantumAsset =
-				await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(quantumAddress);
-			
 			_uiService.Init(asset);
-			_configsAdder.AddSingletonConfig(quantumAsset);
+		
 			_services.AssetResolverService.UnloadAsset(asset);
 
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
-			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 			
 			var dic = new Dictionary<string, object>

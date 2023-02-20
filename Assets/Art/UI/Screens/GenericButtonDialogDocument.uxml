@@ -9,7 +9,6 @@
                     <ui:Label name="Title" text="TITLE TEXT GOES HERE" class="font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
-                    <ui:VisualElement name="BackgroundPattern" class="content__background content__background--button-popup" />
                     <ui:Label name="Desc" focusable="false" text="DESC TEXT GOES HERE" class="font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">

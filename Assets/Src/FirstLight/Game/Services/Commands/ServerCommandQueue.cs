@@ -28,16 +28,15 @@ namespace FirstLight.Game.Services
 	{
 		private IDataService _data;
 		private IGameLogic _logic;
-		private IPlayfabService _playfab;
+		private IGameBackendService _gameBackend;
 		private Queue<ServerCommandQueueEntry> _queue;
 		private IGameServices _services;
-
-
-		public ServerCommandQueue(IDataService data, IGameLogic logic, IPlayfabService playfab, IGameServices services)
+		
+		public ServerCommandQueue(IDataService data, IGameLogic logic, IGameBackendService gameBackend, IGameServices services)
 		{
 			_data = data;
 			_logic = logic;
-			_playfab = playfab;
+			_gameBackend = gameBackend;
 			_queue = new();
 			_services = services;
 		}
@@ -149,7 +148,6 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			_queue.Clear(); // clear to make easier for testing
 #endif
-			_playfab.HandleError(error);
 		}
 
 
@@ -158,7 +156,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnCommandException(string exceptionMsg)
 		{
-			DebugUtils.SaveState(_playfab, _data, () =>
+			DebugUtils.SaveState(_gameBackend, _data, () =>
 			{
 #if UNITY_EDITOR
 				FLog.Error(exceptionMsg);
@@ -190,13 +188,13 @@ namespace FirstLight.Game.Services
 		private void UpdateConfiguration(ulong serverVersion, IGameCommand lastCommand)
 		{
 			var configAdder = _logic.ConfigsProvider as IConfigsAdder;
-			_playfab.GetTitleData(PlayfabConfigurationProvider.ConfigName, configString =>
+			_gameBackend.GetTitleData(PlayfabConfigurationProvider.ConfigName, configString =>
 			{
 				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
 				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
 				FLog.Info($"Updated game configs to version {serverVersion}");
 				RollbackToServerState(lastCommand);
-			});
+			}, null);
 		}
 
 		/// <summary>
@@ -205,7 +203,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void RollbackToServerState<TCommand>(TCommand lastCommand) where TCommand : IGameCommand
 		{
-			_playfab.FetchServerState(state =>
+			_gameBackend.FetchServerState(state =>
 			{
 				foreach (var typeFullName in state.Keys)
 				{
@@ -215,7 +213,7 @@ namespace FirstLight.Game.Services
 
 				FLog.Verbose("Fetched user state from server");
 				OnServerExecutionFinished();
-			});
+			}, null);
 		}
 
 		/// <summary>
@@ -258,7 +256,7 @@ namespace FirstLight.Game.Services
 					{ CommandFields.ConfigurationVersion, _logic.ConfigsProvider.Version.ToString() }
 				}
 			};
-			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
+			_gameBackend.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
 		}
 		
 

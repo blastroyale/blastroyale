@@ -72,47 +72,41 @@ namespace FirstLight.Game.Presenters
 		private async void UpdatePlayerSkinMenu()
 		{
 			var data = GameIdGroup.PlayerSkin.GetIds();
-
 			var listCount = data.Count;
 			
-			_collectionListRows = new List<CollectionListRow>(listCount / 2);
-			_itemRowMap = new Dictionary<GameId, int>(listCount/ 2);
+			Debug.Log("List Count: " + listCount);
+			
+			_collectionListRows = new List<CollectionListRow>(listCount / 3);
+			_itemRowMap = new Dictionary<GameId, int>(listCount/ 3);
 
-			for (var i = 0; i < listCount; i += 2)
+			for (var i = 0; i < listCount; i += 3)
 			{
 				var item1 = data[i];
 
 				if (i + 1 >= data.Count)
 				{
 					_collectionListRows.Add(
-						new CollectionListRow(new CollectionListRow.Item(item1), null));
+						new CollectionListRow(new CollectionListRow.Item(item1), null, null));
 					_itemRowMap[item1] = _collectionListRows.Count - 1;
 				}
 				else
 				{
 					var item2 = data[i + 1];
+					var item3 = data[i + 2];
 					_collectionListRows.Add(new CollectionListRow(
 						new CollectionListRow.Item(item1),
-						new CollectionListRow.Item(item2)));
+						new CollectionListRow.Item(item2),
+						new CollectionListRow.Item(item3)
+						));
 					_itemRowMap[item1] = _collectionListRows.Count - 1;
 					_itemRowMap[item2] = _collectionListRows.Count - 1;
+					_itemRowMap[item3] = _collectionListRows.Count - 1;
 				}
 			}
 			
 			_collectionList.itemsSource = _collectionListRows;
 			_collectionList.RefreshItems();
 			
-			/*
-			foreach (var id in data)
-			{
-				Debug.Log("Show Element: " + id.GetLocalization());
-
-				var newElement = new CollectionMenuElement();
-				newElement.SetCollectionElement(id);
-				
-				// _collectionList.Add(newElement);
-			}
-			*/
 
 			// _itemTitleText.text = _selectedId.GetLocalization();
 			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
@@ -120,8 +114,6 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement MakeCollectionListItem()
 		{
-			Debug.Log("Make Collection List");
-			
 			var row = new VisualElement
 			{
 				style =
@@ -135,26 +127,27 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			var item1 = new EquipmentCardElement {name = "item-1"};
-			var item2 = new EquipmentCardElement {name = "item-2"};
+			var item1 = new CollectionCardElement {name = "item-1"};
+			var item2 = new CollectionCardElement {name = "item-2"};
+			var item3 = new CollectionCardElement {name = "item-3"};
 
 			// item1.clicked += OnEquipmentClicked;
 			// item2.clicked += OnEquipmentClicked;
 
 			row.Add(item1);
 			row.Add(item2);
+			row.Add(item3);
 
 			return row;
 		}
 		
 		private void BindCollectionListItem(VisualElement visualElement, int index)
 		{
-			Debug.Log("Bind Collection List Item");
-			
 			var row = _collectionListRows[index];
 
-			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
-			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
+			var card1 = visualElement.Q<CollectionCardElement>("item-1");
+			var card2 = visualElement.Q<CollectionCardElement>("item-2");
+			var card3 = visualElement.Q<CollectionCardElement>("item-3");
 
 			/*
 			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
@@ -186,11 +179,11 @@ namespace FirstLight.Game.Presenters
 			public Item Item2 { get; }
 			public Item Item3 { get; }
 
-			public CollectionListRow(Item item1, Item item2)
+			public CollectionListRow(Item item1, Item item2, Item item3)
 			{
 				Item1 = item1;
 				Item2 = item2;
-				// Item3 = item3;
+				Item3 = item3;
 			}
 
 			internal class Item

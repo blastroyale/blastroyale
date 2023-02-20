@@ -20,7 +20,7 @@ namespace FirstLight.Game.Presenters
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
-		
+
 		private const float circleDefaultSize = 32;
 		private const float squareDefaultSize = 512;
 
@@ -37,7 +37,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blockerElementTop;
 
 		private VisualElement _highlighterElement;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -52,38 +52,35 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Blocks full screen
 		/// </summary>
-		/// <param name="doc"></param>
-		public void BlockFullScreen(UIDocument doc)
+		public void BlockFullScreen()
 		{
 			_blockerElementRight = new VisualElement();
 			_blockerElementRight.AddToClassList(BLOCKER_ELEMENT_STYLE);
 			Root.Add(_blockerElementRight);
 			SetBlockerValues(_blockerElementRight,
-				Root.resolvedStyle.height*2,
-				Root.resolvedStyle.width*2,
-				Root.resolvedStyle.height/2,
-				 Root.worldBound.width/2);
-			
+				Root.resolvedStyle.height * 2,
+				Root.resolvedStyle.width * 2,
+				Root.resolvedStyle.height / 2,
+				Root.worldBound.width / 2);
+
 			_blockerElementLeft = new VisualElement();
 			Root.Add(_blockerElementLeft);
-			
+
 			_blockerElementBottom = new VisualElement();
 			Root.Add(_blockerElementBottom);
-			
+
 			_blockerElementTop = new VisualElement();
 			Root.Add(_blockerElementTop);
 		}
 
 		/// <summary>
-		/// Creates blocker elements around ui element object with passed class
+		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="veClass"></param>
-		/// <returns></returns>
-		public void BlockAround(UIDocument doc, string veClass)
+		public void BlockAround<T>(string elementName = null, string className = null)
+			where T : UiPresenter, IUIDocumentPresenter
 		{
-			doc.rootVisualElement.Query(className: veClass)
-				.ForEach(CreateBlockers);
+			var doc = _uiService.GetUi<T>().Document;
+			doc.rootVisualElement.Q(elementName, className);
 		}
 
 		/// <summary>
@@ -106,25 +103,23 @@ namespace FirstLight.Game.Presenters
 		/// <param name="sizeMultiplier"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <exception cref="Exception"></exception>
-		public void Highlighter<T> ( string className = null, string elementName = null, float sizeMultiplier = 1)
-			where T: UiPresenter
+		public void Highlighter<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
+			where T : UiPresenter, IUIDocumentPresenter
 		{
-			UiPresenter presenter = _uiService.GetUi<T>();
+			var doc = _uiService.GetUi<T>().Document;
 			VisualElement targetElement = null;
 
 			if (className != null)
 			{
-				targetElement = presenter.Document.rootVisualElement.Q(className: className).Required();
+				targetElement = doc.rootVisualElement.Q(className: className).Required();
 			}
 
 			if (elementName != null)
 			{
-				targetElement = presenter.Document.rootVisualElement.Q<VisualElement>(elementName).Required();
+				targetElement = doc.rootVisualElement.Q<VisualElement>(elementName).Required();
 			}
 
 			CreateHighlight(targetElement, sizeMultiplier);
-		
-
 		}
 
 		/// <summary>
@@ -176,7 +171,7 @@ namespace FirstLight.Game.Presenters
 				objElement.worldBound.y - Root.worldBound.height, objElement.worldBound.x);
 		}
 
-		void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)
+		private void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)
 		{
 			blocker.style.height = height;
 			blocker.style.width = width;

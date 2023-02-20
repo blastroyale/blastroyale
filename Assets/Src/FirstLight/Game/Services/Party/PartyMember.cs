@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstLight.Game.Services.Party
 {
@@ -12,7 +14,9 @@ namespace FirstLight.Game.Services.Party
 		public bool Local { get; }
 		public bool Ready { get; }
 
-		public PartyMember(string playfabID, string displayName, uint bppLevel, uint trophies, bool leader, bool local, bool ready)
+		public Dictionary<string, string> RawProperties;
+
+		public PartyMember(string playfabID, string displayName, uint bppLevel, uint trophies, bool leader, bool local, bool ready, Dictionary<string, string> rawProperties)
 		{
 			PlayfabID = playfabID;
 			DisplayName = displayName;
@@ -21,6 +25,25 @@ namespace FirstLight.Game.Services.Party
 			Leader = leader;
 			Local = local;
 			Ready = ready;
+			RawProperties = rawProperties;
+		}
+
+		protected bool Equals(PartyMember other)
+		{
+			return RawProperties.Count == other.RawProperties.Count && !RawProperties.Except(other.RawProperties).Any() && PlayfabID == other.PlayfabID && DisplayName == other.DisplayName && BPPLevel == other.BPPLevel && Trophies == other.Trophies && Leader == other.Leader && Local == other.Local && Ready == other.Ready;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((PartyMember) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(RawProperties, PlayfabID, DisplayName, BPPLevel, Trophies, Leader, Local, Ready);
 		}
 
 		public override string ToString()

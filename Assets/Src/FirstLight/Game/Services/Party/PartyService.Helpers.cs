@@ -62,7 +62,7 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// Parse Ready Status
-			if (!m.MemberData.ContainsKey(ReadyProperty) || !bool.TryParse(m.MemberData[ReadyProperty], out var readyBool))
+			if (!m.MemberData.ContainsKey(ReadyMemberProperty) || !bool.TryParse(m.MemberData[ReadyMemberProperty], out var readyBool))
 			{
 				readyBool = false;
 			}
@@ -75,7 +75,8 @@ namespace FirstLight.Game.Services.Party
 				bppLevel: bppLevelInt,
 				local: Local().EntityId == m.MemberEntity.Id,
 				leader: l.Owner.Id == m.MemberEntity.Id,
-				ready: readyBool
+				ready: readyBool,
+				rawProperties: m.MemberData
 			);
 		}
 

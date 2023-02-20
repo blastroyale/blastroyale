@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Services;
 using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.MultiplayerModels;
@@ -99,6 +100,13 @@ namespace FirstLight.Game.Services.Party
 		Task SetLobbyProperty(string key, string value);
 
 		/// <summary>
+		/// Set a property in the local member
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="value"></param>
+		Task SetMemberProperty(string key, string value);
+
+		/// <summary>
 		/// Delete a lobby property
 		/// </summary>
 		Task DeleteLobbyProperty(string key);
@@ -139,61 +147,17 @@ namespace FirstLight.Game.Services.Party
 		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
 
 
-		public async Task SetLobbyProperty(string key, string value)
-		{
-			if (!HasParty.Value)
-			{
-				throw new PartyException(PartyErrors.NoParty);
-			}
-
-			if (!LocalPartyMember().Leader)
-			{
-				throw new PartyException(PartyErrors.NoPermission);
-			}
-
-			Debug.Log($"setting property {key} to " + _lobbyId);
-			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
-			{
-				LobbyId = _lobbyId,
-				LobbyData = new Dictionary<string, string>()
-				{
-					{key, value}
-				}
-			});
-		}
-
-		public async Task DeleteLobbyProperty(string key)
-		{
-			if (!HasParty.Value)
-			{
-				throw new PartyException(PartyErrors.NoParty);
-			}
-
-			if (!LocalPartyMember().Leader)
-			{
-				throw new PartyException(PartyErrors.NoPermission);
-			}
-
-			Debug.Log($"setting property {key} to " + _lobbyId);
-			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
-			{
-				LobbyId = _lobbyId,
-				LobbyDataToDelete = new List<string> {key}
-			});
-		}
-
 		// Services
 		private IPlayfabPubSubService _pubsub;
 		private IPlayerDataProvider _playerDataProvider;
 		private IAppDataProvider _appDataProvider;
 
-
 		// State
 		private Lobby _lobby;
 		private string _lobbyId;
-		
 
-		SemaphoreSlim accessSemaphore = new SemaphoreSlim(1, 1);
+
+		SemaphoreSlim accessSemaphore = new(1, 1);
 
 		private IObservableField<bool> HasParty { get; }
 		private IObservableField<bool> PartyReady { get; }
@@ -217,6 +181,7 @@ namespace FirstLight.Game.Services.Party
 			PartyID = new ObservableField<string>(null);
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
 		}
+
 
 		/// <inheritdoc/>
 		public async Task CreateParty()
@@ -356,8 +321,58 @@ namespace FirstLight.Game.Services.Party
 			SendAnalyticsAction("Join");
 		}
 
+		public async Task SetLobbyProperty(string key, string value)
+		{
+			if (!HasParty.Value)
+			{
+				throw new PartyException(PartyErrors.NoParty);
+			}
+
+			if (!LocalPartyMember().Leader)
+			{
+				throw new PartyException(PartyErrors.NoPermission);
+			}
+
+			Debug.Log($"setting property {key} to " + _lobbyId);
+			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			{
+				LobbyId = _lobbyId,
+				LobbyData = new Dictionary<string, string>()
+				{
+					{key, value}
+				}
+			});
+		}
+
+		public async Task DeleteLobbyProperty(string key)
+		{
+			if (!HasParty.Value)
+			{
+				throw new PartyException(PartyErrors.NoParty);
+			}
+
+			if (!LocalPartyMember().Leader)
+			{
+				throw new PartyException(PartyErrors.NoPermission);
+			}
+
+			Debug.Log($"setting property {key} to " + _lobbyId);
+			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
+			{
+				LobbyId = _lobbyId,
+				LobbyDataToDelete = new List<string> {key}
+			});
+		}
+
 		/// <inheritdoc/>
 		public async Task Ready(bool ready)
+		{
+			await SetMemberProperty(ReadyMemberProperty, ready.ToString());
+			SendAnalyticsAction($"Ready {ready}");
+		}
+
+		/// <inheritdoc/>
+		public async Task SetMemberProperty(string key, string value)
 		{
 			try
 			{
@@ -373,7 +388,6 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.NoPermission);
 				}
 
-				if (localPartyMember.Ready == ready) return;
 
 				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 				{
@@ -381,7 +395,7 @@ namespace FirstLight.Game.Services.Party
 					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
 					MemberData = new Dictionary<string, string>()
 					{
-						{"ready", ready.ToString()}
+						{key, value}
 					}
 				});
 			}
@@ -393,8 +407,6 @@ namespace FirstLight.Game.Services.Party
 			{
 				accessSemaphore.Release();
 			}
-
-			SendAnalyticsAction($"Ready {ready}");
 		}
 
 		/// <inheritdoc/>
@@ -524,7 +536,7 @@ namespace FirstLight.Game.Services.Party
 				{
 					if (newValue != value)
 					{
-						LobbyProperties[key] = value;
+						LobbyProperties[key] = newValue;
 					}
 				}
 				else

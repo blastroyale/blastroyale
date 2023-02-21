@@ -1,81 +1,248 @@
-.collection-card--selected {
-    background-image: none;
-    width: 400px;
-    height: 400px;
-    background-color: rgba(255, 255, 255, 255);
-}
-
 .collection-card {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
-    background-color: rgba(255, 255, 255, 255);
-    width: 390px;
-    height: 390px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-slot-back.png?fileID=2800000&guid=dbf33629a45de4830b1198af2ec88192&type=3#collection-slot-back');
+    width: 308px;
+    height: 328px;
+    transition-property: scale;
+    transition-duration: 0.2s;
 }
 
-.collection-card__image {
-    width: 290px;
-    height: 290px;
-    background-image: none;
+.collection-card--marketplace .collection-card__level {
+    display: none;
+}
+
+.collection-card--marketplace .collection-card__badge-holder {
+    display: none;
+}
+
+.collection-card--marketplace .collection-card__notification {
+    display: none;
+}
+
+.collection-card__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--sprite-collectioncard__card-background);
+}
+
+.collection-card:active .collection-card__background {
+    background-image: var(--sprite-collectioncard__card-background-pressed);
+}
+
+.collection-card--selected {
+    scale: 1.1 1.1;
 }
 
 .collection-card--highlighted {
 }
 
 .collection-card__selected-bg {
+    position: absolute;
+    top: -35px;
+    left: -42px;
+    right: -38px;
+    bottom: -37px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
 }
 
-.collection-card__highlight {
+.collection-card--highlighted .collection-card__highlight {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    right: -6px;
+    bottom: -10px;
+    background-image: var(--sprite-home__card-shadow-pink);
 }
 
-.collection-card__background {
+.collection-card--selected .collection-card__selected-bg {
+    opacity: 1;
+    background-image: var(--sprite-home__card-selected);
 }
 
 .collection-card__card-holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column-reverse;
 }
 
-.collection-card--shadow {
+.collection-card:active .collection-card__card-holder {
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+}
+
+.collection-card__rarity {
+    width: 291px;
+    height: 237px;
+    position: absolute;
+    left: 9px;
+    top: 2px;
+}
+
+.collection-card__plus-rarity {
+    width: 252px;
+    height: 188px;
+    position: absolute;
+    left: 30px;
+    top: 19px;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: var(--sprite-collectioncard__card-plusrarity);
+}
+
+.collection-card__image {
+    width: 294px;
+    height: 237px;
+    position: absolute;
+    left: 9px;
+    top: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.collection-card__image--shadow {
+    left: 14px;
+    top: 7px;
+    -unity-background-image-tint-color: black;
+}
+
+.collection-card__grade {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    left: 34px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    top: 4px;
+    padding: 0;
+    margin: 0;
+    -unity-font-style: normal;
+}
+
+.collection-card__faction {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    top: 180px;
+    left: 15px;
+}
+
+.collection-card__material {
+    position: absolute;
+    left: -10px;
+    bottom: -3px;
+    width: 48px;
+    height: 48px;
+}
+
+.collection-card__level {
+    font-size: 32px;
+    color: rgb(248, 202, 44);
+    padding: 3px 10px 0 18px;
+    margin: 0;
+    background-image: var(--sprite-collectioncard__card-levelbg);
+    position: absolute;
+    right: 25px;
+    bottom: 87px;
 }
 
 .collection-card__name {
-    color: rgba(239, 192, 44, 255);
-    font-size: 40px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 34px;
+    color: rgb(255, 255, 255);
+    height: 45px;
+    -unity-text-align: middle-center;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.collection-card__adj-cat-holder {
+    position: absolute;
+    bottom: 52px;
+    right: 34px;
+    left: 10px;
+    height: 32px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.collection-card__category {
+    width: 34px;
+    height: 34px;
+}
+
+.collection-card__adjective {
+    color: rgb(148, 140, 198);
+    font-size: 24px;
+    -unity-text-align: middle-left;
 }
 
 .collection-card__badge-holder {
-    font-size: 32px;
-    position: relative;
-    top: -280px;
-    bottom: 0;
-    -unity-text-align: upper-center;
-    background-image: none;
-    background-color: rgba(248, 199, 46, 255);
-    width: 200px;
-    height: 100px;
-    right: -4px;
-    left: 100px;
+    position: absolute;
+    top: -15px;
+    left: 28px;
+    right: 7px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .collection-card__badge-nft {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Equipment%20Card/card-badge-nft.png?fileID=2800000&guid=ad9056538d56f4f8d9970542b2a02c90&type=3#card-badge-nft');
+    width: 66px;
+    height: 28px;
+    position: relative;
+    margin: 2px;
+}
+
+.collection-card__badge-loaned {
+    background-image: none;
+    -unity-text-align: middle-center;
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    padding: 2px 15px 0;
+    background-color: rgb(216, 75, 121);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 8px;
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
+    margin: 2px;
 }
 
 .collection-card__badge-equipped {
+    -unity-text-align: middle-center;
+    font-size: 24px;
+    color: rgb(45, 41, 80);
+    padding: 2px 15px 0;
+    background-color: rgb(248, 199, 46);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-radius: 8px;
+    margin: 2px;
 }
 
 .collection-card__notification {
-}
-
-.notification-icon {
-}
-
-.collection-card--locked {
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-lock.png?fileID=2800000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#collection-lock');
-    width: 148px;
-    height: 160px;
-    background-color: rgba(255, 255, 255, 0);
-    top: -150px;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-    right: -100px;
+    position: absolute;
+    top: -17px;
+    right: -13px;
 }

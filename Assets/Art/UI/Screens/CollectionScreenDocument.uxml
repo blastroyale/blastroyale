@@ -29,8 +29,8 @@
                 <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" style="color: rgb(255, 255, 255); font-size: 32px; position: absolute; right: 148px; bottom: 424px;" />
                 <ui:Label text="ITEM DESCRIPTION&#10; GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 24px; position: absolute; right: 110px; bottom: 334px; height: 54px; width: 293px;" />
             </ui:VisualElement>
-            <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="height: 826px; width: 1292px; position: absolute; top: 224px; left: 424px;" />
+            <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="height: 826px; width: 1292px; position: absolute; top: 224px; left: 424px; justify-content: center; align-items: flex-start;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.CollectionCardElement style="background-color: rgba(255, 255, 255, 0);" />
+        <FirstLight.Game.UIElements.CollectionCardElement style="width: 308px; height: 328px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 0; margin-left: 0; margin-right: 0;" />
     </ui:VisualElement>
 </ui:UXML>

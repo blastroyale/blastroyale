@@ -220,6 +220,18 @@ namespace FirstLight.Game.UIElements
 				// SetCollectionElement(GameId.Male01Avatar);
 			}
 		}
+		
+		public void SetSelected(bool selected)
+		{
+			if (selected)
+			{
+				AddToClassList(UssBlockSelected);
+			}
+			else
+			{
+				RemoveFromClassList(UssBlockSelected);
+			}
+		}
 
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.

@@ -3,6 +3,7 @@
     height: 328px;
     transition-property: scale;
     transition-duration: 0.2s;
+    overflow: visible;
 }
 
 .collection-card--marketplace .collection-card__level {

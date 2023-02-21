@@ -31,6 +31,7 @@
             </ui:VisualElement>
             <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="height: 826px; width: 1292px; position: absolute; top: 224px; left: 424px; justify-content: center; align-items: flex-start;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.CollectionCardElement style="width: 308px; height: 328px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 0; margin-left: 0; margin-right: 0;" />
+        <FirstLight.Game.UIElements.CollectionCardElement style="width: 308px; height: 328px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; margin-top: 0; margin-left: 0; margin-right: 0; overflow: visible;" />
+        <FirstLight.Game.UIElements.EquipmentCardElement />
     </ui:VisualElement>
 </ui:UXML>

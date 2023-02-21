@@ -60,6 +60,7 @@ namespace FirstLight.Game.UIElements
 
 		private readonly VisualElement _locked;
 		private readonly VisualElement _nftBadge;
+		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
 
@@ -103,29 +104,14 @@ namespace FirstLight.Game.UIElements
 			badgeHolder.Add(_nftBadge = new VisualElement {name = "badge-nft"});
 			_nftBadge.AddToClassList(UssBadgeNft);
 
-			//badgeHolder.Add(
-			//	_loanedBadge = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
-			// _loanedBadge.AddToClassList(UssBadgeLoaned);
+			badgeHolder.Add(
+				_loanedBadge = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
+			_loanedBadge.AddToClassList(UssBadgeLoaned);
 
 			badgeHolder.Add(
 				_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
 			_equippedBadge.AddToClassList(UssBadgeEquipped);
 			
-
-			// cardHolder.Add(_grade = new Label("IV") {name = "grade"});
-			// _grade.AddToClassList(UssGrade);
-
-			// cardHolder.Add(_faction = new VisualElement {name = "faction"});
-			// _faction.AddToClassList(UssFaction);
-			// _faction.AddToClassList(string.Format(UssSpriteFaction, "dimensional"));
-
-			// cardHolder.Add(_material = new VisualElement {name = "material"});
-			// _material.AddToClassList(UssMaterial);
-			// _material.AddToClassList(string.Format(UssSpriteMaterial, "bronze"));
-
-			// cardHolder.Add(_level = new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, "15"))
-			//	{name = "level"});
-			// _level.AddToClassList(UssLevel);
 
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
@@ -154,60 +140,7 @@ namespace FirstLight.Game.UIElements
 			{
 				AddToClassList(UssBlockHighlighted);
 			}
-
-			// if (equipment.IsValid())
-			{
-				// SetEquipment(equipment, UniqueId.Invalid);
-			}
 			
-			/*
-			AddToClassList(UssBlock);
-
-			var selectedBg = new VisualElement {name = "--selected"};
-			Add(selectedBg);
-			selectedBg.AddToClassList(UssBlockSelected);
-
-			var highlight = new VisualElement {name = "highlight"};
-			Add(highlight);
-			highlight.AddToClassList(UssHighlight);
-
-			var background = new VisualElement {name = "background"};
-			Add(background);
-			background.AddToClassList(UssBackground);
-
-			var cardHolder = new VisualElement {name = "holder"};
-			Add(cardHolder);
-			cardHolder.AddToClassList(UssCardHolder);
-
-			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
-			_imageShadow.AddToClassList(UssImage);
-			_imageShadow.AddToClassList(UssImageShadow);
-
-			cardHolder.Add(_image = new VisualElement {name = "item-image"});
-			_image.AddToClassList(UssImage);
-
-			var badgeHolder = new VisualElement {name = "badge-holder"};
-			cardHolder.Add(badgeHolder);
-			badgeHolder.AddToClassList(UssBadgeHolder);
-			{
-				badgeHolder.Add(_nftBadge = new VisualElement {name = "badge-nft"});
-				_nftBadge.AddToClassList(UssBadgeNft);
-
-				badgeHolder.Add(
-					_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
-				_equippedBadge.AddToClassList(UssBadgeEquipped);
-			}
-
-			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
-			_name.AddToClassList(UssName);
-
-			cardHolder.Add(_notification = new VisualElement());
-			_notification.AddToClassList(UssNotification);
-			_notification.AddToClassList(UssNotificationIcon);
-			
-			cardHolder.Add(_locked = new VisualElement{name = "--locked"});
-			_locked.AddToClassList(UssBlockLocked);
-			*/
 			// base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
 
 			// if (highlighted)
@@ -250,6 +183,7 @@ namespace FirstLight.Game.UIElements
 			
 			_name.text = gameId.GetLocalization();
 
+			_loanedBadge.SetDisplay(true);
 			_nftBadge.SetDisplay(true);
 
 			LoadImage();

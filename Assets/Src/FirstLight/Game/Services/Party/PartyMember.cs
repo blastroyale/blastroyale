@@ -7,12 +7,12 @@ namespace FirstLight.Game.Services.Party
 	public class PartyMember
 	{
 		public string PlayfabID { get; }
-		public string DisplayName { get; }
-		public uint BPPLevel { get; }
-		public uint Trophies { get; }
-		public bool Leader { get; }
+		public string DisplayName { get; set; }
+		public uint BPPLevel { get; set; }
+		public uint Trophies { get; set; }
+		public bool Leader { get; set; }
 		public bool Local { get; }
-		public bool Ready { get; }
+		public bool Ready { get;  set; }
 
 		public Dictionary<string, string> RawProperties;
 

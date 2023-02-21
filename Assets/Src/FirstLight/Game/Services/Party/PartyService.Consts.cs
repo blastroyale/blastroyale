@@ -25,7 +25,8 @@ namespace FirstLight.Game.Services.Party
 		private static readonly List<string> _memberRemovedReasons = new()
 		{
 			"MemberRemoved",
-			"MemberRemovedPermanent"
+			"MemberRemovedPermanent",
+			"MemberLeft"
 		};
 
 		private static readonly Dictionary<PlayFabErrorCode, PartyErrors> _errorMapping = new()

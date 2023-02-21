@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FirstLight.Game.Utils;
@@ -47,37 +48,63 @@ namespace FirstLight.Game.Services.Party
 			return Members.FirstOrDefault(m => m.Local);
 		}
 
+		private PartyMember ToPartyMember(MemberToMerge m, bool leader = false)
+		{
+			return FromData(m.memberEntity.Id, m.memberData, leader);
+		}
+
+		private PartyMember FromData(string id, Dictionary<string, string> data, bool leader)
+		{
+			var member = new PartyMember(
+				playfabID: id,
+				displayName: data?[DisplayNameMemberProperty],
+				trophies: 0,
+				bppLevel: 0,
+				local: Local().EntityId == id,
+				leader: leader,
+				ready: false,
+				rawProperties: new()
+			);
+			if (data != null)
+			{
+				MergeData(member, data);
+			}
+
+			return member;
+		}
+
+		private void MergeData(PartyMember member, Dictionary<string, string> data)
+		{
+			if (data == null) return;
+			if (data.ContainsKey(LevelProperty) && uint.TryParse(data[LevelProperty], out var bppLevelInt))
+			{
+				member.BPPLevel = bppLevelInt;
+			}
+
+			if (data.ContainsKey(TrophiesProperty) && uint.TryParse(data[TrophiesProperty], out var trophiesInt))
+			{
+				member.Trophies = trophiesInt;
+			}
+
+			if (data.ContainsKey(ReadyMemberProperty) && bool.TryParse(data[ReadyMemberProperty], out var readyBool))
+			{
+				member.Ready = readyBool;
+			}
+
+			if (data.TryGetValue(DisplayNameMemberProperty, out var displayName))
+			{
+				member.DisplayName = displayName;
+			}
+
+			foreach (var (key, value) in data)
+			{
+				member.RawProperties[key] = value;
+			}
+		}
+
 		private PartyMember ToPartyMember(Lobby l, Member m)
 		{
-			// Parse BPP
-			if (!uint.TryParse(m.MemberData[LevelProperty], out var bppLevelInt))
-			{
-				bppLevelInt = 0;
-			}
-
-			// Parse Trophies
-			if (!uint.TryParse(m.MemberData[TrophiesProperty], out var trophiesInt))
-			{
-				trophiesInt = 0;
-			}
-
-			// Parse Ready Status
-			if (!m.MemberData.ContainsKey(ReadyMemberProperty) || !bool.TryParse(m.MemberData[ReadyMemberProperty], out var readyBool))
-			{
-				readyBool = false;
-			}
-
-
-			return new PartyMember(
-				playfabID: m.MemberEntity.Id,
-				displayName: m.MemberData[DisplayNameMemberProperty],
-				trophies: trophiesInt,
-				bppLevel: bppLevelInt,
-				local: Local().EntityId == m.MemberEntity.Id,
-				leader: l.Owner.Id == m.MemberEntity.Id,
-				ready: readyBool,
-				rawProperties: m.MemberData
-			);
+			return FromData(m.MemberEntity.Id, m.MemberData, m.MemberEntity.Id == l.Owner.Id);
 		}
 
 		private String GenerateCode()
@@ -94,8 +121,8 @@ namespace FirstLight.Game.Services.Party
 
 		private string MembersAsString()
 		{
-			if (_lobby?.Members == null || _lobby.Members.Count == 0) return "";
-			return string.Join(",", _lobby?.Members?.Select(m => m.MemberEntity.Id));
+			if (Members == null || Members.Count == 0) return "";
+			return string.Join(",", Members.ReadOnlyList.Select(m => m.PlayfabID));
 		}
 
 

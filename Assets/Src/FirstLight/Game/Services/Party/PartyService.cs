@@ -153,7 +153,6 @@ namespace FirstLight.Game.Services.Party
 		private IAppDataProvider _appDataProvider;
 
 		// State
-		private Lobby _lobby;
 		private string _lobbyId;
 
 
@@ -213,7 +212,7 @@ namespace FirstLight.Game.Services.Party
 				};
 				var result = await AsyncPlayfabMultiplayerAPI.CreateLobby(req);
 				_lobbyId = result.LobbyId;
-				await RefetchCachedParty();
+				await FetchPartyAndUpdateState();
 #pragma warning disable CS4014
 				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
 				ListenForLobbyUpdates(_lobbyId);
@@ -300,7 +299,7 @@ namespace FirstLight.Game.Services.Party
 					_lobbyId = lobby.LobbyId;
 				}
 
-				await RefetchCachedParty();
+				await FetchPartyAndUpdateState();
 #pragma warning disable CS4014
 				// Dont wait for the websocket connection, it is slow to connect, and the player is already in the party.
 				ListenForLobbyUpdates(_lobbyId);
@@ -465,7 +464,7 @@ namespace FirstLight.Game.Services.Party
 					MemberEntity = LocalEntityKey(),
 				};
 				// If the member counts is 0 the lobby will be disbanded and we will not need to unsubscribe
-				if (_lobby.Members.Count > 1)
+				if (Members.Count > 1)
 				{
 					await UnsubscribeToLobbyUpdates();
 				}
@@ -504,7 +503,7 @@ namespace FirstLight.Game.Services.Party
 		}
 
 
-		private async Task RefetchCachedParty()
+		private async Task FetchPartyAndUpdateState()
 		{
 			try
 			{
@@ -513,10 +512,10 @@ namespace FirstLight.Game.Services.Party
 					LobbyId = _lobbyId,
 				};
 				var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
-				_lobby = result.Lobby;
 				_lobbyId = result.Lobby.LobbyId;
-				UpdateMembers();
-				UpdateProperties();
+				UpdateMembers(result.Lobby);
+				UpdateProperties(result.Lobby);
+				_lobbyChangeNumber = result.Lobby.ChangeNumber;
 			}
 			catch (Exception ex)
 			{
@@ -527,12 +526,12 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		private void UpdateProperties()
+		private void UpdateProperties(Lobby lobby)
 		{
 			// Remove/update
 			foreach (var (key, value) in new Dictionary<string, string>(LobbyProperties))
 			{
-				if (_lobby?.LobbyData != null && _lobby.LobbyData.TryGetValue(key, out var newValue))
+				if (lobby?.LobbyData != null && lobby.LobbyData.TryGetValue(key, out var newValue))
 				{
 					if (newValue != value)
 					{
@@ -546,9 +545,9 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// Insert
-			if (_lobby?.LobbyData == null) return;
+			if (lobby?.LobbyData == null) return;
 
-			foreach (var (key, value) in _lobby.LobbyData)
+			foreach (var (key, value) in lobby.LobbyData)
 			{
 				if (!LobbyProperties.ContainsKey(key))
 				{
@@ -557,12 +556,12 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		private void UpdateMembers()
+		private void UpdateMembers(Lobby lobby)
 		{
 			// Remove members from the list
 			foreach (var partyMember in Members.ToList())
 			{
-				bool exists = _lobby.Members.Exists(m => m.MemberEntity.Id == partyMember.PlayfabID);
+				bool exists = lobby.Members.Exists(m => m.MemberEntity.Id == partyMember.PlayfabID);
 				if (!exists)
 				{
 					Members.Remove(partyMember);
@@ -579,9 +578,9 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			// Update or Add members
-			foreach (var lobbyMember in _lobby.Members)
+			foreach (var lobbyMember in lobby.Members)
 			{
-				var generatedMember = ToPartyMember(_lobby, lobbyMember);
+				var generatedMember = ToPartyMember(lobby, lobbyMember);
 				var mappedMember = Members.Where(m => m.PlayfabID == generatedMember.PlayfabID).ToArray();
 				// Member already in party
 				if (mappedMember.Any())
@@ -613,9 +612,9 @@ namespace FirstLight.Game.Services.Party
 
 		private void ResetState()
 		{
-			_lobby = null;
 			_lobbyId = null;
 			_lobbyTopic = null;
+			_lobbyChangeNumber = 0;
 			HasParty.Value = false;
 			PartyReady.Value = false;
 			PartyCode.Value = null;
@@ -637,7 +636,7 @@ namespace FirstLight.Game.Services.Party
 			{
 				members = overwriteMembersString;
 			}
-			else if (_lobby?.Members != null && _lobby.Members.Count > 0)
+			else if (Members is {Count: > 0})
 			{
 				members = MembersAsString();
 			}

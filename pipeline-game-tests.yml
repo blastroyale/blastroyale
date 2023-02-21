@@ -11,7 +11,7 @@ resources:
   - repository: self
   - repository: templates
     type: git
-    ref: feature/BRG-2117
+    ref: main
     name: Infrastructure/core-templates
 
 variables:
@@ -30,3 +30,5 @@ stages:
         lfs: true
         submodules: true
       - template: pipelines/unity-tests.yml@templates
+        parameters:
+          testPlatform: EditMode

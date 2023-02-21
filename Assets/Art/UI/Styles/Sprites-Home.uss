@@ -52,14 +52,14 @@
     --sprite-home__button-long-red-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-red-pressed.png');
     --sprite-home__button-long-yellow: url('/Assets/Art/UI/Sprites/Home/button-long-yellow.png');
     --sprite-home__button-long-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png');
-    --sprite-home__button-main-purple: url('/Assets/Art/UI/Sprites/Home/button-main-purple.png');
     --sprite-home__button-main-disabled: url('/Assets/Art/UI/Sprites/Home/button-main-disabled.png');
+    --sprite-home__button-main-purple: url('/Assets/Art/UI/Sprites/Home/button-main-purple.png');
     --sprite-home__button-main-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-purple-pressed.png');
     --sprite-home__button-main-yellow: url('/Assets/Art/UI/Sprites/Home/button-main-yellow.png');
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
-    --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
     --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
+    --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
     --sprite-home__button-play-ready: url('/Assets/Art/UI/Sprites/Home/button-play-ready.png');
     --sprite-home__button-play-ready-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-ready-pressed.png');
     --sprite-home__button-popup-equipment-close: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close.png');
@@ -90,11 +90,6 @@
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
-    --sprite-home__icon-emptyslot-amulet: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-amulet.png');
-    --sprite-home__icon-emptyslot-armor: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-armor.png');
-    --sprite-home__icon-emptyslot-helmet: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-helmet.png');
-    --sprite-home__icon-emptyslot-shield: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-shield.png');
-    --sprite-home__icon-emptyslot-weapon: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-weapon.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
     --sprite-home__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-amulet.png');
     --sprite-home__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-armor.png');
@@ -363,6 +358,10 @@
     background-image: var(--sprite-home__button-long-yellow-pressed);
 }
 
+.sprite-home__button-main-disabled {
+    background-image: var(--sprite-home__button-main-disabled);
+}
+
 .sprite-home__button-main-purple {
     background-image: var(--sprite-home__button-main-purple);
 }
@@ -383,8 +382,20 @@
     background-image: var(--sprite-home__button-play);
 }
 
+.sprite-home__button-play-disabled {
+    background-image: var(--sprite-home__button-play-disabled);
+}
+
 .sprite-home__button-play:active {
     background-image: var(--sprite-home__button-play-pressed);
+}
+
+.sprite-home__button-play-ready {
+    background-image: var(--sprite-home__button-play-ready);
+}
+
+.sprite-home__button-play-ready:active {
+    background-image: var(--sprite-home__button-play-ready-pressed);
 }
 
 .sprite-home__button-popup-equipment-close {
@@ -497,26 +508,6 @@
 
 .sprite-home__icon-durability {
     background-image: var(--sprite-home__icon-durability);
-}
-
-.sprite-home__icon-emptyslot-amulet {
-    background-image: var(--sprite-home__icon-emptyslot-amulet);
-}
-
-.sprite-home__icon-emptyslot-armor {
-    background-image: var(--sprite-home__icon-emptyslot-armor);
-}
-
-.sprite-home__icon-emptyslot-helmet {
-    background-image: var(--sprite-home__icon-emptyslot-helmet);
-}
-
-.sprite-home__icon-emptyslot-shield {
-    background-image: var(--sprite-home__icon-emptyslot-shield);
-}
-
-.sprite-home__icon-emptyslot-weapon {
-    background-image: var(--sprite-home__icon-emptyslot-weapon);
 }
 
 .sprite-home__icon-equipment {

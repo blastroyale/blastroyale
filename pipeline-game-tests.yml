@@ -1,0 +1,32 @@
+# Android build and release pipeline
+# This pipeline is respsonsible for building the Android APK, and uploading to Azure Storage.
+
+name: $(Rev:r)
+
+trigger: none
+pr: none
+
+resources:
+  repositories:
+  - repository: self
+  - repository: templates
+    type: git
+    ref: feature/BRG-2117
+    name: Infrastructure/core-templates
+
+variables:
+- group: Secrets
+- group: Non-secrets
+pool: macos
+
+stages:
+- stage: AutoBuilds
+  displayName: Auto Builds
+  jobs:
+    - job: EditorTests
+      displayName: Run Editor Test Suite
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/unity-tests.yml@templates

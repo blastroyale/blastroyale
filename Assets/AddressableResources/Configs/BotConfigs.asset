@@ -3986,7 +3986,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 16384
       DamageTakenMultiplier:
-        RawValue: 16384
+        RawValue: 21627
     - BehaviourType: 0
       GameMode: Tutorial
       Difficulty: 0
@@ -4036,3 +4036,52 @@ MonoBehaviour:
         RawValue: 16384
       DamageTakenMultiplier:
         RawValue: 262144
+    - BehaviourType: 1
+      GameMode: BattleRoyale First Game
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 0
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 52429
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 0
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 90
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 0
+      ShrinkingCircleRiskTolerance:
+        RawValue: 19661
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 655360
+      MovementSpeedMultiplier:
+        RawValue: 65536
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 32768
+      DamageTakenMultiplier:
+        RawValue: 131072

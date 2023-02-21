@@ -19,6 +19,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssBlock = "collection-card";
 		private const string UssBlockSelected = UssBlock + "--selected";
 		private const string UssBlockHighlighted = UssBlock + "--highlighted";
+		private const string UssBlockLocked = UssBlock + "--locked";
 		private const string UssSelected = UssBlock + "__selected-bg";
 		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";
@@ -83,7 +84,7 @@ namespace FirstLight.Game.UIElements
 				_equippedBadge.AddToClassList(UssBadgeEquipped);
 			}
 
-			cardHolder.Add(_name = new Label("ROCKET LAUNCHER") {name = "name"});
+			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
 
 			cardHolder.Add(_notification = new VisualElement());
@@ -99,7 +100,7 @@ namespace FirstLight.Game.UIElements
 
 			// if (equipment.IsValid())
 			{
-				SetCollectionElement(GameId.Male01Avatar);
+				// SetCollectionElement(GameId.Male01Avatar);
 			}
 		}
 

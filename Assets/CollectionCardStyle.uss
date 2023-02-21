@@ -1,14 +1,22 @@
-.collection-card {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+.collection-card--selected {
+    background-image: none;
+    width: 400px;
+    height: 400px;
     background-color: rgba(255, 255, 255, 255);
 }
 
-.collection-card__image {
-    width: 50px;
-    height: 50px;
+.collection-card {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 255);
+    width: 390px;
+    height: 390px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-slot-back.png?fileID=2800000&guid=dbf33629a45de4830b1198af2ec88192&type=3#collection-slot-back');
 }
 
-.collection-card--selected {
+.collection-card__image {
+    width: 290px;
+    height: 290px;
+    background-image: none;
 }
 
 .collection-card--highlighted {
@@ -30,9 +38,22 @@
 }
 
 .collection-card__name {
+    color: rgba(239, 192, 44, 255);
+    font-size: 40px;
 }
 
 .collection-card__badge-holder {
+    font-size: 32px;
+    position: relative;
+    top: -280px;
+    bottom: 0;
+    -unity-text-align: upper-center;
+    background-image: none;
+    background-color: rgba(248, 199, 46, 255);
+    width: 200px;
+    height: 100px;
+    right: -4px;
+    left: 100px;
 }
 
 .collection-card__badge-nft {
@@ -45,4 +66,11 @@
 }
 
 .notification-icon {
+}
+
+.collection-card--locked {
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-lock.png?fileID=2800000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#collection-lock');
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 255);
 }

@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/CollectionMenuStyle.uss?fileID=7433441132597879392&amp;guid=2b3437908880e4d96b929057a7f74f84&amp;type=3#CollectionMenuStyle" />
     <Style src="project://database/Assets/CollectionCardStyle.uss?fileID=7433441132597879392&amp;guid=e715dc23293f743bfa3ab9ee4aa8c200&amp;type=3#CollectionCardStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
         <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 200px; height: 592px; width: 848px; position: absolute; top: 150px; left: -102px; justify-content: flex-end;">

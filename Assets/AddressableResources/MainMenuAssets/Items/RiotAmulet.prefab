@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5770812129606366811}
   - component: {fileID: 2785817702949029510}
   - component: {fileID: 138397569049919635}
+  - component: {fileID: 1299074926530370599}
   m_Layer: 10
   m_Name: RiotAmulet
   m_TagString: Untagged
@@ -115,3 +116,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1299074926530370599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046103939662114604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
+  _renderers:
+  - {fileID: 138397569049919635}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 138397569049919635}

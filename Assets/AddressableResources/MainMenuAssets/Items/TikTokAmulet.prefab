@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8034690313587886675}
   - component: {fileID: 4501418320717138377}
   - component: {fileID: 2237490392324622088}
+  - component: {fileID: 7928194566844897338}
   m_Layer: 10
   m_Name: TicToc_Amulet
   m_TagString: Untagged
@@ -83,6 +84,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7928194566844897338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3263663417964226786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 646c8019370c8694ab52158c6135a359, type: 2}
+  _renderers:
+  - {fileID: 2237490392324622088}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 2237490392324622088}
 --- !u!1 &3578191574739851981
 GameObject:
   m_ObjectHideFlags: 0

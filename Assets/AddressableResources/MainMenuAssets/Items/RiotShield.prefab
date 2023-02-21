@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 7063799137195388055}
   - component: {fileID: 4908425502308430787}
   - component: {fileID: 6406498487719916208}
-  m_Layer: 0
+  - component: {fileID: 1447589369020830768}
+  m_Layer: 10
   m_Name: RiotShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,3 +116,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1447589369020830768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955618480674534206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
+  _renderers:
+  - {fileID: 6406498487719916208}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 6406498487719916208}

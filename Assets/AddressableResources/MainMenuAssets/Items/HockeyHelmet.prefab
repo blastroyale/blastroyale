@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 405665362077766033}
   - component: {fileID: 67538852399327}
   - component: {fileID: 1283692776227701685}
+  - component: {fileID: 6027972387433554444}
   m_Layer: 10
   m_Name: Lost_Item_Hockey
   m_TagString: Untagged
@@ -83,6 +84,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6027972387433554444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309368068459697668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 646c8019370c8694ab52158c6135a359, type: 2}
+  _renderers:
+  - {fileID: 1283692776227701685}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 1283692776227701685}
 --- !u!1 &7143110814134377038
 GameObject:
   m_ObjectHideFlags: 0

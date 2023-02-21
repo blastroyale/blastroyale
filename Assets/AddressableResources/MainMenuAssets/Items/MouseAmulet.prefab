@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7279415914447934028}
   - component: {fileID: 1450240898885006776}
   - component: {fileID: 4068106827142023211}
+  - component: {fileID: 1872439481455806945}
   m_Layer: 10
   m_Name: MouseAmulet
   m_TagString: Untagged
@@ -115,3 +116,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1872439481455806945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773185230815482276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 95cd688a757733641882d06282cb775e, type: 2}
+  _renderers:
+  - {fileID: 4068106827142023211}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 4068106827142023211}

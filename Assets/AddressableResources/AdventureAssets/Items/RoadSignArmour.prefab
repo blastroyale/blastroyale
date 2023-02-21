@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6181525686803630769}
   - component: {fileID: 8953985300831445819}
   - component: {fileID: 4644099293651602062}
+  - component: {fileID: 1856512860864621053}
   m_Layer: 10
   m_Name: Nutter_chest
   m_TagString: Untagged
@@ -25,8 +26,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171905068312978463}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0039997124, y: 0, z: -0.060773756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,6 +84,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1856512860864621053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171905068312978463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 32d09903a53338246938455f3fa870f4, type: 2}
+  _renderers:
+  - {fileID: 4644099293651602062}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 4644099293651602062}
 --- !u!1 &692709253286077414
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +114,7 @@ GameObject:
   - component: {fileID: 7631040095449467162}
   - component: {fileID: 4760019109151786652}
   - component: {fileID: 2565966680048396265}
+  - component: {fileID: 3792936922405738781}
   m_Layer: 10
   m_Name: Nutter_ShoulderL
   m_TagString: Untagged
@@ -108,8 +129,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692709253286077414}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
+  m_LocalPosition: {x: -0.16299969, y: 0, z: -0.060772683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,6 +187,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3792936922405738781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692709253286077414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 32d09903a53338246938455f3fa870f4, type: 2}
+  _renderers:
+  - {fileID: 2565966680048396265}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 2565966680048396265}
 --- !u!1 &1952126670735314887
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952126670735314887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6751065, y: 1.0817765, z: 1.5442241}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -211,6 +251,7 @@ GameObject:
   - component: {fileID: 5832184379880279841}
   - component: {fileID: 9103757909696833688}
   - component: {fileID: 1740618216965754537}
+  - component: {fileID: 2574623312257698719}
   m_Layer: 10
   m_Name: Nutter_sholderR
   m_TagString: Untagged
@@ -225,8 +266,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5766785359382308091}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.0000022649763, z: -0, w: 1}
+  m_LocalPosition: {x: 0.16100024, y: 0, z: -0.06077487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,3 +324,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2574623312257698719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766785359382308091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalMaterials:
+  - {fileID: 2100000, guid: 32d09903a53338246938455f3fa870f4, type: 2}
+  _renderers:
+  - {fileID: 1740618216965754537}
+  _particleRenderers: []
+  _rendererRoots: []
+  _mainRenderer: {fileID: 1740618216965754537}

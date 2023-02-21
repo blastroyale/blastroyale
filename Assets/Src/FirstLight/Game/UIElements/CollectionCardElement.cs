@@ -112,11 +112,6 @@ namespace FirstLight.Game.UIElements
 
 			base.clicked += () => clicked?.Invoke(MenuGameId);
 
-			// if (highlighted)
-			{
-				AddToClassList(UssBlockHighlighted);
-			}
-
 			// if (equipment.IsValid())
 			{
 				// SetCollectionElement(GameId.Male01Avatar);
@@ -138,23 +133,26 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public async void SetCollectionElement(GameId gameId, bool loaned = false, bool notification = false)
+		public async void SetCollectionElement(GameId gameId, bool highlighted = false, bool isNft = false,
+											   bool loaned = false, bool notification = false)
 		{
 			// var equipment = info.Equipment;
 			// this.RemoveModifiers();
 			// this.RemoveSpriteClasses();
 			
-			// Is current Collection Menu item equipped?
+			if (highlighted)
+			{
+				AddToClassList(UssBlockHighlighted);
+			}
 
-			// _notification.SetDisplay(notification);
-			_notification.SetDisplay(true);
+			_notification.SetDisplay(notification);
+			_loanedBadge.SetDisplay(loaned);
+			_nftBadge.SetDisplay(isNft);
+			
 			MenuGameId = gameId;
 			
 			_name.text = gameId.GetLocalization();
-
-			_loanedBadge.SetDisplay(true);
-			_nftBadge.SetDisplay(true);
-
+			
 			// SetSelected(true);
 
 			LoadImage();

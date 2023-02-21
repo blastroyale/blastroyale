@@ -12248,6 +12248,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Female01AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Sky Pilot
+      - Sky Pilot
+      - Sky Pilot
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Female02Avatar
       TermType: 0
       Description: 
@@ -12255,6 +12266,17 @@ MonoBehaviour:
       - Cat Carter
       - "\u041A\u043E\u0442 \u041A\u0430\u0440\u0442\u0435\u0440"
       - CAT CARTER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Female02AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Profession Thief
+      - Profession Thief
+      - Profession Thief
       - 
       - 
       Flags: 0000000000
@@ -12604,6 +12626,28 @@ MonoBehaviour:
       - Hugo Marks
       - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
       - Hugo Marks
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male01AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male02AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Superstar Shooter
+      - The Superstar Shooter
+      - The Superstar Shooter
       - 
       - 
       Flags: 0000000000
@@ -15119,7 +15163,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676984686627
+    Google_LastUpdatedVersion: 1676990844633
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

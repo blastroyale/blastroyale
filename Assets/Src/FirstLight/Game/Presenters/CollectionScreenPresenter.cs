@@ -13,6 +13,7 @@ using FirstLight.Game.Ids;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -34,9 +35,11 @@ namespace FirstLight.Game.Presenters
 		private ListView _collectionList;
 		private List<CollectionListRow> _collectionListRows;
 		private Dictionary<GameId, int> _itemRowMap;
-		private MightElement _might;
 		private Label _comingSoonLabel;
-		
+		private Label _selectedItemLabel;
+		private Label _selectedItemDescription;
+		private Button _equipButton;
+		private PriceButton _buyButton;
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		
@@ -64,6 +67,15 @@ namespace FirstLight.Game.Presenters
 			
 			_comingSoonLabel = root.Q<Label>("ComingSoon").Required();
 			_comingSoonLabel.text = COMING_SOON_LOC_KEY.LocalizeKey();
+			
+			_selectedItemLabel = root.Q<Label>("ItemName").Required();
+			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
+			
+			_equipButton = root.Q<Button>("EquipButton").Required();
+			_equipButton.clicked += OnEquipClicked;
+			
+			_buyButton = root.Q<PriceButton>("BuyButton").Required();
+			_buyButton.clicked += OnBuyClicked;
 		}
 
 		protected override void OnOpened()
@@ -71,6 +83,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			UpdatePlayerSkinMenu();
+			UpdateCollectionDetails();
 		}
 		
 		/// <summary>
@@ -113,16 +126,10 @@ namespace FirstLight.Game.Presenters
 			
 			_collectionList.itemsSource = _collectionListRows;
 			_collectionList.RefreshItems();
-			
-
-			// _itemTitleText.text = _selectedId.GetLocalization();
-			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
 		
 		private void OnCollectionItemClicked(GameId id)
 		{
-			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = id });
-			
 			if (id == _selectedId) return;
 
 			var previousItem = _selectedId;
@@ -134,11 +141,23 @@ namespace FirstLight.Game.Presenters
 			_collectionList.RefreshItem(_itemRowMap[_selectedId]);
 		}
 
-		
+		private void OnEquipClicked()
+		{
+			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
+			UpdateCollectionDetails();
+		}
+
+		private void OnBuyClicked()
+		{
+			
+		}
+
+
 		/// Updated cost of Collection items / has it been equipped, etc. 
 		private void UpdateCollectionDetails()
 		{
-			
+			_selectedItemLabel.text = _selectedId.GetLocalization();
+			_selectedItemDescription.text = _selectedId.GetDescriptionLocalization();
 		}
 		
 

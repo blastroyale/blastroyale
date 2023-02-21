@@ -274,9 +274,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CREATE PARTY
-      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0443"
-      - Criar festa
+      - CREATE SQUAD
+      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
+      - "Criar esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -351,10 +351,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JOIN PARTY
+      - JOIN SQUAD
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
-        \u043A \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0435"
-      - "Junte -se \xE0 festa"
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435"
+      - "Junte -se \xE0 equipe"
       - 
       - 
       Flags: 0000000000
@@ -374,9 +374,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LEAVE PARTY
-      - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0443"
-      - DEIXAR A FESTA
+      - LEAVE SQUAD
+      - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
+      - "Deixe o esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -397,9 +397,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PARTY
-      - "\u0412\u0415\u0427\u0415\u0420\u0418\u041D\u041A\u0410"
-      - FESTA
+      - SQUAD
+      - "\u041E\u0422\u0420\u042F\u0414"
+      - "ESQUADR\xC3O"
       - 
       - 
       Flags: 0000000000
@@ -408,10 +408,10 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PARTY ID
+      - SQUAD ID
       - "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0438"
-      - ID da festa
+        \u043E\u0442\u0440\u044F\u0434\u0430"
+      - "ID do esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -420,11 +420,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Input the party id you want to join.
+      - Input the squad id you want to join.
       - "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0430\u0440\u0442\u0438\u0438, \u043A \u043A\u043E\u0442\u043E\u0440\u043E\u043C\u0443
+        \u043A\u043E\u043C\u0430\u043D\u0434\u044B, \u043A\u043E\u0442\u043E\u0440\u044B\u0439
         \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F."
-      - "Insira o ID da festa que voc\xEA deseja participar."
+      - "Insira o ID do esquadr\xE3o que voc\xEA deseja participar."
       - 
       - 
       Flags: 0000000000
@@ -433,10 +433,22 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Create or Join a party!
-      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F
-        \u043A \u0432\u0435\u0447\u0435\u0440\u0438\u043D\u043A\u0435!"
-      - Crie ou participe de uma festa!
+      - Create or Join a squad!
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Crie ou junte -se a um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_popup_join_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Join a squad!
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Junte -se a um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -1598,6 +1610,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/comingsoon
+      TermType: 0
+      Description: 
+      Languages:
+      - COMING SOON!
+      - "\u0412\u0421\u041A\u041E\u0420\u0415!"
+      - EM BREVE!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -1871,193 +1894,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITLoginRegister/email
-      TermType: 0
-      Description: 
-      Languages:
-      - EMAIL
-      - "\u042D\u041B\u0415\u041A\u0422\u0420\u041E\u041D\u041D\u0410\u042F \u041F\u041E\u0427\u0422\u0410"
-      - E-MAIL
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/guest
-      TermType: 0
-      Description: 
-      Languages:
-      - GUEST
-      - "\u0413\u043E\u0441\u0442\u044C"
-      - CONVIDADO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/invalid_input
-      TermType: 0
-      Description: 
-      Languages:
-      - Invalid Input Parameters
-      - "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0435 \u0432\u0445\u043E\u0434\u043D\u044B\u0435
-        \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"
-      - "Par\xE2metros de entrada inv\xE1lidos"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/login
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGIN
-      - "\u0410\u0412\u0422\u041E\u0420\u0418\u0417\u041E\u0412\u0410\u0422\u042C\u0421\u042F"
-      - CONECTE-SE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/login_with_fl_id
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGIN WITH FIRSTLIGHT ID
-      - "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0441 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u043C
-        Firstlight"
-      - "Fa\xE7a login com o primeiro ID da Light"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/password
-      TermType: 0
-      Description: 
-      Languages:
-      - PASSWORD
-      - "\u041F\u0410\u0420\u041E\u041B\u042C"
-      - SENHA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/play_as_guest
-      TermType: 0
-      Description: 
-      Languages:
-      - 'PLAY AS
-
-        GUEST'
-      - "\u0418\u0433\u0440\u0430\u0442\u044C \u043A\u0430\u043A\n\u0413\u043E\u0441\u0442\u044C"
-      - 'Jogue como
-
-        CONVIDADO'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register
-      TermType: 0
-      Description: 
-      Languages:
-      - REGISTER
-      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420"
-      - REGISTRO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_fl_id
-      TermType: 0
-      Description: 
-      Languages:
-      - 'REGISTER
-
-        FIRST LIGHT ID'
-      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\n\u041F\u0435\u0440\u0432\u044B\u0439
-        \u0441\u0432\u0435\u0442"
-      - 'REGISTRO
-
-        Primeira ID da luz'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_login
-      TermType: 0
-      Description: 
-      Languages:
-      - REGISTER/LOGIN
-      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u042F \u0412\u041E\u0419\u0422\u0418"
-      - Registro/login
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_new_fl_id
-      TermType: 0
-      Description: 
-      Languages:
-      - REGISTER NEW FIRST LIGHT ID
-      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435
-        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
-      - Registre um novo ID da primeira luz
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/reset_password
-      TermType: 0
-      Description: 
-      Languages:
-      - 'RESET
-
-        PASSWORD'
-      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C\n\u041F\u0410\u0420\u041E\u041B\u042C"
-      - 'REINICIAR
-
-        SENHA'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/secure_progress
-      TermType: 0
-      Description: 
-      Languages:
-      - to secure your progress and unlock more features!
-      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
-        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
-        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
-      - Para garantir seu progresso e desbloquear mais recursos!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/send_password_recovery
-      TermType: 0
-      Description: 
-      Languages:
-      - Send Password Recovery Email
-      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443\u044E
-        \u043F\u043E\u0447\u0442\u0443 \u0434\u043B\u044F \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F
-        \u043F\u0430\u0440\u043E\u043B\u044F"
-      - "Enviar e -mail de recupera\xE7\xE3o de senha"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/username
-      TermType: 0
-      Description: 
-      Languages:
-      - USERNAME
-      - "\u0418\u041C\u042F \u041F\u041E\u041B\u042C\u0417\u041E\u0412\u0410\u0422\u0415\u041B\u042F"
-      - "NOME DE USU\xC1RIO"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITMatchmaking/br_mode_desc
       TermType: 0
       Description: 
@@ -2260,46 +2096,294 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITDisconnected/connection_lost
+    - Term: UITLoginRegister/email
       TermType: 0
       Description: 
       Languages:
-      - CONNECTION LOST
-      - "\u0421\u041E\u0415\u0414\u0418\u041D\u0415\u041D\u0418\u0415 \u041F\u041E\u0422\u0415\u0420\u042F\u041D\u041E"
-      - "CONEX\xC3O PERDIDA"
+      - EMAIL
+      - "\u042D\u041B\u0415\u041A\u0422\u0420\u041E\u041D\u041D\u0410\u042F \u041F\u041E\u0427\u0422\u0410"
+      - E-MAIL
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITDisconnected/disconnected
+    - Term: UITLoginRegister/guest
       TermType: 0
       Description: 
       Languages:
-      - YOU HAVE BEEN DISCONNECTED
-      - "\u0412\u042B \u0411\u042B\u041B\u0418 \u041E\u0422\u041A\u041B\u042E\u0427\u0415\u041D\u042B"
-      - "VOC\xCA FOI DESCONECTADO"
+      - GUEST
+      - "\u0413\u043E\u0441\u0442\u044C"
+      - CONVIDADO
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITDisconnected/menu
+    - Term: UITLoginRegister/invalid_input
       TermType: 0
       Description: 
       Languages:
-      - MAIN MENU
-      - "\u0413\u041B\u0410\u0412\u041D\u041E\u0415 \u041C\u0415\u041D\u042E"
-      - MENU PRINCIPAL
+      - Invalid Input Parameters
+      - "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0435 \u0432\u0445\u043E\u0434\u043D\u044B\u0435
+        \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B"
+      - "Par\xE2metros de entrada inv\xE1lidos"
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITDisconnected/reconnect
+    - Term: UITLoginRegister/login
       TermType: 0
       Description: 
       Languages:
-      - RECONNECT
-      - "\u0412\u043E\u0441\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
-      - Reconectar
+      - LOG IN
+      - "\u0410\u0412\u0422\u041E\u0420\u0418\u0417\u041E\u0412\u0410\u0422\u042C\u0421\u042F"
+      - CONECTE-SE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/login_with_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN WITH FIRSTLIGHT ID
+      - "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0441 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u043C
+        Firstlight"
+      - "Fa\xE7a login com o primeiro ID da Light"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/password
+      TermType: 0
+      Description: 
+      Languages:
+      - PASSWORD
+      - "\u041F\u0410\u0420\u041E\u041B\u042C"
+      - SENHA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/play_as_guest
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PLAY AS
+
+        GUEST'
+      - "\u0418\u0433\u0440\u0430\u0442\u044C \u043A\u0430\u043A\n\u0413\u043E\u0441\u0442\u044C"
+      - 'Jogue como
+
+        CONVIDADO'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER
+      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420"
+      - REGISTRO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - 'REGISTER
+
+        FIRST LIGHT ID'
+      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\n\u041F\u0435\u0440\u0432\u044B\u0439
+        \u0441\u0432\u0435\u0442"
+      - 'REGISTRO
+
+        Primeira ID da luz'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_login
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER/LOGIN
+      - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u042F \u0412\u041E\u0419\u0422\u0418"
+      - Registro/login
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_new_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER NEW FIRST LIGHT ID
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435
+        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
+      - Registre um novo ID da primeira luz
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET PASSWORD
+      - "\u0421\u0411\u0420\u041E\u0421 \u041F\u0410\u0420\u041E\u041B\u042F"
+      - Redefinir senha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/secure_progress
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
+        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
+        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
+      - Para garantir seu progresso e desbloquear mais recursos!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/send_password_recovery
+      TermType: 0
+      Description: 
+      Languages:
+      - Send Password Recovery Email
+      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443\u044E
+        \u043F\u043E\u0447\u0442\u0443 \u0434\u043B\u044F \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F
+        \u043F\u0430\u0440\u043E\u043B\u044F"
+      - "Enviar e -mail de recupera\xE7\xE3o de senha"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Recover your account by receiving password reset link via email.
+
+
+        Enter
+        your email below'
+      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
+        \u0441\u0432\u043E\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C,
+        \u043F\u043E\u043B\u0443\u0447\u0438\u0432 \u0441\u0441\u044B\u043B\u043A\u0443
+        \u0441\u0431\u0440\u043E\u0441\u0430 \u043F\u0430\u0440\u043E\u043B\u044F
+        \u043F\u043E \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u0435.\n\n\u0412\u0432\u0435\u0434\u0438\u0442\u0435
+        \u0441\u0432\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u044B \u043D\u0438\u0436\u0435"
+      - "Recupere sua conta recebendo link de redefini\xE7\xE3o de senha por e -mail.\n\nDigite
+        seu e -mail abaixo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_button
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET
+      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
+      - REINICIAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - A recovery link has been sent to the email.
+      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
+        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
+        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E."
+      - "Um link de recupera\xE7\xE3o foi enviado para o email."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/username
+      TermType: 0
+      Description: 
+      Languages:
+      - USERNAME
+      - "\u0418\u041C\u042F \u041F\u041E\u041B\u042C\u0417\u041E\u0412\u0410\u0422\u0415\u041B\u042F"
+      - "NOME DE USU\xC1RIO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/recommended_to_save_progress
+      TermType: 0
+      Description: 
+      Languages:
+      - Recommended to save your progress
+      - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
+        \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
+        \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
+      - Recomendado para salvar seu progresso
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/i_dont_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I don't have an account
+      - "\u0423 \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0443\u0447\u0435\u0442\u043D\u043E\u0439
+        \u0437\u0430\u043F\u0438\u0441\u0438"
+      - "Eu n\xE3o tenho uma conta"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/i_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I already have an account
+      - "\u0443 \u043C\u0435\u043D\u044F \u0443\u0436\u0435 \u0435\u0441\u0442\u044C
+        \u0430\u043A\u043A\u0430\u0443\u043D\u0442"
+      - "eu j\xE1 tenho uma conta"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/login_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN TO EXISTING FIRST LIGHT ID
+      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - "Fa\xE7a login no primeiro id de luz existente"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE NEW FIRST LIGHT ID
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - Crie um novo primeiro ID da luz
       - 
       - 
       Flags: 0000000000
@@ -2558,6 +2642,50 @@ MonoBehaviour:
       - Failure
       - "\u041E\u0442\u043A\u0430\u0437"
       - Falha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITDisconnected/connection_lost
+      TermType: 0
+      Description: 
+      Languages:
+      - CONNECTION LOST
+      - "\u0421\u041E\u0415\u0414\u0418\u041D\u0415\u041D\u0418\u0415 \u041F\u041E\u0422\u0415\u0420\u042F\u041D\u041E"
+      - "CONEX\xC3O PERDIDA"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITDisconnected/disconnected
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU HAVE BEEN DISCONNECTED
+      - "\u0412\u042B \u0411\u042B\u041B\u0418 \u041E\u0422\u041A\u041B\u042E\u0427\u0415\u041D\u042B"
+      - "VOC\xCA FOI DESCONECTADO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITDisconnected/menu
+      TermType: 0
+      Description: 
+      Languages:
+      - MAIN MENU
+      - "\u0413\u041B\u0410\u0412\u041D\u041E\u0415 \u041C\u0415\u041D\u042E"
+      - MENU PRINCIPAL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITDisconnected/reconnect
+      TermType: 0
+      Description: 
+      Languages:
+      - RECONNECT
+      - "\u0412\u043E\u0441\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
+      - Reconectar
       - 
       - 
       Flags: 0000000000
@@ -14042,6 +14170,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NewBRMap
+      TermType: 0
+      Description: 
+      Languages:
+      - New BR Map
+      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
+      - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -14980,7 +15119,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676398881135
+    Google_LastUpdatedVersion: 1676984686627
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

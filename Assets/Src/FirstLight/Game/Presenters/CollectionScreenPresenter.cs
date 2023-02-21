@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -21,6 +22,8 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
+		private const string COMING_SOON_LOC_KEY = "UITCollectionScreen/comingsoon";
+		
 		public struct StateData
 		{
 			public Action<GameIdGroup> OnSlotButtonClicked;
@@ -32,7 +35,8 @@ namespace FirstLight.Game.Presenters
 		private List<CollectionListRow> _collectionListRows;
 		private Dictionary<GameId, int> _itemRowMap;
 		private MightElement _might;
-
+		private Label _comingSoonLabel;
+		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		
@@ -57,6 +61,9 @@ namespace FirstLight.Game.Presenters
 			_collectionList.bindItem = BindCollectionListItem;
 
 			root.SetupClicks(_services);
+			
+			_comingSoonLabel = root.Q<Label>("ComingSoon").Required();
+			_comingSoonLabel.text = COMING_SOON_LOC_KEY.LocalizeKey();
 		}
 
 		protected override void OnOpened()
@@ -74,6 +81,7 @@ namespace FirstLight.Game.Presenters
 			var data = GameIdGroup.PlayerSkin.GetIds();
 			var listCount = data.Count;
 			
+			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			_collectionListRows = new List<CollectionListRow>(listCount / 3);
 			_itemRowMap = new Dictionary<GameId, int>(listCount/ 3);
 
@@ -110,6 +118,29 @@ namespace FirstLight.Game.Presenters
 			// _itemTitleText.text = _selectedId.GetLocalization();
 			// _avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
+		
+		private void OnCollectionItemClicked(GameId id)
+		{
+			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = id });
+			
+			if (id == _selectedId) return;
+
+			var previousItem = _selectedId;
+
+			_selectedId = id;
+			UpdateCollectionDetails();
+
+			_collectionList.RefreshItem(_itemRowMap[previousItem]);
+			_collectionList.RefreshItem(_itemRowMap[_selectedId]);
+		}
+
+		
+		/// Updated cost of Collection items / has it been equipped, etc. 
+		private void UpdateCollectionDetails()
+		{
+			
+		}
+		
 
 		private VisualElement MakeCollectionListItem()
 		{
@@ -130,8 +161,9 @@ namespace FirstLight.Game.Presenters
 			var item2 = new CollectionCardElement {name = "item-2"};
 			var item3 = new CollectionCardElement {name = "item-3"};
 
-			// item1.clicked += OnEquipmentClicked;
-			// item2.clicked += OnEquipmentClicked;
+			item1.clicked += OnCollectionItemClicked;
+			item2.clicked += OnCollectionItemClicked;
+			item3.clicked += OnCollectionItemClicked;
 
 			row.Add(item1);
 			row.Add(item2);
@@ -148,6 +180,7 @@ namespace FirstLight.Game.Presenters
 			var card2 = visualElement.Q<CollectionCardElement>("item-2");
 			var card3 = visualElement.Q<CollectionCardElement>("item-3");
 
+			var selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			
 			card1.SetCollectionElement(row.Item1.GameId, false, false);
 			card2.SetDisplay(false);
@@ -164,9 +197,9 @@ namespace FirstLight.Game.Presenters
 				card3.SetCollectionElement(row.Item3.GameId, false, false);
 			}
 
-			// card1.SetSelected(card1.UniqueId == SelectedItem);
-			// card2.SetSelected(card2.UniqueId == SelectedItem);
-			
+			card1.SetSelected(card1.MenuGameId == selectedId);
+			card2.SetSelected(card2.MenuGameId == selectedId);
+			card3.SetSelected(card3.MenuGameId == selectedId);
 		}
 		
 		private class CollectionListRow

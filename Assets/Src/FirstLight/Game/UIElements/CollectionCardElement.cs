@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -12,7 +13,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays a category of items in the collection screen, e.g. Characters, Banners, Gliders, etc.
 	/// </summary>
-	public class CollectionCardElement : Button
+	public class CollectionCardElement : ImageButton
 	{
 		private const string EMPTY_LOC_KEY = "UITCollection/no_{0}";
 
@@ -53,6 +54,11 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
+		
+		/// <summary>
+		/// Triggered when the card is clicked
+		/// </summary>
+		public new event Action<GameId> clicked;
 
 		public CollectionCardElement()
 		{
@@ -104,18 +110,11 @@ namespace FirstLight.Game.UIElements
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
-			// base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
+			base.clicked += () => clicked?.Invoke(MenuGameId);
 
 			// if (highlighted)
 			{
 				AddToClassList(UssBlockHighlighted);
-			}
-			
-			// base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
-
-			// if (highlighted)
-			{
-				// AddToClassList(UssBlockHighlighted);
 			}
 
 			// if (equipment.IsValid())
@@ -155,6 +154,8 @@ namespace FirstLight.Game.UIElements
 
 			_loanedBadge.SetDisplay(true);
 			_nftBadge.SetDisplay(true);
+
+			// SetSelected(true);
 
 			LoadImage();
 		}

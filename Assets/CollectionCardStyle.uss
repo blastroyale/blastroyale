@@ -55,7 +55,7 @@
     left: -7px;
     right: -6px;
     bottom: -10px;
-    background-image: var(--sprite-home__card-shadow-pink);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/card-selected.png?fileID=21300000&guid=e748127af454d49aebe1ae3d8d327583&type=3#card-selected');
 }
 
 .collection-card--selected .collection-card__selected-bg {

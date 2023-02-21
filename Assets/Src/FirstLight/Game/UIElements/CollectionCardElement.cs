@@ -104,18 +104,13 @@ namespace FirstLight.Game.UIElements
 
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
-
-	
+			
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
 			base.clicked += () => clicked?.Invoke(MenuGameId);
 
-			// if (equipment.IsValid())
-			{
-				// SetCollectionElement(GameId.Male01Avatar);
-			}
 		}
 		
 		public void SetSelected(bool selected)

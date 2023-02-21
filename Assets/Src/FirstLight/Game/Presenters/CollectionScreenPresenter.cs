@@ -46,6 +46,11 @@ namespace FirstLight.Game.Presenters
 		
 		private GameId _selectedId;
 
+		private CollectionCategoryElement [] _collectionCategories;
+		private CollectionCategoryElement _categoryCharacters;
+		private CollectionCategoryElement _categoryBanners;
+		private CollectionCategoryElement _categoryGliders;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -79,16 +84,54 @@ namespace FirstLight.Game.Presenters
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
 			_buyButton.visible = false;
+
+			_categoryCharacters = root.Q<CollectionCategoryElement>("CollectionCategoryElementCharacters").Required();
+			_categoryBanners = root.Q<CollectionCategoryElement>("CollectionCategoryElementBanners").Required();
+			_categoryGliders = root.Q<CollectionCategoryElement>("CollectionCategoryElementGliders").Required();
+			
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
+			CreateCategories();
 			UpdatePlayerSkinMenu();
 			UpdateCollectionDetails();
 		}
-		
+
+		private void CreateCategories()
+		{
+			/*
+			_collectionCategories = new CollectionCategoryElement[3];
+			_collectionCategories[0] = new CollectionCategoryElement();
+			_collectionCategories[0].Category = GameIdGroup.PlayerSkin;
+			_collectionCategories[1] = new CollectionCategoryElement();
+			_collectionCategories[1].Category = GameIdGroup.Banner;
+			_collectionCategories[2] = new CollectionCategoryElement();
+			_collectionCategories[2].Category = GameIdGroup.Glider;
+			*/
+			
+			_categoryCharacters.Category = GameIdGroup.PlayerSkin;
+			_categoryCharacters.clicked += OnCategoryClicked;
+			
+			_categoryGliders.Category = GameIdGroup.Glider;
+			_categoryGliders.clicked += OnCategoryClicked;
+			
+			_categoryBanners.Category = GameIdGroup.Banner;
+			_categoryBanners.clicked += OnCategoryClicked;
+		}
+
+		private void OnCategoryClicked(GameIdGroup group)
+		{
+			Debug.Log("Category Clicked: " + group);
+		}
+
+		private void UpdateCategories()
+		{
+			
+		}
+
 		/// <summary>
 		/// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
 		/// </summary>

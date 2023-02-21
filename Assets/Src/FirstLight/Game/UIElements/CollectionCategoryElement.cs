@@ -37,10 +37,8 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-		
-		
-		public GameIdGroup Category { get; set; }
-		public GameId MenuGameId { get; private set; }
+
+		public GameIdGroup Category { get;  set; }
 
 		private readonly VisualElement _icon;
 		private readonly VisualElement _image;
@@ -52,11 +50,11 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
-		
+
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
-		public new event Action<GameId> clicked;
+		public new event Action<GameIdGroup> clicked;
 
 		public CollectionCategoryElement()
 		{
@@ -96,12 +94,7 @@ namespace FirstLight.Game.UIElements
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
-			base.clicked += () => clicked?.Invoke(MenuGameId);
-
-			// if (equipment.IsValid())
-			{
-				// SetCollectionElement(GameId.Male01Avatar);
-			}
+			base.clicked += () => clicked?.Invoke(Category);
 		}
 		
 		public void SetSelected(bool selected)

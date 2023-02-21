@@ -148,7 +148,19 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MapTestScene, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.TestScene, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.NewBRMap, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
@@ -539,14 +551,38 @@ namespace Quantum
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem
+						GameIdGroup.PlayerSkin
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.Glider01, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
+					GameId.Glider02, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
+					GameId.Banner01, new List<GameIdGroup>
+					{
+						GameIdGroup.Banner
+					}.AsReadOnly()
+				},
+				{
+					GameId.Banner02, new List<GameIdGroup>
+					{
+						GameIdGroup.Banner
 					}.AsReadOnly()
 				},
 				{
@@ -693,7 +729,19 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TutorialGrenade, new List<GameIdGroup>
+					{
+						GameIdGroup.Special
+					}.AsReadOnly()
+				},
+				{
 					GameId.Barrel, new List<GameIdGroup>
+					{
+						GameIdGroup.Destructible
+					}.AsReadOnly()
+				},
+				{
+					GameId.Barrier, new List<GameIdGroup>
 					{
 						GameIdGroup.Destructible
 					}.AsReadOnly()
@@ -808,7 +856,9 @@ namespace Quantum
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
-						GameId.TestScene
+						GameId.MapTestScene,
+						GameId.TestScene,
+						GameId.NewBRMap
 					}.AsReadOnly()
 				},
 				{
@@ -1004,7 +1054,21 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.Male02Avatar,
-						GameId.Female01Avatar
+						GameId.Female02Avatar
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Glider, new List<GameId>
+					{
+						GameId.Glider01,
+						GameId.Glider02
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Banner, new List<GameId>
+					{
+						GameId.Banner01,
+						GameId.Banner02
 					}.AsReadOnly()
 				},
 				{
@@ -1072,13 +1136,15 @@ namespace Quantum
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
 						GameId.SpecialDefaultDash,
-						GameId.SpecialRadar
+						GameId.SpecialRadar,
+						GameId.TutorialGrenade
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Destructible, new List<GameId>
 					{
-						GameId.Barrel
+						GameId.Barrel,
+						GameId.Barrier
 					}.AsReadOnly()
 				},
 				{

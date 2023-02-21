@@ -29,6 +29,7 @@ namespace FirstLight.Game.Messages
 	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
+	public struct MatchmakingCancelMessage : IMessage { }
 	public struct SelectedGameModeMessage : IMessage { }
 	public struct PlayMapClickedMessage : IMessage
 	{

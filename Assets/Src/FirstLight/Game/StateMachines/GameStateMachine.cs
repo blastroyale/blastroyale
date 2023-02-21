@@ -216,6 +216,7 @@ namespace FirstLight.Game.StateMachines
 		
 			_services.AssetResolverService.UnloadAsset(asset);
 
+			await _uiService.LoadUiAsync<GenericDialogPresenter>();
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 			

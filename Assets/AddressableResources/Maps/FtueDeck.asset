@@ -3113,7 +3113,8 @@ MonoBehaviour:
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
         WeaponCollectedTriggerData:
-          _empty_prototype_dummy_field_: 0
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3236,7 +3237,8 @@ MonoBehaviour:
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
         WeaponCollectedTriggerData:
-          _empty_prototype_dummy_field_: 0
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3483,7 +3485,8 @@ MonoBehaviour:
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
         WeaponCollectedTriggerData:
-          _empty_prototype_dummy_field_: 0
+          WeaponSpawner:
+            SceneIndexPlusOne: 7
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []

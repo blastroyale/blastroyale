@@ -2,6 +2,7 @@ component Collectable
 {
 	[HideInInspector] GameId GameId;
 	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
+	[HideInInspector] EntityRef Spawner;
 }
 
 synced event OnStartedCollecting
@@ -19,13 +20,14 @@ synced event OnStoppedCollecting
 	entity_ref PlayerEntity;
 }
 
-signal CollectableCollected(GameId CollectableId, entity_ref CollectableEntity, player_ref Player, entity_ref PlayerEntity);
+signal CollectableCollected(GameId CollectableId, entity_ref CollectableEntity, player_ref Player, entity_ref PlayerEntity, entity_ref Spawner);
 synced event OnCollectableCollected
 {
 	GameId CollectableId;
 	entity_ref CollectableEntity;
 	player_ref Player;
 	entity_ref PlayerEntity;
+	entity_ref Spawner;
 }
 
 synced event OnCollectableBlocked

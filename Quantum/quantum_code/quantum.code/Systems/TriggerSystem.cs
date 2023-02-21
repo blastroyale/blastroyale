@@ -31,14 +31,15 @@ namespace Quantum.Systems
 		}
 		
 		public void CollectableCollected(Frame f, GameId collectableId, EntityRef collectableEntity, PlayerRef player,
-										 EntityRef playerEntity)
+										 EntityRef playerEntity, EntityRef spawner)
 		{
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
 			{
 				foreach (var pair in f.Unsafe.GetComponentBlockIterator<Trigger>())
 				{
 					var trigger = pair.Component;
-					if (pair.Component->Data.Field == TriggerData.WEAPONCOLLECTEDTRIGGERDATA)
+
+					if (pair.Component->Data.Field == TriggerData.WEAPONCOLLECTEDTRIGGERDATA && pair.Component->Data.WeaponCollectedTriggerData->WeaponSpawner == spawner)
 					{
 						SendTriggerActivated(f, trigger->Target, trigger->Data);
 					}

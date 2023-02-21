@@ -23,6 +23,7 @@ struct ChestOpenTriggerData
 
 struct WeaponCollectedTriggerData
 {
+    EntityRef WeaponSpawner;
 }
 
 signal TriggerActivated(entity_ref target, TriggerData triggerData);

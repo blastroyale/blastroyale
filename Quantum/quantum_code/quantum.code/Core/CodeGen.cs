@@ -3067,18 +3067,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponCollectedTriggerData {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public EntityRef WeaponSpawner;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 379;
+        hash = hash * 31 + WeaponSpawner.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponCollectedTriggerData*)ptr;
+        EntityRef.Serialize(&p->WeaponSpawner, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3488,18 +3490,18 @@ namespace Quantum {
   [StructLayout(LayoutKind.Explicit)]
   [Union()]
   public unsafe partial struct TriggerData {
-    public const Int32 SIZE = 8;
-    public const Int32 ALIGNMENT = 4;
-    [FieldOffset(4)]
-    [FieldOverlap(4)]
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(8)]
+    [FieldOverlap(8)]
     [FramePrinter.PrintIf("_field_used_", Quantum.TriggerData.CHESTOPENTRIGGERDATA)]
     private ChestOpenTriggerData _ChestOpenTriggerData;
-    [FieldOffset(4)]
-    [FieldOverlap(4)]
+    [FieldOffset(8)]
+    [FieldOverlap(8)]
     [FramePrinter.PrintIf("_field_used_", Quantum.TriggerData.PLAYERSALIVETRIGGERDATA)]
     private PlayersAliveTriggerData _PlayersAliveTriggerData;
-    [FieldOffset(4)]
-    [FieldOverlap(4)]
+    [FieldOffset(8)]
+    [FieldOverlap(8)]
     [FramePrinter.PrintIf("_field_used_", Quantum.TriggerData.WEAPONCOLLECTEDTRIGGERDATA)]
     private WeaponCollectedTriggerData _WeaponCollectedTriggerData;
     [FieldOffset(0)]
@@ -3538,7 +3540,7 @@ namespace Quantum {
       get {
         fixed (WeaponCollectedTriggerData* p = &_WeaponCollectedTriggerData) {
           if (_field_used_ != WEAPONCOLLECTEDTRIGGERDATA) {
-            Native.Utils.Clear(p, 4);
+            Native.Utils.Clear(p, 8);
             _field_used_ = WEAPONCOLLECTEDTRIGGERDATA;
           }
           return p;
@@ -4018,15 +4020,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Collectable : Quantum.IComponent {
-    public const Int32 SIZE = 264;
+    public const Int32 SIZE = 272;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(16)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(FP), 32)]
     private fixed Byte _CollectorsEndTime_[256];
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public EntityRef Spawner;
     public FixedArray<FP> CollectorsEndTime {
       get {
         fixed (byte* p = _CollectorsEndTime_) { return new FixedArray<FP>(p, 8, 32); }
@@ -4037,12 +4042,14 @@ namespace Quantum {
         var hash = 463;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + Spawner.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Collectable*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
+        EntityRef.Serialize(&p->Spawner, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
     }
   }
@@ -5116,7 +5123,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Trigger : Quantum.IComponent {
-    public const Int32 SIZE = 16;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public TriggerData Data;
@@ -5356,12 +5363,12 @@ namespace Quantum {
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
-      public void CollectableCollected(GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity) {
+      public void CollectableCollected(GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity, EntityRef Spawner) {
         var array = _f._ISignalCollectableCollectedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.CollectableCollected(_f, CollectableId, CollectableEntity, Player, PlayerEntity);
+            s.CollectableCollected(_f, CollectableId, CollectableEntity, Player, PlayerEntity, Spawner);
           }
         }
       }
@@ -5649,13 +5656,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnCollectableCollected OnCollectableCollected(GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity) {
+      public EventOnCollectableCollected OnCollectableCollected(GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity, EntityRef Spawner) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnCollectableCollected>(EventOnCollectableCollected.ID);
         ev.CollectableId = CollectableId;
         ev.CollectableEntity = CollectableEntity;
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
+        ev.Spawner = Spawner;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6432,7 +6440,7 @@ namespace Quantum {
     }
   }
   public unsafe interface ISignalCollectableCollected : ISignal {
-    void CollectableCollected(Frame f, GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity);
+    void CollectableCollected(Frame f, GameId CollectableId, EntityRef CollectableEntity, PlayerRef Player, EntityRef PlayerEntity, EntityRef Spawner);
   }
   public unsafe interface ISignalAllPlayersSpawned : ISignal {
     void AllPlayersSpawned(Frame f);
@@ -6726,6 +6734,7 @@ namespace Quantum {
     public EntityRef CollectableEntity;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
+    public EntityRef Spawner;
     protected EventOnCollectableCollected(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6747,6 +6756,7 @@ namespace Quantum {
         hash = hash * 31 + CollectableEntity.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
+        hash = hash * 31 + Spawner.GetHashCode();
         return hash;
       }
     }
@@ -10278,6 +10288,8 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     [ArrayLengthAttribute(32)]
     public FP[] CollectorsEndTime = new FP[32];
+    [HideInInspector()]
+    public MapEntityId Spawner;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -10289,6 +10301,7 @@ namespace Quantum.Prototypes {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
       result.GameId = this.GameId;
+      PrototypeValidator.FindMapEntity(this.Spawner, in context, out result.Spawner);
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -11450,10 +11463,10 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(WeaponCollectedTriggerData))]
   public sealed unsafe partial class WeaponCollectedTriggerData_Prototype : StructPrototype {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public MapEntityId WeaponSpawner;
     partial void MaterializeUser(Frame frame, ref WeaponCollectedTriggerData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponCollectedTriggerData result, in PrototypeMaterializationContext context) {
+      PrototypeValidator.FindMapEntity(this.WeaponSpawner, in context, out result.WeaponSpawner);
       MaterializeUser(frame, ref result, in context);
     }
   }

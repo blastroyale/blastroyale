@@ -2,7 +2,7 @@ using Photon.Deterministic;
 
 namespace Quantum.Systems
 {
-	public unsafe class TriggerSystem: SystemSignalsOnly, ISignalPlayerDead, ISignalChestOpened
+	public unsafe class TriggerSystem: SystemSignalsOnly, ISignalPlayerDead, ISignalChestOpened, ISignalCollectableCollected
 	{
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
@@ -13,7 +13,7 @@ namespace Quantum.Systems
 
 				if (pair.Component->Data.Field == TriggerData.PLAYERSALIVETRIGGERDATA && playersAlive <= trigger->Data.PlayersAliveTriggerData->PlayersAlive)
 				{
-					f.Signals.TriggerActivated(trigger->Target, trigger->Data);
+					SendTriggerActivated(f, trigger->Target, trigger->Data);
 				}
 			}
 		}
@@ -25,9 +25,31 @@ namespace Quantum.Systems
 				var trigger = pair.Component;
 				if (pair.Component->Data.Field == TriggerData.CHESTOPENTRIGGERDATA)
 				{
-					f.Signals.TriggerActivated(trigger->Target, trigger->Data);
+					SendTriggerActivated(f, trigger->Target, trigger->Data);
 				}
 			}
+		}
+		
+		public void CollectableCollected(Frame f, GameId collectableId, EntityRef collectableEntity, PlayerRef player,
+										 EntityRef playerEntity)
+		{
+			if (collectableId.IsInGroup(GameIdGroup.Weapon))
+			{
+				foreach (var pair in f.Unsafe.GetComponentBlockIterator<Trigger>())
+				{
+					var trigger = pair.Component;
+					if (pair.Component->Data.Field == TriggerData.WEAPONCOLLECTEDTRIGGERDATA)
+					{
+						SendTriggerActivated(f, trigger->Target, trigger->Data);
+					}
+				}
+			}
+		}
+
+		private void SendTriggerActivated(Frame f, EntityRef target, TriggerData data)
+		{
+			f.Signals.TriggerActivated(target, data);
+			f.Events.OnTriggerActivated(target, data);
 		}
 
 		private int AlivePlayerCount(Frame f)

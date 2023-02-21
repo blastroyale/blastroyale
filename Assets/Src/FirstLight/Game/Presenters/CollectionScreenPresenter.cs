@@ -10,6 +10,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Ids;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 			
 			_comingSoonLabel = root.Q<Label>("ComingSoon").Required();
 			_comingSoonLabel.text = COMING_SOON_LOC_KEY.LocalizeKey();
+			_comingSoonLabel.visible = false; // TO DO: Show Coming soon for other categories.
 			
 			_selectedItemLabel = root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
@@ -76,6 +78,7 @@ namespace FirstLight.Game.Presenters
 			
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
+			_buyButton.visible = false;
 		}
 
 		protected override void OnOpened()
@@ -145,6 +148,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
 			UpdateCollectionDetails();
+			UpdatePlayerSkinMenu();
 		}
 
 		private void OnBuyClicked()
@@ -156,6 +160,9 @@ namespace FirstLight.Game.Presenters
 		/// Updated cost of Collection items / has it been equipped, etc. 
 		private void UpdateCollectionDetails()
 		{
+			// If an item is already equipped, show SELECTED instead of Equip
+			_equipButton.text = _selectedId == _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin ? ScriptLocalization.General.Selected.ToUpper() : ScriptLocalization.General.Equip;
+
 			_selectedItemLabel.text = _selectedId.GetLocalization();
 			_selectedItemDescription.text = _selectedId.GetDescriptionLocalization();
 		}
@@ -198,27 +205,27 @@ namespace FirstLight.Game.Presenters
 			var card1 = visualElement.Q<CollectionCardElement>("item-1");
 			var card2 = visualElement.Q<CollectionCardElement>("item-2");
 			var card3 = visualElement.Q<CollectionCardElement>("item-3");
-
-			var selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			
-			card1.SetCollectionElement(row.Item1.GameId, false, false);
+			var currentSkin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			
+			card1.SetCollectionElement(row.Item1.GameId, row.Item1.GameId == currentSkin);
 			card2.SetDisplay(false);
 			card3.SetDisplay(false);
 			
 			if (row.Item2 != null)
 			{
 				card2.SetDisplay(true);
-				card2.SetCollectionElement(row.Item2.GameId, false, false);
+				card2.SetCollectionElement(row.Item2.GameId, row.Item2.GameId == currentSkin);
 			}
 			if (row.Item3 != null)
 			{
 				card3.SetDisplay(true);
-				card3.SetCollectionElement(row.Item3.GameId, false, false);
+				card3.SetCollectionElement(row.Item3.GameId, row.Item3.GameId == currentSkin);
 			}
 
-			card1.SetSelected(card1.MenuGameId == selectedId);
-			card2.SetSelected(card2.MenuGameId == selectedId);
-			card3.SetSelected(card3.MenuGameId == selectedId);
+			card1.SetSelected(card1.MenuGameId == _selectedId);
+			card2.SetSelected(card2.MenuGameId == _selectedId);
+			card3.SetSelected(card3.MenuGameId == _selectedId);
 		}
 		
 		private class CollectionListRow

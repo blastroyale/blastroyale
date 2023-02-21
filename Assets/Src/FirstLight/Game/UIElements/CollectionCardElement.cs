@@ -40,7 +40,8 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _image;
 		private readonly VisualElement _imageShadow;
 		private readonly Label _name;
-		
+
+		private readonly VisualElement _locked;
 		private readonly VisualElement _nftBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
@@ -90,6 +91,9 @@ namespace FirstLight.Game.UIElements
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
+			
+			cardHolder.Add(_locked = new VisualElement{name = "--locked"});
+			_locked.AddToClassList(UssBlockLocked);
 
 			// base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
 
@@ -126,14 +130,10 @@ namespace FirstLight.Game.UIElements
 		
 		private async void LoadImage()
 		{
-			
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
 
 			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
-			_image.style.backgroundImage =
-				_imageShadow.style.backgroundImage = new StyleBackground(sprite);
-
 			_image.style.backgroundImage = new StyleBackground(sprite);
 		}
 

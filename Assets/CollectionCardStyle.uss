@@ -24,11 +24,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: var(--sprite-collectioncard__card-background);
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-slot-back.png?fileID=2800000&guid=dbf33629a45de4830b1198af2ec88192&type=3#collection-slot-back');
 }
 
 .collection-card:active .collection-card__background {
-    background-image: var(--sprite-collectioncard__card-background-pressed);
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-slot-back-pressed.png?fileID=2800000&guid=e17e709a2967d47f49e93d64c0234e1d&type=3#collection-slot-back-pressed');
 }
 
 .collection-card--selected {

@@ -25,19 +25,13 @@ namespace FirstLight.Game.UIElements
 		private const string UssSelected = UssBlock + "__selected-bg";
 		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";
-		private const string UssRarity = UssBlock + "__rarity";
 		private const string UssCardHolder = UssBlock + "__card-holder";
-		private const string UssPlusRarity = UssBlock + "__plus-rarity";
+
 		private const string UssImage = UssBlock + "__image";
 		private const string UssImageShadow = UssImage + "--shadow";
-		private const string UssGrade = UssBlock + "__grade";
-		private const string UssFaction = UssBlock + "__faction";
-		private const string UssMaterial = UssBlock + "__material";
-		private const string UssLevel = UssBlock + "__level";
+
 		private const string UssName = UssBlock + "__name";
-		private const string UssAdjCatHolder = UssBlock + "__adj-cat-holder";
-		private const string UssCategory = UssBlock + "__category";
-		private const string UssAdjective = UssBlock + "__adjective";
+
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
@@ -46,10 +40,6 @@ namespace FirstLight.Game.UIElements
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
 		
-		private const string UssSpriteRarity = "sprite-collectioncard__card-rarity-{0}";
-		private const string UssSpriteFaction = "sprite-collectioncard__card-faction-{0}";
-		private const string UssSpriteMaterial = "sprite-collectioncard__card-material-{0}";
-		private const string UssSpriteCategory = "sprite-collectioncard__card-category-{0}";
 		
 		public GameIdGroup Category { get; set; }
 		public GameId MenuGameId { get; private set; }
@@ -84,13 +74,6 @@ namespace FirstLight.Game.UIElements
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
 
-			// cardHolder.Add(_rarity = new VisualElement {name = "rarity"});
-			// _rarity.AddToClassList(UssRarity);
-			// _rarity.AddToClassList(string.Format(UssSpriteRarity, "common"));
-
-			// cardHolder.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
-			// _plusRarity.AddToClassList(UssPlusRarity);
-
 			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
 			_imageShadow.AddToClassList(UssImage);
 			_imageShadow.AddToClassList(UssImageShadow);
@@ -116,20 +99,7 @@ namespace FirstLight.Game.UIElements
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
 
-			/*
-			var adjCatHolder = new VisualElement {name = "adjective-category-holder"};
-			cardHolder.Add(adjCatHolder);
-			adjCatHolder.AddToClassList(UssAdjCatHolder);
-			{
-				adjCatHolder.Add(_category = new VisualElement {name = "category"});
-				_category.AddToClassList(UssCategory);
-				_category.AddToClassList(string.Format(UssSpriteCategory, "weapon"));
-
-				adjCatHolder.Add(_adjective = new Label("MAGNIFICENT") {name = "adjective"});
-				_adjective.AddToClassList(UssAdjective);
-			}
-			*/
-			
+	
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);

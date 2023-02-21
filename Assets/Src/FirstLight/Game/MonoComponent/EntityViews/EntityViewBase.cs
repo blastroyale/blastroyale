@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -93,12 +94,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetRendererState(active);
 		}
 		
-		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
+		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration, Action onComplete = null)
 		{
-			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
+			StartCoroutine(DissolveCoroutine(onComplete, destroyGameObject, startValue, endValue, delay, duration));
 		}
 
-		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
+		private IEnumerator DissolveCoroutine(Action onComplete, bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
 			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
 			
@@ -117,6 +118,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			yield return new WaitForSeconds(duration);
 
+			onComplete?.Invoke();
+			
 			if (destroyGameObject)
 			{
 				Destroy(gameObject);

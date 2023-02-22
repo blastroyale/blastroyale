@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 		
 		public struct StateData
 		{
-			public Action<GameIdGroup> OnSlotButtonClicked;
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
@@ -41,6 +40,8 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemDescription;
 		private Button _equipButton;
 		private PriceButton _buyButton;
+		private VisualElement _renderTexture;
+		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		
@@ -71,10 +72,12 @@ namespace FirstLight.Game.Presenters
 			_collectionList.bindItem = BindCollectionListItem;
 
 			root.SetupClicks(_services);
+
+			_renderTexture = root.Q<VisualElement>("RenderTexture");
 			
 			_comingSoonLabel = root.Q<Label>("ComingSoon").Required();
 			_comingSoonLabel.text = COMING_SOON_LOC_KEY.LocalizeKey();
-			_comingSoonLabel.visible = false; // TO DO: Show Coming soon for other categories.
+			_comingSoonLabel.visible = false; 
 			
 			_selectedItemLabel = root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
@@ -143,11 +146,6 @@ namespace FirstLight.Game.Presenters
 				_comingSoonLabel.visible = true;
 				_collectionList.visible = false;
 			}
-		}
-
-		private void UpdateCategories()
-		{
-			
 		}
 
 		/// <summary>

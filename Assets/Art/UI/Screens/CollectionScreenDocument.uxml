@@ -22,6 +22,7 @@
             </ui:VisualElement>
             <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="height: 828px; width: 1076px; position: absolute; top: 224px; left: 424px; justify-content: space-between; align-items: center; flex-grow: 1; flex-direction: row;" />
             <ui:Label name="ComingSoon" text="COMING SOON!" class="no-equipment-label" style="color: rgb(255, 255, 255); font-size: 64px; text-shadow: 1px 1px 0 rgb(0, 0, 0); position: absolute; top: 420px; left: 456px; height: 136px; width: 1154px; justify-content: center; align-items: center; -unity-text-align: upper-center;" />
+            <ui:VisualElement name="RenderTexture" style="position: absolute; width: 400px; height: 600px; top: 238px; left: 1683px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/CollectableCard/CollectionMenuRenderTexture.renderTexture?fileID=8400000&amp;guid=446a12b0162d14cc19fc53c0a75d803c&amp;type=2#CollectionMenuRenderTexture&apos;);" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -241,12 +241,18 @@
     background-image: var(--sprite-home__button-play);
 }
 
-.play-button--disabled {
+.play-button:disabled {
     background-image: var(--sprite-home__button-play-disabled);
+    color: rgb(213, 213, 213);
+    -unity-text-outline-color: rgb(65, 65, 65);
+    text-shadow: 5px 5px 0 rgb(35, 35, 35);
+    opacity: 1;
 }
 
 .play-button--ready {
     background-image: var(--sprite-home__button-play-ready);
+    -unity-text-outline-color: rgb(0, 189, 52);
+    text-shadow: 5px 5px 0 rgb(40, 84, 3);
 }
 
 .play-button:active {

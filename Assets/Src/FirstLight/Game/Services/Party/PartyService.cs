@@ -80,6 +80,10 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		IObservableFieldReader<string> PartyID { get; }
 
+		/// <summary>
+		/// Operation in Progress Observable, it automatically changes based on calls to the service
+		/// </summary>
+		IObservableFieldReader<bool> OperationInProgress { get; }
 
 		/// <summary>
 		/// The members of the local player party, it changes when any player join/leave the party
@@ -146,6 +150,8 @@ namespace FirstLight.Game.Services.Party
 		/// <inheritdoc/>
 		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
 
+		/// <inheritdoc/>
+		IObservableFieldReader<bool> IPartyService.OperationInProgress => OperationInProgress;
 
 		// Services
 		private IPlayfabPubSubService _pubsub;
@@ -155,11 +161,11 @@ namespace FirstLight.Game.Services.Party
 		// State
 		private string _lobbyId;
 
-
-		SemaphoreSlim accessSemaphore = new(1, 1);
+		SemaphoreSlim _accessSemaphore = new(1, 1);
 
 		private IObservableField<bool> HasParty { get; }
 		private IObservableField<bool> PartyReady { get; }
+		private IObservableField<bool> OperationInProgress { get; }
 		private IObservableField<string> PartyCode { get; }
 		private IObservableList<PartyMember> Members { get; }
 
@@ -176,6 +182,7 @@ namespace FirstLight.Game.Services.Party
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
+			OperationInProgress = new ObservableField<bool>(false);
 			PartyCode = new ObservableField<string>(null);
 			PartyID = new ObservableField<string>(null);
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
@@ -187,7 +194,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.AlreadyInParty);
@@ -228,7 +236,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Create");
@@ -239,7 +248,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.AlreadyInParty);
@@ -314,7 +324,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Join");
@@ -375,7 +386,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
@@ -387,16 +399,22 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.NoPermission);
 				}
 
+				var data = new Dictionary<string, string>()
+				{
+					{key, value}
+				};
 
 				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 				{
 					LobbyId = _lobbyId,
 					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
-					MemberData = new Dictionary<string, string>()
-					{
-						{key, value}
-					}
+					MemberData = data
 				});
+				// If the request was successful let's update locally so 
+				if (MergeData(localPartyMember, data))
+				{
+					Members.InvokeUpdate(Members.IndexOf(localPartyMember));
+				}
 			}
 			catch (Exception ex)
 			{
@@ -404,7 +422,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 		}
 
@@ -413,7 +432,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
@@ -439,7 +459,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Kick");
@@ -452,7 +473,8 @@ namespace FirstLight.Game.Services.Party
 			var members = MembersAsString();
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
@@ -483,7 +505,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Leave", lobbyId, members);
@@ -621,7 +644,7 @@ namespace FirstLight.Game.Services.Party
 			PartyID.Value = null;
 			_pubSubState = PartySubscriptionState.NotConnected;
 			Members.Clear();
-			foreach (var key in LobbyProperties.ReadOnlyDictionary.Keys)
+			foreach (var key in new List<string>(LobbyProperties.ReadOnlyDictionary.Keys))
 			{
 				LobbyProperties.Remove(key);
 			}

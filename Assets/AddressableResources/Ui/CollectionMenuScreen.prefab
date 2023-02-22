@@ -58,6 +58,7 @@ MonoBehaviour:
   _background: {fileID: 5312011000051045207}
   _millisecondsToClose: 0
   _renderTextureCamera: {fileID: 1631074020616406735}
+  _collectionSpawnPosition: {x: 0, y: 10, z: -10}
 --- !u!114 &8109163405775159547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,8 +150,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7718582081075267557}
-  m_LocalRotation: {x: -0.01652946, y: -0.5499895, z: -0.05560042, w: 0.83315486}
-  m_LocalPosition: {x: -987.92004, y: -497.47998, z: -1.3}
+  m_LocalRotation: {x: -0.00014895783, y: -0.5844863, z: -0.002706252, w: 0.8113991}
+  m_LocalPosition: {x: -990.8, y: -487.7, z: -8.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,8 +167,8 @@ Camera:
   m_GameObject: {fileID: 7718582081075267557}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -181,8 +182,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 100
-  field of view: 50
+  far clip plane: 500
+  field of view: 45
   orthographic: 0
   orthographic size: 3128.598
   m_Depth: -1
@@ -471,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2482823480601963855, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2482823480709534008, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_Color.a

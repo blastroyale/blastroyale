@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cinemachine;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.Presenters
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Camera _renderTextureCamera;
+		[SerializeField] private Vector3 _collectionSpawnPosition;
 		
 		private const string COMING_SOON_LOC_KEY = "UITCollectionScreen/comingsoon";
 		
@@ -261,6 +263,10 @@ namespace FirstLight.Game.Presenters
 				_collectionObject =
 					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true, 
 						true, OnLoaded);
+				
+				_renderTextureCamera.transform.LookAt(_collectionSpawnPosition);
+				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0,0,0,0));
+				
 			}
 		}
 		

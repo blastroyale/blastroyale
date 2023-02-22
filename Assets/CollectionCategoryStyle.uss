@@ -1,6 +1,6 @@
 .collection-category {
-    width: 308px;
-    height: 328px;
+    width: 486px;
+    height: 164px;
     transition-property: scale;
     transition-duration: 0.2s;
     overflow: visible;
@@ -13,10 +13,14 @@
     right: 0;
     bottom: 0;
     background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab.png?fileID=2800000&guid=0fa8deeb5d5ca446186b3ff8990fb390&type=3#collection-tab');
+    width: 486px;
+    height: 164px;
 }
 
 .collection-category:active .collection-category__background {
     background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-pressed.png?fileID=2800000&guid=58eb59047ccc046e1b3010da7ff940be&type=3#collection-tab-pressed');
+    width: 486px;
+    height: 164px;
 }
 
 .collection-category--selected {
@@ -27,10 +31,10 @@
 
 .collection-category__selected-bg {
     position: absolute;
-    top: -35px;
-    left: -42px;
-    right: -38px;
-    bottom: -37px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0;
     transition-property: opacity;
     transition-duration: 0.2s;
@@ -62,6 +66,8 @@
     left: 9px;
     top: 2px;
     -unity-background-scale-mode: scale-to-fit;
+    width: 486px;
+    height: 164px;
 }
 
 .collection-category__image--shadow {
@@ -75,6 +81,8 @@
     top: 2;
     left: 9px;
     background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
+    width: 486px;
+    height: 184px;
 }
 
 .collection-category__name {

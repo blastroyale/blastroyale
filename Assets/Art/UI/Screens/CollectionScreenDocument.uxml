@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/CollectionCategoryStyle.uss?fileID=7433441132597879392&amp;guid=d775bd44c099e4586aaa9512c8cab4d6&amp;type=3#CollectionCategoryStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
-        <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 200px; height: 734px; width: 874px; position: absolute; top: -24px; left: -32px; justify-content: flex-end; flex-grow: 1; flex-shrink: 0;">
+        <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; height: 734px; width: 908px; position: absolute; top: 192px; left: -26px; justify-content: flex-start; flex-grow: 1; flex-shrink: 0;">
             <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementCharacters" style="width: 486px; height: 164px;" />
             <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementBanners" style="width: 486px; height: 164px;" />
             <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementGliders" style="width: 486px; height: 164px;" />

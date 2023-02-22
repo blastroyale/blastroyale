@@ -99,7 +99,7 @@
     top: 0;
 }
 
-.collection-category__icon {
+.collection-category__icon-skins {
     position: absolute;
     top: 0;
     left: 100px;
@@ -111,15 +111,28 @@
     height: 42px;
 }
 
-.collection-category__badge-holder {
+.collection-category__icon-gliders {
     position: absolute;
-    top: -15px;
-    left: 28px;
-    right: 7px;
-    flex-direction: row;
-    justify-content: center;
-    justify-content: center;
-    align-items: center;
+    top: 0;
+    left: 100px;
+    right: 0;
+    bottom: 55px;
+    opacity: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/icon-jetpack.png?fileID=2800000&guid=6c8816209eb3543fabf19cd382d6cab2&type=3#icon-jetpack');
+    width: 42px;
+    height: 42px;
+}
+
+.collection-category__icon-banners {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    right: 0;
+    bottom: 55px;
+    opacity: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/icon-banner.png?fileID=2800000&guid=c8140914365cd410b984543653d9695c&type=3#icon-banner');
+    width: 42px;
+    height: 42px;
 }
 
 .collection-category__notification {

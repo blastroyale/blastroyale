@@ -24,19 +24,21 @@ namespace FirstLight.Game.UIElements
 		private const string UssBackground = UssBlock + "__background";
 		private const string UssCardHolder = UssBlock + "__card-holder";
 
-		private const string UssIcon = UssBlock + "__icon";
+		private const string UssIconSkins = UssBlock + "__icon-skins";
+		private const string UssIconBanners = UssBlock + "__icon-banners";
+		private const string UssIconGliders = UssBlock + "__icon-gliders";
 		private const string UssImage = UssBlock + "__image";
 		private const string UssImageShadow = UssImage + "--shadow";
 
 		private const string UssName = UssBlock + "__name";
-
-		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
 
 		public GameIdGroup Category { get;  set; }
-
-		private readonly VisualElement _icon;
+		
+		private readonly VisualElement _iconSkins;
+		private readonly VisualElement _iconBanners;
+		private readonly VisualElement _iconGliders;
 		private readonly VisualElement _image;
 		private readonly VisualElement _imageShadow;
 		private readonly Label _name;
@@ -71,9 +73,6 @@ namespace FirstLight.Game.UIElements
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
-
-			cardHolder.Add(_icon = new VisualElement {name = "icon"});
-			_icon.AddToClassList(UssIcon);
 			
 			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
 			_imageShadow.AddToClassList(UssImage);
@@ -84,8 +83,19 @@ namespace FirstLight.Game.UIElements
 			
 			cardHolder.Add(_name = new Label("CATEGORY") {name = "name"});
 			_name.AddToClassList(UssName);
-
-	
+			
+			cardHolder.Add(_iconSkins = new VisualElement {name = "icon-skins"});
+			_iconSkins.AddToClassList(UssIconSkins);
+			_iconSkins.visible = false;
+			
+			cardHolder.Add(_iconGliders = new VisualElement {name = "icon-gliders"});
+			_iconGliders.AddToClassList(UssIconGliders);
+			_iconGliders.visible = false;
+			
+			cardHolder.Add(_iconBanners = new VisualElement {name = "icon-banners"});
+			_iconBanners.AddToClassList(UssIconBanners);
+			_iconBanners.visible = false;
+			
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
@@ -93,10 +103,18 @@ namespace FirstLight.Game.UIElements
 			base.clicked += () => clicked?.Invoke(Category);
 		}
 
-		public void SetCategory(GameIdGroup category, String text)
+		public void SetCategory(GameIdGroup category, String text, bool notification = false)
 		{
 			Category = category;
 			_name.text = text;
+			_notification.SetDisplay(notification);
+
+			switch (category)
+			{
+				case GameIdGroup.PlayerSkin: _iconSkins.visible = true; break;
+				case GameIdGroup.Glider: _iconGliders.visible = true; break;
+				case GameIdGroup.Banner: _iconBanners.visible = true; break;
+			}
 		}
 
 		public void SetSelected(bool selected)

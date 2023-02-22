@@ -30,8 +30,8 @@
 
 .character {
     display: none;
-    width: 200px;
-    height: 200px;
+    width: 301px;
+    height: 285px;
 }
 
 .character--left {
@@ -47,9 +47,9 @@
 
 .bubble {
     display: none;
-    width: 512px;
-    height: 256px;
-    background-image: url('project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&guid=35385152983ad304b810e71f014bcf70&type=3#DialogBox');
+    width: 544px;
+    height: 244px;
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/DialogBox.png');
 }
 
 .bubble--left {
@@ -80,33 +80,33 @@
 }
 
 .male_happy {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Male.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Male.png');
 }
 
 .male_neutral {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Neutral%20Male.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Male.png');
 }
 
 .male_thinking {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Thinking%20Male.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Male.png');
 }
 
 .male_shocked {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Shocked%20Male.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Male.png');
 }
 
 .female_happy {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Female.png');
 }
 
 .female_neutral {
-    background-image:url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Neutral%20Female.png');
+    background-image:url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Female.png');
 }
 
 .female_thinking {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Thinking%20Female.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Female.png');
 }
 
 .female_shocked {
-    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Shocked%20Female.png');
+    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Female.png');
 }

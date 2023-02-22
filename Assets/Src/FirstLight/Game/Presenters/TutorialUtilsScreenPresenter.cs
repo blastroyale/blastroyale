@@ -24,8 +24,6 @@ namespace FirstLight.Game.Presenters
 		private const float circleDefaultSize = 32;
 		private const float squareDefaultSize = 512;
 
-		private const int HIGHLIGHT_ANIM_TIME = 1000;
-
 		private float _initialScale;
 		private float _highlightedScale;
 
@@ -103,7 +101,7 @@ namespace FirstLight.Game.Presenters
 		/// <param name="sizeMultiplier"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <exception cref="Exception"></exception>
-		public void Highlighter<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
+		public void Highlight<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;
@@ -127,7 +125,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
-			_highlighterElement.experimental.animation.Scale(_initialScale, HIGHLIGHT_ANIM_TIME)
+			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.HIGHLIGHT_ANIM_TIME)
 				.OnCompleted(DeleteHighLightElement);
 		}
 
@@ -207,7 +205,7 @@ namespace FirstLight.Game.Presenters
 
 			_highlighterElement.SetDisplay(true);
 
-			_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
+			//_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
 		}
 	}
 }

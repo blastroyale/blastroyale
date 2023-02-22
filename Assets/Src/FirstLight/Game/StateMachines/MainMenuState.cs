@@ -26,35 +26,20 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
 		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
-
+		public static readonly IStatechartEvent PlayClickedEvent = new StatechartEvent("Play Clicked Event");
+		
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-
-		private readonly IStatechartEvent _currentTabButtonClickedEvent =
-			new StatechartEvent("Current Tab Button Clicked Event");
-
-		private readonly IStatechartEvent _playClickedEvent = new StatechartEvent("Play Clicked Event");
-
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
-
+		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-
-		private readonly IStatechartEvent _gameModeSelectedFinishedEvent =
-			new StatechartEvent("Game Mode Selected Finished Event");
-
+		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _battlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
-			new StatechartEvent("Room Join Create Close Button Clicked Event");
-
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
-
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
 		private readonly IStatechartEvent _brokenItemsRepairEvent = new StatechartEvent("Broken Items Repair Event");
 
@@ -167,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
-			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
+			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
@@ -232,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
+			roomJoinCreateMenu.Event(PlayClickedEvent).Target(roomWait);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
@@ -633,7 +618,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayButtonClicked()
 		{
-			_statechartTrigger(_playClickedEvent);
+			_statechartTrigger(PlayClickedEvent);
 		}
 
 		private void RoomJoinCreateCloseClicked()

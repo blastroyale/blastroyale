@@ -98,7 +98,7 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.CloseUi<LoadingScreenPresenter>();
 			await Task.Delay(1000);
 
-			_statechartTrigger(TutorialState.StartFirstGameTutorialEvent);
+			_services.MessageBrokerService.Publish(new RequestStartFirstTutorialMessage());
 		}
 
 		private void SubscribeEvents()

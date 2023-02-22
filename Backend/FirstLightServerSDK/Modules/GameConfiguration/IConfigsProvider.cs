@@ -31,6 +31,11 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		/// Requests the Config of <typeparamref name="T"/> type and with the given <paramref name="id"/>
 		/// </summary>
 		T GetConfig<T>(int id);
+		
+		/// <summary>
+		/// Gets the config based on string id. Will use a deterministic hash for the string.
+		/// </summary>
+		T GetConfig<T>(string id);
 
 		/// <summary>
 		/// Requests the Config List of <typeparamref name="T"/> type

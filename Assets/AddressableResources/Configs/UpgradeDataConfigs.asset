@@ -16,14 +16,14 @@ MonoBehaviour:
   - ResourceType: 61
     BaseValue: 110
     GrowthMultiplier:
-      RawValue: 80282
+      RawValue: 91750
     AdjectiveCostK:
       RawValue: 0
     AdjectiveCostScale: 0
     GradeMultiplier:
       RawValue: 65536
     LevelMultiplier:
-      RawValue: 2490
+      RawValue: 85197
     DurabilityDivider: 20
   - ResourceType: 3
     BaseValue: 180

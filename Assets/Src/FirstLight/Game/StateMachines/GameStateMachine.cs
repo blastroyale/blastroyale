@@ -1,17 +1,13 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -53,7 +49,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, Trigger);
+			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
@@ -220,6 +216,7 @@ namespace FirstLight.Game.StateMachines
 		
 			_services.AssetResolverService.UnloadAsset(asset);
 
+			await _uiService.LoadUiAsync<GenericDialogPresenter>();
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 			

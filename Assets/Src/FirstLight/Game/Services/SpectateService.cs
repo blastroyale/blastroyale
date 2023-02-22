@@ -134,7 +134,7 @@ namespace FirstLight.Game.Services
 				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);
 			}
 
-			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
+			if (_spectatedPlayer.Value.Entity.IsValid && game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
 					out var transform3D))
 			{
 				game.SetPredictionArea(transform3D->Position, _playerVisionRange);
@@ -189,6 +189,7 @@ namespace FirstLight.Game.Services
 			}
 
 			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) ||
+				GetLivingTeamMembers(callback.Game).Count > 0 ||
 				!SetSpectatedEntity(callback.Game.Frames.Verified, callback.EntityKiller, killerPlayer.Player))
 			{
 				SwipeRight(callback.Game);

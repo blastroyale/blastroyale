@@ -48,18 +48,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1635778
+          RawValue: -1501721
         Y:
           RawValue: 176481
         Z:
-          RawValue: 310640
+          RawValue: -719097
       PhysicsMaterial:
         Id:
           Value: 0
@@ -89,18 +89,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1161297
+          RawValue: -1252306
         Y:
           RawValue: 176481
         Z:
-          RawValue: 528220
+          RawValue: -254112
       PhysicsMaterial:
         Id:
           Value: 0
@@ -130,18 +130,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -29493
       Position:
         X:
-          RawValue: -1336934
+          RawValue: -1473037
         Y:
           RawValue: 176481
         Z:
-          RawValue: 668467
+          RawValue: -253774
       PhysicsMaterial:
         Id:
           Value: 0
@@ -171,18 +171,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -29493
       Position:
         X:
-          RawValue: -1446707
+          RawValue: -1485772
         Y:
           RawValue: 286202
         Z:
-          RawValue: 540737
+          RawValue: -421711
       PhysicsMaterial:
         Id:
           Value: 0
@@ -212,18 +212,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1396572
+          RawValue: -1046124
         Y:
           RawValue: 176481
         Z:
-          RawValue: -133038
+          RawValue: -934738
       PhysicsMaterial:
         Id:
           Value: 0
@@ -253,18 +253,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1021050
+          RawValue: -773927
         Y:
           RawValue: 176481
         Z:
-          RawValue: -81920
+          RawValue: -671037
       PhysicsMaterial:
         Id:
           Value: 0
@@ -294,18 +294,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1008599
+          RawValue: -939082
         Y:
           RawValue: 176481
         Z:
-          RawValue: 213712
+          RawValue: -425522
       PhysicsMaterial:
         Id:
           Value: 0
@@ -335,18 +335,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -868581
+          RawValue: -530990
         Y:
           RawValue: 182727
         Z:
-          RawValue: -284630
+          RawValue: -743974
       PhysicsMaterial:
         Id:
           Value: 0
@@ -376,18 +376,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -611450
+          RawValue: -212920
         Y:
           RawValue: 182727
         Z:
-          RawValue: -471859
+          RawValue: -742420
       PhysicsMaterial:
         Id:
           Value: 0
@@ -417,18 +417,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -193986
+          RawValue: 46071
         Y:
           RawValue: 182727
         Z:
-          RawValue: -341442
+          RawValue: -389988
       PhysicsMaterial:
         Id:
           Value: 0
@@ -458,18 +458,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -191365
+          RawValue: -335895
         Y:
           RawValue: 182727
         Z:
-          RawValue: 306708
+          RawValue: 133659
       PhysicsMaterial:
         Id:
           Value: 0
@@ -499,18 +499,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -869698
+          RawValue: -895840
         Y:
           RawValue: 189890
         Z:
-          RawValue: 329553
+          RawValue: -249902
       PhysicsMaterial:
         Id:
           Value: 0
@@ -540,18 +540,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -353894
+          RawValue: -257494
         Y:
           RawValue: 212175
         Z:
-          RawValue: -46530
+          RawValue: -247190
       PhysicsMaterial:
         Id:
           Value: 0
@@ -579,20 +579,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 0
+          RawValue: 19886
         Z:
-          RawValue: 16673
+          RawValue: -15831
         W:
-          RawValue: 63379
+          RawValue: -60178
       Position:
         X:
-          RawValue: -301531
+          RawValue: -515509
         Y:
           RawValue: 392757
         Z:
-          RawValue: 460062
+          RawValue: 191907
       PhysicsMaterial:
         Id:
           Value: 0
@@ -622,18 +622,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -502923
+          RawValue: -700664
         Y:
           RawValue: 271843
         Z:
-          RawValue: 440142
+          RawValue: 30965
       PhysicsMaterial:
         Id:
           Value: 0
@@ -661,20 +661,20 @@ MonoBehaviour:
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 0
+          RawValue: 19886
         Z:
-          RawValue: 16673
+          RawValue: -15831
         W:
-          RawValue: 63379
+          RawValue: -60178
       Position:
         X:
-          RawValue: -301531
+          RawValue: -584247
         Y:
           RawValue: 392757
         Z:
-          RawValue: 576061
+          RawValue: 285345
       PhysicsMaterial:
         Id:
           Value: 0
@@ -704,18 +704,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -640942
+          RawValue: -869452
         Y:
           RawValue: 263585
         Z:
-          RawValue: 595981
+          RawValue: 100265
       PhysicsMaterial:
         Id:
           Value: 0
@@ -745,18 +745,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -825229
+          RawValue: -967919
         Y:
           RawValue: 263585
         Z:
-          RawValue: 511639
+          RawValue: -76877
       PhysicsMaterial:
         Id:
           Value: 0
@@ -786,18 +786,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 95027
+          RawValue: 395265
         Y:
           RawValue: 474319
         Z:
-          RawValue: -537853
+          RawValue: -376938
       PhysicsMaterial:
         Id:
           Value: 0
@@ -827,18 +827,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -137625
+          RawValue: -72024
         Y:
           RawValue: 474319
         Z:
-          RawValue: -65536
+          RawValue: -134343
       PhysicsMaterial:
         Id:
           Value: 0
@@ -868,18 +868,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -105775
+          RawValue: -356274
         Y:
           RawValue: 490001
         Z:
-          RawValue: 457445
+          RawValue: 305799
       PhysicsMaterial:
         Id:
           Value: 0
@@ -909,18 +909,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 327024
+          RawValue: 482064
         Y:
           RawValue: 474319
         Z:
-          RawValue: -368967
+          RawValue: -103422
       PhysicsMaterial:
         Id:
           Value: 0
@@ -950,18 +950,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 327024
+          RawValue: 118180
         Y:
           RawValue: 474319
         Z:
-          RawValue: 245104
+          RawValue: 391222
       PhysicsMaterial:
         Id:
           Value: 0
@@ -991,18 +991,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 289669
+          RawValue: -27638
         Y:
           RawValue: 474319
         Z:
-          RawValue: 440401
+          RawValue: 526401
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1032,18 +1032,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 174981
+          RawValue: -168565
         Y:
           RawValue: 474319
         Z:
-          RawValue: 522321
+          RawValue: 524427
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1073,18 +1073,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 7128
+          RawValue: -345400
         Y:
           RawValue: 490001
         Z:
-          RawValue: 592570
+          RawValue: 481548
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1114,18 +1114,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 60030
+          RawValue: 328123
         Y:
           RawValue: 484966
         Z:
-          RawValue: -472121
+          RawValue: -344727
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1155,18 +1155,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 270008
+          RawValue: 24382
         Y:
           RawValue: 474319
         Z:
-          RawValue: 321781
+          RawValue: 425383
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1196,18 +1196,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -426639
+          RawValue: -572014
         Y:
           RawValue: 239206
         Z:
-          RawValue: 385351
+          RawValue: 57590
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1237,18 +1237,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 458970
+          RawValue: 472176
         Y:
           RawValue: 474319
         Z:
-          RawValue: -172920
+          RawValue: 132684
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1278,18 +1278,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 458970
+          RawValue: 340637
         Y:
           RawValue: 474319
         Z:
-          RawValue: 49057
+          RawValue: 311491
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1319,18 +1319,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -45875
+          RawValue: 328
         Y:
           RawValue: 212175
         Z:
-          RawValue: -62914
+          RawValue: -77863
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1360,18 +1360,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1537474
+          RawValue: -1262147
         Y:
           RawValue: 242483
         Z:
-          RawValue: 39976
+          RawValue: -878868
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1401,18 +1401,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1572864
+          RawValue: -1515121
         Y:
           RawValue: 242483
         Z:
-          RawValue: 418775
+          RawValue: -594711
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1442,18 +1442,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 46419
+          RawValue: 58524
         Z:
           RawValue: 0
         W:
-          RawValue: -46262
+          RawValue: -29493
       Position:
         X:
-          RawValue: -1533542
+          RawValue: -1667913
         Y:
           RawValue: 176481
         Z:
-          RawValue: 730071
+          RawValue: -320657
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1483,18 +1483,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -786300
+          RawValue: -877960
         Y:
           RawValue: 263585
         Z:
-          RawValue: 412745
+          RawValue: -133470
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1524,59 +1524,18 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -563150
-        Y:
-          RawValue: 263585
-        Z:
-          RawValue: 411631
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 62082
-        Y:
-          RawValue: 58988
-        Z:
-          RawValue: 8713
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: _Coll (36)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 36
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -1412956
+          RawValue: -1332332
         Y:
           RawValue: 188088
         Z:
-          RawValue: 327680
+          RawValue: -573332
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1599,25 +1558,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 37
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -1019740
+          RawValue: -858309
         Y:
           RawValue: 188088
         Z:
-          RawValue: 62259
+          RawValue: -554122
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1640,25 +1599,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 38
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -509214
+          RawValue: -403966
         Y:
           RawValue: 188088
         Z:
-          RawValue: -10485
+          RawValue: -310194
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1681,25 +1640,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 39
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -688521
+          RawValue: -852245
         Y:
           RawValue: 188088
         Z:
-          RawValue: 502267
+          RawValue: -3416
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1722,25 +1681,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 40
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
-          RawValue: 0
+          RawValue: 5231
         Y:
-          RawValue: 0
+          RawValue: 19886
         Z:
-          RawValue: 16673
+          RawValue: -15831
         W:
-          RawValue: 63379
+          RawValue: -60178
       Position:
         X:
-          RawValue: -345163
+          RawValue: -583665
         Y:
           RawValue: 311596
         Z:
-          RawValue: 515768
+          RawValue: 210923
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1763,25 +1722,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 41
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 45875
+          RawValue: 54817
         Y:
           RawValue: 435159
         Z:
-          RawValue: -30146
+          RawValue: 2901
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1804,25 +1763,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 42
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: -13981
+          RawValue: -307346
         Y:
           RawValue: 435789
         Z:
-          RawValue: 499656
+          RawValue: 394195
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1845,25 +1804,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 43
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 264007
+          RawValue: 257883
         Y:
           RawValue: 435159
         Z:
-          RawValue: -76312
+          RawValue: 94973
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1886,25 +1845,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 44
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 20563
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -62226
       Position:
         X:
-          RawValue: 430243
+          RawValue: 372975
         Y:
           RawValue: 432930
         Z:
-          RawValue: -44564
+          RawValue: 219054
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1927,25 +1886,25 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 45
+        ColliderIndex: 44
         MutableMode: 0
       MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: -20436
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: 62268
       Position:
         X:
-          RawValue: 1111515
+          RawValue: 1034478
         Y:
           RawValue: -581459
         Z:
-          RawValue: -234799
+          RawValue: 469522
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1968,7 +1927,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 46
+        ColliderIndex: 45
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -2005,7 +1964,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 1
       BehaviourType:
-        Value: 0
+        Value: 4
       ForceStatic:
         Value: 0
     Projectile: []
@@ -2037,16 +1996,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1336934
+          RawValue: -1333231
         Y:
           RawValue: 241827
         Z:
-          RawValue: 432537
+          RawValue: -443819
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2116,16 +2075,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1391329
+          RawValue: 1323066
         Y:
           RawValue: 24903
         Z:
-          RawValue: -341442
+          RawValue: 549430
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2195,16 +2154,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -418054
+          RawValue: -144864
         Y:
           RawValue: 232194
         Z:
-          RawValue: -323813
+          RawValue: -508565
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2274,16 +2233,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -418054
+          RawValue: -469564
         Y:
           RawValue: 232718
         Z:
-          RawValue: 224133
+          RawValue: -67186
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2353,16 +2312,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -205062
+          RawValue: -132947
         Y:
           RawValue: 232718
         Z:
-          RawValue: -54394
+          RawValue: -165330
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2438,16 +2397,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 38666
+          RawValue: 70757
         Y:
           RawValue: 470941
         Z:
-          RawValue: -66846
+          RawValue: -30933
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2519,16 +2478,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1371013
+          RawValue: -1125730
         Y:
           RawValue: 218234
         Z:
-          RawValue: 36044
+          RawValue: -783394
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2600,16 +2559,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1070202
+          RawValue: -900510
         Y:
           RawValue: 215810
         Z:
-          RawValue: 64880
+          RawValue: -581913
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2681,16 +2640,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -786432
+          RawValue: -449404
         Y:
           RawValue: 215810
         Z:
-          RawValue: -310640
+          RawValue: -716246
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2762,16 +2721,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -783810
+          RawValue: -519526
         Y:
           RawValue: 215810
         Z:
-          RawValue: -188743
+          RawValue: -616502
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2843,16 +2802,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1391329
+          RawValue: 1323066
         Y:
           RawValue: 24903
         Z:
-          RawValue: -341442
+          RawValue: 549430
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2874,9 +2833,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 2
+      InitialSpawnDelayInSec: 0
       GameId:
-        Value: 92
+        Value: 79
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -2924,16 +2883,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -418054
+          RawValue: -144864
         Y:
           RawValue: 232194
         Z:
-          RawValue: -323813
+          RawValue: -508565
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -2955,9 +2914,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 2
+      InitialSpawnDelayInSec: 0
       GameId:
-        Value: 92
+        Value: 79
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -3005,16 +2964,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -418054
+          RawValue: -469564
         Y:
           RawValue: 232718
         Z:
-          RawValue: 224133
+          RawValue: -67186
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -3086,16 +3045,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -939130
+          RawValue: -794930
         Y:
           RawValue: 215810
         Z:
-          RawValue: 64880
+          RawValue: -504243
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: 0
     View: []
@@ -3153,6 +3112,9 @@ MonoBehaviour:
           PlayersAlive: 2
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3207,16 +3169,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 310181
+          RawValue: 305001
         Y:
           RawValue: 543031
         Z:
-          RawValue: -93061
+          RawValue: 108844
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 5898240
+          RawValue: 3516661
         Z:
           RawValue: 0
     View: []
@@ -3274,6 +3236,9 @@ MonoBehaviour:
           PlayersAlive: 2
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3328,141 +3293,18 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -721092
+          RawValue: -826210
         Y:
           RawValue: 334692
         Z:
-          RawValue: 414056
+          RawValue: -93773
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 21211382
         Z:
           RawValue: -2
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible:
-    - IsDestructing:
-        Value: 0
-      Destroyer:
-        SceneIndexPlusOne: 0
-      TimeToDestroy:
-        RawValue: 0
-      Health:
-        RawValue: 131072
-      DamagePower:
-        RawValue: 32768000
-      SplashRadius:
-        RawValue: 196608
-      DestructionLengthTime:
-      - RawValue: 0
-      GameId:
-        Value: 109
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26213
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26213
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 15
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -196292
-        Y:
-          RawValue: 227409
-        Z:
-          RawValue: 21620
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -3575,16 +3417,140 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1141637
+          RawValue: -943435
         Y:
-          RawValue: 226099
+          RawValue: 218759
         Z:
-          RawValue: 61079
+          RawValue: -621220
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 17694720
+          RawValue: 15313142
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 0
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 18
+      Data:
+        _field_used_: WEAPONCOLLECTEDTRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 7
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 45875
+          Y:
+            RawValue: -52428
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 136970
+          Y:
+            RawValue: 65536
+          Z:
+            RawValue: 6553
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 0
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1011401
+        Y:
+          RawValue: 334692
+        Z:
+          RawValue: -595962
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 3516661
         Z:
           RawValue: 0
     View: []

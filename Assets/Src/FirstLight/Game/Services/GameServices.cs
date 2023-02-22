@@ -179,7 +179,7 @@ namespace FirstLight.Game.Services
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
+			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentDataProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService();
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);

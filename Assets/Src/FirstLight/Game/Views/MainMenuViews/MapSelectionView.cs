@@ -46,7 +46,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public async void SetupMapView(string gameModeId, int mapId, Vector3 dropzonePosRot)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			if (config.DropSelectionSize == 0)
 			{

@@ -5,6 +5,7 @@ component Stats
 	Int32 CurrentHealth;
 	Int32 CurrentShield;
 	Int32 CurrentAmmo;
+	Int32 MinimumHealth;
 	bool IsImmune;
 	array<StatData>[TOTAL_STATS] Values;
 	list<Modifier> Modifiers;

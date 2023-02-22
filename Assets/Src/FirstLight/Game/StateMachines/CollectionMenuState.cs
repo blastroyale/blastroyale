@@ -65,28 +65,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenCollectionScreen()
 		{
-			/*
-			var data = new PlayerSkinScreenPresenter.StateData
-			{
-				OnSkinSelected = ItemClicked,
-				OnCloseClicked = () => _statechartTrigger(_closeButtonClickedEvent),
-			};
-
-			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
-			*/
-			
 			var data = new CollectionScreenPresenter.StateData
 			{
-				// OnSkinSelected = ItemClicked,
-				
 				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent),
 				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
 			};
 
 			_uiService.OpenScreen<CollectionScreenPresenter, CollectionScreenPresenter.StateData>(data);
-			
-			
-			// _services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
 		}
 
 		private void SendLoadoutUpdateCommand()

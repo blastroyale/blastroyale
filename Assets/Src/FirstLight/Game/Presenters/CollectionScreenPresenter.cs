@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
@@ -24,6 +25,8 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
+		[SerializeField] private Camera _renderTextureCamera;
+		
 		private const string COMING_SOON_LOC_KEY = "UITCollectionScreen/comingsoon";
 		
 		public struct StateData
@@ -47,6 +50,7 @@ namespace FirstLight.Game.Presenters
 		
 		private GameId _selectedId;
 		private GameIdGroup _selectedCategory;
+		private GameObject _collectionObject;
 
 		private CollectionCategoryElement [] _collectionCategories;
 		private CollectionCategoryElement _categoryCharacters;
@@ -102,7 +106,21 @@ namespace FirstLight.Game.Presenters
 			CreateCategories();
 			UpdatePlayerSkinMenu();
 			UpdateCollectionDetails();
+
+			Update3DObject();
 		}
+
+		protected override async Task OnClosed()
+		{
+			base.OnClosed();
+
+			if (_collectionObject != null)
+			{
+				Destroy(_collectionObject);
+				_collectionObject = null;
+			}
+		}
+		
 
 		private void CreateCategories()
 		{
@@ -128,6 +146,10 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCategoryClicked(GameIdGroup group)
 		{
+			if (_selectedCategory == group) return;
+
+			_selectedCategory = group;
+
 			foreach (var category in _collectionCategories)
 			{
 				category.SetSelected(category.Category == group);
@@ -146,6 +168,12 @@ namespace FirstLight.Game.Presenters
 				_comingSoonLabel.visible = true;
 				_collectionList.visible = false;
 			}
+			
+			// TO DO. When these categories show actual objects, they should no longer be hidden.
+			_renderTexture.visible = _selectedCategory == GameIdGroup.PlayerSkin;
+			_equipButton.visible = _selectedCategory == GameIdGroup.PlayerSkin;
+			_selectedItemLabel.visible = _selectedCategory == GameIdGroup.PlayerSkin;
+			_selectedItemDescription.visible = _selectedCategory == GameIdGroup.PlayerSkin;
 		}
 
 		/// <summary>
@@ -197,6 +225,8 @@ namespace FirstLight.Game.Presenters
 			var previousItem = _selectedId;
 
 			_selectedId = id;
+
+			Update3DObject();
 			UpdateCollectionDetails();
 
 			_collectionList.RefreshItem(_itemRowMap[previousItem]);
@@ -210,10 +240,36 @@ namespace FirstLight.Game.Presenters
 			UpdatePlayerSkinMenu();
 		}
 
+		/// <summary>
+		/// TO DO: Enable players to buy new items here.
+		/// </summary>
 		private void OnBuyClicked()
 		{
 			
 		}
+
+		private async void Update3DObject()
+		{
+			if (_collectionObject != null)
+			{
+				Destroy(_collectionObject);
+				_collectionObject = null;
+			}
+
+			if (_selectedCategory == GameIdGroup.PlayerSkin)
+			{
+				_collectionObject =
+					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true, 
+						true, OnLoaded);
+			}
+		}
+		
+		
+		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
+		{
+
+		}
+
 
 
 		/// Updated cost of Collection items / has it been equipped, etc. 

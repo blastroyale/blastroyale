@@ -100,6 +100,10 @@ namespace Quantum
 
 		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_MARKER)]
 		public bool DeathMarker;
+		
+		[FoldoutGroup("Player"), PropertyTooltip(DESC_MINIMUM_HEALTH),
+		 InfoBox("If more than zero the player will never die. Only works with real players, not bots.", InfoMessageType.Warning)]
+		public uint MinimumHealth;
 
 #endregion
 
@@ -185,6 +189,7 @@ namespace Quantum
 		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
+		private const string DESC_MINIMUM_HEALTH = "Health will not fall below this value. Not for bots.";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
 		private const string DESC_AIRDROP_NEAR_PLAYER = "Airdrop will spawn near player.";
 		private const string DESC_SHRINKING_CIRCLE_CENTERED_ON_PLAYER = "Shrinking circle center is set on player.";

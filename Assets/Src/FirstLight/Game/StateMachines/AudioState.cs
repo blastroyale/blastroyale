@@ -233,7 +233,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			container.GetPlayersMatchData(frame, out var leader);
+			container.GeneratePlayersMatchData(frame, out var leader);
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
@@ -259,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var matchData = container.GeneratePlayersMatchData(frame, out var leader);
 			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
 			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			
@@ -383,7 +383,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 			
 			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			// Respawnable game-mode
 			if (gameModeConfig.Lives is 0 or > 1)

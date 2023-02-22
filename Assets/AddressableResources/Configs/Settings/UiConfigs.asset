@@ -171,6 +171,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/TutorialUtilsScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.TutorialUtilsScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/UiVfxContainerScreen.prefab
     Layer: 7
     UiType: FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,

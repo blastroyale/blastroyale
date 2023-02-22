@@ -66,7 +66,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			var data = gameContainer.GetPlayersMatchData(frame, out _);
+			var data = gameContainer.GeneratePlayersMatchData(frame, out _);
 			
 			UpdateValues(data[_matchServices.SpectateService.SpectatedPlayer.Value.Player]);
 		}
@@ -83,7 +83,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (playerRef == PlayerRef.None) return;
 			
 			var gameContainer = f.GetSingleton<GameContainer>();
-			var data = gameContainer.GetPlayersMatchData(f, out _);
+			var data = gameContainer.GeneratePlayersMatchData(f, out _);
 
 			UpdateValues(data[playerRef]);
 		}

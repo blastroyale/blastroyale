@@ -92,7 +92,7 @@ namespace FirstLight.Game.Services
 
 			var roomSetup = new MatchRoomSetup()
 			{
-				GameModeHash = gameModeId.GetHashCode(),
+				GameModeId = gameModeId,
 				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>()

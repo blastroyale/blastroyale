@@ -160,7 +160,7 @@ namespace FirstLight.Game.Logic
 			}
 
 			var gameModeConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId.GetHashCode());
+				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
 			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
 			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
 			

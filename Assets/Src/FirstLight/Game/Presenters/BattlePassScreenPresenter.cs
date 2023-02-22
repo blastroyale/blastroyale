@@ -269,6 +269,7 @@ namespace FirstLight.Game.Presenters
 		// TODO: Add some faff jazz & wiggs
 		private void CompleteTutorialPass()
 		{
+			_finishedTutorial = false;
 			_services.GenericDialogService.OpenButtonDialog("",ScriptLocalization.FTUE.BPComplete, false, new GenericDialogButton()
 			{
 				ButtonText = ScriptLocalization.General.OK,

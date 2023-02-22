@@ -77,7 +77,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_gameModeId = room.GetGameModeId();
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameModeConfig =
-				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
+				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			_mapId = ((int) config.Map).ToString();
 			
 			var data = new Dictionary<string, object>
@@ -110,7 +110,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			var totalPlayers = room.PlayerCount;
 			var loadout = _gameData.EquipmentDataProvider.Loadout;
 			var ids = _gameData.UniqueIdDataProvider.Ids;
@@ -286,11 +286,19 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			var frame = playerDeadEvent.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out _);
+			var playerData = container.GeneratePlayersMatchData(frame, out _);
 			
 			var deadData = playerData[playerDeadEvent.Player];
-			var killerData = playerData[playerDeadEvent.PlayerKiller];
-
+			
+			string killerName = "";
+			bool isKillerBot = false;
+			if (playerDeadEvent.PlayerKiller.IsValid)
+			{
+				var killerData = playerData[playerDeadEvent.PlayerKiller];
+				killerName = killerData.GetPlayerName();
+				isKillerBot = killerData.IsBot;
+			}
+			
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -298,8 +306,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"killed_name", deadData.GetPlayerName()},
-				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
-				{"killer_name", killerData.GetPlayerName()}
+				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(isKillerBot?"bot":"player")},
+				{"killer_name", killerName}
 			};
 			
 			QueueEvent(AnalyticsEvents.MatchDeadAction, data);

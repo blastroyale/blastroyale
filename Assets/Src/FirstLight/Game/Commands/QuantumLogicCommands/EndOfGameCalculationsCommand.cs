@@ -44,7 +44,6 @@ namespace FirstLight.Game.Commands
 				GamePlayerCount = matchData.Count
 			};
 			
-			var playerMatchData = matchData[QuantumValues.ExecutingPlayer];
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
 			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
@@ -58,7 +57,7 @@ namespace FirstLight.Game.Commands
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
+			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
 			

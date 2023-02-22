@@ -28,85 +28,115 @@
     flex-direction: row;
 }
 
-.character {
+.back_avatar {
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Back%20Avatar.png?fileID=21300000&guid=12e43fceffd03d7b3c9c47a68d681db3&type=3#Back Avatar');
+    position: absolute;
     display: none;
-    width: 301px;
+    width: 302px;
     height: 285px;
 }
 
-.character--left {
-    display: flex;
-    left: 131px;
+.back_avatar--top {
+    top: 0;
 }
 
-.character--right {
-    display: flex;
-    right: 131px;
+.back_avatar--bottom {
+    bottom: 0;
+}
+
+.back_avatar--center {
+    top: 38%;
+    left: 33%;
+}
+
+.back_avatar--left {
+    left: 20px;
+}
+
+.back_avatar--right {
+    right: 20px;
     scale: -1, 1;
 }
 
 .bubble {
+    position: absolute;
     display: none;
     width: 544px;
     height: 244px;
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/DialogBox.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/DialogBox.png?fileID=2800000&guid=35385152983ad304b810e71f014bcf70&type=3#DialogBox');
 }
 
 .bubble--left {
-    display: flex;
-    left: 121px;
+    left: 280px;
 }
 
 .bubble--right {
-    display: flex;
-    right: 121px;
+    right: 264px;
     scale: -1, 1;
 }
 
-.bubble__localized_text {
+.bubble--top {
+    top: 30px;
+}
+
+.bubble--bottom {
+    bottom: -4px;
+}
+
+.bubble--center {
+    top: 42%;
+    left: 46%;
+}
+
+.bubble__localized-text {
     position: absolute;
     left: 68px;
     top: 63px;
     right: 79px;
     bottom: 98px;
-    font-size: 25;
+    font-size: 25px;
     -unity-text-align: middle-center;
     rotate: 5deg;
     scale: 1, 1;
 }
 
-.bubble__localized_text__right {
+.bubble__localized-text__right {
     scale: -1, 1;
 }
 
+.character {
+    width: 302px;
+    height: 285px;
+}
+
 .male_happy {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Male.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Male.png?fileID=21300000&guid=62dbb42cbf89ee04a8a509826dc6f02f&type=3#Happy Male');
 }
 
 .male_neutral {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Male.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Male.png?fileID=21300000&guid=e5f399a11881f8742867a67025c0d50a&type=3#Neutral Male');
 }
 
 .male_thinking {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Male.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Male.png?fileID=21300000&guid=19ae35a881badfc4badd292118d6681e&type=3#Thinking Male');
 }
 
 .male_shocked {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Male.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Male.png?fileID=21300000&guid=d4587f25938f4874fa8a192f6cccf872&type=3#Shocked Male');
 }
 
 .female_happy {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Female.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Happy%20Female.png?fileID=21300000&guid=0b02bd0dec325404097783e14e4057c8&type=3#Happy Female');
 }
 
 .female_neutral {
-    background-image:url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Female.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Neutral%20Female.png?fileID=21300000&guid=1b95c820fe788724eab7c0d565214f29&type=3#Neutral Female');
 }
 
 .female_thinking {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Female.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Thinking%20Female.png?fileID=21300000&guid=fec57163010d225408f99f7757e8ced8&type=3#Thinking Female');
 }
 
 .female_shocked {
-    background-image: url('/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Female.png');
+    background-image: url('project://database/Assets/Art/UI/Sprites/FTUE/Host%20Characters/Shocked%20Female.png?fileID=21300000&guid=e053012167615e24ab27fdcb1d619e10&type=3#Shocked Female');
 }

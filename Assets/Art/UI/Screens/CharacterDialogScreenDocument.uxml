@@ -2,24 +2,18 @@
     <Style src="project://database/Assets/Art/UI/Screens/CharacterDialogScreenStyle.uss?fileID=7433441132597879392&amp;guid=764b815b05125b449970ec53a9436d1c&amp;type=3#CharacterDialogScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement>
-            <ui:VisualElement name="TopContainer" class="edge-container">
-                <ui:VisualElement name="TopLeftContainer" class="subcontainer" />
-                <ui:VisualElement name="TopRightContainer" class="subcontainer--right" />
+            <ui:VisualElement name="MaleBubble" class="bubble">
+                <FirstLight.Game.UIElements.LocalizedLabel name="MaleLocalizedLabel" class="bubble__localized-text" />
             </ui:VisualElement>
-            <ui:VisualElement name="BottomContainer" class="edge-container edge-container--bottom">
-                <ui:VisualElement name="BottomLeftContainer" style="width: 50%; height: 100%; flex-direction: row;" />
-                <ui:VisualElement name="BottomRightContainer" class="subcontainer--right" />
+            <ui:VisualElement name="FemaleBubble" class="bubble">
+                <FirstLight.Game.UIElements.LocalizedLabel name="FemaleLocalizedLabel" class="bubble__localized-text" />
             </ui:VisualElement>
-            <ui:VisualElement name="CenterContainer" class="subcontainer__center" />
+            <ui:VisualElement name="BackAvatarFemale" class="back_avatar">
+                <ui:VisualElement name="FemaleCharacter" class="character" />
+            </ui:VisualElement>
+            <ui:VisualElement name="BackAvatarMale" class="back_avatar">
+                <ui:VisualElement name="MaleCharacter" class="character" />
+            </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="FemaleBubble" class="bubble">
-            <FirstLight.Game.UIElements.LocalizedLabel text="TEXT COMES HERE" localization-key="FTUE/KillEnemyWithRangedWeapon" name="FemaleLocalizedLabel" class="bubble__localized_text" />
-        </ui:VisualElement>
-        <ui:VisualElement name="FemaleCharacter" class="character female_happy" />
-        <ui:VisualElement name="Reference" style="background-image: url(&apos;project://database/Assets/Art/UI/References/FTUE%20dialogue.png?fileID=2800000&amp;guid=b1ed303befe072b41b66e203c90639de&amp;type=3#FTUE dialogue&apos;); width: 2048px; height: 1024px; -unity-background-scale-mode: scale-to-fit; position: absolute; background-color: rgba(255, 255, 255, 0.16); -unity-background-image-tint-color: rgba(255, 255, 255, 0.22); display: none;" />
-        <ui:VisualElement name="MaleBubble" class="bubble">
-            <FirstLight.Game.UIElements.LocalizedLabel text="TEXT COMES HERE" localization-key="FTUE/KillEnemyWithRangedWeapon" name="MaleLocalizedLabel" class="bubble__localized_text" />
-        </ui:VisualElement>
-        <ui:VisualElement name="MaleCharacter" class="character" />
     </ui:VisualElement>
 </ui:UXML>

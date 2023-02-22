@@ -134,7 +134,7 @@ namespace FirstLight.Game.Services
 				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);
 			}
 
-			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
+			if (_spectatedPlayer.Value.Entity.IsValid && game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
 					out var transform3D))
 			{
 				game.SetPredictionArea(transform3D->Position, _playerVisionRange);

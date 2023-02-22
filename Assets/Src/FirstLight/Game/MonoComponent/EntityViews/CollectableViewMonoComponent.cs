@@ -72,10 +72,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (EntityView.EntityRef != callback.CollectableEntity) return;
 
+			if (Culled)
+			{
+				return;
+			}
+			
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
 
-			_collectors.Add(callback.PlayerEntity, new CollectingData(startTime, endTime));
+			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime);
 
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -84,6 +89,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (EntityView.EntityRef != callback.CollectableEntity) return;
 
+			if (Culled)
+			{
+				return;
+			}
+			
 			_collectors.Remove(callback.PlayerEntity);
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -121,8 +131,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_displayedCollector = _collectors.TryGetValue(spectatedPlayer.Entity, out var collectingData)
 				                      ? spectatedPlayer.Entity
 				                      : EntityRef.None;
-
-
+			
 			if (_displayedCollector == EntityRef.None && hasVfx)
 			{
 				_collectingVfx.Despawn();
@@ -138,12 +147,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				                           GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
 
 				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.identity);
-				_collectingVfx.SetTime(collectingData.StartTime, collectingData.EndTime);
+				_collectingVfx.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
 
 			if (_displayedCollector != EntityRef.None)
 			{
-				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime);
+				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
 		}
 

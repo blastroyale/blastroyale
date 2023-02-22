@@ -264,7 +264,7 @@ namespace FirstLight.Game.Presenters
 					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true, 
 						true, OnLoaded);
 				
-				_renderTextureCamera.transform.LookAt(_collectionSpawnPosition);
+				//_renderTextureCamera.transform.LookAt(_collectionSpawnPosition);
 				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0,0,0,0));
 				
 			}

@@ -5,7 +5,7 @@
 
 .edge-container--bottom {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
 }
 
@@ -14,7 +14,7 @@
     flex-direction: row;
 }
 
-.subcontainer--left {
+.subcontainer--right {
     width: 50%;
     flex-direction: row-reverse;
 }
@@ -25,32 +25,88 @@
     top: 39%;
     height: 218px;
     align-items: stretch;
+    flex-direction: row;
 }
 
 .character {
+    display: none;
     width: 200px;
     height: 200px;
 }
 
 .character--left {
+    display: flex;
     left: 131px;
 }
 
 .character--right {
+    display: flex;
     right: 131px;
-    scale: -1,1;
+    scale: -1, 1;
 }
 
 .bubble {
+    display: none;
     width: 512px;
     height: 256px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/TalkingHeads/DialogBox.png?fileID=2800000&guid=35385152983ad304b810e71f014bcf70&type=3#DialogBox');
 }
 
 .bubble--left {
+    display: flex;
     left: 121px;
 }
 
 .bubble--right {
+    display: flex;
     right: 121px;
-    scale: -1,1;
+    scale: -1, 1;
+}
+
+.bubble__localized_text {
+    position: absolute;
+    left: 68px;
+    top: 63px;
+    right: 79px;
+    bottom: 98px;
+    font-size: 25;
+    -unity-text-align: middle-center;
+    rotate: 5deg;
+    scale: 1, 1;
+}
+
+.bubble__localized_text__right {
+    scale: -1, 1;
+}
+
+.male_happy {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Male.png');
+}
+
+.male_neutral {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Neutral%20Male.png');
+}
+
+.male_thinking {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Thinking%20Male.png');
+}
+
+.male_shocked {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Shocked%20Male.png');
+}
+
+.female_happy {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Happy%20Female.png');
+}
+
+.female_neutral {
+    background-image:url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Neutral%20Female.png');
+}
+
+.female_thinking {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Thinking%20Female.png');
+}
+
+.female_shocked {
+    background-image: url('/Assets/Art/Textures/Ui/TalkingHeads/Host%20Characters/Shocked%20Female.png');
 }

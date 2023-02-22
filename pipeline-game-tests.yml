@@ -3,7 +3,12 @@
 
 name: $(Rev:r)
 
-trigger: none
+trigger: 
+  batch: true
+  paths:
+    include:
+    - Assets/Src/FirstLight/Tests/EditorMode
+    - pipeline-game-tests.yml
 pr: none
 
 resources:
@@ -20,8 +25,8 @@ variables:
 pool: macos
 
 stages:
-- stage: AutoBuilds
-  displayName: Auto Builds
+- stage: EditorTests
+  displayName: Editor Tests
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite

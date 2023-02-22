@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4286373802504191245}
   - component: {fileID: 986065588696891136}
   - component: {fileID: 6943504901715475887}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Wall_Base_Corner_Short_CLLSN
   m_TagString: Untagged
   m_Icon: {fileID: 0}

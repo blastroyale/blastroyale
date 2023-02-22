@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 413986291225408163}
   - component: {fileID: 8161101146588241566}
   - component: {fileID: 4668388893441022906}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Barricade_Concrete_2Piece_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3022541082994254357}
   - component: {fileID: 6284138556942304974}
   - component: {fileID: 1446769802513558497}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Wall_Base_Corner_Long_CLLSN
   m_TagString: Untagged
   m_Icon: {fileID: 0}

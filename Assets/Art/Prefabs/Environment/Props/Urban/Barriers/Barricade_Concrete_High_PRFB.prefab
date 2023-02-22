@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 8861096166508752027}
   - component: {fileID: 5394018402945410496}
   - component: {fileID: 4501643551437534365}
-  - component: {fileID: 6218017567336998015}
-  - component: {fileID: 4299579896258376317}
   m_Layer: 7
   m_Name: Barricade_Concrete_High_PRFB
   m_TagString: Untagged
@@ -31,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5376825932659346801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,44 +84,77 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6218017567336998015
+--- !u!1 &6760017192415142254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5376825932659346801}
+  - component: {fileID: 4126782043312606354}
+  - component: {fileID: 7477840816077472949}
+  m_Layer: 0
+  m_Name: CLLSN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5376825932659346801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760017192415142254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8861096166508752027}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4126782043312606354
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6520983700937771482}
+  m_GameObject: {fileID: 6760017192415142254}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4252666, y: 1.2188786, z: 1.5999999}
-  m_Center: {x: 0, y: 0.6094375, z: 0}
---- !u!114 &4299579896258376317
+  m_Size: {x: 0.4650645, y: 1.2154198, z: 1.6189966}
+  m_Center: {x: -0.000000044703484, y: 0.60299015, z: -0.0038210154}
+--- !u!114 &7477840816077472949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6520983700937771482}
+  m_GameObject: {fileID: 6760017192415142254}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 6218017567336998015}
+  SourceCollider: {fileID: 4126782043312606354}
   Size:
     X:
-      RawValue: 27870
+      RawValue: 0
     Y:
-      RawValue: 79880
+      RawValue: 0
     Z:
-      RawValue: 104857
+      RawValue: 0
   PositionOffset:
     X:
       RawValue: 0
     Y:
-      RawValue: 39940
+      RawValue: 0
     Z:
       RawValue: 0
   RotationOffset:

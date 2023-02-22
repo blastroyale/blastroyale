@@ -1608,7 +1608,8 @@ GameObject:
   - component: {fileID: 1607623146735435505}
   - component: {fileID: 1607623146735435504}
   - component: {fileID: 1607623146735435509}
-  - component: {fileID: 9136742989492324906}
+  - component: {fileID: 978025334837097441}
+  - component: {fileID: 6734243396733161396}
   m_Layer: 0
   m_Name: TopRemovalCollider
   m_TagString: Untagged
@@ -1660,20 +1661,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &9136742989492324906
-MeshCollider:
+--- !u!65 &978025334837097441
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607623146735435502}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4363875734887052068, guid: af049efb678018f469b632ad7761f9ef, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 5.7541933, y: 3.6730652, z: 12.666497}
+  m_Center: {x: 5.0281305, y: 1.3365326, z: -0.1995944}
+--- !u!65 &6734243396733161396
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607623146735435502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.774102, y: 3.6730652, z: 7.433744}
+  m_Center: {x: 0.570206, y: 1.3365326, z: 2.4167817}
 --- !u!1 &1643904079591260502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2417579242038703073
 Transform:
   m_ObjectHideFlags: 0
@@ -1852,6 +1865,7 @@ GameObject:
   - component: {fileID: 8571692683378388082}
   - component: {fileID: 4924599205096763646}
   - component: {fileID: 8571692683378388086}
+  - component: {fileID: 8294587001709869850}
   m_Layer: 0
   m_Name: VisibilityVolume
   m_TagString: VisibilityVolume
@@ -1902,6 +1916,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &8294587001709869850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8571692683378388077}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.774102, y: 3.6730652, z: 7.433744}
+  m_Center: {x: 0.570206, y: 1.3365326, z: 2.4167817}
 --- !u!1 &8985700858115408287
 GameObject:
   m_ObjectHideFlags: 0

@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
 				foreach (var change in obj.lobbyChanges)
 				{
 					if (_lobbyChangeNumber >= change.changeNumber) continue;
@@ -151,7 +151,7 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				_accessSemaphore.Release();
 			}
 		}
 
@@ -221,10 +221,11 @@ namespace FirstLight.Game.Services.Party
 					// MERGE NOT COPY
 					if (change.memberToMerge.memberData?.Count != 0)
 					{
-						MergeData(localMember, change.memberToMerge.memberData);
+						if (MergeData(localMember, change.memberToMerge.memberData))
+						{
+							invokeUpdates.Add(localMember.PlayfabID);
+						}
 					}
-
-					invokeUpdates.Add(localMember.PlayfabID);
 				}
 			}
 
@@ -259,7 +260,6 @@ namespace FirstLight.Game.Services.Party
 
 				Members.InvokeUpdate(Members.IndexOf(member));
 			}
-			
 		}
 
 		private async Task UnsubscribeToLobbyUpdates()

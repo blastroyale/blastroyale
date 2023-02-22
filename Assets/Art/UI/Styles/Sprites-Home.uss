@@ -53,6 +53,7 @@
     --sprite-home__button-long-yellow: url('/Assets/Art/UI/Sprites/Home/button-long-yellow.png');
     --sprite-home__button-long-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png');
     --sprite-home__button-main-purple: url('/Assets/Art/UI/Sprites/Home/button-main-purple.png');
+    --sprite-home__button-main-disabled: url('/Assets/Art/UI/Sprites/Home/button-main-disabled.png');
     --sprite-home__button-main-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-purple-pressed.png');
     --sprite-home__button-main-yellow: url('/Assets/Art/UI/Sprites/Home/button-main-yellow.png');
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');

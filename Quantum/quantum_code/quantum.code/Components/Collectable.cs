@@ -14,7 +14,7 @@ namespace Quantum
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,
-			                                                        FPQuaternion.Identity, configConsumable);
+			                                                        FPQuaternion.Identity, configConsumable, EntityRef.None);
 		}
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace Quantum
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-			                                                        equipment, owner);
+			                                                        equipment, EntityRef.None, owner);
 		}
 
 		/// <summary>

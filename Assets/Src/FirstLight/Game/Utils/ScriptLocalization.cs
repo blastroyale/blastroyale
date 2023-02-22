@@ -1117,6 +1117,16 @@ namespace I2.Loc
 			public static string tap_to_claim 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/tap_to_claim"); } }
 		}
 
+		public static class UITCollectionScreen
+		{
+			public static string banners 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/banners"); } }
+			public static string buy 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/buy"); } }
+			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
+			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
+			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
+			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
+		}
+
 		public static class UITDisconnected
 		{
 			public static string connection_lost 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/connection_lost"); } }
@@ -2499,6 +2509,16 @@ namespace I2.Loc
 		    public const string season_time_left_big = "UITBattlePass/season_time_left_big";
 		    public const string season_time_left_small = "UITBattlePass/season_time_left_small";
 		    public const string tap_to_claim = "UITBattlePass/tap_to_claim";
+		}
+
+		public static class UITCollectionScreen
+		{
+		    public const string banners = "UITCollectionScreen/banners";
+		    public const string buy = "UITCollectionScreen/buy";
+		    public const string characters = "UITCollectionScreen/characters";
+		    public const string collection = "UITCollectionScreen/collection";
+		    public const string comingsoon = "UITCollectionScreen/comingsoon";
+		    public const string gliders = "UITCollectionScreen/gliders";
 		}
 
 		public static class UITDisconnected

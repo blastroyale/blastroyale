@@ -45,6 +45,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 		
 		private GameId _selectedId;
+		private GameIdGroup _selectedCategory;
 
 		private CollectionCategoryElement [] _collectionCategories;
 		private CollectionCategoryElement _categoryCharacters;
@@ -102,29 +103,46 @@ namespace FirstLight.Game.Presenters
 
 		private void CreateCategories()
 		{
-			/*
 			_collectionCategories = new CollectionCategoryElement[3];
-			_collectionCategories[0] = new CollectionCategoryElement();
-			_collectionCategories[0].Category = GameIdGroup.PlayerSkin;
-			_collectionCategories[1] = new CollectionCategoryElement();
-			_collectionCategories[1].Category = GameIdGroup.Banner;
-			_collectionCategories[2] = new CollectionCategoryElement();
-			_collectionCategories[2].Category = GameIdGroup.Glider;
-			*/
-			
-			_categoryCharacters.Category = GameIdGroup.PlayerSkin;
+
+			_categoryCharacters.SetCategory(GameIdGroup.PlayerSkin,
+				ScriptTerms.UITCollectionScreen.characters.LocalizeKey());
 			_categoryCharacters.clicked += OnCategoryClicked;
-			
-			_categoryGliders.Category = GameIdGroup.Glider;
+
+			_categoryGliders.SetCategory(GameIdGroup.Glider, ScriptTerms.UITCollectionScreen.gliders.LocalizeKey());
 			_categoryGliders.clicked += OnCategoryClicked;
-			
-			_categoryBanners.Category = GameIdGroup.Banner;
+
+			_categoryBanners.SetCategory(GameIdGroup.Banner, ScriptTerms.UITCollectionScreen.banners.LocalizeKey());
 			_categoryBanners.clicked += OnCategoryClicked;
+
+			_selectedCategory = GameIdGroup.PlayerSkin;
+			_categoryCharacters.SetSelected(true);
+
+			_collectionCategories[0] = _categoryCharacters;
+			_collectionCategories[1] = _categoryGliders;
+			_collectionCategories[2] = _categoryBanners;
 		}
 
 		private void OnCategoryClicked(GameIdGroup group)
 		{
-			Debug.Log("Category Clicked: " + group);
+			foreach (var category in _collectionCategories)
+			{
+				category.SetSelected(category.Category == group);
+			}
+			
+			if (group == GameIdGroup.PlayerSkin)
+			{
+				_comingSoonLabel.visible = false;
+				_collectionList.visible = true;
+					
+				UpdatePlayerSkinMenu();
+				UpdateCollectionDetails();
+			}
+			else
+			{
+				_comingSoonLabel.visible = true;
+				_collectionList.visible = false;
+			}
 		}
 
 		private void UpdateCategories()

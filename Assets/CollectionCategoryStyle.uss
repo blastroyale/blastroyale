@@ -6,14 +6,6 @@
     overflow: visible;
 }
 
-.collection-category--marketplace .collection-category__badge-holder {
-    display: none;
-}
-
-.collection-category--marketplace .collection-category__notification {
-    display: none;
-}
-
 .collection-category__background {
     position: absolute;
     top: 0;
@@ -28,7 +20,6 @@
 }
 
 .collection-category--selected {
-    scale: 1.1 1.1;
 }
 
 .collection-category--highlighted {
@@ -45,18 +36,9 @@
     transition-duration: 0.2s;
 }
 
-.collection-category--highlighted .collection-category__highlight {
-    position: absolute;
-    top: 0;
-    left: -7px;
-    right: -6px;
-    bottom: -10px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
-}
-
 .collection-category--selected .collection-category__selected-bg {
     opacity: 1;
-    background-image: var(--sprite-home__card-selected);
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
 }
 
 .collection-category__card-holder {
@@ -76,8 +58,6 @@
 }
 
 .collection-category__image {
-    width: 294px;
-    height: 237px;
     position: absolute;
     left: 9px;
     top: 2px;
@@ -90,10 +70,17 @@
     -unity-background-image-tint-color: black;
 }
 
+.collection-category--highlighted .collection-category__highlight {
+    position: absolute;
+    top: 2;
+    left: 9px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
+}
+
 .collection-category__name {
     position: absolute;
     bottom: 50px;
-    left: 20px;
+    left: 50px;
     right: 0;
     color: rgb(255, 255, 255);
     height: 45px;

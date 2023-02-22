@@ -15,10 +15,6 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class CollectionCategoryElement : ImageButton
 	{
-		private const string EMPTY_LOC_KEY = "UITCollection/no_{0}";
-
-		private const string ADJECTIVE_LOC_KEY = "UITCollection/adjective_{0}";
-
 		private const string UssBlock = "collection-category";
 		private const string UssBlockSelected = UssBlock + "--selected";
 		private const string UssBlockHighlighted = UssBlock + "--highlighted";
@@ -59,11 +55,7 @@ namespace FirstLight.Game.UIElements
 		public CollectionCategoryElement()
 		{
 			AddToClassList(UssBlock);
-
-			var selectedBg = new VisualElement {name = "selected-bg"};
-			Add(selectedBg);
-			selectedBg.AddToClassList(UssSelected);
-
+			
 			var highlight = new VisualElement {name = "highlight"};
 			Add(highlight);
 			highlight.AddToClassList(UssHighlight);
@@ -71,6 +63,10 @@ namespace FirstLight.Game.UIElements
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(UssBackground);
+			
+			var selectedBg = new VisualElement {name = "selected-bg"};
+			Add(selectedBg);
+			selectedBg.AddToClassList(UssSelected);
 
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
@@ -96,7 +92,13 @@ namespace FirstLight.Game.UIElements
 
 			base.clicked += () => clicked?.Invoke(Category);
 		}
-		
+
+		public void SetCategory(GameIdGroup category, String text)
+		{
+			Category = category;
+			_name.text = text;
+		}
+
 		public void SetSelected(bool selected)
 		{
 			if (selected)

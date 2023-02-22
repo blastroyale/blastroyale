@@ -90,12 +90,12 @@ GameObject:
   - component: {fileID: 5923503668531538509}
   - component: {fileID: 6071393396247154989}
   - component: {fileID: 2827842646678831612}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_Industrial_CoolingTower_Bottom_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &695533106230903806
 Transform:

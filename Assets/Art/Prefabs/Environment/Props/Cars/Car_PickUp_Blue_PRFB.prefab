@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 1868294583724289438}
   - component: {fileID: 1082287060286421995}
   - component: {fileID: 6601565248173098725}
-  - component: {fileID: 3420498759913574568}
-  - component: {fileID: 915755424995795688}
   m_Layer: 7
   m_Name: Car_PickUp_Blue_PRFB
   m_TagString: Untagged
@@ -31,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5564174863885132946}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,46 +84,79 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3420498759913574568
+--- !u!1 &8039645034481894471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5564174863885132946}
+  - component: {fileID: 5579954668508802984}
+  - component: {fileID: 716748826797673259}
+  m_Layer: 0
+  m_Name: CLLSN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5564174863885132946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039645034481894471}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1868294583724289438}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5579954668508802984
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2391738708231233763}
+  m_GameObject: {fileID: 8039645034481894471}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.3251069, y: 2.1655571, z: 5.123427}
   m_Center: {x: 0.014263034, y: 1.1003133, z: 0.057070017}
---- !u!114 &915755424995795688
+--- !u!114 &716748826797673259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2391738708231233763}
+  m_GameObject: {fileID: 8039645034481894471}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 3420498759913574568}
+  SourceCollider: {fileID: 5579954668508802984}
   Size:
     X:
-      RawValue: 0
+      RawValue: 152378
     Y:
-      RawValue: 0
+      RawValue: 141921
     Z:
-      RawValue: 0
+      RawValue: 335768
   PositionOffset:
     X:
-      RawValue: 0
+      RawValue: 934
     Y:
-      RawValue: 0
+      RawValue: 72110
     Z:
-      RawValue: 0
+      RawValue: 3740
   RotationOffset:
     X:
       RawValue: 0

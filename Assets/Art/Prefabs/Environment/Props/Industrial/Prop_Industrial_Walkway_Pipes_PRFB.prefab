@@ -113,6 +113,7 @@ Transform:
   m_Children:
   - {fileID: 1083529969067619500}
   - {fileID: 4976119354597111585}
+  - {fileID: 3441687337763499644}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -127,8 +128,6 @@ GameObject:
   - component: {fileID: 1083529969067619500}
   - component: {fileID: 1691588055981165409}
   - component: {fileID: 7566683610732914385}
-  - component: {fileID: 6448075993379934852}
-  - component: {fileID: 4780119149572669866}
   m_Layer: 7
   m_Name: Prop_Industrial_Walkway_Pipes_GEO
   m_TagString: Untagged
@@ -201,32 +200,65 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6448075993379934852
+--- !u!1 &6140320051890696160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3441687337763499644}
+  - component: {fileID: 5101776071981555947}
+  - component: {fileID: 7522080381267651087}
+  m_Layer: 0
+  m_Name: Prop_Industrial_Walkway_Pipes_CLLSN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3441687337763499644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140320051890696160}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 386598787662080507}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5101776071981555947
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3500372859819553015}
+  m_GameObject: {fileID: 6140320051890696160}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 8, y: 1.5999998, z: 3.2605162}
   m_Center: {x: 0, y: -0.8, z: -0.0000006556511}
---- !u!114 &4780119149572669866
+--- !u!114 &7522080381267651087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3500372859819553015}
+  m_GameObject: {fileID: 6140320051890696160}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 6448075993379934852}
+  SourceCollider: {fileID: 5101776071981555947}
   Size:
     X:
       RawValue: 524288

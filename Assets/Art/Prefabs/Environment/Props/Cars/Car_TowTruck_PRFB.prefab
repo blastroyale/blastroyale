@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2960589829423479707}
   - component: {fileID: 2214077042144883774}
   - component: {fileID: 4133473361226645748}
-  - component: {fileID: 2226441590509438272}
-  - component: {fileID: -2274012019244532104}
   m_Layer: 7
   m_Name: Car_TowTruck_PRFB
   m_TagString: Untagged
@@ -31,7 +29,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5197121465303670629}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,46 +84,79 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2226441590509438272
+--- !u!1 &2761958431642404646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5197121465303670629}
+  - component: {fileID: 7799751727411096457}
+  - component: {fileID: 4551024237663345753}
+  m_Layer: 0
+  m_Name: CLLSN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5197121465303670629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2761958431642404646}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2960589829423479707}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7799751727411096457
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476399729904967969}
+  m_GameObject: {fileID: 2761958431642404646}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.7507646, y: 2.874222, z: 6.5752554}
-  m_Center: {x: 0, y: 1.4546458, z: -0.5449127}
---- !u!114 &-2274012019244532104
+  m_Size: {x: 2.3251069, y: 2.1655571, z: 6.270992}
+  m_Center: {x: 0.014263034, y: 1.1003133, z: -0.5167124}
+--- !u!114 &4551024237663345753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476399729904967969}
+  m_GameObject: {fileID: 2761958431642404646}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 2226441590509438272}
+  SourceCollider: {fileID: 7799751727411096457}
   Size:
     X:
-      RawValue: 0
+      RawValue: 152378
     Y:
-      RawValue: 0
+      RawValue: 141921
     Z:
-      RawValue: 0
+      RawValue: 410975
   PositionOffset:
     X:
-      RawValue: 0
+      RawValue: 934
     Y:
-      RawValue: 0
+      RawValue: 72110
     Z:
-      RawValue: 0
+      RawValue: -33863
   RotationOffset:
     X:
       RawValue: 0

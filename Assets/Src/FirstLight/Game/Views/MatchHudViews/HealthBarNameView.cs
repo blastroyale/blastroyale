@@ -14,7 +14,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		/// <summary>
 		/// Sets the color of the text to the "in squad" one.
 		/// </summary>
-		public void EnableFriendlyMode()
+		public void EnableSquadMode()
 		{
 			NameText.color = SquadNameColor;
 		}

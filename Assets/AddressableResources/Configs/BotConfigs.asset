@@ -3850,11 +3850,11 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
-        RawValue: 0
+        RawValue: 3932160
       LowHealthSensitivity:
-        RawValue: 0
+        RawValue: 6553600
       LowAmmoSensitivity:
-        RawValue: 0
+        RawValue: 4915200
       ChanceToSeekWeapons:
         RawValue: 65536
       ChanceToSeekEnemies:
@@ -3899,11 +3899,11 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
-        RawValue: 0
+        RawValue: 2949120
       LowHealthSensitivity:
-        RawValue: 0
+        RawValue: 4915200
       LowAmmoSensitivity:
-        RawValue: 0
+        RawValue: 4259840
       ChanceToSeekWeapons:
         RawValue: 65536
       ChanceToSeekEnemies:
@@ -3938,98 +3938,49 @@ MonoBehaviour:
         RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
-    - BehaviourType: 4
+    - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
       DecisionInterval:
-        RawValue: 65536
+        RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 26214
+        RawValue: 255590
       VisionRangeSqr:
-        RawValue: 40960000
+        RawValue: 16777216
       LowArmourSensitivity:
-        RawValue: 0
+        RawValue: 5242880
       LowHealthSensitivity:
-        RawValue: 0
+        RawValue: 5898240
       LowAmmoSensitivity:
-        RawValue: 0
+        RawValue: 5373952
       ChanceToSeekWeapons:
-        RawValue: 65536
+        RawValue: 45875
       ChanceToSeekEnemies:
-        RawValue: 52429
+        RawValue: 0
       ChanceToSeekReplenishSpecials:
         RawValue: 0
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 0
+        RawValue: 64225
       CloseFightIntolerance:
-        RawValue: 28836
+        RawValue: 58982
       WanderRadius:
-        RawValue: 983040
-      AccuracySpreadAngle: 90
+        RawValue: 786432
+      AccuracySpreadAngle: 70
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
-        RawValue: 0
-      ShrinkingCircleRiskTolerance:
-        RawValue: 19661
-      ChanceToSeekChests:
-        RawValue: 0
-      LoadoutGearNumber: 0
-      MaxAimingRange:
-        RawValue: 655360
-      MovementSpeedMultiplier:
-        RawValue: 65536
-      MaxDistanceToTeammateSquared:
-        RawValue: 2359296
-      DamageDoneMultiplier:
-        RawValue: 16384
-      DamageTakenMultiplier:
-        RawValue: 21627
-    - BehaviourType: 0
-      GameMode: Tutorial
-      Difficulty: 0
-      DecisionInterval:
-        RawValue: 65536
-      LookForTargetsToShootAtInterval:
-        RawValue: 26214
-      VisionRangeSqr:
-        RawValue: 40960000
-      LowArmourSensitivity:
-        RawValue: 0
-      LowHealthSensitivity:
-        RawValue: 0
-      LowAmmoSensitivity:
-        RawValue: 0
-      ChanceToSeekWeapons:
-        RawValue: 13107
-      ChanceToSeekEnemies:
-        RawValue: 52429
-      ChanceToSeekReplenishSpecials:
-        RawValue: 0
-      ChanceToSeekRage:
-        RawValue: 0
-      ChanceToAbandonTarget:
-        RawValue: 0
-      CloseFightIntolerance:
-        RawValue: 0
-      WanderRadius:
-        RawValue: 0
-      AccuracySpreadAngle: 180
-      ChanceToUseSpecial:
-        RawValue: 0
-      SpecialAimingDeviation:
-        RawValue: 0
+        RawValue: 294912
       ShrinkingCircleRiskTolerance:
         RawValue: 52429
       ChanceToSeekChests:
-        RawValue: 0
+        RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 655360
+        RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 0
+        RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
@@ -4037,51 +3988,345 @@ MonoBehaviour:
       DamageTakenMultiplier:
         RawValue: 262144
     - BehaviourType: 1
-      GameMode: BattleRoyale First Game
-      Difficulty: 0
+      GameMode: Tutorial
+      Difficulty: 1
       DecisionInterval:
-        RawValue: 65536
+        RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 26214
+        RawValue: 255590
       VisionRangeSqr:
-        RawValue: 40960000
+        RawValue: 16777216
       LowArmourSensitivity:
-        RawValue: 0
+        RawValue: 5242880
       LowHealthSensitivity:
-        RawValue: 0
+        RawValue: 5898240
       LowAmmoSensitivity:
-        RawValue: 0
+        RawValue: 5373952
       ChanceToSeekWeapons:
-        RawValue: 65536
+        RawValue: 45875
       ChanceToSeekEnemies:
-        RawValue: 52429
+        RawValue: 0
       ChanceToSeekReplenishSpecials:
         RawValue: 0
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 0
+        RawValue: 64225
       CloseFightIntolerance:
-        RawValue: 28836
+        RawValue: 58982
       WanderRadius:
-        RawValue: 983040
-      AccuracySpreadAngle: 90
+        RawValue: 786432
+      AccuracySpreadAngle: 70
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
-        RawValue: 0
+        RawValue: 294912
       ShrinkingCircleRiskTolerance:
-        RawValue: 19661
+        RawValue: 52429
       ChanceToSeekChests:
-        RawValue: 0
+        RawValue: 3277
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 655360
+        RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 65536
+        RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 32768
+        RawValue: 16384
       DamageTakenMultiplier:
-        RawValue: 131072
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 4
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 5
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 7
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 255590
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 16384
+      DamageTakenMultiplier:
+        RawValue: 262144

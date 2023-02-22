@@ -341,12 +341,13 @@ namespace Quantum
 						continue;
 					}
 
-					// If we dropped all equipment from loadout, then choose between upgrades for equipment or consumables
-					// chances are: 25% equipment, 25% large shields consumable, 50% large ammo consumable
+					// If we dropped all equipment from loadout, and capacity left to drop, chose randomly between either
+					// a capacity upgrade or an equipment upgrade
+					// chances are: 25% equipment, 25% big shields capacity, 50% small shields capacity
 					var furtherDrop = GameId.Random;
 					if (statsShields.StatValue < statsShields.BaseValue)
 					{
-						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldLarge, GameId.AmmoLarge, GameId.AmmoLarge);
+						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall, GameId.ShieldCapacitySmall);
 					}
 
 					// Drop equipment upgrades if you rolled it
@@ -396,7 +397,7 @@ namespace Quantum
 						continue;
 					}
 					
-					// Drop consumable otherwise
+					// Drop shields capacity otherwise
 					Collectable.DropConsumable(f, furtherDrop, chestPosition, angleStep++, false);
 					chestItems.Add(new ChestItemDropped
 					{

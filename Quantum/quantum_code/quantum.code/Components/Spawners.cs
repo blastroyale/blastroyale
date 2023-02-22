@@ -41,7 +41,7 @@ namespace Quantum
 
 			if (GameId.IsInGroup(GameIdGroup.Consumable))
 			{
-				Collectable = SpawnConsumable(f, GameId, transform, e);
+				Collectable = SpawnConsumable(f, GameId, transform);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
@@ -49,11 +49,11 @@ namespace Quantum
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
-				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform, e);
+				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				Collectable = SpawnGear(f, GameId, RarityModifier, transform, e);
+				Collectable = SpawnGear(f, GameId, RarityModifier, transform);
 			}
 			else
 			{
@@ -68,7 +68,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="Consumable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnConsumable(Frame f, GameId id, Transform3D transform, EntityRef spawnerEntityRef)
+		private EntityRef SpawnConsumable(Frame f, GameId id, Transform3D transform)
 		{
 			var configs = f.ConsumableConfigs;
 			var config = id == GameId.Random
@@ -76,7 +76,7 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config, spawnerEntityRef);
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
 
 			return entity;
 		}
@@ -84,7 +84,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform, EntityRef spawnerEntityRef)
+		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
 			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
@@ -98,7 +98,7 @@ namespace Quantum
 								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
-			                                                        equipment, spawnerEntityRef);
+			                                                        equipment);
 
 			return entity;
 		}
@@ -106,13 +106,13 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform, EntityRef spawnerEntityRef)
+		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
-			                                                        equipment, spawnerEntityRef);
+			                                                        equipment);
 
 			return entity;
 		}

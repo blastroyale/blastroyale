@@ -8,6 +8,7 @@ using FirstLight.UiService;
 using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -38,13 +39,11 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _closeButton;
 		private Button _loginButton;
 		private Button _registerButton;
-		private Button _switchScreenButton;
+		private Button _goToLoginButton;
+		private Button _goToRegisterButton;
 		private Button _resetPasswordButton;
-		private Label _switchScreenDesc;
 		
 		private IGameServices _services;
-
-		private bool _showingRegisterScreen = false;
 
 		private void Awake()
 		{
@@ -55,63 +54,42 @@ namespace FirstLight.Game.Presenters
 		{
 			_loginPopupRoot = root.Q("LoginPopup").Required();
 			_registerPopupRoot = root.Q("RegisterPopup").Required();
+			_loginButton = root.Q<Button>("LoginButton").Required();
 			_closeButton = root.Q<ImageButton>("CloseButton").Required();
-			_switchScreenButton = root.Q<Button>("SwitchScreenButton").Required();
-			_switchScreenDesc = root.Q<Label>("SwitchScreenDesc").Required();
+			_registerButton = root.Q<Button>("RegisterButton").Required();
+			_goToLoginButton = root.Q<Button>("GoToLoginButton").Required();
+			_goToRegisterButton = root.Q<Button>("GoToRegisterButton").Required();
 			_resetPasswordButton = root.Q<Button>("ResetPasswordButton").Required();
-			
-			_loginButton = _loginPopupRoot.Q<Button>("LoginButton").Required();
 			_loginEmailField = _loginPopupRoot.Q<TextField>("EmailTextField").Required();
 			_loginPasswordField = _loginPopupRoot.Q<TextField>("PasswordTextField").Required();
-			
-			_registerButton = _registerPopupRoot.Q<Button>("RegisterButton").Required();
 			_registerEmailField = _registerPopupRoot.Q<TextField>("EmailTextField").Required();
 			_registerPasswordField = _registerPopupRoot.Q<TextField>("PasswordTextField").Required();
 			_registerUsernameField = _registerPopupRoot.Q<TextField>("UsernameTextField").Required();
 
 			_loginButton.clicked += LoginWithAccount;
 			_registerButton.clicked += RegisterAttachAccountDetails;
-			_switchScreenButton.clicked += SwitchScreen;
+			_goToLoginButton.clicked += ShowLoginScreen;
+			_goToRegisterButton.clicked += ShowRegisterScreen;
 			_resetPasswordButton.clicked += OpenPasswordRecoveryPopup;
 			_closeButton.clicked += OnCloseClicked;
 
 			root.SetupClicks(_services);
-
+			
+			// TODO - CLEAR ALL TEXT FIELDS ON START UP
+			
 			ShowRegisterScreen();
-		}
-
-		private void SwitchScreen()
-		{
-			if (_showingRegisterScreen)
-			{
-				ShowLoginScreen();
-			}
-			else
-			{
-				ShowRegisterScreen();
-			}
 		}
 
 		private void ShowLoginScreen()
 		{
-			_showingRegisterScreen = false;
-			
 			_loginPopupRoot.SetDisplay(true);
 			_registerPopupRoot.SetDisplay(false);
-
-			_switchScreenDesc.text = ScriptLocalization.UITLoginRegister.i_dont_have_account;
-			_switchScreenButton.text = ScriptLocalization.UITLoginRegister.register;
 		}
 
 		private void ShowRegisterScreen()
 		{
-			_showingRegisterScreen = true;
-			
 			_loginPopupRoot.SetDisplay(false);
 			_registerPopupRoot.SetDisplay(true);
-
-			_switchScreenDesc.text = ScriptLocalization.UITLoginRegister.i_have_account;
-			_switchScreenButton.text = ScriptLocalization.UITLoginRegister.login;
 		}
 
 		private void LoginWithAccount()
@@ -242,15 +220,15 @@ namespace FirstLight.Game.Presenters
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.UITLoginRegister.reset_button,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = (input) =>
 				{
 					_services.AuthenticationService.SendAccountRecoveryEmail(input, OnRecoveryEmailSuccess, OnRecoveryEmailError);
 				}
 			};
 
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITLoginRegister.reset_password,
-				ScriptLocalization.UITLoginRegister.reset_password_desc,
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.UITLoginRegister.send_password_recovery,
 				_loginEmailField.value, confirmButton, true);
 		}
 
@@ -270,7 +248,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.UITLoginRegister.reset_password_confirm, false,
+				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
 				confirmButton);
 		}
 

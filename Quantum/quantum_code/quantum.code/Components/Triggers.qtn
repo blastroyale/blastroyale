@@ -9,7 +9,6 @@ union TriggerData
 {
     PlayersAliveTriggerData PlayersAliveTriggerData;
     ChestOpenTriggerData ChestOpenTriggerData;
-    WeaponCollectedTriggerData WeaponCollectedTriggerData;
 }
 
 struct PlayersAliveTriggerData
@@ -21,14 +20,4 @@ struct ChestOpenTriggerData
 {
 }
 
-struct WeaponCollectedTriggerData
-{
-    EntityRef WeaponSpawner;
-}
-
 signal TriggerActivated(entity_ref target, TriggerData triggerData);
-synced event OnTriggerActivated
-{
-	entity_ref target;
-	TriggerData triggerData;
-}

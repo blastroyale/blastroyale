@@ -73,7 +73,7 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 
-			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS && _services.NetworkService.CurrentRoomGameModeConfig.Value.Teams);
+			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS);
 		}
 
 		private void OnDestroy()

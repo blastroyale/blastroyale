@@ -3,9 +3,9 @@
     <ui:VisualElement name="root" class="fill-parent background">
         <FirstLight.Game.UIElements.ImageButton name="BlockerButton" class="fill-parent" />
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITHomeScreen/party">
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="" name="PartyDescription" class="party-description" />
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/create_party" name="CreatePartyButton" class="button-flat button-flat--primary party-button" />
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/join_party" name="JoinPartyButton" class="button-flat button-flat--secondary party-button" />
+            <FirstLight.Game.UIElements.LocalizedLabel name="PartyDescription" localization-key="UITHomeScreen/party_popup_desc" class="party-description" />
+            <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITHomeScreen/create_party" name="CreatePartyButton" class="button-flat button-flat--primary party-button" />
+            <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITHomeScreen/join_party" name="JoinPartyButton" class="button-flat button-flat--secondary party-button" />
         </FirstLight.Game.UIElements.PopupElement>
     </ui:VisualElement>
 </ui:UXML>

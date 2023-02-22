@@ -13,7 +13,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		public GameObject ShieldIcon;
 		public Slider ArmourSlider;
-		public Animation ShieldBreak;
 
 		private EntityRef _entity;
 
@@ -30,7 +29,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_entity = entity;
 			
 			ShieldIcon.SetActive(currentShield > 0);
-			ShieldBreak.clip.SampleAnimation(ShieldBreak.gameObject, 0f);
 			UpdateShieldBar(currentShield);
 		}
 		
@@ -57,10 +55,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else if (ShieldIcon.activeSelf && shield < float.Epsilon)
 			{
-				ShieldBreak.clip.SampleAnimation(ShieldBreak.gameObject, 0f);
-				ShieldBreak.Play();
 				ShieldIcon.SetActive(false);
 			}
+			
 		}
 	}
 }

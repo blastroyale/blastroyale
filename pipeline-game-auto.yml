@@ -8,8 +8,6 @@ trigger:
   branches:
     include:
     - 'develop'
-    - 'release/*'
-    - 'master'
 pr: none
 
 resources:
@@ -19,7 +17,7 @@ resources:
     type: git
     ref: main
     name: Infrastructure/core-templates
-
+    
 variables:
 - group: Secrets
 - group: Non-secrets
@@ -29,34 +27,7 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
-    - name: configuration
-      value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'release/*')  }}:
-    - name: configuration
-      value: "Release"
-    - name: build_type
-      value: "RELEASE_BUILD"
-    - name: server_environment
-      value: "STAGE_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
-    - name: configuration
-      value: "Release"
-    - name: build_type
-      value: "STORE_BUILD"
-    - name: server_environment
-      value: "LIVE_SERVER"
-- ${{  else  }}:
-    - name: configuration
-      value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
+
 pool: macos
 
 stages:
@@ -71,15 +42,13 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: Debug
           platform: Android
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
           workingDirectory: .
           branchName: $(branchName)
-          build_type: ${{ variables.build_type }}
-          server_environment: ${{ variables.server_environment }}
     - job: iOSBuild
       displayName: iOS Build
       steps:
@@ -88,7 +57,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: Debug
           platform: iOS
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
@@ -96,5 +65,3 @@ stages:
           certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
-          build_type: ${{ variables.build_type }}
-          server_environment: ${{ variables.server_environment }}

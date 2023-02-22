@@ -54,13 +54,10 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			
 			var orderNumber = 1;
-			var hasNfts = _services.GameModeService.EquipmentDataProvider.NftInventory.Count > 0;
 			
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
-				if(slot.Entry.NFT && !hasNfts) continue;
-				
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);

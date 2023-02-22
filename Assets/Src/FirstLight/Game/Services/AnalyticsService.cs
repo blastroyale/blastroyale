@@ -115,7 +115,6 @@ namespace FirstLight.Game.Services
 			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 		}
 
-
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
@@ -183,7 +182,7 @@ namespace FirstLight.Game.Services
 			}
 			catch (Exception e)
 			{
-				FLog.Error("Error while sending analytics: " + e.Message);
+				FLog.Error("Error while sending analytics: "+e.Message);
 				Debug.LogException(e);
 			}
 		}

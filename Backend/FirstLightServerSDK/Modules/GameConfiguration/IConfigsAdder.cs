@@ -20,12 +20,6 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		/// The configuration will use the given <paramref name="referenceIdResolver"/> to map each config to it's defined id.
 		/// </summary>
 		void AddConfigs<T>(Func<T, int> referenceIdResolver, IList<T> configList) where T : struct;
-		
-		/// <summary>
-		/// Adds the given <paramref name="configList"/> to the container.
-		/// The configuration will use the given <paramref name="referenceIdResolver"/> to map each config to it's defined id.
-		/// </summary>
-		void AddConfigs<T>(Func<T, string> referenceIdResolver, IList<T> configList) where T : struct;
 
 		/// <summary>
 		/// Adds the given dictionary of configuration lists to the config.

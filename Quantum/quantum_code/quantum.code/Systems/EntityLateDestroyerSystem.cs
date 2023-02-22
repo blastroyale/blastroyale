@@ -7,20 +7,19 @@ namespace Quantum.Systems
 	/// This can be helpful where we want to use entity data across the systems in the same frame after the entity was processed
 	/// that needed to be destroyed.
 	/// </summary>
-	public unsafe class EntityLateDestroyerSystem : SystemMainThreadFilter<EntityLateDestroyerSystem.DestroyerFilter>
+	public unsafe class EntityLateDestroyerSystem : SystemMainThread
 	{
-		public struct DestroyerFilter
-		{
-			public EntityRef Entity;
-			public EntityDestroyer* Component;
-		}
-		
 		/// <inheritdoc />
-		public override void Update(Frame f, ref DestroyerFilter filter)
+		public override void Update(Frame f)
 		{
-			if (filter.Component->time == FP._0 || filter.Component->time <= f.Time)
+			var it = f.Unsafe.GetComponentBlockIterator<EntityDestroyer>();
+
+			foreach (var filter in it)
 			{
-				f.Destroy(filter.Entity);
+				if (filter.Component->time == FP._0 || filter.Component->time <= f.Time)
+				{
+					f.Destroy(filter.Entity);
+				}
 			}
 		}
 	}

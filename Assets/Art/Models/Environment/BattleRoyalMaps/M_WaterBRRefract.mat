@@ -99,14 +99,14 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FadeDistance: 0.4
-    - _FoamAmount: 0.18
+    - _FoamAmount: 0.27
     - _FoamDepth: 0.15
     - _FoamDirection: 0.09
     - _FoamFromTexture: 1
     - _FoamMode: 1
-    - _FoamNoiseAmount: 0.261
+    - _FoamNoiseAmount: 1
     - _FoamProcedural: 1
-    - _FoamScale: 1.75
+    - _FoamScale: 0.2
     - _FoamSharpness: 0.651
     - _FoamSpeed: 0.7
     - _FoamStretchX: 0.94
@@ -156,8 +156,8 @@ Material:
     - Vector2_348319FB: {r: 0.5, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 1, b: 0.7287984, a: 1}
-    - _ColorDeep: {r: 0.40583837, g: 0.74980193, b: 0.9056604, a: 1}
-    - _ColorShallow: {r: 0.24857599, g: 0.9245283, b: 0.866877, a: 1}
+    - _ColorDeep: {r: 0.6367924, g: 0.8860948, b: 1, a: 1}
+    - _ColorShallow: {r: 0.34531862, g: 0.59734017, b: 0.75471693, a: 1}
     - _ColorTop: {r: 1, g: 1, b: 1, a: 0}
     - _CrestColor: {r: 1, g: 1, b: 1, a: 0.9}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

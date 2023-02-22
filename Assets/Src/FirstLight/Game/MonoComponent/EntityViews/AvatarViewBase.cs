@@ -159,13 +159,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			
-			
 			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
-			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
-					 {
-						 RenderersContainerProxy.SetRendererState(false);
-					 });
+			         GameConstants.Visuals.DISSOLVE_DURATION);
 		}
 
 		private void HandleOnEntityDestroyed(QuantumGame game)

@@ -126,7 +126,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
-		private async void OpenServerSelectUI()
+		private void OpenServerSelectUI()
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
@@ -138,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			await _uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
 		}
 
 		private void CloseServerSelectUI()
@@ -164,7 +164,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void OpenConnectIdUI()
+		private void OpenConnectIdUI()
 		{
 			var data = new ConnectFlgIdScreenPresenter.StateData
 			{
@@ -174,7 +174,7 @@ namespace FirstLight.Game.StateMachines
 				AuthRegisterSuccess = () => _statechartTrigger(_connectIdRegisterSuccessEvent)
 			};
 
-			await _uiService.OpenUiAsync<ConnectFlgIdScreenPresenter, ConnectFlgIdScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ConnectFlgIdScreenPresenter, ConnectFlgIdScreenPresenter.StateData>(data);
 		}
 
 		private void CloseConnectUI()

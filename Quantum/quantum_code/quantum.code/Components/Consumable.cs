@@ -9,7 +9,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, QuantumConsumableConfig config, EntityRef spawner)
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, QuantumConsumableConfig config)
 		{
 			var collectable = new Collectable {GameId = config.Id};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
@@ -17,8 +17,6 @@ namespace Quantum
 			ConsumableType = config.ConsumableType;
 			Amount = config.Amount.Get(f);
 			CollectTime = config.ConsumableCollectTime.Get(f);
-
-			collectable.Spawner = spawner;
 			
 			transform->Position = position;
 			transform->Rotation = rotation;

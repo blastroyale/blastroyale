@@ -8,7 +8,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, Equipment equipment, EntityRef spawner,
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, Equipment equipment,
 		                   PlayerRef owner = new PlayerRef())
 		{
 			var collectable = new Collectable {GameId = equipment.GameId};
@@ -16,8 +16,6 @@ namespace Quantum
 
 			transform->Position = position;
 			transform->Rotation = rotation;
-
-			collectable.Spawner = spawner;
 
 			Item = equipment;
 			Owner = owner;

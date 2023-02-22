@@ -61,7 +61,8 @@ namespace Quantum.Systems
 			var position = f.Get<Transform3D>(hitSource).Position;
 			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount,
 			                                projectile.KnockbackAmount, position, projectile.TeamSource);
-			
+
+			f.Add<EntityDestroyer>(hitSource);
 			if(targetHit == hitSource)
 				f.Events.OnProjectileFailedHit(hitSource, projectile, position);
 			else
@@ -82,8 +83,7 @@ namespace Quantum.Systems
 			{
 				OnHit(f, spell);
 			}
-
-			f.Destroy(hitSource);
+				
 		}
 
 		private void OnHit(Frame f, Spell spell)

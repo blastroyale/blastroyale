@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -21,7 +20,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		protected IGameServices Services;
 		protected IMatchServices MatchServices;
-		
 		
 		/// <summary>
 		/// Requests the <see cref="EntityView"/> representing this view execution base
@@ -78,18 +76,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public abstract class EntityMainViewBase : EntityViewBase
 	{
 		private static readonly int  _dissolveProperty = Shader.PropertyToID("dissolve_amount");
-
-		private bool _culled = false;
-		private bool _visible = false;
-		protected bool Visible
-		{
-			get => _visible;
-		}
-		
-		protected  bool Culled
-		{
-			get => _culled; 
-		}
 		
 		[SerializeField] protected RenderersContainerProxyMonoComponent RenderersContainerProxy;
 
@@ -97,34 +83,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.Awake();
 			QuantumCallback.Subscribe<CallbackGameDestroyed>(this, HandleGameDestroyed);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-		}
-
-		public void OnUpdateView(CallbackUpdateView callback)
-		{
-			if (callback.Game.Frames.Predicted.IsCulled(EntityRef))
-			{
-				if (!_culled)
-				{
-					SetCulled(true);
-				}
-			}
-			else
-			{
-				if (_culled)
-				{
-					SetCulled(false);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets if a given entity view gets culled or not by the simulation prediction
-		/// </summary>
-		/// <param name="culled"></param>
-		public virtual void SetCulled(bool culled)
-		{
-			_culled = culled;
 		}
 
 		/// <summary>
@@ -135,12 +93,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetRendererState(active);
 		}
 		
-		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration, Action onComplete = null)
+		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
-			StartCoroutine(DissolveCoroutine(onComplete, destroyGameObject, startValue, endValue, delay, duration));
+			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
 		}
 
-		private IEnumerator DissolveCoroutine(Action onComplete, bool destroyGameObject, float startValue, float endValue, float delay, float duration)
+		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
 			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
 			
@@ -159,8 +117,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			yield return new WaitForSeconds(duration);
 
-			onComplete?.Invoke();
-			
 			if (destroyGameObject)
 			{
 				Destroy(gameObject);

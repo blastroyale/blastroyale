@@ -433,7 +433,7 @@ namespace FirstLight.Game.Services
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
 					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
 					FLog.Error("Error reading data type " + typeFullName);
 				}

@@ -30,11 +30,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
-			var hasNft = _services.GameModeService.EquipmentDataProvider.NftInventory.Count > 0;
 
-			root.Q<LocalizedLabel>("PartyDescription").Localize(hasNft ? ScriptTerms.UITHomeScreen.party_popup_desc : ScriptTerms.UITHomeScreen.party_popup_join_desc);
-			root.Q<LocalizedButton>("CreatePartyButton").SetVisibility(hasNft);
-			
 			root.Q<LocalizedButton>("CreatePartyButton").clicked += OnCreateParty;
 			root.Q<LocalizedButton>("JoinPartyButton").clicked += OnJoinParty;
 			root.Q<ImageButton>("BlockerButton").clicked += () => Close(true);

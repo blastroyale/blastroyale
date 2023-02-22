@@ -21,7 +21,7 @@ namespace Quantum
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
 		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, 
-						   Equipment loadoutWeapon, List<Modifier> modifiers = null, uint minimumHealth = 0)
+						   Equipment loadoutWeapon, List<Modifier> modifiers = null)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
@@ -71,8 +71,6 @@ namespace Quantum
 					stats->AddModifier(f, e, modifier);
 				}
 			}
-			
-			stats->MinimumHealth = (int)minimumHealth;
 
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
@@ -118,9 +116,6 @@ namespace Quantum
 					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
 			}
-			
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->ResetStats(f, CurrentWeapon, Gear);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -523,9 +518,9 @@ namespace Quantum
 			return weaponConfig;
 		}
 
-		private GameId[] GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
+		private List<GameId> GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
 		{
-			var specials = weaponConfig.Specials.ToArray();
+			var specials = weaponConfig.Specials;
 			
 			if (f.Context.GameModeConfig.Id == "Tutorial")
 			{

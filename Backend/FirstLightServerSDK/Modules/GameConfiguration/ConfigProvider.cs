@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FirstLightServerSDK.Modules;
 
 namespace FirstLight.Server.SDK.Modules.GameConfiguration
 {
@@ -41,11 +40,6 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 			return GetConfigsDictionary<T>()[id];
 		}
 
-		public T GetConfig<T>(string id)
-		{
-			return GetConfig<T>(id.GetDeterministicHashCode());
-		}
-
 		/// <inheritdoc />
 		public List<T> GetConfigsList<T>()
 		{
@@ -76,12 +70,7 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 
 			_configs.Add(typeof(T), dictionary);
 		}
-
-		public void AddConfigs<T>(Func<T, string> referenceIdResolver, IList<T> configList) where T : struct
-		{
-			AddConfigs(config => referenceIdResolver(config).GetDeterministicHashCode(), configList);
-		}
-
+		
 		/// <inheritdoc />
 		public IReadOnlyDictionary<Type, IEnumerable> GetAllConfigs()
 		{

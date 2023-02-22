@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -195,8 +196,7 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
-			f.Signals.CollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
-			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
+			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 
 		private FP GetEndTime(Frame f, EntityRef consumableEntity, EntityRef playerEntity)

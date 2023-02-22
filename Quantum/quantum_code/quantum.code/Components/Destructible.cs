@@ -12,7 +12,7 @@ namespace Quantum
 			targetable.IsUntargetable = true;
 			
 			f.Add(e, targetable);
-			f.Add(e, new Stats(Health, DamagePower, 0, 0, 0, 0, 0, 0, 0, 0));
+			f.Add(e, new Stats(Health, DamagePower, 0, 0, 0, 0, 0, 0, 0));
 		}
 	}
 }

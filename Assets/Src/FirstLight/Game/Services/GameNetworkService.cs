@@ -311,7 +311,8 @@ namespace FirstLight.Game.Services
 					return null;
 				}
 
-				return _configsProvider.GetConfig<QuantumGameModeConfig>(QuantumClient.CurrentRoom.GetGameModeId());
+				return _configsProvider.GetConfig<QuantumGameModeConfig>(QuantumClient.CurrentRoom.GetGameModeId()
+																					  .GetHashCode());
 			}
 		}
 

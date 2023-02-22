@@ -15,7 +15,6 @@ namespace FirstLight.Game.MonoComponent.Vfx
 
 		private float _startTime;
 		private float _endTime;
-		private EntityRef _entity;
 
 		private void OnEnable()
 		{
@@ -30,20 +29,16 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		/// <summary>
 		/// Initializes this VFX with the given <paramref name="entity"/>
 		/// </summary>
-		public void SetTime(float startTime, float endTime, EntityRef entity)
+		public void SetTime(float startTime, float endTime)
 		{
 			_startTime = startTime;
 			_endTime = endTime;
-			_entity = entity;
+
 			UpdateIndicator(QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat);
 		}
 
 		private void UpdateView(CallbackUpdateView callback)
 		{
-			if (callback.Game.Frames.Predicted.Culled(_entity))
-			{
-				return;
-			}
 			UpdateIndicator(callback.Game.Frames.Predicted.Time.AsFloat);
 		}
 

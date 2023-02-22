@@ -272,7 +272,7 @@ namespace FirstLight.Game.Presenters
 			_durabilityAmount.text =
 				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(),
 					info.Equipment.MaxDurability.ToString());
-			_durabilityBar.style.flexGrow = (float) info.CurrentDurability / info.Equipment.MaxDurability;
+			_durabilityBar.style.flexGrow = info.CurrentDurability / info.Equipment.MaxDurability;
 
 			// Stats
 			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)).ToList();

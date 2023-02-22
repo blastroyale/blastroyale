@@ -51,8 +51,6 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
 
-		private IPartyService _partyService;
-
 		private LocalizedButton _playButton;
 
 		private ImageButton _header;
@@ -97,7 +95,6 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
-			_partyService = _services.PartyService;
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -152,7 +149,9 @@ namespace FirstLight.Game.Presenters
 
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.clicked += OnPartyClicked;
-
+			_services.PartyService.HasParty.InvokeObserve(OnHasPartyChanged);
+			_services.PartyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
+			_services.PartyService.Members.Observe(OnMembersChanged);
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
@@ -169,69 +168,6 @@ namespace FirstLight.Game.Presenters
 			UpdatePlayButton();
 		}
 
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
-		}
-
-		protected override void SubscribeToEvents()
-		{
-			base.SubscribeToEvents();
-			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
-			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
-			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
-			_dataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
-			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);
-			_partyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
-			_partyService.Members.Observe(OnMembersChanged);
-			_partyService.OperationInProgress.InvokeObserve(OnPartyLoadingProgress);
-			_partyService.OnLocalPlayerKicked += OnLocalPlayerKicked;
-			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			base.UnsubscribeFromEvents();
-			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
-			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
-			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
-			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
-			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
-			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
-			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
-			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
-			_partyService.HasParty.StopObserving(OnHasPartyChanged);
-			_partyService.PartyReady.StopObserving(OnPartyReadyChanged);
-			_partyService.Members.StopObserving(OnMembersChanged);
-			_partyService.OperationInProgress.StopObserving(OnPartyLoadingProgress);
-			_partyService.OnLocalPlayerKicked -= OnLocalPlayerKicked;
-			_services.MessageBrokerService.UnsubscribeAll(this);
-
-			if (_updatePoolsCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
-				_updatePoolsCoroutine = null;
-			}
-		}
-
-		private void OnPlayButtonClicked()
-		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPartyLoadingProgress(bool _, bool loading)
-		{
-			_partyButton.SetEnabled(!loading);
-			UpdatePlayButton();
-		}
-
 		private void OnHasPartyChanged(bool _, bool hasParty)
 		{
 			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
@@ -243,16 +179,42 @@ namespace FirstLight.Game.Presenters
 			UpdatePlayButton();
 		}
 
-		private void OnMembersChanged(int i, PartyMember _, PartyMember member, ObservableUpdateType type)
+		private void OnMembersChanged(int i, PartyMember _, PartyMember Member, ObservableUpdateType type)
 		{
 			UpdatePlayButton();
 		}
 
-		private void OnLocalPlayerKicked()
+		private void UpdatePlayButton()
 		{
-			// TODO translation!
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, "You got kicked from the party.", true,
-				new GenericDialogButton());
+			var translationKey = ScriptTerms.UITHomeScreen.play;
+			var buttonClass = "play-button";
+
+			if (_services.PartyService.HasParty.Value)
+			{
+				var leader = _services.PartyService.GetLocalMember().Leader;
+				if (leader)
+				{
+					if (!_services.PartyService.PartyReady.Value)
+					{
+						buttonClass = "play-button--disabled";
+						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
+					}
+					else
+					{
+						translationKey = ScriptTerms.UITHomeScreen.play;
+					}
+				}
+				else
+				{
+					buttonClass = "play-button--ready";
+					var isReady = _services.PartyService.GetLocalMember()!.Ready;
+					translationKey = isReady ? ScriptTerms.UITHomeScreen.cancel : ScriptTerms.UITHomeScreen.ready;
+				}
+			}
+
+			_playButton.RemoveModifiers();
+			_playButton.EnableInClassList(buttonClass, true);
+			_playButton.Localize(translationKey);
 		}
 
 		private async void OnPartyClicked()
@@ -293,6 +255,53 @@ namespace FirstLight.Game.Presenters
 					new GenericDialogButton());
 				FLog.Warn("Error joining party.", pe);
 			}
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
+			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
+			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
+			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
+			_dataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
+			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
+			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
+
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
+			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
+			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
+			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
+			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
+			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+
+			if (_updatePoolsCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
+				_updatePoolsCoroutine = null;
+			}
+		}
+
+		private void OnPlayButtonClicked()
+		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+			Data.OnPlayButtonClicked();
 		}
 
 		private void OnTrophiesChanged(uint previous, uint current)
@@ -454,46 +463,6 @@ namespace FirstLight.Game.Presenters
 						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 					});
 			}
-		}
-
-		private void UpdatePlayButton()
-		{
-			var translationKey = ScriptTerms.UITHomeScreen.play;
-			var buttonClass = "play-button";
-			var buttonEnabled = true;
-			if (_services.PartyService.OperationInProgress.Value)
-			{
-				buttonEnabled = false;
-				// TODO PROPER TRANSLATION, Waiting for the final UI hi miha 
-				translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
-			}
-			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
-			{
-				var leader = _services.PartyService.GetLocalMember().Leader;
-				if (leader)
-				{
-					if (!_services.PartyService.PartyReady.Value)
-					{
-						buttonEnabled = false;
-						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
-					}
-					else
-					{
-						translationKey = ScriptTerms.UITHomeScreen.play;
-					}
-				}
-				else
-				{
-					buttonClass = "play-button--ready";
-					var isReady = _services.PartyService.GetLocalMember()!.Ready;
-					translationKey = isReady ? ScriptTerms.UITHomeScreen.cancel : ScriptTerms.UITHomeScreen.ready;
-				}
-			}
-
-			_playButton.SetEnabled(buttonEnabled);
-			_playButton.RemoveModifiers();
-			_playButton.EnableInClassList(buttonClass, true);
-			_playButton.Localize(translationKey);
 		}
 
 		private void UpdateBattlePassLevel(uint predictedLevel)

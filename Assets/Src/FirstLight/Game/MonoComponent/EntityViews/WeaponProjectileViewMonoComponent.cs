@@ -27,11 +27,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		private void OnEventOnProjectileFired(EventOnProjectileFired callback)
 		{
-			if (callback.Game.Frames.Predicted.IsCulled(callback.ProjectileData.Attacker))
-			{
-				return;
-			}
-		
 			if (callback.ProjectileData.Attacker == EntityRef && 
 			    MatchServices.EntityViewUpdaterService.TryGetView(callback.Projectile, out var projectile))
 			{

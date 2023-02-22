@@ -38,7 +38,6 @@ namespace FirstLight.Game.StateMachines
 		
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedMatchmakingEvent = new StatechartEvent("NETWORK - Joined Matchmaking Event");
-		public static readonly IStatechartEvent CanceledMatchmakingEvent = new StatechartEvent("NETWORK - Canceled Matchmaking Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("NETWORK - Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
@@ -132,7 +131,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
-			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
 			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
 			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
@@ -148,16 +146,14 @@ namespace FirstLight.Game.StateMachines
 
 			_services.MatchmakingService.OnGameMatched += OnGameMatched;
 			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled += OnMatchmakingCancelled;
 		}
-		
+
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
 			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
-			_services.MatchmakingService.OnMatchmakingCancelled -= OnMatchmakingCancelled;
 		}
 
 		private void SubscribeDisconnectEvents()
@@ -279,13 +275,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchmakingJoined(JoinedMatchmaking match)
 		{
 			_statechartTrigger(JoinedMatchmakingEvent);
+			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "[Dev UI] Matchmaking...", false, new GenericDialogButton());
 		}
-		
-		private void OnMatchmakingCancelled()
-		{
-			_statechartTrigger(CanceledMatchmakingEvent);
-		}
-
 
 		private void StartRandomMatchmaking(MatchRoomSetup setup)
 		{
@@ -654,15 +645,11 @@ namespace FirstLight.Game.StateMachines
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				MapId = (int) mapConfig.Map,
-				GameModeId = gameModeId,
+				GameModeHash = gameModeId.GetHashCode(),
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
 			};
 			StartRandomMatchmaking(matchmakingSetup);
-		}
-		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
-		{
-			_services.MatchmakingService.LeaveMatchmaking();
 		}
 
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
@@ -671,7 +658,7 @@ namespace FirstLight.Game.StateMachines
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var setup = new MatchRoomSetup()
 			{
-				GameModeId = gameModeId,
+				GameModeHash = gameModeId.GetHashCode(),
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
 				Mutators = selectedGameMode.Entry.Mutators,
 				MapId = msg.MapId
@@ -687,7 +674,7 @@ namespace FirstLight.Game.StateMachines
 			_services.DataSaver.SaveData<AppData>();
 			var setup = new MatchRoomSetup()
 			{
-				GameModeId = gameModeId,
+				GameModeHash = gameModeId.GetHashCode(),
 				MapId = (int) msg.MapConfig.Map,
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,

@@ -1117,15 +1117,6 @@ namespace I2.Loc
 			public static string tap_to_claim 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/tap_to_claim"); } }
 		}
 
-		public static class UITCollectionScreen
-		{
-			public static string banners 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/banners"); } }
-			public static string buy 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/buy"); } }
-			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
-			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
-			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
-		}
-
 		public static class UITDisconnected
 		{
 			public static string connection_lost 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/connection_lost"); } }
@@ -1238,7 +1229,6 @@ namespace I2.Loc
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
 			public static string blast_pass_claim_reward 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass_claim_reward"); } }
 			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/cancel"); } }
-			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/collection"); } }
 			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/create_party"); } }
 			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
@@ -1253,7 +1243,6 @@ namespace I2.Loc
 			public static string party_id 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id"); } }
 			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
 			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
-			public static string party_popup_join_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_join_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/ready"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
@@ -1280,24 +1269,16 @@ namespace I2.Loc
 		{
 			public static string email 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/email"); } }
 			public static string guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/guest"); } }
-			public static string i_dont_have_account 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/i_dont_have_account"); } }
-			public static string i_have_account 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/i_have_account"); } }
 			public static string invalid_input 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/invalid_input"); } }
 			public static string login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login"); } }
-			public static string login_first_light_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login_first_light_id"); } }
 			public static string login_with_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login_with_fl_id"); } }
 			public static string password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/password"); } }
 			public static string play_as_guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/play_as_guest"); } }
-			public static string recommended_to_save_progress 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/recommended_to_save_progress"); } }
 			public static string register 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register"); } }
-			public static string register_first_light_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_first_light_id"); } }
 			public static string register_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_fl_id"); } }
 			public static string register_login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_login"); } }
 			public static string register_new_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_new_fl_id"); } }
-			public static string reset_button 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_button"); } }
 			public static string reset_password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password"); } }
-			public static string reset_password_confirm 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password_confirm"); } }
-			public static string reset_password_desc 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password_desc"); } }
 			public static string secure_progress 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/secure_progress"); } }
 			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
 			public static string username 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/username"); } }
@@ -2521,15 +2502,6 @@ namespace I2.Loc
 		    public const string tap_to_claim = "UITBattlePass/tap_to_claim";
 		}
 
-		public static class UITCollectionScreen
-		{
-		    public const string banners = "UITCollectionScreen/banners";
-		    public const string buy = "UITCollectionScreen/buy";
-		    public const string characters = "UITCollectionScreen/characters";
-		    public const string collection = "UITCollectionScreen/collection";
-		    public const string gliders = "UITCollectionScreen/gliders";
-		}
-
 		public static class UITDisconnected
 		{
 		    public const string connection_lost = "UITDisconnected/connection_lost";
@@ -2642,7 +2614,6 @@ namespace I2.Loc
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
 		    public const string blast_pass_claim_reward = "UITHomeScreen/blast_pass_claim_reward";
 		    public const string cancel = "UITHomeScreen/cancel";
-		    public const string collection = "UITHomeScreen/collection";
 		    public const string create_party = "UITHomeScreen/create_party";
 		    public const string discord = "UITHomeScreen/discord";
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
@@ -2657,7 +2628,6 @@ namespace I2.Loc
 		    public const string party_id = "UITHomeScreen/party_id";
 		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
 		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
-		    public const string party_popup_join_desc = "UITHomeScreen/party_popup_join_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string ready = "UITHomeScreen/ready";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
@@ -2684,24 +2654,16 @@ namespace I2.Loc
 		{
 		    public const string email = "UITLoginRegister/email";
 		    public const string guest = "UITLoginRegister/guest";
-		    public const string i_dont_have_account = "UITLoginRegister/i_dont_have_account";
-		    public const string i_have_account = "UITLoginRegister/i_have_account";
 		    public const string invalid_input = "UITLoginRegister/invalid_input";
 		    public const string login = "UITLoginRegister/login";
-		    public const string login_first_light_id = "UITLoginRegister/login_first_light_id";
 		    public const string login_with_fl_id = "UITLoginRegister/login_with_fl_id";
 		    public const string password = "UITLoginRegister/password";
 		    public const string play_as_guest = "UITLoginRegister/play_as_guest";
-		    public const string recommended_to_save_progress = "UITLoginRegister/recommended_to_save_progress";
 		    public const string register = "UITLoginRegister/register";
-		    public const string register_first_light_id = "UITLoginRegister/register_first_light_id";
 		    public const string register_fl_id = "UITLoginRegister/register_fl_id";
 		    public const string register_login = "UITLoginRegister/register_login";
 		    public const string register_new_fl_id = "UITLoginRegister/register_new_fl_id";
-		    public const string reset_button = "UITLoginRegister/reset_button";
 		    public const string reset_password = "UITLoginRegister/reset_password";
-		    public const string reset_password_confirm = "UITLoginRegister/reset_password_confirm";
-		    public const string reset_password_desc = "UITLoginRegister/reset_password_desc";
 		    public const string secure_progress = "UITLoginRegister/secure_progress";
 		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";
 		    public const string username = "UITLoginRegister/username";

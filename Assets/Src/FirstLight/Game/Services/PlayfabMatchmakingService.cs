@@ -16,7 +16,6 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using SRF;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Services
 {
@@ -58,27 +57,14 @@ namespace FirstLight.Game.Services
 		/// Invokes that a game was found
 		/// </summary>
 		public void InvokeMatchFound(GameMatched match);
-		
+
 		public delegate void OnGameMatchedEventHandler(GameMatched match);
 
-		/// <summary>
-		/// Event dispatcher when a game is found by Matchmaking
-		/// </summary>
 		public event OnGameMatchedEventHandler OnGameMatched;
 
 		public delegate void OnMatchmakingJoinedHandler(JoinedMatchmaking match);
 
-		/// <summary>
-		/// Event triggered when a player enter matchmaking, triggered for all party members
-		/// </summary>
 		public event OnMatchmakingJoinedHandler OnMatchmakingJoined;
-
-		public delegate void OnMatchmakingCancelledHandler();
-
-		/// <summary>
-		/// Dispatched when the matchmaking got canceled, either by timeout or when a player manually cancel it
-		/// </summary>
-		public event OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 	}
 
 
@@ -92,7 +78,7 @@ namespace FirstLight.Game.Services
 	{
 		// Required at creation
 		public int MapId;
-		public string GameModeId;
+		public int GameModeHash;
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
 
@@ -116,17 +102,12 @@ namespace FirstLight.Game.Services
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
 		private static string QUEUE_NAME = "flgranked"; // TODO: Drive from outside for multiple q 
-		private const string LOBBY_TICKET_PROPERTY = "mm_match"; 
+		private const string LOBBY_TICKET_PROPERTY = "mm_match"; // TODO: Drive from outside for multiple q 
 		private const string PLAYER_ENTITY_TYPE = "title_player_account";
-		private const string CANCELLED_KEY = "cancelled";
 		private IGameBackendService _gameBackend;
 		private ICoroutineService _coroutines;
 		private IPartyService _party;
 		private MatchmakingPooling _pooling;
-
-		public event IMatchmakingService.OnGameMatchedEventHandler OnGameMatched;
-		public event IMatchmakingService.OnMatchmakingJoinedHandler OnMatchmakingJoined;
-		public event IMatchmakingService.OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 
 		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines, IPartyService party, IMessageBrokerService broker)
 		{
@@ -140,36 +121,20 @@ namespace FirstLight.Game.Services
 				{
 					StopMatchmaking();
 				}
-
-				if (type == ObservableUpdateType.Updated)
-				{
-					// lets check if an player cancelled the ticket
-					if (after.RawProperties.TryGetValue(CANCELLED_KEY,out var cancelledValue))
-					{
-						if (_pooling != null)
-						{
-							if (_pooling.Ticket == cancelledValue)
-							{
-								CancelLocalMatchmaking();
-							}	
-						}
-					}
-
-				}
 			});
 			broker.Subscribe<SuccessAuthentication>(OnAuthentication);
 		}
 
 		private void StopMatchmaking()
-		{
+		{	
 			if (_pooling != null)
 			{
 				LeaveMatchmaking();
 				_pooling.Stop();
 				_pooling = null;
 			}
+			
 		}
-
 		private void OnAuthentication(SuccessAuthentication _)
 		{
 			LeaveMatchmaking();
@@ -182,7 +147,6 @@ namespace FirstLight.Game.Services
 				if (_pooling != null)
 				{
 					_pooling.Stop();
-					_pooling = null;
 				}
 
 				return;
@@ -229,20 +193,6 @@ namespace FirstLight.Game.Services
 			_pooling.Start();
 		}
 
-		public void CancelLocalMatchmaking()
-		{
-			if (_party.HasParty.Value)
-			{
-				_party.Ready(false);
-			}
-			if (_pooling != null)
-			{
-				_pooling.Stop();
-				_pooling = null;
-			}
-
-			OnMatchmakingCancelled?.Invoke();
-		}
 
 		public void LeaveMatchmaking()
 		{
@@ -251,17 +201,6 @@ namespace FirstLight.Game.Services
 				QueueName = QUEUE_NAME
 			}, null, Debug.LogError);
 			FLog.Verbose("Left Matchmaking");
-			if (_pooling != null)
-			{
-				if (_party.HasParty.Value)
-				{
-					// For party everything is handled at the OnMemberUpdated
-					_party.SetMemberProperty(CANCELLED_KEY, _pooling.Ticket);
-					return;
-				}
-				CancelLocalMatchmaking();
-			}
-			
 		}
 
 		public void GetTicket(string ticket, Action<GetMatchmakingTicketResult> callback)
@@ -353,6 +292,9 @@ namespace FirstLight.Game.Services
 		{
 			OnMatchmakingJoined?.Invoke(mm);
 		}
+
+		public event IMatchmakingService.OnGameMatchedEventHandler OnGameMatched;
+		public event IMatchmakingService.OnMatchmakingJoinedHandler OnMatchmakingJoined;
 	}
 
 	/// <summary>
@@ -361,16 +303,16 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public class MatchmakingPooling
 	{
-		public string Ticket { get; }
+		private string _ticket;
 		private MatchRoomSetup _setup;
-		private PlayfabMatchmakingService _service;
+		private IMatchmakingService _service;
 		private ICoroutineService _routines;
 		private Coroutine _task;
 		private bool _pooling = false;
 
-		public MatchmakingPooling(string ticket, MatchRoomSetup setup, PlayfabMatchmakingService service, ICoroutineService coroutines)
+		public MatchmakingPooling(string ticket, MatchRoomSetup setup, IMatchmakingService service, ICoroutineService coroutines)
 		{
-			Ticket = ticket;
+			_ticket = ticket;
 			_service = service;
 			_routines = coroutines;
 			_setup = setup;
@@ -398,11 +340,10 @@ namespace FirstLight.Game.Services
 					// Since this game is only going to be this ticket, all the players should be in the same team
 					TeamId = "team1"
 				});
-				return;
 			}
-			_service.CancelLocalMatchmaking();
+			
 		}
-
+		
 		private void HandleMatched(GetMatchmakingTicketResult ticket)
 		{
 			_service.GetMatch(ticket.MatchId, result =>
@@ -423,6 +364,7 @@ namespace FirstLight.Game.Services
 					TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
 				});
 			});
+			
 		}
 
 
@@ -432,12 +374,13 @@ namespace FirstLight.Game.Services
 			_pooling = true;
 			while (_pooling)
 			{
-				_service.GetTicket(Ticket, ticket =>
+				_service.GetTicket(_ticket, ticket =>
 				{
 					Debug.Log("Ticket Pool: " + JsonConvert.SerializeObject(ticket));
 					// TODO: Check when ticket expired and expose event
 					if (ticket.Status == "Matched")
 					{
+					
 						HandleMatched(ticket);
 						_pooling = false;
 					}

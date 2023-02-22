@@ -33,7 +33,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnProjectileFailedHit(EventOnProjectileFailedHit callback)
 		{
-			if (callback.Projectile != EntityRef || callback.Game.Frames.Predicted.IsCulled(callback.Projectile))
+			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
@@ -43,11 +43,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnEventOnProjectileHit(EventOnProjectileSuccessHit callback)
 		{
-			if (callback.Projectile != EntityRef || callback.Game.Frames.Predicted.IsCulled(callback.Projectile))
+			if (callback.Projectile != EntityRef)
 			{
 				return;
 			}
-
+			
 			PlayEffect(_hitEffect, callback.HitPosition.ToUnityVector3());
 		}
 

@@ -15,7 +15,7 @@ namespace FirstLight.UiService
 	/// The root base of the UI Presenter of the <seealso cref="IUiService"/>
 	/// Implement this abstract class in order to execute the proper UI life cycle
 	/// </summary>
-	public abstract class UiPresenter : MonoBehaviour, IUIDocumentPresenter
+	public abstract class UiPresenter : MonoBehaviour
 	{
 		protected IUiService _uiService;
 
@@ -85,8 +85,6 @@ namespace FirstLight.UiService
 				gameObject.SetActive(false);
 			}
 		}
-
-		public UIDocument Document { get; }
 	}
 
 	/// <summary>
@@ -117,19 +115,11 @@ namespace FirstLight.UiService
 	{
 	}
 
-	/// <summary>
-	/// A temporary interface to allow access to the Document of UI Toolkit presenters
-	/// </summary>
-	public interface IUIDocumentPresenter
-	{
-		public UIDocument Document { get; }
-	}
-
 	/// <inheritdoc cref="UiPresenter"/>
 	/// <remarks>
 	/// Extends the <see cref="UiPresenter"/> behaviour with defined data of type <typeparamref name="T"/>
 	/// </remarks>
-	public abstract class UiPresenterData<T> : UiPresenter, IUIDocumentPresenter, IUiPresenterData where T : struct
+	public abstract class UiPresenterData<T> : UiPresenter, IUiPresenterData where T : struct
 	{
 		/// <summary>
 		/// The Ui data defined when opened via the <see cref="UiService"/>
@@ -149,8 +139,6 @@ namespace FirstLight.UiService
 
 			OnSetData();
 		}
-
-		public UIDocument Document { get; }
 	}
 
 	/// <summary>
@@ -176,8 +164,7 @@ namespace FirstLight.UiService
 	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
 	/// </summary>
 	[LoadSynchronously]
-	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T>, IUIDocumentPresenter
-		where T : struct
+	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
 		[SerializeField] private GameObject _background;
@@ -185,8 +172,6 @@ namespace FirstLight.UiService
 
 		protected VisualElement Root;
 		private readonly Dictionary<VisualElement, IUIView> _views = new();
-
-		public UIDocument Document => _document;
 
 		/// <summary>
 		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
@@ -228,6 +213,7 @@ namespace FirstLight.UiService
 
 		protected virtual void OnTransitionsReady()
 		{
+			
 		}
 
 		protected override void OnOpened()
@@ -248,7 +234,7 @@ namespace FirstLight.UiService
 					.Build()
 					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
-
+			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			StartCoroutine(MakeVisible());
 
@@ -258,7 +244,7 @@ namespace FirstLight.UiService
 		protected override async Task OnClosed()
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
-
+			
 			UnsubscribeFromEvents();
 
 			await Task.Delay(_millisecondsToClose);
@@ -268,13 +254,13 @@ namespace FirstLight.UiService
 				_background.SetActive(false);
 			}
 		}
-
+		
 		private IEnumerator MakeVisible()
 		{
 			yield return new WaitForEndOfFrame();
-
+			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
-
+			
 			OnTransitionsReady();
 		}
 	}

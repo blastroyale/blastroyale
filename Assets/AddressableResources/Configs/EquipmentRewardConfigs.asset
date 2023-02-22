@@ -89,47 +89,40 @@ MonoBehaviour:
   - Id: 2
     GameId: 15
     EquipmentCategory:
-      _keyData: 0d0000000f0000001100000010000000
+      _keyData: 0d0000000f000000
       _valueData:
-      - RawValue: 1441792
-      - RawValue: 1769472
-      - RawValue: 917504
-      - RawValue: 1769472
+      - RawValue: 3276800
+      - RawValue: 3276800
     Edition:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0000000001000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 2293760
-      - RawValue: 1638400
+      - RawValue: 6553600
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _keyData: 00000000010000000200000003000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
-      - RawValue: 589824
-      - RawValue: 589824
-      - RawValue: 131072
     Adjective:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 0000000001000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
+      - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -137,50 +130,41 @@ MonoBehaviour:
   - Id: 3
     GameId: 46
     EquipmentCategory:
-      _keyData: 0d0000000f00000011000000100000000b000000
+      _keyData: 11000000100000000b000000
       _valueData:
-      - RawValue: 1769472
-      - RawValue: 1769472
-      - RawValue: 1441792
-      - RawValue: 1769472
-      - RawValue: 917504
+      - RawValue: 1966080
+      - RawValue: 1966080
+      - RawValue: 1966080
     Edition:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 000000000100000002000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 1310720
-      - RawValue: 1638400
-      - RawValue: 1179648
+      - RawValue: 6553600
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _keyData: 00000000010000000200000003000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
-      - RawValue: 589824
-      - RawValue: 589824
-      - RawValue: 131072
     Adjective:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 000000000100000002000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
-      - RawValue: 524288
+      - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -200,38 +184,32 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 020000000300000004000000
+      _keyData: 0000000001000000
       _valueData:
-      - RawValue: 1441792
-      - RawValue: 2752512
-      - RawValue: 524288
+      - RawValue: 4915200
+      - RawValue: 1638400
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _keyData: 00000000010000000200000003000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
-      - RawValue: 589824
-      - RawValue: 589824
-      - RawValue: 131072
     Adjective:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 000000000100000002000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2621440
-      - RawValue: 851968
+      - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -251,17 +229,17 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 040000000500000006000000
+      _keyData: 000000000100000002000000
       _valueData:
-      - RawValue: 3276800
-      - RawValue: 1179648
-      - RawValue: 262144
+      - RawValue: 2949120
+      - RawValue: 2949120
+      - RawValue: 655360
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _keyData: 000000000100000002000000030000000400000005000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
@@ -269,21 +247,18 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 589824
       - RawValue: 589824
-      - RawValue: 131072
     Adjective:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 0000000001000000
       _valueData:
-      - RawValue: 1966080
-      - RawValue: 2949120
-      - RawValue: 1179648
-      - RawValue: 65536
+      - RawValue: 5242880
+      - RawValue: 1310720
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -303,16 +278,16 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0600000007000000
+      _keyData: 0100000002000000
       _valueData:
-      - RawValue: 5898240
-      - RawValue: 655360
+      - RawValue: 5242880
+      - RawValue: 1310720
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _keyData: 000000000100000002000000030000000400000005000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
@@ -320,19 +295,17 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 589824
       - RawValue: 589824
-      - RawValue: 131072
     Adjective:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Material:
-      _keyData: 010000000200000003000000
+      _keyData: 0000000001000000
       _valueData:
-      - RawValue: 1638400
-      - RawValue: 1638400
-      - RawValue: 655360
+      - RawValue: 3276800
+      - RawValue: 3276800
     MaxDurability:
-      Key: 2
+      Key: 1
       Value: 2
     InitialReplicationCounter: 0
     Tuning: 0
@@ -352,7 +325,7 @@ MonoBehaviour:
     Rarity:
       _keyData: 00000000
       _valueData:
-      - RawValue: 2293760
+      - RawValue: 6553600
     Grade:
       _keyData: 04000000
       _valueData:
@@ -365,14 +338,14 @@ MonoBehaviour:
     Adjective:
       _keyData: 00000000
       _valueData:
-      - RawValue: 2621440
+      - RawValue: 6553600
     Material:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -389,9 +362,9 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 01000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 1638400
+      - RawValue: 6553600
     Grade:
       _keyData: 04000000
       _valueData:
@@ -402,16 +375,16 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 01000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 1966080
+      - RawValue: 6553600
     Material:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1
@@ -427,29 +400,31 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 02000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 1179648
+      - RawValue: 6553600
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 0400000005000000
+      _keyData: 00000000010000000200000003000000
       _valueData:
-      - RawValue: 589824
-      - RawValue: 589824
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
     Adjective:
-      _keyData: 02000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 983040
+      - RawValue: 6553600
     Material:
       _keyData: 02000000
       _valueData:
       - RawValue: 6553600
     MaxDurability:
-      Key: 2
-      Value: 2
+      Key: 1
+      Value: 1
     InitialReplicationCounter: 0
     Tuning: 0
     Level: 1

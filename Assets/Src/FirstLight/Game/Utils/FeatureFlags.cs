@@ -61,7 +61,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Enables / disables item durability checks
 		/// </summary>
-		public static bool ITEM_DURABILITY = false;
+		public static bool ITEM_DURABILITY = true;
 
 		/// <summary>
 		/// If true all matches will be handled as ranked matches

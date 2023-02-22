@@ -160,7 +160,7 @@ namespace FirstLight.Game.Views
 			}
 
 			var gameModeId = GameModeInfo.Entry.GameModeId;
-			var descLocalisationKey = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()).DescriptionLocalisationKey;
+			var descLocalisationKey = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId).DescriptionLocalisationKey;
 			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(descLocalisationKey);
 		}
 

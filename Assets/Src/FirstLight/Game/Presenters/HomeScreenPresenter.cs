@@ -152,6 +152,7 @@ namespace FirstLight.Game.Presenters
 			_services.PartyService.HasParty.InvokeObserve(OnHasPartyChanged);
 			_services.PartyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
 			_services.PartyService.Members.Observe(OnMembersChanged);
+			_services.PartyService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
@@ -179,9 +180,16 @@ namespace FirstLight.Game.Presenters
 			UpdatePlayButton();
 		}
 
-		private void OnMembersChanged(int i, PartyMember _, PartyMember Member, ObservableUpdateType type)
+		private void OnMembersChanged(int i, PartyMember _, PartyMember member, ObservableUpdateType type)
 		{
 			UpdatePlayButton();
+		}
+		
+		private void OnLocalPlayerKicked()
+		{
+			// TODO translation!
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, "You got kicked from the party.", true,
+				new GenericDialogButton());
 		}
 
 		private void UpdatePlayButton()
@@ -189,7 +197,7 @@ namespace FirstLight.Game.Presenters
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = "play-button";
 
-			if (_services.PartyService.HasParty.Value)
+			if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null )
 			{
 				var leader = _services.PartyService.GetLocalMember().Leader;
 				if (leader)

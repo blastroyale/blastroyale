@@ -128,7 +128,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static QuantumMapConfig GetRotationMapConfig(string gameModeId, IGameServices services)
 		{
-			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 			var compatibleMaps = new List<QuantumMapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex =

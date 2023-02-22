@@ -46,9 +46,9 @@ namespace FirstLight.Game.Services
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
 			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
-			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 		}
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes shape, float duration, float strength, Vector3 position = default)
@@ -74,6 +74,14 @@ namespace FirstLight.Game.Services
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
 
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+		}
+
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		{
+		}
+
 		public void SetCameras(CinemachineVirtualCamera adventureCamera)
 		{
 			_adventureCamera = adventureCamera;
@@ -84,12 +92,15 @@ namespace FirstLight.Game.Services
 			Object.Destroy(_cameraServiceObject);
 		}
 
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-		}
-
-		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
-		{
+			var f = callback.Game.Frames.Verified;
+			if (callback.Entity.IsAlive(f))
+			{
+				StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Rumble,
+				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH,
+				callback.Entity.GetPosition(f).ToUnityVector3());
+			}
 		}
 
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
@@ -109,45 +120,6 @@ namespace FirstLight.Game.Services
 				GameConstants.Screenshake.SCREENSHAKE_LARGE_DURATION, GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH);
 		}
 
-		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
-		{
-			// If not a kill of spectated player, or spectated player committed suicide
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller ||
-				callback.EntityKiller == callback.EntityDead)
-			{
-				return;
-			}
-			
-			var shakePower = GameConstants.Screenshake.SCREENSHAKE_SMALL_STRENGTH;
-
-			// Kill SFX
-			switch (callback.CurrentMultiKill)
-			{
-				case 3:
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
-					break;
-
-				case 4:
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_MEDIUM_STRENGTH;
-					break;
-
-				case 5:
-					shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
-					break;
-
-				default:
-					if (callback.CurrentMultiKill > 5)
-					{
-						shakePower = GameConstants.Screenshake.SCREENSHAKE_LARGE_STRENGTH;
-					}
-
-					break;
-			}
-			
-			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Bump, 
-				GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, shakePower);
-		}
-		
 		private void OnEventOnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
 		{
 			ExplosionScreenShake(callback.sourceId, callback.EndPosition.ToUnityVector3());
@@ -224,5 +196,7 @@ namespace FirstLight.Game.Services
 					shakeDuration, shakePower, endPosition);
 			}
 		}
+
+		
 	}
 }

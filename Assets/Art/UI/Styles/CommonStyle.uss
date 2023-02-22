@@ -62,8 +62,10 @@
 }
 
 .font-style-h2 {
-    font-size: 38px;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
+    font-size: 42px;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 1);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
 }
 
@@ -286,8 +288,9 @@
     border-bottom-width: 0;
     background-color: rgba(0, 0, 0, 0);
     font-size: 42px;
+    -unity-font-style: bold;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0 0 7px;
@@ -311,6 +314,16 @@
     background-image: var(--sprite-home__button-long-grey);
     -unity-text-align: middle-center;
     padding-bottom: 0;
+}
+
+.button-long--small-font
+{
+    font-size: 32px;
+}
+
+.button-long--large-font
+{
+    font-size: 52px;
 }
 
 .button-long--yellow {
@@ -449,6 +462,10 @@
     height: 125px;
 }
 
+.height-spacer--xxxxl {
+    height: 150px;
+}
+
 .width-spacer {
     height: 0;
     width: 5px;
@@ -476,6 +493,10 @@
 
 .width-spacer--xxxl {
     width: 125px;
+}
+
+.width-spacer--xxxxl {
+    width: 150px;
 }
 
 .unity-scroll-view .unity-list-view__empty-label {

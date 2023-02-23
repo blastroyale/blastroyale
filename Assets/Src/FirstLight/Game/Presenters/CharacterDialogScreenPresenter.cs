@@ -16,30 +16,35 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class CharacterDialogScreenPresenter : UiToolkitPresenter
 	{
-		private const string CHARACTER_LEFT = "character--left";
-		private const string CHARACTER_RIGHT = "character--right";
+		private const string CHARACTER_LEFT = "back_avatar--left";
+		private const string CHARACTER_RIGHT = "back_avatar--right";
+		private const string CHARACTER_BOTTOM = "back_avatar--bottom";
+		private const string CHARACTER_TOP = "back_avatar--top";
+		private const string CHARACTER_CENTER = "back_avatar--center";
+		
 		private const string BUBBLE_LEFT = "bubble--left";
 		private const string BUBBLE_RIGHT = "bubble--right";
-		private const string LOC_TEXT_RIGHT = "bubble__localized_text__right";
+		private const string BUBBLE_BOTTOM = "bubble--bottom";
+		private const string BUBBLE_TOP = "bubble--top";
+		private const string BUBBLE_CENTER = "bubble--center";
+		
+		private const string LOC_TEXT_RIGHT = "bubble__localized-text__right";
 
 		private const int SCALE_DURATION_MS = 250;
-
-		private VisualElement _topLeftContainer;
-		private VisualElement _topRightContainer;
-		private VisualElement _bottomLeftContainer;
-		private VisualElement _bottomRightContainer;
-		private VisualElement _centerContainer;
-
+		private const int SCALE_BUMP_DURATION_MS = 150;
+		private const float BUMP_SIZE = 1.15f;
+		
+		private VisualElement _backAvatarMale;
 		private VisualElement _characterMale;
 		private VisualElement _bubbleMale;
 		private LocalizedLabel _localizedLabelMale;
-
+		
+		private VisualElement _backAvatarFemale;
 		private VisualElement _characterFemale;
 		private VisualElement _bubbleFemale;
 		private LocalizedLabel _localizedLabelFemale;
 
-		private Dictionary<CharacterType, VisualElement[]> _characters; // 0 char VE, 1 bubble, 2 locText
-		private Dictionary<CharacterDialogPosition, VisualElement> _positionsToContainers; // 0 char VE, 1 bubble, 2 locText
+		private Dictionary<CharacterType, VisualElement[]> _characters; // 0 char VE, 1 bubble, 2 locText, backAvatar
 
 		private IGameServices _services;
 
@@ -50,36 +55,23 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_topLeftContainer = root.Q<VisualElement>("TopLeftContainer").Required();
-			_topRightContainer = root.Q<VisualElement>("TopRightContainer").Required();
-			_bottomLeftContainer = root.Q<VisualElement>("BottomLeftContainer").Required();
-			_bottomRightContainer = root.Q<VisualElement>("BottomRightContainer").Required();
-			_centerContainer = root.Q<VisualElement>("CenterContainer").Required();
-
+			_backAvatarMale = root.Q<VisualElement>("BackAvatarMale").Required();
 			_characterMale = root.Q<VisualElement>("MaleCharacter").Required();
 			_bubbleMale = root.Q<VisualElement>("MaleBubble").Required();
 			_localizedLabelMale = root.Q<LocalizedLabel>("MaleLocalizedLabel").Required();
 
+			_backAvatarFemale = root.Q<VisualElement>("BackAvatarFemale").Required();
 			_characterFemale = root.Q<VisualElement>("FemaleCharacter").Required();
 			_bubbleFemale = root.Q<VisualElement>("FemaleBubble").Required();
 			_localizedLabelFemale = root.Q<LocalizedLabel>("FemaleLocalizedLabel").Required();
 
-			//setup ref dictionaries
+			//setup ref dictionary
 			_characters = new Dictionary<CharacterType, VisualElement[]>
 			{
-				{CharacterType.Female, new[] {_characterFemale, _bubbleFemale, _localizedLabelFemale}},
-				{CharacterType.Male, new[] {_characterMale, _bubbleMale, _localizedLabelMale}}
+				{CharacterType.Female, new[] {_characterFemale, _bubbleFemale, _localizedLabelFemale, _backAvatarFemale}},
+				{CharacterType.Male, new[] {_characterMale, _bubbleMale, _localizedLabelMale, _backAvatarMale}}
 			};
-
-			_positionsToContainers = new Dictionary<CharacterDialogPosition, VisualElement>
-			{
-				{CharacterDialogPosition.TopLeft, _topLeftContainer},
-				{CharacterDialogPosition.TopRight, _topRightContainer},
-				{CharacterDialogPosition.BottomLeft, _bottomLeftContainer},
-				{CharacterDialogPosition.BottomRight, _bottomRightContainer},
-				{CharacterDialogPosition.Center, _centerContainer}
-			};
-
+			
 			root.SetupClicks(_services);
 		}
 
@@ -92,19 +84,16 @@ namespace FirstLight.Game.Presenters
 			SetMood(character, mood);
 			SetPosition(character, position);
 			SetText(character, message);
-
 			AnimCharacterIn(character, position);
 		}
 
 		/// <summary>
 		/// Continues the dialog without animation
 		/// </summary>
-		public void ContinueDialog(string message, CharacterType character, CharacterDialogMoodType mood,
-								   CharacterDialogPosition position)
+		public void ContinueDialog(string message, CharacterType character, CharacterDialogMoodType mood)
 		{
 			SetMood(character, mood);
-			SetPosition(character, position);
-			SetText(character, message);
+			SetText(character, message, true);
 		}
 
 		/// <summary>
@@ -112,11 +101,10 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void HideDialog(CharacterType character)
 		{
-			_characters[character][0].experimental.animation.Start((e) => e.transform.scale, new Vector3(0, 0, 1),
+			_characters[character][3].experimental.animation.Start((e) => e.transform.scale, new Vector3(0, 0, 1),
 				SCALE_DURATION_MS, (e, v) => { e.transform.scale = v; }).OnCompleted(() =>
 			{
-				_characters[character][0].SetDisplay(false);
-				RemoveFromPosition(character);
+				_characters[character][3].SetDisplay(false);
 				RemovePosStyles(character);
 				RemoveMoodStyles(character);
 			});
@@ -135,9 +123,9 @@ namespace FirstLight.Game.Presenters
 					? Vector2.one
 					: new Vector2(-1, 1);
 
-			_characters[character][0].style.scale = new StyleScale(new Scale(Vector3.zero));
-			_characters[character][0].SetDisplay(true);
-			_characters[character][0].experimental.animation.Start((e) => e.transform.scale, objScale, SCALE_DURATION_MS,
+			_characters[character][3].style.scale = new StyleScale(new Scale(Vector3.zero));
+			_characters[character][3].SetDisplay(true);
+			_characters[character][3].experimental.animation.Start((e) => e.transform.scale, objScale, SCALE_DURATION_MS,
 				(e, v) => { e.transform.scale = v; });
 
 			_characters[character][1].style.scale = new StyleScale(new Scale(Vector3.zero));
@@ -148,21 +136,19 @@ namespace FirstLight.Game.Presenters
 
 		private void SetMood(CharacterType character, CharacterDialogMoodType mood)
 		{
+			var moodClass = character.ToString().ToLower() + "_" + mood.ToString().ToLower();
+			if (_characters[character][0].ClassListContains(moodClass))
+				return;
+			
 			RemoveMoodStyles(character);
-			_characters[character][0].AddToClassList(character.ToString().ToLower() + "_" + mood.ToString().ToLower());
+			_characters[character][0].AddToClassList(moodClass);
+			
+			SmallBumpAnimElement(_characters[character][3]);
 		}
 
 		private void SetPosition(CharacterType character, CharacterDialogPosition position)
 		{
-			if (IsAtPosition(character, position))
-				return;
-
 			AdjustPosStyle(character, position);
-
-			//TODO check if different to current, if so anim out and call anim in on complete
-
-			_positionsToContainers[position].Add(_characters[character][0]);
-			_positionsToContainers[position].Add(_characters[character][1]);
 		}
 
 		private void AdjustPosStyle(CharacterType character, CharacterDialogPosition position)
@@ -171,40 +157,60 @@ namespace FirstLight.Game.Presenters
 
 			if (position is CharacterDialogPosition.TopRight or CharacterDialogPosition.BottomRight)
 			{
-				_characters[character][0].AddToClassList(CHARACTER_RIGHT);
+				_characters[character][3].AddToClassList(CHARACTER_RIGHT);
 				_characters[character][1].AddToClassList(BUBBLE_RIGHT);
 				_characters[character][2].AddToClassList(LOC_TEXT_RIGHT);
 			}
+			else if (position is CharacterDialogPosition.TopLeft or CharacterDialogPosition.BottomLeft)
+			{
+				_characters[character][3].AddToClassList(CHARACTER_LEFT);
+				_characters[character][1].AddToClassList(BUBBLE_LEFT);
+			} 
 			else
 			{
-				_characters[character][0].AddToClassList(CHARACTER_LEFT);
-				_characters[character][1].AddToClassList(BUBBLE_LEFT);
+				_characters[character][3].AddToClassList(CHARACTER_CENTER);
+				_characters[character][1].AddToClassList(BUBBLE_CENTER);
+			}
+			
+			if (position is CharacterDialogPosition.TopRight or CharacterDialogPosition.TopLeft)
+			{
+				_characters[character][3].AddToClassList(CHARACTER_TOP);
+				_characters[character][1].AddToClassList(BUBBLE_TOP);
+			}
+			else if (position is CharacterDialogPosition.BottomLeft or CharacterDialogPosition.BottomRight)
+			{
+				_characters[character][3].AddToClassList(CHARACTER_BOTTOM);
+				_characters[character][1].AddToClassList(BUBBLE_BOTTOM);
+			}
+			else
+			{
+				_characters[character][3].AddToClassList(CHARACTER_CENTER);
 			}
 		}
-
-		private bool IsAtPosition(CharacterType character, CharacterDialogPosition position)
-		{
-			return _positionsToContainers[position].Contains(_characters[character][0]);
-		}
-
-		private void RemoveFromPosition(CharacterType character)
-		{
-			Root.hierarchy.Add(_characters[character][0]);
-			Root.hierarchy.Add(_characters[character][1]);
-		}
-
+		
 		private void RemovePosStyles(CharacterType character)
 		{
-			_characters[character][0].RemoveFromClassList(CHARACTER_LEFT);
-			_characters[character][0].RemoveFromClassList(CHARACTER_RIGHT);
+			_characters[character][3].RemoveFromClassList(CHARACTER_LEFT);
+			_characters[character][3].RemoveFromClassList(CHARACTER_RIGHT);
+			_characters[character][3].RemoveFromClassList(CHARACTER_TOP);
+			_characters[character][3].RemoveFromClassList(CHARACTER_BOTTOM);
+			_characters[character][3].RemoveFromClassList(CHARACTER_CENTER);
 			_characters[character][1].RemoveFromClassList(BUBBLE_LEFT);
 			_characters[character][1].RemoveFromClassList(BUBBLE_RIGHT);
+			_characters[character][1].RemoveFromClassList(BUBBLE_TOP);
+			_characters[character][1].RemoveFromClassList(BUBBLE_BOTTOM);
+			_characters[character][1].RemoveFromClassList(BUBBLE_CENTER);
 			_characters[character][2].RemoveFromClassList(LOC_TEXT_RIGHT);
 		}
 
-		private void SetText(CharacterType character, string message)
+		private void SetText(CharacterType character, string message, bool bump = false)
 		{
 			((LocalizedLabel) _characters[character][2]).Localize(message);
+			
+			if (bump)
+			{
+				SmallBumpAnimElement(_characters[character][1]);
+			}
 		}
 
 		private void RemoveMoodStyles(CharacterType character)
@@ -214,6 +220,17 @@ namespace FirstLight.Game.Presenters
 			{
 				_characters[character][0].RemoveFromClassList(String.Concat(character.ToString().ToLower(), "_", mood.ToString().ToLower()));
 			}
+		}
+		
+		private void SmallBumpAnimElement(VisualElement ve)
+		{
+			var currentScale = ve.transform.scale;
+			ve.experimental.animation.Start((e) => e.transform.scale, currentScale * BUMP_SIZE, SCALE_BUMP_DURATION_MS/2,
+				(e, v) => { e.transform.scale = v; }).OnCompleted(() =>
+			{
+				ve.experimental.animation.Start((e) => e.transform.scale, currentScale, SCALE_BUMP_DURATION_MS/2,
+					(e, v) => { e.transform.scale = v; });
+			});
 		}
 	}
 	
@@ -239,4 +256,6 @@ namespace FirstLight.Game.Presenters
 		BottomRight,
 		Center
 	}
+	
+	
 }

@@ -73,6 +73,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
+			var unloadTutorialUi = stateFactory.TaskWait("Unload tutorial UI");
 			var createTutorialRoom = stateFactory.State("Create tutorial room");
 			var waitSimulationStart = stateFactory.State("Waiting for match start");
 			var startedSimulation = stateFactory.State("Playing tutorial match");
@@ -145,9 +146,11 @@ namespace FirstLight.Game.StateMachines
 			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
 			waitMatchFinish.Event(MatchState.MatchEndedEvent).Target(final);
-			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-
-			final.OnEnter(CloseTutorialScreens);
+			
+			unloadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("UnloadTutorialUi"); });
+			unloadTutorialUi.WaitingFor(CloseTutorialScreens).Target(final);
+			unloadTutorialUi.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+			
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
@@ -158,7 +161,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
 		}
 		
-		private async void CloseTutorialScreens()
+		private async Task CloseTutorialScreens()
 		{
 			_dialogUi.HideDialog(CharacterType.Female);
 			

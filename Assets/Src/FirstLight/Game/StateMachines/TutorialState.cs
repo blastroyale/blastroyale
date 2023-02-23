@@ -83,7 +83,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
-		private async void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
+		private void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
 		{
 			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.BP_EQUIPMENT_GUIDE)) return;
 

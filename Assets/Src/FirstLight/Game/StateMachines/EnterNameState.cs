@@ -27,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class EnterNameState
 	{
-		private readonly IStatechartEvent _nameSetEvent = new StatechartEvent("Name Set Event");
+		public static readonly IStatechartEvent NameSetEvent = new StatechartEvent("Name Set Event");
 		private readonly IStatechartEvent _nameSetInvalidEvent = new StatechartEvent("Name Set Invalid Event");
 		private readonly IStatechartEvent _nameInvalidAcknowledgedEvent = new StatechartEvent("Name Invalid Acknowledged Event");
 		
@@ -61,7 +61,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			
 			nameEntry.OnEnter(OpenEnterNameDialog);
-			nameEntry.Event(_nameSetEvent).Target(final);
+			nameEntry.Event(NameSetEvent).Target(final);
 			nameEntry.Event(_nameSetInvalidEvent).Target(nameInvalid);
 
 			nameInvalid.OnEnter(OpenNameInvalidDialog);
@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 				_services.GameBackendService.UpdateDisplayName(newNameTrimmed, null, null);
 			}
 			
-			_statechartTrigger(_nameSetEvent);
+			_statechartTrigger(NameSetEvent);
 		}
 		
 		private void OnNameInvalidAcknowledged()

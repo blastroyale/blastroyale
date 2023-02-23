@@ -63,6 +63,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
+			var unloadTutorialUi = stateFactory.TaskWait("Unload tutorial UI");
 			var enterName = stateFactory.State("Enter name");
 			var playGame = stateFactory.State("Play game");
 
@@ -76,14 +77,17 @@ namespace FirstLight.Game.StateMachines
 			// TEMPORARY FLOW - REAL FLOW WILL HAVE BP REWARDS, AND THEN EQUIPPING EQUIPMENT BEFORE MATCH
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
-			enterName.Event(MainMenuState.PlayClickedEvent).Target(final);
+			enterName.Event(EnterNameState.NameSetEvent).Target(playGame);
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
-			playGame.Event(MainMenuState.PlayClickedEvent).Target(final);
+			playGame.Event(MainMenuState.PlayClickedEvent).Target(unloadTutorialUi);
 			playGame.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 			
-			final.OnEnter(CloseTutorialScreens);
+			unloadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("UnloadTutorialUi"); });
+			unloadTutorialUi.WaitingFor(CloseTutorialScreens).Target(final);
+			unloadTutorialUi.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+			
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
@@ -97,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
 		}
 		
-		private async void CloseTutorialScreens()
+		private async Task CloseTutorialScreens()
 		{
 			_dialogUi.HideDialog(CharacterType.Female);
 			_tutorialUtilsUi.RemoveHighlight();

@@ -5,7 +5,7 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">
-            <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; position: absolute; top: 228px; left: -196px; justify-content: center;">
+            <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; position: absolute; top: 228px; left: -226px; justify-content: center;">
                 <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryCharacters" category="PlayerSkin" class="collection-category--selected" />
                 <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryBanners" category="DeathMarker" />
                 <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryGliders" category="Glider" />
@@ -20,9 +20,9 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="ButtonHolder" style="height: 300px;">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" style="position: absolute; top: 180px; left: 164px;" />
-                    <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" style="color: rgb(255, 255, 255); font-size: 32px; position: absolute; right: 50px; bottom: 234px; width: 388px; height: 50px;" />
+                    <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" style="color: rgb(255, 255, 255); font-size: 48px; position: absolute; right: 50px; bottom: 234px; width: 388px; height: 50px;" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" style="position: absolute; top: 182px; left: 168px;" />
-                    <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 24px; position: absolute; right: 54px; bottom: 145px; height: 50px; width: 388px;" />
+                    <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 36px; position: absolute; right: 54px; bottom: 145px; height: 50px; width: 388px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 468px; bottom: 0; overflow: visible; right: 700px;" />

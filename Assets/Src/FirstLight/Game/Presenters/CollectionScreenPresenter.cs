@@ -153,6 +153,7 @@ namespace FirstLight.Game.Presenters
 
 				UpdatePlayerSkinMenu();
 				UpdateCollectionDetails();
+				Update3DObject();
 			}
 			else
 			{

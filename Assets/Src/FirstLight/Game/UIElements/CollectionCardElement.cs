@@ -46,7 +46,6 @@ namespace FirstLight.Game.UIElements
 		public GameId MenuGameId { get; private set; }
 
 		private readonly VisualElement _image;
-		private readonly VisualElement _imageShadow;
 		private readonly Label _name;
 
 		private readonly VisualElement _locked;
@@ -79,10 +78,6 @@ namespace FirstLight.Game.UIElements
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
-
-			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
-			_imageShadow.AddToClassList(UssImage);
-			_imageShadow.AddToClassList(UssImageShadow);
 
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
@@ -131,10 +126,6 @@ namespace FirstLight.Game.UIElements
 		public void SetCollectionElement(GameId gameId, bool equipped = false, bool highlighted = false, bool isNft = false,
 										 bool loaned = false, bool notification = false)
 		{
-			// var equipment = info.Equipment;
-			// this.RemoveModifiers();
-			// this.RemoveSpriteClasses();
-			
 			_equippedBadge.SetDisplay(equipped);
 			
 			if (highlighted)
@@ -149,8 +140,6 @@ namespace FirstLight.Game.UIElements
 			MenuGameId = gameId;
 			
 			_name.text = gameId.GetLocalization();
-			
-			// SetSelected(true);
 
 			LoadImage();
 		}

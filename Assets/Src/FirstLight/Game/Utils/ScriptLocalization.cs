@@ -395,6 +395,7 @@ namespace I2.Loc
 			public static string KillDummy 		{ get{ return LocalizationManager.GetTranslation ("FTUE/KillDummy"); } }
 			public static string KillEnemyWithRangedWeapon 		{ get{ return LocalizationManager.GetTranslation ("FTUE/KillEnemyWithRangedWeapon"); } }
 			public static string MoveToArea 		{ get{ return LocalizationManager.GetTranslation ("FTUE/MoveToArea"); } }
+			public static string RichTextTest 		{ get{ return LocalizationManager.GetTranslation ("FTUE/RichTextTest"); } }
 			public static string SpecialAbilities 		{ get{ return LocalizationManager.GetTranslation ("FTUE/SpecialAbilities"); } }
 			public static string UseHammer 		{ get{ return LocalizationManager.GetTranslation ("FTUE/UseHammer"); } }
 			public static string UseJoystick 		{ get{ return LocalizationManager.GetTranslation ("FTUE/UseJoystick"); } }
@@ -451,7 +452,9 @@ namespace I2.Loc
 			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Equipment"); } }
 			public static string Fastershot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Fastershot"); } }
 			public static string Female01Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female01Avatar"); } }
+			public static string Female01AvatarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female01AvatarDescription"); } }
 			public static string Female02Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female02Avatar"); } }
+			public static string Female02AvatarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Female02AvatarDescription"); } }
 			public static string FloodCity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCity"); } }
 			public static string FloodCitySimple 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FloodCitySimple"); } }
 			public static string FootballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FootballArmor"); } }
@@ -482,7 +485,9 @@ namespace I2.Loc
 			public static string MagicCube 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MagicCube"); } }
 			public static string MainDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MainDeck"); } }
 			public static string Male01Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male01Avatar"); } }
+			public static string Male01AvatarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male01AvatarDescription"); } }
 			public static string Male02Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male02Avatar"); } }
+			public static string Male02AvatarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male02AvatarDescription"); } }
 			public static string MapTestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MapTestScene"); } }
 			public static string MausHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MausHelmet"); } }
 			public static string MausHelmetDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MausHelmetDescription"); } }
@@ -502,6 +507,7 @@ namespace I2.Loc
 			public static string MouseShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MouseShield"); } }
 			public static string MouseShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MouseShieldDescription"); } }
 			public static string Multishot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Multishot"); } }
+			public static string NewBRMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/NewBRMap"); } }
 			public static string Philadelphia 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Philadelphia"); } }
 			public static string PhiladelphiaDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/PhiladelphiaDescription"); } }
 			public static string Rage 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Rage"); } }
@@ -1123,6 +1129,7 @@ namespace I2.Loc
 			public static string buy 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/buy"); } }
 			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
+			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
 			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
 		}
 
@@ -1397,6 +1404,23 @@ namespace I2.Loc
 		public static class UITSwipeTransition
 		{
 			public static string lets_blast 		{ get{ return LocalizationManager.GetTranslation ("UITSwipeTransition/lets_blast"); } }
+		}
+
+		public static class UITTutorial
+		{
+			public static string drop_down_to_arena 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/drop_down_to_arena"); } }
+			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/enter_your_name"); } }
+			public static string lets_play_real_match 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/lets_play_real_match"); } }
+			public static string nice_proceed_chest_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_chest_area"); } }
+			public static string nice_proceed_dummy_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_dummy_area"); } }
+			public static string open_chest 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/open_chest"); } }
+			public static string pick_up_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/pick_up_weapon"); } }
+			public static string shoot_barrier 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_barrier"); } }
+			public static string shoot_dummies 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_dummies"); } }
+			public static string use_grenade 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/use_grenade"); } }
+			public static string use_left_joystick 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/use_left_joystick"); } }
+			public static string welcome_to_wastelands 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/welcome_to_wastelands"); } }
+			public static string you_made_it_look_easy 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/you_made_it_look_easy"); } }
 		}
 
 		public static class UITWinners
@@ -1799,6 +1823,7 @@ namespace I2.Loc
 		    public const string KillDummy = "FTUE/KillDummy";
 		    public const string KillEnemyWithRangedWeapon = "FTUE/KillEnemyWithRangedWeapon";
 		    public const string MoveToArea = "FTUE/MoveToArea";
+		    public const string RichTextTest = "FTUE/RichTextTest";
 		    public const string SpecialAbilities = "FTUE/SpecialAbilities";
 		    public const string UseHammer = "FTUE/UseHammer";
 		    public const string UseJoystick = "FTUE/UseJoystick";
@@ -1855,7 +1880,9 @@ namespace I2.Loc
 		    public const string Equipment = "GameIds/Equipment";
 		    public const string Fastershot = "GameIds/Fastershot";
 		    public const string Female01Avatar = "GameIds/Female01Avatar";
+		    public const string Female01AvatarDescription = "GameIds/Female01AvatarDescription";
 		    public const string Female02Avatar = "GameIds/Female02Avatar";
+		    public const string Female02AvatarDescription = "GameIds/Female02AvatarDescription";
 		    public const string FloodCity = "GameIds/FloodCity";
 		    public const string FloodCitySimple = "GameIds/FloodCitySimple";
 		    public const string FootballArmor = "GameIds/FootballArmor";
@@ -1886,7 +1913,9 @@ namespace I2.Loc
 		    public const string MagicCube = "GameIds/MagicCube";
 		    public const string MainDeck = "GameIds/MainDeck";
 		    public const string Male01Avatar = "GameIds/Male01Avatar";
+		    public const string Male01AvatarDescription = "GameIds/Male01AvatarDescription";
 		    public const string Male02Avatar = "GameIds/Male02Avatar";
+		    public const string Male02AvatarDescription = "GameIds/Male02AvatarDescription";
 		    public const string MapTestScene = "GameIds/MapTestScene";
 		    public const string MausHelmet = "GameIds/MausHelmet";
 		    public const string MausHelmetDescription = "GameIds/MausHelmetDescription";
@@ -1906,6 +1935,7 @@ namespace I2.Loc
 		    public const string MouseShield = "GameIds/MouseShield";
 		    public const string MouseShieldDescription = "GameIds/MouseShieldDescription";
 		    public const string Multishot = "GameIds/Multishot";
+		    public const string NewBRMap = "GameIds/NewBRMap";
 		    public const string Philadelphia = "GameIds/Philadelphia";
 		    public const string PhiladelphiaDescription = "GameIds/PhiladelphiaDescription";
 		    public const string Rage = "GameIds/Rage";
@@ -2527,6 +2557,7 @@ namespace I2.Loc
 		    public const string buy = "UITCollectionScreen/buy";
 		    public const string characters = "UITCollectionScreen/characters";
 		    public const string collection = "UITCollectionScreen/collection";
+		    public const string comingsoon = "UITCollectionScreen/comingsoon";
 		    public const string gliders = "UITCollectionScreen/gliders";
 		}
 
@@ -2801,6 +2832,23 @@ namespace I2.Loc
 		public static class UITSwipeTransition
 		{
 		    public const string lets_blast = "UITSwipeTransition/lets_blast";
+		}
+
+		public static class UITTutorial
+		{
+		    public const string drop_down_to_arena = "UITTutorial/drop_down_to_arena";
+		    public const string enter_your_name = "UITTutorial/enter_your_name";
+		    public const string lets_play_real_match = "UITTutorial/lets_play_real_match";
+		    public const string nice_proceed_chest_area = "UITTutorial/nice_proceed_chest_area";
+		    public const string nice_proceed_dummy_area = "UITTutorial/nice_proceed_dummy_area";
+		    public const string open_chest = "UITTutorial/open_chest";
+		    public const string pick_up_weapon = "UITTutorial/pick_up_weapon";
+		    public const string shoot_barrier = "UITTutorial/shoot_barrier";
+		    public const string shoot_dummies = "UITTutorial/shoot_dummies";
+		    public const string use_grenade = "UITTutorial/use_grenade";
+		    public const string use_left_joystick = "UITTutorial/use_left_joystick";
+		    public const string welcome_to_wastelands = "UITTutorial/welcome_to_wastelands";
+		    public const string you_made_it_look_easy = "UITTutorial/you_made_it_look_easy";
 		}
 
 		public static class UITWinners

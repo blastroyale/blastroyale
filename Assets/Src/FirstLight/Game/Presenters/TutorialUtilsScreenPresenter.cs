@@ -125,7 +125,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
-			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.HIGHLIGHT_ANIM_TIME)
+			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME)
 				.OnCompleted(DeleteHighLightElement);
 		}
 

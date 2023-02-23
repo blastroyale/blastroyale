@@ -24,7 +24,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IInternalTutorialService _tutorialService;
 		
 		private IMatchServices _matchServices;
-		private TutorialUtilsScreenPresenter _utilScreen;
+		private TutorialUtilsScreenPresenter _tutorialUtilsUi;
 		
 		public string SectionName { get; set; }
 		public int SectionVersion { get; set; }
@@ -68,7 +68,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(InitSequenceData);
 			initial.OnExit(() => { SendAnalyticsIncrementStep("ClickPlayGame"); });
 			
-			loadTutorialUi.WaitingFor(OpenTutorialUtilsScreen).Target(playGame);
+			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(playGame);
 			
 			// TEMPORARY FLOW - REAL FLOW WILL HAVE BP REWARDS, AND THEN EQUIPPING EQUIPMENT BEFORE MATCH
 			playGame.OnEnter(OnPlayGameEnter);
@@ -76,21 +76,21 @@ namespace FirstLight.Game.StateMachines
 			playGame.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 			playGame.OnExit(OnPlayGameExit);
 			
-			final.OnEnter(CloseTutorialUtilsScreen);
+			final.OnEnter(CloseTutorialScreens);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
-		private async Task OpenTutorialUtilsScreen()
+		private async Task OpenTutorialScreens()
 		{
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
-			_utilScreen = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
+			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
 		}
 		
-		private async void CloseTutorialUtilsScreen()
+		private async void CloseTutorialScreens()
 		{
 			// Wait for any anims to finish from before before closing the UI
-			await Task.Delay(GameConstants.Tutorial.HIGHLIGHT_ANIM_TIME);
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME);
 			
 			_services.GameUiService.CloseUi<TutorialUtilsScreenPresenter>(true);
 		}
@@ -121,14 +121,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			Debug.LogError("LET'S PLAY A REAL MATCH! CLICK 'PLAY' TO START!");
 			
-			_utilScreen.BlockAround<HomeScreenPresenter>(null, "play-button");
-			_utilScreen.Highlight<HomeScreenPresenter>(null, "play-button");
+			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>(null, "play-button");
+			_tutorialUtilsUi.Highlight<HomeScreenPresenter>(null, "play-button");
 		}
 		
 		private void OnPlayGameExit()
 		{
-			_utilScreen.Unblock();
-			_utilScreen.RemoveHighlight();
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.RemoveHighlight();
 		}
 	}
 }

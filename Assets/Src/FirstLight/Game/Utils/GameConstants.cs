@@ -310,10 +310,11 @@ namespace FirstLight.Game.Utils
 			public const int TOTAL_STEPS_SECOND_BOT_MATCH = 10;
 			public const int TOTAL_STEPS_BP_EQUIPMENT_GUIDE = 20;
 			
-			public const int HIGHLIGHT_ANIM_TIME = 1000;
+			public const int TUTORIAL_SCREEN_OUTRO_CLOSE_TIME = 1000;
 
 			public const string TRIGGER_DUMMY_AREA = "DummyArea";
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
+			public const string TRIGGER_ARENA_AREA = "ArenaArea";
 		}
 
 		public static class GameModeId

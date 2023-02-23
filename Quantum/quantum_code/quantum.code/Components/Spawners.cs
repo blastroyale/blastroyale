@@ -122,8 +122,15 @@ namespace Quantum
 		/// </summary>
 		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, EntityRef e)
 		{
+			// Only randomize chest rarities created by spawners
+			if (f.Context.GameModeConfig.EnableBoxRarityModifiers && f.Has<CollectablePlatformSpawner>(e))
+			{
+				id = RandomizeChestRarity(f, id);
+			}
+		
 			var config = f.ChestConfigs.GetConfig(id);
 			var chestEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
+			
 			if (f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent))
 			{
 				overrideComponent->CopyComponent(f, chestEntity, e, overrideComponent);
@@ -132,5 +139,28 @@ namespace Quantum
 
 			return chestEntity;
 		}
+		
+		private static GameId RandomizeChestRarity(Frame f, GameId id)
+		{
+			var config = f.ChestConfigs.GetConfig(id);
+
+			var rnd = f.RNG->Next();
+
+			var modifiers = config.ChestTypeModifiers.Get(f);
+
+			foreach (var modifier in modifiers)
+			{
+				if (modifier.Chance >= rnd)
+				{
+					return modifier.NewType.GameId();
+				}
+
+				rnd -= modifier.Chance;
+				if (rnd <= 0) break;
+			}
+
+			return id;
+		}
+
 	}
 }

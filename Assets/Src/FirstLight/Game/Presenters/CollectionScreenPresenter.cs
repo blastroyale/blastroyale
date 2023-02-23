@@ -24,6 +24,10 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Camera _renderTextureCamera;
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 
+		// TO DO: Remove this, used for now so we can only select from 4 default 
+		// characters. Once data is setup correctly, this can be removed. 
+		private const int NUM_DEFAULT_CHARACTERS = 4;
+		
 		public struct StateData
 		{
 			public Action OnHomeClicked;
@@ -169,7 +173,7 @@ namespace FirstLight.Game.Presenters
 		private async void UpdatePlayerSkinMenu()
 		{
 			var data = GameIdGroup.PlayerSkin.GetIds();
-			var listCount = data.Count;
+			var listCount = NUM_DEFAULT_CHARACTERS; // data.Count;
 
 			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			_collectionListRows = new List<CollectionListRow>(listCount / 3);
@@ -179,7 +183,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var item1 = data[i];
 
-				if (i + 1 >= data.Count)
+				if (i + 1 >= listCount)
 				{
 					_collectionListRows.Add(
 						new CollectionListRow(new CollectionListRow.Item(item1), null, null));

@@ -562,6 +562,54 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.MaleAssassin, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.MaleCorpos, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.MalePunk, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.MaleSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleAssassin, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleCorpos, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemalePunk, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
+					GameId.FemaleSuperstar, new List<GameIdGroup>
+					{
+						GameIdGroup.PlayerSkin
+					}.AsReadOnly()
+				},
+				{
 					GameId.Glider01, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
@@ -1063,7 +1111,15 @@ namespace Quantum
 						GameId.Male01Avatar,
 						GameId.Male02Avatar,
 						GameId.Female01Avatar,
-						GameId.Female02Avatar
+						GameId.Female02Avatar,
+						GameId.MaleAssassin,
+						GameId.MaleCorpos,
+						GameId.MalePunk,
+						GameId.MaleSuperstar,
+						GameId.FemaleAssassin,
+						GameId.FemaleCorpos,
+						GameId.FemalePunk,
+						GameId.FemaleSuperstar
 					}.AsReadOnly()
 				},
 				{

@@ -58,6 +58,8 @@ namespace FirstLight.Game.UIElements
 				_notification.AddToClassList(UssNotification);
 				_notification.AddToClassList(UssNotificationIcon);
 			}
+			
+			SetNotification(false);
 
 			base.clicked += () => clicked?.Invoke(Category);
 		}

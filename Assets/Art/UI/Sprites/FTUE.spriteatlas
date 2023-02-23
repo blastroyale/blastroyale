@@ -42,21 +42,23 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e053012167615e24ab27fdcb1d619e10, type: 3}
   - {fileID: 21300000, guid: e5f399a11881f8742867a67025c0d50a, type: 3}
   - {fileID: 21300000, guid: 27eaeb12ae837034cad60271b6637384, type: 3}
+  - {fileID: 21300000, guid: 35385152983ad304b810e71f014bcf70, type: 3}
   - {fileID: 21300000, guid: fec57163010d225408f99f7757e8ced8, type: 3}
   - {fileID: 21300000, guid: d4587f25938f4874fa8a192f6cccf872, type: 3}
   - {fileID: 21300000, guid: 19ae35a881badfc4badd292118d6681e, type: 3}
   - {fileID: 21300000, guid: 62dbb42cbf89ee04a8a509826dc6f02f, type: 3}
   - {fileID: 21300000, guid: 0b02bd0dec325404097783e14e4057c8, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Neutral Female
-  - Shocked Female
-  - Neutral Male
-  - Back Avatar
-  - Thinking Female
-  - Shocked Male
-  - Thinking Male
-  - Happy Male
-  - Happy Female
+  - character-female-neutral
+  - character-female-shocked
+  - character-male-neutral
+  - background-character
+  - background-dialog
+  - character-female-thinking
+  - character-male-shocked
+  - character-male-thinking
+  - character-male-happy
+  - character-female-happy
   m_RenderDataMap: {}
   m_Tag: FTUE
   m_IsVariant: 0

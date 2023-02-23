@@ -146,6 +146,7 @@ namespace FirstLight.Game.StateMachines
 			waitMatchFinish.Event(MatchState.MatchEndedEvent).Target(final);
 			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 
+			final.OnEnter(CloseTutorialScreens);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
@@ -158,6 +159,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void CloseTutorialScreens()
 		{
+			_dialogUi.HideDialog(CharacterType.Female);
+			
 			// Wait for any anims to finish from before before closing the UI
 			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME);
 			
@@ -387,7 +390,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterWaitMatchFinish()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.BottomLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.you_made_it_look_easy, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 		}
 	}
 }

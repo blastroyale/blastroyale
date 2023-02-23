@@ -25,6 +25,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private IMatchServices _matchServices;
 		private TutorialUtilsScreenPresenter _tutorialUtilsUi;
+		private CharacterDialogScreenPresenter _dialogUi;
 		
 		public string SectionName { get; set; }
 		public int SectionVersion { get; set; }
@@ -83,16 +84,25 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task OpenTutorialScreens()
 		{
+			await Task.Delay(1000);
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
+			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
+			
+			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
 			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
 		}
 		
 		private async void CloseTutorialScreens()
 		{
+			_dialogUi.HideDialog(CharacterType.Female);
+			_tutorialUtilsUi.RemoveHighlight();
+			_tutorialUtilsUi.Unblock();
+			
 			// Wait for any anims to finish from before before closing the UI
 			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME);
 			
 			_services.GameUiService.CloseUi<TutorialUtilsScreenPresenter>(true);
+			_services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
 		}
 
 		private void SubscribeMessages()
@@ -117,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 				CurrentTotalStep, CurrentStepName);
 		}
 		
-		private void OnPlayGameEnter()
+		private async void OnPlayGameEnter()
 		{
 			Debug.LogError("LET'S PLAY A REAL MATCH! CLICK 'PLAY' TO START!");
 			

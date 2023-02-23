@@ -921,8 +921,12 @@ namespace Quantum
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
 						GameId.MapTestScene,
+<<<<<<< HEAD
 						GameId.TestScene,
 						GameId.NewBRMap
+=======
+						GameId.TestScene
+>>>>>>> develop
 					}.AsReadOnly()
 				},
 				{

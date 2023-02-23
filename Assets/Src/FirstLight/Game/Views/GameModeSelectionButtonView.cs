@@ -128,11 +128,10 @@ namespace FirstLight.Game.Views
 
 			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == _gameModes[2])
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
 			{
 				_gameModeLabel.AddToClassList("game-mode-button-trios__label");
 			}
-			
 
 			_modeTagTitleLabel.text = GameModeInfo.Entry.MatchType == MatchType.Custom?"":GameModeInfo.Entry.MatchType.ToString().ToUpper();
 
@@ -146,7 +145,7 @@ namespace FirstLight.Game.Views
 			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
 
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == _gameModes[2])
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
 			{
 				_gameModeLabel.RemoveFromClassList("game-mode-button-trios__label");
 			}
@@ -161,7 +160,7 @@ namespace FirstLight.Game.Views
 			}
 
 			var gameModeId = GameModeInfo.Entry.GameModeId;
-			var descLocalisationKey = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()).DescriptionLocalisationKey;
+			var descLocalisationKey = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId).DescriptionLocalisationKey;
 			_gameModeDescriptionLabel.text = LocalizationManager.GetTranslation(descLocalisationKey);
 		}
 

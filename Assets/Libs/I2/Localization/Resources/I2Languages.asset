@@ -1609,6 +1609,7 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+<<<<<<< HEAD
       Languages_Touch: []
     - Term: UITCollectionScreen/comingsoon
       TermType: 0
@@ -1620,6 +1621,8 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+=======
+>>>>>>> develop
       Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
@@ -12247,6 +12250,7 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+<<<<<<< HEAD
       Languages_Touch: []
     - Term: GameIds/Female01AvatarDescription
       TermType: 0
@@ -12258,6 +12262,8 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+=======
+>>>>>>> develop
       Languages_Touch: []
     - Term: GameIds/Female02Avatar
       TermType: 0
@@ -12269,6 +12275,7 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+<<<<<<< HEAD
       Languages_Touch: []
     - Term: GameIds/Female02AvatarDescription
       TermType: 0
@@ -12280,6 +12287,8 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+=======
+>>>>>>> develop
       Languages_Touch: []
     - Term: GameIds/FloodCity
       TermType: 0
@@ -12629,6 +12638,7 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+<<<<<<< HEAD
       Languages_Touch: []
     - Term: GameIds/Male01AvatarDescription
       TermType: 0
@@ -12651,6 +12661,8 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+=======
+>>>>>>> develop
       Languages_Touch: []
     - Term: GameIds/MausHelmet
       TermType: 0
@@ -14213,6 +14225,7 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+<<<<<<< HEAD
       Languages_Touch: []
     - Term: GameIds/NewBRMap
       TermType: 0
@@ -14224,6 +14237,8 @@ MonoBehaviour:
       - 
       - 
       Flags: 0000000000
+=======
+>>>>>>> develop
       Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
@@ -15158,12 +15173,16 @@ MonoBehaviour:
     - Name: File
       Code: 
       Flags: 0
-    IgnoreDeviceLanguage: 0
+    IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
+<<<<<<< HEAD
     Google_LastUpdatedVersion: 1676990844633
+=======
+    Google_LastUpdatedVersion: 1676480820019
+>>>>>>> develop
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

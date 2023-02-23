@@ -95,11 +95,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_friendlyHealthBars.Add(entity, healthBar);
 				SetupFriendlyHealthBar(f, entity, healthBar);
 
-				if (_friendlyHealthBars.Count > 1)
+				if (_friendlyHealthBars.Count >= 1)
 				{
 					foreach (var hbo in _friendlyHealthBars.Values)
 					{
-						hbo.HealthBarNameView.EnableSquadMode();
+						hbo.HealthBarNameView.EnableFriendlyMode();
 					}
 				}
 			}

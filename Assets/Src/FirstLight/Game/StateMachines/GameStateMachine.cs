@@ -1,17 +1,13 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -53,7 +49,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, Trigger);
+			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
@@ -105,11 +101,12 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(initialConfigs);
 			initial.OnExit(SubscribeEvents);
 			
+			initialConfigs.OnEnter(CheckDeviceSetup);
 			initialConfigs.WaitingFor(LoadInitialConfigs).Target(initialAssets);
 
 			initialAssets.OnEnter(_authenticationState.QuickAsyncLogin);
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
-
+			
 			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp)
 				.Target(final);
 			internetCheck.Transition().Target(initialLoading);
@@ -128,7 +125,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadInitialConfigs()
 		{
-			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
 			await LoadRequiredAuthenticationConfigs();
 			await VersionUtils.LoadVersionDataAsync();
@@ -151,6 +147,22 @@ namespace FirstLight.Game.StateMachines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
+		}
+
+		private void CheckDeviceSetup()
+		{
+			_dataService.LoadData<AppData>();
+#if UNITY_ANDROID
+			if (SystemInfo.systemMemorySize <= 5000)
+			{
+				var appData = _dataService.GetData<AppData>();
+				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
+				{
+					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
+					_dataService.SaveData<AppData>();
+				}
+			}
+#endif
 		}
 
 		private void InitializeRemainingLogic()
@@ -204,6 +216,7 @@ namespace FirstLight.Game.StateMachines
 		
 			_services.AssetResolverService.UnloadAsset(asset);
 
+			await _uiService.LoadUiAsync<GenericDialogPresenter>();
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 			

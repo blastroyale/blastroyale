@@ -15,7 +15,7 @@ namespace FirstLight.Game.Utils
 		public static QuantumGameModeConfig GameMode(this MatchRoomSetup setup)
 		{
 			var cfgProvider = MainInstaller.Resolve<IGameServices>().ConfigsProvider;
-			return cfgProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeHash);
+			return cfgProvider.GetConfig<QuantumGameModeConfig>(setup.GameModeId);
 		}
 
 

@@ -32,6 +32,7 @@ namespace FirstLight.Game.Ids
 		Airstrike,
 		Skybeam,
 		Ping,
+		Radar,
 		TOTAL,            // Used to know the total amount of this type without the need of reflection
 	}
 	

@@ -75,7 +75,7 @@ namespace FirstLight.Tests.EditorMode
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
-			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
+			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentLogic, ThreadService);
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
@@ -86,7 +86,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			PartyService = Substitute.For<PartyService>();
-			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService);
+			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService, MessageBrokerService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<PlayfabPubSubService>();

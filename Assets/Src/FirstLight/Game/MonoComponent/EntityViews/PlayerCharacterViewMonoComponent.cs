@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.MonoComponent.Vfx;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -26,6 +27,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public Transform RootTransform;
 		
 		private Vector3 _lastPosition;
+		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
 		
@@ -76,6 +78,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
 
 		private void OnDestroy()
@@ -88,9 +91,35 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
+		public override void SetCulled(bool culled)
+		{
+			if (culled)
+			{
+				foreach (var col in _colliders)
+				{
+					col.enabled = false;
+				}
+			} else
+			{
+				foreach (var col in _colliders)
+				{
+					col.enabled = true;
+				}
+			}
+			base.SetCulled(culled);
+		}
+		
 		/// <inheritdoc />
 		public override void SetRenderContainerVisible(bool active)
 		{
+			if (!active && Visible)
+			{
+				_characterView.HideAllEquipment();
+			} else if (active && !Visible)
+			{
+				_characterView.ShowAllEquipment();
+			}
+			
 			base.SetRenderContainerVisible(active);
 			
 			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
@@ -148,6 +177,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					AnimatorWrapper.SetTrigger(Triggers.Die);
 				}
 			}
+
+			_colliders = GetComponentsInChildren<Collider>();
 		}
 		
 		protected override void OnAvatarEliminated(QuantumGame game)
@@ -429,12 +460,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
 		}
+		
+		private void HandleOnRadarUsed(EventOnRadarUsed callback)
+		{
+			if (callback.Player != PlayerRef)
+			{
+				return;
+			}
+
+			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
+		}
 
 		private void HandleUpdateView(CallbackUpdateView callback)	
 		{	
 			const float speedThreshold = 0.5f; // unity units per second	
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			{
+				return;
+			}
+
+			if (Culled)
 			{
 				return;
 			}

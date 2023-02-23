@@ -105,6 +105,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 550c896610e0c478ea587216b78ee7f3, type: 3}
   - {fileID: 21300000, guid: f9373e661daa449dd955560f25434839, type: 3}
   - {fileID: 21300000, guid: 1bfe2996723514bcb89e983a1b36a46b, type: 3}
+  - {fileID: 21300000, guid: ab3af1d66c496a452a6a1d355a4bca6a, type: 3}
   - {fileID: 21300000, guid: 8c5a5ad6065e14cefb836982ea81f19e, type: 3}
   - {fileID: 21300000, guid: 4dafe0e6098294091bfef6e9752602b9, type: 3}
   - {fileID: 21300000, guid: 8219bbf6a701be940a74d022fcbdfb90, type: 3}
@@ -264,6 +265,7 @@ SpriteAtlas:
   - background-gamemode-battleroyale
   - progress-battlepass-bg
   - icon-emptyslot-amulet
+  - button-main-disabled
   - icon-marketplace
   - background-inputfield
   - icon-airplane

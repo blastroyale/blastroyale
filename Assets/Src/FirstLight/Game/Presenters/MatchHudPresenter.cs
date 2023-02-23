@@ -114,7 +114,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				canQuitMatch = !_services.TutorialService.IsTutorialRunning || 
+				canQuitMatch = (!_services.TutorialService.IsTutorialRunning || FeatureFlags.ALLOW_SKIP_TUTORIAL) || 
 					(_services.TutorialService.IsTutorialRunning && !FeatureFlags.TUTORIAL);
 			}
 
@@ -131,7 +131,7 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out _);
+			var playerData = container.GeneratePlayersMatchData(frame, out _);
 			
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);

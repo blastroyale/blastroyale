@@ -41,7 +41,7 @@ namespace Quantum
 
 			if (GameId.IsInGroup(GameIdGroup.Consumable))
 			{
-				Collectable = SpawnConsumable(f, GameId, transform);
+				Collectable = SpawnConsumable(f, GameId, transform, e);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
@@ -49,11 +49,11 @@ namespace Quantum
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
-				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform);
+				Collectable = SpawnWeapon(f, GameId, RarityModifier, transform, e);
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				Collectable = SpawnGear(f, GameId, RarityModifier, transform);
+				Collectable = SpawnGear(f, GameId, RarityModifier, transform, e);
 			}
 			else
 			{
@@ -68,7 +68,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="Consumable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnConsumable(Frame f, GameId id, Transform3D transform)
+		private EntityRef SpawnConsumable(Frame f, GameId id, Transform3D transform, EntityRef spawnerEntityRef)
 		{
 			var configs = f.ConsumableConfigs;
 			var config = id == GameId.Random
@@ -76,7 +76,7 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config, spawnerEntityRef);
 
 			return entity;
 		}
@@ -84,7 +84,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform)
+		private EntityRef SpawnWeapon(Frame f, GameId id, int rarityModifier, Transform3D transform, EntityRef spawnerEntityRef)
 		{
 			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
@@ -98,7 +98,7 @@ namespace Quantum
 								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
-			                                                        equipment);
+			                                                        equipment, spawnerEntityRef);
 
 			return entity;
 		}
@@ -106,13 +106,13 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="EquipmentCollectable"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
 		/// </summary>
-		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
+		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform, EntityRef spawnerEntityRef)
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
-			                                                        equipment);
+			                                                        equipment, spawnerEntityRef);
 
 			return entity;
 		}
@@ -122,8 +122,15 @@ namespace Quantum
 		/// </summary>
 		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, EntityRef e)
 		{
+			// Only randomize chest rarities created by spawners
+			if (f.Context.GameModeConfig.EnableBoxRarityModifiers && f.Has<CollectablePlatformSpawner>(e))
+			{
+				id = RandomizeChestRarity(f, id);
+			}
+		
 			var config = f.ChestConfigs.GetConfig(id);
 			var chestEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
+			
 			if (f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent))
 			{
 				overrideComponent->CopyComponent(f, chestEntity, e, overrideComponent);
@@ -132,5 +139,28 @@ namespace Quantum
 
 			return chestEntity;
 		}
+		
+		private static GameId RandomizeChestRarity(Frame f, GameId id)
+		{
+			var config = f.ChestConfigs.GetConfig(id);
+
+			var rnd = f.RNG->Next();
+
+			var modifiers = config.ChestTypeModifiers.Get(f);
+
+			foreach (var modifier in modifiers)
+			{
+				if (modifier.Chance >= rnd)
+				{
+					return modifier.NewType.GameId();
+				}
+
+				rnd -= modifier.Chance;
+				if (rnd <= 0) break;
+			}
+
+			return id;
+		}
+
 	}
 }

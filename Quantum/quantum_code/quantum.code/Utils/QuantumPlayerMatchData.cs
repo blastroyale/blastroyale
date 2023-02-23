@@ -13,6 +13,7 @@ namespace Quantum
 		public string GameModeId;
 		public PlayerMatchData Data;
 		public bool IsBot;
+		public int TeamId;
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player])
 		{
@@ -27,6 +28,7 @@ namespace Quantum
 			GameModeId = f.RuntimeConfig.GameModeId;
 			Data = data;
 			PlayerName = playerData == null ? data.BotNameIndex.ToString() : playerData.PlayerName;
+			TeamId = data.TeamId;
 		}
 
 		public override int GetHashCode()

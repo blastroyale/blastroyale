@@ -8,6 +8,8 @@ trigger:
   branches:
     include:
     - 'develop'
+    - 'release/*'
+    - 'master'
 pr: none
 
 resources:
@@ -17,7 +19,7 @@ resources:
     type: git
     ref: main
     name: Infrastructure/core-templates
-    
+
 variables:
 - group: Secrets
 - group: Non-secrets
@@ -27,14 +29,51 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-
+- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
+    - name: configuration
+      value: "Debug"
+    - name: build_type
+      value: "DEVELOPMENT_BUILD"
+    - name: server_environment
+      value: "DEVELOPMENT_SERVER"
+- ${{  if eq(variables['Build.SourceBranch'], 'release/*')  }}:
+    - name: configuration
+      value: "Release"
+    - name: build_type
+      value: "RELEASE_BUILD"
+    - name: server_environment
+      value: "STAGE_SERVER"
+- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
+    - name: configuration
+      value: "Release"
+    - name: build_type
+      value: "STORE_BUILD"
+    - name: server_environment
+      value: "LIVE_SERVER"
+- ${{  else  }}:
+    - name: configuration
+      value: "Debug"
+    - name: build_type
+      value: "DEVELOPMENT_BUILD"
+    - name: server_environment
+      value: "DEVELOPMENT_SERVER"
 pool: macos
 
 stages:
 - stage: AutoBuilds
   displayName: Auto Builds
   jobs:
+    - job: EditorTests
+      displayName: Run Editor Test Suite
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/unity-tests.yml@templates
+        parameters:
+          testPlatform: EditMode
     - job: AndroidBuild
+      dependsOn: EditorTests
       displayName: Android Build
       steps:
       - checkout: self
@@ -42,14 +81,17 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: Debug
+          configuration: ${{ variables.configuration }}
           platform: Android
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
           workingDirectory: .
           branchName: $(branchName)
+          build_type: ${{ variables.build_type }}
+          server_environment: ${{ variables.server_environment }}
     - job: iOSBuild
+      dependsOn: EditorTests
       displayName: iOS Build
       steps:
       - checkout: self
@@ -57,7 +99,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: Debug
+          configuration: ${{ variables.configuration }}
           platform: iOS
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
@@ -65,3 +107,5 @@ stages:
           certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
+          build_type: ${{ variables.build_type }}
+          server_environment: ${{ variables.server_environment }}

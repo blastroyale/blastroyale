@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
@@ -18,7 +19,7 @@ namespace FirstLight.Game.StateMachines
 		struct GameplayProceedEventData
 		{
 			public Type EventType;
-			public GameId EventMetaId;
+			public string EventMetaId;
 			public short EventMetaAmount;
 		}
 		
@@ -70,10 +71,13 @@ namespace FirstLight.Game.StateMachines
 			var createTutorialRoom = stateFactory.State("Create tutorial room");
 			var waitSimulationStart = stateFactory.State("Waiting for match start");
 			var startedSimulation = stateFactory.State("Playing tutorial match");
+			var moveJoystick = stateFactory.State("Move joystick");
 			var pickupWeapon =  stateFactory.State("Pickup Weapon");
 			var destroyBarrier =  stateFactory.State("Destroy barrier");
+			var moveToDummyArea =  stateFactory.State("Move to dummy area");
 			var kill2Bots =  stateFactory.State("Kill 2 bots");
 			var kill1BotSpecial =  stateFactory.State("Kill 1 bot special");
+			var moveToChestArea =  stateFactory.State("Move to chest area");
 			var openBox =  stateFactory.State("Open box");
 			var killFinalBot =  stateFactory.State("Kill final bot");
 			var waitMatchFinish =  stateFactory.State("Wait simulation finish");
@@ -81,52 +85,56 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
-			initial.OnExit(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 
+			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
-			createTutorialRoom.OnExit(() => { SendAnalyticsIncrementStep("StartTutorialSimulation"); });
 
+			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("StartTutorialSimulation"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(startedSimulation);
-			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("Spawn"); });
 			waitSimulationStart.OnExit(BindMatchServices);
-
-			// Match started, player spawned and alive to proceed
-			startedSimulation.OnEnter(OnEnterStartedSimulation);
-			startedSimulation.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
-			startedSimulation.OnExit(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
 			
-			// Player spawned and alive, pickup weapon
+			startedSimulation.OnEnter(() => { SendAnalyticsIncrementStep("Spawn"); });
+			startedSimulation.OnEnter(OnEnterStartedSimulation);
+			startedSimulation.Event(ProceedGameplayTutorialEvent).Target(moveJoystick);
+			
+			moveJoystick.OnEnter(() => { SendAnalyticsIncrementStep("MoveJoystick"); });
+			moveJoystick.OnEnter(OnEnterMoveJoystick);
+			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
+			
+			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
 			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
-			pickupWeapon.OnExit(() => { SendAnalyticsIncrementStep("DestroyedBarrier"); });
 			
-			// Player picked up weapon, destroy barrier to proceed
+			destroyBarrier.OnEnter(() => { SendAnalyticsIncrementStep("DestroyBarrier"); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
-			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(kill2Bots);
-			destroyBarrier.OnExit(() => { SendAnalyticsIncrementStep("Kill2Bots"); });
+			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
 			
-			// Player destroyed barrier, kill 2 bots to proceed
+			moveToDummyArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToDummyArea"); });
+			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
+			moveToDummyArea.Event(ProceedGameplayTutorialEvent).Target(kill2Bots);
+			
+			kill2Bots.OnEnter(() => { SendAnalyticsIncrementStep("Kill2Bots"); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
 			kill2Bots.Event(ProceedGameplayTutorialEvent).Target(kill1BotSpecial);
-			kill2Bots.OnExit(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
-			
-			// Player killed 2 bots, kill 1 more bot to proceed (explanation says special, but they can kill with anything)
+
+			kill1BotSpecial.OnEnter(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
-			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(openBox);
-			kill1BotSpecial.OnExit(() => { SendAnalyticsIncrementStep("OpenBox"); });
+			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
 			
-			// Player killed 1 more bot, open box to proceed
+			moveToChestArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToChestArea"); });
+			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
+			moveToChestArea.Event(ProceedGameplayTutorialEvent).Target(openBox);
+			
+			openBox.OnEnter(() => { SendAnalyticsIncrementStep("OpenBox"); });
 			openBox.OnEnter(OnEnterOpenBox);
 			openBox.Event(ProceedGameplayTutorialEvent).Target(killFinalBot);
-			openBox.OnExit(() => { SendAnalyticsIncrementStep("KillFinalBot"); });
 			
-			// Player opened box, kill final bot to proceed
+			killFinalBot.OnEnter(() => { SendAnalyticsIncrementStep("KillFinalBot"); });
 			killFinalBot.OnEnter(OnEnterKillFinalBot);
 			killFinalBot.Event(ProceedGameplayTutorialEvent).Target(waitMatchFinish);
-			killFinalBot.OnExit(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			
-			// Player killed final bot, wait for match to finish
+			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
 			waitMatchFinish.Event(MatchState.MatchEndedEvent).Target(final);
 			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
@@ -134,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
-		
+
 		private void SubscribeMessages()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -142,8 +150,20 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			_services.MessageBrokerService.Subscribe<PlayerUsedMovementJoystick>(OnPlayerUsedMovementJoystick);
+			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
-		
+
+		private void OnPlayerEnteredMessageVolume(PlayerEnteredMessageVolume msg)
+		{
+			CheckGameplayProceedConditions(typeof(PlayerEnteredMessageVolume), msg.VolumeId);
+		}
+
+		private void OnPlayerUsedMovementJoystick(PlayerUsedMovementJoystick msg)
+		{
+			CheckGameplayProceedConditions(typeof(PlayerUsedMovementJoystick));
+		}
+
 		private void BindMatchServices()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -169,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await Task.Yield();
 			
-			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId);
+			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId.ToString());
 		}
 		
 		private async void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -185,7 +205,7 @@ namespace FirstLight.Game.StateMachines
 			if (callback.EntityKiller != localPlayerEntity) return;
 
 			_currentKillProceedProgress += 1;
-			CheckGameplayProceedConditions(typeof(EventOnPlayerKilledPlayer), GameId.Random, _currentKillProceedProgress);
+			CheckGameplayProceedConditions(typeof(EventOnPlayerKilledPlayer), "", _currentKillProceedProgress);
 		}
 		
 		private void OnChestOpened(EventOnChestOpened callback)
@@ -218,11 +238,11 @@ namespace FirstLight.Game.StateMachines
 				CurrentTotalStep, CurrentStepName);
 		}
 
-		private void CheckGameplayProceedConditions(Type eventType, GameId metaId = GameId.Random, short metaAmount = 0)
+		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)
 		{
 			if (_currentGameplayProceedData.EventType != eventType) return;
 
-			if (_currentGameplayProceedData.EventMetaId != GameId.Random &&
+			if (!string.IsNullOrEmpty(_currentGameplayProceedData.EventMetaId) &&
 			    _currentGameplayProceedData.EventMetaId != metaId) return;
 			
 			if(_currentGameplayProceedData.EventMetaAmount != 0 &&
@@ -240,10 +260,20 @@ namespace FirstLight.Game.StateMachines
 				EventType = typeof(EventOnLocalPlayerAlive)
 			};
 		}
+		
+		private void OnEnterMoveJoystick()
+		{
+			Debug.LogError("USE THE LEFT JOYSTICK TO MOVE");
+			
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(PlayerUsedMovementJoystick)
+			};
+		}
 
 		private void OnEnterPickupWeapon()
 		{
-			Debug.LogError("WALK TO THE WEAPON USING LEFT JOYSTICK, AND PICK IT UP");
+			Debug.LogError("WALK TO THE WEAPON, AND PICK IT UP");
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -253,18 +283,29 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterDestroyBarrier()
 		{
-			Debug.LogError("SHOOT AT THE BARRIER USING THE RIGHT JOYSTICK, AND DESTROY IT");
+			Debug.LogError("SHOOT AT THE BARRIER AND DESTROY IT!");
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(EventOnHazardLand),
-				EventMetaId = GameId.Barrier
+				EventMetaId = GameId.Barrier.ToString()
+			};
+		}
+		
+		private void OnEnterMoveToDummyArea()
+		{
+			Debug.LogError("NICE JOB! PROCEED TO THE NEXT AREA");
+			
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(PlayerEnteredMessageVolume),
+				EventMetaId = GameConstants.Tutorial.TRIGGER_DUMMY_AREA
 			};
 		}
 
 		private void OnEnterKill2Bots()
 		{
-			Debug.LogError("NICE JOB! PROCEED TO NEXT AREA AND SHOOT THE DUMMIES");
+			Debug.LogError("SHOOT AT THE DUMMIES! ELIMINATE THEM!");
 			
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
@@ -286,9 +327,20 @@ namespace FirstLight.Game.StateMachines
 			};
 		}
 		
+		private void OnEnterMoveToChestArea()
+		{
+			Debug.LogError("NICE! PROCEED THROUGH THE GATE TO THE NEXT AREA");
+			
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(PlayerEnteredMessageVolume),
+				EventMetaId = GameConstants.Tutorial.TRIGGER_CHEST_AREA
+			};
+		}
+		
 		private void OnEnterOpenBox()
 		{
-			Debug.LogError("AWESOME! GO THROUGH THE GATE, AND FIND NEW EQUIPMENT IN A BOX");
+			Debug.LogError("OPEN THE BOX TO GET SOME NEW EQUIPMENT");
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -298,7 +350,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnEnterKillFinalBot()
 		{
-			Debug.LogError("PICK UP THE EQUIPMENT, AND DROP DOWN TO THE ARENA TO FACE THE FINAL ENEMY");
+			Debug.LogError("DROP DOWN TO THE ARENA AND ELIMINATE THE FINAL CHALLENGER");
 			
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

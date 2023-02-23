@@ -1,138 +1,55 @@
 .collection-category {
-    width: 486px;
+    width: 630px;
     height: 164px;
     transition-property: scale;
     transition-duration: 0.2s;
     overflow: visible;
+    background-image: var(--sprite-home__button-collection-tab);
+    -unity-slice-left: 50;
+    -unity-slice-right: 50;
 }
 
-.collection-category__background {
+.collection-category:active {
+    background-image: var(--sprite-home__button-collection-tab-pressed);
+}
+
+.collection-category--selected.collection-category--selected:active {
+    background-image: var(--sprite-home__button-collection-tab-selected);
+}
+
+.collection-category__holder {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab.png?fileID=2800000&guid=0fa8deeb5d5ca446186b3ff8990fb390&type=3#collection-tab');
-    width: 486px;
-    height: 164px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    padding-right: 93px;
 }
 
-.collection-category:active .collection-category__background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-pressed.png?fileID=2800000&guid=58eb59047ccc046e1b3010da7ff940be&type=3#collection-tab-pressed');
-    width: 486px;
-    height: 164px;
-}
-
-.collection-category--selected {
-}
-
-.collection-category--highlighted {
-}
-
-.collection-category__selected-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    transition-property: opacity;
-    transition-duration: 0.2s;
-}
-
-.collection-category--selected .collection-category__selected-bg {
-    opacity: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
-}
-
-.collection-category__card-holder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    flex-direction: column-reverse;
-}
-
-.collection-category:active .collection-category__card-holder {
+.collection-category:active .collection-category__holder {
     top: 4px;
     left: 4px;
     right: -4px;
     bottom: -4px;
 }
 
-.collection-category__image {
-    position: absolute;
-    left: 9px;
-    top: 2px;
-    -unity-background-scale-mode: scale-to-fit;
-    width: 486px;
-    height: 164px;
-}
-
-.collection-category__image--shadow {
-    left: 14px;
-    top: 7px;
-    -unity-background-image-tint-color: black;
-}
-
-.collection-category--highlighted .collection-category__highlight {
-    position: absolute;
-    top: 2;
-    left: 9px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/collection-tab-chosen.png?fileID=21300000&guid=3a3d67ec0b51048edbe15cac73e34ecb&type=3#collection-tab-chosen');
-    width: 486px;
-    height: 184px;
-}
-
 .collection-category__name {
-    position: absolute;
-    bottom: 50px;
-    left: 50px;
-    right: 0;
     color: rgb(255, 255, 255);
     height: 45px;
     -unity-text-align: middle-center;
     font-size: 48px;
     margin: 0;
     padding: 0;
-    top: 0;
 }
 
-.collection-category__icon-skins {
-    position: absolute;
-    top: 0;
-    left: 100px;
-    right: 0;
-    bottom: 55px;
+.collection-category__icon {
     opacity: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/icon-characters.png?fileID=2800000&guid=f0209f689a2e94375800f8e0f26903b2&type=3#icon-characters');
     width: 42px;
     height: 42px;
-}
-
-.collection-category__icon-gliders {
-    position: absolute;
-    top: 0;
-    left: 100px;
-    right: 0;
-    bottom: 55px;
-    opacity: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/icon-jetpack.png?fileID=2800000&guid=6c8816209eb3543fabf19cd382d6cab2&type=3#icon-jetpack');
-    width: 42px;
-    height: 42px;
-}
-
-.collection-category__icon-banners {
-    position: absolute;
-    top: 0;
-    left: 100px;
-    right: 0;
-    bottom: 55px;
-    opacity: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CollectableCard/icon-banner.png?fileID=2800000&guid=c8140914365cd410b984543653d9695c&type=3#icon-banner');
-    width: 42px;
-    height: 42px;
+    margin-right: 19px;
 }
 
 .collection-category__notification {

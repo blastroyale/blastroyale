@@ -1,17 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Cinemachine;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using FirstLight.Game.Ids;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -28,9 +23,7 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField] private Camera _renderTextureCamera;
 		[SerializeField] private Vector3 _collectionSpawnPosition;
-		
-		private const string COMING_SOON_LOC_KEY = "UITCollectionScreen/comingsoon";
-		
+
 		public struct StateData
 		{
 			public Action OnHomeClicked;
@@ -40,21 +33,21 @@ namespace FirstLight.Game.Presenters
 		private ListView _collectionList;
 		private List<CollectionListRow> _collectionListRows;
 		private Dictionary<GameId, int> _itemRowMap;
-		private Label _comingSoonLabel;
+		private LocalizedLabel _comingSoonLabel;
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
 		private Button _equipButton;
 		private PriceButton _buyButton;
 		private VisualElement _renderTexture;
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private GameId _selectedId;
 		private GameIdGroup _selectedCategory;
 		private GameObject _collectionObject;
 
-		private CollectionCategoryElement [] _collectionCategories;
+		private CollectionCategoryElement[] _collectionCategories;
 		private CollectionCategoryElement _categoryCharacters;
 		private CollectionCategoryElement _categoryBanners;
 		private CollectionCategoryElement _categoryGliders;
@@ -69,43 +62,41 @@ namespace FirstLight.Game.Presenters
 		{
 			_collectionList = root.Q<ListView>("CollectionList").Required();
 			_collectionList.DisableScrollbars();
-			
+
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
 			header.homeClicked += Data.OnHomeClicked;
-			
+
 			_collectionList.makeItem = MakeCollectionListItem;
 			_collectionList.bindItem = BindCollectionListItem;
 
-			root.SetupClicks(_services);
-
 			_renderTexture = root.Q<VisualElement>("RenderTexture");
-			
-			_comingSoonLabel = root.Q<Label>("ComingSoon").Required();
-			_comingSoonLabel.text = COMING_SOON_LOC_KEY.LocalizeKey();
-			_comingSoonLabel.visible = false; 
-			
+
+			_comingSoonLabel = root.Q<LocalizedLabel>("ComingSoon").Required();
+			_comingSoonLabel.visible = false;
+
 			_selectedItemLabel = root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
-			
+
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
-			
+
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
 			_buyButton.visible = false;
 
-			_categoryCharacters = root.Q<CollectionCategoryElement>("CollectionCategoryElementCharacters").Required();
-			_categoryBanners = root.Q<CollectionCategoryElement>("CollectionCategoryElementBanners").Required();
-			_categoryGliders = root.Q<CollectionCategoryElement>("CollectionCategoryElementGliders").Required();
-			
+			_categoryCharacters = root.Q<CollectionCategoryElement>("CategoryCharacters").Required();
+			_categoryBanners = root.Q<CollectionCategoryElement>("CategoryBanners").Required();
+			_categoryGliders = root.Q<CollectionCategoryElement>("CategoryGliders").Required();
+
+			root.SetupClicks(_services);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
-			CreateCategories();
+			SetupCategories();
 			UpdatePlayerSkinMenu();
 			UpdateCollectionDetails();
 
@@ -122,20 +113,14 @@ namespace FirstLight.Game.Presenters
 				_collectionObject = null;
 			}
 		}
-		
 
-		private void CreateCategories()
+
+		private void SetupCategories()
 		{
 			_collectionCategories = new CollectionCategoryElement[3];
 
-			_categoryCharacters.SetCategory(GameIdGroup.PlayerSkin,
-				ScriptTerms.UITCollectionScreen.characters.LocalizeKey());
 			_categoryCharacters.clicked += OnCategoryClicked;
-
-			_categoryGliders.SetCategory(GameIdGroup.Glider, ScriptTerms.UITCollectionScreen.gliders.LocalizeKey());
 			_categoryGliders.clicked += OnCategoryClicked;
-
-			_categoryBanners.SetCategory(GameIdGroup.DeathMarker, ScriptTerms.UITCollectionScreen.banners.LocalizeKey());
 			_categoryBanners.clicked += OnCategoryClicked;
 
 			_selectedCategory = GameIdGroup.PlayerSkin;
@@ -156,12 +141,12 @@ namespace FirstLight.Game.Presenters
 			{
 				category.SetSelected(category.Category == group);
 			}
-			
+
 			if (group == GameIdGroup.PlayerSkin)
 			{
 				_comingSoonLabel.visible = false;
 				_collectionList.visible = true;
-					
+
 				UpdatePlayerSkinMenu();
 				UpdateCollectionDetails();
 			}
@@ -170,8 +155,8 @@ namespace FirstLight.Game.Presenters
 				_comingSoonLabel.visible = true;
 				_collectionList.visible = false;
 			}
-			
-			// TO DO. When these categories show actual objects, they should no longer be hidden.
+
+			// TODO. When these categories show actual objects, they should no longer be hidden.
 			_renderTexture.visible = _selectedCategory == GameIdGroup.PlayerSkin;
 			_equipButton.visible = _selectedCategory == GameIdGroup.PlayerSkin;
 			_selectedItemLabel.visible = _selectedCategory == GameIdGroup.PlayerSkin;
@@ -185,15 +170,15 @@ namespace FirstLight.Game.Presenters
 		{
 			var data = GameIdGroup.PlayerSkin.GetIds();
 			var listCount = data.Count;
-			
+
 			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			_collectionListRows = new List<CollectionListRow>(listCount / 3);
-			_itemRowMap = new Dictionary<GameId, int>(listCount/ 3);
+			_itemRowMap = new Dictionary<GameId, int>(listCount / 3);
 
 			for (var i = 0; i < listCount; i += 3)
 			{
 				var item1 = data[i];
-				
+
 				if (i + 1 >= data.Count)
 				{
 					_collectionListRows.Add(
@@ -204,22 +189,22 @@ namespace FirstLight.Game.Presenters
 				{
 					var item2 = data[i + 1];
 					var item3 = data[i + 2];
-					
+
 					_collectionListRows.Add(new CollectionListRow(
 						new CollectionListRow.Item(item1),
 						new CollectionListRow.Item(item2),
 						new CollectionListRow.Item(item3)
-						));
+					));
 					_itemRowMap[item1] = _collectionListRows.Count - 1;
 					_itemRowMap[item2] = _collectionListRows.Count - 1;
 					_itemRowMap[item3] = _collectionListRows.Count - 1;
 				}
 			}
-			
+
 			_collectionList.itemsSource = _collectionListRows;
 			_collectionList.RefreshItems();
 		}
-		
+
 		private void OnCollectionItemClicked(GameId id)
 		{
 			if (id == _selectedId) return;
@@ -237,17 +222,16 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipClicked()
 		{
-			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
+			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand {SkinId = _selectedId});
 			UpdateCollectionDetails();
 			UpdatePlayerSkinMenu();
 		}
 
 		/// <summary>
-		/// TO DO: Enable players to buy new items here.
+		/// TODO: Enable players to buy new items here.
 		/// </summary>
 		private void OnBuyClicked()
 		{
-			
 		}
 
 		private async void Update3DObject()
@@ -261,22 +245,26 @@ namespace FirstLight.Game.Presenters
 			if (_selectedCategory == GameIdGroup.PlayerSkin)
 			{
 				_collectionObject =
-					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true, 
+					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true,
 						true);
-				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0,0,0,0));
+
+				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
 			}
 		}
-		
+
+
 		/// Updated cost of Collection items / has it been equipped, etc. 
 		private void UpdateCollectionDetails()
 		{
 			// If an item is already equipped, show SELECTED instead of Equip
-			_equipButton.text = _selectedId == _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin ? ScriptLocalization.General.Selected.ToUpper() : ScriptLocalization.General.Equip;
+			_equipButton.text = _selectedId == _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin
+				? ScriptLocalization.General.Selected.ToUpper()
+				: ScriptLocalization.General.Equip;
 
 			_selectedItemLabel.text = _selectedId.GetLocalization();
 			_selectedItemDescription.text = _selectedId.GetDescriptionLocalization();
 		}
-		
+
 
 		private VisualElement MakeCollectionListItem()
 		{
@@ -307,7 +295,7 @@ namespace FirstLight.Game.Presenters
 
 			return row;
 		}
-		
+
 		private void BindCollectionListItem(VisualElement visualElement, int index)
 		{
 			var row = _collectionListRows[index];
@@ -315,18 +303,19 @@ namespace FirstLight.Game.Presenters
 			var card1 = visualElement.Q<CollectionCardElement>("item-1");
 			var card2 = visualElement.Q<CollectionCardElement>("item-2");
 			var card3 = visualElement.Q<CollectionCardElement>("item-3");
-			
+
 			var currentSkin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
-			
+
 			card1.SetCollectionElement(row.Item1.GameId, row.Item1.GameId == currentSkin);
 			card2.SetDisplay(false);
 			card3.SetDisplay(false);
-			
+
 			if (row.Item2 != null)
 			{
 				card2.SetDisplay(true);
 				card2.SetCollectionElement(row.Item2.GameId, row.Item2.GameId == currentSkin);
 			}
+
 			if (row.Item3 != null)
 			{
 				card3.SetDisplay(true);
@@ -337,10 +326,10 @@ namespace FirstLight.Game.Presenters
 			card2.SetSelected(card2.MenuGameId == _selectedId);
 			card3.SetSelected(card3.MenuGameId == _selectedId);
 		}
-		
+
 		private class CollectionListRow
 		{
-			public Item Item1 { get; } 
+			public Item Item1 { get; }
 			public Item Item2 { get; }
 			public Item Item3 { get; }
 

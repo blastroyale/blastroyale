@@ -241,7 +241,7 @@ SpriteAtlas:
   - button-main-purple-pressed
   - pattern-circle-gradient
   - icon-special-aimingstungrenade
-  - collection-tab-pressed
+  - button-collection-tab-pressed
   - icon-banner
   - icon-arrow-upgrade
   - header-back
@@ -251,7 +251,7 @@ SpriteAtlas:
   - icon-mutator-speedup
   - icon-special-shieldedcharge
   - icon-emptyslot-helmet
-  - collection-lock
+  - icon-collection-lock
   - icon-core-epic
   - card-shadow-pink
   - background-resourcepool
@@ -287,7 +287,7 @@ SpriteAtlas:
   - icon-equipmentcategory-weapon
   - icon-close-white
   - button-special
-  - collection-slot-back
+  - button-collection-item
   - header-profile
   - header-back-pressed
   - button-long-red-pressed
@@ -299,7 +299,7 @@ SpriteAtlas:
   - card-selected
   - icon-settings
   - progress-battlepass
-  - collection-slot-back-pressed
+  - button-collection-item-pressed
   - background-modeselection-custom
   - logo-blasthub
   - pattern-rewardglow-rare
@@ -317,13 +317,13 @@ SpriteAtlas:
   - icon-player-blue
   - button-equipmentslot-common
   - icon-equipmentcategory-helmet
-  - collection-tab
+  - button-collection-tab
   - icon-cooldown-cs
   - button-main-purple
   - icon-equipmentcategory-amulet
   - progress-battlepassbtn
   - icon-discord
-  - collection-tab-chosen
+  - button-collection-tab-chosen
   - button-equipmentslot-epic
   - button-gamemodeselection
   - background-modeselection-ranked

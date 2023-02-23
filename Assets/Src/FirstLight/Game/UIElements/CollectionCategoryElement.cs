@@ -1,12 +1,8 @@
 using System;
-using FirstLight.Game.Infos;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
-using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.UIElements
 {
@@ -16,35 +12,25 @@ namespace FirstLight.Game.UIElements
 	public class CollectionCategoryElement : ImageButton
 	{
 		private const string UssBlock = "collection-category";
+
 		private const string UssBlockSelected = UssBlock + "--selected";
-		private const string UssSelected = UssBlock + "__selected-bg";
-		private const string UssHighlight = UssBlock + "__highlight";
-		private const string UssBackground = UssBlock + "__background";
-		private const string UssCardHolder = UssBlock + "__card-holder";
 
-		private const string UssIconSkins = UssBlock + "__icon-skins";
-		private const string UssIconBanners = UssBlock + "__icon-banners";
-		private const string UssIconGliders = UssBlock + "__icon-gliders";
-		private const string UssImage = UssBlock + "__image";
-		private const string UssImageShadow = UssImage + "--shadow";
-
+		private const string UssHolder = UssBlock + "__holder";
+		private const string UssIcon = UssBlock + "__icon";
 		private const string UssName = UssBlock + "__name";
 		private const string UssNotification = UssBlock + "__notification";
-		private const string UssNotificationIcon = "notification-icon";
 
-		public GameIdGroup Category { get;  set; }
-		
-		private readonly VisualElement _iconSkins;
-		private readonly VisualElement _iconBanners;
-		private readonly VisualElement _iconGliders;
-		private readonly VisualElement _image;
-		private readonly VisualElement _imageShadow;
+		private const string UssNotificationIcon = "notification-icon";
+		private const string UssSpriteIconBanner = "sprite-home__icon-banner";
+		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
+		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
+
+		public GameIdGroup Category { get; set; }
+
+		private readonly VisualElement _icon;
 		private readonly Label _name;
 
 		private readonly VisualElement _locked;
-		private readonly VisualElement _nftBadge;
-		private readonly VisualElement _loanedBadge;
-		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
 
 		/// <summary>
@@ -55,80 +41,91 @@ namespace FirstLight.Game.UIElements
 		public CollectionCategoryElement()
 		{
 			AddToClassList(UssBlock);
-			
-			var highlight = new VisualElement {name = "highlight"};
-			Add(highlight);
-			highlight.AddToClassList(UssHighlight);
-
-			var background = new VisualElement {name = "background"};
-			Add(background);
-			background.AddToClassList(UssBackground);
-			
-			var selectedBg = new VisualElement {name = "selected-bg"};
-			Add(selectedBg);
-			selectedBg.AddToClassList(UssSelected);
 
 			var cardHolder = new VisualElement {name = "holder"};
-			Add(cardHolder);
-			cardHolder.AddToClassList(UssCardHolder);
-			
-			cardHolder.Add(_imageShadow = new VisualElement {name = "equipment-image-shadow"});
-			_imageShadow.AddToClassList(UssImage);
-			_imageShadow.AddToClassList(UssImageShadow);
+			{
+				Add(cardHolder);
+				cardHolder.AddToClassList(UssHolder);
 
-			cardHolder.Add(_image = new VisualElement {name = "item-image"});
-			_image.AddToClassList(UssImage);
-			
-			cardHolder.Add(_name = new Label("CATEGORY") {name = "name"});
-			_name.AddToClassList(UssName);
-			
-			cardHolder.Add(_iconSkins = new VisualElement {name = "icon-skins"});
-			_iconSkins.AddToClassList(UssIconSkins);
-			_iconSkins.visible = false;
-			
-			cardHolder.Add(_iconGliders = new VisualElement {name = "icon-gliders"});
-			_iconGliders.AddToClassList(UssIconGliders);
-			_iconGliders.visible = false;
-			
-			cardHolder.Add(_iconBanners = new VisualElement {name = "icon-banners"});
-			_iconBanners.AddToClassList(UssIconBanners);
-			_iconBanners.visible = false;
-			
-			cardHolder.Add(_notification = new VisualElement());
-			_notification.AddToClassList(UssNotification);
-			_notification.AddToClassList(UssNotificationIcon);
+				cardHolder.Add(_icon = new VisualElement {name = "icon"});
+				_icon.AddToClassList(UssIcon);
+				_icon.AddToClassList(UssSpriteIconCharacters);
+
+				cardHolder.Add(_name = new Label("CHARACTERS") {name = "name"});
+				_name.AddToClassList(UssName);
+
+				cardHolder.Add(_notification = new VisualElement {name = "notification"});
+				_notification.AddToClassList(UssNotification);
+				_notification.AddToClassList(UssNotificationIcon);
+			}
 
 			base.clicked += () => clicked?.Invoke(Category);
 		}
 
-		public void SetCategory(GameIdGroup category, String text, bool notification = false)
+		/// <summary>
+		/// TODO
+		/// </summary>
+		public void SetNotification(bool enabled)
 		{
-			Category = category;
-			_name.text = text;
-			_notification.SetDisplay(notification);
-
-			switch (category)
-			{
-				case GameIdGroup.PlayerSkin: _iconSkins.visible = true; break;
-				case GameIdGroup.Glider: _iconGliders.visible = true; break;
-				case GameIdGroup.DeathMarker: _iconBanners.visible = true; break;
-			}
+			_notification.SetDisplay(enabled);
 		}
 
+		/// <summary>
+		/// TODO
+		/// </summary>
 		public void SetSelected(bool selected)
 		{
-			if (selected)
-			{
-				AddToClassList(UssBlockSelected);
-			}
-			else
-			{
-				RemoveFromClassList(UssBlockSelected);
-			}
+			EnableInClassList(UssBlockSelected, selected);
 		}
 
 		public new class UxmlFactory : UxmlFactory<CollectionCategoryElement, UxmlTraits>
 		{
+		}
+
+		public new class UxmlTraits : VisualElement.UxmlTraits
+		{
+			private readonly UxmlEnumAttributeDescription<GameIdGroup> _category = new()
+			{
+				name = "category",
+				defaultValue = GameIdGroup.Glider,
+				restriction = new UxmlEnumeration
+				{
+					values = new[]
+					{
+						GameIdGroup.Glider.ToString(),
+						GameIdGroup.PlayerSkin.ToString(),
+						GameIdGroup.DeathMarker.ToString()
+					}
+				},
+				use = UxmlAttributeDescription.Use.Required
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+
+				var cce = (CollectionCategoryElement) ve;
+				var cat = _category.GetValueFromBag(bag, cc);
+
+				cce.Category = cat;
+
+				cce._icon.RemoveSpriteClasses();
+				cce._icon.AddToClassList(cat switch
+				{
+					GameIdGroup.Glider      => UssSpriteIconGlider,
+					GameIdGroup.PlayerSkin  => UssSpriteIconCharacters,
+					GameIdGroup.DeathMarker => UssSpriteIconBanner,
+					_                       => throw new ArgumentOutOfRangeException()
+				});
+
+				cce._name.text = cat switch
+				{
+					GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
+					GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.banners,
+					GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.characters,
+					_                       => throw new ArgumentOutOfRangeException()
+				};
+			}
 		}
 	}
 }

@@ -1,22 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/CollectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=657a59ec24c054fd2be4fbcd2a1ab6bc&amp;type=3#CollectionScreenStyle" />
     <Style src="project://database/Assets/CollectionCardStyle.uss?fileID=7433441132597879392&amp;guid=e715dc23293f743bfa3ab9ee4aa8c200&amp;type=3#CollectionCardStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
     <Style src="project://database/Assets/CollectionCategoryStyle.uss?fileID=7433441132597879392&amp;guid=d775bd44c099e4586aaa9512c8cab4d6&amp;type=3#CollectionCategoryStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
-        <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; width: 528px; position: absolute; top: 228px; left: -38px; justify-content: center;">
-            <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementCharacters" style="width: 486px; height: 164px;" />
-            <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementBanners" style="width: 486px; height: 164px;" />
-            <FirstLight.Game.UIElements.CollectionCategoryElement name="CollectionCategoryElementGliders" style="width: 486px; height: 164px;" />
-        </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">
+            <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; position: absolute; top: 228px; left: -196px; justify-content: center;">
+                <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryCharacters" category="PlayerSkin" />
+                <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryBanners" category="DeathMarker" />
+                <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryGliders" category="Glider" />
+            </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons" style="align-items: flex-end; left: auto; top: 17px; justify-content: space-between; position: absolute; right: 186px; height: 100px; width: 454px; flex-direction: row-reverse;">
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement name="InfoHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl" style="width: 600px; align-items: stretch; right: 20px; top: 188px; position: absolute; justify-content: space-between; bottom: 12px;">
                 <ui:VisualElement name="RenderTextureHolder" style="flex-grow: 1; align-items: center; justify-content: center;">
-                    <ui:VisualElement name="RenderTexture" style="position: absolute; width: 400px; height: 600px; background-image: url(&apos;project://database/Assets/Art/UI/RenderTextures/CollectionMenuRenderTexture.renderTexture?fileID=8400000&amp;guid=446a12b0162d14cc19fc53c0a75d803c&amp;type=2#CollectionMenuRenderTexture&apos;);" />
+                    <ui:VisualElement name="RenderTexture" style="position: absolute; width: 400px; height: 600px; background-image: url(&apos;project://database/Assets/Art/UI/RenderTextures/rt-collection-item.renderTexture?fileID=8400000&amp;guid=446a12b0162d14cc19fc53c0a75d803c&amp;type=2#rt-collection-item&apos;);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ButtonHolder" style="height: 300px;">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" style="position: absolute; top: 180px; left: 164px;" />
@@ -25,8 +25,8 @@
                     <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 24px; position: absolute; right: 54px; bottom: 145px; height: 50px; width: 388px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 518px; bottom: 0; overflow: visible; right: 700px;" />
-            <ui:Label name="ComingSoon" text="COMING SOON!" picking-mode="Ignore" class="no-equipment-label" style="color: rgb(255, 255, 255); font-size: 64px; text-shadow: 1px 1px 0 rgb(0, 0, 0); position: absolute; top: 232px; -unity-text-align: upper-center; left: 518px; width: 1000px;" />
+            <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 468px; bottom: 0; overflow: visible; right: 700px;" />
+            <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="no-equipment-label" style="color: rgb(255, 255, 255); font-size: 64px; text-shadow: 1px 1px 0 rgb(0, 0, 0); position: absolute; top: 232px; -unity-text-align: upper-center; left: 518px; right: 100px;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

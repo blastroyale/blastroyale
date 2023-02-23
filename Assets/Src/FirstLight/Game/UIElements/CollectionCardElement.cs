@@ -128,8 +128,8 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public async void SetCollectionElement(GameId gameId, bool equipped = false, bool highlighted = false, bool isNft = false,
-											   bool loaned = false, bool notification = false)
+		public void SetCollectionElement(GameId gameId, bool equipped = false, bool highlighted = false, bool isNft = false,
+										 bool loaned = false, bool notification = false)
 		{
 			// var equipment = info.Equipment;
 			// this.RemoveModifiers();

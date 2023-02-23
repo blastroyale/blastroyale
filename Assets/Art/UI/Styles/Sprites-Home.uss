@@ -52,14 +52,14 @@
     --sprite-home__button-long-red-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-red-pressed.png');
     --sprite-home__button-long-yellow: url('/Assets/Art/UI/Sprites/Home/button-long-yellow.png');
     --sprite-home__button-long-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png');
-    --sprite-home__button-main-purple: url('/Assets/Art/UI/Sprites/Home/button-main-purple.png');
     --sprite-home__button-main-disabled: url('/Assets/Art/UI/Sprites/Home/button-main-disabled.png');
+    --sprite-home__button-main-purple: url('/Assets/Art/UI/Sprites/Home/button-main-purple.png');
     --sprite-home__button-main-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-purple-pressed.png');
     --sprite-home__button-main-yellow: url('/Assets/Art/UI/Sprites/Home/button-main-yellow.png');
     --sprite-home__button-main-yellow-pressed: url('/Assets/Art/UI/Sprites/Home/button-main-yellow-pressed.png');
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
-    --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
     --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
+    --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
     --sprite-home__button-play-ready: url('/Assets/Art/UI/Sprites/Home/button-play-ready.png');
     --sprite-home__button-play-ready-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-ready-pressed.png');
     --sprite-home__button-popup-equipment-close: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close.png');
@@ -363,6 +363,10 @@
     background-image: var(--sprite-home__button-long-yellow-pressed);
 }
 
+.sprite-home__button-main-disabled {
+    background-image: var(--sprite-home__button-main-disabled);
+}
+
 .sprite-home__button-main-purple {
     background-image: var(--sprite-home__button-main-purple);
 }
@@ -383,8 +387,20 @@
     background-image: var(--sprite-home__button-play);
 }
 
+.sprite-home__button-play-disabled {
+    background-image: var(--sprite-home__button-play-disabled);
+}
+
 .sprite-home__button-play:active {
     background-image: var(--sprite-home__button-play-pressed);
+}
+
+.sprite-home__button-play-ready {
+    background-image: var(--sprite-home__button-play-ready);
+}
+
+.sprite-home__button-play-ready:active {
+    background-image: var(--sprite-home__button-play-ready-pressed);
 }
 
 .sprite-home__button-popup-equipment-close {

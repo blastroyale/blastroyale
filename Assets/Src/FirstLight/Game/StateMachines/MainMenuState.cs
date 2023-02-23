@@ -664,6 +664,8 @@ namespace FirstLight.Game.StateMachines
 
 			uiVfxService.Init(_uiService);
 
+			_services.MessageBrokerService.Publish(new RequestStartEquipmentBpTutorialMessage());
+			
 			_statechartTrigger(MainMenuLoadedEvent);
 		}
 

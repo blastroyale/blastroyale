@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using UnityEngine;
 
@@ -70,18 +72,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeMessages()
 		{
-			_services.MessageBrokerService.Subscribe<RequestStartFirstTutorialMessage>(OnRequestStartFirstTutorialMessage);
-			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpenedMessage);
+			_services.MessageBrokerService.Subscribe<RequestStartFirstGameTutorialMessage>(OnRequestStartFirstTutorialMessage);
+			_services.MessageBrokerService.Subscribe<RequestStartEquipmentBpTutorialMessage>(OnRequestStartEquipmentBpTutorialMessage);
 		}
 
-		private void OnRequestStartFirstTutorialMessage(RequestStartFirstTutorialMessage obj)
+		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
 		{
 			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH)) return;
 
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
-		private void OnPlayScreenOpenedMessage(PlayScreenOpenedMessage obj)
+		private async void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
 		{
 			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.BP_EQUIPMENT_GUIDE)) return;
 

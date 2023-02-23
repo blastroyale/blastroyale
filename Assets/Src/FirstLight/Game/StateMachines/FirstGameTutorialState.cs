@@ -91,6 +91,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
 
+			loadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("LoadTutorialUi"); });
 			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(createTutorialRoom);
 
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
@@ -162,9 +163,9 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.HideDialog(CharacterType.Female);
 			
 			// Wait for any anims to finish from before before closing the UI
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME);
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 			
-			_services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
+			await _services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
 		}
 
 		private void SubscribeMessages()
@@ -333,7 +334,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterKill2Bots()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_dummies, CharacterType.Female, CharacterDialogMoodType.Shocked);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_dummies, CharacterType.Female, CharacterDialogMoodType.Happy);
 
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

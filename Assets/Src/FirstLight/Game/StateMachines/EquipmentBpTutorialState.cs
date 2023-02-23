@@ -8,6 +8,7 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using I2.Loc;
 using NUnit.Framework;
 using Quantum;
 using UnityEngine;
@@ -62,20 +63,25 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
+			var enterName = stateFactory.State("Enter name");
 			var playGame = stateFactory.State("Play game");
 
 			initial.Transition().Target(loadTutorialUi);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
-			initial.OnExit(() => { SendAnalyticsIncrementStep("ClickPlayGame"); });
 			
-			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(playGame);
+			loadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("LoadTutorialUi"); });
+			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(enterName);
 			
 			// TEMPORARY FLOW - REAL FLOW WILL HAVE BP REWARDS, AND THEN EQUIPPING EQUIPMENT BEFORE MATCH
+			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
+			enterName.OnEnter(OnEnterNameEnter);
+			enterName.Event(MainMenuState.PlayClickedEvent).Target(final);
+
+			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(final);
 			playGame.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-			playGame.OnExit(OnPlayGameExit);
 			
 			final.OnEnter(CloseTutorialScreens);
 			final.OnEnter(SendStepAnalytics);
@@ -84,7 +90,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task OpenTutorialScreens()
 		{
-			await Task.Delay(1000);
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
 			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
 			
@@ -99,10 +104,9 @@ namespace FirstLight.Game.StateMachines
 			_tutorialUtilsUi.Unblock();
 			
 			// Wait for any anims to finish from before before closing the UI
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_OUTRO_CLOSE_TIME);
-			
-			_services.GameUiService.CloseUi<TutorialUtilsScreenPresenter>(true);
-			_services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+			await _services.GameUiService.CloseUi<TutorialUtilsScreenPresenter>(true);
+			await _services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
 		}
 
 		private void SubscribeMessages()
@@ -127,18 +131,16 @@ namespace FirstLight.Game.StateMachines
 				CurrentTotalStep, CurrentStepName);
 		}
 		
-		private async void OnPlayGameEnter()
+		private void OnEnterNameEnter()
 		{
-			Debug.LogError("LET'S PLAY A REAL MATCH! CLICK 'PLAY' TO START!");
-			
-			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>(null, "play-button");
-			_tutorialUtilsUi.Highlight<HomeScreenPresenter>(null, "play-button");
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 		}
 		
-		private void OnPlayGameExit()
+		private void OnPlayGameEnter()
 		{
-			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>(null, "play-button");
+			_tutorialUtilsUi.Highlight<HomeScreenPresenter>(null, "play-button");
 		}
 	}
 }

@@ -262,22 +262,11 @@ namespace FirstLight.Game.Presenters
 			{
 				_collectionObject =
 					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true, 
-						true, OnLoaded);
-				
-				//_renderTextureCamera.transform.LookAt(_collectionSpawnPosition);
+						true);
 				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0,0,0,0));
-				
 			}
 		}
 		
-		
-		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
-		{
-
-		}
-
-
-
 		/// Updated cost of Collection items / has it been equipped, etc. 
 		private void UpdateCollectionDetails()
 		{

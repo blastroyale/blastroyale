@@ -17,8 +17,6 @@ namespace FirstLight.Game.UIElements
 	{
 		private const string UssBlock = "collection-category";
 		private const string UssBlockSelected = UssBlock + "--selected";
-		private const string UssBlockHighlighted = UssBlock + "--highlighted";
-
 		private const string UssSelected = UssBlock + "__selected-bg";
 		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";

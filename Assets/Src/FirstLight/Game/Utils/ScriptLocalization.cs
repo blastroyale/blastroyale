@@ -1123,10 +1123,6 @@ namespace I2.Loc
 			public static string buy 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/buy"); } }
 			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
-<<<<<<< HEAD
-			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
-=======
->>>>>>> develop
 			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
 		}
 
@@ -2531,10 +2527,6 @@ namespace I2.Loc
 		    public const string buy = "UITCollectionScreen/buy";
 		    public const string characters = "UITCollectionScreen/characters";
 		    public const string collection = "UITCollectionScreen/collection";
-<<<<<<< HEAD
-		    public const string comingsoon = "UITCollectionScreen/comingsoon";
-=======
->>>>>>> develop
 		    public const string gliders = "UITCollectionScreen/gliders";
 		}
 

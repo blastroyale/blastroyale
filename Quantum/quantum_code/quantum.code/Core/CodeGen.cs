@@ -164,11 +164,7 @@ namespace Quantum {
     FloodCitySimple = 7,
     BlimpDeck = 8,
     BRGenesis = 9,
-<<<<<<< HEAD
     MapTestScene = 63,
-=======
-    MapTestScene = 65,
->>>>>>> develop
     TestScene = 11,
     NewBRMap = 65,
     MausHelmet = 24,
@@ -253,15 +249,9 @@ namespace Quantum {
     SpecialAimingGrenade = 102,
     SpecialDefaultDash = 141,
     SpecialRadar = 62,
-<<<<<<< HEAD
     TutorialGrenade = 70,
     Barrel = 109,
     Barrier = 72,
-=======
-    TutorialGrenade = 63,
-    Barrel = 109,
-    Barrier = 66,
->>>>>>> develop
     DummyCharacter = 6,
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,

@@ -66,10 +66,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly EquipmentMenuState _equipmentMenuState;
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
-<<<<<<< HEAD
 		private readonly CollectionMenuState _collectionMenuState;
-=======
->>>>>>> develop
+
 
 		private Type _currentScreen;
 		private int _unclaimedCountCheck;
@@ -156,12 +154,7 @@ namespace FirstLight.Game.StateMachines
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-<<<<<<< HEAD
-			
-=======
 
-
->>>>>>> develop
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 

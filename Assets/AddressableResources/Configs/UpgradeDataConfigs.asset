@@ -23,11 +23,7 @@ MonoBehaviour:
     GradeMultiplier:
       RawValue: 65536
     LevelMultiplier:
-<<<<<<< HEAD
-      RawValue: 85197
-=======
       RawValue: 19661
->>>>>>> develop
     DurabilityDivider: 20
   - ResourceType: 3
     BaseValue: 180

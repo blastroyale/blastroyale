@@ -25,7 +25,7 @@
                     <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 36px; position: absolute; right: 54px; bottom: 145px; height: 50px; width: 388px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:ListView name="CollectionList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 468px; bottom: 0; overflow: visible; right: 700px;" />
+            <ui:ListView name="CollectionList" fixed-item-height="400" focusable="true" selection-type="Single" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 468px; bottom: 0; overflow: visible; right: 700px; flex-direction: row; flex-grow: 1;" />
             <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="no-equipment-label" style="color: rgb(255, 255, 255); font-size: 64px; text-shadow: 1px 1px 0 rgb(0, 0, 0); position: absolute; top: 232px; -unity-text-align: upper-center; left: 518px; right: 100px;" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

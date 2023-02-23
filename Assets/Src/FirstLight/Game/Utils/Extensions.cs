@@ -581,5 +581,22 @@ namespace FirstLight.Game.Utils
 		{
 			element.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
 		}
+		
+		/// <summary>
+		/// Iterates over a list by chunks
+		/// </summary>
+		public static IEnumerable<IList<T>> ChunksOf<T>(this IEnumerable<T> sequence, int size)
+		{
+			List<T> chunk = new List<T>(size);
+			foreach (T element in sequence)
+			{
+				chunk.Add(element);
+				if (chunk.Count > 0)
+				{
+					yield return chunk;
+					chunk = new List<T>(size);
+				}
+			}
+		}
 	}
 }

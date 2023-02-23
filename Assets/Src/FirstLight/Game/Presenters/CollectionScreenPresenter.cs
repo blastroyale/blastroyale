@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -24,9 +27,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Camera _renderTextureCamera;
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 
-		// TO DO: Remove this, used for now so we can only select from 4 default 
-		// characters. Once data is setup correctly, this can be removed. 
-		private const int NUM_DEFAULT_CHARACTERS = 4;
+		private static readonly int PAGE_SIZE = 3;
 		
 		public struct StateData
 		{
@@ -35,8 +36,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private ListView _collectionList;
-		private List<CollectionListRow> _collectionListRows;
-		private Dictionary<GameId, int> _itemRowMap;
+		private Dictionary<CollectionItem, int> _itemRowMap;
 		private LocalizedLabel _comingSoonLabel;
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
@@ -46,8 +46,8 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-
-		private GameId _selectedId;
+		
+		//private int _selectedItem;
 		private GameIdGroup _selectedCategory;
 		private GameObject _collectionObject;
 
@@ -71,8 +71,11 @@ namespace FirstLight.Game.Presenters
 			header.backClicked += Data.OnBackClicked;
 			header.homeClicked += Data.OnHomeClicked;
 
+			_collectionList.selectionType = SelectionType.Single;
 			_collectionList.makeItem = MakeCollectionListItem;
 			_collectionList.bindItem = BindCollectionListItem;
+			_collectionList.ClearSelection();
+			_collectionList.onSelectionChange += OnCollectionItemSelected;
 
 			_renderTexture = root.Q<VisualElement>("RenderTexture");
 
@@ -100,9 +103,12 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			
 			SetupCategories();
-			UpdatePlayerSkinMenu();
-			UpdateCollectionDetails();
+			
+			
+			ViewOwnedItemsFromCategory(_selectedCategory);
+			UpdateCollectionDetails(_selectedCategory);
 
 			Update3DObject();
 		}
@@ -151,8 +157,8 @@ namespace FirstLight.Game.Presenters
 				_comingSoonLabel.visible = false;
 				_collectionList.visible = true;
 
-				UpdatePlayerSkinMenu();
-				UpdateCollectionDetails();
+				ViewOwnedItemsFromCategory(group);
+				UpdateCollectionDetails(_selectedCategory);
 				Update3DObject();
 			}
 			else
@@ -171,65 +177,47 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
 		/// </summary>
-		private async void UpdatePlayerSkinMenu()
+		private async void ViewOwnedItemsFromCategory(GameIdGroup category)
 		{
-			var data = GameIdGroup.PlayerSkin.GetIds();
-			var listCount = NUM_DEFAULT_CHARACTERS; // data.Count;
-
-			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
-			_collectionListRows = new List<CollectionListRow>(listCount / 3);
-			_itemRowMap = new Dictionary<GameId, int>(listCount / 3);
-
-			for (var i = 0; i < listCount; i += 3)
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
+			if (equipped != null)
 			{
-				var item1 = data[i];
-
-				if (i + 1 >= listCount)
-				{
-					_collectionListRows.Add(
-						new CollectionListRow(new CollectionListRow.Item(item1), null, null));
-					_itemRowMap[item1] = _collectionListRows.Count - 1;
-				}
-				else
-				{
-					var item2 = data[i + 1];
-					var item3 = data[i + 2];
-
-					_collectionListRows.Add(new CollectionListRow(
-						new CollectionListRow.Item(item1),
-						new CollectionListRow.Item(item2),
-						new CollectionListRow.Item(item3)
-					));
-					_itemRowMap[item1] = _collectionListRows.Count - 1;
-					_itemRowMap[item2] = _collectionListRows.Count - 1;
-					_itemRowMap[item3] = _collectionListRows.Count - 1;
-				}
+				_collectionList.SetSelection(_collectionList.itemsSource.IndexOf(equipped));
 			}
-
-			_collectionList.itemsSource = _collectionListRows;
+			_selectedCategory = category;
+			_collectionList.itemsSource = _gameDataProvider.CollectionDataProvider.GetOwnedCollection(category);
 			_collectionList.RefreshItems();
 		}
 
-		private void OnCollectionItemClicked(GameId id)
+		private void OnCollectionItemSelected(IEnumerable<object> onItemSelected)
 		{
-			if (id == _selectedId) return;
+			Debug.Log(onItemSelected);
 
-			var previousItem = _selectedId;
+			var newItem = _collectionList.selectedItem;
+			var previousItem = onItemSelected.Last() as CollectionItem;
 
-			_selectedId = id;
-
+			var newItemIndex = _collectionList.itemsSource.IndexOf(newItem);
+			var oldItemIndex = _collectionList.itemsSource.IndexOf(previousItem);
+			
 			Update3DObject();
-			UpdateCollectionDetails();
+			UpdateCollectionDetails(_selectedCategory);
 
-			_collectionList.RefreshItem(_itemRowMap[previousItem]);
-			_collectionList.RefreshItem(_itemRowMap[_selectedId]);
+			_collectionList.RefreshItem(newItemIndex);
+			_collectionList.RefreshItem(oldItemIndex);
+		}
+
+		private CollectionItem GetSelectedItem()
+		{
+			return _collectionList.selectedItem as CollectionItem;
 		}
 
 		private void OnEquipClicked()
 		{
-			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand {SkinId = _selectedId});
-			UpdateCollectionDetails();
-			UpdatePlayerSkinMenu();
+			// Implement generic logic in CollectionLogic & make command that call that generic logic
+			
+			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand {SkinId = GetSelectedItem().Id});
+			UpdateCollectionDetails(_selectedCategory);
+			ViewOwnedItemsFromCategory(_selectedCategory);
 		}
 
 		/// <summary>
@@ -241,119 +229,58 @@ namespace FirstLight.Game.Presenters
 
 		private async void Update3DObject()
 		{
+			var selectedItem = GetSelectedItem();
+			if (selectedItem == null)
+			{
+				return;
+			}
 			if (_collectionObject != null)
 			{
+				// Unload requires the asset reference with we don't have here so we cant unload. :L
+				// _services.AssetResolverService.UnloadAsset(_collectionObject);
 				Destroy(_collectionObject);
 				_collectionObject = null;
 			}
-
-			if (_selectedCategory == GameIdGroup.PlayerSkin)
-			{
-				_collectionObject =
-					await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_selectedId, true,
-						true);
-
-				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
-			}
+			_collectionObject =
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id, true,
+					true);
+			_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
+			
 		}
 
 
 		/// Updated cost of Collection items / has it been equipped, etc. 
-		private void UpdateCollectionDetails()
+		private void UpdateCollectionDetails(GameIdGroup category)
 		{
+			var selectedItem = GetSelectedItem();
+			if (selectedItem == null)
+			{
+				return;
+			}
+			var selectedId = GetSelectedItem().Id;
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 			// If an item is already equipped, show SELECTED instead of Equip
-			_equipButton.text = _selectedId == _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin
+			_equipButton.text = equipped != null && selectedId == equipped.Id
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
-
-			_selectedItemLabel.text = _selectedId.GetLocalization();
-			_selectedItemDescription.text = _selectedId.GetDescriptionLocalization();
+			
+			_selectedItemLabel.text = selectedId.GetLocalization();
+			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 		}
-
 
 		private VisualElement MakeCollectionListItem()
 		{
-			var row = new VisualElement
-			{
-				style =
-				{
-					flexDirection = FlexDirection.Row,
-					flexGrow = 1f,
-					justifyContent = Justify.SpaceBetween,
-					alignItems = Align.Center,
-					paddingLeft = new Length(50, LengthUnit.Pixel),
-					paddingRight = new Length(50, LengthUnit.Pixel)
-				}
-			};
-
-			var item1 = new CollectionCardElement {name = "item-1"};
-			var item2 = new CollectionCardElement {name = "item-2"};
-			var item3 = new CollectionCardElement {name = "item-3"};
-
-			item1.clicked += OnCollectionItemClicked;
-			item2.clicked += OnCollectionItemClicked;
-			item3.clicked += OnCollectionItemClicked;
-
-			row.Add(item1);
-			row.Add(item2);
-			row.Add(item3);
-
-			return row;
+			return new CollectionCardElement {name = "collection-item"};
 		}
 
 		private void BindCollectionListItem(VisualElement visualElement, int index)
 		{
-			var row = _collectionListRows[index];
-
-			var card1 = visualElement.Q<CollectionCardElement>("item-1");
-			var card2 = visualElement.Q<CollectionCardElement>("item-2");
-			var card3 = visualElement.Q<CollectionCardElement>("item-3");
-
-			var currentSkin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
-
-			card1.SetCollectionElement(row.Item1.GameId, row.Item1.GameId == currentSkin);
-			card2.SetDisplay(false);
-			card3.SetDisplay(false);
-
-			if (row.Item2 != null)
-			{
-				card2.SetDisplay(true);
-				card2.SetCollectionElement(row.Item2.GameId, row.Item2.GameId == currentSkin);
-			}
-
-			if (row.Item3 != null)
-			{
-				card3.SetDisplay(true);
-				card3.SetCollectionElement(row.Item3.GameId, row.Item3.GameId == currentSkin);
-			}
-
-			card1.SetSelected(card1.MenuGameId == _selectedId);
-			card2.SetSelected(card2.MenuGameId == _selectedId);
-			card3.SetSelected(card3.MenuGameId == _selectedId);
-		}
-
-		private class CollectionListRow
-		{
-			public Item Item1 { get; }
-			public Item Item2 { get; }
-			public Item Item3 { get; }
-
-			public CollectionListRow(Item item1, Item item2, Item item3)
-			{
-				Item1 = item1;
-				Item2 = item2;
-				Item3 = item3;
-			}
-
-			internal class Item
-			{
-				public GameId GameId { get; }
-
-				public Item(GameId gameId)
-				{
-					GameId = gameId;
-				}
-			}
+			var card = visualElement as CollectionCardElement;
+			var selectedItem = _collectionList.itemsSource[index] as CollectionItem;
+			var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
+			card.SetCollectionElement(selectedItem.Id, equipped != null && equipped.Equals(selectedItem));
+			card.SetSelected(card.MenuGameId == selectedItem.Id);
 		}
 	}
 }

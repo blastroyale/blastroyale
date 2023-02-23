@@ -13,7 +13,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays a category of items in the collection screen, e.g. Characters, Banners, Gliders, etc.
 	/// </summary>
-	public class CollectionCardElement : ImageButton
+	public class CollectionCardElement : VisualElement
 	{
 		private const string EMPTY_LOC_KEY = "UITCollection/no_{0}";
 
@@ -104,7 +104,7 @@ namespace FirstLight.Game.UIElements
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
-			base.clicked += () => clicked?.Invoke(MenuGameId);
+			//base.clicked += () => clicked?.Invoke(MenuGameId);
 
 		}
 		

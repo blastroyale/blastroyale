@@ -1,19 +1,22 @@
 .collection-category {
     width: 630px;
     height: 164px;
-    transition-property: scale;
+    transition-property: margin;
     transition-duration: 0.2s;
     overflow: visible;
     background-image: var(--sprite-home__button-collection-tab);
-    -unity-slice-left: 50;
-    -unity-slice-right: 50;
 }
 
 .collection-category:active {
     background-image: var(--sprite-home__button-collection-tab-pressed);
 }
 
-.collection-category--selected.collection-category--selected:active {
+.collection-category--selected {
+    background-image: var(--sprite-home__button-collection-tab-selected);
+    margin-left: 50px;
+}
+
+.collection-category--selected:active {
     background-image: var(--sprite-home__button-collection-tab-selected);
 }
 

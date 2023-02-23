@@ -121,8 +121,8 @@ namespace FirstLight.Game.UIElements
 				cce._name.text = cat switch
 				{
 					GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
-					GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.banners,
-					GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.characters,
+					GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
+					GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
 					_                       => throw new ArgumentOutOfRangeException()
 				};
 			}

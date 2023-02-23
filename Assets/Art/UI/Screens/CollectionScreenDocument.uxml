@@ -6,7 +6,7 @@
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">
             <ui:VisualElement name="CategoryHolder" class="category-holder" style="align-items: flex-start; border-top-width: 0; position: absolute; top: 228px; left: -196px; justify-content: center;">
-                <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryCharacters" category="PlayerSkin" />
+                <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryCharacters" category="PlayerSkin" class="collection-category--selected" />
                 <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryBanners" category="DeathMarker" />
                 <FirstLight.Game.UIElements.CollectionCategoryElement name="CategoryGliders" category="Glider" />
             </ui:VisualElement>

@@ -31,8 +31,8 @@
     --sprite-home__button-collection-item: url('/Assets/Art/UI/Sprites/Home/button-collection-item.png');
     --sprite-home__button-collection-item-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-item-pressed.png');
     --sprite-home__button-collection-tab: url('/Assets/Art/UI/Sprites/Home/button-collection-tab.png');
-    --sprite-home__button-collection-tab-chosen: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-chosen.png');
     --sprite-home__button-collection-tab-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-pressed.png');
+    --sprite-home__button-collection-tab-selected: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-selected.png');
     --sprite-home__button-equipmentslot-common: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-common.png');
     --sprite-home__button-equipmentslot-common-pressed: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-common-pressed.png');
     --sprite-home__button-equipmentslot-empty: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-empty.png');
@@ -284,12 +284,12 @@
     background-image: var(--sprite-home__button-collection-tab);
 }
 
-.sprite-home__button-collection-tab-chosen {
-    background-image: var(--sprite-home__button-collection-tab-chosen);
-}
-
 .sprite-home__button-collection-tab:active {
     background-image: var(--sprite-home__button-collection-tab-pressed);
+}
+
+.sprite-home__button-collection-tab-selected {
+    background-image: var(--sprite-home__button-collection-tab-selected);
 }
 
 .sprite-home__button-equipmentslot-common {

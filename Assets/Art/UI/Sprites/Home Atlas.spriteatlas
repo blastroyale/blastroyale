@@ -323,7 +323,7 @@ SpriteAtlas:
   - icon-equipmentcategory-amulet
   - progress-battlepassbtn
   - icon-discord
-  - button-collection-tab-chosen
+  - button-collection-tab-selected
   - button-equipmentslot-epic
   - button-gamemodeselection
   - background-modeselection-ranked

@@ -113,7 +113,7 @@ namespace FirstLight.Game.UIElements
 			{
 				case GameIdGroup.PlayerSkin: _iconSkins.visible = true; break;
 				case GameIdGroup.Glider: _iconGliders.visible = true; break;
-				case GameIdGroup.Banner: _iconBanners.visible = true; break;
+				case GameIdGroup.DeathMarker: _iconBanners.visible = true; break;
 			}
 		}
 

@@ -574,18 +574,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Banner01, new List<GameIdGroup>
-					{
-						GameIdGroup.Banner
-					}.AsReadOnly()
-				},
-				{
-					GameId.Banner02, new List<GameIdGroup>
-					{
-						GameIdGroup.Banner
-					}.AsReadOnly()
-				},
-				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -773,6 +761,34 @@ namespace Quantum
 				},
 				{
 					GameId.Tombstone, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Flag_Punk, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Flag_Demon, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Flag_SuperStar, new List<GameIdGroup>
+					{
+						GameIdGroup.Collection,
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Flag_Unicorn, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
@@ -1065,13 +1081,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Banner, new List<GameId>
-					{
-						GameId.Banner01,
-						GameId.Banner02
-					}.AsReadOnly()
-				},
-				{
 					GameIdGroup.Consumable, new List<GameId>
 					{
 						GameId.Rage,
@@ -1164,14 +1173,22 @@ namespace Quantum
 					GameIdGroup.Collection, new List<GameId>
 					{
 						GameId.Flag,
-						GameId.Tombstone
+						GameId.Tombstone,
+						GameId.Flag_Punk,
+						GameId.Flag_Demon,
+						GameId.Flag_SuperStar,
+						GameId.Flag_Unicorn
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Flag,
-						GameId.Tombstone
+						GameId.Tombstone,
+						GameId.Flag_Punk,
+						GameId.Flag_Demon,
+						GameId.Flag_SuperStar,
+						GameId.Flag_Unicorn
 					}.AsReadOnly()
 				},
 				{

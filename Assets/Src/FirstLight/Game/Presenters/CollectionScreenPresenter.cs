@@ -135,7 +135,7 @@ namespace FirstLight.Game.Presenters
 			_categoryGliders.SetCategory(GameIdGroup.Glider, ScriptTerms.UITCollectionScreen.gliders.LocalizeKey());
 			_categoryGliders.clicked += OnCategoryClicked;
 
-			_categoryBanners.SetCategory(GameIdGroup.Banner, ScriptTerms.UITCollectionScreen.banners.LocalizeKey());
+			_categoryBanners.SetCategory(GameIdGroup.DeathMarker, ScriptTerms.UITCollectionScreen.banners.LocalizeKey());
 			_categoryBanners.clicked += OnCategoryClicked;
 
 			_selectedCategory = GameIdGroup.PlayerSkin;

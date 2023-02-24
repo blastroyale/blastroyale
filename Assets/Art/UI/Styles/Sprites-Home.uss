@@ -41,6 +41,7 @@
     --sprite-home__button-equipmentslot-uncommon: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-uncommon.png');
     --sprite-home__button-equipmentslot-uncommon-pressed: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-uncommon-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
+    --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
     --sprite-home__button-gamemodeselection: url('/Assets/Art/UI/Sprites/Home/button-gamemodeselection.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
@@ -90,11 +91,6 @@
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
-    --sprite-home__icon-emptyslot-amulet: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-amulet.png');
-    --sprite-home__icon-emptyslot-armor: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-armor.png');
-    --sprite-home__icon-emptyslot-helmet: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-helmet.png');
-    --sprite-home__icon-emptyslot-shield: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-shield.png');
-    --sprite-home__icon-emptyslot-weapon: url('/Assets/Art/UI/Sprites/Home/icon-emptyslot-weapon.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
     --sprite-home__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-amulet.png');
     --sprite-home__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-armor.png');
@@ -102,6 +98,7 @@
     --sprite-home__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-shield.png');
     --sprite-home__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-weapon.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
+    --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
     --sprite-home__icon-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-custom.png');
     --sprite-home__icon-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-deathmatch.png');
     --sprite-home__icon-heroes: url('/Assets/Art/UI/Sprites/Home/icon-heroes.png');
@@ -319,6 +316,10 @@
     background-image: var(--sprite-home__button-gamemode);
 }
 
+.sprite-home__button-gamemode-overlay-battleroyale {
+    background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
+}
+
 .sprite-home__button-gamemode:active {
     background-image: var(--sprite-home__button-gamemode-pressed);
 }
@@ -515,26 +516,6 @@
     background-image: var(--sprite-home__icon-durability);
 }
 
-.sprite-home__icon-emptyslot-amulet {
-    background-image: var(--sprite-home__icon-emptyslot-amulet);
-}
-
-.sprite-home__icon-emptyslot-armor {
-    background-image: var(--sprite-home__icon-emptyslot-armor);
-}
-
-.sprite-home__icon-emptyslot-helmet {
-    background-image: var(--sprite-home__icon-emptyslot-helmet);
-}
-
-.sprite-home__icon-emptyslot-shield {
-    background-image: var(--sprite-home__icon-emptyslot-shield);
-}
-
-.sprite-home__icon-emptyslot-weapon {
-    background-image: var(--sprite-home__icon-emptyslot-weapon);
-}
-
 .sprite-home__icon-equipment {
     background-image: var(--sprite-home__icon-equipment);
 }
@@ -561,6 +542,10 @@
 
 .sprite-home__icon-gamemode-battleroyale {
     background-image: var(--sprite-home__icon-gamemode-battleroyale);
+}
+
+.sprite-home__icon-gamemode-battleroyale-shadow {
+    background-image: var(--sprite-home__icon-gamemode-battleroyale-shadow);
 }
 
 .sprite-home__icon-gamemode-custom {

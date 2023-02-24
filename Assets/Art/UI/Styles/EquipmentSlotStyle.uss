@@ -41,9 +41,9 @@
 }
 
 .equipment-slot__equipment-image--shadow {
-    left: 5px;
-    top: 10px;
-    bottom: 5px;
+    left: 10px;
+    top: 0;
+    bottom: -10px;
     -unity-background-image-tint-color: black;
 }
 
@@ -71,7 +71,7 @@
 .equipment-slot__title--name {
     position: absolute;
     left: 288px;
-    top: 13px;
+    top: 9px;
     width: 290px;
 }
 
@@ -188,19 +188,18 @@
 }
 
 .equipment-slot__category-icon {
-    background-image: var(--sprite-home__icon-equipmentcategory-weapon);
     width: 54px;
     height: 54px;
     position: absolute;
     left: 240px;
-    top: 22px;
+    top: 15px;
 }
 
 .equipment-slot__category-icon--empty {
     position: relative;
     left: auto;
     top: auto;
-    margin-left: 128px;
+    bottom: 5px;
 }
 
 .equipment-slot__faction-icon {

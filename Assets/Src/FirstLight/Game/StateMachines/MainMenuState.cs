@@ -106,7 +106,6 @@ namespace FirstLight.Game.StateMachines
 			mainMenuLoading.OnExit(LoadingComplete);
 
 			mainMenu.OnEnter(OnMainMenuLoaded);
-			mainMenu.OnEnter(CheckMatchmakingState);
 			mainMenu.Nest(TabsMenuSetup).Target(disconnectedCheck);
 			mainMenu.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
@@ -241,11 +240,13 @@ namespace FirstLight.Game.StateMachines
 		private void CloseMatchmakingScreen()
 		{
 			_uiService.CloseCurrentScreen();
+			// TODO proper translation
 			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "Canceled by party", true, new GenericDialogButton());
 		}
 
 		private void JoinedMatchmaking()
 		{
+			// TODO REFACTOR THIS SCREEN
 			_uiService.CloseCurrentScreen();
 			var btn = new GenericDialogButton
 			{
@@ -524,16 +525,7 @@ namespace FirstLight.Game.StateMachines
 			_services.IAPService.BuyProduct(id);
 		}
 
-		private void CheckMatchmakingState()
-		{
-			_services.MatchmakingService.GetMyTickets(tickets =>
-			{
-				if (tickets?.TicketIds.Count > 0)
-				{
-					_services.MatchmakingService.LeaveMatchmaking();
-				}
-			});
-		}
+
 
 		private void OnIapProcessingFinished()
 		{

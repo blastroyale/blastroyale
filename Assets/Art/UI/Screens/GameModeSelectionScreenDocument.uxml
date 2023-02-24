@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="backgroundPattern" class="fill-parent">
             <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" />
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="font-style-normal instructions anim-fade anim-delay-1" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="DO_NOT_USE_font-style-normal instructions anim-fade anim-delay-1" />
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         </ui:VisualElement>
     </ui:VisualElement>

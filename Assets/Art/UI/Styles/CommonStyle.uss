@@ -4,11 +4,11 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
-    
+
     --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
     --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
     --font-italic-dynamic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset');
-    
+
     transition-duration: 0.5s;
     -unity-font-definition: var(--font-italic);
 }
@@ -59,13 +59,13 @@
     -unity-font-definition: var(--font-bold);
 }
 
-.font-style-normal {
+.DO_NOT_USE_font-style-normal {
     font-size: 40px;
     letter-spacing: 1px;
     color: rgb(255, 255, 255);
 }
 
-.font-style-h2 {
+.DO_NOT_USE_font-style-h2 {
     font-size: 42px;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 1);
     -unity-text-outline-width: 1px;
@@ -73,7 +73,7 @@
     color: rgb(255, 255, 255);
 }
 
-.font-style-h1 {
+.DO_NOT_USE_font-style-h1 {
     font-size: 70px;
     -unity-font-style: bold;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
@@ -329,13 +329,11 @@
     padding-bottom: 0;
 }
 
-.button-long--small-font
-{
+.button-long--small-font {
     font-size: 32px;
 }
 
-.button-long--large-font
-{
+.button-long--large-font {
     font-size: 52px;
 }
 

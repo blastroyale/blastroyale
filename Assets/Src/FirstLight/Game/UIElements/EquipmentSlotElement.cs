@@ -52,7 +52,6 @@ namespace FirstLight.Game.UIElements
 		private const string UssNotificationIcon = "notification-icon";
 
 		private const string UssSpriteSlotRarity = "sprite-home__button-equipmentslot-{0}";
-		private const string UssSpriteEmptySlot = "sprite-home__icon-emptyslot-{0}";
 		private const string UssSpriteEquipmentCategory = "sprite-home__icon-equipmentcategory-{0}";
 		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
 
@@ -64,7 +63,6 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _equipmentLevel;
 
 		private readonly LocalizedLabel _emptyTitle;
-		private readonly VisualElement _emptyEquipmentImage;
 		private readonly VisualElement _plusRarity;
 		private readonly VisualElement _equipmentImage;
 		private readonly VisualElement _equipmentImageShadow;
@@ -159,10 +157,6 @@ namespace FirstLight.Game.UIElements
 
 				emptyElement.Add(_emptyTitle = new LocalizedLabel {name = "title"});
 				_emptyTitle.AddToClassList(UssEquipmentTitle);
-
-				emptyElement.Add(_emptyEquipmentImage = new VisualElement {name = "equipment-image"});
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImage);
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImageEmpty);
 			}
 
 			Add(_notificationIcon = new VisualElement {name = "notification"});
@@ -237,10 +231,11 @@ namespace FirstLight.Game.UIElements
 
 				ece.Category = cat;
 
-				var emptyCategoryClass = string.Format(UssSpriteEmptySlot, catStr);
-				ece._emptyCategoryIcon.AddToClassList(emptyCategoryClass);
-				ece._emptyEquipmentImage.AddToClassList(emptyCategoryClass);
-				ece._categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, catStr));
+				var catIcon = string.Format(UssSpriteEquipmentCategory, catStr);
+				ece._emptyCategoryIcon.RemoveSpriteClasses();
+				ece._emptyCategoryIcon.AddToClassList(catIcon);
+				ece._categoryIcon.RemoveSpriteClasses();
+				ece._categoryIcon.AddToClassList(catIcon);
 
 				ece._emptyTitle.Localize(
 					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())

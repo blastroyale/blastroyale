@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace FirstLight.UiService
 	/// The root base of the UI Presenter of the <seealso cref="IUiService"/>
 	/// Implement this abstract class in order to execute the proper UI life cycle
 	/// </summary>
-	public abstract class UiPresenter : MonoBehaviour, IUIDocumentPresenter
+	public abstract class UiPresenter : MonoBehaviour
 	{
 		protected IUiService _uiService;
 
@@ -85,8 +84,6 @@ namespace FirstLight.UiService
 				gameObject.SetActive(false);
 			}
 		}
-
-		public UIDocument Document { get; }
 	}
 
 	/// <summary>
@@ -129,7 +126,7 @@ namespace FirstLight.UiService
 	/// <remarks>
 	/// Extends the <see cref="UiPresenter"/> behaviour with defined data of type <typeparamref name="T"/>
 	/// </remarks>
-	public abstract class UiPresenterData<T> : UiPresenter, IUIDocumentPresenter, IUiPresenterData where T : struct
+	public abstract class UiPresenterData<T> : UiPresenter, IUiPresenterData where T : struct
 	{
 		/// <summary>
 		/// The Ui data defined when opened via the <see cref="UiService"/>
@@ -149,8 +146,6 @@ namespace FirstLight.UiService
 
 			OnSetData();
 		}
-
-		public UIDocument Document { get; }
 	}
 
 	/// <summary>

@@ -137,13 +137,16 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnEnterNameEnter()
 		{
-			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 		}
 		
-		private void OnPlayGameEnter()
+		private async void OnPlayGameEnter()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>(null, "play-button");
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
+
+			await Task.Delay(1000);
+
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>(null, "play-button");
 		}
 	}

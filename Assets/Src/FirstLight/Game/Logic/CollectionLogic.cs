@@ -7,17 +7,40 @@ using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	/// <summary>
+	/// Obtains collection data like all items, owned items, equipped items
+	/// </summary>
 	public interface ICollectionDataProvider
 	{
+		/// <summary>
+		/// Gets all items in a given collection group
+		/// </summary>
 		List<CollectionItem> GetFullCollection(GameIdGroup group);
 
+		/// <summary>
+		/// Get all items owned from a collection
+		/// </summary>
 		List<CollectionItem> GetOwnedCollection(GameIdGroup group);
 
+		/// <summary>
+		/// Get equipped item from a collection
+		/// </summary>
 		[CanBeNull] CollectionItem GetEquipped(GameIdGroup group);
 
+		/// <summary>
+		/// Get a collection type from a collection item
+		/// </summary>
 		GameIdGroup GetCollectionType(CollectionItem item);
+
+		/// <summary>
+		/// Get all available collections
+		/// </summary>
+		List<GameIdGroup> GetCollectionsCategories();
 	}
 
+	/// <summary>
+	/// Handles collection items like earning & equipping
+	/// </summary>
 	public interface ICollectionLogic : ICollectionDataProvider
 	{
 		void Equip(GameIdGroup group, CollectionItem item);
@@ -54,6 +77,14 @@ namespace FirstLight.Game.Logic
 		public GameIdGroup GetCollectionType(CollectionItem item)
 		{
 			return item.Id.GetGroups().First(); // TODO: this is shit
+		}
+
+		public List<GameIdGroup> GetCollectionsCategories()
+		{
+			return new List<GameIdGroup>()
+			{
+				GameIdGroup.PlayerSkin, GameIdGroup.DeathMarker, GameIdGroup.Glider
+			};
 		}
 
 		public void Equip(GameIdGroup group, CollectionItem item)

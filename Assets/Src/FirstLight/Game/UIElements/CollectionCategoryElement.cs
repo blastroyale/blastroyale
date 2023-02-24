@@ -46,7 +46,6 @@ namespace FirstLight.Game.UIElements
 			{
 				Add(cardHolder);
 				cardHolder.AddToClassList(UssHolder);
-
 				cardHolder.Add(_icon = new VisualElement {name = "icon"});
 				_icon.AddToClassList(UssIcon);
 				_icon.AddToClassList(UssSpriteIconCharacters);
@@ -62,6 +61,27 @@ namespace FirstLight.Game.UIElements
 			SetNotification(false);
 
 			base.clicked += () => clicked?.Invoke(Category);
+		}
+		
+		public void SetupCategoryButton(GameIdGroup cat)
+		{
+			Category = cat;
+			_icon.RemoveSpriteClasses();
+			_icon.AddToClassList(cat switch
+			{
+				GameIdGroup.Glider      => UssSpriteIconGlider,
+				GameIdGroup.PlayerSkin  => UssSpriteIconCharacters,
+				GameIdGroup.DeathMarker => UssSpriteIconBanner,
+				_                       => ""
+			});
+
+			_name.text = cat switch
+			{
+				GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
+				GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
+				GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
+				_                       => cat.ToString()
+			};
 		}
 
 		/// <summary>
@@ -79,55 +99,11 @@ namespace FirstLight.Game.UIElements
 		{
 			EnableInClassList(UssBlockSelected, selected);
 		}
-
+		
 		public new class UxmlFactory : UxmlFactory<CollectionCategoryElement, UxmlTraits>
 		{
 		}
-
-		public new class UxmlTraits : VisualElement.UxmlTraits
-		{
-			private readonly UxmlEnumAttributeDescription<GameIdGroup> _category = new()
-			{
-				name = "category",
-				defaultValue = GameIdGroup.Glider,
-				restriction = new UxmlEnumeration
-				{
-					values = new[]
-					{
-						GameIdGroup.Glider.ToString(),
-						GameIdGroup.PlayerSkin.ToString(),
-						GameIdGroup.DeathMarker.ToString()
-					}
-				},
-				use = UxmlAttributeDescription.Use.Required
-			};
-
-			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-			{
-				base.Init(ve, bag, cc);
-
-				var cce = (CollectionCategoryElement) ve;
-				var cat = _category.GetValueFromBag(bag, cc);
-
-				cce.Category = cat;
-
-				cce._icon.RemoveSpriteClasses();
-				cce._icon.AddToClassList(cat switch
-				{
-					GameIdGroup.Glider      => UssSpriteIconGlider,
-					GameIdGroup.PlayerSkin  => UssSpriteIconCharacters,
-					GameIdGroup.DeathMarker => UssSpriteIconBanner,
-					_                       => throw new ArgumentOutOfRangeException()
-				});
-
-				cce._name.text = cat switch
-				{
-					GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
-					GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
-					GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
-					_                       => throw new ArgumentOutOfRangeException()
-				};
-			}
-		}
 	}
+	
+	
 }

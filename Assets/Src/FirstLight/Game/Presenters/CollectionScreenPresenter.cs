@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon.StructWrapping;
@@ -43,7 +44,8 @@ namespace FirstLight.Game.Presenters
       private Button _equipButton;
       private PriceButton _buyButton;
       private VisualElement _renderTexture;
-
+      private VisualElement _categoriesRoot;
+      
       private IGameServices _services;
       private IGameDataProvider _gameDataProvider;
       
@@ -51,11 +53,7 @@ namespace FirstLight.Game.Presenters
       private GameIdGroup _selectedCategory;
       private GameObject _collectionObject;
 
-      private CollectionCategoryElement[] _collectionCategories;
-      private CollectionCategoryElement _categoryCharacters;
-      private CollectionCategoryElement _categoryBanners;
-      private CollectionCategoryElement _categoryGliders;
-
+     
       private void Awake()
       {
          _services = MainInstaller.Resolve<IGameServices>();
@@ -91,10 +89,9 @@ namespace FirstLight.Game.Presenters
          _buyButton.clicked += OnBuyClicked;
          _buyButton.visible = false;
 
-         _categoryCharacters = root.Q<CollectionCategoryElement>("CategoryCharacters").Required();
-         _categoryBanners = root.Q<CollectionCategoryElement>("CategoryBanners").Required();
-         _categoryGliders = root.Q<CollectionCategoryElement>("CategoryGliders").Required();
-
+         _categoriesRoot = root.Q<VisualElement>("CategoryHolder").Required();
+         _categoriesRoot.Clear();
+         SetupCategories();
          root.SetupClicks(_services);
       }
 
@@ -102,10 +99,6 @@ namespace FirstLight.Game.Presenters
       {
          base.OnOpened();
 
-         
-         SetupCategories();
-         
-         
          ViewOwnedItemsFromCategory(_selectedCategory);
          SelectEquipped(_selectedCategory);
          UpdateCollectionDetails(_selectedCategory);
@@ -123,22 +116,18 @@ namespace FirstLight.Game.Presenters
             _collectionObject = null;
          }
       }
-
-
+      
       private void SetupCategories()
       {
-         _collectionCategories = new CollectionCategoryElement[3];
-
-         _categoryCharacters.clicked += OnCategoryClicked;
-         _categoryGliders.clicked += OnCategoryClicked;
-         _categoryBanners.clicked += OnCategoryClicked;
-
-         _selectedCategory = GameIdGroup.PlayerSkin;
-         _categoryCharacters.SetSelected(true);
-
-         _collectionCategories[0] = _categoryCharacters;
-         _collectionCategories[1] = _categoryGliders;
-         _collectionCategories[2] = _categoryBanners;
+         var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
+         foreach (var category in categories)
+         {
+            var catElement = new CollectionCategoryElement();
+            catElement.clicked += OnCategoryClicked;
+            catElement.SetupCategoryButton(category);
+            _categoriesRoot.Add(catElement);
+         }
+         OnCategoryClicked(categories.First());
       }
 
       private void OnCategoryClicked(GameIdGroup group)
@@ -146,13 +135,14 @@ namespace FirstLight.Game.Presenters
          if (_selectedCategory == group) return;
 
          _selectedCategory = group;
-
-         foreach (var category in _collectionCategories)
+         
+         foreach (var category in _categoriesRoot.Children().Cast<CollectionCategoryElement>())
          {
             category.SetSelected(category.Category == group);
          }
 
-         if (group == GameIdGroup.PlayerSkin)
+         var hasItems = GetViewCollection().Any();
+         if (hasItems)
          {
             _comingSoonLabel.visible = false;
             _collectionList.visible = true;
@@ -168,11 +158,10 @@ namespace FirstLight.Game.Presenters
             _collectionList.visible = false;
          }
 
-         // TODO. When these categories show actual objects, they should no longer be hidden.
-         _renderTexture.visible = _selectedCategory == GameIdGroup.PlayerSkin;
-         _equipButton.visible = _selectedCategory == GameIdGroup.PlayerSkin;
-         _selectedItemLabel.visible = _selectedCategory == GameIdGroup.PlayerSkin;
-         _selectedItemDescription.visible = _selectedCategory == GameIdGroup.PlayerSkin;
+         _renderTexture.visible = hasItems;
+         _equipButton.visible = hasItems;
+         _selectedItemLabel.visible = hasItems;
+         _selectedItemDescription.visible = hasItems;
       }
 
       private void SelectEquipped(GameIdGroup category)
@@ -197,16 +186,11 @@ namespace FirstLight.Game.Presenters
       /// <summary>
       /// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
       /// </summary>
-      private async void ViewOwnedItemsFromCategory(GameIdGroup category)
+      private void ViewOwnedItemsFromCategory(GameIdGroup category)
       {
          var collection = GetViewCollection();
-         var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
          _selectedCategory = category;
-         _collectionList.itemsSource = new List<IList<CollectionItem>>();
-         foreach (var page in collection.ChunksOf(PAGE_SIZE))
-         {
-            _collectionList.itemsSource.Add(page);
-         }
+         _collectionList.itemsSource = collection.ChunksOf(PAGE_SIZE).ToList();
          _collectionList.RefreshItems();
       }
 
@@ -217,8 +201,6 @@ namespace FirstLight.Game.Presenters
 
       public List<CollectionItem> GetViewCollection()
       {
-         // to be able to view all collection
-         // return _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
          return _gameDataProvider.CollectionDataProvider.GetOwnedCollection(_selectedCategory);
       }
 
@@ -277,6 +259,7 @@ namespace FirstLight.Game.Presenters
 
       private VisualElement MakeCollectionListItem()
       {
+         // maybe move this USS to a .uss sheet ?
          var row = new VisualElement
          {
             style =
@@ -289,21 +272,18 @@ namespace FirstLight.Game.Presenters
                paddingRight = new Length(50, LengthUnit.Pixel)
             }
          };
-         var cards = new CollectionCardElement[3];
          for (var i = 0; i < PAGE_SIZE; i++)
          {
             var card = new CollectionCardElement {name = "item-"+(i+1)};
             card.clicked += OnCollectionItemSelected;
-            cards[i] = card;
             row.Add(card);
          }
-         row.userData = cards;
          return row;
       }
 
       private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
       {
-         var rowCards = visualElement.userData as CollectionCardElement[];
+         var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
          var rowItems = _collectionList.itemsSource[rowNumber] as IList<CollectionItem>;
          for (var x = 0; x < PAGE_SIZE; x++)
          {

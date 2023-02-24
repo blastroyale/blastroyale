@@ -280,7 +280,8 @@ namespace FirstLight.Game.Presenters
          }
          return row;
       }
-
+      
+      
       private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
       {
          var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
@@ -299,7 +300,7 @@ namespace FirstLight.Game.Presenters
             var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
             var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
             card.SetCollectionElement(selectedItem.Id, itemIndex, equipped != null && equipped.Equals(selectedItem));
-            card.SetSelected(card.MenuGameId == selectedItem.Id);
+            card.SetSelected(itemIndex == _selectedIndex);
          }
       }
       

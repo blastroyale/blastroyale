@@ -330,7 +330,7 @@
     top: -5px;
 }
 
-.game-mode-button__mode--trios {
+.game-mode-button__mode--multiple-line {
     top: 33px;
     margin-left: 10px;
     -unity-text-align: middle-left;

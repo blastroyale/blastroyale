@@ -270,45 +270,109 @@
     background-image: var(--sprite-home__button-gamemode);
     width: 414px;
     height: 168px;
-    padding-left: 59px;
-    padding-bottom: -33px;
+    padding-left: 45px;
+    padding-bottom: 0;
     margin-bottom: 15px;
+}
+
+.game-mode-button:active > .game-mode-button__label-holder {
+    left: 10px;
+    top: 10px;
 }
 
 .game-mode-button:active {
     background-image: var(--sprite-home__button-gamemode-pressed);
-    padding-left: 68px;
-    padding-top: 45px;
 }
 
-.game-mode-button__holder {
-    rotate: -5deg;
-    margin-right: 38px;
-    padding-bottom: 32px;
+
+
+
+.game-mode-button__overlay {
+    position: absolute;
+    left: 3px;
+    top: 17px;
+    right: auto;
+    bottom: auto;
+    width: 259px;
+    height: 134px;
+    background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
+    -unity-background-scale-mode: scale-to-fit;
+    opacity: 0.7;
+}
+
+.game-mode-button:active > .game-mode-button__overlay {
+    left: 13px;
+    top: 27px;
+}
+
+
+.game-mode-button__label-holder {
+    padding-bottom: 30px;
     align-items: flex-start;
     transform-origin: left top;
+    margin-right: 0;
+    -unity-text-outline-width: 0;
 }
 
 .game-mode-button__mode {
-    -unity-text-align: upper-right;
-    font-size: 46px;
-    padding-bottom: 0;
-    margin-bottom: -3px;
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    padding-bottom: -33px;
+    margin-bottom: 0;
+    font-size: 45px;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
     color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    overflow: visible;
+    -unity-text-align: middle-center;
+    align-items: center;
+    letter-spacing: -2px;
+    scale: 1 1;
+    top: -5px;
+}
+
+.game-mode-button__mode--trios {
+    top: 33px;
+    margin-left: 10px;
+    -unity-text-align: middle-left;
 }
 
 .game-mode-button__type {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    right: auto;
+    left: 172px;
+    margin-right: 0;
+    padding-right: 0;
     -unity-text-align: upper-right;
     font-size: 29px;
     margin-bottom: -3px;
-    margin-left: -8px;
+    margin-left: 0;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(146, 137, 162);
+    align-items: flex-end;
+    margin-top: 0;
+    padding-top: 0;
+    top: -8px;
+    bottom: 0;
 }
 
-.game-mode-button--trios {
-    font-size: 42px;
+
+.game-mode-button__type--ranked {
+    color: rgb(255, 174, 0);
+}
+
+.game-mode-button__icon {
+    background-image: var(--sprite-home__icon-gamemode-battleroyale-shadow);
+    margin-left: 10px;
+    margin-top: 0;
+    margin-right: 0;
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    bottom: 65px;
+    right: 48px;
 }
 
 .resource-pool {

@@ -1084,6 +1084,16 @@ namespace Quantum.Systems
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
 			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
+
+			var forcedBotTypes = new List<BotBehaviourType>();
+			foreach (var playerSpawner in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
+			{
+				if (playerSpawner.Component->SpawnerType == SpawnerType.BotOfType)
+				{
+					forcedBotTypes.Add(playerSpawner.Component->BehaviourType);
+				}
+			}
+			
 			var botConfigsList = GetBotConfigsList(f, botsDifficulty);
 
 			for (var i = 0; i < botsNameCount; i++)
@@ -1126,6 +1136,19 @@ namespace Quantum.Systems
 
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
+
+				// If there are spawns for specific types of bots, we use those
+				var forcedTypeConfigIndex = -1;
+				while (forcedBotTypes.Count > 0 && forcedTypeConfigIndex == -1)
+				{
+					forcedTypeConfigIndex = botConfigsList.FindIndex(config => config.BehaviourType == forcedBotTypes[0]);
+					forcedBotTypes.RemoveAt(0);
+				}
+				if (forcedTypeConfigIndex > -1)
+				{
+					botConfig = botConfigsList[forcedTypeConfigIndex];
+				}
+				
 				var withPlayer = false;
 				Transform3D spawnerTransform;
 				var rngSpawnIndex = 0;

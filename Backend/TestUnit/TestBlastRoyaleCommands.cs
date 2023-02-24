@@ -10,6 +10,7 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using PlayFab;
@@ -84,6 +85,7 @@ public class TestBlastRoyaleCommands
 	[Test]
 	public void TestEndOfGameCalculationsCommand()
 	{
+		var gm = _server.GetService<IConfigsProvider>().GetConfigsList<QuantumGameModeConfig>().First();
 		var playerRef = new PlayerRef()
 		{
 			_index = 1
@@ -92,6 +94,7 @@ public class TestBlastRoyaleCommands
 		{
 			new QuantumPlayerMatchData()
 			{
+				GameModeId = gm.Id,
 				PlayerRank = 1,
 				Data = new PlayerMatchData()
 				{

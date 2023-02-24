@@ -61,6 +61,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _equipmentNotification;
 
+		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 		private Label _gameTypeLabel;
 
@@ -109,6 +110,7 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
+			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 
@@ -166,7 +168,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			root.SetupClicks(_services);
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 
@@ -229,23 +231,23 @@ namespace FirstLight.Game.Presenters
 		private void OnPartyLoadingProgress(bool _, bool loading)
 		{
 			_partyButton.SetEnabled(!loading);
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 		private void OnHasPartyChanged(bool _, bool hasParty)
 		{
 			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 		private void OnPartyReadyChanged(bool _, bool isReady)
 		{
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 		private void OnMembersChanged(int i, PartyMember _, PartyMember member, ObservableUpdateType type)
 		{
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 		private void OnLocalPlayerKicked()
@@ -254,6 +256,7 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, "You got kicked from the party.", true,
 				new GenericDialogButton());
 		}
+
 
 		private async void OnPartyClicked()
 		{
@@ -295,6 +298,12 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void OnAnyPartyUpdate()
+		{
+			UpdatePlayButton();
+			UpdateGameModeButton();
+		}
+
 		private void OnTrophiesChanged(uint previous, uint current)
 		{
 			if (_dataProvider.RewardDataProvider.IsCollecting && current > previous)
@@ -314,12 +323,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
-			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
-			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
-			_csPoolContainer.style.display =
-				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
-
-			_gameModeLabel.EnableInClassList("game-mode-button--trios", _gameModeLabel.text == "BATTLEROYALETRIOS");
+			UpdateGameModeButton();
 		}
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
@@ -454,6 +458,26 @@ namespace FirstLight.Game.Presenters
 						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 					});
 			}
+		}
+
+
+		private void UpdateGameModeButton()
+		{
+			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
+			_gameModeLabel.text = current.GameModeId.ToUpper();
+			_gameTypeLabel.text = current.MatchType.ToString().ToUpper();
+			bool trios = _gameModeLabel.text == "BATTLEROYALETRIOS";
+			if (_gameModeLabel.text == "BATTLEROYALETRIOS")
+			{
+				_gameModeLabel.text = "BATTLE ROYALE\nTRIOS";
+			}
+
+			_csPoolContainer.SetDisplay(current.MatchType == MatchType.Ranked);
+
+			_gameModeLabel.EnableInClassList("game-mode-button__mode--trios", trios);
+			_gameTypeLabel.EnableInClassList("game-mode-button__type--ranked", current.MatchType == MatchType.Ranked);
+
+			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
 
 		private void UpdatePlayButton()

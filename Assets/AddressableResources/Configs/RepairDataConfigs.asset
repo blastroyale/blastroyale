@@ -16,7 +16,7 @@ MonoBehaviour:
   - ResourceType: 61
     BaseRepairCost: 300
     BasePower:
-      RawValue: 396493
+      RawValue: 395182
     DurabilityCostIncreasePerPoint:
       RawValue: 13107
   - ResourceType: 12

@@ -107,6 +107,13 @@ namespace Quantum
 
 #endregion
 
+#region Loot
+
+		[BoxGroup("Loot"), PropertyTooltip(DESC_ENABLE_BOX_RARITY_MODIFIERS)]
+		public bool EnableBoxRarityModifiers;
+
+#endregion
+
 #region Bots
 
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
@@ -200,6 +207,7 @@ namespace Quantum
 		private const string DESC_SPAWN_PATTERN = "Limits spawn selection to a path on the map.";
 		private const string DESC_DEATH_DROP_STRATEGY = "Which strategy of drop we use when the player dies.";
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
+		private const string DESC_ENABLE_BOX_RARITY_MODIFIERS = "If we change boxes rarities based on ChestTypeModifiers inside Chest config";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
 		private const string DESC_BOT_USE_ANOTHER_MODE_BOTS = "Use bot configs from another gamemode";
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";

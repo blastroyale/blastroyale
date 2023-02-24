@@ -1,0 +1,142 @@
+.edge-container {
+    flex-direction: row;
+    height: 218px;
+}
+
+.edge-container--bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.subcontainer {
+    width: 50%;
+    flex-direction: row;
+}
+
+.subcontainer--right {
+    width: 50%;
+    flex-direction: row-reverse;
+}
+
+.subcontainer__center {
+    position: absolute;
+    left: 39%;
+    top: 39%;
+    height: 218px;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.back_avatar {
+    background-image: var(--sprite-ftue__background-character);
+    position: absolute;
+    display: none;
+    width: 302px;
+    height: 285px;
+}
+
+.back_avatar--top {
+    top: 0;
+}
+
+.back_avatar--bottom {
+    bottom: 0;
+}
+
+.back_avatar--center {
+    top: 38%;
+    left: 33%;
+}
+
+.back_avatar--left {
+    left: 20px;
+}
+
+.back_avatar--right {
+    right: 20px;
+    scale: -1, 1;
+}
+
+.bubble {
+    background-image: var(--sprite-ftue__background-dialog);
+    position: absolute;
+    display: none;
+    width: 544px;
+    height: 244px;
+}
+
+.bubble--left {
+    left: 280px;
+}
+
+.bubble--right {
+    right: 280px;
+    scale: -1, 1;
+}
+
+.bubble--top {
+    top: 30px;
+}
+
+.bubble--bottom {
+    bottom: -4px;
+}
+
+.bubble--center {
+    top: 42%;
+    left: 46%;
+}
+
+.bubble__localized-text {
+    position: absolute;
+    left: 68px;
+    top: 63px;
+    right: 79px;
+    bottom: 98px;
+    font-size: 25px;
+    -unity-text-align: middle-center;
+    rotate: 5deg;
+    scale: 1, 1;
+}
+
+.bubble__localized-text__right {
+    scale: -1, 1;
+}
+
+.character {
+    width: 302px;
+    height: 285px;
+}
+
+.male_happy {
+    background-image: var(--sprite-ftue__character-male-happy);
+}
+
+.male_neutral {
+    background-image: var(--sprite-ftue__character-male-neutral);
+}
+
+.male_thinking {
+    background-image: var(--sprite-ftue__character-male-thinking);
+}
+
+.male_shocked {
+    background-image: var(--sprite-ftue__character-male-shocked);
+}
+
+.female_happy {
+    background-image: var(--sprite-ftue__character-female-happy);
+}
+
+.female_neutral {
+    background-image: var(--sprite-ftue__character-female-neutral);
+}
+
+.female_thinking {
+    background-image: var(--sprite-ftue__character-female-thinking);
+}
+
+.female_shocked {
+    background-image: var(--sprite-ftue__character-female-shocked);
+}

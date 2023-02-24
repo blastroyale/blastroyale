@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12729394, g: 0.1341429, b: 0.121147014, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -163,6 +163,9 @@ MonoBehaviour:
   ddlTimeoutSec: 0
   sessionTimeoutSec: 0
   shortlinkResolveTimeout: 0
+  SKANEnabled: 0
+  manualSKANConversionManagement: 0
+  waitForTrackingAuthorizationWithTimeoutInterval: 0
 --- !u!4 &226939879
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +192,6 @@ GameObject:
   - component: {fileID: 1737685255}
   - component: {fileID: 1737685249}
   - component: {fileID: 1737685250}
-  - component: {fileID: 1737685251}
   - component: {fileID: 1737685257}
   - component: {fileID: 1737685256}
   - component: {fileID: 1737685258}
@@ -309,14 +311,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &1737685251
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737685247}
-  m_Enabled: 1
 --- !u!224 &1737685255
 RectTransform:
   m_ObjectHideFlags: 0

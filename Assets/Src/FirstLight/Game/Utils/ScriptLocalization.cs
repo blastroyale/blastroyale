@@ -1124,6 +1124,7 @@ namespace I2.Loc
 			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
 			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
+			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
 		}
 
 		public static class UITDisconnected
@@ -2528,6 +2529,7 @@ namespace I2.Loc
 		    public const string characters = "UITCollectionScreen/characters";
 		    public const string collection = "UITCollectionScreen/collection";
 		    public const string gliders = "UITCollectionScreen/gliders";
+		    public const string comingsoon = "UITCollectionScreen/comingsoon";
 		}
 
 		public static class UITDisconnected

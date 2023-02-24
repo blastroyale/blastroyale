@@ -5,6 +5,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services.Party;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
@@ -76,6 +77,7 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
+		private readonly IPartyService _partyService;
 
 		private readonly IObservableList<GameModeInfo> _slots;
 
@@ -86,16 +88,19 @@ namespace FirstLight.Game.Services
 		public IEquipmentDataProvider EquipmentDataProvider { get; }
 
 		public GameModeService(IConfigsProvider configsProvider, IEquipmentDataProvider equipProvider,
-							   IThreadService threadService)
+							   IThreadService threadService, IPartyService partyService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
+			_partyService = partyService;
 			EquipmentDataProvider = equipProvider;
-			
+
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
 			SelectedGameMode.Observe((_, gm) => FLog.Info($"Selected GameMode set to: {gm}"));
+			_partyService.HasParty.Observe((_, _) => { OnPartyUpdate(); });
 		}
+
 
 		public void Init()
 		{
@@ -112,6 +117,29 @@ namespace FirstLight.Game.Services
 
 			RefreshGameModes(true);
 		}
+
+
+		public void OnPartyUpdate()
+		{
+			bool hasParty = _partyService.HasParty.Value;
+			if (hasParty && !SelectedGameMode.Value.Entry.Squads)
+			{
+				SelectedGameMode.Value = FindModeWithSquads(true);
+				return;
+			}
+
+			// If the player have NFT he can play squads alone so there is no need to change back
+			if (!hasParty && SelectedGameMode.Value.Entry.Squads && EquipmentDataProvider.NftInventory.Count == 0)
+			{
+				SelectedGameMode.Value = FindModeWithSquads(false);
+			}
+		}
+
+		private GameModeInfo FindModeWithSquads(bool squads)
+		{
+			return _slots.First(gm => gm.Entry.Squads == squads);
+		}
+
 
 		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
 		{

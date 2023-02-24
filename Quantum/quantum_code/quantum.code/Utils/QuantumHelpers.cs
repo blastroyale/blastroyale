@@ -288,11 +288,6 @@ namespace Quantum
 			}
 
 			var entity = spawners[0].Entity;
-
-			if (isBot && spawners[0].Component->ForceStatic)
-			{
-				botCharacter->BehaviourType = BotBehaviourType.Static;
-			}
 			
 			f.Unsafe.GetPointer<PlayerSpawner>(entity)->ActivationTime = f.Time + Constants.SPAWNER_INACTIVE_TIME;
 

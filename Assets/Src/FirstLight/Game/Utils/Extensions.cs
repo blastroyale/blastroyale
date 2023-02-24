@@ -591,12 +591,13 @@ namespace FirstLight.Game.Utils
 			foreach (T element in sequence)
 			{
 				chunk.Add(element);
-				if (chunk.Count > 0)
+				if (chunk.Count == size)
 				{
 					yield return chunk;
 					chunk = new List<T>(size);
 				}
 			}
+			yield return chunk;
 		}
 	}
 }

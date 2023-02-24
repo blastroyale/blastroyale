@@ -64,8 +64,8 @@ namespace FirstLight.Game.Utils
 			// TODO: Gabriel delete when we update the backend
 			var dropDays = FP._7;
 			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
-
-			if (!FeatureFlags.ITEM_DURABILITY)
+			
+			if ((isNft && !FeatureFlags.ITEM_DURABILITY_NFTS) || (!isNft && !FeatureFlags.ITEM_DURABILITY_NON_NFTS))
 			{
 				durabilityDropped = 0;
 			}

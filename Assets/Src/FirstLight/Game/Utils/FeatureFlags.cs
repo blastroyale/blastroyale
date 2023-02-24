@@ -59,9 +59,14 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
-		/// Enables / disables item durability checks
+		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
-		public static bool ITEM_DURABILITY = true;
+		public static bool ITEM_DURABILITY_NON_NFTS = true;
+		
+		/// <summary>
+		/// Enables / disables item durability checks for NFTs
+		/// </summary>
+		public static bool ITEM_DURABILITY_NFTS = false;
 
 		/// <summary>
 		/// If true all matches will be handled as ranked matches
@@ -105,9 +110,14 @@ namespace FirstLight.Game.Utils
 				FORCE_RANKED = forceRanked;
 			}
 			
-			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
+			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", titleData, out var itemDurabilityNonNFTs))
 			{
-				ITEM_DURABILITY = itemDurability;
+				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
+			}
+			
+			if (TrySetFlag("ITEM_DURABILITY_NFTS", titleData, out var itemDurabilityNFTs))
+			{
+				ITEM_DURABILITY_NFTS = itemDurabilityNFTs;
 			}
 			
 			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))

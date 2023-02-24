@@ -1124,6 +1124,7 @@ namespace I2.Loc
 			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
 			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
+			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
 		}
 
 		public static class UITDisconnected
@@ -1236,7 +1237,6 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
-			public static string blast_pass_claim_reward 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass_claim_reward"); } }
 			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/cancel"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/collection"); } }
 			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/create_party"); } }
@@ -2528,6 +2528,7 @@ namespace I2.Loc
 		    public const string characters = "UITCollectionScreen/characters";
 		    public const string collection = "UITCollectionScreen/collection";
 		    public const string gliders = "UITCollectionScreen/gliders";
+		    public const string comingsoon = "UITCollectionScreen/comingsoon";
 		}
 
 		public static class UITDisconnected
@@ -2640,7 +2641,6 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
-		    public const string blast_pass_claim_reward = "UITHomeScreen/blast_pass_claim_reward";
 		    public const string cancel = "UITHomeScreen/cancel";
 		    public const string collection = "UITHomeScreen/collection";
 		    public const string create_party = "UITHomeScreen/create_party";

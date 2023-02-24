@@ -328,7 +328,15 @@ namespace FirstLight.Game.Logic
 			var rewards = new List<ItemData>();
 			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c._section == section).RewardIds.Contains((uint)c.Id));
+
+			var sectionRewardList = tutorialRewardsCfg.Where(c => c._section == section);
+			if (sectionRewardList.Count() == 0)
+			{
+				return rewards;
+			}
+			var sectionRewards = sectionRewardList.First();
+			
+			var rewardsConfigs = rewardsCfg.Where(c => sectionRewards.RewardIds.Contains((uint)c.Id));
 			foreach (var rewardConfig in rewardsConfigs)
 			{
 				if (rewardConfig.IsEquipment())

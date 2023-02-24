@@ -63,7 +63,17 @@ stages:
 - stage: AutoBuilds
   displayName: Auto Builds
   jobs:
+    - job: EditorTests
+      displayName: Run Editor Test Suite
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/unity-tests.yml@templates
+        parameters:
+          testPlatform: EditMode
     - job: AndroidBuild
+      dependsOn: EditorTests
       displayName: Android Build
       steps:
       - checkout: self
@@ -81,6 +91,7 @@ stages:
           build_type: ${{ variables.build_type }}
           server_environment: ${{ variables.server_environment }}
     - job: iOSBuild
+      dependsOn: EditorTests
       displayName: iOS Build
       steps:
       - checkout: self

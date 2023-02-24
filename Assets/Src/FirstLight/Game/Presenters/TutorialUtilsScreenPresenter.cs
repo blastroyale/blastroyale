@@ -74,7 +74,7 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
-		public void BlockAround<T>(string elementName = null, string className = null)
+		public void BlockAround<T>(string className = null, string elementName = null)
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;

@@ -142,12 +142,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void OnPlayGameEnter()
 		{
-			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>(null, "play-button");
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
 
 			await Task.Delay(1000);
-
-			_tutorialUtilsUi.Highlight<HomeScreenPresenter>(null, "play-button");
+			
+			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
+			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
 		}
 	}
 }

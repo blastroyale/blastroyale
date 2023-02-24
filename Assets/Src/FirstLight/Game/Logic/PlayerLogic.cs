@@ -76,6 +76,7 @@ namespace FirstLight.Game.Logic
 		void MarkTutorialSectionCompleted(TutorialSection section);
 	}
 	
+	// TODO: Remove all player skin stuff related and move to CollectionLogic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{

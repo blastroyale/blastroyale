@@ -4,6 +4,7 @@
     transition-property: scale;
     transition-duration: 0.2s;
     overflow: visible;
+    flex-direction: row;
 }
 
 .collection-card__background {

@@ -44,6 +44,7 @@ namespace FirstLight.Game.UIElements
 		
 		public GameIdGroup Category { get; set; }
 		public GameId MenuGameId { get; private set; }
+		public int CollectionIndex { get; private set; }
 
 		private readonly VisualElement _image;
 		private readonly Label _name;
@@ -57,7 +58,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
-		public new event Action<GameId> clicked;
+		public new event Action<int> clicked;
 
 		public CollectionCardElement()
 		{
@@ -104,7 +105,7 @@ namespace FirstLight.Game.UIElements
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
-			base.clicked += () => clicked?.Invoke(MenuGameId);
+			base.clicked += () => clicked?.Invoke(CollectionIndex);
 
 		}
 		
@@ -123,7 +124,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, bool equipped = false, bool highlighted = false, bool isNft = false,
+		public void SetCollectionElement(GameId gameId, int index, bool equipped = false, bool highlighted = false, bool isNft = false,
 										 bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
@@ -138,6 +139,7 @@ namespace FirstLight.Game.UIElements
 			_nftBadge.SetDisplay(isNft);
 			
 			MenuGameId = gameId;
+			CollectionIndex = index;
 			
 			_name.text = gameId.GetLocalization();
 

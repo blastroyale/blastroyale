@@ -6,7 +6,7 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="font-style-h2" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="DO_NOT_USE_font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="UITDisconnected/disconnected" focusable="false" class="font-style-popup content__desc" />

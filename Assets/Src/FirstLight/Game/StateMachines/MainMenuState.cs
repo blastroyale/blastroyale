@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -148,6 +149,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
+			defaultNameCheck.Transition().Condition(HasNotCompletedEquipmentTutorial).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
 
 			homeMenu.OnEnter(OpenPlayMenuUI);
@@ -257,6 +259,11 @@ namespace FirstLight.Game.StateMachines
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed ==
 				GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
 				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
+		}
+		
+		private bool HasNotCompletedEquipmentTutorial()
+		{
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.BP_EQUIPMENT_GUIDE);
 		}
 
 		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)

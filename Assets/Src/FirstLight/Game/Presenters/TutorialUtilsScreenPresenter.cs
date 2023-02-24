@@ -21,8 +21,9 @@ namespace FirstLight.Game.Presenters
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
 
-		private const float circleDefaultSize = 32;
-		private const float squareDefaultSize = 512;
+		private const int HIGHLIGHT_ANIM_TIME = 500;
+		private const float CIRCLE_DEFAULT_SIZE = 32;
+		private const float SQUARE_DEFAULT_SIZE = 512;
 
 		private float _initialScale;
 		private float _highlightedScale;
@@ -185,19 +186,19 @@ namespace FirstLight.Game.Presenters
 			objSize *= sizeMultiplier;
 
 			float circleHighlightingSize = objSize;
-			_initialScale = Root.worldBound.width * 2 / circleDefaultSize;
-			_highlightedScale = circleHighlightingSize / circleDefaultSize;
+			_initialScale = Root.worldBound.width * 2 / CIRCLE_DEFAULT_SIZE;
+			_highlightedScale = circleHighlightingSize / CIRCLE_DEFAULT_SIZE;
 
 			_highlighterElement.style.top =
-				objElement.worldBound.y - squareDefaultSize / 2 + objElement.resolvedStyle.height / 2;
+				objElement.worldBound.y - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.height / 2;
 
 			_highlighterElement.style.left =
-				objElement.worldBound.x - squareDefaultSize / 2 + objElement.resolvedStyle.width / 2;
+				objElement.worldBound.x - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.width / 2;
 			_highlighterElement.style.scale = new Scale(new Vector3(_initialScale, _initialScale, 1));
 
 			_highlighterElement.SetDisplay(true);
 
-			//_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
+			_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
 		}
 	}
 }

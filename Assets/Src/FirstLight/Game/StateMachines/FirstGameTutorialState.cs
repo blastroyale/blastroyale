@@ -141,10 +141,10 @@ namespace FirstLight.Game.StateMachines
 
 			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
-			waitMatchFinish.Event(MatchState.MatchEndedEvent).Target(final);
+			waitMatchFinish.Event(MatchState.MatchUnloadedEvent).Target(final);
 			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-
-			final.OnEnter(CloseTutorialUi);
+			waitMatchFinish.OnExit(CloseTutorialUi);
+			
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}

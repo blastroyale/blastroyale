@@ -146,28 +146,10 @@ namespace FirstLight.Game.UIElements
 			
 			_name.text = gameId.GetLocalization();
 
-			LoadImage();
+			_image.RemoveSpriteClasses();
+			_image.AddToClassList(string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
 		}
 		
-		private async void LoadImage()
-		{
-			Debug.Log("Load Image");
-			
-			// TODO: This should be handled better.
-			// var services = MainInstaller.Resolve<IGameServices>();
-			// var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
-
-			string name = string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant());
-			Debug.Log("Name " + name);
-			_image.RemoveSpriteClasses();
-			_image.AddToClassList(name);
-			// _material.AddToClassList(UssMaterial);
-			
-			// _image.AddToClassList($"--sprite-home__Male01Avatar");
-			// _image.AddToClassList(UssImage);
-			// _image.AddToClassList(spriteName);
-			// _image.AddToClassList(string.Format(UssSpriteMaterial, "bronze"));
-		}
 
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
 		{

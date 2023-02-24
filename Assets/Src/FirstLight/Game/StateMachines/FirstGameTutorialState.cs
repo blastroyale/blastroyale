@@ -72,8 +72,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
-			var unloadTutorialUi = stateFactory.TaskWait("Unload tutorial UI");
 			var createTutorialRoom = stateFactory.State("Create tutorial room");
 			var waitSimulationStart = stateFactory.State("Waiting for match start");
 			var startedSimulation = stateFactory.State("Playing tutorial match");
@@ -88,13 +86,11 @@ namespace FirstLight.Game.StateMachines
 			var killFinalBot = stateFactory.State("Kill final bot");
 			var waitMatchFinish = stateFactory.State("Wait simulation finish");
 
-			initial.Transition().Target(loadTutorialUi);
+			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
-
-			loadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("LoadTutorialUi"); });
-			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(createTutorialRoom);
-
+			initial.OnExit(GetTutorialScreenRefs);
+			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
@@ -146,29 +142,21 @@ namespace FirstLight.Game.StateMachines
 			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
 			waitMatchFinish.Event(MatchState.MatchEndedEvent).Target(final);
-			
-			unloadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("UnloadTutorialUi"); });
-			unloadTutorialUi.WaitingFor(CloseTutorialScreens).Target(final);
-			unloadTutorialUi.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-			
+			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+
+			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
-		private async Task OpenTutorialScreens()
+		private void GetTutorialScreenRefs()
 		{
-			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
 			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
 		}
 		
-		private async Task CloseTutorialScreens()
+		private void CloseTutorialUi()
 		{
 			_dialogUi.HideDialog(CharacterType.Female);
-			
-			// Wait for any anims to finish from before before closing the UI
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
-			
-			await _services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
 		}
 
 		private void SubscribeMessages()

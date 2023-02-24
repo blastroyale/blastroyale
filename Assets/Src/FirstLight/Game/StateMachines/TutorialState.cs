@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
@@ -40,13 +41,16 @@ namespace FirstLight.Game.StateMachines
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
+			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
 			var idle = stateFactory.State("TUTORIAL - Idle");
 			var firstGameTutorial = stateFactory.Nest("TUTORIAL - First Game Tutorial");
 			var equipmentBpTutorial = stateFactory.Nest("TUTORIAL - Equipment BP Tutorial");
 			
-			initial.Transition().Target(idle);
+			initial.Transition().Target(loadTutorialUi);
 			initial.OnExit(SubscribeMessages);
 
+			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(idle);
+			
 			idle.OnEnter(() => SetCurrentSection(TutorialSection.NONE));
 			idle.Event(_startFirstGameTutorialEvent).Target(firstGameTutorial);
 			idle.Event(_startEquipmentBpTutorialEvent).Target(equipmentBpTutorial);
@@ -58,6 +62,12 @@ namespace FirstLight.Game.StateMachines
 			equipmentBpTutorial.OnEnter(() => SetCurrentSection(TutorialSection.BP_EQUIPMENT_GUIDE));
 			equipmentBpTutorial.Nest(_equipmentBpTutorialState.Setup).Target(idle);
 			equipmentBpTutorial.OnExit(() => SendSectionCompleted(TutorialSection.BP_EQUIPMENT_GUIDE));
+		}
+
+		private async Task OpenTutorialScreens()
+		{
+			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
+			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
 		}
 
 		private void SetCurrentSection(TutorialSection section)

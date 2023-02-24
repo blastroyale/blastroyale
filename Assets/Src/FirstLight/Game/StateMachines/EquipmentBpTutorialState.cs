@@ -62,17 +62,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
-			var unloadTutorialUi = stateFactory.TaskWait("Unload tutorial UI");
 			var enterName = stateFactory.State("Enter name");
 			var playGame = stateFactory.State("Play game");
 
-			initial.Transition().Target(loadTutorialUi);
+			initial.Transition().Target(enterName);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
-			
-			loadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("LoadTutorialUi"); });
-			loadTutorialUi.WaitingFor(OpenTutorialScreens).Target(enterName);
+			initial.OnExit(GetTutorialScreenRefs);
 			
 			// TEMPORARY FLOW - REAL FLOW WILL HAVE BP REWARDS, AND THEN EQUIPPING EQUIPMENT BEFORE MATCH
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
@@ -81,36 +77,25 @@ namespace FirstLight.Game.StateMachines
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
-			playGame.Event(MainMenuState.PlayClickedEvent).Target(unloadTutorialUi);
+			playGame.Event(MainMenuState.PlayClickedEvent).Target(final);
 			playGame.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-			
-			unloadTutorialUi.OnEnter(() => { SendAnalyticsIncrementStep("UnloadTutorialUi"); });
-			unloadTutorialUi.WaitingFor(CloseTutorialScreens).Target(final);
-			unloadTutorialUi.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-			
+
+			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
-		private async Task OpenTutorialScreens()
+		private void GetTutorialScreenRefs()
 		{
-			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
-			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
-			
 			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
 			_tutorialUtilsUi = _services.GameUiService.GetUi<TutorialUtilsScreenPresenter>();
 		}
 		
-		private async Task CloseTutorialScreens()
+		private void CloseTutorialUi()
 		{
 			_dialogUi.HideDialog(CharacterType.Female);
 			_tutorialUtilsUi.RemoveHighlight();
 			_tutorialUtilsUi.Unblock();
-			
-			// Wait for any anims to finish from before before closing the UI
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
-			await _services.GameUiService.CloseUi<TutorialUtilsScreenPresenter>(true);
-			await _services.GameUiService.CloseUi<CharacterDialogScreenPresenter>(true);
 		}
 
 		private void SubscribeMessages()

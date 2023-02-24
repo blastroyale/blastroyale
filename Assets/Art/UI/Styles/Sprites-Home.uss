@@ -72,6 +72,26 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__character-assasins-female: url('/Assets/Art/UI/Sprites/Home/character-assasins-female.png');
+    --sprite-home__character-assasins-male: url('/Assets/Art/UI/Sprites/Home/character-assasins-male.png');
+    --sprite-home__character-corpo-female: url('/Assets/Art/UI/Sprites/Home/character-corpo-female.png');
+    --sprite-home__character-corpo-male: url('/Assets/Art/UI/Sprites/Home/character-corpo-male.png');
+    --sprite-home__character-female01avatar: url('/Assets/Art/UI/Sprites/Home/character-female01avatar.png');
+    --sprite-home__character-female02avatar: url('/Assets/Art/UI/Sprites/Home/character-female02avatar.png');
+    --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
+    --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
+    --sprite-home__character-male-superstar: url('/Assets/Art/UI/Sprites/Home/character-male-superstar.png');
+    --sprite-home__character-punk-female: url('/Assets/Art/UI/Sprites/Home/character-punk-female.png');
+    --sprite-home__character-punk-male: url('/Assets/Art/UI/Sprites/Home/character-punk-male.png');
+    --sprite-home__character-superstar-female: url('/Assets/Art/UI/Sprites/Home/character-superstar-female.png');
+    --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
+    --sprite-home__flag-punk: url('/Assets/Art/UI/Sprites/Home/flag-punk.png');
+    --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
+    --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
+    --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
+    --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
+    --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
+    --sprite-home__glider-shark: url('/Assets/Art/UI/Sprites/Home/glider-shark.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-background: url('/Assets/Art/UI/Sprites/Home/header-background.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
@@ -450,6 +470,86 @@
 
 .sprite-home__card-shadow-pink {
     background-image: var(--sprite-home__card-shadow-pink);
+}
+
+.sprite-home__character-assasins-female {
+    background-image: var(--sprite-home__character-assasins-female);
+}
+
+.sprite-home__character-assasins-male {
+    background-image: var(--sprite-home__character-assasins-male);
+}
+
+.sprite-home__character-corpo-female {
+    background-image: var(--sprite-home__character-corpo-female);
+}
+
+.sprite-home__character-corpo-male {
+    background-image: var(--sprite-home__character-corpo-male);
+}
+
+.sprite-home__character-female01avatar {
+    background-image: var(--sprite-home__character-female01avatar);
+}
+
+.sprite-home__character-female02avatar {
+    background-image: var(--sprite-home__character-female02avatar);
+}
+
+.sprite-home__character-male01avatar {
+    background-image: var(--sprite-home__character-male01avatar);
+}
+
+.sprite-home__character-male02avatar {
+    background-image: var(--sprite-home__character-male02avatar);
+}
+
+.sprite-home__character-male-superstar {
+    background-image: var(--sprite-home__character-male-superstar);
+}
+
+.sprite-home__character-punk-female {
+    background-image: var(--sprite-home__character-punk-female);
+}
+
+.sprite-home__character-punk-male {
+    background-image: var(--sprite-home__character-punk-male);
+}
+
+.sprite-home__character-superstar-female {
+    background-image: var(--sprite-home__character-superstar-female);
+}
+
+.sprite-home__flag-demon {
+    background-image: var(--sprite-home__flag-demon);
+}
+
+.sprite-home__flag-punk {
+    background-image: var(--sprite-home__flag-punk);
+}
+
+.sprite-home__flag-superstar {
+    background-image: var(--sprite-home__flag-superstar);
+}
+
+.sprite-home__flag-unicorn {
+    background-image: var(--sprite-home__flag-unicorn);
+}
+
+.sprite-home__glider-divinci {
+    background-image: var(--sprite-home__glider-divinci);
+}
+
+.sprite-home__glider-falcon {
+    background-image: var(--sprite-home__glider-falcon);
+}
+
+.sprite-home__glider-rocket {
+    background-image: var(--sprite-home__glider-rocket);
+}
+
+.sprite-home__glider-shark {
+    background-image: var(--sprite-home__glider-shark);
 }
 
 .sprite-home__header-back {

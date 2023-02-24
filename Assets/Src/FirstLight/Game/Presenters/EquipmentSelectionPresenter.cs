@@ -374,8 +374,6 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement MakeEquipmentListItem()
 		{
-			Debug.Log("Make Equipment Element");
-			
 			var row = new VisualElement
 			{
 				style =

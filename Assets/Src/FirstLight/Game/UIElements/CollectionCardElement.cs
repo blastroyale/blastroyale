@@ -55,6 +55,8 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
 		
+		private const string UssSpriteCharacter = "sprite-home__character-{0}";
+		
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
@@ -79,9 +81,10 @@ namespace FirstLight.Game.UIElements
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
-
+			
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
+			_image.AddToClassList("sprite-home__Male01Avatar");
 
 			var badgeHolder = new VisualElement {name = "badge-holder"};
 			cardHolder.Add(badgeHolder);
@@ -148,11 +151,22 @@ namespace FirstLight.Game.UIElements
 		
 		private async void LoadImage()
 		{
+			Debug.Log("Load Image");
+			
 			// TODO: This should be handled better.
-			var services = MainInstaller.Resolve<IGameServices>();
+			// var services = MainInstaller.Resolve<IGameServices>();
+			// var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
 
-			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(MenuGameId, instantiate: false);
-			_image.style.backgroundImage = new StyleBackground(sprite);
+			string name = string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant());
+			Debug.Log("Name " + name);
+			_image.RemoveSpriteClasses();
+			_image.AddToClassList(name);
+			// _material.AddToClassList(UssMaterial);
+			
+			// _image.AddToClassList($"--sprite-home__Male01Avatar");
+			// _image.AddToClassList(UssImage);
+			// _image.AddToClassList(spriteName);
+			// _image.AddToClassList(string.Format(UssSpriteMaterial, "bronze"));
 		}
 
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>

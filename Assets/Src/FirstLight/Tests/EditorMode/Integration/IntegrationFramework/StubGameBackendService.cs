@@ -39,6 +39,11 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
+		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
+		{
+			
+		}
+
 		public void SetupBackendEnvironment()
 		{
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
@@ -157,6 +158,8 @@ namespace FirstLight.Game.Services.Party
 		private IPlayfabPubSubService _pubsub;
 		private IPlayerDataProvider _playerDataProvider;
 		private IAppDataProvider _appDataProvider;
+		private IGameBackendService _backendService;
+		private IGenericDialogService _genericDialogService;
 
 		// State
 		private string _lobbyId;
@@ -174,11 +177,13 @@ namespace FirstLight.Game.Services.Party
 		private IObservableField<string> PartyID { get; }
 
 
-		public PartyService(IPlayfabPubSubService pubsub, IPlayerDataProvider playerDataProvider, IAppDataProvider appDataProvider)
+		public PartyService(IPlayfabPubSubService pubsub, IPlayerDataProvider playerDataProvider, IAppDataProvider appDataProvider, IGameBackendService backendService, IGenericDialogService genericDialogService)
 		{
 			_playerDataProvider = playerDataProvider;
 			_appDataProvider = appDataProvider;
 			_pubsub = pubsub;
+			_backendService = backendService;
+			_genericDialogService = genericDialogService;
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
@@ -256,6 +261,12 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				var normalizedCode = NormalizeCode(code);
+
+				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => !JoinCodeAllowedCharacters.Contains(c)))
+				{
+					throw new PartyException(PartyErrors.PartyNotFound);
+				}
+
 				var filter = $"{CodeSearchProperty} eq '{normalizedCode}'";
 				var req = new FindLobbiesRequest()
 				{
@@ -343,7 +354,7 @@ namespace FirstLight.Game.Services.Party
 				throw new PartyException(PartyErrors.NoPermission);
 			}
 
-			Debug.Log($"setting property {key} to " + _lobbyId);
+			FLog.Verbose($"setting property {key} to " + _lobbyId);
 			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
@@ -366,7 +377,7 @@ namespace FirstLight.Game.Services.Party
 				throw new PartyException(PartyErrors.NoPermission);
 			}
 
-			Debug.Log($"setting property {key} to " + _lobbyId);
+			FLog.Verbose($"removing property {key} from " + _lobbyId);
 			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
@@ -542,10 +553,7 @@ namespace FirstLight.Game.Services.Party
 			}
 			catch (Exception ex)
 			{
-				// This function is triggered by websocket messages, there is no way to handle the errors
-				Debug.LogException(ex);
-				// Let's rethrow this exception if anyone is waiting
-				throw;
+				HandleException(ex);
 			}
 		}
 

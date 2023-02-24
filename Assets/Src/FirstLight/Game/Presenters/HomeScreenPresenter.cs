@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Home Screen.
 	/// </summary>
 	[LoadSynchronously]
-	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
+	public partial class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
 		private const float CURRENCY_ANIM_DELAY = 2f;
 
@@ -61,6 +61,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _equipmentNotification;
 
+		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
 		private Label _gameTypeLabel;
 
@@ -86,10 +87,7 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockTimeLabel;
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
-
-		private LocalizedButton _partyButton;
-		private VisualElement _partyContainer;
-		private HomePartyView _partyView;
+		
 		private Coroutine _updatePoolsCoroutine;
 
 		private void Awake()
@@ -109,6 +107,7 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
+			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 
@@ -133,8 +132,8 @@ namespace FirstLight.Game.Presenters
 			_battlePassProgressBg = root.Q<VisualElement>("BattlePassProgressBg").Required();
 			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 
-			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
-
+			QueryElementsSquads(root);
+			
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
@@ -149,9 +148,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
-
-			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
-			_partyButton.clicked += OnPartyClicked;
+			
 
 
 			var storeButton = root.Q<Button>("StoreButton");
@@ -166,7 +163,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			root.SetupClicks(_services);
-			UpdatePlayButton();
+			OnAnyPartyUpdate();
 		}
 
 
@@ -186,11 +183,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);
-			_partyService.PartyReady.InvokeObserve(OnPartyReadyChanged);
-			_partyService.Members.Observe(OnMembersChanged);
-			_partyService.OperationInProgress.InvokeObserve(OnPartyLoadingProgress);
-			_partyService.OnLocalPlayerKicked += OnLocalPlayerKicked;
+			SubscribeToSquadEvents();
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 		}
 
@@ -206,13 +199,9 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
 			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
-			_partyService.HasParty.StopObserving(OnHasPartyChanged);
-			_partyService.PartyReady.StopObserving(OnPartyReadyChanged);
-			_partyService.Members.StopObserving(OnMembersChanged);
-			_partyService.OperationInProgress.StopObserving(OnPartyLoadingProgress);
-			_partyService.OnLocalPlayerKicked -= OnLocalPlayerKicked;
 			_services.MessageBrokerService.UnsubscribeAll(this);
-
+			UnsubscribeFromSquadEvents();
+			
 			if (_updatePoolsCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
@@ -226,74 +215,6 @@ namespace FirstLight.Game.Presenters
 			Data.OnPlayButtonClicked();
 		}
 
-		private void OnPartyLoadingProgress(bool _, bool loading)
-		{
-			_partyButton.SetEnabled(!loading);
-			UpdatePlayButton();
-		}
-
-		private void OnHasPartyChanged(bool _, bool hasParty)
-		{
-			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
-			UpdatePlayButton();
-		}
-
-		private void OnPartyReadyChanged(bool _, bool isReady)
-		{
-			UpdatePlayButton();
-		}
-
-		private void OnMembersChanged(int i, PartyMember _, PartyMember member, ObservableUpdateType type)
-		{
-			UpdatePlayButton();
-		}
-
-		private void OnLocalPlayerKicked()
-		{
-			// TODO translation!
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, "You got kicked from the party.", true,
-				new GenericDialogButton());
-		}
-
-		private async void OnPartyClicked()
-		{
-			if (_services.PartyService.HasParty.Value)
-			{
-				await _services.PartyService.LeaveParty();
-			}
-			else
-			{
-				var data = new PartyDialogPresenter.StateData
-				{
-					JoinParty = OnJoinParty,
-					CreateParty = OnCreateParty
-				};
-				await _uiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
-			}
-		}
-
-		private async void OnCreateParty()
-		{
-			FLog.Info("Creating party.");
-
-			await _services.PartyService.CreateParty();
-		}
-
-		private async void OnJoinParty(string partyId)
-		{
-			FLog.Info($"Joining party: {partyId}");
-
-			try
-			{
-				await _services.PartyService.JoinParty(partyId);
-			}
-			catch (PartyException pe)
-			{
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Message, true,
-					new GenericDialogButton());
-				FLog.Warn("Error joining party.", pe);
-			}
-		}
 
 		private void OnTrophiesChanged(uint previous, uint current)
 		{
@@ -314,12 +235,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
-			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
-			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
-			_csPoolContainer.style.display =
-				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
-
-			_gameModeLabel.EnableInClassList("game-mode-button--trios", _gameModeLabel.text == "BATTLEROYALETRIOS");
+			UpdateGameModeButton();
 		}
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
@@ -456,6 +372,21 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+
+		private void UpdateGameModeButton()
+		{
+			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
+			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
+			_gameTypeLabel.text = current.MatchType.ToString().ToUpper();
+
+			_csPoolContainer.SetDisplay(current.MatchType == MatchType.Ranked);
+
+			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line", _gameModeLabel.text.Contains("\\n"));
+			_gameTypeLabel.EnableInClassList("game-mode-button__type--ranked", current.MatchType == MatchType.Ranked);
+
+			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
+		}
+
 		private void UpdatePlayButton()
 		{
 			var translationKey = ScriptTerms.UITHomeScreen.play;
@@ -464,8 +395,7 @@ namespace FirstLight.Game.Presenters
 			if (_services.PartyService.OperationInProgress.Value)
 			{
 				buttonEnabled = false;
-				// TODO PROPER TRANSLATION, Waiting for the final UI hi miha 
-				translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
+				translationKey = ScriptTerms.UITShared.waiting;
 			}
 			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
 			{

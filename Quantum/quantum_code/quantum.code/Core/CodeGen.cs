@@ -4625,23 +4625,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerSpawner : Quantum.IComponent {
-    public const Int32 SIZE = 24;
+    public const Int32 SIZE = 16;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     [HideInInspector()]
     public FP ActivationTime;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
     [FieldOffset(4)]
-    public QBoolean ForceStatic;
-    [FieldOffset(8)]
     public SpawnerType SpawnerType;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 593;
         hash = hash * 31 + ActivationTime.GetHashCode();
         hash = hash * 31 + (Int32)BehaviourType;
-        hash = hash * 31 + ForceStatic.GetHashCode();
         hash = hash * 31 + (Int32)SpawnerType;
         return hash;
       }
@@ -4649,7 +4646,6 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerSpawner*)ptr;
         serializer.Stream.Serialize((Int32*)&p->BehaviourType);
-        QBoolean.Serialize(&p->ForceStatic, serializer);
         serializer.Stream.Serialize((Int32*)&p->SpawnerType);
         FP.Serialize(&p->ActivationTime, serializer);
     }
@@ -10972,7 +10968,6 @@ namespace Quantum.Prototypes {
     public FP ActivationTime;
     public SpawnerType_Prototype SpawnerType;
     public BotBehaviourType_Prototype BehaviourType;
-    public QBoolean ForceStatic;
     partial void MaterializeUser(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerSpawner component = default;
@@ -10982,7 +10977,6 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context) {
       result.ActivationTime = this.ActivationTime;
       result.BehaviourType = this.BehaviourType;
-      result.ForceStatic = this.ForceStatic;
       result.SpawnerType = this.SpawnerType;
       MaterializeUser(frame, ref result, in context);
     }

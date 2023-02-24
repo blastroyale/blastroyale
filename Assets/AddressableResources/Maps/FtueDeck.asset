@@ -2122,7 +2122,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2201,7 +2201,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2280,7 +2280,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []

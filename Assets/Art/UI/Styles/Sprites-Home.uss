@@ -41,6 +41,7 @@
     --sprite-home__button-equipmentslot-uncommon: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-uncommon.png');
     --sprite-home__button-equipmentslot-uncommon-pressed: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-uncommon-pressed.png');
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites/Home/button-gamemode.png');
+    --sprite-home__button-gamemode-overlay-battleroyale: url('/Assets/Art/UI/Sprites/Home/button-gamemode-overlay-battleroyale.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites/Home/button-gamemode-pressed.png');
     --sprite-home__button-gamemodeselection: url('/Assets/Art/UI/Sprites/Home/button-gamemodeselection.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
@@ -97,6 +98,7 @@
     --sprite-home__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-shield.png');
     --sprite-home__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-weapon.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
+    --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
     --sprite-home__icon-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-custom.png');
     --sprite-home__icon-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-deathmatch.png');
     --sprite-home__icon-heroes: url('/Assets/Art/UI/Sprites/Home/icon-heroes.png');
@@ -312,6 +314,10 @@
 
 .sprite-home__button-gamemode {
     background-image: var(--sprite-home__button-gamemode);
+}
+
+.sprite-home__button-gamemode-overlay-battleroyale {
+    background-image: var(--sprite-home__button-gamemode-overlay-battleroyale);
 }
 
 .sprite-home__button-gamemode:active {
@@ -536,6 +542,10 @@
 
 .sprite-home__icon-gamemode-battleroyale {
     background-image: var(--sprite-home__icon-gamemode-battleroyale);
+}
+
+.sprite-home__icon-gamemode-battleroyale-shadow {
+    background-image: var(--sprite-home__icon-gamemode-battleroyale-shadow);
 }
 
 .sprite-home__icon-gamemode-custom {

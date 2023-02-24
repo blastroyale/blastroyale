@@ -3987,7 +3987,7 @@ MonoBehaviour:
         RawValue: 16384
       DamageTakenMultiplier:
         RawValue: 21627
-    - BehaviourType: 0
+    - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
       DecisionInterval:

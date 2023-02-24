@@ -22,7 +22,6 @@ component PlayerSpawner
 	[HideInInspector] FP ActivationTime;
 	SpawnerType SpawnerType;
 	BotBehaviourType BehaviourType;
-	bool ForceStatic;
 }
 
 component AirDropSpawner

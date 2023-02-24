@@ -78,7 +78,9 @@ namespace FirstLight.Game.Presenters
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;
-			doc.rootVisualElement.Q(elementName, className);
+			var element = doc.rootVisualElement.Q(elementName, className);
+			
+			CreateBlockers(element);
 		}
 
 		/// <summary>
@@ -105,19 +107,9 @@ namespace FirstLight.Game.Presenters
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;
-			VisualElement targetElement = null;
-
-			if (className != null)
-			{
-				targetElement = doc.rootVisualElement.Q(className: className).Required();
-			}
-
-			if (elementName != null)
-			{
-				targetElement = doc.rootVisualElement.Q<VisualElement>(elementName).Required();
-			}
-
-			CreateHighlight(targetElement, sizeMultiplier);
+			var element = doc.rootVisualElement.Q(elementName, className);
+			
+			CreateHighlight(element, sizeMultiplier);
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
     --sprite-home__background-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale.png');
     --sprite-home__background-gamemode-battleroyale-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale-top.png');
@@ -179,6 +180,11 @@
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
+    --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
+}
+
+.sprite-home__background-bpchestreward {
+    background-image: var(--sprite-home__background-bpchestreward);
 }
 
 .sprite-home__background-bpreward-outline {
@@ -895,5 +901,9 @@
 
 .sprite-home__vfx-glitch-triangle2 {
     background-image: var(--sprite-home__vfx-glitch-triangle2);
+}
+
+.sprite-home__vfx-lightrays-reward {
+    background-image: var(--sprite-home__vfx-lightrays-reward);
 }
 

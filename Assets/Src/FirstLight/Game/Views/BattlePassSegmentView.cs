@@ -92,11 +92,7 @@ namespace FirstLight.Game.Views
 			_levelNumber.text = levelForUi.ToString();
 
 			_rarityImage.RemoveSpriteClasses();
-			var rarityStyle = GetRarityStyle(_data.RewardConfig.GameId);
-			if (!_rarityImage.ClassListContains(rarityStyle))
-			{
-				_rarityImage.AddToClassList(rarityStyle);
-			}
+			_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
@@ -126,19 +122,6 @@ namespace FirstLight.Game.Views
 		private void SetProgressFill(float percent)
 		{
 			_progressBarFill.style.flexGrow = percent;
-		}
-
-		private string GetRarityStyle(GameId id)
-		{
-			return id switch
-			{
-				GameId.CoreCommon    => UssSpriteRarityCommon,
-				GameId.CoreUncommon  => UssSpriteRarityUncommon,
-				GameId.CoreRare      => UssSpriteRarityRare,
-				GameId.CoreEpic      => UssSpriteRarityEpic,
-				GameId.CoreLegendary => UssSpriteRarityLegendary,
-				_                    => UssSpriteRarityRainbow
-			};
 		}
 
 		private string GetRewardName(GameId id)

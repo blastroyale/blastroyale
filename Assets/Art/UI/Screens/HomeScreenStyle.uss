@@ -26,6 +26,7 @@
 
 .currency-display {
     margin-right: 50px;
+    -unity-text-align: upper-left;
 }
 
 .player-header {
@@ -103,6 +104,7 @@
 
 .battle-pass-button:active {
     background-image: var(--sprite-home__button-battlepass-pressed);
+    -unity-background-image-tint-color: rgb(164, 162, 166);
 }
 
 .battle-pass-button--claimreward {
@@ -130,9 +132,9 @@
 
 .battle-pass-button_bp-title-holder {
     position: absolute;
-    left: 51px;
+    left: 58px;
     right: 0;
-    top: 27px;
+    top: 28px;
     height: 65px;
     flex-direction: row;
 }
@@ -151,14 +153,16 @@
 }
 
 .battle-pass-button__title {
-    text-shadow: -5px 5px 0 rgb(10, 10, 10);
+    text-shadow: -4px 4px 0 rgb(49, 7, 108);
     font-size: 60px;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(10, 10, 10);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(48, 6, 106);
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     margin: 0;
     padding: 0;
+    -unity-font-style: bold;
+    letter-spacing: -1px;
 }
 
 .battle-pass-button_reward-title-holder .battle-pass-button__title {
@@ -192,9 +196,9 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     position: absolute;
-    bottom: 27px;
-    left: 191px;
-    -unity-text-outline-width: 1px;
+    bottom: 26px;
+    left: 194px;
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: -2px 2px 0 rgb(0, 0, 0);
 }
@@ -211,7 +215,7 @@
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
     bottom: 41px;
-    left: 80px;
+    left: 100px;
     width: 293px;
     padding-left: 2px;
     padding-right: 2px;
@@ -236,7 +240,7 @@
     width: 60px;
     height: 64px;
     position: absolute;
-    left: 39px;
+    left: 50px;
     bottom: 24px;
     scale: -0.9 0.9;
 }
@@ -294,9 +298,9 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(141, 27, 0);
+    -unity-text-outline-color: rgb(166, 16, 1);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(107, 4, 2);
+    text-shadow: 5px 5px 0 rgb(166, 16, 1);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
     background-color: rgba(0, 0, 0, 0);
@@ -538,7 +542,7 @@
 
 .resource-pool--bpp .resource-pool__holder {
     flex-direction: row;
-    rotate: 3deg;
+    rotate: 2deg;
 }
 
 .resource-pool--cs .resource-pool__holder {

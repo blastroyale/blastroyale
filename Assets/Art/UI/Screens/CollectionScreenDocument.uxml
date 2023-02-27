@@ -5,7 +5,7 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITCollectionScreen/collection" subtitle-back="true" name="Header" class="screen-header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement">
-            <ui:VisualElement name="CategoryHolder" />
+            <ui:VisualElement name="CategoryHolder" style="position: absolute; width: 600px; height: 600px; left: -150px; top: 200px; bottom: 0; right: 0;" />
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />

@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using JetBrains.Annotations;
@@ -18,7 +21,9 @@ namespace FirstLight.Game.Services.Party
 		private PartySubscriptionState _pubSubState = PartySubscriptionState.NotConnected;
 		private string _lobbyTopic;
 		private string _subscribedLobbyId;
+		private uint _lobbyChangeNumber = 0;
 		private SemaphoreSlim _pubSubSemaphore = new(1, 1);
+		private int listenForLobbyUpdateFails = 0;
 
 		private async Task ListenForLobbyUpdates(string lobbyId)
 		{
@@ -53,6 +58,9 @@ namespace FirstLight.Game.Services.Party
 				try
 				{
 					var result = await AsyncPlayfabMultiplayerAPI.SubscribeToLobbyResource(subscribeReq);
+					// This whole process of creating an websocket subscribing to resource can take a a considerable time(+- 5s)
+					// So we may have missed some messages and this results in a broke state
+					await FetchPartyAndUpdateState();
 					_lobbyTopic = result.Topic;
 					_subscribedLobbyId = lobbyId;
 					_pubsub.ListenTopic<LobbyPayloadMessage>(_lobbyTopic, LobbyMessageHandler);
@@ -76,13 +84,32 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				_pubSubState = PartySubscriptionState.Connected;
+				// We may lost some messages while the connection is being established, so lets update the lobby manually again just to be safe
+				await FetchPartyAndUpdateState();
 			}
 			catch (Exception ex)
 			{
+				// THIS EXCEPTION IS VERY IMPORTANT! IF THIS FAILS SQUADS NOT WORK AT ALL!
 				_pubSubState = PartySubscriptionState.NotConnected;
-				// Since this function is never awaited lets log the exception
-				// TODO Proper handling of async exceptions
-				Debug.LogException(ex);
+				listenForLobbyUpdateFails++;
+				if (listenForLobbyUpdateFails > 2)
+				{
+					_backendService.HandleUnrecoverableException(ex, AnalyticsCallsErrors.ErrorType.Squads);
+					return;
+				}
+
+				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
+					new GenericDialogButton());
+				FLog.Warn("failed subscribing to lobby notifications", ex);
+				// Lets leave the party so the player can try again
+				try
+				{
+					await LeaveParty();
+				}
+				catch (Exception)
+				{
+					// ignored, because because it is just an attempt to make the state valid
+				}
 			}
 			finally
 			{
@@ -114,15 +141,145 @@ namespace FirstLight.Game.Services.Party
 		/// <param name="obj"></param>
 		private void LobbyMessageHandler(LobbyPayloadMessage obj)
 		{
-			foreach (var change in obj.LobbyChanges)
-			{
-				if (_lobby.ChangeNumber < change.ChangeNumber)
-				{
+			// Let executes async so we can wait for fetch party and use semaphore properly
 #pragma warning disable CS4014
-					RefetchCachedParty();
+			UpdateLobbyState(obj);
 #pragma warning restore CS4014
-					break;
+		}
+
+		private async Task UpdateLobbyState(LobbyPayloadMessage obj)
+		{
+			try
+			{
+				await _accessSemaphore.WaitAsync();
+				foreach (var change in obj.lobbyChanges)
+				{
+					if (_lobbyChangeNumber >= change.changeNumber) continue;
+					// If by any means we lost a message
+					if (change.changeNumber - _lobbyChangeNumber >= 2)
+					{
+						// Fetch from HTTP the latest state
+						FLog.Warn("Fetching state from HTTP because desync!");
+						await FetchPartyAndUpdateState();
+						return;
+					}
+
+					ApplyLobbyChangeIntoMembers(change);
+					ApplyLobbyChangeIntoProperties(change);
+					CheckPartyReadyStatus();
+					_lobbyChangeNumber = change.changeNumber;
 				}
+			}
+			finally
+			{
+				_accessSemaphore.Release();
+			}
+		}
+
+		private void ApplyLobbyChangeIntoProperties(LobbyChange change)
+		{
+			if (change.lobbyDataToDelete != null)
+			{
+				foreach (var s in change.lobbyDataToDelete)
+				{
+					if (LobbyProperties.ReadOnlyDictionary.ContainsKey(s))
+					{
+						LobbyProperties.Remove(s);
+					}
+				}
+			}
+
+			if (change?.lobbyData == null || change.lobbyData.Count == 0) return;
+
+			foreach (var (key, value) in change.lobbyData)
+			{
+				if (LobbyProperties.ReadOnlyDictionary.ContainsKey(key))
+				{
+					LobbyProperties[key] = value;
+				}
+				else
+				{
+					LobbyProperties.Add(key, value);
+				}
+			}
+		}
+
+		private void ApplyLobbyChangeIntoMembers(LobbyChange change)
+		{
+			HashSet<string> invokeUpdates = new();
+			if (change.memberToDelete != null)
+			{
+				var member = Members.FirstOrDefault(m => m.PlayfabID == change.memberToDelete.memberEntity.Id);
+				if (member != null)
+				{
+					Members.Remove(member);
+					if (member.Local)
+					{
+#pragma warning disable CS4014
+						UnsubscribeToLobbyUpdates();
+#pragma warning restore CS4014
+						LocalPlayerKicked();
+						return;
+					}
+				}
+			}
+
+
+			// Let's check to add players to the party
+			if (change.memberToMerge != null)
+			{
+				var currentOwner = Members.FirstOrDefault(m => m.Leader)?.PlayfabID;
+				var owner = change.owner != null ? change.owner.Id : (currentOwner ?? "");
+				var localMember = Members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
+
+				if (localMember == null)
+				{
+					var newMember = ToPartyMember(change.memberToMerge, owner == change.memberToMerge.memberEntity.Id);
+					Members.Add(newMember);
+				}
+				else
+				{
+					// MERGE NOT COPY
+					if (change.memberToMerge.memberData?.Count != 0)
+					{
+						if (MergeData(localMember, change.memberToMerge.memberData))
+						{
+							invokeUpdates.Add(localMember.PlayfabID);
+						}
+					}
+				}
+			}
+
+			// Lets check if the owner changed
+			if (change.owner != null)
+			{
+				// Search of old owner
+				var currentOwner = Members.ReadOnlyList.FirstOrDefault(m => m.Leader);
+				if (currentOwner != null && currentOwner.PlayfabID != change.owner.Id)
+				{
+					currentOwner.Leader = false;
+					invokeUpdates.Add(currentOwner.PlayfabID);
+				}
+
+				// Lets find the new owner
+				var newOwner = Members.ReadOnlyList.FirstOrDefault(m => m.PlayfabID == change.owner.Id);
+				if (newOwner is {Leader: false})
+				{
+					newOwner.Ready = false;
+					newOwner.Leader = true;
+					invokeUpdates.Add(newOwner.PlayfabID);
+				}
+			}
+
+			foreach (var invokeUpdate in invokeUpdates)
+			{
+				var member = Members.FirstOrDefault(m => m.PlayfabID == invokeUpdate);
+				if (member == null)
+				{
+					continue;
+				}
+
+				Members.InvokeUpdate(Members.IndexOf(member));
 			}
 		}
 
@@ -130,13 +287,12 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await _pubSubSemaphore.WaitAsync();
-
 				if (_pubSubState != PartySubscriptionState.Connected || _subscribedLobbyId == null)
 				{
 					return;
 				}
 
+				await _pubSubSemaphore.WaitAsync();
 
 				var connStr = await _pubsub.GetConnectionHandle();
 				var req = new UnsubscribeFromLobbyResourceRequest()
@@ -153,7 +309,7 @@ namespace FirstLight.Game.Services.Party
 			catch (Exception ex)
 			{
 				// Ignore error because if the player is the last one in the lobby it will disband it and automatically unsubscribe from updates
-				Debug.LogException(ex);
+				FLog.Info("Ignoring exception: " + ex);
 			}
 			finally
 			{

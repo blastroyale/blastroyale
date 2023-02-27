@@ -1964,7 +1964,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 1
       BehaviourType:
-        Value: 0
+        Value: 4
       ForceStatic:
         Value: 0
     Projectile: []
@@ -2122,7 +2122,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2201,7 +2201,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2280,7 +2280,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 0
+        Value: 1
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2833,9 +2833,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 2
+      InitialSpawnDelayInSec: 0
       GameId:
-        Value: 92
+        Value: 79
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -2914,9 +2914,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 2
+      InitialSpawnDelayInSec: 0
       GameId:
-        Value: 92
+        Value: 79
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -3112,6 +3112,9 @@ MonoBehaviour:
           PlayersAlive: 2
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3233,6 +3236,9 @@ MonoBehaviour:
           PlayersAlive: 2
         ChestOpenTriggerData:
           _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
     UTAgent: []
     CharacterController2D: []
     CharacterController3D: []
@@ -3420,7 +3426,131 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 15533314
+          RawValue: 15313142
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 0
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 18
+      Data:
+        _field_used_: WEAPONCOLLECTEDTRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 7
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 45875
+          Y:
+            RawValue: -52428
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 136970
+          Y:
+            RawValue: 65536
+          Z:
+            RawValue: 6553
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 0
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1011401
+        Y:
+          RawValue: 334692
+        Z:
+          RawValue: -595962
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 3516661
         Z:
           RawValue: 0
     View: []

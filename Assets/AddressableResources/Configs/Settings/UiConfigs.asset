@@ -19,6 +19,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.BattlePassScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/CharacterDialogScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.CharacterDialogScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/ConnectFlgIdScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.ConnectFlgIdScreenPresenter, FirstLight.Game,
@@ -166,6 +170,10 @@ MonoBehaviour:
   - AddressableAddress: Ui/TrophiesScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/TutorialUtilsScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.TutorialUtilsScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/UiVfxContainerScreen.prefab
     Layer: 7

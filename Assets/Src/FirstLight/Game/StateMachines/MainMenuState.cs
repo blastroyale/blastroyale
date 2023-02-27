@@ -106,7 +106,6 @@ namespace FirstLight.Game.StateMachines
 			mainMenuLoading.OnExit(LoadingComplete);
 
 			mainMenu.OnEnter(OnMainMenuLoaded);
-			mainMenu.OnEnter(CheckMatchmakingState);
 			mainMenu.Nest(TabsMenuSetup).Target(disconnectedCheck);
 			mainMenu.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
@@ -141,6 +140,7 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
+			var waitMatchmaking = stateFactory.State("Matchmaking Waiting");
 			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
 			var leaderboard = stateFactory.Wait("Leaderboard");
 			var battlePass = stateFactory.Wait("BattlePass");
@@ -174,19 +174,35 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
-			homeMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(roomWait);
+			homeMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
 
 			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
-			playClickedCheck.Transition().Condition(CheckPartyReady).Target(homeMenu);
-			playClickedCheck.Transition().Condition(CheckPartyMemberStatus).OnTransition(TogglePartyReadyStatus)
+			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeMenu);
+			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader)
+				.OnTransition(TogglePartyReadyStatus)
 				.Target(homeMenu);
-			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage).Target(roomWait);
+			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
+				.Target(roomWait);
 
+
+			// Old "matchmaking"
 			roomWait.OnEnter(CloseCurrentScreen);
+			// In the new matchmaking we will receive the join event, in the old one we will not
+			roomWait.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+
+			// New matchmaking
+			waitMatchmaking.OnEnter(JoinedMatchmaking);
+			waitMatchmaking.Event(NetworkState.JoinedRoomEvent).Target(final);
+			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
+				.OnTransition(CloseMatchmakingScreen)
+				.Target(homeMenu);
+
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
@@ -219,6 +235,25 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+		}
+
+		private void CloseMatchmakingScreen()
+		{
+			_uiService.CloseCurrentScreen();
+			// TODO proper translation
+			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "Canceled by party", true, new GenericDialogButton());
+		}
+
+		private void JoinedMatchmaking()
+		{
+			// TODO REFACTOR THIS SCREEN
+			_uiService.CloseCurrentScreen();
+			var btn = new GenericDialogButton
+			{
+				ButtonText = "Stop",
+				ButtonOnClick = SendCancelMatchmakingMessage
+			};
+			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "[Dev UI] Matchmaking...", false, btn);
 		}
 
 		private void SubscribeEvents()
@@ -328,6 +363,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
 		}
 
+		private void SendCancelMatchmakingMessage()
+		{
+			_services.MessageBrokerService.Publish(new MatchmakingCancelMessage());
+		}
+
+
 		private bool LoadoutCountCheckToPlay()
 		{
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
@@ -341,14 +382,14 @@ namespace FirstLight.Game.StateMachines
 			return infos.Count != _gameDataProvider.EquipmentDataProvider.Loadout.Count;
 		}
 
-		private bool CheckPartyMemberStatus()
+		private bool CheckIsNotPartyLeader()
 		{
 			if (!_services.PartyService.HasParty.Value) return false;
 
 			return !(_services.PartyService.GetLocalMember().Leader && _services.PartyService.PartyReady.Value);
 		}
 
-		private bool CheckPartyReady()
+		private bool CheckPartyNotReady()
 		{
 			return _services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember().Leader &&
 				!_services.PartyService.PartyReady.Value;
@@ -484,16 +525,7 @@ namespace FirstLight.Game.StateMachines
 			_services.IAPService.BuyProduct(id);
 		}
 
-		private void CheckMatchmakingState()
-		{
-			_services.MatchmakingService.GetMyTickets(tickets =>
-			{
-				if (tickets?.TicketIds.Count > 0)
-				{
-					_services.MatchmakingService.LeaveMatchmaking();
-				}
-			});
-		}
+
 
 		private void OnIapProcessingFinished()
 		{

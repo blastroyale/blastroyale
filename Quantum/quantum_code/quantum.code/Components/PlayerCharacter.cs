@@ -118,6 +118,9 @@ namespace Quantum
 					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
 			}
+			
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			stats->ResetStats(f, CurrentWeapon, Gear);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);

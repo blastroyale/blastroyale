@@ -16,6 +16,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -42,7 +43,7 @@ namespace FirstLight.Game.Services
 		/// Sets up the backend with the correct cloud environment, per platform
 		/// </summary>
 		void SetupBackendEnvironment();
-		
+
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
@@ -52,20 +53,20 @@ namespace FirstLight.Game.Services
 		/// Requests current top leaderboard entries
 		/// </summary>
 		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
-		                           Action<PlayFabError> onError);
+								   Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
 		void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                Action<GetLeaderboardAroundPlayerResult> onSuccess,
-		                                Action<PlayFabError> onError);
+										Action<GetLeaderboardAroundPlayerResult> onSuccess,
+										Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
 		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
-		                  Action<PlayFabError> onError, object parameter = null);
+						  Action<PlayFabError> onError, object parameter = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
@@ -90,12 +91,12 @@ namespace FirstLight.Game.Services
 		/// Segments are group of players based on metrics which can be used for various things.
 		/// </summary>
 		void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError);
-		
+
 		/// <summary>
 		/// Requests a data object with compiled info about the current backend environment
 		/// </summary>
 		BackendEnvironmentData CurrentEnvironmentData { get; }
-		
+
 		/// <summary>
 		/// Requests to check if the game is currently in maintenance
 		/// </summary>
@@ -115,6 +116,11 @@ namespace FirstLight.Game.Services
 		/// Handles an incoming error. Sends outgoing messages, analytics and calls back
 		/// </summary>
 		void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType);
+
+		/// <summary>
+		/// Handle an unrecoverable exception in the game, it will close and send analytics
+		/// </summary>
+		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -131,7 +137,7 @@ namespace FirstLight.Game.Services
 		private readonly IGameServices _services;
 
 		private readonly string _leaderboardLadderName;
-		
+
 		public BackendEnvironmentData CurrentEnvironmentData { get; set; }
 
 		public GameBackendService(IGameDataProvider dataProvider, IGameServices services, IDataService dataService, string leaderboardLadderName)
@@ -144,13 +150,7 @@ namespace FirstLight.Game.Services
 
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r =>
-			{
-				onSuccess(r.Segments);
-			}, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); }, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		public void SetupBackendEnvironment()
@@ -159,6 +159,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
@@ -185,7 +186,7 @@ namespace FirstLight.Game.Services
 #endif
 
 			CurrentEnvironmentData = envData;
-			
+
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
 			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
 
@@ -204,10 +205,7 @@ namespace FirstLight.Game.Services
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 
 			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{
@@ -216,11 +214,11 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError) 
+		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest()
 			{
-				Keys = new List<string>() { typeof(PlayerData).FullName }
+				Keys = new List<string>() {typeof(PlayerData).FullName}
 			}, result =>
 			{
 				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
@@ -231,20 +229,17 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 				if (!inSync)
 				{
-					FLog.Error("Client Rewards: "+ModelSerializer.Serialize(clientState));
-					FLog.Error("Server Rewards: "+ModelSerializer.Serialize(serverState));
+					FLog.Error("Client Rewards: " + ModelSerializer.Serialize(clientState));
+					FLog.Error("Server Rewards: " + ModelSerializer.Serialize(serverState));
 				}
 #endif
 				onSuccess(inSync);
-			}, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		/// <inheritdoc />
 		public void GetTopRankLeaderboard(int amountOfEntries,
-		                                  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError)
+										  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
@@ -253,16 +248,13 @@ namespace FirstLight.Game.Services
 				MaxResultsCount = amountOfEntries
 			};
 
-			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		/// <inheritdoc />
 		public void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess,
-		                                       Action<PlayFabError> onError)
+											   Action<GetLeaderboardAroundPlayerResult> onSuccess,
+											   Action<PlayFabError> onError)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
@@ -270,15 +262,12 @@ namespace FirstLight.Game.Services
 				MaxResultsCount = amountOfEntries
 			};
 
-			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		/// <inheritdoc />
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
-		                         Action<PlayFabError> onError, object parameter = null)
+								 Action<PlayFabError> onError, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -295,11 +284,9 @@ namespace FirstLight.Game.Services
 				{
 					throw exception;
 				}
+
 				onSuccess(res);
-			}, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		/// <summary>
@@ -313,37 +300,68 @@ namespace FirstLight.Game.Services
 			{
 				return new Exception(error.ToString());
 			}
+
 			return null;
 		}
-		
+
 		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
 		{
 			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
-			
+
 			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
-			
+
 			callback?.Invoke(error);
 		}
+
+		/// <inheritdoc/>
+		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
+		{
+			FLog.Error("unrecoverable exception", ex);
+			var descriptiveError = $" {ex.Message}";
+			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
+#if UNITY_EDITOR
+			FLog.Error(descriptiveError);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = "OK",
+				ButtonOnClick = () =>
+				{
+					_services.AnalyticsService.CrashLog(descriptiveError);
+					_services.QuitGame(descriptiveError);
+				}
+			};
+			_services.GenericDialogService.OpenButtonDialog("Server Error", descriptiveError, false, confirmButton);
+#else
+		FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, "Error", descriptiveError, new FirstLight.NativeUi.AlertButton
+			{
+				Callback = () =>
+				{
+					_services.AnalyticsService.CrashLog(descriptiveError);
+					_services.QuitGame(descriptiveError);
+				},
+					Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+			});
+#endif
+		}
+
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
 				onSuccess.Invoke(new ServerState(result.Data
-				                               .ToDictionary(entry => entry.Key,
-				                                             entry =>
-					                                             entry.Value.Value)));
-			}, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+					.ToDictionary(entry => entry.Key,
+						entry =>
+							entry.Value.Value)));
+			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		/// <summary>
@@ -359,31 +377,28 @@ namespace FirstLight.Game.Services
 				}
 
 				onSuccess.Invoke(data);
-			}, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
+			}, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
 		public bool IsGameInMaintenance()
 		{
 			var titleData = _dataService.GetData<AppData>().TitleData;
 
-			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && 
-				   VersionUtils.IsOutdatedVersion(version);
+			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
+				VersionUtils.IsOutdatedVersion(version);
 		}
 
 		public bool IsGameOutdated()
 		{
 			var titleVersion = GetTitleVersion();
-			
+
 			return VersionUtils.IsOutdatedVersion(titleVersion);
 		}
 
 		public string GetTitleVersion()
 		{
 			var titleData = _dataService.GetData<AppData>().TitleData;
-			
+
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
@@ -391,7 +406,7 @@ namespace FirstLight.Game.Services
 
 			return titleVersion;
 		}
-		
+
 		private String UnityDeviceID()
 		{
 			var id = SystemInfo.deviceUniqueIdentifier;

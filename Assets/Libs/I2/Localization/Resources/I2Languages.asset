@@ -520,6 +520,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/blast_pass_claim_reward
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM REWARD
+      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410 \u041F\u0420\u0415\u0422\u0415\u041D\u0417\u0418\u0418"
+      - "Recompensa de reivindica\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/ready
       TermType: 0
       Description: 
@@ -626,28 +637,6 @@ MonoBehaviour:
       - DEATHMATCH
       - DEATHMATCH
       - DEATHMATCH
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_code
-      TermType: 0
-      Description: 
-      Languages:
-      - 'CODE: {0}'
-      - "\u041A\u043E\u0434: {0}"
-      - "C\xF3digo: {0}"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/youre_ready
-      TermType: 0
-      Description: 
-      Languages:
-      - YOU'RE READY
-      - "\u0422\u042B \u0413\u041E\u0422\u041E\u0412"
-      - "VOC\xCA EST\xC1 PRONTO"
       - 
       - 
       Flags: 0000000000
@@ -12284,17 +12273,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyale First Game
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
-      - "\u0411\u0438\u0442\u0432\u0430 \u0420\u043E\u044F\u043B\u044C"
-      - Batalha real
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
@@ -15883,7 +15861,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1677514366249
+    Google_LastUpdatedVersion: 1677241741736
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

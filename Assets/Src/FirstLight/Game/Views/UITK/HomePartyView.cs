@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
@@ -19,6 +21,7 @@ namespace FirstLight.Game.Views.UITK
 		private ListView _partyMemberList;
 
 		private IPartyService _partyService;
+		private IGenericDialogService _genericDialogService;
 
 		private List<PartyMember> _partyMembers;
 
@@ -26,6 +29,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_container = element;
 			_partyService = MainInstaller.Resolve<IGameServices>().PartyService;
+			_genericDialogService = MainInstaller.Resolve<IGameServices>().GenericDialogService;
 
 			_title = element.Q<Label>("PartyLabel").Required();
 			_partyMemberList = element.Q<ListView>("PartyList").Required();
@@ -53,7 +57,17 @@ namespace FirstLight.Game.Views.UITK
 
 		private async void OnPartyMemberClicked(ClickEvent e, int index)
 		{
-			await _partyService.Kick(_partyMembers[index].PlayfabID);
+			if (_partyService.OperationInProgress.Value) return;
+			try
+			{
+				await _partyService.Kick(_partyMembers[index].PlayfabID);
+			}
+			catch (PartyException pe)
+			{
+				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(), true,
+					new GenericDialogButton());
+				FLog.Warn("Error on kicking squad member", pe);
+			}
 		}
 
 		private VisualElement CreatePartyListEntry()

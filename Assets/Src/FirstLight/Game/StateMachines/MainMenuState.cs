@@ -227,11 +227,13 @@ namespace FirstLight.Game.StateMachines
 		private void CloseMatchmakingScreen()
 		{
 			_uiService.CloseCurrentScreen();
+			// TODO proper translation
 			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "Canceled by party", true, new GenericDialogButton());
 		}
 
 		private void JoinedMatchmaking()
 		{
+			// TODO REFACTOR THIS SCREEN
 			_uiService.CloseCurrentScreen();
 			var btn = new GenericDialogButton
 			{

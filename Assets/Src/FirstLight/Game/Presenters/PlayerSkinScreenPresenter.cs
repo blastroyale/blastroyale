@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
 			_closeButton.onClick.AddListener(() => Data.OnCloseClicked());
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
-			_gameDataProvider.PlayerDataProvider.PlayerSkin.Observe(OnCharacterSkinUpdated);
+			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdated);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		protected override async void OnOpened()
 		{
-			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			_selectedId = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id;
 			base.OnOpened();
 			
 			// Used to fix OSA order of execution issue.
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateSelectedButtonImage(GameId selectedId)
 		{
-			var skinValue = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			var skinValue = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id;
 			
 			_selectedGameHolder.SetActive(skinValue == selectedId);
 			_selectButton.gameObject.SetActive(skinValue != selectedId);
@@ -116,10 +116,13 @@ namespace FirstLight.Game.Presenters
 		}
 		
 
-		private void OnCharacterSkinUpdated(GameId previousSkin, GameId newSkin)
+		private void OnCharacterSkinUpdated(CollectionItemEquippedMessage msg)
 		{
+			if (msg.Category != GameIdGroup.PlayerSkin) return;
+			if (msg.EquippedItem == null) return;
+			
 			UpdatePlayerSkinMenu();
-			UpdateSelectedButtonImage(newSkin);
+			UpdateSelectedButtonImage(msg.EquippedItem.Id);
 		}
 
 		private void OnAvatarClicked(GameId skin)
@@ -132,7 +135,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedPressed()
 		{
-			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
+			throw new Exception("Use collectionn screen, delete this presenter");
 		}
 		
 		private void OnBlockerButtonPressed()

@@ -206,11 +206,7 @@ namespace FirstLight.Game.Presenters
 
       private void OnEquipClicked()
       {
-         // HACK FOR DEMO
-         (_gameDataProvider as GameLogic).CollectionLogic.Equip(_selectedCategory, GetSelectedItem());
-         
-         // Implement generic logic in CollectionLogic & make command that call that generic logic
-         //_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand {SkinId = GetSelectedItem().Id});
+         _services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() { Item = GetSelectedItem() });
          UpdateCollectionDetails(_selectedCategory);
          SelectEquipped(_selectedCategory);
       }

@@ -21,13 +21,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
-			_gameDataProvider.PlayerDataProvider.PlayerSkin.Observe(OnCharacterSkinUpdated);
+			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdated);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
 		private async void Start()
 		{
-			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id;
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
@@ -86,11 +86,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private async void OnCharacterSkinUpdated(GameId previousSkin, GameId newSkin)
+		private async void OnCharacterSkinUpdated(CollectionItemEquippedMessage msg)
 		{
-			Destroy(_characterViewComponent.gameObject);
+			if (msg.Category != GameIdGroup.PlayerSkin) return;
 			
-			await UpdateSkin(newSkin, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
+ 			Destroy(_characterViewComponent.gameObject);
+
+			if (msg.EquippedItem == null) return;
+			
+			await UpdateSkin(msg.EquippedItem.Id, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
 	}
 }

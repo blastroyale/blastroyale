@@ -45,6 +45,9 @@ namespace FirstLight.Game.Data
 			}
 		};
 
-		public Dictionary<GameIdGroup, CollectionItem> Equipped = new();
+		public Dictionary<GameIdGroup, CollectionItem> Equipped = new()
+		{
+			{ GameIdGroup.PlayerSkin, new CollectionItem(GameId.Male01Avatar) }
+		};
 	}
 }

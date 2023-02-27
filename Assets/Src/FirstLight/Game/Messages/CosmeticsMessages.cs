@@ -1,10 +1,12 @@
+using FirstLight.Game.Data;
 using Quantum;
 using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
-	public struct PlayerSkinUpdatedMessage : IMessage
+	public struct CollectionItemEquippedMessage : IMessage
 	{
-		public GameId SkinId;
+		public GameIdGroup Category;
+		public CollectionItem EquippedItem;
 	}
 }

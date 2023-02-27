@@ -19,12 +19,7 @@ namespace FirstLight.Game.Logic
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
-		
-		/// <summary>
-		/// Request the player's current skin
-		/// </summary>
-		IObservableFieldReader<GameId> PlayerSkin { get; }
-		
+
 		/// <summary>
 		/// Requests a list of systems already seen by the player.
 		/// </summary>
@@ -64,12 +59,7 @@ namespace FirstLight.Game.Logic
 		/// added/removed
 		/// </summary>
 		void UpdateTrophies(int change);
-		
-		/// <summary>
-		/// Changes the player skin to <paramref name="skin"/>
-		/// </summary>
-		void ChangePlayerSkin(GameId skin);
-		
+
 		/// <summary>
 		/// Flags that the given tutorial step is completed
 		/// </summary>
@@ -81,15 +71,12 @@ namespace FirstLight.Game.Logic
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
 		private IObservableField<uint> _trophies;
-		private IObservableField<GameId> _playerSkin;
 
 		private IObservableField<TutorialSection> _tutorialSections;
 		
 		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
-
-		public IObservableFieldReader<GameId> PlayerSkin => _playerSkin;
 
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
@@ -116,7 +103,6 @@ namespace FirstLight.Game.Logic
 					TotalCollectedXp = totalXp,
 					MaxLevel = maxLevel,
 					Config = config,
-					Skin = _playerSkin.Value,
 					DeathMarker = Data.DeathMarker,
 					TotalTrophies = _trophies.Value,
 					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
@@ -135,7 +121,6 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
-			_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
@@ -159,16 +144,9 @@ namespace FirstLight.Game.Logic
 				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 				_tutorialSections.AddObservers(listeners);
 			}
-			
-			{
-				var listeners = _playerSkin.GetObservers();
-				_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
-				_playerSkin.AddObservers(listeners);
-			}
-			
+
 			_trophies.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
-			_playerSkin.InvokeUpdate();
 			SystemsTagged.InvokeUpdate();
 		}
 
@@ -240,18 +218,6 @@ namespace FirstLight.Game.Logic
 			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
 
-		/// <inheritdoc />
-		public void ChangePlayerSkin(GameId skin)
-		{
-			if (!skin.IsInGroup(GameIdGroup.PlayerSkin))
-			{
-				throw new LogicException($"Skin Id '{skin.ToString()}' is not part of the Game Id Group PlayerSkin.");
-			}
-
-			_playerSkin.Value = skin;
-		}
-		
-		
 		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);

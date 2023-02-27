@@ -15,9 +15,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class CollectionMenuState
 	{
-		private readonly IStatechartEvent _slotClickedEvent = new StatechartEvent("Slot Clicked Event");
-		private readonly IStatechartEvent _itemProcessedEvent = new StatechartEvent("Item Processed Event");
-
 		private readonly IStatechartEvent _backButtonClickedEvent =
 			new StatechartEvent("Equipment Back Button Clicked Event");
 
@@ -79,19 +76,6 @@ namespace FirstLight.Game.StateMachines
 			var loadOut = _gameDataProvider.EquipmentDataProvider.Loadout.ReadOnlyDictionary;
 
 			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand {SlotsToUpdate = loadOut});
-		}
-
-		private void ItemClicked()
-		{
-			
-		}
-		
-		private void SlotButtonClicked(GameIdGroup slot)
-		{
-			_equipmentSlotTypePicked = slot;
-			_statechartTrigger(_slotClickedEvent);
-			
-			_services.MessageBrokerService.Publish(new EquipmentSlotOpenedMessage() {Slot = slot} );
 		}
 	}
 }

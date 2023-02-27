@@ -161,7 +161,7 @@ namespace FirstLight.Game.StateMachines
 			screenCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(equipmentMenu);
-			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(collectionMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<CollectionScreenPresenter>).Target(collectionMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
@@ -547,17 +547,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattlePassScreenPresenter>();
 		}
 
-		private void OpenPlayerSkinScreenUI()
-		{
-			var data = new PlayerSkinScreenPresenter.StateData
-			{
-				OnCloseClicked = OnTabClickedCallback<HomeScreenPresenter>,
-			};
-
-			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
-			_services.MessageBrokerService.Publish(new SkinsScreenOpenedMessage());
-		}
-
 		private void OpenRoomJoinCreateMenuUI()
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
@@ -581,7 +570,7 @@ namespace FirstLight.Game.StateMachines
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				OnLootButtonClicked = OnTabClickedCallback<EquipmentPresenter>,
-				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
+				OnCollectionsClicked = OnTabClickedCallback<CollectionScreenPresenter>,
 				OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
       private IGameDataProvider _gameDataProvider;
       
       private int _selectedIndex;
-      private GameIdGroup _selectedCategory;
+      private CollectionCategory _selectedCategory;
       private GameObject _collectionObject;
 
      
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Presenters
          OnCategoryClicked(categories.First());
       }
 
-      private void OnCategoryClicked(GameIdGroup group)
+      private void OnCategoryClicked(CollectionCategory group)
       {
          if (_selectedCategory == group) return;
 
@@ -164,12 +164,12 @@ namespace FirstLight.Game.Presenters
          _selectedItemDescription.visible = hasItems;
       }
 
-      private void SelectEquipped(GameIdGroup category)
+      private void SelectEquipped(CollectionCategory category)
       {
          var collection = GetViewCollection();
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
          var previousIndex = _selectedIndex;
-         if (equipped != null)
+         if (equipped.IsValid())
          {
             _selectedIndex = collection.IndexOf(equipped);
          }
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters
       /// <summary>
       /// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
       /// </summary>
-      private void ViewOwnedItemsFromCategory(GameIdGroup category)
+      private void ViewOwnedItemsFromCategory(CollectionCategory category)
       {
          var collection = GetViewCollection();
          _selectedCategory = category;
@@ -206,11 +206,7 @@ namespace FirstLight.Game.Presenters
 
       private void OnEquipClicked()
       {
-         // HACK FOR DEMO
-         (_gameDataProvider as GameLogic).CollectionLogic.Equip(_selectedCategory, GetSelectedItem());
-         
-         // Implement generic logic in CollectionLogic & make command that call that generic logic
-         //_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand {SkinId = GetSelectedItem().Id});
+         _services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() { Item = GetSelectedItem() });
          UpdateCollectionDetails(_selectedCategory);
          SelectEquipped(_selectedCategory);
       }
@@ -225,7 +221,7 @@ namespace FirstLight.Game.Presenters
       private async void Update3DObject()
       {
          var selectedItem = GetSelectedItem();
-         if (selectedItem == null)
+         if (!selectedItem.IsValid())
          {
             return;
          }
@@ -244,12 +240,12 @@ namespace FirstLight.Game.Presenters
       }
 
       /// Updated cost of Collection items / has it been equipped, etc. 
-      private void UpdateCollectionDetails(GameIdGroup category)
+      private void UpdateCollectionDetails(CollectionCategory category)
       {
          var selectedId = GetSelectedItem().Id;
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
          // If an item is already equipped, show SELECTED instead of Equip
-         _equipButton.text = equipped != null && selectedId == equipped.Id
+         _equipButton.text = equipped.IsValid() && selectedId == equipped.Id
             ? ScriptLocalization.General.Selected.ToUpper()
             : ScriptLocalization.General.Equip;
          
@@ -299,7 +295,7 @@ namespace FirstLight.Game.Presenters
             var itemIndex = rowNumber * PAGE_SIZE + x;
             var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
             var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-            card.SetCollectionElement(selectedItem.Id, itemIndex, equipped != null && equipped.Equals(selectedItem));
+            card.SetCollectionElement(selectedItem.Id, itemIndex, equipped.IsValid() && equipped.Equals(selectedItem));
             card.SetSelected(itemIndex == _selectedIndex);
          }
       }

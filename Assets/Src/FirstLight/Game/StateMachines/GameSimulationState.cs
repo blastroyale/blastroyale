@@ -367,7 +367,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
-				Skin = info.Skin,
+				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id,
 				DeathMarker = info.DeathMarker,
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,

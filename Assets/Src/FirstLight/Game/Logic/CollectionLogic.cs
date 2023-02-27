@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
 using JetBrains.Annotations;
 using Quantum;
@@ -15,27 +16,27 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Gets all items in a given collection group
 		/// </summary>
-		List<CollectionItem> GetFullCollection(GameIdGroup group);
+		List<CollectionItem> GetFullCollection(CollectionCategory group);
 
 		/// <summary>
 		/// Get all items owned from a collection
 		/// </summary>
-		List<CollectionItem> GetOwnedCollection(GameIdGroup group);
+		List<CollectionItem> GetOwnedCollection(CollectionCategory group);
 
 		/// <summary>
 		/// Get equipped item from a collection
 		/// </summary>
-		[CanBeNull] CollectionItem GetEquipped(GameIdGroup group);
+		[CanBeNull] CollectionItem GetEquipped(CollectionCategory group);
 
 		/// <summary>
 		/// Get a collection type from a collection item
 		/// </summary>
-		GameIdGroup GetCollectionType(CollectionItem item);
+		CollectionCategory GetCollectionType(CollectionItem item);
 
 		/// <summary>
 		/// Get all available collections
 		/// </summary>
-		List<GameIdGroup> GetCollectionsCategories();
+		List<CollectionCategory> GetCollectionsCategories();
 	}
 
 	/// <summary>
@@ -43,22 +44,22 @@ namespace FirstLight.Game.Logic
 	/// </summary>
 	public interface ICollectionLogic : ICollectionDataProvider
 	{
-		void Equip(GameIdGroup group, CollectionItem item);
+		CollectionCategory Equip(CollectionItem item);
 	}
 	
 	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
 	{
-		public List<CollectionItem> GetFullCollection(GameIdGroup group)
+		public List<CollectionItem> GetFullCollection(CollectionCategory group)
 		{
 			List<CollectionItem> collection = new List<CollectionItem>();
-			foreach (var id in group.GetIds())
+			foreach (var id in group.Id.GetIds())
 			{
 				collection.Add(new CollectionItem(id));
 			}
 			return collection;
 		}
 
-		public List<CollectionItem> GetOwnedCollection(GameIdGroup group)
+		public List<CollectionItem> GetOwnedCollection(CollectionCategory group)
 		{
 			if (!Data.Collections.TryGetValue(group, out var collection))
 			{
@@ -68,28 +69,34 @@ namespace FirstLight.Game.Logic
 		}
 
 		[CanBeNull]
-		public CollectionItem GetEquipped(GameIdGroup group)
+		public CollectionItem GetEquipped(CollectionCategory group)
 		{
 			Data.Equipped.TryGetValue(group, out var equipped);
 			return equipped;
 		}
 
-		public GameIdGroup GetCollectionType(CollectionItem item)
+		public CollectionCategory GetCollectionType(CollectionItem item)
 		{
-			return item.Id.GetGroups().First(); // TODO: this is shit
+			return new (item.Id.GetGroups().First()); // TODO: this is shit
 		}
 
-		public List<GameIdGroup> GetCollectionsCategories()
+		public List<CollectionCategory> GetCollectionsCategories()
 		{
-			return new List<GameIdGroup>()
+			return new List<CollectionCategory>()
 			{
-				GameIdGroup.PlayerSkin, GameIdGroup.DeathMarker, GameIdGroup.Glider
+				new (GameIdGroup.PlayerSkin), new (GameIdGroup.DeathMarker), new (GameIdGroup.Glider)
 			};
 		}
 
-		public void Equip(GameIdGroup group, CollectionItem item)
+		public CollectionCategory Equip(CollectionItem item)
 		{
+			var group = GetCollectionType(item);
+			if (!GetOwnedCollection(group).Contains(item))
+			{
+				throw new LogicException("Collection item not owned");
+			}
 			Data.Equipped[group] = item;
+			return group;
 		}
 
 		public CollectionLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -98,12 +105,10 @@ namespace FirstLight.Game.Logic
 
 		public void Init()
 		{
-			
 		}
 
 		public void ReInit()
 		{
-			
 		}
 	}
 }

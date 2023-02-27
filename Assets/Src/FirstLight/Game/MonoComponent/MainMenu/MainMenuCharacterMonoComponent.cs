@@ -1,4 +1,5 @@
 using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private async void Start()
 		{
-			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id;
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id;
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
@@ -88,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private async void OnCharacterSkinUpdated(CollectionItemEquippedMessage msg)
 		{
-			if (msg.Category != GameIdGroup.PlayerSkin) return;
+			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
 			
  			Destroy(_characterViewComponent.gameObject);
 

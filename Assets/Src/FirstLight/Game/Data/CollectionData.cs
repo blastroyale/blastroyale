@@ -6,6 +6,49 @@ namespace FirstLight.Game.Data
 {
 
 	[Serializable]
+	public struct CollectionCategory : IEqualityComparer<CollectionCategory>, IEquatable<CollectionCategory>
+	{
+		public GameIdGroup Id;
+
+		public bool IsValid() => Id != GameIdGroup.GameDesign;
+		public CollectionCategory(GameIdGroup id)
+		{
+			Id = id;
+		}
+
+		public bool Equals(CollectionCategory x, CollectionCategory y)
+		{
+			return x.Id == y.Id;
+		}
+		
+		public static bool operator ==(CollectionCategory obj1, CollectionCategory obj2)
+		{
+			if (ReferenceEquals(obj1, obj2)) 
+				return true;
+			if (ReferenceEquals(obj1, null)) 
+				return false;
+			if (ReferenceEquals(obj2, null))
+				return false;
+			return obj1.Equals(obj2);
+		}
+		public static bool operator !=(CollectionCategory obj1, CollectionCategory obj2) => !(obj1 == obj2);
+		
+		public int GetHashCode(CollectionCategory obj)
+		{
+			return obj.Id.GetHashCode();
+		}
+
+		public bool Equals(CollectionCategory other)
+		{
+			if (ReferenceEquals(other, null))
+				return false;
+			if (ReferenceEquals(this, other))
+				return true;
+			return Id == other.Id;
+		}
+	}
+	
+	[Serializable]
 	public struct CollectionItem : IEqualityComparer<CollectionItem>, IEquatable<CollectionItem>
 	{
 		public GameId Id;
@@ -35,20 +78,20 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class CollectionData
 	{
-		public Dictionary<GameIdGroup, List<CollectionItem>> Collections = new()
+		public Dictionary<CollectionCategory, List<CollectionItem>> Collections = new()
 		{
 			{
-				GameIdGroup.PlayerSkin, new List<CollectionItem>()
+				new (GameIdGroup.PlayerSkin), new List<CollectionItem>()
 				{
-					new CollectionItem(GameId.Male01Avatar), new CollectionItem(GameId.Female01Avatar),
-					new CollectionItem(GameId.Male02Avatar), new CollectionItem(GameId.Female02Avatar),
+					new(GameId.Male01Avatar), new(GameId.Female01Avatar),
+					new(GameId.Male02Avatar), new(GameId.Female02Avatar),
 				}
 			}
 		};
 
-		public Dictionary<GameIdGroup, CollectionItem> Equipped = new()
+		public Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
-			{ GameIdGroup.PlayerSkin, new CollectionItem(GameId.Male01Avatar) }
+			{ new(GameIdGroup.PlayerSkin), new(GameId.Male01Avatar) }
 		};
 
 		public override int GetHashCode()

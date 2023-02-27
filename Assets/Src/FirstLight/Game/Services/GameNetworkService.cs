@@ -659,7 +659,7 @@ namespace FirstLight.Game.Services
 					preloadIds.Add((int) equipmentDataInfo.GameId);
 				}
 
-				preloadIds.Add((int) _dataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id);
+				preloadIds.Add((int) _dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
 			}
 			var playerProps = new Hashtable
 			{

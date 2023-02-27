@@ -50,7 +50,7 @@ namespace FirstLight.Game.Presenters
       private IGameDataProvider _gameDataProvider;
       
       private int _selectedIndex;
-      private GameIdGroup _selectedCategory;
+      private CollectionCategory _selectedCategory;
       private GameObject _collectionObject;
 
      
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Presenters
          OnCategoryClicked(categories.First());
       }
 
-      private void OnCategoryClicked(GameIdGroup group)
+      private void OnCategoryClicked(CollectionCategory group)
       {
          if (_selectedCategory == group) return;
 
@@ -164,7 +164,7 @@ namespace FirstLight.Game.Presenters
          _selectedItemDescription.visible = hasItems;
       }
 
-      private void SelectEquipped(GameIdGroup category)
+      private void SelectEquipped(CollectionCategory category)
       {
          var collection = GetViewCollection();
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters
       /// <summary>
       /// Update the data in this menu. Sometimes we may want to update data without opening the screen. 
       /// </summary>
-      private void ViewOwnedItemsFromCategory(GameIdGroup category)
+      private void ViewOwnedItemsFromCategory(CollectionCategory category)
       {
          var collection = GetViewCollection();
          _selectedCategory = category;
@@ -240,7 +240,7 @@ namespace FirstLight.Game.Presenters
       }
 
       /// Updated cost of Collection items / has it been equipped, etc. 
-      private void UpdateCollectionDetails(GameIdGroup category)
+      private void UpdateCollectionDetails(CollectionCategory category)
       {
          var selectedId = GetSelectedItem().Id;
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);

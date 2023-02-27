@@ -6,7 +6,7 @@ namespace FirstLight.Game.Messages
 {
 	public struct CollectionItemEquippedMessage : IMessage
 	{
-		public GameIdGroup Category;
+		public CollectionCategory Category;
 		public CollectionItem EquippedItem;
 	}
 }

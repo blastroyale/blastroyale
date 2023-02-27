@@ -1,4 +1,6 @@
 using System;
+using FirstLight.Game.Data;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
@@ -25,7 +27,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
 		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
 
-		public GameIdGroup Category { get; set; }
+		public CollectionCategory Category { get; set; }
 
 		private readonly VisualElement _icon;
 		private readonly Label _name;
@@ -36,7 +38,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
-		public new event Action<GameIdGroup> clicked;
+		public new event Action<CollectionCategory> clicked;
 
 		public CollectionCategoryElement()
 		{
@@ -63,11 +65,11 @@ namespace FirstLight.Game.UIElements
 			base.clicked += () => clicked?.Invoke(Category);
 		}
 		
-		public void SetupCategoryButton(GameIdGroup cat)
+		public void SetupCategoryButton(CollectionCategory cat)
 		{
 			Category = cat;
 			_icon.RemoveSpriteClasses();
-			_icon.AddToClassList(cat switch
+			_icon.AddToClassList(cat.Id switch
 			{
 				GameIdGroup.Glider      => UssSpriteIconGlider,
 				GameIdGroup.PlayerSkin  => UssSpriteIconCharacters,
@@ -75,7 +77,7 @@ namespace FirstLight.Game.UIElements
 				_                       => ""
 			});
 
-			_name.text = cat switch
+			_name.text = cat.Id switch
 			{
 				GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
 				GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,

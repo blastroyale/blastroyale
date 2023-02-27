@@ -37,11 +37,6 @@ namespace FirstLight.Game.Logic
 		/// Get all available collections
 		/// </summary>
 		List<GameIdGroup> GetCollectionsCategories();
-		
-		/// <summary>
-		/// Request the player's current skin
-		/// </summary>
-		IObservableFieldReader<GameId> PlayerSkin { get; }
 	}
 
 	/// <summary>
@@ -54,12 +49,6 @@ namespace FirstLight.Game.Logic
 	
 	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
 	{
-		/// <summary>
-		/// Request the player's current skin
-		/// </summary>
-		private IObservableField<GameId> _playerSkin;
-		public IObservableFieldReader<GameId> PlayerSkin => _playerSkin;
-		
 		public List<CollectionItem> GetFullCollection(GameIdGroup group)
 		{
 			List<CollectionItem> collection = new List<CollectionItem>();
@@ -116,24 +105,10 @@ namespace FirstLight.Game.Logic
 
 		public void Init()
 		{
-			/*
-			_playerSkin = new ObservableResolverField<GameId>(() =>
-			{
-				var equipped = GetEquipped(GameIdGroup.PlayerSkin);
-				return .Id;
-			}, val => Data.PlayerSkinId = val);
-			*/
 		}
 
 		public void ReInit()
 		{
-			/*
-			 * 	var listeners = _playerSkin.GetObservers();
-				_playerSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId, val => Data.PlayerSkinId = val);
-				_playerSkin.AddObservers(listeners);
-				
-					_playerSkin.InvokeUpdate();
-			 */
 		}
 	}
 }

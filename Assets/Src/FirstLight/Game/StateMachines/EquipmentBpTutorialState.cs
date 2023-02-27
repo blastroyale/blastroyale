@@ -48,14 +48,14 @@ namespace FirstLight.Game.StateMachines
 
 		public void InitSequenceData()
 		{
-			SectionName = TutorialSection.BP_EQUIPMENT_GUIDE.ToString();
+			SectionName = TutorialSection.META_GUIDE_AND_MATCH.ToString();
 			SectionVersion = 1;
 			CurrentStep = 1;
 			CurrentStepName = "TutorialStart";
 			TotalStepsBeforeThisSection = 0;
 		}
 
-		/// <summary>
+		/// <summary> 
 		/// Setups the audio state - root state, and then per gamemode type nested states
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
@@ -64,7 +64,9 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var enterName = stateFactory.State("Enter name");
 			var playGame = stateFactory.State("Play game");
-
+			var createTutorialRoom = stateFactory.State("Join Room");
+			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
+			
 			initial.Transition().Target(enterName);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
@@ -77,12 +79,28 @@ namespace FirstLight.Game.StateMachines
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
-			playGame.Event(MainMenuState.PlayClickedEvent).Target(final);
-			playGame.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-
+			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
+			
+			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
+			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
+			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
+			
+			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("StartTutorialSimulation"); });
+			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
+			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+			
 			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
+		}
+
+		private void StartSecondTutorialMatch()
+		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.HideDialog(CharacterType.Female);
+			
+			_tutorialService.CreateJoinSecondTutorialRoom();
 		}
 
 		private void GetTutorialScreenRefs()
@@ -93,9 +111,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseTutorialUi()
 		{
-			_dialogUi.HideDialog(CharacterType.Female);
-			_tutorialUtilsUi.RemoveHighlight();
-			_tutorialUtilsUi.Unblock();
 		}
 
 		private void SubscribeMessages()

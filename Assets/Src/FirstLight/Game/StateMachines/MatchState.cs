@@ -322,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
 			
-			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
+			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || _services.TutorialService.IsTutorialRunning)
 			{
 				var data = new MatchmakingScreenPresenter.StateData
 				{

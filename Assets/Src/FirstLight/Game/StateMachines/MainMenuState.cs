@@ -262,7 +262,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool HasNotCompletedEquipmentTutorial()
 		{
-			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.BP_EQUIPMENT_GUIDE);
+			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
 		}
 
 		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)

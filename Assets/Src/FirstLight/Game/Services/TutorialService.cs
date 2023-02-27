@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -46,6 +47,11 @@ namespace FirstLight.Game.Services
 		/// Creates first match tutorial room and joins it
 		/// </summary>
 		void CreateJoinFirstTutorialRoom();
+		
+		/// <summary>
+		/// Creates second match tutorial room and joins it
+		/// </summary>
+		void CreateJoinSecondTutorialRoom();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -88,7 +94,7 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = GameConstants.Tutorial.TUTORIAL_MODE_ID;
+			var gameModeId = GameConstants.Tutorial.FIRST_GAME_MODE_ID;
 
 			var roomSetup = new MatchRoomSetup()
 			{
@@ -99,6 +105,21 @@ namespace FirstLight.Game.Services
 			};
 			
 			_services.NetworkService.CreateRoom(roomSetup, false);
+		}
+		
+		public void CreateJoinSecondTutorialRoom()
+		{
+			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
+			
+			var setup = new MatchRoomSetup()
+			{
+				GameModeId = gameModeId,
+				MapId = GameId.BRGenesis.GetHashCode(),
+				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
+				Mutators = Array.Empty<string>()
+			};
+			
+			_services.NetworkService.JoinOrCreateRandomRoom(setup);
 		}
 		
 		public bool HasCompletedTutorialSection(TutorialSection section)

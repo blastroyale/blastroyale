@@ -647,10 +647,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
+			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
+			// This is the same flow as the first match setup
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
+			{
+				return;
+			}
+			
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
+			
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				MapId = (int) mapConfig.Map,
@@ -658,6 +666,7 @@ namespace FirstLight.Game.StateMachines
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
 			};
+			
 			StartRandomMatchmaking(matchmakingSetup);
 		}
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)

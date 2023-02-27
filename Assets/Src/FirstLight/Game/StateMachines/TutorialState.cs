@@ -59,9 +59,9 @@ namespace FirstLight.Game.StateMachines
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 			
-			equipmentBpTutorial.OnEnter(() => SetCurrentSection(TutorialSection.BP_EQUIPMENT_GUIDE));
+			equipmentBpTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
 			equipmentBpTutorial.Nest(_equipmentBpTutorialState.Setup).Target(idle);
-			equipmentBpTutorial.OnExit(() => SendSectionCompleted(TutorialSection.BP_EQUIPMENT_GUIDE));
+			equipmentBpTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 		}
 
 		private async Task OpenTutorialScreens()
@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.BP_EQUIPMENT_GUIDE)) return;
+			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
 
 			_statechartTrigger(_startEquipmentBpTutorialEvent);
 		}

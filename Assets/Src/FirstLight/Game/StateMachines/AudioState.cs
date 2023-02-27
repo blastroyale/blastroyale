@@ -78,7 +78,8 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeMessages);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-
+			audioBase.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			
 			mainMenu.OnEnter(StopAllSfx);
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.OnEnter(TryPlayMainMenuMusic);

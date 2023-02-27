@@ -129,8 +129,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
 
-			await Task.Delay(1000);
+			_tutorialUtilsUi.BlockFullScreen();
+	
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 			
+			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
 		}

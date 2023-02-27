@@ -101,3 +101,10 @@
     width: 454px;
     flex-direction: row-reverse;
 }
+
+.safe-area {
+}
+
+.button-holder {
+    height: 300px;
+}

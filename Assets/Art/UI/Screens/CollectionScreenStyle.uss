@@ -1,0 +1,11 @@
+.category-holder {
+    align-items: flex-start;
+    border-top-width: 0;
+    position: absolute;
+    top: 228px;
+    left: -226px;
+    justify-content: center;
+}
+
+.screen-header {
+}

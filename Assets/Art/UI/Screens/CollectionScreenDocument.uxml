@@ -10,19 +10,19 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
-            <ui:VisualElement name="InfoHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl" style="width: 600px; align-items: stretch; right: 20px; top: 188px; position: absolute; justify-content: space-between; bottom: 12px;">
-                <ui:VisualElement name="RenderTextureHolder" style="flex-grow: 1; align-items: center; justify-content: center;">
-                    <ui:VisualElement name="RenderTexture" style="position: absolute; width: 400px; height: 600px; background-image: url(&apos;project://database/Assets/Art/UI/RenderTextures/rt-collection-item.renderTexture?fileID=8400000&amp;guid=446a12b0162d14cc19fc53c0a75d803c&amp;type=2#rt-collection-item&apos;);" />
+            <ui:VisualElement name="InfoHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
+                <ui:VisualElement name="RenderTextureHolder" class="info-holder__rt-holder">
+                    <ui:VisualElement name="RenderTexture" class="info-holder__rt" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ButtonHolder" style="height: 300px;">
-                    <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" style="position: absolute; top: 180px; left: 164px;" />
-                    <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" style="color: rgb(255, 255, 255); font-size: 48px; position: absolute; right: 50px; bottom: 234px; width: 388px; height: 50px;" />
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" style="position: absolute; top: 182px; left: 168px;" />
-                    <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" style="color: rgb(197, 197, 197); font-size: 36px; position: absolute; right: 54px; bottom: 145px; height: 50px; width: 388px;" />
+                    <FirstLight.Game.UIElements.PriceButton localization-key="UITCollectionScreen/buy" name="BuyButton" class="info-holder__buy-button" />
+                    <ui:Label text="ITEM NAME GOES HERE" display-tooltip-when-elided="true" name="ItemName" class="info-holder__item-name" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow info-holder__equip-button" />
+                    <ui:Label text="ITEM DESCRIPTION GOES HERE" display-tooltip-when-elided="true" name="ItemDescription" class="info-holder__item-description" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:ListView name="CollectionList" focusable="true" selection-type="Single" show-bound-collection-size="false" fixed-item-height="400" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" style="position: absolute; top: 232px; left: 468px; bottom: 0; overflow: visible; right: 700px; flex-direction: row; flex-grow: 1;" />
-            <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="no-equipment-label" style="color: rgb(255, 255, 255); font-size: 64px; text-shadow: 1px 1px 0 rgb(0, 0, 0); position: absolute; top: 232px; -unity-text-align: upper-center; left: 518px; right: 100px;" />
+            <ui:ListView name="CollectionList" focusable="true" selection-type="Single" show-bound-collection-size="false" fixed-item-height="400" class="anim-delay-0 anim-translate anim-translate--right-xxl collection-list" />
+            <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="coming-soon" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -23,7 +23,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IInternalTutorialService _tutorialService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly FirstGameTutorialState _firstGameTutorialState;
-		private readonly EquipmentBpTutorialState _equipmentBpTutorialState;
+		private readonly MetaAndMatchTutorialState _metaAndMatchTutorialState;
 		public TutorialState(IGameDataProvider logic, IGameServices services, IInternalTutorialService tutorialService,
 							 Action<IStatechartEvent> statechartTrigger)
 		{
@@ -32,7 +32,7 @@ namespace FirstLight.Game.StateMachines
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_firstGameTutorialState = new FirstGameTutorialState(logic, services, tutorialService, statechartTrigger);
-			_equipmentBpTutorialState = new EquipmentBpTutorialState(logic, services, tutorialService, statechartTrigger);
+			_metaAndMatchTutorialState = new MetaAndMatchTutorialState(logic, services, tutorialService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace FirstLight.Game.StateMachines
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 			
 			equipmentBpTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
-			equipmentBpTutorial.Nest(_equipmentBpTutorialState.Setup).Target(idle);
+			equipmentBpTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
 			equipmentBpTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 		}
 

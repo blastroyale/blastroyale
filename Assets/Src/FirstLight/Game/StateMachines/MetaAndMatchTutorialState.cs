@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
-	public class EquipmentBpTutorialState : ITutorialSequence
+	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
 		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 		
@@ -36,7 +36,7 @@ namespace FirstLight.Game.StateMachines
 		public int TotalStepsBeforeThisSection { get; set; }
 		
 
-		public EquipmentBpTutorialState(IGameDataProvider logic, IGameServices services,
+		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
 										IInternalTutorialService tutorialService,
 										Action<IStatechartEvent> statechartTrigger)
 		{
@@ -85,7 +85,7 @@ namespace FirstLight.Game.StateMachines
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
 			
-			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("StartTutorialSimulation"); });
+			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
 			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 			

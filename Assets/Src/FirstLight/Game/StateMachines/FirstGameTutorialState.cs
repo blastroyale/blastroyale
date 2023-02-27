@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
 
-			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("StartTutorialSimulation"); });
+			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(startedSimulation);
 			waitSimulationStart.OnExit(BindMatchServices);
 

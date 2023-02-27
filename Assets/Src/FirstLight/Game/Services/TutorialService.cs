@@ -94,7 +94,7 @@ namespace FirstLight.Game.Services
 
 		public void CreateJoinFirstTutorialRoom()
 		{
-			var gameModeId = GameConstants.Tutorial.FIRST_GAME_MODE_ID;
+			var gameModeId = GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID;
 
 			var roomSetup = new MatchRoomSetup()
 			{

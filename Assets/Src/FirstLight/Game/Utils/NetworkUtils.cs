@@ -30,7 +30,7 @@ namespace FirstLight.Game.Utils
 			}
 
 			var isRandomMatchmaking = setup.MatchType != MatchType.Custom;
-			var isTutorialMode = setup.GameModeId == GameConstants.Tutorial.FIRST_GAME_MODE_ID ||
+			var isTutorialMode = setup.GameModeId == GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID ||
 				setup.GameModeId == GameConstants.Tutorial.SECOND_BOT_MODE_ID;
 			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;

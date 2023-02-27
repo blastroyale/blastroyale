@@ -324,10 +324,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_networkService.LocalPlayer.IsMasterClient ||
+			if (!_services.TutorialService.IsTutorialRunning && 
+				(!_networkService.LocalPlayer.IsMasterClient ||
 				!_networkService.CurrentRoom.IsMatchmakingRoom() ||
 				!_networkService.CurrentRoomMatchType.HasValue ||
-				!_networkService.CurrentRoomMatchType.HasValue) 
+				!_networkService.CurrentRoomMatchType.HasValue))
 			{
 				return;
 			}
@@ -427,11 +428,13 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || _services.TutorialService.IsTutorialRunning)
+			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || 
+				_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				LockRoom();
 			}
-			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
+			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || 
+					 _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				StartMatchmakingLockRoomTimer();
 			}

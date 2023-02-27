@@ -278,7 +278,7 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 
-			_closeButton.SetDisplay(true);
+			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 

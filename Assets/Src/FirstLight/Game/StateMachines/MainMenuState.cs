@@ -262,7 +262,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool HasNotCompletedEquipmentTutorial()
 		{
-			return !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
+			return FeatureFlags.TUTORIAL && !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
 		}
 
 		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
@@ -661,8 +661,11 @@ namespace FirstLight.Game.StateMachines
 
 			uiVfxService.Init(_uiService);
 
-			_services.MessageBrokerService.Publish(new RequestStartEquipmentBpTutorialMessage());
-			
+			if (FeatureFlags.TUTORIAL)
+			{
+				_services.MessageBrokerService.Publish(new RequestStartEquipmentBpTutorialMessage());
+			}
+
 			_statechartTrigger(MainMenuLoadedEvent);
 		}
 

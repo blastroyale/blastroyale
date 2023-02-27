@@ -296,14 +296,11 @@ namespace FirstLight.Game.Utils
 			public const float PLAYER_KILL_DURATION = 0.1f;
 			public const float PLAYER_KILL_INTENSITY = 1;
 			public const float PLAYER_KILL_SHARPNESS = 1;
-
-
 		}
 
 		public static class Tutorial
 		{
-			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
-			public const string FIRST_GAME_MODE_ID = "Tutorial";
+			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
 			
 			// TODO - UPDATE ONCE TUTORIALS ARE IN

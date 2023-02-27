@@ -10,6 +10,7 @@ using Cinemachine;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -367,7 +368,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
-				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(GameIdGroup.PlayerSkin).Id,
+				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id,
 				DeathMarker = info.DeathMarker,
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,

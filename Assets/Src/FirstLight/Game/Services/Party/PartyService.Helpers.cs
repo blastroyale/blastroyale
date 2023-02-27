@@ -157,7 +157,6 @@ namespace FirstLight.Game.Services.Party
 
 		private void HandleException(Exception ex)
 		{
-			Debug.LogException(ex);
 			if (ex is PartyException) throw ex;
 			var err = PartyErrors.Unknown;
 			if (ex is WrappedPlayFabException playfabEx)

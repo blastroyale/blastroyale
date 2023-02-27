@@ -18,9 +18,11 @@
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
-                    <ui:VisualElement name="Holder" class="game-mode-button__holder">
-                        <ui:Label text="DEATHMATCH" name="GameModeLabel" class="game-mode-button__mode" />
-                        <ui:Label text="CASUAL" name="GameTypeLabel" class="game-mode-button__type" />
+                    <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
+                    <ui:VisualElement name="LabelHolder" class="game-mode-button__label-holder">
+                        <ui:Label text="BATTLE ROYALE" name="GameModeLabel" class="game-mode-button__mode" />
+                        <ui:Label text="RANKED" name="GameTypeLabel" class="game-mode-button__type" />
+                        <ui:VisualElement name="Icon" class="game-mode-button__icon" />
                     </ui:VisualElement>
                 </FirstLight.Game.UIElements.ImageButton>
                 <ui:VisualElement name="PlayButtonHolder" class="anim-delay-0 anim-translate anim-translate--left-l button-with-pool">

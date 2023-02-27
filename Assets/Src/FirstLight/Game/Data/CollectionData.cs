@@ -6,10 +6,11 @@ namespace FirstLight.Game.Data
 {
 
 	[Serializable]
-	public class CollectionItem : IEqualityComparer<CollectionItem>, IEquatable<CollectionItem>
+	public struct CollectionItem : IEqualityComparer<CollectionItem>, IEquatable<CollectionItem>
 	{
 		public GameId Id;
 
+		public bool IsValid() => Id != GameId.Random;
 		public CollectionItem(GameId id)
 		{
 			Id = id;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Data
 		{
 			return x.Id == y.Id;
 		}
-
+		
 		public int GetHashCode(CollectionItem obj)
 		{
 			return obj.Id.GetHashCode();
@@ -49,5 +50,22 @@ namespace FirstLight.Game.Data
 		{
 			{ GameIdGroup.PlayerSkin, new CollectionItem(GameId.Male01Avatar) }
 		};
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			foreach (var collection in Collections.Values)
+			{
+				foreach (var item in collection)
+				{
+					hash = hash * 23 + item.GetHashCode();
+				}
+			}
+			foreach (var item in Equipped.Values)
+			{
+				hash = hash * 23 + item.GetHashCode();
+			}
+			return hash;
+		} 
 	}
 }

@@ -169,7 +169,7 @@ namespace FirstLight.Game.Presenters
          var collection = GetViewCollection();
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
          var previousIndex = _selectedIndex;
-         if (equipped != null)
+         if (equipped.IsValid())
          {
             _selectedIndex = collection.IndexOf(equipped);
          }
@@ -221,7 +221,7 @@ namespace FirstLight.Game.Presenters
       private async void Update3DObject()
       {
          var selectedItem = GetSelectedItem();
-         if (selectedItem == null)
+         if (!selectedItem.IsValid())
          {
             return;
          }
@@ -245,7 +245,7 @@ namespace FirstLight.Game.Presenters
          var selectedId = GetSelectedItem().Id;
          var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
          // If an item is already equipped, show SELECTED instead of Equip
-         _equipButton.text = equipped != null && selectedId == equipped.Id
+         _equipButton.text = equipped.IsValid() && selectedId == equipped.Id
             ? ScriptLocalization.General.Selected.ToUpper()
             : ScriptLocalization.General.Equip;
          
@@ -295,7 +295,7 @@ namespace FirstLight.Game.Presenters
             var itemIndex = rowNumber * PAGE_SIZE + x;
             var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
             var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-            card.SetCollectionElement(selectedItem.Id, itemIndex, equipped != null && equipped.Equals(selectedItem));
+            card.SetCollectionElement(selectedItem.Id, itemIndex, equipped.IsValid() && equipped.Equals(selectedItem));
             card.SetSelected(itemIndex == _selectedIndex);
          }
       }

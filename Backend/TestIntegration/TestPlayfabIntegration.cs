@@ -59,12 +59,9 @@ namespace IntegrationTests
 			var firstConfig = levelConfigsAfter[1];
 			Assert.That(firstConfig.LevelUpXP != oldValue);
 			Assert.That(configs.Version == deprecatedVersion);
-			
+			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male01Avatar) };
 			// Sending a command should trigger the update
-			_server.SendTestCommand(new UpdatePlayerSkinCommand()
-			{
-				SkinId = GameId.Female01Avatar
-			});
+			_server.SendTestCommand(cmd);
 			
 			firstConfig = configs.GetConfigsList<PlayerLevelConfig>().First();
 			Assert.That(firstConfig.LevelUpXP == oldValue);

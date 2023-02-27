@@ -22,7 +22,8 @@ namespace FirstLight.Game.Commands
 			var category = ctx.Logic.CollectionLogic().Equip(Item);
 			ctx.Services.MessageBrokerService().Publish(new CollectionItemEquippedMessage()
 			{
-				Category = category
+				Category = category,
+				EquippedItem = Item
 			});
 		}
 	}

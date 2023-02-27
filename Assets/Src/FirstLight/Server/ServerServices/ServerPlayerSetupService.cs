@@ -30,15 +30,13 @@ namespace Src.FirstLight.Server.ServerServices
 		public ServerState GetInitialState(string playFabId)
 		{
 			var rngData = SetupInitialRngData(playFabId.GetHashCode());
-			var idData = new IdData();
-			var playerData = SetupInitialPlayerData(idData, rngData);
-			var equipmentData = new EquipmentData();
 			var serverState = new ServerState();
+			serverState.UpdateModel(new PlayerData());
 			serverState.UpdateModel(new LiveopsData());
-			serverState.UpdateModel(idData);
+			serverState.UpdateModel(new CollectionData());
+			serverState.UpdateModel(new IdData());
 			serverState.UpdateModel(rngData);
-			serverState.UpdateModel(playerData);
-			serverState.UpdateModel(equipmentData);
+			serverState.UpdateModel(new EquipmentData());
 			return serverState;
 		}
 
@@ -68,19 +66,6 @@ namespace Src.FirstLight.Server.ServerServices
 				Seed = seed,
 				State = RngUtils.GenerateRngState(seed)
 			};
-		}
-
-		/// <summary>
-		/// Setup initial player data contents.
-		/// </summary>
-		private static PlayerData SetupInitialPlayerData(IdData idData, RngData rngData)
-		{
-			var rngSkin = Rng.Range(0, _initialSkins.Count, rngData.State, false);
-			var playerData = new PlayerData
-			{
-				PlayerSkinId = _initialSkins[rngSkin]
-			};
-			return playerData;
 		}
 	}
 }

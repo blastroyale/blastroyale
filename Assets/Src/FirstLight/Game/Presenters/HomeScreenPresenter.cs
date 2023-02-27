@@ -84,7 +84,7 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockTimeLabel;
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
-		
+
 		private Coroutine _updatePoolsCoroutine;
 
 		private void Awake()
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 
 			QueryElementsSquads(root);
-			
+
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
@@ -140,10 +140,8 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnCollectionsClicked;
-			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+			// TODO carlos: root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
-			
-
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
@@ -159,7 +157,6 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 			OnAnyPartyUpdate();
 		}
-
 
 		protected override void OnOpened()
 		{
@@ -193,7 +190,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			UnsubscribeFromSquadEvents();
-			
+
 			if (_updatePoolsCoroutine != null)
 			{
 				_services.CoroutineService.StopCoroutine(_updatePoolsCoroutine);
@@ -205,76 +202,6 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			Data.OnPlayButtonClicked();
-		}
-
-		private void OnPartyLoadingProgress(bool _, bool loading)
-		{
-			_partyButton.SetEnabled(!loading);
-			UpdatePlayButton();
-		}
-
-		private void OnHasPartyChanged(bool _, bool hasParty)
-		{
-			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
-			UpdatePlayButton();
-		}
-
-		private void OnPartyReadyChanged(bool _, bool isReady)
-		{
-			UpdatePlayButton();
-		}
-
-		private void OnMembersChanged(int i, PartyMember _, PartyMember member, ObservableUpdateType type)
-		{
-			UpdatePlayButton();
-		}
-
-		private void OnLocalPlayerKicked()
-		{
-			// TODO translation!
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party,
-				"You got kicked from the party.", true,
-				new GenericDialogButton());
-		}
-
-		private async void OnPartyClicked()
-		{
-			if (_services.PartyService.HasParty.Value)
-			{
-				await _services.PartyService.LeaveParty();
-			}
-			else
-			{
-				var data = new PartyDialogPresenter.StateData
-				{
-					JoinParty = OnJoinParty,
-					CreateParty = OnCreateParty
-				};
-				await _uiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
-			}
-		}
-
-		private async void OnCreateParty()
-		{
-			FLog.Info("Creating party.");
-
-			await _services.PartyService.CreateParty();
-		}
-
-		private async void OnJoinParty(string partyId)
-		{
-			FLog.Info($"Joining party: {partyId}");
-
-			try
-			{
-				await _services.PartyService.JoinParty(partyId);
-			}
-			catch (PartyException pe)
-			{
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Message, true,
-					new GenericDialogButton());
-				FLog.Warn("Error joining party.", pe);
-			}
 		}
 
 		private void OnTrophiesChanged(uint previous, uint current)
@@ -365,7 +292,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
 			UpdateBattlePassButton();
-			
+
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
 				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
@@ -437,7 +364,8 @@ namespace FirstLight.Game.Presenters
 
 			_csPoolContainer.SetDisplay(current.MatchType == MatchType.Ranked);
 
-			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line", _gameModeLabel.text.Contains("\\n"));
+			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
+				_gameModeLabel.text.Contains("\\n"));
 			_gameTypeLabel.EnableInClassList("game-mode-button__type--ranked", current.MatchType == MatchType.Ranked);
 
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
@@ -446,39 +374,49 @@ namespace FirstLight.Game.Presenters
 		private void UpdatePlayButton()
 		{
 			var translationKey = ScriptTerms.UITHomeScreen.play;
-			var buttonClass = "play-button";
+			var buttonClass = string.Empty;
 			var buttonEnabled = true;
+
 			if (_services.PartyService.OperationInProgress.Value)
 			{
+				buttonClass = "play-button--loading";
 				buttonEnabled = false;
-				translationKey = ScriptTerms.UITShared.waiting;
 			}
 			else if (_services.PartyService.HasParty.Value && _services.PartyService.GetLocalMember() != null)
 			{
-				var leader = _services.PartyService.GetLocalMember().Leader;
-				if (leader)
+				if (_services.PartyService.GetLocalMember().Leader)
 				{
 					if (!_services.PartyService.PartyReady.Value)
 					{
-						buttonEnabled = false;
+						FLog.Info("PACO PartyNotReady");
 						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
+						buttonEnabled = false;
 					}
 					else
 					{
+						FLog.Info("PACO partyReads");
 						translationKey = ScriptTerms.UITHomeScreen.play;
 					}
 				}
 				else
 				{
-					buttonClass = "play-button--ready";
 					var isReady = _services.PartyService.GetLocalMember()!.Ready;
-					translationKey = isReady ? ScriptTerms.UITHomeScreen.cancel : ScriptTerms.UITHomeScreen.ready;
+
+					if (isReady)
+					{
+						translationKey = ScriptTerms.UITHomeScreen.ready;
+					}
+					else
+					{
+						buttonClass = "play-button--ready";
+						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
+					}
 				}
 			}
 
 			_playButton.SetEnabled(buttonEnabled);
 			_playButton.RemoveModifiers();
-			_playButton.EnableInClassList(buttonClass, true);
+			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
 			_playButton.Localize(translationKey);
 		}
 

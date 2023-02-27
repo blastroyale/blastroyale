@@ -53,6 +53,8 @@
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites/Home/button-grey.png');
     --sprite-home__button-info: url('/Assets/Art/UI/Sprites/Home/button-info.png');
     --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites/Home/button-info-pressed.png');
+    --sprite-home__button-long-darkblue: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue.png');
+    --sprite-home__button-long-darkblue-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-darkblue-pressed.png');
     --sprite-home__button-long-purple: url('/Assets/Art/UI/Sprites/Home/button-long-purple.png');
     --sprite-home__button-long-purple-pressed: url('/Assets/Art/UI/Sprites/Home/button-long-purple-pressed.png');
     --sprite-home__button-long-red: url('/Assets/Art/UI/Sprites/Home/button-long-red.png');
@@ -67,8 +69,6 @@
     --sprite-home__button-play: url('/Assets/Art/UI/Sprites/Home/button-play.png');
     --sprite-home__button-play-disabled: url('/Assets/Art/UI/Sprites/Home/button-play-disabled.png');
     --sprite-home__button-play-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-pressed.png');
-    --sprite-home__button-play-ready: url('/Assets/Art/UI/Sprites/Home/button-play-ready.png');
-    --sprite-home__button-play-ready-pressed: url('/Assets/Art/UI/Sprites/Home/button-play-ready-pressed.png');
     --sprite-home__button-popup-equipment-close: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close.png');
     --sprite-home__button-popup-equipment-close-pressed: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close-pressed.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
@@ -395,6 +395,14 @@
     background-image: var(--sprite-home__button-info-pressed);
 }
 
+.sprite-home__button-long-darkblue {
+    background-image: var(--sprite-home__button-long-darkblue);
+}
+
+.sprite-home__button-long-darkblue:active {
+    background-image: var(--sprite-home__button-long-darkblue-pressed);
+}
+
 .sprite-home__button-long-purple {
     background-image: var(--sprite-home__button-long-purple);
 }
@@ -449,14 +457,6 @@
 
 .sprite-home__button-play:active {
     background-image: var(--sprite-home__button-play-pressed);
-}
-
-.sprite-home__button-play-ready {
-    background-image: var(--sprite-home__button-play-ready);
-}
-
-.sprite-home__button-play-ready:active {
-    background-image: var(--sprite-home__button-play-ready-pressed);
 }
 
 .sprite-home__button-popup-equipment-close {

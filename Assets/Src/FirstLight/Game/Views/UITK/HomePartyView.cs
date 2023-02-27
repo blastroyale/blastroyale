@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	public class HomePartyView : IUIView
 	{
 		private VisualElement _container;
-		private Label _title;
+		private Label _code;
 		private ListView _partyMemberList;
 
 		private IPartyService _partyService;
@@ -31,7 +31,7 @@ namespace FirstLight.Game.Views.UITK
 			_partyService = MainInstaller.Resolve<IGameServices>().PartyService;
 			_genericDialogService = MainInstaller.Resolve<IGameServices>().GenericDialogService;
 
-			_title = element.Q<Label>("PartyLabel").Required();
+			_code = element.Q<Label>("RoomCode").Required();
 			_partyMemberList = element.Q<ListView>("PartyList").Required();
 			_partyMemberList.DisableScrollbars();
 
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnPartyCodeChanged(string _, string partyCode)
 		{
-			_title.text = $"{ScriptLocalization.UITHomeScreen.party} [{partyCode}]";
+			_code.text = string.Format(ScriptLocalization.UITHomeScreen.party_code, partyCode);
 		}
 
 		private void OnHasPartyChanged(bool _, bool hasParty)

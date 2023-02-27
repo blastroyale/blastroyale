@@ -130,8 +130,9 @@ namespace FirstLight.Game.StateMachines
 		
 		/// <summary>
 		/// Amount of tutorial steps, from all sections, before this tutorial sequence (manually set, CRITICAL for analytics)
+		/// Set according to flow using GameConstants.Tutorial.TOTAL_STEPS_X
 		/// </summary>
-		public int TotalStepsBeforeThisSection { get; set; }
+		public int TotalStepsBeforeThisSection { get;}
 
 		/// <summary>
 		/// Initialised preliminary data values before anything else in the tutorial sequence

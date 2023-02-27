@@ -41,7 +41,7 @@ namespace FirstLight.Game.StateMachines
 		public int CurrentStep { get; set; }
 		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
 		public string CurrentStepName { get; set; }
-		public int TotalStepsBeforeThisSection { get; set; }
+		public int TotalStepsBeforeThisSection => 0;
 
 		private GameplayProceedEventData _currentGameplayProceedData;
 		private short _currentKillProceedProgress;
@@ -62,7 +62,6 @@ namespace FirstLight.Game.StateMachines
 			SectionVersion = 1;
 			CurrentStep = 1;
 			CurrentStepName = "TutorialStart";
-			TotalStepsBeforeThisSection = 0;
 		}
 
 		/// <summary>

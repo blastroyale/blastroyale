@@ -1430,7 +1430,6 @@ namespace I2.Loc
 
 		public static class UITSquads
 		{
-			public static string Kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/Kicked"); } }
 			public static string error_AlreadyInParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_AlreadyInParty"); } }
 			public static string error_BannedFromParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_BannedFromParty"); } }
 			public static string error_ConnectionError 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_ConnectionError"); } }
@@ -1441,6 +1440,8 @@ namespace I2.Loc
 			public static string error_PartyFull 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyFull"); } }
 			public static string error_PartyNotFound 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyNotFound"); } }
 			public static string error_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_Unknown"); } }
+			public static string kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kick"); } }
+			public static string kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kicked"); } }
 		}
 
 		public static class UITStore
@@ -2910,7 +2911,6 @@ namespace I2.Loc
 
 		public static class UITSquads
 		{
-		    public const string Kicked = "UITSquads/Kicked";
 		    public const string error_AlreadyInParty = "UITSquads/error_AlreadyInParty";
 		    public const string error_BannedFromParty = "UITSquads/error_BannedFromParty";
 		    public const string error_ConnectionError = "UITSquads/error_ConnectionError";
@@ -2921,6 +2921,8 @@ namespace I2.Loc
 		    public const string error_PartyFull = "UITSquads/error_PartyFull";
 		    public const string error_PartyNotFound = "UITSquads/error_PartyNotFound";
 		    public const string error_Unknown = "UITSquads/error_Unknown";
+		    public const string kick = "UITSquads/kick";
+		    public const string kicked = "UITSquads/kicked";
 		}
 
 		public static class UITStore

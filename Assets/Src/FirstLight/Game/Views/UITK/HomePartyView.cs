@@ -4,6 +4,7 @@ using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -16,6 +17,7 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class HomePartyView : IUIView
 	{
+		private VisualElement _root;
 		private VisualElement _container;
 		private Label _code;
 		private ListView _partyMemberList;
@@ -41,41 +43,61 @@ namespace FirstLight.Game.Views.UITK
 			RefreshPartyList();
 		}
 
+		public void SetRoot(VisualElement root)
+		{
+			_root = root;
+		}
+
 		private void BindPartyListEntry(VisualElement element, int index)
 		{
 			var partyMember = _partyMembers[index];
+			var button = (Button) element;
 
-			((Label) element).text = (partyMember.Leader ? "<sprite name=\"Crown\">" : string.Empty) + (partyMember.Ready ? "<sprite name=\"Checked\"> " : string.Empty) + partyMember.DisplayName;
-			((Label) element).enableRichText = true;
+			button.text =
+				$"    {(partyMember.Leader ? "<sprite name=\"Crown\">" : string.Empty)}  {partyMember.DisplayName}  {(partyMember.Ready ? "<sprite name=\"Checked\"> " : string.Empty)}";
 
 			if (CanKick() && !partyMember.Local)
 			{
-				element.UnregisterCallback<ClickEvent, int>(OnPartyMemberClicked);
-				element.RegisterCallback<ClickEvent, int>(OnPartyMemberClicked, index);
+				element.UnregisterCallback<ClickEvent, Pair<int, VisualElement>>(OnPartyMemberClicked);
+				element.RegisterCallback<ClickEvent, Pair<int, VisualElement>>(OnPartyMemberClicked,
+					new Pair<int, VisualElement>(index, element));
 			}
 		}
 
-		private async void OnPartyMemberClicked(ClickEvent e, int index)
+		private VisualElement CreatePartyListEntry()
+		{
+			var label = new Button();
+			label.enableRichText = true;
+			label.AddToClassList("squad-member");
+			return label;
+		}
+
+		private void OnPartyMemberClicked(ClickEvent e, Pair<int, VisualElement> args)
 		{
 			if (_partyService.OperationInProgress.Value) return;
+
+			var index = args.Key;
+			var element = args.Value;
+
+			var kickButton = new LocalizedButton(ScriptTerms.UITSquads.kick);
+			kickButton.AddToClassList("squad-button-kick");
+			element.OpenTooltip(_root, kickButton, position: TooltipPosition.CenterLeft, offsetX: 50);
+			kickButton.clicked += () => { KickPartyMember(index); };
+		}
+
+		private async void KickPartyMember(int index)
+		{
 			try
 			{
 				await _partyService.Kick(_partyMembers[index].PlayfabID);
 			}
 			catch (PartyException pe)
 			{
-				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(), true,
+				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Error.GetTranslation(),
+					true,
 					new GenericDialogButton());
 				FLog.Warn("Error on kicking squad member", pe);
 			}
-		}
-
-		private VisualElement CreatePartyListEntry()
-		{
-			var label = new Label();
-			label.enableRichText = true;
-			label.AddToClassList("squad-member");
-			return label;
 		}
 
 		public void SubscribeToEvents()

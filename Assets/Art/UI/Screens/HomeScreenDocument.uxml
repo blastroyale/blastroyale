@@ -11,14 +11,14 @@
                 <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-l" />
                 <ui:VisualElement name="PartyContainer" class="squad-container anim-delay-2 anim-translate anim-translate--left-xl">
                     <ui:VisualElement name="Header" class="squad-container__header">
-                        <FirstLight.Game.UIElements.LocalizedButton name="Title" class="squad-container__title" localization-key="UITHomeScreen/party" />
+                        <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" />
                         <ui:Label text="CODE:  ABD8" name="RoomCode" class="squad-container__roomcode" />
                     </ui:VisualElement>
-                    <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
+                    <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" show-alternating-row-backgrounds="All" class="squad-container__list" />
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-l" />
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
                     <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
                     <ui:VisualElement name="LabelHolder" class="game-mode-button__label-holder">
@@ -103,6 +103,4 @@
             </ui:Button>
         </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
-    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Art/UI/TEMP_battlepassbutton.png?fileID=21300000&amp;guid=01a6b3a0f80d046e0b4115259d2813e3&amp;type=3#TEMP_battlepassbutton&apos;); width: 673px; position: absolute; left: -37px; bottom: 11px; height: 272px; opacity: 0.62; scale: 0.955 0.955; display: none; visibility: visible;" />
-    <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Art/UI/TEMP_battlepassbutton_reward.png?fileID=21300000&amp;guid=2e4a89f2891fd4c88a5269e37c22fc9e&amp;type=3#TEMP_battlepassbutton_reward&apos;); width: 757px; position: absolute; left: -47px; bottom: -10px; height: 315px; opacity: 0.57; scale: 0.955 0.955; display: none; visibility: visible;" />
 </ui:UXML>

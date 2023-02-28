@@ -22,6 +22,7 @@ namespace FirstLight.Game.Presenters
 		private void QueryElementsSquads(VisualElement root)
 		{
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
+			_partyView.SetRoot(root);
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.clicked += OnPartyClicked;
 		}
@@ -95,7 +96,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerKicked()
 		{
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, ScriptLocalization.UITSquads.Kicked, true,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, ScriptLocalization.UITSquads.kicked, true,
 				new GenericDialogButton());
 		}
 

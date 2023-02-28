@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -11,7 +10,6 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -54,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		private IPartyService _partyService;
 
 		private LocalizedButton _playButton;
+		private VisualElement _playButtonContainer;
 
 		private ImageButton _header;
 		private Label _playerNameLabel;
@@ -71,7 +70,6 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _battlePassButton;
 		private Label _battlePassProgressLabel;
 		private VisualElement _battlePassProgressElement;
-		private VisualElement _battlePassRays;
 		private VisualElement _battlePassRarity;
 
 		private VisualElement _trophiesHolder;
@@ -122,12 +120,12 @@ namespace FirstLight.Game.Presenters
 
 			_battlePassButton = root.Q<ImageButton>("BattlePassButton").Required();
 			_battlePassProgressElement = _battlePassButton.Q<VisualElement>("BattlePassProgressElement").Required();
-			_battlePassRays = _battlePassButton.Q<VisualElement>("BPRays").Required();
 			_battlePassProgressLabel = _battlePassButton.Q<Label>("BPProgressText").Required();
 			_battlePassRarity = _battlePassButton.Q<VisualElement>("BPRarity").Required();
 
 			QueryElementsSquads(root);
 
+			_playButtonContainer = root.Q("PlayButtonHolder");
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
@@ -362,7 +360,9 @@ namespace FirstLight.Game.Presenters
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
 			_gameTypeLabel.text = current.MatchType.ToString().ToUpper();
 
-			_csPoolContainer.SetDisplay(current.MatchType == MatchType.Ranked);
+			var hasPool = current.MatchType == MatchType.Ranked;
+			_csPoolContainer.SetDisplay(hasPool);
+			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
 
 			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
 				_gameModeLabel.text.Contains("\\n"));
@@ -388,13 +388,11 @@ namespace FirstLight.Game.Presenters
 				{
 					if (!_services.PartyService.PartyReady.Value)
 					{
-						FLog.Info("PACO PartyNotReady");
 						translationKey = ScriptTerms.UITHomeScreen.waiting_for_members;
 						buttonEnabled = false;
 					}
 					else
 					{
-						FLog.Info("PACO partyReads");
 						translationKey = ScriptTerms.UITHomeScreen.play;
 					}
 				}
@@ -404,12 +402,12 @@ namespace FirstLight.Game.Presenters
 
 					if (isReady)
 					{
-						translationKey = ScriptTerms.UITHomeScreen.ready;
+						buttonClass = "play-button--get-ready";
+						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
 					}
 					else
 					{
-						buttonClass = "play-button--ready";
-						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
+						translationKey = ScriptTerms.UITHomeScreen.ready;
 					}
 				}
 			}

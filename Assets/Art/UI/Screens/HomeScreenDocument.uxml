@@ -44,7 +44,7 @@
                     <ui:VisualElement class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl main-button-margin">
@@ -64,7 +64,7 @@
                     <FirstLight.Game.UIElements.ImageButton name="BattlePassButton" class="battle-pass-button sfx-click-forwards">
                         <ui:VisualElement name="Holder" class="battle-pass-button__holder">
                             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/blast_pass" name="BattlePassTitle" picking-mode="Ignore" class="battle-pass-button__title" />
-                            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/blast_pass_claim_reward" name="BattlePassTitleClaimReward" picking-mode="Ignore" class="battle-pass-button__title_claim_reward" />
+                            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/bp_button_reward_title" name="BattlePassTitleClaimReward" picking-mode="Ignore" class="battle-pass-button__title_claim_reward" />
                             <ui:VisualElement name="BattlePassLevelHolder" class="battle-pass-level-holder">
                                 <ui:Label text="5" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="battle-pass-button__level" />
                                 <ui:Label text="LV" name="BattlePassLevelTextLabel" picking-mode="Ignore" class="battle-pass-button__level__text battle-pass-button__leveltext" />

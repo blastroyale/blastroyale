@@ -28,6 +28,11 @@
     --sprite-home__button-bpreward: url('/Assets/Art/UI/Sprites/Home/button-bpreward.png');
     --sprite-home__button-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/button-bpreward-outline.png');
     --sprite-home__button-bpreward-pressed: url('/Assets/Art/UI/Sprites/Home/button-bpreward-pressed.png');
+    --sprite-home__button-collection-item: url('/Assets/Art/UI/Sprites/Home/button-collection-item.png');
+    --sprite-home__button-collection-item-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-item-pressed.png');
+    --sprite-home__button-collection-tab: url('/Assets/Art/UI/Sprites/Home/button-collection-tab.png');
+    --sprite-home__button-collection-tab-pressed: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-pressed.png');
+    --sprite-home__button-collection-tab-selected: url('/Assets/Art/UI/Sprites/Home/button-collection-tab-selected.png');
     --sprite-home__button-equipmentslot-common: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-common.png');
     --sprite-home__button-equipmentslot-common-pressed: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-common-pressed.png');
     --sprite-home__button-equipmentslot-empty: url('/Assets/Art/UI/Sprites/Home/button-equipmentslot-empty.png');
@@ -68,6 +73,26 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
+    --sprite-home__character-assasins-female: url('/Assets/Art/UI/Sprites/Home/character-assasins-female.png');
+    --sprite-home__character-assasins-male: url('/Assets/Art/UI/Sprites/Home/character-assasins-male.png');
+    --sprite-home__character-corpo-female: url('/Assets/Art/UI/Sprites/Home/character-corpo-female.png');
+    --sprite-home__character-corpo-male: url('/Assets/Art/UI/Sprites/Home/character-corpo-male.png');
+    --sprite-home__character-female01avatar: url('/Assets/Art/UI/Sprites/Home/character-female01avatar.png');
+    --sprite-home__character-female02avatar: url('/Assets/Art/UI/Sprites/Home/character-female02avatar.png');
+    --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
+    --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
+    --sprite-home__character-male-superstar: url('/Assets/Art/UI/Sprites/Home/character-male-superstar.png');
+    --sprite-home__character-punk-female: url('/Assets/Art/UI/Sprites/Home/character-punk-female.png');
+    --sprite-home__character-punk-male: url('/Assets/Art/UI/Sprites/Home/character-punk-male.png');
+    --sprite-home__character-superstar-female: url('/Assets/Art/UI/Sprites/Home/character-superstar-female.png');
+    --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
+    --sprite-home__flag-punk: url('/Assets/Art/UI/Sprites/Home/flag-punk.png');
+    --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
+    --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
+    --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
+    --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
+    --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
+    --sprite-home__glider-shark: url('/Assets/Art/UI/Sprites/Home/glider-shark.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
     --sprite-home__header-background: url('/Assets/Art/UI/Sprites/Home/header-background.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
@@ -79,10 +104,13 @@
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
+    --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
+    --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
     --sprite-home__icon-close-white: url('/Assets/Art/UI/Sprites/Home/icon-close-white.png');
+    --sprite-home__icon-collection-lock: url('/Assets/Art/UI/Sprites/Home/icon-collection-lock.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
@@ -103,6 +131,7 @@
     --sprite-home__icon-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-deathmatch.png');
     --sprite-home__icon-heroes: url('/Assets/Art/UI/Sprites/Home/icon-heroes.png');
     --sprite-home__icon-hide-purple: url('/Assets/Art/UI/Sprites/Home/icon-hide-purple.png');
+    --sprite-home__icon-jetpack: url('/Assets/Art/UI/Sprites/Home/icon-jetpack.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
@@ -262,6 +291,26 @@
 
 .sprite-home__button-bpreward:active {
     background-image: var(--sprite-home__button-bpreward-pressed);
+}
+
+.sprite-home__button-collection-item {
+    background-image: var(--sprite-home__button-collection-item);
+}
+
+.sprite-home__button-collection-item:active {
+    background-image: var(--sprite-home__button-collection-item-pressed);
+}
+
+.sprite-home__button-collection-tab {
+    background-image: var(--sprite-home__button-collection-tab);
+}
+
+.sprite-home__button-collection-tab:active {
+    background-image: var(--sprite-home__button-collection-tab-pressed);
+}
+
+.sprite-home__button-collection-tab-selected {
+    background-image: var(--sprite-home__button-collection-tab-selected);
 }
 
 .sprite-home__button-equipmentslot-common {
@@ -424,6 +473,86 @@
     background-image: var(--sprite-home__card-shadow-pink);
 }
 
+.sprite-home__character-assasins-female {
+    background-image: var(--sprite-home__character-assasins-female);
+}
+
+.sprite-home__character-assasins-male {
+    background-image: var(--sprite-home__character-assasins-male);
+}
+
+.sprite-home__character-corpo-female {
+    background-image: var(--sprite-home__character-corpo-female);
+}
+
+.sprite-home__character-corpo-male {
+    background-image: var(--sprite-home__character-corpo-male);
+}
+
+.sprite-home__character-female01avatar {
+    background-image: var(--sprite-home__character-female01avatar);
+}
+
+.sprite-home__character-female02avatar {
+    background-image: var(--sprite-home__character-female02avatar);
+}
+
+.sprite-home__character-male01avatar {
+    background-image: var(--sprite-home__character-male01avatar);
+}
+
+.sprite-home__character-male02avatar {
+    background-image: var(--sprite-home__character-male02avatar);
+}
+
+.sprite-home__character-male-superstar {
+    background-image: var(--sprite-home__character-male-superstar);
+}
+
+.sprite-home__character-punk-female {
+    background-image: var(--sprite-home__character-punk-female);
+}
+
+.sprite-home__character-punk-male {
+    background-image: var(--sprite-home__character-punk-male);
+}
+
+.sprite-home__character-superstar-female {
+    background-image: var(--sprite-home__character-superstar-female);
+}
+
+.sprite-home__flag-demon {
+    background-image: var(--sprite-home__flag-demon);
+}
+
+.sprite-home__flag-punk {
+    background-image: var(--sprite-home__flag-punk);
+}
+
+.sprite-home__flag-superstar {
+    background-image: var(--sprite-home__flag-superstar);
+}
+
+.sprite-home__flag-unicorn {
+    background-image: var(--sprite-home__flag-unicorn);
+}
+
+.sprite-home__glider-divinci {
+    background-image: var(--sprite-home__glider-divinci);
+}
+
+.sprite-home__glider-falcon {
+    background-image: var(--sprite-home__glider-falcon);
+}
+
+.sprite-home__glider-rocket {
+    background-image: var(--sprite-home__glider-rocket);
+}
+
+.sprite-home__glider-shark {
+    background-image: var(--sprite-home__glider-shark);
+}
+
 .sprite-home__header-back {
     background-image: var(--sprite-home__header-back);
 }
@@ -468,8 +597,16 @@
     background-image: var(--sprite-home__icon-arrow-upgrade);
 }
 
+.sprite-home__icon-banner {
+    background-image: var(--sprite-home__icon-banner);
+}
+
 .sprite-home__icon-battlepass-crown {
     background-image: var(--sprite-home__icon-battlepass-crown);
+}
+
+.sprite-home__icon-characters {
+    background-image: var(--sprite-home__icon-characters);
 }
 
 .sprite-home__icon-checkmark {
@@ -482,6 +619,10 @@
 
 .sprite-home__icon-close-white {
     background-image: var(--sprite-home__icon-close-white);
+}
+
+.sprite-home__icon-collection-lock {
+    background-image: var(--sprite-home__icon-collection-lock);
 }
 
 .sprite-home__icon-cooldown-cs {
@@ -562,6 +703,10 @@
 
 .sprite-home__icon-hide-purple {
     background-image: var(--sprite-home__icon-hide-purple);
+}
+
+.sprite-home__icon-jetpack {
+    background-image: var(--sprite-home__icon-jetpack);
 }
 
 .sprite-home__icon-leaderboards {

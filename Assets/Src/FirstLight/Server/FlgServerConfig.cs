@@ -26,7 +26,7 @@ namespace Src.FirstLight.Server
 
         public Assembly GetCommandsAssembly()
         {
-            return typeof(UpdatePlayerSkinCommand).Assembly;
+            return typeof(EquipCollectionItemCommand).Assembly;
         }
 
         /// <summary>

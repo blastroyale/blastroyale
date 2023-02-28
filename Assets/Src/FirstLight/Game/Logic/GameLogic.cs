@@ -54,6 +54,8 @@ namespace FirstLight.Game.Logic
 		IRewardDataProvider RewardDataProvider { get; }
 		/// <inheritdoc cref="IBattlePassDataProvider"/>
 		IBattlePassDataProvider BattlePassDataProvider { get; }
+		
+		ICollectionDataProvider CollectionDataProvider { get; }
 	}
 
 	/// <summary>
@@ -90,6 +92,8 @@ namespace FirstLight.Game.Logic
 		IBattlePassLogic BattlePassLogic { get; }
 		/// <inheritdoc cref="ILiveopsLogic"/>
 		ILiveopsLogic LiveopsLogic { get; }
+		
+		ICollectionLogic CollectionLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -129,6 +133,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
+		public ICollectionDataProvider CollectionDataProvider => CollectionLogic;
+
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
 		/// <inheritdoc />
@@ -151,6 +157,9 @@ namespace FirstLight.Game.Logic
 		public IBattlePassLogic BattlePassLogic { get; }
 		/// <inheritdoc />
 		public ILiveopsLogic LiveopsLogic { get; }
+		
+		public ICollectionLogic CollectionLogic { get; }
+		
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
 		{
@@ -168,6 +177,7 @@ namespace FirstLight.Game.Logic
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
+			CollectionLogic = new CollectionLogic(this, dataProvider);
 
 			_logicInitializers = new List<IGameLogicInitializer>();
 			
@@ -180,6 +190,7 @@ namespace FirstLight.Game.Logic
 			_logicInitializers.Add(RewardLogic as IGameLogicInitializer);
 			_logicInitializers.Add(BattlePassLogic as IGameLogicInitializer);
 			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
+			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
 		}
 		
 		/// <summary>
@@ -242,6 +253,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.EquipmentLogic);
 			container.Add(logic.UniqueIdLogic);
 			container.Add(logic.LiveopsLogic);
+			container.Add(logic.CollectionLogic);
 			return container;
 		}
 
@@ -253,6 +265,7 @@ namespace FirstLight.Game.Logic
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
 		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
 		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();
+		public static ICollectionLogic CollectionLogic(this LogicContainer c) => c.Get<ICollectionLogic>();
 	}
 
 }

@@ -23,7 +23,6 @@ namespace Src.FirstLight.Server
 		{
 			_ctx = context;
 			var evManager = _ctx.PluginEventManager!;
-			evManager.RegisterEventListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(OnSkinUpdate);
 			evManager.RegisterEventListener<GameLogicMessageEvent<GameCompletedRewardsMessage>>(OnGameCompleted);
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
@@ -149,14 +148,6 @@ namespace Src.FirstLight.Server
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.UserId, "battle_pass_rewards", data);
-		}
-
-		private void OnSkinUpdate(GameLogicMessageEvent<PlayerSkinUpdatedMessage> ev)
-		{
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "character_changed", new AnalyticsData()
-			{
-				{"new_skin", ev.Message.SkinId.ToString()}
-			});
 		}
 	}
 }

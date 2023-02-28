@@ -30,7 +30,8 @@ namespace FirstLight.Game.Utils
 			}
 
 			var isRandomMatchmaking = setup.MatchType != MatchType.Custom;
-
+			var isTutorialMode = setup.GameModeId == GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID ||
+				setup.GameModeId == GameConstants.Tutorial.SECOND_BOT_MODE_ID;
 			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;
 			var maxPlayers = GetMaxPlayers(setup.GameMode(), setup.Map());
@@ -70,7 +71,7 @@ namespace FirstLight.Game.Utils
 					DeleteNullProperties = true,
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
-					IsVisible = isRandomMatchmaking,
+					IsVisible = isRandomMatchmaking && !isTutorialMode,
 					MaxPlayers = isRandomMatchmaking
 						? (byte) maxPlayers
 						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),

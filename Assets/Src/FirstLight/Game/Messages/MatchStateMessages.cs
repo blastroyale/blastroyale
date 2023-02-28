@@ -29,4 +29,11 @@ namespace FirstLight.Game.Messages
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
 	public struct LeftBeforeMatchFinishedMessage : IMessage { }
 	public struct MatchCountdownStartedMessage : IMessage { }
+
+	public struct PlayerEnteredMessageVolume : IMessage
+	{
+		public string VolumeId;
+	}
+
+	public struct PlayerUsedMovementJoystick : IMessage { }
 }

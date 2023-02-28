@@ -15,10 +15,10 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct TutorialRewardConfig
 	{
-		[FormerlySerializedAs("Step")] public TutorialSection _section;
+		public TutorialSection Section;
 		public List<uint> RewardIds;
-
 	}
+	
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="TutorialRewardConfigs"/> sheet data
 	/// </summary>

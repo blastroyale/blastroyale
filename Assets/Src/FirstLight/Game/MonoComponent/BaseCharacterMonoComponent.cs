@@ -20,7 +20,8 @@ namespace FirstLight.Game.MonoComponent
 		protected readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
 		protected readonly int _equipBodyHash = Animator.StringToHash("equip_body");
 		protected readonly int _victoryHash = Animator.StringToHash("victory");
-
+		protected bool IsLoaded = false;
+		
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
 		
@@ -93,7 +94,7 @@ namespace FirstLight.Game.MonoComponent
 			instance.SetActive(true);
 
 			_animator = instance.GetComponent<Animator>();
-			
+			IsLoaded = true;
 			_characterLoadedEvent?.Invoke();
 		}
 	}

@@ -88,19 +88,20 @@
     left: 46%;
 }
 
-.bubble__localized-text {
+.bubble__text {
     position: absolute;
     left: 68px;
     top: 63px;
     right: 79px;
     bottom: 98px;
-    font-size: 25px;
+    font-size: 36px;
     -unity-text-align: middle-center;
-    rotate: 5deg;
+    rotate: -3deg;
     scale: 1, 1;
+    white-space: normal;
 }
 
-.bubble__localized-text__right {
+.bubble__text__right {
     scale: -1, 1;
 }
 

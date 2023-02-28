@@ -324,10 +324,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_networkService.LocalPlayer.IsMasterClient ||
+			if (!_services.TutorialService.IsTutorialRunning && 
+				(!_networkService.LocalPlayer.IsMasterClient ||
 				!_networkService.CurrentRoom.IsMatchmakingRoom() ||
 				!_networkService.CurrentRoomMatchType.HasValue ||
-				!_networkService.CurrentRoomMatchType.HasValue) 
+				!_networkService.CurrentRoomMatchType.HasValue))
 			{
 				return;
 			}
@@ -427,11 +428,13 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || _services.TutorialService.IsTutorialRunning)
+			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || 
+				_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				LockRoom();
 			}
-			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
+			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || 
+					 _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				StartMatchmakingLockRoomTimer();
 			}
@@ -647,10 +650,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
+			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
+			// This is the same flow as the first match setup
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
+			{
+				return;
+			}
+			
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
+			
 			var matchmakingSetup = new MatchRoomSetup()
 			{
 				MapId = (int) mapConfig.Map,
@@ -658,6 +669,7 @@ namespace FirstLight.Game.StateMachines
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
 			};
+			
 			StartRandomMatchmaking(matchmakingSetup);
 		}
 		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)

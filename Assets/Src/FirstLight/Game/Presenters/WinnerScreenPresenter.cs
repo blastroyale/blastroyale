@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.UIElements;
@@ -31,6 +32,7 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchService;
 		private IGameServices _services;
 
+		private VisualElement _winnerBanner;
 		private Label _nameLabel;
 		private Button _nextButton;
 
@@ -49,6 +51,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_nameLabel = root.Q<Label>("NameLabel").Required();
+			_winnerBanner = root.Q("WinnerBanner");
 
 			root.Q<LocalizedButton>("NextButton").clicked += OnNextClicked;
 		}
@@ -77,6 +80,7 @@ namespace FirstLight.Game.Presenters
 
 			_playerWinnerEntity = playerWinner.Data.Entity;
 			_nameLabel.text = playerWinner.GetPlayerName();
+			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			PlayTimeline();
 		}

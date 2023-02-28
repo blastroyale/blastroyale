@@ -43,11 +43,10 @@ namespace FirstLight.Game.Views.UITK
 
 			if (show)
 			{
-				// A bit of a hacky way to get a timer going. Only problem with this is that it will stop after 1h. Should be plenty
-				_timer = _timeLabel.experimental.animation
-					.Start(0, 60 * 60, 60 * 60 * 1000,
-						(e, t) => { ((Label) e).text = $"{TimeSpan.FromSeconds(t):mm\\:ss}"; })
-					.Ease(Easing.Linear);
+				_timeLabel.schedule.Execute(ts =>
+				{
+					_timeLabel.text = $"{TimeSpan.FromMilliseconds(ts.now - ts.start):mm\\:ss}";
+				}).Every(200); // Triggered every 200ms so the second counting is smooth and consistent.
 			}
 		}
 	}

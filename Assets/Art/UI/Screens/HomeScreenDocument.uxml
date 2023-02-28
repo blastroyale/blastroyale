@@ -46,6 +46,7 @@
                         <ui:VisualElement name="CheckmarkBG" class="play-button__checkmark-bg">
                             <ui:VisualElement name="Checkmark" class="play-button__checkmark" />
                         </ui:VisualElement>
+                        <FirstLight.Game.UIElements.GlintElement name="Glint" />
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
             </ui:VisualElement>

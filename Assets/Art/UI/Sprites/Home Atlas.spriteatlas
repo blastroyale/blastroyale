@@ -80,6 +80,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 545aed239f2df4d86abcfc25d2ff775e, type: 3}
   - {fileID: 21300000, guid: 2d6c823359e264eac88204c4e1664c4c, type: 3}
   - {fileID: 21300000, guid: 0206fd639b1694c59aad8a146e66d218, type: 3}
+  - {fileID: 21300000, guid: 64d6e183db5564504ba1f932263096e3, type: 3}
   - {fileID: 21300000, guid: b1b49693efdaa4ca8a9c94366bfb82e3, type: 3}
   - {fileID: 21300000, guid: 3c1b59a3a7b7df141a97b28813afe172, type: 3}
   - {fileID: 21300000, guid: 9c277ab36769148f38d0502cf27b312a, type: 3}
@@ -266,6 +267,7 @@ SpriteAtlas:
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
+  - background-matchmakingstatus
   - button-battlepass
   - text-royale
   - button-main-purple-pressed

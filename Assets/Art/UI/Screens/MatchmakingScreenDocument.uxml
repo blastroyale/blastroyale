@@ -46,7 +46,7 @@
                 <ui:VisualElement name="Header" class="squad-container__header">
                     <FirstLight.Game.UIElements.LocalizedButton name="Title" class="squad-container__title" localization-key="UITHomeScreen/party" />
                 </ui:VisualElement>
-                <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
+                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

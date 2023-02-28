@@ -652,6 +652,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/matchmaking
+      TermType: 0
+      Description: 
+      Languages:
+      - Matchmaking...
+      - "\u0417\u0430\u043A\u0430\u0437 ..."
+      - Matchmaking ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/error_BannedFromParty
       TermType: 0
       Description: 
@@ -15894,7 +15905,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1677553559676
+    Google_LastUpdatedVersion: 1677603083694
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

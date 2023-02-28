@@ -786,3 +786,58 @@
     min-width: 256px;
     -unity-text-align: middle-left;
 }
+
+.matchmaking-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.71);
+    transition-duration: 0.3s;
+    translate: 0 0;
+}
+
+.matchmaking-container__safearea {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.matchmaking-status {
+    background-image: var(--sprite-home__background-matchmakingstatus);
+    top: 36px;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+    align-items: center;
+    justify-content: center;
+}
+
+.matchmaking-container--hidden {
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.matchmaking-container--hidden .matchmaking-status {
+    translate: 0 -200px;
+}
+
+.matchmaking-status__subtitle {
+    font-size: 28px;
+    color: rgba(148, 139, 196, 255);
+}
+
+.matchmaking-status__title {
+    color: rgb(255, 255, 255);
+    font-size: 52px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: -6px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}

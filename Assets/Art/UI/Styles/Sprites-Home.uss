@@ -8,6 +8,7 @@
     --sprite-home__background-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch.png');
     --sprite-home__background-gamemode-deathmatch-top: url('/Assets/Art/UI/Sprites/Home/background-gamemode-deathmatch-top.png');
     --sprite-home__background-inputfield: url('/Assets/Art/UI/Sprites/Home/background-inputfield.png');
+    --sprite-home__background-matchmakingstatus: url('/Assets/Art/UI/Sprites/Home/background-matchmakingstatus.png');
     --sprite-home__background-modeselection-casual: url('/Assets/Art/UI/Sprites/Home/background-modeselection-casual.png');
     --sprite-home__background-modeselection-comingsoon: url('/Assets/Art/UI/Sprites/Home/background-modeselection-comingsoon.png');
     --sprite-home__background-modeselection-custom: url('/Assets/Art/UI/Sprites/Home/background-modeselection-custom.png');
@@ -235,6 +236,12 @@
     height: 72px;
 }
 
+.sprite-home__background-matchmakingstatus {
+    background-image: var(--sprite-home__background-matchmakingstatus);
+    width: 516px;
+    height: 114px;
+}
+
 .sprite-home__background-modeselection-casual {
     background-image: var(--sprite-home__background-modeselection-casual);
     width: 460px;
@@ -363,6 +370,8 @@
 
 .sprite-home__button-collection-item {
     background-image: var(--sprite-home__button-collection-item);
+    width: 348px;
+    height: 340px;
 }
 
 .sprite-home__button-collection-item:active {
@@ -371,6 +380,8 @@
 
 .sprite-home__button-collection-tab {
     background-image: var(--sprite-home__button-collection-tab);
+    width: 486px;
+    height: 164px;
 }
 
 .sprite-home__button-collection-tab:active {
@@ -379,6 +390,8 @@
 
 .sprite-home__button-collection-tab-selected {
     background-image: var(--sprite-home__button-collection-tab-selected);
+    width: 486px;
+    height: 164px;
 }
 
 .sprite-home__button-equipmentslot-common {
@@ -601,82 +614,122 @@
 
 .sprite-home__character-assasins-female {
     background-image: var(--sprite-home__character-assasins-female);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-assasins-male {
     background-image: var(--sprite-home__character-assasins-male);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-corpo-female {
     background-image: var(--sprite-home__character-corpo-female);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-corpo-male {
     background-image: var(--sprite-home__character-corpo-male);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-female01avatar {
     background-image: var(--sprite-home__character-female01avatar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-female02avatar {
     background-image: var(--sprite-home__character-female02avatar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-male01avatar {
     background-image: var(--sprite-home__character-male01avatar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-male02avatar {
     background-image: var(--sprite-home__character-male02avatar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-male-superstar {
     background-image: var(--sprite-home__character-male-superstar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-punk-female {
     background-image: var(--sprite-home__character-punk-female);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-punk-male {
     background-image: var(--sprite-home__character-punk-male);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-superstar-female {
     background-image: var(--sprite-home__character-superstar-female);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__flag-demon {
     background-image: var(--sprite-home__flag-demon);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__flag-punk {
     background-image: var(--sprite-home__flag-punk);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__flag-superstar {
     background-image: var(--sprite-home__flag-superstar);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__flag-unicorn {
     background-image: var(--sprite-home__flag-unicorn);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__glider-divinci {
     background-image: var(--sprite-home__glider-divinci);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__glider-falcon {
     background-image: var(--sprite-home__glider-falcon);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__glider-rocket {
     background-image: var(--sprite-home__glider-rocket);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__glider-shark {
     background-image: var(--sprite-home__glider-shark);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__header-back {
@@ -741,6 +794,8 @@
 
 .sprite-home__icon-banner {
     background-image: var(--sprite-home__icon-banner);
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-battlepass-crown {
@@ -751,6 +806,8 @@
 
 .sprite-home__icon-characters {
     background-image: var(--sprite-home__icon-characters);
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-checkmark {
@@ -773,6 +830,8 @@
 
 .sprite-home__icon-collection-lock {
     background-image: var(--sprite-home__icon-collection-lock);
+    width: 148px;
+    height: 160px;
 }
 
 .sprite-home__icon-cooldown-cs {
@@ -897,6 +956,8 @@
 
 .sprite-home__icon-jetpack {
     background-image: var(--sprite-home__icon-jetpack);
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-leaderboards {

@@ -28,18 +28,31 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
 		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
 		public static readonly IStatechartEvent PlayClickedEvent = new StatechartEvent("Play Clicked Event");
-		
+
 		private readonly IStatechartEvent _tabButtonClickedEvent = new StatechartEvent("Tab Button Clicked Event");
-		private readonly IStatechartEvent _currentTabButtonClickedEvent = new StatechartEvent("Current Tab Button Clicked Event");
-		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
+
+		private readonly IStatechartEvent _currentTabButtonClickedEvent =
+			new StatechartEvent("Current Tab Button Clicked Event");
+
+		private readonly IStatechartEvent _settingsMenuClickedEvent =
+			new StatechartEvent("Settings Menu Button Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
+			new StatechartEvent("Room Join Create Button Clicked Event");
+
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
+
+		private readonly IStatechartEvent _gameModeSelectedFinishedEvent =
+			new StatechartEvent("Game Mode Selected Finished Event");
+
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _battlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
+
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
+			new StatechartEvent("Room Join Create Close Button Clicked Event");
+
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
 		private readonly IStatechartEvent _brokenItemsRepairEvent = new StatechartEvent("Broken Items Repair Event");
@@ -128,7 +141,6 @@ namespace FirstLight.Game.StateMachines
 			var collectionMenu = stateFactory.Nest("Collection Menu");
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
-			var roomWait = stateFactory.State("Room Joined Check");
 			var waitMatchmaking = stateFactory.State("Matchmaking Waiting");
 			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
 			var leaderboard = stateFactory.Wait("Leaderboard");
@@ -153,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 			defaultNameCheck.Transition().Condition(HasNotCompletedEquipmentTutorial).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
 
-			homeMenu.OnEnter(OpenPlayMenuUI);
+			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
@@ -172,26 +184,17 @@ namespace FirstLight.Game.StateMachines
 				.OnTransition(TogglePartyReadyStatus)
 				.Target(homeMenu);
 			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage)
-				.Target(roomWait);
+				.Target(waitMatchmaking);
 
-
-			// Old "matchmaking"
-			roomWait.OnEnter(CloseCurrentScreen);
-			// In the new matchmaking we will receive the join event, in the old one we will not
-			roomWait.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
-			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
-			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
-			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
-
-			// New matchmaking
-			waitMatchmaking.OnEnter(JoinedMatchmaking);
+			// Matchmaking
+			waitMatchmaking.OnEnter(ShowMatchmaking);
+			// TODO: waitMatchmaking.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
 			waitMatchmaking.Event(NetworkState.JoinedRoomEvent).Target(final);
 			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
-				.OnTransition(CloseMatchmakingScreen)
+				.OnTransition(HideMatchmaking)
 				.Target(homeMenu);
-
 
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
@@ -217,32 +220,24 @@ namespace FirstLight.Game.StateMachines
 			equipmentMenu.Nest(_equipmentMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
 				.Target(screenCheck);
 
-			collectionMenu.Nest(_collectionMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
-			
+			collectionMenu.Nest(_collectionMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>)
+				.Target(screenCheck);
+
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
-			roomJoinCreateMenu.Event(PlayClickedEvent).Target(roomWait);
+			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(OpenHomeScreen).Target(waitMatchmaking);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
 
-		private void CloseMatchmakingScreen()
+		private void HideMatchmaking()
 		{
-			_uiService.CloseCurrentScreen();
-			// TODO proper translation
-			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "Canceled by party", true, new GenericDialogButton());
+			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(false);
 		}
 
-		private void JoinedMatchmaking()
+		private void ShowMatchmaking()
 		{
-			// TODO REFACTOR THIS SCREEN
-			_uiService.CloseCurrentScreen();
-			var btn = new GenericDialogButton
-			{
-				ButtonText = "Stop",
-				ButtonOnClick = SendCancelMatchmakingMessage
-			};
-			_services.GenericDialogService.OpenButtonDialog("Matchmaking", "[Dev UI] Matchmaking...", false, btn);
+			_uiService.GetUi<HomeScreenPresenter>().ShowMatchmaking(true);
 		}
 
 		private void SubscribeEvents()
@@ -263,10 +258,11 @@ namespace FirstLight.Game.StateMachines
 				GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
 				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
-		
+
 		private bool HasNotCompletedEquipmentTutorial()
 		{
-			return FeatureFlags.TUTORIAL && !_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
+			return FeatureFlags.TUTORIAL &&
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
 		}
 
 		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
@@ -520,7 +516,6 @@ namespace FirstLight.Game.StateMachines
 		}
 
 
-
 		private void OnIapProcessingFinished()
 		{
 			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
@@ -547,7 +542,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseCurrentScreen();
 		}
 
-		private void OpenPlayMenuUI()
+		private void OpenHomeScreen()
 		{
 			var data = new HomeScreenPresenter.StateData
 			{
@@ -560,7 +555,8 @@ namespace FirstLight.Game.StateMachines
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
-				OnDiscordClicked = DiscordButtonClicked
+				OnDiscordClicked = DiscordButtonClicked,
+				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

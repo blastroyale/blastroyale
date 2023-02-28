@@ -10,6 +10,7 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -43,6 +44,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
 			public Action OnDiscordClicked;
+			public Action OnMatchmakingCancelClicked;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -71,8 +73,6 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassRarity;
 
-		private VisualElement _trophiesHolder;
-
 		private VisualElement _bppPoolContainer;
 		private Label _bppPoolRestockTimeLabel;
 		private Label _bppPoolRestockAmountLabel;
@@ -81,6 +81,8 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockTimeLabel;
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
+
+		private MatchmakingStatusView _matchmakingStatusView;
 
 		private Coroutine _updatePoolsCoroutine;
 
@@ -104,8 +106,6 @@ namespace FirstLight.Game.Presenters
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
-
-			_trophiesHolder = root.Q<VisualElement>("TrophiesHolder").Required();
 
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
@@ -150,6 +150,9 @@ namespace FirstLight.Game.Presenters
 				Data.OnDiscordClicked();
 			};
 
+			root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
+			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
+
 			root.SetupClicks(_services);
 			OnAnyPartyUpdate();
 		}
@@ -171,6 +174,7 @@ namespace FirstLight.Game.Presenters
 			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 			SubscribeToSquadEvents();
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
+			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -185,6 +189,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
+			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
+
 			UnsubscribeFromSquadEvents();
 
 			if (_updatePoolsCoroutine != null)
@@ -198,6 +204,11 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			Data.OnPlayButtonClicked();
+		}
+
+		private void OnIsMatchmakingChanged(bool previous, bool current)
+		{
+			UpdatePlayButton();
 		}
 
 		private void OnTrophiesChanged(uint previous, uint current)
@@ -368,13 +379,14 @@ namespace FirstLight.Game.Presenters
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}
 
-		private void UpdatePlayButton()
+		private void UpdatePlayButton(bool forceLoading = false)
 		{
 			var translationKey = ScriptTerms.UITHomeScreen.play;
 			var buttonClass = string.Empty;
 			var buttonEnabled = true;
 
-			if (_services.PartyService.OperationInProgress.Value)
+			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
+				_services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
@@ -440,6 +452,18 @@ namespace FirstLight.Game.Presenters
 
 				_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
 				_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+			}
+		}
+
+		public void ShowMatchmaking(bool show)
+		{
+			_matchmakingStatusView.Show(show);
+
+			// When this screen is opened we aren't officially matchmaking yet, so we force the loading state for the 
+			// first few seconds - should be changed when we allow interaction on home screen during matchmaking.
+			if (show)
+			{
+				UpdatePlayButton(true);
 			}
 		}
 	}

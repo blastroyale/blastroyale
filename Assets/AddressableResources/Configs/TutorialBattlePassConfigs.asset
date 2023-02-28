@@ -26,7 +26,3 @@ MonoBehaviour:
       PointsForNextLevel: 80
     - RewardId: 7
       PointsForNextLevel: 95
-    - RewardId: 15
-      PointsForNextLevel: 100
-    - RewardId: 5
-      PointsForNextLevel: 100

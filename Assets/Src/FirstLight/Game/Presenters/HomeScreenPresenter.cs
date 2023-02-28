@@ -136,7 +136,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
-			root.Q<Button>("HeroesButton").clicked += Data.OnCollectionsClicked;
+			root.Q<Button>("CollectionButton").clicked += Data.OnCollectionsClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 
 			var storeButton = root.Q<Button>("StoreButton");

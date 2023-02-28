@@ -23,7 +23,6 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
-		[SerializeField] private Camera _renderTextureCamera;
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 
 		private static readonly int PAGE_SIZE = 3;

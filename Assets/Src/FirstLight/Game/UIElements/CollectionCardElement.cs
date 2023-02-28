@@ -146,6 +146,8 @@ namespace FirstLight.Game.UIElements
 			
 			_name.text = gameId.GetLocalization();
 
+			Debug.Log("String: " + MenuGameId.ToString().ToLowerInvariant() );
+
 			_image.RemoveSpriteClasses();
 			_image.AddToClassList(string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
 		}

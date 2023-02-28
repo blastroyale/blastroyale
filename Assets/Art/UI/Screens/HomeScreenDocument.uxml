@@ -75,7 +75,7 @@
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/bp_button_title" name="Title" picking-mode="Ignore" class="battle-pass-button__title" />
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/bp_button_subtitle" name="Subtitle" picking-mode="Ignore" class="battle-pass-button__subtitle" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="RewardTitleHolder" class="battle-pass-button_reward-title-holder" style="left: 0; top: 0; right: 0; bottom: 0;">
+                            <ui:VisualElement name="RewardTitleHolder" class="battle-pass-button_reward-title-holder">
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/bp_button_reward_title" name="Title" picking-mode="Ignore" class="battle-pass-button__title" />
                                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/bp_button_reward_subtitle" name="Subtitle" picking-mode="Ignore" class="battle-pass-button__subtitle" />
                             </ui:VisualElement>

@@ -289,7 +289,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
-			UpdateBattlePassButton();
+			UpdateBattlePassReward();
 
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
 				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
@@ -352,7 +352,6 @@ namespace FirstLight.Game.Presenters
 					});
 			}
 		}
-
 
 		private void UpdateGameModeButton()
 		{
@@ -418,17 +417,14 @@ namespace FirstLight.Game.Presenters
 			_playButton.Localize(translationKey);
 		}
 
-		private void UpdateBattlePassButton()
+		private void UpdateBattlePassReward()
 		{
 			var currentLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
-			if (currentLevel == _dataProvider.BattlePassDataProvider.MaxLevel)
-			{
-				// TODO: Hide stuff
-			}
-			else
+			_battlePassRarity.RemoveSpriteClasses();
+
+			if (currentLevel != _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(currentLevel + 1);
-				_battlePassRarity.RemoveSpriteClasses();
 				_battlePassRarity.AddToClassList(UIUtils.GetBPRarityStyle(reward.GameId));
 			}
 		}

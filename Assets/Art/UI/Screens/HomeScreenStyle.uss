@@ -146,6 +146,10 @@
 .battle-pass-button_reward-title-holder {
     display: none;
     position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .battle-pass-button--claimreward .battle-pass-button_reward-title-holder {

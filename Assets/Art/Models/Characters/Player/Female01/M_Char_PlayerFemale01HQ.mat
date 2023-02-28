@@ -66,13 +66,13 @@ Material:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
-    - Vector1_A3CA1DE4: 0.8
+    - Vector1_A3CA1DE4: 0
     - Vector1_FA9A29A7: 1
     - _Death: 0
     - _EmissTexAmount: 0
-    - _Fresnel_Power: 4
-    - _Hit: 0.6
-    - _Normal_Strength: 0.5
+    - _Fresnel_Power: 0
+    - _Hit: 0
+    - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rage: 0

@@ -94,7 +94,7 @@ Material:
     - Color_F2EE02DC: {r: 3.5764706, g: 9.160785, b: 15.247059, a: 1}
     - Vector2_A8F95C61: {r: 1, g: 2, b: 0, a: 0}
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.26203978, g: 1, b: 0, a: 1}
+    - _Color: {r: 0.9811321, g: 0.14346743, b: 0.20724915, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
     - _TintColor: {r: 1.5137255, g: 1.3333334, b: 1.2784314, a: 0}
   m_BuildTextureStacks: []

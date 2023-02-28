@@ -37,12 +37,12 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _backAvatarMale;
 		private VisualElement _characterMale;
 		private VisualElement _bubbleMale;
-		private LocalizedLabel _localizedLabelMale;
+		private Label _localizedLabelMale;
 		
 		private VisualElement _backAvatarFemale;
 		private VisualElement _characterFemale;
 		private VisualElement _bubbleFemale;
-		private LocalizedLabel _localizedLabelFemale;
+		private Label _localizedLabelFemale;
 
 		private Dictionary<CharacterType, VisualElement[]> _characters; // 0 char VE, 1 bubble, 2 locText, backAvatar
 
@@ -58,12 +58,12 @@ namespace FirstLight.Game.Presenters
 			_backAvatarMale = root.Q<VisualElement>("BackAvatarMale").Required();
 			_characterMale = root.Q<VisualElement>("MaleCharacter").Required();
 			_bubbleMale = root.Q<VisualElement>("MaleBubble").Required();
-			_localizedLabelMale = root.Q<LocalizedLabel>("MaleLocalizedLabel").Required();
+			_localizedLabelMale = root.Q<Label>("MaleLabel").Required();
 
 			_backAvatarFemale = root.Q<VisualElement>("BackAvatarFemale").Required();
 			_characterFemale = root.Q<VisualElement>("FemaleCharacter").Required();
 			_bubbleFemale = root.Q<VisualElement>("FemaleBubble").Required();
-			_localizedLabelFemale = root.Q<LocalizedLabel>("FemaleLocalizedLabel").Required();
+			_localizedLabelFemale = root.Q<Label>("FemaleLabel").Required();
 
 			//setup ref dictionary
 			_characters = new Dictionary<CharacterType, VisualElement[]>
@@ -205,7 +205,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetText(CharacterType character, string message, bool bump = false)
 		{
-			((LocalizedLabel) _characters[character][2]).Localize(message);
+			((Label) _characters[character][2]).text = message;
 			
 			if (bump)
 			{

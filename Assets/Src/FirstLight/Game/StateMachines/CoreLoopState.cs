@@ -79,7 +79,6 @@ namespace FirstLight.Game.StateMachines
 			// TODO - Decide what to do if join room fails
 			joinTutorialRoom.OnEnter(AttemptJoinTutorialRoom);
 			joinTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(match);
-			joinTutorialRoom.Event(NetworkState.JoinRoomFailedEvent).Target(mainMenu);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -96,9 +95,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			await Task.Delay(1000);
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 
-			_statechartTrigger(TutorialState.StartFirstGameTutorialEvent);
+			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 
 		private void SubscribeEvents()

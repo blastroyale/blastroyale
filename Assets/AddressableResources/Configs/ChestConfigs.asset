@@ -43,6 +43,7 @@ MonoBehaviour:
         Value2: 3
       ChestTypeModifiers:
         Default:
+        Default: []
         - Chance:
             RawValue: 19660
           NewType: 1
@@ -78,6 +79,7 @@ MonoBehaviour:
         Value2: 5
       ChestTypeModifiers:
         Default:
+        Default: []
         - Chance:
             RawValue: 13107
           NewType: 0
@@ -116,6 +118,7 @@ MonoBehaviour:
         Value2: 7
       ChestTypeModifiers:
         Default:
+        Default: []
         - Chance:
             RawValue: 655
           NewType: 0
@@ -157,6 +160,7 @@ MonoBehaviour:
         Value2: 10
       ChestTypeModifiers:
         Default:
+        Default: []
         - Chance:
             RawValue: 655
           NewType: 0

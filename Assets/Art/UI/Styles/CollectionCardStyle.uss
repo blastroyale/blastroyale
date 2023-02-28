@@ -1,0 +1,158 @@
+.collection-card {
+    width: 308px;
+    height: 328px;
+    transition-property: scale;
+    transition-duration: 0.2s;
+    overflow: visible;
+    flex-direction: row;
+}
+
+.collection-card__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-collection-item.png?fileID=2800000&guid=dbf33629a45de4830b1198af2ec88192&type=3#button-collection-item');
+}
+
+.collection-card:active .collection-card__background {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-collection-item-pressed.png?fileID=2800000&guid=e17e709a2967d47f49e93d64c0234e1d&type=3#button-collection-item-pressed');
+}
+
+.collection-card--selected {
+    scale: 1.1 1.1;
+}
+
+.collection-card--highlighted {
+}
+
+.collection-card__selected-bg {
+    position: absolute;
+    top: -35px;
+    left: -42px;
+    right: -38px;
+    bottom: -37px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+}
+
+.collection-card--highlighted .collection-card__highlight {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    right: -6px;
+    bottom: -10px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/card-selected.png?fileID=21300000&guid=e748127af454d49aebe1ae3d8d327583&type=3#card-selected');
+}
+
+.collection-card--selected .collection-card__selected-bg {
+    opacity: 1;
+    background-image: var(--sprite-home__card-selected);
+}
+
+.collection-card__card-holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column-reverse;
+}
+
+.collection-card:active .collection-card__card-holder {
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+}
+
+.collection-card__image {
+    width: 294px;
+    height: 237px;
+    position: absolute;
+    left: 9px;
+    top: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.collection-card__image--shadow {
+    left: 14px;
+    top: 7px;
+    -unity-background-image-tint-color: black;
+}
+
+.collection-card__name {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 34px;
+    color: rgb(255, 255, 255);
+    height: 45px;
+    -unity-text-align: middle-center;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.collection-card__badge-holder {
+    position: absolute;
+    top: -15px;
+    left: 28px;
+    right: 7px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.collection-card__badge-nft {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Equipment%20Card/card-badge-nft.png?fileID=2800000&guid=ad9056538d56f4f8d9970542b2a02c90&type=3#card-badge-nft');
+    width: 66px;
+    height: 28px;
+    position: relative;
+    margin: 2px;
+}
+
+.collection-card__badge-loaned {
+    background-image: none;
+    -unity-text-align: middle-center;
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    padding: 2px 15px 0;
+    background-color: rgb(216, 75, 121);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 8px;
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
+    margin: 2px;
+}
+
+.collection-card__badge-equipped {
+    -unity-text-align: middle-center;
+    font-size: 24px;
+    color: rgb(45, 41, 80);
+    padding: 2px 15px 0;
+    background-color: rgb(248, 199, 46);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-radius: 8px;
+    margin: 2px;
+}
+
+.collection-card__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}

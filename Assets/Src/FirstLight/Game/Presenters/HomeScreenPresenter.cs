@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
-			public Action OnHeroesButtonClicked;
+			public Action OnCollectionsClicked;
 			public Action OnProfileClicked;
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
@@ -145,7 +145,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
-			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
+			root.Q<Button>("HeroesButton").clicked += Data.OnCollectionsClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 			

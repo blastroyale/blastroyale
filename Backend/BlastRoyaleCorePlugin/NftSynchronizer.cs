@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -50,14 +51,37 @@ namespace BlastRoyaleNFTPlugin
 					return false;
 				}
 				var equipmentData = serverState.DeserializeModel<EquipmentData>();
+				var playerData = serverState.DeserializeModel<PlayerData>();
+
+				bool unequipHack = false;
+				foreach (var kp in new Dictionary<GameIdGroup, UniqueId>(playerData.Equipped))
+				{
+					if (equipmentData.Inventory.TryGetValue(kp.Value, out var equip))
+					{
+						if (equip.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0)
+						{
+							playerData.Equipped.Remove(kp.Key);
+							unequipHack = true;
+						}
+					}
+				}
+
+				if (unequipHack)
+				{
+					serverState.UpdateModel(playerData);
+				}
+				
 				var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
 				if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)
 				{
 					_ctx.Log.LogDebug($"{playfabId} had up-to-date NFT's");
+					if (serverState.HasDelta())
+					{
+						await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
+					}
 					return false;
 				}
-
-				var playerData = serverState.DeserializeModel<PlayerData>();
+				
 				var idData = serverState.DeserializeModel<IdData>();
 				var ownedNftsInBlockchain = await RequestBlockchainIndexedNfts(playfabId);
 				var ownedNftsInGame = new Dictionary<string, UniqueId>();

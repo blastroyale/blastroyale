@@ -91,6 +91,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab7fe09aa9b23a14e922ebbb2e1d13e2
+    m_Address: Assets/Art/Models/Characters/Player/MaleAssassin/Char_PlayerMaleAssassin.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

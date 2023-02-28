@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -87,6 +88,12 @@ namespace FirstLight.Game.Presenters
 			_minimapHolder.gameObject.SetActive(gameModeConfig.ShowUIMinimap);
 			_quitButton.gameObject.SetActive(true);
 
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				_contendersLeftHolderView.gameObject.SetActive(false);
+				_scoreHolderView.gameObject.SetActive(false);
+			}
+
 			_standings.Initialise(frame.PlayerCount, false, true);
 		}
 		
@@ -116,6 +123,11 @@ namespace FirstLight.Game.Presenters
 			{
 				canQuitMatch = (!_services.TutorialService.IsTutorialRunning || FeatureFlags.ALLOW_SKIP_TUTORIAL) || 
 					(_services.TutorialService.IsTutorialRunning && !FeatureFlags.TUTORIAL);
+			}
+			
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				canQuitMatch = false;
 			}
 
 			_quitButton.gameObject.SetActive(canQuitMatch);

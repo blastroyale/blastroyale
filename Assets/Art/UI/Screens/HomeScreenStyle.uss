@@ -404,6 +404,20 @@
     background-image: var(--sprite-home__button-gamemode-pressed);
 }
 
+.game-mode-button__dimmer {
+    display: none;
+    background-image: var(--sprite-home__button-gamemode);
+    -unity-background-image-tint-color: rgba(188, 188, 188, 0.9);
+}
+
+.game-mode-button:disabled {
+    opacity: 1;
+}
+
+.game-mode-button:disabled .game-mode-button__dimmer {
+    display: flex;
+}
+
 .game-mode-button__overlay {
     position: absolute;
     left: 3px;

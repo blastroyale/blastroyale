@@ -192,7 +192,6 @@
     height: 250px;
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    background-image: var(--sprite-home__pattern-rewardglow-rainbow);
 }
 
 .claim-bubble {

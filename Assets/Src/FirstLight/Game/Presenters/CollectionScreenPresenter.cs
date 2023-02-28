@@ -23,7 +23,6 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
-		[SerializeField] private Camera _renderTextureCamera;
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 
 		private static readonly int PAGE_SIZE = 3;
@@ -106,7 +105,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override async Task OnClosed()
 		{
-			base.OnClosed();
+			await base.OnClosed();
 
 			if (_collectionObject != null)
 			{
@@ -234,8 +233,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionObject =
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id, true,
-					true);
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id);
 			_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
 		}
 
@@ -282,7 +280,7 @@ namespace FirstLight.Game.Presenters
 		private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
 		{
 			var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
-			var rowItems = _collectionList.itemsSource[rowNumber] as IList<CollectionItem>;
+			var rowItems = (IList<CollectionItem>) _collectionList.itemsSource[rowNumber];
 			for (var x = 0; x < PAGE_SIZE; x++)
 			{
 				var card = rowCards[x];

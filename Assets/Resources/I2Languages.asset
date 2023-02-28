@@ -597,6 +597,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - DEATHMATCH
+      - DEATHMATCH
+      - DEATHMATCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - 'CODE: {0}'
+      - "\u041A\u043E\u0434: {0}"
+      - "C\xF3digo: {0}"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/youre_ready
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU'RE READY
+      - "\u0422\u042B \u0413\u041E\u0422\u041E\u0412"
+      - "VOC\xCA EST\xC1 PRONTO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/matchmaking
+      TermType: 0
+      Description: 
+      Languages:
+      - Matchmaking...
+      - "\u0417\u0430\u043A\u0430\u0437 ..."
+      - Matchmaking ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/error_BannedFromParty
       TermType: 0
       Description: 
@@ -718,7 +784,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/Kicked
+    - Term: UITSquads/kicked
       TermType: 0
       Description: 
       Languages:
@@ -726,6 +792,17 @@ MonoBehaviour:
       - "\u0422\u0435\u0431\u044F \u0443\u0434\u0430\u0440\u0438\u043B\u0438 \u0438\u0437
         \u043A\u043E\u043C\u0430\u043D\u0434\u044B."
       - "Voc\xEA foi chutado da equipe."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/kick
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick
+      - "\u041F\u0438\u043D\u0430\u0442\u044C"
+      - Chute
       - 
       - 
       Flags: 0000000000
@@ -12229,6 +12306,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BattleRoyale First Game
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - "\u0411\u0438\u0442\u0432\u0430 \u0420\u043E\u044F\u043B\u044C"
+      - Batalha real
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
@@ -15817,7 +15905,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1677203356580
+    Google_LastUpdatedVersion: 1677603083694
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

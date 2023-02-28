@@ -83,7 +83,7 @@
                                 <ui:VisualElement name="BattlePassProgressElement" class="battle-pass-button__progress" />
                             </ui:VisualElement>
                             <ui:VisualElement name="BPPIcon" class="battle-pass-button__bpp-icon" />
-                            <ui:VisualElement name="BPRays" class="battle-pass-button__reward-rays" />
+                            <FirstLight.Game.UIElements.AnimatedImageElement name="BPRays" sine-wave-scale-min="1.1" sine-wave-scale-max="0.9" sine-wave-scale-frequency="4" sine-wave-pos-y-frequency="4" sine-wave-pos-max-y="0" sine-wave-pos-min-y="-20" class="battle-pass-button__reward-rays" />
                             <ui:VisualElement name="RewardIcon" class="battle-pass-button__reward">
                                 <ui:VisualElement name="BPRarity" class="battle-pass-button__reward-rarity" />
                                 <ui:VisualElement name="QuestionMark" class="battle-pass-button__reward-questionmark" />

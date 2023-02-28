@@ -24,10 +24,15 @@ namespace FirstLight.Game.UIElements
 		private float sineWavePosYOffset { get; set; }
 		private float sineWavePosXFrequency { get; set; }
 		private float sineWavePosYFrequency { get; set; }
+		
+		private float sineWaveScaleMin { get; set; }
+		private float sineWaveScaleMax { get; set; }
+		private float sineWaveScaleFrequency { get; set; }
 
 		private ValueAnimation<float> _rotationTween;
 		private ValueAnimation<float> _randPosTween;
 		private ValueAnimation<float> _sinewavePosTween;
+		private ValueAnimation<float> _sinewaveScaleTween;
 
 		private void AnimateRotation()
 		{
@@ -98,6 +103,28 @@ namespace FirstLight.Game.UIElements
 			_sinewavePosTween.Ease(Easing.Linear);
 			_sinewavePosTween.KeepAlive();
 			_sinewavePosTween.OnCompleted(() => { _sinewavePosTween.Start(); });
+		}
+		
+		private void AnimateSineWaveScale()
+		{
+			if (_sinewaveScaleTween != null && _sinewaveScaleTween.isRunning)
+			{
+				_sinewaveScaleTween.Stop();
+				_sinewaveScaleTween.Recycle();
+			}
+
+			_sinewaveScaleTween = experimental.animation.Start(0f, 1f, 9999999, (ve, percent) =>
+			{
+				var sinX = Mathf.Sin(Time.realtimeSinceStartup * sineWaveScaleFrequency);
+				var normX = (sinX - -1) / (1 - -1); // Wat
+				var lerpNewX = Mathf.Lerp(sineWaveScaleMin, sineWaveScaleMax, normX);
+
+				ve.transform.scale = new Vector3(lerpNewX, lerpNewX, lerpNewX);
+			});
+
+			_sinewaveScaleTween.Ease(Easing.Linear);
+			_sinewaveScaleTween.KeepAlive();
+			_sinewaveScaleTween.OnCompleted(() => { _sinewaveScaleTween.Start(); });
 		}
 
 		public new class UxmlFactory : UxmlFactory<AnimatedImageElement, UxmlTraits>
@@ -240,6 +267,33 @@ namespace FirstLight.Game.UIElements
 					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
+			
+			private readonly UxmlFloatAttributeDescription _sineWaveScaleMinAttribute = new()
+			{
+				name = "sine-wave-scale-min",
+				defaultValue = 1f,
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
+				use = UxmlAttributeDescription.Use.Required
+			};
+			
+			private readonly UxmlFloatAttributeDescription _sineWaveScaleMaxAttribute = new()
+			{
+				name = "sine-wave-scale-max",
+				defaultValue = 1f,
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
+				use = UxmlAttributeDescription.Use.Required
+			};
+			
+			private readonly UxmlFloatAttributeDescription _sineWaveScaleFrequencyAttribute = new()
+			{
+				name = "sine-wave-scale-frequency",
+				defaultValue = 0f,
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
+				use = UxmlAttributeDescription.Use.Required
+			};
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
@@ -261,6 +315,9 @@ namespace FirstLight.Game.UIElements
 				se.sineWavePosYOffset = _sineWavePosYOffsetAttribute.GetValueFromBag(bag, cc);
 				se.sineWavePosXFrequency = _sineWavePosXFrequencyAttribute.GetValueFromBag(bag, cc);
 				se.sineWavePosYFrequency = _sineWavePosYFrequencyAttribute.GetValueFromBag(bag, cc);
+				se.sineWaveScaleMin = _sineWaveScaleMinAttribute.GetValueFromBag(bag, cc);
+				se.sineWaveScaleMax = _sineWaveScaleMaxAttribute.GetValueFromBag(bag, cc);
+				se.sineWaveScaleFrequency = _sineWaveScaleFrequencyAttribute.GetValueFromBag(bag, cc);
 
 				if (se.rotationsPerSecond != 0)
 				{
@@ -276,6 +333,12 @@ namespace FirstLight.Game.UIElements
 					se.sineWavePosMaxY != 0)
 				{
 					se.AnimateSineWavePosition();
+				}
+				
+				// ReSharper disable twice CompareOfFloatsByEqualityOperator
+				if (se.sineWaveScaleMin != 1f || se.sineWaveScaleMax != 1f || se.sineWaveScaleFrequency != 0)
+				{
+					se.AnimateSineWaveScale();
 				}
 			}
 		}

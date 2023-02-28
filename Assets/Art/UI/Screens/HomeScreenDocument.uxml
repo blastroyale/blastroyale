@@ -94,14 +94,23 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">
-            <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
-                <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
-            </ui:VisualElement>
+        <ui:VisualElement name="Header" class="player-header anim-delay-0 anim-translate anim-translate--down-l">
             <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">
-                <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
-                <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
+                <ui:VisualElement name="TrophyIcon" class="sprite-shared__icon-trophy" />
+                <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies-label" />
+                <FirstLight.Game.UIElements.ImageButton name="LeaderboardsButton" class="player-header__leaderboards-button sfx-click-forwards">
+                    <ui:VisualElement name="Icon" class="player-header__leaderboards-icon" />
+                </FirstLight.Game.UIElements.ImageButton>
             </ui:Button>
-        </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.ImageButton name="ProfileButton" class="player-header__profile-button sfx-click-forwards">
+                <ui:VisualElement name="Holder" class="player-header__profile-holder">
+                    <ui:VisualElement name="AvatarBg" class="player-header__avatar-bg">
+                        <ui:VisualElement name="Avatar" class="player-header__avatar" />
+                    </ui:VisualElement>
+                    <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
+                </ui:VisualElement>
+            </FirstLight.Game.UIElements.ImageButton>
+        </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/References/MainMenu.png?fileID=2800000&amp;guid=6d6c9d16fd9594720adfe27766734e62&amp;type=3#MainMenu&apos;); width: 2048px; height: 1024px; position: absolute; top: 1126px; left: 18px;" />
 </ui:UXML>

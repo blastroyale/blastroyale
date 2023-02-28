@@ -54,7 +54,6 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton _playButton;
 		private VisualElement _playButtonContainer;
 
-		private ImageButton _header;
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 
@@ -95,10 +94,10 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_header = root.Q<ImageButton>("Header").Required();
-			_header.clicked += Data.OnProfileClicked;
-			_playerNameLabel = _header.Q<Label>("Name").Required();
-			_playerTrophiesLabel = _header.Q<Label>("TrophiesAmount").Required();
+			root.Q<ImageButton>("ProfileButton").clicked += Data.OnProfileClicked;
+			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+			_playerNameLabel = root.Q<Label>("PlayerName").Required();
+			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
@@ -138,7 +137,6 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnCollectionsClicked;
-			// TODO carlos: root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 
 			var storeButton = root.Q<Button>("StoreButton");

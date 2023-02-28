@@ -30,70 +30,131 @@
 }
 
 .player-header {
-    background-image: var(--sprite-home__header-profile-pressed);
-    width: 772px;
-    height: 208px;
-    margin-left: 20px;
-}
-
-.player-header:active {
-    background-image: var(--sprite-home__header-profile-pressed);
+    flex-direction: row-reverse;
+    position: absolute;
+    left: 36px;
+    top: 36px;
+    align-items: center;
 }
 
 .player-header__name {
     position: absolute;
-    left: -420px;
-    top: 105px;
+    left: 35px;
+    right: 70px;
+    bottom: 14px;
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
-    width: 310px;
-    rotate: -14.2deg;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.player-header__profile-button {
+    background-image: var(--sprite-home__button-profile);
+    width: 342px;
+    height: 138px;
+}
+
+.player-header__profile-button:active {
+    width: 342px;
+    height: 138px;
+    background-image: var(--sprite-home__button-profile-pressed);
 }
 
 .player-header__profile-holder {
-    left: 444px;
-    top: 0;
+    position: absolute;
+    left: 0;
     right: 0;
-    bottom: 5px;
-    width: 326px;
+    top: 0;
+    bottom: 0;
 }
 
-.player-header:active .player-header__profile-holder {
-    left: 450px;
-    bottom: 3px;
+.player-header__profile-button:active .player-header__profile-holder {
+    left: 6px;
+    right: -6px;
+    top: 6px;
+    bottom: -6px;
+}
+
+.player-header__avatar-bg {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    background-color: rgb(214, 74, 123);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    left: 112px;
+    top: 6px;
+}
+
+.player-header__avatar {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: var(--sprite-home__temp-icon-profile-neil);
+    scale: 1.2 1.2;
 }
 
 .player-header__trophies-holder {
-    position: absolute;
-    width: 340px;
-    height: 150px;
-    left: 321px;
-    top: -6px;
+    position: relative;
+    width: 454px;
+    height: 116px;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    background-image: var(--sprite-home__background-profile);
+    left: -83px;
+    justify-content: space-between;
+    padding-left: 53px;
+    padding-right: 94px;
 }
 
-.player-header__trophy-icon {
-    background-image: var(--sprite-shared__icon-trophy);
-    width: 48px;
-    height: 48px;
-    margin-left: 23px;
-    margin-top: 30px;
-}
-
-.player-header__trophies_label {
-    margin-left: -4px;
-    margin-top: 17px;
+.player-header__trophies-label {
+    flex-grow: 1;
     color: rgb(255, 255, 255);
     font-size: 34px;
     -unity-text-align: middle-left;
-    white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    rotate: -15deg;
-    left: 5px;
+}
+
+.player-header__leaderboards-button {
+    width: 83px;
+    height: 68px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgb(147, 139, 197);
+    border-right-color: rgb(147, 139, 197);
+    border-top-color: rgb(147, 139, 197);
+    border-bottom-color: rgb(147, 139, 197);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.player-header__leaderboards-button:active {
+    background-color: rgba(147, 139, 197, 0.48);
+}
+
+.player-header__leaderboards-icon {
+    background-image: var(--sprite-home__icon-leaderboards);
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
 }
 
 .battle-pass-button {

@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using Quantum;
 
 namespace FirstLight.Game.Data
@@ -80,6 +83,7 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class CollectionData
 	{
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<CollectionItem>>))]
 		public Dictionary<CollectionCategory, List<CollectionItem>> Collections = new()
 		{
 			{
@@ -91,6 +95,7 @@ namespace FirstLight.Game.Data
 			}
 		};
 
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
 		public Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
 			{new(GameIdGroup.PlayerSkin), new(GameId.Male01Avatar)}

@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 41083026}
   - component: {fileID: 41083025}
   - component: {fileID: 41083024}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12514,7 +12514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6817283602725056324}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: HealthbarAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12534,7 +12534,7 @@ GameObject:
   - component: {fileID: 4250845700077839386}
   - component: {fileID: 1056698440867158435}
   - component: {fileID: 1930756246322229670}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

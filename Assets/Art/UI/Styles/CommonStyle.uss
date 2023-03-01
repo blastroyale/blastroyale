@@ -67,7 +67,7 @@
 
 .DO_NOT_USE_font-style-h2 {
     font-size: 42px;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 1);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -85,7 +85,7 @@
 .button-with-icon {
     background-image: var(--sprite-home__button-main-purple);
     font-size: 38px;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     width: 222px;
     height: 128px;
@@ -95,18 +95,22 @@
     overflow: visible;
     -unity-text-align: middle-center;
     align-items: center;
+    -unity-font-style: bold;
 }
 
 .button-with-icon:active {
     padding-top: 70px;
     background-image: var(--sprite-home__button-main-purple-pressed);
-}
-.button-with-icon:disabled {
-    background-image: var(--sprite-home__button-main-disabled);
-    color: #9c9c9c
+    -unity-background-image-tint-color: rgba(164, 162, 166, 255);
+    background-color: rgba(89, 89, 89, 255);
 }
 
-.button-with-icon:disabled > .button-with-icon__icon{
+.button-with-icon:disabled {
+    background-image: var(--sprite-home__button-main-disabled);
+    color: rgb(156, 156, 156);
+}
+
+.button-with-icon:disabled > .button-with-icon__icon {
     -unity-background-image-tint-color: gray;
     opacity: 0.8;
 }
@@ -512,4 +516,26 @@
 
 .unity-scroll-view .unity-list-view__empty-label {
     visibility: hidden;
+}
+
+.glint-element {
+    overflow: hidden;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}
+
+.glint-element__glint {
+    width: 100px;
+    height: 300px;
+    --gradient-from: rgb(255, 255, 255);
+    --gradient-to: rgba(255, 255, 255, 0);
+    rotate: 19deg;
+    left: -25%;
+}
+
+.glint-element__glint--swiped {
+    transition-duration: 0.6s;
+    left: 100%;
+    transition-delay: 1s;
+    transition-timing-function: linear;
 }

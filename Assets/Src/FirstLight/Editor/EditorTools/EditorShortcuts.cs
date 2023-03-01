@@ -294,6 +294,7 @@ namespace FirstLight.Editor.EditorTools
 				Debug.Log($"USS processed: {grouping.Key}");
 			}
 
+			EditorUtility.UnloadUnusedAssetsImmediate();
 			Debug.Log($"Sprite USS generation finished.");
 		}
 
@@ -338,8 +339,16 @@ namespace FirstLight.Editor.EditorTools
 				}
 				else
 				{
+					var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+					if (sprite == null)
+					{
+						throw new NotSupportedException($"Found a file that isn't a sprite: {path}");
+					}
+					
 					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
+					sb.AppendLine($"    width: {sprite.texture.width}px;");
+					sb.AppendLine($"    height: {sprite.texture.height}px;");
 					sb.AppendLine("}");
 				}
 

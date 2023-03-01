@@ -34,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			// Collectable platforms should always be in the scene, never destroyed. Re-initialize instead only.
 		}
 
-		private void OnUpdateView(CallbackUpdateView callback)
+		private new void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
 			

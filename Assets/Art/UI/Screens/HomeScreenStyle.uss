@@ -704,8 +704,12 @@
 
 .squad-member {
     font-size: 32px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(16, 12, 34, 0.59);   
     -unity-text-align: middle-left;
+}
+
+.squad-member.unity-collection-view__item--alternative-background {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .squad-container {
@@ -717,9 +721,16 @@
     border-bottom-right-radius: 0;
     color: rgb(255, 255, 255);
     overflow: hidden;
-    right: 4px;
+    right: -3px;
     bottom: -11px;
     height: 222px;
+    transition-property: height;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+}
+
+.squad-container--hidden {
+    height: 0;
 }
 
 .squad-container__title {
@@ -743,10 +754,6 @@
     top: 59px;
     bottom: 11px;
     right: 0;
-}
-
-.squad-container__list .unity-collection-view__item--alternative-background {
-    background-color: rgba(16, 12, 34, 0.59);
 }
 
 .squad-member:active {

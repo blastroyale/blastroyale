@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 574242758751836460}
   - component: {fileID: 2313981554691321318}
   m_Layer: 10
-  m_Name: Glider_Falcon_Geo
+  m_Name: GliderFalcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerKicked()
 		{
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, ScriptLocalization.UITSquads.Kicked, true,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.party, ScriptLocalization.UITSquads.kicked, true,
 				new GenericDialogButton());
 		}
 

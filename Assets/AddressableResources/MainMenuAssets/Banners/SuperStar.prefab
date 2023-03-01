@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 735160598857096639}
   - component: {fileID: 8120964922164659871}
-  m_Layer: 0
-  m_Name: Flag_SuperStar
+  m_Layer: 10
+  m_Name: SuperStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 2533670298834073928}
   - component: {fileID: 8998786721417728260}
   - component: {fileID: 2592763566029427562}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4943,7 +4943,7 @@ GameObject:
   - component: {fileID: 5719958962512952093}
   - component: {fileID: 5719958962512952083}
   - component: {fileID: 5719958962512952092}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: StarChars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9813,7 +9813,7 @@ GameObject:
   - component: {fileID: 5719958962704683845}
   - component: {fileID: 5719958962704683835}
   - component: {fileID: 5719958962704683844}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Speaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14623,7 +14623,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8856890916973420715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14657,7 +14657,7 @@ GameObject:
   - component: {fileID: 1910039687352394535}
   - component: {fileID: 5666391523078383138}
   - component: {fileID: 3405211722718292620}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CloudBurstParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19609,12 +19609,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: c541332bab4df464aa22e71dc70a1aa6, type: 2}
     - target: {fileID: -1590183171088775094, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1590183171088775094, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
       propertyPath: m_Name
       value: DeathFlag_SuperStar_Geo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}

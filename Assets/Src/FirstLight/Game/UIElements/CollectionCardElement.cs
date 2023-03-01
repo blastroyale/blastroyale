@@ -56,6 +56,8 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _notification;
 		
 		private const string UssSpriteCharacter = "sprite-home__character-{0}";
+		private const string UssSpriteGlider = "sprite-home__glider-{0}";
+		private const string UssSpriteBanner = "sprite-home__flag-{0}";
 		
 		/// <summary>
 		/// Triggered when the card is clicked
@@ -127,7 +129,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, int index, bool equipped = false, bool highlighted = false, bool isNft = false,
+		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool equipped = false, bool highlighted = false, bool isNft = false,
 										 bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
@@ -143,13 +145,42 @@ namespace FirstLight.Game.UIElements
 			
 			MenuGameId = gameId;
 			CollectionIndex = index;
+			Category = category;
 			
 			_name.text = gameId.GetLocalization();
-
-			Debug.Log("String: " + MenuGameId.ToString().ToLowerInvariant() );
-
 			_image.RemoveSpriteClasses();
-			_image.AddToClassList(string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
+
+			string item = "";
+
+			Debug.Log("Game ID: " + gameId.ToString());
+			Debug.Log("Category: " + Category.ToString());
+			
+			switch (Category)
+			{
+				case GameIdGroup.PlayerSkin:
+
+					item = string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+				
+				case GameIdGroup.Glider:
+
+					item = string.Format(UssSpriteGlider, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+				
+				//TO DO Ask Gabriel wy this comes out as Collection and not Death Marker.
+				case GameIdGroup.Collection:
+
+					item = string.Format(UssSpriteBanner, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+			}
+			
+			Debug.Log("String: " + item );
+
+			_image.AddToClassList(item);
+			//string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
 		}
 		
 

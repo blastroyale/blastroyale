@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 2422987112564016253}
   - component: {fileID: 451726351044096183}
   m_Layer: 10
-  m_Name: Glider_Divinci_Geo
+  m_Name: GliderDivinci
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -610,25 +610,25 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.GliderDivinci, new List<GameIdGroup>
+					GameId.Divinci, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
 					}.AsReadOnly()
 				},
 				{
-					GameId.GliderFalcon, new List<GameIdGroup>
+					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
 					}.AsReadOnly()
 				},
 				{
-					GameId.GliderRocket, new List<GameIdGroup>
+					GameId.Rocket, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
 					}.AsReadOnly()
 				},
 				{
-					GameId.GliderShark, new List<GameIdGroup>
+					GameId.Turbine, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
 					}.AsReadOnly()
@@ -827,28 +827,28 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.FlagPunk, new List<GameIdGroup>
+					GameId.Punk, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
-					GameId.FlagDemon, new List<GameIdGroup>
+					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
-					GameId.FlagSuperStar, new List<GameIdGroup>
+					GameId.SuperStar, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
-					GameId.FlagUnicorn, new List<GameIdGroup>
+					GameId.Unicorn, new List<GameIdGroup>
 					{
 						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
@@ -1144,10 +1144,10 @@ namespace Quantum
 				{
 					GameIdGroup.Glider, new List<GameId>
 					{
-						GameId.GliderDivinci,
-						GameId.GliderFalcon,
-						GameId.GliderRocket,
-						GameId.GliderShark
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
+						GameId.Turbine
 					}.AsReadOnly()
 				},
 				{
@@ -1244,10 +1244,10 @@ namespace Quantum
 					{
 						GameId.Flag,
 						GameId.Tombstone,
-						GameId.FlagPunk,
-						GameId.FlagDemon,
-						GameId.FlagSuperStar,
-						GameId.FlagUnicorn
+						GameId.Punk,
+						GameId.Demon,
+						GameId.SuperStar,
+						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{
@@ -1255,10 +1255,10 @@ namespace Quantum
 					{
 						GameId.Flag,
 						GameId.Tombstone,
-						GameId.FlagPunk,
-						GameId.FlagDemon,
-						GameId.FlagSuperStar,
-						GameId.FlagUnicorn
+						GameId.Punk,
+						GameId.Demon,
+						GameId.SuperStar,
+						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{

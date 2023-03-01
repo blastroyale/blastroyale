@@ -87,6 +87,20 @@ namespace FirstLight.Game.Data
 					new(GameId.Male02Avatar), new(GameId.Female02Avatar),
 					new(GameId.MaleAssassin),
 				}
+			},
+			{
+				new (GameIdGroup.Glider), new List<CollectionItem>()
+				{
+					new(GameId.Falcon), new(GameId.Divinci),
+					new(GameId.Rocket), new(GameId.Turbine),
+				}
+			},
+			{
+				new (GameIdGroup.DeathMarker), new List<CollectionItem>()
+				{
+					new(GameId.Demon), new(GameId.Punk),
+					new(GameId.Unicorn), new(GameId.SuperStar),
+				}
 			}
 		};
 

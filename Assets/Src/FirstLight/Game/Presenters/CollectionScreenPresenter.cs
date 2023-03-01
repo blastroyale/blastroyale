@@ -237,6 +237,14 @@ namespace FirstLight.Game.Presenters
 					true);
 			_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
 		}
+		
+		void Update()
+		{
+			if (_collectionObject)
+			{
+				_collectionObject.transform.Rotate(0, 1, 0, Space.Self);
+			}
+		}
 
 		/// Updated cost of Collection items / has it been equipped, etc. 
 		private void UpdateCollectionDetails(CollectionCategory category)
@@ -295,7 +303,7 @@ namespace FirstLight.Game.Presenters
 				var itemIndex = rowNumber * PAGE_SIZE + x;
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-				card.SetCollectionElement(selectedItem.Id, itemIndex,
+				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id,
 					equipped.IsValid() && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
 			}

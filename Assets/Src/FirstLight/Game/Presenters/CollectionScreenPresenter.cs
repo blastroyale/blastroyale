@@ -119,6 +119,9 @@ namespace FirstLight.Game.Presenters
 			var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
 			foreach (var category in categories)
 			{
+				Debug.Log("Setup Categories: " + category.Id.ToString());
+				
+				
 				var catElement = new CollectionCategoryElement();
 				catElement.clicked += OnCategoryClicked;
 				catElement.SetupCategoryButton(category);
@@ -303,6 +306,7 @@ namespace FirstLight.Game.Presenters
 				var itemIndex = rowNumber * PAGE_SIZE + x;
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
+
 				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id,
 					equipped.IsValid() && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);

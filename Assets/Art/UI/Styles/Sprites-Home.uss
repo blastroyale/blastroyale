@@ -73,18 +73,18 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
-    --sprite-home__character-assasins-female: url('/Assets/Art/UI/Sprites/Home/character-assasins-female.png');
     --sprite-home__character-corpo-female: url('/Assets/Art/UI/Sprites/Home/character-corpo-female.png');
-    --sprite-home__character-corpo-male: url('/Assets/Art/UI/Sprites/Home/character-corpo-male.png');
+    --sprite-home__character-corpomale: url('/Assets/Art/UI/Sprites/Home/character-corpomale.png');
     --sprite-home__character-female01avatar: url('/Assets/Art/UI/Sprites/Home/character-female01avatar.png');
     --sprite-home__character-female02avatar: url('/Assets/Art/UI/Sprites/Home/character-female02avatar.png');
+    --sprite-home__character-femaleassassin: url('/Assets/Art/UI/Sprites/Home/character-femaleassassin.png');
     --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
     --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
     --sprite-home__character-maleassassin: url('/Assets/Art/UI/Sprites/Home/character-maleassassin.png');
-    --sprite-home__character-male-superstar: url('/Assets/Art/UI/Sprites/Home/character-male-superstar.png');
-    --sprite-home__character-punk-female: url('/Assets/Art/UI/Sprites/Home/character-punk-female.png');
-    --sprite-home__character-punk-male: url('/Assets/Art/UI/Sprites/Home/character-punk-male.png');
-    --sprite-home__character-superstar-female: url('/Assets/Art/UI/Sprites/Home/character-superstar-female.png');
+    --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
+    --sprite-home__character-punkfemale: url('/Assets/Art/UI/Sprites/Home/character-punkfemale.png');
+    --sprite-home__character-punkmale: url('/Assets/Art/UI/Sprites/Home/character-punkmale.png');
+    --sprite-home__character-superstarfemale: url('/Assets/Art/UI/Sprites/Home/character-superstarfemale.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
     --sprite-home__flag-punk: url('/Assets/Art/UI/Sprites/Home/flag-punk.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
@@ -473,16 +473,12 @@
     background-image: var(--sprite-home__card-shadow-pink);
 }
 
-.sprite-home__character-assasins-female {
-    background-image: var(--sprite-home__character-assasins-female);
-}
-
 .sprite-home__character-corpo-female {
     background-image: var(--sprite-home__character-corpo-female);
 }
 
-.sprite-home__character-corpo-male {
-    background-image: var(--sprite-home__character-corpo-male);
+.sprite-home__character-corpomale {
+    background-image: var(--sprite-home__character-corpomale);
 }
 
 .sprite-home__character-female01avatar {
@@ -491,6 +487,10 @@
 
 .sprite-home__character-female02avatar {
     background-image: var(--sprite-home__character-female02avatar);
+}
+
+.sprite-home__character-femaleassassin {
+    background-image: var(--sprite-home__character-femaleassassin);
 }
 
 .sprite-home__character-male01avatar {
@@ -505,20 +505,20 @@
     background-image: var(--sprite-home__character-maleassassin);
 }
 
-.sprite-home__character-male-superstar {
-    background-image: var(--sprite-home__character-male-superstar);
+.sprite-home__character-malesuperstar {
+    background-image: var(--sprite-home__character-malesuperstar);
 }
 
-.sprite-home__character-punk-female {
-    background-image: var(--sprite-home__character-punk-female);
+.sprite-home__character-punkfemale {
+    background-image: var(--sprite-home__character-punkfemale);
 }
 
-.sprite-home__character-punk-male {
-    background-image: var(--sprite-home__character-punk-male);
+.sprite-home__character-punkmale {
+    background-image: var(--sprite-home__character-punkmale);
 }
 
-.sprite-home__character-superstar-female {
-    background-image: var(--sprite-home__character-superstar-female);
+.sprite-home__character-superstarfemale {
+    background-image: var(--sprite-home__character-superstarfemale);
 }
 
 .sprite-home__flag-demon {

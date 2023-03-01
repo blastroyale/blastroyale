@@ -296,7 +296,6 @@ namespace Quantum {
     Destructible = 26,
     DummyCharacter = 3,
     Platform = 37,
-    Collection = 9,
     DeathMarker = 10,
     Core = 22,
     IAP = 23,

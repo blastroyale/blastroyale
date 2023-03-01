@@ -85,7 +85,7 @@ namespace FirstLight.Game.Data
 				{
 					new(GameId.Male01Avatar), new(GameId.Female01Avatar),
 					new(GameId.Male02Avatar), new(GameId.Female02Avatar),
-					new(GameId.MaleAssassin),
+					new(GameId.MaleAssassin), new(GameId.FemaleAssassin)
 				}
 			},
 			{

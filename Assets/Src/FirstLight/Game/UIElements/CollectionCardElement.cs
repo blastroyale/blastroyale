@@ -152,9 +152,6 @@ namespace FirstLight.Game.UIElements
 
 			string item = "";
 
-			Debug.Log("Game ID: " + gameId.ToString());
-			Debug.Log("Category: " + Category.ToString());
-			
 			switch (Category)
 			{
 				case GameIdGroup.PlayerSkin:
@@ -168,19 +165,15 @@ namespace FirstLight.Game.UIElements
 					item = string.Format(UssSpriteGlider, MenuGameId.ToString().ToLowerInvariant());
 					
 					break;
-				
-				//TO DO Ask Gabriel wy this comes out as Collection and not Death Marker.
-				case GameIdGroup.Collection:
+
+				case GameIdGroup.DeathMarker:
 
 					item = string.Format(UssSpriteBanner, MenuGameId.ToString().ToLowerInvariant());
 					
 					break;
 			}
-			
-			Debug.Log("String: " + item );
 
 			_image.AddToClassList(item);
-			//string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
 		}
 		
 

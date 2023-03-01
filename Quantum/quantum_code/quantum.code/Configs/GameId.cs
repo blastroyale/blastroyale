@@ -815,42 +815,36 @@ namespace Quantum
 				{
 					GameId.Flag, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
 					GameId.Tombstone, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
 					GameId.Punk, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
 					GameId.Demon, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
 					GameId.SuperStar, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
 				{
 					GameId.Unicorn, new List<GameIdGroup>
 					{
-						GameIdGroup.Collection,
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
@@ -1237,17 +1231,6 @@ namespace Quantum
 					{
 						GameId.WeaponPlatformSpawner,
 						GameId.ConsumablePlatformSpawner
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Collection, new List<GameId>
-					{
-						GameId.Flag,
-						GameId.Tombstone,
-						GameId.Punk,
-						GameId.Demon,
-						GameId.SuperStar,
-						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{

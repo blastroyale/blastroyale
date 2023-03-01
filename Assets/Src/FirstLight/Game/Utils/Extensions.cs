@@ -251,20 +251,26 @@ namespace FirstLight.Game.Utils
 		{
 			if (data.IsBot)
 			{
-				return GetBotName(data.PlayerName);
+				return GetBotName(data.Data.BotNameIndex, data.Data.Entity);
 			}
 
 			return data.PlayerName;
 		}
 
 		/// <summary>
-		/// Requests the bot name for the given bot's <paramref name="nameIndex"/>
+		/// Requests the bot name for the given bot. In debug build this would
+		/// display "BOT-e(entity_index)-b(behaviour_index).
 		/// </summary>
-		public static string GetBotName(string nameIndex)
+		public static string GetBotName(int nameIndex, EntityRef entityRef)
 		{
+			if (Debug.isDebugBuild)
+			{
+				return $"BOT-{entityRef.Index}";
+			}
+
 			var term = ScriptTerms.BotNames.Bot1.Remove(ScriptTerms.BotNames.Bot1.Length - 1);
 
-			return LocalizationManager.GetTranslation($"{term}{nameIndex}");
+			return LocalizationManager.GetTranslation($"{term}{nameIndex.ToString()}");
 		}
 
 		/// <summary>

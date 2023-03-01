@@ -98,7 +98,7 @@ namespace FirstLight.Game.Data
 			{
 				new (GameIdGroup.DeathMarker), new List<CollectionItem>()
 				{
-					new(GameId.Demon), new(GameId.Punk),
+					new(GameId.Punk), new(GameId.Demon), 
 					new(GameId.Unicorn), new(GameId.SuperStar),
 				}
 			}
@@ -106,7 +106,9 @@ namespace FirstLight.Game.Data
 
 		public Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
-			{ new(GameIdGroup.PlayerSkin), new(GameId.Male01Avatar) }
+			{ new(GameIdGroup.PlayerSkin), new(GameId.Male01Avatar) },
+			{ new(GameIdGroup.Glider), new(GameId.Falcon) },
+			{ new(GameIdGroup.DeathMarker), new(GameId.Punk) }
 		};
 
 		public override int GetHashCode()

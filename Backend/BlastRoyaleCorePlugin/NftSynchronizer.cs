@@ -56,6 +56,10 @@ namespace BlastRoyaleNFTPlugin
 				bool unequipHack = false;
 				foreach (var kp in new Dictionary<GameIdGroup, UniqueId>(playerData.Equipped))
 				{
+					if (equipmentData.NftInventory.ContainsKey(kp.Value))
+					{
+						continue;
+					}
 					if (equipmentData.Inventory.TryGetValue(kp.Value, out var equip))
 					{
 						if (equip.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0)

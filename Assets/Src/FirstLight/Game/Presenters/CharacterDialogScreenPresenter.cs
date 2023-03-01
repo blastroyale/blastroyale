@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 		private const string CHARACTER_TOP = "back_avatar--top";
 		private const string CHARACTER_CENTER = "back_avatar--center";
 		
-		private const string MOOD_STYLE = ".sprite-ftue__character-";
+		private const string MOOD_STYLE = "sprite-ftue__character-";
 
 		private const string BUBBLE_LEFT = "bubble--left";
 		private const string BUBBLE_RIGHT = "bubble--right";

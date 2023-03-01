@@ -409,8 +409,10 @@ namespace FirstLight.Game.Services
 
 			while (true)
 			{
-				QuantumClient.Service();
-
+				if (QuantumClient.IsConnected && NetworkUtils.IsOnline())
+				{
+					QuantumClient.Service();
+				}
 				yield return waitForSeconds;
 			}
 		}

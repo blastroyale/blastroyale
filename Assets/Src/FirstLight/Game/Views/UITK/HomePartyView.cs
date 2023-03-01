@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
@@ -17,6 +16,8 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class HomePartyView : IUIView
 	{
+		private const string UssPartyHidden = "squad-container--hidden";
+
 		private VisualElement _root;
 		private VisualElement _container;
 		private Label _code;
@@ -29,9 +30,11 @@ namespace FirstLight.Game.Views.UITK
 
 		public void Attached(VisualElement element)
 		{
-			_container = element;
 			_partyService = MainInstaller.Resolve<IGameServices>().PartyService;
 			_genericDialogService = MainInstaller.Resolve<IGameServices>().GenericDialogService;
+
+			_container = element;
+			_container.AddToClassList(UssPartyHidden);
 
 			_code = element.Q<Label>("RoomCode").Required();
 			_partyMemberList = element.Q<ListView>("PartyList").Required();
@@ -121,7 +124,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnHasPartyChanged(bool _, bool hasParty)
 		{
-			_container.SetDisplay(hasParty);
+			_container.EnableInClassList(UssPartyHidden, !hasParty);
 		}
 
 		public void UnsubscribeFromEvents()

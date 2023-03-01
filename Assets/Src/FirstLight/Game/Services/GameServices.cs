@@ -180,10 +180,10 @@ namespace FirstLight.Game.Services
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
-			PlayfabPubSubService = new PlayfabPubSubService();
+			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService,networkService, gameLogic, configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService);
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
 			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentDataProvider, ThreadService, PartyService);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);

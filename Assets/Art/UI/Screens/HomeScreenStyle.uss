@@ -439,6 +439,15 @@
     height: 72px;
 }
 
+.play-button .glint-element {
+    left: 4px;
+    top: 4px;
+    position: absolute;
+    right: 13px;
+    bottom: 22px;
+    background-image: url('project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask');
+}
+
 .button-party {
     width: 320px;
     height: 78px;
@@ -704,8 +713,12 @@
 
 .squad-member {
     font-size: 32px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(16, 12, 34, 0.59);   
     -unity-text-align: middle-left;
+}
+
+.squad-member.unity-collection-view__item--alternative-background {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .squad-container {
@@ -717,9 +730,16 @@
     border-bottom-right-radius: 0;
     color: rgb(255, 255, 255);
     overflow: hidden;
-    right: 4px;
+    right: -3px;
     bottom: -11px;
     height: 222px;
+    transition-property: height;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+}
+
+.squad-container--hidden {
+    height: 0;
 }
 
 .squad-container__title {
@@ -743,10 +763,6 @@
     top: 59px;
     bottom: 11px;
     right: 0;
-}
-
-.squad-container__list .unity-collection-view__item--alternative-background {
-    background-color: rgba(16, 12, 34, 0.59);
 }
 
 .squad-member:active {
@@ -823,7 +839,7 @@
 
 .matchmaking-status__subtitle {
     font-size: 28px;
-    color: rgba(148, 139, 196, 255);
+    color: rgb(148, 139, 196);
 }
 
 .matchmaking-status__title {

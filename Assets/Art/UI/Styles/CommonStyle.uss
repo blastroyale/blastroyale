@@ -517,3 +517,25 @@
 .unity-scroll-view .unity-list-view__empty-label {
     visibility: hidden;
 }
+
+.glint-element {
+    overflow: hidden;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}
+
+.glint-element__glint {
+    width: 100px;
+    height: 300px;
+    --gradient-from: rgb(255, 255, 255);
+    --gradient-to: rgba(255, 255, 255, 0);
+    rotate: 19deg;
+    left: -25%;
+}
+
+.glint-element__glint--swiped {
+    transition-duration: 0.6s;
+    left: 100%;
+    transition-delay: 1s;
+    transition-timing-function: linear;
+}

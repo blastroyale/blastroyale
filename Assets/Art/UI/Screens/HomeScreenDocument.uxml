@@ -11,14 +11,16 @@
                 <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <ui:VisualElement name="PartyContainer" class="squad-container anim-delay-2 anim-translate anim-translate--left-xl">
-                    <ui:VisualElement name="Header" class="squad-container__header">
-                        <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" />
-                        <ui:Label text="CODE:  ABD8" name="RoomCode" class="squad-container__roomcode" />
+                <ui:VisualElement name="PartyHolder" class="anim-delay-2 anim-translate anim-translate--left-xl">
+                    <ui:VisualElement name="PartyContainer" class="squad-container">
+                        <ui:VisualElement name="Header" class="squad-container__header">
+                            <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" />
+                            <ui:Label text="CODE:  ABD8" name="RoomCode" class="squad-container__roomcode" />
+                        </ui:VisualElement>
+                        <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" show-alternating-row-backgrounds="ContentOnly" class="squad-container__list" />
                     </ui:VisualElement>
-                    <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" show-alternating-row-backgrounds="All" class="squad-container__list" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="button-party sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-l" />
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
                     <ui:VisualElement name="GameModeOverlay" class="game-mode-button__overlay" />
                     <ui:VisualElement name="LabelHolder" class="game-mode-button__label-holder">
@@ -44,6 +46,7 @@
                         <ui:VisualElement name="CheckmarkBG" class="play-button__checkmark-bg">
                             <ui:VisualElement name="Checkmark" class="play-button__checkmark" />
                         </ui:VisualElement>
+                        <FirstLight.Game.UIElements.GlintElement name="Glint" />
                     </FirstLight.Game.UIElements.LocalizedButton>
                 </ui:VisualElement>
             </ui:VisualElement>

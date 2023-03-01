@@ -1,9 +1,10 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
@@ -12,10 +13,12 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class MatchmakingStatusView : IUIView
 	{
+		private const string UssContainerHidden = "matchmaking-container--hidden";
+
 		private VisualElement _container;
 		private Label _timeLabel;
 
-		private ValueAnimation<float> _timer;
+		private long _startTime;
 
 		public event Action CloseClicked;
 
@@ -36,18 +39,17 @@ namespace FirstLight.Game.Views.UITK
 
 		public void Show(bool show)
 		{
-			_container.EnableInClassList("matchmaking-container--hidden", !show);
-
-			_timer?.Stop();
-			_timer?.Recycle();
+			_container.EnableInClassList(UssContainerHidden, !show);
 
 			if (show)
 			{
-				// A bit of a hacky way to get a timer going. Only problem with this is that it will stop after 1h. Should be plenty
-				_timer = _timeLabel.experimental.animation
-					.Start(0, 60 * 60, 60 * 60 * 1000,
-						(e, t) => { ((Label) e).text = $"{TimeSpan.FromSeconds(t):mm\\:ss}"; })
-					.Ease(Easing.Linear);
+				_startTime = 0;
+				_timeLabel.schedule.Execute(ts =>
+				{
+					if (_startTime == 0L) _startTime = ts.now;
+
+					_timeLabel.text = $"{TimeSpan.FromMilliseconds(_startTime - ts.start):mm\\:ss}";
+				}).Every(200); // Triggered every 200ms so the second counting is smooth and consistent.
 			}
 		}
 	}

@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BestHTTP.Extensions;
 using BestHTTP.SignalRCore;
 using BestHTTP.SignalRCore.Encoders;
+using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using JetBrains.Annotations;
 using PlayFab;
@@ -64,9 +68,37 @@ namespace FirstLight.Game.Services
 		private bool _connecting;
 		private string _connectionHandle;
 
+		private SemaphoreSlim _accessSemaphore = new(1, 1);
+
 		private LitJsonEncoder _jsonEncoder = new();
 		private Dictionary<string, List<Action<byte[]>>> _onMessageListeners = new();
 		private Dictionary<string, List<Action<IPlayfabPubSubService.SubscriptionChangeMessage>>> _onSubscriptionStatus = new();
+
+		public PlayfabPubSubService(IMessageBrokerService msgBroker)
+		{
+#pragma warning disable CS4014
+			msgBroker.Subscribe<SuccessAuthentication>(_ => { OnSuccessAuthentication(); });
+#pragma warning restore CS4014
+		}
+
+		private async Task OnSuccessAuthentication()
+		{
+			try
+			{
+				await _accessSemaphore.WaitAsync();
+				if (_connection != null)
+				{
+					await _connection.CloseAsync();
+					ResetConnectionFields();
+					_onMessageListeners.Clear();
+					_onSubscriptionStatus.Clear();
+				}
+			}
+			finally
+			{
+				_accessSemaphore.Release();
+			}
+		}
 
 		/// <inheritdoc/>
 		public async Task<String> GetConnectionHandle(bool noCache = false)
@@ -115,7 +147,6 @@ namespace FirstLight.Game.Services
 			}
 
 			_connecting = true;
-
 			var url = $"https://{GameConstants.Servers.PLAYFAB_TITLE_ID}.playfabapi.com/PubSub";
 			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder));
 			_connection.ReconnectPolicy = new DefaultRetryPolicy();
@@ -162,14 +193,22 @@ namespace FirstLight.Game.Services
 
 		private async Task FetchConnectionHandle()
 		{
-			await Connect();
-			var body = new StartOrRecoverySessionRequest()
+			try
 			{
-				//TODO how to create a trace id or use a pre existing one
-				traceParent = "01-84678fd69ae13e41fce1333289bcf482-22d157fb94ea4827-01",
-			};
-			var response = await _connection.InvokeAsync<StartOrRecoverySessionResponse>("StartOrRecoverSession", body);
-			_connectionHandle = response.newConnectionHandle;
+				await _accessSemaphore.WaitAsync();
+				await Connect();
+				var body = new StartOrRecoverySessionRequest()
+				{
+					//TODO how to create a trace id or use a pre existing one
+					traceParent = "01-84678fd69ae13e41fce1333289bcf482-22d157fb94ea4827-01",
+				};
+				var response = await _connection.InvokeAsync<StartOrRecoverySessionResponse>("StartOrRecoverSession", body);
+				_connectionHandle = response.newConnectionHandle;
+			}
+			finally
+			{
+				_accessSemaphore.Release();
+			}
 		}
 
 

@@ -11,13 +11,24 @@ namespace FirstLight.Game.UIElements
 		private static readonly ushort[] Indices = {0, 1, 2, 2, 3, 0};
 		private static readonly Vertex[] Vertices = new Vertex[4];
 
-		private Color startColor { get; set; }
-		private Color endColor { get; set; }
+		private static readonly CustomStyleProperty<Color> GradientFrom = new("--gradient-from");
+		private static readonly CustomStyleProperty<Color> GradientTo = new("--gradient-to");
+
 		private bool vertical { get; set; }
+
+		private Color startColor;
+		private Color endColor;
 
 		public GradientElement()
 		{
 			generateVisualContent += GenerateVisualContent;
+			RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+		}
+
+		private void OnCustomStyleResolved(CustomStyleResolvedEvent evt)
+		{
+			customStyle.TryGetValue(GradientFrom, out startColor);
+			customStyle.TryGetValue(GradientTo, out endColor);
 		}
 
 		private void GenerateVisualContent(MeshGenerationContext mgc)
@@ -50,20 +61,6 @@ namespace FirstLight.Game.UIElements
 
 		public class GradientUxmlTraits : UxmlTraits
 		{
-			readonly UxmlColorAttributeDescription _startColorAttribute = new()
-			{
-				name = "start-color",
-				use = UxmlAttributeDescription.Use.Required,
-				defaultValue = Color.red
-			};
-
-			readonly UxmlColorAttributeDescription _endColorAttribute = new()
-			{
-				name = "end-color",
-				use = UxmlAttributeDescription.Use.Required,
-				defaultValue = Color.blue
-			};
-
 			private readonly UxmlBoolAttributeDescription _verticalAttribute = new()
 			{
 				name = "vertical",
@@ -75,8 +72,6 @@ namespace FirstLight.Game.UIElements
 				base.Init(ve, bag, cc);
 
 				var ge = (GradientElement) ve;
-				ge.startColor = _startColorAttribute.GetValueFromBag(bag, cc);
-				ge.endColor = _endColorAttribute.GetValueFromBag(bag, cc);
 				ge.vertical = _verticalAttribute.GetValueFromBag(bag, cc);
 			}
 		}

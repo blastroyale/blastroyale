@@ -47,6 +47,7 @@ namespace FirstLight.Game.UIElements
 		public GameId MenuGameId { get; private set; }
 		public int CollectionIndex { get; private set; }
 
+		private readonly VisualElement _backgroundImage;
 		private readonly VisualElement _image;
 		private readonly Label _name;
 
@@ -77,9 +78,9 @@ namespace FirstLight.Game.UIElements
 			Add(highlight);
 			highlight.AddToClassList(UssHighlight);
 
-			var background = new VisualElement {name = "background"};
-			Add(background);
-			background.AddToClassList(UssBackground);
+			_backgroundImage = new VisualElement {name = "background"};
+			Add(_backgroundImage);
+			_backgroundImage.AddToClassList(UssBackground);
 
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
@@ -87,8 +88,6 @@ namespace FirstLight.Game.UIElements
 			
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
-			_image.AddToClassList("sprite-home__Male01Avatar");
-			
 			
 			_locked = new VisualElement {name = "locked-icon"};
 			Add(_locked);
@@ -132,9 +131,11 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void SetLocked(bool locked)
+		private void SetLocked(bool locked)
 		{
-			
+			_locked.visible = !locked;
+			_image.style.opacity = locked ? 1f : 0.2f;
+			// _backgroundImage.style.opacity = locked ? 0.2f : 1f;
 		}
 
 		/// <summary>
@@ -153,7 +154,7 @@ namespace FirstLight.Game.UIElements
 			_notification.SetDisplay(notification);
 			_loanedBadge.SetDisplay(loaned);
 			_nftBadge.SetDisplay(isNft);
-			_locked.SetDisplay(!owned);
+			SetLocked(owned);
 			
 			MenuGameId = gameId;
 			CollectionIndex = index;

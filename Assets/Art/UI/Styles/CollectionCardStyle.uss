@@ -75,6 +75,7 @@
     left: 9px;
     top: 2px;
     -unity-background-scale-mode: scale-to-fit;
+    transition-property: opacity;
 }
 
 .collection-card__image--shadow {

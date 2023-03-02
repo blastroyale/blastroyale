@@ -40,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemDescription;
 		private Button _equipButton;
 		private PriceButton _buyButton;
+		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
 		private VisualElement _categoriesRoot;
 
@@ -78,6 +79,7 @@ namespace FirstLight.Game.Presenters
 
 			_selectedItemLabel = root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
+			_nameLockedIcon = root.Q<VisualElement>("ItemNameLocked").Required();
 
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
@@ -119,9 +121,6 @@ namespace FirstLight.Game.Presenters
 			var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
 			foreach (var category in categories)
 			{
-				Debug.Log("Setup Categories: " + category.Id.ToString());
-				
-				
 				var catElement = new CollectionCategoryElement();
 				catElement.clicked += OnCategoryClicked;
 				catElement.SetupCategoryButton(category);
@@ -261,6 +260,8 @@ namespace FirstLight.Game.Presenters
 
 			_selectedItemLabel.text = selectedId.GetLocalization();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
+			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
+			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 		}
 
 		private VisualElement MakeCollectionListItem()

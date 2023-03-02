@@ -499,7 +499,6 @@ namespace I2.Loc
 			public static string Liberty 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Liberty"); } }
 			public static string LibertyDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/LibertyDescription"); } }
 			public static string Lifesteal 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Lifesteal"); } }
-			public static string MaaleAssassinDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MaaleAssassinDescription"); } }
 			public static string MagicCube 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MagicCube"); } }
 			public static string MainDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MainDeck"); } }
 			public static string Male01Avatar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Male01Avatar"); } }
@@ -657,6 +656,7 @@ namespace I2.Loc
 			public static string WarriorShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShield"); } }
 			public static string WarriorShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShieldDescription"); } }
 			public static string Weapon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Weapon"); } }
+			public static string MaleAssassinDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MaleAssassinDescription"); } }
 		}
 
 		public static class General
@@ -1989,7 +1989,6 @@ namespace I2.Loc
 		    public const string Liberty = "GameIds/Liberty";
 		    public const string LibertyDescription = "GameIds/LibertyDescription";
 		    public const string Lifesteal = "GameIds/Lifesteal";
-		    public const string MaaleAssassinDescription = "GameIds/MaaleAssassinDescription";
 		    public const string MagicCube = "GameIds/MagicCube";
 		    public const string MainDeck = "GameIds/MainDeck";
 		    public const string Male01Avatar = "GameIds/Male01Avatar";
@@ -2147,6 +2146,7 @@ namespace I2.Loc
 		    public const string WarriorShield = "GameIds/WarriorShield";
 		    public const string WarriorShieldDescription = "GameIds/WarriorShieldDescription";
 		    public const string Weapon = "GameIds/Weapon";
+		    public const string MaleAssassinDescription = "GameIds/MaleAssassinDescription";
 		}
 
 		public static class General

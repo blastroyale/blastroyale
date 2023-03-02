@@ -58,11 +58,7 @@
 .info-holder__item-name {
     color: rgb(255, 255, 255);
     font-size: 48px;
-    position: absolute;
-    right: 50px;
-    bottom: 234px;
-    width: 388px;
-    height: 50px;
+    -unity-text-align: middle-left;
 }
 
 .info-holder__equip-button {

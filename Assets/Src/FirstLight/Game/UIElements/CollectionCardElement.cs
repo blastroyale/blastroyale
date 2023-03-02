@@ -135,7 +135,7 @@ namespace FirstLight.Game.UIElements
 		{
 			_locked.visible = !locked;
 			_image.style.opacity = locked ? 1f : 0.2f;
-			// _backgroundImage.style.opacity = locked ? 0.2f : 1f;
+			_backgroundImage.style.color = new Color(0.1f, 0.1f, 0.1f, 1f);
 		}
 
 		/// <summary>

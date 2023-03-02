@@ -34,6 +34,10 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
+.collection-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .info-holder {
     width: 600px;
     align-items: stretch;

@@ -30,6 +30,8 @@
     right: 700px;
     flex-direction: row;
     flex-grow: 1;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .info-holder {

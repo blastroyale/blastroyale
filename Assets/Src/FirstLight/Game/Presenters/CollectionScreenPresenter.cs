@@ -133,7 +133,8 @@ namespace FirstLight.Game.Presenters
 		private void OnCategoryClicked(CollectionCategory group)
 		{
 			if (_selectedCategory == group) return;
-
+			
+			_collectionList.ScrollToItem(0);
 			_selectedCategory = group;
 
 			foreach (var category in _categoriesRoot.Children().Cast<CollectionCategoryElement>())

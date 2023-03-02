@@ -143,6 +143,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8d953de975b4b4dcdb1e6347abe65e1b, type: 3}
   - {fileID: 21300000, guid: 8dc8750adc12340ba9c5a7d381f9732d, type: 3}
   - {fileID: 21300000, guid: 1fe1380aae6a2415ebb8ad3774901c63, type: 3}
+  - {fileID: 21300000, guid: 0bce921ac74214fada8d5ebed1b28e6e, type: 3}
   - {fileID: 21300000, guid: 3b196d1a9145c4220b265b4d0ff754a1, type: 3}
   - {fileID: 21300000, guid: ac9fab4a1916b48ea8d60ac71cfa471a, type: 3}
   - {fileID: 21300000, guid: e748127af454d49aebe1ae3d8d327583, type: 3}
@@ -193,6 +194,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4afb37ed31ada492ab4e030ee777d642, type: 3}
   - {fileID: 21300000, guid: 0c1582fd373454a23a0eb59fd8950cd4, type: 3}
   - {fileID: 21300000, guid: ed3decfd505b34a329a69123a943bd71, type: 3}
+  - {fileID: 21300000, guid: d3812d1e1c56b4a188ccfb9324966a36, type: 3}
   - {fileID: 21300000, guid: af29ed1ea7c4150a4bb3ea7030523a38, type: 3}
   - {fileID: 21300000, guid: a0c3566edae4a44798a1c7eaf010348a, type: 3}
   - {fileID: 21300000, guid: 4dcea76e0c52e43d6b931b8c957efe36, type: 3}
@@ -257,7 +259,7 @@ SpriteAtlas:
   - button-collection-tab-pressed
   - icon-banner
   - icon-arrow-upgrade
-  - character-corpo-female
+  - character-femalecorpos
   - header-back
   - pattern-dots-gradient
   - character-female01avatar
@@ -315,6 +317,7 @@ SpriteAtlas:
   - button-equipmentslot-legendary-pressed
   - button-popup-equipment-close
   - background-modetag-ranked
+  - character-malecorpos
   - glider-divinci
   - button-equipmentslot-uncommon
   - card-selected
@@ -365,6 +368,7 @@ SpriteAtlas:
   - vfx-glitch-triangle2
   - button-play-pressed
   - button-equipmentslot-rare-pressed
+  - flag-tombstone
   - button-gamemode-overlay-battleroyale
   - icon-shop
   - icon-gamemode-custom

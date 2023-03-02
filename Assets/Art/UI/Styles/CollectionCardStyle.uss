@@ -156,3 +156,13 @@
     top: -17px;
     right: -13px;
 }
+
+.collection-card__locked-icon {
+    opacity: 1;
+    background-image: var(--sprite-home__icon-collection-lock);
+    width: 148px;
+    height: 160px;
+    position: absolute;
+    left: 80px;
+    top: 80px;
+}

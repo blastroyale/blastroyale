@@ -142,7 +142,7 @@ namespace FirstLight.Game.Presenters
 				category.SetSelected(category.Category == group);
 			}
 
-			var hasItems = GetViewCollection().Any();
+			var hasItems = GetCollectionAll().Any();
 			if (hasItems)
 			{
 				_comingSoonLabel.visible = false;
@@ -167,7 +167,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectEquipped(CollectionCategory category)
 		{
-			var collection = GetViewCollection();
+			var collection = GetCollectionAll();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 			var previousIndex = _selectedIndex;
 			if (equipped.IsValid())
@@ -189,7 +189,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void ViewOwnedItemsFromCategory(CollectionCategory category)
 		{
-			var collection = GetViewCollection();
+			var collection = GetCollectionAll();
 			_selectedCategory = category;
 			_collectionList.itemsSource = collection.ChunksOf(PAGE_SIZE).ToList();
 			_collectionList.RefreshItems();
@@ -197,12 +197,12 @@ namespace FirstLight.Game.Presenters
 
 		private CollectionItem GetSelectedItem()
 		{
-			return GetViewCollection()[_selectedIndex];
+			return GetCollectionAll()[_selectedIndex];
 		}
-
-		public List<CollectionItem> GetViewCollection()
+		
+		public List<CollectionItem> GetCollectionAll()
 		{
-			return _gameDataProvider.CollectionDataProvider.GetOwnedCollection(_selectedCategory);
+			return _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
 		}
 
 		private void OnEquipClicked()
@@ -306,8 +306,9 @@ namespace FirstLight.Game.Presenters
 				var itemIndex = rowNumber * PAGE_SIZE + x;
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
+				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
 
-				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id,
+				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id, owned,
 					equipped.IsValid() && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
 			}

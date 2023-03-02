@@ -33,6 +33,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssName = UssBlock + "__name";
 
+		private const string UssLockedIcon = UssBlock + "__locked-icon";
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
@@ -67,7 +68,7 @@ namespace FirstLight.Game.UIElements
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-
+			
 			var selectedBg = new VisualElement {name = "selected-bg"};
 			Add(selectedBg);
 			selectedBg.AddToClassList(UssSelected);
@@ -87,6 +88,11 @@ namespace FirstLight.Game.UIElements
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
 			_image.AddToClassList("sprite-home__Male01Avatar");
+			
+			
+			_locked = new VisualElement {name = "locked-icon"};
+			Add(_locked);
+			_locked.AddToClassList((UssLockedIcon));
 
 			var badgeHolder = new VisualElement {name = "badge-holder"};
 			cardHolder.Add(badgeHolder);
@@ -126,11 +132,16 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		public void SetLocked(bool locked)
+		{
+			
+		}
+
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool equipped = false, bool highlighted = false, bool isNft = false,
-										 bool loaned = false, bool notification = false)
+		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool owned = false, bool equipped = false, 
+								bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
 			
@@ -142,6 +153,7 @@ namespace FirstLight.Game.UIElements
 			_notification.SetDisplay(notification);
 			_loanedBadge.SetDisplay(loaned);
 			_nftBadge.SetDisplay(isNft);
+			_locked.SetDisplay(!owned);
 			
 			MenuGameId = gameId;
 			CollectionIndex = index;

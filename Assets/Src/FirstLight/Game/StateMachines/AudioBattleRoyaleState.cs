@@ -97,6 +97,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
+			if (IsTutorial())
+			{
+				return;
+			}
 			var time = callback.Game.Frames.Predicted.Time.AsFloat;
 			
 			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&

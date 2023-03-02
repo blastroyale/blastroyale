@@ -570,8 +570,8 @@ namespace FirstLight.Game.StateMachines
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
 				_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage {Game = QuantumRunner.Default.Game});
-				_services.NetworkService.EnableClientUpdate(true);
 				QuantumRunner.ShutdownAll();
+				_services.NetworkService.EnableClientUpdate(true);
 				
 			}
 		}

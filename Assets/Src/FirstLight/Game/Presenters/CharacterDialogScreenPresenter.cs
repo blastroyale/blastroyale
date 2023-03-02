@@ -22,6 +22,8 @@ namespace FirstLight.Game.Presenters
 		private const string CHARACTER_TOP = "back_avatar--top";
 		private const string CHARACTER_CENTER = "back_avatar--center";
 		
+		private const string MOOD_STYLE = "sprite-ftue__character-";
+
 		private const string BUBBLE_LEFT = "bubble--left";
 		private const string BUBBLE_RIGHT = "bubble--right";
 		private const string BUBBLE_BOTTOM = "bubble--bottom";
@@ -106,7 +108,8 @@ namespace FirstLight.Game.Presenters
 			{
 				_characters[character][3].SetDisplay(false);
 				RemovePosStyles(character);
-				RemoveMoodStyles(character);
+				_characters[character][0].RemoveSpriteClasses();
+				
 			});
 
 			_characters[character][1].experimental.animation.Start((e) => e.transform.scale, new Vector3(0, 0, 1),
@@ -136,11 +139,12 @@ namespace FirstLight.Game.Presenters
 
 		private void SetMood(CharacterType character, CharacterDialogMoodType mood)
 		{
-			var moodClass = character.ToString().ToLower() + "_" + mood.ToString().ToLower();
+			var moodClass = MOOD_STYLE+character.ToString().ToLower() + "-" + mood.ToString().ToLower();
 			if (_characters[character][0].ClassListContains(moodClass))
 				return;
 			
-			RemoveMoodStyles(character);
+			_characters[character][0].RemoveSpriteClasses();
+			
 			_characters[character][0].AddToClassList(moodClass);
 			
 			SmallBumpAnimElement(_characters[character][3]);
@@ -213,15 +217,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void RemoveMoodStyles(CharacterType character)
-		{
-			foreach (CharacterDialogMoodType mood in (CharacterDialogMoodType[]) Enum.GetValues(
-						 typeof(CharacterDialogMoodType)))
-			{
-				_characters[character][0].RemoveFromClassList(String.Concat(character.ToString().ToLower(), "_", mood.ToString().ToLower()));
-			}
-		}
-		
 		private void SmallBumpAnimElement(VisualElement ve)
 		{
 			var currentScale = ve.transform.scale;

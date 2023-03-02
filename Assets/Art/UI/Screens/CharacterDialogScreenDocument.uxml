@@ -2,17 +2,17 @@
     <Style src="project://database/Assets/Art/UI/Screens/CharacterDialogScreenStyle.uss?fileID=7433441132597879392&amp;guid=764b815b05125b449970ec53a9436d1c&amp;type=3#CharacterDialogScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore">
-            <ui:VisualElement name="MaleBubble" class="bubble">
+            <ui:VisualElement name="MaleBubble" class="bubble sprite-ftue__background-dialog">
                 <FirstLight.Game.UIElements.AutoSizeLabel name="MaleLabel" max-font-size="36" class="bubble__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="FemaleBubble" class="bubble">
+            <ui:VisualElement name="FemaleBubble" class="bubble sprite-ftue__background-dialog">
                 <FirstLight.Game.UIElements.AutoSizeLabel name="FemaleLabel" max-font-size="36" class="bubble__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="BackAvatarFemale" class="back_avatar">
-                <ui:VisualElement name="FemaleCharacter" class="character" />
+            <ui:VisualElement name="BackAvatarFemale" class="sprite-ftue__background-character back_avatar">
+                <ui:VisualElement name="FemaleCharacter" />
             </ui:VisualElement>
-            <ui:VisualElement name="BackAvatarMale" class="back_avatar">
-                <ui:VisualElement name="MaleCharacter" class="character" />
+            <ui:VisualElement name="BackAvatarMale" class="back_avatar sprite-ftue__background-character">
+                <ui:VisualElement name="MaleCharacter" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

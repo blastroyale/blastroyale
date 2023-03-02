@@ -189,9 +189,12 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void ViewOwnedItemsFromCategory(CollectionCategory category)
 		{
+			Debug.Log("View Owned Items");
+			
 			var collection = GetCollectionAll();
 			_selectedCategory = category;
 			_collectionList.itemsSource = collection.ChunksOf(PAGE_SIZE).ToList();
+			_collectionList.Clear();
 			_collectionList.RefreshItems();
 		}
 
@@ -298,12 +301,14 @@ namespace FirstLight.Game.Presenters
 			for (var x = 0; x < PAGE_SIZE; x++)
 			{
 				var card = rowCards[x];
+				
 				if (x >= rowItems.Count)
 				{
 					card.SetDisplay(false);
 					continue;
 				}
-
+				
+				card.SetDisplay(true);
 				var selectedItem = rowItems[x];
 				var itemIndex = rowNumber * PAGE_SIZE + x;
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);

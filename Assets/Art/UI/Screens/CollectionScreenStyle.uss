@@ -27,7 +27,7 @@
     left: 468px;
     bottom: 0;
     overflow: visible;
-    right: 700px;
+    right: 550px;
     flex-direction: row;
     flex-grow: 1;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0);

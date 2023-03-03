@@ -225,8 +225,9 @@ GameObject:
   - component: {fileID: 1589760110319979480}
   - component: {fileID: 2422987112564016253}
   - component: {fileID: 451726351044096183}
+  - component: {fileID: 7087887078284556288}
   m_Layer: 10
-  m_Name: GliderDivinci
+  m_Name: Divinci
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,6 +302,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7087887078284556288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108853170901160290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b1392e1f7cf4592ad5559fdc372b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thrusters:
+  - {fileID: 6375219031171166085}
+  - {fileID: 849039178449248760}
+  _trails:
+  - {fileID: 6375219031171166085}
+  - {fileID: 849039178449248760}
 --- !u!1 &4165943543692582719
 GameObject:
   m_ObjectHideFlags: 0

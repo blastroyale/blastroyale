@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -24,6 +26,8 @@ namespace FirstLight.Game.Presenters
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;
+		[SerializeField] private Vector3 _gliderSpawnPosition;
+		[SerializeField] private Vector3 _gliderSpawnRotation;
 
 		private static readonly int PAGE_SIZE = 3;
 
@@ -50,7 +54,8 @@ namespace FirstLight.Game.Presenters
 		private int _selectedIndex;
 		private CollectionCategory _selectedCategory;
 		private GameObject _collectionObject;
-
+		private readonly List<UniqueId> _seenItems = new();
+		public UniqueId SelectedItem { get; private set; }
 
 		private void Awake()
 		{
@@ -108,6 +113,12 @@ namespace FirstLight.Game.Presenters
 		protected override async Task OnClosed()
 		{
 			base.OnClosed();
+			
+			if (_seenItems.Count > 0)
+			{
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
+				_seenItems.Clear();
+			}
 
 			if (_collectionObject != null)
 			{
@@ -241,14 +252,30 @@ namespace FirstLight.Game.Presenters
 			_collectionObject =
 				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id, true,
 					true);
-			_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
+
+			if (_selectedCategory.Id == GameIdGroup.Glider)
+			{
+				_collectionObject.transform.SetPositionAndRotation(_gliderSpawnPosition, Quaternion.Euler(_gliderSpawnRotation));
+				_collectionObject.GetComponent<MainMenuGliderViewComponent>().ActivateParticleEffects(false);
+			}
+			else
+			{
+				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
+			}
 		}
 		
 		void Update()
 		{
 			if (_collectionObject)
 			{
-				_collectionObject.transform.Rotate(0, 1, 0, Space.Self);
+				if (_selectedCategory.Id == GameIdGroup.Glider)
+				{
+					_collectionObject.transform.Rotate(1, 0, 0, Space.Self);
+				}
+				else
+				{
+					_collectionObject.transform.Rotate(0, 1, 0, Space.Self);
+				}
 			}
 		}
 
@@ -266,6 +293,12 @@ namespace FirstLight.Game.Presenters
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
+			
+			// Set the first item as viewed
+			if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+			{
+				_seenItems.Add(SelectedItem);
+			}
 		}
 
 		private VisualElement MakeCollectionListItem()
@@ -336,6 +369,18 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionList.RefreshItem(newRow);
+			
+			// Set item as viewed
+			if (!_seenItems.Contains(SelectedItem) &&
+			    _gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+			{
+				_seenItems.Add(SelectedItem);
+			}
+		}
+		
+		private bool IsItemSeen(UniqueId item)
+		{
+			return _seenItems.Contains(item) || !_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(item);
 		}
 	}
 }

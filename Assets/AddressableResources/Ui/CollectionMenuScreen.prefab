@@ -173,8 +173,9 @@ MonoBehaviour:
   _document: {fileID: 8109163405775159547}
   _background: {fileID: 5312011000051045207}
   _millisecondsToClose: 0
-  _renderTextureCamera: {fileID: 1631074020616406735}
   _collectionSpawnPosition: {x: 0, y: 10, z: -10}
+  _gliderSpawnPosition: {x: 0, y: 10.86, z: -11}
+  _gliderSpawnRotation: {x: 30, y: 180, z: 90}
 --- !u!114 &8109163405775159547
 MonoBehaviour:
   m_ObjectHideFlags: 0

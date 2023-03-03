@@ -429,12 +429,12 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateBattlePassReward()
 		{
-			var currentLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
+			var nextLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value + 1;
 			_battlePassRarity.RemoveSpriteClasses();
 
-			if (currentLevel != _dataProvider.BattlePassDataProvider.MaxLevel)
+			if (nextLevel <= _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
-				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(currentLevel + 1);
+				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel);
 				_battlePassRarity.AddToClassList(UIUtils.GetBPRarityStyle(reward.GameId));
 			}
 		}

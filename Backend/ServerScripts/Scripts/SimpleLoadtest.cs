@@ -51,7 +51,7 @@ public class SimpleLoadtest : PlayfabScript
 
 	public async Task RunAsync(List<LoginResult> loggedInUsers)
 	{
-		var cmd = new UpdatePlayerSkinCommand() { SkinId = GameId.Male01Avatar };
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male01Avatar) };
 		var start = DateTime.UtcNow;
 		var tasks = new List<Task>();
 		

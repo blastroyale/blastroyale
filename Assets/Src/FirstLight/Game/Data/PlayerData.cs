@@ -29,7 +29,6 @@ namespace FirstLight.Game.Data
 		public uint Trophies = 1000;
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
-		public GameId PlayerSkinId = GameId.Female01Avatar;
 		public GameId DeathMarker = GameId.Tombstone;
 		public readonly List<RewardData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
@@ -54,7 +53,6 @@ namespace FirstLight.Game.Data
 			hash = hash * 23 + Trophies.GetHashCode();
 			hash = hash * 23 + BPLevel.GetHashCode();
 			hash = hash * 23 + BPPoints.GetHashCode();
-			hash = hash * 23 + PlayerSkinId.GetHashCode();
 			hash = hash * 23 + DeathMarker.GetHashCode();
 
 			foreach (var e in UncollectedRewards)

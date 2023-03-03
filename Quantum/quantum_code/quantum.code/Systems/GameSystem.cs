@@ -185,7 +185,9 @@ namespace Quantum.Systems
 			}
 
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			container->TargetProgress = (uint) teams.Count;
+			
+			// The target of the game is that all teams die but one (ourselves)
+			container->TargetProgress = (uint) teams.Count -1;
 		}
 	}
 }

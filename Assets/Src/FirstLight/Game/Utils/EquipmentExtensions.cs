@@ -63,7 +63,11 @@ namespace FirstLight.Game.Utils
 			//var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
 			// TODO: Gabriel delete when we update the backend
 			var dropDays = FP._7;
-			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
+			
+			// We don't let days drop below 0, this way we can set LastRepairTimestamp in the future if needed
+			var daysOfRustingPassed = Math.Max(0d, rustTime.TotalDays);
+			
+			var durabilityDropped = (uint) Math.Floor(daysOfRustingPassed / dropDays.AsDouble);
 			
 			if ((isNft && !FeatureFlags.ITEM_DURABILITY_NFTS) || (!isNft && !FeatureFlags.ITEM_DURABILITY_NON_NFTS))
 			{

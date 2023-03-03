@@ -23,77 +23,115 @@
 
 .sprite-shared__background-currentplayer {
     background-image: var(--sprite-shared__background-currentplayer);
+    width: 62px;
+    height: 64px;
 }
 
 .sprite-shared__background-stat {
     background-image: var(--sprite-shared__background-stat);
+    width: 48px;
+    height: 52px;
 }
 
 .sprite-shared__background-stat-dark {
     background-image: var(--sprite-shared__background-stat-dark);
+    width: 48px;
+    height: 52px;
 }
 
 .sprite-shared__highlight-leaderboard-localplayer {
     background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
+    width: 1412px;
+    height: 92px;
 }
 
 .sprite-shared__icon-currency-blst {
     background-image: var(--sprite-shared__icon-currency-blst);
+    width: 64px;
+    height: 64px;
 }
 
 .sprite-shared__icon-currency-bpp {
     background-image: var(--sprite-shared__icon-currency-bpp);
+    width: 59px;
+    height: 64px;
 }
 
 .sprite-shared__icon-currency-coin {
     background-image: var(--sprite-shared__icon-currency-coin);
+    width: 64px;
+    height: 64px;
 }
 
 .sprite-shared__icon-currency-cs {
     background-image: var(--sprite-shared__icon-currency-cs);
+    width: 64px;
+    height: 64px;
 }
 
 .sprite-shared__icon-lowconnection {
     background-image: var(--sprite-shared__icon-lowconnection);
+    width: 98px;
+    height: 72px;
 }
 
 .sprite-shared__icon-medal-1st {
     background-image: var(--sprite-shared__icon-medal-1st);
+    width: 118px;
+    height: 118px;
 }
 
 .sprite-shared__icon-medal-2nd {
     background-image: var(--sprite-shared__icon-medal-2nd);
+    width: 118px;
+    height: 118px;
 }
 
 .sprite-shared__icon-medal-3rd {
     background-image: var(--sprite-shared__icon-medal-3rd);
+    width: 118px;
+    height: 118px;
 }
 
 .sprite-shared__icon-might {
     background-image: var(--sprite-shared__icon-might);
+    width: 70px;
+    height: 82px;
 }
 
 .sprite-shared__icon-trophy {
     background-image: var(--sprite-shared__icon-trophy);
+    width: 44px;
+    height: 44px;
 }
 
 .sprite-shared__logo-br {
     background-image: var(--sprite-shared__logo-br);
+    width: 211px;
+    height: 181px;
 }
 
 .sprite-shared__progress-battlepass-bpp {
     background-image: var(--sprite-shared__progress-battlepass-bpp);
+    width: 58px;
+    height: 40px;
 }
 
 .sprite-shared__progress-battlepass-bpp-bg {
     background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
+    width: 64px;
+    height: 48px;
 }
 
 .sprite-shared__progress-battlepass-bpp-rewards {
     background-image: var(--sprite-shared__progress-battlepass-bpp-rewards);
+    width: 58px;
+    height: 44px;
 }
 
 .sprite-shared__progress-battlepass-bpp-yellow {
     background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
+    width: 58px;
+    height: 44px;
 }
 

@@ -35,17 +35,17 @@ public class TestServerPluginEvents
 	[Test]
 	public void TestCommandEvents()
 	{
-		var command = new UpdatePlayerSkinCommand();
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
 		var receivedUser = "";
 
-		void OnCommand(string userId, UpdatePlayerSkinCommand cmd, ServerState state)
+		void OnCommand(string userId, EquipCollectionItemCommand cmd, ServerState state)
 		{
 			receivedUser = userId;
 		}
 		
-		_events.RegisterCommandListener<UpdatePlayerSkinCommand>(OnCommand);
+		_events.RegisterCommandListener<EquipCollectionItemCommand>(OnCommand);
 		
-		_events.CallCommandEvent("Yolo", command, new ServerState());
+		_events.CallCommandEvent("Yolo", cmd, new ServerState());
 		
 		Assert.AreEqual("Yolo", receivedUser);
 	}

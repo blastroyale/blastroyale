@@ -82,7 +82,9 @@ namespace Quantum
 				}
 			}
 
-			CurrentProgress = (uint) (TargetProgress - teamsAlive.Count + 1);
+			// We count how many teams are alive towards our goal (we remove ours)
+			var teamsAliveForGoal = teamsAlive.Count - 1;
+			CurrentProgress = (uint) (TargetProgress - teamsAliveForGoal);
 
 			if (CurrentProgress >= TargetProgress)
 			{

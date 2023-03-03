@@ -1,4 +1,5 @@
 using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -21,13 +22,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
-			_gameDataProvider.PlayerDataProvider.PlayerSkin.Observe(OnCharacterSkinUpdated);
+			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdated);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
 		private async void Start()
 		{
-			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id;
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
@@ -76,6 +77,10 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
 		{
+			if (!IsLoaded)
+			{
+				return;
+			}
 			if (msg.SlotsUpdated.Count == 1)
 			{
 				_animator.SetTrigger(msg.SlotsUpdated.Keys.ToArray()[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
@@ -86,11 +91,15 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private async void OnCharacterSkinUpdated(GameId previousSkin, GameId newSkin)
+		private async void OnCharacterSkinUpdated(CollectionItemEquippedMessage msg)
 		{
-			Destroy(_characterViewComponent.gameObject);
+			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
 			
-			await UpdateSkin(newSkin, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
+ 			Destroy(_characterViewComponent.gameObject);
+
+			if (!msg.EquippedItem.IsValid()) return;
+			
+			await UpdateSkin(msg.EquippedItem.Id, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
 	}
 }

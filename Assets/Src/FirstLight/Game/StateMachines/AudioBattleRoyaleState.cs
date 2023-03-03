@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -47,6 +48,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("AUDIO BR - Initial");
 			var final = stateFactory.Final("AUDIO BR - Final");
 			var matchStateCheck = stateFactory.Choice("AUDIO BR - Match State Check");
+			var tutorial = stateFactory.State("AUDIO BR - Tutorial");
 			var skydive = stateFactory.State("AUDIO BR - Skydive");
 			var lowIntensity = stateFactory.State("AUDIO BR - Low Intensity");
 			var midIntensity = stateFactory.State("AUDIO BR - Mid Intensity");
@@ -55,10 +57,13 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(matchStateCheck);
 			initial.OnExit(SubscribeEvents);
 
+			matchStateCheck.Transition().Condition(IsTutorial).Target(tutorial);
 			matchStateCheck.Transition().Condition(IsSkyDivePhase).Target(skydive);
 			matchStateCheck.Transition().Condition(IsLowIntensityPhase).Target(lowIntensity);
 			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
 			matchStateCheck.Transition().Target(highIntensity);
+			
+			tutorial.OnEnter(PlayMidIntensityMusic);
 
 			skydive.OnEnter(PlaySkydiveMusic);
 			skydive.Event(IncreaseIntensityEvent).Target(lowIntensity);
@@ -92,6 +97,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
+			if (IsTutorial())
+			{
+				return;
+			}
 			var time = callback.Game.Frames.Predicted.Time.AsFloat;
 			
 			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
@@ -128,6 +137,11 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private bool IsTutorial()
+		{
+			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
+		}
+		
 		private bool IsSkyDivePhase()
 		{
 			return CurrentMatchTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD;

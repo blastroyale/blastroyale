@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
+using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -116,6 +118,16 @@ namespace FirstLight.Editor.EditorTools
 					}
 				}
 			}
+		}
+		
+		[MenuItem("PlayFab/Open Current Account")]
+		private static void OpenCurrentAccount()
+		{
+			var data = new DataService();
+			data.LoadData<AppData>();
+			var playerId = data.GetData<AppData>().PlayerId;
+
+			Application.OpenURL($"https://developer.playfab.com/en-us/r/t/***REMOVED***/players/{playerId}/data");
 		}
 
 		/// <summary>

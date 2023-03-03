@@ -423,6 +423,7 @@ namespace I2.Loc
 			public static string BaseballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballArmor"); } }
 			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale"); } }
+			public static string BattleRoyale_First_Game 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale First Game"); } }
 			public static string BlimpDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlimpDeck"); } }
 			public static string Boots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Boots"); } }
 			public static string BossAngrymanAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossAngrymanAi"); } }
@@ -1291,6 +1292,7 @@ namespace I2.Loc
 			public static string leave_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leave_party"); } }
 			public static string new_name_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name_desc"); } }
 			public static string party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party"); } }
+			public static string party_code 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_code"); } }
 			public static string party_id 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id"); } }
 			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
 			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
@@ -1303,6 +1305,7 @@ namespace I2.Loc
 			public static string waitforrewards_popup_description 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_description"); } }
 			public static string waitforrewards_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_title"); } }
 			public static string waiting_for_members 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waiting_for_members"); } }
+			public static string youre_ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/youre_ready"); } }
 		}
 
 		public static class UITLeaderboards
@@ -1427,7 +1430,6 @@ namespace I2.Loc
 
 		public static class UITSquads
 		{
-			public static string Kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/Kicked"); } }
 			public static string error_AlreadyInParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_AlreadyInParty"); } }
 			public static string error_BannedFromParty 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_BannedFromParty"); } }
 			public static string error_ConnectionError 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_ConnectionError"); } }
@@ -1438,6 +1440,8 @@ namespace I2.Loc
 			public static string error_PartyFull 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyFull"); } }
 			public static string error_PartyNotFound 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_PartyNotFound"); } }
 			public static string error_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_Unknown"); } }
+			public static string kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kick"); } }
+			public static string kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kicked"); } }
 		}
 
 		public static class UITStore
@@ -1900,6 +1904,7 @@ namespace I2.Loc
 		    public const string BaseballArmor = "GameIds/BaseballArmor";
 		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
 		    public const string BattleRoyale = "GameIds/BattleRoyale";
+		    public const string BattleRoyale_First_Game = "GameIds/BattleRoyale First Game";
 		    public const string BlimpDeck = "GameIds/BlimpDeck";
 		    public const string Boots = "GameIds/Boots";
 		    public const string BossAngrymanAi = "GameIds/BossAngrymanAi";
@@ -2752,7 +2757,6 @@ namespace I2.Loc
 		    public const string bp_button_reward_title = "UITHomeScreen/bp_button_reward_title";
 		    public const string bp_button_subtitle = "UITHomeScreen/bp_button_subtitle";
 		    public const string bp_button_title = "UITHomeScreen/bp_button_title";
-			public const string blast_pass_claim_reward = "UITHomeScreen/blast_pass_claim_reward";
 		    public const string cancel = "UITHomeScreen/cancel";
 		    public const string collection = "UITHomeScreen/collection";
 		    public const string create_party = "UITHomeScreen/create_party";
@@ -2769,6 +2773,7 @@ namespace I2.Loc
 		    public const string leave_party = "UITHomeScreen/leave_party";
 		    public const string new_name_desc = "UITHomeScreen/new_name_desc";
 		    public const string party = "UITHomeScreen/party";
+		    public const string party_code = "UITHomeScreen/party_code";
 		    public const string party_id = "UITHomeScreen/party_id";
 		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
 		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
@@ -2781,6 +2786,7 @@ namespace I2.Loc
 		    public const string waitforrewards_popup_description = "UITHomeScreen/waitforrewards_popup_description";
 		    public const string waitforrewards_popup_title = "UITHomeScreen/waitforrewards_popup_title";
 		    public const string waiting_for_members = "UITHomeScreen/waiting_for_members";
+		    public const string youre_ready = "UITHomeScreen/youre_ready";
 		}
 
 		public static class UITLeaderboards
@@ -2905,7 +2911,6 @@ namespace I2.Loc
 
 		public static class UITSquads
 		{
-		    public const string Kicked = "UITSquads/Kicked";
 		    public const string error_AlreadyInParty = "UITSquads/error_AlreadyInParty";
 		    public const string error_BannedFromParty = "UITSquads/error_BannedFromParty";
 		    public const string error_ConnectionError = "UITSquads/error_ConnectionError";
@@ -2916,6 +2921,8 @@ namespace I2.Loc
 		    public const string error_PartyFull = "UITSquads/error_PartyFull";
 		    public const string error_PartyNotFound = "UITSquads/error_PartyNotFound";
 		    public const string error_Unknown = "UITSquads/error_Unknown";
+		    public const string kick = "UITSquads/kick";
+		    public const string kicked = "UITSquads/kicked";
 		}
 
 		public static class UITStore

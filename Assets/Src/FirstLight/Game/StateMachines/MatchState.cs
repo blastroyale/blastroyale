@@ -303,7 +303,9 @@ namespace FirstLight.Game.StateMachines
 		private void CloseSwipeTransitionTutorialCheck()
 		{
 			// If a tutorial is running (first match tutorial) - the transition will be closed later, in game simulation state
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>() && !_services.TutorialService.IsTutorialRunning)
+			// This is case for the FIRST_GUIDE_MATCH tutorial only
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>() && 
+				(!_services.TutorialService.IsTutorialRunning || _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH))
 			{
 				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}
@@ -322,7 +324,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
 			
-			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
+			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || 
+				_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				var data = new MatchmakingScreenPresenter.StateData
 				{
@@ -567,8 +570,8 @@ namespace FirstLight.Game.StateMachines
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
 				_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage {Game = QuantumRunner.Default.Game});
-				_services.NetworkService.EnableClientUpdate(true);
 				QuantumRunner.ShutdownAll();
+				_services.NetworkService.EnableClientUpdate(true);
 				
 			}
 		}

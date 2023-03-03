@@ -237,7 +237,7 @@
 }
 
 .squad-member {
-    font-size: 40px;
+    font-size: 32px;
 }
 
 .squad-container {
@@ -245,37 +245,64 @@
     left: 81px;
     top: 391px;
     bottom: 230px;
-    width: 333px;
-    background-color: rgba(71, 128, 166, 0.65);
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    width: 320px;
+    background-color: rgba(16, 12, 34, 0.22);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     color: rgb(255, 255, 255);
     overflow: hidden;
+    min-height: 164px;
+    margin-bottom: 28px;
 }
 
-.squad-container__label {
-    font-size: 48px;
-    height: 75px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
+.squad-container__title {
+    font-size: 36px;
     -unity-text-align: middle-center;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgb(16, 12, 34);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-grow: 1;
 }
 
 .squad-container__list {
     position: absolute;
     left: 25px;
-    top: 85px;
+    top: 59px;
     bottom: 0;
     right: 25px;
+}
+
+.squad-container__roomcode {
+    font-size: 32px;
+    background-color: rgb(196, 194, 220);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(16, 12, 34);
+}
+
+.squad-container__header {
+    flex-direction: row;
+    height: 59px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgb(16, 12, 34);
+    padding-left: 5px;
+    padding-right: 2px;
+    align-items: center;
 }
 
 .map-marker-party {

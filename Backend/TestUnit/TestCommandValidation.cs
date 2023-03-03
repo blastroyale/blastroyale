@@ -35,7 +35,7 @@ public class TestCommandValidation
 		_commandData = new Dictionary<string, string>();
 		_commandData[CommandFields.Timestamp] = "1";
 		_commandData[CommandFields.ClientVersion] = "1.0.0";
-		_command = new UpdatePlayerSkinCommand();
+		_command = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male01Avatar) };
 		ModelSerializer.SerializeToData(_commandData, _command);
 	}
 

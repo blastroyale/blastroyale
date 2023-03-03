@@ -187,7 +187,7 @@ namespace FirstLight.Game.Presenters
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail);
+				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail, true);
 			}
 			else
 			{

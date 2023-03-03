@@ -1,5 +1,6 @@
 using Backend.Game.Services;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
@@ -28,23 +29,20 @@ namespace Tests
 		[Test]
 		public void TestLogicMessagesFired()
 		{
-			GameLogicMessageEvent<PlayerSkinUpdatedMessage> receivedMessage = null;
+			GameLogicMessageEvent<CollectionItemEquippedMessage> receivedMessage = null;
 			
-			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(msg =>
+			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<CollectionItemEquippedMessage>>(msg =>
 			{
 				receivedMessage = msg;
 			});
 			
-			var cmd = new UpdatePlayerSkinCommand()
-			{
-				SkinId = GameId.Male01Avatar
-			};
+			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
 			
 			_server.SendTestCommand(cmd);
 			
 			Assert.NotNull(receivedMessage);
 			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.UserId);
-			Assert.AreEqual(GameId.Male01Avatar, receivedMessage.Message.SkinId);
+			Assert.AreEqual(GameId.Male02Avatar, receivedMessage.Message.EquippedItem.Id);
 		}
 		
 	}

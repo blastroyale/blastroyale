@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -132,6 +133,11 @@ namespace FirstLight.Game.Services
 		/// Unlinks this device current account
 		/// </summary>
 		void UnlinkDeviceID(Action onSuccess = null, Action<PlayFabError> errorCallback = null);
+
+		/// <summary>
+		/// Attempts to migrate data between accounts if the correct conditions have been met
+		/// </summary>
+		void TryMigrateData(MigrationData migrationData, bool previouslyLoggedIn = false);
 	}
 
 	/// <inheritdoc cref="IAuthenticationService" />
@@ -298,12 +304,14 @@ namespace FirstLight.Game.Services
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			
 			var appData = _dataService.GetData<AppData>();
+			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
+			var migrationData = new MigrationData() { TutorialSections = tutorialData.TutorialSections };
 			_networkService.UserId.Value = result.PlayFabId;
 			
 			//AppleApprovalHack(result);
@@ -315,14 +323,25 @@ namespace FirstLight.Game.Services
 				FLog.Verbose("Setting up photon app id by playfab title data");
 			}
 			
+			if (result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
+			{
+				previouslyLoggedIn = true;
+			}
+			
 			var requiredServices = 2;
 			var doneServices = 0;
-			void ServiceConnection(LoginData data)
+			
+			void OnServiceConnected(LoginData data)
 			{
-				if (++doneServices >= requiredServices) onSuccess(loginData);
+				if (++doneServices >= requiredServices)
+				{
+					TryMigrateData(migrationData, previouslyLoggedIn);
+					onSuccess(loginData);
+				}
 			}
-			AuthenticateGameNetwork(loginData, ServiceConnection, onError);
-			GetPlayerData(loginData,ServiceConnection, onError, previouslyLoggedIn);
+
+			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
+			GetPlayerData(loginData,OnServiceConnected, onError, previouslyLoggedIn);
 			
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
@@ -335,11 +354,6 @@ namespace FirstLight.Game.Services
 			if (string.IsNullOrWhiteSpace(appData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
 			{
 				LinkDeviceID(null, null);
-			}
-
-			if (result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
-			{
-				previouslyLoggedIn = true;
 			}
 
 			if (email != null && email.Contains("@") && isMissingContactEmail)
@@ -385,8 +399,7 @@ namespace FirstLight.Game.Services
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId,
-				_dataProvider.AppDataProvider.IsGuest);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
 			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
@@ -541,6 +554,14 @@ namespace FirstLight.Game.Services
 			{
 				_services.AuthenticationService.SetLinkedDevice(false);
 				onSuccess?.Invoke();
+			}
+		}
+
+		public void TryMigrateData(MigrationData migrationData, bool previouslyLoggedIn = false)
+		{
+			if (previouslyLoggedIn)
+			{
+				_services.CommandService.ExecuteCommand(new MigrateGuestDataCommand{ GuestMigrationData = migrationData });
 			}
 		}
 

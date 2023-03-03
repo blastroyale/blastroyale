@@ -1965,8 +1965,6 @@ MonoBehaviour:
         Value: 1
       BehaviourType:
         Value: 4
-      ForceStatic:
-        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2044,8 +2042,6 @@ MonoBehaviour:
         Value: 3
       BehaviourType:
         Value: 4
-      ForceStatic:
-        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2122,8 +2118,6 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 1
-      ForceStatic:
         Value: 1
     Projectile: []
     Rage: []
@@ -2202,8 +2196,6 @@ MonoBehaviour:
         Value: 3
       BehaviourType:
         Value: 1
-      ForceStatic:
-        Value: 1
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2280,8 +2272,6 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 1
-      ForceStatic:
         Value: 1
     Projectile: []
     Rage: []
@@ -3338,7 +3328,7 @@ MonoBehaviour:
       - RawValue: 0
       - RawValue: 0
       GameId:
-        Value: 66
+        Value: 72
     DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []

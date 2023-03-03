@@ -11014,7 +11014,7 @@ MonoBehaviour:
     - RawValue: 0
     - RawValue: 0
     GameId:
-      Value: 66
+      Value: 72
 --- !u!4 &1945548732097936576
 Transform:
   m_ObjectHideFlags: 0

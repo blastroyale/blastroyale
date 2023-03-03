@@ -190,11 +190,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				direction = (transform.position - attackerView.transform.position).normalized;
 			}
 
+			SetCulled(false);
+			
 			AnimatorWrapper.Enabled = false;
 			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
 			direction *= Mathf.Lerp(GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MAX,
 			                        (float) callback.DamageAmount / callback.MaxHealth);
-
+			
 			RigidbodyContainerMonoComponent.SetState(true);
 			OnAvatarEliminated(callback.Game);
 

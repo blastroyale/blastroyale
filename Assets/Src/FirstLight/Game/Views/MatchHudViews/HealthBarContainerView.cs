@@ -176,7 +176,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
-					? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
+					? Extensions.GetBotName(botCharacter.BotNameIndex, entity)
 					: f.GetPlayerData(playerCharacter.Player).PlayerName;
 
 				healthBar.HealthBarNameView.NameText.text = playerName;

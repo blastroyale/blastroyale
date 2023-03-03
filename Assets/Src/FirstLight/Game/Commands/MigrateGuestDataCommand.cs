@@ -24,11 +24,11 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
+			if (ctx.Logic.PlayerLogic().MigratedGuestAccount) return;
+			
 			// Mark all flags that were completed in guest data, but not player data
 			foreach (TutorialSection section in Enum.GetValues(typeof(TutorialSection)))
 			{
-				if (ctx.Logic.PlayerLogic().MigratedGuestAccount) return;
-				
 				if (GuestMigrationData.TutorialSections.HasFlag(section) && !ctx.Logic.PlayerLogic().HasTutorialSection(section))
 				{
 					ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(section);

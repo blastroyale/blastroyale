@@ -89,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
 			initial.OnExit(GetTutorialScreenRefs);
-			
+
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
@@ -142,8 +142,8 @@ namespace FirstLight.Game.StateMachines
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
 			waitMatchFinish.Event(MatchState.MatchUnloadedEvent).Target(final);
 			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
-			waitMatchFinish.OnExit(CloseTutorialUi);
-			
+
+			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
@@ -152,7 +152,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
 		}
-		
+
 		private void CloseTutorialUi()
 		{
 			_dialogUi.HideDialog(CharacterType.Female);

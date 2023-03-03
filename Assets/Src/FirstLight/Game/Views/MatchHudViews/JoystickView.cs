@@ -38,7 +38,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _joystickRadius;
 		private float _joystickCorrectionRadius;
 		private int? _touch = null;
-		private bool _sentMovementMessage;
 		
 		private void Awake()
 		{
@@ -120,12 +119,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			_handleImage.anchoredPosition = clampedMag;
 			_onscreenJoystickDirectionAdapter.SendValueToControl(normalized);
-
-			if (!_sentMovementMessage && _leftSideJoystick && _services.TutorialService.CurrentRunningTutorial.Value ==
-			    TutorialSection.FIRST_GUIDE_MATCH)
-			{
-				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
-			}
+			
 		}
 
 		private void OnFingerUp(Finger f)

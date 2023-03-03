@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.Game.Data;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -38,6 +39,8 @@ namespace FirstLight.Game.Presenters
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
 		private bool _allowPing = true;
+		private bool _sentMovementMessage;
+
 
 		private void Awake()
 		{
@@ -98,6 +101,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_direction = context.ReadValue<Vector2>();
 			_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
+			    TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+			}
 		}
 
 		/// <inheritdoc />

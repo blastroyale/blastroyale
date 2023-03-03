@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &59371282235698780
+--- !u!1 &200594867538496735
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8008878759708149775}
-  - component: {fileID: 5793654449448218884}
-  - component: {fileID: 8254824758906603911}
+  - component: {fileID: 8735087998712791923}
+  - component: {fileID: 6502441732747214625}
+  - component: {fileID: 5096657018972779377}
   m_Layer: 10
   m_Name: ArmorPadR_Riot
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8008878759708149775
+--- !u!4 &8735087998712791923
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59371282235698780}
+  m_GameObject: {fileID: 200594867538496735}
   m_LocalRotation: {x: -0, y: 0.0000049173827, z: -0, w: -1}
   m_LocalPosition: {x: 0.13200001, y: 0.13, z: -0.051998004}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,35 +33,35 @@ Transform:
   m_Father: {fileID: 4263966835548450922}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 359.999, z: 0}
---- !u!33 &5793654449448218884
+--- !u!33 &6502441732747214625
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59371282235698780}
-  m_Mesh: {fileID: 4709479358165325823, guid: 422651e6be586cc48aebfd5814d5907e, type: 3}
---- !u!23 &8254824758906603911
+  m_GameObject: {fileID: 200594867538496735}
+  m_Mesh: {fileID: 8268024311710758005, guid: 1ab4b3175f7c5b1449cfd0e87e98f0ac, type: 3}
+--- !u!23 &5096657018972779377
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59371282235698780}
+  m_GameObject: {fileID: 200594867538496735}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d15e1fe650833274181dfde660b3eef3, type: 2}
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4460933662920626814
+--- !u!1 &8717542887536995827
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,9 +91,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5163014013826060177}
-  - component: {fileID: 8556224925997406519}
-  - component: {fileID: 3895787172957603679}
+  - component: {fileID: 5042799511565915118}
+  - component: {fileID: 4020506742366439723}
+  - component: {fileID: 4200031330577833914}
   m_Layer: 10
   m_Name: ArmorChest_Riot
   m_TagString: Untagged
@@ -101,13 +101,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5163014013826060177
+--- !u!4 &5042799511565915118
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460933662920626814}
+  m_GameObject: {fileID: 8717542887536995827}
   m_LocalRotation: {x: -0, y: 0.0000049173827, z: -0, w: -1}
   m_LocalPosition: {x: 0.0019999966, y: 0, z: -0.051998973}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -116,35 +116,35 @@ Transform:
   m_Father: {fileID: 4263966835548450922}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 359.999, z: 0}
---- !u!33 &8556224925997406519
+--- !u!33 &4020506742366439723
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460933662920626814}
-  m_Mesh: {fileID: 775074254465287130, guid: 422651e6be586cc48aebfd5814d5907e, type: 3}
---- !u!23 &3895787172957603679
+  m_GameObject: {fileID: 8717542887536995827}
+  m_Mesh: {fileID: 78419699165583280, guid: 1ab4b3175f7c5b1449cfd0e87e98f0ac, type: 3}
+--- !u!23 &4200031330577833914
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460933662920626814}
+  m_GameObject: {fileID: 8717542887536995827}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d15e1fe650833274181dfde660b3eef3, type: 2}
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +166,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5551351739127041919
+--- !u!1 &8833581044518709376
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,9 +174,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2026859967357700501}
-  - component: {fileID: 5592014666637904814}
-  - component: {fileID: 127960892575344777}
+  - component: {fileID: 3100527587708019772}
+  - component: {fileID: 3066731784238807286}
+  - component: {fileID: 3290286350616932557}
   m_Layer: 10
   m_Name: ArmorPadL_Riot
   m_TagString: Untagged
@@ -184,13 +184,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2026859967357700501
+--- !u!4 &3100527587708019772
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551351739127041919}
+  m_GameObject: {fileID: 8833581044518709376}
   m_LocalRotation: {x: -0, y: 0.0000049173827, z: -0, w: -1}
   m_LocalPosition: {x: -0.132, y: 0.13, z: -0.052}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -199,35 +199,35 @@ Transform:
   m_Father: {fileID: 4263966835548450922}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 359.999, z: 0}
---- !u!33 &5592014666637904814
+--- !u!33 &3066731784238807286
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551351739127041919}
-  m_Mesh: {fileID: -991097035358566386, guid: 422651e6be586cc48aebfd5814d5907e, type: 3}
---- !u!23 &127960892575344777
+  m_GameObject: {fileID: 8833581044518709376}
+  m_Mesh: {fileID: -7212610948765192624, guid: 1ab4b3175f7c5b1449cfd0e87e98f0ac, type: 3}
+--- !u!23 &3290286350616932557
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551351739127041919}
+  m_GameObject: {fileID: 8833581044518709376}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d15e1fe650833274181dfde660b3eef3, type: 2}
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -277,9 +277,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2026859967357700501}
-  - {fileID: 8008878759708149775}
-  - {fileID: 5163014013826060177}
+  - {fileID: 3100527587708019772}
+  - {fileID: 8735087998712791923}
+  - {fileID: 5042799511565915118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

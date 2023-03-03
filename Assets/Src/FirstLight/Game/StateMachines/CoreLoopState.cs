@@ -112,8 +112,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool HasCompletedFirstGameTutorial()
 		{
-			return true;
-			//return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
 		}
 
 		private void CallLeaveRoom()

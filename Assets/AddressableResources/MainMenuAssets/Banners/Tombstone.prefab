@@ -9705,7 +9705,7 @@ GameObject:
   - component: {fileID: 2087908713987682056}
   - component: {fileID: 2087908713987682059}
   m_Layer: 10
-  m_Name: Punk
+  m_Name: Tombstone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

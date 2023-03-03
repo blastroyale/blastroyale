@@ -96,7 +96,7 @@ namespace FirstLight.Game.Data
 			{
 				new (GameIdGroup.DeathMarker), new List<CollectionItem>()
 				{
-					new(GameId.Punk),
+					new(GameId.Tombstone),
 				}
 			}
 		};
@@ -105,7 +105,7 @@ namespace FirstLight.Game.Data
 		{
 			{ new(GameIdGroup.PlayerSkin), new(GameId.Male01Avatar) },
 			{ new(GameIdGroup.Glider), new(GameId.Falcon) },
-			{ new(GameIdGroup.DeathMarker), new(GameId.Punk) }
+			{ new(GameIdGroup.DeathMarker), new(GameId.Tombstone) }
 		};
 
 		public override int GetHashCode()

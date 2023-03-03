@@ -258,7 +258,6 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Tombstone = 25,
-    Punk = 76,
     Demon = 108,
     SuperStar = 115,
     Unicorn = 116,

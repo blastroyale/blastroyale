@@ -819,12 +819,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Punk, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
 					GameId.Demon, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker
@@ -1231,7 +1225,6 @@ namespace Quantum
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Tombstone,
-						GameId.Punk,
 						GameId.Demon,
 						GameId.SuperStar,
 						GameId.Unicorn

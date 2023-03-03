@@ -32,7 +32,6 @@ namespace FirstLight.Game.Commands
 				if (GuestMigrationData.TutorialSections.HasFlag(section) && !ctx.Logic.PlayerLogic().HasTutorialSection(section))
 				{
 					ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(section);
-					Debug.LogError("migrate tutorial section completed: " + section);
 				}
 			}
 			

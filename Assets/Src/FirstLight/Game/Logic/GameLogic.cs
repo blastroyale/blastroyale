@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -217,6 +218,8 @@ namespace FirstLight.Game.Logic
 			{
 				logicInitializer.ReInit();
 			}
+			
+			MessageBrokerService.Publish(new DataReinitializedMessage());
 		}
 	}
 	

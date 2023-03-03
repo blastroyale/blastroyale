@@ -4,4 +4,5 @@ using FirstLight.SDK.Services;
 namespace FirstLight.Game.Messages
 {
 	public struct SuccessAuthentication : IMessage { }
+	public struct DataReinitializedMessage : IMessage { }
 }

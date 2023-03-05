@@ -59,9 +59,9 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnHomeClicked;
 
-			SetupItem("ItemRare", ITEM_RARE_ID);
-			SetupItem("ItemEpic", ITEM_EPIC_ID);
-			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID);
+			SetupItem("ItemRare", ITEM_RARE_ID, "rare_core");
+			SetupItem("ItemEpic", ITEM_EPIC_ID, "epic_core");
+			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID, "legendary_core");
 		}
 
 		protected override void SubscribeToEvents()
@@ -153,14 +153,24 @@ namespace FirstLight.Game.Presenters
 			popup.InitEquipment();
 		}
 
-		private void SetupItem(string uiId, string storeId)
+		private void SetupItem(string uiId, string storeId, string localizationPostfix)
 		{
 			var product = _gameServices.IAPService.Products.First(item => item.definition.id == storeId);
 
 			var button = Root.Q<Button>(uiId);
 			var priceLabel = button.Q<Label>("Price");
+			var infoButton = button.Q<Button>("InfoButton");
+			var infoTitle = LocalizationManager.GetTranslation ("UITStore/" + localizationPostfix);
+			var infoDescription = LocalizationManager.GetTranslation ("UITStore/description_" + localizationPostfix);
 
+			var backButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Back,
+				ButtonOnClick = _gameServices.GenericDialogService.CloseDialog
+			};
+			
 			button.clicked += () => { BuyItem(storeId); };
+			infoButton.clicked += () => { _gameServices.GenericDialogService.OpenButtonDialog(infoTitle, infoDescription, false, backButton); };
 			priceLabel.text = product.metadata.localizedPriceString;
 		}
 	}

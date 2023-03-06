@@ -37,9 +37,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 
 		/// <summary>
+		/// Requests the <see cref="IIndicator"/> representing the given <paramref name="idx"/>
+		/// </summary>
+		/// <returns></returns>
+		public IIndicator GetIndicator(int idx)
+		{
+			return _indicators[idx];
+		}
+		
+		/// <summary>
 		/// Requests the <see cref="IIndicator"/> representing the given <paramref name="specialIdx"/>
 		/// </summary>
-		public IIndicator GetIndicator(int specialIdx)
+		public IIndicator GetSpecialIndicator(int specialIdx)
 		{
 			return _specialIndicators[specialIdx];
 		}

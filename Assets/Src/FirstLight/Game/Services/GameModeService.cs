@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
@@ -49,11 +50,6 @@ namespace FirstLight.Game.Services
 		void Init();
 
 		/// <summary>
-		/// The currently user Equip data.
-		/// </summary>
-		IEquipmentDataProvider EquipmentDataProvider { get; }
-
-		/// <summary>
 		/// The currently selected GameMode.
 		/// </summary>
 		IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -78,22 +74,21 @@ namespace FirstLight.Game.Services
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
-
+		private readonly IEquipmentDataProvider _equipmentLogic;
+		
 		private readonly IObservableList<GameModeInfo> _slots;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public IEquipmentDataProvider EquipmentDataProvider { get; }
 
-		public GameModeService(IConfigsProvider configsProvider, IEquipmentDataProvider equipProvider,
-							   IThreadService threadService, IPartyService partyService)
+		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService, IEquipmentDataProvider equipmentLogic, IPartyService partyService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
+			_equipmentLogic = equipmentLogic;
 			_partyService = partyService;
-			EquipmentDataProvider = equipProvider;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
@@ -129,7 +124,7 @@ namespace FirstLight.Game.Services
 			}
 
 			// If the player have NFT he can play squads alone so there is no need to change back
-			if (!hasParty && SelectedGameMode.Value.Entry.Squads && EquipmentDataProvider.NftInventory.Count == 0)
+			if (!hasParty && SelectedGameMode.Value.Entry.Squads && !_equipmentLogic.HasNfts())
 			{
 				SelectedGameMode.Value = FindModeWithSquads(false);
 			}

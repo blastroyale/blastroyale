@@ -22,11 +22,23 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
-			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdated);
+			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
+			_services.MessageBrokerService.Subscribe<DataReinitializedMessage>(OnDataReinitializedMessage);
 		}
 
-		private async void Start()
+		private void Start()
+		{
+			InitAllComponents();
+		}
+		
+		private void OnDestroy()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
+		}
+		
+		private async void InitAllComponents()
 		{
 			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id;
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
@@ -34,10 +46,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await UpdateSkin(skin, loadout);
 		}
 
-		private void OnDestroy()
+		private void OnDataReinitializedMessage(DataReinitializedMessage obj)
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
+			InitAllComponents();
 		}
 
 		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
@@ -91,7 +102,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private async void OnCharacterSkinUpdated(CollectionItemEquippedMessage msg)
+		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
 			

@@ -3155,7 +3155,8 @@ MonoBehaviour:
         {0}'
       - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u043E\u0439\u0442\u0438
         \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442.\n\n{0}"
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430\n\n{0}"
       - 'Falha ao fazer login em um primeiro ID de luz existente
 
 
@@ -3299,8 +3300,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - SPECTATING
+<<<<<<< HEAD
       - "\u0412\u044B\u0441\u043A\u0430\u0437\u044B\u0432\u0430\u043D\u0438\u0435"
       - Espetactador
+=======
+      - "\u0420\u0430\u0437\u0436\u0438\u0433\u0430\u043D\u0438\u0435"
+      - Espetacular
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -3491,7 +3497,11 @@ MonoBehaviour:
       Languages:
       - Attack Cooldown
       - "\u0410\u0442\u0430\u043A\u0430 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0438"
+<<<<<<< HEAD
       - Ataque recarga
+=======
+      - ATACT ECOLDOWN
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -5214,7 +5224,7 @@ MonoBehaviour:
       - Next Wave In
       - "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0432\u043E\u043B\u043D\u0430
         \u0432"
-      - "Pr\xF3ximo aceno para entrar"
+      - "Pr\xF3ximo acena para entrar"
       - 
       - 
       Flags: 0000000000
@@ -5325,7 +5335,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Revives
-      - "\u041E\u0436\u0438\u0432\u043B\u044F\u0435\u0442"
+      - Revives
       - Revive
       - 
       - 
@@ -6518,7 +6528,7 @@ MonoBehaviour:
       - BEAT CHAPTER {0} LEVEL {1} FIRST!
       - "BEAT \u0413\u041B\u0410\u0412\u0410 {0} \u0423\u0440\u043E\u0432\u0435\u043D\u044C
         {1} \u0421\u043D\u0430\u0447\u0430\u043B\u0430!"
-      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200Bprimeiro!"
+      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200BPrimeiro!"
       - 
       - 
       Flags: 0000000000
@@ -6928,7 +6938,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Detail Level
-      - "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+      - "\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
       - "N\xEDvel de detalhe"
       - 
       - 
@@ -7508,7 +7518,12 @@ MonoBehaviour:
       Description: 
       Languages:
       - Logged out successfully
+<<<<<<< HEAD
       - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+=======
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E
+        \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
+>>>>>>> release/0.12.0
       - Registrado com sucesso
       - 
       - 
@@ -8286,7 +8301,7 @@ MonoBehaviour:
       Languages:
       - mutator 1
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 1"
-      - Mutator 1
+      - mutador 1
       - 
       - 
       Flags: 0000000000
@@ -8660,7 +8675,7 @@ MonoBehaviour:
       - Too Much Loot!
       - "\u0421\u043B\u0438\u0448\u043A\u043E\u043C \u043C\u043D\u043E\u0433\u043E
         \u0434\u043E\u0431\u044B\u0447\u0438!"
-      - Muito saque!
+      - Muito pilhagem!
       - 
       - 
       Flags: 0000000000
@@ -12235,7 +12250,12 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim Your Loot!
+<<<<<<< HEAD
       - "\u0422\u0420\u0415\u0419\u0422\u0418 \u0421\u0412\u041E\u0415 \u0414\u041E\u041A\u041B\u041E\u0412!"
+=======
+      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u0441\u0432\u043E\u044E
+        \u0434\u043E\u0431\u044B\u0447\u0443!"
+>>>>>>> release/0.12.0
       - Reivindique seu saque!
       - 
       - 
@@ -12809,7 +12829,7 @@ MonoBehaviour:
       - Faster Shots
       - "\u0411\u043E\u043B\u0435\u0435 \u0431\u044B\u0441\u0442\u0440\u044B\u0435
         \u0441\u043D\u0438\u043C\u043A\u0438"
-      - "Fotos mais r\xE1pidas"
+      - "Tiros mais r\xE1pidos"
       - 
       - 
       Flags: 0000000000
@@ -13141,7 +13161,11 @@ MonoBehaviour:
       - "\u041E\u0441\u0442\u0430\u0442\u043A\u0438 \u0448\u0443\u043C\u043D\u043E\u0439
         \u0430\u0432\u0442\u043E\u0441\u0442\u0440\u0430\u0434\u044B \u0438\u0437
         \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E"
+<<<<<<< HEAD
       - Os remenantes de uma rodovia movimentada do passado
+=======
+      - Os remanes de uma rodovia movimentada do passado
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -16140,7 +16164,11 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
+<<<<<<< HEAD
     Google_LastUpdatedVersion: 1678036568319
+=======
+    Google_LastUpdatedVersion: 1677851211155
+>>>>>>> release/0.12.0
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

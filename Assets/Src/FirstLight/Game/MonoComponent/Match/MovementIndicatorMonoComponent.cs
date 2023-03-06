@@ -41,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualProperties(float size, float minRange, float maxRange)
 		{
-			// Do nothing
+			transform.localScale = new Vector3(size, size, size);
 		}
 
 		/// <inheritdoc />

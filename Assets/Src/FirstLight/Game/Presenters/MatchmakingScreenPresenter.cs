@@ -131,7 +131,7 @@ namespace FirstLight.Game.Presenters
 			if (isSquadGame)
 			{
 				var teamId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetTeamId();
-				
+
 				_squadContainer.SetDisplay(true);
 				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
 					.Where(p => p.GetTeamId() == teamId)
@@ -359,16 +359,23 @@ namespace FirstLight.Game.Presenters
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
 			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
 
-			while (DateTime.UtcNow < matchmakingEndTime)
+
+			while (DateTime.UtcNow < matchmakingEndTime && !CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
-				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_timer,
-					timeLeft.TotalSeconds.ToString("F0"));
-
-				yield return null;
+				var translation = CurrentRoom.ShouldUsePlayFabMatchmaking(_services.ConfigsProvider)
+					? ScriptLocalization.UITMatchmaking.loading_status_waiting_timer
+					: ScriptLocalization.UITMatchmaking.loading_status_timer;
+				_loadStatusLabel.text = string.Format(translation, timeLeft.TotalSeconds.ToString("F0"));
+				
+				yield return new WaitForSeconds(.2f);
 			}
 
-			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
+			if (CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
+			}
+			else if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
 			{
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			}

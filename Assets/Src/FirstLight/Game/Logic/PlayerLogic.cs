@@ -44,6 +44,11 @@ namespace FirstLight.Game.Logic
 		/// Checks if a given player has completed a given tutorial step
 		/// </summary>
 		bool HasTutorialSection(TutorialSection section);
+		
+		/// <summary>
+		/// Checks if this account has completed guest data migration
+		/// </summary>
+		bool MigratedGuestAccount { get; }
 	}
 
 	/// <inheritdoc />
@@ -64,6 +69,12 @@ namespace FirstLight.Game.Logic
 		/// Flags that the given tutorial step is completed
 		/// </summary>
 		void MarkTutorialSectionCompleted(TutorialSection section);
+
+		/// <summary>
+		/// Marks the guest migration status, meaning the player will never be able to migrate guest data into the
+		/// account upon logging in again
+		/// </summary>
+		void MarkGuestAccountMigrated();
 	}
 	
 	// TODO: Remove all player skin stuff related and move to CollectionLogic
@@ -80,6 +91,15 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
+
+		public bool MigratedGuestAccount
+		{
+			get
+			{
+				var data = DataProvider.GetData<PlayerData>();
+				return data.MigratedGuestData ;
+			}
+		}
 
 		/// <inheritdoc />
 		public PlayerInfo PlayerInfo
@@ -218,16 +238,25 @@ namespace FirstLight.Game.Logic
 			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
 
+		/// <inheritdoc />
 		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);
 		}
-		
+
+		/// <inheritdoc />
 		public void MarkTutorialSectionCompleted(TutorialSection section)
 		{
 			var data = DataProvider.GetData<TutorialData>();
 			data.TutorialSections |= section;
 			_tutorialSections.Value = data.TutorialSections; // trigger observables after bitshift
+		}
+
+		/// <inheritdoc />
+		public void MarkGuestAccountMigrated()
+		{
+			var data = DataProvider.GetData<PlayerData>();
+			data.MigratedGuestData = true;
 		}
 	}
 }

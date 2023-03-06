@@ -820,7 +820,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d917e07dad87fe84d920fae22f32703d, type: 3}
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -988,6 +988,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbodies:
+  - {fileID: 1540971482}
+  - {fileID: 1849918561}
+  - {fileID: 1238665992}
+  - {fileID: 1292160832}
+  - {fileID: 21648803}
+  - {fileID: 2135511934}
+  - {fileID: 109905770}
+  - {fileID: 871914132}
+  - {fileID: 295714941}
+  - {fileID: 1682619813}
+  - {fileID: 687402979}
+  - {fileID: 1540971482}
+  - {fileID: 1849918561}
+  - {fileID: 1238665992}
+  - {fileID: 1292160832}
+  - {fileID: 21648803}
+  - {fileID: 2135511934}
+  - {fileID: 109905770}
+  - {fileID: 871914132}
+  - {fileID: 295714941}
+  - {fileID: 1682619813}
+  - {fileID: 687402979}
   - {fileID: 1540971482}
   - {fileID: 1849918561}
   - {fileID: 1238665992}

@@ -167,7 +167,7 @@ namespace FirstLight.Game.Presenters
 			_selectedItemDescription.visible = hasItems;
 		}
 
-		private void SelectEquipped(CollectionCategory category, bool firstOpen = false)
+		private void SelectEquipped(CollectionCategory category)
 		{
 			var collection = GetViewCollection();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);

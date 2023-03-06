@@ -160,8 +160,6 @@ namespace FirstLight.Game.Presenters
 			var button = Root.Q<Button>(uiId);
 			var priceLabel = button.Q<Label>("Price");
 			var infoButton = button.Q<Button>("InfoButton");
-			var infoTitle = LocalizationManager.GetTranslation ("UITStore/" + localizationPostfix);
-			var infoDescription = LocalizationManager.GetTranslation ("UITStore/description_" + localizationPostfix);
 
 			var backButton = new GenericDialogButton
 			{
@@ -170,7 +168,12 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			button.clicked += () => { BuyItem(storeId); };
-			infoButton.clicked += () => { _gameServices.GenericDialogService.OpenButtonDialog(infoTitle, infoDescription, false, backButton); };
+			infoButton.clicked += () =>
+			{
+				_gameServices.GenericDialogService.OpenButtonDialog(LocalizationManager.GetTranslation ("UITStore/" + localizationPostfix),
+				                                                    LocalizationManager.GetTranslation ("UITStore/description_" + localizationPostfix),
+				                                                    false, backButton);
+			};
 			priceLabel.text = product.metadata.localizedPriceString;
 		}
 	}

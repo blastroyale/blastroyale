@@ -83,8 +83,8 @@
     background-image: var(--sprite-home__button-info);
     width: 75px;
     height: 85px;
-    left: 390px;
     top: -40px;
+    right: -390px;
 }
 
 .store-item__button-info:active {

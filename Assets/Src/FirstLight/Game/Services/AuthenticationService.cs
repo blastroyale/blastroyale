@@ -380,22 +380,6 @@ namespace FirstLight.Game.Services
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
 
-			if (FeatureFlags.REMOTE_CONFIGURATION)
-			{
-				FLog.Verbose("Parsing Remote Configurations");
-				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
-				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose(
-					$"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
-				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
-				{
-					NewConfig = remoteConfig,
-					OldConfig = _configsAdder
-				});
-				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
-			}
-
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 

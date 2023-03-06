@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -206,6 +207,9 @@ namespace FirstLight.Game.Presenters
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
 		{
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
+			
+			// This is temporary solution. When settings screen is made in UITK, the whole 
+			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 		
 		private void OnLogoutClicked()

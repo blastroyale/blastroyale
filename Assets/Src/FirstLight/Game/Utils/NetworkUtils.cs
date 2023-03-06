@@ -22,7 +22,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot)
+		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot, string[] expectedPlayers = null)
 		{
 			if (FeatureFlags.FORCE_RANKED)
 			{
@@ -56,7 +56,7 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,
+				ExpectedUsers = expectedPlayers,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -67,7 +67,7 @@ namespace FirstLight.Game.Utils
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
-					PublishUserId = false,
+					PublishUserId = setup.GameMode().ShouldUsePlayfabMatchmaking(),
 					DeleteNullProperties = true,
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,

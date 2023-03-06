@@ -155,6 +155,7 @@ namespace FirstLight.Game.Presenters
 
 			root.SetupClicks(_services);
 			OnAnyPartyUpdate();
+			UpdateSquadsButtonVisibility();
 		}
 
 		protected override void OnOpened()

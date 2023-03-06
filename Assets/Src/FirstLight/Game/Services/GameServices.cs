@@ -155,7 +155,6 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		
 		public IGameUiService GameUiService { get; }
 		public string QuitReason { get; set; }
 
@@ -184,7 +183,7 @@ namespace FirstLight.Game.Services
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService,networkService, gameLogic, configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
-			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentDataProvider, ThreadService, PartyService);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();

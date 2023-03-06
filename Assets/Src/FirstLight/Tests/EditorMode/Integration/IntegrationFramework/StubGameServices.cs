@@ -75,8 +75,8 @@ namespace FirstLight.Tests.EditorMode
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
-			PartyService = Substitute.For<PartyService>();
-			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentLogic, ThreadService, PartyService);
+			PartyService = Substitute.For<IPartyService>();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentDataProvider, PartyService);
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();

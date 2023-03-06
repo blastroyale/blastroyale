@@ -190,7 +190,9 @@ namespace FirstLight.Game.StateMachines
 			waitMatchmaking.OnEnter(ShowMatchmaking);
 			// TODO: waitMatchmaking.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
 			waitMatchmaking.Event(NetworkState.JoinedRoomEvent).Target(final);
-			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
+			waitMatchmaking.Event(NetworkState.JoinRoomFailedEvent)
+				.OnTransition(HideMatchmaking)
+				.Target(homeMenu);
 			waitMatchmaking.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 			waitMatchmaking.Event(NetworkState.CanceledMatchmakingEvent)
 				.OnTransition(HideMatchmaking)

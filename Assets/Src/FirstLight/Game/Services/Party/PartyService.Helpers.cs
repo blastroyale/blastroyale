@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services.Party
 			return new EntityKey()
 			{
 				Id = Local().EntityId,
-				Type = Local().EntityType
+				Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE
 			};
 		}
 

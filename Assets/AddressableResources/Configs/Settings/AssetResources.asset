@@ -184,6 +184,11 @@ MonoBehaviour:
         Id:
           Value: 581929196288820183
       Address: Maps/BRGenesis.asset
+    - Path: AddressableResources/Maps/NewBRMap_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 583182488621692793
+      Address: Maps/NewBRMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_40
       AssetRef:
         Id:
@@ -439,11 +444,21 @@ MonoBehaviour:
         Id:
           Value: 1599967694158015135
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TeleportSpawn_5]
+    - Path: AddressableResources/Maps/NewBRMap
+      AssetRef:
+        Id:
+          Value: 1601773346252770156
+      Address: Maps/NewBRMap.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_14
       AssetRef:
         Id:
           Value: 1628267810515087164
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardFP_14]
+    - Path: AddressableResources/Maps/NewBRMap_NavMesh
+      AssetRef:
+        Id:
+          Value: 1656664420704237954
+      Address: Maps/NewBRMap_NavMesh.asset
     - Path: AddressableResources/Maps/SmallWilderness
       AssetRef:
         Id:
@@ -756,6 +771,11 @@ MonoBehaviour:
         Id:
           Value: 3155179352711372247
       Address: Maps/FloodCitySimple.asset
+    - Path: AddressableResources/Maps/NewBRMap_mesh
+      AssetRef:
+        Id:
+          Value: 3177262706605919769
+      Address: Maps/NewBRMap_mesh.asset
     - Path: AddressableResources/Configs/SpecialConfigs
       AssetRef:
         Id:

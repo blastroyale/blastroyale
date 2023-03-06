@@ -87,12 +87,7 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool SQUAD_PINGS = true;
-
-		/// <summary>
-		/// Flag to determine if we should use playfab matchmaking
-		/// </summary>
-		public static bool PLAYFAB_MATCHMAKING = false;
-
+		
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
@@ -107,6 +102,11 @@ namespace FirstLight.Game.Utils
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
 		public static bool TUTORIAL_BATTLE_PASS = true;
+
+		/// <summary>
+		/// If the squads button is enabled in the UI
+		/// </summary>
+		public static bool DISPLAY_SQUADS_BUTTON = true;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -154,15 +154,16 @@ namespace FirstLight.Game.Utils
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
-			
-			if (TrySetFlag("PLAYFAB_MATCHMAKING", overrideData, out var pfmm))
-			{
-				PLAYFAB_MATCHMAKING = pfmm;
-			}
 
 			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
 			{
 				SQUAD_PINGS = squadPings;
+			}
+			
+			
+			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
+			{
+				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
 		}
 

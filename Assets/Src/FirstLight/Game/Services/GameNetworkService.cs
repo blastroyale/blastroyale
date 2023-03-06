@@ -86,7 +86,7 @@ namespace FirstLight.Game.Services
 		/// <returns>True if the operation was sent successfully</returns>
 		/// <remarks>Note, in order to join a room, the "entry params" that are generated, need to match a created room exactly
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.</remarks>
-		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null);
+		bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null);
 
 		/// <summary>
 		/// Joins a random room of matching parameters if it exists, or creates a new one if it doesn't
@@ -511,13 +511,13 @@ namespace FirstLight.Game.Services
 
 			return QuantumClient.OpCreateRoom(createParams);
 		}
+		
 
-
-		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null)
+		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null)
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), expectedPlayers);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -650,7 +650,6 @@ namespace FirstLight.Game.Services
 			QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			QuantumClient.EnableProtocolFallback = true;
 			QuantumClient.NickName = _dataProvider.AppDataProvider.DisplayNameTrimmed;
-
 			var preloadIds = new List<int>();
 
 			if (_dataProvider.EquipmentDataProvider.Loadout != null)

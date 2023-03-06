@@ -99,7 +99,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			ViewOwnedItemsFromCategory(_selectedCategory);
-			SelectEquipped(_selectedCategory, true);
+			SelectEquipped(_selectedCategory);
 			UpdateCollectionDetails(_selectedCategory);
 
 			Update3DObject();

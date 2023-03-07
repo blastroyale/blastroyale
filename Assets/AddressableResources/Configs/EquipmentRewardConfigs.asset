@@ -502,11 +502,10 @@ MonoBehaviour:
     Generation: 0
     Amount: 200
   - Id: 12
-    GameId: 48
+    GameId: 49
     EquipmentCategory:
-      _keyData: 0d000000
-      _valueData:
-      - RawValue: 6553600
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:
@@ -548,11 +547,10 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 13
-    GameId: 48
+    GameId: 28
     EquipmentCategory:
-      _keyData: 10000000
-      _valueData:
-      - RawValue: 6553600
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:
@@ -594,11 +592,10 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 14
-    GameId: 48
+    GameId: 45
     EquipmentCategory:
-      _keyData: 11000000
-      _valueData:
-      - RawValue: 6553600
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:
@@ -686,11 +683,10 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 16
-    GameId: 48
+    GameId: 36
     EquipmentCategory:
-      _keyData: 0f000000
-      _valueData:
-      - RawValue: 6553600
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:

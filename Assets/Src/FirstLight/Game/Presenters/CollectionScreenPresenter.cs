@@ -319,8 +319,7 @@ namespace FirstLight.Game.Presenters
 
 			_collectionList.RefreshItem(newRow);
 
-			if (_collectionObject)
-				_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 	}
 }

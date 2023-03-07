@@ -100,8 +100,7 @@
 .player-header__avatar {
     flex-grow: 1;
     -unity-background-scale-mode: scale-to-fit;
-    background-image: var(--sprite-home__temp-icon-profile-neil);
-    scale: 1.2 1.2;
+    background-image: var(--sprite-home__avatar-default);
 }
 
 .player-header__trophies-holder {

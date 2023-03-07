@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.Party;
@@ -65,7 +66,7 @@ namespace FirstLight.Game.Services
 		/// Dates could be different hence not using `GameModeInfo` object as the same game mode
 		/// in different "seasons" might apply.
 		/// </summary>
-		bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode);
+		bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -74,8 +75,9 @@ namespace FirstLight.Game.Services
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 		private readonly IPartyService _partyService;
-		private readonly IEquipmentDataProvider _equipmentLogic;
-		
+		private readonly IEquipmentDataProvider _equipmentDataProvider;
+		private readonly IAppDataProvider _appDataProvider;
+
 		private readonly IObservableList<GameModeInfo> _slots;
 
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
@@ -83,26 +85,25 @@ namespace FirstLight.Game.Services
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
 
-		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService, IEquipmentDataProvider equipmentLogic, IPartyService partyService)
+		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
+							   IEquipmentDataProvider equipmentDataProvider, IPartyService partyService,
+							   IAppDataProvider appDataProvider)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
-			_equipmentLogic = equipmentLogic;
+			_equipmentDataProvider = equipmentDataProvider;
 			_partyService = partyService;
+			_appDataProvider = appDataProvider;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
-			SelectedGameMode.Observe((_, gm) => FLog.Info($"Selected GameMode set to: {gm}"));
+			SelectedGameMode.Observe(OnGameModeSet);
 			_partyService.HasParty.Observe((_, _) => { OnPartyUpdate(); });
 		}
-
 
 		public void Init()
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			var firstSlotWrapper = config.Slots[0];
-			var gameModeEntry = firstSlotWrapper[0];
-			SelectedGameMode.Value = new GameModeInfo(gameModeEntry);
 
 			// Initially add empty objects which get updated by RefreshGameModes
 			for (var i = 0; i < config.Slots.Count; i++)
@@ -111,8 +112,28 @@ namespace FirstLight.Game.Services
 			}
 
 			RefreshGameModes(true);
+
+			// Try to set the saved game mode
+			var lastGameMode = _appDataProvider.LastGameMode;
+			if (IsInRotation(lastGameMode))
+			{
+				FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
+				SelectedGameMode.Value = new GameModeInfo(lastGameMode);
+			}
+			else
+			{
+				var gameMode = _slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+				SelectedGameMode.Value = gameMode;
+			}
 		}
 
+		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
+		{
+			FLog.Info($"Selected GameMode set to: {current}");
+
+			_appDataProvider.LastGameMode = current.Entry;
+			MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+		}
 
 		public void OnPartyUpdate()
 		{
@@ -124,7 +145,7 @@ namespace FirstLight.Game.Services
 			}
 
 			// If the player have NFT he can play squads alone so there is no need to change back
-			if (!hasParty && SelectedGameMode.Value.Entry.Squads && !_equipmentLogic.HasNfts())
+			if (!hasParty && SelectedGameMode.Value.Entry.Squads && !_equipmentDataProvider.HasNfts())
 			{
 				SelectedGameMode.Value = FindModeWithSquads(false);
 			}
@@ -135,22 +156,9 @@ namespace FirstLight.Game.Services
 			return _slots.First(gm => gm.Entry.Squads == squads);
 		}
 
-
-		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
+		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)
 		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			foreach (var slot in config.Slots)
-			{
-				foreach (var entry in slot.Entries)
-				{
-					if (gameMode == entry)
-					{
-						return true;
-					}
-				}
-			}
-
-			return false;
+			return _slots.Any(gmi => gmi.Entry == gameMode);
 		}
 
 		private void RefreshGameModes(bool forceAll)

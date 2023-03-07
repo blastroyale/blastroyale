@@ -2521,6 +2521,139 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/description_rare_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common
+        75%, Common+ 25%
+
+        <b>Faction</b>
+
+        Order 25% Chaos 25% Organic
+        25% Dark 25%
+
+        <b>Material</b>
+
+        Plastic 100%
+
+        <b>Max
+        durability</b>
+
+        1 100%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
+        75%, \u043E\u0431\u0449\u0438\u0435+ 25%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
+        </b>\n\u0417\u0430\u043A\u0430\u0437 25% \u0445\u0430\u043E\u0441 25% \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        25% \u0442\u0435\u043C\u043D\u043E 25%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 100%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 100%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum 75%, comum+ 25%\n<b> Fac\xE7\xE3o </b>\nEncomendar 25% caos 25%
+        org\xE2nico 25% escuro 25%\n<b> Material </b>\nPl\xE1stico 100%\n<b> Durabilidade
+        m\xE1xima </b>\n1 100%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_epic_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common
+        45%, Common+ 45%, Uncommon 10%
+
+        <b>Faction</b>
+
+        Order 20%,
+        Chaos 20%, Organic 20%, Dark 20%, Shadow 10%, Celestial 10%
+
+        <b>Material</b>
+
+        Plastic
+        80%, Steel 20%
+
+        <b>Max durability</b>
+
+        1 100%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
+        45%, \u043E\u0431\u0449\u0438\u0435+ 45%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435
+        10%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F </b>\n\u0417\u0430\u043A\u0430\u0437
+        20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
+        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 80%, \u0441\u0442\u0430\u043B\u044C
+        20%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 100%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum 45%, comum+ 45%, incomum 10%\n<b> Fac\xE7\xE3o </b>\nEncomendar
+        20%, caos 20%, 20%org\xE2nico, 20%escuro, sombra 10%, celestial 10%\n<b>
+        Material </b>\nPl\xE1stico 80%, a\xE7o 20%\n<b> Durabilidade m\xE1xima </b>\n1
+        100%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_legendary_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common+
+        80%, Uncommon 20%
+
+        <b>Faction</b>
+
+        Order 20%, Chaos 20%,
+        Organic 20%, Dark 20%, Shadow 10%, Celestial 10%,
+
+        <b>Material</b>
+
+        Plastic
+        50%, Steel 50%
+
+        <b>Max durability</b>
+
+        1 50%, 2 50%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435+
+        80%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435 20%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
+        </b>\n\u0417\u0430\u043A\u0430\u0437 20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
+        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%,\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 50%, \u0441\u0442\u0430\u043B\u044C
+        50%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 50%, 2 50%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum+ 80%, incomum 20%\n<b> Fac\xE7\xE3o </b>\nEncomendar 20%, caos
+        20%, 20%org\xE2nico, 20%escuro, sombra 10%, Celestial 10%,\n<b> Material
+        </b>\nPl\xE1stico 50%, a\xE7o 50%\n<b> Durabilidade m\xE1xima </b>\n1 50%,
+        2 50%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
@@ -2975,9 +3108,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - First Light ID not connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430 \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
       - "Primeira ID da luz n\xE3o conectada!"
       - 
       - 
@@ -3168,8 +3300,13 @@ MonoBehaviour:
       Description: 
       Languages:
       - SPECTATING
+<<<<<<< HEAD
+      - "\u0412\u044B\u0441\u043A\u0430\u0437\u044B\u0432\u0430\u043D\u0438\u0435"
+      - Espetactador
+=======
       - "\u0420\u0430\u0437\u0436\u0438\u0433\u0430\u043D\u0438\u0435"
       - Espetacular
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -3360,7 +3497,11 @@ MonoBehaviour:
       Languages:
       - Attack Cooldown
       - "\u0410\u0442\u0430\u043A\u0430 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0438"
+<<<<<<< HEAD
+      - Ataque recarga
+=======
       - ATACT ECOLDOWN
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -3693,7 +3834,7 @@ MonoBehaviour:
       - Error opening leaderboard
       - "\u041E\u0448\u0438\u0431\u043A\u0430 \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F
         \u043B\u0438\u0434\u0435\u0440\u043E\u0432"
-      - "Erro de abertura do tabela de classifica\xE7\xE3o"
+      - ERRO ABRIVA DE ABRIVA LIGADOR
       - 
       - 
       Flags: 0000000000
@@ -3848,7 +3989,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Accuracy Min Angle
-      - "\u0422\u043E\u0447\u043D\u043E\u0441\u0442\u044C \u041C\u0418\u041D \u0423\u0413\u041E\u041B"
+      - "\u0422\u043E\u0447\u043D\u043E\u0441\u0442\u044C \u0443\u0433\u043B\u0430"
       - "\xC2ngulo min de precis\xE3o"
       - 
       - 
@@ -6210,7 +6351,7 @@ MonoBehaviour:
       Languages:
       - ALL GEAR
       - "\u0412\u0441\u0435 \u0441\u043D\u0430\u0440\u044F\u0436\u0435\u043D\u0438\u0435"
-      - Todo o equipamento
+      - Toda a marcha
       - 
       - 
       Flags: 0000000000
@@ -6996,9 +7137,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - First Light ID not connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430 \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
       - "Primeira ID da luz n\xE3o conectada!"
       - 
       - 
@@ -7378,8 +7518,12 @@ MonoBehaviour:
       Description: 
       Languages:
       - Logged out successfully
+<<<<<<< HEAD
+      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+=======
       - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E
         \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
+>>>>>>> release/0.12.0
       - Registrado com sucesso
       - 
       - 
@@ -12106,8 +12250,12 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim Your Loot!
+<<<<<<< HEAD
+      - "\u0422\u0420\u0415\u0419\u0422\u0418 \u0421\u0412\u041E\u0415 \u0414\u041E\u041A\u041B\u041E\u0412!"
+=======
       - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u0441\u0432\u043E\u044E
         \u0434\u043E\u0431\u044B\u0447\u0443!"
+>>>>>>> release/0.12.0
       - Reivindique seu saque!
       - 
       - 
@@ -12195,7 +12343,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - RPG
-      - Rpg
+      - RPG
       - RPG
       - 
       - 
@@ -13013,7 +13161,11 @@ MonoBehaviour:
       - "\u041E\u0441\u0442\u0430\u0442\u043A\u0438 \u0448\u0443\u043C\u043D\u043E\u0439
         \u0430\u0432\u0442\u043E\u0441\u0442\u0440\u0430\u0434\u044B \u0438\u0437
         \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E"
+<<<<<<< HEAD
+      - Os remenantes de uma rodovia movimentada do passado
+=======
       - Os remanes de uma rodovia movimentada do passado
+>>>>>>> release/0.12.0
       - 
       - 
       Flags: 0000000000
@@ -14615,7 +14767,7 @@ MonoBehaviour:
       - SHIELDED CHARGE
       - "\u042D\u043A\u0440\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
         \u0437\u0430\u0440\u044F\u0434"
-      - Carga protegida
+      - Carga blindada
       - 
       - 
       Flags: 0000000000
@@ -16012,7 +16164,11 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
+<<<<<<< HEAD
+    Google_LastUpdatedVersion: 1678036568319
+=======
     Google_LastUpdatedVersion: 1677851211155
+>>>>>>> release/0.12.0
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

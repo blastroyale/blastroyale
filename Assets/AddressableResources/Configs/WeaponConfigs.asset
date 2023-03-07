@@ -439,9 +439,9 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
-        RawValue: 16384
+        RawValue: 11796
       AttackCooldown:
-        RawValue: 16384
+        RawValue: 11796
       PowerToDamageRatio:
         RawValue: 39322
       AttackHitSpeed:
@@ -646,8 +646,8 @@ MonoBehaviour:
         RawValue: 52429
       AttackHitSpeed:
         RawValue: 5242880
-      MinAttackAngle: 0
-      MaxAttackAngle: 0
+      MinAttackAngle: 2
+      MaxAttackAngle: 2
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:

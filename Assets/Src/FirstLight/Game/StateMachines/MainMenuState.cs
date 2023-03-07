@@ -100,7 +100,6 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			mainMenuLoading.OnEnter(LoadMainMenu);
-			mainMenuLoading.OnEnter(ValidateCurrentGameMode);
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -227,13 +226,11 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
-			_services.GameModeService.SelectedGameMode.Observe(OnGameModeChanged);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.GameModeService?.SelectedGameMode?.StopObserving(OnGameModeChanged);
 		}
 
 		private bool HasDefaultName()
@@ -247,11 +244,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return FeatureFlags.TUTORIAL &&
 				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
-		}
-
-		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
-		{
-			_gameDataProvider.AppDataProvider.LastGameMode = next.Entry;
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -316,20 +308,6 @@ namespace FirstLight.Game.StateMachines
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
 			_services?.GameBackendService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
-		}
-
-		private void ValidateCurrentGameMode()
-		{
-			var lastGameMode = _gameDataProvider.AppDataProvider.LastGameMode;
-			if (_services.GameModeService.IsRotationGameModeValid(lastGameMode))
-			{
-				_services.GameModeService.SelectedGameMode.Value = new GameModeInfo(lastGameMode);
-				return;
-			}
-
-			var gameMode =
-				_services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
-			_services.GameModeService.SelectedGameMode.Value = gameMode;
 		}
 
 		private void SendPlayReadyMessage()

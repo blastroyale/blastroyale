@@ -53,11 +53,6 @@ namespace FirstLight.Game.Services
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
-
-		/// <summary>
-		/// Opens up a Talking Head Dialog.
-		/// </summary>
-		void OpenTalkingHeadDialog(string title, Action closeCallback = null);
 	}
 
 	/// <inheritdoc />
@@ -96,18 +91,6 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 
 			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, closeCallback, keyboardType);
-		}
-
-		/// <summary>
-		/// Opens up a dialog to show the information of the possible contents of a Loot Box.
-		/// </summary>
-		public void OpenTalkingHeadDialog(string text, Action closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<TalkingHeadDialogPresenter>();
-
-			_openDialogType = ui.GetType();
-
-			ui.SetInfo(text, closeCallback);
 		}
 
 		/// <inheritdoc />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
@@ -135,9 +136,18 @@ namespace FirstLight.Game.Views.UITK
 		private void RefreshPartyList()
 		{
 			_partyMembers = _partyService.Members.ToList();
+			_partyMembers.Sort(SortMembers);
 			_partyMemberList.itemsSource = _partyMembers;
 			_partyMemberList.RefreshItems();
 		}
+
+		private int SortMembers(PartyMember x, PartyMember y)
+		{
+			if (x.Leader) return -1;
+			if (!y.Leader && x.Leader) return 1;
+			return string.Compare(x.DisplayName, y.DisplayName, StringComparison.Ordinal);
+		}
+
 
 		private bool CanKick()
 		{

@@ -54,6 +54,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private void BindPartyListEntry(VisualElement element, int index)
 		{
+			if (index < 0 || index >= _partyMembers.Count) return;
+			
 			var partyMember = _partyMembers[index];
 			var button = (Button) element;
 

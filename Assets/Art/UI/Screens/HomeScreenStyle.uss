@@ -45,7 +45,6 @@
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
-    white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding-left: 0;
     padding-right: 0;
@@ -55,6 +54,10 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
 }
 
 .player-header__profile-button {
@@ -712,7 +715,7 @@
 
 .squad-member {
     font-size: 32px;
-    background-color: rgba(16, 12, 34, 0.59);   
+    background-color: rgba(16, 12, 34, 0.59);
     -unity-text-align: middle-left;
 }
 

@@ -79,6 +79,18 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
+.store-item__button-info {
+    background-image: var(--sprite-home__button-info);
+    width: 75px;
+    height: 85px;
+    top: -40px;
+    right: -390px;
+}
+
+.store-item__button-info:active {
+    background-image: var(--sprite-home__button-info-pressed);
+}
+
 .blocker {
     position: absolute;
     left: 0;

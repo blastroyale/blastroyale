@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -88,6 +89,7 @@ namespace FirstLight.Game.Presenters
 
 			_categoriesRoot = root.Q<VisualElement>("CategoryHolder").Required();
 			_categoriesRoot.Clear();
+			_collectionObject = null;
 			SetupCategories();
 			root.SetupClicks(_services);
 		}
@@ -114,7 +116,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void SetupCategories()
+		private void SetupCategories(bool firstOpen = false)
 		{
 			var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
 			foreach (var category in categories)
@@ -139,6 +141,9 @@ namespace FirstLight.Game.Presenters
 				category.SetSelected(category.Category == group);
 			}
 
+			if (_collectionObject)
+				_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+			
 			var hasItems = GetViewCollection().Any();
 			if (hasItems)
 			{
@@ -166,19 +171,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var collection = GetViewCollection();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-			var previousIndex = _selectedIndex;
 			if (equipped.IsValid())
 			{
 				_selectedIndex = collection.IndexOf(equipped);
 			}
-
 			var row = _selectedIndex / PAGE_SIZE;
-			var previousRow = previousIndex / PAGE_SIZE;
 			_collectionList.RefreshItem(row);
-			if (previousRow != row)
-			{
-				_collectionList.RefreshItem(previousRow);
-			}
 		}
 
 		/// <summary>
@@ -204,9 +202,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipClicked()
 		{
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
+			var equippedIndex = GetViewCollection().IndexOf(equipped);
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = GetSelectedItem()});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
+			_collectionList.RefreshItem(equippedIndex / PAGE_SIZE);
+			_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 		}
 
 		/// <summary>
@@ -284,6 +286,7 @@ namespace FirstLight.Game.Presenters
 			for (var x = 0; x < PAGE_SIZE; x++)
 			{
 				var card = rowCards[x];
+				card.SetDisplay(true);
 				if (x >= rowItems.Count)
 				{
 					card.SetDisplay(false);
@@ -315,6 +318,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionList.RefreshItem(newRow);
+
+			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 	}
 }

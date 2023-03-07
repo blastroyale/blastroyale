@@ -52,7 +52,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void OnPlayScreenOpened(PlayScreenOpenedMessage data)
 		{
-			
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 			_mainCamera.gameObject.SetActive(true);
 		}

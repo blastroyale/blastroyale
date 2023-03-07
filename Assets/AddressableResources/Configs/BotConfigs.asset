@@ -3984,7 +3984,7 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 16384
+        RawValue: 52429
       DamageTakenMultiplier:
         RawValue: 21627
     - BehaviourType: 1
@@ -4033,7 +4033,7 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 16384
+        RawValue: 52429
       DamageTakenMultiplier:
         RawValue: 262144
     - BehaviourType: 1

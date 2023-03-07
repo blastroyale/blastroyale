@@ -14,6 +14,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
+using PlayFab.Json;
 using SRF;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -104,7 +105,26 @@ namespace FirstLight.Game.Services
 	{
 		public string MatchIdentifier;
 		public string TeamId;
+		public string[] ExpectedPlayers;
 		public MatchRoomSetup RoomSetup;
+	}
+
+	class CustomMatchmakingPlayerProperties
+	{
+		public string MasterPlayerId;
+
+		public MatchmakingPlayerAttributes Encode()
+		{
+			return new MatchmakingPlayerAttributes()
+			{
+				EscapedDataObject = PlayFabSimpleJson.SerializeObject(this)
+			};
+		}
+
+		public static CustomMatchmakingPlayerProperties Decode(MatchmakingPlayerAttributes attributes)
+		{
+			return PlayFabSimpleJson.DeserializeObject<CustomMatchmakingPlayerProperties>(attributes.DataObject.ToString());
+		}
 	}
 
 	public class JoinedMatchmaking
@@ -118,7 +138,6 @@ namespace FirstLight.Game.Services
 	{
 		private static string QUEUE_NAME = "flgranked"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
-		private const string PLAYER_ENTITY_TYPE = "title_player_account";
 		private const string CANCELLED_KEY = "cancelled";
 		private IGameBackendService _gameBackend;
 		private ICoroutineService _coroutines;
@@ -208,14 +227,7 @@ namespace FirstLight.Game.Services
 			{
 				QueueName = QUEUE_NAME,
 				TicketId = model.TicketId,
-				Member = new MatchmakingPlayer()
-				{
-					Entity = new EntityKey()
-					{
-						Id = local.PlayfabID,
-						Type = PLAYER_ENTITY_TYPE
-					}
-				}
+				Member = CreateLocalMatchmakingPlayer()
 			};
 			PlayFabMultiplayerAPI.JoinMatchmakingTicket(req, result =>
 			{
@@ -293,12 +305,27 @@ namespace FirstLight.Game.Services
 		{
 			PlayFabMultiplayerAPI.GetMatch(new GetMatchRequest()
 			{
-				ReturnMemberAttributes = false,
+				ReturnMemberAttributes = true,
 				MatchId = matchId,
 				QueueName = QUEUE_NAME
 			}, callback, Debug.LogError);
 		}
 
+		private MatchmakingPlayer CreateLocalMatchmakingPlayer()
+		{
+			return new MatchmakingPlayer()
+			{
+				Entity = new EntityKey()
+				{
+					Id = PlayFabSettings.staticPlayer.EntityId,
+					Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE,
+				},
+				Attributes = new CustomMatchmakingPlayerProperties()
+				{
+					MasterPlayerId = PlayFabSettings.staticPlayer.PlayFabId
+				}.Encode()
+			};
+		}
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
 		{
@@ -306,22 +333,15 @@ namespace FirstLight.Game.Services
 			if (_party.HasParty.Value)
 			{
 				members = _party.Members.Where(pm => !pm.Leader)
-					.Select(pm => new EntityKey() {Id = pm.PlayfabID, Type = PLAYER_ENTITY_TYPE}).ToList();
+					.Select(pm => pm.ToEntityKey()).ToList();
 			}
 
 			PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 			{
 				MembersToMatchWith = members, // HERE IS WHERE WE ADD THE SQUAD !!!
 				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = 100,
-				Creator = new MatchmakingPlayer()
-				{
-					Entity = new EntityKey()
-					{
-						Id = PlayFabSettings.staticPlayer.EntityId,
-						Type = PlayFabSettings.staticPlayer.EntityType
-					}
-				}
+				GiveUpAfterSeconds = 45,
+				Creator = CreateLocalMatchmakingPlayer()
 			}, r =>
 			{
 				var mm = new JoinedMatchmaking()
@@ -405,6 +425,9 @@ namespace FirstLight.Game.Services
 				string matchId = "timeout-match-" + ticket.TicketId;
 				_service.InvokeMatchFound(new GameMatched()
 				{
+					ExpectedPlayers = ticket.Members
+						.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes).MasterPlayerId)
+						.ToArray(),
 					MatchIdentifier = matchId,
 					RoomSetup = _setup,
 					// Since this game is only going to be this ticket, all the players should be in the same team
@@ -431,6 +454,9 @@ namespace FirstLight.Game.Services
 
 				_service.InvokeMatchFound(new GameMatched()
 				{
+					ExpectedPlayers = result.Members
+						.Select(m => CustomMatchmakingPlayerProperties.Decode(m.Attributes).MasterPlayerId)
+						.ToArray(),
 					MatchIdentifier = ticket.MatchId,
 					RoomSetup = _setup,
 					TeamId = membersWithTeam[PlayFabSettings.staticPlayer.EntityId]
@@ -441,7 +467,7 @@ namespace FirstLight.Game.Services
 
 		private IEnumerator Runnable()
 		{
-			var delay = new WaitForSeconds(7);
+			var delay = new WaitForSeconds(6.5f);
 			_pooling = true;
 			while (_pooling)
 			{

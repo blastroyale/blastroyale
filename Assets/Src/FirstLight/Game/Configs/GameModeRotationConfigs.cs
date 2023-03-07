@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using Quantum;
 using UnityEngine;
@@ -22,8 +23,9 @@ namespace FirstLight.Game.Configs
 			public List<string> Mutators;
 			public bool Squads;
 			public bool NFT;
-			
-			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft)
+
+			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads,
+								 bool needNft)
 			{
 				GameModeId = gameModeId;
 				MatchType = matchType;
@@ -34,12 +36,17 @@ namespace FirstLight.Game.Configs
 
 			public override string ToString()
 			{
-				return $"{GameModeId}, {MatchType}{(Squads ? ", Squads" : "")}, Mutators({string.Join(",", Mutators)})";
+				return
+					$"{GameModeId}, {MatchType}{(Squads ? ", Squads" : "")}, Mutators({string.Join(",", Mutators)}){(NFT ? ", NFT" : "")}";
 			}
 
 			public bool Equals(GameModeEntry other)
 			{
-				return GameModeId == other.GameModeId && MatchType == other.MatchType && Equals(Mutators, other.Mutators) && Squads == other.Squads && NFT == other.NFT;
+				return GameModeId == other.GameModeId &&
+					MatchType == other.MatchType &&
+					Mutators.SequenceEqual(other.Mutators) &&
+					Squads == other.Squads &&
+					NFT == other.NFT;
 			}
 
 			public override bool Equals(object obj)
@@ -51,7 +58,7 @@ namespace FirstLight.Game.Configs
 			{
 				return HashCode.Combine(GameModeId, (int) MatchType, Mutators, Squads, NFT);
 			}
-			
+
 			public static bool operator !=(GameModeEntry obj1, GameModeEntry obj2) => !(obj1.Equals(obj2));
 			public static bool operator ==(GameModeEntry obj1, GameModeEntry obj2) => obj1.Equals(obj2);
 		}
@@ -75,7 +82,7 @@ namespace FirstLight.Game.Configs
 	/// Scriptable Object tool to import the <seealso cref="QuantumGameModeConfig"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "GameModeRotationConfigs",
-	                 menuName = "ScriptableObjects/Configs/GameModeRotationConfigs")]
+		menuName = "ScriptableObjects/Configs/GameModeRotationConfigs")]
 	public class GameModeRotationConfigs : ScriptableObject, ISingleConfigContainer<GameModeRotationConfig>
 	{
 		[SerializeField] private GameModeRotationConfig _config;

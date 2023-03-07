@@ -26,6 +26,7 @@ namespace FirstLight.Game.Commands
 			{
 				throw new LogicException("Already completed tutorial section " + Section);
 			}
+			
 			ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
 			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
 			ctx.Logic.RewardLogic().GiveItems(rewardItems);

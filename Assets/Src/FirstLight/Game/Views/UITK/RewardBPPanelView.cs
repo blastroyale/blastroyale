@@ -91,7 +91,9 @@ namespace FirstLight.Game.Views
 				var previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
 				_previousPointsBar.style.width = Length.Percent(previousPointsPercentage);
 
-				while (levelGained < levelRewardInfo.Start+levelRewardInfo.Total)
+				var maxBppForLevel = Math.Min(levelRewardInfo.Start + levelRewardInfo.Total, levelRewardInfo.MaxForLevel);
+				
+				while (levelGained < maxBppForLevel)
 				{
 					// TODO: Make this work based on the current framerate
 					await Task.Delay(20);
@@ -112,6 +114,8 @@ namespace FirstLight.Game.Views
 					_nextLevelLabel.text = ScriptLocalization.UITBattlePass.max;
 					_totalLabel.text = ScriptLocalization.UITBattlePass.max;
 					_toLevelLabel.SetDisplay(false);
+					_previousPointsBar.style.width = Length.Percent(100);
+					_newPointsBar.style.width = Length.Percent(100);
 				}
 			}
 		}

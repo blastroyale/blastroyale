@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
-    CurrentSeason: 5
+    CurrentSeason: 4
     DefaultPointsPerLevel: 400
     Levels:
     - RewardId: 7

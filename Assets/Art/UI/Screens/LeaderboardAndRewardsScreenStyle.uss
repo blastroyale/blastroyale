@@ -349,8 +349,10 @@
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 515px;
     top: 30px;
+    width: 100px;
+    -unity-text-align: upper-right;
+    right: 65px;
 }
 
 .bpp__bar {

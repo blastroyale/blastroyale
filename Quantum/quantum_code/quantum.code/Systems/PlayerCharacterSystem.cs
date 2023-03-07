@@ -169,7 +169,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var ammoFilled = FP.MaxValue;
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 

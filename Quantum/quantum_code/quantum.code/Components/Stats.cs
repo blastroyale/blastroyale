@@ -16,8 +16,8 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields,
+					 FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -35,9 +35,9 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
-			Values[(int)StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
-			Values[(int)StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
-			Values[(int)StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
+			Values[(int) StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
+			Values[(int) StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
+			Values[(int) StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace Quantum
 				}
 			}
 			RefreshStats(f, weapon, gear);
-			
+
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
 		}
 
@@ -89,7 +89,7 @@ namespace Quantum
 			// Adapts the player health & shield if new equipment changes player's max HP or shields capacity
 			SetCurrentHealth(f, e, newHealthAmount);
 			SetCurrentShield(f, e, CurrentShield, previousMaxShield);
-			
+
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
 
@@ -113,7 +113,7 @@ namespace Quantum
 			var modifier = list[index];
 
 			ApplyModifierUpdate(modifier, true);
-			
+
 			list.RemoveAt(index);
 
 			f.Events.OnStatModifierRemoved(entity, modifier);
@@ -144,10 +144,10 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 
 			// Do not do reduce for melee weapons or if your weapon does not consume ammo
-			if (!player->HasMeleeWeapon(f, e))
+			if (weapon.MaxAmmo.Get(f) != -1)
 			{
 				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
 			}

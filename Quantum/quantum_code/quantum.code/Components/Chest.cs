@@ -47,7 +47,7 @@ namespace Quantum
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
-			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity);
+			var ammoFilled = FP.MaxValue; //playerCharacter->GetAmmoAmountFilled(f, playerEntity)
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
@@ -224,11 +224,7 @@ namespace Quantum
 		                          GameContainer* gameContainer, EquipmentRarity minimumRarity, Equipment loadoutWeapon, 
 		                          FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems, int skipDropNumber)
 		{
-			var hasLoadoutWeapon = loadoutWeapon.IsValid();
-			var noWeaponsEquipped = playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random
-				&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
 			var playerRef = playerCharacter->Player;
-			var statsShields = f.Get<Stats>(playerEntity).GetStatData(StatType.Shield);
 
 			var allEquipment = new List<Equipment>
 			{
@@ -282,40 +278,6 @@ namespace Quantum
 						skipDropNumber--;
 						continue;
 					}
-
-					// First, drop a weapon if the player needs one
-					if (noWeaponsEquipped && !gameContainer->DropPool.IsPoolEmpty)
-					{
-						var weapon = gameContainer->GenerateNextWeapon(f);
-
-						// TODO: This should happen when we pick up a weapon, not when we drop it 
-						// When a player picks up a weapon we inherit all NFT
-						// attributes (except for the rarity and GameId) from the Record
-						if (hasLoadoutWeapon)
-						{
-							var originalGameId = weapon.GameId;
-							weapon = loadoutWeapon;
-							weapon.GameId = originalGameId;
-						}
-
-						ModifyEquipmentRarity(f, ref weapon, minimumRarity, gameContainer->DropPool.AverageRarity);
-						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
-						chestItems.Add(new ChestItemDropped
-						{
-							ChestType = config.Id,
-							ChestPosition = chestPosition,
-							Player = playerCharacter->Player,
-							PlayerEntity = playerEntity,
-							ItemType = weapon.GameId,
-							Amount = 1,
-							AngleStepAroundChest = angleStep
-						});
-						
-						// We set this flag to false to not drop more weapons using this logic branch
-						noWeaponsEquipped = false;
-						
-						continue;
-					}
 					
 					// Second, we drop equipment from their loadout if it is all valid and we haven't dropped them all already
 					Equipment drop;
@@ -333,7 +295,7 @@ namespace Quantum
 						playerCharacter->SetDroppedLoadoutItem(drop);
 						ModifyEquipmentRarity(f, ref drop, drop.Rarity, gameContainer->DropPool.AverageRarity);
 						Collectable.DropEquipment(f, drop, chestPosition, angleStep++, playerRef);
-						
+
 						chestItems.Add(new ChestItemDropped
 						{
 							ChestType = config.Id,
@@ -348,13 +310,10 @@ namespace Quantum
 						continue;
 					}
 
+
 					// If we dropped all equipment from loadout, then choose between upgrades for equipment or consumables
-					// chances are: 25% equipment, 25% large shields consumable, 50% large ammo consumable
-					var furtherDrop = GameId.Random;
-					if (statsShields.StatValue < statsShields.BaseValue)
-					{
-						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldLarge, GameId.AmmoLarge, GameId.AmmoLarge);
-					}
+					// chances are: 25% equipment, 25% large shields consumable, 25% large ammo consumable, 25% health
+					var furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldLarge, GameId.AmmoLarge, GameId.Health);
 
 					// Drop equipment upgrades if you rolled it
 					if (furtherDrop == GameId.Random)
@@ -396,10 +355,8 @@ namespace Quantum
 							});
 							
 							allEquipment.Remove(equipment);
-							
 							break;
 						}
-						
 						continue;
 					}
 					

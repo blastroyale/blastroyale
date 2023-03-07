@@ -22,13 +22,9 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 0
+        Keys: []
+        Values: []
       MaxAmmo:
         Default: -1
         Keys: []
@@ -70,19 +66,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 64
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 4000000018000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 16
       ReloadTime:
         RawValue: 131072
@@ -120,19 +110,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 36
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 2400000012000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 8
       ReloadTime:
         RawValue: 163840
@@ -170,19 +154,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 300
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 2c0100004b000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 30
       ReloadTime:
         RawValue: 131072
@@ -220,19 +198,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 200
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: c800000032000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 21
       ReloadTime:
         RawValue: 114688
@@ -267,22 +239,16 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 84
-      FiringMode: 0
+      FiringMode: 1
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 28
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 1c0000000c000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 4
       ReloadTime:
         RawValue: 65536
@@ -320,19 +286,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 48
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 3000000014000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 12
       ReloadTime:
         RawValue: 131072
@@ -370,19 +330,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 300
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 2c01000064000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 100
       ReloadTime:
         RawValue: 196608
@@ -420,19 +374,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 160
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: a000000024000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 8
       ReloadTime:
         RawValue: 49152
@@ -467,22 +415,16 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 90
-      FiringMode: 0
+      FiringMode: 1
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 36
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 240000000c000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 1
       ReloadTime:
         RawValue: 81920
@@ -520,19 +462,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 240
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: f000000046000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 20
       ReloadTime:
         RawValue: 43254
@@ -570,19 +506,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 150
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 9600000032000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 30
       ReloadTime:
         RawValue: 98304
@@ -617,22 +547,16 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 93
-      FiringMode: 0
+      FiringMode: 1
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 30
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 1e0000000c000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 7
       ReloadTime:
         RawValue: 176947
@@ -670,19 +594,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 36
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 240000000f000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 4
       ReloadTime:
         RawValue: 147456
@@ -720,19 +638,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 180
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: b40000004b000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 90
       ReloadTime:
         RawValue: 229376
@@ -770,19 +682,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 42
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 2a00000018000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 6
       ReloadTime:
         RawValue: 65536
@@ -820,19 +726,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 45
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 2d0000000c000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 15
       ReloadTime:
         RawValue: 196608
@@ -870,19 +770,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 198
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: c60000004b000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 33
       ReloadTime:
         RawValue: 131072
@@ -920,19 +814,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 100
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 6400000032000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -967,22 +855,16 @@ MonoBehaviour:
         RawValue: 65536
       KnockbackAmount: 0
     - Id: 100
-      FiringMode: 0
+      FiringMode: 1
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 50
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 3200000020000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: 2
       ReloadTime:
         RawValue: 52429
@@ -999,7 +881,7 @@ MonoBehaviour:
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
-      NumberOfBursts: 1
+      NumberOfBursts: 99
       AttackRange:
         RawValue: 655360
       AttackRangeAimBonus:
@@ -1017,22 +899,16 @@ MonoBehaviour:
         RawValue: 0
       KnockbackAmount: 0
     - Id: 101
-      FiringMode: 0
+      FiringMode: 1
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 25
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 190000000a000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -1070,19 +946,13 @@ MonoBehaviour:
       FiringMode: 0
       InitialAmmoFilled:
         Default:
-          RawValue: 19661
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 19661
-        - RawValue: 65536
+          RawValue: 65536
+        Keys: []
+        Values: []
       MaxAmmo:
-        Default: 200
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: c80000004b000000
+        Default: -1
+        Keys: []
+        Values: 
       MagazineSize: -1
       ReloadTime:
         RawValue: 0

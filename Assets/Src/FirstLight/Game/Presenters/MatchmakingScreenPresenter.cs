@@ -99,7 +99,6 @@ namespace FirstLight.Game.Presenters
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
 			_squadContainer = root.Q("SquadContainer").Required();
-			_squadLabel = root.Q<Label>("SquadLabel").Required();
 			_squadMembersList = root.Q<ListView>("SquadList").Required();
 			_partyMarkers = root.Q("PartyMarkers").Required();
 
@@ -140,8 +139,6 @@ namespace FirstLight.Game.Presenters
 
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
-
-				_squadLabel.text = ScriptLocalization.UITMatchmaking.squad;
 
 				RefreshPartyMarkers();
 			}
@@ -278,7 +275,7 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 
-			_closeButton.SetDisplay(true);
+			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 

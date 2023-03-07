@@ -1,0 +1,62 @@
+.collection-category {
+    width: 630px;
+    height: 164px;
+    transition-property: margin;
+    transition-duration: 0.2s;
+    overflow: visible;
+    background-image: var(--sprite-home__button-collection-tab);
+}
+
+.collection-category:active {
+    background-image: var(--sprite-home__button-collection-tab-pressed);
+}
+
+.collection-category--selected {
+    background-image: var(--sprite-home__button-collection-tab-selected);
+    margin-left: 50px;
+}
+
+.collection-category--selected:active {
+    background-image: var(--sprite-home__button-collection-tab-selected);
+}
+
+.collection-category__holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    padding-right: 93px;
+}
+
+.collection-category:active .collection-category__holder {
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+}
+
+.collection-category__name {
+    color: rgb(255, 255, 255);
+    height: 45px;
+    -unity-text-align: middle-center;
+    font-size: 48px;
+    margin: 0;
+    padding: 0;
+}
+
+.collection-category__icon {
+    opacity: 1;
+    width: 42px;
+    height: 42px;
+    margin-right: 19px;
+}
+
+.collection-category__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}

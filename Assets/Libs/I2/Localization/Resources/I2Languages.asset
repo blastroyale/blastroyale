@@ -520,17 +520,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/blast_pass_claim_reward
-      TermType: 0
-      Description: 
-      Languages:
-      - CLAIM REWARD
-      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410 \u041F\u0420\u0415\u0422\u0415\u041D\u0417\u0418\u0418"
-      - "Recompensa de reivindica\xE7\xE3o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/ready
       TermType: 0
       Description: 
@@ -560,6 +549,249 @@ MonoBehaviour:
       - WAITING
       - "\u041E\u0416\u0418\u0414\u0410\u042E\u0429\u0418\u0419"
       - ESPERANDO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST
+      - "\u0412\u0417\u0420\u042B\u0412"
+      - "EXPLOS\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - PASS
+      - "\u041F\u0420\u041E\u0425\u041E\u0414\u0418\u0422\u042C"
+      - PASSAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - "\u0422\u0420\u0415\u0411\u041E\u0412\u0410\u0422\u042C"
+      - ALEGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARD
+      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410"
+      - RECOMPENSA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - DEATHMATCH
+      - DEATHMATCH
+      - DEATHMATCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - 'CODE: {0}'
+      - "\u041A\u043E\u0434: {0}"
+      - "C\xF3digo: {0}"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/youre_ready
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU'RE READY
+      - "\u0422\u042B \u0413\u041E\u0422\u041E\u0412"
+      - "VOC\xCA EST\xC1 PRONTO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_BannedFromParty
+      TermType: 0
+      Description: 
+      Languages:
+      - You got banned from this squad!
+      - "\u0412\u0430\u0441 \u0437\u0430\u043F\u0440\u0435\u0442\u0438\u043B\u0438
+        \u0432 \u044D\u0442\u043E\u0439 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Voc\xEA foi banido deste esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_NoPermission
+      TermType: 0
+      Description: 
+      Languages:
+      - You have no permission to do that!
+      - "\u0423 \u0432\u0430\u0441 \u043D\u0435\u0442 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F
+        \u043D\u0430 \u044D\u0442\u043E!"
+      - "Voc\xEA n\xE3o tem permiss\xE3o para fazer isso!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_NoParty
+      TermType: 0
+      Description: 
+      Languages:
+      - You don't have a squad!
+      - "\u0423 \u0442\u0435\u0431\u044F \u043D\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B!"
+      - "Voc\xEA n\xE3o tem um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyFull
+      TermType: 0
+      Description: 
+      Languages:
+      - The squad is already full!
+      - "\u041E\u0442\u0440\u044F\u0434 \u0443\u0436\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D!"
+      - "O esquadr\xE3o j\xE1 est\xE1 cheio!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_AlreadyInParty
+      TermType: 0
+      Description: 
+      Languages:
+      - You are already in a squad!
+      - "\u0412\u044B \u0443\u0436\u0435 \u0432 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Voc\xEA j\xE1 est\xE1 em um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyNotFound
+      TermType: 0
+      Description: 
+      Languages:
+      - Squad not found.
+      - "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430."
+      - "Esquadr\xE3o n\xE3o encontrado."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_DifferentGameVersion
+      TermType: 0
+      Description: 
+      Languages:
+      - The squad you are trying to join is using another game version.
+      - "\u041E\u0442\u0440\u044F\u0434, \u0441 \u043A\u043E\u0442\u043E\u0440\u044B\u043C
+        \u0432\u044B \u043F\u044B\u0442\u0430\u0435\u0442\u0435\u0441\u044C \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F,
+        \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0434\u0440\u0443\u0433\u0443\u044E
+        \u0438\u0433\u0440\u0443."
+      - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar est\xE1 usando outra
+        vers\xE3o do jogo."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_MemberNotFound
+      TermType: 0
+      Description: 
+      Languages:
+      - Squad member not found.
+      - "\u0427\u043B\u0435\u043D \u043E\u0442\u0440\u044F\u0434\u0430 \u043D\u0435
+        \u043D\u0430\u0439\u0434\u0435\u043D."
+      - "Membro do esquadr\xE3o n\xE3o encontrado."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_ConnectionError
+      TermType: 0
+      Description: 
+      Languages:
+      - Connection error, please try again.
+      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u044F,
+        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
+        \u0440\u0430\u0437."
+      - "Erro de conex\xE3o, tente novamente."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_Unknown
+      TermType: 0
+      Description: 
+      Languages:
+      - An unkown error ocurred, please try again.
+      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u0435\u0442,
+        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
+        \u0440\u0430\u0437."
+      - Um erro desconhecido, por favor, tente novamente.
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/kicked
+      TermType: 0
+      Description: 
+      Languages:
+      - You got kicked from the squad.
+      - "\u0422\u0435\u0431\u044F \u0443\u0434\u0430\u0440\u0438\u043B\u0438 \u0438\u0437
+        \u043A\u043E\u043C\u0430\u043D\u0434\u044B."
+      - "Voc\xEA foi chutado da equipe."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/kick
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick
+      - "\u041F\u0438\u043D\u0430\u0442\u044C"
+      - Chute
       - 
       - 
       Flags: 0000000000
@@ -1610,6 +1842,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/comingsoon
+      TermType: 0
+      Description: 
+      Languages:
+      - COMING SOON!
+      - "\u0412\u0421\u041A\u041E\u0420\u0415!"
+      - EM BREVE!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -1778,6 +2021,175 @@ MonoBehaviour:
       - "\u041D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
         \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C"
       - Toque para reivindicar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/welcome_to_wastelands
+      TermType: 0
+      Description: 
+      Languages:
+      - WELCOME TO THE WASTELANDS!
+      - "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C
+        \u0432 \u043F\u0443\u0441\u0442\u043E\u0448\u0438!"
+      - Bem -vindo ao Wastelands!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/use_left_joystick
+      TermType: 0
+      Description: 
+      Languages:
+      - USE THE LEFT JOYSTICK TO MOVE
+      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0439
+        \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A, \u0447\u0442\u043E\u0431\u044B
+        \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
+      - Use o joystick esquerdo para se mover
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/pick_up_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - PICK UP THE WEAPON
+      - "\u0417\u0430\u0431\u0440\u0430\u0442\u044C \u043E\u0440\u0443\u0436\u0438\u0435"
+      - Pegue a arma
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/shoot_barrier
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOOT THE BARRICADE AND DESTROY IT
+      - "\u0421\u0442\u0440\u0435\u043B\u044F\u0442\u044C \u0432 \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443
+        \u0438 \u0443\u043D\u0438\u0447\u0442\u043E\u0436\u0438\u0442\u044C \u0435\u0435"
+      - Atire na barricada e destrua -a
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_dummy_area
+      TermType: 0
+      Description: 
+      Languages:
+      - "NICE JOB! \nGO TO THE NEXT AREA"
+      - "\u0425\u041E\u0420\u041E\u0428\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u041F\u0435\u0440\u0435\u0439\u0442\u0438
+        \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438"
+      - "BOM TRABALHO!\nV\xE1 para a pr\xF3xima \xE1rea"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/shoot_dummies
+      TermType: 0
+      Description: 
+      Languages:
+      - "SHOOT THE DUMMIES! \nELIMINATE THEM!"
+      - "\u0421\u0442\u0440\u0435\u043B\u044F\u0439 \u0432 \u0447\u0430\u0439\u043D\u0438\u043A\u0438!\n\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u0435
+        \u0438\u0445!"
+      - 'Atire nos manequins!
+
+        Elimine -os!'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/use_grenade
+      TermType: 0
+      Description: 
+      Languages:
+      - "THROW YOUR GRENADE \nAT THE DUMMY BEHIND BOXES"
+      - "\u0411\u0440\u043E\u0441\u044C\u0442\u0435 \u0441\u0432\u043E\u044E \u0433\u0440\u0430\u043D\u0430\u0442\u0443\n\u0412
+        \u043C\u0430\u043D\u0435\u043A\u0435\u043D\u0430\u0445 \u0437\u0430 \u043A\u043E\u0440\u043E\u0431\u043A\u0430\u043C\u0438"
+      - "Jogue sua granada\nNo manequim atr\xE1s de caixas"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_chest_area
+      TermType: 0
+      Description: 
+      Languages:
+      - "AMAZING! \nPROCEED THROUGH THE GATE"
+      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0439\u0442\u0438
+        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
+      - "INCR\xCDVEL!\nProsseguir pelo port\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/open_chest
+      TermType: 0
+      Description: 
+      Languages:
+      - 'OPEN THE CHEST
+
+        AND GET SOME NEW EQUIPMENT'
+      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C\n\u0418
+        \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043D\u043E\u0432\u043E\u0435
+        \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
+      - 'Abra o peito
+
+        E pegue algum equipamento novo'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/drop_down_to_arena
+      TermType: 0
+      Description: 
+      Languages:
+      - 'DROP DOWN TO THE ARENA!
+
+        ELIMINATE THE FINAL CHALLENGER'
+      - "\u0421\u043F\u0440\u044B\u0433\u043D\u0438\u0442\u0435 \u043D\u0430 \u0430\u0440\u0435\u043D\u0443!\n\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C
+        \u0444\u0438\u043D\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430"
+      - "Des\xE7a para a arena!\nElimine o desafiante final"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/you_made_it_look_easy
+      TermType: 0
+      Description: 
+      Languages:
+      - 'GREAT JOB!
+
+        YOU MADE IT LOOK EASY!'
+      - "\u041E\u0422\u041B\u0418\u0427\u041D\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u0412\u044B
+        \u0441\u0434\u0435\u043B\u0430\u043B\u0438 \u044D\u0442\u043E \u043B\u0435\u0433\u043A\u043E!"
+      - "BOM TRABALHO!\nVoc\xEA fez parecer f\xE1cil!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/enter_your_name
+      TermType: 0
+      Description: 
+      Languages:
+      - WHAT SHOULD WE CALL YOU, CHALLENGER?
+      - "\u041A\u0430\u043A \u043C\u044B \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u0430\u0441
+        \u043D\u0430\u0437\u044B\u0432\u0430\u0442\u044C, Challenger?"
+      - "Como devemos cham\xE1 -lo, Challenger?"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/lets_play_real_match
+      TermType: 0
+      Description: 
+      Languages:
+      - "LET'S PLAY A NEW MATCH! \nGET READY FOR SOME REAL ACTION!"
+      - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
+        \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
+        \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
+        \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
+      - "Vamos jogar uma nova partida!\nPrepare -se para uma a\xE7\xE3o real!"
       - 
       - 
       Flags: 0000000000
@@ -5285,6 +5697,17 @@ MonoBehaviour:
       - BlastPass
       - BlastPass
       - BlastPass
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: FTUE/RichTextTest
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
       - 
       - 
       Flags: 0000000000
@@ -11872,6 +12295,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BattleRoyale First Game
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - "\u0411\u0438\u0442\u0432\u0430 \u0420\u043E\u044F\u043B\u044C"
+      - Batalha real
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
@@ -12237,6 +12671,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Female01AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Sky Pilot
+      - Sky Pilot
+      - Sky Pilot
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Female02Avatar
       TermType: 0
       Description: 
@@ -12244,6 +12689,237 @@ MonoBehaviour:
       - Cat Carter
       - "\u041A\u043E\u0442 \u041A\u0430\u0440\u0442\u0435\u0440"
       - CAT CARTER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Female02AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Profession Thief
+      - Profession Thief
+      - Profession Thief
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleAssassin
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Assassin
+      - Female Assassin
+      - Female Assassin
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleAssassinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Assasin Description
+      - Female Assasin Description
+      - Female Assasin Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleCorpos
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Corpos
+      - Female Corpos
+      - Female Corpos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleCorposDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Corpos Description
+      - Female Corpos Description
+      - Female Corpos Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemalePunk
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Punk
+      - Female Punk
+      - Female Punk
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemalePunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Pemale Punk Description
+      - Pemale Punk Description
+      - Pemale Punk Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleSuperstar
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Superstar
+      - Female Superstar
+      - Female Superstar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FemaleSuperstarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Female Superstar Description
+      - Female Superstar Description
+      - Female Superstar Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag
+      TermType: 0
+      Description: 
+      Languages:
+      - Regular Flag
+      - Regular Flag
+      - Regular Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FlagDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Death flag of your average Blaster
+      - Death flag of your average Blaster
+      - Death flag of your average Blaster
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Tombstone
+      TermType: 0
+      Description: 
+      Languages:
+      - Tombstone
+      - Tombstone
+      - Tombstone
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TombstoneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_Punk
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag
+      - Punk Flag
+      - Punk Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_PunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag Description
+      - Punk Flag Description
+      - Punk Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_Demon
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag
+      - Demon Flag
+      - Demon Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_DemonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag Description
+      - Demon Flag Description
+      - Demon Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_SuperStar
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag
+      - Super Star Flag
+      - Super Star Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_SuperStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_Unicorn
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag
+      - Unicorn Flag
+      - Unicorn Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Flag_UnicornDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag Description
+      - Unicorn Flag Description
+      - Unicorn Flag Description
       - 
       - 
       Flags: 0000000000
@@ -12593,6 +13269,116 @@ MonoBehaviour:
       - Hugo Marks
       - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
       - Hugo Marks
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male01AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male02AvatarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - The Superstar Shooter
+      - The Superstar Shooter
+      - The Superstar Shooter
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaleAssassin
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Male Assassin '
+      - 'Male Assassin '
+      - 'Male Assassin '
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaaleAssassinDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Assassin Description
+      - Male Assassin Description
+      - Male Assassin Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaleCorpos
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Corpos
+      - Male Corpos
+      - Male Corpos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaleCorposDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Corpos Description
+      - Male Corpos Description
+      - Male Corpos Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MalePunk
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Punk
+      - Male Punk
+      - Male Punk
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MalePunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Punk Description
+      - Male Punk Description
+      - Male Punk Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaleSuperstar
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Superstar
+      - Male Superstar
+      - Male Superstar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MaleSuperstarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Male Superstar Description
+      - Male Superstar Description
+      - Male Superstar Description
       - 
       - 
       Flags: 0000000000
@@ -14159,6 +14945,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NewBRMap
+      TermType: 0
+      Description: 
+      Languages:
+      - New BR Map
+      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
+      - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -15097,7 +15894,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1676480820019
+    Google_LastUpdatedVersion: 1677514366249
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

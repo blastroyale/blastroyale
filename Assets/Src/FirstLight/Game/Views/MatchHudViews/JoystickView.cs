@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,6 +32,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Vector2 _defaultJoystickPos = Vector2.zero;
 		private bool _allowDynamicRepositioning;
 		private IGameDataProvider _dataProvider;
+		private IGameServices _services;
 		private EventSystem _eventSystem;
 		
 		private float _joystickRadius;
@@ -38,6 +42,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_services = MainInstaller.Resolve<IGameServices>();
 			_eventSystem = EventSystem.current;
 			_defaultJoystickPos = _joystick.anchoredPosition;
 			_joystickRadius = ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) * GameConstants.Controls.MOVEMENT_JOYSTICK_RADIUS_MULT;
@@ -114,6 +119,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			_handleImage.anchoredPosition = clampedMag;
 			_onscreenJoystickDirectionAdapter.SendValueToControl(normalized);
+			
 		}
 
 		private void OnFingerUp(Finger f)

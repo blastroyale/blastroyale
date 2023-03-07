@@ -10,12 +10,12 @@
             <ui:VisualElement name="Player2" class="player player--second">
                 <ui:VisualElement name="NameShadow" class="name-shadow" />
                 <ui:VisualElement name="Badge" class="player__badge" />
-                <ui:Label text="PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName2" class="font-style-h1 player__player-name" />
+                <ui:Label text="PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName2" class="DO_NOT_USE_font-style-h1 player__player-name" />
             </ui:VisualElement>
             <ui:VisualElement name="Player3" class="player player--third">
                 <ui:VisualElement name="NameShadow" class="name-shadow" />
                 <ui:VisualElement name="Badge" class="player__badge" />
-                <ui:Label text="PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName3" class="font-style-h1 player__player-name" />
+                <ui:Label text="PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName3" class="DO_NOT_USE_font-style-h1 player__player-name" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>

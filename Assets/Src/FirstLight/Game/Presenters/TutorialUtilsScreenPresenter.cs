@@ -21,10 +21,9 @@ namespace FirstLight.Game.Presenters
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
 
-		private const float circleDefaultSize = 32;
-		private const float squareDefaultSize = 512;
-
-		private const int HIGHLIGHT_ANIM_TIME = 1000;
+		private const int HIGHLIGHT_ANIM_TIME = 500;
+		private const float CIRCLE_DEFAULT_SIZE = 32;
+		private const float SQUARE_DEFAULT_SIZE = 512;
 
 		private float _initialScale;
 		private float _highlightedScale;
@@ -76,11 +75,13 @@ namespace FirstLight.Game.Presenters
 		/// <summary>
 		/// Creates blocker elements around ui element object on the <typeparamref name="T"/> presenter.
 		/// </summary>
-		public void BlockAround<T>(string elementName = null, string className = null)
+		public void BlockAround<T>(string className = null, string elementName = null)
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;
-			doc.rootVisualElement.Q(elementName, className);
+			var element = doc.rootVisualElement.Q(elementName, className);
+			
+			CreateBlockers(element);
 		}
 
 		/// <summary>
@@ -103,23 +104,13 @@ namespace FirstLight.Game.Presenters
 		/// <param name="sizeMultiplier"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <exception cref="Exception"></exception>
-		public void Highlighter<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
+		public void Highlight<T>(string className = null, string elementName = null, float sizeMultiplier = 1)
 			where T : UiPresenter, IUIDocumentPresenter
 		{
 			var doc = _uiService.GetUi<T>().Document;
-			VisualElement targetElement = null;
-
-			if (className != null)
-			{
-				targetElement = doc.rootVisualElement.Q(className: className).Required();
-			}
-
-			if (elementName != null)
-			{
-				targetElement = doc.rootVisualElement.Q<VisualElement>(elementName).Required();
-			}
-
-			CreateHighlight(targetElement, sizeMultiplier);
+			var element = doc.rootVisualElement.Q(elementName, className);
+			
+			CreateHighlight(element, sizeMultiplier);
 		}
 
 		/// <summary>
@@ -127,7 +118,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
-			_highlighterElement.experimental.animation.Scale(_initialScale, HIGHLIGHT_ANIM_TIME)
+			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG)
 				.OnCompleted(DeleteHighLightElement);
 		}
 
@@ -195,14 +186,14 @@ namespace FirstLight.Game.Presenters
 			objSize *= sizeMultiplier;
 
 			float circleHighlightingSize = objSize;
-			_initialScale = Root.worldBound.width * 2 / circleDefaultSize;
-			_highlightedScale = circleHighlightingSize / circleDefaultSize;
+			_initialScale = Root.worldBound.width * 2 / CIRCLE_DEFAULT_SIZE;
+			_highlightedScale = circleHighlightingSize / CIRCLE_DEFAULT_SIZE;
 
 			_highlighterElement.style.top =
-				objElement.worldBound.y - squareDefaultSize / 2 + objElement.resolvedStyle.height / 2;
+				objElement.worldBound.y - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.height / 2;
 
 			_highlighterElement.style.left =
-				objElement.worldBound.x - squareDefaultSize / 2 + objElement.resolvedStyle.width / 2;
+				objElement.worldBound.x - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.width / 2;
 			_highlighterElement.style.scale = new Scale(new Vector3(_initialScale, _initialScale, 1));
 
 			_highlighterElement.SetDisplay(true);

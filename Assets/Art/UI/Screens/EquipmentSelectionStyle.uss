@@ -4,6 +4,9 @@
     bottom: 40px;
     top: 164px;
     width: 730px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .equipment-list .unity-list-view__item:hover {

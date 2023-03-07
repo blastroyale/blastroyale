@@ -8,11 +8,11 @@
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
                 <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
-                    <ui:Label name="LoadStatusLabel" text="5/30" class="font-style-h2 load-status-holder__player-label" />
-                    <ui:Label name="LocationLabel" text="LOCATION" class="font-style-h2 load-status-holder__location-label" />
+                    <ui:Label name="LoadStatusLabel" text="5/30" class="DO_NOT_USE_font-style-h2 load-status-holder__player-label" />
+                    <ui:Label name="LocationLabel" text="LOCATION" class="DO_NOT_USE_font-style-h2 load-status-holder__location-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label name="DebugPlayerCount" text="30/30" class="font-style-h2 debug-player-count" />
+            <ui:Label name="DebugPlayerCount" text="30/30" class="DO_NOT_USE_font-style-h2 debug-player-count" />
             <ui:VisualElement name="ModeHolder" class="mode-desc">
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
                 <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" />
@@ -43,7 +43,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container">
-                <ui:Label text="SQUAD [0]" name="SquadLabel" class="squad-container__label" />
+                <ui:VisualElement name="Header" class="squad-container__header">
+                    <FirstLight.Game.UIElements.LocalizedButton name="Title" class="squad-container__title" localization-key="UITHomeScreen/party" />
+                </ui:VisualElement>
                 <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

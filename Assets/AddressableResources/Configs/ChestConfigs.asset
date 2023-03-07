@@ -41,6 +41,19 @@ MonoBehaviour:
       DropFromPlayerBasedOnItemsRange:
         Value1: 0
         Value2: 3
+      ChestTypeModifiers:
+        Default:
+        Default: []
+        - Chance:
+            RawValue: 19660
+          NewType: 1
+        - Chance:
+            RawValue: 6553
+          NewType: 2
+        - Chance:
+            RawValue: 655
+          NewType: 3
+        Keys: []
     - Id: 1
       ChestType: 1
       RarityModifierRange:
@@ -64,6 +77,19 @@ MonoBehaviour:
       DropFromPlayerBasedOnItemsRange:
         Value1: 4
         Value2: 5
+      ChestTypeModifiers:
+        Default:
+        Default: []
+        - Chance:
+            RawValue: 13107
+          NewType: 0
+        - Chance:
+            RawValue: 13107
+          NewType: 2
+        - Chance:
+            RawValue: 655
+          NewType: 3
+        Keys: []
     - Id: 16
       ChestType: 2
       RarityModifierRange:
@@ -90,6 +116,19 @@ MonoBehaviour:
       DropFromPlayerBasedOnItemsRange:
         Value1: 6
         Value2: 7
+      ChestTypeModifiers:
+        Default:
+        Default: []
+        - Chance:
+            RawValue: 655
+          NewType: 0
+        - Chance:
+            RawValue: 3276
+          NewType: 1
+        - Chance:
+            RawValue: 6553
+          NewType: 3
+        Keys: []
     - Id: 2
       ChestType: 3
       RarityModifierRange:
@@ -119,6 +158,19 @@ MonoBehaviour:
       DropFromPlayerBasedOnItemsRange:
         Value1: 8
         Value2: 10
+      ChestTypeModifiers:
+        Default:
+        Default: []
+        - Chance:
+            RawValue: 655
+          NewType: 0
+        - Chance:
+            RawValue: 3276
+          NewType: 1
+        - Chance:
+            RawValue: 19660
+          NewType: 2
+        Keys: []
     - Id: 19
       ChestType: 4
       RarityModifierRange:
@@ -139,3 +191,6 @@ MonoBehaviour:
       DropFromPlayerBasedOnItemsRange:
         Value1: 11
         Value2: 11
+      ChestTypeModifiers:
+        Default: []
+        Keys: []

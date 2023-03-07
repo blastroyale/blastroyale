@@ -43,7 +43,7 @@ MonoBehaviour:
         Z:
           RawValue: 0
       SolverType: 1
-      SolverIterations: 4
+      SolverIterations: 3
       PositionSolverIterations: 2
       UseJoints: 1
       UseAngularVelocity: 1

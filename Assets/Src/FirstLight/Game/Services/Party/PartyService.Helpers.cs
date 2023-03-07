@@ -73,33 +73,50 @@ namespace FirstLight.Game.Services.Party
 			return member;
 		}
 
-		private void MergeData(PartyMember member, Dictionary<string, string> data)
+		private bool MergeData(PartyMember member, Dictionary<string, string> data)
 		{
-			if (data == null) return;
+			if (data == null) return false;
+			var updated = false;
 			if (data.ContainsKey(LevelProperty) && uint.TryParse(data[LevelProperty], out var bppLevelInt))
 			{
 				member.BPPLevel = bppLevelInt;
+				updated = true;
 			}
 
 			if (data.ContainsKey(TrophiesProperty) && uint.TryParse(data[TrophiesProperty], out var trophiesInt))
 			{
 				member.Trophies = trophiesInt;
+				updated = true;
 			}
 
 			if (data.ContainsKey(ReadyMemberProperty) && bool.TryParse(data[ReadyMemberProperty], out var readyBool))
 			{
 				member.Ready = readyBool;
+				updated = true;
 			}
 
 			if (data.TryGetValue(DisplayNameMemberProperty, out var displayName))
 			{
 				member.DisplayName = displayName;
+				updated = true;
 			}
 
 			foreach (var (key, value) in data)
 			{
+				if (member.RawProperties.TryGetValue(key, out var currentValue))
+				{
+					if (currentValue == value)
+					{
+						continue;
+					}
+					
+				}
+				
 				member.RawProperties[key] = value;
+				updated = true;
 			}
+
+			return updated;
 		}
 
 		private PartyMember ToPartyMember(Lobby l, Member m)
@@ -140,7 +157,6 @@ namespace FirstLight.Game.Services.Party
 
 		private void HandleException(Exception ex)
 		{
-			Debug.LogException(ex);
 			if (ex is PartyException) throw ex;
 			var err = PartyErrors.Unknown;
 			if (ex is WrappedPlayFabException playfabEx)

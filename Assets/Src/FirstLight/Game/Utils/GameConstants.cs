@@ -296,19 +296,23 @@ namespace FirstLight.Game.Utils
 			public const float PLAYER_KILL_DURATION = 0.1f;
 			public const float PLAYER_KILL_INTENSITY = 1;
 			public const float PLAYER_KILL_SHARPNESS = 1;
-
-
 		}
 
 		public static class Tutorial
 		{
-			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
-			public const string TUTORIAL_MODE_ID = "Tutorial";
+			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
+			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
 			
-			// TODO - UPDATE ONCE TUTORIALS ARE IN
-			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 0;
-			public const int TOTAL_STEPS_SECOND_BOT_MATCH = 10;
-			public const int TOTAL_STEPS_BP_EQUIPMENT_GUIDE = 20;
+			// CRITICAL: UPDATE THESE WHEN TUTORIAL STEPS ARE CHANGED
+			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 15;
+			public const int TOTAL_STEPS_META_AND_MATCH = 6;
+			
+			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
+			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
+
+			public const string TRIGGER_DUMMY_AREA = "DummyArea";
+			public const string TRIGGER_CHEST_AREA = "ChestArea";
+			public const string TRIGGER_ARENA_AREA = "ArenaArea";
 		}
 
 		public static class GameModeId

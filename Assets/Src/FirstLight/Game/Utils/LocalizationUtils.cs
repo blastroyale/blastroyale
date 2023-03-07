@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Services.Party;
 using I2.Loc;
 using Quantum;
 
@@ -135,13 +136,35 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation($"UITEquipment/material_{material.ToString().ToLowerInvariant()}");
 		}
-		
+
 		/// <summary>
 		/// Gets the localization for the given <paramref name="faction"/>.
 		/// </summary>
 		public static string GetLocalization(this EquipmentFaction faction)
 		{
 			return LocalizationManager.GetTranslation($"UITEquipment/faction_{faction.ToString().ToLowerInvariant()}");
+		}
+
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="error"/> as a string
+		/// </summary>
+		public static string GetTranslation(this PartyErrors error)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.UITSquads)}/error_{error}");
+		}
+
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameModeId"/> as a string
+		/// </summary>
+		public static string GetTranslationForGameModeId(string gameModeId)
+		{
+			var term = $"{nameof(ScriptTerms.UITHomeScreen)}/gamemode_{gameModeId}";
+			if (LocalizationManager.TryGetTranslation(term, out var translation))
+			{
+				return translation;
+			}
+
+			return gameModeId.ToUpper();
 		}
 	}
 }

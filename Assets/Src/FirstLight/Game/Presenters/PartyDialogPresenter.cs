@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -33,7 +32,7 @@ namespace FirstLight.Game.Presenters
 			var hasNft = _services.GameModeService.EquipmentDataProvider.NftInventory.Count > 0;
 
 			root.Q<LocalizedLabel>("PartyDescription").Localize(hasNft ? ScriptTerms.UITHomeScreen.party_popup_desc : ScriptTerms.UITHomeScreen.party_popup_join_desc);
-			root.Q<LocalizedButton>("CreatePartyButton").SetVisibility(hasNft);
+			root.Q<LocalizedButton>("CreatePartyButton").SetDisplay(hasNft);
 			
 			root.Q<LocalizedButton>("CreatePartyButton").clicked += OnCreateParty;
 			root.Q<LocalizedButton>("JoinPartyButton").clicked += OnJoinParty;

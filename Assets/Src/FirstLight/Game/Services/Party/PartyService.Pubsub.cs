@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using JetBrains.Annotations;
@@ -21,6 +23,7 @@ namespace FirstLight.Game.Services.Party
 		private string _subscribedLobbyId;
 		private uint _lobbyChangeNumber = 0;
 		private SemaphoreSlim _pubSubSemaphore = new(1, 1);
+		private int listenForLobbyUpdateFails = 0;
 
 		private async Task ListenForLobbyUpdates(string lobbyId)
 		{
@@ -81,14 +84,32 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				_pubSubState = PartySubscriptionState.Connected;
+				// We may lost some messages while the connection is being established, so lets update the lobby manually again just to be safe
+				await FetchPartyAndUpdateState();
 			}
 			catch (Exception ex)
 			{
+				// THIS EXCEPTION IS VERY IMPORTANT! IF THIS FAILS SQUADS NOT WORK AT ALL!
 				_pubSubState = PartySubscriptionState.NotConnected;
-				// Since this function is never awaited lets log the exception
-				// TODO Proper handling of async exceptions
-				Debug.LogException(ex);
-				// TODO: THIS EXCEPTION IS VERY IMPORTANT! IF THIS FAILS SQUADS NOT WORK AT ALL!
+				listenForLobbyUpdateFails++;
+				if (listenForLobbyUpdateFails > 2)
+				{
+					_backendService.HandleUnrecoverableException(ex, AnalyticsCallsErrors.ErrorType.Squads);
+					return;
+				}
+
+				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
+					new GenericDialogButton());
+				FLog.Warn("failed subscribing to lobby notifications", ex);
+				// Lets leave the party so the player can try again
+				try
+				{
+					await LeaveParty();
+				}
+				catch (Exception)
+				{
+					// ignored, because because it is just an attempt to make the state valid
+				}
 			}
 			finally
 			{
@@ -130,7 +151,7 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
 				foreach (var change in obj.lobbyChanges)
 				{
 					if (_lobbyChangeNumber >= change.changeNumber) continue;
@@ -138,7 +159,7 @@ namespace FirstLight.Game.Services.Party
 					if (change.changeNumber - _lobbyChangeNumber >= 2)
 					{
 						// Fetch from HTTP the latest state
-						Debug.LogWarning("Fetching state from HTTP because desync!");
+						FLog.Warn("Fetching state from HTTP because desync!");
 						await FetchPartyAndUpdateState();
 						return;
 					}
@@ -151,7 +172,7 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				_accessSemaphore.Release();
 			}
 		}
 
@@ -221,10 +242,11 @@ namespace FirstLight.Game.Services.Party
 					// MERGE NOT COPY
 					if (change.memberToMerge.memberData?.Count != 0)
 					{
-						MergeData(localMember, change.memberToMerge.memberData);
+						if (MergeData(localMember, change.memberToMerge.memberData))
+						{
+							invokeUpdates.Add(localMember.PlayfabID);
+						}
 					}
-
-					invokeUpdates.Add(localMember.PlayfabID);
 				}
 			}
 
@@ -259,20 +281,18 @@ namespace FirstLight.Game.Services.Party
 
 				Members.InvokeUpdate(Members.IndexOf(member));
 			}
-			
 		}
 
 		private async Task UnsubscribeToLobbyUpdates()
 		{
 			try
 			{
-				await _pubSubSemaphore.WaitAsync();
-
 				if (_pubSubState != PartySubscriptionState.Connected || _subscribedLobbyId == null)
 				{
 					return;
 				}
 
+				await _pubSubSemaphore.WaitAsync();
 
 				var connStr = await _pubsub.GetConnectionHandle();
 				var req = new UnsubscribeFromLobbyResourceRequest()
@@ -289,7 +309,7 @@ namespace FirstLight.Game.Services.Party
 			catch (Exception ex)
 			{
 				// Ignore error because if the player is the last one in the lobby it will disband it and automatically unsubscribe from updates
-				Debug.LogException(ex);
+				FLog.Info("Ignoring exception: " + ex);
 			}
 			finally
 			{

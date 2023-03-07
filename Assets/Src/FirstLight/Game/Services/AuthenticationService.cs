@@ -55,7 +55,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Authenticates the backend with an email address and password
 		/// </summary>
-		void LoginWithEmail(string email, string password, Action<LoginData> onSuccess, Action<PlayFabError> onError);
+		void LoginWithEmail(string email, string password, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn = false);
 
 		/// <summary>
 		/// Logs out of the current account. This includes unlinking the device, and logging out of other services
@@ -101,7 +101,7 @@ namespace FirstLight.Game.Services
 		/// This includes setting auth context, parsing feature flags, parsing remote configs, saving relevant local data, etc.
 		/// </summary>
 		void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
-								   Action<PlayFabError> onError);
+								   Action<PlayFabError> onError, bool previouslyLoggedIn);
 
 		/// <summary>
 		/// Calls request to download the player account data
@@ -235,7 +235,7 @@ namespace FirstLight.Game.Services
 		}
 
 		public void LoginWithEmail(string email, string password, Action<LoginData> onSuccess,
-								   Action<PlayFabError> onError)
+								   Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
 			var login = new LoginWithEmailAddressRequest
 			{
@@ -243,11 +243,10 @@ namespace FirstLight.Game.Services
 				Password = password,
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
-
+			
 			var loginData = new LoginData() {IsGuest = false};
-
 			PlayFabClientAPI.LoginWithEmailAddress(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				(res) => ProcessAuthentication(res, loginData, onSuccess, onError, previouslyLoggedIn),e =>
 				{
 					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
 				});
@@ -294,7 +293,7 @@ namespace FirstLight.Game.Services
 		}
 
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
-										  Action<PlayFabError> onError)
+										  Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			
@@ -305,7 +304,6 @@ namespace FirstLight.Game.Services
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
-			var previouslyLoggedIn = false;
 			_networkService.UserId.Value = result.PlayFabId;
 			
 			//AppleApprovalHack(result);
@@ -391,7 +389,6 @@ namespace FirstLight.Game.Services
 				_dataProvider.AppDataProvider.IsGuest);
 			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
-
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
 		{
 			_services.GameBackendService.CallFunction("GetPlayerData",

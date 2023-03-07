@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.MultiplayerModels;
-using UnityEngine;
 
 namespace FirstLight.Game.Services.Party
 {
@@ -80,6 +82,10 @@ namespace FirstLight.Game.Services.Party
 		/// </summary>
 		IObservableFieldReader<string> PartyID { get; }
 
+		/// <summary>
+		/// Operation in Progress Observable, it automatically changes based on calls to the service
+		/// </summary>
+		IObservableFieldReader<bool> OperationInProgress { get; }
 
 		/// <summary>
 		/// The members of the local player party, it changes when any player join/leave the party
@@ -146,20 +152,24 @@ namespace FirstLight.Game.Services.Party
 		/// <inheritdoc/>
 		IObservableFieldReader<string> IPartyService.PartyID => PartyID;
 
+		/// <inheritdoc/>
+		IObservableFieldReader<bool> IPartyService.OperationInProgress => OperationInProgress;
 
 		// Services
 		private IPlayfabPubSubService _pubsub;
 		private IPlayerDataProvider _playerDataProvider;
 		private IAppDataProvider _appDataProvider;
+		private IGameBackendService _backendService;
+		private IGenericDialogService _genericDialogService;
 
 		// State
 		private string _lobbyId;
-
-
-		SemaphoreSlim accessSemaphore = new(1, 1);
+		private PlayFabAuthenticationContext usedPlayfabContext;
+		SemaphoreSlim _accessSemaphore = new(1, 1);
 
 		private IObservableField<bool> HasParty { get; }
 		private IObservableField<bool> PartyReady { get; }
+		private IObservableField<bool> OperationInProgress { get; }
 		private IObservableField<string> PartyCode { get; }
 		private IObservableList<PartyMember> Members { get; }
 
@@ -168,17 +178,38 @@ namespace FirstLight.Game.Services.Party
 		private IObservableField<string> PartyID { get; }
 
 
-		public PartyService(IPlayfabPubSubService pubsub, IPlayerDataProvider playerDataProvider, IAppDataProvider appDataProvider)
+		public PartyService(IPlayfabPubSubService pubsub,
+							IPlayerDataProvider playerDataProvider,
+							IAppDataProvider appDataProvider,
+							IGameBackendService backendService,
+							IGenericDialogService genericDialogService,
+							IMessageBrokerService msgBroker)
 		{
 			_playerDataProvider = playerDataProvider;
 			_appDataProvider = appDataProvider;
 			_pubsub = pubsub;
+			_backendService = backendService;
+			_genericDialogService = genericDialogService;
 			Members = new ObservableList<PartyMember>(new());
 			HasParty = new ObservableField<bool>(false);
 			PartyReady = new ObservableField<bool>(false);
+			OperationInProgress = new ObservableField<bool>(false);
 			PartyCode = new ObservableField<string>(null);
 			PartyID = new ObservableField<string>(null);
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
+			usedPlayfabContext = new PlayFabAuthenticationContext();
+			msgBroker.Subscribe<SuccessAuthentication>(OnSuccessAuthentication);
+		}
+
+		private void OnSuccessAuthentication(SuccessAuthentication obj)
+		{
+			if (HasParty.Value)
+			{
+				FLog.Warn("Should leave party");
+#pragma warning disable CS4014
+				LeaveParty();
+#pragma warning restore CS4014
+			}
 		}
 
 
@@ -187,7 +218,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.AlreadyInParty);
@@ -212,6 +244,7 @@ namespace FirstLight.Game.Services.Party
 				};
 				var result = await AsyncPlayfabMultiplayerAPI.CreateLobby(req);
 				_lobbyId = result.LobbyId;
+				usedPlayfabContext.CopyFrom(PlayFabSettings.staticPlayer);
 				await FetchPartyAndUpdateState();
 #pragma warning disable CS4014
 				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
@@ -228,7 +261,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Create");
@@ -239,13 +273,20 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.AlreadyInParty);
 				}
 
 				var normalizedCode = NormalizeCode(code);
+
+				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => !JoinCodeAllowedCharacters.Contains(c)))
+				{
+					throw new PartyException(PartyErrors.PartyNotFound);
+				}
+
 				var filter = $"{CodeSearchProperty} eq '{normalizedCode}'";
 				var req = new FindLobbiesRequest()
 				{
@@ -286,6 +327,7 @@ namespace FirstLight.Game.Services.Party
 				{
 					var result = await AsyncPlayfabMultiplayerAPI.JoinLobby(joinRequest);
 					_lobbyId = result.LobbyId;
+					usedPlayfabContext.CopyFrom(PlayFabSettings.staticPlayer);
 				}
 				catch (WrappedPlayFabException ex)
 				{
@@ -314,7 +356,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Join");
@@ -332,7 +375,7 @@ namespace FirstLight.Game.Services.Party
 				throw new PartyException(PartyErrors.NoPermission);
 			}
 
-			Debug.Log($"setting property {key} to " + _lobbyId);
+			FLog.Verbose($"setting property {key} to " + _lobbyId);
 			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
@@ -355,7 +398,7 @@ namespace FirstLight.Game.Services.Party
 				throw new PartyException(PartyErrors.NoPermission);
 			}
 
-			Debug.Log($"setting property {key} to " + _lobbyId);
+			FLog.Verbose($"removing property {key} from " + _lobbyId);
 			await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 			{
 				LobbyId = _lobbyId,
@@ -375,7 +418,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
@@ -387,16 +431,22 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.NoPermission);
 				}
 
+				var data = new Dictionary<string, string>()
+				{
+					{key, value}
+				};
 
 				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 				{
 					LobbyId = _lobbyId,
 					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
-					MemberData = new Dictionary<string, string>()
-					{
-						{key, value}
-					}
+					MemberData = data
 				});
+				// If the request was successful let's update locally so 
+				if (MergeData(localPartyMember, data))
+				{
+					Members.InvokeUpdate(Members.IndexOf(localPartyMember));
+				}
 			}
 			catch (Exception ex)
 			{
@@ -404,7 +454,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 		}
 
@@ -413,7 +464,8 @@ namespace FirstLight.Game.Services.Party
 		{
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
@@ -439,7 +491,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Kick");
@@ -452,16 +505,19 @@ namespace FirstLight.Game.Services.Party
 			var members = MembersAsString();
 			try
 			{
-				await accessSemaphore.WaitAsync();
+				await _accessSemaphore.WaitAsync();
+				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
 					throw new PartyException(PartyErrors.NoParty);
 				}
 
+
 				var req = new LeaveLobbyRequest()
 				{
 					LobbyId = _lobbyId,
-					MemberEntity = LocalEntityKey(),
+					MemberEntity = new EntityKey() {Id = usedPlayfabContext.EntityId, Type = usedPlayfabContext.EntityType},
+					AuthenticationContext = usedPlayfabContext
 				};
 				// If the member counts is 0 the lobby will be disbanded and we will not need to unsubscribe
 				if (Members.Count > 1)
@@ -483,7 +539,8 @@ namespace FirstLight.Game.Services.Party
 			}
 			finally
 			{
-				accessSemaphore.Release();
+				OperationInProgress.Value = false;
+				_accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Leave", lobbyId, members);
@@ -519,10 +576,7 @@ namespace FirstLight.Game.Services.Party
 			}
 			catch (Exception ex)
 			{
-				// This function is triggered by websocket messages, there is no way to handle the errors
-				Debug.LogException(ex);
-				// Let's rethrow this exception if anyone is waiting
-				throw;
+				HandleException(ex);
 			}
 		}
 
@@ -613,6 +667,7 @@ namespace FirstLight.Game.Services.Party
 		private void ResetState()
 		{
 			_lobbyId = null;
+			usedPlayfabContext = new PlayFabAuthenticationContext();
 			_lobbyTopic = null;
 			_lobbyChangeNumber = 0;
 			HasParty.Value = false;
@@ -621,7 +676,7 @@ namespace FirstLight.Game.Services.Party
 			PartyID.Value = null;
 			_pubSubState = PartySubscriptionState.NotConnected;
 			Members.Clear();
-			foreach (var key in LobbyProperties.ReadOnlyDictionary.Keys)
+			foreach (var key in new List<string>(LobbyProperties.ReadOnlyDictionary.Keys))
 			{
 				LobbyProperties.Remove(key);
 			}

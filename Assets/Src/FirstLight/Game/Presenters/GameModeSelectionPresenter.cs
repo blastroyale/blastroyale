@@ -60,7 +60,6 @@ namespace FirstLight.Game.Presenters
 			foreach (var slot in _services.GameModeService.Slots)
 			{
 				if(slot.Entry.NFT && !hasNfts) continue;
-				
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);

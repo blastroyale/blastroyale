@@ -47,11 +47,9 @@ namespace FirstLight.Game.Presenters
 
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var container = f.GetSingleton<GameContainer>();
-			var playersData = container.GeneratePlayersMatchData(f, out var leader);
-			var localWinner = game.PlayerIsLocal(leader);
+			var playersData = game.GeneratePlayersMatchDataLocal(out _, out var localWinner);
 			var localPlayer = playersData[game.GetLocalPlayerRef()];
-			var playerDead = localPlayer.Data.Entity.IsAlive(f);
+			var localPlayerDead = localPlayer.Data.Entity.IsAlive(f);
 
 			_matchEndTitle.SetDisplay(false);
 			_blastedTitle.SetDisplay(false);
@@ -66,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_youChoseDeathTitle.SetDisplay(true);
 			}
-			else if (_matchServices.MatchEndDataService.LocalPlayerKiller != PlayerRef.None || playerDead)
+			else if (_matchServices.MatchEndDataService.LocalPlayerKiller != PlayerRef.None || localPlayerDead)
 			{
 				_blastedTitle.SetDisplay(true);
 			}

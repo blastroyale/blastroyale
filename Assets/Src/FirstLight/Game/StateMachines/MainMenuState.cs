@@ -198,7 +198,7 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 
-			enterNameDialog.Nest(_enterNameState.Setup).Target(homeCheck);
+			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			brokenItems.OnEnter(OpenBrokenItemsPopUp);
 			brokenItems.Event(_brokenItemsCloseEvent).Target(homeCheck);

@@ -171,19 +171,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var collection = GetViewCollection();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-			var previousIndex = _selectedIndex;
 			if (equipped.IsValid())
 			{
 				_selectedIndex = collection.IndexOf(equipped);
 			}
-
 			var row = _selectedIndex / PAGE_SIZE;
-			var previousRow = previousIndex / PAGE_SIZE;
 			_collectionList.RefreshItem(row);
-			if (previousRow != row)
-			{
-				_collectionList.RefreshItem(previousRow);
-			}
 		}
 
 		/// <summary>
@@ -209,9 +202,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipClicked()
 		{
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
+			var equippedIndex = GetViewCollection().IndexOf(equipped);
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = GetSelectedItem()});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
+			_collectionList.RefreshItem(equippedIndex / PAGE_SIZE);
 			_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 		}
 

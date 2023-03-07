@@ -80,7 +80,7 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 180224
+        RawValue: 114688
       SpecialPower:
         RawValue: 26214
       Speed:
@@ -116,7 +116,7 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 163840
+        RawValue: 180224
       SpecialPower:
         RawValue: 21627
       Speed:
@@ -170,7 +170,7 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 163840
+        RawValue: 180224
       SpecialPower:
         RawValue: 21627
       Speed:

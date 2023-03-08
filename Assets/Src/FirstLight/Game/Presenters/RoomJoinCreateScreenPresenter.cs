@@ -28,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField, Required] private Button _backButton;
+		[SerializeField, Required] private Button _homeButton;
 		[SerializeField, Required] private Button _createDeathmatchRoomButton;
 		[SerializeField, Required] private Button _joinRoomButton;
 		[SerializeField, Required] private Button _playtestButton;
@@ -49,6 +50,7 @@ namespace FirstLight.Game.Presenters
 			FillMutatorsSelectionList();
 			
 			_backButton.onClick.AddListener(CloseRequested);
+			_homeButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 			if (Debug.isDebugBuild)

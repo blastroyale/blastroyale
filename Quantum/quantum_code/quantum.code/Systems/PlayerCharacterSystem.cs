@@ -63,7 +63,6 @@ namespace Quantum.Systems
 		{
 			var membersByTeam = new Dictionary<string, HashSet<int>>();
 
-
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
 				var playerData = f.GetPlayerData(i);

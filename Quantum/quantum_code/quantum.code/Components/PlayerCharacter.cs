@@ -120,7 +120,7 @@ namespace Quantum
 			}
 			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->ResetStats(f, CurrentWeapon, Gear);
+			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -136,7 +136,7 @@ namespace Quantum
 			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
-			stats->ResetStats(f, CurrentWeapon, Gear);
+			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;

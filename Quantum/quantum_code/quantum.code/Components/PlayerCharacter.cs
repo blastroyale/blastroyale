@@ -215,13 +215,13 @@ namespace Quantum
 			{
 				LevelUp(f, e);
 			}
-			
 		}
 
 		public void LevelUp(Frame f, EntityRef e)
 		{
 			CurrentExp -= RequiredLevelExp(f, CurrentLevel);
 			CurrentLevel += 1;
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			f.Events.OnPlayerLevelUp(Player, e, CurrentLevel);
 		}
 

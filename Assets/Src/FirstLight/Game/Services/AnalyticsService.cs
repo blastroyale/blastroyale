@@ -144,7 +144,6 @@ namespace FirstLight.Game.Services
 
 				// Prepare parameters for Firebase
 				var firebaseParams = new List<Parameter>(parameters.Count);
-				int count = 0;
 				foreach (var parameter in parameters)
 				{
 					if (parameter.Value == null)

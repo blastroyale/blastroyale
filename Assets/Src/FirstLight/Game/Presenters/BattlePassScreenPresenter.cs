@@ -318,10 +318,7 @@ namespace FirstLight.Game.Presenters
 
 			var data = new EquipmentRewardDialogPresenter.StateData()
 			{
-				ConfirmClicked = () =>
-				{
-					_services.ThreadService.MainThreadDispatcher.Enqueue(TryShowNextReward);
-				},
+				ConfirmClicked = TryShowNextReward,
 				Equipment = reward.Value,
 				EquipmentId = reward.Key
 			};

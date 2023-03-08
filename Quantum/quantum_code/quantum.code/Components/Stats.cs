@@ -338,6 +338,7 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 			ammoCapacity = f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) * (ammoCapacity / FP._100 + FP._1);
+			
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			

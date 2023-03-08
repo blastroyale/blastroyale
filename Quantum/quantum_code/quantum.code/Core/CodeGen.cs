@@ -60,6 +60,8 @@ namespace Quantum {
     Ammo,
     Shield,
     ShieldCapacity,
+    Exp,
+    SpecialRefresh,
   }
   public enum DeathDropsStrategy : int {
     None = 0,
@@ -238,6 +240,10 @@ namespace Quantum {
     ShieldLarge = 21,
     ShieldCapacitySmall = 17,
     ShieldCapacityLarge = 18,
+    SmallSpecialRefresh = 25,
+    LargeSpecialRefresh = 105,
+    SmallEXPCube = 106,
+    LargeEXPCube = 107,
     ChestCommon = 13,
     ChestUncommon = 1,
     ChestRare = 16,
@@ -258,7 +264,6 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Tombstone = 37,
-    Punk = 75,
     Demon = 76,
     SuperStar = 115,
     Unicorn = 116,
@@ -4528,33 +4533,39 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 1192;
+    public const Int32 SIZE = 1208;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     public AssetRefAIBlackboard BlackboardRef;
+    [FieldOffset(48)]
+    [HideInInspector()]
+    public FP CurrentExp;
     [FieldOffset(0)]
     [HideInInspector()]
-    public Int32 CurrentWeaponSlot;
+    public Int32 CurrentLevel;
     [FieldOffset(4)]
     [HideInInspector()]
+    public Int32 CurrentWeaponSlot;
+    [FieldOffset(8)]
+    [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
-    [FieldOffset(64)]
+    [FieldOffset(80)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 5)]
     private fixed Byte _Gear_[360];
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public AssetRefHFSMRoot HfsmRootRef;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public AssetRefCharacterController3DConfig KccConfigRef;
-    [FieldOffset(12)]
+    [FieldOffset(16)]
     [HideInInspector()]
     public PlayerRef Player;
-    [FieldOffset(40)]
+    [FieldOffset(56)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [HideInInspector()]
     public Int32 TeamId;
-    [FieldOffset(424)]
+    [FieldOffset(440)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
     private fixed Byte _WeaponSlots_[768];
@@ -4572,6 +4583,8 @@ namespace Quantum {
       unchecked { 
         var hash = 577;
         hash = hash * 31 + BlackboardRef.GetHashCode();
+        hash = hash * 31 + CurrentExp.GetHashCode();
+        hash = hash * 31 + CurrentLevel.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
@@ -4586,6 +4599,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharacter*)ptr;
+        serializer.Stream.Serialize(&p->CurrentLevel);
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
         serializer.Stream.Serialize(&p->TeamId);
@@ -4593,6 +4607,7 @@ namespace Quantum {
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
+        FP.Serialize(&p->CurrentExp, serializer);
         FPVector3.Serialize(&p->ProjectileSpawnOffset, serializer);
         FixedArray.Serialize(p->Gear, serializer, StaticDelegates.SerializeEquipment);
         FixedArray.Serialize(p->WeaponSlots, serializer, StaticDelegates.SerializeWeaponSlot);
@@ -10865,6 +10880,10 @@ namespace Quantum.Prototypes {
     public Equipment_Prototype[] Gear = new Equipment_Prototype[5];
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
+    [HideInInspector()]
+    public Int32 CurrentLevel;
+    [HideInInspector()]
+    public FP CurrentExp;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -10873,6 +10892,8 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
+      result.CurrentExp = this.CurrentExp;
+      result.CurrentLevel = this.CurrentLevel;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
       for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {

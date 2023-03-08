@@ -91,6 +91,10 @@ MonoBehaviour:
         Values:
         - RawValue: 0
         - RawValue: 196608
+      MaxPlayerLevel: 10
+      MinMaxLevelExpRequirements:
+        Value1: 100
+        Value2: 500
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608

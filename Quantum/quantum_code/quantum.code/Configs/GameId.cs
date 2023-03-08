@@ -694,6 +694,34 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SmallSpecialRefresh, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.LargeSpecialRefresh, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.SmallEXPCube, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.LargeEXPCube, new List<GameIdGroup>
+					{
+						GameIdGroup.Consumable,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
 					GameId.ChestCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
@@ -814,6 +842,24 @@ namespace Quantum
 				},
 				{
 					GameId.Tombstone, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Demon, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.SuperStar, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Unicorn, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
@@ -1124,7 +1170,11 @@ namespace Quantum
 						GameId.ShieldSmall,
 						GameId.ShieldLarge,
 						GameId.ShieldCapacitySmall,
-						GameId.ShieldCapacityLarge
+						GameId.ShieldCapacityLarge,
+						GameId.SmallSpecialRefresh,
+						GameId.LargeSpecialRefresh,
+						GameId.SmallEXPCube,
+						GameId.LargeEXPCube
 					}.AsReadOnly()
 				},
 				{
@@ -1138,6 +1188,10 @@ namespace Quantum
 						GameId.ShieldLarge,
 						GameId.ShieldCapacitySmall,
 						GameId.ShieldCapacityLarge,
+						GameId.SmallSpecialRefresh,
+						GameId.LargeSpecialRefresh,
+						GameId.SmallEXPCube,
+						GameId.LargeEXPCube,
 						GameId.ChestCommon,
 						GameId.ChestUncommon,
 						GameId.ChestRare,
@@ -1207,6 +1261,9 @@ namespace Quantum
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Tombstone,
+						GameId.Demon,
+						GameId.SuperStar,
+						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{

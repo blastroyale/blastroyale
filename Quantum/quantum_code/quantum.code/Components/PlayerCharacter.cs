@@ -205,6 +205,31 @@ namespace Quantum
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
+		public void GainExp(Frame f, int amount)
+		{
+			CurrentExp += amount;
+			if (CurrentExp >= RequiredLevelExp(f, CurrentLevel))
+			{
+				LevelUp(f);
+			}
+			//send an exp gained level here or whatever
+		}
+
+		public void LevelUp(Frame f)
+		{
+			CurrentExp -= RequiredLevelExp(f, CurrentLevel);
+			CurrentLevel += 1;
+
+			//send an exp gained level here or whatever
+		}
+
+		public int RequiredLevelExp(Frame f, int targetLevel)
+		{
+			var gameconfigs = f.GameConfig;
+			var requireExp = FPMath.Lerp(gameconfigs.MinMaxLevelExpRequirements.Value1, gameconfigs.MinMaxLevelExpRequirements.Value2,
+				targetLevel / gameconfigs.MaxPlayerLevel);
+			return requireExp.AsInt;
+		}
 
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots

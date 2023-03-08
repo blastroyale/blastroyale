@@ -137,12 +137,9 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					if (healthFilled > FP._0_75 && ammoFilled > FP._0_75 && shieldFilled > FP._0_75)
+					if (healthFilled + ammoFilled + shieldFilled > 2)
 					{
 						drop = GameId.SmallEXPCube;
-						healthFilled -= FP._0_20;
-						ammoFilled -= FP._0_20;
-						shieldFilled -= FP._0_20;
 					}
 					else if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{

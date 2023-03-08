@@ -46,11 +46,11 @@ namespace FirstLight.Game.Views.UITK
 			if (setup != null && setup.GameMode().ShouldUsePlayfabMatchmaking())
 			{
 				translationTerm = ScriptTerms.UITHomeScreen.matchmaking;
-				_closeButton.SetVisibility(true);
+				_closeButton.SetDisplay(true);
 			}
 			else
 			{
-				_closeButton.SetVisibility(false);
+				_closeButton.SetDisplay(false);
 			}
 
 			_matchmakingText.Localize(translationTerm);

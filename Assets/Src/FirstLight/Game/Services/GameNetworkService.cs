@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -460,7 +461,7 @@ namespace FirstLight.Game.Services
 		{
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
-				Debug.Log("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
+				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
 				return false;
 			}
 

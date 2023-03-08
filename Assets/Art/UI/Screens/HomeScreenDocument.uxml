@@ -118,7 +118,7 @@
             <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent matchmaking-container__safearea">
                 <ui:VisualElement name="MatchmakingStatus" class="matchmaking-status sprite-home__background-matchmakingstatus">
                     <ui:Label text="00:32" name="Time" class="matchmaking-status__title" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/matchmaking" class="matchmaking-status__subtitle" />
+                    <FirstLight.Game.UIElements.LocalizedLabel name="MatchmakingText" localization-key="UITHomeScreen/matchmaking" class="matchmaking-status__subtitle" />
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.ImageButton name="MatchmakingCloseButton" class="button-close" />
             </FirstLight.Game.UIElements.SafeAreaElement>

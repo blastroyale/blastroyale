@@ -290,6 +290,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (setup.GameMode().ShouldUsePlayfabMatchmaking())
 			{
+				_networkService.LastUsedSetup.Value = setup;
 				_services.MatchmakingService.JoinMatchmaking(setup);
 			}
 			else

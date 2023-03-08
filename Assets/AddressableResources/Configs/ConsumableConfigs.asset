@@ -181,7 +181,7 @@ MonoBehaviour:
       ConsumableType: 5
       Amount:
         Default:
-          RawValue: 1966080
+          RawValue: 3276800
         Keys: []
         Values: []
       ConsumableCollectTime:
@@ -200,7 +200,7 @@ MonoBehaviour:
       ConsumableType: 5
       Amount:
         Default:
-          RawValue: 3932160
+          RawValue: 6553600
         Keys: []
         Values: []
       ConsumableCollectTime:

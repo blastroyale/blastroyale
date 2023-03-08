@@ -302,7 +302,7 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassReward();
 
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -387,7 +387,7 @@ namespace FirstLight.Game.Presenters
 			var buttonEnabled = true;
 
 			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-				_services.MatchmakingService.IsMatchmaking.Value)
+			    _services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
@@ -462,10 +462,7 @@ namespace FirstLight.Game.Presenters
 
 			// When this screen is opened we aren't officially matchmaking yet, so we force the loading state for the 
 			// first few seconds - should be changed when we allow interaction on home screen during matchmaking.
-			if (show)
-			{
-				UpdatePlayButton(true);
-			}
+			UpdatePlayButton(show);
 		}
 	}
 }

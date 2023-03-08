@@ -73,6 +73,12 @@
     left: 168px;
 }
 
+.info-holder__change-button {
+    position: absolute;
+    top: 182px;
+    left: 168px;
+}
+
 .info-holder__item-description {
     color: rgb(197, 197, 197);
     font-size: 36px;

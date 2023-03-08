@@ -43,6 +43,7 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
 		private Button _equipButton;
+		private Button _changeAnimButton;
 		private PriceButton _buyButton;
 		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
@@ -88,6 +89,10 @@ namespace FirstLight.Game.Presenters
 
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
+
+			_changeAnimButton = root.Q<Button>("ChangeButton").Required();
+			_changeAnimButton.clicked += OnChangeAnimClicked;
+			_changeAnimButton.text = "CHANGE ANIM";
 
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
@@ -225,6 +230,12 @@ namespace FirstLight.Game.Presenters
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
 		}
+
+		private void OnChangeAnimClicked()
+		{
+			Debug.Log("Change Animation Button");
+		}
+		
 
 		/// <summary>
 		/// TODO: Enable players to buy new items here.

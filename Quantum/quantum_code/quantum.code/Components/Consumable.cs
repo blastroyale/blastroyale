@@ -31,6 +31,7 @@ namespace Quantum
 		/// </summary>
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
+			var playerChar = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 			var isTeamsMode = f.Context.GameModeConfig.Teams;
 			var team = f.Get<Targetable>(playerEntity).Team;
@@ -51,6 +52,9 @@ namespace Quantum
 					break;
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
+					break;
+				case ConsumableType.Exp:
+					playerChar->GainExp(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -79,6 +83,7 @@ namespace Quantum
 					teammateCandidate.Component->Team == team)
 				{
 					var stats = f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity);
+					var playerChar = f.Unsafe.GetPointer<PlayerCharacter>(teammateCandidate.Entity);
 					switch (ConsumableType)
 					{
 						case ConsumableType.Health:
@@ -89,6 +94,9 @@ namespace Quantum
 							break;
 						case ConsumableType.Shield:
 							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
+							break;
+						case ConsumableType.Exp:
+							playerChar->GainExp(f, playerEntity, Amount.AsInt);
 							break;
 					}
 				}

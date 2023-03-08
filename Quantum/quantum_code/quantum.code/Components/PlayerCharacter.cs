@@ -205,22 +205,24 @@ namespace Quantum
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
-		public void GainExp(Frame f, int amount)
+		public void GainExp(Frame f, EntityRef e, int amount)
 		{
+			var prevExp = CurrentExp;
 			CurrentExp += amount;
+			//send an exp gained level here or whatever
+			f.Events.OnPlayerExpChanged(Player, e, prevExp, CurrentExp, amount, CurrentLevel);
 			if (CurrentExp >= RequiredLevelExp(f, CurrentLevel))
 			{
-				LevelUp(f);
+				LevelUp(f, e);
 			}
-			//send an exp gained level here or whatever
+			
 		}
 
-		public void LevelUp(Frame f)
+		public void LevelUp(Frame f, EntityRef e)
 		{
 			CurrentExp -= RequiredLevelExp(f, CurrentLevel);
 			CurrentLevel += 1;
-
-			//send an exp gained level here or whatever
+			f.Events.OnPlayerLevelUp(Player, e, CurrentLevel);
 		}
 
 		public int RequiredLevelExp(Frame f, int targetLevel)

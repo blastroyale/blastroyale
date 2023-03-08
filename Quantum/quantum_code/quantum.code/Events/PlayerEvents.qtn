@@ -73,6 +73,23 @@ synced event OnPlayerKilledPlayer
 	UInt32 CurrentMultiKill;
 }
 
+synced event OnPlayerLevelUp
+{
+	player_ref Player;
+	entity_ref Entity;
+    Int32 CurrentLevel;
+}
+
+synced event OnPlayerExpChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+    Int32 PreviousExp;
+    Int32 CurrentExp;
+    Int32 ChangeAmount;
+    Int32 CurrentLevel;
+}
+
 synced event OnPlayerAmmoEmpty
 {
 	player_ref Player;

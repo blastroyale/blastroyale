@@ -1,8 +1,10 @@
 using DG.Tweening;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
+using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,11 +20,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Slider _damageDealtSlider;
 		[SerializeField, Required] private Slider _slider;
 		[SerializeField, Required] private Image _fillImage;
+		[SerializeField, Required] private TextMeshProUGUI LevelText;
+		[SerializeField, Required] private GameObject LevelObj;
 		[SerializeField] private Color _normalColor = Color.green;
 		[SerializeField] private Color _dangerColor = Color.red;
 		[SerializeField, Required] private UnityEvent _healthIncreasedEvent;
 		[SerializeField, Required] private Image _damageBlockedIcon;
 		[SerializeField] private float _damageBlockedDuration = 2f;
+		
 
 		/// <summary>
 		/// Requests the entity that this health bar represents
@@ -48,6 +53,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, OnStatusModifierFinished);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, OnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnDamageBlocked>(this, OnDamageBlocked);
+			QuantumEvent.Subscribe<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 		}
 
 		/// <summary>
@@ -64,6 +70,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_damageDealtSlider.DOKill();
 			_slider.DOKill();
 			HealthBarUpdate();
+			LevelObj.SetActive(false);
 		}
 
 		/// <inheritdoc />
@@ -72,6 +79,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			Entity = EntityRef.None;
 		}
 
+		private void OnPlayerLevelUp(EventOnPlayerLevelUp callback)
+		{
+			if (callback.Entity != Entity)
+			{
+				return;
+			}
+			LevelObj.SetActive(true);
+			//TODO: play some cool animation or particle effect or something
+			LevelText.text = callback.CurrentLevel.ToString();
+		}
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (callback.Entity != Entity)

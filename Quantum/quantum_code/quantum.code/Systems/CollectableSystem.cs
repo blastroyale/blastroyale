@@ -86,6 +86,8 @@ namespace Quantum.Systems
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
 						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
+					case ConsumableType.Exp:
+						return playerCharacter.CurrentLevel == f.GameConfig.MaxPlayerLevel;
 				}
 			}
 

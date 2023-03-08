@@ -174,7 +174,7 @@ namespace Quantum.Systems
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0; i < (FPMath.RoundToInt(itemCount / 2) + 1); i++)
+				for (uint i = 0; i < (FPMath.RoundToInt(itemCount / 2)); i++)
 				{
 					var consumable = GameId.Health;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
@@ -198,7 +198,11 @@ namespace Quantum.Systems
 					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
 					step++;
 				}
-
+				for(uint i = 0; i < playerDead->CurrentLevel + 1; i++)
+				{
+					Collectable.DropConsumable(f, GameId.SmallEXPCube, deathPosition, step, false);
+					step++;
+				}
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);

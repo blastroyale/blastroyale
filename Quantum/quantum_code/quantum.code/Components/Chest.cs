@@ -47,7 +47,7 @@ namespace Quantum
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
-			var ammoFilled = FP.MaxValue; //playerCharacter->GetAmmoAmountFilled(f, playerEntity)
+			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity);
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
@@ -137,7 +137,14 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
+					if (healthFilled > FP._0_75 && ammoFilled > FP._0_75 && shieldFilled > FP._0_75)
+					{
+						drop = GameId.SmallEXPCube;
+						healthFilled -= FP._0_20;
+						ammoFilled -= FP._0_20;
+						shieldFilled -= FP._0_20;
+					}
+					else if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						drop = GameId.Health;
 						healthFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
@@ -156,9 +163,11 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health, GameId.SmallEXPCube);
 					}
+
 					
+
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 					chestItems.Add(new ChestItemDropped()
 					{
@@ -189,6 +198,12 @@ namespace Quantum
 				{
 					var drop = GameId.Random;
 					//TODO: add a large health consumable drop
+					if (ammoFilled > FP._0_75 && shieldFilled > FP._0_75)
+					{
+						drop = GameId.SmallEXPCube;
+						ammoFilled -= FP._0_20;
+						shieldFilled -= FP._0_20;
+					}
 					if (ammoFilled < shieldFilled) //ammo
 					{
 						drop = GameId.AmmoSmall;
@@ -202,7 +217,7 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.LargeEXPCube);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);

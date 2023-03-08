@@ -48,7 +48,7 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_uiService = uiService;
 			_configsAdder = configsAdder;
-			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
+			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, dataService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);

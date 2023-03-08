@@ -1206,7 +1206,7 @@ namespace Quantum
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
-						GameId.Tombstone,
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 				{

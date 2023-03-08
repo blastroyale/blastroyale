@@ -439,7 +439,7 @@ namespace FirstLight.Game.Services.Party
 				await AsyncPlayfabMultiplayerAPI.UpdateLobby(new UpdateLobbyRequest()
 				{
 					LobbyId = _lobbyId,
-					MemberEntity = new EntityKey() {Id = localPartyMember.PlayfabID, Type = "title_player_account"},
+					MemberEntity = localPartyMember.ToEntityKey(),
 					MemberData = data
 				});
 				// If the request was successful let's update locally so 
@@ -481,7 +481,7 @@ namespace FirstLight.Game.Services.Party
 				{
 					LobbyId = _lobbyId,
 					PreventRejoin = true,
-					MemberEntity = new EntityKey() {Id = playfabID, Type = "title_player_account"}
+					MemberEntity = new EntityKey() {Id = playfabID, Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE}
 				};
 				await AsyncPlayfabMultiplayerAPI.RemoveMember(req);
 			}
@@ -516,7 +516,7 @@ namespace FirstLight.Game.Services.Party
 				var req = new LeaveLobbyRequest()
 				{
 					LobbyId = _lobbyId,
-					MemberEntity = new EntityKey() {Id = usedPlayfabContext.EntityId, Type = usedPlayfabContext.EntityType},
+					MemberEntity = new EntityKey() {Id = usedPlayfabContext.EntityId, Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE},
 					AuthenticationContext = usedPlayfabContext
 				};
 				// If the member counts is 0 the lobby will be disbanded and we will not need to unsubscribe

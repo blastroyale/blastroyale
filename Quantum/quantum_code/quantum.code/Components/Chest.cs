@@ -47,9 +47,9 @@ namespace Quantum
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
-			var ammoCheck = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP._0_20;
-			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
-			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
+			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity);
+			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
+			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
@@ -113,9 +113,9 @@ namespace Quantum
 
 				DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
 							 chestPosition, ref angleStep, chestItems, chestItems.Count);
-				DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck,
+				DropSmallConsumable(f, playerEntity, playerRef, config, ref ammoFilled, ref shieldFilled, ref healthFilled,
 									chestPosition, ref angleStep, chestItems);
-				DropLargeConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck,
+				DropLargeConsumable(f, playerEntity, playerRef, config, ref ammoFilled, ref shieldFilled,
 									chestPosition, ref angleStep, chestItems);
 			}
 
@@ -123,9 +123,10 @@ namespace Quantum
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 
-		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
+		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, ref FP healthFilled,
 		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
 		{
+			var stats = f.Get<Stats>(playerEntity);
 			foreach (var (chance, count) in config.SmallConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -136,19 +137,22 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-
-					// Modify the drop based on whether or not the player needs specific items
-					if (ammoCheck)
-					{
-						drop = GameId.AmmoSmall;
-					}
-					else if (shieldCheck)
-					{
-						drop = GameId.ShieldSmall;
-					}
-					else if (healthCheck)
+					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						drop = GameId.Health;
+						healthFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
+							stats.GetStatData(StatType.Health).StatValue;
+					}
+					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					{
+						drop = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
+					}
+					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					{
+						drop = GameId.ShieldSmall;
+						shieldFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
+							stats.GetStatData(StatType.Shield).StatValue;
 					}
 					else
 					{
@@ -170,9 +174,10 @@ namespace Quantum
 			}
 		}
 
-		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
+		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, 
 		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
 		{
+			var stats = f.Get<Stats>(playerEntity);
 			foreach (var (chance, count) in config.LargeConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -183,15 +188,17 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-
-					// Modify the drop based on whether or not the player needs specific items
-					if (ammoCheck)
+					//TODO: add a large health consumable drop
+					if (ammoFilled < shieldFilled) //ammo
 					{
-						drop = GameId.AmmoLarge;
+						drop = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
 					}
-					else if (shieldCheck)
+					else if (shieldFilled < ammoFilled) //shield
 					{
-						drop = GameId.ShieldLarge;
+						drop = GameId.ShieldSmall;
+						shieldFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
+							stats.GetStatData(StatType.Shield).StatValue;
 					}
 					else
 					{

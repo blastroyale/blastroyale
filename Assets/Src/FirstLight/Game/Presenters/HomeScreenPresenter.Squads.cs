@@ -27,6 +27,11 @@ namespace FirstLight.Game.Presenters
 			_partyButton.clicked += OnPartyClicked;
 		}
 
+		private void UpdateSquadsButtonVisibility()
+		{
+			_partyButton.SetVisibility(FeatureFlags.DISPLAY_SQUADS_BUTTON);
+		}
+
 		private void SubscribeToSquadEvents()
 		{
 			_partyService.HasParty.InvokeObserve(OnHasPartyChanged);

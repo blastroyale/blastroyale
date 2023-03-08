@@ -51,7 +51,7 @@ namespace FirstLight.Game.Presenters
 		public UniqueId SelectedItem { get; private set; }
 
 		private ScreenHeaderElement _header;
-		
+
 		private MightElement _might;
 		private VisualElement _details;
 		private Label _missingEquipment;
@@ -76,7 +76,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private ListView _equipmentList;
 		private List<EquipmentListRow> _equipmentListRows;
 		private Dictionary<UniqueId, int> _itemRowMap;
@@ -401,11 +401,13 @@ namespace FirstLight.Game.Presenters
 
 		private void BindEquipmentListItem(VisualElement visualElement, int index)
 		{
+			if (index < 0 || index >= _equipmentListRows.Count) return;
+
 			var row = _equipmentListRows[index];
 
 			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
 			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
-			
+
 			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
 				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
 				row.Item1.UniqueId == _equippedItem,
@@ -430,6 +432,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindEquipmentStatListItem(VisualElement visualElement, int index)
 		{
+			if (index < 0 || index >= _statItems.Count) return;
+			
 			var statElement = (EquipmentStatBarElement) visualElement;
 
 			var stat = _statItems[index];

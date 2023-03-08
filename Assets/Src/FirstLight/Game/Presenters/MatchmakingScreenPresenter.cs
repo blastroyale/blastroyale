@@ -171,6 +171,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindSquadListEntry(VisualElement element, int index)
 		{
+			if (index < 0 || index >= _squadMembers.Count) return;
+			
 			((Label) element).text = _squadMembers[index].NickName;
 		}
 

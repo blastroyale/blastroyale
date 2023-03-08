@@ -157,6 +157,7 @@ namespace FirstLight.Game.Presenters
 				                      quantumGameConfig.CasualMatchmakingTime.AsFloat;
 			
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
+			// _selectedGameModeText.text = _selectedGameModeText.text.Replace(Environment.NewLine, "");
 
 			UpdateRoomPlayerCounts();
 

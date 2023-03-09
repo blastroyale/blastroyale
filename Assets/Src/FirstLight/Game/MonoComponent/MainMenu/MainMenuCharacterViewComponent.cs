@@ -51,12 +51,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				return;
 			}
 
-			Animator.SetTrigger(_triggerNamesClicked[3]); // Random.Range(0, _triggerNamesClicked.Length)]);
+			PlayAnimation();
 		}
 
 		public void PlayAnimation()
 		{
-			Animator.SetTrigger(_triggerNamesClicked[3]);
+			Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
 		}
 		
 		public void OnDrag(PointerEventData eventData)

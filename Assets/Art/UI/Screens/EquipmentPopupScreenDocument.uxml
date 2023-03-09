@@ -67,7 +67,7 @@
                             <ui:VisualElement name="Icon" class="requirements__icon sprite-shared__icon-currency-bpp" />
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/upgrade" name="UpgradePopupButton" class="button-long button-long--yellow content-scrapping__button" />
+                        <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradePopupButton" class="button-long button-long--yellow content-scrapping__button" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                 </ui:VisualElement>

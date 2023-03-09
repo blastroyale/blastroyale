@@ -234,16 +234,10 @@ namespace FirstLight.Game.Presenters
 
 		private void OnChangeAnimClicked()
 		{
-			Debug.Log("Change Animation Button");
-			
-			//_services.MessageBrokerService.Publish(new PlayAnimationMessage { AnimationName = "victory" });
-
 			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
 			{
 				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
 			}
-			
-			
 		}
 		
 

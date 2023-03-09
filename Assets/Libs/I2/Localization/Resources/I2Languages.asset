@@ -663,6 +663,18 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/joining
+      TermType: 0
+      Description: 
+      Languages:
+      - Joining...
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
+        ..."
+      - Juntando -se ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/error_BannedFromParty
       TermType: 0
       Description: 
@@ -2124,14 +2136,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/proceed_iron_gate
+      TermType: 0
+      Description: 
+      Languages:
+      - 'AMAZING!
+
+        PROCEED THROUGH THE GATE'
+      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0439\u0442\u0438
+        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
+      - "INCR\xCDVEL!\nProsseguir pelo port\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITTutorial/nice_proceed_chest_area
       TermType: 0
       Description: 
       Languages:
-      - "AMAZING! \nPROCEED THROUGH THE GATE"
-      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0439\u0442\u0438
-        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
-      - "INCR\xCDVEL!\nProsseguir pelo port\xE3o"
+      - UP THE RAMP, TO THE NEXT AREA!
+      - "\u0412\u0432\u0435\u0440\u0445 \u043F\u043E \u0440\u0430\u043C\u043F\u0435,
+        \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
+      - "At\xE9 a rampa, para a pr\xF3xima \xE1rea!"
       - 
       - 
       Flags: 0000000000
@@ -2929,7 +2955,7 @@ MonoBehaviour:
       - LOGIN TO EXISTING FIRST LIGHT ID
       - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
         \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - "Fa\xE7a login no primeiro id de luz existente"
+      - "Fa\xE7a login no primeiro ID de luz existente"
       - 
       - 
       Flags: 0000000000
@@ -3302,7 +3328,7 @@ MonoBehaviour:
       Languages:
       - SPECTATING
       - "\u0420\u0430\u0437\u0436\u0438\u0433\u0430\u043D\u0438\u0435"
-      - Espetacular
+      - Espetactador
       - 
       - 
       Flags: 0000000000
@@ -6400,8 +6426,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim all rewards
-      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C
-        \u043D\u0430 \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
+      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u043D\u0430
+        \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
       - Reivindicar todas as recompensas
       - 
       - 
@@ -7441,7 +7467,7 @@ MonoBehaviour:
       - Login to existing First Light ID
       - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
         \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - "Fa\xE7a login no primeiro id de luz existente"
+      - "Fa\xE7a login no primeiro ID de luz existente"
       - 
       - 
       Flags: 0000000000
@@ -7592,9 +7618,9 @@ MonoBehaviour:
       Description: 
       Languages:
       - You have been kicked from the room.
-      - "\u0412\u044B \u0431\u044B\u043B\u0438 \u0432\u044B\u0433\u043D\u0430\u043D\u044B
-        \u0438\u0437 \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
-      - "Voc\xEA foi chutado da sala."
+      - "\u0412\u0430\u0441 \u0432\u044B\u0433\u043D\u0430\u043B\u0438 \u0438\u0437
+        \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
+      - "Voc\xEA foi expulso da sala."
       - 
       - 
       Flags: 0000000000
@@ -7884,7 +7910,7 @@ MonoBehaviour:
         \u0435\u0433\u043E! \\ N \u0412\u044B \u0445\u043E\u0442\u0438\u0442\u0435
         \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u0432\u0441\u0435 \u043D\u043E\u0432\u044B\u0435
         \u044F\u0449\u0438\u043A\u0438 \u0441\u0435\u0439\u0447\u0430\u0441?"
-      - "Voc\xEA coletou itens, mas n\xE3o tem espa\xE7o suficiente para armazen\xE1
+      - "Voc\xEA coletou saques, mas n\xE3o tem espa\xE7o suficiente para armazen\xE1
         -lo! \\ N Voc\xEA quer abrir todas as novas caixas agora?"
       - 
       - 
@@ -8290,7 +8316,7 @@ MonoBehaviour:
       Languages:
       - mutator 1
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 1"
-      - mutador 1
+      - Mutator 1
       - 
       - 
       Flags: 0000000000
@@ -8379,8 +8405,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - SELECT GAME MODE
-      - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0433\u0440\u043E\u0432\u043E\u0439
-        \u0440\u0435\u0436\u0438\u043C"
+      - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u0435\u0436\u0438\u043C
+        \u0438\u0433\u0440\u044B"
       - Selecione o modo de jogo
       - 
       - 
@@ -13146,7 +13172,7 @@ MonoBehaviour:
       - "\u041E\u0441\u0442\u0430\u0442\u043A\u0438 \u0448\u0443\u043C\u043D\u043E\u0439
         \u0430\u0432\u0442\u043E\u0441\u0442\u0440\u0430\u0434\u044B \u0438\u0437
         \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E"
-      - Os remanes de uma rodovia movimentada do passado
+      - Os remenantes de uma rodovia movimentada do passado
       - 
       - 
       Flags: 0000000000
@@ -14416,7 +14442,7 @@ MonoBehaviour:
       Languages:
       - AIMED INVISIBILITY
       - "\u041D\u0430\u0446\u0435\u043B\u0435\u043D \u043D\u0430 \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u044C"
-      - Invisibilidade direcionada
+      - Invisibilidade apontada
       - 
       - 
       Flags: 0000000000
@@ -15497,7 +15523,7 @@ MonoBehaviour:
       - Metamask failed to switch chain network
       - "Metamask \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C
         \u0441\u0435\u0442\u044C \u0446\u0435\u043F\u0438"
-      - Metamask falhou ao trocar de rede de corrente
+      - Metamask falhou ao trocar a rede de corrente
       - 
       - metamask.ts
       Flags: 0000000000
@@ -15763,7 +15789,7 @@ MonoBehaviour:
       Languages:
       - Unable to display Blastbox contents
       - "\u041D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043E\u0431\u0440\u0430\u0437\u0438\u0442\u044C
-        \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u0431\u043B\u0430\u0441\u0442\u0435\u0440\u043D\u0430"
+        \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u0432\u0437\u0440\u044B\u0432\u0430"
       - "Incapaz de exibir conte\xFAdo da BlastBox"
       - 
       - lootbox.ts
@@ -16142,10 +16168,10 @@ MonoBehaviour:
       Flags: 0
     IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
-    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
+    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxOFFDNFDtIznEw3NdXP5mITcyV6wcnuEMTbT9XZnBiMJNpcI67KbbyaKY-FSZBjR1c/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678036602796
+    Google_LastUpdatedVersion: 1678366392357
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

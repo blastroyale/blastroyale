@@ -66,7 +66,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			QuantumEvent.Subscribe<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.Subscribe<EventOnPlayerExpChanged>(this, OnplayerExpChanged);
-			QuantumEvent.Subscribe<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 		}
 
 		private void OnDestroy()

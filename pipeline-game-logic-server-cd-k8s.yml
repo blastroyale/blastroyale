@@ -32,7 +32,7 @@ variables:
 pool: linux-k8s
 
 stages:
-- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)
@@ -59,7 +59,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'release/*')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/release/*')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)
@@ -86,7 +86,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)
@@ -113,7 +113,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)

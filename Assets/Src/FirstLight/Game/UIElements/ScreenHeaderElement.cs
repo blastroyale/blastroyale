@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
@@ -18,7 +17,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssHome = UssBlock + "__home";
 		private const string UssBack = UssBlock + "__back";
 		private const string UssSeparator = UssBlock + "__separator";
-		
+
 		/// <summary>
 		/// Triggered when the home button is clicked.
 		/// </summary>
@@ -43,6 +42,10 @@ namespace FirstLight.Game.UIElements
 			AddToClassList("anim-delay-0");
 			AddToClassList("anim-fade");
 
+			// This doesn't seem to work at the moment - picking mode has to be manually set to Ignore
+			// on the Header element in UXML if you want to have interactive elements behind it.
+			pickingMode = PickingMode.Ignore;
+
 			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
 			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
 			Add(safeAreaContainer);
@@ -58,8 +61,7 @@ namespace FirstLight.Game.UIElements
 			safeAreaContainer.Add(_subTitle = new Label("SUBTITLE") {name = "subtitle"});
 			_subTitle.AddToClassList(UssSubTitle);
 
-			var centerContent = new VisualElement {name = "separator"};
-			centerContent.pickingMode = PickingMode.Ignore;
+			var centerContent = new VisualElement {name = "separator", pickingMode = PickingMode.Ignore};
 			centerContent.AddToClassList(UssSeparator);
 			safeAreaContainer.Add(centerContent);
 

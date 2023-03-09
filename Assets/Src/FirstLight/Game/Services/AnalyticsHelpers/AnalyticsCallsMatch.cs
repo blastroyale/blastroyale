@@ -256,8 +256,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-
-			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
+			
+			// We send fixed name in case of offline Tutorial match
+			var deadName = playerKilledEvent.PlayersMatchData.Count <= 1 ?
+				               "Dummy" :
+				               playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead].GetPlayerName();
 
 			var data = new Dictionary<string, object>
 			{
@@ -265,7 +268,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"killed_name", deadData.GetPlayerName()},
+				{"killed_name", deadName},
 				{"killed_reason", "player"},
 				{"player_name", killerData.GetPlayerName()}
 			};

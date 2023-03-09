@@ -94,7 +94,7 @@ MonoBehaviour:
       MaxPlayerLevel: 10
       MinMaxLevelExpRequirements:
         Value1: 150
-        Value2: 750
+        Value2: 500
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608

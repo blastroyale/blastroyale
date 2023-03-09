@@ -223,6 +223,10 @@ namespace Quantum
 
 		public void LevelUp(Frame f, EntityRef e)
 		{
+			if (CurrentLevel == f.GameConfig.MaxPlayerLevel)
+			{
+				return;
+			}
 			CurrentExp -= RequiredLevelExp(f, CurrentLevel);
 			CurrentLevel += 1;
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);

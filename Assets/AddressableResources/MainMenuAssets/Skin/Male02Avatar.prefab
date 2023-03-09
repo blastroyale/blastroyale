@@ -2335,7 +2335,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3702408559955903924
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2346,13 +2346,13 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!136 &8319274229539284785
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2396,10 +2396,7 @@ MonoBehaviour:
   - {fileID: 4868357224226734960}
   - {fileID: 2870895919287411111}
   _renderersContainerProxy: {fileID: 8479027828082328512}
-  _triggerNamesClicked:
-  - special
-  - spawn
-  - equip_body
+  _mainMenuCharacterAnimations: {fileID: 11400000, guid: f430d77df41d54ca2ad72bdbcebc55cf, type: 2}
 --- !u!114 &6644258599515364175
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -93,6 +94,7 @@ namespace FirstLight.Game.Presenters
 			_changeAnimButton = root.Q<Button>("ChangeButton").Required();
 			_changeAnimButton.clicked += OnChangeAnimClicked;
 			_changeAnimButton.text = "CHANGE ANIM";
+			_changeAnimButton.visible = UnityEngine.Debug.isDebugBuild;
 
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
@@ -179,6 +181,11 @@ namespace FirstLight.Game.Presenters
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;
+
+			if (UnityEngine.Debug.isDebugBuild)
+			{
+				_changeAnimButton.visible = _selectedCategory.Id == GameIdGroup.PlayerSkin;
+			}
 		}
 
 		private void SelectEquipped(CollectionCategory category)
@@ -233,7 +240,10 @@ namespace FirstLight.Game.Presenters
 
 		private void OnChangeAnimClicked()
 		{
-			Debug.Log("Change Animation Button");
+			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
+			{
+				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
+			}
 		}
 		
 

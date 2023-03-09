@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon.StructWrapping;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Infos;
 using Quantum;
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// <inheritdoc cref="CharacterEquipmentMonoComponent"/>
 	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler, IPointerClickHandler
 	{
-		[SerializeField] private string[] _triggerNamesClicked;
+		[SerializeField] private MainMenuCharacterAnimationConfigs _mainMenuCharacterAnimations;
 		
 		/// <summary>
 		/// Equip this character with the equipment data given in the <paramref name="info"/>
@@ -50,8 +52,17 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				return;
 			}
-			
-			Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
+
+			PlayAnimation();
+		}
+
+		public void PlayAnimation()
+		{
+
+			// Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
+
+			var config = _mainMenuCharacterAnimations.Configs[0].AnimationNames;
+			Animator.SetTrigger(config[Random.Range(0, config.Length)]);
 		}
 		
 		public void OnDrag(PointerEventData eventData)

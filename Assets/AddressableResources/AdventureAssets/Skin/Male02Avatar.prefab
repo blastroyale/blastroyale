@@ -3223,7 +3223,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3258,7 +3258,6 @@ MonoBehaviour:
   - {fileID: 3746647395311375560}
   - {fileID: 4868357224226734960}
   - {fileID: 2870895919287411111}
-  _gliderAnchor: {fileID: 5890071709619521496}
   _renderersContainerProxy: {fileID: 6862388233070002849}
 --- !u!114 &-6129645227686845798
 MonoBehaviour:
@@ -3380,6 +3379,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbodies:
+  - {fileID: 883353779}
+  - {fileID: 394506195}
+  - {fileID: 246901279}
+  - {fileID: 280103922}
+  - {fileID: 169873021}
+  - {fileID: 1583850701}
+  - {fileID: 1820425891}
+  - {fileID: 1916144825}
+  - {fileID: 590342575}
+  - {fileID: 1279965530}
+  - {fileID: 648528817}
   - {fileID: 883353779}
   - {fileID: 394506195}
   - {fileID: 246901279}
@@ -4307,7 +4317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5890071709619521496
 Transform:
   m_ObjectHideFlags: 0

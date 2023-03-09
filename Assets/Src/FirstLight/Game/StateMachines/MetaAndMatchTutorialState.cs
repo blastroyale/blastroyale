@@ -17,6 +17,7 @@ namespace FirstLight.Game.StateMachines
 {
 	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
+		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
 		public static readonly int TOTAL_STEPS = 6;
 		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 		
@@ -34,7 +35,7 @@ namespace FirstLight.Game.StateMachines
 		public int CurrentStep { get; set; }
 		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
 		public string CurrentStepName { get; set; }
-		public int TotalStepsBeforeThisSection => GameConstants.Tutorial.TOTAL_STEPS_FIRST_GUIDE_MATCH;
+		public int TotalStepsBeforeThisSection => FirstGameTutorialState.TOTAL_STEPS;
 		
 
 		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,

@@ -512,12 +512,7 @@ MonoBehaviour:
   - {fileID: 6966782664457838246}
   - {fileID: 7611940259695063042}
   _renderersContainerProxy: {fileID: 876291718165587850}
-  _triggerNamesClicked:
-  - special
-  - spawn
-  - equip_body
-  - kick
-  - dance
+  _mainMenuCharacterAnimations: {fileID: 11400000, guid: f430d77df41d54ca2ad72bdbcebc55cf, type: 2}
 --- !u!114 &5223568329290236357
 MonoBehaviour:
   m_ObjectHideFlags: 0

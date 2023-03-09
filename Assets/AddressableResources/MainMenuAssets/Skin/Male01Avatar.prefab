@@ -635,6 +635,7 @@ MonoBehaviour:
   - equip_body
   - kick
   - dance
+  _mainMenuCharacterAnimations: {fileID: 11400000, guid: f430d77df41d54ca2ad72bdbcebc55cf, type: 2}
 --- !u!114 &7133389341511250123
 MonoBehaviour:
   m_ObjectHideFlags: 0

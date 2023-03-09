@@ -359,6 +359,8 @@ namespace FirstLight.Game.StateMachines
 				? finalLoadOut.ToArray()
 				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
 
+			var glider = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.Glider)).Id;
+			
 			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
 			{
@@ -370,6 +372,7 @@ namespace FirstLight.Game.StateMachines
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id,
 				DeathMarker = info.DeathMarker,
+				Glider = glider,
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),

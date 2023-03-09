@@ -20,7 +20,7 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, 
+		                   uint trophies, GameId skin, GameId deathMarker, GameId glider, int teamId, Equipment[] startingEquipment, 
 						   Equipment loadoutWeapon, List<Modifier> modifiers = null, uint minimumHealth = 0)
 		{
 			var blackboard = new AIBlackboardComponent();
@@ -57,7 +57,7 @@ namespace Quantum
 			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
-			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies, TeamId);
+			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, glider, trophies, TeamId);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);

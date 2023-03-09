@@ -17,7 +17,8 @@ namespace FirstLight.Game.MonoComponent
 	{
 		[SerializeField, Required] private RenderersContainerMonoComponent _mainRenderersContainer;
 		[SerializeField] private List<RenderersContainerMonoComponent> _renderersContainers = new List<RenderersContainerMonoComponent>();
-		
+
+		public RenderersContainerMonoComponent MainRenderersContainer => _mainRenderersContainer;
 		
 		private void OnValidate()
 		{

@@ -85,12 +85,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
-
+			var playerData = frame.GetSingleton<GameContainer>().PlayersData[player];
+			
 			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
 
-			var instance =
-				await Services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, OnLoaded);
-
+			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, OnLoaded);
+			
 			if (this.IsDestroyed())
 			{
 				return;
@@ -99,7 +99,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
-			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear);
+			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear, playerData.Glider);
 
 			if (this.IsDestroyed())
 			{
@@ -125,9 +125,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var playerCharacter = f.Get<PlayerCharacter>(EntityView.EntityRef);
 
+			var playerData = f.GetSingleton<GameContainer>().PlayersData[player];
+			
 			// Weapon
 			weapon = playerCharacter.CurrentWeapon;
-
+			
 			// Gear
 			var gearList = new List<Equipment>();
 

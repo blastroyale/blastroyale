@@ -222,11 +222,11 @@ namespace FirstLight.Game.Utils
 		{
 			var groups = item.GetGroups();
 
-			if (!groups.Contains(GameIdGroup.Equipment))
-			{
-				throw new
-					ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
-			}
+			//if (!groups.Contains(GameIdGroup.Equipment))
+			//{
+			//	throw new
+			//		ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
+			//}
 
 			return groups[0];
 		}

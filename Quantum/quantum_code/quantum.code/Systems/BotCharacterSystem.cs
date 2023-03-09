@@ -1080,6 +1080,7 @@ namespace Quantum.Systems
 			var botNamesIndices = new List<int>(botsNameCount);
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
+			var gliders = GameIdGroup.Glider.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
 			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
@@ -1182,6 +1183,7 @@ namespace Quantum.Systems
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
+					Glider = gliders[f.RNG->Next(0, gliders.Length)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
 					// We modify intervals to make them more unique to avoid performance spikes
@@ -1284,10 +1286,10 @@ namespace Quantum.Systems
 						});
 					}
 				}
-
-
+				
+				
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-					botCharacter.DeathMarker, teamId, Array.Empty<Equipment>(), Equipment.None, modifiers);
+					botCharacter.DeathMarker, botCharacter.Glider, teamId, Array.Empty<Equipment>(), Equipment.None, modifiers);
 			}
 		}
 

@@ -207,6 +207,10 @@ namespace Quantum
 		}
 		public void GainExp(Frame f, EntityRef e, int amount)
 		{
+			if(CurrentLevel == f.GameConfig.MaxPlayerLevel)
+			{
+				return;
+			}
 			var prevExp = CurrentExp;
 			CurrentExp += amount;
 			//send an exp gained level here or whatever

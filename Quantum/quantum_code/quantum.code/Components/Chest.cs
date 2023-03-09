@@ -163,8 +163,6 @@ namespace Quantum
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health, GameId.SmallEXPCube);
 					}
 
-					
-
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 					chestItems.Add(new ChestItemDropped()
 					{

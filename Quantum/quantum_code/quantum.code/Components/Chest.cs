@@ -137,7 +137,7 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					if (healthFilled + ammoFilled + shieldFilled > 2)
+					if (healthFilled + ammoFilled + shieldFilled > Constants.EXP_CHEST_DROP_THRESHOLD)
 					{
 						drop = GameId.SmallEXPCube;
 					}
@@ -193,7 +193,7 @@ namespace Quantum
 				{
 					var drop = GameId.Random;
 					//TODO: add a large health consumable drop
-					if (ammoFilled > FP._0_75 && shieldFilled > FP._0_75)
+					if (ammoFilled > FP._0_75 && shieldFilled > Constants.EXP_CHEST_DROP_THRESHOLD - 1)
 					{
 						drop = GameId.SmallEXPCube;
 						ammoFilled -= FP._0_20;

@@ -6,6 +6,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -234,6 +235,15 @@ namespace FirstLight.Game.Presenters
 		private void OnChangeAnimClicked()
 		{
 			Debug.Log("Change Animation Button");
+			
+			//_services.MessageBrokerService.Publish(new PlayAnimationMessage { AnimationName = "victory" });
+
+			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
+			{
+				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
+			}
+			
+			
 		}
 		
 

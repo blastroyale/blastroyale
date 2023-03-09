@@ -9,4 +9,10 @@ namespace FirstLight.Game.Messages
 		public CollectionCategory Category;
 		public CollectionItem EquippedItem;
 	}
+
+	public struct PlayAnimationMessage : IMessage
+	{
+		public string AnimationName;
+	}
+	
 }

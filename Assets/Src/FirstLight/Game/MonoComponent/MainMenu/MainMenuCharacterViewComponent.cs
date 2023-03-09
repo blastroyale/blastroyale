@@ -50,8 +50,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				return;
 			}
-			
-			Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
+
+			Animator.SetTrigger(_triggerNamesClicked[3]); // Random.Range(0, _triggerNamesClicked.Length)]);
+		}
+
+		public void PlayAnimation()
+		{
+			Animator.SetTrigger(_triggerNamesClicked[3]);
 		}
 		
 		public void OnDrag(PointerEventData eventData)

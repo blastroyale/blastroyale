@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 				Mutators = Array.Empty<string>()
 			};
 			
-			_services.NetworkService.CreateRoom(roomSetup, false);
+			_services.NetworkService.CreateRoom(roomSetup, true);
 		}
 		
 		public void CreateJoinSecondTutorialRoom()

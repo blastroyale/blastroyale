@@ -147,6 +147,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			// Do nothing in case of offline Tutorial match
+			if (callback.PlayersMatchData.Count <= 1)
+			{
+				return;
+			}
+			
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 

@@ -25,8 +25,8 @@ namespace FirstLight.Game.StateMachines
 			public short EventMetaAmount;
 		}
 
-		public static readonly IStatechartEvent ProceedGameplayTutorialEvent =
-			new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
+		public static readonly int TOTAL_STEPS = 17;
+		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -80,6 +80,7 @@ namespace FirstLight.Game.StateMachines
 			var moveToDummyArea = stateFactory.State("Move to dummy area");
 			var kill2Bots = stateFactory.State("Kill 2 bots");
 			var kill1BotSpecial = stateFactory.State("Kill 1 bot special");
+			var goIronGate = stateFactory.State("Proceed through iron gate");
 			var moveToChestArea = stateFactory.State("Move to chest area");
 			var openBox = stateFactory.State("Open box");
 			var killFinalBot = stateFactory.State("Kill final bot");
@@ -124,8 +125,12 @@ namespace FirstLight.Game.StateMachines
 
 			kill1BotSpecial.OnEnter(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
-			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
+			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(goIronGate);
 
+			goIronGate.OnEnter(() => { SendAnalyticsIncrementStep("MoveToIronGate"); });
+			goIronGate.OnEnter(OnEnterGoIronGate);
+			goIronGate.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
+			
 			moveToChestArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToChestArea"); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
 			moveToChestArea.Event(ProceedGameplayTutorialEvent).Target(openBox);
@@ -344,6 +349,11 @@ namespace FirstLight.Game.StateMachines
 				EventType = typeof(EventOnPlayerKilledPlayer),
 				EventMetaAmount = 1
 			};
+		}
+		
+		private void OnEnterGoIronGate()
+		{
+			throw new NotImplementedException();
 		}
 
 		private void OnEnterMoveToChestArea()

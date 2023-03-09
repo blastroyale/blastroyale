@@ -17,6 +17,7 @@ namespace FirstLight.Game.StateMachines
 {
 	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
+		public static readonly int TOTAL_STEPS = 6;
 		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 		
 		private readonly IGameServices _services;

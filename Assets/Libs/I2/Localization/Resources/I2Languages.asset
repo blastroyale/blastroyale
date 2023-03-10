@@ -155,7 +155,7 @@ MonoBehaviour:
       Languages:
       - INFO
       - "\u0418\u041D\u0424\u041E\u0420\u041C\u0410\u0426\u0418\u042F"
-      - "Informa\xE7\xF5es"
+      - Info
       - 
       - 
       Flags: 0000000000
@@ -436,7 +436,7 @@ MonoBehaviour:
       - Create or Join a squad!
       - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F
         \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
-      - "Crie ou participe de um esquadr\xE3o!"
+      - "Crie ou junte -se a um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -752,8 +752,8 @@ MonoBehaviour:
         \u0432\u044B \u043F\u044B\u0442\u0430\u0435\u0442\u0435\u0441\u044C \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F,
         \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0434\u0440\u0443\u0433\u0443\u044E
         \u0432\u0435\u0440\u0441\u0438\u044E \u0438\u0433\u0440\u044B."
-      - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar \xE9 usar outra vers\xE3o
-        do jogo."
+      - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar est\xE1 usando outra
+        vers\xE3o do jogo."
       - 
       - 
       Flags: 0000000000
@@ -2054,10 +2054,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - WELCOME TO THE WASTELANDS!
-      - "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C
-        \u0432 \u043F\u0443\u0441\u0442\u043E\u0448\u0438!"
-      - Bem -vindo ao Wastelands!
+      - 'WELCOME TO
+
+        THE WASTELANDS!'
+      - "\u0414\u041E\u0411\u0420\u041E \u041F\u041E\u0416\u0410\u041B\u041E\u0412\u0410\u0422\u042C
+        \u0412\n\u041F\u0443\u0441\u0442\u043E\u0448\u0438!"
+      - 'BEM-VINDO AO
+
+        Os Wastelands!'
       - 
       - 
       Flags: 0000000000
@@ -2066,11 +2070,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - USE THE LEFT JOYSTICK TO MOVE
-      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0439
-        \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A, \u0447\u0442\u043E\u0431\u044B
-        \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
-      - Use o joystick esquerdo para se mover
+      - "USE THE LEFT \nJOYSTICK TO MOVE"
+      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0435\n\u0414\u0436\u043E\u0439\u0441\u0442\u0438\u043A,
+        \u0447\u0442\u043E\u0431\u044B \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
+      - 'Use a esquerda
+
+        Joystick para se mover'
       - 
       - 
       Flags: 0000000000
@@ -2090,10 +2095,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SHOOT THE BARRICADE AND DESTROY IT
-      - "\u0421\u0442\u0440\u0435\u043B\u044F\u0442\u044C \u0432 \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443
-        \u0438 \u0443\u043D\u0438\u0447\u0442\u043E\u0436\u0438\u0442\u044C \u0435\u0435"
-      - Atire na barricada e destrua -a
+      - BREAK THE BARRICADE
+      - "\u0421\u043B\u043E\u043C\u0430\u0442\u044C \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443"
+      - Quebrar a barricada
       - 
       - 
       Flags: 0000000000
@@ -2128,10 +2132,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "THROW YOUR GRENADE \nAT THE DUMMY BEHIND BOXES"
-      - "\u0411\u0440\u043E\u0441\u044C\u0442\u0435 \u0441\u0432\u043E\u044E \u0433\u0440\u0430\u043D\u0430\u0442\u0443\n\u0412
-        \u043C\u0430\u043D\u0435\u043A\u0435\u043D\u0430\u0445 \u0437\u0430 \u043A\u043E\u0440\u043E\u0431\u043A\u0430\u043C\u0438"
-      - "Jogue sua granada\nNo manequim atr\xE1s de caixas"
+      - THROW A GRENADE!
+      - "\u0411\u0440\u043E\u0441\u044C \u0433\u0440\u0430\u043D\u0430\u0442!"
+      - Jogue uma granada!
       - 
       - 
       Flags: 0000000000
@@ -2142,10 +2145,10 @@ MonoBehaviour:
       Languages:
       - 'AMAZING!
 
-        PROCEED THROUGH THE GATE'
-      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0439\u0442\u0438
+        GO THROUGH THE GATE'
+      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C
         \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
-      - "INCR\xCDVEL!\nProsseguir pelo port\xE3o"
+      - "INCR\xCDVEL!\nPassar pelo port\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -2154,10 +2157,13 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - UP THE RAMP, TO THE NEXT AREA!
-      - "\u0412\u0432\u0435\u0440\u0445 \u043F\u043E \u0440\u0430\u043C\u043F\u0435,
-        \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
-      - "At\xE9 a rampa, para a pr\xF3xima \xE1rea!"
+      - 'GO UP THE RAMP
+
+        TO THE NEXT AREA!'
+      - "\u041F\u043E\u0434\u043D\u0438\u043C\u0430\u0442\u044C\u0441\u044F \u043F\u043E
+        \u0440\u0430\u043C\u043F\u0435\n\u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E
+        \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
+      - "Suba a rampa\nPara a pr\xF3xima \xE1rea!"
       - 
       - 
       Flags: 0000000000
@@ -2166,15 +2172,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'OPEN THE CHEST
+      - 'OPEN THE CHEST,
 
-        AND GET SOME NEW EQUIPMENT'
-      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C\n\u0418
-        \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043D\u043E\u0432\u043E\u0435
-        \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
-      - 'Abra o peito
+        GET SOME EQUIPMENT'
+      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C,\n\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435
+        \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F"
+      - 'Abra o peito,
 
-        E pegue algum equipamento novo'
+        Obtenha alguns equipamentos'
       - 
       - 
       Flags: 0000000000
@@ -2183,12 +2188,14 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'DROP DOWN TO THE ARENA!
+      - 'ELIMINATE THE
 
-        ELIMINATE THE FINAL CHALLENGER'
-      - "\u0421\u043F\u0440\u044B\u0433\u043D\u0438\u0442\u0435 \u043D\u0430 \u0430\u0440\u0435\u043D\u0443!\n\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C
-        \u0444\u0438\u043D\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430"
-      - "Des\xE7a para a arena!\nElimine o desafiante final"
+        FINAL CHALLENGER'
+      - "\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C\n\u0424\u0438\u043D\u0430\u043B\u044C\u043D\u044B\u0439
+        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442"
+      - 'Eliminar o
+
+        Challenger final'
       - 
       - 
       Flags: 0000000000
@@ -5242,7 +5249,7 @@ MonoBehaviour:
       - Next Wave In
       - "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0432\u043E\u043B\u043D\u0430
         \u0432"
-      - "Pr\xF3ximo acena para entrar"
+      - "Pr\xF3ximo aceno para entrar"
       - 
       - 
       Flags: 0000000000
@@ -6369,7 +6376,7 @@ MonoBehaviour:
       Languages:
       - ALL GEAR
       - "\u0412\u0441\u0435 \u0441\u043D\u0430\u0440\u044F\u0436\u0435\u043D\u0438\u0435"
-      - Toda a marcha
+      - Todo o equipamento
       - 
       - 
       Flags: 0000000000
@@ -6426,8 +6433,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim all rewards
-      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u043D\u0430
-        \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
+      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C
+        \u043D\u0430 \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
       - Reivindicar todas as recompensas
       - 
       - 
@@ -6546,7 +6553,7 @@ MonoBehaviour:
       - BEAT CHAPTER {0} LEVEL {1} FIRST!
       - "BEAT \u0413\u041B\u0410\u0412\u0410 {0} \u0423\u0440\u043E\u0432\u0435\u043D\u044C
         {1} \u0421\u043D\u0430\u0447\u0430\u043B\u0430!"
-      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200BPrimeiro!"
+      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200Bprimeiro!"
       - 
       - 
       Flags: 0000000000
@@ -6956,7 +6963,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Detail Level
-      - "\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+      - "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
       - "N\xEDvel de detalhe"
       - 
       - 
@@ -7293,7 +7300,7 @@ MonoBehaviour:
       - High Res Mode
       - "\u0420\u0435\u0436\u0438\u043C \u0432\u044B\u0441\u043E\u043A\u043E\u0433\u043E
         \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F"
-      - Modo de alta res
+      - Modo High Res
       - 
       - 
       Flags: 0000000000
@@ -7537,8 +7544,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Logged out successfully
-      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E
-        \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
+      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
       - Registrado com sucesso
       - 
       - 
@@ -7618,8 +7624,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - You have been kicked from the room.
-      - "\u0412\u0430\u0441 \u0432\u044B\u0433\u043D\u0430\u043B\u0438 \u0438\u0437
-        \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
+      - "\u0412\u044B \u0431\u044B\u043B\u0438 \u0432\u044B\u0433\u043D\u0430\u043D\u044B
+        \u0438\u0437 \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
       - "Voc\xEA foi expulso da sala."
       - 
       - 
@@ -8405,8 +8411,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - SELECT GAME MODE
-      - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u0435\u0436\u0438\u043C
-        \u0438\u0433\u0440\u044B"
+      - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0433\u0440\u043E\u0432\u043E\u0439
+        \u0440\u0435\u0436\u0438\u043C"
       - Selecione o modo de jogo
       - 
       - 
@@ -15536,7 +15542,7 @@ MonoBehaviour:
       - "\u041D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C
         \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0441\u0442\u0438
         Blastbox"
-      - Incapaz de acessar a disponibilidade de Blastbox
+      - Incapaz de acessar a disponibilidade de blastbox
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -15789,7 +15795,7 @@ MonoBehaviour:
       Languages:
       - Unable to display Blastbox contents
       - "\u041D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043E\u0442\u043E\u0431\u0440\u0430\u0437\u0438\u0442\u044C
-        \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u0432\u0437\u0440\u044B\u0432\u0430"
+        \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u0431\u043B\u0430\u0441\u0442\u0435\u0440\u043D\u0430"
       - "Incapaz de exibir conte\xFAdo da BlastBox"
       - 
       - lootbox.ts
@@ -15868,7 +15874,7 @@ MonoBehaviour:
       - BlastBox information error.
       - "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u0430\u044F
         \u043E\u0448\u0438\u0431\u043A\u0430 \u0431\u043B\u0430\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430."
-      - "Erro de informa\xE7\xE3o blastbox."
+      - "Erro de informa\xE7\xE3o do BlastBox."
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -16168,10 +16174,10 @@ MonoBehaviour:
       Flags: 0
     IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
-    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxOFFDNFDtIznEw3NdXP5mITcyV6wcnuEMTbT9XZnBiMJNpcI67KbbyaKY-FSZBjR1c/exec
+    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678366392357
+    Google_LastUpdatedVersion: 1678451391464
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

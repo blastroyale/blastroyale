@@ -58,6 +58,8 @@
 .bubble {
     position: absolute;
     display: none;
+    width: 544px;
+    height: 344px;
 }
 
 .bubble--left {

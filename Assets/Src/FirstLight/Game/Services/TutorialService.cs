@@ -61,7 +61,7 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		
-		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialSection.NONE;
+		bool ITutorialService.IsTutorialRunning => FeatureFlags.TUTORIAL && CurrentRunningTutorial.Value != TutorialSection.NONE;
 
 		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 

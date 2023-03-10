@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
 using Quantum;
@@ -12,7 +14,7 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// Services that have the lifecycle of a single match, and can only be accessed during one.
 	/// </summary>
-	public interface IMatchServices : IDisposable
+	public interface  IMatchServices : IDisposable
 	{
 		/// <inheritdoc cref="ISpectateService"/>
 		public ISpectateService SpectateService { get; }
@@ -86,6 +88,7 @@ namespace FirstLight.Game.Services
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
+			FLog.Verbose("Registered Match Services");
 		}
 
 		public void Dispose()
@@ -97,12 +100,19 @@ namespace FirstLight.Game.Services
 			{
 				service.Dispose();
 			}
+			FLog.Verbose("Removed Match Services");
+		}
+
+		private bool CanTriggerMessage()
+		{
+			return _gameServices.NetworkService.QuantumClient.IsConnectedAndReady && QuantumRunner.Default.IsDefinedAndRunning();
 		}
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
 			foreach (var service in _services)
 			{
+				if (!CanTriggerMessage()) return;
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
 		}
@@ -111,6 +121,7 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var service in _services)
 			{
+				if (!CanTriggerMessage()) return;
 				service.OnMatchEnded(message.Game, message.IsDisconnected);
 			}
 		}

@@ -29,6 +29,11 @@ namespace FirstLight.Game.Utils
 		/// If the tutorial should be skipped
 		/// </summary>
 		public bool DisableTutorial = false;
+
+		/// <summary>
+		/// Which environment to connect
+		/// </summary>
+		public Environment EnvironmentOverride = Environment.DEV;
 	}
 	
 	

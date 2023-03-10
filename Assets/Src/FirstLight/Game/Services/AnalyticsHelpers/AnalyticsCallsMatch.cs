@@ -207,6 +207,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 
 			SendQueue();
+
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				return;
+			}
 			
 			var f = game.Frames.Verified;
 			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());

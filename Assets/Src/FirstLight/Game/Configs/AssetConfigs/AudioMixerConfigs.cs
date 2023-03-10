@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.AssetImporter;
 using FirstLight.Game.Ids;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -29,6 +30,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	/// Scriptable object containing all MainMenu audio assets configurations
 	/// </summary>
 	[CreateAssetMenu(fileName = "AudioMixerConfigs", menuName = "ScriptableObjects/AssetConfigs/AudioMixerConfigs")]
+	[IgnoreServerSerialization]
 	public class AudioMixerConfigs : AssetConfigsScriptableObjectSimple<AudioMixerID, AudioMixerConfig>
 	{
 	}

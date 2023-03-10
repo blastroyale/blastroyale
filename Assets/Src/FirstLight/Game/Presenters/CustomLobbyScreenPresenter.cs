@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 		private bool _kickModeActive = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
-		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
+		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
 		{

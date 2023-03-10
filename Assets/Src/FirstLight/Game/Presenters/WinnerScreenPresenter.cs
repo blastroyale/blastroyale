@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
@@ -76,10 +77,16 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GeneratePlayersMatchData(frame, out var leader);
-			var playerWinner = playerData[leader];
-
-			_playerWinnerEntity = playerWinner.Data.Entity;
-			_nameLabel.text = playerWinner.GetPlayerName();
+			if (leader.IsValid)
+			{
+				var playerWinner = playerData[leader];
+				_playerWinnerEntity = playerWinner.Data.Entity;
+				_nameLabel.text = playerWinner.GetPlayerName();
+			}
+			else
+			{
+				_nameLabel.text = "No one";
+			}
 			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			PlayTimeline();

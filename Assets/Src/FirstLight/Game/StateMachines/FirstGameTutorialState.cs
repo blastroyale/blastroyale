@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -25,8 +28,9 @@ namespace FirstLight.Game.StateMachines
 			public short EventMetaAmount;
 		}
 
-		public static readonly IStatechartEvent ProceedGameplayTutorialEvent =
-			new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
+		// !!! CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED !!!
+		public static readonly int TOTAL_STEPS = 16;
+		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -35,7 +39,10 @@ namespace FirstLight.Game.StateMachines
 
 		private IMatchServices _matchServices;
 		private CharacterDialogScreenPresenter _dialogUi;
-
+		private Dictionary<string, GameObject> _indicatorPositions = new();
+		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new();
+		private EntityView _localPlayerEntityView;
+		
 		public string SectionName { get; set; }
 		public int SectionVersion { get; set; }
 		public int CurrentStep { get; set; }
@@ -80,6 +87,7 @@ namespace FirstLight.Game.StateMachines
 			var moveToDummyArea = stateFactory.State("Move to dummy area");
 			var kill2Bots = stateFactory.State("Kill 2 bots");
 			var kill1BotSpecial = stateFactory.State("Kill 1 bot special");
+			var moveToGateArea = stateFactory.State("Proceed through iron gate");
 			var moveToChestArea = stateFactory.State("Move to chest area");
 			var openBox = stateFactory.State("Open box");
 			var killFinalBot = stateFactory.State("Kill final bot");
@@ -88,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			initial.OnExit(InitSequenceData);
-			initial.OnExit(GetTutorialScreenRefs);
+			initial.OnExit(GetTutorialUiRefs);
 
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
@@ -99,21 +107,22 @@ namespace FirstLight.Game.StateMachines
 			waitSimulationStart.OnExit(BindMatchServices);
 
 			startedSimulation.OnEnter(() => { SendAnalyticsIncrementStep("Spawn"); });
+			startedSimulation.OnEnter(GetIndicatorRefs);
 			startedSimulation.OnEnter(OnEnterStartedSimulation);
 			startedSimulation.Event(ProceedGameplayTutorialEvent).Target(moveJoystick);
-
+			
 			moveJoystick.OnEnter(() => { SendAnalyticsIncrementStep("MoveJoystick"); });
 			moveJoystick.OnEnter(OnEnterMoveJoystick);
-			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
-
-			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
-			pickupWeapon.OnEnter(OnEnterPickupWeapon);
-			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
+			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
 
 			destroyBarrier.OnEnter(() => { SendAnalyticsIncrementStep("DestroyBarrier"); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
-			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
+			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
 
+			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
+			pickupWeapon.OnEnter(OnEnterPickupWeapon);
+			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
+			
 			moveToDummyArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToDummyArea"); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
 			moveToDummyArea.Event(ProceedGameplayTutorialEvent).Target(kill2Bots);
@@ -124,8 +133,12 @@ namespace FirstLight.Game.StateMachines
 
 			kill1BotSpecial.OnEnter(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
-			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
+			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(moveToGateArea);
 
+			moveToGateArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToGateArea"); });
+			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
+			moveToGateArea.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
+			
 			moveToChestArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToChestArea"); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
 			moveToChestArea.Event(ProceedGameplayTutorialEvent).Target(openBox);
@@ -148,9 +161,19 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeMessages);
 		}
 
-		private void GetTutorialScreenRefs()
+		private void GetTutorialUiRefs()
 		{
 			_dialogUi = _services.GameUiService.GetUi<CharacterDialogScreenPresenter>();
+		}
+
+		private void GetIndicatorRefs()
+		{
+			var indicatorObjects = GameObject.FindGameObjectsWithTag("GroundIndicator");
+
+			foreach (var indicator in indicatorObjects)
+			{
+				_indicatorPositions.Add(indicator.name, indicator);
+			}
 		}
 
 		private void CloseTutorialUi()
@@ -169,12 +192,29 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
 
+		private void DespawnPointers()
+		{
+			foreach (var activePointer in _activeLocationPointers.ToList())
+			{
+				activePointer.Despawn();
+			}
+		}
+
+		private void SpawnNewPointer(Vector3 spawnLocation, Transform followTransform)
+		{
+			var pointerFx = _services.VfxService.Spawn(VfxId.LocationPointer) as LocationPointerVfxMonoComponent;
+			pointerFx.SetFollowedObject(followTransform);
+			pointerFx.transform.position = spawnLocation;
+			_activeLocationPointers.Add(pointerFx);
+		}
+
 		private void OnPlayerEnteredMessageVolume(PlayerEnteredMessageVolume msg)
 		{
 			CheckGameplayProceedConditions(typeof(PlayerEnteredMessageVolume), msg.VolumeId);
 
 			if (msg.VolumeId == GameConstants.Tutorial.TRIGGER_ARENA_AREA)
 			{
+				DespawnPointers();
 				_dialogUi.HideDialog(CharacterType.Female);
 			}
 		}
@@ -191,6 +231,12 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
+			if (callback.Entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
+			    _matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				_localPlayerEntityView = entityView;
+			}
+			
 			await Task.Yield();
 
 			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerAlive));
@@ -254,7 +300,7 @@ namespace FirstLight.Game.StateMachines
 		public void SendStepAnalytics()
 		{
 			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
-				CurrentTotalStep, CurrentStepName);
+																		  CurrentTotalStep, CurrentStepName);
 		}
 
 		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)
@@ -283,20 +329,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterMoveJoystick()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
+			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerUsedMovementJoystick)
-			};
-		}
-
-		private void OnEnterPickupWeapon()
-		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
-
-			_currentGameplayProceedData = new GameplayProceedEventData()
-			{
-				EventType = typeof(EventOnEquipmentCollected)
 			};
 		}
 
@@ -311,10 +348,24 @@ namespace FirstLight.Game.StateMachines
 			};
 		}
 
+		private void OnEnterPickupWeapon()
+		{
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_FIRST_WEAPON].transform.position, _localPlayerEntityView.transform);
+
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(EventOnEquipmentCollected)
+			};
+		}
+
 		private void OnEnterMoveToDummyArea()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_dummy_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
-
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_BOT_AREA].transform.position, _localPlayerEntityView.transform);
+			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerEnteredMessageVolume),
@@ -325,7 +376,10 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterKill2Bots()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_dummies, CharacterType.Female, CharacterDialogMoodType.Happy);
-
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_BOT1].transform.position, _localPlayerEntityView.transform);
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_BOT2].transform.position, _localPlayerEntityView.transform);
+			
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -337,7 +391,9 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterKill1BotSpecial()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
-
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, _localPlayerEntityView.transform);
+			
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -345,10 +401,25 @@ namespace FirstLight.Game.StateMachines
 				EventMetaAmount = 1
 			};
 		}
+		
+		private void OnEnterMoveToGateArea()
+		{
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.proceed_iron_gate, CharacterType.Female, CharacterDialogMoodType.Happy);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_IRON_GATE].transform.position, _localPlayerEntityView.transform);
+			
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(PlayerEnteredMessageVolume),
+				EventMetaId = GameConstants.Tutorial.TRIGGER_GATE_AREA
+			};
+		}
 
 		private void OnEnterMoveToChestArea()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_chest_area, CharacterType.Female, CharacterDialogMoodType.Shocked);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.nice_proceed_chest_area, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_TOP_PLATFORM].transform.position, _localPlayerEntityView.transform);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -359,7 +430,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterOpenBox()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.open_chest, CharacterType.Female, CharacterDialogMoodType.Happy);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_EQUIPMENT_CHEST].transform.position, _localPlayerEntityView.transform);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -370,6 +443,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterKillFinalBot()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.drop_down_to_arena, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_ARENA_DROPDOWN].transform.position, _localPlayerEntityView.transform);
 
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

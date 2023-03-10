@@ -379,7 +379,7 @@ namespace FirstLight.Game.Services
 			appData.PlayerId = result.PlayFabId;
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
-
+			
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 
@@ -446,7 +446,7 @@ namespace FirstLight.Game.Services
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest {PhotonApplicationId = appId};
-
+			
 			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthSuccess, onError);
 
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)

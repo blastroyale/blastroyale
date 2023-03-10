@@ -1482,6 +1482,7 @@ namespace I2.Loc
 			public static string nice_proceed_dummy_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_dummy_area"); } }
 			public static string open_chest 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/open_chest"); } }
 			public static string pick_up_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/pick_up_weapon"); } }
+			public static string proceed_iron_gate 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/proceed_iron_gate"); } }
 			public static string shoot_barrier 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_barrier"); } }
 			public static string shoot_dummies 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_dummies"); } }
 			public static string use_grenade 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/use_grenade"); } }
@@ -2977,6 +2978,7 @@ namespace I2.Loc
 		    public const string nice_proceed_dummy_area = "UITTutorial/nice_proceed_dummy_area";
 		    public const string open_chest = "UITTutorial/open_chest";
 		    public const string pick_up_weapon = "UITTutorial/pick_up_weapon";
+		    public const string proceed_iron_gate = "UITTutorial/proceed_iron_gate";
 		    public const string shoot_barrier = "UITTutorial/shoot_barrier";
 		    public const string shoot_dummies = "UITTutorial/shoot_dummies";
 		    public const string use_grenade = "UITTutorial/use_grenade";

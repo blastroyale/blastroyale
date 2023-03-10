@@ -32,6 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly TutorialState _tutorialState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
+		private readonly ReconnectionState _reconnection;
 		private readonly IGameServices _services;
 		private readonly IDataService _dataService;
 		private readonly IConfigsAdder _configsAdder;
@@ -51,9 +52,10 @@ namespace FirstLight.Game.StateMachines
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, dataService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
+			_reconnection = new ReconnectionState(services, gameLogic, networkService, uiService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
-			_coreLoopState = new CoreLoopState(services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 			
 #if DEVELOPMENT_BUILD

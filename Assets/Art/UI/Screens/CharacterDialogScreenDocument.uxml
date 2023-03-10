@@ -5,8 +5,8 @@
             <ui:VisualElement name="MaleBubble" class="bubble sprite-ftue__background-dialog">
                 <FirstLight.Game.UIElements.AutoSizeLabel name="MaleLabel" max-font-size="36" class="bubble__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="FemaleBubble" class="bubble sprite-ftue__background-dialog">
-                <FirstLight.Game.UIElements.AutoSizeLabel name="FemaleLabel" max-font-size="36" class="bubble__text" />
+            <ui:VisualElement name="FemaleBubble" class="bubble sprite-ftue__background-dialog" style="height: 344px; display: none;">
+                <FirstLight.Game.UIElements.AutoSizeLabel name="FemaleLabel" max-font-size="60" class="bubble__text" />
             </ui:VisualElement>
             <ui:VisualElement name="BackAvatarFemale" class="sprite-ftue__background-character back_avatar">
                 <ui:VisualElement name="FemaleCharacter" />

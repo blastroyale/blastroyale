@@ -329,7 +329,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterMoveJoystick()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_FIRST_MOVE].transform.position, _localPlayerEntityView.transform);
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -340,8 +340,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterDestroyBarrier()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Happy);
-			DespawnPointers();
-			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{

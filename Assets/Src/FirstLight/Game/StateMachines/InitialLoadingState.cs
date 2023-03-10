@@ -195,6 +195,10 @@ namespace FirstLight.Game.StateMachines
 
 			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
 			{
+				if (vfxAsset.name == "LocationPointerVFX")
+				{
+					Debug.LogError("LOADED");
+				}
 				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
 			}
 		}

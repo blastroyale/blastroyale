@@ -303,17 +303,25 @@ namespace FirstLight.Game.Utils
 		{
 			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
-			
-			// CRITICAL: UPDATE THESE WHEN TUTORIAL STEPS ARE CHANGED
-			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 15;
-			public const int TOTAL_STEPS_META_AND_MATCH = 6;
-			
+
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
 
 			public const string TRIGGER_DUMMY_AREA = "DummyArea";
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
+			public const string TRIGGER_GATE_AREA = "GateArea";
 			public const string TRIGGER_ARENA_AREA = "ArenaArea";
+
+			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
+			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
+			public const string INDICATOR_BOT_AREA = "BotArea";
+			public const string INDICATOR_BOT1 = "Bot1";
+			public const string INDICATOR_BOT2 = "Bot2";
+			public const string INDICATOR_BOT3 = "Bot3";
+			public const string INDICATOR_IRON_GATE = "IronGate";
+			public const string INDICATOR_TOP_PLATFORM = "TopPlatform";
+			public const string INDICATOR_EQUIPMENT_CHEST = "EquipmentChest";
+			public const string INDICATOR_ARENA_DROPDOWN = "ArenaDropDown";
 		}
 
 		public static class GameModeId

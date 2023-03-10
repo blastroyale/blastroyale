@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 2814517263364018940}
   - component: {fileID: 942767729}
   m_Layer: 0
-  m_Name: LocationPointerVFX
+  m_Name: LocationPointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id:
-    _selection: Skybeam
+    _selection: LocationPointer
   _lineRenderer: {fileID: 1889186670}
   _arrowAnimationSpeed: 2
   _followedTransform: {fileID: 0}

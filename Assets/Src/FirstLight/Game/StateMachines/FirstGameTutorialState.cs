@@ -28,7 +28,7 @@ namespace FirstLight.Game.StateMachines
 			public short EventMetaAmount;
 		}
 
-		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
+		// !!! CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED !!!
 		public static readonly int TOTAL_STEPS = 16;
 		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 
@@ -300,7 +300,7 @@ namespace FirstLight.Game.StateMachines
 		public void SendStepAnalytics()
 		{
 			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
-				CurrentTotalStep, CurrentStepName);
+																		  CurrentTotalStep, CurrentStepName);
 		}
 
 		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)

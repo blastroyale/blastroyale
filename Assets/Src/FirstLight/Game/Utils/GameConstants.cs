@@ -312,6 +312,7 @@ namespace FirstLight.Game.Utils
 			public const string TRIGGER_GATE_AREA = "GateArea";
 			public const string TRIGGER_ARENA_AREA = "ArenaArea";
 
+			public const string INDICATOR_FIRST_MOVE = "FirstMove";
 			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
 			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
 			public const string INDICATOR_BOT_AREA = "BotArea";

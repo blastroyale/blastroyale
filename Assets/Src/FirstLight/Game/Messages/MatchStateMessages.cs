@@ -1,12 +1,22 @@
 using Quantum;
 using FirstLight.SDK.Services;
+using Photon.Realtime;
 
 namespace FirstLight.Game.Messages
 {
+	public enum SimulationEndReason
+	{
+		Finished, Disconnected
+	}
+	
+	/// <summary>
+	/// When simulation initializes. Not necessarily when its running but when initialized the runner.
+	/// </summary>
 	public struct MatchSimulationStartedMessage : IMessage { }
 
-	public struct MatchSimulationEndedMessage : IMessage
+	public struct SimulationEndedMessage : IMessage
 	{
+		public SimulationEndReason Reason;
 		public QuantumGame Game;
 	}
 	public struct MatchStartedMessage : IMessage

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
@@ -16,6 +17,8 @@ using PlayFab;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Rendering.UI;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game
 {
@@ -37,15 +40,17 @@ namespace FirstLight.Game
 		{
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException -= TaskExceptionLogging;
 		}
-		
+
 		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			
 			StartCoroutine(HeartbeatCoroutine());
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
+			_services?.MessageBrokerService?.Publish(new ApplicationFocusMessage() {IsFocus = hasFocus});
 			if (!hasFocus)
 			{
 				_services?.DataSaver?.SaveAllData();
@@ -70,6 +75,7 @@ namespace FirstLight.Game
 
 		private void OnApplicationQuit()
 		{
+			_services?.MessageBrokerService?.Publish(new ApplicationQuitMessage());
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 
@@ -100,6 +106,7 @@ namespace FirstLight.Game
 			}
 		}
 
+		// Does not work with "async void" - works with "async Task" only
 		private void TaskExceptionLogging(object sender, UnobservedTaskExceptionEventArgs e)
 		{
 			if (sender.GetType().GetGenericTypeDefinition() == typeof(Task<>))
@@ -108,6 +115,10 @@ namespace FirstLight.Game
 				var objName = task.Result is UnityEngine.Object ? ((UnityEngine.Object)task.Result).name : task.Result.ToString();
 				
 				Debug.LogError($"Task exception sent by the object {objName}");
+			}
+			else
+			{	
+					Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
 			}
 			
 			Debug.LogException(e.Exception);

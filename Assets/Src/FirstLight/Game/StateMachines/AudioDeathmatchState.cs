@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsResyncing()
 		{
-			return !_services.NetworkService.IsJoiningNewMatch;
+			return _services.NetworkService.JoinSource == JoinRoomSource.Reconnection;
 		}
 
 		private bool IsMidIntensityPhase()

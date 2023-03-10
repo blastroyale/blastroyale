@@ -167,7 +167,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_storeClickedEvent).Target(store);
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
-			homeMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(waitMatchmaking);
+			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
 
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
 			equipmentMenu.Nest(_equipmentMenuState.Setup).Target(homeCheck);

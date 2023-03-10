@@ -103,8 +103,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			RigidbodyContainerMonoComponent.SetState(false);
-
-			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
 		}
 
 		/// <summary>
@@ -164,16 +162,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
 			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
 					 {
+						 if (this.IsDestroyed())
+						 {
+							 return;
+						 }
 						 RenderersContainerProxy.SetRendererState(false);
 					 });
-		}
-
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			transform.parent = null;
-
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)

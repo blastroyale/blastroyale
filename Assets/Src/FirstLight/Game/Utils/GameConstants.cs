@@ -1,3 +1,4 @@
+using System;
 using Quantum;
 using UnityEngine;
 
@@ -169,16 +170,15 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Network state time settings
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 1;
 			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
-			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
-			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000; 
+			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000; 
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -197,10 +197,12 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_GAME_MODE = "gameModeId";
+			public const string ROOM_PROPS_SETUP = "roomSetup";
 			public const string ROOM_PROPS_MUTATORS = "mutators";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string DROP_ZONE_POS_ROT = "dropzonePosRot";
 			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
+			public const string ROOM_PROPS_STARTED_GAME = "startedGame";
 
 			public const string DEFAULT_REGION = "eu";
 			

@@ -20,7 +20,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
-
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 		
@@ -155,7 +154,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
 			
-			if (Services.NetworkService.IsJoiningNewMatch)
+			if (!Services.NetworkService.JoinSource.HasResync())
 			{
 				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 

@@ -120,6 +120,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					await Task.Delay(1);
 				}
+
 				if (!appData.TitleData.TryGetValue(PlayfabConfigurationProvider.ConfigName, out var remoteStringConfig))
 				{
 					throw new Exception("Remote Configs is ON but no remote configs found. Please upload.");

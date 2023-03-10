@@ -70,7 +70,6 @@ namespace FirstLight.Game.Presenters
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
 		protected override void OnOpened()

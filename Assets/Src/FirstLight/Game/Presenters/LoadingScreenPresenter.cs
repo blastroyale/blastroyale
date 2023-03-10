@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -25,6 +26,24 @@ namespace FirstLight.Game.Presenters
 			_animation.Rewind();
 			_animation.Play();
 			_versionText.text = $"v{VersionUtils.VersionExternal}";
+			
+#if !STORE_BUILD
+			var bar = GameObject.Find("InfoText");
+			bar.transform.localScale = new Vector3(1.5f, 1, 1);
+			var config = FeatureFlags.GetLocalConfiguration();
+			if (config.UseLocalServer)
+			{
+				_versionText.text += " [LOCAL SERVER]";
+			}
+			else
+			{
+				var services = MainInstaller.Resolve<IGameServices>();
+				var env = services.GameBackendService.CurrentEnvironmentData.EnvironmentID;
+				_versionText.text += $" [Env: {env}]";
+				
+			}
+			
+#endif
 		}
 		
 		/// <inheritdoc />

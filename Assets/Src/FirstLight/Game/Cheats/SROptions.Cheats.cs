@@ -679,6 +679,8 @@ public partial class SROptions
 		          $"Player Count: {room.Players.Count}\n" +
 		          $"Is Open: {room.IsOpen}\n" +
 		          $"Is Visible: {room.IsVisible}\n" + 
+				  $"Player TTL: {room.PlayerTtl}\n" + 
+				  $"Room TTL: {room.EmptyRoomTtl}\n" + 
 		          $"-----\n" + 
 		          $"Custom Props:\n" + roomProps +
 		          $"-----\n");

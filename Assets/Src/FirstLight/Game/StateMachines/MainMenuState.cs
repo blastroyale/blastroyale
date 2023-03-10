@@ -567,7 +567,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (FeatureFlags.TUTORIAL)
 			{
-				_services.MessageBrokerService.Publish(new RequestStartEquipmentBpTutorialMessage());
+				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
 			}
 
 			_statechartTrigger(MainMenuLoadedEvent);

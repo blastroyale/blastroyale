@@ -165,6 +165,10 @@ namespace FirstLight.Game.Utils
 				SQUAD_PINGS = squadPings;
 			}
 			
+			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
+			{
+				TUTORIAL = tutorial;
+			}
 			
 			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
 			{

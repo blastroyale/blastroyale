@@ -91,6 +91,7 @@ namespace FirstLight.Game.Data
 				new (GameIdGroup.Glider), new List<CollectionItem>()
 				{
 					new(GameId.Falcon),
+					new(GameId.Divinci),
 				}
 			},
 			{

@@ -11,7 +11,6 @@ namespace FirstLight.Game.Infos
 		public uint Xp;
 		public uint TotalCollectedXp;
 		public uint MaxLevel;
-		public GameId DeathMarker;
 		public uint TotalTrophies;
 		public List<UnlockSystem> CurrentUnlockedSystems;
 		public PlayerLevelConfig Config;

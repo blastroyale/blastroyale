@@ -113,16 +113,16 @@ namespace FirstLight.Game.StateMachines
 			
 			moveJoystick.OnEnter(() => { SendAnalyticsIncrementStep("MoveJoystick"); });
 			moveJoystick.OnEnter(OnEnterMoveJoystick);
-			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
-
-			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
-			pickupWeapon.OnEnter(OnEnterPickupWeapon);
-			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
+			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
 
 			destroyBarrier.OnEnter(() => { SendAnalyticsIncrementStep("DestroyBarrier"); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
-			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
+			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
 
+			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
+			pickupWeapon.OnEnter(OnEnterPickupWeapon);
+			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
+			
 			moveToDummyArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToDummyArea"); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
 			moveToDummyArea.Event(ProceedGameplayTutorialEvent).Target(kill2Bots);
@@ -329,7 +329,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterMoveJoystick()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_FIRST_WEAPON].transform.position, _localPlayerEntityView.transform);
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -337,26 +337,26 @@ namespace FirstLight.Game.StateMachines
 			};
 		}
 
-		private void OnEnterPickupWeapon()
-		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
-
-			_currentGameplayProceedData = new GameplayProceedEventData()
-			{
-				EventType = typeof(EventOnEquipmentCollected)
-			};
-		}
-
 		private void OnEnterDestroyBarrier()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Happy);
-			DespawnPointers();
-			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
-			
+
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(EventOnHazardLand),
 				EventMetaId = GameId.Barrier.ToString()
+			};
+		}
+
+		private void OnEnterPickupWeapon()
+		{
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.pick_up_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral);
+			DespawnPointers();
+			SpawnNewPointer(_indicatorPositions[GameConstants.Tutorial.INDICATOR_FIRST_WEAPON].transform.position, _localPlayerEntityView.transform);
+
+			_currentGameplayProceedData = new GameplayProceedEventData()
+			{
+				EventType = typeof(EventOnEquipmentCollected)
 			};
 		}
 

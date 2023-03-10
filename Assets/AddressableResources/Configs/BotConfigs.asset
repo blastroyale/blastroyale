@@ -3964,7 +3964,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 0
       CloseFightIntolerance:
-        RawValue: 28836
+        RawValue: 21627
       WanderRadius:
         RawValue: 983040
       AccuracySpreadAngle: 90
@@ -3978,15 +3978,15 @@ MonoBehaviour:
         RawValue: 0
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 655360
+        RawValue: 458752
       MovementSpeedMultiplier:
-        RawValue: 65536
+        RawValue: 52429
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
         RawValue: 52429
       DamageTakenMultiplier:
-        RawValue: 21627
+        RawValue: 29491
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
@@ -4013,10 +4013,10 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 0
       CloseFightIntolerance:
-        RawValue: 0
+        RawValue: 28836
       WanderRadius:
         RawValue: 0
-      AccuracySpreadAngle: 180
+      AccuracySpreadAngle: 0
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -4027,7 +4027,7 @@ MonoBehaviour:
         RawValue: 0
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 655360
+        RawValue: 458752
       MovementSpeedMultiplier:
         RawValue: 0
       MaxDistanceToTeammateSquared:
@@ -4035,7 +4035,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 52429
       DamageTakenMultiplier:
-        RawValue: 262144
+        RawValue: 229376
     - BehaviourType: 1
       GameMode: BattleRoyale First Game
       Difficulty: 0

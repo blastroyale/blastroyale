@@ -18,14 +18,15 @@ MonoBehaviour:
     Action: 0
     ActionParameter:
     - BLAST NEWS
-    - You're a natural! Want to take your skills to the next level? Join our Discord
-      community for daily challenges, sweet rewards, epic tournaments, and loads
-      of fun activities. Just hit the Discord icon in the top right corner.
+    - <size=120%><br>You're a natural!<br><br>Want to take your skills to the next
+      level?<br><b>Join our Discord</b> for daily <b>challenges</b>, <b>tournaments</b>,
+      and to earn <b>epic prizes</b>!<br><br>Just hit the <b>Discord</b> icon in
+      the <b>top right corner</b>.<br>
   - ActionIdentifier: 3
     PlayerSegment: EngagedWithNoNFTs
     Action: 0
     ActionParameter:
     - BLAST NEWS
-    - 'Did you know you can buy amazing equipment from other players on the Blast
-      Hub? Buy from other players, own the gear, and earn Craft Spice. Get ready
-      to level up your game! Check it out at the: hub.blastroyale.com'
+    - <size=120%><br>Did you know you can buy <b>tradable equipment</b> from other
+      players on the <b>Blast Hub</b>?<br><br>Buy from players, own the gear, and
+      earn Craft Spice.<br>Level up your game!<br><br>Check it out at the:<br><size=150%>hub.blastroyale.com<br>

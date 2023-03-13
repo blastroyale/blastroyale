@@ -5,10 +5,14 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
+using FirstLight.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Server.SDK.Modules;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -17,6 +21,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using EventBase = Quantum.EventBase;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using PlayerMatchData = Quantum.PlayerMatchData;
 
 namespace FirstLight.Game.Utils
 {
@@ -387,6 +393,14 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool HaveStartedGame(this Room room)
+		{
+			return room.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME);
+		}
 
 		/// <summary>
 		/// Obtains the <see cref="MatchType"/> of this room.
@@ -394,6 +408,56 @@ namespace FirstLight.Game.Utils
 		public static MatchType GetMatchType(this Room room)
 		{
 			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
+		}
+
+		/// <summary>
+		/// Can a game room frame be restored from a local snapshot ?
+		/// </summary>
+		public static bool CanBeRestoredWithLocalSnapshot(this Room room)
+		{
+			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
+			{
+				return false;
+			}
+
+			if (!_services.NetworkService.JoinSource.IsSnapshotAutoConnect())
+			{
+				FLog.Verbose("Not snapshot connect room");
+				return false;
+			}
+			return (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+		}
+		
+		/// <summary>
+		/// Can a local snapshot with current simulation frame be saved locally to be restored later ?
+		/// </summary>
+		public static bool CanBeRestoredWithLocalSnapshot(this FrameSnapshot snapshot)
+		{
+			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
+			{
+				return false;
+			}
+			return (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+		}
+
+		public static void SetProperty(this Room room, string prop, object value)
+		{
+			var table = new Hashtable();
+			table[prop] = value;
+			room.SetCustomProperties(table);
+		}
+
+		public static T GetProp<T>(this Room room, string prop)
+		{
+			if(room.CustomProperties.TryGetValue(prop, out var v))
+				return (T)v;
+			return default;
+		}
+
+		public static MatchRoomSetup GetMatchSetup(this Room room)
+		{
+			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_SETUP];
+			return ModelSerializer.Deserialize<MatchRoomSetup>(str);
 		}
 
 		/// <summary>
@@ -529,6 +593,9 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var playerKvp in room.Players)
 			{
+				if (playerKvp.Value.IsInactive)
+					continue;
+				
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
 					    out var propertyValue) || !(bool) propertyValue)
 				{
@@ -553,7 +620,7 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// Requests the <see cref="Quantum.PlayerMatchData"/> of the current local player playing the game
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{

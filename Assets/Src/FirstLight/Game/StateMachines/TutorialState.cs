@@ -44,7 +44,7 @@ namespace FirstLight.Game.StateMachines
 			var loadTutorialUi = stateFactory.TaskWait("Load tutorial UI");
 			var idle = stateFactory.State("TUTORIAL - Idle");
 			var firstGameTutorial = stateFactory.Nest("TUTORIAL - First Game Tutorial");
-			var equipmentBpTutorial = stateFactory.Nest("TUTORIAL - Equipment BP Tutorial");
+			var metaAndMatchTutorial = stateFactory.Nest("TUTORIAL - Equipment BP Tutorial");
 			
 			initial.Transition().Target(loadTutorialUi);
 			initial.OnExit(SubscribeMessages);
@@ -53,15 +53,15 @@ namespace FirstLight.Game.StateMachines
 			
 			idle.OnEnter(() => SetCurrentSection(TutorialSection.NONE));
 			idle.Event(_startFirstGameTutorialEvent).Target(firstGameTutorial);
-			idle.Event(_startEquipmentBpTutorialEvent).Target(equipmentBpTutorial);
+			idle.Event(_startEquipmentBpTutorialEvent).Target(metaAndMatchTutorial);
 			
 			firstGameTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_GUIDE_MATCH));
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 			
-			equipmentBpTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
-			equipmentBpTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
-			equipmentBpTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
+			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
+			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
+			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
 		}
 
 		private async Task OpenTutorialScreens()
@@ -83,7 +83,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<RequestStartFirstGameTutorialMessage>(OnRequestStartFirstTutorialMessage);
-			_services.MessageBrokerService.Subscribe<RequestStartEquipmentBpTutorialMessage>(OnRequestStartEquipmentBpTutorialMessage);
+			_services.MessageBrokerService.Subscribe<RequestStartMetaMatchTutorialMessage>(OnRequestStartMetaMatchTutorialMessage);
 		}
 
 		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
@@ -93,7 +93,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
-		private void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
+		private void OnRequestStartMetaMatchTutorialMessage(RequestStartMetaMatchTutorialMessage msg)
 		{
 			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
 

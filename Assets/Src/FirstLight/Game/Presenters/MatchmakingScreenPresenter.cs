@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
@@ -65,7 +66,7 @@ namespace FirstLight.Game.Presenters
 		private List<Player> _squadMembers = new();
 
 		private Room CurrentRoom => _services.NetworkService.CurrentRoom;
-		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
+		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
 		{
@@ -171,6 +172,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindSquadListEntry(VisualElement element, int index)
 		{
+			if (index < 0 || index >= _squadMembers.Count) return;
+			
 			((Label) element).text = _squadMembers[index].NickName;
 		}
 
@@ -284,8 +287,15 @@ namespace FirstLight.Game.Presenters
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
-				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				if(_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
+				{
+					var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
+					_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				}
+				else
+				{
+					FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
+				}
 				return;
 			}
 
@@ -342,7 +352,16 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_closeButton.SetDisplay(false);
-			_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+
+			if (RejoiningRoom)
+			{
+				_loadStatusLabel.text = "Reconnecting to Game !"; // todo translation
+			}
+			else
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+			}
+		
 			_dropSelectionAllowed = false;
 		}
 

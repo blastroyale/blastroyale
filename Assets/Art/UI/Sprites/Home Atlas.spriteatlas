@@ -212,6 +212,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d5fdce7e14ab2304093a3fcd1cbc38e0, type: 3}
   - {fileID: 21300000, guid: fef6e38e312e84405ab3c562cac02d0d, type: 3}
   - {fileID: 21300000, guid: 8b7ba78e2985a484eb604578991570fc, type: 3}
+  - {fileID: 21300000, guid: a586a1ae1408749e9b1267b30f1bc628, type: 3}
   - {fileID: 21300000, guid: ce83c8bea7bca44b893b799aca685404, type: 3}
   - {fileID: 21300000, guid: 851991ee848a84b6997cd953ceaa782a, type: 3}
   - {fileID: 21300000, guid: fa870ffe7de68412c8d52332175c181e, type: 3}
@@ -263,7 +264,7 @@ SpriteAtlas:
   - icon-mutator-quickspecials
   - icon-customgame
   - icon-hide-purple
-  - character-malesuperstar
+  - character-male-superstar
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
@@ -276,7 +277,7 @@ SpriteAtlas:
   - button-collection-tab-pressed
   - icon-banner
   - icon-arrow-upgrade
-  - character-femalecorpos
+  - character-corpo-female
   - header-back
   - pattern-dots-gradient
   - character-female01avatar
@@ -331,7 +332,7 @@ SpriteAtlas:
   - button-collection-item
   - header-profile
   - header-back-pressed
-  - character-maleassassin
+  - character-assasins-male
   - button-long-red-pressed
   - icon-equipmentcategory-shield
   - character-superstar-female
@@ -346,7 +347,7 @@ SpriteAtlas:
   - progress-battlepass
   - button-collection-item-pressed
   - background-modeselection-custom
-  - glider-turbine
+  - glider-shark
   - logo-blasthub
   - pattern-rewardglow-rare
   - icon-special-aiminggrenade
@@ -399,6 +400,7 @@ SpriteAtlas:
   - icon-mapmarker
   - pattern-jagged-horizontal
   - button-bpreward
+  - avatar-default
   - glider-falcon
   - icon-close
   - character-assasins-female

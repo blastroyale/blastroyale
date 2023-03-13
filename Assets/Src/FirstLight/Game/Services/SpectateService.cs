@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -63,7 +64,7 @@ namespace FirstLight.Game.Services
 			_matchServices = matchServices;
 			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 
-			_gameServices.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEnded);
+			_gameServices.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -96,7 +97,7 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				SetSpectatedEntity(game.Frames.Verified, localPlayer.Entity, localPlayer.Player);
+				SetSpectatedEntity(game.Frames.Verified, localPlayer.Entity, localPlayer.Player, isReconnect);
 			}
 		}
 
@@ -105,7 +106,7 @@ namespace FirstLight.Game.Services
 			SetSpectatedEntity(null, EntityRef.None, PlayerRef.None, true);
 		}
 
-		public void OnMatchSimulationEnded(MatchSimulationEndedMessage message)
+		public void OnMatchSimulationEnded(SimulationEndedMessage message)
 		{
 			SetSpectatedEntity(null, EntityRef.None, PlayerRef.None, true);
 		}
@@ -218,9 +219,13 @@ namespace FirstLight.Game.Services
 
 			_spectatedPlayer.Value = new SpectatedPlayer();
 
-			if (entity.IsValid && !safe)
+			if (entity.IsValid)
 			{
-				throw new Exception($"Could not fetch EntityView for {entity}");
+				FLog.Error($"Could not fetch EntityView for {entity}");
+			}
+			else
+			{
+				FLog.Verbose($"Trying to spectate invalid entity {entity}");
 			}
 
 			return false;

@@ -178,7 +178,7 @@ namespace FirstLight.Game.StateMachines
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
+			var fadeInDuration = !_services.NetworkService.JoinSource.HasResync()
 				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
@@ -191,7 +191,7 @@ namespace FirstLight.Game.StateMachines
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
+			var fadeInDuration = _services.NetworkService.JoinSource != JoinRoomSource.Reconnection
 				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 

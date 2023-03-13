@@ -699,9 +699,9 @@ namespace FirstLight.Game.Services.Party
 
 			MainInstaller.Resolve<IGameServices>().AnalyticsService.LogEvent("team_action", new AnalyticsData()
 			{
-				{"action ", action},
-				{"userid", PlayFabSettings.staticPlayer.PlayFabId},
-				{"teamid ", lobby},
+				{"action", action},
+				{"user_id", PlayFabSettings.staticPlayer.PlayFabId},
+				{"team_id", lobby},
 				{"members", members}
 			});
 		}

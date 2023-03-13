@@ -28,6 +28,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services = services;
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 		}
 
 		/// <inheritdoc />
@@ -176,6 +177,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
 		{
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
+		}
+		
+		private void OnGameEnded(EventOnGameEnded callback)
+		{
+			ShootIndicator.SetVisualState(false);
 		}
 	}
 }

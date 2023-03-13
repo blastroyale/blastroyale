@@ -59,8 +59,8 @@ namespace FirstLight.Game.Presenters
 			SetBlockerValues(_blockerElementRight,
 				Root.resolvedStyle.height * 2,
 				Root.resolvedStyle.width * 2,
-				Root.resolvedStyle.height / 2,
-				Root.worldBound.width / 2);
+				0,
+				0);
 
 			_blockerElementLeft = new VisualElement();
 			Root.Add(_blockerElementLeft);

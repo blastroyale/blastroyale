@@ -22,6 +22,15 @@ namespace FirstLight.UiService
 		/// Requests the open status of the <see cref="UiPresenter"/>
 		/// </summary>
 		public bool IsOpen => gameObject.activeSelf;
+		
+		/// <summary>
+		/// Sets the current presenter hidden or not.
+		/// It will still be enabled and running just not showing.
+		/// </summary>
+		public bool Hidden { 
+			get => GetComponent<Canvas>().enabled;
+			set => GetComponent<Canvas>().enabled = !value;
+		}
 
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is initialized

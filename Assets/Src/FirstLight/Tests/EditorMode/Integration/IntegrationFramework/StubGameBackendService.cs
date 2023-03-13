@@ -44,6 +44,11 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
+		public bool IsDev()
+		{
+			return true;
+		}
+
 		public void SetupBackendEnvironment()
 		{
 

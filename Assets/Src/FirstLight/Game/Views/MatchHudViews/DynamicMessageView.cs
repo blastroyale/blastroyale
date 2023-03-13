@@ -81,7 +81,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (callback.CurrentMultiKill == 1)
 			{
 				var killerIsLocal = callback.Game.PlayerIsLocal(callback.PlayerKiller);
-				var deadName = callback.PlayersMatchData[callback.PlayerDead].GetPlayerName();
+				
+				// We use fixed name in case of offline Tutorial match
+				var deadName = callback.PlayersMatchData.Count <= 1 ?
+					               "Dummy" :
+					               callback.PlayersMatchData[callback.PlayerDead].GetPlayerName();
+				
 				var topText = killerIsLocal
 					? ScriptLocalization.AdventureMenu.Kill
 					: string.Format(ScriptLocalization.AdventureMenu.SpectatedKilled,

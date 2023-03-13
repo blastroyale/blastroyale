@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
@@ -118,12 +119,17 @@ namespace FirstLight.Game.Presenters
 				playerNames[i].visible = false;
 			}
 
-			var tasks = new Task[playerDataCount];
+			var tasks = new List<Task>();
 
 			for (var i = 0; i < playerDataCount; i++)
 			{
-				tasks[i] = characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
-					_matchServices.MatchEndDataService.PlayerMatchData[playerData[i].Data.Player].Gear.ToList());
+				var player = playerData[i].Data.Player;
+				if (!player.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(player))
+				{
+					continue;
+				}
+				tasks.Add(characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
 			}
 
 			await Task.WhenAll(tasks);

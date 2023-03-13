@@ -1,5 +1,7 @@
 using System.IO;
 using Backend;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using ServerCommon.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
@@ -42,6 +44,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ApiKeyMiddleware>();
 app.MapControllers();
+
+// Preloading configs & plugins
+app.Services.GetService<IConfigsProvider>();
+app.Services.GetService<IEventManager>();
+
 app.Run();
 
 public partial class Program

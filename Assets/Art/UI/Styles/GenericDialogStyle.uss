@@ -99,6 +99,11 @@
 }
 
 .input-field > .unity-text-field__input {
+    -unity-text-align: middle-left;
+    -unity-font-definition: var(--font-italic-dynamic);
+}
+
+.input-field--center > .unity-text-field__input {
     -unity-text-align: middle-center;
     -unity-font-definition: var(--font-italic-dynamic);
 }

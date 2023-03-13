@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -27,23 +28,36 @@ namespace FirstLight.Game.Presenters
 			_animation.Play();
 			_versionText.text = $"v{VersionUtils.VersionExternal}";
 			
-#if !STORE_BUILD
-			var bar = GameObject.Find("InfoText");
-			bar.transform.localScale = new Vector3(1.5f, 1, 1);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+			var y = 3;
+			var services = MainInstaller.Resolve<IGameServices>();
+			AddTextBar(y, services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
 			var config = FeatureFlags.GetLocalConfiguration();
 			if (config.UseLocalServer)
 			{
-				_versionText.text += " [LOCAL SERVER]";
+				y += 3;
+				AddTextBar(y, "Local Server");
 			}
-			else
+
+			if (config.DisableTutorial)
 			{
-				var services = MainInstaller.Resolve<IGameServices>();
-				var env = services.GameBackendService.CurrentEnvironmentData.EnvironmentID;
-				_versionText.text += $" [Env: {env}]";
-				
+				y += 3;
+				AddTextBar(y, "No Tuto");
 			}
-			
 #endif
+		}
+
+		private void AddTextBar(int heightMod, string text)
+		{
+			var original = _versionText.transform.parent.gameObject;
+			var parent = original.transform.parent;
+			
+			var newBar = Instantiate(original, parent);
+			var position = newBar.transform.position;
+			position = new Vector3(position.x, position.y+ heightMod,
+				position.z);
+			newBar.transform.position = position;
+			newBar.GetComponentInChildren<TextMeshProUGUI>().text = text;
 		}
 		
 		/// <inheritdoc />

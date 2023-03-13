@@ -675,6 +675,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_completed
+      TermType: 0
+      Description: 
+      Languages:
+      - COMPLETED
+      - "\u0417\u0410\u0412\u0415\u0420\u0428\u0415\u041D"
+      - COMPLETADA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/error_AlreadyInParty
       TermType: 0
       Description: 
@@ -16181,7 +16192,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678460956357
+    Google_LastUpdatedVersion: 1678706690529
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

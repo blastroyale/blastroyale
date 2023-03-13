@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
 			{
-				_uiService.CloseUi<SwipeScreenPresenter>();
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}
 		}
 

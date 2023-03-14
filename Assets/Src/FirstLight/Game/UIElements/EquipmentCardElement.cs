@@ -44,7 +44,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-		
+
 		private const string UssSpriteRarity = "sprite-equipmentcard__card-rarity-{0}";
 		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
 		private const string UssSpriteMaterial = "sprite-equipmentcard__card-material-{0}";
@@ -76,11 +76,11 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public new event Action<Equipment, UniqueId> clicked;
 
-		public EquipmentCardElement() : this(Equipment.None)
+		public EquipmentCardElement() : this(Equipment.None, UniqueId.Invalid)
 		{
 		}
 
-		public EquipmentCardElement(Equipment equipment, bool highlighted = false)
+		public EquipmentCardElement(Equipment equipment, UniqueId id, bool highlighted = false)
 		{
 			AddToClassList(UssBlock);
 
@@ -173,7 +173,7 @@ namespace FirstLight.Game.UIElements
 
 			if (equipment.IsValid())
 			{
-				SetEquipment(equipment, UniqueId.Invalid);
+				SetEquipment(equipment, id);
 			}
 		}
 
@@ -240,14 +240,10 @@ namespace FirstLight.Game.UIElements
 				// TODO: This should be handled better.
 				var services = MainInstaller.Resolve<IGameServices>();
 				_image.style.backgroundImage = null;
-				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
-					Equipment.GameId, instantiate: false);
+				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(Equipment.GameId,
+					instantiate: false);
 
-				if (this.IsAttached())
-				{
-					_image.style.backgroundImage =
-						_imageShadow.style.backgroundImage = new StyleBackground(sprite);
-				}
+				_image.style.backgroundImage = _imageShadow.style.backgroundImage = new StyleBackground(sprite);
 			}
 			else
 			{

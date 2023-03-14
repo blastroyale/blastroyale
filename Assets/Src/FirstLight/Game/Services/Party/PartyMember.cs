@@ -1,18 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Utils;
+using PlayFab.MultiplayerModels;
 
 namespace FirstLight.Game.Services.Party
 {
 	public class PartyMember
 	{
 		public string PlayfabID { get; }
+
+		private string EntityType = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE;
 		public string DisplayName { get; set; }
 		public uint BPPLevel { get; set; }
 		public uint Trophies { get; set; }
 		public bool Leader { get; set; }
 		public bool Local { get; }
-		public bool Ready { get;  set; }
+		public bool Ready { get; set; }
 
 		public Dictionary<string, string> RawProperties;
 
@@ -49,6 +53,11 @@ namespace FirstLight.Game.Services.Party
 		public override string ToString()
 		{
 			return $"PartyMember({nameof(PlayfabID)}: {PlayfabID}, {nameof(DisplayName)}: {DisplayName}, {nameof(BPPLevel)}: {BPPLevel}, {nameof(Trophies)}: {Trophies}, {nameof(Leader)}: {Leader}, {nameof(Local)}: {Local}, {nameof(Ready)}: {Ready})";
+		}
+
+		public EntityKey ToEntityKey()
+		{
+			return new EntityKey() {Type = EntityType, Id = PlayfabID};
 		}
 	}
 }

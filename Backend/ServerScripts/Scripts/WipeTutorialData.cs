@@ -40,7 +40,7 @@ namespace Scripts.Scripts
 		
 		private async Task WipeTutorialSections(PlayerProfile profile)
 		{
-			var state = await ReadUserState(profile);
+			var state = await ReadUserState(profile.PlayerId);
 			if (state == null)
 			{
 				return;

@@ -56,6 +56,11 @@ namespace FirstLight.Game.Infos
 		/// Check if the item is broken or not
 		/// </summary>
 		public bool IsBroken => CurrentDurability == 0;
+
+		public override string ToString()
+		{
+			return $"{nameof(Id)}: {Id}, {nameof(Equipment)}: {Equipment}, {nameof(Manufacturer)}: {Manufacturer}, {nameof(ScrappingValue)}: {ScrappingValue}, {nameof(UpgradeCost)}: {UpgradeCost}, {nameof(RepairCost)}: {RepairCost}, {nameof(CurrentDurability)}: {CurrentDurability}, {nameof(IsEquipped)}: {IsEquipped}, {nameof(IsNft)}: {IsNft}, {nameof(MaxLevel)}: {MaxLevel}, {nameof(Stats)}: {Stats}, {nameof(NextLevelStats)}: {NextLevelStats}, {nameof(IsBroken)}: {IsBroken}";
+		}
 	}
 
 	public struct NftEquipmentInfo

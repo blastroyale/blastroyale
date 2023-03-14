@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TutorialRewardConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Section: 2
+  - Section: 0
     RewardIds: 0a000000

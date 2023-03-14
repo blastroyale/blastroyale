@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.UITK
 
 			foreach (var info in rustedEquipment)
 			{
-				_scrollView.Add(new EquipmentCardElement(info.Equipment, true));
+				_scrollView.Add(new EquipmentCardElement(info.Equipment, info.Id, true));
 			}
 		}
 

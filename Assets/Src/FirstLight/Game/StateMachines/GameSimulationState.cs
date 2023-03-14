@@ -80,14 +80,14 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenLowConnectionScreen);
-
+			
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 			startSimulation.OnExit(CloseSwipeTransitionTutorial);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
+			modeCheck.OnEnter(OpenLowConnectionScreen);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);

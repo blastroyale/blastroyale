@@ -29,7 +29,7 @@ MonoBehaviour:
       RankedMatchmakingTime:
         RawValue: 3932160
       PlayfabMatchmakingTime:
-        RawValue: 1966080
+        RawValue: 5898240
       RankedMatchmakingMinPlayers: 1
       BotsNameCount: 300
       PlayerRespawnTime:
@@ -54,12 +54,12 @@ MonoBehaviour:
         Values: fa00000064000000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 163840
+          RawValue: 154010
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 163840
+        - RawValue: 154010
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 600

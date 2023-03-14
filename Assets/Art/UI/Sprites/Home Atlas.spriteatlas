@@ -263,7 +263,7 @@ SpriteAtlas:
   - icon-mutator-quickspecials
   - icon-customgame
   - icon-hide-purple
-  - character-male-superstar
+  - character-malesuperstar
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
@@ -276,7 +276,7 @@ SpriteAtlas:
   - button-collection-tab-pressed
   - icon-banner
   - icon-arrow-upgrade
-  - character-corpo-female
+  - character-femalecorpos
   - header-back
   - pattern-dots-gradient
   - character-female01avatar
@@ -331,7 +331,7 @@ SpriteAtlas:
   - button-collection-item
   - header-profile
   - header-back-pressed
-  - character-assasins-male
+  - character-maleassassin
   - button-long-red-pressed
   - icon-equipmentcategory-shield
   - character-superstar-female
@@ -346,7 +346,7 @@ SpriteAtlas:
   - progress-battlepass
   - button-collection-item-pressed
   - background-modeselection-custom
-  - glider-shark
+  - glider-turbine
   - logo-blasthub
   - pattern-rewardglow-rare
   - icon-special-aiminggrenade

@@ -35,12 +35,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				StartDestruction(lifetime.AsFloat, destructible.SplashRadius.AsFloat);
 			}
 			
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
+			//EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
 
 		private void OnEntityDestroyed(QuantumGame game)
 		{
-			transform.parent = null;
+			//transform.parent = null;
 		}
 
 		private void HandleProjectileHit(EventOnPlayerAttackHit callback)

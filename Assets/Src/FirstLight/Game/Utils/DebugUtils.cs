@@ -7,6 +7,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using UnityEngine;
+using Environment = System.Environment;
 
 namespace FirstLight.Game.Utils
 {

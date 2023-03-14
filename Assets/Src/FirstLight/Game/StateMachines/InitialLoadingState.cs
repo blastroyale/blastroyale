@@ -120,6 +120,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					await Task.Delay(1);
 				}
+
 				if (!appData.TitleData.TryGetValue(PlayfabConfigurationProvider.ConfigName, out var remoteStringConfig))
 				{
 					throw new Exception("Remote Configs is ON but no remote configs found. Please upload.");
@@ -195,6 +196,10 @@ namespace FirstLight.Game.StateMachines
 
 			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
 			{
+				if (vfxAsset.name == "LocationPointerVFX")
+				{
+					Debug.LogError("LOADED");
+				}
 				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
 			}
 		}

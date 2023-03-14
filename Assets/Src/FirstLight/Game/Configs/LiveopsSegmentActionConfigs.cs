@@ -11,6 +11,7 @@ namespace FirstLight.Game.Configs
 	}
 	
 	[Serializable]
+	[IgnoreServerSerialization]
 	public struct LiveopsSegmentActionConfig
 	{
 		public int ActionIdentifier;
@@ -22,8 +23,9 @@ namespace FirstLight.Game.Configs
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="LiveopsSegmentActionConfig"/> sheet data
 	/// </summary>
-	[IgnoreServerSerialization]
+	
 	[CreateAssetMenu(fileName = "LiveopsSegmentActionConfigs", menuName = "ScriptableObjects/Configs/LiveopsSegmentActionConfigs")]
+	[IgnoreServerSerialization]
 	public class LiveopsSegmentActionConfigs : ScriptableObject, IConfigsContainer<LiveopsSegmentActionConfig>
 	{
 		[SerializeField] private List<LiveopsSegmentActionConfig> _configs = new ();

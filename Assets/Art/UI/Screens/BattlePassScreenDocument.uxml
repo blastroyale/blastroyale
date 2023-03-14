@@ -45,6 +45,6 @@
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement name="Header" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

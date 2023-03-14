@@ -40,6 +40,12 @@ namespace Quantum.Systems
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
+			var maxPlayers = Math.Min(f.Context.MapConfig.MaxPlayers, f.Context.GameModeConfig.MaxPlayers);
+			if (playerLimit == 1 && maxPlayers > 1) // offline game with bots
+			{
+				playerLimit = (int)maxPlayers;
+			}
+			
 			for (var i = 0; i < playerLimit; i++)
 			{
 				if (i >= f.PlayerCount || (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) ==

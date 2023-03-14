@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -71,6 +72,12 @@ namespace FirstLight.Game.Services
 		/// <remarks>Note, in order to join a room, the "entry params" that are generated, need to match a created exactly
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.</remarks>
 		bool JoinRoom(string roomName);
+		
+		/// <summary>
+		/// Rejoins a room, only if the player is still active in the room. Will never enter a room creating a new player.
+		/// The room creation params must match the room params when created.
+		/// </summary>
+		bool RejoinRoom(string name);
 
 		/// <summary>
 		/// Creates room with a specified name
@@ -118,7 +125,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="isSpectator">Is player the spectator</param>
 		void SetSpectatePlayerProperty(bool isSpectator);
-		
+
 		/// <summary>
 		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
 		/// </summary>
@@ -128,7 +135,7 @@ namespace FirstLight.Game.Services
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
 		/// </summary>
 		void SetCurrentRoomOpen(bool isOpen);
-		
+
 		/// <summary>
 		/// Updates/Adds Photon LocalPlayer custom properties
 		/// </summary>
@@ -148,7 +155,7 @@ namespace FirstLight.Game.Services
 		/// Requests the local player in <see cref="QuantumClient"/>
 		/// </summary>
 		Player LocalPlayer { get; }
-		
+
 		/// <summary>
 		/// Returns whether the local player is in a room or not
 		/// </summary>
@@ -162,7 +169,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the check if the last connection to a room was for a new room (new match), or a rejoin
 		/// </summary>
-		bool IsJoiningNewMatch { get; }
+		JoinRoomSource JoinSource { get; }
 
 		// TODO: Replace Player to our own struct RoomPlayer to main player data after the match is over
 		/// <summary>
@@ -178,7 +185,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the name of the last room that the player disconnected from
 		/// </summary>
-		string LastConnectedRoomName { get; }
+		Room LastConnectedRoom { get; }
 
 		/// <summary>
 		/// Requests the ping status with the quantum server
@@ -189,7 +196,7 @@ namespace FirstLight.Game.Services
 		/// Requests the current quantum runner configs, from <see cref="IConfigsProvider"/>
 		/// </summary>
 		QuantumRunnerConfigs QuantumRunnerConfigs { get; }
-		
+
 		/// <summary>
 		/// Load balancing client used to send/receive network ops, and get network callbacks.
 		/// </summary>
@@ -222,6 +229,34 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return an empty list.
 		/// </summary>
 		List<string> CurrentRoomMutatorIds { get; }
+
+		/// <summary>
+		/// Last match room setup used to join or create rooms
+		/// </summary>
+		IObservableField<MatchRoomSetup> LastUsedSetup { get; }
+
+		/// <summary>
+		/// Set last connected room
+		/// </summary>
+		void SetLastRoom();
+	}
+
+	public enum JoinRoomSource
+	{
+		FirstJoin, ReconnectFrameSnapshot, RecreateFrameSnapshot, Reconnection
+	}
+
+	public static class SourceExt
+	{
+		public static bool HasResync(this JoinRoomSource src)
+		{
+			return src != JoinRoomSource.FirstJoin;
+		}
+		
+		public static bool IsSnapshotAutoConnect(this JoinRoomSource src)
+		{
+			return src == JoinRoomSource.ReconnectFrameSnapshot || src == JoinRoomSource.RecreateFrameSnapshot;
+		}
 	}
 
 	/// <inheritdoc />
@@ -234,9 +269,8 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IGameNetworkService.UserId" />
 		new IObservableField<string> UserId { get; }
-
-		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
-		new IObservableField<bool> IsJoiningNewMatch { get; }
+		
+		new IObservableField<JoinRoomSource> JoinSource { get; }
 
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
 		new IObservableList<Player> LastMatchPlayers { get; }
@@ -245,7 +279,7 @@ namespace FirstLight.Game.Services
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 
 		/// <inheritdoc cref="IGameNetworkService.LastConnectedRoomName" />
-		new IObservableField<string> LastConnectedRoomName { get; }
+		new IObservableField<Room> LastConnectedRoom { get; }
 	}
 
 	/// <inheritdoc cref="IGameNetworkService"/>
@@ -259,27 +293,29 @@ namespace FirstLight.Game.Services
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-
-		private bool _isJoiningNewRoom;
+		
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
 		private Coroutine _tickUpdateCoroutine;
 		private Coroutine _tickPingCheckCoroutine;
 
+
 		public IObservableField<string> UserId { get; }
-		public IObservableField<bool> IsJoiningNewMatch { get; }
+		public IObservableField<JoinRoomSource> JoinSource { get; }
 		public IObservableList<Player> LastMatchPlayers { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
-		public IObservableField<string> LastConnectedRoomName { get; }
+		public IObservableField<Room> LastConnectedRoom { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		private IObservableField<bool> HasLag { get; }
+		private IObservableField<MatchRoomSetup> LastUsedSetup { get; }
 
 		string IGameNetworkService.UserId => UserId.Value;
-		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
+		JoinRoomSource IGameNetworkService.JoinSource => JoinSource.Value;
 		IObservableListReader<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers;
 		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
-		string IGameNetworkService.LastConnectedRoomName => LastConnectedRoomName.Value;
+		Room IGameNetworkService.LastConnectedRoom => LastConnectedRoom.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
+		IObservableField<MatchRoomSetup> IGameNetworkService.LastUsedSetup => LastUsedSetup;
 
 		public Room CurrentRoom => QuantumClient.CurrentRoom;
 		public Player LocalPlayer => QuantumClient.LocalPlayer;
@@ -287,6 +323,12 @@ namespace FirstLight.Game.Services
 
 		public QuantumRunnerConfigs QuantumRunnerConfigs => _configsProvider.GetConfig<QuantumRunnerConfigs>();
 
+		public void SetLastRoom()
+		{
+			CurrentRoom.IsOffline = QuantumRunnerConfigs.IsOfflineMode;
+			LastConnectedRoom.Value = CurrentRoom;
+		}
+		
 		/// <inheritdoc />
 		public QuantumMapConfig? CurrentRoomMapConfig
 		{
@@ -348,15 +390,16 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 
 			QuantumClient = new QuantumLoadBalancingClient();
-			IsJoiningNewMatch = new ObservableField<bool>(false);
+			JoinSource = new ObservableField<JoinRoomSource>(JoinRoomSource.FirstJoin);
 			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
 			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
-			LastConnectedRoomName = new ObservableField<string>("");
+			LastConnectedRoom = new ObservableField<Room>(null);
 			HasLag = new ObservableField<bool>(false);
+			LastUsedSetup = new ObservableField<MatchRoomSetup>();
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			LastRttQueue = new Queue<int>();
 		}
-		
+
 		/// <summary>
 		/// Binds services and data to the object, and starts starts ticking quantum client.
 		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
@@ -384,11 +427,11 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
-		
+
 		public void EnableClientUpdate(bool enabled)
 		{
 			if (_services == null) return;
-			
+
 			if (enabled)
 			{
 				_tickUpdateCoroutine = _services.CoroutineService.StartCoroutine(TickQuantumClient());
@@ -413,10 +456,11 @@ namespace FirstLight.Game.Services
 				{
 					QuantumClient.Service();
 				}
+
 				yield return waitForSeconds;
 			}
 		}
-		
+
 		private IEnumerator TickPingCheck()
 		{
 			var waitForSeconds = new WaitForSeconds(QUANTUM_PING_TICK_SECONDS);
@@ -424,21 +468,25 @@ namespace FirstLight.Game.Services
 			while (true)
 			{
 				yield return waitForSeconds;
-				
+
 				CalculateUpdateLag();
 			}
 		}
-		
+
 		private void CalculateUpdateLag()
 		{
 			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
 			LastRttQueue.Enqueue(newRtt);
+	
 			CurrentRttTotal += newRtt;
 
 			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
 			{
 				CurrentRttTotal -= LastRttQueue.Dequeue();
 			}
+
+			var bytesIn = QuantumClient.LoadBalancingPeer.BytesIn;
+			var bytesOut = QuantumClient.LoadBalancingPeer.BytesOut;
 
 			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
 			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
@@ -450,9 +498,10 @@ namespace FirstLight.Game.Services
 		{
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
-				Debug.Log("Not connecting photon due to status "+QuantumClient.LoadBalancingPeer.PeerState);
+				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
 				return false;
 			}
+			
 			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
 				_dataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
@@ -462,7 +511,7 @@ namespace FirstLight.Game.Services
 			settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			ResetQuantumProperties();
-
+			
 			return QuantumClient.ConnectUsingSettings(settings, _dataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
@@ -484,81 +533,87 @@ namespace FirstLight.Game.Services
 		public bool JoinRoom(string roomName)
 		{
 			if (InRoom) return false;
-			
+
 			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetQuantumProperties();
 			SetSpectatePlayerProperty(false);
-			IsJoiningNewMatch.Value = true;
+			LastUsedSetup.Value = null;
 
 			return QuantumClient.OpJoinRoom(enterParams);
 		}
-		
+
 		public bool CreateRoom(MatchRoomSetup setup, bool offlineMode)
 		{
 			if (InRoom) return false;
-			
+
 			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 
 			QuantumRunnerConfigs.IsOfflineMode = offlineMode;
-			
+
 			ResetQuantumProperties();
 			SetSpectatePlayerProperty(false);
-			IsJoiningNewMatch.Value = true;
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-
+			LastUsedSetup.Value = setup;
 			return QuantumClient.OpCreateRoom(createParams);
 		}
-		
+
 
 		public bool JoinOrCreateRoom(MatchRoomSetup setup, string teamID = null, string[] expectedPlayers = null)
 		{
 			if (InRoom) return false;
-			
+
 			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), expectedPlayers);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetQuantumProperties(teamID);
 			SetSpectatePlayerProperty(false);
-			IsJoiningNewMatch.Value = true;
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-			
-			
+LastUsedSetup.Value = setup;
 			return QuantumClient.OpJoinOrCreateRoom(createParams);
+		}
+		
+		public bool RejoinRoom(string room)
+		{
+			if (InRoom) return false;
+			
+			QuantumRunnerConfigs.IsOfflineMode = false;
+			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+			return QuantumClient.OpRejoinRoom(room);
 		}
 
 		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
 		{
 			if (InRoom) return false;
-			
+
 			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetQuantumProperties();
-			
-			SetSpectatePlayerProperty(false);
-			IsJoiningNewMatch.Value = true;
-			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 
+			SetSpectatePlayerProperty(false);
+			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+			LastUsedSetup.Value = setup;
+			
 			return QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
 		}
 
 		public bool LeaveRoom(bool becomeInactive, bool sendAuthCookie)
 		{
 			if (!InRoom) return false;
-			
-			return QuantumClient.OpLeaveRoom(false, true);
+
+			return QuantumClient.OpLeaveRoom(becomeInactive, true);
 		}
 
 		public bool SendPlayerToken(string token)
 		{
-			var opt = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-			return QuantumClient.OpRaiseEvent((int)QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable);
+			var opt = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+			return QuantumClient.OpRaiseEvent((int) QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable);
 		}
 
 		public bool KickPlayer(Player playerToKick)
@@ -567,41 +622,21 @@ namespace FirstLight.Game.Services
 			{
 				return false;
 			}
-			
-			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
+
+			var eventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
 			return QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, playerToKick.ActorNumber, eventOptions,
-													   SendOptions.SendReliable);
+				SendOptions.SendReliable);
 		}
 
 		public void ReconnectPhoton(bool inMatchScene, out bool requiresManualReconnection)
 		{
 			requiresManualReconnection = false;
-
-			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connecting) return;
-
-			if (inMatchScene)
+			JoinSource.Value = JoinRoomSource.Reconnection;
+			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Disconnected)
 			{
-				IsJoiningNewMatch.Value = false;
-
-				if (LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
-				{
-					IsJoiningNewMatch.Value = true;
-					SetSpectatePlayerProperty(false);
-
-					// TTL during matchmaking is 0 - we must connect to room manually again by name afterwards
-					// Rejoining room is handled OnMasterConnected
-					requiresManualReconnection = true;
-					QuantumClient.ReconnectToMaster();
-				}
-				else
-				{
-					QuantumClient.ReconnectAndRejoin();
-				}
-			}
-			else
-			{
-				QuantumClient.ReconnectToMaster();
-			}
+				QuantumClient.ReconnectAndRejoin();
+			} 
+			
 		}
 
 		public void SetDropPosition(Vector2 dropPosition)
@@ -623,6 +658,8 @@ namespace FirstLight.Game.Services
 
 		public void SetPlayerCustomProperties(Hashtable propertiesToUpdate)
 		{
+			FLog.Verbose("Setting player properties");
+			FLog.Verbose(propertiesToUpdate);
 			QuantumClient.LocalPlayer.SetCustomProperties(propertiesToUpdate);
 		}
 
@@ -660,8 +697,9 @@ namespace FirstLight.Game.Services
 					preloadIds.Add((int) equipmentDataInfo.GameId);
 				}
 
-				preloadIds.Add((int) _dataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id);
+				preloadIds.Add((int) _dataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.PlayerSkin)).Id);
 			}
+
 			var playerProps = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},

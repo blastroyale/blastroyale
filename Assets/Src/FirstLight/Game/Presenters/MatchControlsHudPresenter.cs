@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
@@ -76,12 +77,16 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 
+			FLog.Verbose("Match Controls Registered");
 			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS && _services.NetworkService.CurrentRoomGameModeConfig.Value.Teams);
 		}
 
 		private void OnDestroy()
 		{
+			FLog.Verbose("Match Controls Destroyed");
 			_indicatorContainerView?.Dispose();
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
@@ -99,11 +104,13 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMove(InputAction.CallbackContext context)
 		{
-			_direction = context.ReadValue<Vector2>();
-			
-			_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+			if (QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				_direction = context.ReadValue<Vector2>();
+				_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+			}
 			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
-			    TutorialSection.FIRST_GUIDE_MATCH)
+				TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
 			}
@@ -132,7 +139,7 @@ namespace FirstLight.Game.Presenters
 
 		void Update()
 		{
-			if (QuantumRunner.Default?.Game != null)
+			if (QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				_indicatorContainerView.OnUpdateAim(QuantumRunner.Default.Game.Frames.Predicted, _aim.ToFPVector2(), _shooting);
 			}

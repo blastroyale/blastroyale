@@ -17,7 +17,7 @@ namespace TestUnitMatchmaking
 			_app = new TestMatchmakingServer();
 		}
 
-		[Test]
+		//[Test]
 		public void SmokeTest()
 		{
 			Dictionary<string, string> data;

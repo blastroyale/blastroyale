@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
@@ -73,6 +76,11 @@ namespace FirstLight.Game.Configs
 				LoadConfig<LiveopsSegmentActionConfigs>(AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
 				LoadConfig<TutorialRewardConfigs>(AddressableId.Configs_TutorialRewardConfigs, asset => configsAdder.AddConfigs(data => (int)data.Section, asset.Configs)),
 			};
+		}
+
+		private bool ConfigComesFromServer<TContainer>()
+		{
+			return typeof(TContainer).CustomAttributes.Any(c => c.AttributeType == typeof(IgnoreServerSerialization));
 		}
 	
 		public async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete)

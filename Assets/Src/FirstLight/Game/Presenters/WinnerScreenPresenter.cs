@@ -74,18 +74,17 @@ namespace FirstLight.Game.Presenters
 			SetupCamera();
 
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out var leader);
-			if (leader.IsValid)
+			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
+
+			if (playerWinner.IsValid)
 			{
-				var playerWinner = playerData[leader];
 				_playerWinnerEntity = playerWinner.Data.Entity;
 				_nameLabel.text = playerWinner.GetPlayerName();
 			}
 			else
 			{
-				_nameLabel.text = "No one";
+				_nameLabel.text = "No one"; // TODO: Localize!!!!
 			}
 			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 

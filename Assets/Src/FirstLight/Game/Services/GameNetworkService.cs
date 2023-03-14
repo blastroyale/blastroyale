@@ -71,7 +71,7 @@ namespace FirstLight.Game.Services
 		/// <remarks>Note, in order to join a room, the "entry params" that are generated, need to match a created exactly
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.</remarks>
 		bool JoinRoom(string roomName);
-		
+
 		/// <summary>
 		/// Rejoins a room, only if the player is still active in the room. Will never enter a room creating a new player.
 		/// The room creation params must match the room params when created.
@@ -242,7 +242,10 @@ namespace FirstLight.Game.Services
 
 	public enum JoinRoomSource
 	{
-		FirstJoin, ReconnectFrameSnapshot, RecreateFrameSnapshot, Reconnection
+		FirstJoin,
+		ReconnectFrameSnapshot,
+		RecreateFrameSnapshot,
+		Reconnection
 	}
 
 	public static class SourceExt
@@ -251,7 +254,7 @@ namespace FirstLight.Game.Services
 		{
 			return src != JoinRoomSource.FirstJoin;
 		}
-		
+
 		public static bool IsSnapshotAutoConnect(this JoinRoomSource src)
 		{
 			return src == JoinRoomSource.ReconnectFrameSnapshot || src == JoinRoomSource.RecreateFrameSnapshot;
@@ -268,7 +271,7 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IGameNetworkService.UserId" />
 		new IObservableField<string> UserId { get; }
-		
+
 		new IObservableField<JoinRoomSource> JoinSource { get; }
 
 		/// <inheritdoc cref="IGameNetworkService.IsJoiningNewMatch" />
@@ -292,7 +295,7 @@ namespace FirstLight.Game.Services
 		private IConfigsProvider _configsProvider;
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
-		
+
 		private Queue<int> LastRttQueue;
 		private int CurrentRttTotal;
 		private Coroutine _tickUpdateCoroutine;
@@ -327,7 +330,7 @@ namespace FirstLight.Game.Services
 			CurrentRoom.IsOffline = QuantumRunnerConfigs.IsOfflineMode;
 			LastConnectedRoom.Value = CurrentRoom;
 		}
-		
+
 		/// <inheritdoc />
 		public QuantumMapConfig? CurrentRoomMapConfig
 		{
@@ -476,7 +479,7 @@ namespace FirstLight.Game.Services
 		{
 			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
 			LastRttQueue.Enqueue(newRtt);
-	
+
 			CurrentRttTotal += newRtt;
 
 			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
@@ -495,12 +498,13 @@ namespace FirstLight.Game.Services
 
 		public bool ConnectPhotonToMaster()
 		{
+			FLog.Info("PACO", $"ConnectPhotonToMaster");
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
 				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
 				return false;
 			}
-			
+
 			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
 				_dataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
@@ -510,7 +514,7 @@ namespace FirstLight.Game.Services
 			settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			ResetQuantumProperties();
-			
+
 			return QuantumClient.ConnectUsingSettings(settings, _dataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
@@ -531,6 +535,8 @@ namespace FirstLight.Game.Services
 
 		public bool JoinRoom(string roomName)
 		{
+			FLog.Info($"JoinRoom: {InRoom}");
+
 			if (InRoom) return false;
 
 			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
@@ -548,6 +554,8 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 
+			FLog.Info($"CreateRoom: {setup}");
+
 			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 
 			QuantumRunnerConfigs.IsOfflineMode = offlineMode;
@@ -564,21 +572,26 @@ namespace FirstLight.Game.Services
 		{
 			if (InRoom) return false;
 
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), expectedPlayers);
+			FLog.Info($"JoinOrCreateRoom: {setup}");
+
+			var createParams =
+				NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), expectedPlayers);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetQuantumProperties(teamID);
 			SetSpectatePlayerProperty(false);
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-LastUsedSetup.Value = setup;
+			LastUsedSetup.Value = setup;
 			return QuantumClient.OpJoinOrCreateRoom(createParams);
 		}
-		
+
 		public bool RejoinRoom(string room)
 		{
 			if (InRoom) return false;
-			
+
+			FLog.Info($"RejoinRoom: {room}");
+
 			QuantumRunnerConfigs.IsOfflineMode = false;
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 			return QuantumClient.OpRejoinRoom(room);
@@ -587,6 +600,8 @@ LastUsedSetup.Value = setup;
 		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
 		{
 			if (InRoom) return false;
+
+			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
 
 			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
@@ -598,7 +613,7 @@ LastUsedSetup.Value = setup;
 			SetSpectatePlayerProperty(false);
 			LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 			LastUsedSetup.Value = setup;
-			
+
 			return QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
 		}
 
@@ -606,13 +621,16 @@ LastUsedSetup.Value = setup;
 		{
 			if (!InRoom) return false;
 
+			FLog.Info("LeaveRoom");
+
 			return QuantumClient.OpLeaveRoom(becomeInactive, true);
 		}
 
 		public bool SendPlayerToken(string token)
 		{
 			var opt = new RaiseEventOptions {Receivers = ReceiverGroup.All};
-			return QuantumClient.OpRaiseEvent((int) QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable);
+			return QuantumClient.OpRaiseEvent((int) QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt,
+				SendOptions.SendReliable);
 		}
 
 		public bool KickPlayer(Player playerToKick)
@@ -622,13 +640,18 @@ LastUsedSetup.Value = setup;
 				return false;
 			}
 
+			FLog.Info($"KickPlayer: {playerToKick}");
+
 			var eventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
-			return QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, playerToKick.ActorNumber, eventOptions,
+			return QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, playerToKick.ActorNumber,
+				eventOptions,
 				SendOptions.SendReliable);
 		}
 
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
+			FLog.Info("ReconnectPhoton");
+
 			requiresManualReconnection = false;
 			JoinSource.Value = JoinRoomSource.Reconnection;
 			

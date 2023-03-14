@@ -610,31 +610,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Divinci, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
-					GameId.Falcon, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider
-					}.AsReadOnly()
-				},
-				{
-					GameId.Rocket, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider
-					}.AsReadOnly()
-				},
-				{
-					GameId.Turbine, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider
-					}.AsReadOnly()
-				},
-				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -827,7 +802,7 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.SuperStar, new List<GameIdGroup>
+					GameId.Superstar, new List<GameIdGroup>
 					{
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
@@ -1123,17 +1098,7 @@ namespace Quantum
 					{
 						GameId.Male02Avatar,
 						GameId.Female02Avatar,
-						GameId.Divinci,
 						GameId.Tombstone
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Glider, new List<GameId>
-					{
-						GameId.Divinci,
-						GameId.Falcon,
-						GameId.Rocket,
-						GameId.Turbine
 					}.AsReadOnly()
 				},
 				{
@@ -1230,7 +1195,7 @@ namespace Quantum
 					{
 						GameId.Tombstone,
 						GameId.Demon,
-						GameId.SuperStar,
+						GameId.Superstar,
 						GameId.Unicorn
 					}.AsReadOnly()
 				},

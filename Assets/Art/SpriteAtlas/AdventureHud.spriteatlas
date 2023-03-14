@@ -39,6 +39,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: f32c1bd90aa444729b7a70530abfb1af, type: 3}
     - {fileID: 102900000, guid: 710e2ad723eae42bcaa4adea1b906060, type: 3}
     - {fileID: 102900000, guid: c8cd3b9167baf4282b5c3d0abb6aa5fc, type: 3}
+    - {fileID: 102900000, guid: 3e64bfb823261574898d7bd072adbc7c, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -103,6 +104,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
   - {fileID: 21300000, guid: f1c8127c6813d4d4ca98d60991269065, type: 3}
   - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
+  - {fileID: -632566775, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: 810126229, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: -288416364, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: -474808789, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: -293698919, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: 1140075670, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: -610073765, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
+  - {fileID: -79254489, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
   - {fileID: 21300000, guid: 00d895ccfbba141c19d851d2646007a6, type: 3}
   - {fileID: 21300000, guid: f335cbcc9213a4dd292ffabe22ccf9c4, type: 3}
   - {fileID: 21300000, guid: c5d752fc5fa5d5b4fa3a069a455059cf, type: 3}
@@ -179,6 +188,14 @@ SpriteAtlas:
   - EnemyIndicatorFace
   - AirdropIcon
   - CheqFlag
+  - hand_spritesheet_0
+  - hand_spritesheet_1
+  - hand_spritesheet_2
+  - hand_spritesheet_3
+  - hand_spritesheet_4
+  - hand_spritesheet_5
+  - hand_spritesheet_6
+  - hand_spritesheet_7
   - BossIndicatorInside
   - Joystick_Handle_Move
   - PlayerAvatarKO

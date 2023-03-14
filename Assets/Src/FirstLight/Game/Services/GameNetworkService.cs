@@ -54,10 +54,9 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Reconnects photon in the most suitable way, based on parameters, after a user was disconnected
 		/// </summary>
-		/// <param name="inMatchScene">Set true if last disconnection occured in match scene</param>
 		/// <param name="requiresManualReconnection">This will be true if disconnected during matchmaking
 		/// because during matchmaking, TTL is 0 - disconnected user is booted out of the room.</param>
-		void ReconnectPhoton(bool inMatchScene, out bool requiresManualReconnection);
+		void ReconnectPhoton(out bool requiresManualReconnection);
 
 		/// <summary>
 		/// Disconnects Photon from whatever server it's currently connected to
@@ -628,15 +627,21 @@ LastUsedSetup.Value = setup;
 				SendOptions.SendReliable);
 		}
 
-		public void ReconnectPhoton(bool inMatchScene, out bool requiresManualReconnection)
+		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
 			requiresManualReconnection = false;
 			JoinSource.Value = JoinRoomSource.Reconnection;
-			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Disconnected)
+			
+			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected) return;
+
+			if (QuantumClient.Server == ServerConnection.GameServer)
 			{
 				QuantumClient.ReconnectAndRejoin();
-			} 
-			
+			}
+			else
+			{
+				QuantumClient.ReconnectToMaster();
+			}
 		}
 
 		public void SetDropPosition(Vector2 dropPosition)

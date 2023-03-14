@@ -1280,6 +1280,7 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string bp_button_completed 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_completed"); } }
 			public static string bp_button_reward_subtitle 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_reward_subtitle"); } }
 			public static string bp_button_reward_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_reward_title"); } }
 			public static string bp_button_subtitle 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/bp_button_subtitle"); } }
@@ -2776,6 +2777,7 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string bp_button_completed = "UITHomeScreen/bp_button_completed";
 		    public const string bp_button_reward_subtitle = "UITHomeScreen/bp_button_reward_subtitle";
 		    public const string bp_button_reward_title = "UITHomeScreen/bp_button_reward_title";
 		    public const string bp_button_subtitle = "UITHomeScreen/bp_button_subtitle";

@@ -409,7 +409,7 @@ RectTransform:
   - {fileID: 3493658332558489993}
   - {fileID: 5941639727000415319}
   m_Father: {fileID: 3400728033001398997}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -726,6 +726,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1869128517783958807}
   - {fileID: 8563632869876589350}
   - {fileID: 4074096359468754942}
   - {fileID: 2268854734628767163}
@@ -1323,7 +1324,7 @@ RectTransform:
   - {fileID: 4827647053694350167}
   - {fileID: 3229646311619905194}
   m_Father: {fileID: 3400728033001398997}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1514,6 +1515,42 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7253559773495747550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869128517783958807}
+  m_Layer: 5
+  m_Name: TutorialSpecialTarget
+  m_TagString: GuideUiTarget
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1869128517783958807
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7253559773495747550}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3400728033001398997}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 465.99988, y: -53.000122}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7664221961180034817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905868386155862207, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8905868386155862207, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2147,10 +2184,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialButton1
       objectReference: {fileID: 0}
-    - target: {fileID: 3379491096509517220, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
-      propertyPath: m_TagString
-      value: GuideUiTarget
-      objectReference: {fileID: 0}
     - target: {fileID: 5318420455050156928, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
       propertyPath: _controlPath
       value: <OnScreenControlsDevice>/Special1PointerDown
@@ -2165,7 +2198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905868386155862207, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8905868386155862207, guid: a04d6cdb32fa8ae42bda9f908df67965, type: 3}
       propertyPath: m_AnchorMax.x

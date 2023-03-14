@@ -1479,6 +1479,7 @@ namespace I2.Loc
 			public static string drop_down_to_arena 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/drop_down_to_arena"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/enter_your_name"); } }
 			public static string lets_play_real_match 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/lets_play_real_match"); } }
+			public static string move_forward 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/move_forward"); } }
 			public static string nice_proceed_chest_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_chest_area"); } }
 			public static string nice_proceed_dummy_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_dummy_area"); } }
 			public static string open_chest 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/open_chest"); } }
@@ -2976,6 +2977,7 @@ namespace I2.Loc
 		    public const string drop_down_to_arena = "UITTutorial/drop_down_to_arena";
 		    public const string enter_your_name = "UITTutorial/enter_your_name";
 		    public const string lets_play_real_match = "UITTutorial/lets_play_real_match";
+		    public const string move_forward = "UITTutorial/move_forward";
 		    public const string nice_proceed_chest_area = "UITTutorial/nice_proceed_chest_area";
 		    public const string nice_proceed_dummy_area = "UITTutorial/nice_proceed_dummy_area";
 		    public const string open_chest = "UITTutorial/open_chest";

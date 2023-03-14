@@ -2093,7 +2093,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "LET'S PLAY A NEW MATCH! \nGET READY FOR SOME REAL ACTION!"
+      - "LET'S PLAY A MATCH! \nGET READY FOR ACTION!"
       - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
         \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
         \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
@@ -2180,6 +2180,19 @@ MonoBehaviour:
         TO BREAK THE BARRIER'
       - "\u0421\u043B\u043E\u043C\u0430\u0442\u044C \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443"
       - Quebrar a barricada
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/move_forward
+      TermType: 0
+      Description: 
+      Languages:
+      - 'GO TO THE
+
+        BARRIER'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16192,7 +16205,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678729597517
+    Google_LastUpdatedVersion: 1678807716009
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

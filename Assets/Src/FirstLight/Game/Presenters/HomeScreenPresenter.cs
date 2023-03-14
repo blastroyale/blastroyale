@@ -302,7 +302,7 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassReward();
 
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -387,7 +387,7 @@ namespace FirstLight.Game.Presenters
 			var buttonEnabled = true;
 
 			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-			    _services.MatchmakingService.IsMatchmaking.Value)
+				_services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
@@ -447,12 +447,24 @@ namespace FirstLight.Game.Presenters
 
 			if (!hasRewards)
 			{
-				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
-				var requiredPoints =
-					_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevelAndPoints.Item1);
+				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
+					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+					_dataProvider.BattlePassDataProvider.MaxLevel)
+				{
+					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);
+					_bppPoolContainer.SetDisplay(false);
+				}
+				else
+				{
+					var predictedLevelAndPoints =
+						_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
+					var requiredPoints =
+						_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(
+							(int) predictedLevelAndPoints.Item1);
 
-				_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
-				_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+					_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
+					_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+				}
 			}
 		}
 

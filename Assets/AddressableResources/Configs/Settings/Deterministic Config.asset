@@ -19,9 +19,9 @@ MonoBehaviour:
     AggressiveSendMode: 0
     UpdateFPS: 20
     ChecksumInterval: 60
-    RollbackWindow: 20
+    RollbackWindow: 40
     InputHardTolerance: 8
-    InputRedundancy: 1
+    InputRedundancy: 2
     InputRepeatMaxDistance: 10
     SessionStartTimeout: 1
     TimeCorrectionRate: 4
@@ -31,7 +31,7 @@ MonoBehaviour:
     TimeScalePingMin: 100
     TimeScalePingMax: 300
     InputDelayMin: 0
-    InputDelayMax: 60
-    InputDelayPingStart: 100
+    InputDelayMax: 100
+    InputDelayPingStart: 300
     InputFixedSizeEnabled: 1
     InputFixedSize: 0

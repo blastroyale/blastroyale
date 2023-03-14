@@ -796,24 +796,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Demon, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
-					GameId.Superstar, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
-					GameId.Unicorn, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
 					GameId.CoreCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Core
@@ -1194,9 +1176,6 @@ namespace Quantum
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Tombstone,
-						GameId.Demon,
-						GameId.Superstar,
-						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{

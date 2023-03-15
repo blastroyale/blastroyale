@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
 			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
 
-			if (playerWinner.IsValid)
+			if (playerWinner.Data.IsValid)
 			{
 				_playerWinnerEntity = playerWinner.Data.Entity;
 				_nameLabel.text = playerWinner.GetPlayerName();

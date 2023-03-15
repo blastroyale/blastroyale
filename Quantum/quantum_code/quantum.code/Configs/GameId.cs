@@ -708,14 +708,14 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.PowerCubeSmall, new List<GameIdGroup>
+					GameId.EnergyCubeSmall, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.PowerCubeLarge, new List<GameIdGroup>
+					GameId.EnergyCubeLarge, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
 						GameIdGroup.Collectable
@@ -1155,8 +1155,8 @@ namespace Quantum
 						GameId.ShieldCapacityLarge,
 						GameId.SmallSpecialRefresh,
 						GameId.LargeSpecialRefresh,
-						GameId.PowerCubeSmall,
-						GameId.PowerCubeLarge
+						GameId.EnergyCubeSmall,
+						GameId.EnergyCubeLarge,
 					}.AsReadOnly()
 				},
 				{
@@ -1172,8 +1172,8 @@ namespace Quantum
 						GameId.ShieldCapacityLarge,
 						GameId.SmallSpecialRefresh,
 						GameId.LargeSpecialRefresh,
-						GameId.PowerCubeSmall,
-						GameId.PowerCubeLarge,
+						GameId.EnergyCubeSmall,
+						GameId.EnergyCubeLarge,
 						GameId.ChestCommon,
 						GameId.ChestUncommon,
 						GameId.ChestRare,

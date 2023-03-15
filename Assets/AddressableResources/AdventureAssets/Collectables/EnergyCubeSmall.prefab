@@ -4859,7 +4859,7 @@ GameObject:
   - component: {fileID: 4159690803613263917}
   - component: {fileID: 784014894499037752}
   m_Layer: 7
-  m_Name: PowerCubeSmall
+  m_Name: EnergyCubeSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

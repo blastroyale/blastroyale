@@ -80,7 +80,7 @@ synced event OnPlayerLevelUp
     Int32 CurrentLevel;
 }
 
-synced event OnPlayerPowerCubeCollected
+synced event OnPlayerEnergyChanged
 {
 	player_ref Player;
 	entity_ref Entity;

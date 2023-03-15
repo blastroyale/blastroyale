@@ -205,17 +205,16 @@ namespace Quantum
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
-		public void GainPowerCubeValue(Frame f, EntityRef e, int amount)
+		public void GainEnergy(Frame f, EntityRef e, int amount)
 		{
-			if(CurrentPowerCubeLevel == f.GameConfig.MaxPlayerLevel)
+			if(CurrentEnergyLevel == f.GameConfig.MaxPlayerLevel)
 			{
 				return;
 			}
-			var prevExp = CurrentPowerCubeValue;
-			CurrentPowerCubeValue += amount;
-			//send an exp gained level here or whatever
-			f.Events.OnPlayerPowerCubeCollected(Player, e, prevExp, CurrentPowerCubeValue, amount, CurrentPowerCubeLevel);
-			if (CurrentPowerCubeValue >= RequiredPowerCubeValue(f, CurrentPowerCubeLevel))
+			var prevEnergy = CurrentEnergy;
+			CurrentEnergy += amount;
+			f.Events.OnPlayerEnergyChanged(Player, e, prevEnergy, CurrentEnergy, amount, CurrentEnergyLevel);
+			if (CurrentEnergy >= RequiredEnergyForLevel(f, CurrentEnergyLevel))
 			{
 				LevelUp(f, e);
 			}
@@ -223,22 +222,22 @@ namespace Quantum
 
 		public void LevelUp(Frame f, EntityRef e)
 		{
-			if (CurrentPowerCubeLevel == f.GameConfig.MaxPlayerLevel)
+			if (CurrentEnergyLevel == f.GameConfig.MaxPlayerLevel)
 			{
 				return;
 			}
-			CurrentPowerCubeValue -= RequiredPowerCubeValue(f, CurrentPowerCubeLevel);
-			CurrentPowerCubeLevel += 1;
+			CurrentEnergy -= RequiredEnergyForLevel(f, CurrentEnergyLevel);
+			CurrentEnergyLevel += 1;
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-			f.Events.OnPlayerLevelUp(Player, e, CurrentPowerCubeLevel);
+			f.Events.OnPlayerLevelUp(Player, e, CurrentEnergyLevel);
 		}
 
-		public int RequiredPowerCubeValue(Frame f, int targetLevel)
+		public int RequiredEnergyForLevel(Frame f, int targetLevel)
 		{
 			var gameconfigs = f.GameConfig;
-			var requirePowerCubeValue = FPMath.Lerp(gameconfigs.MinMaxPowerCubeRequirements.Value1, gameconfigs.MinMaxPowerCubeRequirements.Value2,
+			var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyRequirement.Value1, gameconfigs.MinMaxEnergyRequirement.Value2,
 				targetLevel / gameconfigs.MaxPlayerLevel);
-			return requirePowerCubeValue.AsInt;
+			return requiredEnergy.AsInt;
 		}
 
 		/// <summary>

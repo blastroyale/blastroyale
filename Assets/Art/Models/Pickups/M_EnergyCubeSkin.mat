@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_PowerCubeSkin
+  m_Name: M_EnergyCubeSkin
   m_Shader: {fileID: -6465566751694194690, guid: b46dfe5e05587f347a64a2315b30791f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

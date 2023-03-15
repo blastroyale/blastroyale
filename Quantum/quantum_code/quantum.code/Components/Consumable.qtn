@@ -12,7 +12,7 @@ enum ConsumableType
 	Ammo,
 	Shield,
 	ShieldCapacity,
-    Exp,
+    Energy,
     SpecialRefresh,
 }
 

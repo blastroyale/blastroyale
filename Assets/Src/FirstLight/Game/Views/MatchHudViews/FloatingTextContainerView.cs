@@ -26,7 +26,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _healthGainTextColor = Color.green;
 		[SerializeField] private Color _shieldGainTextColor = Color.cyan;
-		[SerializeField] private Color _powerCubeGainColour = Color.magenta;
+		[SerializeField] private Color _energyGainColour = Color.magenta;
 
 		[SerializeField, Required, Title("Icons")]
 		private Sprite _iconArmour;
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			QuantumEvent.Subscribe<EventOnEntityDamaged>(this, OnEntityDamaged);
-			QuantumEvent.Subscribe<EventOnPlayerPowerCubeCollected>(this, OnPowerCubeCollected);
+			QuantumEvent.Subscribe<EventOnPlayerEnergyChanged>(this, OnEnergyChanged);
 		}
 
 		private void OnDestroy()
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void OnPowerCubeCollected(EventOnPlayerPowerCubeCollected callback)
+		private void OnEnergyChanged(EventOnPlayerEnergyChanged callback)
 		{
 			var changeValue = callback.ChangeAmount;
 
@@ -90,7 +90,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			EnqueueText(callback.Entity, $"+{changeValue.ToString()}", _powerCubeGainColour, MessageType.Info);
+			EnqueueText(callback.Entity, $"+{changeValue.ToString()}", _energyGainColour, MessageType.Info);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				ConsumableType.Ammo => _ammoTextColor,
 				ConsumableType.Shield => _shieldGainTextColor,
 				ConsumableType.ShieldCapacity => _shieldGainTextColor,
-				ConsumableType.Exp => _powerCubeGainColour,
+				ConsumableType.Energy => _energyGainColour,
 				_ => throw new
 					     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
 			};

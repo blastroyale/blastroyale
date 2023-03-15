@@ -199,7 +199,7 @@ namespace Quantum.Systems
 				}
 				for(uint i = 0; i < playerDead->CurrentLevel + 1; i++)
 				{
-					Collectable.DropConsumable(f, GameId.SmallEXPCube, deathPosition, step, false);
+					Collectable.DropConsumable(f, GameId.PowerCubeSmall, deathPosition, step, false);
 					step++;
 				}
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4077108798897294171}
   m_Layer: 11
-  m_Name: Exp
+  m_Name: PowerCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -139,7 +139,7 @@ namespace Quantum
 					var drop = GameId.Random;
 					if (healthFilled + ammoFilled + shieldFilled > Constants.EXP_CHEST_DROP_THRESHOLD)
 					{
-						drop = GameId.SmallEXPCube;
+						drop = GameId.PowerCubeSmall;
 					}
 					else if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
@@ -160,7 +160,7 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health, GameId.SmallEXPCube);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health, GameId.PowerCubeSmall);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
@@ -195,7 +195,7 @@ namespace Quantum
 					//TODO: add a large health consumable drop
 					if (ammoFilled > FP._0_75 && shieldFilled > Constants.EXP_CHEST_DROP_THRESHOLD - 1)
 					{
-						drop = GameId.SmallEXPCube;
+						drop = GameId.PowerCubeSmall;
 						ammoFilled -= FP._0_20;
 						shieldFilled -= FP._0_20;
 					}
@@ -212,7 +212,7 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.LargeEXPCube);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.PowerCubeLarge);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);

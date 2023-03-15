@@ -205,39 +205,47 @@ namespace Quantum
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
+
+		/// <summary>
+		/// Has the Player Character gain an <paramref name="amount"/> of energy
+		/// </summary>
 		public void GainEnergy(Frame f, EntityRef e, int amount)
 		{
-			if(CurrentEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
+			var prevEnergyLevel = GetEnergyLevel(f);
+			if(prevEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
 			{
 				return;
 			}
 			var prevEnergy = CurrentEnergy;
-			CurrentEnergy += amount;
-			f.Events.OnPlayerEnergyChanged(Player, e, prevEnergy, CurrentEnergy, amount, CurrentEnergyLevel);
-			if (CurrentEnergy >= RequiredEnergyForLevel(f, CurrentEnergyLevel))
+			CurrentEnergy += (short)amount;
+			var newEnergyLevel = GetEnergyLevel(f);
+
+			f.Events.OnPlayerEnergyChanged(Player, e, prevEnergy, CurrentEnergy, amount, prevEnergyLevel);
+
+			if (newEnergyLevel > prevEnergyLevel)
 			{
-				LevelUp(f, e);
+				f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+				f.Events.OnPlayerLevelUp(Player, e, newEnergyLevel);
 			}
 		}
-
-		public void LevelUp(Frame f, EntityRef e)
+		
+		/// <summary>
+		/// Returns the total energy level of the player based on <paramref name="energyCollected"/>
+		/// </summary>
+		public int GetEnergyLevel(Frame f)
 		{
-			if (CurrentEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
-			{
-				return;
-			}
-			CurrentEnergy -= RequiredEnergyForLevel(f, CurrentEnergyLevel);
-			CurrentEnergyLevel += 1;
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-			f.Events.OnPlayerLevelUp(Player, e, CurrentEnergyLevel);
-		}
-
-		public int RequiredEnergyForLevel(Frame f, int targetLevel)
-		{
+			int energyCollected = CurrentEnergy;
 			var gameconfigs = f.GameConfig;
-			var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyLevelRequirement.Value1, gameconfigs.MinMaxEnergyLevelRequirement.Value2,
-				targetLevel / gameconfigs.PlayerMaxEnergyLevel);
-			return requiredEnergy.AsInt;
+			for (int i = 0; i < gameconfigs.PlayerMaxEnergyLevel; i++)
+			{
+				 var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyLevelRequirement.Value1, gameconfigs.MinMaxEnergyLevelRequirement.Value2,
+					 (FP)i / gameconfigs.PlayerMaxEnergyLevel).AsInt;
+				energyCollected -= requiredEnergy;
+				if (energyCollected >= 0)
+					continue;
+				return i;
+			}
+			return (int)gameconfigs.PlayerMaxEnergyLevel;
 		}
 
 		/// <summary>

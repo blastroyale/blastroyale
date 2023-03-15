@@ -240,8 +240,6 @@ namespace Quantum {
     ShieldLarge = 21,
     ShieldCapacitySmall = 17,
     ShieldCapacityLarge = 18,
-    SmallSpecialRefresh = 25,
-    LargeSpecialRefresh = 105,
     EnergyCubeSmall = 106,
     EnergyCubeLarge = 107,
     ChestCommon = 13,
@@ -4536,14 +4534,11 @@ namespace Quantum {
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
-    public Int32 CurrentEnergy;
+    public Int16 CurrentEnergy;
     [FieldOffset(4)]
     [HideInInspector()]
-    public Int32 CurrentEnergyLevel;
-    [FieldOffset(8)]
-    [HideInInspector()]
     public Int32 CurrentWeaponSlot;
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
     [FieldOffset(72)]
@@ -4554,12 +4549,12 @@ namespace Quantum {
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(32)]
     public AssetRefCharacterController3DConfig KccConfigRef;
-    [FieldOffset(20)]
+    [FieldOffset(16)]
     [HideInInspector()]
     public PlayerRef Player;
     [FieldOffset(48)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(16)]
+    [FieldOffset(12)]
     [HideInInspector()]
     public Int32 TeamId;
     [FieldOffset(432)]
@@ -4581,7 +4576,6 @@ namespace Quantum {
         var hash = 577;
         hash = hash * 31 + BlackboardRef.GetHashCode();
         hash = hash * 31 + CurrentEnergy.GetHashCode();
-        hash = hash * 31 + CurrentEnergyLevel.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
@@ -4597,7 +4591,6 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentEnergy);
-        serializer.Stream.Serialize(&p->CurrentEnergyLevel);
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
         serializer.Stream.Serialize(&p->TeamId);
@@ -10968,9 +10961,7 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
     [HideInInspector()]
-    public Int32 CurrentEnergyLevel;
-    [HideInInspector()]
-    public Int32 CurrentEnergy;
+    public Int16 CurrentEnergy;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -10980,7 +10971,6 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
       result.CurrentEnergy = this.CurrentEnergy;
-      result.CurrentEnergyLevel = this.CurrentEnergyLevel;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
       for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {

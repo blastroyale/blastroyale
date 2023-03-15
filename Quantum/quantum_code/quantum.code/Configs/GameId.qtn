@@ -90,8 +90,6 @@ enum GameId
 	ShieldLarge = 21,
 	ShieldCapacitySmall = 17,
 	ShieldCapacityLarge = 18,
-	SmallSpecialRefresh = 25,
-	LargeSpecialRefresh = 105,
 	EnergyCubeSmall = 106,
 	EnergyCubeLarge = 107,
 	ChestCommon = 13,

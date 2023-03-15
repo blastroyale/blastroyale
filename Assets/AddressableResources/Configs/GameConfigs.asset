@@ -94,7 +94,7 @@ MonoBehaviour:
       PlayerMaxEnergyLevel: 10
       MinMaxEnergyLevelRequirement:
         Value1: 100
-        Value2: 500
+        Value2: 350
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608

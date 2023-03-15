@@ -197,7 +197,7 @@ namespace Quantum.Systems
 					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
 					step++;
 				}
-				for(uint i = 0; i < playerDead->CurrentEnergyLevel + 1; i++)
+				for(uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
 				{
 					Collectable.DropConsumable(f, GameId.EnergyCubeSmall, deathPosition, step, false);
 					step++;

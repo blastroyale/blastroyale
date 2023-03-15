@@ -366,7 +366,7 @@ namespace Quantum
 		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed,
 		                             out FP ammoCapacity, out FP shieldCapacity)
 		{
-			var bonusLevel = (uint)f.Get<PlayerCharacter>(e).CurrentEnergyLevel;
+			var bonusLevel = (uint)f.Get<PlayerCharacter>(e).GetEnergyLevel(f);
 
 			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power, 
 			                                           out attackRange, out pickupSpeed, out ammoCapacity, out shieldCapacity, bonusLevel);

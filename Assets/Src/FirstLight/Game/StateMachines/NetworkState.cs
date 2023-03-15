@@ -271,7 +271,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ReconnectPhoton()
 		{
-			_networkService.ReconnectPhoton(CurrentSceneIsMatch(), out _requiresManualRoomReconnection);
+			_networkService.ReconnectPhoton(out _requiresManualRoomReconnection);
 		}
 
 		private void DisconnectPhoton()

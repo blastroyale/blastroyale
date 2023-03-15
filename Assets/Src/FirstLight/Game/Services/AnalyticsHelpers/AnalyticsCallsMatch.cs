@@ -294,7 +294,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			var frame = playerDeadEvent.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out _);
+			var playerData = container.GeneratePlayersMatchData(frame, out _, out _);
 			
 			var deadData = playerData[playerDeadEvent.Player];
 			

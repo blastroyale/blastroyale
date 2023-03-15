@@ -77,6 +77,7 @@ namespace FirstLight.Game.StateMachines
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(playGame);
+			enterName.OnExit(OnEnterNameExit);
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
@@ -141,12 +142,15 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 		}
 		
+		private void OnEnterNameExit()
+		{
+			_tutorialUtilsUi.BlockFullScreen();
+		}
+		
 		private async void OnPlayGameEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
-
-			_tutorialUtilsUi.BlockFullScreen();
-	
+			
 			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 			
 			_tutorialUtilsUi.Unblock();

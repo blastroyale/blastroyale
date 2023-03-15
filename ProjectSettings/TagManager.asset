@@ -8,6 +8,7 @@ TagManager:
   - MainOverlayCamera
   - VisualCollider
   - GroundIndicator
+  - GuideUiTarget
   layers:
   - Default
   - TransparentFX

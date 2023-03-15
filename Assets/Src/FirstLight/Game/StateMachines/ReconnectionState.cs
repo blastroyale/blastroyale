@@ -44,13 +44,15 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly MatchState _matchState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		
+
 		public static readonly IStatechartEvent ReconnectToRoomEvent = new StatechartEvent("Reconnect To Snapshot");
 		public static readonly IStatechartEvent NoReconnection = new StatechartEvent("Reconnect To Snapshot");
-		
+
 		private Coroutine _csPoolTimerCoroutine;
 
-		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider, IInternalGameNetworkService networkService, IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
+		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider,
+								 IInternalGameNetworkService networkService, IGameUiService uiService,
+								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
@@ -72,20 +74,21 @@ namespace FirstLight.Game.StateMachines
 			var joinPendingMatch = stateFactory.State("Join Pending Match");
 
 			initial.Transition().Target(firstMatchCheck);
-			
+
 			firstMatchCheck.Transition().Condition(HasPendingMatch).Target(joinPendingMatch);
 			firstMatchCheck.Transition().Target(final);
-			
+
 			joinPendingMatch.OnEnter(JoinPendingMatch);
 			joinPendingMatch.Event(NetworkState.JoinedRoomEvent).Target(final);
 			joinPendingMatch.Event(NetworkState.GameDoesNotExists).Target(checkCreateNewRoom);
 			joinPendingMatch.Event(NetworkState.JoinRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
-			
+
 			checkCreateNewRoom.Transition().Condition(CanCreateRoomFromSnapshot).Target(createRoomFromSnapshot);
 			checkCreateNewRoom.Transition().OnTransition(ClearSnapshot).Target(final);
-			
+
 			createRoomFromSnapshot.OnEnter(CreateRoomFromSnapshot);
-			createRoomFromSnapshot.Event(NetworkState.JoinedRoomEvent).OnTransition(FireReconnect).OnTransition(SetupSnapshotRoom).Target(final);
+			createRoomFromSnapshot.Event(NetworkState.JoinedRoomEvent).OnTransition(FireReconnect)
+				.OnTransition(SetupSnapshotRoom).Target(final);
 			createRoomFromSnapshot.Event(NetworkState.CreateRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
 		}
 
@@ -123,7 +126,7 @@ namespace FirstLight.Game.StateMachines
 		private bool CanCreateRoomFromSnapshot()
 		{
 			var snapshot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
-			return snapshot.CanBeRestoredWithLocalSnapshot(); 
+			return snapshot.CanBeRestoredWithLocalSnapshot();
 		}
 
 		private void CreateRoomFromSnapshot()
@@ -138,11 +141,14 @@ namespace FirstLight.Game.StateMachines
 		private bool HasPendingMatch()
 		{
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
-			if (!snapShot.Expired())
+			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
+
+			if (!isTutorial && !snapShot.Expired())
 			{
 				return true;
 			}
-			FLog.Verbose("Snapshot expired");
+
+			FLog.Verbose($"Snapshot expired or tutorial({isTutorial})");
 			_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			return false;
 		}
@@ -153,7 +159,7 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.CloseUi<LoadingScreenPresenter>();
 			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 		}
-		
+
 		private void JoinPendingMatch()
 		{
 			MatchTransition();
@@ -164,13 +170,12 @@ namespace FirstLight.Game.StateMachines
 				_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
 				_services.NetworkService.CreateRoom(snapShot.Setup, true);
 			}
-			else 
+			else
 			{
 				FLog.Verbose($"Rejoining room from {snapShot.RoomName} snapshot");
 				_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
 				_services.NetworkService.RejoinRoom(snapShot.RoomName);
 			}
-			
 		}
 	}
 }

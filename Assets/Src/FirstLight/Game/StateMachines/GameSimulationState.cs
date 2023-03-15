@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
 			{
-				_uiService.CloseUi<SwipeScreenPresenter>();
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}
 		}
 
@@ -272,9 +272,11 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			_services.NetworkService.EnableClientUpdate(false);
+			TryEnableClientUpdate();
 			_statechartTrigger(SimulationStartedEvent);
+			
 			Task.Yield();
+			
 			CloseMatchmakingScreen();
 		}
 
@@ -282,8 +284,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Verbose(
 				$"Game Resync {callback.Game.Frames.Verified.Number} vs {_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value.FrameNumber}");
-			_services.NetworkService.EnableClientUpdate(false);
+			TryEnableClientUpdate();
 			_services.CoroutineService.StartCoroutine(ResyncCoroutine());
+		}
+
+		private void TryEnableClientUpdate()
+		{
+			// Client update needs to be enabled in offline rooms, and disabled in online ones, otherwise 
+			// many things break (different breakage for both online and offline)
+			_services.NetworkService.EnableClientUpdate(_services.NetworkService.CurrentRoom.IsOffline);
 		}
 
 		private IEnumerator ResyncCoroutine()

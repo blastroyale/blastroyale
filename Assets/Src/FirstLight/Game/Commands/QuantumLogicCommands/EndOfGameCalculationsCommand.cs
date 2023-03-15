@@ -57,7 +57,7 @@ namespace FirstLight.Game.Commands
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _);
+			PlayersMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
 			QuantumValues = quantumValues;
 			TeamSize = frame.Context.GameModeConfig.MaxPlayersInTeam;
 			

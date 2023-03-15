@@ -68,6 +68,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
 			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
+			await _services.GameUiService.OpenUiAsync<GuideHandPresenter>();
 		}
 
 		private void SetCurrentSection(TutorialSection section)
@@ -83,7 +84,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<RequestStartFirstGameTutorialMessage>(OnRequestStartFirstTutorialMessage);
-			_services.MessageBrokerService.Subscribe<RequestStartEquipmentBpTutorialMessage>(OnRequestStartEquipmentBpTutorialMessage);
+			_services.MessageBrokerService.Subscribe<RequestStartMetaMatchTutorialMessage>(OnRequestStartMetaMatchTutorialMessage);
 		}
 
 		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
@@ -93,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
-		private void OnRequestStartEquipmentBpTutorialMessage(RequestStartEquipmentBpTutorialMessage msg)
+		private void OnRequestStartMetaMatchTutorialMessage(RequestStartMetaMatchTutorialMessage msg)
 		{
 			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
 

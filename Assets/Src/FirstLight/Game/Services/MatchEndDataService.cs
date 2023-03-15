@@ -200,7 +200,7 @@ namespace FirstLight.Game.Services
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
 			
-			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _);
+			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
 
 			PlayerMatchData.Clear();
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)

@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 09000000
+      AllowedMaps: 0900000043000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -67,7 +67,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 3
       MinPlayersInTeam: 1
-      AllowedMaps: 09000000
+      AllowedMaps: 0900000043000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1
@@ -244,8 +244,8 @@ MonoBehaviour:
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
       Lives: 1
       DropWeaponOnPickup: 1
-      AirdropNearPlayer: 0
-      ShrinkingCircleCenteredOnPlayer: 0
+      AirdropNearPlayer: 1
+      ShrinkingCircleCenteredOnPlayer: 1
       SpawnWithGear: 0
       SpawnWithWeapon: 0
       SkydiveSpawn: 1

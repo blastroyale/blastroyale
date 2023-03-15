@@ -3980,13 +3980,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 458752
       MovementSpeedMultiplier:
-        RawValue: 52429
+        RawValue: 32768
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 52429
+        RawValue: 49152
       DamageTakenMultiplier:
-        RawValue: 29491
+        RawValue: 22938
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
@@ -4033,7 +4033,7 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 52429
+        RawValue: 26214
       DamageTakenMultiplier:
         RawValue: 229376
     - BehaviourType: 1

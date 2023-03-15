@@ -168,7 +168,7 @@ namespace Quantum {
     BRGenesis = 9,
     MapTestScene = 63,
     TestScene = 11,
-    NewBRMap = 65,
+    NewBRMap = 25,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,
@@ -264,9 +264,6 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Tombstone = 37,
-    Demon = 76,
-    SuperStar = 115,
-    Unicorn = 116,
     CoreCommon = 15,
     CoreUncommon = 46,
     CoreRare = 47,
@@ -6014,11 +6011,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnGameEnded OnGameEnded(PlayerRef PlayerLeader, EntityRef EntityLeader) {
+      public EventOnGameEnded OnGameEnded(PlayerRef PlayerLeader, EntityRef EntityLeader, Int32 LeaderTeam) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnGameEnded>(EventOnGameEnded.ID);
         ev.PlayerLeader = PlayerLeader;
         ev.EntityLeader = EntityLeader;
+        ev.LeaderTeam = LeaderTeam;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7847,6 +7845,7 @@ namespace Quantum {
     public new const Int32 ID = 46;
     public PlayerRef PlayerLeader;
     public EntityRef EntityLeader;
+    public Int32 LeaderTeam;
     protected EventOnGameEnded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7866,6 +7865,7 @@ namespace Quantum {
         var hash = 271;
         hash = hash * 31 + PlayerLeader.GetHashCode();
         hash = hash * 31 + EntityLeader.GetHashCode();
+        hash = hash * 31 + LeaderTeam.GetHashCode();
         return hash;
       }
     }

@@ -207,7 +207,7 @@ namespace Quantum
 		}
 		public void GainEnergy(Frame f, EntityRef e, int amount)
 		{
-			if(CurrentEnergyLevel == f.GameConfig.MaxPlayerLevel)
+			if(CurrentEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
 			{
 				return;
 			}
@@ -222,7 +222,7 @@ namespace Quantum
 
 		public void LevelUp(Frame f, EntityRef e)
 		{
-			if (CurrentEnergyLevel == f.GameConfig.MaxPlayerLevel)
+			if (CurrentEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
 			{
 				return;
 			}
@@ -235,8 +235,8 @@ namespace Quantum
 		public int RequiredEnergyForLevel(Frame f, int targetLevel)
 		{
 			var gameconfigs = f.GameConfig;
-			var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyRequirement.Value1, gameconfigs.MinMaxEnergyRequirement.Value2,
-				targetLevel / gameconfigs.MaxPlayerLevel);
+			var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyLevelRequirement.Value1, gameconfigs.MinMaxEnergyLevelRequirement.Value2,
+				targetLevel / gameconfigs.PlayerMaxEnergyLevel);
 			return requiredEnergy.AsInt;
 		}
 

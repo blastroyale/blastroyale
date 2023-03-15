@@ -539,6 +539,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayButtonClicked()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+			
 			_statechartTrigger(PlayClickedEvent);
 		}
 

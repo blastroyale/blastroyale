@@ -65,6 +65,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var enterName = stateFactory.State("Enter name");
 			var playGame = stateFactory.State("Play game");
+			var disconnected = stateFactory.State("Disconnected");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
 			
@@ -77,15 +78,23 @@ namespace FirstLight.Game.StateMachines
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(playGame);
+			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			enterName.OnExit(OnEnterNameExit);
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
+			playGame.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
+			createTutorialRoom.OnEnter(CloseTutorialUi);
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
+			createTutorialRoom.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
+			
+			disconnected.OnEnter(CloseTutorialUi);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(enterName);
+			disconnected.OnExit(InitSequenceData);
 			
 			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
@@ -98,10 +107,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSecondTutorialMatch()
 		{
-			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.RemoveHighlight();
-			_dialogUi.HideDialog(CharacterType.Female);
-			
 			_tutorialService.CreateJoinSecondTutorialRoom();
 		}
 
@@ -113,6 +118,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseTutorialUi()
 		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.HideDialog(CharacterType.Female);
 		}
 
 		private void SubscribeMessages()

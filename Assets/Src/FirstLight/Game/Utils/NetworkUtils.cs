@@ -164,6 +164,7 @@ namespace FirstLight.Game.Utils
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_SETUP, ModelSerializer.Serialize(setup).Value);
 
 			// TODO - RENAME "SpawnPattern"
 			if (setup.GameMode().SpawnPattern)
@@ -176,6 +177,9 @@ namespace FirstLight.Game.Utils
 
 		private static Hashtable GetJoinRoomProperties(MatchRoomSetup setup)
 		{
+			// !!!NOTE!!!
+			// If you add anything here you must also add the key in GetCreateRoomPropertiesForLobby!
+
 			return new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
@@ -191,9 +195,7 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode().Id},
 
 				// A list of mutators used in this room
-				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)},
-				
-				{GameConstants.Network.ROOM_PROPS_SETUP, ModelSerializer.Serialize(setup).Value}
+				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}
 			};
 		}
 

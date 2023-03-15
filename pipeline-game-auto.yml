@@ -75,8 +75,8 @@ stages:
           testPlatform: EditMode
     - job: AndroidBuild
       dependsOn: EditorTests
-      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       displayName: Android Build
+      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
         lfs: true
@@ -94,8 +94,8 @@ stages:
           server_environment: ${{ variables.server_environment }}
     - job: iOSBuild
       dependsOn: EditorTests
-      condition: in(ependencies.EditorTests.result, 'Succeeded', 'Skipped')
       displayName: iOS Build
+      condition: in(ependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
         lfs: true

@@ -610,6 +610,30 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Divinci, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
+					GameId.Falcon, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
+					GameId.Rocket, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
+					GameId.Turbine, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
 					GameId.Rage, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
@@ -1081,6 +1105,15 @@ namespace Quantum
 						GameId.Male02Avatar,
 						GameId.Female02Avatar,
 						GameId.Tombstone
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Glider, new List<GameId>
+					{
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Rocket,
+						GameId.Turbine
 					}.AsReadOnly()
 				},
 				{

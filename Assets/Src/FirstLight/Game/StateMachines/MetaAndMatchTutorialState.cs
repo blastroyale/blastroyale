@@ -100,7 +100,6 @@ namespace FirstLight.Game.StateMachines
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
 			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 			
-			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}

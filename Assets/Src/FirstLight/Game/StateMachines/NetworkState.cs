@@ -678,8 +678,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnNetworkActionWhileDisconnectedMessage(NetworkActionWhileDisconnectedMessage msg)
 		{
-			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
+			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnected)
 			{
+				FLog.Warn($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
 			}
 		}

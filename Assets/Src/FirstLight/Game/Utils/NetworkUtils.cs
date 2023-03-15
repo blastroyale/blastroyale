@@ -228,7 +228,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsOnlineAndConnected()
 		{
-			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnected;
 		}
 
 		/// <summary>
@@ -236,7 +236,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsOfflineOrDisconnected()
 		{
-			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnected;
 		}
 
 		/// <summary>

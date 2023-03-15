@@ -18,6 +18,7 @@ synced event OnGameEnded
 {
 	player_ref PlayerLeader;
 	entity_ref EntityLeader;
+    Int32 LeaderTeam;
 }
 
 event OnGameProgressUpdated

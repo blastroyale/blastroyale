@@ -309,13 +309,22 @@ namespace FirstLight.Game.Utils
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
 
+			public const string TAG_INDICATORS = "GroundIndicator";
+			public const string TAG_GUIDE_UI = "GuideUiTarget";
+			
+			public const string TRIGGER_FIRST_MOVE_AREA = "FirstMoveArea";
 			public const string TRIGGER_DUMMY_AREA = "DummyArea";
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
 			public const string TRIGGER_GATE_AREA = "GateArea";
 			public const string TRIGGER_ARENA_AREA = "ArenaArea";
 
-			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
+			public const string GUIDE_UI_MOVEMENT_JOYSTICK = "MovementUiJoystick";
+			public const string GUIDE_UI_SHOOTING_JOYSTICK = "ShootingUiJoystick";
+			public const string GUIDE_UI_SPECIAL_BUTTON = "TutorialSpecialTarget";
+			
+			public const string INDICATOR_FIRST_MOVE = "FirstMove";
 			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
+			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
 			public const string INDICATOR_BOT_AREA = "BotArea";
 			public const string INDICATOR_BOT1 = "Bot1";
 			public const string INDICATOR_BOT2 = "Bot2";

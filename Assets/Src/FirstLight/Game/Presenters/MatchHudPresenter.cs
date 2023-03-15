@@ -140,9 +140,7 @@ namespace FirstLight.Game.Presenters
 		private void OnStandingsClicked()
 		{
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out _);
+			var playerData = game.GeneratePlayersMatchDataLocal(out _, out _);
 			
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);

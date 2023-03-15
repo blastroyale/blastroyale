@@ -68,6 +68,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _services.GameUiService.OpenUiAsync<TutorialUtilsScreenPresenter>();
 			await _services.GameUiService.OpenUiAsync<CharacterDialogScreenPresenter>();
+			await _services.GameUiService.OpenUiAsync<GuideHandPresenter>();
 		}
 
 		private void SetCurrentSection(TutorialSection section)

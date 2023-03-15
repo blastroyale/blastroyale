@@ -95,7 +95,7 @@ stages:
     - job: iOSBuild
       dependsOn: EditorTests
       displayName: iOS Build
-      condition: in(ependencies.EditorTests.result, 'Succeeded', 'Skipped')
+      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
         lfs: true

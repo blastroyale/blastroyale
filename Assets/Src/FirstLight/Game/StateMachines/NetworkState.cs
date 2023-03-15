@@ -443,8 +443,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
-			
-			DebugRoom();
+			FLog.Verbose("Current Room Debug: \n" + _networkService.CurrentRoom.GetRoomDebugString());
 			
 			_networkService.SetLastRoom();
 			_statechartTrigger(JoinedRoomEvent);
@@ -568,9 +567,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		
-		[Conditional("DEBUG")]
-		private void DebugRoom() => FLog.Verbose("Current Room Debug: \n"+_networkService.CurrentRoom.GetRoomDebugString());
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
@@ -718,7 +714,6 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME))
 			{
 				_networkService.QuantumClient.CurrentRoom.SetProperty(GameConstants.Network.ROOM_PROPS_STARTED_GAME, true);
-				_networkService.QuantumClient.CurrentRoom.IsOpen = true;
 			}
 		}
 

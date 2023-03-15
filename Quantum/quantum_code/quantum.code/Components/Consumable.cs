@@ -54,7 +54,7 @@ namespace Quantum
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
 					break;
 				case ConsumableType.Exp:
-					playerChar->GainExp(f, playerEntity, Amount.AsInt);
+					playerChar->GainPowerCubeValue(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -96,7 +96,7 @@ namespace Quantum
 							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
 							break;
 						case ConsumableType.Exp:
-							playerChar->GainExp(f, playerEntity, Amount.AsInt);
+							playerChar->GainPowerCubeValue(f, playerEntity, Amount.AsInt);
 							break;
 					}
 				}

@@ -205,17 +205,17 @@ namespace Quantum
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
 		}
-		public void GainExp(Frame f, EntityRef e, int amount)
+		public void GainPowerCubeValue(Frame f, EntityRef e, int amount)
 		{
-			if(CurrentLevel == f.GameConfig.MaxPlayerLevel)
+			if(CurrentPowerCubeLevel == f.GameConfig.MaxPlayerLevel)
 			{
 				return;
 			}
-			var prevExp = CurrentExp;
-			CurrentExp += amount;
+			var prevExp = CurrentPowerCubeValue;
+			CurrentPowerCubeValue += amount;
 			//send an exp gained level here or whatever
-			f.Events.OnPlayerExpChanged(Player, e, prevExp, CurrentExp, amount, CurrentLevel);
-			if (CurrentExp >= RequiredLevelExp(f, CurrentLevel))
+			f.Events.OnPlayerPowerCubeCollected(Player, e, prevExp, CurrentPowerCubeValue, amount, CurrentPowerCubeLevel);
+			if (CurrentPowerCubeValue >= RequiredPowerCubeValue(f, CurrentPowerCubeLevel))
 			{
 				LevelUp(f, e);
 			}
@@ -223,22 +223,22 @@ namespace Quantum
 
 		public void LevelUp(Frame f, EntityRef e)
 		{
-			if (CurrentLevel == f.GameConfig.MaxPlayerLevel)
+			if (CurrentPowerCubeLevel == f.GameConfig.MaxPlayerLevel)
 			{
 				return;
 			}
-			CurrentExp -= RequiredLevelExp(f, CurrentLevel);
-			CurrentLevel += 1;
+			CurrentPowerCubeValue -= RequiredPowerCubeValue(f, CurrentPowerCubeLevel);
+			CurrentPowerCubeLevel += 1;
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-			f.Events.OnPlayerLevelUp(Player, e, CurrentLevel);
+			f.Events.OnPlayerLevelUp(Player, e, CurrentPowerCubeLevel);
 		}
 
-		public int RequiredLevelExp(Frame f, int targetLevel)
+		public int RequiredPowerCubeValue(Frame f, int targetLevel)
 		{
 			var gameconfigs = f.GameConfig;
-			var requireExp = FPMath.Lerp(gameconfigs.MinMaxLevelExpRequirements.Value1, gameconfigs.MinMaxLevelExpRequirements.Value2,
+			var requirePowerCubeValue = FPMath.Lerp(gameconfigs.MinMaxPowerCubeRequirements.Value1, gameconfigs.MinMaxPowerCubeRequirements.Value2,
 				targetLevel / gameconfigs.MaxPlayerLevel);
-			return requireExp.AsInt;
+			return requirePowerCubeValue.AsInt;
 		}
 
 		/// <summary>

@@ -87,7 +87,7 @@ namespace Quantum.Systems
 					case ConsumableType.Ammo:
 						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
 					case ConsumableType.Exp:
-						return playerCharacter.CurrentLevel == f.GameConfig.MaxPlayerLevel;
+						return playerCharacter.CurrentPowerCubeLevel == f.GameConfig.MaxPlayerLevel;
 				}
 			}
 

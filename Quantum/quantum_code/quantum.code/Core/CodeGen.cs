@@ -4536,10 +4536,10 @@ namespace Quantum {
     public AssetRefAIBlackboard BlackboardRef;
     [FieldOffset(0)]
     [HideInInspector()]
-    public Int32 CurrentExp;
+    public Int32 CurrentPowerCubeLevel;
     [FieldOffset(4)]
     [HideInInspector()]
-    public Int32 CurrentLevel;
+    public Int32 CurrentPowerCubeValue;
     [FieldOffset(8)]
     [HideInInspector()]
     public Int32 CurrentWeaponSlot;
@@ -4580,8 +4580,8 @@ namespace Quantum {
       unchecked { 
         var hash = 577;
         hash = hash * 31 + BlackboardRef.GetHashCode();
-        hash = hash * 31 + CurrentExp.GetHashCode();
-        hash = hash * 31 + CurrentLevel.GetHashCode();
+        hash = hash * 31 + CurrentPowerCubeLevel.GetHashCode();
+        hash = hash * 31 + CurrentPowerCubeValue.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
@@ -4596,8 +4596,8 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharacter*)ptr;
-        serializer.Stream.Serialize(&p->CurrentExp);
-        serializer.Stream.Serialize(&p->CurrentLevel);
+        serializer.Stream.Serialize(&p->CurrentPowerCubeLevel);
+        serializer.Stream.Serialize(&p->CurrentPowerCubeValue);
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
         serializer.Stream.Serialize(&p->TeamId);
@@ -5581,7 +5581,7 @@ namespace Quantum {
           case EventOnPlayerEmojiSent.ID: return typeof(EventOnPlayerEmojiSent);
           case EventOnPlayerKilledPlayer.ID: return typeof(EventOnPlayerKilledPlayer);
           case EventOnPlayerLevelUp.ID: return typeof(EventOnPlayerLevelUp);
-          case EventOnPlayerExpChanged.ID: return typeof(EventOnPlayerExpChanged);
+          case EventOnPlayerPowerCubeCollected.ID: return typeof(EventOnPlayerPowerCubeCollected);
           case EventOnPlayerAmmoEmpty.ID: return typeof(EventOnPlayerAmmoEmpty);
           case EventOnPlayerAmmoChanged.ID: return typeof(EventOnPlayerAmmoChanged);
           case EventOnPlayerMagazineChanged.ID: return typeof(EventOnPlayerMagazineChanged);
@@ -6123,13 +6123,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerExpChanged OnPlayerExpChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousExp, Int32 CurrentExp, Int32 ChangeAmount, Int32 CurrentLevel) {
+      public EventOnPlayerPowerCubeCollected OnPlayerPowerCubeCollected(PlayerRef Player, EntityRef Entity, Int32 PreviousPowerValue, Int32 CurrentPowerValue, Int32 ChangeAmount, Int32 CurrentLevel) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnPlayerExpChanged>(EventOnPlayerExpChanged.ID);
+        var ev = _f.Context.AcquireEvent<EventOnPlayerPowerCubeCollected>(EventOnPlayerPowerCubeCollected.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.PreviousExp = PreviousExp;
-        ev.CurrentExp = CurrentExp;
+        ev.PreviousPowerValue = PreviousPowerValue;
+        ev.CurrentPowerValue = CurrentPowerValue;
         ev.ChangeAmount = ChangeAmount;
         ev.CurrentLevel = CurrentLevel;
         _f.AddEvent(ev);
@@ -8197,18 +8197,18 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerExpChanged : EventBase {
+  public unsafe partial class EventOnPlayerPowerCubeCollected : EventBase {
     public new const Int32 ID = 58;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousExp;
-    public Int32 CurrentExp;
+    public Int32 PreviousPowerValue;
+    public Int32 CurrentPowerValue;
     public Int32 ChangeAmount;
     public Int32 CurrentLevel;
-    protected EventOnPlayerExpChanged(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerPowerCubeCollected(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerExpChanged() : 
+    public EventOnPlayerPowerCubeCollected() : 
         base(58, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -8224,8 +8224,8 @@ namespace Quantum {
         var hash = 349;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousExp.GetHashCode();
-        hash = hash * 31 + CurrentExp.GetHashCode();
+        hash = hash * 31 + PreviousPowerValue.GetHashCode();
+        hash = hash * 31 + CurrentPowerValue.GetHashCode();
         hash = hash * 31 + ChangeAmount.GetHashCode();
         hash = hash * 31 + CurrentLevel.GetHashCode();
         return hash;
@@ -10968,9 +10968,9 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
     [HideInInspector()]
-    public Int32 CurrentLevel;
+    public Int32 CurrentPowerCubeLevel;
     [HideInInspector()]
-    public Int32 CurrentExp;
+    public Int32 CurrentPowerCubeValue;
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -10979,8 +10979,8 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
-      result.CurrentExp = this.CurrentExp;
-      result.CurrentLevel = this.CurrentLevel;
+      result.CurrentPowerCubeLevel = this.CurrentPowerCubeLevel;
+      result.CurrentPowerCubeValue = this.CurrentPowerCubeValue;
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
       for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {

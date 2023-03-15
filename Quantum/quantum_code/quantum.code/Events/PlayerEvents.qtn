@@ -80,12 +80,12 @@ synced event OnPlayerLevelUp
     Int32 CurrentLevel;
 }
 
-synced event OnPlayerExpChanged
+synced event OnPlayerPowerCubeCollected
 {
 	player_ref Player;
 	entity_ref Entity;
-    Int32 PreviousExp;
-    Int32 CurrentExp;
+    Int32 PreviousPowerValue;
+    Int32 CurrentPowerValue;
     Int32 ChangeAmount;
     Int32 CurrentLevel;
 }

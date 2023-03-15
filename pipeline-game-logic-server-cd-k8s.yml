@@ -59,7 +59,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/release/*')  }}:
+- ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)

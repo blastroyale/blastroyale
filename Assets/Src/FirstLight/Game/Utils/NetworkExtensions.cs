@@ -25,7 +25,7 @@ namespace FirstLight.Game.Utils
 		}
 
 		public static string GetRoomDebugString(this Room room)
-		{ ;
+		{
 			var s = MainInstaller.Resolve<IGameServices>();
 			return JsonConvert.SerializeObject(new
 			{

@@ -230,6 +230,7 @@ namespace FirstLight.Game.Services
 			}
 #endif
 
+			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 			CurrentEnvironmentData = envData;
 
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;

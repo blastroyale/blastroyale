@@ -75,7 +75,7 @@ stages:
           testPlatform: EditMode
     - job: AndroidBuild
       dependsOn: EditorTests
-      condition: in(ependencies.EditorTests.result, 'Succeeded', 'Skipped')
+      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       displayName: Android Build
       steps:
       - checkout: self

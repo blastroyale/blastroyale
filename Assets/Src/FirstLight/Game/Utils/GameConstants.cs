@@ -34,40 +34,6 @@ namespace FirstLight.Game.Utils
 			#endif
 		}
 
-		public static class Servers
-		{
-			public enum ServerEnvironments
-			{
-				Dev,
-				Stage,
-				Live,
-				LiveTesnet
-			}
-			
-#if LIVE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Live;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#elif LIVE_TESTNET_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.LiveTesnet;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
-#elif STAGE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#else
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Dev;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#endif
-			public static readonly string SERVER_ENVIRONMENT_STRING = SERVER_ENVIRONMENT.ToString();
-		}
-
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;

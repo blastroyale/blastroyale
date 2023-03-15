@@ -147,7 +147,7 @@ namespace FirstLight.Game.Services
 			}
 
 			_connecting = true;
-			var url = $"https://{GameConstants.Servers.PLAYFAB_TITLE_ID}.playfabapi.com/PubSub";
+			var url = $"https://{PlayFabSettings.TitleId}.playfabapi.com/PubSub";
 			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder));
 			_connection.ReconnectPolicy = new DefaultRetryPolicy();
 			_connection.AuthenticationProvider = new PlayFabAuthenticator(_connection, PlayFabSettings.staticPlayer.EntityToken);

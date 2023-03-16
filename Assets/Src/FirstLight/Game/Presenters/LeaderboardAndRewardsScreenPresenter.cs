@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Logic;
@@ -300,7 +301,12 @@ namespace FirstLight.Game.Presenters
 				_character.gameObject.SetActive(false);
 				return;
 			}
-			
+
+			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(_matchServices.MatchEndDataService
+					.LocalPlayer))
+			{
+				return;
+			}
 			var playerData =
 				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
 			

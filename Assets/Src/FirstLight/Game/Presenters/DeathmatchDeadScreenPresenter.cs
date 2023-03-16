@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			var frame = game.Frames.Verified;
 			var localPlayer = game.GetLocalPlayers()[0];
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out _);
+			var playerData = container.GeneratePlayersMatchData(frame, out _, out _);
 			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Data.Entity);
 			var killerMatchData = playerData[deadPlayer.Killer];
 			var localName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;

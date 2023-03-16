@@ -199,7 +199,7 @@ MonoBehaviour:
       ShowUITimer: 0
       ShowUIStandingsExtraInfo: 0
       ShowWeaponSlots: 1
-      SingleSlotMode: 0
+      SingleSlotMode: 1
       DescriptionLocalisationKey: 
       Lives: 1
       DropWeaponOnPickup: 0
@@ -244,8 +244,8 @@ MonoBehaviour:
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
       Lives: 1
       DropWeaponOnPickup: 1
-      AirdropNearPlayer: 0
-      ShrinkingCircleCenteredOnPlayer: 0
+      AirdropNearPlayer: 1
+      ShrinkingCircleCenteredOnPlayer: 1
       SpawnWithGear: 0
       SpawnWithWeapon: 0
       SkydiveSpawn: 1

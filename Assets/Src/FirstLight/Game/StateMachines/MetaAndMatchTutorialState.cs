@@ -17,6 +17,8 @@ namespace FirstLight.Game.StateMachines
 {
 	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
+		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
+		public static readonly int TOTAL_STEPS = 6;
 		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
 		
 		private readonly IGameServices _services;
@@ -33,7 +35,7 @@ namespace FirstLight.Game.StateMachines
 		public int CurrentStep { get; set; }
 		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
 		public string CurrentStepName { get; set; }
-		public int TotalStepsBeforeThisSection => GameConstants.Tutorial.TOTAL_STEPS_FIRST_GUIDE_MATCH;
+		public int TotalStepsBeforeThisSection => FirstGameTutorialState.TOTAL_STEPS;
 		
 
 		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
@@ -75,6 +77,7 @@ namespace FirstLight.Game.StateMachines
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(playGame);
+			enterName.OnExit(OnEnterNameExit);
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
@@ -139,12 +142,15 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 		}
 		
+		private void OnEnterNameExit()
+		{
+			_tutorialUtilsUi.BlockFullScreen();
+		}
+		
 		private async void OnPlayGameEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
-
-			_tutorialUtilsUi.BlockFullScreen();
-	
+			
 			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
 			
 			_tutorialUtilsUi.Unblock();

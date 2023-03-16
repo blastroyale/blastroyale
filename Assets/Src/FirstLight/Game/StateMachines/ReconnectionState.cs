@@ -1,0 +1,181 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DG.DemiLib;
+using FirstLight.FLogger;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Services;
+using FirstLight.Statechart;
+using I2.Loc;
+using Photon.Realtime;
+using Quantum;
+using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
+namespace FirstLight.Game.StateMachines
+{
+	/// <summary>
+	/// State to reconnect to a previously disconnected match. This works across crashes/game closes.
+	/// Will attempt a few different ways:
+	/// 1-) Re-join a game that was saved by a game snapshot.
+	///    - Will go to main manu if failed without messages.
+	///    - If can create a room from snapshot (offline game, custom or dev env) will attempt to re-create the game
+	///      from that snapshot from the frame it stopped.
+	///
+	///    If it matches and joins a room, game will load instantly, else would go to main menu without user noticing.
+	/// </summary>
+	public class ReconnectionState
+	{
+		private readonly IGameServices _services;
+		private readonly IGameDataProvider _dataProvider;
+		private readonly IInternalGameNetworkService _networkService;
+		private readonly IGameUiService _uiService;
+		private readonly MatchState _matchState;
+		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		public static readonly IStatechartEvent ReconnectToRoomEvent = new StatechartEvent("Reconnect To Snapshot");
+		public static readonly IStatechartEvent NoReconnection = new StatechartEvent("Reconnect To Snapshot");
+
+		private Coroutine _csPoolTimerCoroutine;
+
+		public ReconnectionState(IGameServices services, IGameDataProvider dataProvider,
+								 IInternalGameNetworkService networkService, IGameUiService uiService,
+								 Action<IStatechartEvent> statechartTrigger)
+		{
+			_services = services;
+			_dataProvider = dataProvider;
+			_networkService = networkService;
+			_uiService = uiService;
+			_statechartTrigger = statechartTrigger;
+		}
+
+		/// <summary>
+		/// Setups the Adventure gameplay state
+		/// </summary>
+		public void Setup(IStateFactory stateFactory)
+		{
+			var initial = stateFactory.Initial("Initial");
+			var final = stateFactory.Final("Final");
+			var firstMatchCheck = stateFactory.Choice("Check for Reconnection");
+			var createRoomFromSnapshot = stateFactory.State("Create room from snapshot");
+			var checkCreateNewRoom = stateFactory.Choice("check if can create room");
+			var joinPendingMatch = stateFactory.State("Join Pending Match");
+
+			initial.Transition().Target(firstMatchCheck);
+
+			firstMatchCheck.Transition().Condition(HasPendingMatch).Target(joinPendingMatch);
+			firstMatchCheck.Transition().Target(final);
+
+			joinPendingMatch.OnEnter(JoinPendingMatch);
+			joinPendingMatch.Event(NetworkState.JoinedRoomEvent).Target(final);
+			joinPendingMatch.Event(NetworkState.GameDoesNotExists).Target(checkCreateNewRoom);
+			joinPendingMatch.Event(NetworkState.JoinRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
+
+			checkCreateNewRoom.Transition().Condition(CanCreateRoomFromSnapshot).Target(createRoomFromSnapshot);
+			checkCreateNewRoom.Transition().OnTransition(ClearSnapshot).Target(final);
+
+			createRoomFromSnapshot.OnEnter(CreateRoomFromSnapshot);
+			createRoomFromSnapshot.Event(NetworkState.JoinedRoomEvent).OnTransition(FireReconnect)
+				.OnTransition(SetupSnapshotRoom).Target(final);
+			createRoomFromSnapshot.Event(NetworkState.CreateRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
+		}
+
+		private async Task OneFrame()
+		{
+			await Task.Delay(1);
+		}
+
+		private void FireReconnect()
+		{
+			_statechartTrigger(ReconnectToRoomEvent);
+		}
+
+		private void AlreadyJoinedSnapshot()
+		{
+			FLog.Verbose("Already connected to snapshot, reconnecting");
+			_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
+		}
+
+		private void ClearSnapshot()
+		{
+			FLog.Verbose("Clearing Snapshot");
+			//_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
+			//_services.DataSaver.SaveData<AppData>();
+		}
+
+		private void SetupSnapshotRoom()
+		{
+			if (_networkService.JoinSource.Value == JoinRoomSource.RecreateFrameSnapshot)
+			{
+				_networkService.QuantumClient.CurrentRoom.PlayerTtl = 0;
+			}
+		}
+
+		private bool CanCreateRoomFromSnapshot()
+		{
+			var snapshot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
+			return snapshot.CanBeRestoredWithLocalSnapshot();
+		}
+
+		private void CreateRoomFromSnapshot()
+		{
+			FLog.Verbose("Creating new room From Snapshot");
+			var snapshot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
+			snapshot.Setup.RoomIdentifier ??= Guid.NewGuid().ToString();
+			_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
+			_services.NetworkService.CreateRoom(snapshot.Setup, snapshot.Offline);
+		}
+
+		private bool HasPendingMatch()
+		{
+			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
+			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
+
+			if (!isTutorial && !snapShot.Expired())
+			{
+				return true;
+			}
+
+			FLog.Verbose($"Snapshot expired or tutorial({isTutorial})");
+			_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
+			return false;
+		}
+
+		private async Task MatchTransition()
+		{
+			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			await _uiService.CloseUi<LoadingScreenPresenter>();
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+		}
+
+		private void JoinPendingMatch()
+		{
+			MatchTransition();
+			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
+			if (snapShot.Offline)
+			{
+				FLog.Verbose("Creating offline room from snapshot");
+				_networkService.JoinSource.Value = JoinRoomSource.RecreateFrameSnapshot;
+				_services.NetworkService.CreateRoom(snapShot.Setup, true);
+			}
+			else
+			{
+				FLog.Verbose($"Rejoining room from {snapShot.RoomName} snapshot");
+				_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
+				_services.NetworkService.RejoinRoom(snapShot.RoomName);
+			}
+		}
+	}
+}

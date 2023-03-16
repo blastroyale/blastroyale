@@ -45,7 +45,6 @@
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
-    white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding-left: 0;
     padding-right: 0;
@@ -55,6 +54,10 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
 }
 
 .player-header__profile-button {
@@ -271,6 +274,28 @@
     display: none;
 }
 
+.battle-pass-button--completed .battle-pass-button__progress-text {
+    display: none;
+}
+
+.battle-pass-button__completed-text {
+    display: none;
+    -unity-text-align: middle-right;
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    position: absolute;
+    bottom: 38px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: -2px 2px 0 rgb(0, 0, 0);
+    right: 200px;
+}
+
+.battle-pass-button--completed .battle-pass-button__completed-text {
+    display: flex;
+}
+
 .battle-pass-button__progress-bg {
     height: 24px;
     padding: 2px;
@@ -288,6 +313,10 @@
 }
 
 .battle-pass-button--claimreward .battle-pass-button__progress-bg {
+    display: none;
+}
+
+.battle-pass-button--completed .battle-pass-button__progress-bg {
     display: none;
 }
 
@@ -310,6 +339,10 @@
 }
 
 .battle-pass-button--claimreward .battle-pass-button__bpp-icon {
+    display: none;
+}
+
+.battle-pass-button--completed .battle-pass-button__bpp-icon {
     display: none;
 }
 
@@ -345,6 +378,10 @@
     bottom: 10px;
 }
 
+.battle-pass-button--completed .battle-pass-button__reward-rarity {
+    display: none;
+}
+
 .battle-pass-button__reward-questionmark {
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
@@ -353,6 +390,10 @@
     right: 0;
     bottom: 31px;
     background-image: var(--sprite-home__icon-questionmark);
+}
+
+.battle-pass-button--completed .battle-pass-button__reward-questionmark {
+    display: none;
 }
 
 .play-button {
@@ -712,7 +753,7 @@
 
 .squad-member {
     font-size: 32px;
-    background-color: rgba(16, 12, 34, 0.59);   
+    background-color: rgba(16, 12, 34, 0.59);
     -unity-text-align: middle-left;
 }
 

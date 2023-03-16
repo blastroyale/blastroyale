@@ -153,6 +153,11 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
+		
+		/// <summary>
+		/// Last time player snapshotted a frame
+		/// </summary>
+		IObservableField<FrameSnapshot> LastFrameSnapshot { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -166,7 +171,7 @@ namespace FirstLight.Game.Logic
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
-
+		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -285,6 +290,8 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
+		
+		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
 
 		/// <inheritdoc />
 		public string DisplayNameTrimmed => GetDisplayName();
@@ -309,6 +316,8 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
+				snap => Data.LastCapturedFrameSnapshot = snap);
 		}
 
 		public void ReInit()

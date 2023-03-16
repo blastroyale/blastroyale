@@ -270,6 +270,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARD
+      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410"
+      - RECOMPENSA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - "\u0422\u0420\u0415\u0411\u041E\u0412\u0410\u0422\u042C"
+      - ALEGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - PASS
+      - "\u041F\u0420\u041E\u0425\u041E\u0414\u0418\u0422\u042C"
+      - PASSAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST
+      - "\u0412\u0417\u0420\u042B\u0412"
+      - "EXPLOS\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - CANCEL
+      - "\u041E\u0422\u041C\u0415\u041D\u0410"
+      - CANCELAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/collection
+      TermType: 0
+      Description: 
+      Languages:
+      - COLLECTION
+      - "\u041A\u041E\u041B\u041B\u0415\u041A\u0426\u0418\u042F"
+      - "COLE\xC7\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/create_party
       TermType: 0
       Description: 
@@ -314,6 +380,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - DEATHMATCH
+      - DEATHMATCH
+      - DEATHMATCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/heroes
       TermType: 0
       Description: 
@@ -321,17 +420,6 @@ MonoBehaviour:
       - HEROES
       - "\u0413\u0435\u0440\u043E\u0438"
       - "HER\xD3IS"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/collection
-      TermType: 0
-      Description: 
-      Languages:
-      - COLLECTION
-      - "\u041A\u041E\u041B\u041B\u0415\u041A\u0426\u0418\u042F"
-      - "COLE\xC7\xC3O"
       - 
       - 
       Flags: 0000000000
@@ -359,6 +447,18 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/joining
+      TermType: 0
+      Description: 
+      Languages:
+      - Joining...
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
+        ..."
+      - Juntando -se ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/leaderboards
       TermType: 0
       Description: 
@@ -377,6 +477,17 @@ MonoBehaviour:
       - LEAVE SQUAD
       - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
       - "Deixe o esquadr\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/matchmaking
+      TermType: 0
+      Description: 
+      Languages:
+      - Matchmaking...
+      - "\u0417\u0430\u043A\u0430\u0437 ..."
+      - Matchmaking ...
       - 
       - 
       Flags: 0000000000
@@ -400,6 +511,17 @@ MonoBehaviour:
       - SQUAD
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - 'CODE: {0}'
+      - "\u041A\u043E\u0434: {0}"
+      - "C\xF3digo: {0}"
       - 
       - 
       Flags: 0000000000
@@ -464,6 +586,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/ready
+      TermType: 0
+      Description: 
+      Languages:
+      - READY
+      - "\u0413\u041E\u0422\u041E\u0412\u042B\u0419"
+      - PREPARAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/resource_pool_restock
       TermType: 0
       Description: 
@@ -520,28 +653,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/ready
-      TermType: 0
-      Description: 
-      Languages:
-      - READY
-      - "\u0413\u041E\u0422\u041E\u0412\u042B\u0419"
-      - PREPARAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/cancel
-      TermType: 0
-      Description: 
-      Languages:
-      - CANCEL
-      - "\u041E\u0422\u041C\u0415\u041D\u0410"
-      - CANCELAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/waiting_for_members
       TermType: 0
       Description: 
@@ -549,94 +660,6 @@ MonoBehaviour:
       - WAITING
       - "\u041E\u0416\u0418\u0414\u0410\u042E\u0429\u0418\u0419"
       - ESPERANDO
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_title
-      TermType: 0
-      Description: 
-      Languages:
-      - BLAST
-      - "\u0412\u0417\u0420\u042B\u0412"
-      - "EXPLOS\xC3O"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_subtitle
-      TermType: 0
-      Description: 
-      Languages:
-      - PASS
-      - "\u041F\u0420\u041E\u0425\u041E\u0414\u0418\u0422\u042C"
-      - PASSAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_reward_title
-      TermType: 0
-      Description: 
-      Languages:
-      - CLAIM
-      - "\u0422\u0420\u0415\u0411\u041E\u0412\u0410\u0422\u042C"
-      - ALEGAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_reward_subtitle
-      TermType: 0
-      Description: 
-      Languages:
-      - REWARD
-      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410"
-      - RECOMPENSA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_BattleRoyale
-      TermType: 0
-      Description: 
-      Languages:
-      - BATTLE ROYALE
-      - BATTLE ROYALE
-      - BATTLE ROYALE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
-      TermType: 0
-      Description: 
-      Languages:
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_Deathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - DEATHMATCH
-      - DEATHMATCH
-      - DEATHMATCH
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_code
-      TermType: 0
-      Description: 
-      Languages:
-      - 'CODE: {0}'
-      - "\u041A\u043E\u0434: {0}"
-      - "C\xF3digo: {0}"
       - 
       - 
       Flags: 0000000000
@@ -652,25 +675,24 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/matchmaking
+    - Term: UITHomeScreen/bp_button_completed
       TermType: 0
       Description: 
       Languages:
-      - Matchmaking...
-      - "\u0417\u0430\u043A\u0430\u0437 ..."
-      - Matchmaking ...
+      - COMPLETED
+      - "\u0417\u0410\u0412\u0415\u0420\u0428\u0415\u041D"
+      - COMPLETADA
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/joining
+    - Term: UITSquads/error_AlreadyInParty
       TermType: 0
       Description: 
       Languages:
-      - Joining...
-      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
-        ..."
-      - Juntando -se ...
+      - You are already in a squad!
+      - "\u0412\u044B \u0443\u0436\u0435 \u0432 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Voc\xEA j\xE1 est\xE1 em um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -687,58 +709,15 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/error_NoPermission
+    - Term: UITSquads/error_ConnectionError
       TermType: 0
       Description: 
       Languages:
-      - You have no permission to do that!
-      - "\u0423 \u0432\u0430\u0441 \u043D\u0435\u0442 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F
-        \u043D\u0430 \u044D\u0442\u043E!"
-      - "Voc\xEA n\xE3o tem permiss\xE3o para fazer isso!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_NoParty
-      TermType: 0
-      Description: 
-      Languages:
-      - You don't have a squad!
-      - "\u0423 \u0442\u0435\u0431\u044F \u043D\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B!"
-      - "Voc\xEA n\xE3o tem um esquadr\xE3o!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_PartyFull
-      TermType: 0
-      Description: 
-      Languages:
-      - The squad is already full!
-      - "\u041E\u0442\u0440\u044F\u0434 \u0443\u0436\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D!"
-      - "O esquadr\xE3o j\xE1 est\xE1 cheio!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_AlreadyInParty
-      TermType: 0
-      Description: 
-      Languages:
-      - You are already in a squad!
-      - "\u0412\u044B \u0443\u0436\u0435 \u0432 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
-      - "Voc\xEA j\xE1 est\xE1 em um esquadr\xE3o!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_PartyNotFound
-      TermType: 0
-      Description: 
-      Languages:
-      - Squad not found.
-      - "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430."
-      - "Esquadr\xE3o n\xE3o encontrado."
+      - Connection error, please try again.
+      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u044F,
+        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
+        \u0440\u0430\u0437."
+      - "Erro de conex\xE3o, tente novamente."
       - 
       - 
       Flags: 0000000000
@@ -770,15 +749,47 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/error_ConnectionError
+    - Term: UITSquads/error_NoParty
       TermType: 0
       Description: 
       Languages:
-      - Connection error, please try again.
-      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u044F,
-        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
-        \u0440\u0430\u0437."
-      - "Erro de conex\xE3o, tente novamente."
+      - You don't have a squad!
+      - "\u0423 \u0442\u0435\u0431\u044F \u043D\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B!"
+      - "Voc\xEA n\xE3o tem um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_NoPermission
+      TermType: 0
+      Description: 
+      Languages:
+      - You have no permission to do that!
+      - "\u0423 \u0432\u0430\u0441 \u043D\u0435\u0442 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F
+        \u043D\u0430 \u044D\u0442\u043E!"
+      - "Voc\xEA n\xE3o tem permiss\xE3o para fazer isso!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyFull
+      TermType: 0
+      Description: 
+      Languages:
+      - The squad is already full!
+      - "\u041E\u0442\u0440\u044F\u0434 \u0443\u0436\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D!"
+      - "O esquadr\xE3o j\xE1 est\xE1 cheio!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyNotFound
+      TermType: 0
+      Description: 
+      Languages:
+      - Squad not found.
+      - "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430."
+      - "Esquadr\xE3o n\xE3o encontrado."
       - 
       - 
       Flags: 0000000000
@@ -796,6 +807,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSquads/kick
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick
+      - "\u041F\u0438\u043D\u0430\u0442\u044C"
+      - Chute
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/kicked
       TermType: 0
       Description: 
@@ -804,17 +826,6 @@ MonoBehaviour:
       - "\u0422\u0435\u0431\u044F \u0443\u0434\u0430\u0440\u0438\u043B\u0438 \u0438\u0437
         \u043A\u043E\u043C\u0430\u043D\u0434\u044B."
       - "Voc\xEA foi chutado da equipe."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/kick
-      TermType: 0
-      Description: 
-      Languages:
-      - Kick
-      - "\u041F\u0438\u043D\u0430\u0442\u044C"
-      - Chute
       - 
       - 
       Flags: 0000000000
@@ -1811,28 +1822,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/collection
-      TermType: 0
-      Description: 
-      Languages:
-      - YOUR COLLECTION
-      - "\u0412\u0430\u0448\u0430 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F"
-      - "Sua cole\xE7\xE3o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/characters
-      TermType: 0
-      Description: 
-      Languages:
-      - CHARACTERS
-      - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
-      - PERSONAGENS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITCollectionScreen/banners
       TermType: 0
       Description: 
@@ -1840,17 +1829,6 @@ MonoBehaviour:
       - BANNERS
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/gliders
-      TermType: 0
-      Description: 
-      Languages:
-      - GLIDERS
-      - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
-      - Planadores
       - 
       - 
       Flags: 0000000000
@@ -1866,6 +1844,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/characters
+      TermType: 0
+      Description: 
+      Languages:
+      - CHARACTERS
+      - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
+      - PERSONAGENS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/collection
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR COLLECTION
+      - "\u0412\u0430\u0448\u0430 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F"
+      - "Sua cole\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/comingsoon
       TermType: 0
       Description: 
@@ -1873,6 +1873,17 @@ MonoBehaviour:
       - COMING SOON!
       - "\u0412\u0421\u041A\u041E\u0420\u0415!"
       - EM BREVE!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/gliders
+      TermType: 0
+      Description: 
+      Languages:
+      - GLIDERS
+      - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
+      - Planadores
       - 
       - 
       Flags: 0000000000
@@ -2050,32 +2061,87 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/welcome_to_wastelands
+    - Term: UITTutorial/drop_down_to_arena
       TermType: 0
       Description: 
       Languages:
-      - 'WELCOME TO
+      - 'ELIMINATE THE
 
-        THE WASTELANDS!'
-      - "\u0414\u041E\u0411\u0420\u041E \u041F\u041E\u0416\u0410\u041B\u041E\u0412\u0410\u0422\u042C
-        \u0412\n\u041F\u0443\u0441\u0442\u043E\u0448\u0438!"
-      - 'BEM-VINDO AO
+        FINAL CHALLENGER'
+      - "\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C\n\u0424\u0438\u043D\u0430\u043B\u044C\u043D\u044B\u0439
+        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442"
+      - 'Eliminar o
 
-        Os Wastelands!'
+        Challenger final'
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/use_left_joystick
+    - Term: UITTutorial/enter_your_name
       TermType: 0
       Description: 
       Languages:
-      - "USE THE LEFT \nJOYSTICK TO MOVE"
-      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0435\n\u0414\u0436\u043E\u0439\u0441\u0442\u0438\u043A,
-        \u0447\u0442\u043E\u0431\u044B \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
-      - 'Use a esquerda
+      - "WHAT'S YOUR NAME, \nCHALLENGER?"
+      - "\u041A\u0430\u043A \u043C\u044B \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u0430\u0441
+        \u043D\u0430\u0437\u044B\u0432\u0430\u0442\u044C, Challenger?"
+      - "Como devemos cham\xE1 -lo, Challenger?"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/lets_play_real_match
+      TermType: 0
+      Description: 
+      Languages:
+      - "LET'S PLAY A MATCH! \nGET READY FOR ACTION!"
+      - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
+        \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
+        \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
+        \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
+      - "Vamos jogar uma nova partida!\nPrepare -se para uma a\xE7\xE3o real!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_chest_area
+      TermType: 0
+      Description: 
+      Languages:
+      - 'GO UP THE RAMP
 
-        Joystick para se mover'
+        TO THE NEXT AREA!'
+      - "\u041F\u043E\u0434\u043D\u0438\u043C\u0430\u0442\u044C\u0441\u044F \u043F\u043E
+        \u0440\u0430\u043C\u043F\u0435\n\u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E
+        \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
+      - "Suba a rampa\nPara a pr\xF3xima \xE1rea!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_dummy_area
+      TermType: 0
+      Description: 
+      Languages:
+      - "NICE JOB! \nGO TO THE NEXT AREA"
+      - "\u0425\u041E\u0420\u041E\u0428\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u041F\u0435\u0440\u0435\u0439\u0442\u0438
+        \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438"
+      - "BOM TRABALHO!\nV\xE1 para a pr\xF3xima \xE1rea"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/open_chest
+      TermType: 0
+      Description: 
+      Languages:
+      - 'OPEN THE CHEST,
+
+        GET SOME EQUIPMENT'
+      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C,\n\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435
+        \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F"
+      - 'Abra o peito,
+
+        Obtenha alguns equipamentos'
       - 
       - 
       Flags: 0000000000
@@ -2091,25 +2157,42 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/proceed_iron_gate
+      TermType: 0
+      Description: 
+      Languages:
+      - 'AMAZING!
+
+        GO THROUGH THE GATE'
+      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C
+        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
+      - "INCR\xCDVEL!\nPassar pelo port\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITTutorial/shoot_barrier
       TermType: 0
       Description: 
       Languages:
-      - BREAK THE BARRICADE
+      - 'DRAG THE <color=#FF9933>RIGHT </color> JOYSTICK
+
+        TO BREAK THE BARRIER'
       - "\u0421\u043B\u043E\u043C\u0430\u0442\u044C \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443"
       - Quebrar a barricada
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/nice_proceed_dummy_area
+    - Term: UITTutorial/move_forward
       TermType: 0
       Description: 
       Languages:
-      - "NICE JOB! \nGO TO THE NEXT AREA"
-      - "\u0425\u041E\u0420\u041E\u0428\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u041F\u0435\u0440\u0435\u0439\u0442\u0438
-        \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438"
-      - "BOM TRABALHO!\nV\xE1 para a pr\xF3xima \xE1rea"
+      - 'GO TO THE
+
+        BARRIER'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -2139,63 +2222,34 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/proceed_iron_gate
+    - Term: UITTutorial/use_left_joystick
       TermType: 0
       Description: 
       Languages:
-      - 'AMAZING!
+      - 'USE THE <color=#3300FF>LEFT</color>
 
-        GO THROUGH THE GATE'
-      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C
-        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
-      - "INCR\xCDVEL!\nPassar pelo port\xE3o"
+        JOYSTICK TO MOVE'
+      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0435\n\u0414\u0436\u043E\u0439\u0441\u0442\u0438\u043A,
+        \u0447\u0442\u043E\u0431\u044B \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
+      - 'Use a esquerda
+
+        Joystick para se mover'
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/nice_proceed_chest_area
+    - Term: UITTutorial/welcome_to_wastelands
       TermType: 0
       Description: 
       Languages:
-      - 'GO UP THE RAMP
+      - 'WELCOME TO
 
-        TO THE NEXT AREA!'
-      - "\u041F\u043E\u0434\u043D\u0438\u043C\u0430\u0442\u044C\u0441\u044F \u043F\u043E
-        \u0440\u0430\u043C\u043F\u0435\n\u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E
-        \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
-      - "Suba a rampa\nPara a pr\xF3xima \xE1rea!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/open_chest
-      TermType: 0
-      Description: 
-      Languages:
-      - 'OPEN THE CHEST,
+        THE WASTELANDS!'
+      - "\u0414\u041E\u0411\u0420\u041E \u041F\u041E\u0416\u0410\u041B\u041E\u0412\u0410\u0422\u042C
+        \u0412\n\u041F\u0443\u0441\u0442\u043E\u0448\u0438!"
+      - 'BEM-VINDO AO
 
-        GET SOME EQUIPMENT'
-      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C,\n\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435
-        \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F"
-      - 'Abra o peito,
-
-        Obtenha alguns equipamentos'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/drop_down_to_arena
-      TermType: 0
-      Description: 
-      Languages:
-      - 'ELIMINATE THE
-
-        FINAL CHALLENGER'
-      - "\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C\n\u0424\u0438\u043D\u0430\u043B\u044C\u043D\u044B\u0439
-        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442"
-      - 'Eliminar o
-
-        Challenger final'
+        Os Wastelands!'
       - 
       - 
       Flags: 0000000000
@@ -2210,32 +2264,6 @@ MonoBehaviour:
       - "\u041E\u0422\u041B\u0418\u0427\u041D\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u0412\u044B
         \u0441\u0434\u0435\u043B\u0430\u043B\u0438 \u044D\u0442\u043E \u043B\u0435\u0433\u043A\u043E!"
       - "BOM TRABALHO!\nVoc\xEA fez parecer f\xE1cil!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/enter_your_name
-      TermType: 0
-      Description: 
-      Languages:
-      - WHAT SHOULD WE CALL YOU, CHALLENGER?
-      - "\u041A\u0430\u043A \u043C\u044B \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u0430\u0441
-        \u043D\u0430\u0437\u044B\u0432\u0430\u0442\u044C, Challenger?"
-      - "Como devemos cham\xE1 -lo, Challenger?"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/lets_play_real_match
-      TermType: 0
-      Description: 
-      Languages:
-      - "LET'S PLAY A NEW MATCH! \nGET READY FOR SOME REAL ACTION!"
-      - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
-        \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
-        \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
-        \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
-      - "Vamos jogar uma nova partida!\nPrepare -se para uma a\xE7\xE3o real!"
       - 
       - 
       Flags: 0000000000
@@ -2413,6 +2441,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatchmaking/loading_status_waiting
+      TermType: 0
+      Description: 
+      Languages:
+      - WAITING FOR PLAYERS
+      - "\u0412 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432"
+      - Esperando pelos jogadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITMatchmaking/loading_status_waiting_timer
       TermType: 0
       Description: 
@@ -2421,17 +2460,6 @@ MonoBehaviour:
       - "\u0412 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432
         {0} s"
       - Esperando os jogadores {0} s
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITMatchmaking/loading_status_waiting
-      TermType: 0
-      Description: 
-      Languages:
-      - WAITING FOR PLAYERS
-      - "\u0412 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432"
-      - Esperando pelos jogadores
       - 
       - 
       Flags: 0000000000
@@ -2483,115 +2511,6 @@ MonoBehaviour:
       - WINS THE MATCH
       - "\u0412\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u043C\u0430\u0442\u0447"
       - Vence a partida
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/epic_core
-      TermType: 0
-      Description: 
-      Languages:
-      - REFINED CORE
-      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
-        \u044F\u0434\u0440\u043E"
-      - "N\xFAcleo refinado"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/iap_error
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Error: {0}'
-      - "\u041E\u0448\u0438\u0431\u043A\u0430: {0}"
-      - 'Erro: {0}'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/legendary_core
-      TermType: 0
-      Description: 
-      Languages:
-      - EXCELLENT CORE
-      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
-      - "Excelente n\xFAcleo"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/price
-      TermType: 0
-      Description: 
-      Languages:
-      - Price
-      - "\u0426\u0435\u043D\u0430"
-      - "Pre\xE7o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/rare_core
-      TermType: 0
-      Description: 
-      Languages:
-      - ADVANCED CORE
-      - Advanced Core
-      - "N\xFAcleo avan\xE7ado"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/shop
-      TermType: 0
-      Description: 
-      Languages:
-      - SHOP
-      - "\u041C\u0410\u0413\u0410\u0417\u0418\u041D"
-      - COMPRAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITStore/description_rare_core
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Contains <b>1 random non-tradable item</b>
-
-
-        <b>Rarity</b>
-
-        Common
-        75%, Common+ 25%
-
-        <b>Faction</b>
-
-        Order 25% Chaos 25% Organic
-        25% Dark 25%
-
-        <b>Material</b>
-
-        Plastic 100%
-
-        <b>Max
-        durability</b>
-
-        1 100%'
-      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
-        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
-        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
-        75%, \u043E\u0431\u0449\u0438\u0435+ 25%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
-        </b>\n\u0417\u0430\u043A\u0430\u0437 25% \u0445\u0430\u043E\u0441 25% \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
-        25% \u0442\u0435\u043C\u043D\u043E 25%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
-        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 100%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
-        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
-        </b>\n1 100%"
-      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
-        </b>\nComum 75%, comum+ 25%\n<b> Fac\xE7\xE3o </b>\nEncomendar 25% caos 25%
-        org\xE2nico 25% escuro 25%\n<b> Material </b>\nPl\xE1stico 100%\n<b> Durabilidade
-        m\xE1xima </b>\n1 100%"
       - 
       - 
       Flags: 0000000000
@@ -2687,6 +2606,115 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITStore/description_rare_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common
+        75%, Common+ 25%
+
+        <b>Faction</b>
+
+        Order 25% Chaos 25% Organic
+        25% Dark 25%
+
+        <b>Material</b>
+
+        Plastic 100%
+
+        <b>Max
+        durability</b>
+
+        1 100%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
+        75%, \u043E\u0431\u0449\u0438\u0435+ 25%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
+        </b>\n\u0417\u0430\u043A\u0430\u0437 25% \u0445\u0430\u043E\u0441 25% \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        25% \u0442\u0435\u043C\u043D\u043E 25%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 100%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 100%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum 75%, comum+ 25%\n<b> Fac\xE7\xE3o </b>\nEncomendar 25% caos 25%
+        org\xE2nico 25% escuro 25%\n<b> Material </b>\nPl\xE1stico 100%\n<b> Durabilidade
+        m\xE1xima </b>\n1 100%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/epic_core
+      TermType: 0
+      Description: 
+      Languages:
+      - REFINED CORE
+      - "\u0420\u0430\u0444\u0438\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435
+        \u044F\u0434\u0440\u043E"
+      - "N\xFAcleo refinado"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/iap_error
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Error: {0}'
+      - "\u041E\u0448\u0438\u0431\u043A\u0430: {0}"
+      - 'Erro: {0}'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/legendary_core
+      TermType: 0
+      Description: 
+      Languages:
+      - EXCELLENT CORE
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u044F\u0434\u0440\u043E"
+      - "Excelente n\xFAcleo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/price
+      TermType: 0
+      Description: 
+      Languages:
+      - Price
+      - "\u0426\u0435\u043D\u0430"
+      - "Pre\xE7o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/rare_core
+      TermType: 0
+      Description: 
+      Languages:
+      - ADVANCED CORE
+      - Advanced Core
+      - "N\xFAcleo avan\xE7ado"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
+      - "\u041C\u0410\u0413\u0410\u0417\u0418\u041D"
+      - COMPRAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
@@ -2705,6 +2733,30 @@ MonoBehaviour:
       - GUEST
       - "\u0413\u043E\u0441\u0442\u044C"
       - CONVIDADO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/i_dont_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I don't have an account
+      - "\u0423 \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0443\u0447\u0435\u0442\u043D\u043E\u0439
+        \u0437\u0430\u043F\u0438\u0441\u0438"
+      - "Eu n\xE3o tenho uma conta"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/i_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I already have an account
+      - "\u0443 \u043C\u0435\u043D\u044F \u0443\u0436\u0435 \u0435\u0441\u0442\u044C
+        \u0430\u043A\u043A\u0430\u0443\u043D\u0442"
+      - "eu j\xE1 tenho uma conta"
       - 
       - 
       Flags: 0000000000
@@ -2728,6 +2780,18 @@ MonoBehaviour:
       - LOG IN
       - "\u0410\u0412\u0422\u041E\u0420\u0418\u0417\u041E\u0412\u0410\u0422\u042C\u0421\u042F"
       - CONECTE-SE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/login_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN TO EXISTING FIRST LIGHT ID
+      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - "Fa\xE7a login no primeiro ID de luz existente"
       - 
       - 
       Flags: 0000000000
@@ -2770,6 +2834,19 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/recommended_to_save_progress
+      TermType: 0
+      Description: 
+      Languages:
+      - Use First Light ID to save your progress
+      - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
+        \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
+        \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
+      - Recomendado para salvar seu progresso
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/register
       TermType: 0
       Description: 
@@ -2777,6 +2854,18 @@ MonoBehaviour:
       - REGISTER
       - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420"
       - REGISTRO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE NEW FIRST LIGHT ID
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - Crie novo primeiro ID da luz
       - 
       - 
       Flags: 0000000000
@@ -2821,6 +2910,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/reset_button
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET
+      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
+      - REINICIAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/reset_password
       TermType: 0
       Description: 
@@ -2828,6 +2928,43 @@ MonoBehaviour:
       - RESET PASSWORD
       - "\u0421\u0411\u0420\u041E\u0421 \u041F\u0410\u0420\u041E\u041B\u042F"
       - Redefinir senha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_confirm
+      TermType: 0
+      Description: 
+      Languages:
+      - A recovery link has been sent to the email.
+      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
+        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
+        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E."
+      - "Um link de recupera\xE7\xE3o foi enviado para o email."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Recover your account by receiving password reset link via email.
+
+
+        Enter
+        your email below'
+      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
+        \u0441\u0432\u043E\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C,
+        \u043F\u043E\u043B\u0443\u0447\u0438\u0432 \u0441\u0441\u044B\u043B\u043A\u0443
+        \u0441\u0431\u0440\u043E\u0441\u0430 \u043F\u0430\u0440\u043E\u043B\u044F
+        \u043F\u043E \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u0435.\n\n\u0412\u0432\u0435\u0434\u0438\u0442\u0435
+        \u0441\u0432\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
+        \u043F\u043E\u0447\u0442\u044B \u043D\u0438\u0436\u0435"
+      - "Recupere sua conta recebendo link de redefini\xE7\xE3o de senha por e -mail.\n\nDigite
+        seu e -mail abaixo"
       - 
       - 
       Flags: 0000000000
@@ -2859,54 +2996,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITLoginRegister/reset_password_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Recover your account by receiving password reset link via email.
-
-
-        Enter
-        your email below'
-      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
-        \u0441\u0432\u043E\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C,
-        \u043F\u043E\u043B\u0443\u0447\u0438\u0432 \u0441\u0441\u044B\u043B\u043A\u0443
-        \u0441\u0431\u0440\u043E\u0441\u0430 \u043F\u0430\u0440\u043E\u043B\u044F
-        \u043F\u043E \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
-        \u043F\u043E\u0447\u0442\u0435.\n\n\u0412\u0432\u0435\u0434\u0438\u0442\u0435
-        \u0441\u0432\u043E\u0439 \u0430\u0434\u0440\u0435\u0441 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0439
-        \u043F\u043E\u0447\u0442\u044B \u043D\u0438\u0436\u0435"
-      - "Recupere sua conta recebendo link de redefini\xE7\xE3o de senha por e -mail.\n\nDigite
-        seu e -mail abaixo"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/reset_button
-      TermType: 0
-      Description: 
-      Languages:
-      - RESET
-      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
-      - REINICIAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/reset_password_confirm
-      TermType: 0
-      Description: 
-      Languages:
-      - A recovery link has been sent to the email.
-      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
-        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
-        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
-        \u043F\u0438\u0441\u044C\u043C\u043E."
-      - "Um link de recupera\xE7\xE3o foi enviado para o email."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITLoginRegister/username
       TermType: 0
       Description: 
@@ -2914,67 +3003,6 @@ MonoBehaviour:
       - USERNAME
       - "\u0418\u041C\u042F \u041F\u041E\u041B\u042C\u0417\u041E\u0412\u0410\u0422\u0415\u041B\u042F"
       - "NOME DE USU\xC1RIO"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/recommended_to_save_progress
-      TermType: 0
-      Description: 
-      Languages:
-      - Recommended to save your progress
-      - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
-        \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
-        \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
-      - Recomendado para salvar seu progresso
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/i_dont_have_account
-      TermType: 0
-      Description: 
-      Languages:
-      - I don't have an account
-      - "\u0423 \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0443\u0447\u0435\u0442\u043D\u043E\u0439
-        \u0437\u0430\u043F\u0438\u0441\u0438"
-      - "Eu n\xE3o tenho uma conta"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/i_have_account
-      TermType: 0
-      Description: 
-      Languages:
-      - I already have an account
-      - "\u0443 \u043C\u0435\u043D\u044F \u0443\u0436\u0435 \u0435\u0441\u0442\u044C
-        \u0430\u043A\u043A\u0430\u0443\u043D\u0442"
-      - "eu j\xE1 tenho uma conta"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/login_first_light_id
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGIN TO EXISTING FIRST LIGHT ID
-      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - "Fa\xE7a login no primeiro ID de luz existente"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_first_light_id
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE NEW FIRST LIGHT ID
-      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - Crie novo primeiro ID da luz
       - 
       - 
       Flags: 0000000000
@@ -3006,6 +3034,44 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/connect
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
+      - "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0442\u044C"
+      - Conectar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect_flg_id
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect new First Light ID
+      - "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430"
+      - Conecte um novo ID da primeira luz
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect_flg_id_advice
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
+        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
+        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
+      - Para garantir seu progresso e desbloquear mais recursos!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/delete_account
       TermType: 0
       Description: 
@@ -3032,6 +3098,112 @@ MonoBehaviour:
         \u0411\u042B\u0422\u042C \u041E\u0422\u041C\u0415\u041D\u0415\u041D\u041E."
       - "Tem certeza de que deseja excluir sua conta?\nESSA A\xC7\xC3O N\xC3O PODE
         SER DESFEITA."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/failure
+      TermType: 0
+      Description: 
+      Languages:
+      - Failure
+      - "\u041E\u0442\u043A\u0430\u0437"
+      - Falha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connect_login_success
+      TermType: 0
+      Description: 
+      Languages:
+      - Logged into new account successfully!
+      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0432\u043E\u0448\u0435\u043B
+        \u0432 \u043D\u043E\u0432\u0443\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E
+        \u0437\u0430\u043F\u0438\u0441\u044C!"
+      - Logado na nova conta com sucesso!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connect_register_success
+      TermType: 0
+      Description: 
+      Languages:
+      - New account has been created and connected successfully! Your progress is
+        safe now.
+      - "\u041D\u043E\u0432\u0430\u044F \u0443\u0447\u0435\u0442\u043D\u0430\u044F
+        \u0437\u0430\u043F\u0438\u0441\u044C \u0431\u044B\u043B\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0430
+        \u0438 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430!
+        \u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0441\u0435\u0439\u0447\u0430\u0441
+        \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u0435\u043D."
+      - "Nova conta foi criada e conectada com sucesso! Seu progresso est\xE1 seguro
+        agora."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID connected!
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
+        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - Primeira ID da luz conectada!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_login_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Failed to log into an existing First Light ID
+
+
+        {0}'
+      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u043E\u0439\u0442\u0438
+        \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430\n\n{0}"
+      - 'Falha ao fazer login em um primeiro ID de luz existente
+
+
+        {0}'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_not_connected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID not connected!
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
+        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - "Primeira ID da luz n\xE3o conectada!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_register_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Failed to register a new First Light ID
+
+
+        {0}'
+      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430\n\n{0}"
+      - 'Falha ao registrar um novo primeiro ID da luz
+
+
+        {0}'
       - 
       - 
       Flags: 0000000000
@@ -3085,139 +3257,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/connect_flg_id
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect new First Light ID
-      - "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u0441\u0432\u0435\u0442\u0430"
-      - Conecte um novo ID da primeira luz
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect_flg_id_advice
-      TermType: 0
-      Description: 
-      Languages:
-      - to secure your progress and unlock more features!
-      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
-        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
-        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
-      - Para garantir seu progresso e desbloquear mais recursos!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect
-      - "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0442\u044C"
-      - Conectar
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connected
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - Primeira ID da luz conectada!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_not_connected
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID not connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - "Primeira ID da luz n\xE3o conectada!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connect_register_success
-      TermType: 0
-      Description: 
-      Languages:
-      - New account has been created and connected successfully! Your progress is
-        safe now.
-      - "\u041D\u043E\u0432\u0430\u044F \u0443\u0447\u0435\u0442\u043D\u0430\u044F
-        \u0437\u0430\u043F\u0438\u0441\u044C \u0431\u044B\u043B\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0430
-        \u0438 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430!
-        \u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0441\u0435\u0439\u0447\u0430\u0441
-        \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u0435\u043D."
-      - "Nova conta foi criada e conectada com sucesso! Seu progresso est\xE1 seguro
-        agora."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connect_login_success
-      TermType: 0
-      Description: 
-      Languages:
-      - Logged into new account successfully!
-      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0432\u043E\u0448\u0435\u043B
-        \u0432 \u043D\u043E\u0432\u0443\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E
-        \u0437\u0430\u043F\u0438\u0441\u044C!"
-      - Logado na nova conta com sucesso!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_login_fail
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Failed to log into an existing First Light ID
-
-
-        {0}'
-      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u043E\u0439\u0442\u0438
-        \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u0441\u0432\u0435\u0442\u0430\n\n{0}"
-      - 'Falha ao fazer login em um primeiro ID de luz existente
-
-
-        {0}'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_register_fail
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Failed to register a new First Light ID
-
-
-        {0}'
-      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430\n\n{0}"
-      - 'Falha ao registrar um novo primeiro ID da luz
-
-
-        {0}'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITSettings/success
       TermType: 0
       Description: 
@@ -3225,17 +3264,6 @@ MonoBehaviour:
       - Success
       - "\u0423\u0441\u043F\u0435\u0445"
       - Sucesso
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/failure
-      TermType: 0
-      Description: 
-      Languages:
-      - Failure
-      - "\u041E\u0442\u043A\u0430\u0437"
-      - Falha
       - 
       - 
       Flags: 0000000000
@@ -5669,6 +5697,32 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: FTUE/BPComplete
+      TermType: 0
+      Description: 
+      Languages:
+      - You completed the starting battle pass ! New rewards awaits you !
+      - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
+        \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
+        \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
+        \u043D\u0430\u0433\u0440\u0430\u0434\u044B!"
+      - "Voc\xEA completou o passe de batalha inicial! Novas recompensas esperam
+        voc\xEA!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: FTUE/BPName
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastPass
+      - BlastPass
+      - Blastpass
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: FTUE/CollectWeapon
       TermType: 0
       Description: 
@@ -5795,6 +5849,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: FTUE/RichTextTest
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: FTUE/SpecialAbilities
       TermType: 0
       Description: 
@@ -5864,43 +5929,6 @@ MonoBehaviour:
         \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A. \u0414\u0430\u0432\u0430\u0439\u0442\u0435
         \u043D\u0430\u0447\u043D\u0435\u043C \u0432\u0430\u0448\u0435 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435."
       - "Welcome Contender. Vamos come\xE7ar seu treinamento."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/BPComplete
-      TermType: 0
-      Description: 
-      Languages:
-      - You completed the starting battle pass ! New rewards awaits you !
-      - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
-        \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
-        \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
-        \u043D\u0430\u0433\u0440\u0430\u0434\u044B!"
-      - "Voc\xEA completou o passe de batalha inicial! Novas recompensas esperam
-        voc\xEA!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/BPName
-      TermType: 0
-      Description: 
-      Languages:
-      - BlastPass
-      - BlastPass
-      - Blastpass
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/RichTextTest
-      TermType: 0
-      Description: 
-      Languages:
-      - <size=65%>65% size text</size> and normal size text
-      - <size=65%>65% size text</size> and normal size text
-      - <size=65%>65% size text</size> and normal size text
       - 
       - 
       Flags: 0000000000
@@ -7038,17 +7066,6 @@ MonoBehaviour:
       - "\u0414\u0438\u043D\u0430\u043C\u0438\u0447\u0435\u0441\u043A\u043E\u0435
         \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A"
       - "Movimento din\xE2mico Joystick"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/ScreenShakeSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - Screen Shake
-      - "\u042D\u043A\u0440\u0430\u043D\u043D\u0430\u044F \u0434\u0440\u043E\u0436\u044C"
-      - Tremor da tela
       - 
       - 
       Flags: 0000000000
@@ -8379,6 +8396,17 @@ MonoBehaviour:
       - Sound Effects
       - "\u0417\u0432\u0443\u043A\u043E\u0432\u044B\u0435 \u044D\u0444\u0444\u0435\u043A\u0442\u044B"
       - Efeitos sonoros
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/ScreenShakeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Screen Shake
+      - "\u042D\u043A\u0440\u0430\u043D\u043D\u0430\u044F \u0434\u0440\u043E\u0436\u044C"
+      - Tremor da tela
       - 
       - 
       Flags: 0000000000
@@ -12769,6 +12797,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Demon
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag
+      - Demon Flag
+      - Demon Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/DemonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag Description
+      - Demon Flag Description
+      - Demon Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Diagonalshot
       TermType: 0
       Description: 
@@ -12777,6 +12827,28 @@ MonoBehaviour:
       - "\u0414\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439
         \u0432\u044B\u0441\u0442\u0440\u0435\u043B"
       - Tiro diagonal
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Divinci
+      TermType: 0
+      Description: 
+      Languages:
+      - Divinci Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/DivinciDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Divinci Glider Description
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12835,6 +12907,28 @@ MonoBehaviour:
       - Equipment
       - "\u041E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
       - Equipamento
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Falcon
+      TermType: 0
+      Description: 
+      Languages:
+      - Falcon Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FalconDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Falcon Glider Description
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13001,116 +13095,6 @@ MonoBehaviour:
       - Death flag of your average Blaster
       - Death flag of your average Blaster
       - Death flag of your average Blaster
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Tombstone
-      TermType: 0
-      Description: 
-      Languages:
-      - Punk
-      - Tombstone
-      - Tombstone
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/TombstoneDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - A marker of a fallen Blaster
-      - A marker of a fallen Blaster
-      - A marker of a fallen Blaster
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Punk
-      TermType: 0
-      Description: 
-      Languages:
-      - Punk Flag
-      - Punk Flag
-      - Punk Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/PunkDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Punk Flag Description
-      - Punk Flag Description
-      - Punk Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Demon
-      TermType: 0
-      Description: 
-      Languages:
-      - Demon Flag
-      - Demon Flag
-      - Demon Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/DemonDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Demon Flag Description
-      - Demon Flag Description
-      - Demon Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/SuperStar
-      TermType: 0
-      Description: 
-      Languages:
-      - Super Star Flag
-      - Super Star Flag
-      - Super Star Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/SuperStarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Super Star Flag Description
-      - Super Star Flag Description
-      - Super Star Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Unicorn
-      TermType: 0
-      Description: 
-      Languages:
-      - Unicorn Flag
-      - Unicorn Flag
-      - Unicorn Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/UnicornDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Unicorn Flag Description
-      - Unicorn Flag Description
-      - Unicorn Flag Description
       - 
       - 
       Flags: 0000000000
@@ -13453,17 +13437,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/Male02Avatar
-      TermType: 0
-      Description: 
-      Languages:
-      - Hugo Marks
-      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
-      - Hugo Marks
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/Male01AvatarDescription
       TermType: 0
       Description: 
@@ -13471,6 +13444,17 @@ MonoBehaviour:
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male02Avatar
+      TermType: 0
+      Description: 
+      Languages:
+      - Hugo Marks
+      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
+      - Hugo Marks
       - 
       - 
       Flags: 0000000000
@@ -13570,6 +13554,18 @@ MonoBehaviour:
       - Male Superstar Description
       - Male Superstar Description
       - Male Superstar Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MapTestScene
+      TermType: 0
+      Description: 
+      Languages:
+      - Map Test Scene
+      - "\u0421\u0446\u0435\u043D\u0430 \u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
+        \u043A\u0430\u0440\u0442\u044B"
+      - Cena do teste de mapa
       - 
       - 
       Flags: 0000000000
@@ -13772,6 +13768,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NewBRMap
+      TermType: 0
+      Description: 
+      Languages:
+      - New BR Map
+      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
+      - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
       Description: 
@@ -13792,6 +13799,28 @@ MonoBehaviour:
         \u0433\u043E\u0440\u043E\u0434, \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043B\u044F
         \u0431\u043E\u0435\u0432\u044B\u0445 \u0441\u0430\u043B\u043E\u043D\u043E\u0432"
       - Uma vez uma cidade movimentada, agora um campo de batalha de saqueadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Punk
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag
+      - Punk Flag
+      - Punk Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag Description
+      - Punk Flag Description
+      - Punk Flag Description
       - 
       - 
       Flags: 0000000000
@@ -14001,6 +14030,28 @@ MonoBehaviour:
       - 
       - 
       - '#VALUE!'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Rocket
+      TermType: 0
+      Description: 
+      Languages:
+      - Rocket Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/RocketDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Rocket Glider Description
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -14928,6 +14979,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/SuperStar
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag
+      - Super Star Flag
+      - Super Star Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/SuperStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/TestScene
       TermType: 0
       Description: 
@@ -14961,6 +15034,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Tombstone
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk
+      - Tombstone
+      - Tombstone
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TombstoneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Turbine
+      TermType: 0
+      Description: 
+      Languages:
+      - Turbine Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TurbineDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Turbine Glider Description
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Tutorial
       TermType: 0
       Description: 
@@ -14990,6 +15107,28 @@ MonoBehaviour:
       - GOOD CORE
       - "\u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u044F\u0434\u0440\u043E"
       - "Bom n\xFAcleo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Unicorn
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag
+      - Unicorn Flag
+      - Unicorn Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/UnicornDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag Description
+      - Unicorn Flag Description
+      - Unicorn Flag Description
       - 
       - 
       Flags: 0000000000
@@ -15122,117 +15261,6 @@ MonoBehaviour:
       - WEAPON
       - "\u041E\u0420\u0423\u0416\u0418\u0415"
       - ARMA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/MapTestScene
-      TermType: 0
-      Description: 
-      Languages:
-      - Map Test Scene
-      - "\u0421\u0446\u0435\u043D\u0430 \u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
-        \u043A\u0430\u0440\u0442\u044B"
-      - Cena do teste de mapa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/NewBRMap
-      TermType: 0
-      Description: 
-      Languages:
-      - New BR Map
-      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
-      - Novo mapa BR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Divinci
-      TermType: 0
-      Description: 
-      Languages:
-      - Divinci Glider
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/DivinciDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Divinci Glider Description
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Falcon
-      TermType: 0
-      Description: 
-      Languages:
-      - Falcon Glider
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/FalconDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Falcon Glider Description
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Rocket
-      TermType: 0
-      Description: 
-      Languages:
-      - Rocket Glider
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/RocketDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Rocket Glider Description
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Turbine
-      TermType: 0
-      Description: 
-      Languages:
-      - Turbine Glider
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/TurbineDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Turbine Glider Description
-      - 
-      - 
       - 
       - 
       Flags: 0000000000
@@ -16177,7 +16205,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678451391464
+    Google_LastUpdatedVersion: 1678807716009
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

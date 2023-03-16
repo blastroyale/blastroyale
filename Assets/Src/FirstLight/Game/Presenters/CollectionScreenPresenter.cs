@@ -281,6 +281,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
 		{
+			if (rowNumber < 0 || rowNumber >= _collectionList.itemsSource.Count) return;
+			
 			var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
 			var rowItems = (IList<CollectionItem>) _collectionList.itemsSource[rowNumber];
 			for (var x = 0; x < PAGE_SIZE; x++)

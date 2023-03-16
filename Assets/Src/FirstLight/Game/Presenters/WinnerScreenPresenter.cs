@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
@@ -73,13 +74,18 @@ namespace FirstLight.Game.Presenters
 			SetupCamera();
 
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out var leader);
-			var playerWinner = playerData[leader];
+			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
 
-			_playerWinnerEntity = playerWinner.Data.Entity;
-			_nameLabel.text = playerWinner.GetPlayerName();
+			if (playerWinner.Data.IsValid)
+			{
+				_playerWinnerEntity = playerWinner.Data.Entity;
+				_nameLabel.text = playerWinner.GetPlayerName();
+			}
+			else
+			{
+				_nameLabel.text = "No one"; // TODO: Localize!!!!
+			}
 			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			PlayTimeline();

@@ -46,42 +46,50 @@ namespace FirstLight.Game.StateMachines
 			var spawning = stateFactory.State("Spawning");
 			var resyncCheck = stateFactory.Choice("Resync Check");
 			var spectateCheck = stateFactory.Choice("Spectate Check");
-			var resyncAliveCheck = stateFactory.Choice("Resync Alive Check");
+			var resyncChecks = stateFactory.Choice("Resync Checks");
 
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 
+			spectateCheck.Transition().Condition(IsNotOnline).Target(final);
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
 
 			resyncCheck.OnEnter(OpenMatchHud);
-			resyncCheck.Transition().Condition(IsRejoining).Target(resyncAliveCheck);
+			resyncCheck.Transition().Condition(IsNotOnline).Target(final);
+			resyncCheck.Transition().Condition(IsRejoining).Target(resyncChecks);
 			resyncCheck.Transition().Target(spawning);
 
-			resyncAliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
-			resyncAliveCheck.Transition().Target(deadCheck);
+			resyncChecks.Transition().Condition(IsNotOnline).Target(final);
+			resyncChecks.Transition().Condition(IsLocalPlayerAlive).Target(alive);
+			resyncChecks.Transition().Target(deadCheck);
 
+			spawning.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
+			alive.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			alive.OnExit(CloseControlsHud);
 
+			deadCheck.Transition().Condition(IsNotOnline).Target(final);
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
-
+			
 			dead.OnEnter(MatchEndAnalytics);
 			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
-
+			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
+			
 			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(_localPlayerExitEvent).Target(final);
+			spectating.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		private void SubscribeEvents()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();;
@@ -94,15 +102,22 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.UnsubscribeListener(this);
 		}
 		
+		private bool IsNotOnline()
+		{
+			return !_services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		
 		private void MatchEndAnalytics()
 		{
 			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 		}
 
-		private bool IsMatchEnding()
+		public bool IsMatchEnding()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
-			return f.GetSingleton<GameContainer>().IsGameOver;
+			var container = f.GetSingleton<GameContainer>();
+			return container.IsGameOver || container.IsGameCompleted;
 		}
 
 		private bool IsLocalPlayerAlive()
@@ -123,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsRejoining()
 		{
-			return !_services.NetworkService.IsJoiningNewMatch;
+			return _services.NetworkService.JoinSource.HasResync();
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)

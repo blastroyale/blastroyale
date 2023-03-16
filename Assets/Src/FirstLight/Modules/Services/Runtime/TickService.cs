@@ -405,15 +405,15 @@ namespace FirstLight.Services
 
 		private void Update()
 		{
-			OnUpdate();
+			OnUpdate?.Invoke();
 		}
 		private void FixedUpdate()
 		{
-			OnFixedUpdate();
+			OnFixedUpdate?.Invoke();
 		}
 		private void LateUpdate()
 		{
-			OnLateUpdate();
+			OnLateUpdate?.Invoke();
 		}
 	}
 }

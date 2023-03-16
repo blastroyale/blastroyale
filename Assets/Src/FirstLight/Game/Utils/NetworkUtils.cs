@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -40,18 +41,11 @@ namespace FirstLight.Game.Utils
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
-
-			if (!isRandomMatchmaking)
-			{
-				emptyTtl = roomNameFinal.IsPlayTestRoom()
-					? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					: GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
-			}
-			else
-			{
-				emptyTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
-			}
-
+			
+			emptyTtl = roomNameFinal.IsPlayTestRoom()
+				? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+				: GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
+			
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomNameFinal,
@@ -75,7 +69,7 @@ namespace FirstLight.Game.Utils
 					MaxPlayers = isRandomMatchmaking
 						? (byte) maxPlayers
 						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
-					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
+					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},
 			};
 
@@ -102,8 +96,8 @@ namespace FirstLight.Game.Utils
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
-					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS
+					PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				}
 			};
 		}
@@ -197,7 +191,9 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_GAME_MODE, setup.GameMode().Id},
 
 				// A list of mutators used in this room
-				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}
+				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)},
+				
+				{GameConstants.Network.ROOM_PROPS_SETUP, ModelSerializer.Serialize(setup).Value}
 			};
 		}
 
@@ -238,8 +234,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsOfflineOrDisconnected()
 		{
-			var quantumClient = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
-			return IsOffline() || quantumClient.State is ClientState.Disconnected or ClientState.Disconnecting;
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		/// <summary>

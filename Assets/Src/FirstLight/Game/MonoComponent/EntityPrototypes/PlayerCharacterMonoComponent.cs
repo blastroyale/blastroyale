@@ -44,7 +44,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			var frame = game.Frames.Verified;
-
+			
 			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
 		}
 

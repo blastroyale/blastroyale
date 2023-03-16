@@ -26,9 +26,14 @@ using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	public enum Environment
+	{ 
+		DEV, STAGING, TESTNET, PROD
+	}
+	
 	public class BackendEnvironmentData
 	{
-		public string EnvironmentID;
+		public Environment EnvironmentID;
 		public string TitleID;
 		public string AppIDRealtime;
 		public string RecoveryEmailTemplateID;
@@ -121,6 +126,11 @@ namespace FirstLight.Game.Services
 		/// Handle an unrecoverable exception in the game, it will close and send analytics
 		/// </summary>
 		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
+
+		/// <summary>
+		/// Returns if the game is running on dev env. On dev things can be different.
+		/// </summary>
+		bool IsDev();
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -153,6 +163,38 @@ namespace FirstLight.Game.Services
 			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); }, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
+		private void SetupLive(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.PROD;
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+		}
+		
+		private void SetupTestnet(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.TESTNET;
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+		}
+		
+		private void SetupStaging(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.STAGING;
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+		}
+		
+		private void SetupDev(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.DEV;
+			envData.TitleID = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+		}
+		
 		public void SetupBackendEnvironment()
 		{
 			if (CurrentEnvironmentData != null)
@@ -163,26 +205,29 @@ namespace FirstLight.Game.Services
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
+			
 #if LIVE_SERVER
-			envData.EnvironmentID = "live";
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			SetupLive(envData);
 #elif LIVE_TESTNET_SERVER
-			envData.EnvironmentID = "live testnet";
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			SetupTestnet(envData);
 #elif STAGE_SERVER
-			envData.EnvironmentID = "stage";
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			SetupStaging(envData);
 #else
-			envData.EnvironmentID = "dev";
-			envData.TitleID = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
+			switch (FeatureFlags.GetLocalConfiguration().EnvironmentOverride)
+			{
+				case Environment.PROD:
+					SetupLive(envData);
+					break;
+				case Environment.STAGING:
+					SetupStaging(envData);
+					break;
+				case Environment.TESTNET:
+					SetupTestnet(envData);
+					break;
+				default:
+					SetupDev(envData);
+					break;
+			}
 #endif
 
 			CurrentEnvironmentData = envData;
@@ -190,11 +235,11 @@ namespace FirstLight.Game.Services
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
 			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
 
-			if (CurrentEnvironmentData.EnvironmentID != appData.Environment)
+			if (CurrentEnvironmentData.EnvironmentID != appData.LastEnvironment)
 			{
 				var newData = appData.CopyForNewEnvironment();
 
-				newData.Environment = CurrentEnvironmentData.EnvironmentID;
+				newData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
 
 				_dataService.AddData(newData, true);
 				_dataService.SaveData<AppData>();
@@ -352,7 +397,11 @@ namespace FirstLight.Game.Services
 #endif
 		}
 
-
+		public bool IsDev()
+		{
+			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
+		}
+		
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>

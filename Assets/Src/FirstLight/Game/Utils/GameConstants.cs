@@ -1,3 +1,4 @@
+using System;
 using Quantum;
 using UnityEngine;
 
@@ -169,16 +170,15 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Network state time settings
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 1;
 			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
-			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
-			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000; 
+			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000; 
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -197,10 +197,12 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_GAME_MODE = "gameModeId";
+			public const string ROOM_PROPS_SETUP = "roomSetup";
 			public const string ROOM_PROPS_MUTATORS = "mutators";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string DROP_ZONE_POS_ROT = "dropzonePosRot";
 			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
+			public const string ROOM_PROPS_STARTED_GAME = "startedGame";
 
 			public const string DEFAULT_REGION = "eu";
 			
@@ -303,17 +305,34 @@ namespace FirstLight.Game.Utils
 		{
 			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
-			
-			// CRITICAL: UPDATE THESE WHEN TUTORIAL STEPS ARE CHANGED
-			public const int TOTAL_STEPS_FIRST_GUIDE_MATCH = 15;
-			public const int TOTAL_STEPS_META_AND_MATCH = 6;
-			
+
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
 			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
 
+			public const string TAG_INDICATORS = "GroundIndicator";
+			public const string TAG_GUIDE_UI = "GuideUiTarget";
+			
+			public const string TRIGGER_FIRST_MOVE_AREA = "FirstMoveArea";
 			public const string TRIGGER_DUMMY_AREA = "DummyArea";
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
+			public const string TRIGGER_GATE_AREA = "GateArea";
 			public const string TRIGGER_ARENA_AREA = "ArenaArea";
+
+			public const string GUIDE_UI_MOVEMENT_JOYSTICK = "MovementUiJoystick";
+			public const string GUIDE_UI_SHOOTING_JOYSTICK = "ShootingUiJoystick";
+			public const string GUIDE_UI_SPECIAL_BUTTON = "TutorialSpecialTarget";
+			
+			public const string INDICATOR_FIRST_MOVE = "FirstMove";
+			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
+			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
+			public const string INDICATOR_BOT_AREA = "BotArea";
+			public const string INDICATOR_BOT1 = "Bot1";
+			public const string INDICATOR_BOT2 = "Bot2";
+			public const string INDICATOR_BOT3 = "Bot3";
+			public const string INDICATOR_IRON_GATE = "IronGate";
+			public const string INDICATOR_TOP_PLATFORM = "TopPlatform";
+			public const string INDICATOR_EQUIPMENT_CHEST = "EquipmentChest";
+			public const string INDICATOR_ARENA_DROPDOWN = "ArenaDropDown";
 		}
 
 		public static class GameModeId

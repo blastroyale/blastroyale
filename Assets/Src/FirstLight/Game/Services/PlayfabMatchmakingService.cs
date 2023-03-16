@@ -97,8 +97,9 @@ namespace FirstLight.Game.Services
 		public string GameModeId;
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
+		public string RoomIdentifier = "";
 
-		[CanBeNull] public string RoomIdentifier;
+		public override string ToString() => ModelSerializer.Serialize(this).Value;
 	}
 
 	public class GameMatched

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -102,11 +104,45 @@ namespace FirstLight.Editor.EditorTools
 		{
 			SROptions.Current.SkipTutorialSection();
 		}
+		
+		[MenuItem("FLG/Backend/Netcode/Simulate Disconnection")]
+		private static void SimulateDisconnection()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 100;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 100;
+			client.LoadBalancingPeer.IsSimulationEnabled = true;
+		}
+		
+		[MenuItem("FLG/Backend/Netcode/Simulate Lag")]
+		private static void SimulateLag()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 25;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 25;
+			client.LoadBalancingPeer.IsSimulationEnabled = true;
+		}
+		
+		[MenuItem("FLG/Backend/Netcode/Normal Internet")]
+		private static void Normal()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.IsSimulationEnabled = false;
+		}
+
+		[MenuItem("FLG/Cheats/Disconnect")]
+		private static void Disconnect()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.Disconnect();
+		}
 #endif
 		private static string GetScenePath(string scene)
 		{
 			return AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"t:scene {scene}")[0]);
 		}
+		
+		
 
 		[MenuItem("FLG/Art/Merge Colliders %#m")]
 		private static void MergeColliders()

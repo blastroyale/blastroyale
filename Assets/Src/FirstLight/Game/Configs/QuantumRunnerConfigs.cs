@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -59,14 +61,24 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator,
-																	   FrameSnapshot frameSnapshot)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(Room room)
 		{
-			var gameMode = playerCount == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
-
-			if (isSpectator)
+			
+			var playersInRoom = room.GetRealPlayerAmount();
+			var roomSize = room.GetRealPlayerCapacity();
+			var gameMode = DeterministicGameMode.Multiplayer;
+			
+			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
+				!(bool) gameHasBots)
 			{
-				gameMode = DeterministicGameMode.Spectating;
+				roomSize = playersInRoom;
+			}
+			
+			FLog.Verbose($"Starting simulation for {roomSize} players");
+			
+			if (room.IsOffline)
+			{
+				gameMode = DeterministicGameMode.Local;
 			}
 
 			return new QuantumRunner.StartParameters
@@ -74,17 +86,15 @@ namespace FirstLight.Game.Configs
 				RuntimeConfig = _runtimeConfig,
 				DeterministicConfig = _deterministicConfigAsset.Config,
 				ReplayProvider = null,
-				GameMode = IsOfflineMode ? DeterministicGameMode.Local : gameMode,
-				InitialFrame = frameSnapshot.SnapshotNumber,
-				FrameData = frameSnapshot.SnapshotBytes,
+				GameMode = gameMode,
 				RunnerId = "DEFAULT",
-				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoom,
+				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive,
 				LocalPlayerCount = 1,
-				RecordingFlags = RecordingFlags.All,
+				RecordingFlags = RecordingFlags.None,
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,
 				HeapExtraCount = 0,
-				PlayerCount = playerCount
+				PlayerCount = roomSize
 			};
 		}
 	}

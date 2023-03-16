@@ -1,3 +1,4 @@
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace FirstLight.Game.Configs.AssetConfigs
 	/// Scriptable object containing generic not identified custom game asset's configurations
 	/// </summary>
 	[CreateAssetMenu(fileName = "CustomAssetConfigs", menuName = "ScriptableObjects/AssetConfigs/CustomAssetConfigs")]
+	[IgnoreServerSerialization]
 	public class CustomAssetConfigs : QuantumAssetConfigsAsset
 	{
 		[Required] public AssetReferenceGameObject ErrorCube;

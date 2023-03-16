@@ -447,12 +447,24 @@ namespace FirstLight.Game.Presenters
 
 			if (!hasRewards)
 			{
-				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
-				var requiredPoints =
-					_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevelAndPoints.Item1);
+				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
+					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+					_dataProvider.BattlePassDataProvider.MaxLevel)
+				{
+					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);
+					_bppPoolContainer.SetDisplay(false);
+				}
+				else
+				{
+					var predictedLevelAndPoints =
+						_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
+					var requiredPoints =
+						_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(
+							(int) predictedLevelAndPoints.Item1);
 
-				_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
-				_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+					_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) points / requiredPoints);
+					_battlePassProgressLabel.text = $"{points}/{requiredPoints}";
+				}
 			}
 		}
 
@@ -462,10 +474,7 @@ namespace FirstLight.Game.Presenters
 
 			// When this screen is opened we aren't officially matchmaking yet, so we force the loading state for the 
 			// first few seconds - should be changed when we allow interaction on home screen during matchmaking.
-			if (show)
-			{
-				UpdatePlayButton(true);
-			}
+			UpdatePlayButton(show);
 		}
 	}
 }

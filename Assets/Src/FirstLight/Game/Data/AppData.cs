@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using Quantum;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Game.Data
 {
@@ -35,13 +36,13 @@ namespace FirstLight.Game.Data
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
 
-		public string Environment;
+		public Environment LastEnvironment;
 		public string DeviceId;
 		public string LastLoginEmail;
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
-
+		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
 		public bool SfxEnabled = true;

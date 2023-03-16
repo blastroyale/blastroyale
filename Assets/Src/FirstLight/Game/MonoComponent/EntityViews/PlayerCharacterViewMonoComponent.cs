@@ -20,36 +20,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
-
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
-		
+
 		public Transform RootTransform;
-		
+
 		private Vector3 _lastPosition;
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
-		
+
 		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
 		/// </summary>
-		public bool IsLocalPlayer
-		{
-			get;
-			private set;
-		}
+		public bool IsLocalPlayer { get; private set; }
 
 		/// <summary>
 		/// Requests the <see cref="PlayerRef"/> of this player
 		/// </summary>
-		public PlayerRef PlayerRef
-		{
-			get;
-			private set;
-		}
+		public PlayerRef PlayerRef { get; private set; }
 
 		private static class PlayerFloats
 		{
@@ -87,10 +78,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
-			
+
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
-		
+
 		public override void SetCulled(bool culled)
 		{
 			if (culled)
@@ -99,29 +90,32 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					col.enabled = false;
 				}
-			} else
+			}
+			else
 			{
 				foreach (var col in _colliders)
 				{
 					col.enabled = true;
 				}
 			}
+
 			base.SetCulled(culled);
 		}
-		
+
 		/// <inheritdoc />
 		public override void SetRenderContainerVisible(bool active)
 		{
 			if (!active && Visible)
 			{
 				_characterView.HideAllEquipment();
-			} else if (active && !Visible)
+			}
+			else if (active && !Visible)
 			{
 				_characterView.ShowAllEquipment();
 			}
-			
+
 			base.SetRenderContainerVisible(active);
-			
+
 			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
 			{
 				_footstepVfxSpawners[i].CanSpawnVfx = active;
@@ -130,14 +124,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public void SetPlayerSilhouetteVisible(bool visible)
 		{
-			RenderersContainerProxy.SetRenderersLayer(LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
+			RenderersContainerProxy.SetRenderersLayer(
+				LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
 
 			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
 			{
 				_footstepVfxSpawners[i].CanSpawnVfx = visible;
 			}
 		}
-		
+
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
 		/// </summary>
@@ -151,13 +146,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnInit(game);
 
 			var frame = game.Frames.Verified;
-			
+
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
 			
-			if (Services.NetworkService.IsJoiningNewMatch)
+			if (!Services.NetworkService.JoinSource.HasResync())
 			{
-				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef)
+					.GetBoolean(frame, Constants.IsSkydiving);
 
 				if (isSkydiving)
 				{
@@ -165,13 +161,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				}
 				else
 				{
-					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);	
+					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 				}
 			}
 			else
 			{
 				AnimatorWrapper.SetBool(Bools.Flying, false);
-				
+
 				if (!EntityView.EntityRef.IsAlive(frame))
 				{
 					AnimatorWrapper.SetTrigger(Triggers.Die);
@@ -180,30 +176,30 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_colliders = GetComponentsInChildren<Collider>();
 		}
-		
+
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
 			if (_attackHideRendererCoroutine != null)
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
-			
+
 			base.OnAvatarEliminated(game);
 		}
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity || 
-			    CollidingVisibilityVolumes.Count == 0)
+			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity ||
+				CollidingVisibilityVolumes.Count == 0)
 			{
 				return;
 			}
-			
+
 			if (_attackHideRendererCoroutine != null)
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
-				
+
 			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
@@ -212,10 +208,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			SetPlayerSilhouetteVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
-			
+
 			if (CollidingVisibilityVolumes.Count > 0)
 			{
-				var visVolumeHasSpectatedPlayer = CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
+				var visVolumeHasSpectatedPlayer =
+					CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
 				SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
 			}
 		}
@@ -231,13 +228,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-			                    time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
+				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 
-			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
-			
+			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
-			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,vfxTime);
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, vfxTime);
 		}
 
 		private void HandleOnGrenadeUsed(EventOnGrenadeUsed callback)
@@ -251,17 +248,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			HandleParabolicUsed(callback.HazardData.EndTime,
-			                    time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
+				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
 
-			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
-			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,vfxTime);
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat, vfxTime);
 		}
 
 		private async void HandleParabolicUsed(FP launchTime, FP frameTime, Vector3 targetPosition,
-		                                       VfxId parabolicVfxId, VfxId impactVfxId)
+											   VfxId parabolicVfxId, VfxId impactVfxId)
 		{
 			var flyTime = (launchTime - frameTime).AsFloat;
 
@@ -270,7 +267,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var parabolic = Services.VfxService.Spawn(parabolicVfxId) as ParabolicVfxMonoComponent;
+			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
 
@@ -325,7 +322,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
-			
+
 			RenderersContainerProxy.SetRendererState(false);
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
@@ -347,21 +344,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-	
+
 			AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)
 		{
-			if (EntityView.EntityRef != callback.EntityLeader)
-			{
-				AnimatorWrapper.SetBool(Bools.Stun, true);
-			}
-			else
+			if (EntityView.EntityRef == callback.EntityLeader ||
+				callback.PlayersMatchData[callback.Game.GetLocalPlayerRef()].TeamId == callback.LeaderTeam)
 			{
 				AnimatorWrapper.SetBool(Bools.Aim, false);
 				AnimatorWrapper.SetTrigger(Triggers.Victory);
+			}
+			else
+			{
+				AnimatorWrapper.SetBool(Bools.Stun, true);
 			}
 		}
 
@@ -373,7 +371,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var weapons = await _characterView.EquipWeapon(callback.Weapon.GameId);
-			
+
 			var f = callback.Game.Frames.Verified;
 			if (!f.Exists(EntityView.EntityRef))
 			{
@@ -408,12 +406,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
-			              (callback.HazardData.EndTime - time).AsFloat);
+				(callback.HazardData.EndTime - time).AsFloat);
 
 			Services.VfxService.Spawn(VfxId.Airstrike).transform.position = targetPosition;
 
@@ -434,7 +432,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = Services.VfxService.Spawn(VfxId.EnergyShield) as MutableTimeVfxMonoComponent;
+			var vfx = (MutableTimeVfxMonoComponent) Services.VfxService.Spawn(VfxId.EnergyShield);
 			var vfxTransform = vfx.transform;
 			vfxTransform.SetParent(transform);
 			vfxTransform.localPosition = Vector3.zero;
@@ -451,16 +449,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
 			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
-			              (callback.HazardData.EndTime - time).AsFloat);
+				(callback.HazardData.EndTime - time).AsFloat);
 
 			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
 		}
-		
+
 		private void HandleOnRadarUsed(EventOnRadarUsed callback)
 		{
 			if (callback.Player != PlayerRef)
@@ -471,9 +469,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			Services.VfxService.Spawn(VfxId.Radar).transform.position = transform.position;
 		}
 
-		private void HandleUpdateView(CallbackUpdateView callback)	
-		{	
-			const float speedThreshold = 0.5f; // unity units per second	
+		private void HandleUpdateView(CallbackUpdateView callback)
+		{
+			const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
 			{
@@ -484,15 +482,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-				
+
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
-			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
+			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-			
+
 			if (isMoving)
 			{
 				deltaPosition.Normalize();
@@ -505,7 +503,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
 			}
-			
+
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 			_lastPosition = currentPosition;
 		}

@@ -282,7 +282,7 @@ namespace FirstLight.Game.Presenters
 
 			UpdatePlayerCount();
 
-			if (!gameModeConfig.SkydiveSpawn)
+			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);

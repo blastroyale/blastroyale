@@ -1,9 +1,63 @@
-
-#header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #2F4F4F;
-    color: #FFFFFF;
+.background {
+    background-color: rgba(0, 0, 0, 0.8);
 }
+
+.equipment-popup {
+    background-image: var(--sprite-home__background-popup-equipment);
+    width: 1350px;
+    height: 820px;
+    top: 30px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 38px;
+}
+
+
+.equipment-popup__close {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    background-image: var(--sprite-home__button-popup-equipment-close);
+    height: 90px;
+    width: 104px;
+}
+
+.equipment-popup__close:active {
+    background-image: var(--sprite-home__button-popup-equipment-close-pressed);
+}
+
+.settings-popup__sound-tab {
+    background-image: var(--sprite-home__settings-tab-back);
+}
+
+.equipment-popup__content {
+    position: absolute;
+    left: 500px;
+    top: 86px;
+    right: 0;
+    bottom: 0;
+}
+
+
+.safe-area {
+    align-items: center;
+    justify-content: center;
+}
+
+
+.content-holder {
+    background-color: rgb(23, 20, 38);
+    width: 369px;
+    height: 130px;
+    border-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -69px;
+    font-size: 50px;
+}
+
+
+
+
+

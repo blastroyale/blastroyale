@@ -1,8 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/SettingsScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e51e5379d62b426db9b3aa6880d0619&amp;type=3#SettingsScreenStyle" />
-    <Style src="project://database/Assets/Art/UI/Screens/EquipmentPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=f94e5ce933248497cb64ddc715782042&amp;type=3#EquipmentPopupScreenStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
@@ -11,12 +8,12 @@
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
                 <ui:VisualElement name="Content" class="equipment-popup__content" style="left: 2px; right: 10px; top: 86px; bottom: 0;">
                     <ui:VisualElement name="SettingsTab" style="height: 180px; align-items: center; justify-content: center; flex-direction: row; width: 1540px; position: absolute; top: 14px; left: 126px;">
-                        <ui:VisualElement name="SoundBlock" style="height: 118px; width: 258px; justify-content: center; -unity-text-align: upper-center; align-items: center;">
+                        <ui:VisualElement name="SoundBlock" focusable="false" style="height: 118px; width: 258px; justify-content: center; -unity-text-align: upper-center; align-items: center;">
                             <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITSettings/sound_title" name="SoundButtonOff" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-back.png?fileID=2800000&amp;guid=924e9a658b38a417982f18d0ba0dc4e4&amp;type=3#settings-tab-back&apos;); width: 300px; visibility: visible; display: none;" />
                             <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITSettings/sound_title" name="SoundButtonOn" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-chosen.png?fileID=2800000&amp;guid=15d784641546343d4ba4b70be338fbc0&amp;type=3#settings-tab-chosen&apos;); width: 300px; display: flex;" />
                             <ui:VisualElement name="SoundSelector" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-arrow.png?fileID=2800000&amp;guid=3e5652b7ecea04363b108b5a07a418e9&amp;type=3#settings-tab-arrow&apos;); width: 40px; height: 28px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="GraphicsBlock" style="height: 118px; width: 258px; justify-content: center; -unity-text-align: upper-center; align-items: center;">
+                        <ui:VisualElement name="GraphicsBlock" focusable="false" style="height: 118px; width: 258px; justify-content: center; -unity-text-align: upper-center; align-items: center;">
                             <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITSettings/graphics_title" name="GraphicsButtonOff" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-back.png?fileID=2800000&amp;guid=924e9a658b38a417982f18d0ba0dc4e4&amp;type=3#settings-tab-back&apos;); width: 300px; visibility: visible; display: flex;" />
                             <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITSettings/graphics_title" name="GraphicsButtonOn" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-chosen.png?fileID=2800000&amp;guid=15d784641546343d4ba4b70be338fbc0&amp;type=3#settings-tab-chosen&apos;); width: 300px; display: none;" />
                             <ui:VisualElement name="GraphicsSelector" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-arrow.png?fileID=2800000&amp;guid=3e5652b7ecea04363b108b5a07a418e9&amp;type=3#settings-tab-arrow&apos;); width: 40px; height: 28px; display: none;" />
@@ -33,7 +30,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="Sound" class="fill-parent content-scrapping" style="display: flex; top: 234px;">
-                        <ui:VisualElement name="Content" class="content-scrapping__amount-holder" style="height: 304px; width: 891px;">
+                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px;">
                             <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/sound_effects" style="position: absolute; top: 48px; left: 63px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>

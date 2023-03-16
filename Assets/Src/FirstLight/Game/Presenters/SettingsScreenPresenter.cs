@@ -59,8 +59,8 @@ namespace FirstLight.Game.Presenters
 		private Button _soundButtonOff;
 		private VisualElement _soundSelector;
 		
-		private Button _graphicsButtonOn;
-		private Button _graphicsButtonOff;
+		private LocalizedButton _graphicsButtonOn;
+		private LocalizedButton _graphicsButtonOff;
 		private VisualElement _graphicsSelector;
 		
 		private Button _controlsButtonOn;
@@ -110,10 +110,11 @@ namespace FirstLight.Game.Presenters
 			_soundSelector = root.Q<VisualElement>("SoundSelector");
 			_soundButtonOff.clicked += OnSoundClicked;
 		
-			_graphicsButtonOn = root.Q<Button>("GraphicsButtonOn");
-			_graphicsButtonOff = root.Q<Button>("GraphicsButtonOff");
+			_graphicsButtonOn = root.Q<LocalizedButton>("GraphicsButtonOn");
+			_graphicsButtonOff = root.Q<LocalizedButton>("GraphicsButtonOff");
 			_graphicsSelector = root.Q<VisualElement>("GraphicsSelector");
 			_graphicsButtonOff.clicked += OnGraphicsClicked;
+			_graphicsButtonOn.clicked += OnGraphicsClicked;
 		
 			_controlsButtonOn = root.Q<Button>("ControlsButtonOn");
 			_controlsButtonOff = root.Q<Button>("ControlsButtonOff");

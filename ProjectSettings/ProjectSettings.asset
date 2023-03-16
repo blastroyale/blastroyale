@@ -158,8 +158,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.firstlightgames.blastroyaleenterprise
-    iPhone: com.firstlightgames.blastroyaleenterprise
+    Android: com.firstlightgames.blastroyale
+    iPhone: com.firstlightgames.blastroyale
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -229,10 +229,10 @@ PlayerSettings:
   metalAPIValidation: 1
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
-  appleDeveloperTeamID: LR745QRAJR
-  iOSManualSigningProvisioningProfileID: 6573b280-9534-4ec7-83f2-b64ea455239e
+  appleDeveloperTeamID: 8UB22L9ZW7
+  iOSManualSigningProvisioningProfileID: 6bc63634-5e49-4ece-ab2f-555814e79ff6
   tvOSManualSigningProvisioningProfileID: 
-  iOSManualSigningProvisioningProfileType: 2
+  iOSManualSigningProvisioningProfileType: 1
   tvOSManualSigningProvisioningProfileType: 0
   appleEnableAutomaticSigning: 2
   iOSRequireARKit: 0

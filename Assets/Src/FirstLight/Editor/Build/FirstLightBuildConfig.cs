@@ -40,12 +40,10 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public const string StoreSymbol = "STORE_BUILD";
 
-		private const string _appEnterpriseIdentifier = "com.firstlightgames.blastroyaleenterprise";
-		private const string _appReleaseIdentifier = "com.firstlightgames.blastroyale";
-		private const string _firstLightEnterpriseAppleTeamId = "LR745QRAJR";
+		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
 		private const string _appStoreProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
-		private const string _enterpriseProvisioningProfile = "6573b280-9534-4ec7-83f2-b64ea455239e";
+		private const string _developmentProvisioningProfile = "c82c954d-8257-434f-a063-c83a53f968d9";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
@@ -75,17 +73,17 @@ namespace FirstLight.Editor.Build
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
-			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _developmentProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = true;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForDevelopment();
 			SetAndroidKeystore();
@@ -104,17 +102,17 @@ namespace FirstLight.Editor.Build
 		{
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
-			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightEnterpriseAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _enterpriseProvisioningProfile;
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
+			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _developmentProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
@@ -142,8 +140,8 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(true);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
-			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
+			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();

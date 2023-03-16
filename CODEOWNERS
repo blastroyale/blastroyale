@@ -7,5 +7,6 @@ Assets/Src/FirstLight/Game/Data/ @@ServerNerds
 Assets/AddressableResources/Configs/ @@ServerNerds
 Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
 Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
+Assets/Libs/Photon/ @@ServerNerds
 
 Check(@@ServerNerds >= 1)

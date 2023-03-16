@@ -727,6 +727,16 @@ public partial class SROptions
 			}
 
 			str.AppendLine("===========");
+
+			str.AppendLine("    ");
+			str.AppendLine("===== Current Users ======");
+			foreach (var playersValue in room.Players.Values)
+			{
+				str.AppendLine($"id: '{playersValue.UserId}',, name: '{playersValue.NickName}', loaded:{playersValue.LoadedCoreMatchAssets()}, master {playersValue.IsMasterClient}");
+			}
+
+			str.AppendLine("========");
+			str.AppendLine();
 			return str.ToString();
 
 		}

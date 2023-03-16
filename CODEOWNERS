@@ -1,0 +1,11 @@
+@@@ServerNerds @"Carlos" @"Gabriel"
+
+Quantum/ @@ServerNerds
+Assets/Src/FirstLight/Game/Logic/ @@ServerNerds
+Assets/Src/FirstLight/Game/Commands/ @@ServerNerds
+Assets/Src/FirstLight/Game/Data/ @@ServerNerds
+Assets/AddressableResources/Configs/ @@ServerNerds
+Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
+Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
+
+Check(@@ServerNerds >= 1)

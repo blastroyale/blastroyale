@@ -709,5 +709,12 @@ namespace FirstLight.Game.Utils
 #endif
 			return equipmentLogic.NftInventory.Count > 0;
 		}
+
+
+		public static void SelectDefaultCasualMode(this IGameModeService service)
+		{
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			service.SelectedGameMode.Value = gameMode;
+		}
 	}
 }

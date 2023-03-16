@@ -36,7 +36,7 @@ variables:
       value: "DEVELOPMENT_BUILD"
     - name: server_environment
       value: "DEVELOPMENT_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'release/*')  }}:
+- ${{  if startsWith(variables['Build.SourceBranch'], 'release')  }}:
     - name: configuration
       value: "Release"
     - name: build_type
@@ -65,6 +65,7 @@ stages:
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite
+      condition: eq('${{ variables.runUnitTests }}', true)
       steps:
       - checkout: self
         lfs: true
@@ -75,6 +76,7 @@ stages:
     - job: AndroidBuild
       dependsOn: EditorTests
       displayName: Android Build
+      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
         lfs: true
@@ -93,6 +95,7 @@ stages:
     - job: iOSBuild
       dependsOn: EditorTests
       displayName: iOS Build
+      condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
         lfs: true

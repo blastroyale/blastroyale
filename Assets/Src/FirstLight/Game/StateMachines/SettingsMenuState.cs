@@ -122,8 +122,8 @@ namespace FirstLight.Game.StateMachines
 				OnDeleteAccountClicked = () =>
 					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
-
-			_uiService.OpenScreen<SettingsScreenPresenter>(); // , SettingsScreenPresenter.StateData>(data);
+			
+			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
 		private async void OpenServerSelectUI()

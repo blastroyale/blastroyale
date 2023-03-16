@@ -3,21 +3,24 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Sirenix.OdinInspector;
+using UnityEngine.UIElements;
+// using Button = UnityEngine.UI.Button;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData> // AnimatedUiPresenterData<SettingsScreenPresenter.StateData>, 
+	public class SettingsScreenPresenter : UiToolkitPresenterData<SettingsScreenPresenter.StateData> // AnimatedUiPresenterData<SettingsScreenPresenter.StateData>, 
 	{
 		public struct StateData
 		{
@@ -27,9 +30,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
-
+		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private Button _closeButton;
+		// [SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
 		[SerializeField, Required] private Button _logoutButton;
 		[SerializeField, Required] private Button _deleteAccountButton;
@@ -50,23 +53,39 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 
+		private ImageButton _closeScreenButton;
+		
+		private Button _soundButtonOn;
+		private Button _soundButtonOff;
+		private VisualElement _soundSelector;
+		
+		private Button _graphicsButtonOn;
+		private Button _graphicsButtonOff;
+		private VisualElement _graphicsSelector;
+		
+		private Button _controlsButtonOn;
+		private Button _controlsButtonOff;
+		private VisualElement _controlsSelector;
+		
+		private Button _accountButtonOn;
+		private Button _accountButtonOff;
+		private VisualElement _accountSelector;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-
+		
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-
+			
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
-			_services.PartyService.HasParty.InvokeObserve(OnHasPartyUpdate);
-			_services.MatchmakingService.IsMatchmaking.InvokeObserve(OnIsMatchmakingUpdate);
 
-			_closeButton.onClick.AddListener(OnClosedCompleted);
-			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
-			_logoutButton.onClick.AddListener(OnLogoutClicked);
-			_deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
-			_connectIdButton.onClick.AddListener(OpenConnectId);
+			// _closeButton.onClick.AddListener(OnClosedCompleted);
+			// _blockerButton.onClick.AddListener(OnBlockerButtonPressed);
+			// _logoutButton.onClick.AddListener(OnLogoutClicked);
+			// _deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
+			// _connectIdButton.onClick.AddListener(OpenConnectId);
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
@@ -76,29 +95,78 @@ namespace FirstLight.Game.Presenters
 			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			// _detailLevelView.ValueChanged += OnDetailLevelChanged;
-			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
-			_faq.onClick.AddListener(OnFaqButtonPressed);
-			_serverSelectButton.onClick.AddListener(OpenServerSelect);
+			// _helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
+			// _faq.onClick.AddListener(OnFaqButtonPressed);
+			// _serverSelectButton.onClick.AddListener(OpenServerSelect);
 		}
 
-		private void OnHasPartyUpdate(bool _, bool __)
+		protected override void QueryElements(VisualElement root)
 		{
-			UpdateServerSelectButton();
+			_closeScreenButton = root.Q<ImageButton>("CloseButton");
+			_closeScreenButton.clicked += OnCloseClicked;
+			
+			_soundButtonOn = root.Q<Button>("SoundButtonOn");
+			_soundButtonOff= root.Q<Button>("SoundButtonOff");
+			_soundSelector = root.Q<VisualElement>("SoundSelector");
+			_soundButtonOff.clicked += OnSoundClicked;
+		
+			_graphicsButtonOn = root.Q<Button>("GraphicsButtonOn");
+			_graphicsButtonOff = root.Q<Button>("GraphicsButtonOff");
+			_graphicsSelector = root.Q<VisualElement>("GraphicsSelector");
+			_graphicsButtonOff.clicked += OnGraphicsClicked;
+		
+			_controlsButtonOn = root.Q<Button>("ControlsButtonOn");
+			_controlsButtonOff = root.Q<Button>("ControlsButtonOff");
+			_controlsSelector = root.Q<VisualElement>("ControlsSelector");
+			_controlsButtonOff.clicked += OnControlsClicked;
+		
+			_accountButtonOn = root.Q<Button>("AccountButtonOn");
+			_accountButtonOff = root.Q<Button>("AccountButtonOff");
+			_accountSelector = root.Q<VisualElement>("AccountSelector");
+			_accountButtonOff.clicked += OnAccountClicked;
 		}
 		
-		private void OnIsMatchmakingUpdate(bool _, bool __)
+		private void OnCloseClicked()
 		{
-			UpdateServerSelectButton();
+			Debug.Log("Close Clicked");
+			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
+			Data.OnClose();
 		}
 
+		private void OnSoundClicked()
+		{
+			
+		}
+		
+		private void OnGraphicsClicked()
+		{
+			Debug.Log("Graphics Clicked");
+		}
+		
+		private void OnControlsClicked()
+		{
+			
+		}
+		
+		private void OnAccountClicked()
+		{
+			
+		}
+		
+		private void button_Click(object sender, EventArgs e, string message)  
+		{  
+ 
+		}
+		
+		
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
 			UpdateAccountStatus();
-
+			
 			_versionText.text = VersionUtils.VersionInternal;
-
+			
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
@@ -107,34 +175,14 @@ namespace FirstLight.Game.Presenters
 			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			_logoutButton.gameObject.SetActive(true);
+			// _logoutButton.gameObject.SetActive(true);
 
-			UpdateServerSelectButton();
-
+			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
+			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
 
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);
 #endif
-		}
-
-		private void UpdateServerSelectButton()
-		{
-			UpdateServerSelectButton(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
-		}
-
-		private void UpdateServerSelectButton(string connectionRegion)
-		{
-			if (_selectedServerText == null) return;
-			var regionName = connectionRegion.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
-			if (_services.PartyService.HasParty.Value|| _services.MatchmakingService.IsMatchmaking.Value)
-			{
-				_serverSelectButton.interactable = false;
-			}
-			else
-			{
-				_serverSelectButton.interactable = true;
-			}
 		}
 
 		/// <summary>
@@ -144,13 +192,13 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
-				_connectIdButton.gameObject.SetActive(true);
+				// _connectIdButton.gameObject.SetActive(true);
 				_idConnectionNameText.gameObject.SetActive(false);
 				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_not_connected;
 			}
 			else
 			{
-				_connectIdButton.gameObject.SetActive(false);
+				// _connectIdButton.gameObject.SetActive(false);
 				_idConnectionNameText.gameObject.SetActive(true);
 				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
 				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
@@ -159,7 +207,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnConnectionRegionChange(string previousValue, string newValue)
 		{
-			UpdateServerSelectButton(newValue);
+			var regionName = newValue.GetPhotonRegionTranslation();
+			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
 		}
 
 		/// <inheritdoc />
@@ -200,7 +249,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.IsSfxEnabled = value;
 		}
-
+		
 		private void OnDialogueChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsDialogueEnabled = value;
@@ -210,7 +259,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
 		}
-
+		
 		private void OnDynamicJoystickChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
@@ -231,22 +280,22 @@ namespace FirstLight.Game.Presenters
 			var targetFps = value
 				? GameConstants.Visuals.LOW_FPS_MODE_TARGET
 				: GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
-
+			
 			_gameDataProvider.AppDataProvider.FpsTarget = targetFps;
 		}
 
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
 		{
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
-
+			
 			// This is temporary solution. When settings screen is made in UITK, the whole 
 			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
-
+		
 		private void OnLogoutClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
+			
 			var title = ScriptLocalization.UITShared.confirmation;
 			var desc = ScriptLocalization.UITSettings.logout_confirm_desc;
 			var confirmButton = new GenericDialogButton
@@ -269,7 +318,7 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.UITSettings.delete_account,
 				// ButtonOnClick = Data.OnDeleteAccountClicked
 			};
-
+			
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 

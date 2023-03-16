@@ -591,7 +591,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Unloading Match State");
 			CloseCurrentScreen();
 			
-			_matchServices.MatchEndDataService.Reload();
 			StopSimulation();
 			
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
@@ -628,6 +627,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new SimulationEndedMessage {Game = QuantumRunner.Default?.Game});
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
+				_matchServices.MatchEndDataService.Reload();
 				QuantumRunner.ShutdownAll(true);
 			}
 			_services.NetworkService.EnableClientUpdate(true);

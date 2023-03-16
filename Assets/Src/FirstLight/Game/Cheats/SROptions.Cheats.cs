@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Data;
@@ -13,7 +14,9 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using UnityEngine;
@@ -684,6 +687,51 @@ public partial class SROptions
 		          $"-----\n" + 
 		          $"Custom Props:\n" + roomProps +
 		          $"-----\n");
+	}
+	
+	[Category("Logging")]
+	public void LogCurrentRoomReadyStatus()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var room = services.NetworkService.QuantumClient.CurrentRoom;
+		
+		if (room == null)
+		{
+			return;
+		}
+		Debug.Log(BuildRoomReadyDebugString(room, services.ConfigsProvider));
+	}
+	
+	private static String BuildRoomReadyDebugString(Room room, IConfigsProvider cfgProvider)
+	{
+		// This is playfab mm
+		if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
+		{
+			var str = new StringBuilder();
+			str.AppendLine("==== Expected users ====");
+			foreach (var roomExpectedUser in room.ExpectedUsers)
+			{
+				bool joined = room.Players.Any(p => p.Value.UserId == roomExpectedUser);
+				bool loaded = false;
+				bool master = false;
+				string name = "??????";
+				if (joined)
+				{
+					var player = room.Players.Values.First(p => p.UserId == roomExpectedUser);
+					master = player.IsMasterClient;
+					loaded = player.LoadedCoreMatchAssets();
+					name = player.NickName;
+				}
+
+				str.AppendLine($"playfab: '{roomExpectedUser}', joined: {joined}, name: '{name}', loaded:{loaded}, master {master}");
+			}
+
+			str.AppendLine("===========");
+			return str.ToString();
+
+		}
+
+		return "not playfab room";
 	}
 #endif
 }

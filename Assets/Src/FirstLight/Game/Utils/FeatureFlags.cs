@@ -28,7 +28,12 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial should be skipped
 		/// </summary>
-		public bool DisableTutorial = false;
+		public bool DisableTutorial = false;	
+		
+		/// <summary>
+		/// If we should consider if the player has NFTs even if he doens't
+		/// </summary>
+		public bool ForceHasNfts = false;
 
 		/// <summary>
 		/// Which environment to connect

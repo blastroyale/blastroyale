@@ -5,7 +5,19 @@ namespace FirstLight.Editor.EditorTools
 {
 	public static class FlagsEditorMenu
 	{
-		private const string MenuName = "FLG/Flags/Disable Tutorial";
+		private const string DisableTutorial = "FLG/Flags/Disable Tutorial";
+		private const string ForceHasNfts = "FLG/Flags/Force Has NFTs";
+
+
+		static FlagsEditorMenu()
+		{
+			EditorApplication.delayCall += () =>
+			{
+				Menu.SetChecked(DisableTutorial, IsTutorialDisabled);
+				Menu.SetChecked(ForceHasNfts, IsForceHasNfts);
+				
+			};
+		}
 
 		public static bool IsTutorialDisabled
 		{
@@ -16,13 +28,30 @@ namespace FirstLight.Editor.EditorTools
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
+		
+		public static bool IsForceHasNfts
+		{
+			get => FeatureFlags.GetLocalConfiguration().ForceHasNfts;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().ForceHasNfts = value;
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
 
-		[MenuItem(MenuName)]
+
+		[MenuItem(DisableTutorial)]
 		private static void ToggleDisableTutorial()
 		{
 			IsTutorialDisabled = !IsTutorialDisabled;
-			Menu.SetChecked(MenuName, IsTutorialDisabled);
+			EditorApplication.delayCall += () => { Menu.SetChecked(DisableTutorial, IsTutorialDisabled); };
 		}
 		
+		[MenuItem(ForceHasNfts)]
+		private static void ToggleForceHasNfts()
+		{
+			IsForceHasNfts = !IsForceHasNfts;
+			EditorApplication.delayCall += () => { Menu.SetChecked(ForceHasNfts, IsForceHasNfts); };
+		}
 	}
 }

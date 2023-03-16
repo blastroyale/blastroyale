@@ -44,6 +44,12 @@ namespace FirstLight.Game.Presenters
 				y += 3;
 				AddTextBar(y, "No Tuto");
 			}
+
+			if (config.ForceHasNfts)
+			{
+				y += 3;
+				AddTextBar(y,"Have NFTs");
+			}
 #endif
 		}
 

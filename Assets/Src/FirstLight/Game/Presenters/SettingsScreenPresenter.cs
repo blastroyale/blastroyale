@@ -17,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : AnimatedUiPresenterData<SettingsScreenPresenter.StateData>
+	public class SettingsScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData> // AnimatedUiPresenterData<SettingsScreenPresenter.StateData>, 
 	{
 		public struct StateData
 		{
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
 			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
-			_detailLevelView.ValueChanged += OnDetailLevelChanged;
+			// _detailLevelView.ValueChanged += OnDetailLevelChanged;
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			_faq.onClick.AddListener(OnFaqButtonPressed);
 			_serverSelectButton.onClick.AddListener(OpenServerSelect);
@@ -163,22 +163,22 @@ namespace FirstLight.Game.Presenters
 		}
 
 		/// <inheritdoc />
-		protected override void OnClosedCompleted()
+		protected void OnClosedCompleted()
 		{
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
-			Data.OnClose();
+			// Data.OnClose();
 		}
 
 		private void OpenConnectId()
 		{
-			Data.OnConnectIdClicked();
+			// Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
-			Data.OnServerSelectClicked();
+			// Data.OnServerSelectClicked();
 		}
 
 		private void OnHelpdeskButtonPressed()
@@ -252,7 +252,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITSettings.logout,
-				ButtonOnClick = Data.LogoutClicked
+				// ButtonOnClick = Data.LogoutClicked
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
@@ -267,7 +267,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITSettings.delete_account,
-				ButtonOnClick = Data.OnDeleteAccountClicked
+				// ButtonOnClick = Data.OnDeleteAccountClicked
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
@@ -275,7 +275,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBlockerButtonPressed()
 		{
-			Data.OnClose();
+			// Data.OnClose();
 		}
 	}
 }

@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// Setups the health bar to be configured to the given <paramref name="entity"/>
 		/// with the given <paramref name="currentHealth"/> & <paramref name="maxHealth"/>
 		/// </summary>
-		public void SetupView(EntityRef entity, int currentHealth, int maxHealth)
+		public void SetupView(EntityRef entity, int currentHealth, int maxHealth, int currentLevel)
 		{
 			Entity = entity;
 			_slider.value = (float)currentHealth / maxHealth;
@@ -70,7 +70,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_damageDealtSlider.DOKill();
 			_slider.DOKill();
 			HealthBarUpdate();
-			LevelObj.SetActive(false);
+
+			LevelText.text = currentLevel.ToString();
+			LevelObj.SetActive(currentLevel != 0);
 		}
 
 		/// <inheritdoc />

@@ -163,6 +163,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
+			var currentLevel = f.Get<PlayerCharacter>(entity).GetEnergyLevel(f);
 
 			if (f.Has<Destructible>(entity))
 			{
@@ -183,7 +184,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			healthBar.OverlayView.gameObject.SetActive(true);
-			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);
+			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth, currentLevel);
 			healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			healthBar.OverlayView.Follow(anchor);
 		}

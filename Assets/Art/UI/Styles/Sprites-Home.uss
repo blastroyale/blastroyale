@@ -181,6 +181,12 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
+    --sprite-home__settings-content-shape: url('/Assets/Art/UI/Sprites/Home/settings-content-shape.png');
+    --sprite-home__settings-switch-back: url('/Assets/Art/UI/Sprites/Home/settings-switch-back.png');
+    --sprite-home__settings-switch-body: url('/Assets/Art/UI/Sprites/Home/settings-switch-body.png');
+    --sprite-home__settings-tab-arrow: url('/Assets/Art/UI/Sprites/Home/settings-tab-arrow.png');
+    --sprite-home__settings-tab-back: url('/Assets/Art/UI/Sprites/Home/settings-tab-back.png');
+    --sprite-home__settings-tab-chosen: url('/Assets/Art/UI/Sprites/Home/settings-tab-chosen.png');
     --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
@@ -1223,6 +1229,42 @@
     background-image: var(--sprite-home__progress-stats);
     width: 54px;
     height: 14px;
+}
+
+.sprite-home__settings-content-shape {
+    background-image: var(--sprite-home__settings-content-shape);
+    width: 172px;
+    height: 172px;
+}
+
+.sprite-home__settings-switch-back {
+    background-image: var(--sprite-home__settings-switch-back);
+    width: 54px;
+    height: 54px;
+}
+
+.sprite-home__settings-switch-body {
+    background-image: var(--sprite-home__settings-switch-body);
+    width: 88px;
+    height: 68px;
+}
+
+.sprite-home__settings-tab-arrow {
+    background-image: var(--sprite-home__settings-tab-arrow);
+    width: 40px;
+    height: 28px;
+}
+
+.sprite-home__settings-tab-back {
+    background-image: var(--sprite-home__settings-tab-back);
+    width: 68px;
+    height: 84px;
+}
+
+.sprite-home__settings-tab-chosen {
+    background-image: var(--sprite-home__settings-tab-chosen);
+    width: 57px;
+    height: 80px;
 }
 
 .sprite-home__temp-icon-profile-neil {

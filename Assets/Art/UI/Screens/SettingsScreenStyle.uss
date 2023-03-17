@@ -12,7 +12,6 @@
     font-size: 38px;
 }
 
-
 .equipment-popup__close {
     position: absolute;
     right: 0;
@@ -26,10 +25,6 @@
     background-image: var(--sprite-home__button-popup-equipment-close-pressed);
 }
 
-.settings-popup__sound-tab {
-    background-image: var(--sprite-home__settings-tab-back);
-}
-
 .equipment-popup__content {
     position: absolute;
     left: 500px;
@@ -38,12 +33,10 @@
     bottom: 0;
 }
 
-
 .safe-area {
     align-items: center;
     justify-content: center;
 }
-
 
 .content-holder {
     background-color: rgb(23, 20, 38);
@@ -57,7 +50,32 @@
     font-size: 50px;
 }
 
+.settings-popup__sound-tab {
+    background-image: var(--sprite-home__settings-tab-chosen);
+    width: 300px;
+    display: flex;
+}
 
+.settings-popup__sound-tab :active {
+    background-image: var(--sprite-home__settings-tab-chosen);
+    width: 300px;
+    display: flex;
+}
 
+.settings-popup__graphics-tab {
+    background-image: var(--sprite-home__settings-tab-back);
+    width: 300px;
+    display: flex;
+}
 
+.settings-popup__account-tab {
+    background-image: var(--sprite-home__settings-tab-back);
+    width: 300px;
+    display: flex;
+}
 
+.settings-popup__controls-tab {
+    background-image: var(--sprite-home__settings-tab-back);
+    width: 300px;
+    display: flex;
+}

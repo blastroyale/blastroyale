@@ -60,15 +60,12 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _soundSelector;
 		
 		private LocalizedButton _graphicsButtonOn;
-		private LocalizedButton _graphicsButtonOff;
 		private VisualElement _graphicsSelector;
 		
 		private Button _controlsButtonOn;
-		private Button _controlsButtonOff;
 		private VisualElement _controlsSelector;
 		
 		private Button _accountButtonOn;
-		private Button _accountButtonOff;
 		private VisualElement _accountSelector;
 		
 		private IGameDataProvider _gameDataProvider;
@@ -106,25 +103,20 @@ namespace FirstLight.Game.Presenters
 			_closeScreenButton.clicked += OnCloseClicked;
 			
 			_soundButtonOn = root.Q<Button>("SoundButtonOn");
-			_soundButtonOff= root.Q<Button>("SoundButtonOff");
 			_soundSelector = root.Q<VisualElement>("SoundSelector");
-			_soundButtonOff.clicked += OnSoundClicked;
+			_soundButtonOn.clicked += OnSoundClicked;
 		
 			_graphicsButtonOn = root.Q<LocalizedButton>("GraphicsButtonOn");
-			_graphicsButtonOff = root.Q<LocalizedButton>("GraphicsButtonOff");
 			_graphicsSelector = root.Q<VisualElement>("GraphicsSelector");
-			_graphicsButtonOff.clicked += OnGraphicsClicked;
 			_graphicsButtonOn.clicked += OnGraphicsClicked;
 		
 			_controlsButtonOn = root.Q<Button>("ControlsButtonOn");
-			_controlsButtonOff = root.Q<Button>("ControlsButtonOff");
 			_controlsSelector = root.Q<VisualElement>("ControlsSelector");
-			_controlsButtonOff.clicked += OnControlsClicked;
+			_controlsButtonOn.clicked += OnControlsClicked;
 		
 			_accountButtonOn = root.Q<Button>("AccountButtonOn");
-			_accountButtonOff = root.Q<Button>("AccountButtonOff");
 			_accountSelector = root.Q<VisualElement>("AccountSelector");
-			_accountButtonOff.clicked += OnAccountClicked;
+			_accountButtonOn.clicked += OnAccountClicked;
 		}
 		
 		private void OnCloseClicked()

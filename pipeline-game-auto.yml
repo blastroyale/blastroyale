@@ -29,8 +29,6 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- name: configuration
-
 - ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
     - name: configuration
       value: "Debug"

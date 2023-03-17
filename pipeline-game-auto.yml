@@ -36,7 +36,7 @@ variables:
       value: "DEVELOPMENT_BUILD"
     - name: server_environment
       value: "DEVELOPMENT_SERVER"
-- ${{  if startsWith(variables['Build.SourceBranch'], 'bugfix')  }}:
+- ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
     - name: configuration
       value: "Release"
     - name: build_type

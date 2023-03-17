@@ -56,6 +56,7 @@ namespace FirstLight.Game.Presenters
 		private int _selectedIndex;
 		private CollectionCategory _selectedCategory;
 		private GameObject _collectionObject;
+		private GameObject _anchorObject;
 		private readonly List<UniqueId> _seenItems = new();
 		public UniqueId SelectedItem { get; private set; }
 
@@ -131,6 +132,12 @@ namespace FirstLight.Game.Presenters
 			{
 				Destroy(_collectionObject);
 				_collectionObject = null;
+			}
+
+			if (_anchorObject != null)
+			{
+				Destroy(_anchorObject);
+				_anchorObject = null;
 			}
 		}
 
@@ -274,6 +281,15 @@ namespace FirstLight.Game.Presenters
 				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id, true,
 					true);
 
+			if (_anchorObject != null)
+			{
+				Destroy(_anchorObject);
+				_anchorObject = null;
+			}
+
+			_anchorObject= new GameObject();
+			_anchorObject.transform.position = _collectionSpawnPosition;
+
 			if (_selectedCategory.Id == GameIdGroup.Glider)
 			{
 				_collectionObject.transform.SetPositionAndRotation(_gliderSpawnPosition, Quaternion.Euler(_gliderSpawnRotation));
@@ -281,7 +297,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
+				_collectionObject.transform.parent = _anchorObject.transform;
+				_collectionObject.transform.SetLocalPositionAndRotation(Vector3.zero, new Quaternion(0, 0, 0, 0));
 			}
 		}
 		

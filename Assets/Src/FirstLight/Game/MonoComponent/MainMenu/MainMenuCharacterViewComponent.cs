@@ -58,9 +58,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		public void PlayAnimation()
 		{
-
 			// Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);
-
 			var config = _mainMenuCharacterAnimations.Configs[0].AnimationNames;
 			Animator.SetTrigger(config[Random.Range(0, config.Length)]);
 		}

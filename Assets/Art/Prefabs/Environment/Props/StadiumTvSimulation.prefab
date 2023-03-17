@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainRenderer: {fileID: 0}
-  _stadiumScreenMaterials: []
   _standings: {fileID: 2975701871345510118}
+  _stadiumScreenMaterials: []
 --- !u!1001 &1877728043171784898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053202240583333411, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000091552734
+      value: 495.26935
       objectReference: {fileID: 0}
     - target: {fileID: 7309283500894460622, guid: 0ae137b49bfe97f4f88cfc5d5ca5ba9e, type: 3}
       propertyPath: m_AnchoredPosition.y

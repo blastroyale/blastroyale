@@ -152,12 +152,12 @@ GameObject:
   - component: {fileID: 4026181215313065440}
   - component: {fileID: 5943510665366207370}
   - component: {fileID: 6443948757472650970}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barricade_concrete_LowCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &4026181215313065440
 Transform:
@@ -269,12 +269,12 @@ GameObject:
   - component: {fileID: 477055648247848167}
   - component: {fileID: 8662353892572745440}
   - component: {fileID: 6231950194880016834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barricade_concrete_LowClean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 119
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &477055648247848167
 Transform:

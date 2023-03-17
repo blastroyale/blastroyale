@@ -63,7 +63,6 @@ namespace Quantum.Systems
 		{
 			var membersByTeam = new Dictionary<string, HashSet<int>>();
 
-
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
 				var playerData = f.GetPlayerData(i);
@@ -169,7 +168,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var ammoFilled = FP.MaxValue;
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 
@@ -198,7 +197,11 @@ namespace Quantum.Systems
 					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
 					step++;
 				}
-
+				for(uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
+				{
+					Collectable.DropConsumable(f, GameId.EnergyCubeSmall, deathPosition, step, false);
+					step++;
+				}
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);

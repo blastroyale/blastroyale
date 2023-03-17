@@ -29,21 +29,21 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
     - name: configuration
       value: "Debug"
     - name: build_type
       value: "DEVELOPMENT_BUILD"
     - name: server_environment
       value: "DEVELOPMENT_SERVER"
-- ${{  if startsWith(variables['Build.SourceBranch'], 'release')  }}:
+- ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
     - name: configuration
       value: "Release"
     - name: build_type
       value: "RELEASE_BUILD"
     - name: server_environment
       value: "STAGE_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
+- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
     - name: configuration
       value: "Release"
     - name: build_type

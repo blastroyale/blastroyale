@@ -37,14 +37,14 @@ variables:
 - name: build_type
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
     value: "DEVELOPMENT_BUILD"
-  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
+  ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
     value: "RELEASE_BUILD"
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
     value: "STORE_BUILD"
 - name: server_environment
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
     value: "DEVELOPMENT_SERVER"
-  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
+  ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/bugfix')  }}:
     value: "STAGE_SERVER"
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
     value: "LIVE_SERVER"

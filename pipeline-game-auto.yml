@@ -29,6 +29,8 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+- name: configuration
+
 - ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
     - name: configuration
       value: "Debug"
@@ -83,15 +85,15 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: $(configuration)
           platform: Android
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
           workingDirectory: .
           branchName: $(branchName)
-          build_type: ${{ variables.build_type }}
-          server_environment: ${{ variables.server_environment }}
+          build_type: $(build_type)
+          server_environment: $(server_environment)
     - job: iOSBuild
       dependsOn: EditorTests
       displayName: iOS Build
@@ -102,7 +104,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: $(configuration)
           platform: iOS
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
@@ -110,5 +112,5 @@ stages:
           certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
-          build_type: ${{ variables.build_type }}
-          server_environment: ${{ variables.server_environment }}
+          build_type: $(build_type)
+          server_environment: $(server_environment)

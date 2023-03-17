@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -25,18 +24,18 @@ namespace FirstLight.Game.StateMachines
 		private static readonly IStatechartEvent MaxIntensityEvent = new StatechartEvent("Max Music Intensity Event");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private float _lastRecordedIntensityIncreaseTime = 0;
-		private bool _isHighIntensityPhase = false;
+		private float _lastRecordedIntensityIncreaseTime;
+		private bool _isHighIntensityPhase;
 		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
 
-		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
-		                              Action<IStatechartEvent> statechartTrigger)
+		private bool _aliveTenPlayed;
+		private bool _aliveTwoPlayed;
+
+		public AudioBattleRoyaleState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -122,12 +121,14 @@ namespace FirstLight.Game.StateMachines
 			var playersLeft = (container.TargetProgress+1) - container.CurrentProgress;
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
-			if (playersLeft == 10)
+			if (!_aliveTenPlayed && playersLeft == 10)
 			{
+				_aliveTenPlayed = true;
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
-			else if (playersLeft == 2)
+			else if (!_aliveTwoPlayed && playersLeft == 2)
 			{
+				_aliveTwoPlayed = true;
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			
@@ -212,7 +213,7 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator PlayBrHighLoopCoroutine()
 		{
 			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
-			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop, 0,0, false);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop);
 		}
 	}
 }

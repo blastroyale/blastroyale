@@ -829,7 +829,8 @@ namespace Quantum
 				{
 					GameId.Tombstone, new List<GameIdGroup>
 					{
-						GameIdGroup.DeathMarker
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1116,7 +1117,8 @@ namespace Quantum
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.Male02Avatar,
-						GameId.Female02Avatar
+						GameId.Female02Avatar,
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 				{
@@ -1224,7 +1226,7 @@ namespace Quantum
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
-						GameId.Tombstone
+						GameId.Tombstone,
 					}.AsReadOnly()
 				},
 				{

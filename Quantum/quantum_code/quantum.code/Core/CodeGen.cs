@@ -168,7 +168,7 @@ namespace Quantum {
     BRGenesis = 9,
     MapTestScene = 63,
     TestScene = 11,
-    NewBRMap = 25,
+    NewBRMap = 65,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,

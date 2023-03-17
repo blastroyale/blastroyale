@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 7602049660037791961}
   - component: {fileID: 6608237286583309404}
   - component: {fileID: 5520480797425899787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1231,7 @@ GameObject:
   - component: {fileID: 1562842406721642762}
   - component: {fileID: 5876681159847210371}
   - component: {fileID: 2790516974149519889}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FenceConcrete_5Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}

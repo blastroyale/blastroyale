@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 2502768012200958847}
   - component: {fileID: 2658195674346587170}
   - component: {fileID: 2901461678294030967}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficBarricade03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 4753393517288778710}
   - component: {fileID: 4753393517288778708}
   - component: {fileID: 4753393517288778711}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficCone01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 4753393517460043795}
   - component: {fileID: 4753393517460043793}
   - component: {fileID: 4753393517460043792}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficCone01 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

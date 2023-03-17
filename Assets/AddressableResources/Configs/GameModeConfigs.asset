@@ -266,7 +266,7 @@ MonoBehaviour:
       CompletionStrategy: 1
       CompletionKillCount: 0
       AllowEarlyRewards: 1
-      IsDebugOnly: 0
+      IsDebugOnly: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

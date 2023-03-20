@@ -35,6 +35,7 @@ namespace FirstLight.Game.Utils
 				{
 					p.UserId, p.NickName, Inactive=p.IsInactive, Master=p.IsMasterClient, Props=p.CustomProperties.ToString()
 				}),
+				ExpectedUsers = room.ExpectedUsers,
 				Date = room.GetRoomCreationDateTime(),
 				PlayereTTL = room.PlayerTtl,
 				EmptyRoomTTL = room.EmptyRoomTtl,
@@ -43,6 +44,7 @@ namespace FirstLight.Game.Utils
 				PlayerCount=room.PlayerCount
 			}, Formatting.Indented);
 		}
+		
 
 		public static string GetSimulationDebugString(this QuantumRunner runner)
 		{

@@ -34,6 +34,11 @@ namespace FirstLight.Game.Utils
 		/// If we should consider if the player has NFTs even if he doens't
 		/// </summary>
 		public bool ForceHasNfts = false;
+		
+		/// <summary>
+		/// If we ignore equipment requirement to play ranked games
+		/// </summary>
+		public bool IgnoreEquipmentRequirementForRanked = false;
 
 		/// <summary>
 		/// Which environment to connect

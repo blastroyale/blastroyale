@@ -338,6 +338,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_networkService.CurrentRoom != null && _networkService.CurrentRoom.IsOpen)
 			{
+				FLog.Info($"RoomDebugString: {_networkService.CurrentRoom.GetRoomDebugString()}");
 				_networkService.SetCurrentRoomOpen(false);
 			}
 		}

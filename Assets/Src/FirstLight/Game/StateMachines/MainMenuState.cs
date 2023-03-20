@@ -335,6 +335,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool LoadoutCountCheckToPlay()
 		{
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+
+			if (FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked)
+			{
+				return false;
+			}
+#endif
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
 				&& !_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}

@@ -50,6 +50,11 @@ namespace FirstLight.Game.Presenters
 				y += 3;
 				AddTextBar(y,"Have NFTs");
 			}
+			if (config.IgnoreEquipmentRequirementForRanked)
+			{
+				y += 3;
+				AddTextBar(y,"Ranked w/o Equip");
+			}
 #endif
 		}
 

@@ -3,10 +3,12 @@ using UnityEditor;
 
 namespace FirstLight.Editor.EditorTools
 {
+	// TODO DYNAMIC CODE GEN 
 	public static class FlagsEditorMenu
 	{
 		private const string DisableTutorial = "FLG/Flags/Disable Tutorial";
 		private const string ForceHasNfts = "FLG/Flags/Force Has NFTs";
+		private const string IgnoreEquipmentRequirementForRanked = "FLG/Flags/Ignore ranked equipment requirement";
 
 
 		static FlagsEditorMenu()
@@ -15,7 +17,7 @@ namespace FirstLight.Editor.EditorTools
 			{
 				Menu.SetChecked(DisableTutorial, IsTutorialDisabled);
 				Menu.SetChecked(ForceHasNfts, IsForceHasNfts);
-				
+				Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked);
 			};
 		}
 
@@ -28,13 +30,23 @@ namespace FirstLight.Editor.EditorTools
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
-		
+
 		public static bool IsForceHasNfts
 		{
 			get => FeatureFlags.GetLocalConfiguration().ForceHasNfts;
 			set
 			{
 				FeatureFlags.GetLocalConfiguration().ForceHasNfts = value;
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+		public static bool IsIgnoreEquipmentRequirementForRanked
+		{
+			get => FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked = value;
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -46,12 +58,19 @@ namespace FirstLight.Editor.EditorTools
 			IsTutorialDisabled = !IsTutorialDisabled;
 			EditorApplication.delayCall += () => { Menu.SetChecked(DisableTutorial, IsTutorialDisabled); };
 		}
-		
+
 		[MenuItem(ForceHasNfts)]
 		private static void ToggleForceHasNfts()
 		{
 			IsForceHasNfts = !IsForceHasNfts;
 			EditorApplication.delayCall += () => { Menu.SetChecked(ForceHasNfts, IsForceHasNfts); };
+		}
+
+		[MenuItem(IgnoreEquipmentRequirementForRanked)]
+		private static void ToggleIgnoreEquipmentRequirementForRanked()
+		{
+			IsIgnoreEquipmentRequirementForRanked = !IsIgnoreEquipmentRequirementForRanked;
+			EditorApplication.delayCall += () => { Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked); };
 		}
 	}
 }

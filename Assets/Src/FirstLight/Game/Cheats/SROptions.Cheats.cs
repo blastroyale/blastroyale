@@ -36,6 +36,7 @@ public partial class SROptions
 		{
 			throw new Exception("Not logged in");
 		}
+
 		var services = MainInstaller.Resolve<IGameServices>();
 		var update = new PlayFab.AdminModels.UpdateUserDataRequest()
 		{
@@ -58,11 +59,12 @@ public partial class SROptions
 		var task = new HttpClient().DeleteAsync(deletionUrl);
 		task.Wait();
 		FLog.Info("Wallet unlinked from marketplace");
+
 		void Result(PlayFab.AdminModels.UpdateUserDataResult result)
 		{
 			FLog.Verbose("Server Data Wiped. Re-login to re-build your game-data.");
 #if UNITY_EDITOR
-			if(UnityEditor.EditorApplication.isPlaying) 
+			if (UnityEditor.EditorApplication.isPlaying)
 			{
 				UnityEditor.EditorApplication.isPlaying = false;
 			}
@@ -84,36 +86,36 @@ public partial class SROptions
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
-		                                                      adjective: EquipmentAdjective.Regular,
-		                                                      grade: EquipmentGrade.GradeV,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		
+			adjective: EquipmentAdjective.Regular,
+			grade: EquipmentGrade.GradeV,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Rare,
-		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		
+			adjective: EquipmentAdjective.Exquisite,
+			grade: EquipmentGrade.GradeIII,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[12].Id, rarity: EquipmentRarity.Uncommon,
-		                                                      adjective: EquipmentAdjective.Cool,
-		                                                      grade: EquipmentGrade.GradeIII,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		
+			adjective: EquipmentAdjective.Cool,
+			grade: EquipmentGrade.GradeIII,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[17].Id, rarity: EquipmentRarity.Legendary,
-		                                                      adjective: EquipmentAdjective.Royal,
-		                                                      grade: EquipmentGrade.GradeI,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		
+			adjective: EquipmentAdjective.Royal,
+			grade: EquipmentGrade.GradeI,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[40].Id,
-		                                                      rarity: EquipmentRarity.LegendaryPlus,
-		                                                      adjective: EquipmentAdjective.Divine,
-		                                                      grade: EquipmentGrade.GradeIV,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		
+			rarity: EquipmentRarity.LegendaryPlus,
+			adjective: EquipmentAdjective.Divine,
+			grade: EquipmentGrade.GradeIV,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
@@ -133,13 +135,13 @@ public partial class SROptions
 			{
 				continue;
 			}
-			
+
 			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
-			                                                      rarity: EquipmentRarity.Epic,
-			                                                      adjective: EquipmentAdjective.Exquisite,
-			                                                      grade: EquipmentGrade.GradeIII, maxDurability:100,
-			                                                      level: 3, 
-			                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
+				rarity: EquipmentRarity.Epic,
+				adjective: EquipmentAdjective.Exquisite,
+				grade: EquipmentGrade.GradeIII, maxDurability: 100,
+				level: 3,
+				lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
@@ -152,37 +154,37 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Celestial,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Celestial,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Celestial,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Celestial,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Celestial,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Celestial,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierAmulet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Celestial,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Celestial,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -194,39 +196,39 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MausHelmet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Organic,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Organic,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Organic,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseAmulet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Organic,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Equipment")]
@@ -236,39 +238,39 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MausHelmet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Shadow,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Shadow,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Shadow,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.WarriorAmulet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Shadow,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Equipment")]
@@ -278,39 +280,39 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.FootballHelmet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Chaos,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Chaos,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.FootballArmor,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Chaos,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Chaos,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Chaos,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Chaos,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Chaos,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Chaos,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Equipment")]
@@ -320,37 +322,37 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dimensional,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dimensional,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotShield,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dimensional,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotAmulet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Organic,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -362,37 +364,37 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Shadow,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Organic,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Organic,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseShield,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Shadow,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.WarriorAmulet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Shadow,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI, 
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Shadow,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -404,39 +406,39 @@ public partial class SROptions
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadHelmet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Dimensional,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Chaos,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Chaos,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Dimensional,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
-															   material: EquipmentMaterial.Golden,
-															   faction: EquipmentFaction.Dimensional,
-															   adjective: EquipmentAdjective.Divine,
-															   rarity: EquipmentRarity.LegendaryPlus,
-															   level: 35,
-															   grade: EquipmentGrade.GradeI, 
-															   lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			material: EquipmentMaterial.Golden,
+			faction: EquipmentFaction.Dimensional,
+			adjective: EquipmentAdjective.Divine,
+			rarity: EquipmentRarity.LegendaryPlus,
+			level: 35,
+			grade: EquipmentGrade.GradeI,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Equipment")]
@@ -449,11 +451,11 @@ public partial class SROptions
 		var rand = Random.Range(0, equipmentConfigs.Count);
 
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[rand].Id,
-		                                                      rarity: EquipmentRarity.Epic,
-		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII, maxDurability:100,
-		                                                      level: 3, 
-		                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
+			rarity: EquipmentRarity.Epic,
+			adjective: EquipmentAdjective.Exquisite,
+			grade: EquipmentGrade.GradeIII, maxDurability: 100,
+			level: 3,
+			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
@@ -489,13 +491,13 @@ public partial class SROptions
 		var dataProvider = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		// TODO: Remove Logic outside command
 		gameLogic.PlayerLogic.AddXp(amount);
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		services.GameBackendService.CallFunction("ExecuteCommand", null, null,new LogicRequest
+		services.GameBackendService.CallFunction("ExecuteCommand", null, null, new LogicRequest
 		{
 			Command = "CheatAddXpCommand",
 			Data = data
@@ -509,7 +511,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		gameLogic.CurrencyLogic.AddCurrency(GameId.COIN, 5000);
-		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Progression")]
@@ -517,67 +519,67 @@ public partial class SROptions
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.CurrencyLogic.AddCurrency(GameId.CS, 5);
 
 		//((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add5BLST()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.CurrencyLogic.AddCurrency(GameId.BLST, 5);
 
 		//((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add5BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.BattlePassLogic.AddBPP(5);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add25BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.BattlePassLogic.AddBPP(25);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add250BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.BattlePassLogic.AddBPP(250);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add100000BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
+
 		gameLogic.BattlePassLogic.AddBPP(100000);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void ResetBpp()
 	{
@@ -587,12 +589,12 @@ public partial class SROptions
 
 		playerData.BPLevel = 0;
 		playerData.BPPoints = 0;
-		
+
 		dataProvider.SaveData<PlayerData>();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add200Trophies()
 	{
@@ -603,51 +605,51 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add10SecTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var timeManipulator = services.TimeService as ITimeManipulator;
-		
+
 		timeManipulator.AddTime(10);
 	}
-	
-	
+
+
 	[Category("Progression")]
 	public void Add1MinTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var timeManipulator = services.TimeService as ITimeManipulator;
-		
+
 		timeManipulator.AddTime(60);
 	}
-	
-	
+
+
 	[Category("Progression")]
 	public void Add10MinTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var timeManipulator = services.TimeService as ITimeManipulator;
-		
+
 		timeManipulator.AddTime(60 * 10);
 	}
-	
+
 	[Category("Progression")]
 	public void Add1HourTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var timeManipulator = services.TimeService as ITimeManipulator;
-		
+
 		timeManipulator.AddTime(60 * 60);
 	}
-	
+
 	[Category("Progression")]
 	public void Add1DayTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var timeManipulator = services.TimeService as ITimeManipulator;
-		
+
 		timeManipulator.AddTime(60 * 60 * 24);
 	}
 
@@ -657,91 +659,56 @@ public partial class SROptions
 		get => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting;
 		set => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting = value;
 	}
-	
+
 	[Category("Logging")]
 	public void LogCurrentRoomInfo()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var room = services.NetworkService.QuantumClient.CurrentRoom;
-		
+
 		if (room == null)
 		{
 			return;
 		}
-		
+
 		var roomProps = (string) "";
 
 		foreach (var prop in room.CustomProperties)
 		{
 			roomProps += $"{prop.Key}: {prop.Value}\n";
 		}
-		
+
 		Debug.Log($"-NETWORK INFO-\n" +
-		          $"Lobby Name: {services.NetworkService.QuantumClient.CurrentLobby?.Name}\n" +
-		          $"Room Name: {room.Name}\n" +
-		          $"Player Count: {room.Players.Count}\n" +
-		          $"Is Open: {room.IsOpen}\n" +
-		          $"Is Visible: {room.IsVisible}\n" + 
-				  $"Player TTL: {room.PlayerTtl}\n" + 
-				  $"Room TTL: {room.EmptyRoomTtl}\n" + 
-		          $"-----\n" + 
-		          $"Custom Props:\n" + roomProps +
-		          $"-----\n");
+			$"Lobby Name: {services.NetworkService.QuantumClient.CurrentLobby?.Name}\n" +
+			$"Room Name: {room.Name}\n" +
+			$"Player Count: {room.Players.Count}\n" +
+			$"Is Open: {room.IsOpen}\n" +
+			$"Is Visible: {room.IsVisible}\n" +
+			$"Player TTL: {room.PlayerTtl}\n" +
+			$"Room TTL: {room.EmptyRoomTtl}\n" +
+			$"-----\n" +
+			$"Custom Props:\n" + roomProps +
+			$"-----\n");
 	}
-	
+
 	[Category("Logging")]
 	public void LogCurrentRoomReadyStatus()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var room = services.NetworkService.QuantumClient.CurrentRoom;
-		
 		if (room == null)
 		{
 			return;
 		}
-		Debug.Log(BuildRoomReadyDebugString(room, services.ConfigsProvider));
+
+		var str = room.GetRoomDebugString();
+#if UNITY_EDITOR
+		UnityEditor.EditorUtility.DisplayDialog("Room debug", str, "close");
+#else
+	FLog.Info(str);
+#endif
 	}
-	
-	private static String BuildRoomReadyDebugString(Room room, IConfigsProvider cfgProvider)
-	{
-		// This is playfab mm
-		if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
-		{
-			var str = new StringBuilder();
-			str.AppendLine("==== Expected users ====");
-			foreach (var roomExpectedUser in room.ExpectedUsers)
-			{
-				bool joined = room.Players.Any(p => p.Value.UserId == roomExpectedUser);
-				bool loaded = false;
-				bool master = false;
-				string name = "??????";
-				if (joined)
-				{
-					var player = room.Players.Values.First(p => p.UserId == roomExpectedUser);
-					master = player.IsMasterClient;
-					loaded = player.LoadedCoreMatchAssets();
-					name = player.NickName;
-				}
 
-				str.AppendLine($"playfab: '{roomExpectedUser}', joined: {joined}, name: '{name}', loaded:{loaded}, master {master}");
-			}
 
-			str.AppendLine("===========");
-
-			str.AppendLine("    ");
-			str.AppendLine("===== Current Users ======");
-			foreach (var playersValue in room.Players.Values)
-			{
-				str.AppendLine($"id: '{playersValue.UserId}',, name: '{playersValue.NickName}', loaded:{playersValue.LoadedCoreMatchAssets()}, master {playersValue.IsMasterClient}");
-			}
-
-			str.AppendLine("========");
-			str.AppendLine();
-			return str.ToString();
-
-		}
-
-		return "not playfab room";
-	}
 #endif
 }

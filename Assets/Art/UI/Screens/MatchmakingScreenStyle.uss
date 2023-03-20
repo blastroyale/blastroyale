@@ -46,6 +46,18 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
+
+.debug-master-client {
+    position: absolute;
+    right: 25px;
+    bottom: 80px;
+    color: rgb(255, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 44px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
 .mode-desc {
     position: absolute;
     left: 100px;

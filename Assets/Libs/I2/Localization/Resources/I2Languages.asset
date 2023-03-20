@@ -3268,6 +3268,149 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/settings_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SETTINGS
+      - SETTINGS
+      - SETTINGS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOUND
+      - SOUND
+      - SOUND
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_effects
+      TermType: 0
+      Description: 
+      Languages:
+      - Sound Effects
+      - Sound Effects
+      - Sound Effects
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/graphics_title
+      TermType: 0
+      Description: 
+      Languages:
+      - GRAPHICS
+      - GRAPHICS
+      - GRAPHICS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/controls_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CONTROLS
+      - CONTROLS
+      - CONTROLS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/account_title
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCOUNT
+      - ACCOUNT
+      - ACCOUNT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/announcer
+      TermType: 0
+      Description: 
+      Languages:
+      - Announcer
+      - Announcer
+      - Announcer
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/bg_music
+      TermType: 0
+      Description: 
+      Languages:
+      - BG Music
+      - BG Music
+      - BG Music
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/server
+      TermType: 0
+      Description: 
+      Languages:
+      - SERVER
+      - SERVER
+      - SERVER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/europe
+      TermType: 0
+      Description: 
+      Languages:
+      - EUROPE
+      - EUROPE
+      - EUROPE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/asia
+      TermType: 0
+      Description: 
+      Languages:
+      - ASIA
+      - ASIA
+      - ASIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/usa
+      TermType: 0
+      Description: 
+      Languages:
+      - USA
+      - USA
+      - USA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/faq
+      TermType: 0
+      Description: 
+      Languages:
+      - FAQ
+      - FAQ
+      - FAQ
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -13779,6 +13922,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FTUEMiniMap
+      TermType: 0
+      Description: 
+      Languages:
+      - FTUE Mini Map
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
       Description: 
@@ -16205,7 +16359,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678807716009
+    Google_LastUpdatedVersion: 1679323815258
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

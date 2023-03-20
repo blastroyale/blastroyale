@@ -302,6 +302,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnMatchmakingJoined(JoinedMatchmaking match)
 		{
+			_networkService.LastUsedSetup.Value = match.RoomSetup;
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 

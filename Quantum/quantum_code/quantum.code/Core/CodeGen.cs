@@ -166,6 +166,7 @@ namespace Quantum {
     FloodCitySimple = 7,
     BlimpDeck = 8,
     BRGenesis = 9,
+    FTUEMiniMap = 142,
     MapTestScene = 63,
     TestScene = 11,
     NewBRMap = 65,

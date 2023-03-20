@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 0900000041000000
+      AllowedMaps: 09000000410000008e000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 09000000
+      AllowedMaps: 090000008e000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1

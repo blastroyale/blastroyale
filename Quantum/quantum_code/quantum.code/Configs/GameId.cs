@@ -118,6 +118,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FTUEMiniMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.FtueDeck, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -913,7 +919,8 @@ namespace Quantum
 						GameId.BRGenesis,
 						GameId.MapTestScene,
 						GameId.TestScene,
-						GameId.NewBRMap
+						GameId.NewBRMap,
+						GameId.FTUEMiniMap
 					}.AsReadOnly()
 				},
 				{

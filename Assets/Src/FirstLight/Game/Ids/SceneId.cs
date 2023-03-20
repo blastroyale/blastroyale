@@ -17,7 +17,8 @@ namespace FirstLight.Game.Ids
 		BRGenesis,
 		TestScene,
 		MapTestScene,
-		NewBRMap
+		NewBRMap,
+		FTUEMiniMap
 	}
 	
 	/// <summary>

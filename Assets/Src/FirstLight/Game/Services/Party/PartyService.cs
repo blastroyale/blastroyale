@@ -309,11 +309,7 @@ namespace FirstLight.Game.Services.Party
 						throw new PartyException(PartyErrors.DifferentGameVersion);
 					}
 				}
-
-				if (lobby.CurrentPlayers >= lobby.MaxPlayers)
-				{
-					throw new PartyException(PartyErrors.PartyFull);
-				}
+				
 
 				var localMember = CreateLocalMember();
 				// Now join it

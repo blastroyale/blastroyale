@@ -51,31 +51,21 @@
 }
 
 .settings-popup__sound-tab {
-    background-image: var(--sprite-home__settings-tab-chosen);
-    width: 300px;
-    display: flex;
-}
-
-.settings-popup__sound-tab :active {
-    background-image: var(--sprite-home__settings-tab-chosen);
     width: 300px;
     display: flex;
 }
 
 .settings-popup__graphics-tab {
-    background-image: var(--sprite-home__settings-tab-back);
-    width: 300px;
-    display: flex;
-}
-
-.settings-popup__account-tab {
-    background-image: var(--sprite-home__settings-tab-back);
     width: 300px;
     display: flex;
 }
 
 .settings-popup__controls-tab {
-    background-image: var(--sprite-home__settings-tab-back);
+    width: 300px;
+    display: flex;
+}
+
+.settings-popup__account-tab {
     width: 300px;
     display: flex;
 }

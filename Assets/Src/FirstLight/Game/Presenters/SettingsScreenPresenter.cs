@@ -54,23 +54,23 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 
 		private ImageButton _closeScreenButton;
-		
-		private Button _soundButtonOn;
-		private Button _soundButtonOff;
-		private VisualElement _soundSelector;
-		
-		private LocalizedButton _graphicsButtonOn;
-		private VisualElement _graphicsSelector;
-		
-		private Button _controlsButtonOn;
-		private VisualElement _controlsSelector;
-		
-		private Button _accountButtonOn;
-		private VisualElement _accountSelector;
-		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 		
+		private LocalizedButton [] _localizedTabs;
+		private VisualElement[] _localizedSelectors;
+
+		private const string UssSpriteSelected = "sprite-home__settings-tab-chosen";
+		private const string UssSpriteUnselected = "sprite-home__settings-tab-back";
+
+		private enum SETTINGS_TAB_CATEGORIES
+		{
+			SOUND = 0,
+			CONTROLS = 1,
+			GRAPHICS = 2,
+			ACCOUNT = 3
+		};
+
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -95,28 +95,36 @@ namespace FirstLight.Game.Presenters
 			// _helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			// _faq.onClick.AddListener(OnFaqButtonPressed);
 			// _serverSelectButton.onClick.AddListener(OpenServerSelect);
+
+			_localizedTabs = new LocalizedButton[4];
+			_localizedSelectors = new VisualElement[4];
 		}
 
 		protected override void QueryElements(VisualElement root)
 		{
 			_closeScreenButton = root.Q<ImageButton>("CloseButton");
 			_closeScreenButton.clicked += OnCloseClicked;
+
+			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<LocalizedButton>("SoundTab");
+			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].clicked += OnSoundClicked;
+			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<VisualElement>("SoundSelector");
 			
-			_soundButtonOn = root.Q<Button>("SoundButtonOn");
-			_soundSelector = root.Q<VisualElement>("SoundSelector");
-			_soundButtonOn.clicked += OnSoundClicked;
-		
-			_graphicsButtonOn = root.Q<LocalizedButton>("GraphicsButtonOn");
-			_graphicsSelector = root.Q<VisualElement>("GraphicsSelector");
-			_graphicsButtonOn.clicked += OnGraphicsClicked;
-		
-			_controlsButtonOn = root.Q<Button>("ControlsButtonOn");
-			_controlsSelector = root.Q<VisualElement>("ControlsSelector");
-			_controlsButtonOn.clicked += OnControlsClicked;
-		
-			_accountButtonOn = root.Q<Button>("AccountButtonOn");
-			_accountSelector = root.Q<VisualElement>("AccountSelector");
-			_accountButtonOn.clicked += OnAccountClicked;
+			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.GRAPHICS] = root.Q<LocalizedButton>("GraphicsTab");
+			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.GRAPHICS].clicked += OnGraphicsClicked;
+			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.GRAPHICS] = root.Q<VisualElement>("GraphicsSelector");
+			
+			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.CONTROLS] = root.Q<LocalizedButton>("ControlsTab");
+			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.CONTROLS].clicked += OnControlsClicked;
+			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.CONTROLS] = root.Q<VisualElement>("ControlsSelector");
+			
+			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<LocalizedButton>("AccountTab");
+			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.ACCOUNT].clicked += OnAccountClicked;
+			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<VisualElement>("AccountSelector");
+			
+			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].RemoveSpriteClasses();
+			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].AddToClassList(UssSpriteSelected);
+
+			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 		}
 		
 		private void OnCloseClicked()
@@ -128,23 +136,45 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSoundClicked()
 		{
-			
+			Debug.Log("Sound Clicked");
+			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 		}
 		
 		private void OnGraphicsClicked()
 		{
 			Debug.Log("Graphics Clicked");
+			TabSelected(SETTINGS_TAB_CATEGORIES.GRAPHICS);
 		}
 		
 		private void OnControlsClicked()
 		{
-			
+			Debug.Log("Controls Clicked");
+			TabSelected(SETTINGS_TAB_CATEGORIES.CONTROLS);
 		}
 		
 		private void OnAccountClicked()
 		{
-			
+			Debug.Log("Account Clicked");
+			TabSelected(SETTINGS_TAB_CATEGORIES.ACCOUNT);
 		}
+
+		private void TabSelected(SETTINGS_TAB_CATEGORIES category)
+		{
+			int size = Enum.GetNames(typeof(SETTINGS_TAB_CATEGORIES)).Length;
+			
+			for (int i = 0; i < size; i++)
+			{
+				_localizedTabs[i].RemoveSpriteClasses();
+				_localizedSelectors[i].visible = i == (int) category;
+				
+				if (i == (int) category)
+				{
+					_localizedTabs[i].AddToClassList(UssSpriteSelected);
+				}
+			}
+		}
+		
+
 		
 		private void button_Click(object sender, EventArgs e, string message)  
 		{  

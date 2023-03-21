@@ -92,6 +92,7 @@ namespace FirstLight.Game.StateMachines
 			var transitionToGameResults = stateFactory.Wait("Unload to Game Results UI");
 			var transitionToMenu = stateFactory.Wait("Unload to Menu");
 			var winners = stateFactory.Wait("Winners Screen");
+			var randomLeftRoom = stateFactory.Choice("Oddly left room");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var matchStateEnding = stateFactory.TaskWait("Publish Wait Match State Ending");
 			
@@ -108,11 +109,15 @@ namespace FirstLight.Game.StateMachines
 			
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
 			matchmaking.Event(NetworkState.RoomReadyEvent).Target(playerReadyCheck);
-			matchmaking.Event(LeaveRoomClicked).Target(transitionToMenu);
+			matchmaking.Event(NetworkState.LeftRoomEvent).Target(randomLeftRoom);
 
+			randomLeftRoom.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
+			randomLeftRoom.Transition().Target(transitionToMenu);
+			
 			playerReadyCheck.OnEnter(CheckPlayerAssetsLoaded);
 			//playerReadyCheck.Transition().Condition(IsMatchOver).Target(gameEndedChoice);
 			playerReadyCheck.Transition().Condition(AreAllPlayersReady).Target(gameSimulation);
+			playerReadyCheck.Transition().Condition(HasGameAlreadyStarted).Target(gameSimulation);
 			playerReadyCheck.Transition().Target(playerReadyWait);
 			
 			playerReadyWait.OnEnter(PreloadPlayerMatchAssets);
@@ -120,7 +125,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(transitionToMenu);
 			playerReadyWait.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(transitionToMenu);
-
+			
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchErrorEvent).Target(transitionToMenu);
 			gameSimulation.Event(MatchEndedEvent).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
@@ -308,7 +313,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return IsMatchmakingTimerComplete() || !_networkService.QuantumClient.CurrentRoom.IsOpen ||
 				_networkService.JoinSource.Value.IsSnapshotAutoConnect() ||
-				_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME);
+				_networkService.QuantumClient.CurrentRoom.HaveStartedGame();
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -372,9 +377,8 @@ namespace FirstLight.Game.StateMachines
 			
 			// TODO: Reconnection screen but for now its MM screen
 			var isRejoining =
-				_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network
-					.ROOM_PROPS_STARTED_GAME) || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
-			if (isRejoining || _networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME) || _networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || 
+				_networkService.QuantumClient.CurrentRoom.HaveStartedGame() || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
+			if (isRejoining || _networkService.QuantumClient.CurrentRoom.HaveStartedGame() || _networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() || 
 				_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				var data = new MatchmakingScreenPresenter.StateData
@@ -391,7 +395,6 @@ namespace FirstLight.Game.StateMachines
 					LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 					
 				};
-				
 				await _uiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 			}
 		}
@@ -420,6 +423,11 @@ namespace FirstLight.Game.StateMachines
 		private bool HasDisconnectedDuringSimulation()
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
+		}
+
+		private bool HasGameAlreadyStarted()
+		{
+			return _networkService.QuantumClient.CurrentRoom.HaveStartedGame();
 		}
 
 		private bool AreAllPlayersReady()

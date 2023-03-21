@@ -128,9 +128,6 @@ namespace FirstLight.Game.Presenters
 
 		private readonly Color _deselectedRadioButtonColor = new Color(0.08f, 0.07f, 0.14f, 1f);
 		private readonly Color _selectedRadioButtonColor = new Color(0.94f, 0.29f, 0.47f, 1f);
-		
-		// here's color for back #161426
-		// color for dot inside #
 
 		private void Awake()
 		{
@@ -214,9 +211,6 @@ namespace FirstLight.Game.Presenters
 			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.ACCOUNT].clicked += OnAccountClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<VisualElement>("AccountSelector");
 			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<VisualElement>("AccountContent");
-			
-			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].RemoveSpriteClasses();
-			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].AddToClassList(UssSpriteSelected);
 
 			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 			
@@ -269,8 +263,12 @@ namespace FirstLight.Game.Presenters
 			
 			// Graphics Buttons
 			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.Low] = root.Q<Button>("LowRadioButton");
+			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Low].clicked += OnLowGraphicsPressed;
 			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.Medium] = root.Q<Button>("MediumRadioButton");
+			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Medium].clicked += OnMediumGraphicsPressed;
 			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.High] = root.Q<Button>("HighRadioButton");
+			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High].clicked += OnHighGraphicsPressed;
+			SetGraphicsQualityToggles();
 			
 			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
 			{
@@ -541,6 +539,58 @@ namespace FirstLight.Game.Presenters
 				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].style.unityBackgroundImageTintColor = new StyleColor(_selectedRadioButtonColor);
 			}
 		}
+
+		private void OnLowGraphicsPressed()
+		{
+			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
+			SetGraphicsQualityToggles();
+		}
+		
+		private void OnMediumGraphicsPressed()
+		{
+			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
+			SetGraphicsQualityToggles();
+		}
+		
+		private void OnHighGraphicsPressed()
+		{
+			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.High;
+			SetGraphicsQualityToggles();
+		}
+		
+
+		private void SetGraphicsQualityToggles()
+		{
+			foreach (var button in _graphicsButtons)
+			{
+				button.style.unityBackgroundImageTintColor = _deselectedRadioButtonColor;
+			}
+
+			switch (_gameDataProvider.AppDataProvider.CurrentDetailLevel)
+			{
+				case GraphicsConfig.DetailLevel.Low:
+
+						_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Low].style.unityBackgroundImageTintColor =
+						_selectedRadioButtonColor;
+					
+					break;
+				
+				case GraphicsConfig.DetailLevel.Medium:
+
+					_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Medium].style.unityBackgroundImageTintColor =
+						_selectedRadioButtonColor;
+					
+					break;
+				
+				case GraphicsConfig.DetailLevel.High:
+
+					_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High].style.unityBackgroundImageTintColor =
+						_selectedRadioButtonColor;
+					
+					break;
+			}
+		}
+		
 		
 		private void OnGraphicsClicked()
 		{

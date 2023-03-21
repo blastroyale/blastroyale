@@ -74,15 +74,15 @@
                             <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/graphics_quality" name="GraphicsQualityLabel" style="-unity-text-align: middle-center; height: 120px;" />
                             <ui:VisualElement name="FPSBlock" style="height: 220px; flex-direction: row; justify-content: center; align-items: center;">
                                 <ui:VisualElement name="LowBlock" style="width: 300px; height: 160px; -unity-text-align: lower-left; justify-content: space-around; align-items: center;">
-                                    <ui:Button focusable="true" name="LowRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <ui:Button focusable="true" name="LowRadioButton" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
                                     <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/low" name="LowLabel" style="-unity-text-align: upper-center;" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="MediumBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
-                                    <ui:Button focusable="true" name="MediumRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <ui:Button focusable="true" name="MediumRadioButton" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=21300000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
                                     <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/medium" name="MediumLabel" style="-unity-text-align: upper-center;" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="HighBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
-                                    <ui:Button focusable="true" name="HighRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <ui:Button focusable="true" name="HighRadioButton" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=21300000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
                                     <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/high" name="HighLabel" style="-unity-text-align: upper-center;" />
                                 </ui:VisualElement>
                             </ui:VisualElement>

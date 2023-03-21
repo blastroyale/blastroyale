@@ -659,10 +659,12 @@ namespace FirstLight.Game.Services
 
 			if (QuantumClient.Server == ServerConnection.GameServer)
 			{
+				FLog.Info("ReconnectPhoton - ReconnectAndRejoin");
 				QuantumClient.ReconnectAndRejoin();
 			}
 			else
 			{
+				FLog.Info("ReconnectPhoton - ReconnectToMaster");
 				QuantumClient.ReconnectToMaster();
 			}
 		}

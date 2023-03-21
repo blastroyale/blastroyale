@@ -154,7 +154,11 @@ namespace FirstLight.Game.Services
 			_connection.On<PlayfabPubSubMessage>("ReceiveMessage", MessageHandler);
 			_connection.On<IPlayfabPubSubService.SubscriptionChangeMessage>("ReceiveSubscriptionChangeMessage", SubscriptionHandler);
 			_connection.OnClosed += _ => { ResetConnectionFields(); };
-			_connection.OnError += (_, _) => { ResetConnectionFields(); };
+			_connection.OnError += (_, errorString) =>
+			{
+				FLog.Error("PlayfabPubSubError: "+errorString);
+				ResetConnectionFields();
+			};
 			await _connection.ConnectAsync();
 			_connected = true;
 			_connecting = false;
@@ -168,7 +172,7 @@ namespace FirstLight.Game.Services
 
 		private void SubscriptionHandler(IPlayfabPubSubService.SubscriptionChangeMessage obj)
 		{
-			Debug.Log(ModelSerializer.Serialize(obj).Value);
+			FLog.Info(ModelSerializer.Serialize(obj).Value);
 			if (_onSubscriptionStatus.TryGetValue(obj.Topic, out var handlers))
 			{
 				foreach (var handler in handlers)

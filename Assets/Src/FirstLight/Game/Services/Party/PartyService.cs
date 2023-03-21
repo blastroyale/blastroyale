@@ -232,6 +232,7 @@ namespace FirstLight.Game.Services.Party
 
 				string code = GenerateCode();
 				// TODO Check if lobby doesn't exist with the generated code
+				var server = _appDataProvider.ConnectionRegion.Value;
 
 				CreateLobbyRequest req = new CreateLobbyRequest()
 				{
@@ -242,6 +243,7 @@ namespace FirstLight.Game.Services.Party
 					SearchData = new Dictionary<string, string>()
 					{
 						{CodeSearchProperty, code},
+						{ServerProperty, server},
 						{LobbyCommitProperty, VersionUtils.Commit != null ? VersionUtils.Commit : "editor"}
 					},
 					UseConnections = true,
@@ -307,6 +309,15 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.PartyNotFound);
 				}
 
+				if (lobby.SearchData.TryGetValue(ServerProperty, out var lobbyServer))
+				{
+					var server = _appDataProvider.ConnectionRegion.Value;
+					if (lobbyServer != server)
+					{
+						throw new PartyException(PartyErrors.PartyUsingOtherServer);
+
+					}
+				}
 				if (FeatureFlags.COMMIT_VERSION_LOCK && lobby.SearchData.TryGetValue(LobbyCommitProperty, out var lobbyCommit))
 				{
 					if (lobbyCommit != VersionUtils.Commit)

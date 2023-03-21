@@ -807,6 +807,19 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSquads/error_PartyUsingOtherServer
+      TermType: 0
+      Description: 
+      Languages:
+      - This squad is using another server region!
+      - "\u042D\u0442\u043E\u0442 \u043E\u0442\u0440\u044F\u0434 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+        \u0434\u0440\u0443\u0433\u043E\u0439 \u0440\u0435\u0433\u0438\u043E\u043D
+        \u0441\u0435\u0440\u0432\u0435\u0440\u0430!"
+      - "Este esquadr\xE3o est\xE1 utilizando outra regi\xE3o de servidor."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/kick
       TermType: 0
       Description: 
@@ -3264,6 +3277,193 @@ MonoBehaviour:
       - Success
       - "\u0423\u0441\u043F\u0435\u0445"
       - Sucesso
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/settings_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SETTINGS
+      - SETTINGS
+      - SETTINGS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOUND
+      - SOUND
+      - SOUND
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_effects
+      TermType: 0
+      Description: 
+      Languages:
+      - Sound Effects
+      - Sound Effects
+      - Sound Effects
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/graphics_title
+      TermType: 0
+      Description: 
+      Languages:
+      - GRAPHICS
+      - GRAPHICS
+      - GRAPHICS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/controls_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CONTROLS
+      - CONTROLS
+      - CONTROLS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/account_title
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCOUNT
+      - ACCOUNT
+      - ACCOUNT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/announcer
+      TermType: 0
+      Description: 
+      Languages:
+      - Announcer
+      - Announcer
+      - Announcer
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/bg_music
+      TermType: 0
+      Description: 
+      Languages:
+      - BG Music
+      - BG Music
+      - BG Music
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/server
+      TermType: 0
+      Description: 
+      Languages:
+      - SERVER
+      - SERVER
+      - SERVER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/europe
+      TermType: 0
+      Description: 
+      Languages:
+      - EUROPE
+      - EUROPE
+      - EUROPE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/asia
+      TermType: 0
+      Description: 
+      Languages:
+      - ASIA
+      - ASIA
+      - ASIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/usa
+      TermType: 0
+      Description: 
+      Languages:
+      - USA
+      - USA
+      - USA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/faq
+      TermType: 0
+      Description: 
+      Languages:
+      - FAQ
+      - FAQ
+      - FAQ
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/on
+      TermType: 0
+      Description: 
+      Languages:
+      - ON
+      - ON
+      - ON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/off
+      TermType: 0
+      Description: 
+      Languages:
+      - OFF
+      - OFF
+      - OFF
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/dynamic_joystick
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/haptic_feedback
+      TermType: 0
+      Description: 
+      Languages:
+      - Haptic Feedback
+      - Haptic Feedback
+      - Haptic Feedback
       - 
       - 
       Flags: 0000000000
@@ -13790,6 +13990,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/FTUEMiniMap
+      TermType: 0
+      Description: 
+      Languages:
+      - FTUE Mini Map
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
       Description: 
@@ -16216,7 +16427,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1678807716009
+    Google_LastUpdatedVersion: 1679410831653
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

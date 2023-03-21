@@ -27,7 +27,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnServerSelectClicked;
 			public Action OnDeleteAccountClicked;
 		}
-		
+
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
@@ -49,16 +49,18 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _connectIdButton;
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
-		
+
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		
+
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
+			_services.PartyService.HasParty.InvokeObserve(OnHasPartyUpdate);
+			_services.MatchmakingService.IsMatchmaking.InvokeObserve(OnIsMatchmakingUpdate);
 
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
@@ -78,15 +80,25 @@ namespace FirstLight.Game.Presenters
 			_faq.onClick.AddListener(OnFaqButtonPressed);
 			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 		}
+
+		private void OnHasPartyUpdate(bool _, bool __)
+		{
+			UpdateServerSelectButton();
+		}
 		
+		private void OnIsMatchmakingUpdate(bool _, bool __)
+		{
+			UpdateServerSelectButton();
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
 			UpdateAccountStatus();
-			
+
 			_versionText.text = VersionUtils.VersionInternal;
-			
+
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
@@ -97,12 +109,32 @@ namespace FirstLight.Game.Presenters
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_logoutButton.gameObject.SetActive(true);
 
-			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
+			UpdateServerSelectButton();
+
 
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);
 #endif
+		}
+
+		private void UpdateServerSelectButton()
+		{
+			UpdateServerSelectButton(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
+		}
+
+		private void UpdateServerSelectButton(string connectionRegion)
+		{
+			if (_selectedServerText == null) return;
+			var regionName = connectionRegion.GetPhotonRegionTranslation();
+			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
+			if (_services.PartyService.HasParty.Value|| _services.MatchmakingService.IsMatchmaking.Value)
+			{
+				_serverSelectButton.interactable = false;
+			}
+			else
+			{
+				_serverSelectButton.interactable = true;
+			}
 		}
 
 		/// <summary>
@@ -127,8 +159,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnConnectionRegionChange(string previousValue, string newValue)
 		{
-			var regionName = newValue.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
+			UpdateServerSelectButton(newValue);
 		}
 
 		/// <inheritdoc />
@@ -169,7 +200,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.IsSfxEnabled = value;
 		}
-		
+
 		private void OnDialogueChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsDialogueEnabled = value;
@@ -179,7 +210,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
 		}
-		
+
 		private void OnDynamicJoystickChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
@@ -200,22 +231,22 @@ namespace FirstLight.Game.Presenters
 			var targetFps = value
 				? GameConstants.Visuals.LOW_FPS_MODE_TARGET
 				: GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
-			
+
 			_gameDataProvider.AppDataProvider.FpsTarget = targetFps;
 		}
 
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
 		{
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
-			
+
 			// This is temporary solution. When settings screen is made in UITK, the whole 
 			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
-		
+
 		private void OnLogoutClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
+
 			var title = ScriptLocalization.UITShared.confirmation;
 			var desc = ScriptLocalization.UITSettings.logout_confirm_desc;
 			var confirmButton = new GenericDialogButton
@@ -238,7 +269,7 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.UITSettings.delete_account,
 				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
-			
+
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 

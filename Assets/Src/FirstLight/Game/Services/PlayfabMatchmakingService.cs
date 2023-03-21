@@ -9,8 +9,10 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
@@ -113,6 +115,7 @@ namespace FirstLight.Game.Services
 	class CustomMatchmakingPlayerProperties
 	{
 		public string MasterPlayerId;
+		public string Server;
 
 		public MatchmakingPlayerAttributes Encode()
 		{
@@ -137,12 +140,17 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IMatchmakingService"/>
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
-		private static string QUEUE_NAME = "flgranked"; // TODO: Drive from outside for multiple q 
+		private static string QUEUE_NAME = "flgtrios"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
-		private IGameBackendService _gameBackend;
-		private ICoroutineService _coroutines;
-		private IPartyService _party;
+		public static int TICKET_TIMEOUT_SECONDS = 45;
+
+
+		private readonly IGameDataProvider _dataProvider;
+		private readonly ICoroutineService _coroutines;
+		private readonly IPartyService _party;
+		private readonly IGameNetworkService _networkService;
+
 		private MatchmakingPooling _pooling;
 		private ObservableField<bool> _isMatchmaking;
 
@@ -152,10 +160,11 @@ namespace FirstLight.Game.Services
 		public event IMatchmakingService.OnMatchmakingJoinedHandler OnMatchmakingJoined;
 		public event IMatchmakingService.OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 
-		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines,
-										 IPartyService party, IMessageBrokerService broker)
+		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines,
+										 IPartyService party, IMessageBrokerService broker, IGameNetworkService networkService)
 		{
-			_gameBackend = gameBackend;
+			_networkService = networkService;
+			_dataProvider = dataProviderProvider;
 			_coroutines = coroutines;
 			_party = party;
 			_isMatchmaking = new ObservableField<bool>(false);
@@ -323,7 +332,8 @@ namespace FirstLight.Game.Services
 				},
 				Attributes = new CustomMatchmakingPlayerProperties()
 				{
-					MasterPlayerId = PlayFabSettings.staticPlayer.PlayFabId
+					Server = _dataProvider.AppDataProvider.ConnectionRegion.Value,
+					MasterPlayerId = _networkService.UserId
 				}.Encode()
 			};
 		}
@@ -339,9 +349,9 @@ namespace FirstLight.Game.Services
 
 			PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 			{
-				MembersToMatchWith = members, // HERE IS WHERE WE ADD THE SQUAD !!!
+				MembersToMatchWith = members,
 				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = 45,
+				GiveUpAfterSeconds = TICKET_TIMEOUT_SECONDS,
 				Creator = CreateLocalMatchmakingPlayer()
 			}, r =>
 			{
@@ -444,6 +454,7 @@ namespace FirstLight.Game.Services
 		{
 			_service.GetMatch(ticket.MatchId, result =>
 			{
+				FLog.Info("Matchmaking", $"Found match {ModelSerializer.Serialize(result).Value}");
 				// Distribute teams
 				var membersWithTeam = result.Members
 					.ToDictionary(player => player.Entity.Id,
@@ -468,7 +479,9 @@ namespace FirstLight.Game.Services
 
 		private IEnumerator Runnable()
 		{
-			var delay = new WaitForSeconds(6.5f);
+			float delay = 6.5f;
+			var waitDelay = new WaitForSeconds(delay);
+			float waiting = 0;
 			_pooling = true;
 			while (_pooling)
 			{
@@ -488,7 +501,13 @@ namespace FirstLight.Game.Services
 						_pooling = false;
 					}
 				});
-				yield return delay;
+				yield return waitDelay;
+				// If playfab timeout doesn't work, so the player won't get stuck in the matchmaking screen
+				waiting += delay;
+				if (waiting >= PlayfabMatchmakingService.TICKET_TIMEOUT_SECONDS + 30)
+				{
+					_service.CancelLocalMatchmaking();
+				}
 			}
 		}
 

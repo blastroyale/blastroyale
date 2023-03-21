@@ -60,6 +60,21 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton [] _localizedTabs;
 		private VisualElement[] _localizedSelectors;
 		private VisualElement[] _localizedContentBlocks;
+		
+		// Sound Toggle
+		private Button _soundToggle;
+		private Button [] _soundToggleButtons;
+		private VisualElement[] _soundToggleLabels;
+		
+		// Announcer Toggle
+		private Button _announcerToggle;
+		private Button [] _announcerToggleButtons;
+		private VisualElement[] _announcerToggleLabels;
+		
+		// BGM Toggle
+		private Button _bgmToggle;
+		private Button [] _bgmToggleButtons;
+		private VisualElement[] _bgmToggleLabels;
 
 		private const string UssSpriteSelected = "sprite-home__settings-tab-chosen";
 		private const string UssSpriteUnselected = "sprite-home__settings-tab-back";
@@ -70,6 +85,12 @@ namespace FirstLight.Game.Presenters
 			CONTROLS = 1,
 			GRAPHICS = 2,
 			ACCOUNT = 3
+		};
+
+		private enum SETTINGS_TOGGLE_CATEGORIES
+		{
+			OFF = 0,
+			ON = 1,
 		};
 
 		private void Awake()
@@ -102,6 +123,17 @@ namespace FirstLight.Game.Presenters
 			_localizedTabs = new LocalizedButton[size];
 			_localizedSelectors = new VisualElement[size];
 			_localizedContentBlocks = new VisualElement[size];
+			
+			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_CATEGORIES)).Length;
+
+			_soundToggleButtons = new Button[size];
+			_soundToggleLabels = new VisualElement[size];
+			
+			_announcerToggleButtons = new Button[size];
+			_announcerToggleLabels = new VisualElement[size];
+			
+			_bgmToggleButtons = new Button[size];
+			_bgmToggleLabels = new VisualElement[size];
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -109,8 +141,9 @@ namespace FirstLight.Game.Presenters
 			_closeScreenButton = root.Q<ImageButton>("CloseButton");
 			_closeScreenButton.clicked += OnCloseClicked;
 
+			// Tabs
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<LocalizedButton>("SoundTab");
-			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].clicked += OnSoundClicked;
+			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].clicked += OnSoundTabClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<VisualElement>("SoundSelector");
 			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<VisualElement>("SoundContent");
 			
@@ -133,6 +166,57 @@ namespace FirstLight.Game.Presenters
 			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].AddToClassList(UssSpriteSelected);
 
 			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
+			
+			// Sound Settings
+			_soundToggle = root.Q<Button>("SoundEffectsToggle");
+			_soundToggle.clicked += OnSoundToggleClicked;
+			_soundToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("SoundOffButton");
+			_soundToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("SoundOnButton");
+			_soundToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("SoundOffLabel");
+			_soundToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("SoundOnLabel");
+			
+			// Announcer Settings
+			_announcerToggle = root.Q<Button>("AnnouncerToggle");
+			_announcerToggle.clicked += OnAnnouncerToggleClicked;
+			_announcerToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("AnnouncerOffButton");
+			_announcerToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("AnnouncerOnButton");
+			_announcerToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("AnnouncerOffLabel");
+			_announcerToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("AnnouncerOnLabel");
+			
+			// BGM Settings
+			_bgmToggle = root.Q<Button>("BGMToggle");
+			_bgmToggle.clicked += OnBGMToggleClicked;
+			_bgmToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("BGMOffButton");
+			_bgmToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("BGMOnButton");
+			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("BGMOffLabel");
+			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("BGMOnLabel");
+
+			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
+			{
+				OnSoundToggleOffClicked();
+			}
+			else
+			{
+				OnSoundToggleOnClicked();
+			}
+			
+			if (_gameDataProvider.AppDataProvider.IsDialogueEnabled)
+			{
+				OnAnnouncerToggleOffClicked();
+			}
+			else
+			{
+				OnAnnouncerToggleOnClicked();
+			}
+			
+			if (_gameDataProvider.AppDataProvider.IsBgmEnabled)
+			{
+				OnBGMToggleOffClicked();
+			}
+			else
+			{
+				OnBGMToggleOnClicked();
+			}
 		}
 		
 		private void OnCloseClicked()
@@ -142,11 +226,121 @@ namespace FirstLight.Game.Presenters
 			Data.OnClose();
 		}
 
-		private void OnSoundClicked()
+		private void OnSoundToggleClicked()
+		{
+			_gameDataProvider.AppDataProvider.IsSfxEnabled = !_gameDataProvider.AppDataProvider.IsSfxEnabled;
+			
+			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
+			{
+				OnSoundToggleOffClicked();
+			}
+			else
+			{
+				OnSoundToggleOnClicked();
+			}
+		}
+		
+		
+		private void OnSoundTabClicked()
 		{
 			Debug.Log("Sound Clicked");
 			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 		}
+
+		private void OnSoundToggleOffClicked()
+		{
+			Debug.Log("On Sound Toggle Off Clicked");
+		
+			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_gameDataProvider.AppDataProvider.IsSfxEnabled = true;
+		}
+		
+		private void OnSoundToggleOnClicked()
+		{
+			Debug.Log("On Sound Toggle On Clicked");
+			
+			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_gameDataProvider.AppDataProvider.IsSfxEnabled = false;
+		}
+		
+		private void OnAnnouncerToggleClicked()
+		{
+			_gameDataProvider.AppDataProvider.IsSfxEnabled = !_gameDataProvider.AppDataProvider.IsSfxEnabled;
+			
+			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
+			{
+				OnAnnouncerToggleOffClicked();
+			}
+			else
+			{
+				OnAnnouncerToggleOnClicked();
+			}
+		}
+		
+		private void OnAnnouncerToggleOffClicked()
+		{
+			Debug.Log("On Announcer Toggle Off Clicked");
+		
+			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_gameDataProvider.AppDataProvider.IsDialogueEnabled = true;
+		}
+		
+		private void OnAnnouncerToggleOnClicked()
+		{
+			Debug.Log("On Announcer Toggle On Clicked");
+			
+			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_gameDataProvider.AppDataProvider.IsDialogueEnabled = false;
+		}
+		
+		private void OnBGMToggleClicked()
+		{
+			_gameDataProvider.AppDataProvider.IsBgmEnabled = !_gameDataProvider.AppDataProvider.IsBgmEnabled;
+			
+			if (_gameDataProvider.AppDataProvider.IsBgmEnabled)
+			{
+				OnBGMToggleOffClicked();
+			}
+			else
+			{
+				OnBGMToggleOnClicked();
+			}
+		}
+		
+		private void OnBGMToggleOffClicked()
+		{
+			Debug.Log("On BGM Off Clicked");
+		
+			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_gameDataProvider.AppDataProvider.IsBgmEnabled = true;
+		}
+		
+		private void OnBGMToggleOnClicked()
+		{
+			Debug.Log("On BGM On Clicked");
+			
+			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_gameDataProvider.AppDataProvider.IsBgmEnabled = false;
+		}
+
 		
 		private void OnGraphicsClicked()
 		{

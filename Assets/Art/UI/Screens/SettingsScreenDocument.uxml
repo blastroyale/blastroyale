@@ -25,9 +25,27 @@
                             <ui:VisualElement name="AccountSelector" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-tab-arrow.png?fileID=2800000&amp;guid=3e5652b7ecea04363b108b5a07a418e9&amp;type=3#settings-tab-arrow&apos;); width: 40px; height: 28px; display: flex;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Sound" class="fill-parent content-scrapping" style="display: flex; top: 234px;">
-                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
+                    <ui:VisualElement name="SoundContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px;">
+                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60); display: flex;">
                             <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/sound_effects" style="position: absolute; top: 48px; left: 63px;" />
+                            <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="GraphicsContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px; visibility: hidden;">
+                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/graphics_title" style="position: absolute; top: 48px; left: 63px;" />
+                            <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ControlsContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px; visibility: hidden;">
+                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/controls_title" style="position: absolute; top: 48px; left: 63px;" />
+                            <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="AccountContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px; visibility: hidden;">
+                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/account_title" style="position: absolute; top: 48px; left: 63px;" />
                             <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>

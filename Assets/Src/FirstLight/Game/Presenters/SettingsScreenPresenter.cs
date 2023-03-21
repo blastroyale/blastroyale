@@ -59,6 +59,7 @@ namespace FirstLight.Game.Presenters
 		
 		private LocalizedButton [] _localizedTabs;
 		private VisualElement[] _localizedSelectors;
+		private VisualElement[] _localizedContentBlocks;
 
 		private const string UssSpriteSelected = "sprite-home__settings-tab-chosen";
 		private const string UssSpriteUnselected = "sprite-home__settings-tab-back";
@@ -96,8 +97,11 @@ namespace FirstLight.Game.Presenters
 			// _faq.onClick.AddListener(OnFaqButtonPressed);
 			// _serverSelectButton.onClick.AddListener(OpenServerSelect);
 
-			_localizedTabs = new LocalizedButton[4];
-			_localizedSelectors = new VisualElement[4];
+			int size = Enum.GetNames(typeof(SETTINGS_TAB_CATEGORIES)).Length;
+			
+			_localizedTabs = new LocalizedButton[size];
+			_localizedSelectors = new VisualElement[size];
+			_localizedContentBlocks = new VisualElement[size];
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -108,18 +112,22 @@ namespace FirstLight.Game.Presenters
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<LocalizedButton>("SoundTab");
 			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].clicked += OnSoundClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<VisualElement>("SoundSelector");
+			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<VisualElement>("SoundContent");
 			
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.GRAPHICS] = root.Q<LocalizedButton>("GraphicsTab");
 			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.GRAPHICS].clicked += OnGraphicsClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.GRAPHICS] = root.Q<VisualElement>("GraphicsSelector");
+			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.GRAPHICS] = root.Q<VisualElement>("GraphicsContent");
 			
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.CONTROLS] = root.Q<LocalizedButton>("ControlsTab");
 			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.CONTROLS].clicked += OnControlsClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.CONTROLS] = root.Q<VisualElement>("ControlsSelector");
+			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.CONTROLS] = root.Q<VisualElement>("ControlsContent");
 			
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<LocalizedButton>("AccountTab");
 			_localizedTabs[(int) SETTINGS_TAB_CATEGORIES.ACCOUNT].clicked += OnAccountClicked;
 			_localizedSelectors[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<VisualElement>("AccountSelector");
+			_localizedContentBlocks[(int)SETTINGS_TAB_CATEGORIES.ACCOUNT] = root.Q<VisualElement>("AccountContent");
 			
 			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].RemoveSpriteClasses();
 			// _localizedTabs[(int) SETTINGS_TAB_CATEGORIES.SOUND].AddToClassList(UssSpriteSelected);
@@ -166,6 +174,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_localizedTabs[i].RemoveSpriteClasses();
 				_localizedSelectors[i].visible = i == (int) category;
+				_localizedContentBlocks[i].visible = i == (int) category;
 				
 				if (i == (int) category)
 				{

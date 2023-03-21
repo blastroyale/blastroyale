@@ -20,8 +20,7 @@ namespace FirstLight.Game.Presenters
 		private const string BLOCKER_ELEMENT_STYLE = "blocker-element-blocker";
 		private const string HIGHLIGHT_ELEMENT_STYLE = "highlight-element";
 		private const string PARENT_ELEMENT_STYLE = "blocker-root";
-
-		private const int HIGHLIGHT_ANIM_TIME = 500;
+		
 		private const float CIRCLE_DEFAULT_SIZE = 32;
 		private const float SQUARE_DEFAULT_SIZE = 512;
 
@@ -118,7 +117,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void RemoveHighlight()
 		{
-			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.WAIT_TIME_1000MS)
+			_highlighterElement.experimental.animation.Scale(_initialScale, GameConstants.Tutorial.TIME_HIGHLIGHT_FADE)
 				.OnCompleted(DeleteHighLightElement);
 		}
 
@@ -198,7 +197,7 @@ namespace FirstLight.Game.Presenters
 
 			_highlighterElement.SetDisplay(true);
 
-			_highlighterElement.experimental.animation.Scale(_highlightedScale, HIGHLIGHT_ANIM_TIME);
+			_highlighterElement.experimental.animation.Scale(_highlightedScale, GameConstants.Tutorial.TIME_HIGHLIGHT_FADE);
 		}
 	}
 }

@@ -157,7 +157,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_1000MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 		}
 
 		private void JoinPendingMatch()

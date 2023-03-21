@@ -23,6 +23,10 @@ namespace FirstLight.Game.StateMachines
 		
 		private static readonly IStatechartEvent _bpLevelUpEvent = new StatechartEvent("TUTORIAL - Battle pass level up event");
 		private static readonly IStatechartEvent _finishedClaimingRewardsEvent = new StatechartEvent("TUTORIAL - Finished claiming event");
+		private static readonly IStatechartEvent _openedEquipmentScreen = new StatechartEvent("TUTORIAL - Clicked equipment event");
+		private static readonly IStatechartEvent _clickedWeaponCategoryEvent = new StatechartEvent("TUTORIAL - Clicked weapon category event");
+		private static readonly IStatechartEvent _clickedWeaponEvent = new StatechartEvent("TUTORIAL - Clicked weapon event");
+		private static readonly IStatechartEvent _equippedWeaponEvent = new StatechartEvent("TUTORIAL - Equipped weapon event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -71,6 +75,7 @@ namespace FirstLight.Game.StateMachines
 			var clickReward = stateFactory.State("Click rewards");
 			var claimreward = stateFactory.State("Claim rewards");
 			var clickEquipment = stateFactory.State("Click equipment");
+			var clickWeaponCategory = stateFactory.State("Click weapon");
 			var playGame = stateFactory.State("Play game");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
@@ -100,14 +105,20 @@ namespace FirstLight.Game.StateMachines
 			claimreward.Event(_finishedClaimingRewardsEvent).Target(clickEquipment);
 			claimreward.OnExit(OnClaimRewardExit);
 
-			clickEquipment.OnEnter(() => { SendAnalyticsIncrementStep("ClaimRewards"); });
+			clickEquipment.OnEnter(() => { SendAnalyticsIncrementStep("ClickEquipment"); });
 			clickEquipment.OnEnter(OnClickEquipmentEnter);
-			clickEquipment.Event(_finishedClaimingRewardsEvent).Target(playGame);
+			clickEquipment.Event(_openedEquipmentScreen).Target(clickWeaponCategory);
 			clickEquipment.OnExit(OnClickEquipmentExit);
+			
+			clickWeaponCategory.OnEnter(() => { SendAnalyticsIncrementStep("ClickWeaponCategory"); });
+			clickWeaponCategory.OnEnter(OnClickWeaponCategoryEnter);
+			clickWeaponCategory.Event(_clickedWeaponCategoryEvent).Target(playGame);
+			clickWeaponCategory.OnExit(OnClickWeaponCategoryExit);
 			
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
+			playGame.OnExit(OnPlayGameExit);
 			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
@@ -145,6 +156,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			_services.MessageBrokerService.Subscribe<FinishedClaimingBpRewardsMessage>(OnFinishedClaimingBpRewardsMessage);
+			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpenedMessage);
+
+		}
+
+		private void OnEquipmentScreenOpenedMessage(EquipmentScreenOpenedMessage obj)
+		{
+			_statechartTrigger(_openedEquipmentScreen);
 		}
 
 		private void OnFinishedClaimingBpRewardsMessage(FinishedClaimingBpRewardsMessage msg)
@@ -190,7 +208,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog("AIGHT, LET'S CLAIM SOME REWARDS", CharacterType.Female, CharacterDialogMoodType.Happy);
 			
 			// Wait a bit until home screen completely uncovers, and we get BP rewards
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_1000MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("battle-pass-button__holder");
@@ -206,7 +224,7 @@ namespace FirstLight.Game.StateMachines
 		private async void OnClickRewardEnter()
 		{
 			// Wait a bit until home screen completely uncovers, and we get BP rewards
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_1250MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1250MS);
 			
 			_dialogUi.ShowDialog("CLAIM THIS REWARD IDIOT!", CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			
@@ -232,14 +250,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			_tutorialUtilsUi.BlockFullScreen();
 			
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_250MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_250MS);
 			
 			_services.GameUiService.GetUi<BattlePassScreenPresenter>().CloseManual();
 		}
 		
 		private async void OnClickEquipmentEnter()
 		{
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_1000MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
 			_dialogUi.ShowDialog("LET'S EQUIP THE NEW WEAPON", CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopRight);
 
@@ -250,16 +268,41 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnClickEquipmentExit()
 		{
-			
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialUtilsUi.RemoveHighlight();
 		}
 		
-		private async void OnPlayGameEnter()
+		private async void OnClickWeaponCategoryEnter()
+		{
+			_dialogUi.ContinueDialog("CLICK ON THE WEAPON CATEGORY", CharacterType.Female, CharacterDialogMoodType.Happy);
+			
+			await Task.Delay(GameConstants.Tutorial.TIME_750MS);
+			
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockAround<EquipmentPresenter>(null,"WeaponCategory");
+			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory");
+		}
+		
+		private void OnClickWeaponCategoryExit()
+		{
+
+		}
+		
+		private void OnPlayGameEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
 
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");
+		}
+		
+		private void OnPlayGameExit()
+		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialUtilsUi.RemoveHighlight();
 		}
 	}
 }

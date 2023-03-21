@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
@@ -14,6 +15,7 @@ using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 // using Button = UnityEngine.UI.Button;
 using Button = UnityEngine.UIElements.Button;
+using Color = UnityEngine.Color;
 
 namespace FirstLight.Game.Presenters
 {
@@ -85,7 +87,28 @@ namespace FirstLight.Game.Presenters
 		private Button _hapticFeedbackToggle;
 		private Button [] _hapticFeedbackToggleButtons;
 		private VisualElement[] _hapticFeedbackToggleLabels;
-
+		
+		// Radio Buttons
+		
+		// FPS Buttons
+		private Button [] _fpsButtons;
+		
+		private enum SETTINGS_TOGGLE_FPS
+		{
+			Thirty = 0,
+			Sixty = 1,
+		}
+		
+		// Graphics Buttons
+		private Button [] _graphicsButtons;
+		
+		private enum SETTINGS_TOGGLE_GRAPHICS
+		{
+			Low = 0,
+			Medium = 1,
+			High,
+		}
+		
 		private const string UssSpriteSelected = "sprite-home__settings-tab-chosen";
 		private const string UssSpriteUnselected = "sprite-home__settings-tab-back";
 
@@ -102,6 +125,12 @@ namespace FirstLight.Game.Presenters
 			OFF = 0,
 			ON = 1,
 		};
+
+		private readonly Color _deselectedRadioButtonColor = new Color(0.08f, 0.07f, 0.14f, 1f);
+		private readonly Color _selectedRadioButtonColor = new Color(0.94f, 0.29f, 0.47f, 1f);
+		
+		// here's color for back #161426
+		// color for dot inside #
 
 		private void Awake()
 		{
@@ -150,6 +179,14 @@ namespace FirstLight.Game.Presenters
 
 			_dynamicStickToggleButtons = new Button[size];
 			_dynamicStickToggleLabels = new VisualElement[size];
+			
+			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_FPS)).Length;
+
+			_fpsButtons = new Button[size];
+			
+			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_GRAPHICS)).Length;
+
+			_graphicsButtons = new Button[size];
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -222,6 +259,18 @@ namespace FirstLight.Game.Presenters
 			_hapticFeedbackToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("HapticOnButton");
 			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("HapticOffLabel");
 			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("HapticOnLabel");
+			
+			// FPS Buttons
+			_fpsButtons[(int)SETTINGS_TOGGLE_FPS.Thirty] = root.Q<Button>("30RadioButton");
+			_fpsButtons[(int)SETTINGS_TOGGLE_FPS.Sixty] = root.Q<Button>("60RadioButton");
+			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].clicked += OnFPSTogglePressed;
+			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].clicked += OnFPSTogglePressed;
+			SetFpsRadioButtons();
+			
+			// Graphics Buttons
+			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.Low] = root.Q<Button>("LowRadioButton");
+			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.Medium] = root.Q<Button>("MediumRadioButton");
+			_graphicsButtons[(int)SETTINGS_TOGGLE_GRAPHICS.High] = root.Q<Button>("HighRadioButton");
 			
 			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
 			{
@@ -461,6 +510,36 @@ namespace FirstLight.Game.Presenters
 			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_gameDataProvider.AppDataProvider.UseDynamicJoystick = false;
+		}
+
+		private void OnFPSTogglePressed()
+		{
+			Debug.Log("FPS Toggle Pressed");
+			
+			if (_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET)
+			{
+				_gameDataProvider.AppDataProvider.FpsTarget = GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
+			}
+			else
+			{
+				_gameDataProvider.AppDataProvider.FpsTarget = GameConstants.Visuals.LOW_FPS_MODE_TARGET;
+			}
+
+			SetFpsRadioButtons();
+		}
+
+		private void SetFpsRadioButtons()
+		{
+			if (_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET)
+			{
+				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].style.unityBackgroundImageTintColor = new StyleColor(_selectedRadioButtonColor);
+				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].style.unityBackgroundImageTintColor = new StyleColor(_deselectedRadioButtonColor);
+			}
+			else
+			{
+				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].style.unityBackgroundImageTintColor = new StyleColor(_deselectedRadioButtonColor);
+				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].style.unityBackgroundImageTintColor = new StyleColor(_selectedRadioButtonColor);
+			}
 		}
 		
 		private void OnGraphicsClicked()

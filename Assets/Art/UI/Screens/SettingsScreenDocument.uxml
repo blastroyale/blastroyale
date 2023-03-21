@@ -56,13 +56,39 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="GraphicsContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px; visibility: hidden;">
-                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
-                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/graphics_title" style="position: absolute; top: 48px; left: 63px;" />
-                            <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
+                    <ui:VisualElement name="GraphicsContent" class="fill-parent content-scrapping" style="display: flex; top: 188px; bottom: 204px; visibility: visible; left: 428px; right: 444px; justify-content: space-around;">
+                        <ui:VisualElement name="FPSContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 934px; height: 174px;">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/fps" name="FPSLabel" style="-unity-text-align: middle-center; height: 50px;" />
+                            <ui:VisualElement name="FPSBlock" style="height: 100px; flex-direction: row; justify-content: center;">
+                                <ui:VisualElement name="30FPSBlock" style="width: 300px; height: 120px; -unity-text-align: lower-left; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
+                                    <ui:Button focusable="true" name="30RadioButton" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;); display: flex; -unity-text-outline-color: rgb(0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                                    <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/thirty" name="30FPSLabel" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="60FPSBlock" style="width: 300px; height: 120px; -unity-text-align: lower-left; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
+                                    <ui:Button focusable="true" name="60RadioButton" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;); display: flex; -unity-text-outline-color: rgb(0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                                    <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/sixty" name="60FPSLabel" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GraphicsQualityContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 934px; height: 266px;">
+                            <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/graphics_quality" name="GraphicsQualityLabel" style="-unity-text-align: middle-center; height: 120px;" />
+                            <ui:VisualElement name="FPSBlock" style="height: 220px; flex-direction: row; justify-content: center; align-items: center;">
+                                <ui:VisualElement name="LowBlock" style="width: 300px; height: 160px; -unity-text-align: lower-left; justify-content: space-around; align-items: center;">
+                                    <ui:Button focusable="true" name="LowRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/low" name="LowLabel" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="MediumBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
+                                    <ui:Button focusable="true" name="MediumRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/medium" name="MediumLabel" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="HighBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
+                                    <ui:Button focusable="true" name="HighRadioButton" style="height: 73px; background-color: rgb(255, 255, 255); width: 68px;" />
+                                    <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/high" name="HighLabel" style="-unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="ControlsContent" class="fill-parent content-scrapping" style="display: flex; top: 236px; bottom: 343px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); flex-direction: column; left: 377px; right: 266px; visibility: visible;">
+                    <ui:VisualElement name="ControlsContent" class="fill-parent content-scrapping" style="display: none; top: 236px; bottom: 343px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); flex-direction: column; left: 377px; right: 266px; visibility: visible;">
                         <ui:VisualElement name="Content" class="content-holder" style="width: 1164px; position: relative; background-image: none; background-color: rgb(36, 33, 54); display: flex; height: 356px; align-items: center; flex-direction: column; justify-content: space-around;">
                             <ui:VisualElement name="DynamicJoystickContent" style="width: 1161px; height: 68px; align-items: stretch; justify-content: flex-start; flex-direction: column; flex-wrap: nowrap;">
                                 <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/dynamic_joystick" name="DynamicJoystickLabel" style="left: 32px;" />
@@ -90,8 +116,8 @@
                             <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" display-tooltip-when-elided="true" name="FAQButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 712px; left: 432px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" display-tooltip-when-elided="true" name="ServerButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 708px; left: 1048px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" display-tooltip-when-elided="true" name="FAQButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 432px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" display-tooltip-when-elided="true" name="ServerButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 1048px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

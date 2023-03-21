@@ -182,6 +182,7 @@
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
     --sprite-home__settings-content-shape: url('/Assets/Art/UI/Sprites/Home/settings-content-shape.png');
+    --sprite-home__settings-dot: url('/Assets/Art/UI/Sprites/Home/settings-dot.png');
     --sprite-home__settings-switch-back: url('/Assets/Art/UI/Sprites/Home/settings-switch-back.png');
     --sprite-home__settings-switch-body: url('/Assets/Art/UI/Sprites/Home/settings-switch-body.png');
     --sprite-home__settings-tab-arrow: url('/Assets/Art/UI/Sprites/Home/settings-tab-arrow.png');
@@ -1235,6 +1236,12 @@
     background-image: var(--sprite-home__settings-content-shape);
     width: 172px;
     height: 172px;
+}
+
+.sprite-home__settings-dot {
+    background-image: var(--sprite-home__settings-dot);
+    width: 44px;
+    height: 44px;
 }
 
 .sprite-home__settings-switch-back {

@@ -1408,19 +1408,26 @@ namespace I2.Loc
 			public static string flg_id_login_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_login_fail"); } }
 			public static string flg_id_not_connected 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_not_connected"); } }
 			public static string flg_id_register_fail 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/flg_id_register_fail"); } }
+			public static string fps 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/fps"); } }
+			public static string graphics_quality 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/graphics_quality"); } }
 			public static string graphics_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/graphics_title"); } }
 			public static string haptic_feedback 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/haptic_feedback"); } }
+			public static string high 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/high"); } }
 			public static string logout 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout"); } }
 			public static string logout_confirm_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_confirm_desc"); } }
 			public static string logout_success_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_desc"); } }
 			public static string logout_success_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_title"); } }
+			public static string low 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/low"); } }
+			public static string medium 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/medium"); } }
 			public static string off 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/off"); } }
 			public static string on 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/on"); } }
 			public static string server 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/server"); } }
 			public static string settings_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/settings_title"); } }
+			public static string sixty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sixty"); } }
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
 			public static string sound_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_title"); } }
 			public static string success 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/success"); } }
+			public static string thirty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/thirty"); } }
 			public static string usa 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/usa"); } }
 		}
 
@@ -1474,6 +1481,7 @@ namespace I2.Loc
 			public static string error_Unknown 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/error_Unknown"); } }
 			public static string kick 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kick"); } }
 			public static string kicked 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/kicked"); } }
+			public static string timeout 		{ get{ return LocalizationManager.GetTranslation ("UITSquads/timeout"); } }
 		}
 
 		public static class UITStore
@@ -2926,19 +2934,26 @@ namespace I2.Loc
 		    public const string flg_id_login_fail = "UITSettings/flg_id_login_fail";
 		    public const string flg_id_not_connected = "UITSettings/flg_id_not_connected";
 		    public const string flg_id_register_fail = "UITSettings/flg_id_register_fail";
+		    public const string fps = "UITSettings/fps";
+		    public const string graphics_quality = "UITSettings/graphics_quality";
 		    public const string graphics_title = "UITSettings/graphics_title";
 		    public const string haptic_feedback = "UITSettings/haptic_feedback";
+		    public const string high = "UITSettings/high";
 		    public const string logout = "UITSettings/logout";
 		    public const string logout_confirm_desc = "UITSettings/logout_confirm_desc";
 		    public const string logout_success_desc = "UITSettings/logout_success_desc";
 		    public const string logout_success_title = "UITSettings/logout_success_title";
+		    public const string low = "UITSettings/low";
+		    public const string medium = "UITSettings/medium";
 		    public const string off = "UITSettings/off";
 		    public const string on = "UITSettings/on";
 		    public const string server = "UITSettings/server";
 		    public const string settings_title = "UITSettings/settings_title";
+		    public const string sixty = "UITSettings/sixty";
 		    public const string sound_effects = "UITSettings/sound_effects";
 		    public const string sound_title = "UITSettings/sound_title";
 		    public const string success = "UITSettings/success";
+		    public const string thirty = "UITSettings/thirty";
 		    public const string usa = "UITSettings/usa";
 		}
 
@@ -2992,6 +3007,7 @@ namespace I2.Loc
 		    public const string error_Unknown = "UITSquads/error_Unknown";
 		    public const string kick = "UITSquads/kick";
 		    public const string kicked = "UITSquads/kicked";
+		    public const string timeout = "UITSquads/timeout";
 		}
 
 		public static class UITStore

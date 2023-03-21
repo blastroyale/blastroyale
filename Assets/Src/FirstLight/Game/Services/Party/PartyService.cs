@@ -204,6 +204,12 @@ namespace FirstLight.Game.Services.Party
 			LobbyProperties = new ObservableDictionary<string, string>(new Dictionary<string, string>());
 			usedPlayfabContext = new PlayFabAuthenticationContext();
 			msgBroker.Subscribe<SuccessAuthentication>(OnSuccessAuthentication);
+			_pubsub.OnReconnected += () =>
+			{
+#pragma warning disable CS4014
+				OnReconnectPubSub();
+#pragma warning restore CS4014
+			};
 		}
 
 		private void OnSuccessAuthentication(SuccessAuthentication obj)
@@ -315,9 +321,9 @@ namespace FirstLight.Game.Services.Party
 					if (lobbyServer != server)
 					{
 						throw new PartyException(PartyErrors.PartyUsingOtherServer);
-
 					}
 				}
+
 				if (FeatureFlags.COMMIT_VERSION_LOCK && lobby.SearchData.TryGetValue(LobbyCommitProperty, out var lobbyCommit))
 				{
 					if (lobbyCommit != VersionUtils.Commit)
@@ -325,7 +331,7 @@ namespace FirstLight.Game.Services.Party
 						throw new PartyException(PartyErrors.DifferentGameVersion);
 					}
 				}
-				
+
 
 				var localMember = CreateLocalMember();
 				// Now join it
@@ -471,12 +477,16 @@ namespace FirstLight.Game.Services.Party
 			}
 		}
 
-		/// <inheritdoc/>
-		public async Task Kick(string playfabID)
+		public Task Kick(string playfabID)
+		{
+			return Kick(playfabID, true);
+		}
+
+		private async Task Kick(string playfabID, bool useSemaphore, bool preventRejoin = true)
 		{
 			try
 			{
-				await _accessSemaphore.WaitAsync();
+				if (useSemaphore) await _accessSemaphore.WaitAsync();
 				OperationInProgress.Value = true;
 				if (!HasParty.Value)
 				{
@@ -492,7 +502,7 @@ namespace FirstLight.Game.Services.Party
 				var req = new RemoveMemberFromLobbyRequest()
 				{
 					LobbyId = _lobbyId,
-					PreventRejoin = true,
+					PreventRejoin = preventRejoin,
 					MemberEntity = new EntityKey() {Id = playfabID, Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE}
 				};
 				await AsyncPlayfabMultiplayerAPI.RemoveMember(req);
@@ -504,7 +514,7 @@ namespace FirstLight.Game.Services.Party
 			finally
 			{
 				OperationInProgress.Value = false;
-				_accessSemaphore.Release();
+				if (useSemaphore) _accessSemaphore.Release();
 			}
 
 			SendAnalyticsAction("Kick");
@@ -557,7 +567,7 @@ namespace FirstLight.Game.Services.Party
 
 			SendAnalyticsAction("Leave", lobbyId, members);
 		}
-		
+
 		public async void ForceRefresh()
 		{
 			if (HasParty.Value)
@@ -694,6 +704,11 @@ namespace FirstLight.Game.Services.Party
 			PartyReady.Value = false;
 			PartyCode.Value = null;
 			PartyID.Value = null;
+			if (_lobbyTopic != null)
+			{
+				_pubsub.ClearListeners(_lobbyTopic);
+			}
+
 			_pubSubState = PartySubscriptionState.NotConnected;
 			Members.Clear();
 			foreach (var key in new List<string>(LobbyProperties.ReadOnlyDictionary.Keys))

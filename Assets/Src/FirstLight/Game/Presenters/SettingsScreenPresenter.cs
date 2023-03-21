@@ -75,6 +75,16 @@ namespace FirstLight.Game.Presenters
 		private Button _bgmToggle;
 		private Button [] _bgmToggleButtons;
 		private VisualElement[] _bgmToggleLabels;
+		
+		// Dynamic Controls Toggle
+		private Button _dynamicStickToggle;
+		private Button [] _dynamicStickToggleButtons;
+		private VisualElement[] _dynamicStickToggleLabels;
+		
+		// Haptic Toggle
+		private Button _hapticFeedbackToggle;
+		private Button [] _hapticFeedbackToggleButtons;
+		private VisualElement[] _hapticFeedbackToggleLabels;
 
 		private const string UssSpriteSelected = "sprite-home__settings-tab-chosen";
 		private const string UssSpriteUnselected = "sprite-home__settings-tab-back";
@@ -134,6 +144,12 @@ namespace FirstLight.Game.Presenters
 			
 			_bgmToggleButtons = new Button[size];
 			_bgmToggleLabels = new VisualElement[size];
+
+			_hapticFeedbackToggleButtons = new Button[size];
+			_hapticFeedbackToggleLabels = new VisualElement[size];
+
+			_dynamicStickToggleButtons = new Button[size];
+			_dynamicStickToggleLabels = new VisualElement[size];
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -190,7 +206,23 @@ namespace FirstLight.Game.Presenters
 			_bgmToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("BGMOnButton");
 			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("BGMOffLabel");
 			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("BGMOnLabel");
-
+			
+			// Dynamic Joystick
+			_dynamicStickToggle = root.Q<Button>("DynamicJoystickToggle");
+			_dynamicStickToggle.clicked += OnDynamicJoystickToggleClicked;
+			_dynamicStickToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("DynamicJoystickOffButton");
+			_dynamicStickToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("DynamicJoystickOnButton");
+			_dynamicStickToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("DynamicJoystickOffLabel");
+			_dynamicStickToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("DynamicJoystickOnLabel");
+			
+			// Haptic Feedback
+			_hapticFeedbackToggle = root.Q<Button>("HapticToggle");
+			_hapticFeedbackToggle.clicked += OnHapticToggleClicked;
+			_hapticFeedbackToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("HapticOffButton");
+			_hapticFeedbackToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("HapticOnButton");
+			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("HapticOffLabel");
+			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("HapticOnLabel");
+			
 			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
 			{
 				OnSoundToggleOffClicked();
@@ -216,6 +248,24 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				OnBGMToggleOnClicked();
+			}
+			
+			if (_gameDataProvider.AppDataProvider.IsHapticOn)
+			{
+				OnHapticToggleOffClicked();
+			}
+			else
+			{
+				OnHapticToggleOnClicked();
+			}
+
+			if (_gameDataProvider.AppDataProvider.UseDynamicJoystick)
+			{
+				OnDynamicJoystickToggleOffClicked();
+			}
+			else
+			{
+				OnDynamicJoystickToggleOnClicked();
 			}
 		}
 		
@@ -318,7 +368,7 @@ namespace FirstLight.Game.Presenters
 				OnBGMToggleOnClicked();
 			}
 		}
-		
+
 		private void OnBGMToggleOffClicked()
 		{
 			Debug.Log("On BGM Off Clicked");
@@ -340,7 +390,78 @@ namespace FirstLight.Game.Presenters
 			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_gameDataProvider.AppDataProvider.IsBgmEnabled = false;
 		}
+		
+		private void OnHapticToggleClicked()
+		{
+			_gameDataProvider.AppDataProvider.IsHapticOn = !_gameDataProvider.AppDataProvider.IsHapticOn;
+			
+			if (_gameDataProvider.AppDataProvider.IsHapticOn)
+			{
+				OnHapticToggleOffClicked();
+			}
+			else
+			{
+				OnHapticToggleOnClicked();
+			}
+		}
+		
+		private void OnHapticToggleOffClicked()
+		{
+			Debug.Log("On Haptic Off Clicked");
+		
+			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_gameDataProvider.AppDataProvider.IsHapticOn = true;
+		}
+		
+		private void OnHapticToggleOnClicked()
+		{
+			Debug.Log("On Haptic On Clicked");
+			
+			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_gameDataProvider.AppDataProvider.IsHapticOn = false;
+		}
 
+		private void OnDynamicJoystickToggleClicked()
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicJoystick = !_gameDataProvider.AppDataProvider.UseDynamicJoystick;
+			
+			if (_gameDataProvider.AppDataProvider.UseDynamicJoystick)
+			{
+				OnDynamicJoystickToggleOffClicked();
+			}
+			else
+			{
+				OnDynamicJoystickToggleOnClicked();
+			}
+		}
+		
+		private void OnDynamicJoystickToggleOffClicked()
+		{
+			Debug.Log("On Dynamic Joystick Off Clicked");
+		
+			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
+			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
+			_gameDataProvider.AppDataProvider.UseDynamicJoystick = true;
+		}
+		
+		private void OnDynamicJoystickToggleOnClicked()
+		{
+			Debug.Log("On Dynamic Joystick On Clicked");
+			
+			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
+			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
+			_gameDataProvider.AppDataProvider.UseDynamicJoystick = false;
+		}
 		
 		private void OnGraphicsClicked()
 		{
@@ -368,7 +489,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_localizedTabs[i].RemoveSpriteClasses();
 				_localizedSelectors[i].visible = i == (int) category;
-				_localizedContentBlocks[i].visible = i == (int) category;
+				_localizedContentBlocks[i].SetDisplay(i == (int) category);
 				
 				if (i == (int) category)
 				{
@@ -376,15 +497,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 		}
-		
 
-		
-		private void button_Click(object sender, EventArgs e, string message)  
-		{  
- 
-		}
-		
-		
 		protected override void OnOpened()
 		{
 			base.OnOpened();

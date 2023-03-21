@@ -232,7 +232,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_tutorialUtilsUi.BlockFullScreen();
 			
-			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_500MS);
+			await Task.Delay(GameConstants.Tutorial.WAIT_TIME_250MS);
 			
 			_services.GameUiService.GetUi<BattlePassScreenPresenter>().CloseManual();
 		}

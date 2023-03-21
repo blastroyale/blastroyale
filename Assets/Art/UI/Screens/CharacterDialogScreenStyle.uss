@@ -97,6 +97,6 @@
     white-space: normal;
 }
 
-.bubble__text__right {
+.bubble__text--right {
     scale: -1, 1;
 }

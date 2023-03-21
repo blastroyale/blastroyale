@@ -131,7 +131,10 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Selected GameMode set to: {current}");
 
 			_appDataProvider.LastGameMode = current.Entry;
-			MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+			if (_appDataProvider.IsPlayerLoggedIn)
+			{
+				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+			}
 		}
 
 		public void OnPartyUpdate()

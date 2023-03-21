@@ -158,6 +158,12 @@ namespace FirstLight.Game.Logic
 		/// Last time player snapshotted a frame
 		/// </summary>
 		IObservableField<FrameSnapshot> LastFrameSnapshot { get; }
+		
+		/// <summary>
+		/// Checks if player has logged in in this or other session
+		/// This ensures his app data is enriched with his player data
+		/// </summary>
+		bool IsPlayerLoggedIn { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -171,6 +177,7 @@ namespace FirstLight.Game.Logic
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
+		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
 		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;

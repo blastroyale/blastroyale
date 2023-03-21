@@ -30,7 +30,7 @@ namespace FirstLight.Game.StateMachines
 
 		// !!! CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED !!!
 		public static readonly int TOTAL_STEPS = 17;
-		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
+		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -111,52 +111,52 @@ namespace FirstLight.Game.StateMachines
 			startedSimulation.OnEnter(() => { SendAnalyticsIncrementStep("Spawn"); });
 			startedSimulation.OnEnter(GetGroundIndicatorRefs);
 			startedSimulation.OnEnter(OnEnterStartedSimulation);
-			startedSimulation.Event(ProceedGameplayTutorialEvent).Target(moveJoystick);
+			startedSimulation.Event(ProceedTutorialEvent).Target(moveJoystick);
 			
 			moveJoystick.OnEnter(() => { SendAnalyticsIncrementStep("MoveJoystick"); });
 			moveJoystick.OnEnter(GetGuideUiRefs);
 			moveJoystick.OnEnter(OnEnterMoveJoystick);
-			moveJoystick.Event(ProceedGameplayTutorialEvent).Target(firstMove);
+			moveJoystick.Event(ProceedTutorialEvent).Target(firstMove);
 
 			firstMove.OnEnter(() => { SendAnalyticsIncrementStep("FirstMove"); });
 			firstMove.OnEnter(OnEnterFirstMove);
-			firstMove.Event(ProceedGameplayTutorialEvent).Target(destroyBarrier);
+			firstMove.Event(ProceedTutorialEvent).Target(destroyBarrier);
 			
 			destroyBarrier.OnEnter(() => { SendAnalyticsIncrementStep("DestroyBarrier"); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
-			destroyBarrier.Event(ProceedGameplayTutorialEvent).Target(pickupWeapon);
+			destroyBarrier.Event(ProceedTutorialEvent).Target(pickupWeapon);
 
 			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
-			pickupWeapon.Event(ProceedGameplayTutorialEvent).Target(moveToDummyArea);
+			pickupWeapon.Event(ProceedTutorialEvent).Target(moveToDummyArea);
 			
 			moveToDummyArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToDummyArea"); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
-			moveToDummyArea.Event(ProceedGameplayTutorialEvent).Target(kill2Bots);
+			moveToDummyArea.Event(ProceedTutorialEvent).Target(kill2Bots);
 
 			kill2Bots.OnEnter(() => { SendAnalyticsIncrementStep("Kill2Bots"); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
-			kill2Bots.Event(ProceedGameplayTutorialEvent).Target(kill1BotSpecial);
+			kill2Bots.Event(ProceedTutorialEvent).Target(kill1BotSpecial);
 
 			kill1BotSpecial.OnEnter(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
-			kill1BotSpecial.Event(ProceedGameplayTutorialEvent).Target(moveToGateArea);
+			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
 
 			moveToGateArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToGateArea"); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
-			moveToGateArea.Event(ProceedGameplayTutorialEvent).Target(moveToChestArea);
+			moveToGateArea.Event(ProceedTutorialEvent).Target(moveToChestArea);
 			
 			moveToChestArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToChestArea"); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
-			moveToChestArea.Event(ProceedGameplayTutorialEvent).Target(openBox);
+			moveToChestArea.Event(ProceedTutorialEvent).Target(openBox);
 
 			openBox.OnEnter(() => { SendAnalyticsIncrementStep("OpenBox"); });
 			openBox.OnEnter(OnEnterOpenBox);
-			openBox.Event(ProceedGameplayTutorialEvent).Target(killFinalBot);
+			openBox.Event(ProceedTutorialEvent).Target(killFinalBot);
 
 			killFinalBot.OnEnter(() => { SendAnalyticsIncrementStep("KillFinalBot"); });
 			killFinalBot.OnEnter(OnEnterKillFinalBot);
-			killFinalBot.Event(ProceedGameplayTutorialEvent).Target(waitMatchFinish);
+			killFinalBot.Event(ProceedTutorialEvent).Target(waitMatchFinish);
 
 			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
@@ -332,7 +332,7 @@ namespace FirstLight.Game.StateMachines
 			if (_currentGameplayProceedData.EventMetaAmount != 0 &&
 			    _currentGameplayProceedData.EventMetaAmount > metaAmount) return;
 
-			_statechartTrigger(ProceedGameplayTutorialEvent);
+			_statechartTrigger(ProceedTutorialEvent);
 		}
 
 		private void OnEnterStartedSimulation()

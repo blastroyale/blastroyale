@@ -19,7 +19,7 @@ namespace FirstLight.Game.StateMachines
 	{
 		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
 		public static readonly int TOTAL_STEPS = 6;
-		public static readonly IStatechartEvent ProceedGameplayTutorialEvent = new StatechartEvent("TUTORIAL - Proceed gameplay tutorial event");
+		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -64,6 +64,8 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var enterName = stateFactory.State("Enter name");
+			var battlePass = stateFactory.State("Battle Pass");
+			var claimRewards = stateFactory.State("Claim rewards");
 			var playGame = stateFactory.State("Play game");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
@@ -73,11 +75,20 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(InitSequenceData);
 			initial.OnExit(GetTutorialScreenRefs);
 			
-			// TEMPORARY FLOW - REAL FLOW WILL HAVE BP REWARDS, AND THEN EQUIPPING EQUIPMENT BEFORE MATCH
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
-			enterName.Event(EnterNameState.NameSetEvent).Target(playGame);
+			enterName.Event(EnterNameState.NameSetEvent).Target(battlePass);
 			enterName.OnExit(OnEnterNameExit);
+			
+			battlePass.OnEnter(() => { SendAnalyticsIncrementStep("BattlePassClick"); });
+			battlePass.OnEnter(OnBattlePassEnter);
+			battlePass.Event(MainMenuState.BattlePassClickedEvent).Target(claimRewards);
+			battlePass.OnExit(OnBattlePassExit);
+			
+			claimRewards.OnEnter(() => { SendAnalyticsIncrementStep("ClaimRewards"); });
+			claimRewards.OnEnter(OnClaimRewardsEnter);
+			claimRewards.Event(MainMenuState.BattlePassClickedEvent).Target(playGame);
+			claimRewards.OnExit(OnClaimRewardsExit);
 
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
@@ -98,10 +109,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartSecondTutorialMatch()
 		{
-			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.RemoveHighlight();
-			_dialogUi.HideDialog(CharacterType.Female);
-			
+			CloseTutorialUi();
 			_tutorialService.CreateJoinSecondTutorialRoom();
 		}
 
@@ -113,6 +121,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseTutorialUi()
 		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.HideDialog(CharacterType.Female);
 		}
 
 		private void SubscribeMessages()
@@ -147,12 +158,47 @@ namespace FirstLight.Game.StateMachines
 			_tutorialUtilsUi.BlockFullScreen();
 		}
 		
+		private async void OnBattlePassEnter()
+		{
+			_dialogUi.ContinueDialog("AIGHT, LET'S CLAIM SOME REWARDS", CharacterType.Female, CharacterDialogMoodType.Happy);
+			
+			// Wait a bit until home screen completely uncovers, and we get BP rewards
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+			
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("battle-pass-button__holder");
+			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("battle-pass-button__holder");
+		}
+
+		
+		private void OnBattlePassExit()
+		{
+			CloseTutorialUi();
+			_tutorialUtilsUi.BlockFullScreen();
+		}
+		
+		private async void OnClaimRewardsEnter()
+		{
+			// Wait a bit until home screen completely uncovers, and we get BP rewards
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+			_dialogUi.ShowDialog("CLAIM THIS REWARD IDIOT!", CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			
+			_tutorialUtilsUi.Unblock();
+			_services.GameUiService.GetUi<BattlePassScreenPresenter>().EnableFullScreenClaim(true);
+			_tutorialUtilsUi.BlockAround<BattlePassScreenPresenter>("first-reward");
+			_tutorialUtilsUi.Highlight<BattlePassScreenPresenter>("first-reward",null, 2f);
+		}
+		
+		private void OnClaimRewardsExit()
+		{
+			_services.GameUiService.GetUi<BattlePassScreenPresenter>().EnableFullScreenClaim(true);
+		}
+		
 		private async void OnPlayGameEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
-			
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
-			
+
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("play-button");

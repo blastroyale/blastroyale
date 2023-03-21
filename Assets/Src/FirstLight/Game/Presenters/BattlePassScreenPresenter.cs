@@ -99,6 +99,11 @@ namespace FirstLight.Game.Presenters
 			InitScreenAndSegments();
 		}
 
+		public void CloseManual()
+		{
+			Data.BackClicked();
+		}
+
 		private void InitScreenAndSegments()
 		{
 			InitScreen();
@@ -322,6 +327,8 @@ namespace FirstLight.Game.Presenters
 				{
 					CompleteTutorialPass();
 				}
+				
+				_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
 				
 				return;
 			}

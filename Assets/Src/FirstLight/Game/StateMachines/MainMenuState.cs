@@ -141,7 +141,7 @@ namespace FirstLight.Game.StateMachines
 
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
-			homeCheck.Transition().Condition(HasNotCompletedEquipmentTutorial).Target(enterNameDialog);
+			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
 
@@ -187,6 +187,7 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 
+			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			brokenItems.OnEnter(OpenBrokenItemsPopUp);
@@ -230,10 +231,12 @@ namespace FirstLight.Game.StateMachines
 				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
-		private bool HasNotCompletedEquipmentTutorial()
+		private bool MetaTutorialConditionsCheck()
 		{
-			return FeatureFlags.TUTORIAL &&
-				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
+			// If meta/match tutorial not completed, and tutorial not running
+			return FeatureFlags.TUTORIAL && 
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
+				!_services.TutorialService.IsTutorialRunning;
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -536,6 +539,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 		}
+		
+		private void RequestStartMetaMatchTutorial()
+		{
+			if (FeatureFlags.TUTORIAL)
+			{
+				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
+			}
+		}
 
 		private async void LoadMainMenu()
 		{
@@ -554,11 +565,6 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-
-			if (FeatureFlags.TUTORIAL)
-			{
-				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
-			}
 
 			_statechartTrigger(MainMenuLoadedEvent);
 		}

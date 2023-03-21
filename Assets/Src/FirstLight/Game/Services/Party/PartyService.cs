@@ -58,6 +58,11 @@ namespace FirstLight.Game.Services.Party
 		Task Kick(string playfabID);
 
 		/// <summary>
+		/// Forces a refresh of the party state / list.
+		/// </summary>
+		void ForceRefresh();
+
+		/// <summary>
 		/// HasParty observable, it changes when the local player join/leave a party
 		/// If this value change to false, it means the player left/got kicked from the party.
 		/// To distinct the two you should look at <see cref="Members"/>
@@ -540,6 +545,14 @@ namespace FirstLight.Game.Services.Party
 			}
 
 			SendAnalyticsAction("Leave", lobbyId, members);
+		}
+		
+		public async void ForceRefresh()
+		{
+			if (HasParty.Value)
+			{
+				await FetchPartyAndUpdateState();
+			}
 		}
 
 		[CanBeNull]

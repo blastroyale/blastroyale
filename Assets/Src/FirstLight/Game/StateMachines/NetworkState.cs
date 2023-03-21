@@ -447,6 +447,8 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnJoinedRoom");
 			FLog.Verbose("Current Room Debug: \n" + _networkService.CurrentRoom.GetRoomDebugString());
 			
+			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
+
 			_networkService.SetLastRoom();
 			_statechartTrigger(JoinedRoomEvent);
 			

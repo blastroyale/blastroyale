@@ -13,7 +13,6 @@ using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
-// using Button = UnityEngine.UI.Button;
 using Button = UnityEngine.UIElements.Button;
 using Color = UnityEngine.Color;
 
@@ -22,7 +21,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : UiToolkitPresenterData<SettingsScreenPresenter.StateData> // AnimatedUiPresenterData<SettingsScreenPresenter.StateData>, 
+	public class SettingsScreenPresenter : UiToolkitPresenterData<SettingsScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -34,10 +33,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		// [SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
-		// [SerializeField, Required] private Button _logoutButton;
-		// [SerializeField, Required] private Button _deleteAccountButton;
 		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
@@ -47,13 +43,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
-		[SerializeField, Required] private Button _helpdesk;
-		// [SerializeField, Required] private Button _faq;
 		[SerializeField, Required] private Button _serverSelectButton;
 		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
-		// [SerializeField, Required] private Button _connectIdButton;
-		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
-		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 
 		private ImageButton _closeScreenButton;
 		private IGameDataProvider _gameDataProvider;
@@ -294,8 +285,8 @@ namespace FirstLight.Game.Presenters
 			_connectIdButton.clicked += OpenConnectId;
 			_connectionNameText = root.Q<Label>("ConnectionNameLabel");
 			_connectionStatusLabel = root.Q<Label>("ConnectionStatusLabel");
-			SetupAccountTab();
-			
+			UpdateAccountStatus();
+
 			// Misc Buttons
 			_faqButton = root.Q<Button>("FAQButton");
 			_faqButton.clicked += OnFaqButtonPressed;
@@ -372,14 +363,11 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnSoundTabClicked()
 		{
-			Debug.Log("Sound Clicked");
 			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 		}
 
 		private void OnSoundToggleOffClicked()
 		{
-			Debug.Log("On Sound Toggle Off Clicked");
-		
 			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
 			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
 			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
@@ -389,8 +377,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnSoundToggleOnClicked()
 		{
-			Debug.Log("On Sound Toggle On Clicked");
-			
 			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
@@ -414,8 +400,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnAnnouncerToggleOffClicked()
 		{
-			Debug.Log("On Announcer Toggle Off Clicked");
-		
 			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
 			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
 			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
@@ -425,8 +409,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnAnnouncerToggleOnClicked()
 		{
-			Debug.Log("On Announcer Toggle On Clicked");
-			
 			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
@@ -450,8 +432,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBGMToggleOffClicked()
 		{
-			Debug.Log("On BGM Off Clicked");
-		
 			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
 			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
 			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
@@ -461,8 +441,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnBGMToggleOnClicked()
 		{
-			Debug.Log("On BGM On Clicked");
-			
 			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
@@ -486,8 +464,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnHapticToggleOffClicked()
 		{
-			Debug.Log("On Haptic Off Clicked");
-		
 			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
 			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
 			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
@@ -497,8 +473,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnHapticToggleOnClicked()
 		{
-			Debug.Log("On Haptic On Clicked");
-			
 			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
@@ -522,8 +496,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnDynamicJoystickToggleOffClicked()
 		{
-			Debug.Log("On Dynamic Joystick Off Clicked");
-		
 			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
 			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
 			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
@@ -533,8 +505,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnDynamicJoystickToggleOnClicked()
 		{
-			Debug.Log("On Dynamic Joystick On Clicked");
-			
 			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
 			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
 			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
@@ -544,8 +514,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnFPSTogglePressed()
 		{
-			Debug.Log("FPS Toggle Pressed");
-			
 			if (_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET)
 			{
 				_gameDataProvider.AppDataProvider.FpsTarget = GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
@@ -626,24 +594,23 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnGraphicsClicked()
 		{
-			Debug.Log("Graphics Clicked");
 			TabSelected(SETTINGS_TAB_CATEGORIES.GRAPHICS);
 		}
 		
 		private void OnControlsClicked()
 		{
-			Debug.Log("Controls Clicked");
 			TabSelected(SETTINGS_TAB_CATEGORIES.CONTROLS);
 		}
 		
 		private void OnAccountClicked()
 		{
-			Debug.Log("Account Clicked");
 			TabSelected(SETTINGS_TAB_CATEGORIES.ACCOUNT);
 		}
 
-		private void SetupAccountTab()
+		public void UpdateAccountStatus()
 		{
+			Debug.Log("Update Account Status");
+			
 			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
 				_connectIdButton.SetDisplay(true);
@@ -652,10 +619,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				Debug.Log("Logged In!");
 				_connectIdButton.SetDisplay(false);
 				_connectionNameText.SetDisplay(true);
-				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
+				_connectionStatusLabel.text = ScriptLocalization.UITSettings.flg_id_connected;
+				_connectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 		}
 		
@@ -684,8 +652,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
-			UpdateAccountStatus();
 			
 			_versionText.text = VersionUtils.VersionInternal;
 			
@@ -697,7 +663,6 @@ namespace FirstLight.Game.Presenters
 			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			// _logoutButton.gameObject.SetActive(true);
 
 			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
@@ -706,26 +671,6 @@ namespace FirstLight.Game.Presenters
 			_faq.gameObject.SetActive(false);
 			_faqButton.SetDisplay(false);
 #endif
-		}
-
-		/// <summary>
-		/// Updates the FLG ID account status
-		/// </summary>
-		public void UpdateAccountStatus()
-		{
-			if (_gameDataProvider.AppDataProvider.IsGuest)
-			{
-				// _connectIdButton.gameObject.SetActive(true);
-				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_not_connected;
-			}
-			else
-			{
-				// _connectIdButton.gameObject.SetActive(false);
-				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
-			}
 		}
 
 		private void OnConnectionRegionChange(string previousValue, string newValue)
@@ -738,7 +683,7 @@ namespace FirstLight.Game.Presenters
 		protected void OnClosedCompleted()
 		{
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
-			// Data.OnClose();
+			Data.OnClose();
 		}
 
 		private void OpenConnectId()
@@ -812,7 +757,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 			
 			// This is temporary solution. When settings screen is made in UITK, the whole 
-			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+			// _services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 		
 		private void OnLogoutClicked()
@@ -824,7 +769,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITSettings.logout,
-				// ButtonOnClick = Data.LogoutClicked
+				ButtonOnClick = Data.LogoutClicked
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
@@ -839,7 +784,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITSettings.delete_account,
-				// ButtonOnClick = Data.OnDeleteAccountClicked
+				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
 			
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
@@ -847,7 +792,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBlockerButtonPressed()
 		{
-			// Data.OnClose();
+			Data.OnClose();
 		}
 	}
 }

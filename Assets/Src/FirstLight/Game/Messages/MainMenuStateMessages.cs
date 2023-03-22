@@ -1,4 +1,5 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using Photon.Realtime;
 using Quantum;
 using FirstLight.SDK.Services;
@@ -10,6 +11,14 @@ namespace FirstLight.Game.Messages
 	public struct ShopScreenOpenedMessage : IMessage { }
 	public struct SkinsScreenOpenedMessage : IMessage { }
 	public struct EquipmentScreenOpenedMessage : IMessage { }
+	public struct SelectedEquipmentItemMessage : IMessage
+	{
+		public UniqueId ItemID;
+	}
+	public struct EquippedItemMessage : IMessage
+	{
+		public UniqueId ItemID;
+	}
 	public struct EquipmentSlotOpenedMessage : IMessage
 	{
 		public GameIdGroup Slot;

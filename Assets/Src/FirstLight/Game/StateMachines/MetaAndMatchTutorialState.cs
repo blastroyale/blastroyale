@@ -23,9 +23,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private static readonly IStatechartEvent _bpLevelUpEvent = new StatechartEvent("TUTORIAL - Battle pass level up event");
 		private static readonly IStatechartEvent _finishedClaimingRewardsEvent = new StatechartEvent("TUTORIAL - Finished claiming event");
-		private static readonly IStatechartEvent _openedEquipmentScreen = new StatechartEvent("TUTORIAL - Clicked equipment event");
-		private static readonly IStatechartEvent _clickedWeaponCategoryEvent = new StatechartEvent("TUTORIAL - Clicked weapon category event");
-		private static readonly IStatechartEvent _clickedWeaponEvent = new StatechartEvent("TUTORIAL - Clicked weapon event");
+		private static readonly IStatechartEvent _openedEquipmentScreenEvent = new StatechartEvent("TUTORIAL - Opened equipment screen event");
+		private static readonly IStatechartEvent _openedEquipmentCategoryEvent = new StatechartEvent("TUTORIAL - Opened equipment category event");
+		private static readonly IStatechartEvent _selectedWeaponEvent = new StatechartEvent("TUTORIAL - Clicked weapon event");
 		private static readonly IStatechartEvent _equippedWeaponEvent = new StatechartEvent("TUTORIAL - Equipped weapon event");
 		
 		private readonly IGameServices _services;
@@ -76,6 +76,8 @@ namespace FirstLight.Game.StateMachines
 			var claimreward = stateFactory.State("Claim rewards");
 			var clickEquipment = stateFactory.State("Click equipment");
 			var clickWeaponCategory = stateFactory.State("Click weapon");
+			var selectWeapon = stateFactory.State("Select weapon");
+			var equipWeapon = stateFactory.State("Equip weapon");
 			var playGame = stateFactory.State("Play game");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
@@ -107,13 +109,23 @@ namespace FirstLight.Game.StateMachines
 
 			clickEquipment.OnEnter(() => { SendAnalyticsIncrementStep("ClickEquipment"); });
 			clickEquipment.OnEnter(OnClickEquipmentEnter);
-			clickEquipment.Event(_openedEquipmentScreen).Target(clickWeaponCategory);
+			clickEquipment.Event(_openedEquipmentScreenEvent).Target(clickWeaponCategory);
 			clickEquipment.OnExit(OnClickEquipmentExit);
 			
 			clickWeaponCategory.OnEnter(() => { SendAnalyticsIncrementStep("ClickWeaponCategory"); });
 			clickWeaponCategory.OnEnter(OnClickWeaponCategoryEnter);
-			clickWeaponCategory.Event(_clickedWeaponCategoryEvent).Target(playGame);
+			clickWeaponCategory.Event(_openedEquipmentCategoryEvent).Target(selectWeapon);
 			clickWeaponCategory.OnExit(OnClickWeaponCategoryExit);
+			
+			selectWeapon.OnEnter(() => { SendAnalyticsIncrementStep("SelectWeapon"); });
+			selectWeapon.OnEnter(OnSelectWeaponEnter);
+			selectWeapon.Event(_selectedWeaponEvent).Target(equipWeapon);
+			selectWeapon.OnExit(OnSelectWeaponExit);
+			
+			equipWeapon.OnEnter(() => { SendAnalyticsIncrementStep("EquipWeapon"); });
+			equipWeapon.OnEnter(OnEquipWeaponEnter);
+			equipWeapon.Event(_equippedWeaponEvent).Target(playGame);
+			equipWeapon.OnExit(OnEquipWeaponExit);
 			
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
@@ -157,12 +169,29 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUpMessage);
 			_services.MessageBrokerService.Subscribe<FinishedClaimingBpRewardsMessage>(OnFinishedClaimingBpRewardsMessage);
 			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpenedMessage);
-
+			_services.MessageBrokerService.Subscribe<EquipmentSlotOpenedMessage>(OnEquipmentSlotOpenedMessage);
+			_services.MessageBrokerService.Subscribe<EquippedItemMessage>(OnEquippedItemMessage);
+			_services.MessageBrokerService.Subscribe<SelectedEquipmentItemMessage>(OnSelectedEquipmentItemMessage);
 		}
 
-		private void OnEquipmentScreenOpenedMessage(EquipmentScreenOpenedMessage obj)
+		private void OnSelectedEquipmentItemMessage(SelectedEquipmentItemMessage msg)
 		{
-			_statechartTrigger(_openedEquipmentScreen);
+			_statechartTrigger(_selectedWeaponEvent);
+		}
+
+		private void OnEquippedItemMessage(EquippedItemMessage msg)
+		{
+			_statechartTrigger(_equippedWeaponEvent);
+		}
+
+		private void OnEquipmentSlotOpenedMessage(EquipmentSlotOpenedMessage msg)
+		{
+			_statechartTrigger(_openedEquipmentCategoryEvent);
+		}
+
+		private void OnEquipmentScreenOpenedMessage(EquipmentScreenOpenedMessage msg)
+		{
+			_statechartTrigger(_openedEquipmentScreenEvent);
 		}
 
 		private void OnFinishedClaimingBpRewardsMessage(FinishedClaimingBpRewardsMessage msg)
@@ -281,17 +310,60 @@ namespace FirstLight.Game.StateMachines
 			
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentPresenter>(null,"WeaponCategory");
-			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory");
+			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory", 0.5f);
 		}
 		
 		private void OnClickWeaponCategoryExit()
 		{
-
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialUtilsUi.RemoveHighlight();
 		}
 		
-		private void OnPlayGameEnter()
+		private async void OnSelectWeaponEnter()
 		{
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy);
+			_dialogUi.ContinueDialog("SELECT WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Happy);
+			
+			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
+			
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>("equipment-card");
+			_tutorialUtilsUi.Highlight<EquipmentSelectionPresenter>("equipment-card",null, 1.5f);
+		}
+
+		private void OnSelectWeaponExit()
+		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialUtilsUi.RemoveHighlight();
+		}
+
+		private async void OnEquipWeaponEnter()
+		{
+			_dialogUi.ContinueDialog("EQUIP WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Neutral);
+			
+			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
+			
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>(null,"EquipButton");
+			_tutorialUtilsUi.Highlight<EquipmentSelectionPresenter>(null,"EquipButton");
+		}
+
+		private async void OnEquipWeaponExit()
+		{
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockFullScreen();
+			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.HideDialog(CharacterType.Female);
+		}
+		
+		private async void OnPlayGameEnter()
+		{
+			_statechartTrigger(EquipmentMenuState.CloseButtonClickedEvent);
+			
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
+
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("play-button");

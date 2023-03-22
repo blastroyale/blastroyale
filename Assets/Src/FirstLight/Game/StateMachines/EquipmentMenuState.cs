@@ -15,17 +15,15 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class EquipmentMenuState
 	{
+		public static readonly IStatechartEvent CloseButtonClickedEvent = new StatechartEvent("Equipment Close Button Clicked Event");
+		
 		private readonly IStatechartEvent _slotClickedEvent = new StatechartEvent("Slot Clicked Event");
 		private readonly IStatechartEvent _scrapClickedEvent = new StatechartEvent("Scrap Clicked Event");
 		private readonly IStatechartEvent _upgradeClickedEvent = new StatechartEvent("Upgrade Clicked Event");
 		private readonly IStatechartEvent _repairClickedEvent = new StatechartEvent("Repair Clicked Event");
 		private readonly IStatechartEvent _itemProcessedEvent = new StatechartEvent("Item Processed Event");
-
-		private readonly IStatechartEvent _backButtonClickedEvent =
-			new StatechartEvent("Equipment Back Button Clicked Event");
-
-		private readonly IStatechartEvent _closeButtonClickedEvent =
-			new StatechartEvent("Equipment Close Button Clicked Event");
+		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Equipment Back Button Clicked Event");
+		
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
@@ -61,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			equipmentState.OnEnter(OpenEquipmentScreen);
 			equipmentState.Event(_slotClickedEvent).Target(equipmentSelectionState);
 			equipmentState.Event(_backButtonClickedEvent).Target(final);
-			equipmentState.Event(_closeButtonClickedEvent).Target(final);
+			equipmentState.Event(CloseButtonClickedEvent).Target(final);
 			equipmentState.Event(_scrapClickedEvent).Target(scrapState);
 			equipmentState.Event(_upgradeClickedEvent).Target(upgradeState);
 			equipmentState.Event(_repairClickedEvent).Target(repairState);
@@ -71,20 +69,20 @@ namespace FirstLight.Game.StateMachines
 			equipmentSelectionState.Event(_upgradeClickedEvent).Target(upgradeState);
 			equipmentSelectionState.Event(_repairClickedEvent).Target(repairState);
 			equipmentSelectionState.Event(_backButtonClickedEvent).Target(equipmentState);
-			equipmentSelectionState.Event(_closeButtonClickedEvent).Target(final);
+			equipmentSelectionState.Event(CloseButtonClickedEvent).Target(final);
 
 			scrapState.OnEnter(OpenScrapPopup);
-			scrapState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			scrapState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
 			scrapState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			scrapState.OnExit(CloseEquipmentPopup);
 
 			upgradeState.OnEnter(OpenUpgradePopup);
-			upgradeState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			upgradeState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
 			upgradeState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			upgradeState.OnExit(CloseEquipmentPopup);
 
 			repairState.OnEnter(OpenRepairPopup);
-			repairState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			repairState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
 			repairState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			repairState.OnExit(CloseEquipmentPopup);
 
@@ -119,7 +117,7 @@ namespace FirstLight.Game.StateMachines
 				EquipmentIds = new[] {_uiService.GetUi<EquipmentSelectionPresenter>().SelectedItem},
 				PopupMode = mode,
 				OnActionConfirmed = OnPopupActionConfirmed,
-				OnCloseClicked = () => _statechartTrigger(_closeButtonClickedEvent)
+				OnCloseClicked = () => _statechartTrigger(CloseButtonClickedEvent)
 			};
 
 			await _uiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
@@ -155,7 +153,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
-				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent),
+				OnHomeClicked = () => _statechartTrigger(CloseButtonClickedEvent),
 			};
 
 			_uiService.OpenScreen<EquipmentPresenter, EquipmentPresenter.StateData>(data);
@@ -182,7 +180,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				EquipmentSlot = _equipmentSlotTypePicked,
 				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
-				OnCloseClicked = () => _statechartTrigger(_closeButtonClickedEvent),
+				OnCloseClicked = () => _statechartTrigger(CloseButtonClickedEvent),
 				OnScrapClicked = () => _statechartTrigger(_scrapClickedEvent),
 				OnUpgradeClicked = () => _statechartTrigger(_upgradeClickedEvent),
 				OnRepairClicked = () => _statechartTrigger(_repairClickedEvent),

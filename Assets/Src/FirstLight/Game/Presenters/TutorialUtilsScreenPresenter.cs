@@ -185,18 +185,14 @@ namespace FirstLight.Game.Presenters
 			objSize *= sizeMultiplier;
 
 			float circleHighlightingSize = objSize;
+			
 			_initialScale = Root.worldBound.width * 2 / CIRCLE_DEFAULT_SIZE;
 			_highlightedScale = circleHighlightingSize / CIRCLE_DEFAULT_SIZE;
-
-			_highlighterElement.style.top =
-				objElement.worldBound.y - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.height / 2;
-
-			_highlighterElement.style.left =
-				objElement.worldBound.x - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.width / 2;
+			_highlighterElement.style.top = objElement.worldBound.y - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.height / 2;
+			_highlighterElement.style.left = objElement.worldBound.x - SQUARE_DEFAULT_SIZE / 2 + objElement.resolvedStyle.width / 2;
 			_highlighterElement.style.scale = new Scale(new Vector3(_initialScale, _initialScale, 1));
 
 			_highlighterElement.SetDisplay(true);
-
 			_highlighterElement.experimental.animation.Scale(_highlightedScale, GameConstants.Tutorial.TIME_HIGHLIGHT_FADE);
 		}
 	}

@@ -126,7 +126,7 @@ namespace FirstLight.Game.Services.Party
 
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
 					new GenericDialogButton());
-				FLog.Warn("failed subscribing to lobby notifications", ex);
+				FLog.Error($"failed subscribing to lobby notifications: {ex.Message}", ex);
 				// Lets leave the party so the player can try again
 				try
 				{

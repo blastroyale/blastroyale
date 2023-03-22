@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BestHTTP.Extensions;
+using BestHTTP.SignalR;
+using BestHTTP.SignalR.Transports;
 using BestHTTP.SignalRCore;
 using BestHTTP.SignalRCore.Encoders;
 using FirstLight.FLogger;
@@ -80,10 +82,7 @@ namespace FirstLight.Game.Services
 		private LitJsonEncoder _jsonEncoder = new();
 		private Dictionary<string, List<Action<byte[]>>> _onMessageListeners = new();
 		private Dictionary<string, List<Action<IPlayfabPubSubService.SubscriptionChangeMessage>>> _onSubscriptionStatus = new();
-
 		public event IPlayfabPubSubService.OnReconnectedHandler OnReconnected;
-
-
 		public PlayfabPubSubService(IMessageBrokerService msgBroker)
 		{
 #pragma warning disable CS4014
@@ -157,13 +156,23 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
+			FLog.Verbose("PubSub", "Connecting to PubSub");
 			_connecting = true;
 			var url = $"https://{PlayFabSettings.TitleId}.playfabapi.com/PubSub";
-			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder));
+			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder), new HubOptions()
+			{
+				PingInterval = TimeSpan.FromSeconds(2),
+				PingTimeoutInterval = TimeSpan.FromSeconds(15)
+			});
 			_connection.ReconnectPolicy = new DefaultRetryPolicy();
 			_connection.AuthenticationProvider = new PlayFabAuthenticator(_connection, PlayFabSettings.staticPlayer.EntityToken);
 			_connection.On<PlayfabPubSubMessage>("ReceiveMessage", MessageHandler);
 			_connection.On<IPlayfabPubSubService.SubscriptionChangeMessage>("ReceiveSubscriptionChangeMessage", SubscriptionHandler);
+
+			_connection.OnConnected += a =>
+			{
+				FLog.Info("PubSub", "Connected");
+			};
 			_connection.OnClosed += _ =>
 			{
 				FLog.Error("PubSub", "OnClosed");
@@ -174,12 +183,15 @@ namespace FirstLight.Game.Services
 				FLog.Error("PubSub", "PlayfabPubSubError: " + errorString);
 				ResetConnectionFields();
 			};
+			_connection.OnReconnecting += (a, s) =>
+			{
+				FLog.Verbose("PubSub", $"Reconnecting {a.State}: {s}");
+			};
 			_connection.OnReconnected += _ =>
 			{
 				FLog.Info("PubSub", "OnReconnected");
 				OnReconnected?.Invoke();
 			};
-
 			await _connection.ConnectAsync();
 			_connected = true;
 			_connecting = false;

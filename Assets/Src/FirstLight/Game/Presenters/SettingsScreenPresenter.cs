@@ -34,12 +34,6 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		[SerializeField, Required] private Button _blockerButton;
-		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
-		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
-		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
-		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
-		[SerializeField, Required] private UiToggleButtonView _dynamicCameraToggle;
 		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
@@ -57,22 +51,7 @@ namespace FirstLight.Game.Presenters
 		private Label _buildInfoLabel;
 		private Button _faqButton;
 		private Button _serverButton;
-		
-		// Sound Toggle
-		private Button _soundToggle;
-		private Button [] _soundToggleButtons;
-		private VisualElement[] _soundToggleLabels;
-		
-		// Announcer Toggle
-		private Button _announcerToggle;
-		private Button [] _announcerToggleButtons;
-		private VisualElement[] _announcerToggleLabels;
-		
-		// BGM Toggle
-		private Button _bgmToggle;
-		private Button [] _bgmToggleButtons;
-		private VisualElement[] _bgmToggleLabels;
-		
+
 		// Account Toggle
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
@@ -80,16 +59,6 @@ namespace FirstLight.Game.Presenters
 		private Label _connectionStatusLabel;
 		private Label _connectionNameText;
 
-		// Dynamic Controls Toggle
-		private Button _dynamicStickToggle;
-		private Button [] _dynamicStickToggleButtons;
-		private VisualElement[] _dynamicStickToggleLabels;
-		
-		// Haptic Toggle
-		private Button _hapticFeedbackToggle;
-		private Button [] _hapticFeedbackToggleButtons;
-		private VisualElement[] _hapticFeedbackToggleLabels;
-		
 		// Radio Buttons
 		
 		// FPS Buttons
@@ -122,12 +91,6 @@ namespace FirstLight.Game.Presenters
 			ACCOUNT = 3
 		};
 
-		private enum SETTINGS_TOGGLE_CATEGORIES
-		{
-			OFF = 0,
-			ON = 1,
-		};
-
 		private readonly Color _deselectedRadioButtonColor = new Color(0.08f, 0.07f, 0.14f, 1f);
 		private readonly Color _selectedRadioButtonColor = new Color(0.94f, 0.29f, 0.47f, 1f);
 
@@ -143,12 +106,6 @@ namespace FirstLight.Game.Presenters
 			// _logoutButton.onClick.AddListener(OnLogoutClicked);
 			// _deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
 			// _connectIdButton.onClick.AddListener(OpenConnectId);
-			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
-			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
-			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
-			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
-			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
-			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
 			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			// _detailLevelView.ValueChanged += OnDetailLevelChanged;
@@ -161,23 +118,6 @@ namespace FirstLight.Game.Presenters
 			_localizedTabs = new LocalizedButton[size];
 			_localizedSelectors = new VisualElement[size];
 			_localizedContentBlocks = new VisualElement[size];
-			
-			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_CATEGORIES)).Length;
-
-			_soundToggleButtons = new Button[size];
-			_soundToggleLabels = new VisualElement[size];
-			
-			_announcerToggleButtons = new Button[size];
-			_announcerToggleLabels = new VisualElement[size];
-			
-			_bgmToggleButtons = new Button[size];
-			_bgmToggleLabels = new VisualElement[size];
-
-			_hapticFeedbackToggleButtons = new Button[size];
-			_hapticFeedbackToggleLabels = new VisualElement[size];
-
-			_dynamicStickToggleButtons = new Button[size];
-			_dynamicStickToggleLabels = new VisualElement[size];
 			
 			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_FPS)).Length;
 
@@ -220,45 +160,24 @@ namespace FirstLight.Game.Presenters
 
 			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 			
-			// Sound Settings
-			_soundToggle = root.Q<Button>("SoundEffectsToggle");
-			_soundToggle.clicked += OnSoundToggleClicked;
-			_soundToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("SoundOffButton");
-			_soundToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("SoundOnButton");
-			_soundToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("SoundOffLabel");
-			_soundToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("SoundOnLabel");
-			
-			// Announcer Settings
-			_announcerToggle = root.Q<Button>("AnnouncerToggle");
-			_announcerToggle.clicked += OnAnnouncerToggleClicked;
-			_announcerToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("AnnouncerOffButton");
-			_announcerToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("AnnouncerOnButton");
-			_announcerToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("AnnouncerOffLabel");
-			_announcerToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("AnnouncerOnLabel");
-			
-			// BGM Settings
-			_bgmToggle = root.Q<Button>("BGMToggle");
-			_bgmToggle.clicked += OnBGMToggleClicked;
-			_bgmToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("BGMOffButton");
-			_bgmToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("BGMOnButton");
-			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("BGMOffLabel");
-			_bgmToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("BGMOnLabel");
-			
-			// Dynamic Joystick
-			_dynamicStickToggle = root.Q<Button>("DynamicJoystickToggle");
-			_dynamicStickToggle.clicked += OnDynamicJoystickToggleClicked;
-			_dynamicStickToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("DynamicJoystickOffButton");
-			_dynamicStickToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("DynamicJoystickOnButton");
-			_dynamicStickToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("DynamicJoystickOffLabel");
-			_dynamicStickToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("DynamicJoystickOnLabel");
-			
-			// Haptic Feedback
-			_hapticFeedbackToggle = root.Q<Button>("HapticToggle");
-			_hapticFeedbackToggle.clicked += OnHapticToggleClicked;
-			_hapticFeedbackToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<Button>("HapticOffButton");
-			_hapticFeedbackToggleButtons[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<Button>("HapticOnButton");
-			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.OFF] = root.Q<VisualElement>("HapticOffLabel");
-			_hapticFeedbackToggleLabels[(int)SETTINGS_TOGGLE_CATEGORIES.ON] = root.Q<VisualElement>("HapticOnLabel");
+			// Sound
+			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
+				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
+				val => _gameDataProvider.AppDataProvider.IsSfxEnabled = val);
+			SetupToggle(root.Q<LocalizedToggle>("Announcer").Required(),
+				() => _gameDataProvider.AppDataProvider.IsDialogueEnabled,
+				val => _gameDataProvider.AppDataProvider.IsDialogueEnabled = val);
+			SetupToggle(root.Q<LocalizedToggle>("BGMusic").Required(),
+				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
+				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
+
+			// Controls
+			SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
+				() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
+				val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
+			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
+				() => _gameDataProvider.AppDataProvider.IsHapticOn,
+				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
 			
 			// FPS Buttons
 			_fpsButtons[(int)SETTINGS_TOGGLE_FPS.Thirty] = root.Q<Button>("30RadioButton");
@@ -293,225 +212,20 @@ namespace FirstLight.Game.Presenters
 			_serverButton = root.Q<Button>("ServerButton");
 			_serverButton.clicked += OpenServerSelect;
 
-			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
-			{
-				OnSoundToggleOffClicked();
-			}
-			else
-			{
-				OnSoundToggleOnClicked();
-			}
-			
-			if (_gameDataProvider.AppDataProvider.IsDialogueEnabled)
-			{
-				OnAnnouncerToggleOffClicked();
-			}
-			else
-			{
-				OnAnnouncerToggleOnClicked();
-			}
-			
-			if (_gameDataProvider.AppDataProvider.IsBgmEnabled)
-			{
-				OnBGMToggleOffClicked();
-			}
-			else
-			{
-				OnBGMToggleOnClicked();
-			}
-			
-			if (_gameDataProvider.AppDataProvider.IsHapticOn)
-			{
-				OnHapticToggleOffClicked();
-			}
-			else
-			{
-				OnHapticToggleOnClicked();
-			}
-
-			if (_gameDataProvider.AppDataProvider.UseDynamicJoystick)
-			{
-				OnDynamicJoystickToggleOffClicked();
-			}
-			else
-			{
-				OnDynamicJoystickToggleOnClicked();
-			}
-			
 			root.SetupClicks(_services);
 		}
-		
+
+		private static void SetupToggle(LocalizedToggle toggle, Func<bool> getter, Action<bool> setter)
+		{
+			toggle.value = getter();
+			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) => s(e.newValue), setter);
+		}
+
 		private void OnCloseClicked()
 		{
 			Debug.Log("Close Clicked");
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
 			Data.OnClose();
-		}
-
-		private void OnSoundToggleClicked()
-		{
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = !_gameDataProvider.AppDataProvider.IsSfxEnabled;
-			
-			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
-			{
-				OnSoundToggleOffClicked();
-			}
-			else
-			{
-				OnSoundToggleOnClicked();
-			}
-		}
-		
-		
-		private void OnSoundTabClicked()
-		{
-			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
-		}
-
-		private void OnSoundToggleOffClicked()
-		{
-			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = true;
-		}
-		
-		private void OnSoundToggleOnClicked()
-		{
-			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_soundToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_soundToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = false;
-		}
-		
-		private void OnAnnouncerToggleClicked()
-		{
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = !_gameDataProvider.AppDataProvider.IsSfxEnabled;
-			
-			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
-			{
-				OnAnnouncerToggleOffClicked();
-			}
-			else
-			{
-				OnAnnouncerToggleOnClicked();
-			}
-		}
-		
-		private void OnAnnouncerToggleOffClicked()
-		{
-			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_gameDataProvider.AppDataProvider.IsDialogueEnabled = true;
-		}
-		
-		private void OnAnnouncerToggleOnClicked()
-		{
-			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_announcerToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_announcerToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_gameDataProvider.AppDataProvider.IsDialogueEnabled = false;
-		}
-		
-		private void OnBGMToggleClicked()
-		{
-			_gameDataProvider.AppDataProvider.IsBgmEnabled = !_gameDataProvider.AppDataProvider.IsBgmEnabled;
-			
-			if (_gameDataProvider.AppDataProvider.IsBgmEnabled)
-			{
-				OnBGMToggleOffClicked();
-			}
-			else
-			{
-				OnBGMToggleOnClicked();
-			}
-		}
-
-		private void OnBGMToggleOffClicked()
-		{
-			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_gameDataProvider.AppDataProvider.IsBgmEnabled = true;
-		}
-		
-		private void OnBGMToggleOnClicked()
-		{
-			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_bgmToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_bgmToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_gameDataProvider.AppDataProvider.IsBgmEnabled = false;
-		}
-		
-		private void OnHapticToggleClicked()
-		{
-			_gameDataProvider.AppDataProvider.IsHapticOn = !_gameDataProvider.AppDataProvider.IsHapticOn;
-			
-			if (_gameDataProvider.AppDataProvider.IsHapticOn)
-			{
-				OnHapticToggleOffClicked();
-			}
-			else
-			{
-				OnHapticToggleOnClicked();
-			}
-		}
-		
-		private void OnHapticToggleOffClicked()
-		{
-			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_gameDataProvider.AppDataProvider.IsHapticOn = true;
-		}
-		
-		private void OnHapticToggleOnClicked()
-		{
-			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_hapticFeedbackToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_hapticFeedbackToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_gameDataProvider.AppDataProvider.IsHapticOn = false;
-		}
-
-		private void OnDynamicJoystickToggleClicked()
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicJoystick = !_gameDataProvider.AppDataProvider.UseDynamicJoystick;
-			
-			if (_gameDataProvider.AppDataProvider.UseDynamicJoystick)
-			{
-				OnDynamicJoystickToggleOffClicked();
-			}
-			else
-			{
-				OnDynamicJoystickToggleOnClicked();
-			}
-		}
-		
-		private void OnDynamicJoystickToggleOffClicked()
-		{
-			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = false;
-			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = true;
-			_gameDataProvider.AppDataProvider.UseDynamicJoystick = true;
-		}
-		
-		private void OnDynamicJoystickToggleOnClicked()
-		{
-			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_dynamicStickToggleButtons[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.OFF].visible = true;
-			_dynamicStickToggleLabels[(int) SETTINGS_TOGGLE_CATEGORIES.ON].visible = false;
-			_gameDataProvider.AppDataProvider.UseDynamicJoystick = false;
 		}
 
 		private void OnFPSTogglePressed()
@@ -592,8 +306,7 @@ namespace FirstLight.Game.Presenters
 					break;
 			}
 		}
-		
-		
+
 		private void OnGraphicsClicked()
 		{
 			TabSelected(SETTINGS_TAB_CATEGORIES.GRAPHICS);
@@ -607,6 +320,11 @@ namespace FirstLight.Game.Presenters
 		private void OnAccountClicked()
 		{
 			TabSelected(SETTINGS_TAB_CATEGORIES.ACCOUNT);
+		}
+
+		private void OnSoundTabClicked()
+		{
+			TabSelected(SETTINGS_TAB_CATEGORIES.SOUND);
 		}
 
 		public void UpdateAccountStatus()
@@ -654,20 +372,13 @@ namespace FirstLight.Game.Presenters
 			
 			_versionText.text = VersionUtils.VersionInternal;
 			
-			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
-			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
-			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
-			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
-			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
-			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 
 			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
 
-#if UNITY_IOS
-			_faq.gameObject.SetActive(false);
+#if UNITY_IOS && !UNITY_EDITOR
 			_faqButton.SetDisplay(false);
 #endif
 		}
@@ -707,29 +418,9 @@ namespace FirstLight.Game.Presenters
 			_services.HelpdeskService.ShowFaq();
 		}
 
-		private void OnBgmChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsBgmEnabled = value;
-		}
-
-		private void OnSfxChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = value;
-		}
-		
-		private void OnDialogueChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsDialogueEnabled = value;
-		}
-
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-		}
-		
-		private void OnDynamicJoystickChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
 		}
 
 		private void OnDynamicCameraChanged(bool value)

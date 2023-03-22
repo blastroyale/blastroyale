@@ -69,3 +69,96 @@
     width: 300px;
     display: flex;
 }
+
+.settings-container {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&guid=64898817438f9408c96d237ff01892ca&type=3#settings-content-shape');
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: flex-start;
+    width: 1000px;
+}
+
+.settings-container--account {
+    height: 473px;
+}
+
+.settings-footer {
+    flex-direction: row;
+    width: 1000px;
+    justify-content: space-between;
+}
+
+.settings-header {
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+
+.divider {
+    flex-grow: 1;
+}
+
+.settings-toggle {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.settings-toggle .unity-toggle__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+}
+
+.settings-toggle .unity-toggle__input {
+    background-color: rgb(24, 20, 38);
+    flex-shrink: initial;
+    flex-grow: initial;
+    width: 194px;
+    flex-basis: initial;
+    height: 68px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition-duration: 0.15s;
+}
+
+.settings-toggle .unity-toggle__checkmark {
+    background-image: var(--sprite-home__settings-switch-body);
+    width: 88px;
+    height: 68px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    -unity-background-image-tint-color: rgb(247, 107, 106);
+    transition-duration: 0.15s;
+}
+
+.settings-toggle:checked .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(0, 255, 106);
+}
+
+.settings-toggle:checked .unity-toggle__input {
+    padding-left: 106px;
+}
+
+.settings-tabbed-view {
+    width: 1000px;
+}
+
+.settings-tab-button {
+    height: 75px;
+}

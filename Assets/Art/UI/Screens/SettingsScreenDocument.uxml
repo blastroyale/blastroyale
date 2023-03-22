@@ -56,7 +56,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="GraphicsContent" class="fill-parent content-scrapping" style="display: flex; top: 188px; bottom: 204px; visibility: visible; left: 428px; right: 444px; justify-content: space-around;">
+                    <ui:VisualElement name="GraphicsContent" class="fill-parent content-scrapping" style="display: none; top: 188px; bottom: 204px; visibility: visible; left: 428px; right: 444px; justify-content: space-around;">
                         <ui:VisualElement name="FPSContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 934px; height: 174px;">
                             <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/fps" name="FPSLabel" style="-unity-text-align: middle-center; height: 50px;" />
                             <ui:VisualElement name="FPSBlock" style="height: 100px; flex-direction: row; justify-content: center;">
@@ -110,15 +110,18 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="AccountContent" class="fill-parent content-scrapping" style="display: flex; top: 234px; bottom: 344px; visibility: hidden;">
-                        <ui:VisualElement name="Content" class="content-holder" style="height: 304px; width: 891px; position: absolute; top: 0; left: 450px; background-image: none; background-color: rgb(65, 60, 60);">
-                            <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SoundEffectsLabel" localization-key="UITSettings/account_title" style="position: absolute; top: 48px; left: 63px;" />
-                            <ui:VisualElement style="background-color: rgb(23, 20, 38); height: 68px; width: 166px; position: absolute; top: 58px; left: 644px;" />
+                    <ui:VisualElement name="AccountContent" class="fill-parent content-scrapping" style="display: flex; top: 188px; bottom: 204px; visibility: visible; left: 428px; right: 444px; justify-content: space-around;">
+                        <ui:VisualElement name="Content" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 934px; height: 546px;">
+                            <ui:Label text="Connected Label" display-tooltip-when-elided="true" name="ConnectionStatusLabel" style="-unity-text-align: upper-center; top: 79px;" />
+                            <ui:Label text="Connection Name Label" display-tooltip-when-elided="true" name="ConnectionNameLabel" style="-unity-text-align: upper-center; top: 79px;" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" display-tooltip-when-elided="true" name="DeleteAccountButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 344px; background-image: none; left: 40px;" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" display-tooltip-when-elided="true" name="LogoutButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 344px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-red-pressed.png?fileID=21300000&amp;guid=c145e479df096482486e6f4f8e67fcc5&amp;type=3#button-long-red-pressed&apos;); right: 40px;" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" display-tooltip-when-elided="true" name="ConnectButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 344px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png?fileID=21300000&amp;guid=50365762fd4d549e2bbf30c7827ce650&amp;type=3#button-long-yellow-pressed&apos;); right: 40px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" display-tooltip-when-elided="true" name="FAQButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 432px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" display-tooltip-when-elided="true" name="ServerButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 1048px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
-                    <ui:Label text="Build Version" display-tooltip-when-elided="true" style="width: 402px; -unity-text-align: upper-right; bottom: -882px; right: -1385px;" />
+                    <ui:Label text="Build Version" display-tooltip-when-elided="true" name="BuildInfoLabel" style="width: 402px; -unity-text-align: upper-right; bottom: -882px; right: -1385px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

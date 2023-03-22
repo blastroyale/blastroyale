@@ -36,8 +36,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		// [SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
-		[SerializeField, Required] private Button _logoutButton;
-		[SerializeField, Required] private Button _deleteAccountButton;
+		// [SerializeField, Required] private Button _logoutButton;
+		// [SerializeField, Required] private Button _deleteAccountButton;
 		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
@@ -48,10 +48,10 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
-		[SerializeField, Required] private Button _faq;
+		// [SerializeField, Required] private Button _faq;
 		[SerializeField, Required] private Button _serverSelectButton;
 		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
-		[SerializeField, Required] private Button _connectIdButton;
+		// [SerializeField, Required] private Button _connectIdButton;
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
 		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 
@@ -62,8 +62,10 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton [] _localizedTabs;
 		private VisualElement[] _localizedSelectors;
 		private VisualElement[] _localizedContentBlocks;
-
+		
 		private Label _buildInfoLabel;
+		private Button _faqButton;
+		private Button _serverButton;
 		
 		// Sound Toggle
 		private Button _soundToggle;
@@ -80,6 +82,13 @@ namespace FirstLight.Game.Presenters
 		private Button [] _bgmToggleButtons;
 		private VisualElement[] _bgmToggleLabels;
 		
+		// Account Toggle
+		private Button _logoutButton;
+		private Button _deleteAccountButton;
+		private Button _connectIdButton;
+		private Label _connectionStatusLabel;
+		private Label _connectionNameText;
+
 		// Dynamic Controls Toggle
 		private Button _dynamicStickToggle;
 		private Button [] _dynamicStickToggleButtons;
@@ -276,6 +285,23 @@ namespace FirstLight.Game.Presenters
 			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High].clicked += OnHighGraphicsPressed;
 			SetGraphicsQualityToggles();
 			
+			// Account Buttons
+			_logoutButton = root.Q<Button>("LogoutButton");
+			_logoutButton.clicked += OnLogoutClicked;
+			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
+			_deleteAccountButton.clicked += OnDeleteAccountClicked;
+			_connectIdButton = root.Q<Button>("ConnectButton");
+			_connectIdButton.clicked += OpenConnectId;
+			_connectionNameText = root.Q<Label>("ConnectionNameLabel");
+			_connectionStatusLabel = root.Q<Label>("ConnectionStatusLabel");
+			SetupAccountTab();
+			
+			// Misc Buttons
+			_faqButton = root.Q<Button>("FAQButton");
+			_faqButton.clicked += OnFaqButtonPressed;
+			_serverButton = root.Q<Button>("ServerButton");
+			_serverButton.clicked += OpenServerSelect;
+
 			if (_gameDataProvider.AppDataProvider.IsSfxEnabled)
 			{
 				OnSoundToggleOffClicked();
@@ -616,6 +642,24 @@ namespace FirstLight.Game.Presenters
 			TabSelected(SETTINGS_TAB_CATEGORIES.ACCOUNT);
 		}
 
+		private void SetupAccountTab()
+		{
+			if (_gameDataProvider.AppDataProvider.IsGuest)
+			{
+				_connectIdButton.SetDisplay(true);
+				_connectionNameText.SetDisplay(false);
+				_connectionStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
+			}
+			else
+			{
+				_connectIdButton.SetDisplay(false);
+				_connectionNameText.SetDisplay(true);
+				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
+			}
+		}
+		
+
 		private void TabSelected(SETTINGS_TAB_CATEGORIES category)
 		{
 			int size = Enum.GetNames(typeof(SETTINGS_TAB_CATEGORIES)).Length;
@@ -660,6 +704,7 @@ namespace FirstLight.Game.Presenters
 
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);
+			_faqButton.SetDisplay(false);
 #endif
 		}
 
@@ -698,14 +743,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenConnectId()
 		{
-			// Data.OnConnectIdClicked();
+			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
-			// Data.OnServerSelectClicked();
+			Data.OnServerSelectClicked();
 		}
 
 		private void OnHelpdeskButtonPressed()

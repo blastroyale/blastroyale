@@ -630,6 +630,10 @@ namespace FirstLight.Game.Presenters
 				{
 					_localizedTabs[i].AddToClassList(UssSpriteSelected);
 				}
+				else
+				{
+					_localizedTabs[i].AddToClassList(UssSpriteUnselected);
+				}
 			}
 		}
 

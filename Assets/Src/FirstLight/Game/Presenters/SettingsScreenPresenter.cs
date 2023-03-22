@@ -337,6 +337,8 @@ namespace FirstLight.Game.Presenters
 			{
 				OnDynamicJoystickToggleOnClicked();
 			}
+			
+			root.SetupClicks(_services);
 		}
 		
 		private void OnCloseClicked()
@@ -609,8 +611,6 @@ namespace FirstLight.Game.Presenters
 
 		public void UpdateAccountStatus()
 		{
-			Debug.Log("Update Account Status");
-			
 			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
 				_connectIdButton.SetDisplay(true);
@@ -619,7 +619,6 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				Debug.Log("Logged In!");
 				_connectIdButton.SetDisplay(false);
 				_connectionNameText.SetDisplay(true);
 				_connectionStatusLabel.text = ScriptLocalization.UITSettings.flg_id_connected;

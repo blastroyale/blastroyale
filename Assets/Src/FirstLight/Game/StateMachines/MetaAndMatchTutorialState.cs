@@ -19,7 +19,7 @@ namespace FirstLight.Game.StateMachines
 	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
 		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
-		public static readonly int TOTAL_STEPS = 6;
+		public static readonly int TOTAL_STEPS = 13;
 		
 		private static readonly IStatechartEvent _bpLevelUpEvent = new StatechartEvent("TUTORIAL - Battle pass level up event");
 		private static readonly IStatechartEvent _finishedClaimingRewardsEvent = new StatechartEvent("TUTORIAL - Finished claiming event");
@@ -36,6 +36,7 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private TutorialUtilsScreenPresenter _tutorialUtilsUi;
 		private CharacterDialogScreenPresenter _dialogUi;
+		private List<string> _sentAnalyticSteps = new();
 		
 		public string SectionName { get; set; }
 		public int SectionVersion { get; set; }
@@ -43,11 +44,11 @@ namespace FirstLight.Game.StateMachines
 		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
 		public string CurrentStepName { get; set; }
 		public int TotalStepsBeforeThisSection => FirstGameTutorialState.TOTAL_STEPS;
-		
+
 
 		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
-										IInternalTutorialService tutorialService,
-										Action<IStatechartEvent> statechartTrigger)
+										 IInternalTutorialService tutorialService,
+										 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = logic;
@@ -71,10 +72,11 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var enterName = stateFactory.State("Enter name");
+			var completionCheck = stateFactory.Choice("Completion check");
 			var battlePass = stateFactory.State("Battle Pass");
 			var clickReward = stateFactory.State("Click rewards");
 			var claimreward = stateFactory.State("Claim rewards");
-			var clickEquipment = stateFactory.State("Click equipment");
+			var goToEquipement = stateFactory.State("Click equipment");
 			var clickWeaponCategory = stateFactory.State("Click weapon");
 			var selectWeapon = stateFactory.State("Select weapon");
 			var equipWeapon = stateFactory.State("Equip weapon");
@@ -89,8 +91,13 @@ namespace FirstLight.Game.StateMachines
 			
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
-			enterName.Event(EnterNameState.NameSetEvent).Target(battlePass);
+			enterName.Event(EnterNameState.NameSetEvent).Target(completionCheck);
 			enterName.OnExit(OnEnterNameExit);
+			
+			completionCheck.OnEnter(SendStepAnalytics);
+			completionCheck.Transition().Condition(HasNotLeveledBattlePass).Target(battlePass);
+			completionCheck.Transition().Condition(HasNotEquippedWeapon).OnTransition(()=>SetCurrentStep(5)).Target(goToEquipement);
+			completionCheck.Transition().OnTransition(()=>SetCurrentStep(9)).Target(playGame);
 			
 			battlePass.OnEnter(() => { SendAnalyticsIncrementStep("BattlePassClick"); });
 			battlePass.OnEnter(OnBattlePassEnter);
@@ -104,13 +111,13 @@ namespace FirstLight.Game.StateMachines
 			
 			claimreward.OnEnter(() => { SendAnalyticsIncrementStep("ClaimReward"); });
 			claimreward.OnEnter(OnClaimRewardEnter);
-			claimreward.Event(_finishedClaimingRewardsEvent).Target(clickEquipment);
+			claimreward.Event(_finishedClaimingRewardsEvent).Target(goToEquipement);
 			claimreward.OnExit(OnClaimRewardExit);
 
-			clickEquipment.OnEnter(() => { SendAnalyticsIncrementStep("ClickEquipment"); });
-			clickEquipment.OnEnter(OnClickEquipmentEnter);
-			clickEquipment.Event(_openedEquipmentScreenEvent).Target(clickWeaponCategory);
-			clickEquipment.OnExit(OnClickEquipmentExit);
+			goToEquipement.OnEnter(() => { SendAnalyticsIncrementStep("GoToEquipment"); });
+			goToEquipement.OnEnter(OnGoToEquipmentEnter);
+			goToEquipement.Event(_openedEquipmentScreenEvent).Target(clickWeaponCategory);
+			goToEquipement.OnExit(OnGoToEquipmentExit);
 			
 			clickWeaponCategory.OnEnter(() => { SendAnalyticsIncrementStep("ClickWeaponCategory"); });
 			clickWeaponCategory.OnEnter(OnClickWeaponCategoryEnter);
@@ -140,14 +147,23 @@ namespace FirstLight.Game.StateMachines
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
 			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
 			
-			final.OnEnter(CloseTutorialUi);
 			final.OnEnter(SendStepAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
+		private bool HasNotEquippedWeapon()
+		{
+			var slot = GameIdGroup.Weapon;
+			return _dataProvider.EquipmentDataProvider.Loadout.TryGetValue(slot, out var item) == false;
+		}
+
+		private bool HasNotLeveledBattlePass()
+		{
+			return _dataProvider.BattlePassDataProvider.CurrentLevel.Value == 0;
+		}
+
 		private void StartSecondTutorialMatch()
 		{
-			CloseTutorialUi();
 			_tutorialService.CreateJoinSecondTutorialRoom();
 		}
 
@@ -161,7 +177,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.RemoveHighlight();
-			_dialogUi.HideDialog(CharacterType.Female);
 		}
 
 		private void SubscribeMessages()
@@ -208,6 +223,11 @@ namespace FirstLight.Game.StateMachines
 		{
 		}
 
+		private void SetCurrentStep(int step)
+		{
+			CurrentStep = step;
+		}
+
 		public void SendAnalyticsIncrementStep(string newStepName)
 		{
 			SendStepAnalytics();
@@ -218,6 +238,9 @@ namespace FirstLight.Game.StateMachines
 
 		public void SendStepAnalytics()
 		{
+			if (_sentAnalyticSteps.Contains(CurrentStepName)) return;
+			
+			_sentAnalyticSteps.Add(CurrentStepName);
 			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
 				CurrentTotalStep, CurrentStepName);
 		}
@@ -248,12 +271,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
+			_dialogUi.HideDialog(CharacterType.Female);
 		}
 		
 		private async void OnClickRewardEnter()
 		{
 			// Wait a bit until home screen completely uncovers, and we get BP rewards
-			await Task.Delay(GameConstants.Tutorial.TIME_1250MS);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
 			_dialogUi.ShowDialog("CLAIM THIS REWARD IDIOT!", CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			
@@ -284,7 +308,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameUiService.GetUi<BattlePassScreenPresenter>().CloseManual();
 		}
 		
-		private async void OnClickEquipmentEnter()
+		private async void OnGoToEquipmentEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
@@ -295,11 +319,10 @@ namespace FirstLight.Game.StateMachines
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("button-with-icon--equipment",null, 1.5f);
 		}
 		
-		private void OnClickEquipmentExit()
+		private void OnGoToEquipmentExit()
 		{
-			_tutorialUtilsUi.Unblock();
+			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
-			_tutorialUtilsUi.RemoveHighlight();
 		}
 		
 		private async void OnClickWeaponCategoryEnter()
@@ -310,14 +333,13 @@ namespace FirstLight.Game.StateMachines
 			
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentPresenter>(null,"WeaponCategory");
-			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory", 0.5f);
+			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory", 0.75f);
 		}
 		
 		private void OnClickWeaponCategoryExit()
 		{
-			_tutorialUtilsUi.Unblock();
+			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
-			_tutorialUtilsUi.RemoveHighlight();
 		}
 		
 		private async void OnSelectWeaponEnter()
@@ -333,34 +355,33 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnSelectWeaponExit()
 		{
-			_tutorialUtilsUi.Unblock();
+			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
-			_tutorialUtilsUi.RemoveHighlight();
+			_dialogUi.HideDialog(CharacterType.Female);
 		}
 
 		private async void OnEquipWeaponEnter()
 		{
-			_dialogUi.ContinueDialog("EQUIP WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Neutral);
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
 			
+			_dialogUi.ShowDialog("EQUIP WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
+
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>(null,"EquipButton");
 			_tutorialUtilsUi.Highlight<EquipmentSelectionPresenter>(null,"EquipButton");
 		}
 
-		private async void OnEquipWeaponExit()
+		private void OnEquipWeaponExit()
 		{
-			_tutorialUtilsUi.Unblock();
+			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
-			_tutorialUtilsUi.RemoveHighlight();
 			_dialogUi.HideDialog(CharacterType.Female);
+			
+			_statechartTrigger(EquipmentMenuState.CloseButtonClickedEvent);
 		}
 		
 		private async void OnPlayGameEnter()
 		{
-			_statechartTrigger(EquipmentMenuState.CloseButtonClickedEvent);
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_play_real_match, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
@@ -372,9 +393,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayGameExit()
 		{
-			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.BlockFullScreen();
-			_tutorialUtilsUi.RemoveHighlight();
+			CloseTutorialUi();
+			_dialogUi.HideDialog(CharacterType.Female);
 		}
 	}
 }

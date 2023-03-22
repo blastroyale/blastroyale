@@ -4,7 +4,7 @@
 
 .equipment-popup {
     background-image: var(--sprite-home__background-popup-equipment);
-    width: 1350px;
+    width: 1473px;
     height: 820px;
     top: 30px;
     color: rgb(255, 255, 255);
@@ -38,40 +38,8 @@
     justify-content: center;
 }
 
-.content-holder {
-    background-color: rgb(23, 20, 38);
-    width: 369px;
-    height: 130px;
-    border-radius: 10px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: -69px;
-    font-size: 50px;
-}
-
-.settings-popup__sound-tab {
-    width: 300px;
-    display: flex;
-}
-
-.settings-popup__graphics-tab {
-    width: 300px;
-    display: flex;
-}
-
-.settings-popup__controls-tab {
-    width: 300px;
-    display: flex;
-}
-
-.settings-popup__account-tab {
-    width: 300px;
-    display: flex;
-}
-
 .settings-container {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&guid=64898817438f9408c96d237ff01892ca&type=3#settings-content-shape');
+    background-image: var(--sprite-home__settings-content-shape);
     flex-direction: column;
     align-items: stretch;
     padding-left: 20px;
@@ -79,26 +47,28 @@
     padding-top: 15px;
     padding-bottom: 15px;
     justify-content: flex-start;
-    width: 1000px;
+    width: 717px;
 }
 
 .settings-container--account {
-    height: 473px;
+    height: 359px;
 }
 
 .settings-footer {
     flex-direction: row;
-    width: 1000px;
+    width: 678px;
     justify-content: space-between;
+    margin-bottom: 40px;
 }
 
-.settings-header {
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    margin-bottom: 70px;
-    margin-top: 30px;
+.build-version-label {
+    -unity-text-align: lower-right;
+    bottom: 10px;
+    right: 10px;
+    position: absolute;
+    color: rgb(149, 139, 196);
 }
+
 
 .divider {
     flex-grow: 1;
@@ -156,9 +126,61 @@
 }
 
 .settings-tabbed-view {
-    width: 1000px;
+    width: 1189px;
+    margin-top: 43px;
+}
+
+.settings-tabbed-view .unity-tabbed-view__tabs-container {
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 55px;
+}
+
+.settings-tabbed-view .unity-tabbed-view__content-container {
+    align-items: center;
 }
 
 .settings-tab-button {
-    height: 75px;
+    height: 85px;
+    background-image: var(--sprite-home__settings-tab-back);
+    flex-grow: 1;
+    margin-left: -7px;
+    margin-right: -7px;
+}
+
+.settings-tab-button .unity-tab-button__top-bar {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -35px;
+    height: 28px;
+    background-image: var(--sprite-home__settings-tab-arrow);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.settings-tab-button .unity-tab-button__content {
+    margin: 2px;
+    background-color: initial;
+    flex-grow: 1;
+}
+
+.settings-tab-button.unity-tab-button--active .unity-tab-button__content {
+    background-image: var(--sprite-home__settings-tab-chosen);
+}
+
+.settings-tab-button .unity-tab-button__content-label {
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    color: rgb(149, 139, 196);
+}
+
+.settings-tab-button.unity-tab-button--active .unity-tab-button__content-label {
+    color: white;
+}
+
+.settings-tab-button.unity-tab-button--active .unity-tab-button__top-bar {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0);
 }

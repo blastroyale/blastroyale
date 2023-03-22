@@ -111,8 +111,11 @@ namespace FirstLight.Game.StateMachines
 		private void ClearSnapshot()
 		{
 			FLog.Verbose("Clearing Snapshot");
-			//_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
-			//_services.DataSaver.SaveData<AppData>();
+			_dataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
+			if (_dataProvider.AppDataProvider.IsPlayerLoggedIn)
+			{
+				_services.DataSaver.SaveData<AppData>();
+			}
 		}
 
 		private void SetupSnapshotRoom()

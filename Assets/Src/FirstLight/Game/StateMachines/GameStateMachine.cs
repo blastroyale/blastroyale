@@ -161,7 +161,6 @@ namespace FirstLight.Game.StateMachines
 				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
 				{
 					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
-					_dataService.SaveData<AppData>();
 				}
 			}
 #endif

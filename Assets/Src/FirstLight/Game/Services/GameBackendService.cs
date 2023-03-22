@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -404,7 +403,7 @@ namespace FirstLight.Game.Services
 		}
 		
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
-		{
+		{	
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
 				onSuccess.Invoke(new ServerState(result.Data

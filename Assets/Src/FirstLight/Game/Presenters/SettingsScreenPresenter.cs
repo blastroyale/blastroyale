@@ -62,6 +62,8 @@ namespace FirstLight.Game.Presenters
 		private LocalizedButton [] _localizedTabs;
 		private VisualElement[] _localizedSelectors;
 		private VisualElement[] _localizedContentBlocks;
+
+		private Label _buildInfoLabel;
 		
 		// Sound Toggle
 		private Button _soundToggle;
@@ -190,6 +192,10 @@ namespace FirstLight.Game.Presenters
 		{
 			_closeScreenButton = root.Q<ImageButton>("CloseButton");
 			_closeScreenButton.clicked += OnCloseClicked;
+			
+			// Build Info Text
+			_buildInfoLabel= root.Q<Label>("BuildInfoLabel");
+			_buildInfoLabel.text = VersionUtils.VersionInternal;
 
 			// Tabs
 			_localizedTabs[(int)SETTINGS_TAB_CATEGORIES.SOUND] = root.Q<LocalizedButton>("SoundTab");

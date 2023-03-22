@@ -4,7 +4,7 @@
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
             <ui:VisualElement name="SettingsPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl" style="width: 1822px; height: 1030px;">
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" style="height: 80px; justify-content: center; -unity-text-align: middle-center; align-items: center; white-space: normal; width: 1820px; font-size: 48px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&amp;guid=2d6c823359e264eac88204c4e1664c4c&amp;type=3#header-popup-equipment&apos;);" />
+                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" style="height: 80px; justify-content: center; -unity-text-align: middle-center; align-items: center; white-space: normal; width: 1820px; font-size: 48px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&amp;guid=2d6c823359e264eac88204c4e1664c4c&amp;type=3#header-popup-equipment&apos;);" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
                 <ui:VisualElement name="Content" class="equipment-popup__content" style="left: 2px; right: 10px; top: 86px; bottom: 0;">
                     <ui:VisualElement name="SettingsTab" style="height: 180px; align-items: center; justify-content: center; flex-direction: row; width: 1540px; position: absolute; top: 14px; left: 126px;">
@@ -118,6 +118,7 @@
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" display-tooltip-when-elided="true" name="FAQButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 432px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" display-tooltip-when-elided="true" name="ServerButton" text="FAQ" class="button-long button-long--red" style="position: absolute; top: 760px; left: 1048px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-purple.png?fileID=21300000&amp;guid=b0a6a9bbdcfe84fac924a7939940dd87&amp;type=3#button-long-purple&apos;);" />
+                    <ui:Label text="Build Version" display-tooltip-when-elided="true" style="width: 402px; -unity-text-align: upper-right; bottom: -882px; right: -1385px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

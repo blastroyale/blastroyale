@@ -21,15 +21,19 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using UnityEditor.CrashReporting;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
 	public enum Environment
-	{ 
-		DEV, STAGING, TESTNET, PROD
+	{
+		DEV,
+		STAGING,
+		TESTNET,
+		PROD
 	}
-	
+
 	public class BackendEnvironmentData
 	{
 		public Environment EnvironmentID;
@@ -127,6 +131,12 @@ namespace FirstLight.Game.Services
 		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
 
 		/// <summary>
+		/// Will handle a recoverable exception, making sure it will get to all analytics services
+		/// </summary>
+		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
+
+
+		/// <summary>
 		/// Returns if the game is running on dev env. On dev things can be different.
 		/// </summary>
 		bool IsDev();
@@ -169,7 +179,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupTestnet(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.TESTNET;
@@ -177,7 +187,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupStaging(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.STAGING;
@@ -185,7 +195,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupDev(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.DEV;
@@ -193,7 +203,7 @@ namespace FirstLight.Game.Services
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 			envData.AppIDRealtime = "***REMOVED***";
 		}
-		
+
 		public void SetupBackendEnvironment()
 		{
 			if (CurrentEnvironmentData != null)
@@ -204,7 +214,7 @@ namespace FirstLight.Game.Services
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
-			
+
 #if LIVE_SERVER
 			SetupLive(envData);
 #elif LIVE_TESTNET_SERVER
@@ -365,6 +375,13 @@ namespace FirstLight.Game.Services
 			callback?.Invoke(error);
 		}
 
+		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		{
+			// Unfortunately we have to log as an Error to send to crash analytics, and it is impossible to send exceptions manually :( 
+			FLog.Error("recoverable exception", ex);
+			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
+		}
+
 		/// <inheritdoc/>
 		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
 		{
@@ -401,9 +418,9 @@ namespace FirstLight.Game.Services
 		{
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
 		}
-		
+
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
-		{	
+		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
 				onSuccess.Invoke(new ServerState(result.Data

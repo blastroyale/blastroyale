@@ -44,6 +44,11 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
+		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		{
+			
+		}
+
 		public bool IsDev()
 		{
 			return true;

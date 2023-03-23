@@ -190,7 +190,7 @@ namespace FirstLight.Game.Services
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
-			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService, GameBackendService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;

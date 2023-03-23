@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using PlayFab;
 using PlayFab.MultiplayerModels;
-using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Utils
 {
@@ -32,10 +32,10 @@ namespace FirstLight.Game.Utils
 
 		private static Func<LeaveLobbyRequest, Task<LobbyEmptyResult>> LeaveLobbyFunc { get; }
 			= Wrap<LeaveLobbyRequest, LobbyEmptyResult>(PlayFabMultiplayerAPI.LeaveLobby);
-	
+
 		private static Func<UpdateLobbyRequest, Task<LobbyEmptyResult>> UpdateLobbyFunc { get; }
 			= Wrap<UpdateLobbyRequest, LobbyEmptyResult>(PlayFabMultiplayerAPI.UpdateLobby);
-		
+
 		/// <inheritdoc cref="PlayFabMultiplayerAPI.UpdateLobby"/>
 		public static Task<LobbyEmptyResult> UpdateLobby(UpdateLobbyRequest req)
 		{
@@ -101,13 +101,45 @@ namespace FirstLight.Game.Utils
 				return t.Task;
 			};
 		}
+
+		/// <summary>
+		/// Convert a PlayFabApi error to an exception
+		/// </summary>
+		public static WrappedPlayFabException AsException(this PlayFabError error)
+		{
+			return new WrappedPlayFabException(error);
+		}
 	}
 
 	public class WrappedPlayFabException : Exception
 	{
 		public PlayFabError Error { get; }
 
-		public WrappedPlayFabException(PlayFabError error) : base(error.ErrorMessage)
+		private static string ErrorMessage(PlayFabError error)
+		{
+			var str = new StringBuilder();
+			str.Append(error.Error);
+			str.Append(" - ");
+			str.Append(error.ErrorMessage);
+			if (error.ApiEndpoint != null)
+			{
+				str.Append("At ").AppendLine(error.ApiEndpoint);
+			}
+
+			if (error.ErrorDetails?.Count == 0) return str.ToString();
+
+			foreach (var pair in error.ErrorDetails!)
+			{
+				foreach (var msg in pair.Value)
+				{
+					str.AppendLine().Append(pair.Key).Append(": ").Append(msg);
+				}
+			}
+
+			return str.ToString();
+		}
+
+		public WrappedPlayFabException(PlayFabError error) : base(ErrorMessage(error))
 		{
 			Error = error;
 		}

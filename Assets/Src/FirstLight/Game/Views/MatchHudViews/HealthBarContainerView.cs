@@ -163,7 +163,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
-			var currentLevel = f.Get<PlayerCharacter>(entity).GetEnergyLevel(f);
+			var currentLevel = 0;
+
+			if (f.TryGet<PlayerCharacter>(entity, out var player))
+			{
+				currentLevel = player.GetEnergyLevel(f);
+			}
 
 			if (f.Has<Destructible>(entity))
 			{

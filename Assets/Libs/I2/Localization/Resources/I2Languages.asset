@@ -807,13 +807,26 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSquads/error_PartyUsingOtherServer
+      TermType: 0
+      Description: 
+      Languages:
+      - This squad is using another server region!
+      - "\u042D\u0442\u043E\u0442 \u043E\u0442\u0440\u044F\u0434 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+        \u0434\u0440\u0443\u0433\u043E\u0439 \u0440\u0435\u0433\u0438\u043E\u043D
+        \u0441\u0435\u0440\u0432\u0435\u0440\u0430!"
+      - "Este esquadr\xE3o est\xE1 utilizando outra regi\xE3o de servidor."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSquads/kick
       TermType: 0
       Description: 
       Languages:
       - Kick
       - "\u041F\u0438\u043D\u0430\u0442\u044C"
-      - Chute
+      - Expulsar
       - 
       - 
       Flags: 0000000000
@@ -826,6 +839,19 @@ MonoBehaviour:
       - "\u0422\u0435\u0431\u044F \u0443\u0434\u0430\u0440\u0438\u043B\u0438 \u0438\u0437
         \u043A\u043E\u043C\u0430\u043D\u0434\u044B."
       - "Voc\xEA foi chutado da equipe."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/timeout
+      TermType: 0
+      Description: 
+      Languages:
+      - You got removed from the squad due to timeout!
+      - "\u0412\u0430\u0441 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u043B\u0438
+        \u0438\u0437 \u0441\u043E\u0441\u0442\u0430\u0432\u0430 \u0438\u0437-\u0437\u0430
+        \u0442\u0430\u0439\u043C-\u0430\u0443\u0442\u0430!"
+      - "Voc\xEA foi removido da equipe devido a problemas de conex\xE3o. "
       - 
       - 
       Flags: 0000000000
@@ -2268,6 +2294,76 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/lets_claim_rewards
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU HAVE NEW REWARDS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/click_to_claim_reward
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PRESS THE REWARD
+
+        TO CLAIM IT'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/lets_equip_new_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - 'LET''S EQUIP YOUR
+
+        NEW WEAPON'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/click_on_category
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON SLOT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/select_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/equip_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - NOW EQUIP IT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLeaderboards/battleroyale
       TermType: 0
       Description: 
@@ -3038,7 +3134,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Connect
+      - CONNECT
       - "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0442\u044C"
       - Conectar
       - 
@@ -3407,6 +3503,127 @@ MonoBehaviour:
       - FAQ
       - FAQ
       - FAQ
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/on
+      TermType: 0
+      Description: 
+      Languages:
+      - ON
+      - ON
+      - ON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/off
+      TermType: 0
+      Description: 
+      Languages:
+      - OFF
+      - OFF
+      - OFF
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/dynamic_joystick
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/haptic_feedback
+      TermType: 0
+      Description: 
+      Languages:
+      - Haptic Feedback
+      - Haptic Feedback
+      - Haptic Feedback
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/fps
+      TermType: 0
+      Description: 
+      Languages:
+      - FPS
+      - FPS
+      - FPS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/low
+      TermType: 0
+      Description: 
+      Languages:
+      - Low
+      - Low
+      - Low
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/medium
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium
+      - Medium
+      - Medium
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/high
+      TermType: 0
+      Description: 
+      Languages:
+      - High
+      - High
+      - High
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/graphics_quality
+      TermType: 0
+      Description: 
+      Languages:
+      - Graphics Quality
+      - Graphics Quality
+      - Graphics Quality
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/thirty
+      TermType: 0
+      Description: 
+      Languages:
+      - 30
+      - 30
+      - 30
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sixty
+      TermType: 0
+      Description: 
+      Languages:
+      - 60
+      - 60
+      - 60
       - 
       - 
       Flags: 0000000000
@@ -4925,7 +5142,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'User Id: {0}'
+      - 'User Id: <color=#948bc4>{0}</color> '
       - "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F:
         {0}"
@@ -12668,6 +12885,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
@@ -16359,7 +16587,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1679323815258
+    Google_LastUpdatedVersion: 1679568951162
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

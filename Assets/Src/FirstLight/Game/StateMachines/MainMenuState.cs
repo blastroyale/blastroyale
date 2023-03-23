@@ -27,29 +27,19 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
 		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
 		public static readonly IStatechartEvent PlayClickedEvent = new StatechartEvent("Play Clicked Event");
+		public static readonly IStatechartEvent BattlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 
+		private readonly IStatechartEvent _settingsMenuClickedEvent = new StatechartEvent("Settings Menu Button Clicked Event");
 
-		private readonly IStatechartEvent _settingsMenuClickedEvent =
-			new StatechartEvent("Settings Menu Button Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateClickedEvent =
-			new StatechartEvent("Room Join Create Button Clicked Event");
-
+		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
-
 		private readonly IStatechartEvent _equipmentClickedEvent = new StatechartEvent("Equipment Clicked Event");
 		private readonly IStatechartEvent _collectionClickedEvent = new StatechartEvent("Collection Clicked Event");
-
-		private readonly IStatechartEvent _gameModeSelectedFinishedEvent =
-			new StatechartEvent("Game Mode Selected Finished Event");
-
+		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
-		private readonly IStatechartEvent _battlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
-
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent =
-			new StatechartEvent("Room Join Create Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
@@ -151,7 +141,7 @@ namespace FirstLight.Game.StateMachines
 
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
-			homeCheck.Transition().Condition(HasNotCompletedEquipmentTutorial).Target(enterNameDialog);
+			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
 
@@ -163,7 +153,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
-			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
+			homeMenu.Event(BattlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
@@ -197,6 +187,7 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeCheck);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 
+			enterNameDialog.OnEnter(RequestStartMetaMatchTutorial);
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 
 			brokenItems.OnEnter(OpenBrokenItemsPopUp);
@@ -240,10 +231,12 @@ namespace FirstLight.Game.StateMachines
 				string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
-		private bool HasNotCompletedEquipmentTutorial()
+		private bool MetaTutorialConditionsCheck()
 		{
-			return FeatureFlags.TUTORIAL &&
-				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH);
+			// If meta/match tutorial not completed, and tutorial not running
+			return FeatureFlags.TUTORIAL && 
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
+				!_services.TutorialService.IsTutorialRunning;
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -494,7 +487,7 @@ namespace FirstLight.Game.StateMachines
 				OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
-				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),
+				OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 				OnDiscordClicked = DiscordButtonClicked,
 				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage
@@ -546,6 +539,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
 		}
+		
+		private void RequestStartMetaMatchTutorial()
+		{
+			if (FeatureFlags.TUTORIAL)
+			{
+				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
+			}
+		}
 
 		private async void LoadMainMenu()
 		{
@@ -564,11 +565,6 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
 
 			uiVfxService.Init(_uiService);
-
-			if (FeatureFlags.TUTORIAL)
-			{
-				_services.MessageBrokerService.Publish(new RequestStartMetaMatchTutorialMessage());
-			}
 
 			_statechartTrigger(MainMenuLoadedEvent);
 		}

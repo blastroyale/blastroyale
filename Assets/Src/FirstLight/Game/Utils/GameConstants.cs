@@ -306,9 +306,14 @@ namespace FirstLight.Game.Utils
 			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
 
-			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
-			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
-
+			public const int TIME_250MS = 250;
+			public const int TIME_500MS = 500;
+			public const int TIME_750MS = 750;
+			public const int TIME_1000MS = 1000;
+			public const int TIME_1250MS = 1250;
+			
+			public const int TIME_HIGHLIGHT_FADE = 450;
+			
 			public const string TAG_INDICATORS = "GroundIndicator";
 			public const string TAG_GUIDE_UI = "GuideUiTarget";
 			

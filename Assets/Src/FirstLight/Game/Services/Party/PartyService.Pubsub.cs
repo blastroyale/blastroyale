@@ -41,8 +41,8 @@ namespace FirstLight.Game.Services.Party
 			// play lost party while was disconnected
 			if (!HasParty.Value)
 			{
-				// TODO MOVE THIS TO A MESSAGE BUS OR AN EVENT
-				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, ScriptLocalization.UITSquads.timeout, true, new GenericDialogButton());
+				// TODO: Translation
+				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton());
 			}
 			else
 			{

@@ -16,6 +16,7 @@
                 </ui:VisualElement>
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="GameplayInfo" localization-key="UITBattlePass/play_games_info" class="season-info__label" />
             </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
         </ui:VisualElement>
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />

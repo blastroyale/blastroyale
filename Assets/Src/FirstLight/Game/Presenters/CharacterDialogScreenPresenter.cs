@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 		private const string BUBBLE_TOP = "bubble--top";
 		private const string BUBBLE_CENTER = "bubble--center";
 		
-		private const string LOC_TEXT_RIGHT = "bubble__localized-text__right";
+		private const string LOC_TEXT_RIGHT = "bubble__text--right";
 
 		private const int SCALE_DURATION_MS = 250;
 		private const int SCALE_BUMP_DURATION_MS = 150;
@@ -162,8 +162,8 @@ namespace FirstLight.Game.Presenters
 			if (position is CharacterDialogPosition.TopRight or CharacterDialogPosition.BottomRight)
 			{
 				_characters[character][3].AddToClassList(CHARACTER_RIGHT);
-				_characters[character][1].AddToClassList(BUBBLE_RIGHT);
 				_characters[character][2].AddToClassList(LOC_TEXT_RIGHT);
+				_characters[character][1].AddToClassList(BUBBLE_RIGHT);
 			}
 			else if (position is CharacterDialogPosition.TopLeft or CharacterDialogPosition.BottomLeft)
 			{

@@ -257,7 +257,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void OnBattlePassEnter()
 		{
-			_dialogUi.ContinueDialog("AIGHT, LET'S CLAIM SOME REWARDS", CharacterType.Female, CharacterDialogMoodType.Happy);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.lets_claim_rewards, CharacterType.Female, CharacterDialogMoodType.Happy);
 			
 			// Wait a bit until home screen completely uncovers, and we get BP rewards
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
@@ -279,7 +279,7 @@ namespace FirstLight.Game.StateMachines
 			// Wait a bit until home screen completely uncovers, and we get BP rewards
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
-			_dialogUi.ShowDialog("CLAIM THIS REWARD IDIOT!", CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.click_to_claim_reward, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			
 			_tutorialUtilsUi.Unblock();
 			_services.GameUiService.GetUi<BattlePassScreenPresenter>().EnableFullScreenClaim(true);
@@ -312,7 +312,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			
-			_dialogUi.ShowDialog("LET'S EQUIP THE NEW WEAPON", CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopRight);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_equip_new_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopRight);
 
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("button-with-icon--equipment");
@@ -327,7 +327,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void OnClickWeaponCategoryEnter()
 		{
-			_dialogUi.ContinueDialog("CLICK ON THE WEAPON CATEGORY", CharacterType.Female, CharacterDialogMoodType.Happy);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.click_on_category, CharacterType.Female, CharacterDialogMoodType.Happy);
 			
 			await Task.Delay(GameConstants.Tutorial.TIME_750MS);
 			
@@ -344,7 +344,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void OnSelectWeaponEnter()
 		{
-			_dialogUi.ContinueDialog("SELECT WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Happy);
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.select_weapon, CharacterType.Female, CharacterDialogMoodType.Happy);
 			
 			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
 			
@@ -364,7 +364,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
 			
-			_dialogUi.ShowDialog("EQUIP WEAPON PLEASE", CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.equip_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
 
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>(null,"EquipButton");

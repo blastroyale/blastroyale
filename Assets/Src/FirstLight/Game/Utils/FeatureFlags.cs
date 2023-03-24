@@ -28,7 +28,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial should be skipped
 		/// </summary>
-		public bool DisableTutorial = false;
+		public bool DisableTutorial = true;
 
 		/// <summary>
 		/// Which environment to connect
@@ -96,7 +96,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
-		public static bool TUTORIAL = true;
+		public static bool TUTORIAL = false;
 		
 		/// <summary>
 		/// If the tutorial is active, useful for testing
@@ -106,7 +106,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
-		public static bool TUTORIAL_BATTLE_PASS = true;
+		public static bool TUTORIAL_BATTLE_PASS = false;
 
 		/// <summary>
 		/// If the squads button is enabled in the UI

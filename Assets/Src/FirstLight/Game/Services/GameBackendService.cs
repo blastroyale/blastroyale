@@ -404,7 +404,7 @@ namespace FirstLight.Game.Services
 					_services.QuitGame(descriptiveError);
 				},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
+					Text = I2.Loc.ScriptLocalization.MainMenu.QuitGameButton
 			});
 #endif
 		}

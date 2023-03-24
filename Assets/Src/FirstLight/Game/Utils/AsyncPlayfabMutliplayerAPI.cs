@@ -117,18 +117,30 @@ namespace FirstLight.Game.Utils
 
 		private static string ErrorMessage(PlayFabError error)
 		{
+			if (error == null) return "";
 			var str = new StringBuilder();
-			str.Append(error.Error);
-			str.Append(" - ");
-			str.Append(error.ErrorMessage);
+			if (string.IsNullOrEmpty(error.ErrorMessage))
+			{
+				str.Append("Unknown error message status code ");
+				str.Append(error.HttpStatus);
+			}
+			else
+			{
+				str.Append(error.Error);
+				str.Append(" - ");
+				str.Append(error.ErrorMessage);
+			}
+
+			str.AppendLine();
+
 			if (error.ApiEndpoint != null)
 			{
 				str.Append("At ").AppendLine(error.ApiEndpoint);
 			}
 
-			if (error.ErrorDetails?.Count == 0) return str.ToString();
+			if (error.ErrorDetails == null || error.ErrorDetails.Count == 0) return str.ToString();
 
-			foreach (var pair in error.ErrorDetails!)
+			foreach (var pair in error.ErrorDetails)
 			{
 				foreach (var msg in pair.Value)
 				{

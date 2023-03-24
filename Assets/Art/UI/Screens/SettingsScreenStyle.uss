@@ -69,7 +69,6 @@
     color: rgb(149, 139, 196);
 }
 
-
 .divider {
     flex-grow: 1;
 }
@@ -183,4 +182,27 @@
 .settings-tab-button.unity-tab-button--active .unity-tab-button__top-bar {
     display: flex;
     background-color: rgba(0, 0, 0, 0);
+}
+
+.settings-radio-button {
+    color: white;
+    display: flex;
+    visibility: visible;
+}
+
+.settings-radio-button .unity-radio-button__checkmark-background {
+    background-image: var(--sprite-home__settings-dot);
+    height: 44px;
+    width: 44px;
+}
+
+.settings-radio-button .unity-radio-button__checkmark {
+    background-image: var(--sprite-home__settings-tab-chosen);
+}
+
+.settings-radio-button-group {
+}
+
+.settings-radio-button .unity-radio-button__label{
+    visibility: visible;
 }

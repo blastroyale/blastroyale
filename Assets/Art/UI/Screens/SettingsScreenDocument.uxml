@@ -3,33 +3,26 @@
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
-            <ui:VisualElement name="SettingsPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" style="height: 80px; justify-content: center; -unity-text-align: middle-center; align-items: center; white-space: normal; width: 1473px; font-size: 38px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&amp;guid=2d6c823359e264eac88204c4e1664c4c&amp;type=3#header-popup-equipment&apos;);" />
+            <ui:VisualElement name="SettingsPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl" style="width: 1847px; height: 980px;">
+                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" style="height: 80px; justify-content: center; -unity-text-align: middle-center; align-items: center; white-space: normal; width: 1743px; font-size: 38px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&amp;guid=2d6c823359e264eac88204c4e1664c4c&amp;type=3#header-popup-equipment&apos;);" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close sfx-click-forwards" />
                 <ui:VisualElement name="Content" class="equipment-popup__content" style="left: 2px; right: 10px; top: 86px; bottom: 0; align-items: center;">
-                    <TabbedView class="settings-tabbed-view">
+                    <TabbedView class="settings-tabbed-view" style="display: flex;">
                         <TabButton target="Sound" focusable="true" text="SOUND" class="settings-tab-button" />
                         <TabButton target="Graphics" focusable="true" text="GRAPHICS" class="settings-tab-button" style="background-color: rgba(0, 0, 0, 0);" />
                         <TabButton target="Controls" focusable="true" text="CONTROLS" class="settings-tab-button" style="background-color: rgba(0, 0, 0, 0);" />
                         <TabButton target="Account" focusable="true" text="ACCOUNT" class="settings-tab-button" style="background-color: rgba(0, 0, 0, 0);" />
-                        <ui:VisualElement name="Sound" class="settings-container">
+                        <ui:VisualElement name="Sound" class="settings-container" style="display: none;">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="Graphics" class="settings-container">
+                        <ui:VisualElement name="Graphics" class="settings-container" style="height: 550px; justify-content: space-between; background-image: none;">
                             <ui:VisualElement name="FPSContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 174px;">
                                 <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/fps" name="FPSLabel" style="-unity-text-align: middle-center; height: 50px;" />
-                                <ui:VisualElement name="FPSBlock" style="height: 100px; flex-direction: row; justify-content: center;">
-                                    <ui:VisualElement name="30FPSBlock" style="width: 300px; height: 120px; -unity-text-align: lower-left; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
-                                        <ui:Button focusable="true" name="30RadioButton" class="sfx-click-forwards" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;); display: flex; -unity-text-outline-color: rgb(0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
-                                        <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/thirty" name="30FPSLabel" style="-unity-text-align: upper-center;" />
-                                    </ui:VisualElement>
-                                    <ui:VisualElement name="60FPSBlock" style="width: 300px; height: 120px; -unity-text-align: lower-left; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
-                                        <ui:Button focusable="true" name="60RadioButton" class="sfx-click-forwards" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;); display: flex; -unity-text-outline-color: rgb(0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
-                                        <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/sixty" name="60FPSLabel" style="-unity-text-align: upper-center;" />
-                                    </ui:VisualElement>
-                                </ui:VisualElement>
+                                <ui:LocalizedRadioButtonGroup value="-1" class="settings-radio-button-group">
+                                    <ui:RadioButton label="Radio Button" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
+                                </ui:LocalizedRadioButtonGroup>
                             </ui:VisualElement>
                             <ui:VisualElement name="GraphicsQualityContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 266px;">
                                 <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/graphics_quality" name="GraphicsQualityLabel" style="-unity-text-align: middle-center; height: 120px;" />
@@ -49,7 +42,7 @@
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="Controls" class="settings-container">
+                        <ui:VisualElement name="Controls" class="settings-container" style="display: flex;">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
                         </ui:VisualElement>

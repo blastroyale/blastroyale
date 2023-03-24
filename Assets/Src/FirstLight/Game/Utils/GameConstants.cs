@@ -310,7 +310,7 @@ namespace FirstLight.Game.Utils
 			public const int TIME_500MS = 500;
 			public const int TIME_750MS = 750;
 			public const int TIME_1000MS = 1000;
-			public const int TIME_1250MS = 1250;
+			public const int TIME_4000MS = 4000;
 			
 			public const int TIME_HIGHLIGHT_FADE = 450;
 			

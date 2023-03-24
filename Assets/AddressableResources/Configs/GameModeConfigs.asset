@@ -250,7 +250,7 @@ MonoBehaviour:
       SpawnWithWeapon: 0
       SkydiveSpawn: 1
       SpawnSelection: 1
-      SpawnPattern: 1
+      SpawnPattern: 0
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0

@@ -3,15 +3,6 @@
 trigger: none
 pr: none
 resources:
-  pipelines:
-  - pipeline: build
-    source: 'Game Logic Service CI'
-    trigger:
-      branches:
-        include:
-        - 'develop'
-        - 'release/*'
-        - 'master'
   repositories:
   - repository: templates
     type: git

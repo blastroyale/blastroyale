@@ -46,6 +46,12 @@ synced event OnPlayerDead
 	entity_ref Entity;
 	entity_ref EntityKiller;
 	bool IsPlayerKiller;
+	EquipmentEventData EquipmentData;
+}
+
+struct EquipmentEventData {
+    array<Equipment>[MAX_GEAR] Gear;
+    Equipment CurrentWeapon;
 }
 
 synced event OnPlayerEmojiSent
@@ -131,7 +137,7 @@ synced event OnPlayerAttack
 	FP AttackRange;
 }
 
-synced event OnPlayerDamaged
+synced event OnEntityDamaged
 {
 	player_ref Player;
 	Spell Spell;

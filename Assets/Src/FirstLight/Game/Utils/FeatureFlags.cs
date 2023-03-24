@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using UnityEngine;
@@ -23,6 +24,26 @@ namespace FirstLight.Game.Utils
 		/// To use local configurations as opposed to remote configurations.
 		/// </summary>
 		public bool UseLocalConfigs = false;
+
+		/// <summary>
+		/// If the tutorial should be skipped
+		/// </summary>
+		public bool DisableTutorial = false;	
+		
+		/// <summary>
+		/// If we should consider if the player has NFTs even if he doens't
+		/// </summary>
+		public bool ForceHasNfts = false;
+		
+		/// <summary>
+		/// If we ignore equipment requirement to play ranked games
+		/// </summary>
+		public bool IgnoreEquipmentRequirementForRanked = false;
+
+		/// <summary>
+		/// Which environment to connect
+		/// </summary>
+		public Environment EnvironmentOverride = Environment.DEV;
 	}
 	
 	
@@ -33,12 +54,6 @@ namespace FirstLight.Game.Utils
 	public static class FeatureFlags
 	{
 		private static LocalFeatureFlagConfig _localConfig = null;
-		
-		/// <summary>
-		/// If true will use email/pass authentication.
-		/// If false will only use device id authentication.
-		/// </summary>
-		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit
@@ -82,58 +97,93 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool SQUAD_PINGS = true;
+		
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool TUTORIAL = true;
+		
+		/// <summary>
+		/// If the tutorial is active, useful for testing
+		/// </summary>
+		public static bool ALLOW_SKIP_TUTORIAL = true;
+		
+		/// <summary>
+		/// If should have specific tutorial battle pass for newbies
+		/// </summary>
+		public static bool TUTORIAL_BATTLE_PASS = true;
 
+		/// <summary>
+		/// If the squads button is enabled in the UI
+		/// </summary>
+		public static bool DISPLAY_SQUADS_BUTTON = true;
+		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
 		/// </summary>
-		public static void ParseFlags(Dictionary<string, string> titleData)
+		public static void ParseFlags(Dictionary<string, string> overrideData)
 		{
-			if (TrySetFlag("QUANTUM_CUSTOM_SERVER", titleData, out var customServer))
+			if (TrySetFlag("QUANTUM_CUSTOM_SERVER", overrideData, out var customServer))
 			{
 				QUANTUM_CUSTOM_SERVER = customServer;
 			}
 
-			if (TrySetFlag("COMMIT_VERSION_LOCK", titleData, out var commitVersionLock))
+			if (TrySetFlag("COMMIT_VERSION_LOCK", overrideData, out var commitVersionLock))
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
 			
-			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
+			if (TrySetFlag("REMOTE_CONFIGURATION", overrideData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
 			}
 			
-			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
+			if (TrySetFlag("FORCE_RANKED", overrideData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
 			}
 			
-			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", titleData, out var itemDurabilityNonNFTs))
+			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
 				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
 			}
 			
-			if (TrySetFlag("ITEM_DURABILITY_NFTS", titleData, out var itemDurabilityNFTs))
+			if (TrySetFlag("ITEM_DURABILITY_NFTS", overrideData, out var itemDurabilityNFTs))
 			{
 				ITEM_DURABILITY_NFTS = itemDurabilityNFTs;
 			}
 			
-			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))
+			if (TrySetFlag("STORE_ENABLED", overrideData, out var storeEnabled))
 			{
 				STORE_ENABLED = storeEnabled;
 			}
 			
-			if (TrySetFlag("DESYNC_DETECTION", titleData, out var desyncDetection))
+			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
+
+			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
+			{
+				SQUAD_PINGS = squadPings;
+			}
 			
-#if LIVE_SERVER && !STORE_BUILD
-			STORE_ENABLED = false;
-#endif
-			ParseLocalFeatureFlags();
+			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
+			{
+				TUTORIAL = tutorial;
+			}
+			
+			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
+			{
+				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
+			}
 		}
 
 		/// <summary>
@@ -149,6 +199,11 @@ namespace FirstLight.Game.Utils
 			if (_localConfig.UseLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
+			}
+
+			if (_localConfig.DisableTutorial)
+			{
+				TUTORIAL = false;
 			}
 		}
 

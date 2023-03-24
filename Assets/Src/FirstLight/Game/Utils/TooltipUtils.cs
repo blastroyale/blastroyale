@@ -48,6 +48,19 @@ namespace FirstLight.Game.Utils
 				tooltip.Add(label);
 			}
 		}
+		
+		/// <summary>
+		/// Opens a tooltip with a string content.
+		/// </summary>
+		public static void OpenTooltip(this VisualElement element, VisualElement root, VisualElement content,
+									   TooltipDirection direction = TooltipDirection.TopRight,
+									   TooltipPosition position = TooltipPosition.BottomLeft,
+									   int offsetX = 0, int offsetY = 0)
+
+		{
+			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+			tooltip.Add(content);
+		}
 
 		/// <summary>
 		/// Opens a tooltip with any custom VisualElement content.
@@ -77,6 +90,7 @@ namespace FirstLight.Game.Utils
 				var pos = position switch
 				{
 					TooltipPosition.Center => elBound.position + new Vector2(elBound.width / 2f, -elBound.height / 2f),
+					TooltipPosition.CenterLeft => elBound.position + new Vector2(0f, -elBound.height / 2f),
 					TooltipPosition.TopLeft => elBound.position + new Vector2(0f, -elBound.height),
 					TooltipPosition.TopRight => elBound.position + new Vector2(elBound.width, -elBound.height),
 					TooltipPosition.BottomLeft => elBound.position,
@@ -122,6 +136,7 @@ namespace FirstLight.Game.Utils
 	public enum TooltipPosition
 	{
 		Center,
+		CenterLeft,
 		TopLeft,
 		TopRight,
 		BottomLeft,

@@ -7,6 +7,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Quantum;
@@ -78,6 +79,11 @@ namespace FirstLight.Game.Logic
 		/// <see cref="UnclaimedRewards"/> list.
 		/// </summary>
 		bool HasUnclaimedPurchases();
+		
+		/// <summary>
+		/// Obtains the rewards for a given tutorial step
+		/// </summary>
+		List<ItemData> GetRewardsFromTutorial(TutorialSection section);
 	}
 
 	/// <inheritdoc />
@@ -105,6 +111,12 @@ namespace FirstLight.Game.Logic
 		/// adds it on it's end).
 		/// </summary>
 		void AddIAPReward(RewardData reward);
+
+		/// <summary>
+		/// Generic item handler to give items to player as rewards
+		/// </summary>
+		/// <param name="items"></param>
+		void GiveItems(List<ItemData> items);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -125,6 +137,17 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
+		public void ReInit()
+		{
+			{
+				var listeners = _unclaimedRewards.GetObservers();
+				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
+				_unclaimedRewards.AddObservers(listeners);
+			}
+			
+			_unclaimedRewards.InvokeUpdate();
+		}
+
 		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
@@ -136,6 +159,11 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
+			var gameModeConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
+			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
+			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
+			
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
@@ -143,17 +171,19 @@ namespace FirstLight.Game.Logic
 			                                     .OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
 			
-			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
-			var rankValue = Math.Min(1 + Math.Floor(30 / (double)(source.GamePlayerCount - 1) * (localMatchData.PlayerRank - 1)), 30);
+			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
+			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
+			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
+			var rankValue = (int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
-				if (rankValue > config.Placement)
+				if (teamSize == config.TeamSize && rankValue > config.Placement)
 				{
 					break;
 				}
 
-				if (config.Placement == rankValue)
+				if (config.Placement == rankValue && config.TeamSize == teamSize)
 				{
 					rewardConfig = config;
 					break;
@@ -274,6 +304,66 @@ namespace FirstLight.Game.Logic
 			Data.UncollectedRewards.Add(reward);
 		}
 
+		public void GiveItems(List<ItemData> items)
+		{
+			foreach (var item in items)
+			{
+				if (item.ItemObject is Equipment eq)
+				{
+					GameLogic.EquipmentLogic.AddToInventory(eq);
+				}
+				else
+				{
+					_unclaimedRewards.Add(new RewardData()
+					{
+						Value = item.Amount,
+						RewardId = item.Id
+					});
+				}
+			}
+		}
+
+		public List<ItemData> GetRewardsFromTutorial(TutorialSection section)
+		{
+			var rewards = new List<ItemData>();
+			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
+			var tutorialRewardsCount = tutorialRewardsCfg.Count(c => c.Section == section);
+
+			// Omit rest of calculations if the tutorial doesn't have any rewards to give
+			if (tutorialRewardsCount == 0) return rewards;
+			
+			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint)c.Id));
+			
+			foreach (var rewardConfig in rewardsConfigs)
+			{
+				if (rewardConfig.IsEquipment())
+				{
+					var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(rewardConfig);
+					rewards.Add(new ItemData()
+					{
+						Amount = rewardConfig.Amount,
+						Id = equipment.GameId,
+						ItemObject = equipment
+					});
+				}
+				else
+				{
+					// We always want to give a set amount of BPP only to complete first BP level during tutorial
+					var finalAmount = section == TutorialSection.FIRST_GUIDE_MATCH && rewardConfig.GameId == GameId.BPP
+						? (int) GameLogic.BattlePassLogic.GetRequiredPointsForLevel()
+						: rewardConfig.Amount;
+					
+					rewards.Add(new ItemData()
+					{
+						Amount = finalAmount,
+						Id = rewardConfig.GameId,
+					});
+				}
+			}
+			return rewards;
+		}
+
 		private RewardData ClaimReward(RewardData reward)
 		{
 			if (reward.RewardId == GameId.XP)
@@ -335,7 +425,7 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
+				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPointsOfBp();
 
 				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
 

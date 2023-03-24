@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -98,15 +100,49 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 		[MenuItem("FLG/Cheats/Skip Tutorial Step %o")]
-		private static void SkipTutorialStep()
+		private static void SkipTutorialSection()
 		{
-			SROptions.Current.SkipTutorialStep();
+			SROptions.Current.SkipTutorialSection();
+		}
+		
+		[MenuItem("FLG/Backend/Netcode/Simulate Disconnection")]
+		private static void SimulateDisconnection()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 100;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 100;
+			client.LoadBalancingPeer.IsSimulationEnabled = true;
+		}
+		
+		[MenuItem("FLG/Backend/Netcode/Simulate Lag")]
+		private static void SimulateLag()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.NetworkSimulationSettings.IncomingLossPercentage = 25;
+			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 25;
+			client.LoadBalancingPeer.IsSimulationEnabled = true;
+		}
+		
+		[MenuItem("FLG/Backend/Netcode/Normal Internet")]
+		private static void Normal()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.LoadBalancingPeer.IsSimulationEnabled = false;
+		}
+
+		[MenuItem("FLG/Cheats/Disconnect")]
+		private static void Disconnect()
+		{
+			var client = MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient;
+			client.Disconnect();
 		}
 #endif
 		private static string GetScenePath(string scene)
 		{
 			return AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"t:scene {scene}")[0]);
 		}
+		
+		
 
 		[MenuItem("FLG/Art/Merge Colliders %#m")]
 		private static void MergeColliders()
@@ -294,6 +330,7 @@ namespace FirstLight.Editor.EditorTools
 				Debug.Log($"USS processed: {grouping.Key}");
 			}
 
+			EditorUtility.UnloadUnusedAssetsImmediate();
 			Debug.Log($"Sprite USS generation finished.");
 		}
 
@@ -338,8 +375,16 @@ namespace FirstLight.Editor.EditorTools
 				}
 				else
 				{
+					var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+					if (sprite == null)
+					{
+						throw new NotSupportedException($"Found a file that isn't a sprite: {path}");
+					}
+					
 					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
+					sb.AppendLine($"    width: {sprite.texture.width}px;");
+					sb.AppendLine($"    height: {sprite.texture.height}px;");
 					sb.AppendLine("}");
 				}
 

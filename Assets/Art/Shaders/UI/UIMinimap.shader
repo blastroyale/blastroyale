@@ -13,10 +13,15 @@ Shader "Custom/UI/Minimap"
         _DangerAreaColor ("Danger Area Color", Color) = (1,1,1,1)
         _DangerRingColor ("Danger Ring Color", Color) = (1,1,1,1)
         _OuterRingColor ("Outer Ring Color", Color) = (1,1,1,1)
-        _PlayersColor ("Players Color", Color) = (1,0,1,1)
+        _EnemiesColor ("Enemies Color", Color) = (1,0,1,1)
+        _FriendliesColor ("Friendlies Color", Color) = (1,0,1,1)
         _PlayersOutlineColor ("Players Outline Color", Color) = (1,0,1,1)
+        _PingColor ("Ping Color", Color) = (0,0,1,1)
+        _PingProgress ("Ping Progress", Float) = 1
 
         _PlayersSize("Players Size", Float) = 0.01
+        _PingSize("Ping Size", Float) = 0.01
+        _PingWidth("Ping Width", Float) = 0.1
         _SafeAreaSize ("Safe Area Size", Float) = 1
         _SafeAreaOffset("Safe Area Offset", Vector) = (0,0,0,0)
         _DangerAreaSize ("Danger Area Size", Float) = 1
@@ -70,8 +75,6 @@ Shader "Custom/UI/Minimap"
             #include "UnityCG.cginc"
             #include "UIShaderShared.cginc"
 
-            #pragma multi_compile _ MINIMAP_DRAW_PLAYERS
-
             struct appdata_t
             {
                 float4 vertex : POSITION;
@@ -113,14 +116,21 @@ Shader "Custom/UI/Minimap"
             fixed4 _DangerAreaColor;
             fixed4 _DangerRingColor;
             fixed4 _OuterRingColor;
-            fixed4 _PlayersColor;
+            fixed4 _EnemiesColor;
+            fixed4 _FriendliesColor;
             fixed4 _PlayersOutlineColor;
+            fixed4 _PingColor;
 
-            #ifdef MINIMAP_DRAW_PLAYERS
-            int _PlayersCount = 0;
-            float4 _Players[30];
-            float _PlayersOpacity;
-            #endif
+            int _EnemiesCount = 0;
+            float4 _Enemies[30];
+            int _FriendliesCount = 0;
+            float4 _Friendlies[30];
+            float _EnemiesOpacity;
+
+            float _PingSize;
+            float _PingWidth;
+            float4 _PingPosition;
+            float _PingProgress;
 
             v2f vert(appdata_t v)
             {
@@ -175,17 +185,34 @@ Shader "Custom/UI/Minimap"
                 color = color * (1 - dangerCircle) + _DangerRingColor * dangerCircle;
 
                 // Draw player circles
-                #ifdef MINIMAP_DRAW_PLAYERS
-                for (int i = 0; i < _PlayersCount; i++)
+                for (int i = 0; i < _EnemiesCount; i++)
                 {
-                    const float2 playerPos = stMod - _Players[i];
-                    const float playerCircle = circle(playerPos, _PlayersSize) * _PlayersOpacity;
-                    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15) * _PlayersOpacity;
+                    const float2 playerPos = stMod - _Enemies[i];
+                    const float playerCircle = circle(playerPos, _PlayersSize) * _EnemiesOpacity;
+                    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15) * _EnemiesOpacity;
 
                     color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
-                    color = color * (1 - playerCircle) + playerCircle * _PlayersColor; 
+                    color = color * (1 - playerCircle) + playerCircle * _EnemiesColor;
                 }
-                #endif
+
+                for (int i = 0; i < _FriendliesCount; i++)
+                {
+                    const float2 playerPos = stMod - _Friendlies[i];
+                    const float playerCircle = circle(playerPos, _PlayersSize);
+                    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15);
+
+                    color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
+                    color = color * (1 - playerCircle) + playerCircle * _FriendliesColor;
+                }
+
+                // Draw Ping ring
+                const float2 pingPos = stMod - _PingPosition;
+                const float progressCubic = _PingProgress * _PingProgress; // This is the easeOutCubic of _PingProgress, for the size
+                const float progressQuint = progressCubic * _PingProgress * _PingProgress *
+                    _PingProgress; // This is the easeOutQuint of _PingProgress, for the "alpha"
+                const float pingRing = circle(pingPos, _PingSize * progressCubic) - circle(
+                    pingPos, _PingSize * progressCubic - _PingWidth);
+                color = (color * (1 - pingRing) + _PingColor * pingRing) * (1 - progressQuint) + color * progressQuint;
 
                 // Draw outer ring
                 const float outerRing = circle(st, 1) - circle(st, 1.0 - _OuterRindWidth);

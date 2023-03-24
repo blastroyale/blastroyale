@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
@@ -42,7 +42,7 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0" />
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
@@ -77,6 +77,7 @@
     <Compile Include="AI\Actions\PlayerMoveAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
+    <Compile Include="AI\Decisions\HFSM.CheckFiringMode.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckIntDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckFPDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />
@@ -200,8 +201,10 @@
     <Compile Include="Commands\PlayerQuitCommand.cs" />
     <Compile Include="Commands\PlayerRespawnCommand.cs" />
     <Compile Include="Commands\SpecialUsedCommand.cs" />
+    <Compile Include="Commands\TeamPositionPingCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\AirDrop.cs" />
+    <Compile Include="Components\ChestOverride.cs" />
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
@@ -265,6 +268,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
+    <Compile Include="Systems\CommandsSystem.cs" />
+    <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
@@ -288,10 +293,11 @@
     <Compile Include="Systems\NavMeshAgentSystem.cs" />
     <Compile Include="Systems\PlayerCharacterSystem.cs" />
     <Compile Include="Systems\AiSystem.cs" />
-    <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
+    <Compile Include="Systems\TriggerSystem.cs" />
     <Compile Include="Utils\BitUtil.cs" />
+    <Compile Include="Utils\DebugExtensions.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />
@@ -313,6 +319,7 @@
     <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
+    <Content Include="Components\Gates.qtn" />
     <Content Include="Components\RaycastShots.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />
@@ -331,10 +338,12 @@
     <Content Include="Components\PlayerCharacter.qtn" />
     <Content Include="Components\Specials.qtn" />
     <Content Include="Components\Spell.qtn" />
+    <Content Include="Components\Team.qtn" />
     <Content Include="Components\Stats.qtn" />
     <Content Include="Components\StatusModifiers.qtn" />
     <Content Include="Components\Targetable.qtn" />
     <Content Include="Components\EquipmentCollectable.qtn" />
+    <Content Include="Components\Triggers.qtn" />
     <Content Include="Components\WeaponDropPool.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
@@ -343,6 +352,9 @@
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\ChestOverride.qtn" />
   </ItemGroup>
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
     <PropertyGroup>

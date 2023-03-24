@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -23,7 +21,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnDestructibleScheduled>(this, HandleDestructionScheduled);
-			QuantumEvent.Subscribe<EventOnProjectileTargetableHit>(this, HandleProjectileHit);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, HandleProjectileHit);
 		}
 		
 		protected override void OnInit(QuantumGame game)
@@ -37,15 +35,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				StartDestruction(lifetime.AsFloat, destructible.SplashRadius.AsFloat);
 			}
 			
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
+			//EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 		}
 
 		private void OnEntityDestroyed(QuantumGame game)
 		{
-			transform.parent = null;
+			//transform.parent = null;
 		}
 
-		private void HandleProjectileHit(EventOnProjectileTargetableHit callback)
+		private void HandleProjectileHit(EventOnPlayerAttackHit callback)
 		{
 			if (callback.HitEntity != EntityRef)
 			{

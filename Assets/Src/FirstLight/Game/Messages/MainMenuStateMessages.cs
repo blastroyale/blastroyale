@@ -7,6 +7,13 @@ namespace FirstLight.Game.Messages
 {
 	public struct MainMenuOpenedMessage : IMessage { }
 	public struct PlayScreenOpenedMessage : IMessage { }
+	public struct ShopScreenOpenedMessage : IMessage { }
+	public struct SkinsScreenOpenedMessage : IMessage { }
+	public struct EquipmentScreenOpenedMessage : IMessage { }
+	public struct EquipmentSlotOpenedMessage : IMessage
+	{
+		public GameIdGroup Slot;
+	}
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage
 	{
@@ -22,6 +29,7 @@ namespace FirstLight.Game.Messages
 	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
+	public struct MatchmakingCancelMessage : IMessage { }
 	public struct SelectedGameModeMessage : IMessage { }
 	public struct PlayMapClickedMessage : IMessage
 	{
@@ -34,5 +42,10 @@ namespace FirstLight.Game.Messages
 		public QuantumMapConfig MapConfig;
 		public CustomGameOptions CustomGameOptions;
 		public bool JoinIfExists;
+	}
+
+	public struct ReinitializeMenuViewsMessage : IMessage
+	{
+		
 	}
 }

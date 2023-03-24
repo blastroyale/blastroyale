@@ -5,6 +5,13 @@ using Photon.Deterministic;
 namespace Quantum
 {
 	[Serializable]
+	public struct QuantumChestRarityModifierEntry
+	{
+		public FP Chance;
+		public ChestType NewType;
+	}
+
+	[Serializable]
 	public partial struct QuantumChestConfig
 	{
 		public GameId Id;
@@ -16,6 +23,8 @@ namespace Quantum
 		public List<QuantumPair<FP, uint>> LargeConsumable;
 
 		public QuantumPair<int, int> DropFromPlayerBasedOnItemsRange;
+
+		public QuantumGameModePair<List<QuantumChestRarityModifierEntry>> ChestTypeModifiers;
 	}
 
 	/// <summary>
@@ -51,31 +60,42 @@ namespace Quantum
 		/// </summary>
 		public QuantumChestConfig GetConfig(ChestType type)
 		{
-			return type switch
-			{
-				ChestType.Common => GetConfig(GameId.ChestCommon),
-				ChestType.Uncommon => GetConfig(GameId.ChestUncommon),
-				ChestType.Rare => GetConfig(GameId.ChestRare),
-				ChestType.Epic => GetConfig(GameId.ChestEpic),
-				ChestType.Legendary => GetConfig(GameId.ChestLegendary),
-				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-			};
+			return GetConfig(type.GameId());
 		}
 
 		public GameId CheckItemRange(int itemCount)
 		{
-			
-			for(var i = 0; i < QuantumConfigs.Count; i++)
+			for (var i = 0; i < QuantumConfigs.Count; i++)
 			{
 				var config = GetConfig(QuantumConfigs[i].Id);
 
 				if (itemCount >= config.DropFromPlayerBasedOnItemsRange.Value1 &&
-					itemCount <= config.DropFromPlayerBasedOnItemsRange.Value2)
+				    itemCount <= config.DropFromPlayerBasedOnItemsRange.Value2)
 				{
 					return config.Id;
 				}
 			}
+
 			throw new ArgumentOutOfRangeException(nameof(ChestType), itemCount, null);
+		}
+
+		public EquipmentRarity GetChestRarity(ChestType type)
+		{
+			switch (type)
+			{
+				case ChestType.Common:
+					return EquipmentRarity.Common;
+				case ChestType.Uncommon:
+					return EquipmentRarity.Uncommon;
+				case ChestType.Rare:
+					return EquipmentRarity.Rare;
+				case ChestType.Epic:
+					return EquipmentRarity.Epic;
+				case ChestType.Legendary:
+					return EquipmentRarity.Legendary;
+				default:
+					return EquipmentRarity.Common;
+			}
 		}
 	}
 }

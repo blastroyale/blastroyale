@@ -156,6 +156,11 @@ namespace FirstLight.UiService
 	{
 		public override void OnInspectorGUI()
 		{
+			if (!Application.isFocused || !Application.isPlaying)
+			{
+				return;
+			}
+			
 			DrawDefaultInspector();
 
 			if (GUILayout.Button("Update Anchored Data"))

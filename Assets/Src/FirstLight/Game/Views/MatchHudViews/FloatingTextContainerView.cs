@@ -63,7 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
-			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.Subscribe<EventOnEntityDamaged>(this, OnEntityDamaged);
 		}
 
 		private void OnDestroy()
@@ -138,11 +138,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			EnqueueText(callback.Entity, $"+{changeValue.ToString()}", _healthGainTextColor, MessageType.Info);
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
 			var player = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			
-			if (callback.TotalDamage == 0 || callback.Attacker != player && callback.Entity != player)
+
+			if (callback.TotalDamage == 0 || callback.Player != PlayerRef.None && 
+				callback.Attacker != player && callback.Entity != player)
 			{
 				return;
 			}

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using Backend;
+using Backend.Plugins;
 using ServerCommon.Cloudscript;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -19,6 +20,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using GameLogicService.Services;
 using StandaloneServer;
+using PluginManager = PlayFab.PluginManager;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.
 
@@ -37,7 +39,9 @@ builder.Services.AddSingleton<IServerMutex, NoMutex>();
 
 var app = builder.Build();
 
-app.Services.GetService < IConfigsProvider>();
+// Preloading configs and plugins
+app.Services.GetService<IConfigsProvider>();
+app.Services.GetService<IEventManager>();
 
 // Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.
 app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>

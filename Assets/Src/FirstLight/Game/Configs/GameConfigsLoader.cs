@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
@@ -35,7 +38,7 @@ namespace FirstLight.Game.Configs
 		{
 			_assetLoader = assetLoader;
 		}
-		
+
 		public IEnumerable<Task> LoadConfigTasks(IConfigsAdder configsAdder)
 		{
 			return new List<Task>
@@ -51,7 +54,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<ShrinkingCircleConfigs>(AddressableId.Configs_ShrinkingCircleConfigs, asset => configsAdder.AddConfigs(data => data.Step, asset.Configs)),
 				LoadConfig<ResourcePoolConfigs>(AddressableId.Configs_ResourcePoolConfigs, asset => configsAdder.AddConfigs(data => (int)data.Id, asset.Configs)),
 				LoadConfig<AudioWeaponConfigs>(AddressableId.Configs_AudioWeaponConfigs, asset => configsAdder.AddConfigs(data => (int)data.GameId, asset.Configs)),
-				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.Placement, asset.Configs)),
+				LoadConfig<MatchRewardConfigs>(AddressableId.Configs_MatchRewardConfigs, asset => configsAdder.AddConfigs(data => data.MatchRewardId, asset.Configs)),
 				LoadConfig<ChestConfigs>(AddressableId.Configs_ChestConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<EquipmentStatConfigs>(AddressableId.Configs_EquipmentStatConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
 				LoadConfig<EquipmentMaterialStatConfigs>(AddressableId.Configs_EquipmentMaterialStatConfigs, asset => configsAdder.AddConfigs(data => data.GetKey(), asset.Configs)),
@@ -59,18 +62,25 @@ namespace FirstLight.Game.Configs
 				LoadConfig<StatConfigs>(AddressableId.Configs_StatConfigs, asset => configsAdder.AddConfigs(data => (int) data.StatType, asset.Configs)),
 				LoadConfig<GraphicsConfig>(AddressableId.Configs_GraphicsConfig, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<BattlePassConfigs>(AddressableId.Configs_BattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<TutorialBattlePassConfigs>(AddressableId.Configs_TutorialBattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<EquipmentRewardConfigs>(AddressableId.Configs_EquipmentRewardConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<RarityDataConfigs>(AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Rarity, asset.Configs)),
 				LoadConfig<AdjectiveDataConfigs>(AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Adjective, asset.Configs)),
 				LoadConfig<GradeDataConfigs>(AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Grade, asset.Configs)),
-				LoadConfig<GameModeConfigs>(AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
+				LoadConfig<GameModeConfigs>(AddressableId.Configs_GameModeConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<GameModeRotationConfigs>(AddressableId.Configs_GameModeRotationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MutatorConfigs>(AddressableId.Configs_MutatorConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
 				LoadConfig<ScrapConfigs>(AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<UpgradeDataConfigs>(AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<RepairDataConfigs>(AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<LiveopsSegmentActionConfigs>(AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
+				LoadConfig<TutorialRewardConfigs>(AddressableId.Configs_TutorialRewardConfigs, asset => configsAdder.AddConfigs(data => (int)data.Section, asset.Configs)),
 			};
+		}
+
+		private bool ConfigComesFromServer<TContainer>()
+		{
+			return typeof(TContainer).CustomAttributes.Any(c => c.AttributeType == typeof(IgnoreServerSerialization));
 		}
 	
 		public async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete)

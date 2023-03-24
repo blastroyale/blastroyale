@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
 using Quantum;
@@ -12,7 +14,7 @@ namespace FirstLight.Game.Services
 	/// <summary>
 	/// Services that have the lifecycle of a single match, and can only be accessed during one.
 	/// </summary>
-	public interface IMatchServices : IDisposable
+	public interface  IMatchServices : IDisposable
 	{
 		/// <inheritdoc cref="ISpectateService"/>
 		public ISpectateService SpectateService { get; }
@@ -25,6 +27,8 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IMatchEndDataService"/>
 		public IMatchEndDataService MatchEndDataService { get; }
+		/// <inheritdoc cref="IMatchCameraService"/>
+		public IMatchCameraService MatchCameraService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -55,7 +59,7 @@ namespace FirstLight.Game.Services
 		private readonly List<IMatchService> _services = new();
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
-		
+
 		/// <inheritdoc />
 		public ISpectateService SpectateService { get; }
 		/// <inheritdoc />
@@ -64,8 +68,13 @@ namespace FirstLight.Game.Services
 		public IFrameSnapshotService FrameSnapshotService { get; }
 		/// <inheritdoc />
 		public IMatchEndDataService MatchEndDataService { get; }
+		/// <inheritdoc />
+		public IMatchCameraService MatchCameraService { get; }
 
-		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IGameDataProvider dataProvider, IDataService dataService)
+		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, 
+							 IGameServices services, 
+							 IGameDataProvider dataProvider, 
+							 IDataService dataService)
 		{
 			_messageBrokerService = services.MessageBrokerService;
 			_gameServices = services;
@@ -75,9 +84,11 @@ namespace FirstLight.Game.Services
 			SpectateService = Configure(new SpectateService(services, this));
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
+			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
+			FLog.Verbose("Registered Match Services");
 		}
 
 		public void Dispose()
@@ -89,12 +100,19 @@ namespace FirstLight.Game.Services
 			{
 				service.Dispose();
 			}
+			FLog.Verbose("Removed Match Services");
+		}
+
+		private bool CanTriggerMessage()
+		{
+			return _gameServices.NetworkService.QuantumClient.IsConnectedAndReady && QuantumRunner.Default.IsDefinedAndRunning();
 		}
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
 			foreach (var service in _services)
 			{
+				if (!CanTriggerMessage()) return;
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
 		}
@@ -103,6 +121,7 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var service in _services)
 			{
+				if (!CanTriggerMessage()) return;
 				service.OnMatchEnded(message.Game, message.IsDisconnected);
 			}
 		}

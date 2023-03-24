@@ -14,6 +14,7 @@ namespace FirstLight.Game.Logic
 		/// Checks if a given action was already triggered
 		/// </summary>
 		bool HasTriggeredSegmentationAction(int actionIdentifier);
+
 	}
 	
 	/// <summary>
@@ -34,12 +35,23 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableListReader<int> TriggeredActions => _triggeredActions;
-		
+
 		public void Init()
 		{
 			_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
 		}
-		
+
+		public void ReInit()
+		{
+			{
+				var listeners = _triggeredActions.GetObservers();
+				_triggeredActions = new ObservableList<int>(Data.TriggeredActions);
+				_triggeredActions.AddObservers(listeners);
+			}
+			
+			_triggeredActions.InvokeUpdate();
+		}
+
 		public LiveopsLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
@@ -48,6 +60,7 @@ namespace FirstLight.Game.Logic
 		{
 			return Data.TriggeredActions.Contains(actionIdentifier);
 		}
+
 
 		public void MarkTriggeredSegmentationAction(int actionIdentifier)
 		{

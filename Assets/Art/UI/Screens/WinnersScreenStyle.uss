@@ -54,17 +54,9 @@
     bottom: 10%;
 }
 
-.player--first .player__badge {
-    background-image: var(--sprite-shared__icon-medal-1st);
-}
-
 .player--second {
     bottom: 10%;
     translate: -550px -150px;
-}
-
-.player--second .player__badge {
-    background-image: var(--sprite-shared__icon-medal-2nd);
 }
 
 .player--third {
@@ -72,7 +64,15 @@
     translate: 550px -150px;
 }
 
-.player--third .player__badge {
+.player__badge--position-1 {
+    background-image: var(--sprite-shared__icon-medal-1st);
+}
+
+.player__badge--position-2 {
+    background-image: var(--sprite-shared__icon-medal-2nd);
+}
+
+.player__badge--position-3 {
     background-image: var(--sprite-shared__icon-medal-3rd);
 }
 

@@ -1,7 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
 
 namespace FirstLight.Game.Commands
@@ -21,6 +20,7 @@ namespace FirstLight.Game.Commands
 		{
 			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
 			var reward = ctx.Logic.EquipmentLogic().Scrap(Item);
+			ctx.Logic.UniqueIdLogic().MarkIdSeen(Item.Id);
 
 			ctx.Logic.CurrencyLogic().AddCurrency(reward.Key, reward.Value);
 			ctx.Services.MessageBrokerService().Publish(new CurrencyChangedMessage

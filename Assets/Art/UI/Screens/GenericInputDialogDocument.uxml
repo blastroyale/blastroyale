@@ -6,14 +6,13 @@
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label name="Title" text="TITLE GOES HERE" class="font-style-h2" />
+                    <ui:Label name="Title" text="TITLE GOES HERE" class="DO_NOT_USE_font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:Label name="Desc" text="DESC GOES HERE" class="font-style-popup content__desc" />
-                    <ui:VisualElement name="BackgroundPattern" class="content__background content__background-input-popup" />
                     <ui:VisualElement name="Spacer" class="spacer content-spacer--small" />
-                    <FirstLight.Game.UIElements.ContentTypeTextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="input-field input-field__generic" />
-                    <ui:VisualElement name="Spacer" class="height-spacer height-spacer--l" />
+                    <FirstLight.Game.UIElements.ContentTypeTextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="input-field input-field--center" />
+                    <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xl" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="sfx-click-forwards button-flat button-flat--cancel" />

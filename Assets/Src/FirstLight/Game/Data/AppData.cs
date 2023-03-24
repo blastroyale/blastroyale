@@ -4,10 +4,10 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using Quantum;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Game.Data
 {
-
 	/// <summary>
 	/// Represents user custom game preferences, set in last custom game played.
 	/// </summary>
@@ -33,25 +33,30 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 
 		public bool UseDynamicJoystick = true;
-		
-		public string Environment;
+		public bool UseDynamicCamera = true;
+		public bool UseScreenShake = true;
+
+		public Environment LastEnvironment;
 		public string DeviceId;
 		public string LastLoginEmail;
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
-
+		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		
 		public bool DialogueEnabled = true;
 		public int FpsTarget = 30;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
+		
+		[NonSerialized] public Dictionary<string, string> TitleData;
 		
 		/// <summary>
 		/// Copies base values for when user logs in to a new environment.
@@ -67,6 +72,7 @@ namespace FirstLight.Game.Data
 				HapticEnabled = this.HapticEnabled,
 				CurrentDetailLevel = this.CurrentDetailLevel,
 				UseDynamicJoystick = this.UseDynamicJoystick,
+				UseDynamicCamera = this.UseDynamicCamera,
 				DialogueEnabled = this.DialogueEnabled,
 				ConnectionRegion = this.ConnectionRegion,
 				FpsTarget = this.FpsTarget

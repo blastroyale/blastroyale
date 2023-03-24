@@ -17,6 +17,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using Environment = System.Environment;
 
 /// <summary>
 /// Represents what is needed to run a isolated server testing environment.

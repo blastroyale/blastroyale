@@ -44,6 +44,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
+			
+			if (callback.Game.Frames.Predicted.IsCulled(EntityRef))
+			{
+				return;
+			}
 
 			_particleSystem.Stop();
 			_particleSystem.time = 0;

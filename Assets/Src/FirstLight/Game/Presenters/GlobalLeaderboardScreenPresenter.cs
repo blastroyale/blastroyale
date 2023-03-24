@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
+		private const string NoDisplayNameReplacement = "Unamed00000";
 
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
@@ -63,7 +64,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+			_services.GameBackendService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
 				OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
 		}
 
@@ -79,6 +80,7 @@ namespace FirstLight.Game.Presenters
 
 			
 			_leaderboardListView.DisableScrollbars();
+			_leaderboardListView.SetVisibility(false);
 
 			_loadingSpinner.SetDisplay(true);	
 			
@@ -104,6 +106,8 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntry = _playfabLeaderboardEntries[index];
 
 			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
+			
+			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
@@ -153,9 +157,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
-		{
-			_loadingSpinner.SetDisplay(false);
-			
+		{			
 			var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
 				? result.Leaderboard.Count
 				: GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
@@ -178,12 +180,11 @@ namespace FirstLight.Game.Presenters
 
 			if (_localPlayerPos != -1)
 			{
-				_leaderboardListView.SetVisibility(false);
 				StartCoroutine(RepositionScrollToLocalPlayer());
 				return;
 			}
 
-			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+			_services.GameBackendService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
 				OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
 		}
 
@@ -194,6 +195,8 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntry = result.Leaderboard[0];
 
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;
+			
+			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
@@ -206,6 +209,8 @@ namespace FirstLight.Game.Presenters
 			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
 
 			_fixedLocalPlayerHolder.Add(newEntry);
+			_leaderboardListView.SetVisibility(true);
+			_loadingSpinner.SetDisplay(false);
 		}
 
 		IEnumerator RepositionScrollToLocalPlayer()
@@ -226,7 +231,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_leaderboardListView.ScrollToItem(indexToScrollTo);
 			}
-
+			_loadingSpinner.SetDisplay(false);
 			_leaderboardListView.SetVisibility(true);
 		}
 	}

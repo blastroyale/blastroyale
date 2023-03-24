@@ -8,6 +8,15 @@ namespace FirstLight.Game.Views.AdventureHudViews
 	/// </summary>
 	public class HealthBarNameView : MonoBehaviour
 	{
+		public Color SquadNameColor;
 		public TextMeshProUGUI NameText;
+
+		/// <summary>
+		/// Sets the color of the text to the "in squad" one.
+		/// </summary>
+		public void EnableFriendlyMode()
+		{
+			NameText.color = SquadNameColor;
+		}
 	}
 }

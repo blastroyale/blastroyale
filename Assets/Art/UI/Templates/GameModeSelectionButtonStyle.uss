@@ -90,6 +90,10 @@
     background-image: var(--sprite-home__background-gamemode-battleroyale);
 }
 
+.game-mode-button--battleroyaletrios .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-deathmatch);
+}
+
 .game-mode-button--deathmatch .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-deathmatch);
 }
@@ -117,6 +121,14 @@
     width: 491px;
     height: 466px;
     top: 51px;
+    left: -5px;
+}
+
+.game-mode-button--battleroyaletrios .game-mode-button__top-image {
+    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+    width: 491px;
+    height: 466px;
+    top: 48px;
     left: -5px;
 }
 
@@ -170,6 +182,10 @@
     background-image: var(--sprite-home__icon-gamemode-battleroyale);
 }
 
+.game-mode-button--battleroyaletrios .game-mode-button__icon {
+    background-image: var(--sprite-home__icon-gamemode-battleroyale);
+}
+
 .game-mode-button--deathmatch .game-mode-button__icon {
     background-image: var(--sprite-home__icon-gamemode-deathmatch);
 }
@@ -195,6 +211,10 @@
     padding-top: 0;
     padding-bottom: 0;
     color: rgb(0, 0, 0);
+}
+
+.game-mode-button-trios__label {
+    font-size: 42px;
 }
 
 .game-mode-button--ranked .game-mode-button__label {

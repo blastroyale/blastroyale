@@ -49,10 +49,9 @@ namespace FirstLight.GoogleSheetImporter
 					// fix for any extra invalid columns
 					// two empty columns in a row are parsed as a single empty value 
 					// e.g (one,two,,) ir parsed as [one, two, ""]
-					if(j >= values.Length) 
+					if (j >= values.Length)
 					{
 						dictionary.Add(headlines[j], "");
-						
 					}
 					else
 					{
@@ -68,7 +67,7 @@ namespace FirstLight.GoogleSheetImporter
 
 		/// <inheritdoc cref="DeserializeTo"/>
 		public static T DeserializeTo<T>(Dictionary<string, string> data,
-		                                 params Func<string, Type, object>[] deserializers)
+										 params Func<string, Type, object>[] deserializers)
 		{
 			return (T) DeserializeTo(typeof(T), data, deserializers);
 		}
@@ -80,7 +79,7 @@ namespace FirstLight.GoogleSheetImporter
 		/// It provides extra custom <paramref name="deserializers"/> to specific parsing
 		/// </remarks>
 		public static object DeserializeTo(Type type, Dictionary<string, string> data,
-		                                   params Func<string, Type, object>[] deserializers)
+										   params Func<string, Type, object>[] deserializers)
 		{
 			var ignoreType = typeof(ParseIgnoreAttribute);
 			var instance = Activator.CreateInstance(type);
@@ -111,7 +110,7 @@ namespace FirstLight.GoogleSheetImporter
 		/// It provides extra custom <paramref name="deserializers"/> to specific parsing
 		/// </remarks>
 		public static object DeserializeObject(string data, Type type,
-		                                       params Func<string, Type, object>[] deserializers)
+											   params Func<string, Type, object>[] deserializers)
 		{
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
@@ -128,7 +127,7 @@ namespace FirstLight.GoogleSheetImporter
 			}
 
 			if (type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition()
-			                                                                .IsAssignableFrom(unityDictionaryType))
+					.IsAssignableFrom(unityDictionaryType))
 			{
 				var types = type.BaseType.GenericTypeArguments;
 				return DictionaryParse(data, types[0], types[1], type, deserializers);
@@ -140,7 +139,7 @@ namespace FirstLight.GoogleSheetImporter
 				var keyType = types[0];
 				var valueType = types[1];
 				return DictionaryParse(data, keyType, valueType,
-				                       typeof(Dictionary<,>).MakeGenericType(keyType, valueType), deserializers);
+					typeof(Dictionary<,>).MakeGenericType(keyType, valueType), deserializers);
 			}
 
 			return Parse(data, type, deserializers);
@@ -150,8 +149,8 @@ namespace FirstLight.GoogleSheetImporter
 		/// Deserializes a list of custom complex (non-primitive) types, with their own headers / definitions.
 		/// </summary>
 		public static object DeserializeSubList(List<Dictionary<string, string>> data, int startIndex, Type type,
-		                                        string fieldName,
-		                                        params Func<string, Type, object>[] deserializers)
+												string fieldName,
+												params Func<string, Type, object>[] deserializers)
 		{
 			var subType = type.GetGenericArguments()[0];
 			var subData = GetSubListDictionary(data, startIndex);
@@ -167,11 +166,12 @@ namespace FirstLight.GoogleSheetImporter
 
 			return list;
 		}
-		
+
 		/// <summary>
 		/// Extracts the data dictionary of a sub list from the base deserialization data of an object.
 		/// </summary>
-		private static List<Dictionary<string, string>> GetSubListDictionary(List<Dictionary<string, string>> data, int startIndex)
+		private static List<Dictionary<string, string>> GetSubListDictionary(
+			List<Dictionary<string, string>> data, int startIndex)
 		{
 			var headerMap = new Dictionary<string, string>();
 
@@ -252,17 +252,17 @@ namespace FirstLight.GoogleSheetImporter
 		/// Thrown if the given <paramref name="text"/> has a odd amount of values to pair. Must always be an even amount of values
 		/// </exception>
 		public static Dictionary<TKey, TValue> DictionaryParse<TKey, TValue>(
-		string text, params Func<string, Type, object>[] deserializers)
+			string text, params Func<string, Type, object>[] deserializers)
 		{
 			var keyType = typeof(TKey);
 			var valueType = typeof(TValue);
 			return DictionaryParse(text, keyType, valueType, typeof(Dictionary<,>).MakeGenericType(keyType, valueType),
-			                       deserializers) as Dictionary<TKey, TValue>;
+				deserializers) as Dictionary<TKey, TValue>;
 		}
 
 		/// <inheritdoc cref="DictionaryParse{TKey,TValue}" />
 		private static object DictionaryParse(string text, Type keyType, Type valueType, Type dictionaryType,
-		                                      params Func<string, Type, object>[] deserializers)
+											  params Func<string, Type, object>[] deserializers)
 		{
 			var items = ArrayParse<string>(text, deserializers);
 			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType);
@@ -271,7 +271,7 @@ namespace FirstLight.GoogleSheetImporter
 			{
 				return null;
 			}
-			
+
 			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{
 				foreach (var item in items)
@@ -287,7 +287,7 @@ namespace FirstLight.GoogleSheetImporter
 			{
 				throw new
 					IndexOutOfRangeException($"Dictionary must have an even amount of values and the following text" +
-					                         $"has {items.Count.ToString()} values. \nText:{text}");
+						$"has {items.Count.ToString()} values. \nText:{text}");
 			}
 			else
 			{
@@ -368,18 +368,17 @@ namespace FirstLight.GoogleSheetImporter
 
 			try
 			{
-
-			
-			if (type.IsValueType)
-			{
-				return Convert.ChangeType(text, type);
-			}
+				if (type.IsValueType)
+				{
+					return Convert.ChangeType(text, type);
+				}
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 				throw;
 			}
+
 			return JsonConvert.DeserializeObject($"\"{text}\"", type);
 		}
 
@@ -407,7 +406,7 @@ namespace FirstLight.GoogleSheetImporter
 		}
 
 		private static bool TryGetKeyValuePair(string data, Type type, out object key, out object value,
-		                                       params Func<string, Type, object>[] deserializers)
+											   params Func<string, Type, object>[] deserializers)
 		{
 			if (!type.IsValueType)
 			{
@@ -421,7 +420,7 @@ namespace FirstLight.GoogleSheetImporter
 			var split = data.Split(PairSplitChars);
 
 			if (type.IsGenericType && fields.Length == 2 && (fields[0].Name == "Key" || fields[0].Name == "Value1") &&
-			    (fields[1].Name == "Value" || fields[1].Name == "Value2"))
+				(fields[1].Name == "Value" || fields[1].Name == "Value2"))
 			{
 				key = string.IsNullOrWhiteSpace(data) ? default : Parse(split[0], fields[0].FieldType, deserializers);
 				value = string.IsNullOrWhiteSpace(data) ? default : Parse(split[1], fields[1].FieldType, deserializers);

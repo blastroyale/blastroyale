@@ -15,5 +15,6 @@ struct MutatorsState
 	FP HealthPerSecLastTime;
 }
 
+signal AllPlayersSpawned();
 signal AllPlayersJoined();
 signal GameEnded();

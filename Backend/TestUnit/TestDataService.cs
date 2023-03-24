@@ -67,22 +67,19 @@ public class TestDataService
 	public async Task TestCommandDelta()
 	{
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
-		var modelBefore = initialState.DeserializeModel<PlayerData>();
+		var modelBefore = initialState.DeserializeModel<CollectionData>();
 		
-		var cmd = new UpdatePlayerSkinCommand()
-		{
-			SkinId = modelBefore.PlayerSkinId == GameId.Male02Avatar ? GameId.Male01Avatar : GameId.Male02Avatar
-		};
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
 		var finalState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
-		var modelAfter = finalState.DeserializeModel<PlayerData>();
+		var modelAfter = finalState.DeserializeModel<CollectionData>();
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);
 
 		Assert.AreNotEqual(modelAfter.GetHashCode(), modelBefore.GetHashCode());
-		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));
-		Assert.AreEqual(modelAfter.GetHashCode(), resultDelta.ModifiedTypes.Values.First());
+		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(CollectionData)));
+		Assert.IsTrue(resultDelta.ModifiedTypes.Values.Contains(modelAfter.GetHashCode()));
 	}
 
 	[Test]
@@ -104,10 +101,7 @@ public class TestDataService
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 		var modelBefore = initialState.DeserializeModel<PlayerData>();
 		
-		var cmd = new UpdatePlayerSkinCommand()
-		{
-			SkinId = modelBefore.PlayerSkinId == GameId.Male02Avatar ? GameId.Male01Avatar : GameId.Male02Avatar
-		};
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
@@ -118,19 +112,15 @@ public class TestDataService
 		var invalidModels = ServerCommandQueue.GetDesynchedDeltas(ServerCommandQueue.GetClientDelta(dataProvider), result);
 
 		Assert.AreEqual(0, invalidModels.Count);
-		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));
+		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(CollectionData)));
 	}
 	
 	[Test]
 	public async Task TestInvalidDeltas()
 	{
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
-		var modelBefore = initialState.DeserializeModel<PlayerData>();
-		
-		var cmd = new UpdatePlayerSkinCommand()
-		{
-			SkinId = modelBefore.PlayerSkinId == GameId.Male02Avatar ? GameId.Male01Avatar : GameId.Male02Avatar
-		};
+
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);
@@ -139,6 +129,6 @@ public class TestDataService
 		var invalidModels = ServerCommandQueue.GetDesynchedDeltas(ServerCommandQueue.GetClientDelta(dataProvider), result);
 
 		Assert.AreEqual(1, invalidModels.Count);
-		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));
+		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(CollectionData)));
 	}
 }

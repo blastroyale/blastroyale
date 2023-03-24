@@ -74,6 +74,10 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 			EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET", _cfg.PlayfabSecretKey,
 			EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("API_URL", "localhost",
+			EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("API_KEY", "devkey",
+			EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", _cfg.PlayfabTitle, EnvironmentVariableTarget.Process);
 		Services.GetService<IPlayfabServer>().CreateServer("integration_test_user");
 	}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -38,10 +39,12 @@ namespace FirstLight.Game.Presenters
 		
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 			_buttonViews = new List<GameModeSelectionButtonView>();
 		}
@@ -54,10 +57,12 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			
 			var orderNumber = 1;
+			var canUseSquads = _gameDataProvider.EquipmentDataProvider.HasNfts();
 			
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
+				if(slot.Entry.NFT && !canUseSquads) continue;
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);

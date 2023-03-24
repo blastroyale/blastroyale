@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsResyncing()
 		{
-			return !_services.NetworkService.IsJoiningNewMatch;
+			return _services.NetworkService.JoinSource == JoinRoomSource.Reconnection;
 		}
 
 		private bool IsMidIntensityPhase()
@@ -148,7 +148,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
 		private void PlayMidIntensityMusic()

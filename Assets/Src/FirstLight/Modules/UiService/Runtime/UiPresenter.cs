@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,6 +22,15 @@ namespace FirstLight.UiService
 		/// Requests the open status of the <see cref="UiPresenter"/>
 		/// </summary>
 		public bool IsOpen => gameObject.activeSelf;
+		
+		/// <summary>
+		/// Sets the current presenter hidden or not.
+		/// It will still be enabled and running just not showing.
+		/// </summary>
+		public bool Hidden { 
+			get => GetComponent<Canvas>().enabled;
+			set => GetComponent<Canvas>().enabled = !value;
+		}
 
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is initialized
@@ -115,6 +123,14 @@ namespace FirstLight.UiService
 	{
 	}
 
+	/// <summary>
+	/// A temporary interface to allow access to the Document of UI Toolkit presenters
+	/// </summary>
+	public interface IUIDocumentPresenter
+	{
+		public UIDocument Document { get; }
+	}
+
 	/// <inheritdoc cref="UiPresenter"/>
 	/// <remarks>
 	/// Extends the <see cref="UiPresenter"/> behaviour with defined data of type <typeparamref name="T"/>
@@ -164,7 +180,8 @@ namespace FirstLight.UiService
 	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
 	/// </summary>
 	[LoadSynchronously]
-	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
+	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T>, IUIDocumentPresenter
+		where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
 		[SerializeField] private GameObject _background;
@@ -172,6 +189,8 @@ namespace FirstLight.UiService
 
 		protected VisualElement Root;
 		private readonly Dictionary<VisualElement, IUIView> _views = new();
+
+		public UIDocument Document => _document;
 
 		/// <summary>
 		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
@@ -213,7 +232,6 @@ namespace FirstLight.UiService
 
 		protected virtual void OnTransitionsReady()
 		{
-			
 		}
 
 		protected override void OnOpened()
@@ -234,7 +252,7 @@ namespace FirstLight.UiService
 					.Build()
 					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
-			
+
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			StartCoroutine(MakeVisible());
 
@@ -244,7 +262,7 @@ namespace FirstLight.UiService
 		protected override async Task OnClosed()
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
-			
+
 			UnsubscribeFromEvents();
 
 			await Task.Delay(_millisecondsToClose);
@@ -254,13 +272,13 @@ namespace FirstLight.UiService
 				_background.SetActive(false);
 			}
 		}
-		
+
 		private IEnumerator MakeVisible()
 		{
 			yield return new WaitForEndOfFrame();
-			
+
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
-			
+
 			OnTransitionsReady();
 		}
 	}

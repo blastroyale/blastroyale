@@ -5,6 +5,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -15,9 +16,11 @@ namespace FirstLight.Game.Services
 	{
 		// TODO: Remove this property once all the match end screens are redone and use PlayerMatchData instead
 		/// <summary>
-		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GetPlayersMatchData
+		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GeneratePlayersMatchData
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
+		
+		Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; }
 		
 		/// <summary>
 		/// Config value used to know if the match end leaderboard should show the extra info
@@ -79,6 +82,11 @@ namespace FirstLight.Game.Services
 		/// This data point is available before the match ends
 		/// </summary>
 		public bool LeftBeforeMatchFinished { get; }
+
+		/// <summary>
+		/// Read all data from simulation. Just in case we missed something for a reconnecting player
+		/// </summary>
+		void Reload();
 	}
 
 	public struct PlayerMatchData
@@ -103,6 +111,9 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc />
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
+
+		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
+
 		/// <inheritdoc />
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		/// <inheritdoc />
@@ -130,6 +141,11 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public bool LeftBeforeMatchFinished { get; private set; }
 
+		public void Reload()
+		{
+			ReadMatchDataForEndingScreens(QuantumRunner.Default.Game);
+		}
+
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
@@ -137,11 +153,11 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_dataProvider = dataProvider;
+			PlayersFinalEquipment = new Dictionary<PlayerRef, EquipmentEventData>();
 			_services.MessageBrokerService.Subscribe<LeftBeforeMatchFinishedMessage>(OnLeftBeforeMatchFinishedMessage);
 		}
-		
-		/// <inheritdoc />
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+
+		private void ReadInitialValues(QuantumGame game)
 		{
 			TrophiesBeforeChange = _dataProvider.PlayerDataProvider.Trophies.Value;
 			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
@@ -149,11 +165,24 @@ namespace FirstLight.Game.Services
 			LocalPlayer = game.GetLocalPlayerRef();
 			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
-
+			PlayersFinalEquipment.Clear();
+		}
+		
+		/// <inheritdoc />
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+			ReadInitialValues(game);
+			
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 		}
 
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			PlayersFinalEquipment[callback.Player] = callback.EquipmentData;
+		}
+		
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			LocalPlayerMatchData =
@@ -165,21 +194,13 @@ namespace FirstLight.Game.Services
 			LocalPlayerKiller = callback.PlayerKiller;
 		}
 
-		/// <inheritdoc />
-		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		public void ReadMatchDataForEndingScreens(QuantumGame game)
 		{
-			if (isDisconnected)
-			{
-				return;
-			}
-			
-			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerDead>(this);
-			QuantumEvent.UnsubscribeListener<EventOnPlayerKilledPlayer>(this);
-			
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
+			LocalPlayer = game.GetLocalPlayerRef();
 			
-			QuantumPlayerMatchData = gameContainer.GetPlayersMatchData(frame, out _);
+			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
 
 			PlayerMatchData.Clear();
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)
@@ -187,13 +208,37 @@ namespace FirstLight.Game.Services
 				// This means that the match disconnected before the 
 				if (quantumPlayerData.Data.Player == PlayerRef.None)
 				{
-					return;
+					continue;
+				}
+
+				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
+				List<Equipment> gear = new();
+				Equipment weapon = Equipment.None;
+
+				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
+				{
+					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];
+					gear = equipmentData.Gear.ToList().FindAll(equipment => equipment.IsValid());
+					weapon = equipmentData.CurrentWeapon;
+				}
+				else if(frame.Has<PlayerCharacter>(quantumPlayerData.Data.Entity))
+				{
+					var playerCharacter = frame.Get<PlayerCharacter>(quantumPlayerData.Data.Entity);
+					gear = playerCharacter.Gear.ToList().FindAll(equipment => equipment.IsValid());
+					weapon = playerCharacter.CurrentWeapon;
+				}
+				else if(frameData != null)
+				{
+					weapon = frameData.Weapon;
+					gear = frameData.Loadout.Where(l => l.IsValid()).ToList();
+				}
+
+				if (weapon.IsValid())
+				{
+					gear.Add(weapon);
 				}
 				
-				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-				var weapon = playerRuntimeData?.Weapon ?? default;
-				var loadout = playerRuntimeData?.Loadout.ToList() ?? new List<Equipment>();
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout);
+				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{
@@ -201,9 +246,23 @@ namespace FirstLight.Game.Services
 				}
 				
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
+				
 			}
 
 			GetRewards(frame, gameContainer);
+		}
+
+		/// <inheritdoc />
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		{
+			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerDead>(this);
+			QuantumEvent.UnsubscribeListener<EventOnPlayerKilledPlayer>(this);
+
+			if (isDisconnected)
+			{
+				ReadInitialValues(game);
+			}
+			ReadMatchDataForEndingScreens(game);
 		}
 		
 		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)

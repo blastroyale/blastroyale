@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Services.Party;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
-
 	public struct GameModeInfo
 	{
 		public GameModeRotationConfig.GameModeEntry Entry;
@@ -22,9 +26,10 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, DateTime endTime = default)
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft,
+							DateTime endTime = default)
 		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft);
 			EndTime = endTime;
 		}
 
@@ -33,7 +38,7 @@ namespace FirstLight.Game.Services
 			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
 		}
 	}
-	
+
 	/// <summary>
 	/// Stores and provides the currently selected GameMode / MapID to play and provides
 	/// rotational (time limited) game modes.
@@ -61,7 +66,7 @@ namespace FirstLight.Game.Services
 		/// Dates could be different hence not using `GameModeInfo` object as the same game mode
 		/// in different "seasons" might apply.
 		/// </summary>
-		bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode);
+		bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode);
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -69,6 +74,9 @@ namespace FirstLight.Game.Services
 	{
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
+		private readonly IPartyService _partyService;
+		private readonly IEquipmentDataProvider _equipmentDataProvider;
+		private readonly IAppDataProvider _appDataProvider;
 
 		private readonly IObservableList<GameModeInfo> _slots;
 
@@ -76,22 +84,26 @@ namespace FirstLight.Game.Services
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
 
-		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
+
+		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService,
+							   IEquipmentDataProvider equipmentDataProvider, IPartyService partyService,
+							   IAppDataProvider appDataProvider)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
+			_equipmentDataProvider = equipmentDataProvider;
+			_partyService = partyService;
+			_appDataProvider = appDataProvider;
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
-			SelectedGameMode.Observe((_, gm) => FLog.Info($"Selected GameMode set to: {gm}"));
+			SelectedGameMode.Observe(OnGameModeSet);
+			_partyService.HasParty.Observe((_, _) => { OnPartyUpdate(); });
 		}
 
 		public void Init()
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			var firstSlotWrapper = config.Slots[0];
-			var gameModeEntry = firstSlotWrapper[0];
-			SelectedGameMode.Value = new GameModeInfo(gameModeEntry);
 
 			// Initially add empty objects which get updated by RefreshGameModes
 			for (var i = 0; i < config.Slots.Count; i++)
@@ -100,22 +112,66 @@ namespace FirstLight.Game.Services
 			}
 
 			RefreshGameModes(true);
-		}
-		
-		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
-		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			foreach (var slot in config.Slots)
+
+			// Try to set the saved game mode
+			var lastGameMode = _appDataProvider.LastGameMode;
+			if (CanSelectGameMode(lastGameMode))
 			{
-				foreach (var entry in slot.Entries)
-				{
-					if (gameMode == entry)
-					{
-						return true;
-					}
-				}
+				FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
+				SelectedGameMode.Value = new GameModeInfo(lastGameMode);
 			}
-			return false;
+			else
+			{
+				this.SelectDefaultCasualMode();
+			}
+		}
+
+		private void OnGameModeSet(GameModeInfo _, GameModeInfo current)
+		{
+			FLog.Info($"Selected GameMode set to: {current}");
+
+			_appDataProvider.LastGameMode = current.Entry;
+			if (_appDataProvider.IsPlayerLoggedIn)
+			{
+				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+			}
+		}
+
+		public void OnPartyUpdate()
+		{
+			bool hasParty = _partyService.HasParty.Value;
+			if (hasParty && !SelectedGameMode.Value.Entry.Squads)
+			{
+				SelectedGameMode.Value = FindModeWithSquads(true);
+				return;
+			}
+
+			// If the player have NFT he can play squads alone so there is no need to change back
+			if (!CanSelectGameMode(SelectedGameMode.Value.Entry))
+			{
+				this.SelectDefaultCasualMode();
+			}
+		}
+
+		private bool CanSelectGameMode(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			bool hasParty = _partyService.HasParty.Value;
+			if (gameMode.Squads && !hasParty && !_equipmentDataProvider.HasNfts())
+			{
+				return false;
+			}
+
+			return IsInRotation(gameMode);
+		}
+
+		private GameModeInfo FindModeWithSquads(bool squads)
+		{
+			return _slots.First(gm => gm.Entry.Squads == squads);
+		}
+
+		public bool IsInRotation(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			return _slots.Any(gmi => gmi.Entry == gameMode);
 		}
 
 		private void RefreshGameModes(bool forceAll)
@@ -147,7 +203,7 @@ namespace FirstLight.Game.Services
 		}
 
 		private GameModeRotationConfig.GameModeEntry GetCurrentRotationEntry(
-		int slotIndex, out long ticksLeft, out bool rotating)
+			int slotIndex, out long ticksLeft, out bool rotating)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
 

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using PlayFab;
@@ -32,6 +34,19 @@ public class TestBlastRoyaleCommands
 		_server = new TestServer();
 		_server.SetupInMemoryServer();
 		FeatureFlags.QUANTUM_CUSTOM_SERVER = false;
+	}
+
+	[Test]
+	public void TestBrCustomDictSerializer()
+	{
+		var data = new CollectionData();
+		data.Equipped[new(GameIdGroup.PlayerSkin)] = new (GameId.Male01Avatar);
+
+		var serialized = ModelSerializer.Serialize(data).Value;
+
+		var deserialized = ModelSerializer.Deserialize<CollectionData>(serialized);
+		
+		Assert.AreEqual(deserialized.Equipped[new(GameIdGroup.PlayerSkin)], new CollectionItem(GameId.Male01Avatar));
 	}
 
 	[Test]
@@ -84,6 +99,7 @@ public class TestBlastRoyaleCommands
 	[Test]
 	public void TestEndOfGameCalculationsCommand()
 	{
+		var gm = _server.GetService<IConfigsProvider>().GetConfigsList<QuantumGameModeConfig>().First();
 		var playerRef = new PlayerRef()
 		{
 			_index = 1
@@ -92,6 +108,7 @@ public class TestBlastRoyaleCommands
 		{
 			new QuantumPlayerMatchData()
 			{
+				GameModeId = gm.Id,
 				PlayerRank = 1,
 				Data = new PlayerMatchData()
 				{

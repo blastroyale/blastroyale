@@ -58,6 +58,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(_killsDictionary.Clear);
 
+			spectateCheck.Transition().Condition(IsNotOnline).Target(final);
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
 			
@@ -65,6 +66,7 @@ namespace FirstLight.Game.StateMachines
 			resyncCheck.Transition().Condition(IsRejoining).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
 			
+			aliveCheck.Transition().Condition(IsNotOnline).Target(final);
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
 
@@ -111,6 +113,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
+
+		private bool IsNotOnline()
+		{
+			return !_services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
 		
 		private bool IsMatchEnding()
 		{
@@ -127,12 +134,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsRejoining()
 		{
-			return !_services.NetworkService.IsJoiningNewMatch;
+			return _services.NetworkService.JoinSource == JoinRoomSource.Reconnection;
 		}
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
@@ -147,6 +154,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			// Do nothing in case of offline Tutorial match
+			if (callback.PlayersMatchData.Count <= 1)
+			{
+				return;
+			}
+			
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 

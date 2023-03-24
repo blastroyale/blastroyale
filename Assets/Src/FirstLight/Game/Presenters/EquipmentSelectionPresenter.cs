@@ -51,9 +51,8 @@ namespace FirstLight.Game.Presenters
 		public UniqueId SelectedItem { get; private set; }
 
 		private ScreenHeaderElement _header;
-		private ListView _equipmentList;
-		private MightElement _might;
 
+		private MightElement _might;
 		private VisualElement _details;
 		private Label _missingEquipment;
 		private Label _equipmentName;
@@ -78,6 +77,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
+		private ListView _equipmentList;
 		private List<EquipmentListRow> _equipmentListRows;
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
@@ -239,8 +239,19 @@ namespace FirstLight.Game.Presenters
 				else
 				{
 					_missingEquipment.style.display = DisplayStyle.None;
-					SelectedItem = _equipmentListRows[0].Item1.UniqueId;
-					_equipmentList.ScrollToItem(0);
+
+					SelectedItem = _equippedItem != UniqueId.Invalid
+						? _equippedItem
+						: _equipmentListRows[0].Item1.UniqueId;
+
+					var selectedIndex = _equipmentListRows.FindIndex(r =>
+						r.Item1.UniqueId == SelectedItem || r.Item2.UniqueId == SelectedItem
+					);
+
+					// This delay for ScrollToItem is needed because the list needs some time to figure out
+					// the layout of items. Not ideal.
+					_equipmentList.schedule.Execute(() => _equipmentList.ScrollToItem(selectedIndex)).StartingIn(10);
+					FLog.Verbose($"Scrolling to: {selectedIndex} - Item: {SelectedItem}");
 
 					// Set the first item as viewed
 					if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
@@ -401,6 +412,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindEquipmentListItem(VisualElement visualElement, int index)
 		{
+			if (index < 0 || index >= _equipmentListRows.Count) return;
+
 			var row = _equipmentListRows[index];
 
 			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
@@ -430,6 +443,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindEquipmentStatListItem(VisualElement visualElement, int index)
 		{
+			if (index < 0 || index >= _statItems.Count) return;
+			
 			var statElement = (EquipmentStatBarElement) visualElement;
 
 			var stat = _statItems[index];

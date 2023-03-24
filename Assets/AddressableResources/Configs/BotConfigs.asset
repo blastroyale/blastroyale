@@ -18,7 +18,7 @@ MonoBehaviour:
       Guid:
         Value: 1550297457877710414
     QuantumConfigs:
-    - BehaviourType: 1
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -61,7 +61,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -104,7 +110,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -147,7 +159,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -190,7 +208,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -233,7 +257,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
@@ -276,7 +306,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
@@ -319,7 +355,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
@@ -362,7 +404,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
@@ -405,7 +453,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
@@ -448,7 +502,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 2
       DecisionInterval:
@@ -491,7 +551,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 2
       DecisionInterval:
@@ -534,7 +600,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 2
       DecisionInterval:
@@ -577,7 +649,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 2
       DecisionInterval:
@@ -620,7 +698,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 2
       DecisionInterval:
@@ -663,7 +747,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 3
       DecisionInterval:
@@ -706,7 +796,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 3
       DecisionInterval:
@@ -749,7 +845,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 3
       DecisionInterval:
@@ -792,7 +894,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 3
       DecisionInterval:
@@ -835,7 +943,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 3
       DecisionInterval:
@@ -878,7 +992,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 4
       DecisionInterval:
@@ -921,7 +1041,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 4
       DecisionInterval:
@@ -964,7 +1090,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 4
       DecisionInterval:
@@ -1007,7 +1139,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 4
       DecisionInterval:
@@ -1050,7 +1188,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 4
       DecisionInterval:
@@ -1093,7 +1237,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 5
       DecisionInterval:
@@ -1136,7 +1286,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 5
       DecisionInterval:
@@ -1179,7 +1335,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 5
       DecisionInterval:
@@ -1222,7 +1384,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 5
       DecisionInterval:
@@ -1265,7 +1433,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 5
       DecisionInterval:
@@ -1308,7 +1482,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 6
       DecisionInterval:
@@ -1351,7 +1531,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 6
       DecisionInterval:
@@ -1394,7 +1580,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 6
       DecisionInterval:
@@ -1437,7 +1629,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 6
       DecisionInterval:
@@ -1480,7 +1678,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 6
       DecisionInterval:
@@ -1523,7 +1727,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 7
       DecisionInterval:
@@ -1566,7 +1776,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 7
       DecisionInterval:
@@ -1609,7 +1825,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 7
       DecisionInterval:
@@ -1652,7 +1874,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 7
       DecisionInterval:
@@ -1695,7 +1923,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: Deathmatch
       Difficulty: 7
       DecisionInterval:
@@ -1738,15 +1972,21 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 255590
+        RawValue: 127795
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5242880
       LowHealthSensitivity:
@@ -1762,34 +2002,40 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 54591
       CloseFightIntolerance:
-        RawValue: 58982
+        RawValue: 52429
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 70
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
-        RawValue: 52429
+        RawValue: 58982
       ChanceToSeekChests:
-        RawValue: 3277
+        RawValue: 9830
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 163840
       MovementSpeedMultiplier:
         RawValue: 45875
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
-        RawValue: 262144
+        RawValue: 131072
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -1805,34 +2051,40 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64881
+        RawValue: 55149
       CloseFightIntolerance:
-        RawValue: 55706
+        RawValue: 52429
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 68
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
-        RawValue: 53740
+        RawValue: 58982
       ChanceToSeekChests:
-        RawValue: 3932
+        RawValue: 7864
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 163840
       MovementSpeedMultiplier:
         RawValue: 45875
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
-        RawValue: 268698
+        RawValue: 134349
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5898240
       LowHealthSensitivity:
@@ -1848,34 +2100,40 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 63570
+        RawValue: 54034
       CloseFightIntolerance:
         RawValue: 52429
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 75
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
-        RawValue: 51118
+        RawValue: 58982
       ChanceToSeekChests:
-        RawValue: 2621
+        RawValue: 5898
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 163840
       MovementSpeedMultiplier:
         RawValue: 45875
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 252314
+        RawValue: 126157
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5373952
       LowHealthSensitivity:
@@ -1891,34 +2149,40 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 54591
       CloseFightIntolerance:
-        RawValue: 57016
+        RawValue: 52429
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 72
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
-        RawValue: 55050
+        RawValue: 58982
       ChanceToSeekChests:
-        RawValue: 3932
+        RawValue: 6554
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 163840
       MovementSpeedMultiplier:
         RawValue: 45875
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 0
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
-        RawValue: 265421
+        RawValue: 132710
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -1934,34 +2198,40 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64881
+        RawValue: 55149
       CloseFightIntolerance:
-        RawValue: 53740
+        RawValue: 52429
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 74
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
-        RawValue: 56361
+        RawValue: 58982
       ChanceToSeekChests:
-        RawValue: 3277
+        RawValue: 6554
       LoadoutGearNumber: 0
       MaxAimingRange:
-        RawValue: 360448
+        RawValue: 163840
       MovementSpeedMultiplier:
         RawValue: 45875
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 191693
+        RawValue: 127795
       VisionRangeSqr:
-        RawValue: 25165824
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5242880
       LowHealthSensitivity:
@@ -1969,7 +2239,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 5373952
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 45875
       ChanceToSeekEnemies:
         RawValue: 0
       ChanceToSeekReplenishSpecials:
@@ -1979,10 +2249,10 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 54591
       CloseFightIntolerance:
-        RawValue: 58982
+        RawValue: 52429
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 60
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -1996,15 +2266,21 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 49152
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
-        RawValue: 196608
+        RawValue: 131072
       VisionRangeSqr:
-        RawValue: 25165824
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -2012,7 +2288,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 5570560
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 45875
       ChanceToSeekEnemies:
         RawValue: 0
       ChanceToSeekReplenishSpecials:
@@ -2022,10 +2298,10 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 55149
       CloseFightIntolerance:
-        RawValue: 55706
+        RawValue: 52429
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 58
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -2039,15 +2315,21 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 49152
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
-        RawValue: 201523
+        RawValue: 134349
       VisionRangeSqr:
-        RawValue: 25165824
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5898240
       LowHealthSensitivity:
@@ -2055,7 +2337,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 6553600
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 45875
       ChanceToSeekEnemies:
         RawValue: 0
       ChanceToSeekReplenishSpecials:
@@ -2068,7 +2350,7 @@ MonoBehaviour:
         RawValue: 52429
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 64
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -2082,15 +2364,21 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 49152
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 189235
+        RawValue: 126157
       VisionRangeSqr:
-        RawValue: 25165824
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5373952
       LowHealthSensitivity:
@@ -2098,7 +2386,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 5505024
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 45875
       ChanceToSeekEnemies:
         RawValue: 0
       ChanceToSeekReplenishSpecials:
@@ -2108,10 +2396,10 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 54591
       CloseFightIntolerance:
-        RawValue: 57016
+        RawValue: 52429
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 61
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -2125,15 +2413,21 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 49152
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
-        RawValue: 199066
+        RawValue: 132710
       VisionRangeSqr:
-        RawValue: 25165824
+        RawValue: 40960000
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -2141,7 +2435,7 @@ MonoBehaviour:
       LowAmmoSensitivity:
         RawValue: 5636096
       ChanceToSeekWeapons:
-        RawValue: 32768
+        RawValue: 45875
       ChanceToSeekEnemies:
         RawValue: 0
       ChanceToSeekReplenishSpecials:
@@ -2151,10 +2445,10 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 55149
       CloseFightIntolerance:
-        RawValue: 53740
+        RawValue: 52429
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 63
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -2168,7 +2462,13 @@ MonoBehaviour:
         RawValue: 360448
       MovementSpeedMultiplier:
         RawValue: 49152
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
@@ -2197,7 +2497,7 @@ MonoBehaviour:
         RawValue: 57672
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 42
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 3277
       SpecialAimingDeviation:
@@ -2211,7 +2511,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
@@ -2240,7 +2546,7 @@ MonoBehaviour:
         RawValue: 39322
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 41
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 16384
       SpecialAimingDeviation:
@@ -2254,7 +2560,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
@@ -2283,7 +2595,7 @@ MonoBehaviour:
         RawValue: 31457
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 45
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 22938
       SpecialAimingDeviation:
@@ -2297,7 +2609,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
@@ -2326,7 +2644,7 @@ MonoBehaviour:
         RawValue: 47186
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 43
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 13107
       SpecialAimingDeviation:
@@ -2340,7 +2658,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 2
       DecisionInterval:
@@ -2369,7 +2693,7 @@ MonoBehaviour:
         RawValue: 28836
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 44
+      AccuracySpreadAngle: 30
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -2383,7 +2707,13 @@ MonoBehaviour:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
@@ -2426,7 +2756,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
@@ -2469,7 +2805,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
@@ -2512,7 +2854,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
@@ -2555,7 +2903,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 3
       DecisionInterval:
@@ -2598,7 +2952,13 @@ MonoBehaviour:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
@@ -2641,7 +3001,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
@@ -2684,7 +3050,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
@@ -2727,7 +3099,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
@@ -2770,7 +3148,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 4
       DecisionInterval:
@@ -2813,7 +3197,13 @@ MonoBehaviour:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
@@ -2856,7 +3246,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
@@ -2899,7 +3295,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
@@ -2942,7 +3344,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
@@ -2985,7 +3393,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 5
       DecisionInterval:
@@ -3028,7 +3442,13 @@ MonoBehaviour:
         RawValue: 688128
       MovementSpeedMultiplier:
         RawValue: 65536
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
@@ -3071,7 +3491,13 @@ MonoBehaviour:
         RawValue: 819200
       MovementSpeedMultiplier:
         RawValue: 68813
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
@@ -3114,7 +3540,13 @@ MonoBehaviour:
         RawValue: 819200
       MovementSpeedMultiplier:
         RawValue: 68813
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
@@ -3157,7 +3589,13 @@ MonoBehaviour:
         RawValue: 819200
       MovementSpeedMultiplier:
         RawValue: 68813
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
@@ -3200,7 +3638,13 @@ MonoBehaviour:
         RawValue: 819200
       MovementSpeedMultiplier:
         RawValue: 68813
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 6
       DecisionInterval:
@@ -3243,7 +3687,13 @@ MonoBehaviour:
         RawValue: 819200
       MovementSpeedMultiplier:
         RawValue: 68813
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
@@ -3286,7 +3736,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 72090
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
@@ -3329,7 +3785,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 72090
-    - BehaviourType: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
@@ -3372,7 +3834,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 72090
-    - BehaviourType: 1
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 3
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
@@ -3382,11 +3850,11 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
-        RawValue: 3932160
+        RawValue: 0
       LowHealthSensitivity:
-        RawValue: 6553600
+        RawValue: 0
       LowAmmoSensitivity:
-        RawValue: 4915200
+        RawValue: 0
       ChanceToSeekWeapons:
         RawValue: 65536
       ChanceToSeekEnemies:
@@ -3415,7 +3883,13 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 72090
-    - BehaviourType: 2
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
       GameMode: BattleRoyale
       Difficulty: 7
       DecisionInterval:
@@ -3425,11 +3899,11 @@ MonoBehaviour:
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
-        RawValue: 2949120
+        RawValue: 0
       LowHealthSensitivity:
-        RawValue: 4915200
+        RawValue: 0
       LowAmmoSensitivity:
-        RawValue: 4259840
+        RawValue: 0
       ChanceToSeekWeapons:
         RawValue: 65536
       ChanceToSeekEnemies:
@@ -3458,3 +3932,156 @@ MonoBehaviour:
         RawValue: 983040
       MovementSpeedMultiplier:
         RawValue: 72090
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 65536
+      DamageTakenMultiplier:
+        RawValue: 65536
+    - BehaviourType: 4
+      GameMode: Tutorial
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 0
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 52429
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 0
+      CloseFightIntolerance:
+        RawValue: 21627
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 90
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 0
+      ShrinkingCircleRiskTolerance:
+        RawValue: 19661
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 458752
+      MovementSpeedMultiplier:
+        RawValue: 32768
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 49152
+      DamageTakenMultiplier:
+        RawValue: 22938
+    - BehaviourType: 1
+      GameMode: Tutorial
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 0
+      ChanceToSeekWeapons:
+        RawValue: 13107
+      ChanceToSeekEnemies:
+        RawValue: 52429
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 0
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 0
+      AccuracySpreadAngle: 0
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 0
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 458752
+      MovementSpeedMultiplier:
+        RawValue: 0
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 26214
+      DamageTakenMultiplier:
+        RawValue: 229376
+    - BehaviourType: 1
+      GameMode: BattleRoyale First Game
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 0
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 0
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 52429
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 0
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 90
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 0
+      ShrinkingCircleRiskTolerance:
+        RawValue: 19661
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 655360
+      MovementSpeedMultiplier:
+        RawValue: 65536
+      MaxDistanceToTeammateSquared:
+        RawValue: 2359296
+      DamageDoneMultiplier:
+        RawValue: 32768
+      DamageTakenMultiplier:
+        RawValue: 131072

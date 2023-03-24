@@ -1,3 +1,4 @@
+using System;
 using Quantum;
 using UnityEngine;
 
@@ -31,40 +32,6 @@ namespace FirstLight.Game.Utils
 			#else
 				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
 			#endif
-		}
-
-		public static class Servers
-		{
-			public enum ServerEnvironments
-			{
-				Dev,
-				Stage,
-				Live,
-				LiveTesnet
-			}
-			
-#if LIVE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Live;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#elif LIVE_TESTNET_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.LiveTesnet;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
-#elif STAGE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#else
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Dev;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#endif
-			public static readonly string SERVER_ENVIRONMENT_STRING = SERVER_ENVIRONMENT.ToString();
 		}
 
 		public static class Balance
@@ -102,8 +69,8 @@ namespace FirstLight.Game.Utils
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
 			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
 			
-			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
-			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
+			public const int DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
+			public const int BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 			
 			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
@@ -111,6 +78,20 @@ namespace FirstLight.Game.Utils
 			public const int VO_SFX_LEADERBOARD_PREVENTION_SECONDS = 3;
 		}
 
+		public static class Screenshake
+		{
+			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
+			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 15;
+
+			public const float SCREENSHAKE_SMALL_STRENGTH = 0.25f;
+			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;
+
+			public const float SCREENSHAKE_MEDIUM_STRENGTH = 0.4f;
+			public const float SCREENSHAKE_MEDIUM_DURATION = 0.4f;
+
+			public const float SCREENSHAKE_LARGE_STRENGTH = 0.6f;
+			public const float SCREENSHAKE_LARGE_DURATION = 0.8f;
+		}
 		public static class Notifications
 		{
 			public const string NOTIFICATION_IDLE_BOXES_CHANNEL = "idle_boxes";
@@ -127,6 +108,7 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
+			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
@@ -154,17 +136,15 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Network state time settings
-			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 1;
 			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
-			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
-			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000; 
+			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000; 
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -174,6 +154,8 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
+			public const string PLAYER_PROPS_TEAM_ID = "teamId";
+			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
@@ -181,10 +163,12 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_GAME_MODE = "gameModeId";
+			public const string ROOM_PROPS_SETUP = "roomSetup";
 			public const string ROOM_PROPS_MUTATORS = "mutators";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string DROP_ZONE_POS_ROT = "dropzonePosRot";
 			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
+			public const string ROOM_PROPS_STARTED_GAME = "startedGame";
 
 			public const string DEFAULT_REGION = "eu";
 			
@@ -223,7 +207,11 @@ namespace FirstLight.Game.Utils
 			// The name of the parameter in the animator that decides the time of stun outro animation
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
+			// This conversion is the "true" one, works for plain circles with no decor, like weapon aiming range circle
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
+			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
+			
 			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
@@ -248,7 +236,7 @@ namespace FirstLight.Game.Utils
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
-			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.55f;
+			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
 		}
 		
 		public static class Haptics
@@ -277,8 +265,40 @@ namespace FirstLight.Game.Utils
 			public const float PLAYER_KILL_DURATION = 0.1f;
 			public const float PLAYER_KILL_INTENSITY = 1;
 			public const float PLAYER_KILL_SHARPNESS = 1;
+		}
 
+		public static class Tutorial
+		{
+			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
+			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
 
+			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
+			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
+
+			public const string TAG_INDICATORS = "GroundIndicator";
+			public const string TAG_GUIDE_UI = "GuideUiTarget";
+			
+			public const string TRIGGER_FIRST_MOVE_AREA = "FirstMoveArea";
+			public const string TRIGGER_DUMMY_AREA = "DummyArea";
+			public const string TRIGGER_CHEST_AREA = "ChestArea";
+			public const string TRIGGER_GATE_AREA = "GateArea";
+			public const string TRIGGER_ARENA_AREA = "ArenaArea";
+
+			public const string GUIDE_UI_MOVEMENT_JOYSTICK = "MovementUiJoystick";
+			public const string GUIDE_UI_SHOOTING_JOYSTICK = "ShootingUiJoystick";
+			public const string GUIDE_UI_SPECIAL_BUTTON = "TutorialSpecialTarget";
+			
+			public const string INDICATOR_FIRST_MOVE = "FirstMove";
+			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
+			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";
+			public const string INDICATOR_BOT_AREA = "BotArea";
+			public const string INDICATOR_BOT1 = "Bot1";
+			public const string INDICATOR_BOT2 = "Bot2";
+			public const string INDICATOR_BOT3 = "Bot3";
+			public const string INDICATOR_IRON_GATE = "IronGate";
+			public const string INDICATOR_TOP_PLATFORM = "TopPlatform";
+			public const string INDICATOR_EQUIPMENT_CHEST = "EquipmentChest";
+			public const string INDICATOR_ARENA_DROPDOWN = "ArenaDropDown";
 		}
 
 		public static class GameModeId

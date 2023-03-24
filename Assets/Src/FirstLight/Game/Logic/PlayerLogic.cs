@@ -19,7 +19,7 @@ namespace FirstLight.Game.Logic
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
-		
+
 		/// <summary>
 		/// Requests a list of systems already seen by the player.
 		/// </summary>
@@ -39,6 +39,16 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
 		/// </summary>
 		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
+		
+		/// <summary>
+		/// Checks if a given player has completed a given tutorial step
+		/// </summary>
+		bool HasTutorialSection(TutorialSection section);
+		
+		/// <summary>
+		/// Checks if this account has completed guest data migration
+		/// </summary>
+		bool MigratedGuestAccount { get; }
 	}
 
 	/// <inheritdoc />
@@ -54,23 +64,42 @@ namespace FirstLight.Game.Logic
 		/// added/removed
 		/// </summary>
 		void UpdateTrophies(int change);
-		
+
 		/// <summary>
-		/// Changes the player skin to <paramref name="skin"/>
+		/// Flags that the given tutorial step is completed
 		/// </summary>
-		void ChangePlayerSkin(GameId skin);
+		void MarkTutorialSectionCompleted(TutorialSection section);
+
+		/// <summary>
+		/// Marks the guest migration status, meaning the player will never be able to migrate guest data into the
+		/// account upon logging in again
+		/// </summary>
+		void MarkGuestAccountMigrated();
 	}
 	
+	// TODO: Remove all player skin stuff related and move to CollectionLogic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
 		private IObservableField<uint> _trophies;
 
+		private IObservableField<TutorialSection> _tutorialSections;
+		
+		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
-		
+
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
+
+		public bool MigratedGuestAccount
+		{
+			get
+			{
+				var data = DataProvider.GetData<PlayerData>();
+				return data.MigratedGuestData ;
+			}
+		}
 
 		/// <inheritdoc />
 		public PlayerInfo PlayerInfo
@@ -94,7 +123,6 @@ namespace FirstLight.Game.Logic
 					TotalCollectedXp = totalXp,
 					MaxLevel = maxLevel,
 					Config = config,
-					Skin = Data.PlayerSkinId,
 					DeathMarker = Data.DeathMarker,
 					TotalTrophies = _trophies.Value,
 					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
@@ -102,6 +130,7 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		// TODO - Remove appdata/any local data call from game logic so it doesn't have to be copied onto backend code
 		private AppData AppData => DataProvider.GetData<AppData>();
 
 		public PlayerLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -112,7 +141,33 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
+		}
+
+		public void ReInit()
+		{
+			{
+				var listeners = _trophies.GetObservers();
+				_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+				_trophies.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = SystemsTagged.GetObservers();
+				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
+				SystemsTagged.AddObservers(listeners);
+			}
+			
+			{
+				var listeners = _tutorialSections.GetObservers();
+				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
+				_tutorialSections.AddObservers(listeners);
+			}
+
+			_trophies.InvokeUpdate();
+			_tutorialSections.InvokeUpdate();
+			SystemsTagged.InvokeUpdate();
 		}
 
 		/// <inheritdoc />
@@ -184,14 +239,24 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void ChangePlayerSkin(GameId skin)
+		public bool HasTutorialSection(TutorialSection section)
 		{
-			if (!skin.IsInGroup(GameIdGroup.PlayerSkin))
-			{
-				throw new LogicException($"Skin Id '{skin.ToString()}' is not part of the Game Id Group PlayerSkin.");
-			}
+			return DataProvider.GetData<TutorialData>().TutorialSections.HasFlag(section);
+		}
 
-			Data.PlayerSkinId = skin;
+		/// <inheritdoc />
+		public void MarkTutorialSectionCompleted(TutorialSection section)
+		{
+			var data = DataProvider.GetData<TutorialData>();
+			data.TutorialSections |= section;
+			_tutorialSections.Value = data.TutorialSections; // trigger observables after bitshift
+		}
+
+		/// <inheritdoc />
+		public void MarkGuestAccountMigrated()
+		{
+			var data = DataProvider.GetData<PlayerData>();
+			data.MigratedGuestData = true;
 		}
 	}
 }

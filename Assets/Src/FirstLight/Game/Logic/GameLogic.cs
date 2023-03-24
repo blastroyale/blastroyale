@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -21,6 +22,13 @@ namespace FirstLight.Game.Logic
 		/// Initializes the Game Logic states to its default values
 		/// </summary>
 		void Init();
+		
+		/// <summary>
+		/// Reinitializes the Game Logic states to its default values, and copies over any relevant values that would be
+		/// otherwise lost by doing a simple init. E.g. copying over observable listeners from already initialized
+		/// observable fields
+		/// </summary>
+		void ReInit();
 	}
 	
 	/// <summary>
@@ -47,6 +55,8 @@ namespace FirstLight.Game.Logic
 		IRewardDataProvider RewardDataProvider { get; }
 		/// <inheritdoc cref="IBattlePassDataProvider"/>
 		IBattlePassDataProvider BattlePassDataProvider { get; }
+		
+		ICollectionDataProvider CollectionDataProvider { get; }
 	}
 
 	/// <summary>
@@ -83,15 +93,21 @@ namespace FirstLight.Game.Logic
 		IBattlePassLogic BattlePassLogic { get; }
 		/// <inheritdoc cref="ILiveopsLogic"/>
 		ILiveopsLogic LiveopsLogic { get; }
+		
+		ICollectionLogic CollectionLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
 	public class GameLogic : IGameLogic, IGameLogicInitializer
 	{
+		private List<IGameLogicInitializer> _logicInitializers;
+		
 		/// <inheritdoc />
 		public IMessageBrokerService MessageBrokerService { get; }
+		
 		/// <inheritdoc />
 		public ITimeService TimeService { get; }
+		
 		/// <inheritdoc />
 		public IAnalyticsService AnalyticsService { get; }
 
@@ -118,6 +134,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
+		public ICollectionDataProvider CollectionDataProvider => CollectionLogic;
+
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
 		/// <inheritdoc />
@@ -140,6 +158,9 @@ namespace FirstLight.Game.Logic
 		public IBattlePassLogic BattlePassLogic { get; }
 		/// <inheritdoc />
 		public ILiveopsLogic LiveopsLogic { get; }
+		
+		public ICollectionLogic CollectionLogic { get; }
+		
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
 		{
@@ -157,6 +178,20 @@ namespace FirstLight.Game.Logic
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
+			CollectionLogic = new CollectionLogic(this, dataProvider);
+
+			_logicInitializers = new List<IGameLogicInitializer>();
+			
+			_logicInitializers.Add(AppLogic);
+			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
+			_logicInitializers.Add(CurrencyLogic as IGameLogicInitializer);
+			_logicInitializers.Add(ResourceLogic as IGameLogicInitializer);
+			_logicInitializers.Add(EquipmentLogic as IGameLogicInitializer);
+			_logicInitializers.Add(PlayerLogic as IGameLogicInitializer);
+			_logicInitializers.Add(RewardLogic as IGameLogicInitializer);
+			_logicInitializers.Add(BattlePassLogic as IGameLogicInitializer);
+			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
+			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
 		}
 		
 		/// <summary>
@@ -164,25 +199,27 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		public void InitLocal()
 		{
-			// ReSharper disable PossibleNullReferenceException
-			
 			// AppLogic is initialized separately, earlier than rest of logic which requires data after auth
-			(AppLogic as IGameLogicInitializer).Init();
+			AppLogic.Init();
 		}
 
 		/// <inheritdoc />
 		public void Init()
 		{
-			// ReSharper disable PossibleNullReferenceException
-			AppLogic.Init();
-			(UniqueIdLogic as IGameLogicInitializer).Init();
-			(CurrencyLogic as IGameLogicInitializer).Init();
-			(ResourceLogic as IGameLogicInitializer).Init();
-			(PlayerLogic as IGameLogicInitializer).Init();
-			(EquipmentLogic as IGameLogicInitializer).Init();
-			(RewardLogic as IGameLogicInitializer).Init();
-			(BattlePassLogic as IGameLogicInitializer).Init();
-			(LiveopsLogic as IGameLogicInitializer).Init();
+			foreach (var logicInitializer in _logicInitializers)
+			{
+				logicInitializer.Init();
+			}
+		}
+
+		public void ReInit()
+		{
+			foreach (var logicInitializer in _logicInitializers)
+			{
+				logicInitializer.ReInit();
+			}
+			
+			MessageBrokerService.Publish(new DataReinitializedMessage());
 		}
 	}
 	
@@ -219,6 +256,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.EquipmentLogic);
 			container.Add(logic.UniqueIdLogic);
 			container.Add(logic.LiveopsLogic);
+			container.Add(logic.CollectionLogic);
 			return container;
 		}
 
@@ -230,6 +268,7 @@ namespace FirstLight.Game.Logic
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
 		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
 		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();
+		public static ICollectionLogic CollectionLogic(this LogicContainer c) => c.Get<ICollectionLogic>();
 	}
 
 }

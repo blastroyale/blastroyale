@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -17,40 +19,61 @@ namespace FirstLight.Game.Presenters
 	public class LoadingScreenPresenter : UiPresenter
 	{
 		[SerializeField, Required] private Animation _animation;
-		[SerializeField, Required] private Slider _loadingBar;
-		[SerializeField, Required] private TextMeshProUGUI _loadingBarText;
-
-		/// <summary>
-		/// Requests the loading game percentage value
-		/// </summary>
-		public float LoadingPercentage => _loadingBar.value;
-
-		private void Awake()
-		{
-			_loadingBarText.text = $"v{VersionUtils.VersionExternal}";
-		}
-
-		/// <summary>
-		/// Sets the loading screen to the given <paramref name="percentage"/>
-		/// </summary>
-		public void SetLoadingPercentage(float percentage)
-		{
-			_loadingBar.value = percentage;
-		}
-
+		[SerializeField, Required] private TextMeshProUGUI _versionText;
+		
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			SetLoadingPercentage(0);
 			_animation.Rewind();
 			_animation.Play();
+			_versionText.text = $"v{VersionUtils.VersionExternal}";
+			
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+			var y = 3;
+			var services = MainInstaller.Resolve<IGameServices>();
+			AddTextBar(y, services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
+			var config = FeatureFlags.GetLocalConfiguration();
+			if (config.UseLocalServer)
+			{
+				y += 3;
+				AddTextBar(y, "Local Server");
+			}
 
+			if (config.DisableTutorial)
+			{
+				y += 3;
+				AddTextBar(y, "No Tuto");
+			}
+
+			if (config.ForceHasNfts)
+			{
+				y += 3;
+				AddTextBar(y,"Have NFTs");
+			}
+			if (config.IgnoreEquipmentRequirementForRanked)
+			{
+				y += 3;
+				AddTextBar(y,"Ranked w/o Equip");
+			}
+#endif
+		}
+
+		private void AddTextBar(int heightMod, string text)
+		{
+			var original = _versionText.transform.parent.gameObject;
+			var parent = original.transform.parent;
+			
+			var newBar = Instantiate(original, parent);
+			var position = newBar.transform.position;
+			position = new Vector3(position.x, position.y+ heightMod,
+				position.z);
+			newBar.transform.position = position;
+			newBar.GetComponentInChildren<TextMeshProUGUI>().text = text;
 		}
 		
 		/// <inheritdoc />
 		protected override Task OnClosed()
 		{
-			SetLoadingPercentage(1f);
 			return Task.CompletedTask;
 		}
 	}

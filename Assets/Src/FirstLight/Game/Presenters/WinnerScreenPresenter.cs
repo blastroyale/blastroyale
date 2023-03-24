@@ -1,5 +1,7 @@
 using System;
 using Cinemachine;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.UIElements;
@@ -31,6 +33,7 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchService;
 		private IGameServices _services;
 
+		private VisualElement _winnerBanner;
 		private Label _nameLabel;
 		private Button _nextButton;
 
@@ -49,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_nameLabel = root.Q<Label>("NameLabel").Required();
+			_winnerBanner = root.Q("WinnerBanner");
 
 			root.Q<LocalizedButton>("NextButton").clicked += OnNextClicked;
 		}
@@ -70,13 +74,19 @@ namespace FirstLight.Game.Presenters
 			SetupCamera();
 
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var playerWinner = playerData[leader];
+			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
 
-			_playerWinnerEntity = playerWinner.Data.Entity;
-			_nameLabel.text = playerWinner.GetPlayerName();
+			if (playerWinner.Data.IsValid)
+			{
+				_playerWinnerEntity = playerWinner.Data.Entity;
+				_nameLabel.text = playerWinner.GetPlayerName();
+			}
+			else
+			{
+				_nameLabel.text = "No one"; // TODO: Localize!!!!
+			}
+			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
 			PlayTimeline();
 		}

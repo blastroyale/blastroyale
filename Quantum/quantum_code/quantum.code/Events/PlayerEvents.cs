@@ -19,7 +19,7 @@ namespace Quantum
 		public bool IsSuicide => Entity == EntityKiller;
 	}
 
-	public unsafe partial class EventOnPlayerDamaged
+	public unsafe partial class EventOnEntityDamaged
 	{
 		public EntityRef Entity => Spell.Victim;
 		public EntityRef Attacker => Spell.Attacker;
@@ -75,15 +75,17 @@ namespace Quantum
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 			}
 
-			public void OnPlayerDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,
-			                            int previousHealth, int maxHealth, int previousShield, int maxShield)
+			public void OnEntityDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,
+										int previousHealth, int maxHealth, int previousShield, int maxShield)
 			{
-				if (!_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
+				var playerRef = PlayerRef.None;
+				
+				if (_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
 				{
-					return;
+					playerRef = playerCharacter->Player;
 				}
 
-				OnPlayerDamaged(playerCharacter->Player, spell, (uint) totalDamage, (uint) shieldDamageAmount,
+				OnEntityDamaged(playerRef, spell, (uint) totalDamage, (uint) shieldDamageAmount,
 				                previousShield, maxShield, (uint) healthDamageAmount, previousHealth, maxHealth);
 			}
 
@@ -91,7 +93,7 @@ namespace Quantum
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
 				var data = container->PlayersData;
-				var matchData = container->GetPlayersMatchData(_f, out var leader);
+				var matchData = container->GeneratePlayersMatchData(_f, out var leader, out _);
 				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity,
 				                              playerKiller, data[playerKiller].Entity,
 				                              leader, data[leader].Entity, data[playerKiller].CurrentKillStreak,

@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_GroundVolcanic
   m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -53,6 +54,8 @@ Material:
     - Vector1_C53D494A: 0
     - Vector1_C53F84B0: 0.7
     - Vector1_CDB3DABE: 0.3
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_1E8D7265: {r: 0.26415092, g: 0.07296154, b: 0.041533146, a: 1}
     - Color_CB1CA255: {r: 0.44339615, g: 0.44339615, b: 0.44339615, a: 1}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
@@ -23,22 +24,25 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private BaseCharacterMonoComponent _character2;
 		[SerializeField] private BaseCharacterMonoComponent _character3;
 		[SerializeField] private CinemachineVirtualCamera _camera;
-		
+
 		public struct StateData
 		{
 			public Action ContinueClicked;
 		}
-		
+
 		private Button _nextButton;
 		private Label _playerName1;
 		private Label _playerName2;
 		private Label _playerName3;
+		private VisualElement _playerBadge1;
+		private VisualElement _playerBadge2;
+		private VisualElement _playerBadge3;
 		private IMatchServices _matchServices;
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			
+
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
@@ -49,7 +53,7 @@ namespace FirstLight.Game.Presenters
 			SetupCamera();
 			UpdateCharacters();
 		}
-		
+
 		protected override async Task OnClosed()
 		{
 			StartMovingCharacterOut(_character1.gameObject);
@@ -70,10 +74,14 @@ namespace FirstLight.Game.Presenters
 		{
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
-			
+
 			_playerName1 = root.Q<Label>("PlayerName1").Required();
 			_playerName2 = root.Q<Label>("PlayerName2").Required();
 			_playerName3 = root.Q<Label>("PlayerName3").Required();
+
+			_playerBadge1 = root.Q("Player1").Q("Badge").Required();
+			_playerBadge2 = root.Q("Player2").Q("Badge").Required();
+			_playerBadge3 = root.Q("Player3").Q("Badge").Required();
 		}
 
 		private void SetupCamera()
@@ -87,17 +95,23 @@ namespace FirstLight.Game.Presenters
 			playerData.SortByPlayerRank(false);
 
 			var playerDataCount = Math.Min(playerData.Count, 3);
-			var playerNames = new [] { _playerName1, _playerName2, _playerName3 };
-			var characters = new [] { _character1, _character2, _character3 };
-			
+			var playerNames = new[] {_playerName1, _playerName2, _playerName3};
+			var playerBadges = new[] {_playerBadge1, _playerBadge2, _playerBadge3};
+			var characters = new[] {_character1, _character2, _character3};
+
 			for (var i = 0; i < characters.Length; i++)
 			{
 				if (i < playerDataCount)
 				{
+					var player = playerData[i];
+
 					characters[i].gameObject.SetActive(true);
 					playerNames[i].visible = true;
-					playerNames[i].text = playerData[i].GetPlayerName();
-					
+					playerNames[i].text = player.GetPlayerName();
+
+					playerBadges[i].RemoveModifiers();
+					playerBadges[i].AddToClassList($"player__badge--position-{player.PlayerRank}");
+
 					continue;
 				}
 
@@ -105,16 +119,21 @@ namespace FirstLight.Game.Presenters
 				playerNames[i].visible = false;
 			}
 
-			var tasks = new Task[playerDataCount];
-			
+			var tasks = new List<Task>();
+
 			for (var i = 0; i < playerDataCount; i++)
 			{
-				tasks[i] = characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
-					_matchServices.MatchEndDataService.PlayerMatchData[playerData[i].Data.Player].Gear.ToList());
+				var player = playerData[i].Data.Player;
+				if (!player.IsValid || !_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(player))
+				{
+					continue;
+				}
+				tasks.Add(characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
 			}
 
 			await Task.WhenAll(tasks);
-			
+
 			_character1.AnimateVictory();
 		}
 	}

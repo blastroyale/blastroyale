@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -69,7 +70,6 @@ namespace FirstLight.Game.Presenters
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
 		protected override void OnOpened()
@@ -86,6 +86,12 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(!gameModeConfig.ShowUITimer);
 			_minimapHolder.gameObject.SetActive(gameModeConfig.ShowUIMinimap);
 			_quitButton.gameObject.SetActive(true);
+
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				_contendersLeftHolderView.gameObject.SetActive(false);
+				_scoreHolderView.gameObject.SetActive(false);
+			}
 
 			_standings.Initialise(frame.PlayerCount, false, true);
 		}
@@ -112,6 +118,16 @@ namespace FirstLight.Game.Presenters
 
 				canQuitMatch = !valid || !exists;
 			}
+			else
+			{
+				canQuitMatch = (!_services.TutorialService.IsTutorialRunning || FeatureFlags.ALLOW_SKIP_TUTORIAL) || 
+					(_services.TutorialService.IsTutorialRunning && !FeatureFlags.TUTORIAL);
+			}
+			
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				canQuitMatch = false;
+			}
 
 			_quitButton.gameObject.SetActive(canQuitMatch);
 		}
@@ -124,9 +140,7 @@ namespace FirstLight.Game.Presenters
 		private void OnStandingsClicked()
 		{
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out _);
+			var playerData = game.GeneratePlayersMatchDataLocal(out _, out _);
 			
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);

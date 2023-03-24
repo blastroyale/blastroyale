@@ -9,9 +9,19 @@ component CollectablePlatformSpawner
 	Int32 RarityModifier;
 }
 
+enum SpawnerType
+{
+    Any,
+    Player,
+    AnyBot,
+    BotOfType
+}
+
 component PlayerSpawner
 {
 	[HideInInspector] FP ActivationTime;
+	SpawnerType SpawnerType;
+	BotBehaviourType BehaviourType;
 }
 
 component AirDropSpawner

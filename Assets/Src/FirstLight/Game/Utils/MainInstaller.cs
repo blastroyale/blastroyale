@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Utils
@@ -48,6 +49,14 @@ namespace FirstLight.Game.Utils
 		public static void Clean()
 		{
 			_installer.Clean();
+		}
+
+		/// <summary>
+		/// Helper to resolve services
+		/// </summary>
+		public static IGameServices ResolveServices()
+		{
+			return Resolve<IGameServices>();
 		}
 	}
 }

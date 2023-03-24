@@ -4,6 +4,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -146,6 +147,30 @@ namespace FirstLight.Game.Utils
 		public static bool IsAttached(this VisualElement element)
 		{
 			return element.panel != null;
+		}
+
+		/// <summary>
+		/// Returns the rarity style for a Battle Pass reward.
+		/// </summary>
+		public static string GetBPRarityStyle(GameId id)
+		{
+			const string UssSpriteRarityModifier = "sprite-home__pattern-rewardglow-";
+			const string UssSpriteRarityCommon = UssSpriteRarityModifier + "common";
+			const string UssSpriteRarityUncommon = UssSpriteRarityModifier + "uncommon";
+			const string UssSpriteRarityRare = UssSpriteRarityModifier + "rare";
+			const string UssSpriteRarityEpic = UssSpriteRarityModifier + "epic";
+			const string UssSpriteRarityLegendary = UssSpriteRarityModifier + "legendary";
+			const string UssSpriteRarityRainbow = UssSpriteRarityModifier + "rainbow";
+
+			return id switch
+			{
+				GameId.CoreCommon    => UssSpriteRarityCommon,
+				GameId.CoreUncommon  => UssSpriteRarityUncommon,
+				GameId.CoreRare      => UssSpriteRarityRare,
+				GameId.CoreEpic      => UssSpriteRarityEpic,
+				GameId.CoreLegendary => UssSpriteRarityLegendary,
+				_                    => UssSpriteRarityRainbow
+			};
 		}
 	}
 }

@@ -243,7 +243,7 @@ namespace Quantum
 				return false;
 			}
 
-			if (gameSession.Session.FrameVerified == null)
+			if (gameSession?.Session?.FrameVerified == null)
 			{
 				return false;
 			}
@@ -384,7 +384,8 @@ namespace Quantum
 
 			foreach (var itemTuple in equipmentData.Inventory)
 			{
-				if (!itemTuple.Value.IsBroken())
+				var isNft = equipmentData.NftInventory.ContainsKey(itemTuple.Key);
+				if (isNft || !itemTuple.Value.IsBroken())
 				{
 					validItemHashes.Add(itemTuple.Value.GetServerHashCode());
 				}

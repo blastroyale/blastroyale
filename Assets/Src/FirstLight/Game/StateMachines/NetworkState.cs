@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -12,63 +11,63 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Statechart;
 using I2.Loc;
-using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
+using ErrorCode = Photon.Realtime.ErrorCode;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IOnEventCallback
+	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IOnEventCallback, IErrorInfoCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
 		public static readonly IStatechartEvent PhotonCriticalDisconnectedEvent = new StatechartEvent("NETWORK - Photon Critical Disconnected Event");
-		
+
 		public static readonly IStatechartEvent ConnectToRegionMasterEvent = new StatechartEvent("NETWORK - Connect To Region Master");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
-		
+
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
+		public static readonly IStatechartEvent JoinedPlayfabMatchmaking = new StatechartEvent("NETWORK - Joined Matchmaking Event");
+		public static readonly IStatechartEvent CanceledMatchmakingEvent = new StatechartEvent("NETWORK - Canceled Matchmaking Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("NETWORK - Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
+		public static readonly IStatechartEvent AlreadyJoined = new StatechartEvent("NETWORK - Already joined");
+		public static readonly IStatechartEvent GameDoesNotExists = new StatechartEvent("NETWORK - Game does not exists");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
-		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
-		
+		public static readonly IStatechartEvent RoomReadyEvent = new StatechartEvent("NETWORK - Room Closed Event");
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 
 		public static readonly IStatechartEvent IapProcessStartedEvent = new StatechartEvent("NETWORK - IAP Started Event");
 		public static readonly IStatechartEvent IapProcessFinishedEvent = new StatechartEvent("NETWORK - IAP Processed Event");
-		public static readonly IStatechartEvent ForceConnectionCheckEvent = new StatechartEvent("NETWORK - Force Connection Check Event");
-		
+
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _criticalDisconnectCoroutine;
+		private Coroutine _tickReconnectAttemptCoroutine;
 		private Coroutine _matchmakingCoroutine;
 		private bool _requiresManualRoomReconnection;
 
-		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-
 		public NetworkState(IGameLogic gameLogic, IGameServices services,
-		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
+							IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_gameDataProvider = gameLogic;
@@ -78,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <summary>
-		/// Setups the Adventure gameplay state
+		/// Setups the network state
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
@@ -86,6 +85,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("NETWORK - Final");
 			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
 			var connected = stateFactory.State("NETWORK - Connected");
+			var waitSimulationFinished = stateFactory.TaskWait("NETWORK - Wait Simulation Finish");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 			var disconnectForServerSelect = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
 			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
@@ -93,25 +93,28 @@ namespace FirstLight.Game.StateMachines
 			var connectToRegionMaster = stateFactory.State("NETWORK - Connect To Region Master");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 			var iapProcessing = stateFactory.State("NETWORK - IAP Processing");
-			
+
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
-			
+
 			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
-			
+
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
-			connectionCheck.Transition().Target(disconnected);
-			
-			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
+			connectionCheck.Transition().Target(disconnected); // TODO: Send to reconnection state instead
+
+			connected.Event(PhotonDisconnectedEvent).Target(waitSimulationFinished);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
+
+			waitSimulationFinished.WaitingFor(WaitSimulationFinish).Target(connectionCheck);
 			
 			disconnected.OnEnter(UpdateLastDisconnectLocation);
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(JoinedRoomEvent).Target(connected);
+			disconnected.Event(JoinedPlayfabMatchmaking).Target(connected);
 			disconnected.OnExit(UnsubscribeDisconnectEvents);
 
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
@@ -122,19 +125,104 @@ namespace FirstLight.Game.StateMachines
 			getAvailableRegions.Event(ConnectToNameServerFailEvent).Target(disconnected);
 
 			connectedToNameServer.Event(ConnectToRegionMasterEvent).Target(connectToRegionMaster);
-			
+
 			connectToRegionMaster.OnEnter(ConnectPhotonToRegionMaster);
 			connectToRegionMaster.Event(PhotonMasterConnectedEvent).Target(connected);
 			connectToRegionMaster.Event(PhotonDisconnectedEvent).Target(disconnected);
-			
+
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		/// <summary>
-		/// This method receives all photon events, but is only used for our custom in-game events
-		/// </summary>
+		private void SubscribeEvents()
+		{
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
+			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuitMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
+			_services.MessageBrokerService.Subscribe<SimulationEndedMessage>(OnMatchSimulationEndedMessage);
+			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
+			_services.MessageBrokerService.Subscribe<MatchmakingCancelMessage>(OnMatchmakingCancelMessage);
+			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
+			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
+			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
+			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
+			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClickedMessage);
+			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoadedMessage);
+			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoadedMessage);
+			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
+			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
+			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
+			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
+			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
+			_services.MatchmakingService.OnGameMatched += OnGameMatched;
+			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
+			_services.MatchmakingService.OnMatchmakingCancelled += OnMatchmakingCancelled;
+		}
+
+
+		private void UnsubscribeEvents()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services.MatchmakingService.OnGameMatched -= OnGameMatched;
+			_services.MatchmakingService.OnMatchmakingJoined -= OnMatchmakingJoined;
+			_services.MatchmakingService.OnMatchmakingCancelled -= OnMatchmakingCancelled;
+		}
+
+		private void SubscribeDisconnectEvents()
+		{
+			_tickReconnectAttemptCoroutine = _services.CoroutineService.StartCoroutine(TickReconnectAttempt());
+			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
+		}
+		
+		private async Task WaitSimulationFinish()
+		{
+			while(QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
+				await Task.Delay(1);
+		}
+		
+		private void UnsubscribeDisconnectEvents()
+		{
+			if (_tickReconnectAttemptCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_tickReconnectAttemptCoroutine);
+				_tickReconnectAttemptCoroutine = null;
+			}
+
+			if (_criticalDisconnectCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_criticalDisconnectCoroutine);
+				_criticalDisconnectCoroutine = null;
+			}
+		}
+
+		private IEnumerator TickReconnectAttempt()
+		{
+			var waitForSeconds = new WaitForSeconds(GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+
+			while (true)
+			{
+				if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
+				{
+					ReconnectPhoton();
+				}
+
+				yield return waitForSeconds;
+			}
+		}
+
+		[Conditional("LOG_LEVEL_VERBOSE")]
+		private void DebugEvent(EventData photonEvent)
+		{
+			FLog.Verbose("Photon Event Received:"+photonEvent.Code);
+			foreach (var k in photonEvent.Parameters)
+			{
+				FLog.Verbose("Parameter: "+k.Key+" = "+k.Value);
+			}
+		}
+		
+		// This method receives all photon events, but is only used for our custom in-game events
 		public void OnEvent(EventData photonEvent)
 		{
+			// DebugEvent(photonEvent);
 			if (photonEvent.Code == (byte) QuantumCustomEvents.KickPlayer)
 			{
 				OnKickPlayerEventReceived((int) photonEvent.CustomData, photonEvent.Sender);
@@ -143,9 +231,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
 		{
-			if (_networkService.QuantumClient.LocalPlayer.ActorNumber != userIdToLeave ||
-				!_networkService.QuantumClient.InRoom ||
-				_networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
+			if (_networkService.LocalPlayer.ActorNumber != userIdToLeave ||
+			    !_networkService.InRoom || _networkService.CurrentRoom.MasterClientId != senderIndex)
 			{
 				return;
 			}
@@ -172,104 +259,139 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private bool CurrentSceneIsMatch()
-		{
-			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
-		}
-
 		private void HandleIapTransition()
 		{
-			_services.CoroutineService.StartCoroutine(ConnectionCheckCoroutine());
 			ReconnectPhoton();
 		}
 
-		private IEnumerator ConnectionCheckCoroutine()
+		private void ConnectPhoton()
 		{
-			yield return new WaitForSeconds(7.5f);
-
-			_statechartTrigger(ForceConnectionCheckEvent);
+			_networkService.ConnectPhotonToMaster();
 		}
 
-		private void SubscribeEvents()
+		private void ReconnectPhoton()
 		{
-			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
-			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
-			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
-			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
-			_services.MessageBrokerService.Subscribe<PlayMapClickedMessage>(OnPlayMapClickedMessage);
-			_services.MessageBrokerService.Subscribe<PlayJoinRoomClickedMessage>(OnPlayJoinRoomClickedMessage);
-			_services.MessageBrokerService.Subscribe<PlayCreateRoomClickedMessage>(OnPlayCreateRoomClickedMessage);
-			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
-			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClicked);
-			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
-			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
-			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
-			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
-			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnected);
-			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
+			_networkService.ReconnectPhoton(out _requiresManualRoomReconnection);
 		}
 
-		private void UnsubscribeEvents()
+		private void DisconnectPhoton()
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.TickService?.UnsubscribeAll(this);
+			_networkService.DisconnectPhoton();
 		}
 
-		private void SubscribeDisconnectEvents()
+		private void ConnectPhotonToRegionMaster()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
-			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
+			_networkService.ConnectPhotonToRegionMaster(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
 		}
 
-		public void OnSimulationStart(MatchSimulationStartedMessage message)
+		private void ConnectToNameServer()
 		{
-			if(FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			var success = _networkService.ConnectPhotonToNameServer();
+
+			if (!success)
 			{
-				SendPlayerToken(PlayFabSettings.staticPlayer.EntityToken);
+				_statechartTrigger(ConnectToNameServerFailEvent);
 			}
 		}
 
-		/// <summary>
-		/// Sends user token to Quantum Server to prove the user is authenticated and able to send commands.
-		/// </summary> 
-		private void SendPlayerToken(string token)
+		private void OnGameMatched(GameMatched match)
 		{
-			var opt = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-			_networkService.QuantumClient.OpRaiseEvent(
-				(int)QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable
-			);
+			_services.NetworkService.JoinOrCreateRoom(match.RoomSetup, match.TeamId, match.ExpectedPlayers);
+			_services.GenericDialogService.CloseDialog();
 		}
 
-		private void UnsubscribeDisconnectEvents()
+		private void OnMatchmakingJoined(JoinedMatchmaking match)
 		{
-			_services.TickService.Unsubscribe(TickReconnectAttempt);
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
+			_networkService.LastUsedSetup.Value = match.RoomSetup;
+			_statechartTrigger(JoinedPlayfabMatchmaking);
+		}
 
-			if (_criticalDisconnectCoroutine != null)
+		private void OnMatchmakingCancelled()
+		{
+			_statechartTrigger(CanceledMatchmakingEvent);
+		}
+		
+		private void StartRandomMatchmaking(MatchRoomSetup setup)
+		{
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
+			if (setup.GameMode().ShouldUsePlayfabMatchmaking())
 			{
-				_services.CoroutineService.StopCoroutine(_criticalDisconnectCoroutine);
+				_networkService.LastUsedSetup.Value = setup;
+				_services.MatchmakingService.JoinMatchmaking(setup);
+			}
+			else
+			{
+				_networkService.JoinOrCreateRandomRoom(setup);
 			}
 		}
 
-		private IEnumerator CriticalDisconnectCoroutine()
+		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
 		{
-			yield return new WaitForSeconds(GameConstants.Network.CRITICAL_DISCONNECT_THRESHOLD_SECONDS);
-			_statechartTrigger(PhotonCriticalDisconnectedEvent);
+			if (!_networkService.QuantumClient.InRoom && resetLastDcLocation)
+			{
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+			}
+			_networkService.JoinRoom(roomName);
 		}
 
-		/// <inheritdoc />
+		private void LockRoom()
+		{
+			if (_networkService.CurrentRoom != null && _networkService.CurrentRoom.IsOpen)
+			{
+				FLog.Info($"RoomDebugString: {_networkService.CurrentRoom.GetRoomDebugString()}");
+				_networkService.SetCurrentRoomOpen(false);
+			}
+		}
+
+		private void LeaveRoom()
+		{
+			_networkService.LeaveRoom(false, true);
+		}
+
+		private void StartMatchmakingLockRoomTimer()
+		{
+			if (!_services.TutorialService.IsTutorialRunning &&
+			    (!_networkService.LocalPlayer.IsMasterClient ||
+				    !_networkService.CurrentRoom.IsMatchmakingRoom() ||
+				    !_networkService.CurrentRoomMatchType.HasValue ||
+				    !_networkService.CurrentRoomMatchType.HasValue))
+			{
+				return;
+			}
+
+			if (_matchmakingCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingCoroutine);
+			}
+		
+			if (_networkService.CurrentRoomMatchType.Value == MatchType.Ranked)
+			{
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
+			}
+			else
+			{
+				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(CasualMatchmakingCoroutine());
+			}
+		}
+
+		private void OnSimulationStart(MatchSimulationStartedMessage message)
+		{
+			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			{
+				_networkService.SendPlayerToken(PlayFabSettings.staticPlayer.EntityToken);
+			}
+		}
+
 		public void OnConnected()
 		{
 			FLog.Info("OnConnected");
 		}
 
-		/// <inheritdoc />
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
-			
+
 			_statechartTrigger(PhotonMasterConnectedEvent);
 
 			// Reconnections during matchmaking screen require manual reconnection to the room, due to TTL 0
@@ -277,104 +399,135 @@ namespace FirstLight.Game.StateMachines
 			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 			{
 				_requiresManualRoomReconnection = false;
-				JoinRoom(_networkService.LastConnectedRoomName.Value.TrimRoomCommitLock(), false);
+				FLog.Verbose("Manual reconnection - re-joining room");
+				_networkService.RejoinRoom(_networkService.LastConnectedRoom.Value.Name);
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnDisconnected(DisconnectCause cause)
 		{
 			FLog.Info("OnDisconnected " + cause);
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
-			                                                   _services.NetworkService.QuantumClient.DisconnectedCause
-			                                                            .ToString());
+				_networkService.QuantumClient.DisconnectedCause
+					.ToString());
 
+			if (QuantumRunner.Default != null)
+			{
+				FLog.Verbose("Disabling Simulation Updates");
+				QuantumRunner.Default.OverrideUpdateSession = true;
+			}
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnCreatedRoom()
 		{
 			FLog.Info("OnCreatedRoom");
 		}
 
-		/// <inheritdoc />
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
-			var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
-			var confirmButton = new GenericDialogButton
+			if (!_networkService.JoinSource.Value.IsSnapshotAutoConnect())
 			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
-
+				var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+			}
+			
 			_statechartTrigger(CreateRoomFailedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
+			FLog.Verbose("Current Room Debug: \n" + _networkService.CurrentRoom.GetRoomDebugString());
+			
+			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
 
+			_networkService.SetLastRoom();
 			_statechartTrigger(JoinedRoomEvent);
-
-			_networkService.LastConnectedRoomName.Value = _networkService.QuantumClient.CurrentRoom.Name;
-
-			if (_networkService.IsJoiningNewMatch.Value)
+			
+			if (_networkService.JoinSource.Value != JoinRoomSource.FirstJoin)
 			{
-				// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
-				var isSpectator = (bool) _networkService.QuantumClient.LocalPlayer.CustomProperties
-					[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+				if (_networkService.CurrentRoom.IsMatchmakingRoom() && !_networkService.CurrentRoom.HaveStartedGame())
+				{
+					StartMatchmakingLockRoomTimer();
+				}
+				return;
+			}
+			
+			// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
+			var isSpectator = (bool) _networkService.LocalPlayer.CustomProperties
+				[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 
-				if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
-				    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
-				{
-					SetSpectatePlayerProperty(true);
-				}
-				else if (isSpectator && _networkService.QuantumClient.CurrentRoom.GetSpectatorAmount() >
-				         _networkService.QuantumClient.CurrentRoom.GetSpectatorCapacity())
-				{
-					SetSpectatePlayerProperty(false);
-				}
+			if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
+			    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
+			{
+				_networkService.SetSpectatePlayerProperty(true);
+			}
+			else if (isSpectator && _networkService.QuantumClient.CurrentRoom.GetSpectatorAmount() >
+			         _networkService.QuantumClient.CurrentRoom.GetSpectatorCapacity())
+			{
+				_networkService.SetSpectatePlayerProperty(false);
 			}
 
-			if (QuantumRunnerConfigs.IsOfflineMode)
+			if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
+			    _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
 				LockRoom();
 			}
-			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
+			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
+					 _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				StartMatchmakingLockRoomTimer();
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 
-			var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
-			var confirmButton = new GenericDialogButton
+			if (returnCode == ErrorCode.GameDoesNotExist)
 			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+				_statechartTrigger(GameDoesNotExists);
+			}
+
+			if (_networkService.JoinSource.Value.IsSnapshotAutoConnect())
+			{
+				if (returnCode == ErrorCode.JoinFailedPeerAlreadyJoined)
+				{
+					FLog.Verbose("Player already inactive in the room, rejoining");
+					_statechartTrigger(AlreadyJoined);
+					var lastSnapshot = _gameDataProvider.AppDataProvider.LastFrameSnapshot.Value;
+					_networkService.RejoinRoom(lastSnapshot.RoomName);
+					return;
+				} 
+			}
+			else
+			{
+				var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+			}
 
 			_statechartTrigger(JoinRoomFailedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnJoinRandomFailed(short returnCode, string message)
 		{
 			OnJoinRoomFailed(returnCode, message);
 		}
 
-		/// <inheritdoc />
 		public void OnLeftRoom()
 		{
 			FLog.Info("OnLeftRoom");
@@ -387,19 +540,17 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(LeftRoomEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player player)
 		{
 			FLog.Info($"OnPlayerEnteredRoom {player.NickName}");
 		}
 
-		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
 
 			var allPlayersReady = _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
-				
+
 			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() && !allPlayersReady)
 			{
 				StartMatchmakingLockRoomTimer();
@@ -410,22 +561,24 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnRoomPropertiesUpdate(Hashtable changedProps)
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
-
+			FLog.Verbose(changedProps);
+	
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
-				_statechartTrigger(RoomClosedEvent);
+				_statechartTrigger(RoomReadyEvent);
 			}
 		}
+		
 
-		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 
+			FLog.Verbose(changedProps);
+			
 			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED, out var loadedMatch) &&
 			    (bool) loadedMatch)
 			{
@@ -438,24 +591,22 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
 			FLog.Info("OnMasterClientSwitched " + newMasterClient.NickName);
 		}
 
-		/// <inheritdoc />
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
 
-			_services.MessageBrokerService.Publish(new RegionListReceivedMessage(){RegionHandler = regionHandler});
-			
+			_services.MessageBrokerService.Publish(new RegionListReceivedMessage() {RegionHandler = regionHandler});
+
 			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
-			
+
 			_statechartTrigger(RegionListReceivedEvent);
 		}
-		
+
 		// NOTE: THIS DOES NOT EXECUTE ON MAIN THREAD BECAUSE PHOTON IS PHOTON
 		private void OnPingedRegions(RegionHandler regionHandler)
 		{
@@ -463,28 +614,28 @@ namespace FirstLight.Game.StateMachines
 
 			_services.ThreadService.MainThreadDispatcher.Enqueue(() =>
 			{
-				_services.MessageBrokerService.Publish(new PingedRegionsMessage(){RegionHandler = regionHandler});
+				_services.MessageBrokerService.Publish(new PingedRegionsMessage()
+				{
+					RegionHandler = regionHandler
+				});
 			});
 		}
 
-		/// <inheritdoc />
 		public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + data.Count);
 		}
 
-		/// <inheritdoc />
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + debugMessage);
 		}
 
-		/// <inheritdoc />
 		public void OnFriendListUpdate(List<FriendInfo> friendList)
 		{
 			FLog.Info("OnFriendListUpdate " + friendList.Count);
 		}
-		
+
 		public void OnJoinedLobby()
 		{
 			FLog.Info("OnJoinedLobby");
@@ -505,7 +656,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnLobbyStatisticsUpdate");
 		}
 
-		private void OnRoomLockClicked(RoomLockClickedMessage message)
+		private void OnRoomLockClickedMessage(RoomLockClickedMessage message)
 		{
 			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable
 			{
@@ -517,56 +668,47 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnSpectatorToggleMessage(SpectatorModeToggledMessage message)
 		{
-			SetSpectatePlayerProperty(message.IsSpectator);
+			_networkService.SetSpectatePlayerProperty(message.IsSpectator);
 		}
 
-		private void SetSpectatePlayerProperty(bool isSpectator)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator}
-			};
-
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
-		}
-		
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
 		{
-			if (_networkService.QuantumClient.CurrentRoom == null ||
-			    !_networkService.QuantumClient.LocalPlayer.IsMasterClient)
-			{
-				return;
-			}
-
-			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
-			_networkService.QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, msg.Player.ActorNumber, eventOptions,
-			                                           SendOptions.SendReliable);
+			_networkService.KickPlayer(msg.Player);
 		}
-		
+
 		private void OnAttemptManualReconnectionMessage(AttemptManualReconnectionMessage obj)
 		{
 			ReconnectPhoton();
 		}
-		
-		private void OnNetworkActionWhileDisconnected(NetworkActionWhileDisconnectedMessage msg)
+
+		private void OnNetworkActionWhileDisconnectedMessage(NetworkActionWhileDisconnectedMessage msg)
 		{
-			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
+			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnected)
 			{
+				FLog.Warn($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
 			}
 		}
 
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
 		{
+			if (MainInstaller.TryResolve<IMatchServices>(out var s))
+			{
+				s.FrameSnapshotService.ClearFrameSnapshot();
+			}
 			LeaveRoom();
 		}
 
-		private void OnMatchSimulationEndedMessage(MatchSimulationEndedMessage msg)
+		private void OnMatchSimulationEndedMessage(SimulationEndedMessage msg)
 		{
-			LeaveRoom();
+			if (msg.Reason != SimulationEndReason.Disconnected)
+			{
+				FLog.Verbose("Simulation endeed abruptly, leaving room");
+				LeaveRoom();
+			}
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		private void OnMatchStart(MatchStartedMessage msg)
 		{
 			_networkService.LastMatchPlayers.Clear();
 
@@ -575,62 +717,88 @@ namespace FirstLight.Game.StateMachines
 				_networkService.LastMatchPlayers.Add(player);
 			}
 			
-			// Once match starts, TTL needs to be set to max so player can DC+RC easily
-			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
+			if (!_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME))
 			{
-				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
-				
-				if(!_networkService.QuantumClient.CurrentRoom.IsPlayTestRoom())
-				{
-					_networkService.QuantumClient.CurrentRoom.EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
-				}
+				_networkService.QuantumClient.CurrentRoom.SetProperty(GameConstants.Network.ROOM_PROPS_STARTED_GAME, true);
 			}
 		}
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
+			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
+			// This is the same flow as the first match setup
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
+			{
+				return;
+			}
+
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
-			StartRandomMatchmaking(gameModeConfig, mapConfig, mutators);
+			var matchmakingSetup = new MatchRoomSetup()
+			{
+				MapId = (int) mapConfig.Map,
+				GameModeId = gameModeId,
+				Mutators = mutators,
+				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
+			};
+
+			StartRandomMatchmaking(matchmakingSetup);
+		}
+
+		private void OnMatchmakingCancelMessage(MatchmakingCancelMessage obj)
+		{
+			_services.MatchmakingService.LeaveMatchmaking();
 		}
 
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
-			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-
-			StartRandomMatchmaking(gameModeConfig, mapConfig, mutators);
+			var setup = new MatchRoomSetup()
+			{
+				GameModeId = gameModeId,
+				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
+				Mutators = selectedGameMode.Entry.Mutators,
+				MapId = msg.MapId
+			};
+			StartRandomMatchmaking(setup);
 		}
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
 			var gameModeId = msg.GameModeConfig.Id;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
+			var setup = new MatchRoomSetup()
+			{
+				GameModeId = gameModeId,
+				MapId = (int) msg.MapConfig.Map,
+				Mutators = msg.CustomGameOptions.Mutators,
+				MatchType = MatchType.Custom,
+				RoomIdentifier = msg.RoomName
+			};
+			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName);
+				_services.NetworkService.JoinOrCreateRoom(setup);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName);
+				_services.NetworkService.CreateRoom(setup, offlineMatch);
 			}
 		}
 
 		private void OnPlayJoinRoomClickedMessage(PlayJoinRoomClickedMessage msg)
 		{
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			JoinRoom(msg.RoomName);
 		}
 
-		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
+		private void OnCoreMatchAssetsLoadedMessage(CoreMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
@@ -639,17 +807,17 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.SetPlayerCustomProperties(playerPropsUpdate);
 		}
 
-		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
+		private void OnAllMatchAssetsLoadedMessage(AllMatchAssetsLoadedMessage msg)
 		{
 			var playerPropsUpdate = new Hashtable
 			{
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true}
 			};
-
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			
+			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		private void OnAssetReloadRequiredMessage(AssetReloadRequiredMessage msg)
@@ -660,226 +828,12 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
-		
-		private void OnApplicationQuit(ApplicationQuitMessage data)
+
+		private void OnApplicationQuitMessage(ApplicationQuitMessage data)
 		{
 			_networkService.QuantumClient.Disconnect();
-		}
-
-		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
-		{
-			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameHasBots = gameModeConfig.AllowBots;
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
-			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
-
-			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
-
-			UpdateQuantumClientProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
-			}
-		}
-
-		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
-		{
-			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
-
-			QuantumRunnerConfigs.IsOfflineMode = false;
-
-			UpdateQuantumClientProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-
-				if (resetLastDcLocation)
-				{
-					_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				}
-				
-				_networkService.QuantumClient.OpJoinRoom(enterParams);
-			}
-		}
-
-		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
-		{
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
-
-			QuantumRunnerConfigs.IsOfflineMode = false;
-
-			UpdateQuantumClientProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpCreateRoom(createParams);
-			}
-		}
-		
-		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
-		{
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
-
-			QuantumRunnerConfigs.IsOfflineMode = false;
-
-			UpdateQuantumClientProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
-			}
-		}
-
-		private void TickQuantumServer(float deltaTime)
-		{
-			_networkService.QuantumClient.Service();
-			_networkService.CheckLag();
-		}
-
-		private void TickReconnectAttempt(float deltaTime)
-		{
-			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
-			{
-				ReconnectPhoton();
-			}
-		}
-
-		private void StartMatchmakingLockRoomTimer()
-		{
-			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient ||
-			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
-			    !_networkService.CurrentRoomMatchType.HasValue) 
-			{
-				return;
-			}
-
-			if (_networkService.CurrentRoomMatchType.Value == MatchType.Ranked)
-			{
-				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
-			}
-			else
-			{
-				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(CasualMatchmakingCoroutine());
-			}
-		}
-
-		private void LockRoom()
-		{
-			var room = _networkService?.QuantumClient?.CurrentRoom;
-
-			if (room != null && room.IsOpen)
-			{
-				room.IsOpen = false;
-			}
-		}
-
-		private IEnumerator CasualMatchmakingCoroutine()
-		{
-			var oneSecond = new WaitForSeconds(1f);
-			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
-			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
-			var room = _networkService.QuantumClient.CurrentRoom;
-
-			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
-			{
-				yield return oneSecond;
-			}
-
-			LockRoom();
-		}
-
-		private IEnumerator RankedMatchmakingCoroutine()
-		{
-			var oneSecond = new WaitForSeconds(1f);
-			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
-			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat);
-			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
-			var room = _networkService.QuantumClient.CurrentRoom;
-
-			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
-			       (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
-			{
-				yield return oneSecond;
-			}
-
-			LockRoom();
-		}
-
-		private void ConnectPhoton()
-		{
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.ConnectionRegion.Value))
-			{
-				_gameDataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
-			}
-
-			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
-			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
-			
-			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.DisplayNameTrimmed);
-		}
-
-		private void ConnectPhotonToRegionMaster()
-		{
-			_networkService.QuantumClient.ConnectToRegionMaster(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
-		}
-		
-		private void ReconnectPhoton()
-		{
-			if (_networkService.QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connecting) return;
-			
-			if (CurrentSceneIsMatch())
-			{
-				_networkService.IsJoiningNewMatch.Value = false;
-
-				if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
-				{
-					_networkService.IsJoiningNewMatch.Value = true;
-					SetSpectatePlayerProperty(false);
-					
-					// TTL during matchmaking is 0 - we must connect to room manually again by name
-					// Rejoining room is handled OnMasterConnected
-					_requiresManualRoomReconnection = true;
-					_networkService.QuantumClient.ReconnectToMaster();
-				}
-				else
-				{
-					_networkService.QuantumClient.ReconnectAndRejoin();
-				}
-			}
-			else
-			{
-				_networkService.QuantumClient.ReconnectToMaster();
-			}
-		}
-
-		private void DisconnectPhoton()
-		{
-			_networkService.QuantumClient.Disconnect();
-		}
-
-		private void ConnectToNameServer()
-		{
-			var success = _networkService.QuantumClient.ConnectToNameServer();
-
-			if (!success)
-			{
-				_statechartTrigger(ConnectToNameServerFailEvent);
-			}
 		}
 
 		private bool IsPhotonConnectedAndReady()
@@ -887,46 +841,63 @@ namespace FirstLight.Game.StateMachines
 			return _networkService.QuantumClient.IsConnectedAndReady;
 		}
 
-		private void LeaveRoom()
+		private bool CurrentSceneIsMatch()
 		{
-			if (_networkService.QuantumClient.InRoom)
-			{
-				_networkService.QuantumClient.OpLeaveRoom(false, true);
-			}
+			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
 		}
 
-		private void UpdateQuantumClientProperties()
+		private IEnumerator CriticalDisconnectCoroutine()
 		{
-			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
-			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
-
-			var preloadIds = new List<int>();
-
-			foreach (var item in _gameDataProvider.EquipmentDataProvider.Loadout)
-			{
-				var equipmentDataInfo = _gameDataProvider.EquipmentDataProvider.Inventory[item.Value];
-				preloadIds.Add((int) equipmentDataInfo.GameId);
-			}
-
-			preloadIds.Add((int) _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin);
-
-			var playerProps = new Hashtable
-			{
-				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
-				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
-				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
-				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
-			};
-
-			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
+			yield return new WaitForSeconds(GameConstants.Network.CRITICAL_DISCONNECT_THRESHOLD_SECONDS);
+			FLog.Verbose("Critical disconnection");
+			_statechartTrigger(PhotonCriticalDisconnectedEvent);
 		}
 
-		private Vector3 GetRandomDropzonePosRot()
+		private IEnumerator CasualMatchmakingCoroutine()
 		{
-			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
-			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
-							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
+			var oneSecond = new WaitForSeconds(1f);
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var qConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var waitSeconds = NetworkUtils.GetMatchmakingTime(_networkService.CurrentRoomMatchType.Value, _networkService.CurrentRoomGameModeConfig.Value, qConfig);
+
+			var matchmakingEndTime = roomCreationTime.AddSeconds(waitSeconds);
+			var room = _networkService.QuantumClient.CurrentRoom;
+			while (DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity(_services.ConfigsProvider))
+			{
+				yield return oneSecond;
+			}
+			
+			if (room.IsAtFullPlayerCapacity(_services.ConfigsProvider) && room.ShouldUsePlayFabMatchmaking(_services.ConfigsProvider))
+			{
+				// give more time for players to select the dropzone
+				yield return new WaitForSeconds(GameConstants.Data.ROOM_SELECT_DROP_POSITION_SECONDS);
+			}
+			LockRoom();
+		}
+
+		private IEnumerator RankedMatchmakingCoroutine()
+		{
+			var oneSecond = new WaitForSeconds(1f);
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var qConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var waitSeconds = NetworkUtils.GetMatchmakingTime(_networkService.CurrentRoomMatchType!.Value, _networkService.CurrentRoomGameModeConfig!.Value, qConfig);
+
+			var matchmakingEndTime = roomCreationTime.AddSeconds(waitSeconds);
+			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
+			var room = _networkService.QuantumClient.CurrentRoom;
+
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity(_services.ConfigsProvider)) ||
+				   (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
+			{
+				yield return oneSecond;
+			}
+
+			LockRoom();
+		}
+
+		public void OnErrorInfo(ErrorInfo errorInfo)
+		{
+			FLog.Verbose("On Error Info "+errorInfo.Info);
 		}
 	}
 }

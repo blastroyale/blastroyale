@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Quantum
@@ -5,7 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// This class has a list of useful extensions to be used in the quantum project
 	/// </summary>
-	public  static class QuantumExtensions
+	public static class QuantumExtensions
 	{
 		/// <summary>
 		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
@@ -25,7 +26,7 @@ namespace Quantum
 				return isReverse ? rank * -1 : rank;
 			});
 		}
-		
+
 		/// <summary>
 		/// Sorts a list of player by their <see cref="QuantumPlayerMatchData.PlayerRank"/>
 		/// </summary>
@@ -37,6 +38,39 @@ namespace Quantum
 
 				return isReverse ? rank * -1 : rank;
 			});
+		}
+
+		public static void CopyFixedArray<T>(this FixedArray<T> array, FixedArray<T> otherArray) where T : unmanaged
+		{
+			for (int i = 0; i < array.Length; i++)
+			{
+				array[i] = otherArray[i];
+			}
+		}
+
+		public static List<T> ToList<T>(this FixedArray<T> array) where T : unmanaged
+		{
+			var list = new List<T>();
+
+			for (int i = 0; i < array.Length; i++)
+			{
+				list.Add(array[i]);
+			}
+
+			return list;
+		}
+
+		public static GameId GameId(this ChestType type)
+		{
+			return type switch
+			{
+				ChestType.Common    => Quantum.GameId.ChestCommon,
+				ChestType.Uncommon  => Quantum.GameId.ChestUncommon,
+				ChestType.Rare      => Quantum.GameId.ChestRare,
+				ChestType.Epic      => Quantum.GameId.ChestEpic,
+				ChestType.Legendary => Quantum.GameId.ChestLegendary,
+				_                   => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+			};
 		}
 	}
 }

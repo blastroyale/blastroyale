@@ -23,9 +23,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
 		private readonly IStatechartEvent _connectIdClickedEvent = new StatechartEvent("Connect ID Clicked Event");
 		private readonly IStatechartEvent _connectIdBackEvent = new StatechartEvent("Connect ID Back Event");
-		private readonly IStatechartEvent _connectIdSuccessEvent = new StatechartEvent("Connect ID success event");
+		private readonly IStatechartEvent _connectIdLoginSuccessEvent = new StatechartEvent("Connect ID login success event");
+		private readonly IStatechartEvent _connectIdRegisterSuccessEvent = new StatechartEvent("Connect ID register success event");
 		private readonly IStatechartEvent _connectIdFailedEvent = new StatechartEvent("Connect ID failed event");
-		private readonly IStatechartEvent _connectIdFailedClickedOkEvent = new StatechartEvent("Connect ID failed Back Clicked Event");
 
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
@@ -57,7 +57,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var connectId = stateFactory.State("Connect ID Screen");
-			var connectIdFailed = stateFactory.State("Connect ID Failed Screen");
 			var serverSelect = stateFactory.State("Server Select");
 			var logoutWait = stateFactory.State("Wait For Logout");
 
@@ -71,12 +70,11 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
 
 			connectId.OnEnter(OpenConnectIdUI);
-			connectId.Event(_connectIdBackEvent).OnTransition(CloseConnectUI).Target(settingsMenu);
-			connectId.Event(_connectIdSuccessEvent).OnTransition(CloseConnectUI).OnTransition(UpdateAccountStatus)
-				.Target(settingsMenu);
-			connectId.Event(_connectIdFailedEvent).Target(connectIdFailed);
-
-			connectIdFailed.Event(_connectIdFailedClickedOkEvent).Target(settingsMenu);
+			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
+			connectId.Event(_connectIdRegisterSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
+			connectId.Event(_connectIdLoginSuccessEvent).OnTransition(UpdateAccountStatus).Target(settingsMenu);
+			connectId.Event(_connectIdFailedEvent).Target(settingsMenu);
+			connectId.OnExit(CloseConnectUI);
 
 			serverSelect.OnEnter(OpenServerSelectUI);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
@@ -122,13 +120,13 @@ namespace FirstLight.Game.StateMachines
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnDeleteAccountClicked = () =>
-					_services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
+					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
 
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
-		private void OpenServerSelectUI()
+		private async void OpenServerSelectUI()
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
@@ -140,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
 		}
 
 		private void CloseServerSelectUI()
@@ -166,105 +164,74 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OpenConnectIdUI()
+		private async void OpenConnectIdUI()
 		{
-			var data = new ConnectIdScreenPresenter.StateData
+			var data = new ConnectFlgIdScreenPresenter.StateData
 			{
-				ConnectClicked = TryConnectId,
-				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
+				CloseClicked = () => _statechartTrigger(_connectIdBackEvent),
+				AuthLoginSuccess = () => _statechartTrigger(_connectIdLoginSuccessEvent),
+				AuthLoginFail = () => _statechartTrigger(_connectIdFailedEvent),
+				AuthRegisterSuccess = () => _statechartTrigger(_connectIdRegisterSuccessEvent)
 			};
 
-			_uiService.OpenUiAsync<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<ConnectFlgIdScreenPresenter, ConnectFlgIdScreenPresenter.StateData>(data);
 		}
 
 		private void CloseConnectUI()
 		{
-			_uiService.CloseUi<ConnectIdScreenPresenter>();
-		}
-
-		private void SetConnectIdDim(bool activateDim)
-		{
-			if (_uiService.HasUiPresenter<ConnectIdScreenPresenter>())
-			{
-				_uiService.GetUi<ConnectIdScreenPresenter>().SetFrontDimBlockerActive(activateDim);
-			}
-		}
-
-		private void TryConnectId(string email, string username, string password)
-		{
-			SetConnectIdDim(true);
-			_services.PlayfabService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
-				OnConnectIdError);
+			_uiService.CloseUi<ConnectFlgIdScreenPresenter>();
 		}
 
 		private void TryLogOut()
 		{
-			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
+			_services.AuthenticationService.Logout(OnLogoutComplete, OnLogoutFail);
+			_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
 		}
 
-		private void OnConnectIdComplete(AddUsernamePasswordResult result)
+		private void OnLogoutComplete()
 		{
-			_services.PlayfabService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete,
-				OnUpdateNicknameError);
-			_statechartTrigger(_connectIdSuccessEvent);
-		}
-
-		private void OnConnectIdError(PlayFabError error)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount,
-				error.ErrorMessage);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () =>
-				{
-					_services.GenericDialogService.CloseDialog();
-					_statechartTrigger(_connectIdFailedClickedOkEvent);
-				}
-			};
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
-			SetConnectIdDim(false);
-		}
-
-		private void OnUpdateNicknameComplete(UpdateUserTitleDisplayNameResult result)
-		{
-			SetConnectIdDim(false);
-			_statechartTrigger(_connectIdBackEvent);
-			OpenFlgIdSuccessPopup();
-
-			// Also update contact email after the Connect ID flow passes
-			// Doesn't matter if this fails - this request is also fired upon login if the contact email is not present
-			_services.PlayfabService.UpdateContactEmail(_appLogic.LastLoginEmail.Value);
-		}
-
-		private void OnUpdateNicknameError(PlayFabError error)
-		{
-			SetConnectIdDim(false);
-			_statechartTrigger(_connectIdBackEvent);
-			OpenFlgIdSuccessPopup();
-		}
-
-		private void OpenFlgIdSuccessPopup()
-		{
-			var title = string.Format(ScriptLocalization.MainMenu.FirstLightIdConnectionSuccess);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, title, false,
-				confirmButton);
-		}
-
-		private void OnUnlinkComplete()
-		{
-			_data.AppDataProvider.DeviceID.Value = null;
-			_services.HelpdeskService.Logout();
-
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			
 			var title = ScriptLocalization.UITShared.info;
 			var desc = ScriptLocalization.UITSettings.logout_success_desc;
+
+#if UNITY_EDITOR
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
+			};
+
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
+#else
+				var button = new FirstLight.NativeUi.AlertButton
+				{
+					Callback = () => {_services.QuitGame("Closing unlink complete alert"); },
+					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+				};
+
+				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, title, desc, button);
+#endif
+		}
+
+		private void OnLogoutFail(PlayFabError error)
+		{
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+				ButtonOnClick = () => { _services.QuitGame("Failed to log out"); }
+			};
+
+			_services.GenericDialogService.OpenButtonDialog("Logout Fail", error.ErrorMessage, false, confirmButton);
+		}
+		
+		private void OpenGameClosePopup()
+		{
+			var title = "Login Success";
+			var desc = "Please close the game to continue using your account.";
 
 #if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton

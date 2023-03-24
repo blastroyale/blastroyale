@@ -13,6 +13,8 @@ COPY . .
 WORKDIR "/src/GameLogicService"
 RUN dotnet build "GameLogicService.csproj" -c Release -o /app/build
 
+RUN dotnet test "../TestUnit/TestUnit.csproj"
+
 FROM build AS publish
 RUN dotnet publish "GameLogicService.csproj" -c Release -o /app/publish
 

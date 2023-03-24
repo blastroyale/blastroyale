@@ -80,7 +80,7 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 180224
+        RawValue: 114688
       SpecialPower:
         RawValue: 26214
       Speed:
@@ -116,7 +116,7 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 163840
+        RawValue: 180224
       SpecialPower:
         RawValue: 21627
       Speed:
@@ -152,9 +152,9 @@ MonoBehaviour:
       InitialCooldown:
         RawValue: 98304
       Radius:
-        RawValue: 1310720
+        RawValue: 2621440
       SpecialPower:
-        RawValue: 983040
+        RawValue: 196608
       Speed:
         RawValue: 0
       MinRange:
@@ -162,3 +162,21 @@ MonoBehaviour:
       MaxRange:
         RawValue: 0
       Knockback: 0
+    - Id: 70
+      SpecialType: 5
+      Indicator: 6
+      Cooldown:
+        RawValue: 196608
+      InitialCooldown:
+        RawValue: 98304
+      Radius:
+        RawValue: 180224
+      SpecialPower:
+        RawValue: 21627
+      Speed:
+        RawValue: 65536
+      MinRange:
+        RawValue: 0
+      MaxRange:
+        RawValue: 458752
+      Knockback: 30

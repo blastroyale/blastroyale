@@ -120,11 +120,11 @@ MonoBehaviour:
   - {fileID: 5049321258399068766}
   - {fileID: -8864982382782373109}
   - {fileID: 4747972553312849571}
-  - {fileID: 2089223089298465228}
   - {fileID: -3791164114979841850}
   - {fileID: 6329697942786215620}
+  - {fileID: 2089223089298465228}
   - {fileID: -2792240432807961863}
-  m_RendererFeatureMap: 9103f3f86eec92645e72b49beeca12460b2329d67d41f984a34e84a3e12fe441cce12d9e5469fe1cc6186be9521463cbc40e4b27be9ad757f99affca1ef83fd9
+  m_RendererFeatureMap: 9103f3f86eec92645e72b49beeca12460b2329d67d41f984a34e84a3e12fe441c6186be9521463cbc40e4b27be9ad757cce12d9e5469fe1cf99affca1ef83fd9
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -140,7 +140,7 @@ MonoBehaviour:
     coreBlitColorAndDepthPS: {fileID: 4800000, guid: d104b2fc1ca6445babb8e90b0758136b, type: 3}
     cameraMotionVector: {fileID: 4800000, guid: c56b7e0d4c7cb484e959caeeedae9bbf, type: 3}
     objectMotionVector: {fileID: 4800000, guid: 7b3ede40266cd49a395def176e1bc486, type: 3}
-  m_AssetVersion: 1
+  m_AssetVersion: 2
   m_OpaqueLayerMask:
     serializedVersion: 2
     m_Bits: 70583
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 0
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
+  m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_ClusteredRendering: 0
   m_TileSize: 32

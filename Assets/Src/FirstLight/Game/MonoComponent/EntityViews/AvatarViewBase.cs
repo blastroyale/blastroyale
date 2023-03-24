@@ -103,8 +103,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			RigidbodyContainerMonoComponent.SetState(false);
-
-			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
 		}
 
 		/// <summary>
@@ -159,16 +157,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
+			
+			
 			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
-			         GameConstants.Visuals.DISSOLVE_DURATION);
-		}
-
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			transform.parent = null;
-
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
+			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
+					 {
+						 if (this.IsDestroyed())
+						 {
+							 return;
+						 }
+						 RenderersContainerProxy.SetRendererState(false);
+					 });
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
@@ -185,11 +184,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				direction = (transform.position - attackerView.transform.position).normalized;
 			}
 
+			SetCulled(false);
+			
 			AnimatorWrapper.Enabled = false;
 			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
 			direction *= Mathf.Lerp(GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MAX,
 			                        (float) callback.DamageAmount / callback.MaxHealth);
-
+			
 			RigidbodyContainerMonoComponent.SetState(true);
 			OnAvatarEliminated(callback.Game);
 

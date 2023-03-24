@@ -44,22 +44,13 @@ public class TestServerLogic
 	{
 		var playerId = _server.GetTestPlayerID();
 		var oldState = _stateService.GetPlayerState(playerId).Result;
-		var oldPlayerData = oldState.DeserializeModel<PlayerData>();
-		var currentSkin = oldPlayerData.PlayerSkinId;
+		var oldPlayerData = oldState.DeserializeModel<CollectionData>();
 		var newSkin = GameId.Female01Avatar;
-		if (currentSkin == newSkin)
-		{
-			newSkin = GameId.Female02Avatar;
-		}
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(newSkin) };
+		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState).Result;
+		var newPlayerData = newState.DeserializeModel<CollectionData>();
 		
-		var command = new UpdatePlayerSkinCommand()
-		{
-			SkinId = newSkin
-		};
-		var newState = _cmdHandler.ExecuteCommand(playerId, command, oldState).Result;
-		var newPlayerData = newState.DeserializeModel<PlayerData>();
-		
-		Assert.AreEqual(newSkin, newPlayerData.PlayerSkinId);
+		Assert.AreEqual(newSkin, newPlayerData.Equipped[new (GameIdGroup.PlayerSkin)].Id);
 	}
 
 }

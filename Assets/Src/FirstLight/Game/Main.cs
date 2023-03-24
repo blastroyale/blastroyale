@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
@@ -16,6 +17,8 @@ using PlayFab;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Rendering.UI;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game
 {
@@ -24,20 +27,13 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		public IGameUiServiceInit UiService;
-
-		private GameStateMachine _gameStateMachine;
-		private NotificationStateMachine _notificationStateMachine;
-		private IGameServices _services;
-		private IGameLogic _gameLogic;
 		private Coroutine _pauseCoroutine;
-
+		private IGameServices _services;
+		
 		private void Awake()
 		{
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskExceptionLogging;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-			
-			FLog.Init();
 		}
 
 		private void OnDestroy()
@@ -45,56 +41,26 @@ namespace FirstLight.Game
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException -= TaskExceptionLogging;
 		}
 
-
 		private void Start()
 		{
-			var messageBroker = new InMemoryMessageBrokerService();
-			var timeService = new TimeService();
-			var dataService = new DataService();
-			var configsProvider = new ConfigsProvider();
-			var uiService = new GameUiService(new UiAssetLoader());
-			var networkService = new GameNetworkService(configsProvider);
-			var assetResolver = new AssetResolverService();
-			var genericDialogService = new GenericDialogService(uiService);
-			var audioFxService = new GameAudioFxService(assetResolver);
-			var vfxService = new VfxService<VfxId>();
-
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
-			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
-				configsProvider, gameLogic, genericDialogService,
-				assetResolver, vfxService, audioFxService, uiService);
-
-			MainInstaller.Bind<IGameDataProvider>(gameLogic);
-			MainInstaller.Bind<IGameServices>(gameServices);
-
-			UiService = uiService;
-			_gameLogic = gameLogic;
-			_services = gameServices;
-			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
-			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
-				configsProvider,
-				assetResolver, dataService, vfxService);
-
-			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
-
-
-			_notificationStateMachine.Run();
-			_gameStateMachine.Run();
-			TrySetLocalServer();
-			
-			FlgCustomSerializers.RegisterSerializers();
-			TouchSimulation.Enable();
-			EnhancedTouchSupport.Enable();
+			_services = MainInstaller.Resolve<IGameServices>();
 			
 			StartCoroutine(HeartbeatCoroutine());
+		}
+
+		private void OnApplicationFocus(bool hasFocus)
+		{
+			_services?.MessageBrokerService?.Publish(new ApplicationFocusMessage() {IsFocus = hasFocus});
+			if (!hasFocus)
+			{
+				_services?.DataSaver?.SaveAllData();
+			}
 		}
 
 		private void OnApplicationPause(bool isPaused)
 		{
 			if (isPaused)
 			{
-				_services?.DataSaver?.SaveAllData();
-				
 				_pauseCoroutine = StartCoroutine(EndAppCoroutine());
 			}
 			else if (_pauseCoroutine != null)
@@ -109,7 +75,7 @@ namespace FirstLight.Game
 
 		private void OnApplicationQuit()
 		{
-			_services?.DataSaver?.SaveAllData();
+			_services?.MessageBrokerService?.Publish(new ApplicationQuitMessage());
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 
@@ -140,6 +106,7 @@ namespace FirstLight.Game
 			}
 		}
 
+		// Does not work with "async void" - works with "async Task" only
 		private void TaskExceptionLogging(object sender, UnobservedTaskExceptionEventArgs e)
 		{
 			if (sender.GetType().GetGenericTypeDefinition() == typeof(Task<>))
@@ -148,6 +115,10 @@ namespace FirstLight.Game
 				var objName = task.Result is UnityEngine.Object ? ((UnityEngine.Object)task.Result).name : task.Result.ToString();
 				
 				Debug.LogError($"Task exception sent by the object {objName}");
+			}
+			else
+			{	
+					Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
 			}
 			
 			Debug.LogException(e.Exception);

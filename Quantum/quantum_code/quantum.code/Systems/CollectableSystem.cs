@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -86,7 +85,7 @@ namespace Quantum.Systems
 						       stats.GetStatData(StatType.Shield).StatValue &&
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
-						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
+						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
 				}
 			}
 
@@ -137,8 +136,12 @@ namespace Quantum.Systems
 					{
 						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
 						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
-						var slotIsEmpty = playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].GameId == GameId.Random;
-						if (slotIsEmpty)
+						
+						var slotIsBusy = equipment->Item.IsWeapon() ?
+											 playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid() :
+											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].IsValid();
+						
+						if (!slotIsBusy)
 						{
 							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 							var matchData = playerData[player];
@@ -192,7 +195,8 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
-			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
+			f.Signals.CollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
+			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity, collectable->Spawner);
 		}
 
 		private FP GetEndTime(Frame f, EntityRef consumableEntity, EntityRef playerEntity)

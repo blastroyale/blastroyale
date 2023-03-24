@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstLight.Game.Data
 {
-	
+
 	/// <summary>
 	/// Represents the liveops state of this player
 	/// </summary>

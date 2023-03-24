@@ -42,7 +42,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded, Action<Player> kickPlayerClickedCallback)
+		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded, string partyId, Action<Player> kickPlayerClickedCallback)
 		{
 			Player = player;
 			
@@ -66,7 +66,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_hostIconObject.SetActive(isHost);
 
-			_playerNameText.text = PlayerName;
+			_playerNameText.text = string.IsNullOrEmpty(partyId) ? $"{PlayerName} [{partyId}]" : PlayerName;
 
 			if (!isLoaded)
 			{

@@ -1,18 +1,13 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
-using SRF;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -51,7 +46,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public async void SetupMapView(string gameModeId, int mapId, Vector3 dropzonePosRot)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			if (config.DropSelectionSize == 0)
 			{
@@ -130,7 +125,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var localSize = _rectTransform.sizeDelta;
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
+			var dropPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) *
+				_dropSelectionSize;
+			_services.NetworkService.SetDropPosition(dropPosition);
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}
 

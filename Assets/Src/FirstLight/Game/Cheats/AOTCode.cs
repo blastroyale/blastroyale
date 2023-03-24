@@ -23,7 +23,9 @@ namespace FirstLight.Game.Cheats
 		/// </summary>
 		private void TriggerDefault()
 		{
+#if UNITY_ANDROID || UNITY_IOS
 			Handheld.Vibrate();
+#endif
 		}
 
 		private void Commands()
@@ -33,7 +35,6 @@ namespace FirstLight.Game.Cheats
 			services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 			services.CommandService.ExecuteCommand(new UpdateLoadoutCommand());
 			services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand());
-			services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand());
 		}
 	}
 }

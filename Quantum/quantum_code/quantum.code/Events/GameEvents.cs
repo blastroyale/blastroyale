@@ -19,7 +19,7 @@ namespace Quantum
 			public void OnAllPlayersJoined()
 			{
 				var container = _f.GetSingleton<GameContainer>();
-				var matchData = container.GetPlayersMatchData(_f, out var leader);
+				var matchData = container.GeneratePlayersMatchData(_f, out _, out _);
 				var ev = OnAllPlayersJoined((uint) matchData.Count);
 
 				if (ev == null)
@@ -33,8 +33,8 @@ namespace Quantum
 			{
 				var container = _f.GetSingleton<GameContainer>();
 				var data = container.PlayersData;
-				var matchData = container.GetPlayersMatchData(_f, out var leader);
-				var ev = OnGameEnded(leader, data[leader].Entity);
+				var matchData = container.GeneratePlayersMatchData(_f, out var leader, out var leaderTeam);
+				var ev = OnGameEnded(leader, data[leader].Entity, leaderTeam);
 
 				if (ev == null)
 				{

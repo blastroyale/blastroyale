@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/LoadingSpinnerScreenStyle.uss?fileID=7433441132597879392&amp;guid=ba2b74607db14fa4fb43d99f3f7fa3a2&amp;type=3#LoadingSpinnerScreenStyle" />
+    <ui:VisualElement name="root" class="background" style="background-color: rgba(0, 0, 0, 0.71);">
+        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="loading-spinner" />
+    </ui:VisualElement>
+</ui:UXML>

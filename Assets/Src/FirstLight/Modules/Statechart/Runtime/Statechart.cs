@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using FirstLight.FLogger;
 using FirstLight.Statechart.Internal;
+using Quantum;
 
 // ReSharper disable CheckNamespace
 
@@ -43,8 +47,12 @@ namespace FirstLight.Statechart
 	{
 		private bool _isRunning;
 		private IStateInternal _currentState;
-
 		private readonly IStateFactoryInternal _stateFactory;
+		
+#if DEVELOPMENT_BUILD
+		public Stopwatch StateWatch = new ();
+		public static Action<string, long> OnStateTimed;
+#endif
 
 #if UNITY_EDITOR
 		public string CurrentState => _currentState.Name;
@@ -75,6 +83,12 @@ namespace FirstLight.Statechart
 #endif
 		}
 
+		[Conditional("DEBUG")]
+		private void LogTrigger(IStatechartEvent trigger)
+		{
+			FLog.Verbose($"{_currentState.Creator} in {_currentState.Name} triggered {trigger.Name}");
+		}
+		
 		/// <inheritdoc />
 		public void Trigger(IStatechartEvent trigger)
 		{
@@ -82,6 +96,9 @@ namespace FirstLight.Statechart
 			{
 				return;
 			}
+
+			LogTrigger(trigger);
+			
 
 			MoveNext(trigger);
 		}
@@ -106,14 +123,36 @@ namespace FirstLight.Statechart
 			_currentState = _stateFactory.InitialState;
 		}
 
+#if DEVELOPMENT_BUILD
+		private void MeasureTime()
+		{
+			if (StateWatch.IsRunning)
+			{
+				StateWatch.Stop();
+				OnStateTimed?.Invoke(_currentState.Name, StateWatch.ElapsedMilliseconds);
+				StateWatch.Reset();
+			}
+		}
+#endif
+
 		private void MoveNext(IStatechartEvent trigger)
 		{
+#if DEVELOPMENT_BUILD
+			if (StateWatch.IsRunning && _currentState != null)
+			{
+				MeasureTime();
+			}
+#endif
 			var nextState = _currentState.Trigger(trigger);
-
 			while (nextState != null)
 			{
+#if DEVELOPMENT_BUILD
+				StateWatch.Start();
+#endif
 				_currentState = nextState;
 				nextState = _currentState.Trigger(null);
+				
+				
 			}
 		}
 	}

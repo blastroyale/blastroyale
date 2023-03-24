@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 6446651593543085738}
   - component: {fileID: 7742155542114775195}
   - component: {fileID: 666175125346675311}
+  - component: {fileID: 3972143838916483348}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -184,8 +185,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796701068084277160}
-  m_LocalRotation: {x: 0.7071068, y: 0.000000036603176, z: -0.000000036603176, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 30, z: -50}
+  m_LocalRotation: {x: -0.047557797, y: -0.5967341, z: 0.0049159075, w: 0.8010134}
+  m_LocalPosition: {x: 4.253, y: 0.839, z: -2.257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -216,10 +217,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 200
-  field of view: 50
+  far clip plane: 500
+  field of view: 30
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 3128.598
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -228,7 +229,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
@@ -258,7 +259,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -319,11 +320,64 @@ MonoBehaviour:
   _adventureCamera: {fileID: 6644597904059184708}
   _deathCamera: {fileID: 6644597904016617939}
   _specialAimCamera: {fileID: 2508444973157341317}
-  _followObject: {fileID: 2800644805811270575}
   _spectateCameras:
   - {fileID: 6644597904059184708}
   - {fileID: 110614481384591974}
   - {fileID: 2939266877068906805}
+  _followObject: {fileID: 2800644805811270575}
+--- !u!114 &3972143838916483348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796701068084277160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &1482450230702968987
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5685637796574556602}
   - component: {fileID: 4866859443770357186}
+  - component: {fileID: 7678516407224716672}
   m_Layer: 0
   m_Name: Parachute Camera
   m_TagString: Untagged
@@ -386,7 +441,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2222223, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -395,6 +450,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2174232183497001796}
+--- !u!114 &7678516407224716672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482450230702968987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &2340851769966848443
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2382208805153213616}
   - component: {fileID: 2939266877068906805}
+  - component: {fileID: 8054025982811283341}
   m_Layer: 0
   m_Name: Spectator Camera 2
   m_TagString: Untagged
@@ -457,7 +536,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -466,6 +545,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2984107128381557694}
+--- !u!114 &8054025982811283341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340851769966848443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &2532002892513551004
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +579,6 @@ GameObject:
   - component: {fileID: 1017704761730995593}
   - component: {fileID: 139958329515341115}
   - component: {fileID: 7794726256604052}
-  - component: {fileID: 1594891827819276485}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -555,23 +656,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!114 &1594891827819276485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2532002892513551004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
-  m_FrequencyGain: 1
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &2800644805811270575
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +995,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644597904016617940}
   - component: {fileID: 6644597904016617939}
+  - component: {fileID: 8556048934093809255}
   m_Layer: 0
   m_Name: DeathCamera
   m_TagString: Untagged
@@ -957,7 +1042,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 3128.598
-    NearClipPlane: 1
+    NearClipPlane: 0.1
     FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
@@ -972,6 +1057,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6644597902698147212}
+--- !u!114 &8556048934093809255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644597904016617941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &6644597904059184709
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +1090,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644597904059184707}
   - component: {fileID: 6644597904059184708}
+  - component: {fileID: 4675208595980077463}
   m_Layer: 0
   m_Name: Adventure Camera
   m_TagString: Untagged
@@ -1034,7 +1143,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1043,6 +1152,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1017704761730995593}
+--- !u!114 &4675208595980077463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644597904059184709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &6644597904166932281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644597904166932280}
   - component: {fileID: 6644597904166932279}
+  - component: {fileID: 1191118009141046994}
   m_Layer: 0
   m_Name: IntroCamera
   m_TagString: Untagged
@@ -1105,7 +1238,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2222223, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1114,6 +1247,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6644597904671725022}
+--- !u!114 &1191118009141046994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644597904166932281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &6644597904447665198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3395264447301727885}
   - component: {fileID: 110614481384591974}
+  - component: {fileID: 4209495520108647166}
   m_Layer: 0
   m_Name: Spectator Camera 1
   m_TagString: Untagged
@@ -1267,6 +1424,29 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2995818410452868558}
+--- !u!114 &4209495520108647166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775805217235827899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &8431401016875031390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7320929064678466921}
   - component: {fileID: 2508444973157341317}
+  - component: {fileID: 1094649744516299555}
   m_Layer: 0
   m_Name: Special Aim Camera
   m_TagString: Untagged
@@ -1329,7 +1510,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1635513, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1338,3 +1519,26 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8031488341401703683}
+--- !u!114 &1094649744516299555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431401016875031390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 3
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}

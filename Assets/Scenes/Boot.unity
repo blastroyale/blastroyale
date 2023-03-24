@@ -189,9 +189,9 @@ GameObject:
   - component: {fileID: 1737685255}
   - component: {fileID: 1737685249}
   - component: {fileID: 1737685250}
-  - component: {fileID: 1737685251}
   - component: {fileID: 1737685257}
   - component: {fileID: 1737685256}
+  - component: {fileID: 1737685258}
   m_Layer: 0
   m_Name: Boot
   m_TagString: Untagged
@@ -308,14 +308,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &1737685251
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737685247}
-  m_Enabled: 1
 --- !u!224 &1737685255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,3 +404,15 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1737685258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737685247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a5ffc23ca046558368b9fd311c1537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

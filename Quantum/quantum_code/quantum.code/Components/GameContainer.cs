@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Photon.Deterministic;
+using System.Linq;
 
 namespace Quantum
 {
@@ -15,10 +15,10 @@ namespace Quantum
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
 		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin,
-		                        GameId deathMarker, uint playerTrophies)
+								GameId deathMarker, uint playerTrophies, int teamId)
 		{
 			var isBot = f.TryGet<BotCharacter>(playerEntity, out var bot);
-			
+
 			PlayersData[player] = new PlayerMatchData
 			{
 				Entity = playerEntity,
@@ -27,6 +27,7 @@ namespace Quantum
 				PlayerSkin = skin,
 				PlayerTrophies = playerTrophies,
 				PlayerDeathMarker = isBot ? bot.DeathMarker : deathMarker,
+				TeamId = teamId,
 				BotNameIndex = isBot ? bot.BotNameIndex : 0
 			};
 		}
@@ -66,15 +67,24 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-		
+
 		/// <summary>
 		/// Tests the game completion strategy where everyone should be dead but a certain amount of people defined in the TargetProgress
 		/// </summary>
 		internal void TestEveryoneIsDead(Frame f)
 		{
-			var playersAlive = f.ComponentCount<AlivePlayerCharacter>();
+			var teamsAlive = new HashSet<int>();
+			foreach (var (entity, _) in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+			{
+				if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t))
+				{
+					teamsAlive.Add(t->TeamId);
+				}
+			}
 
-			CurrentProgress = (uint)( f.PlayerCount - playersAlive);
+			// We count how many teams are alive towards our goal (we remove ours)
+			var teamsAliveForGoal = teamsAlive.Count - 1;
+			CurrentProgress = (uint) (TargetProgress - teamsAliveForGoal);
 
 			if (CurrentProgress >= TargetProgress)
 			{
@@ -87,20 +97,34 @@ namespace Quantum
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		public List<QuantumPlayerMatchData> GetPlayersMatchData(Frame f, out PlayerRef leader)
+		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader, out int leaderTeam)
 		{
 			var data = PlayersData;
-			var playersData = new List<QuantumPlayerMatchData>(data.Length);
 			var gameModeConfig = f.Context.GameModeConfig;
 			var sorter = GetSorter(gameModeConfig.RankSorter);
 			var rankProcessor = GetProcessor(gameModeConfig.RankProcessor);
 
+			var playersMatchData = new List<PlayerMatchData>(data.Length);
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
-				playersData.InsertIntoSortedList(new QuantumPlayerMatchData(f, data[i]), sorter);
+				playersMatchData.Add(data[i]);
 			}
 
+			// TODO: Could be improved, but since this method is not called often I think this is ok.
+			var playersData = playersMatchData
+				// Group players by TeamID, and convert them to QuantumPlayerMatchData
+				.GroupBy(pmd => pmd.TeamId, pmd => new QuantumPlayerMatchData(f, pmd))
+				// Sort players inside of the gruop
+				.Select(g => g
+					.OrderBy(qpmd => qpmd, sorter))
+				// Sort groups based on the same sorter, but use the first player in the group as the "sorting key"
+				.OrderBy(g => g.First(), sorter)
+				// Flatten back to list
+				.SelectMany(x => x)
+				.ToList();
+
 			leader = playersData[0].Data.Player;
+			leaderTeam = playersData[0].TeamId;
 
 			for (var i = 0; i < playersData.Count; i++)
 			{
@@ -124,15 +148,16 @@ namespace Quantum
 			return DropPool.WeaponPool[f.RNG->Next(0, DropPool.WeaponPool.Length)];
 		}
 
-#region Player Rank Sorters
-		
+		#region Player Rank Sorters
+
 		private static IRankSorter GetSorter(RankSorter sorter)
 		{
 			return sorter switch
 			{
-				RankSorter.BattleRoyale => new BattleRoyaleSorter(),
-				RankSorter.Deathmatch => new DeathmatchSorter(),
-				_ => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
+				RankSorter.BattleRoyale       => new BattleRoyaleSorter(),
+				RankSorter.BattleRoyaleSquads => new BattleRoyaleSquadsSorter(),
+				RankSorter.Deathmatch         => new DeathmatchSorter(),
+				_                             => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
 			};
 		}
 
@@ -140,9 +165,10 @@ namespace Quantum
 		{
 			return processor switch
 			{
-				RankProcessor.General => new GeneralRankProcessor(),
+				RankProcessor.General    => new GeneralRankProcessor(),
+				RankProcessor.Squads     => new SquadsRankProcessor(),
 				RankProcessor.Deathmatch => new DeathMatchRankProcessor(),
-				_ => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
+				_                        => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
 			};
 		}
 
@@ -174,8 +200,26 @@ namespace Quantum
 		{
 			public uint ProcessRank(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
 			{
-				return (uint) i + 1;
+				// First player is always ranked 1
+				if (i == 0)
+				{
+					return 1;
+				}
+
+				// If the player is in the same team as the one before, keep the same rank
+				if (playersData[i - 1].TeamId == playersData[i].TeamId)
+				{
+					return playersData[i - 1].PlayerRank;
+				}
+
+				// Otherwise, increase the rank
+				return playersData[i - 1].PlayerRank + 1;
 			}
+		}
+
+		private class SquadsRankProcessor : GeneralRankProcessor
+		{
+			// TODO: Add proper logic for the squads rank processor
 		}
 
 		private class BattleRoyaleSorter : IRankSorter
@@ -204,6 +248,12 @@ namespace Quantum
 			}
 		}
 
+
+		private class BattleRoyaleSquadsSorter : BattleRoyaleSorter
+		{
+			// TODO: Add proper logic for squads ranking sort
+		}
+
 		private class DeathmatchSorter : IRankSorter
 		{
 			/// <inheritdoc />
@@ -220,6 +270,6 @@ namespace Quantum
 			}
 		}
 
-#endregion
+		#endregion
 	}
 }

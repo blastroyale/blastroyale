@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -68,7 +69,7 @@ namespace FirstLight.Game.Presenters
 		private bool _kickModeActive = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
-		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
+		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
 		{
@@ -99,6 +100,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
+			
 			_rootObject.SetActive(true);
 
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
@@ -189,7 +192,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 			
-			if(_services.NetworkService.QuantumClient.LocalPlayer.LoadedCoreMatchAssets())
+			if(_services.NetworkService.LocalPlayer.LoadedCoreMatchAssets())
 			{
 				OnCoreMatchAssetsLoaded(new CoreMatchAssetsLoadedMessage());
 			}
@@ -218,7 +221,7 @@ namespace FirstLight.Game.Presenters
 			_leaveRoomButton.gameObject.SetActive(true);
 			_loadingText.SetActive(false);
 
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
+			if (_services.NetworkService.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_kickButton.gameObject.SetActive(true);
@@ -361,7 +364,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var isSpectator =
-				(bool) _services.NetworkService.QuantumClient.LocalPlayer.CustomProperties
+				(bool) _services.NetworkService.LocalPlayer.CustomProperties
 					[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 			var relevantPlayerAmount = 0;
 			var relevantPlayerCapacity = 0;
@@ -458,7 +461,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() { AddBots = _botsToggle.isOn });
 		}
 
 		private void OnLeaveRoomClicked()
@@ -524,8 +527,8 @@ namespace FirstLight.Game.Presenters
 
 		private void RequestKickPlayer(Player player)
 		{
-			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId ||
-			    !_kickModeActive || !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient ||
+			if (player.UserId == _services.NetworkService.LocalPlayer.UserId ||
+			    !_kickModeActive || !_services.NetworkService.LocalPlayer.IsMasterClient ||
 			    !player.LoadedCoreMatchAssets())
 			{
 				return;
@@ -548,7 +551,7 @@ namespace FirstLight.Game.Presenters
 		private void OnSpectatorToggle(bool isOn)
 		{
 			// Set lock room button to be inactive immediately - gets enabled when player properties change
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			if (_services.NetworkService.LocalPlayer.IsMasterClient)
 			{
 				_lockRoomButton.interactable = false;
 			}

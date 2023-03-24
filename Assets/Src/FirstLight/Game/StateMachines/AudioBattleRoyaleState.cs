@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -24,18 +24,18 @@ namespace FirstLight.Game.StateMachines
 		private static readonly IStatechartEvent MaxIntensityEvent = new StatechartEvent("Max Music Intensity Event");
 
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private float _lastRecordedIntensityIncreaseTime = 0;
-		private bool _isHighIntensityPhase = false;
+		private float _lastRecordedIntensityIncreaseTime;
+		private bool _isHighIntensityPhase;
 		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
 
-		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
-		                              Action<IStatechartEvent> statechartTrigger)
+		private bool _aliveTenPlayed;
+		private bool _aliveTwoPlayed;
+
+		public AudioBattleRoyaleState(IGameServices services, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_dataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -47,6 +47,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("AUDIO BR - Initial");
 			var final = stateFactory.Final("AUDIO BR - Final");
 			var matchStateCheck = stateFactory.Choice("AUDIO BR - Match State Check");
+			var tutorial = stateFactory.State("AUDIO BR - Tutorial");
 			var skydive = stateFactory.State("AUDIO BR - Skydive");
 			var lowIntensity = stateFactory.State("AUDIO BR - Low Intensity");
 			var midIntensity = stateFactory.State("AUDIO BR - Mid Intensity");
@@ -55,10 +56,13 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(matchStateCheck);
 			initial.OnExit(SubscribeEvents);
 
+			matchStateCheck.Transition().Condition(IsTutorial).Target(tutorial);
 			matchStateCheck.Transition().Condition(IsSkyDivePhase).Target(skydive);
 			matchStateCheck.Transition().Condition(IsLowIntensityPhase).Target(lowIntensity);
 			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
 			matchStateCheck.Transition().Target(highIntensity);
+			
+			tutorial.OnEnter(PlayMidIntensityMusic);
 
 			skydive.OnEnter(PlaySkydiveMusic);
 			skydive.Event(IncreaseIntensityEvent).Target(lowIntensity);
@@ -92,6 +96,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
+			if (IsTutorial())
+			{
+				return;
+			}
 			var time = callback.Game.Frames.Predicted.Time.AsFloat;
 			
 			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
@@ -113,12 +121,14 @@ namespace FirstLight.Game.StateMachines
 			var playersLeft = (container.TargetProgress+1) - container.CurrentProgress;
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
-			if (playersLeft == 10)
+			if (!_aliveTenPlayed && playersLeft == 10)
 			{
+				_aliveTenPlayed = true;
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
-			else if (playersLeft == 2)
+			else if (!_aliveTwoPlayed && playersLeft == 2)
 			{
+				_aliveTwoPlayed = true;
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			
@@ -128,6 +138,11 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private bool IsTutorial()
+		{
+			return _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH;
+		}
+		
 		private bool IsSkyDivePhase()
 		{
 			return CurrentMatchTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD;
@@ -164,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
+			var fadeInDuration = !_services.NetworkService.JoinSource.HasResync()
 				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
@@ -177,7 +192,7 @@ namespace FirstLight.Game.StateMachines
 			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
 
 			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
+			var fadeInDuration = _services.NetworkService.JoinSource != JoinRoomSource.Reconnection
 				                     ? GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS
 				                     : 0;
 
@@ -198,7 +213,7 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator PlayBrHighLoopCoroutine()
 		{
 			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
-			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop, 0,0, false);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop);
 		}
 	}
 }

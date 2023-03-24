@@ -50,6 +50,8 @@ namespace FirstLight.Editor.Build
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+
+		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO"; 
 		private static readonly string[] CommonSymbols = new []
 		{
 			"QUANTUM_ADDRESSABLES",
@@ -59,7 +61,7 @@ namespace FirstLight.Editor.Build
 		private static readonly string[] DebugSymbols = new []
 		{
 			"QUANTUM_REMOTE_PROFILER",
-			"LOG_LEVEL_INFO"
+			InfoLogLevelSymbol
 		};
 
 		/// <summary>
@@ -181,6 +183,11 @@ namespace FirstLight.Editor.Build
 			if (buildSymbols.Contains(DevelopmentSymbol))
 			{
 				symbols.AddRange(DebugSymbols);
+			}
+
+			if (buildSymbols.Contains(ReleaseSymbol) && !buildSymbols.Contains(StoreSymbol))
+			{
+				symbols.Add(InfoLogLevelSymbol);
 			}
 			
 			symbols.AddRange(buildSymbols);

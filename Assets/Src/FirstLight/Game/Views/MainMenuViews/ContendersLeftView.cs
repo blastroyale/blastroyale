@@ -67,8 +67,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void UpdatePlayersAlive(Frame f)
 		{
 			var container = f.GetSingleton<GameContainer>();
-			var playersLeft = container.TargetProgress + 1 - container.CurrentProgress;
-
+			
+			// The target is everyone -1 (us) so we need to add 1 to get the full number of players
+			var playersLeft = container.TargetProgress - container.CurrentProgress +1;
+			
 			_contendersLeftText.text = _displayNumberOnly
 				                           ? playersLeft.ToString()
 				                           : string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining,

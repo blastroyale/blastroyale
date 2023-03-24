@@ -1,0 +1,43 @@
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-image-tint-color: rgb(153, 135, 174);
+}
+
+.unity-text-field__label {
+    margin-right: 15px;
+    width: 150px;
+    font-size: 33px;
+}
+
+.unity-text-field__input {
+    flex-grow: 1;
+    -unity-font-definition: var(--font-italic-dynamic);
+}
+
+.safe-area {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    padding-top: 120px;
+}
+
+.screen-switch-element {
+    align-items: center;
+    width: 1000px;
+    justify-content: flex-end;
+    flex-direction: row;
+    padding-top: 15px;
+}

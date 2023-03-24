@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -26,12 +28,15 @@ namespace FirstLight.Game.Configs
 
 		/// <inheritdoc cref="DeterministicSessionConfigAsset"/>
 		public DeterministicSessionConfigAsset DeterministicSessionConfigAsset => _deterministicConfigAsset;
+
 		/// <inheritdoc cref="PhotonServerSettings"/>
 		public PhotonServerSettings PhotonServerSettings => _serverSettings;
+
 		/// <summary>
 		/// Marks the Quantum simulation to run in offline or online mode
 		/// </summary>
 		public bool IsOfflineMode { get; set; } = false;
+
 		/// <summary>
 		/// Returns the <see cref="RuntimeConfig"/> used to build the simulation from the client side
 		/// </summary>
@@ -40,10 +45,11 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig(QuantumGameModeConfig gameModeConfig, QuantumMapConfig config, List<string> mutators)
+		public void SetRuntimeConfig(QuantumGameModeConfig gameModeConfig, QuantumMapConfig config,
+									 List<string> mutators)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
-			
+
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 			_runtimeConfig.MapId = (int) config.Map;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
@@ -55,31 +61,40 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator, FrameSnapshot frameSnapshot)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(Room room)
 		{
-			var gameMode = playerCount == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
-
-			if (isSpectator)
+			
+			var playersInRoom = room.GetRealPlayerAmount();
+			var roomSize = room.GetRealPlayerCapacity();
+			var gameMode = DeterministicGameMode.Multiplayer;
+			
+			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
+				!(bool) gameHasBots)
 			{
-				gameMode = DeterministicGameMode.Spectating;
+				roomSize = playersInRoom;
 			}
+			
+			FLog.Verbose($"Starting simulation for {roomSize} players");
+			
+			if (room.IsOffline)
+			{
+				gameMode = DeterministicGameMode.Local;
+			}
+
 			return new QuantumRunner.StartParameters
 			{
 				RuntimeConfig = _runtimeConfig,
 				DeterministicConfig = _deterministicConfigAsset.Config,
-				ReplayProvider  = null,
-				GameMode = IsOfflineMode ? DeterministicGameMode.Local : gameMode,
-				InitialFrame = frameSnapshot.SnapshotNumber,
-				FrameData = frameSnapshot.SnapshotBytes,
+				ReplayProvider = null,
+				GameMode = gameMode,
 				RunnerId = "DEFAULT",
-				// TODO TEST - DISCONNECT BEHAVIOR ONLY (IN GAME, ALSO UPDATE STATE MACHINE)
-				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoom,
+				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive,
 				LocalPlayerCount = 1,
-				RecordingFlags = RecordingFlags.All,
+				RecordingFlags = RecordingFlags.None,
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,
 				HeapExtraCount = 0,
-				PlayerCount = playerCount
+				PlayerCount = roomSize
 			};
 		}
 	}

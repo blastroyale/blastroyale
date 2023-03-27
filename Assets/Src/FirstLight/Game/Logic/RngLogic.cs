@@ -1,7 +1,7 @@
+using System;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
 using Photon.Deterministic;
 
 namespace FirstLight.Game.Logic
@@ -21,24 +21,23 @@ namespace FirstLight.Game.Logic
 		/// Calling this multiple times in sequence gives always the same result.
 		/// </summary>
 		int Peek { get; }
-		
+
 		/// <summary>
 		/// Requests the next <see cref="FP"/> generated value without changing the state.
 		/// Calling this multiple times in sequence gives always the same result.
 		/// </summary>
 		FP PeekFp { get; }
 
-		/// <inheritdoc cref="Rng.Range(int,int,int[],bool)"/>
 		/// <remarks>
 		/// Calling this multiple times with the same parameters in sequence gives always the same result.
 		/// </remarks>
-		int PeekRange(int min, int max, bool maxInclusive = false);
-		
-		/// <inheritdoc cref="Rng.Range(FP,FP,int[],bool)"/>
+		int PeekRange(int min, int max);
+
 		/// <remarks>
 		/// Calling this multiple times with the same parameters in sequence gives always the same result.
 		/// </remarks>
-		FP PeekRange(FP min, FP max, bool maxInclusive = true);
+		[Obsolete("Use PeekFp")]
+		FP PeekRange(FP min, FP max);
 	}
 
 	/// <inheritdoc />
@@ -48,17 +47,24 @@ namespace FirstLight.Game.Logic
 		/// Requests the next <see cref="int"/> generated value
 		/// </summary>
 		int Next { get; }
-		
+
 		/// <summary>
-		/// Requests the next <see cref="double"/> generated value
+		/// Requests the next <see cref="FP"/> generated value (between 0 and 1 inclusive).
 		/// </summary>
 		FP NextFp { get; }
 
-		/// <inheritdoc cref="Rng.Range(int,int,int[],bool)"/>
-		int Range(int min, int max, bool maxInclusive = false);
-		
-		/// <inheritdoc cref="Rng.Range(FP,FP,int[],bool)"/>
-		FP Range(FP min, FP max, bool maxInclusive = true);
+		/// <summary>
+		/// Requests a value between min and max (exclusive).
+		/// </summary>
+		int Range(int min, int max);
+
+		/// <summary>
+		/// Requests a value between min and max (exclusive).
+		///
+		/// NOTE: This will not work correctly for values greater than <see cref="FP.UseableMax"/>.
+		/// </summary>
+		[Obsolete("Use NextFp")]
+		FP Range(FP min, FP max);
 
 		/// <summary>
 		/// Restores the current RNG state to the given <paramref name="count"/>.
@@ -70,51 +76,38 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IRngLogic"/>
 	public class RngLogic : AbstractBaseLogic<RngData>, IRngLogic
 	{
-		/// <inheritdoc />
 		public int Counter => Data.Count;
-
-		/// <inheritdoc />
 		public int Peek => PeekRange(0, int.MaxValue);
-		
-		/// <inheritdoc />
-		public FP PeekFp => PeekRange(0, FP.MaxValue);
-
-		/// <inheritdoc />
+		public FP PeekFp => PeekRange(FP._0, FP._1);
 		public int Next => Range(0, int.MaxValue);
-		
-		/// <inheritdoc />
-		public FP NextFp => Range(0, FP.MaxValue);
-		
+		public FP NextFp => Range(FP._0, FP._1);
+
 		public RngLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
-		
-		/// <inheritdoc />
-		public int PeekRange(int min, int max, bool maxInclusive = false)
+
+		public int PeekRange(int min, int max)
 		{
-			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State), maxInclusive);
+			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State));
 		}
 
-		/// <inheritdoc />
-		public FP PeekRange(FP min, FP max, bool maxInclusive = true)
+		public int Range(int min, int max)
 		{
-			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State), maxInclusive);
+			Data.Count++;
+
+			return Rng.Range(min, max, Data.State);
 		}
 		
-		/// <inheritdoc />
-		public int Range(int min, int max, bool maxInclusive = false)
+		public FP PeekRange(FP min, FP max)
 		{
-			Data.Count++;
-			
-			return Rng.Range(min, max, Data.State, maxInclusive);
+			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State));
 		}
 
-		/// <inheritdoc />
-		public FP Range(FP min, FP max, bool maxInclusive = true)
+		public FP Range(FP min, FP max)
 		{
 			Data.Count++;
-			
-			return Rng.Range(min, max, Data.State, maxInclusive);
+
+			return Rng.Range(min, max, Data.State);
 		}
 
 		/// <inheritdoc />

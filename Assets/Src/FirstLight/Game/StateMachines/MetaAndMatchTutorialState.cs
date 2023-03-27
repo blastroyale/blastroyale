@@ -19,13 +19,14 @@ namespace FirstLight.Game.StateMachines
 	public class MetaAndMatchTutorialState : ITutorialSequence
 	{
 		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
-		public static readonly int TOTAL_STEPS = 13;
+		public static readonly int TOTAL_STEPS = 14;
 		
 		private static readonly IStatechartEvent _bpLevelUpEvent = new StatechartEvent("TUTORIAL - Battle pass level up event");
 		private static readonly IStatechartEvent _finishedClaimingRewardsEvent = new StatechartEvent("TUTORIAL - Finished claiming event");
 		private static readonly IStatechartEvent _openedEquipmentScreenEvent = new StatechartEvent("TUTORIAL - Opened equipment screen event");
 		private static readonly IStatechartEvent _openedEquipmentCategoryEvent = new StatechartEvent("TUTORIAL - Opened equipment category event");
 		private static readonly IStatechartEvent _selectedWeaponEvent = new StatechartEvent("TUTORIAL - Clicked weapon event");
+		private static readonly IStatechartEvent _selectedMapPointEvent = new StatechartEvent("TUTORIAL - Selected map point event");
 		private static readonly IStatechartEvent _equippedWeaponEvent = new StatechartEvent("TUTORIAL - Equipped weapon event");
 		
 		private readonly IGameServices _services;
@@ -81,6 +82,7 @@ namespace FirstLight.Game.StateMachines
 			var selectWeapon = stateFactory.State("Select weapon");
 			var equipWeapon = stateFactory.State("Equip weapon");
 			var playGame = stateFactory.State("Play game");
+			var mapSelect = stateFactory.State("Map Select");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
 			
@@ -141,7 +143,13 @@ namespace FirstLight.Game.StateMachines
 			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
-			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
+			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(mapSelect);
+			
+			mapSelect.OnEnter(() => { SendAnalyticsIncrementStep("SelectMapPoint"); });
+			mapSelect.OnEnter(OnMapSelectEnter);
+			mapSelect.Event(_selectedMapPointEvent).Target(waitSimulationStart);
+			mapSelect.Event(GameSimulationState.SimulationStartedEvent).OnTransition(()=>SendAnalyticsIncrementStep("TutorialFinish")).Target(final);
+			mapSelect.OnExit(OnMapSelectExit);
 			
 			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
@@ -187,6 +195,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<EquipmentSlotOpenedMessage>(OnEquipmentSlotOpenedMessage);
 			_services.MessageBrokerService.Subscribe<EquippedItemMessage>(OnEquippedItemMessage);
 			_services.MessageBrokerService.Subscribe<SelectedEquipmentItemMessage>(OnSelectedEquipmentItemMessage);
+			_services.MessageBrokerService.Subscribe<MapDropPointSelectedMessage>(OnMapDropPointSelectedMessage);
+		}
+
+		private void OnMapDropPointSelectedMessage(MapDropPointSelectedMessage obj)
+		{
+			_statechartTrigger(_selectedMapPointEvent);
 		}
 
 		private void OnSelectedEquipmentItemMessage(SelectedEquipmentItemMessage msg)
@@ -392,6 +406,25 @@ namespace FirstLight.Game.StateMachines
 		}
 		
 		private void OnPlayGameExit()
+		{
+			CloseTutorialUi();
+			_dialogUi.HideDialog(CharacterType.Female);
+		}
+		
+		private async void OnMapSelectEnter()
+		{
+			_tutorialUtilsUi.BlockFullScreen();
+			
+			await Task.Delay(GameConstants.Tutorial.TIME_4000MS);
+			
+			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
+
+			_tutorialUtilsUi.Unblock();
+			_tutorialUtilsUi.BlockAround<MatchmakingScreenPresenter>("tutorial-drop-pos");
+			_tutorialUtilsUi.Highlight<MatchmakingScreenPresenter>("tutorial-drop-pos");
+		}
+		
+		private void OnMapSelectExit()
 		{
 			CloseTutorialUi();
 			_dialogUi.HideDialog(CharacterType.Female);

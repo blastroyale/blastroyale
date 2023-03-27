@@ -414,6 +414,7 @@ namespace FirstLight.Game.Presenters
 					{
 						buttonClass = "play-button--get-ready";
 						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
+						buttonEnabled = false; // TODO: Would be better to throttle requests than to block players from un-readying themselves
 					}
 					else
 					{

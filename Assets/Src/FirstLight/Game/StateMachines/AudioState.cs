@@ -39,7 +39,7 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_gameDataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
-			_audioBrState = new AudioBattleRoyaleState(services, gameLogic, statechartTrigger);
+			_audioBrState = new AudioBattleRoyaleState(services, statechartTrigger);
 			_audioDmState = new AudioDeathmatchState(services, gameLogic, statechartTrigger);
 		}
 

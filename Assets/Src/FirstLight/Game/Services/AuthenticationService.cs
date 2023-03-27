@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Attempts to migrate data between accounts if the correct conditions have been met
 		/// </summary>
-		void TryMigrateData(MigrationData migrationData, bool previouslyLoggedIn = false);
+		void TryMigrateData(MigrationData migrationData);
 	}
 
 	/// <inheritdoc cref="IAuthenticationService" />
@@ -323,11 +323,6 @@ namespace FirstLight.Game.Services
 				FLog.Verbose("Setting up photon app id by playfab title data");
 			}
 			
-			if (result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
-			{
-				previouslyLoggedIn = true;
-			}
-			
 			var requiredServices = 2;
 			var doneServices = 0;
 			
@@ -335,7 +330,11 @@ namespace FirstLight.Game.Services
 			{
 				if (++doneServices >= requiredServices)
 				{
-					TryMigrateData(migrationData, previouslyLoggedIn);
+					if (previouslyLoggedIn)
+					{
+						TryMigrateData(migrationData);
+					}
+					_dataService.SaveData<AppData>();
 					onSuccess(loginData);
 				}
 			}
@@ -541,12 +540,9 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void TryMigrateData(MigrationData migrationData, bool previouslyLoggedIn = false)
+		public void TryMigrateData(MigrationData migrationData)
 		{
-			if (previouslyLoggedIn)
-			{
-				_services.CommandService.ExecuteCommand(new MigrateGuestDataCommand{ GuestMigrationData = migrationData });
-			}
+			_services.CommandService.ExecuteCommand(new MigrateGuestDataCommand{ GuestMigrationData = migrationData });
 		}
 
 		public void AttachLoginDataToAccount(string email, string username, string password,

@@ -9,8 +9,10 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
@@ -113,6 +115,7 @@ namespace FirstLight.Game.Services
 	class CustomMatchmakingPlayerProperties
 	{
 		public string MasterPlayerId;
+		public string Server;
 
 		public MatchmakingPlayerAttributes Encode()
 		{
@@ -137,12 +140,19 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IMatchmakingService"/>
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
-		private static string QUEUE_NAME = "flgranked"; // TODO: Drive from outside for multiple q 
+		private static string QUEUE_NAME = "flgtrios"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
-		private IGameBackendService _gameBackend;
-		private ICoroutineService _coroutines;
-		private IPartyService _party;
+		public const string LOG_TAG = "Matchmaking";
+		public static int TICKET_TIMEOUT_SECONDS = 45;
+
+
+		private readonly IGameDataProvider _dataProvider;
+		private readonly ICoroutineService _coroutines;
+		private readonly IPartyService _party;
+		private readonly IGameNetworkService _networkService;
+		private readonly IGameBackendService _backendService;
+
 		private MatchmakingPooling _pooling;
 		private ObservableField<bool> _isMatchmaking;
 
@@ -152,10 +162,13 @@ namespace FirstLight.Game.Services
 		public event IMatchmakingService.OnMatchmakingJoinedHandler OnMatchmakingJoined;
 		public event IMatchmakingService.OnMatchmakingCancelledHandler OnMatchmakingCancelled;
 
-		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines,
-										 IPartyService party, IMessageBrokerService broker)
+		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines,
+										 IPartyService party, IMessageBrokerService broker, IGameNetworkService networkService,
+										 IGameBackendService backendService)
 		{
-			_gameBackend = gameBackend;
+			_networkService = networkService;
+			_dataProvider = dataProviderProvider;
+			_backendService = backendService;
 			_coroutines = coroutines;
 			_party = party;
 			_isMatchmaking = new ObservableField<bool>(false);
@@ -165,6 +178,7 @@ namespace FirstLight.Game.Services
 			{
 				if (type is ObservableUpdateType.Added or ObservableUpdateType.Removed)
 				{
+					FLog.Info(LOG_TAG, "StoppingMatchmaking because player added/removed from party!");
 					StopMatchmaking();
 				}
 
@@ -173,6 +187,8 @@ namespace FirstLight.Game.Services
 					// lets check if an player cancelled the ticket
 					if (after.RawProperties.TryGetValue(CANCELLED_KEY, out var cancelledValue))
 					{
+						FLog.Info(LOG_TAG, "Received matchmaking cancellation from " + after.DisplayName);
+
 						if (_pooling != null)
 						{
 							if (_pooling.Ticket == cancelledValue)
@@ -188,6 +204,8 @@ namespace FirstLight.Game.Services
 
 		private void StopMatchmaking()
 		{
+			FLog.Info(LOG_TAG, "StopMatchmaking invoked");
+
 			if (_pooling != null)
 			{
 				LeaveMatchmaking();
@@ -207,6 +225,7 @@ namespace FirstLight.Game.Services
 			{
 				if (_pooling != null)
 				{
+					FLog.Info(LOG_TAG, "Stopped pooling received null ticket value from squad");
 					_pooling.Stop();
 					_pooling = null;
 				}
@@ -218,6 +237,7 @@ namespace FirstLight.Game.Services
 			var local = _party.Members.First(m => m.Local);
 			if (local.Leader)
 			{
+				FLog.Info(LOG_TAG, $"Started polling ticket {model.TicketId} because leader of the squad");
 				StartPolling(model);
 				InvokeJoinedMatchmaking(model);
 				return;
@@ -232,9 +252,10 @@ namespace FirstLight.Game.Services
 			};
 			PlayFabMultiplayerAPI.JoinMatchmakingTicket(req, result =>
 			{
+				FLog.Info(LOG_TAG, $"Joined matchmaking ticket {model.TicketId} from party and start polling");
 				StartPolling(model);
 				InvokeJoinedMatchmaking(model);
-			}, Debug.LogError);
+			}, ErrorCallback("JoinMatchmakingTicket"));
 		}
 
 		private void StartPolling(JoinedMatchmaking mm)
@@ -246,6 +267,7 @@ namespace FirstLight.Game.Services
 
 			_pooling = new MatchmakingPooling(mm.TicketId, mm.RoomSetup, this, _coroutines);
 			_pooling.Start();
+			FLog.Info(LOG_TAG, "Started polling");
 		}
 
 		public void CancelLocalMatchmaking()
@@ -261,6 +283,7 @@ namespace FirstLight.Game.Services
 				_pooling = null;
 			}
 
+			FLog.Info(LOG_TAG, $"OnMatchmakingCancelled invoked");
 			OnMatchmakingCancelled?.Invoke();
 			_isMatchmaking.Value = false;
 		}
@@ -270,8 +293,8 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			}, null, Debug.LogError);
-			FLog.Verbose("Left Matchmaking");
+			}, null, ErrorCallback("CancellAllTickets"));
+			FLog.Info(LOG_TAG, "Left Matchmaking");
 			if (_pooling != null)
 			{
 				if (_party.HasParty.Value)
@@ -291,15 +314,16 @@ namespace FirstLight.Game.Services
 			{
 				QueueName = QUEUE_NAME,
 				TicketId = ticket
-			}, callback, Debug.LogError);
+			}, callback, ErrorCallback("GetTicket"));
 		}
+
 
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback)
 		{
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			}, callback, Debug.LogError);
+			}, callback, ErrorCallback("GetMyTickets"));
 		}
 
 		public void GetMatch(string matchId, Action<GetMatchResult> callback)
@@ -309,12 +333,12 @@ namespace FirstLight.Game.Services
 				ReturnMemberAttributes = true,
 				MatchId = matchId,
 				QueueName = QUEUE_NAME
-			}, callback, Debug.LogError);
+			}, callback, ErrorCallback("GetMatch"));
 		}
 
 		private MatchmakingPlayer CreateLocalMatchmakingPlayer()
 		{
-			return new MatchmakingPlayer()
+			var mp = new MatchmakingPlayer()
 			{
 				Entity = new EntityKey()
 				{
@@ -323,9 +347,13 @@ namespace FirstLight.Game.Services
 				},
 				Attributes = new CustomMatchmakingPlayerProperties()
 				{
-					MasterPlayerId = PlayFabSettings.staticPlayer.PlayFabId
+					Server = _dataProvider.AppDataProvider.ConnectionRegion.Value,
+					MasterPlayerId = _networkService.UserId
 				}.Encode()
 			};
+
+			FLog.Info(LOG_TAG, $"Created local matchmaking player {ModelSerializer.Serialize(mp).Value}!");
+			return mp;
 		}
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
@@ -337,14 +365,17 @@ namespace FirstLight.Game.Services
 					.Select(pm => pm.ToEntityKey()).ToList();
 			}
 
+			FLog.Info(LOG_TAG, $"Creating matchmaking ticket with {members?.Count} members!");
 			PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest()
 			{
-				MembersToMatchWith = members, // HERE IS WHERE WE ADD THE SQUAD !!!
+				MembersToMatchWith = members,
 				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = 45,
+				GiveUpAfterSeconds = TICKET_TIMEOUT_SECONDS,
 				Creator = CreateLocalMatchmakingPlayer()
 			}, r =>
 			{
+				FLog.Info(LOG_TAG, $"Matchmaking ticket {r.TicketId} created!");
+
 				var mm = new JoinedMatchmaking()
 				{
 					TicketId = r.TicketId,
@@ -353,13 +384,16 @@ namespace FirstLight.Game.Services
 				if (_party.HasParty.Value)
 				{
 					// If it is party the matchmaking transition will be handled by the OnLobbyPropertyChanges
-					_party.SetLobbyProperty(LOBBY_TICKET_PROPERTY, ModelSerializer.Serialize(mm).Value);
+					var serializedJoined = ModelSerializer.Serialize(mm).Value;
+					_party.SetLobbyProperty(LOBBY_TICKET_PROPERTY, serializedJoined);
+					FLog.Info(LOG_TAG, $"Set lobby ticket property {serializedJoined} created!");
 					return;
 				}
 
+				FLog.Info(LOG_TAG, "Started polling after creating ticket because not member of party!");
 				StartPolling(mm);
 				InvokeJoinedMatchmaking(mm);
-			}, Debug.LogError);
+			}, ErrorCallback("CreateMatchmakingTicket"));
 		}
 
 		public void InvokeMatchFound(GameMatched match)
@@ -371,10 +405,12 @@ namespace FirstLight.Game.Services
 			{
 				if (_party.GetLocalMember().Leader)
 				{
+					FLog.Info(LOG_TAG, "Removing ticket from lobby properties because match was found!");
 					_party.DeleteLobbyProperty(LOBBY_TICKET_PROPERTY);
 				}
 				else
 				{
+					FLog.Info(LOG_TAG, "Setting ready to false because match was found");
 					_party.Ready(false);
 				}
 			}
@@ -384,6 +420,18 @@ namespace FirstLight.Game.Services
 		{
 			OnMatchmakingJoined?.Invoke(mm);
 			_isMatchmaking.Value = true;
+			FLog.Info(LOG_TAG, "OnMatchmakingJoined invoked");
+		}
+
+
+		private Action<PlayFabError> ErrorCallback(string operation)
+		{
+			return err =>
+			{
+				FLog.Warn(LOG_TAG, "Recoverable exception happened at " + operation);
+				var ex = err.AsException();
+				_backendService.HandleRecoverableException(ex);
+			};
 		}
 	}
 
@@ -421,9 +469,11 @@ namespace FirstLight.Game.Services
 
 		private void HandleCancellation(GetMatchmakingTicketResult ticket)
 		{
+			FLog.Info(PlayfabMatchmakingService.LOG_TAG, "HandlingTicketCancellation Reason:" + ticket.CancellationReasonString + " Ticket:" + ticket.TicketId);
 			if (ticket.CancellationReasonString == "Timeout")
 			{
 				string matchId = "timeout-match-" + ticket.TicketId;
+				FLog.Info(PlayfabMatchmakingService.LOG_TAG, "Ticket timed out, creating ticket only match " + matchId);
 				_service.InvokeMatchFound(new GameMatched()
 				{
 					ExpectedPlayers = ticket.Members
@@ -444,6 +494,7 @@ namespace FirstLight.Game.Services
 		{
 			_service.GetMatch(ticket.MatchId, result =>
 			{
+				FLog.Info(PlayfabMatchmakingService.LOG_TAG, $"Found match {ModelSerializer.Serialize(result).Value}");
 				// Distribute teams
 				var membersWithTeam = result.Members
 					.ToDictionary(player => player.Entity.Id,
@@ -468,27 +519,41 @@ namespace FirstLight.Game.Services
 
 		private IEnumerator Runnable()
 		{
-			var delay = new WaitForSeconds(6.5f);
+			float delay = 6.5f;
+			var waitDelay = new WaitForSeconds(delay);
+			float waiting = 0;
 			_pooling = true;
 			while (_pooling)
 			{
 				_service.GetTicket(Ticket, ticket =>
 				{
-					Debug.Log("Ticket Pool: " + JsonConvert.SerializeObject(ticket));
+					FLog.Info(PlayfabMatchmakingService.LOG_TAG, $"Ticket pooling {ModelSerializer.Serialize(ticket).Value}");
 					// TODO: Check when ticket expired and expose event
 					if (ticket.Status == "Matched")
 					{
 						HandleMatched(ticket);
 						_pooling = false;
 					}
-
-					if (ticket.Status == "Canceled")
+					else if (ticket.Status == "Canceled")
 					{
 						HandleCancellation(ticket);
 						_pooling = false;
 					}
+					else
+					{
+						FLog.Info(PlayfabMatchmakingService.LOG_TAG, $"Unhandled ticket status {ticket.Status}");
+					}
 				});
-				yield return delay;
+				yield return waitDelay;
+				// If playfab timeout doesn't work, so the player won't get stuck in the matchmaking screen
+				waiting += delay;
+				FLog.Info(PlayfabMatchmakingService.LOG_TAG, $"Already waited {waiting}s for matchmaking!");
+				var maxWait = PlayfabMatchmakingService.TICKET_TIMEOUT_SECONDS + 30;
+				if (waiting >= maxWait)
+				{
+					FLog.Info(PlayfabMatchmakingService.LOG_TAG, $"Canceling ticket because it take longer then {maxWait} seconds!");
+					_service.CancelLocalMatchmaking();
+				}
 			}
 		}
 

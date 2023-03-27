@@ -63,6 +63,7 @@ namespace FirstLight.Game.StateMachines
 			SectionVersion = 1;
 			CurrentStep = 1;
 			CurrentStepName = "TutorialStart";
+			_services.GameModeService.SelectDefaultCasualMode();
 		}
 
 		/// <summary> 
@@ -83,6 +84,7 @@ namespace FirstLight.Game.StateMachines
 			var equipWeapon = stateFactory.State("Equip weapon");
 			var playGame = stateFactory.State("Play game");
 			var mapSelect = stateFactory.State("Map Select");
+			var disconnected = stateFactory.State("Disconnected");
 			var createTutorialRoom = stateFactory.State("Join Room");
 			var waitSimulationStart = stateFactory.State("WaitSimulationStart");
 			
@@ -94,6 +96,7 @@ namespace FirstLight.Game.StateMachines
 			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(completionCheck);
+			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			enterName.OnExit(OnEnterNameExit);
 			
 			completionCheck.OnEnter(SendStepAnalytics);
@@ -139,17 +142,24 @@ namespace FirstLight.Game.StateMachines
 			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
 			playGame.OnEnter(OnPlayGameEnter);
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
+			playGame.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			playGame.OnExit(OnPlayGameExit);
 			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
+			createTutorialRoom.OnEnter(CloseTutorialUi);
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(mapSelect);
-			
+			createTutorialRoom.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
+
 			mapSelect.OnEnter(() => { SendAnalyticsIncrementStep("SelectMapPoint"); });
 			mapSelect.OnEnter(OnMapSelectEnter);
 			mapSelect.Event(_selectedMapPointEvent).Target(waitSimulationStart);
 			mapSelect.Event(GameSimulationState.SimulationStartedEvent).OnTransition(()=>SendAnalyticsIncrementStep("TutorialFinish")).Target(final);
 			mapSelect.OnExit(OnMapSelectExit);
+
+			disconnected.OnEnter(CloseTutorialUi);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(enterName);
+			disconnected.OnExit(InitSequenceData);
 			
 			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);

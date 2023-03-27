@@ -140,6 +140,35 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpError);
+		}
+
+		private void OnServerHttpError(ServerHttpErrorMessage msg)
+		{
+			_services.AnalyticsService.CrashLog($"Login error code {msg.ErrorCode} -  {msg.Message}");
+			if (msg.ErrorCode != HttpStatusCode.RequestTimeout)
+			{
+				return;
+			}
+
+			var title = "Login Timeout"; 
+				var desc = $"Please Retry";
+#if UNITY_EDITOR
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+					ButtonOnClick = () => { _services.QuitGame("Close due to login error"); }
+				};
+				_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
+#else
+				var button = new FirstLight.NativeUi.AlertButton
+				{
+					Callback = () => {_services.QuitGame("Close due to login error"); },
+					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+				};
+				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, title, desc, button);
+#endif
 		}
 
 		private void UnsubscribeEvents()

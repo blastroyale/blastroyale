@@ -297,6 +297,7 @@
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
     <Compile Include="Utils\BitUtil.cs" />
+    <Compile Include="Utils\DebugExtensions.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />

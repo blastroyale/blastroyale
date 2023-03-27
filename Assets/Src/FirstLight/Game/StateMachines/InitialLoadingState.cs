@@ -135,8 +135,6 @@ namespace FirstLight.Game.StateMachines
 				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
 			}
 			
-			_services.GameModeService.Init();
-
 			var audioTasks = new List<Task>();
 			
 			audioTasks.Add(_services.AudioFxService

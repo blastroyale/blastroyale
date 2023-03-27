@@ -161,7 +161,6 @@ namespace FirstLight.Game.StateMachines
 				if (appData.IsFirstSession || string.IsNullOrEmpty(appData.DeviceId))
 				{
 					appData.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
-					_dataService.SaveData<AppData>();
 				}
 			}
 #endif
@@ -170,6 +169,7 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeRemainingLogic()
 		{
 			_gameLogic.Init();
+			_services.GameModeService.Init();
 			_services.IAPService.Init();
 			_services.AnalyticsService.SessionCalls.GameLoaded();
 		}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -393,7 +394,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
-		
+
 		/// <summary>
 		/// Obtains info on whether the room is used for matchmaking
 		/// </summary>
@@ -425,9 +426,10 @@ namespace FirstLight.Game.Utils
 				FLog.Verbose("Not snapshot connect room");
 				return false;
 			}
+
 			return (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
 		}
-		
+
 		/// <summary>
 		/// Can a local snapshot with current simulation frame be saved locally to be restored later ?
 		/// </summary>
@@ -437,6 +439,7 @@ namespace FirstLight.Game.Utils
 			{
 				return false;
 			}
+
 			return (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
 		}
 
@@ -449,8 +452,8 @@ namespace FirstLight.Game.Utils
 
 		public static T GetProp<T>(this Room room, string prop)
 		{
-			if(room.CustomProperties.TryGetValue(prop, out var v))
-				return (T)v;
+			if (room.CustomProperties.TryGetValue(prop, out var v))
+				return (T) v;
 			return default;
 		}
 
@@ -595,7 +598,7 @@ namespace FirstLight.Game.Utils
 			{
 				if (playerKvp.Value.IsInactive)
 					continue;
-				
+
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
 					    out var propertyValue) || !(bool) propertyValue)
 				{
@@ -698,7 +701,20 @@ namespace FirstLight.Game.Utils
 		/// <returns></returns>
 		public static bool HasNfts(this IEquipmentDataProvider equipmentLogic)
 		{
+#if  UNITY_EDITOR || DEVELOPMENT_BUILD
+			if (FeatureFlags.GetLocalConfiguration().ForceHasNfts)
+			{
+				return true;
+			}
+#endif
 			return equipmentLogic.NftInventory.Count > 0;
+		}
+
+
+		public static void SelectDefaultCasualMode(this IGameModeService service)
+		{
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			service.SelectedGameMode.Value = gameMode;
 		}
 	}
 }

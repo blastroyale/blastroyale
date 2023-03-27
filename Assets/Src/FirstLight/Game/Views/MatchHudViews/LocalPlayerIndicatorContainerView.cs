@@ -181,7 +181,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
-			ShootIndicator.SetVisualState(false);
+			ShootIndicator?.SetVisualState(false);
 		}
 	}
 }

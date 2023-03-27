@@ -29,34 +29,25 @@ variables:
   value: $(UNITY-SERIAL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- ${{  if eq(variables['Build.SourceBranch'], 'develop')  }}:
-    - name: configuration
-      value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
-- ${{  if startsWith(variables['Build.SourceBranch'], 'release')  }}:
-    - name: configuration
-      value: "Release"
-    - name: build_type
-      value: "RELEASE_BUILD"
-    - name: server_environment
-      value: "STAGE_SERVER"
-- ${{  if eq(variables['Build.SourceBranch'], 'master')  }}:
-    - name: configuration
-      value: "Release"
-    - name: build_type
-      value: "STORE_BUILD"
-    - name: server_environment
-      value: "LIVE_SERVER"
-- ${{  else  }}:
-    - name: configuration
-      value: "Debug"
-    - name: build_type
-      value: "DEVELOPMENT_BUILD"
-    - name: server_environment
-      value: "DEVELOPMENT_SERVER"
+- name: configuration
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+    value: "Debug"
+  ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
+    value: "Release"
+- name: build_type
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+    value: "DEVELOPMENT_BUILD"
+  ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
+    value: "RELEASE_BUILD"
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+    value: "STORE_BUILD"
+- name: server_environment
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+    value: "DEVELOPMENT_SERVER"
+  ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
+    value: "STAGE_SERVER"
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+    value: "LIVE_SERVER"
 - name: webhookUrl
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
@@ -89,7 +80,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: $(configuration)
           platform: Android
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
@@ -111,7 +102,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: ${{ variables.configuration }}
+          configuration: $(configuration)
           platform: iOS
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)

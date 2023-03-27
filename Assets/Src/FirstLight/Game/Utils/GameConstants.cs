@@ -34,40 +34,6 @@ namespace FirstLight.Game.Utils
 			#endif
 		}
 
-		public static class Servers
-		{
-			public enum ServerEnvironments
-			{
-				Dev,
-				Stage,
-				Live,
-				LiveTesnet
-			}
-			
-#if LIVE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Live;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#elif LIVE_TESTNET_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.LiveTesnet;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
-#elif STAGE_SERVER
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#else
-			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Dev;
-			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
-			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
-			public const string QUANTUM_ID = "***REMOVED***";
-#endif
-			public static readonly string SERVER_ENVIRONMENT_STRING = SERVER_ENVIRONMENT.ToString();
-		}
-
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;
@@ -103,8 +69,8 @@ namespace FirstLight.Game.Utils
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
 			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
 			
-			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
-			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
+			public const int DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
+			public const int BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 			
 			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
@@ -142,7 +108,7 @@ namespace FirstLight.Game.Utils
 		public static class Data
 		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
-			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 15f;
+			public const float ROOM_SELECT_DROP_POSITION_SECONDS = 5f;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;

@@ -61,8 +61,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PhotonDeterministic, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\quantum.code.0.0.14\lib\net48\PhotonDeterministic.dll</HintPath>
+    <Reference Include="PhotonDeterministic">
+      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\PhotonDeterministic.dll</HintPath>
     </Reference>
     <Reference Include="PhotonDeterministic.Plugin">
       <SpecificVersion>False</SpecificVersion>
@@ -81,17 +81,15 @@
     <Reference Include="PlayFabAllSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
     </Reference>
-    <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="quantum.code">
       <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
     </Reference>
-    <Reference Include="quantum.core, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\quantum.code.0.0.14\lib\net48\quantum.core.dll</HintPath>
+    <Reference Include="quantum.core">
+      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.core.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Backend\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="quantum.code" Version="0.0.14" />
     <Reference Include="System" />
     <Reference Include="System.Collections" />
     <Reference Include="System.Collections.Concurrent" />

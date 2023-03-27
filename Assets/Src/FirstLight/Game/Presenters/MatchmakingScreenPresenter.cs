@@ -57,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
+		private Label _debugMasterClient;
 		private IGameServices _services;
 		private Coroutine _matchmakingTimerCoroutine;
 		private Tweener _planeFlyTween;
@@ -99,6 +100,7 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
+			_debugMasterClient = root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = root.Q("SquadContainer").Required();
 			_squadMembersList = root.Q<ListView>("SquadList").Required();
 			_partyMarkers = root.Q("PartyMarkers").Required();
@@ -123,6 +125,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			RefreshPartyList();
+			UpdateMasterClient();
 		}
 
 		private void RefreshPartyList()
@@ -286,8 +289,9 @@ namespace FirstLight.Game.Presenters
 			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
+			UpdateMasterClient();
 
-			if (!gameModeConfig.SkydiveSpawn)
+			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
@@ -390,6 +394,17 @@ namespace FirstLight.Game.Presenters
 				: "";
 		}
 
+		private void UpdateMasterClient()
+		{
+			if (!Debug.isDebugBuild)
+			{
+				_debugMasterClient.SetDisplay(false);
+				return;
+			}
+			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
+		}
+
+		
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();

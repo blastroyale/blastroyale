@@ -23,9 +23,14 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void AllPlayersSpawned(Frame f)
 		{
+			var players = f.GetAllPlayerDatas();
+			if (!players.Any())
+			{
+				return; // no players no game
+			}
 			var averagePlayerTrophies = Convert.ToUInt32(
 				Math.Round(
-					f.GetAllPlayerDatas()
+					players
 						.Average(p => p.PlayerTrophies)));
 			InitializeBots(f, averagePlayerTrophies);
 		}

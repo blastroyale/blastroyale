@@ -174,7 +174,7 @@ namespace FirstLight.Game.Logic
 			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
 			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
 			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
-			var rankValue = Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
+			var rankValue = (int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
 			
 			foreach (var config in gameModeRewardConfigs)
 			{

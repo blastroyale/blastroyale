@@ -243,7 +243,7 @@ namespace Quantum
 				return false;
 			}
 
-			if (gameSession.Session.FrameVerified == null)
+			if (gameSession?.Session?.FrameVerified == null)
 			{
 				return false;
 			}

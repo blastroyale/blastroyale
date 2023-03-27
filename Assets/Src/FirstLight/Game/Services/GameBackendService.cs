@@ -2,21 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
-using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -27,10 +22,13 @@ using UnityEngine;
 namespace FirstLight.Game.Services
 {
 	public enum Environment
-	{ 
-		DEV, STAGING, TESTNET, PROD
+	{
+		DEV,
+		STAGING,
+		TESTNET,
+		PROD
 	}
-	
+
 	public class BackendEnvironmentData
 	{
 		public Environment EnvironmentID;
@@ -128,6 +126,12 @@ namespace FirstLight.Game.Services
 		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
 
 		/// <summary>
+		/// Will handle a recoverable exception, making sure it will get to all analytics services
+		/// </summary>
+		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
+
+
+		/// <summary>
 		/// Returns if the game is running on dev env. On dev things can be different.
 		/// </summary>
 		bool IsDev();
@@ -170,7 +174,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupTestnet(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.TESTNET;
@@ -178,7 +182,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupStaging(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.STAGING;
@@ -186,7 +190,7 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
-		
+
 		private void SetupDev(BackendEnvironmentData envData)
 		{
 			envData.EnvironmentID = Environment.DEV;
@@ -194,7 +198,7 @@ namespace FirstLight.Game.Services
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 			envData.AppIDRealtime = "***REMOVED***";
 		}
-		
+
 		public void SetupBackendEnvironment()
 		{
 			if (CurrentEnvironmentData != null)
@@ -205,7 +209,7 @@ namespace FirstLight.Game.Services
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
-			
+
 #if LIVE_SERVER
 			SetupLive(envData);
 #elif LIVE_TESTNET_SERVER
@@ -230,6 +234,7 @@ namespace FirstLight.Game.Services
 			}
 #endif
 
+			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 			CurrentEnvironmentData = envData;
 
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
@@ -365,6 +370,13 @@ namespace FirstLight.Game.Services
 			callback?.Invoke(error);
 		}
 
+		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		{
+			// Unfortunately we have to log as an Error to send to crash analytics, and it is impossible to send exceptions manually :( 
+			FLog.Error("recoverable exception", ex);
+			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
+		}
+
 		/// <inheritdoc/>
 		public void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType)
 		{
@@ -392,7 +404,7 @@ namespace FirstLight.Game.Services
 					_services.QuitGame(descriptiveError);
 				},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
+					Text = I2.Loc.ScriptLocalization.MainMenu.QuitGameButton
 			});
 #endif
 		}
@@ -401,7 +413,7 @@ namespace FirstLight.Game.Services
 		{
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
 		}
-		
+
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>

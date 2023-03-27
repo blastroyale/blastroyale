@@ -73,6 +73,11 @@ namespace FirstLight.Game.Data
 		{
 			return obj.Id.GetHashCode();
 		}
+		
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
 
 		public bool Equals(CollectionItem other)
 		{

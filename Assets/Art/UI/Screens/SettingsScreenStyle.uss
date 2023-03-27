@@ -221,3 +221,13 @@
 .settings-radio-button-group .unity-radio-button__label {
     color: white;
 }
+
+.settings-radio-button-group .unity-base-field__input {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-radio-button-group .unity-base-field__input .unity-radio-button {
+    width: 200px;
+    justify-content:space-around;
+}

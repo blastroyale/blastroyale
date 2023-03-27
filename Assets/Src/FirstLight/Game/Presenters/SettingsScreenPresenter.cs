@@ -131,7 +131,19 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
+			
+			// FPS
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPS").Required(),
+				() => _gameDataProvider.AppDataProvider.FpsTarget,
+				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
 
+			// Graphics
+			/*
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPS").Required(),
+				() => _gameDataProvider.AppDataProvider.FpsTarget,
+				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
+				*/
+			
 			// FPS Buttons
 			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty] = root.Q<Button>("30RadioButton");
 			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty] = root.Q<Button>("60RadioButton");
@@ -172,6 +184,12 @@ namespace FirstLight.Game.Presenters
 		{
 			toggle.value = getter();
 			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) => s(e.newValue), setter);
+		}
+
+		private static void SetupRadioButtonGroup(LocalizedRadioButtonGroup group, Func<int> getter, Action<int> setter)
+		{
+			group.value = getter();
+			group.RegisterCallback<ChangeEvent<int>, Action<int>>((e, s) => s(e.newValue), setter);
 		}
 
 		private void OnCloseClicked()

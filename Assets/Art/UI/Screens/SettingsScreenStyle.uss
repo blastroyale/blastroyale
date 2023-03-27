@@ -184,25 +184,45 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.settings-radio-button {
-    color: white;
-    display: flex;
-    visibility: visible;
-}
-
 .settings-radio-button .unity-radio-button__checkmark-background {
-    background-image: var(--sprite-home__settings-dot);
     height: 44px;
     width: 44px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 .settings-radio-button .unity-radio-button__checkmark {
-    background-image: var(--sprite-home__settings-tab-chosen);
+    background-color: rgb(247, 107, 106);
+    height: 34px;
+    width: 34px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
 }
 
 .settings-radio-button-group {
+    color: white;
 }
 
-.settings-radio-button .unity-radio-button__label{
+.settings-radio-button-group:focus .unity-base-field__label {
+    color: white;
+}
+
+.settings-radio-button-group .unity-radio-button__label {
+    color: white;
+}
+
+.settings-radio-button .unity-radio-button__label {
     visibility: visible;
+    color: white;
 }

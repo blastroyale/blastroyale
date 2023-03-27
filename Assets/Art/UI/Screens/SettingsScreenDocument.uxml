@@ -19,27 +19,17 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container" style="height: 550px; justify-content: space-between; background-image: none;">
                             <ui:VisualElement name="FPSContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 174px;">
-                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="-1" localization-key="UITSettings/fps" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;">
+                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="-1" localization-key="UITSettings/fps" name="FPS" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;">
                                     <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/thirty" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
                                     <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/sixty" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
                                 </FirstLight.Game.UIElements.LocalizedRadioButtonGroup>
                             </ui:VisualElement>
                             <ui:VisualElement name="GraphicsQualityContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 266px;">
-                                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/graphics_quality" name="GraphicsQualityLabel" style="-unity-text-align: middle-center; height: 120px;" />
-                                <ui:VisualElement name="GraphicsQualityBlock" style="height: 220px; flex-direction: row; justify-content: center; align-items: center;">
-                                    <ui:VisualElement name="LowBlock" style="width: 300px; height: 160px; -unity-text-align: lower-left; justify-content: space-around; align-items: center;">
-                                        <ui:Button focusable="true" name="LowRadioButton" class="sfx-click-forwards" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=2800000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
-                                        <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/low" name="LowLabel" style="-unity-text-align: upper-center;" />
-                                    </ui:VisualElement>
-                                    <ui:VisualElement name="MediumBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
-                                        <ui:Button focusable="true" name="MediumRadioButton" class="sfx-click-forwards" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=21300000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
-                                        <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/medium" name="MediumLabel" style="-unity-text-align: upper-center;" />
-                                    </ui:VisualElement>
-                                    <ui:VisualElement name="HighBlock" style="width: 300px; height: 160px; align-items: center; justify-content: space-around;">
-                                        <ui:Button focusable="true" name="HighRadioButton" class="sfx-click-forwards" style="height: 73px; background-color: rgba(255, 255, 255, 0); width: 68px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-dot.png?fileID=21300000&amp;guid=5fec628613cd948a08ab529602f7139d&amp;type=3#settings-dot&apos;);" />
-                                        <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/high" name="HighLabel" style="-unity-text-align: upper-center;" />
-                                    </ui:VisualElement>
-                                </ui:VisualElement>
+                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="-1" localization-key="UITSettings/graphics_title" name="Graphics" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;">
+                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/low" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
+                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/medium" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
+                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/high" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
+                                </FirstLight.Game.UIElements.LocalizedRadioButtonGroup>
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container" style="display: flex;">

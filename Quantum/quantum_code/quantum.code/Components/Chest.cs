@@ -137,11 +137,7 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					if (healthFilled + ammoFilled + shieldFilled > Constants.ENERGY_CHEST_DROP_THRESHOLD)
-					{
-						drop = GameId.EnergyCubeSmall;
-					}
-					else if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
+					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						drop = GameId.Health;
 						healthFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
@@ -160,7 +156,7 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health, GameId.EnergyCubeSmall);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);

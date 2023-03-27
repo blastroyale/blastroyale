@@ -184,7 +184,15 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.settings-radio-button .unity-radio-button__checkmark-background {
+.settings-radio-button-group {
+    color: white;
+}
+
+.settings-radio-button-group:focus .unity-base-field__label {
+    color: white;
+}
+
+.settings-radio-button-group .unity-radio-button__checkmark-background {
     height: 44px;
     width: 44px;
     border-top-left-radius: 50%;
@@ -200,7 +208,7 @@
     justify-content: center;
 }
 
-.settings-radio-button .unity-radio-button__checkmark {
+.settings-radio-button-group .unity-radio-button__checkmark {
     background-color: rgb(247, 107, 106);
     height: 34px;
     width: 34px;
@@ -210,19 +218,6 @@
     border-bottom-right-radius: 50%;
 }
 
-.settings-radio-button-group {
-    color: white;
-}
-
-.settings-radio-button-group:focus .unity-base-field__label {
-    color: white;
-}
-
 .settings-radio-button-group .unity-radio-button__label {
-    color: white;
-}
-
-.settings-radio-button .unity-radio-button__label {
-    visibility: visible;
     color: white;
 }

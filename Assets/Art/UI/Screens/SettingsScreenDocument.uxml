@@ -19,17 +19,10 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container" style="height: 550px; justify-content: space-between; background-image: none;">
                             <ui:VisualElement name="FPSContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 174px;">
-                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="-1" localization-key="UITSettings/fps" name="FPS" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;">
-                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/thirty" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
-                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/sixty" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
-                                </FirstLight.Game.UIElements.LocalizedRadioButtonGroup>
+                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="GraphicsQualityContent" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/settings-content-shape.png?fileID=21300000&amp;guid=64898817438f9408c96d237ff01892ca&amp;type=3#settings-content-shape&apos;); width: 677px; height: 266px;">
-                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="-1" localization-key="UITSettings/graphics_title" name="Graphics" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;">
-                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/low" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
-                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/medium" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
-                                    <FirstLight.Game.UIElements.LocalizedRadioButton label="Radio Button" localization-key="UITSettings/high" class="settings-radio-button" style="flex-direction: column-reverse; align-items: center;" />
-                                </FirstLight.Game.UIElements.LocalizedRadioButtonGroup>
+                                <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group" style="-unity-text-align: upper-center; height: 164px; align-items: flex-start; justify-content: center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container" style="display: flex;">

@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using UnityEngine;
 using TMPro;
@@ -12,7 +11,6 @@ using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using Color = UnityEngine.Color;
 
 namespace FirstLight.Game.Presenters
 {
@@ -53,28 +51,6 @@ namespace FirstLight.Game.Presenters
 		private Label _connectionStatusLabel;
 		private Label _connectionNameText;
 
-		// FPS Buttons
-		private Button[] _fpsButtons;
-
-		private enum SETTINGS_TOGGLE_FPS
-		{
-			Thirty = 0,
-			Sixty = 1,
-		}
-
-		// Graphics Buttons
-		private Button[] _graphicsButtons;
-
-		private enum SETTINGS_TOGGLE_GRAPHICS
-		{
-			Low = 0,
-			Medium = 1,
-			High,
-		}
-
-		private readonly Color _deselectedRadioButtonColor = new(0.08f, 0.07f, 0.14f, 1f);
-		private readonly Color _selectedRadioButtonColor = new(0.94f, 0.29f, 0.47f, 1f);
-
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -88,20 +64,11 @@ namespace FirstLight.Game.Presenters
 			// _deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
 			// _connectIdButton.onClick.AddListener(OpenConnectId);
 			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
-			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
+			//_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			// _detailLevelView.ValueChanged += OnDetailLevelChanged;
 			// _helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			// _faq.onClick.AddListener(OnFaqButtonPressed);
 			// _serverSelectButton.onClick.AddListener(OpenServerSelect);
-
-
-			int size = Enum.GetNames(typeof(SETTINGS_TOGGLE_FPS)).Length;
-
-			_fpsButtons = new Button[size];
-
-			size = Enum.GetNames(typeof(SETTINGS_TOGGLE_GRAPHICS)).Length;
-
-			_graphicsButtons = new Button[size];
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -131,34 +98,14 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
-			
-			// FPS
-			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPS").Required(),
-				() => _gameDataProvider.AppDataProvider.FpsTarget,
-				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
 
 			// Graphics
-			/*
-			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPS").Required(),
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
 				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
-				*/
-			
-			// FPS Buttons
-			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty] = root.Q<Button>("30RadioButton");
-			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty] = root.Q<Button>("60RadioButton");
-			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].clicked += OnFPSTogglePressed;
-			_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].clicked += OnFPSTogglePressed;
-			SetFpsRadioButtons();
-
-			// Graphics Buttons
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Low] = root.Q<Button>("LowRadioButton");
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Low].clicked += OnLowGraphicsPressed;
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Medium] = root.Q<Button>("MediumRadioButton");
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Medium].clicked += OnMediumGraphicsPressed;
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High] = root.Q<Button>("HighRadioButton");
-			_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High].clicked += OnHighGraphicsPressed;
-			SetGraphicsQualityToggles();
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").Required(),
+				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
+				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
 
 			// Account Buttons
 			_logoutButton = root.Q<Button>("LogoutButton");
@@ -180,16 +127,20 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 		}
 
-		private static void SetupToggle(LocalizedToggle toggle, Func<bool> getter, Action<bool> setter)
+		private static void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
 		{
 			toggle.value = getter();
 			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) => s(e.newValue), setter);
 		}
 
-		private static void SetupRadioButtonGroup(LocalizedRadioButtonGroup group, Func<int> getter, Action<int> setter)
+		private static void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter)
+			where T : Enum, IConvertible
 		{
-			group.value = getter();
-			group.RegisterCallback<ChangeEvent<int>, Action<int>>((e, s) => s(e.newValue), setter);
+			var options = Enum.GetNames(typeof(T)); // TODO: Needs some sort of localization
+			group.choices = options;
+			group.value = (int) (object) getter();
+
+			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) => s((T) (object) e.newValue), setter);
 		}
 
 		private void OnCloseClicked()
@@ -197,88 +148,6 @@ namespace FirstLight.Game.Presenters
 			Debug.Log("Close Clicked");
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
 			Data.OnClose();
-		}
-
-		private void OnFPSTogglePressed()
-		{
-			if (_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET)
-			{
-				_gameDataProvider.AppDataProvider.FpsTarget = GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
-			}
-			else
-			{
-				_gameDataProvider.AppDataProvider.FpsTarget = GameConstants.Visuals.LOW_FPS_MODE_TARGET;
-			}
-
-			SetFpsRadioButtons();
-		}
-
-		private void SetFpsRadioButtons()
-		{
-			if (_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET)
-			{
-				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].style.unityBackgroundImageTintColor =
-					new StyleColor(_selectedRadioButtonColor);
-				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].style.unityBackgroundImageTintColor =
-					new StyleColor(_deselectedRadioButtonColor);
-			}
-			else
-			{
-				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Thirty].style.unityBackgroundImageTintColor =
-					new StyleColor(_deselectedRadioButtonColor);
-				_fpsButtons[(int) SETTINGS_TOGGLE_FPS.Sixty].style.unityBackgroundImageTintColor =
-					new StyleColor(_selectedRadioButtonColor);
-			}
-		}
-
-		private void OnLowGraphicsPressed()
-		{
-			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
-			SetGraphicsQualityToggles();
-		}
-
-		private void OnMediumGraphicsPressed()
-		{
-			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
-			SetGraphicsQualityToggles();
-		}
-
-		private void OnHighGraphicsPressed()
-		{
-			_gameDataProvider.AppDataProvider.CurrentDetailLevel = GraphicsConfig.DetailLevel.High;
-			SetGraphicsQualityToggles();
-		}
-
-		private void SetGraphicsQualityToggles()
-		{
-			foreach (var button in _graphicsButtons)
-			{
-				button.style.unityBackgroundImageTintColor = _deselectedRadioButtonColor;
-			}
-
-			switch (_gameDataProvider.AppDataProvider.CurrentDetailLevel)
-			{
-				case GraphicsConfig.DetailLevel.Low:
-
-					_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Low].style.unityBackgroundImageTintColor =
-						_selectedRadioButtonColor;
-
-					break;
-
-				case GraphicsConfig.DetailLevel.Medium:
-
-					_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.Medium].style.unityBackgroundImageTintColor =
-						_selectedRadioButtonColor;
-
-					break;
-
-				case GraphicsConfig.DetailLevel.High:
-
-					_graphicsButtons[(int) SETTINGS_TOGGLE_GRAPHICS.High].style.unityBackgroundImageTintColor =
-						_selectedRadioButtonColor;
-
-					break;
-			}
 		}
 
 		public void UpdateAccountStatus()
@@ -304,10 +173,6 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			_versionText.text = VersionUtils.VersionInternal;
-
-			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget ==
-				GameConstants.Visuals.LOW_FPS_MODE_TARGET);
-			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 
 			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
@@ -351,36 +216,9 @@ namespace FirstLight.Game.Presenters
 			_services.HelpdeskService.ShowFaq();
 		}
 
-		private void OnHapticChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-		}
-
-		private void OnDynamicCameraChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
-		}
-
 		private void OnScreenshakeToggleChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
-		}
-
-		private void OnHighFpsModeChanged(bool value)
-		{
-			var targetFps = value
-				? GameConstants.Visuals.LOW_FPS_MODE_TARGET
-				: GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
-
-			_gameDataProvider.AppDataProvider.FpsTarget = targetFps;
-		}
-
-		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
-		{
-			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
-
-			// This is temporary solution. When settings screen is made in UITK, the whole 
-			// _services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 
 		private void OnLogoutClicked()

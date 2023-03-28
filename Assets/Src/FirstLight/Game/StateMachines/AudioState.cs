@@ -309,7 +309,7 @@ namespace FirstLight.Game.StateMachines
 		private void TransitionAudioMixerMain()
 		{
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_MAIN_SNAPSHOT_ID,
-				GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
+				GameConstants.Audio.MIXER_MUSIC_TRANSITION_SECONDS);
 		}
 
 		private void TransitionAudioMixerLobby()
@@ -317,7 +317,7 @@ namespace FirstLight.Game.StateMachines
 			if (IsResyncing()) return;
 
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
-				GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
+				GameConstants.Audio.MIXER_MUSIC_TRANSITION_SECONDS);
 		}
 
 		/// <summary>

@@ -13,6 +13,8 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class VisibilityVolumeMonoComponent : MonoBehaviour
 	{
+		[SerializeField] private bool _occludeAudio = true;
+		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IEntityViewUpdaterService _entityViewUpdater;
@@ -74,6 +76,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				CheckUpdateOneVisiblePlayer(player);
 			}
+
+			if (_occludeAudio && player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
+			    player.CollidingVisibilityVolumes.Count == 1)
+			{
+				_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_INDOOR_SNAPSHOT_ID, GameConstants.Audio.MIXER_OCCLUSION_TRANSITION_SECONDS);
+			}
 		}
 
 		private void OnTriggerExit(Collider other)
@@ -96,6 +104,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			else if (player.CollidingVisibilityVolumes.Count == 0)
 			{
 				CheckUpdateOneVisiblePlayer(player);
+			}
+			
+			if (_occludeAudio && player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
+			    player.CollidingVisibilityVolumes.Count == 0)
+			{
+				_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_MAIN_SNAPSHOT_ID, GameConstants.Audio.MIXER_OCCLUSION_TRANSITION_SECONDS);
 			}
 		}
 
@@ -143,8 +157,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 
-			var spectatedPlayerWithinVolume =
-				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
 
 			player.SetPlayerSilhouetteVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||

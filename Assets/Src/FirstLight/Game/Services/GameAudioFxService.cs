@@ -155,13 +155,13 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
-			
-			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
 
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			
 			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData, mixerGroupId);
 
 			var updatedInitData = sourceInitData;
-			updatedInitData.MixerGroupAndId = new Tuple<AudioMixerGroup, string>(GetAudioMixerGroup(_mixerSfx2dGroupId), _mixerSfx2dGroupId);
+			updatedInitData.MixerGroupAndId = new Tuple<AudioMixerGroup, string>(GetAudioMixerGroup(mixerGroupId), mixerGroupId);
 			sourceInitData = updatedInitData;
 
 			PlayClipQueued2DInternal(sourceInitData);

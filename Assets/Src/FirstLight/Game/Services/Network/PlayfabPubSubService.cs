@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BestHTTP.Extensions;
+using BestHTTP.SignalR;
+using BestHTTP.SignalR.Transports;
 using BestHTTP.SignalRCore;
 using BestHTTP.SignalRCore.Encoders;
 using FirstLight.FLogger;
@@ -23,6 +25,13 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IPlayfabPubSubService
 	{
+		public delegate void OnReconnectedHandler();
+
+		/// <summary>
+		/// Triggered when the Pubsub connection is reestablished
+		/// </summary>
+		public event OnReconnectedHandler OnReconnected;
+
 		/// <summary>
 		/// Listen to messages published by PlayFab
 		/// </summary>
@@ -73,7 +82,7 @@ namespace FirstLight.Game.Services
 		private LitJsonEncoder _jsonEncoder = new();
 		private Dictionary<string, List<Action<byte[]>>> _onMessageListeners = new();
 		private Dictionary<string, List<Action<IPlayfabPubSubService.SubscriptionChangeMessage>>> _onSubscriptionStatus = new();
-
+		public event IPlayfabPubSubService.OnReconnectedHandler OnReconnected;
 		public PlayfabPubSubService(IMessageBrokerService msgBroker)
 		{
 #pragma warning disable CS4014
@@ -120,6 +129,7 @@ namespace FirstLight.Game.Services
 			_onSubscriptionStatus[topic] = currentHandlers;
 		}
 
+
 		/// <inheritdoc/>
 		public void ListenTopic<T>(string topic, Action<T> handler)
 		{
@@ -146,15 +156,42 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
+			FLog.Verbose("PubSub", "Connecting to PubSub");
 			_connecting = true;
-			var url = $"https://{GameConstants.Servers.PLAYFAB_TITLE_ID}.playfabapi.com/PubSub";
-			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder));
+			var url = $"https://{PlayFabSettings.TitleId}.playfabapi.com/PubSub";
+			_connection = new HubConnection(new Uri(url), new JsonProtocol(_jsonEncoder), new HubOptions()
+			{
+				PingInterval = TimeSpan.FromSeconds(2),
+				PingTimeoutInterval = TimeSpan.FromSeconds(15)
+			});
 			_connection.ReconnectPolicy = new DefaultRetryPolicy();
 			_connection.AuthenticationProvider = new PlayFabAuthenticator(_connection, PlayFabSettings.staticPlayer.EntityToken);
 			_connection.On<PlayfabPubSubMessage>("ReceiveMessage", MessageHandler);
 			_connection.On<IPlayfabPubSubService.SubscriptionChangeMessage>("ReceiveSubscriptionChangeMessage", SubscriptionHandler);
-			_connection.OnClosed += _ => { ResetConnectionFields(); };
-			_connection.OnError += (_, _) => { ResetConnectionFields(); };
+
+			_connection.OnConnected += a =>
+			{
+				FLog.Info("PubSub", "Connected");
+			};
+			_connection.OnClosed += _ =>
+			{
+				FLog.Error("PubSub", "OnClosed");
+				ResetConnectionFields();
+			};
+			_connection.OnError += (_, errorString) =>
+			{
+				FLog.Error("PubSub", "PlayfabPubSubError: " + errorString);
+				ResetConnectionFields();
+			};
+			_connection.OnReconnecting += (a, s) =>
+			{
+				FLog.Verbose("PubSub", $"Reconnecting {a.State}: {s}");
+			};
+			_connection.OnReconnected += _ =>
+			{
+				FLog.Info("PubSub", "OnReconnected");
+				OnReconnected?.Invoke();
+			};
 			await _connection.ConnectAsync();
 			_connected = true;
 			_connecting = false;
@@ -168,7 +205,7 @@ namespace FirstLight.Game.Services
 
 		private void SubscriptionHandler(IPlayfabPubSubService.SubscriptionChangeMessage obj)
 		{
-			Debug.Log(ModelSerializer.Serialize(obj).Value);
+			FLog.Info(ModelSerializer.Serialize(obj).Value);
 			if (_onSubscriptionStatus.TryGetValue(obj.Topic, out var handlers))
 			{
 				foreach (var handler in handlers)
@@ -181,7 +218,7 @@ namespace FirstLight.Game.Services
 		private void MessageHandler(PlayfabPubSubMessage obj)
 		{
 			var base64EncodedBytes = Convert.FromBase64String(obj.payload);
-			Debug.Log(System.Text.Encoding.UTF8.GetString(base64EncodedBytes));
+			FLog.Info("PubSub", Encoding.UTF8.GetString(base64EncodedBytes));
 			if (_onMessageListeners.TryGetValue(obj.topic, out var handlers))
 			{
 				foreach (var handler in handlers)

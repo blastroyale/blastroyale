@@ -24,5 +24,16 @@ namespace FirstLight.Game.Utils
 
 			return matchData;
 		}
+
+		/// <summary>
+		/// Check if the current game is over
+		/// </summary>
+		public static bool IsGameOver(this QuantumGame game)
+		{
+			var f = game.Frames.Verified;
+			var container = f.GetSingleton<GameContainer>();
+			
+			return container.IsGameOver;
+		}
 	}
 }

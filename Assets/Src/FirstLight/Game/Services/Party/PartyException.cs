@@ -11,8 +11,10 @@ namespace FirstLight.Game.Services.Party
 		AlreadyInParty,
 		PartyNotFound,
 		DifferentGameVersion,
+		PartyUsingOtherServer,
 		MemberNotFound,
 		ConnectionError,
+		TryingToGetDetailsOfNonMemberParty,
 		Unknown
 	}
 

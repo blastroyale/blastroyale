@@ -136,6 +136,17 @@ namespace FirstLight.Game.StateMachines
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 
+
+			void AddGoToMatchmakingHook(params IStateEvent[] states)
+			{
+				foreach (var state in states)
+				{
+					state.Event(NetworkState.JoinedPlayfabMatchmaking)
+						.OnTransition(OpenHomeScreen)
+						.Target(waitMatchmaking);
+				}
+			}
+
 			initial.Transition().Target(homeCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 
@@ -165,6 +176,7 @@ namespace FirstLight.Game.StateMachines
 			battlePass.WaitingFor(OpenBattlePassUI).Target(homeCheck);
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeCheck);
 			store.WaitingFor(OpenStore).Target(homeCheck);
+			AddGoToMatchmakingHook(settingsMenu, equipmentMenu, collectionMenu, battlePass, leaderboard, store);
 
 			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
@@ -316,6 +328,13 @@ namespace FirstLight.Game.StateMachines
 
 		private bool LoadoutCountCheckToPlay()
 		{
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+
+			if (FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked)
+			{
+				return false;
+			}
+#endif
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
 				&& !_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
@@ -532,6 +551,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayButtonClicked()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+
 			_statechartTrigger(PlayClickedEvent);
 		}
 

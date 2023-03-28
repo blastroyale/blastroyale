@@ -115,15 +115,14 @@ namespace FirstLight.Game.Services
 
 			// Try to set the saved game mode
 			var lastGameMode = _appDataProvider.LastGameMode;
-			if (IsInRotation(lastGameMode))
+			if (CanSelectGameMode(lastGameMode))
 			{
 				FLog.Verbose($"Restored selected game mode to: {lastGameMode}");
 				SelectedGameMode.Value = new GameModeInfo(lastGameMode);
 			}
 			else
 			{
-				var gameMode = _slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
-				SelectedGameMode.Value = gameMode;
+				this.SelectDefaultCasualMode();
 			}
 		}
 
@@ -132,7 +131,10 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Selected GameMode set to: {current}");
 
 			_appDataProvider.LastGameMode = current.Entry;
-			MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+			if (_appDataProvider.IsPlayerLoggedIn)
+			{
+				MainInstaller.Resolve<IGameServices>().DataSaver.SaveData<AppData>();
+			}
 		}
 
 		public void OnPartyUpdate()
@@ -145,10 +147,21 @@ namespace FirstLight.Game.Services
 			}
 
 			// If the player have NFT he can play squads alone so there is no need to change back
-			if (!hasParty && SelectedGameMode.Value.Entry.Squads && !_equipmentDataProvider.HasNfts())
+			if (!CanSelectGameMode(SelectedGameMode.Value.Entry))
 			{
-				SelectedGameMode.Value = FindModeWithSquads(false);
+				this.SelectDefaultCasualMode();
 			}
+		}
+
+		private bool CanSelectGameMode(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			bool hasParty = _partyService.HasParty.Value;
+			if (gameMode.Squads && !hasParty && !_equipmentDataProvider.HasNfts())
+			{
+				return false;
+			}
+
+			return IsInRotation(gameMode);
 		}
 
 		private GameModeInfo FindModeWithSquads(bool squads)

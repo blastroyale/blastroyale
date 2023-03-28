@@ -57,4 +57,6 @@ namespace FirstLight.Game.Messages
 	{
 		
 	}
+	
+	public struct MapDropPointSelectedMessage : IMessage { }
 }

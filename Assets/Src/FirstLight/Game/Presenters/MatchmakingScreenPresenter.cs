@@ -57,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
+		private Label _debugMasterClient;
 		private IGameServices _services;
 		private Coroutine _matchmakingTimerCoroutine;
 		private Tweener _planeFlyTween;
@@ -99,6 +100,7 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
+			_debugMasterClient = root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = root.Q("SquadContainer").Required();
 			_squadMembersList = root.Q<ListView>("SquadList").Required();
 			_partyMarkers = root.Q("PartyMarkers").Required();
@@ -123,6 +125,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			RefreshPartyList();
+			UpdateMasterClient();
 		}
 
 		private void RefreshPartyList()
@@ -205,6 +208,11 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
+			if (checkClickWithinRadius)
+			{
+				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
+			}
+			
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
@@ -281,8 +289,9 @@ namespace FirstLight.Game.Presenters
 			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
+			UpdateMasterClient();
 
-			if (!gameModeConfig.SkydiveSpawn)
+			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
@@ -298,7 +307,7 @@ namespace FirstLight.Game.Presenters
 				}
 				return;
 			}
-
+			
 			_dropSelectionAllowed = !RejoiningRoom;
 
 			if (RejoiningRoom)
@@ -317,15 +326,27 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			
 			// Init DZ position/rotation
-			var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
 			var mapWidth = _mapHolder.contentRect.width;
 			var mapHeight = _mapHolder.contentRect.height;
-			var posX = mapWidth * dropzonePosRot.x;
-			var posY = mapHeight * dropzonePosRot.y;
+			var posX = 0f;
+			var posY = 0f;
 
-			_dropzone.transform.position = new Vector3(posX, posY);
-			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			if (gameModeConfig.SpawnPattern)
+			{
+				var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
+				_dropzone.SetDisplay(true);
+				posX = mapWidth * dropzonePosRot.x;
+				posY = mapHeight * dropzonePosRot.y;
+				_dropzone.transform.position = new Vector3(posX, posY);
+				_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			}
+			else
+			{
+				_dropzone.SetDisplay(false);
+			}
 
 			SelectMapPosition(new Vector2(posX, posY), false, false);
 
@@ -373,6 +394,17 @@ namespace FirstLight.Game.Presenters
 				: "";
 		}
 
+		private void UpdateMasterClient()
+		{
+			if (!Debug.isDebugBuild)
+			{
+				_debugMasterClient.SetDisplay(false);
+				return;
+			}
+			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
+		}
+
+		
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();

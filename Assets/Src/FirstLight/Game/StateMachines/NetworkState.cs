@@ -302,6 +302,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnMatchmakingJoined(JoinedMatchmaking match)
 		{
+			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
+			_networkService.LastUsedSetup.Value = match.RoomSetup;
 			_statechartTrigger(JoinedPlayfabMatchmaking);
 		}
 
@@ -337,6 +339,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_networkService.CurrentRoom != null && _networkService.CurrentRoom.IsOpen)
 			{
+				FLog.Info($"RoomDebugString: {_networkService.CurrentRoom.GetRoomDebugString()}");
 				_networkService.SetCurrentRoomOpen(false);
 			}
 		}
@@ -443,9 +446,10 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
+			FLog.Verbose("Current Room Debug: \n" + _networkService.CurrentRoom.GetRoomDebugString());
 			
-			DebugRoom();
-			
+			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
+
 			_networkService.SetLastRoom();
 			_statechartTrigger(JoinedRoomEvent);
 			
@@ -568,9 +572,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		
-		[Conditional("DEBUG")]
-		private void DebugRoom() => FLog.Verbose("Current Room Debug: \n"+_networkService.CurrentRoom.GetRoomDebugString());
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
@@ -682,8 +683,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnNetworkActionWhileDisconnectedMessage(NetworkActionWhileDisconnectedMessage msg)
 		{
-			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
+			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnected)
 			{
+				FLog.Warn($"Network action on connection state {_networkService.QuantumClient.State} on server {_networkService.QuantumClient.Server}");
 				_statechartTrigger(PhotonCriticalDisconnectedEvent);
 			}
 		}
@@ -718,7 +720,6 @@ namespace FirstLight.Game.StateMachines
 			if (!_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME))
 			{
 				_networkService.QuantumClient.CurrentRoom.SetProperty(GameConstants.Network.ROOM_PROPS_STARTED_GAME, true);
-				_networkService.QuantumClient.CurrentRoom.IsOpen = true;
 			}
 		}
 

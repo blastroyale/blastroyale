@@ -173,7 +173,7 @@ namespace FirstLight.Game.Utils
 
 			foreach (EquipmentStatType type in Enum.GetValues(typeof(EquipmentStatType)))
 			{
-				if (stats.ContainsKey(type) && CanShowStat(type, stats[type]))
+				if (stats.ContainsKey(type) && (type.IsSpecial() || CanShowStat(type, stats[type])))
 				{
 					formattedStats.Add(type, stats[type].ToString(GetValueFormat(type)));
 				}
@@ -189,6 +189,11 @@ namespace FirstLight.Game.Utils
 			return INVERT_VALUES.Contains(type) || value != 0f;
 		}
 
+		public static bool IsSpecial(this EquipmentStatType type)
+		{
+			return SPECIAL_TYPES.Contains(type);
+		}
+		
 		public static string GetValueFormat(EquipmentStatType type)
 		{
 			return type switch
@@ -234,6 +239,12 @@ namespace FirstLight.Game.Utils
 			EquipmentStatType.MaxAttackAngle,
 			EquipmentStatType.MinAttackAngle,
 			EquipmentStatType.ReloadTime
+		};
+		
+		public static readonly HashSet<EquipmentStatType> SPECIAL_TYPES = new()
+		{
+			EquipmentStatType.SpecialId0,
+			EquipmentStatType.SpecialId1,
 		};
 	}
 }

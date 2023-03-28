@@ -55,20 +55,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
-
-			// _closeButton.onClick.AddListener(OnClosedCompleted);
-			// _blockerButton.onClick.AddListener(OnBlockerButtonPressed);
-			// _logoutButton.onClick.AddListener(OnLogoutClicked);
-			// _deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
-			// _connectIdButton.onClick.AddListener(OpenConnectId);
 			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
-			//_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
-			// _detailLevelView.ValueChanged += OnDetailLevelChanged;
-			// _helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
-			// _faq.onClick.AddListener(OnFaqButtonPressed);
-			// _serverSelectButton.onClick.AddListener(OpenServerSelect);
 		}
 
 		protected override void QueryElements(VisualElement root)

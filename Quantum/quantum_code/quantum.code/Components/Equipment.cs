@@ -128,9 +128,9 @@ namespace Quantum
 		/// Player's loadout are defined outside in the game client and are passed down to the simulation.
 		/// This loadout can be used for some items in the simulation such as box drops.
 		/// </summary>
-		public static Equipment Create(GameId id, EquipmentRarity rarity, uint level, Frame f)
+		public static Equipment Create(GameId id, EquipmentRarity rarity, uint level)
 		{
-			return new Equipment()
+			return new Equipment
 			{
 				GameId = id,
 				Rarity = rarity,

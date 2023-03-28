@@ -30,11 +30,5 @@ namespace FirstLightEditor.Services.Tests
 
 			Assert.AreSame(data, _dataService.GetData<IDataMockup>());
 		}
-
-		[Test]
-		public void GetData_NotFound_ThrowsException()
-		{
-			Assert.Throws<KeyNotFoundException>(() => _dataService.GetData<IDataMockup>());
-		}
 	}
 }

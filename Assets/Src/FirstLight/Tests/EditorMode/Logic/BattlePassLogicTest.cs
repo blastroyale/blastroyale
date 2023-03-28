@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using NSubstitute;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
@@ -19,6 +20,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			SetupConfigs();
 			_battlePassLogic.Init();
+
+			GameLogic.PlayerDataProvider.HasTutorialSection(TutorialSection.TUTORIAL_BP).Returns(true);
 		}
 
 		[Test]
@@ -104,7 +107,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(3, rewards.Count);
 			Assert.IsTrue(redeemed);
 		}
-		
+
 		[Test]
 		public void TestRedeem100BPP()
 		{
@@ -119,7 +122,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(_battlePassLogic.GetRemainingPointsOfBp(), 0);
-			
+
 			Assert.IsTrue(redeemed);
 		}
 
@@ -158,10 +161,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
-			var pointsPerLevel = _battlePassLogic.GetRequiredPointsForLevel((int)_battlePassLogic.CurrentLevel.Value);
+			var pointsPerLevel = _battlePassLogic.GetRequiredPointsForLevel((int) _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(9);
-			
+
 			Assert.IsFalse(_battlePassLogic.IsRedeemable());
 			Assert.AreEqual(10, pointsPerLevel);
 

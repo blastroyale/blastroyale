@@ -146,7 +146,6 @@ namespace FirstLight.Game.StateMachines
 			playGame.OnExit(OnPlayGameExit);
 			
 			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
-			createTutorialRoom.OnEnter(CloseTutorialUi);
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(mapSelect);
 			createTutorialRoom.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);

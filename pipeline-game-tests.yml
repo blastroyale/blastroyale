@@ -5,11 +5,12 @@ name: $(Rev:r)
 
 trigger: 
   batch: true
-  paths:
+pr:
+  branches:
     include:
-    - Assets/Src/FirstLight/Tests/EditorMode
-    - pipeline-game-tests.yml
-pr: none
+    - master
+    - develop
+    - releases/*
 
 resources:
   repositories:

@@ -35,7 +35,7 @@ namespace Quantum
 			transform->Rotation = spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
-			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1, f);
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1);
 			if (loadoutWeapon.IsValid())
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;

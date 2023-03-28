@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Tests.PlayTests
 {
-	[RequiresPlayMode]
+	[RequiresPlayMode, Category("PlayMode")]
 	public class SmokeTests
 	{
 		[OneTimeSetUp]

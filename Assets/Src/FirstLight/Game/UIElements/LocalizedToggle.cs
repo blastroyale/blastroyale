@@ -3,10 +3,10 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
-	public class LocalizedToggle: Toggle
+	public class LocalizedToggle : Toggle
 	{
 		protected string localizationKey { get; set; }
-		
+
 		public LocalizedToggle() : this(string.Empty)
 		{
 		}
@@ -44,6 +44,4 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 	}
-	
-	
 }

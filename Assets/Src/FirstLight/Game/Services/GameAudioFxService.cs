@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using UnityEngine;
@@ -14,10 +15,22 @@ using UnityEngine.Audio;
 
 namespace FirstLight.Game.Services
 {
+	public enum AmbienceType
+	{
+		CityCenter,
+		Desert,
+		Forest,
+		Frost,
+		Lava,
+		Urban,
+		Water
+	}
+	
 	/// <inheritdoc cref="AudioFxService{T}"/>
 	public class GameAudioFxService : AudioFxService<AudioId>, IAudioFxService<AudioId>
 	{
 		private readonly IAssetResolverService _assetResolver;
+		private readonly IGameServices _services;
 
 		public GameAudioFxService(IAssetResolverService assetResolver) : base(GameConstants.Audio.SPATIAL_3D_THRESHOLD, GameConstants.Audio.SOUND_QUEUE_BREAK_MS)
 		{
@@ -186,7 +199,25 @@ namespace FirstLight.Game.Services
 
 			PlayMusicInternal(fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
 		}
-		
+
+		public override void PlayAmbience(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
+		{
+			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
+			{
+				return;
+			}
+
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData, _mixerAmbientGroupId);
+
+			var updatedInitData = sourceInitData;
+			updatedInitData.MixerGroupAndId = new Tuple<AudioMixerGroup, string>(GetAudioMixerGroup(_mixerAmbientGroupId), _mixerAmbientGroupId);
+			updatedInitData.StartTime = continueFromCurrentTime ? GetCurrentMusicPlaybackTime() : 0;
+			updatedInitData.Loop = true;
+			sourceInitData = updatedInitData;
+
+			PlayAmbienceInternal(fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
+		}
+
 		/// <inheritdoc />
 		public override void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
 		{

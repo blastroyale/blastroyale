@@ -68,6 +68,8 @@ namespace FirstLight.Game.Utils
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
 			
+			public const float AMBIENCE_FADE_SECONDS = 0.75f;
+			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
 			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;

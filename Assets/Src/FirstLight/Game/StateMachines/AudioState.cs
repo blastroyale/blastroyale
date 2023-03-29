@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -32,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private DateTime _voOneKillSfxAvailabilityTime = DateTime.UtcNow;
 		private DateTime _voClutchSfxAvailabilityTime = DateTime.UtcNow;
 		private bool _gameRunning;
+		private List<AudioId> _ambienceList = new List<AudioId>();
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 						  Action<IStatechartEvent> statechartTrigger)
@@ -141,6 +143,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
 			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPausedMessage);
+			_services.MessageBrokerService.Subscribe<PlayerEnteredAmbienceMessage>(OnPlayerEnteredAmbienceMessage);
+			_services.MessageBrokerService.Subscribe<PlayerLeftAmbienceMessage>(OnPlayerLeftAmbienceMessage);
 		}
 
 		private void SubscribeMatchEvents()
@@ -283,6 +287,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopAllAudio()
 		{
+			_services.AudioFxService.StopAmbience();
 			_services.AudioFxService.StopAllSfx();
 			_services.AudioFxService.WipeSoundQueue();
 			_currentClips.Clear();
@@ -924,6 +929,29 @@ namespace FirstLight.Game.StateMachines
 			else
 			{
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
+		}
+		
+		private void OnPlayerEnteredAmbienceMessage(PlayerEnteredAmbienceMessage msg)
+		{
+			_ambienceList.Add(msg.Ambience.GetAmbientAudioId());
+			_services.AudioFxService.PlayAmbience(_ambienceList.Last(),GameConstants.Audio.AMBIENCE_FADE_SECONDS,GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
+		}
+		
+		private void OnPlayerLeftAmbienceMessage(PlayerLeftAmbienceMessage msg)
+		{
+			// Remove top-most matching occurence of the ambience in the list
+			// This is so ambience can support entering volumes of same type, and transitioning between
+			// different volumes correctly
+			_ambienceList.RemoveAt(_ambienceList.FindLastIndex(x => x == msg.Ambience.GetAmbientAudioId()));
+
+			if (_ambienceList.Count > 0)
+			{
+				_services.AudioFxService.PlayAmbience(_ambienceList.Last(),GameConstants.Audio.AMBIENCE_FADE_SECONDS,GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
+			}
+			else
+			{
+				_services.AudioFxService.StopAmbience(GameConstants.Audio.AMBIENCE_FADE_SECONDS);
 			}
 		}
 

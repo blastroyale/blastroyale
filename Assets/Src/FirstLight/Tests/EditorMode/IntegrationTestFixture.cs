@@ -82,7 +82,9 @@ namespace FirstLight.Tests.EditorMode
 
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,
 			                                  TestConfigs, TestAssetResolver, TestData, TestVfx);
+#if DEVELOPMENT_BUILD
 			Statechart.Statechart.OnStateTimed = null;
+#endif
 
 			FLog.Init();
 

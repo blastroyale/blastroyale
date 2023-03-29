@@ -566,7 +566,7 @@ namespace FirstLight.Game.Logic
 				currentRangeMax = max;
 			}
 
-			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
+			var rand = GameLogic.RngLogic.NextFp * currentRangeMax;
 			
 			foreach (var range in indexRanges)
 			{

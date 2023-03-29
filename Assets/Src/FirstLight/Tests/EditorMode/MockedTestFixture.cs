@@ -28,8 +28,8 @@ namespace FirstLight.Tests.EditorMode
 		public void InitData()
 		{
 			TestData = Activator.CreateInstance<T>();
-			DataService.GetData<T>().Returns(x => TestData);
-			DataService.GetData<AppData>().Returns(x => new AppData());
+			DataService.GetData<T>().Returns(_ => TestData);
+			DataService.GetData<AppData>().Returns(_ => new AppData());
 		}
 	}
 
@@ -144,18 +144,18 @@ namespace FirstLight.Tests.EditorMode
 			var dictionary = new Dictionary<int, T> {{Arg.Any<int>(), data}};
 
 			ConfigsProvider.GetConfig<T>(Arg.Any<int>()).Returns(data);
+			ConfigsProvider.GetConfig<T>(Arg.Any<string>()).Returns(data);
 			ConfigsProvider.GetConfig<T>().Returns(data);
 			ConfigsProvider.GetConfigsList<T>().Returns(list);
 			ConfigsProvider.GetConfigsDictionary<T>().Returns(dictionary);
 		}
 	}
 
-
 	/// <inheritdoc cref="MockedTestFixture"/>
 	/// <remarks>
 	/// Helper class with a reference <seealso cref="TestData"/> of unsafe <typeparamref name="T"/> type to test Quantum's Systems
 	/// </remarks>
-	public unsafe abstract class UnsafeBaseTestFixture<T> where T : unmanaged
+	public abstract class UnsafeBaseTestFixture<T> where T : unmanaged
 	{
 		protected T TestData;
 		protected Frame Frame;

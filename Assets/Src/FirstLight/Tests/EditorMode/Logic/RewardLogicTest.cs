@@ -257,26 +257,41 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			InitConfigData(new QuantumMapConfig {Map = (GameId) _matchData[_executingPlayer].MapId});
 
-			InitConfigData(new QuantumGameConfig {TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
+			InitConfigData(new QuantumGameConfig
+				{TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
+
+			InitConfigData(new QuantumGameModeConfig() {MaxPlayers = 30, MaxPlayersInTeam = 1});
 
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig
 				{
 					Placement = 1,
+					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
-						{{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}, {GameId.Trophies, PLACEMENT1_Trophies}}
+					{
+						{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP},
+						{GameId.Trophies, PLACEMENT1_Trophies}
+					}
 				},
 				new MatchRewardConfig
 				{
 					Placement = 2,
+					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
-						{{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP}, {GameId.Trophies, PLACEMENT2_Trophies}}
+					{
+						{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP},
+						{GameId.Trophies, PLACEMENT2_Trophies}
+					}
 				},
 				new MatchRewardConfig
 				{
 					Placement = 3,
+					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
-						{{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP}, {GameId.Trophies, PLACEMENT3_Trophies}}
+					{
+						{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP},
+						{GameId.Trophies, PLACEMENT3_Trophies}
+					}
 				});
 		}
 
@@ -289,7 +304,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 		}
 
-		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 5)
+		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 1)
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);

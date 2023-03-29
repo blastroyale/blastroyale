@@ -1,6 +1,5 @@
 using System;
 using Photon.Deterministic;
-using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {
@@ -29,38 +28,52 @@ namespace FirstLight.Game.Utils
 		/// Requests a random generated <see cref="int"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
 		/// without changing the state with  the max value inclusive depending on the given <paramref name="maxInclusive"/>
 		/// </summary>
-		public static int Range(int min, int max, int[] rndState, bool maxInclusive)
+		public static int Range(int min, int max, int[] rndState)
 		{
-			FP fpMin = min;
-			FP fpMax = max;
-			return Range(fpMin, fpMax, rndState, maxInclusive).AsInt;
+			if (min > max)
+			{
+				throw new IndexOutOfRangeException("The min range value must be less than the max range value");
+			}
+
+			if (min == max)
+			{
+				return min;
+			}
+
+			var range = max - min;
+			var value = RngUtils.Next(rndState);
+
+			return (int) ((long) value * range / int.MaxValue + min);
 		}
-		
+
 		/// <summary>
 		/// Requests a random generated <see cref="int"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
 		/// without changing the state with  the max value inclusive depending on the given <paramref name="maxInclusive"/>
 		/// </summary>
-		public static FP Range(FP min, FP max, int[] rndState, bool maxInclusive)
+		public static FP Range(FP min, FP max, int[] rndState)
 		{
-			if (min > max || maxInclusive && FPMath.Abs(min - max) < FP.Epsilon)
+			if (min > max)
 			{
-				throw new IndexOutOfRangeException("The min range value must be less the max range value");
+				throw new IndexOutOfRangeException("The min range value must be less than the max range value");
+			}
+
+			if (max > FP.UseableMax)
+			{
+				throw new IndexOutOfRangeException("The max range value must be less than FP.UseableMax");
 			}
 
 			if (FPMath.Abs(min - max) < FP.Epsilon)
 			{
 				return min;
 			}
-			
-			var range = max - min;
-			var value = RngUtils.Next(rndState);
 
-			value = maxInclusive && value == int.MaxValue ? value - 1 : value;
+			var range = max - min;
+			var value = (FP) RngUtils.Next(rndState);
 
 			return range * value / int.MaxValue + min;
 		}
 	}
-	
+
 	/// <summary>
 	/// Helper utility methods to manage the RNG data and behaviour
 	/// Based on the .Net library Random class <see cref="https://referencesource.microsoft.com/#mscorlib/system/random.cs"/>
@@ -84,16 +97,16 @@ namespace FirstLight.Game.Utils
 			if (state == null || state.Length != _stateLength)
 			{
 				throw new IndexOutOfRangeException($"The Random data created has the wrong state date." +
-				                                   $"It should have a lenght of {_stateLength.ToString()} but has {state?.Length}");
+					$"It should have a lenght of {_stateLength.ToString()} but has {state?.Length}");
 			}
 
 			var newState = new int[_stateLength];
-			
+
 			Array.Copy(state, newState, _stateLength);
 
 			return newState;
 		}
-		
+
 		/// <summary>
 		/// Generates a completely new state rng state based on the given <paramref name="seed"/>.
 		/// Based on the publish work of D.E. Knuth <see cref="https://www.informit.com/articles/article.aspx?p=2221790"/>
@@ -102,7 +115,7 @@ namespace FirstLight.Game.Utils
 		{
 			var value = _basicSeed - (seed == int.MinValue ? int.MaxValue : Math.Abs(seed));
 			var state = new int[_stateLength];
-			
+
 			state[_stateLength - 1] = value;
 			state[_valueIndex] = 0;
 
@@ -122,10 +135,10 @@ namespace FirstLight.Game.Utils
 
 				value = state[index];
 			}
-			
-			for (var k = 1; k < 5; k++) 
+
+			for (var k = 1; k < 5; k++)
 			{
-				for (var i = 1; i < _stateLength; i++) 
+				for (var i = 1; i < _stateLength; i++)
 				{
 					state[i] -= state[1 + (i + 30) % (_stateLength - 1)];
 
@@ -146,7 +159,7 @@ namespace FirstLight.Game.Utils
 		{
 			var index1 = rndState[_valueIndex] + 1;
 			var index2 = index1 + _helperInc + 1;
-			
+
 			index1 = index1 < _stateLength ? index1 : 1;
 			index2 = index2 < _stateLength ? index2 : 1;
 
@@ -156,7 +169,7 @@ namespace FirstLight.Game.Utils
 
 			rndState[index1] = ret;
 			rndState[_valueIndex] = index1;
-			
+
 			return ret;
 		}
 	}

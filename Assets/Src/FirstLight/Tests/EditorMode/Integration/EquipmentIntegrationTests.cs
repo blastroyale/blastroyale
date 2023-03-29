@@ -20,12 +20,12 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
-			
+
 			var data = TestData.GetData<EquipmentData>();
-			
+
 			Assert.IsTrue(data.Inventory.ContainsKey(itemUniqueId));
 		}
-		
+
 		/// <summary>
 		/// Ensuring set loadout command equips the given item
 		/// </summary>
@@ -34,9 +34,10 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var equip = new Equipment()
 			{
-				GameId = GameId.HockeyHelmet, 
-				MaxDurability = 2, 
-				LastRepairTimestamp = TestLogic.TimeService.DateTimeUtcNow.Ticks
+				GameId = GameId.HockeyHelmet,
+				MaxDurability = 2,
+				LastRepairTimestamp = TestLogic.TimeService.DateTimeUtcNow.Ticks,
+				Level = 1
 			};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 
@@ -44,22 +45,22 @@ namespace FirstLight.Tests.EditorMode.Integration
 			{
 				SlotsToUpdate = new Dictionary<GameIdGroup, UniqueId>()
 				{
-					{ GameIdGroup.Helmet, itemUniqueId }
+					{GameIdGroup.Helmet, itemUniqueId}
 				}
 			});
 
 			var data = TestData.GetData<PlayerData>();
-			
+
 			Assert.AreEqual(itemUniqueId, data.Equipped[GameIdGroup.Helmet]);
 		}
-		
+
 		/// <summary>
 		/// Ensuring scrap item command rewards the correct ammount of te scrap result
 		/// </summary>
 		[Test]
 		public void ScrapItemCommand()
 		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, Level = 1};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 			var reward = TestLogic.EquipmentLogic.GetScrappingReward(equip, false);
 			var data = TestData.GetData<PlayerData>();
@@ -69,17 +70,17 @@ namespace FirstLight.Tests.EditorMode.Integration
 				Item = itemUniqueId
 			});
 
-			
+
 			Assert.AreEqual(reward.Value, data.Currencies[reward.Key]);
 		}
-		
+
 		/// <summary>
 		/// Ensuring upgrade item command deducts the correct ammount of of the upgrade cost
 		/// </summary>
 		[Test]
 		public void UpgradeItemCommand()
 		{
-			var equip = new Equipment() { GameId = GameId.HockeyHelmet };
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, Level = 1};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 			var cost = TestLogic.EquipmentLogic.GetUpgradeCost(equip, false);
 			var data = TestData.GetData<PlayerData>();
@@ -92,16 +93,16 @@ namespace FirstLight.Tests.EditorMode.Integration
 			});
 
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
-			Assert.AreEqual(1, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
+			Assert.AreEqual(2, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
 		}
-		
+
 		/// <summary>
 		/// Ensuring repair item command deducts the correct ammount of the repair cost
 		/// </summary>
 		[Test]
 		public void RepairItemCommand()
 		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxDurability = 2};
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxDurability = 2, Level = 1};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 			var cost = TestLogic.EquipmentLogic.GetRepairCost(equip, false);
 			var data = TestData.GetData<PlayerData>();
@@ -117,7 +118,8 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
-			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(TimeSpan.TicksPerSecond * 3));
+			Assert.That(info.Equipment.LastRepairTimestamp,
+				Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(TimeSpan.TicksPerSecond * 3));
 		}
 	}
 }

@@ -29,11 +29,6 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private Button _blockerButton;
-		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
-		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
-		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
-		[SerializeField, Required] private Button _serverSelectButton;
 		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
 
 		private ImageButton _closeScreenButton;
@@ -56,7 +51,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
-			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -237,11 +231,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
-		}
-
-		private void OnBlockerButtonPressed()
-		{
-			Data.OnClose();
 		}
 	}
 }

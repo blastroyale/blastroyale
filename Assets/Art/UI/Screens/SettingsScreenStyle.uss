@@ -2,17 +2,17 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.equipment-popup {
+.settings-popup {
     background-image: var(--sprite-home__background-popup-equipment);
-    width: 1473px;
-    height: 820px;
+    width: 1847px;
+    height: 980px;
     top: 30px;
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     font-size: 38px;
 }
 
-.equipment-popup__close {
+.settings-popup__close {
     position: absolute;
     right: 0;
     top: -5px;
@@ -21,16 +21,17 @@
     width: 104px;
 }
 
-.equipment-popup__close:active {
+.settings-popup__close:active {
     background-image: var(--sprite-home__button-popup-equipment-close-pressed);
 }
 
-.equipment-popup__content {
+.settings-popup__content {
     position: absolute;
-    left: 500px;
+    left: 2px;
+    right: 10px;
     top: 86px;
-    right: 0;
     bottom: 0;
+    align-items: center;
 }
 
 .safe-area {
@@ -104,7 +105,7 @@
 }
 
 .settings-toggle .unity-toggle__checkmark {
-    background-image: var(--sprite-home__settings-switch-body);
+    background-image: var(--sprite-home__button-settings-toggle);
     width: 88px;
     height: 68px;
     background-color: rgba(0, 0, 0, 0);
@@ -142,7 +143,7 @@
 
 .settings-tab-button {
     height: 85px;
-    background-image: var(--sprite-home__settings-tab-back);
+    background-image: var(--sprite-home__background-settingstab);
     flex-grow: 1;
     margin-left: -7px;
     margin-right: -7px;
@@ -155,7 +156,7 @@
     right: 0;
     bottom: -35px;
     height: 28px;
-    background-image: var(--sprite-home__settings-tab-arrow);
+    background-image: var(--sprite-home__icon-arrow-settingstab);
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -166,7 +167,7 @@
 }
 
 .settings-tab-button.unity-tab-button--active .unity-tab-button__content {
-    background-image: var(--sprite-home__settings-tab-chosen);
+    background-image: var(--sprite-home__background-settingstab-chosen);
 }
 
 .settings-tab-button .unity-tab-button__content-label {
@@ -186,6 +187,10 @@
 
 .settings-radio-button-group {
     color: white;
+    background-image: var(--sprite-home__background-settings-item);
+    padding-top: 14px;
+    padding-bottom: 48px;
+    margin-bottom: 20px;
 }
 
 .settings-radio-button-group:focus .unity-base-field__label {
@@ -229,5 +234,169 @@
 
 .settings-radio-button-group .unity-base-field__input .unity-radio-button {
     width: 200px;
-    justify-content:space-around;
+    justify-content: space-around;
+}
+
+.settings-bottom-buttons {
+}
+
+.settings-title {
+    height: 80px;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    align-items: center;
+    white-space: normal;
+    width: 1743px;
+    font-size: 38px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
+}
+
+.settings-build-version-label {
+}
+
+.connection-status-label {
+    -unity-text-align: upper-center;
+    top: 79px;
+}
+
+.connection-name-label {
+    -unity-text-align: upper-center;
+    top: 107px;
+}
+
+.button-delete-account {
+    position: absolute;
+    background-image: none;
+    left: 40px;
+    bottom: 25px;
+}
+
+.button-connect-account {
+}
+
+.button-logout-account {
+}
+
+.settings-content-graphics {
+    height: 354px;
+    justify-content: space-around;
+}
+
+.settings-radio-button-group-fps {
+    -unity-text-align: upper-center;
+    height: auto;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-settings-item);
+}
+
+.settings-radio-button-group-fps .unity-base-field__input {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-radio-button-group-fps .unity-base-field__input .unity-radio-button {
+    width: 200px;
+    justify-content: space-around;
+}
+
+.settings-radio-button-group-fps:focus .unity-base-field__label {
+    color: white;
+}
+
+.settings-radio-button-group-fps .unity-radio-button__checkmark-background {
+    height: 44px;
+    width: 44px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-radio-button-group-fps .unity-radio-button__checkmark {
+    background-color: rgb(247, 107, 106);
+    height: 34px;
+    width: 34px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.settings-radio-button-group-graphics {
+    -unity-text-align: upper-center;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+    background-image: var(--sprite-home__background-settings-item);
+}
+
+.settings-radio-button-group-graphics .unity-base-field__input {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-radio-button-group-graphics .unity-base-field__input .unity-radio-button {
+    width: 200px;
+    justify-content: space-around;
+}
+
+.settings-radio-button-group-graphics:focus .unity-base-field__label {
+    color: white;
+}
+
+.settings-radio-button-group-graphics .unity-radio-button__checkmark-background {
+    height: 44px;
+    width: 44px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-radio-button-group-graphics .unity-radio-button__checkmark {
+    background-color: rgb(247, 107, 106);
+    height: 34px;
+    width: 34px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.button-connect-account {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png?fileID=21300000&guid=50365762fd4d549e2bbf30c7827ce650&type=3#button-long-yellow-pressed');
+    right: 40px;
+    bottom: 35px;
+}
+
+.button-logout-account {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-red-pressed.png?fileID=21300000&guid=c145e479df096482486e6f4f8e67fcc5&type=3#button-long-red-pressed');
+    right: 40px;
+    bottom: 35px;
+}
+
+.settings-content-graphics {
+    height: 354px;
+    justify-content: space-around;
 }

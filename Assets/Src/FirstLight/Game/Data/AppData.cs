@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using Quantum;
 using Environment = FirstLight.Game.Services.Environment;
@@ -17,6 +18,15 @@ namespace FirstLight.Game.Data
 		public List<string> Mutators = new();
 		public int GameModeIndex;
 		public int MapIndex;
+	}
+	
+	/// <summary>
+	/// The FPS values we support.
+	/// </summary>
+	public enum FpsTarget
+	{
+		Normal = 30,
+		High = 60
 	}
 	
 	/// <summary>
@@ -50,7 +60,7 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		
 		public bool DialogueEnabled = true;
-		public int FpsTarget = 30;
+		public FpsTarget FpsTarget = FpsTarget.Normal;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();

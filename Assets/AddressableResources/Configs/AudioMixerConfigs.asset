@@ -24,6 +24,7 @@ MonoBehaviour:
       SnapshotKeys:
       - Main
       - Lobby
+      - Indoor
       MixerMasterKey: Master
       MixerSfx2dKey: Sfx2d
       MixerSfx3dKey: Sfx3d

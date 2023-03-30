@@ -1,3 +1,4 @@
+using FirstLight.Game.Services;
 using Quantum;
 using FirstLight.SDK.Services;
 using Photon.Realtime;
@@ -46,4 +47,14 @@ namespace FirstLight.Game.Messages
 	}
 
 	public struct PlayerUsedMovementJoystick : IMessage { }
+	
+	public struct PlayerEnteredAmbienceMessage : IMessage
+	{
+		public AmbienceType Ambience;
+	}
+	
+	public struct PlayerLeftAmbienceMessage : IMessage
+	{
+		public AmbienceType Ambience;
+	}
 }

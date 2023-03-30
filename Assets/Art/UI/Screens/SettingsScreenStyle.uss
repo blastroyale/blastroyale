@@ -245,7 +245,7 @@
     white-space: normal;
     width: 1743px;
     font-size: 38px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
+    background-image: var(--sprite-home__header-popup-equipment);
 }
 
 .connection-status-label {
@@ -386,4 +386,5 @@
 
 .settings-container--graphics {
     justify-content: space-around;
+    height: 400px;
 }

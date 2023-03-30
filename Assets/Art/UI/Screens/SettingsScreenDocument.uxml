@@ -5,6 +5,7 @@
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
             <ui:VisualElement name="SettingsPopup" class="settings-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" class="settings-title" />
+                <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="settings-popup__close" />
                 <ui:VisualElement name="Content" class="settings-popup__content">
                     <TabbedView name="SettingsTabbedView" class="settings-tabbed-view">
                         <TabButton target="Sound" focusable="true" text="SOUND" class="settings-tab-button" />
@@ -16,7 +17,7 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="Graphics" class="settings-container settings-container--graphics" style="height: 354px;">
+                        <ui:VisualElement name="Graphics" class="settings-container settings-container--graphics">
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group-fps" />
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group-graphics" />
                         </ui:VisualElement>

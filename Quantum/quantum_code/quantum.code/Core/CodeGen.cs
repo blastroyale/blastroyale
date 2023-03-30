@@ -3692,19 +3692,23 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct AlivePlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 4;
+    public const Int32 SIZE = 8;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
+    public QBoolean AboveGroundIllegally;
+    [FieldOffset(4)]
     public QBoolean InCircle;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 439;
+        hash = hash * 31 + AboveGroundIllegally.GetHashCode();
         hash = hash * 31 + InCircle.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AlivePlayerCharacter*)ptr;
+        QBoolean.Serialize(&p->AboveGroundIllegally, serializer);
         QBoolean.Serialize(&p->InCircle, serializer);
     }
   }
@@ -4929,8 +4933,8 @@ namespace Quantum {
     public FP Cooldown;
     [FieldOffset(48)]
     public FP EndTime;
-    [FieldOffset(4)]
-    public UInt32 Id;
+    [FieldOffset(0)]
+    public Byte Id;
     [FieldOffset(8)]
     public UInt32 KnockbackAmount;
     [FieldOffset(56)]
@@ -4941,7 +4945,7 @@ namespace Quantum {
     public UInt32 PowerAmount;
     [FieldOffset(24)]
     public EntityRef SpellSource;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     public Int32 TeamSource;
     [FieldOffset(32)]
     public EntityRef Victim;
@@ -4964,8 +4968,8 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Spell*)ptr;
-        serializer.Stream.Serialize(&p->TeamSource);
         serializer.Stream.Serialize(&p->Id);
+        serializer.Stream.Serialize(&p->TeamSource);
         serializer.Stream.Serialize(&p->KnockbackAmount);
         serializer.Stream.Serialize(&p->PowerAmount);
         EntityRef.Serialize(&p->Attacker, serializer);
@@ -5456,12 +5460,12 @@ namespace Quantum {
           }
         }
       }
-      public void HealthIsZeroFromAttacker(EntityRef entity, EntityRef attacker) {
+      public void HealthIsZeroFromAttacker(EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage) {
         var array = _f._ISignalHealthIsZeroFromAttackerSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.HealthIsZeroFromAttacker(_f, entity, attacker);
+            s.HealthIsZeroFromAttacker(_f, entity, attacker, fromRoofDamage);
           }
         }
       }
@@ -5503,7 +5507,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 80;
+      public const Int32 EVENT_TYPE_COUNT = 81;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -5591,6 +5595,7 @@ namespace Quantum {
           case EventOnLocalPlayerWeaponAdded.ID: return typeof(EventOnLocalPlayerWeaponAdded);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
           case EventOnLocalPlayerSpecialUsed.ID: return typeof(EventOnLocalPlayerSpecialUsed);
+          case EventOnLocalPlayerRoofDetected.ID: return typeof(EventOnLocalPlayerRoofDetected);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -6283,7 +6288,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerDead OnLocalPlayerDead(PlayerRef Player, EntityRef Entity, PlayerRef PlayerKiller, EntityRef EntityKiller) {
+      public EventOnLocalPlayerDead OnLocalPlayerDead(PlayerRef Player, EntityRef Entity, PlayerRef PlayerKiller, EntityRef EntityKiller, QBoolean FromRoofDamage) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerDead>(EventOnLocalPlayerDead.ID);
@@ -6291,6 +6296,7 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.PlayerKiller = PlayerKiller;
         ev.EntityKiller = EntityKiller;
+        ev.FromRoofDamage = FromRoofDamage;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6334,6 +6340,15 @@ namespace Quantum {
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
         ev.HitPosition = HitPosition;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnLocalPlayerRoofDetected OnLocalPlayerRoofDetected(PlayerRef Player, QBoolean OnRoof) {
+        if (_f.Context.IsLocalPlayer(Player) == false) return null;
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerRoofDetected>(EventOnLocalPlayerRoofDetected.ID);
+        ev.Player = Player;
+        ev.OnRoof = OnRoof;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6480,7 +6495,7 @@ namespace Quantum {
     void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, Int32 previousHealth);
   }
   public unsafe interface ISignalHealthIsZeroFromAttacker : ISignal {
-    void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker);
+    void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage);
   }
   public unsafe interface ISignalStatusModifierCancelled : ISignal {
     void StatusModifierCancelled(Frame f, EntityRef entity, StatusModifierType type);
@@ -8693,6 +8708,7 @@ namespace Quantum {
     public EntityRef Entity;
     public PlayerRef PlayerKiller;
     public EntityRef EntityKiller;
+    public QBoolean FromRoofDamage;
     protected EventOnLocalPlayerDead(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -8714,6 +8730,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + PlayerKiller.GetHashCode();
         hash = hash * 31 + EntityKiller.GetHashCode();
+        hash = hash * 31 + FromRoofDamage.GetHashCode();
         return hash;
       }
     }
@@ -8836,6 +8853,33 @@ namespace Quantum {
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnLocalPlayerRoofDetected : EventBase {
+    public new const Int32 ID = 80;
+    public PlayerRef Player;
+    public QBoolean OnRoof;
+    protected EventOnLocalPlayerRoofDetected(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnLocalPlayerRoofDetected() : 
+        base(80, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 479;
+        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + OnRoof.GetHashCode();
         return hash;
       }
     }
@@ -9948,6 +9992,7 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(AlivePlayerCharacter))]
   public sealed unsafe partial class AlivePlayerCharacter_Prototype : ComponentPrototype<AlivePlayerCharacter> {
     public QBoolean InCircle;
+    public QBoolean AboveGroundIllegally;
     partial void MaterializeUser(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       AlivePlayerCharacter component = default;
@@ -9955,6 +10000,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context) {
+      result.AboveGroundIllegally = this.AboveGroundIllegally;
       result.InCircle = this.InCircle;
       MaterializeUser(frame, ref result, in context);
     }
@@ -11220,7 +11266,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Spell))]
   public sealed unsafe partial class Spell_Prototype : ComponentPrototype<Spell> {
-    public UInt32 Id;
+    public Byte Id;
     public MapEntityId Victim;
     public MapEntityId Attacker;
     public MapEntityId SpellSource;

@@ -137,3 +137,11 @@ MonoBehaviour:
         RawValue: 1933
       TrophiesPerKill:
         RawValue: 98304
+      RoofDamageHeight:
+        RawValue: 98304
+      RoofDamageDelay:
+        RawValue: 196608
+      RoofDamageAmount:
+        RawValue: 13107
+      RoofDamageCooldown:
+        RawValue: 65536

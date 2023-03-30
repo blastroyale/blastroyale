@@ -116,9 +116,7 @@ namespace Quantum.Systems
 			playerDead->Dead(f, entity, attacker);
 
 			// Try to drop player weapon
-			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly ||
-				    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) &&
-			    !playerDead->HasMeleeWeapon(f, entity))
+			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly && !playerDead->HasMeleeWeapon(f, entity))
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
@@ -139,25 +137,6 @@ namespace Quantum.Systems
 				{
 					itemCount++;
 				}
-			}
-
-			//drop a chest based on how many items the player has collected
-			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box ||
-			    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
-			{
-				//drop a box based on the number of items the player has collected
-				var dropBox = GameId.ChestCommon;
-
-				// Calculate offset position to drop a box so it tries not to cover the death marker
-				var dropOffset = FPVector2.Rotate(FPVector2.Left * Constants.DROP_OFFSET_RADIUS,
-					f.RNG->Next(0, FP.Rad_180 * 2)).XOY;
-				var dropPosition = deathPosition + dropOffset;
-
-				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS * FP._0_50,
-					out dropPosition);
-
-				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
-				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition, entity);
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)

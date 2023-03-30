@@ -140,8 +140,8 @@ MonoBehaviour:
       RoofDamageHeight:
         RawValue: 98304
       RoofDamageDelay:
-        RawValue: 196608
+        RawValue: 327680
       RoofDamageAmount:
         RawValue: 13107
       RoofDamageCooldown:
-        RawValue: 65536
+        RawValue: 98304

@@ -188,13 +188,6 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					//TODO: add a large health consumable drop
-					if (ammoFilled > FP._0_75 && shieldFilled > Constants.ENERGY_CHEST_DROP_THRESHOLD - 1)
-					{
-						drop = GameId.EnergyCubeSmall;
-						ammoFilled -= FP._0_20;
-						shieldFilled -= FP._0_20;
-					}
 					if (ammoFilled < shieldFilled) //ammo
 					{
 						drop = GameId.AmmoSmall;
@@ -208,7 +201,7 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.EnergyCubeLarge);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.Health);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
@@ -315,66 +308,17 @@ namespace Quantum
 						
 						continue;
 					}
+					// If we dropped all equipment from loadout, then we drop energy cubes
 
-
-					// If we dropped all equipment from loadout, then choose between upgrades for equipment or consumables
-					// chances are: 25% equipment, 25% large shields consumable, 25% large ammo consumable, 25% health
-					var furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldLarge, GameId.AmmoLarge, GameId.Health);
-
-					// Drop equipment upgrades if you rolled it
-					if (furtherDrop == GameId.Random)
-					{
-						// In the edge case when we dropped all possible equipment
-						// upgrades from this chest already we just do nothing
-						if (allEquipment.Count == 0)
-						{
-							continue;
-						}
-						
-						// We loop through each piece of equipment in a random order
-						var randomList = allEquipment.OrderBy(r => f.RNG->Next()).ToList();
-						foreach (var equipment in randomList)
-						{
-							if (equipment.Rarity == EquipmentRarity.LegendaryPlus || equipment.GameId == GameId.Random)
-							{
-								continue;
-							}
-
-							// Modify the equipment rarity by the rarity of the chest being opened, and by 1 at minimum
-							var higherRarityEquipment = equipment;
-							var newMinimumRarity = (EquipmentRarity)((int)equipment.Rarity + 1);
-
-							// We use "newMinimumRarity" as "median rarity" in this particular case to ensure
-							// that higher quality chests affect rarity improvement stronger
-							ModifyEquipmentRarity(f, ref higherRarityEquipment, newMinimumRarity, newMinimumRarity);
-							Collectable.DropEquipment(f, higherRarityEquipment, chestPosition, angleStep++, playerRef);
-
-							chestItems.Add(new ChestItemDropped
-							{
-								ChestType = config.Id,
-								ChestPosition = chestPosition,
-								Player = playerCharacter->Player,
-								PlayerEntity = playerEntity,
-								ItemType = higherRarityEquipment.GameId,
-								Amount = 1,
-								AngleStepAroundChest = angleStep
-							});
-							
-							allEquipment.Remove(equipment);
-							break;
-						}
-						continue;
-					}
-					
 					// Drop consumable otherwise
-					Collectable.DropConsumable(f, furtherDrop, chestPosition, angleStep++, false);
+					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, chestPosition, angleStep++, false);
 					chestItems.Add(new ChestItemDropped
 					{
 						ChestType = config.Id,
 						ChestPosition = chestPosition,
 						Player = playerCharacter->Player,
 						PlayerEntity = playerEntity,
-						ItemType = furtherDrop,
+						ItemType = GameId.EnergyCubeLarge,
 						Amount = 1,
 						AngleStepAroundChest = angleStep
 					});

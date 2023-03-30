@@ -237,9 +237,6 @@
     justify-content: space-around;
 }
 
-.settings-bottom-buttons {
-}
-
 .settings-title {
     height: 80px;
     justify-content: center;
@@ -249,9 +246,6 @@
     width: 1743px;
     font-size: 38px;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=2800000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
-}
-
-.settings-build-version-label {
 }
 
 .connection-status-label {
@@ -269,12 +263,6 @@
     background-image: none;
     left: 40px;
     bottom: 25px;
-}
-
-.button-connect-account {
-}
-
-.button-logout-account {
 }
 
 .settings-content-graphics {
@@ -396,7 +384,6 @@
     bottom: 35px;
 }
 
-.settings-content-graphics {
-    height: 354px;
+.settings-container--graphics {
     justify-content: space-around;
 }

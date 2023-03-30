@@ -16,7 +16,7 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="Graphics" class="settings-container settings-content-graphics" style="height: 400px;">
+                        <ui:VisualElement name="Graphics" class="settings-container settings-container--graphics" style="height: 354px;">
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group-fps" />
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group-graphics" />
                         </ui:VisualElement>

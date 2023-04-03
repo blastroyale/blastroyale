@@ -21,9 +21,11 @@
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group-fps" />
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group-graphics" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="Controls" class="settings-container">
+                        <ui:VisualElement name="Controls" class="settings-container" style="padding-top: 0;">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/camera_panning" name="CameraPanning" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account">
                             <ui:Label text="Connected Label" display-tooltip-when-elided="true" name="ConnectionStatusLabel" class="connection-status-label" />

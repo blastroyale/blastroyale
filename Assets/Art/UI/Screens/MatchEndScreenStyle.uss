@@ -80,6 +80,13 @@
     top: 42px;
 }
 
+.blasted-title--busted .blasted-title__text {
+    background-image: var(--sprite-match__text-busted);
+    width: 230px;
+    height: 86px;
+    top: 61px;
+}
+
 .hidden .blasted-title__text {
     scale: 1.3 1.3;
     opacity: 0;

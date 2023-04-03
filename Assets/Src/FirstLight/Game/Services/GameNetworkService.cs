@@ -498,7 +498,7 @@ namespace FirstLight.Game.Services
 
 		public bool ConnectPhotonToMaster()
 		{
-			FLog.Info("PACO", $"ConnectPhotonToMaster");
+			FLog.Info("ConnectPhotonToMaster");
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
 				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);

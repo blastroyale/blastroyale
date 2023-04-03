@@ -8,6 +8,11 @@
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />
                 <ui:VisualElement name="Text" class="blasted-title__text" />
             </ui:VisualElement>
+            <ui:VisualElement name="BustedTitle" class="blasted-title blasted-title--busted">
+                <ui:VisualElement name="Bg" class="blasted-title__bg" />
+                <ui:VisualElement name="Stain" class="blasted-title__stain" />
+                <ui:VisualElement name="Text" class="blasted-title__text" />
+            </ui:VisualElement>
             <ui:VisualElement name="BlastedTitle" class="blasted-title">
                 <ui:VisualElement name="Bg" class="blasted-title__bg" />
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />

@@ -156,7 +156,7 @@ namespace Quantum
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
-		internal void Dead(Frame f, EntityRef e, EntityRef attacker)
+		internal void Dead(Frame f, EntityRef e, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
 			
@@ -194,7 +194,7 @@ namespace Quantum
 			equipmentData.Gear.CopyFixedArray(Gear);
 			equipmentData.CurrentWeapon = CurrentWeapon;
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);

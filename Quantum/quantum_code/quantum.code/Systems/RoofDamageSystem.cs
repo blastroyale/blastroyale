@@ -5,8 +5,11 @@ namespace Quantum.Systems
 	/// <summary>
 	/// Applies damage (via spells) to players which are standing on roofs / not on the ground (above a certain threshold).
 	/// </summary>
+	[OptionalSystem]
 	public unsafe class RoofDamageSystem : SystemMainThreadFilter<RoofDamageSystem.RoofDamageFilter>
 	{
+		public override bool StartEnabled => false;
+		
 		public struct RoofDamageFilter
 		{
 			public EntityRef Entity;

@@ -111,7 +111,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLocalPlayerRoofDetected(EventOnLocalPlayerRoofDetected callback)
 		{
-			Debug.Log($"PACO OnLocalPlayerRoofDetected {callback.OnRoof}");
 			_roofDamageText.gameObject.SetActive(callback.OnRoof);
 		}
 

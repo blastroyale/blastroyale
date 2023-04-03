@@ -3,18 +3,15 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
-	/// <summary>
-	/// A button that has it's text set from a I2 Localization key.
-	/// </summary>
-	public class LocalizedButton : Button
+	public class LocalizedToggle : Toggle
 	{
 		protected string localizationKey { get; set; }
-		
-		public LocalizedButton() : this(string.Empty)
+
+		public LocalizedToggle() : this(string.Empty)
 		{
 		}
 
-		public LocalizedButton(string key)
+		public LocalizedToggle(string key)
 		{
 			Localize(key);
 		}
@@ -25,14 +22,14 @@ namespace FirstLight.Game.UIElements
 		public void Localize(string key)
 		{
 			localizationKey = key;
-			text = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
+			label = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
 		}
 
-		public new class UxmlFactory : UxmlFactory<LocalizedButton, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<LocalizedToggle, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : Button.UxmlTraits
+		public new class UxmlTraits : Toggle.UxmlTraits
 		{
 			UxmlStringAttributeDescription _localizationKeyAttribute = new()
 			{
@@ -43,7 +40,7 @@ namespace FirstLight.Game.UIElements
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((LocalizedButton) ve).Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
+				((LocalizedToggle) ve).Localize(_localizationKeyAttribute.GetValueFromBag(bag, cc));
 			}
 		}
 	}

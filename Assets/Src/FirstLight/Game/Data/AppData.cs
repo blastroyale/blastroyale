@@ -27,6 +27,7 @@ namespace FirstLight.Game.Data
 	{
 		public string DisplayName;
 		public string PlayerId;
+		public string AvatarUrl;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;

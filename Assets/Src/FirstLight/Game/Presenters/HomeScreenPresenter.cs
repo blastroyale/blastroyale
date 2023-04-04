@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -58,6 +60,8 @@ namespace FirstLight.Game.Presenters
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
+		private VisualElement _avatar;
+		private VisualElement _avatarBg;
 
 		private VisualElement _equipmentNotification;
 
@@ -85,6 +89,7 @@ namespace FirstLight.Game.Presenters
 		private MatchmakingStatusView _matchmakingStatusView;
 
 		private Coroutine _updatePoolsCoroutine;
+		private int _avatarRequestHandle = -1;
 
 		private void Awake()
 		{
@@ -100,6 +105,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
+			_avatar = root.Q("Avatar").Required();
+			_avatarBg = root.Q("AvatarBg").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
@@ -162,6 +169,39 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
+
+			UpdatePFP();
+		}
+
+		protected override Task OnClosed()
+		{
+			_services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
+			return base.OnClosed();
+		}
+
+		private void UpdatePFP()
+		{
+			var avatarUrl = _dataProvider.AppDataProvider.AvatarUrl;
+			if (string.IsNullOrEmpty(avatarUrl)) return;
+
+			// Use random PFP
+			// avatarUrl = avatarUrl.Replace("1.png", $"{Random.Range(1, 888)}.png");
+
+			_avatar.SetVisibility(false);
+			_avatarRequestHandle = _services.RemoteTextureService.RequestTexture(
+				avatarUrl,
+				tex =>
+				{
+					FLog.Verbose("Custom profile picture set.");
+					_avatar.style.backgroundImage = new StyleBackground(tex);
+					_avatar.SetVisibility(true);
+
+					// Inverted color
+					// var inverted = Color.white - tex.GetPixel(0, 0);
+					// inverted.a = 1f;
+					// _avatarBg.style.backgroundColor = new StyleColor(inverted);
+				},
+				() => _avatar.SetVisibility(true));
 		}
 
 		protected override void SubscribeToEvents()
@@ -414,7 +454,8 @@ namespace FirstLight.Game.Presenters
 					{
 						buttonClass = "play-button--get-ready";
 						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
-						buttonEnabled = false; // TODO: Would be better to throttle requests than to block players from un-readying themselves
+						buttonEnabled =
+							false; // TODO: Would be better to throttle requests than to block players from un-readying themselves
 					}
 					else
 					{

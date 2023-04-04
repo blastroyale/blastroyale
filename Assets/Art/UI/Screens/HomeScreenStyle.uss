@@ -96,7 +96,7 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    left: 112px;
+    left: 97px;
     top: 6px;
 }
 
@@ -104,6 +104,15 @@
     flex-grow: 1;
     -unity-background-scale-mode: scale-to-fit;
     background-image: var(--sprite-home__avatar-default);
+    overflow: hidden;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .player-header__trophies-holder {

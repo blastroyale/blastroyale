@@ -118,7 +118,7 @@ MonoBehaviour:
       StaticData:
         Name: Floor
         Tag: Untagged
-        Layer: 7
+        Layer: 0
         Asset:
           Id:
             Value: 0

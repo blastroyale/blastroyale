@@ -3639,6 +3639,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/screenshake
+      TermType: 0
+      Description: 
+      Languages:
+      - Screen Shake
+      - Screen Shake
+      - Screen Shake
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/camera_panning
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera Panning
+      - Camera Panning
+      - Camera Panning
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -16598,7 +16620,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1679657799636
+    Google_LastUpdatedVersion: 1680532703718
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -78,7 +78,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the current FPS target
 		/// </summary>
-		int FpsTarget { get; set; }
+		FpsTarget FpsTarget { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -276,7 +276,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public int FpsTarget
+		public FpsTarget FpsTarget
 		{
 			get => Data.FpsTarget;
 			set
@@ -407,7 +407,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void SetFpsTarget()
 		{
-			Application.targetFrameRate = FpsTarget;
+			Application.targetFrameRate = (int) FpsTarget;
 		}
 	}
 }

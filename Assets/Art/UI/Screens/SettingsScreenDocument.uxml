@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/SettingsScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e51e5379d62b426db9b3aa6880d0619&amp;type=3#SettingsScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
+            <ui:VisualElement name="SettingsPopup" class="settings-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
+                <FirstLight.Game.UIElements.LocalizedLabel text="##" localization-key="UITSettings/settings_title" name="ScreenTitle" class="settings-title" />
+                <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="settings-popup__close" />
+                <ui:VisualElement name="Content" class="settings-popup__content">
+                    <TabbedView name="SettingsTabbedView" class="settings-tabbed-view">
+                        <TabButton target="Sound" focusable="true" text="SOUND" class="settings-tab-button" />
+                        <TabButton target="Graphics" focusable="true" text="GRAPHICS" class="settings-tab-button" />
+                        <TabButton target="Controls" focusable="true" text="CONTROLS" class="settings-tab-button" />
+                        <TabButton target="Account" focusable="true" text="ACCOUNT" class="settings-tab-button" />
+                        <ui:VisualElement name="Sound" class="settings-container">
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/sound_effects" name="SoundEffects" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/announcer" name="Announcer" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/bg_music" name="BGMusic" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Graphics" class="settings-container settings-container--graphics">
+                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group-fps" />
+                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group-graphics" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Controls" class="settings-container">
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/camera_panning" name="CameraPanning" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Account" class="settings-container settings-container--account">
+                            <ui:Label text="Connected Label" display-tooltip-when-elided="true" name="ConnectionStatusLabel" class="connection-status-label" />
+                            <ui:Label text="Connection Name Label" display-tooltip-when-elided="true" name="ConnectionNameLabel" class="connection-name-label" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/delete_account" display-tooltip-when-elided="true" name="DeleteAccountButton" text="FAQ" class="button-delete-account" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/logout" display-tooltip-when-elided="true" name="LogoutButton" text="FAQ" class="button-long button-long--red button-logout-account" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/connect" display-tooltip-when-elided="true" name="ConnectButton" text="FAQ" class="button-long button-long--red button-connect-account" />
+                        </ui:VisualElement>
+                    </TabbedView>
+                    <ui:VisualElement name="Divider" class="divider" />
+                    <ui:VisualElement name="BottomButtons" class="settings-footer">
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" name="ServerButton" class="button-long sfx-click-forwards" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" name="FAQButton" class="button-long sfx-click-forwards" />
+                    </ui:VisualElement>
+                    <ui:Label text="Build Version" display-tooltip-when-elided="true" name="BuildInfoLabel" class="build-version-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

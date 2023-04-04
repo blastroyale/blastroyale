@@ -716,5 +716,35 @@ namespace FirstLight.Game.Utils
 			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
 			service.SelectedGameMode.Value = gameMode;
 		}
+
+		public static AudioId GetAmbientAudioId(this AmbienceType ambience)
+		{
+			switch(ambience)
+			{
+				case AmbienceType.CityCenter:
+					return AudioId.CentralAmbientLoop;
+				
+				case AmbienceType.Desert:
+					return AudioId.DesertAmbientLoop;
+				
+				case AmbienceType.Forest:
+					return AudioId.ForestAmbientLoop;
+				
+				case AmbienceType.Frost:
+					return AudioId.FrostAmbientLoop;
+				
+				case AmbienceType.Lava:
+					return AudioId.LavaAmbientLoop;
+				
+				case AmbienceType.Urban:
+					return AudioId.UrbanAmbientLoop;
+				
+				case AmbienceType.Water:
+					return AudioId.WaterAmbientLoop;
+				
+				default:
+					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
+			}
+		}
 	}
 }

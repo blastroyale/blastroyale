@@ -34,6 +34,8 @@ namespace FirstLight.Game.Presenters
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
+		private const string USS_AVATAR_NFT = "player-header__avatar--nft";
+
 		public struct StateData
 		{
 			public Action OnPlayButtonClicked;
@@ -61,7 +63,7 @@ namespace FirstLight.Game.Presenters
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 		private VisualElement _avatar;
-		private VisualElement _avatarBg;
+		private VisualElement _avatarPfp;
 
 		private VisualElement _equipmentNotification;
 
@@ -106,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
 			_avatar = root.Q("Avatar").Required();
-			_avatarBg = root.Q("AvatarBg").Required();
+			_avatarPfp = root.Q("AvatarPFP").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
@@ -184,24 +186,23 @@ namespace FirstLight.Game.Presenters
 			var avatarUrl = _dataProvider.AppDataProvider.AvatarUrl;
 			if (string.IsNullOrEmpty(avatarUrl)) return;
 
-			// Use random PFP
+			// DBG: Use random PFP
 			// avatarUrl = avatarUrl.Replace("1.png", $"{Random.Range(1, 888)}.png");
 
 			_avatar.SetVisibility(false);
+			_avatar.AddToClassList(USS_AVATAR_NFT);
 			_avatarRequestHandle = _services.RemoteTextureService.RequestTexture(
 				avatarUrl,
 				tex =>
 				{
-					FLog.Verbose("Custom profile picture set.");
-					_avatar.style.backgroundImage = new StyleBackground(tex);
+					_avatarPfp.style.backgroundImage = new StyleBackground(tex);
 					_avatar.SetVisibility(true);
-
-					// Inverted color
-					// var inverted = Color.white - tex.GetPixel(0, 0);
-					// inverted.a = 1f;
-					// _avatarBg.style.backgroundColor = new StyleColor(inverted);
 				},
-				() => _avatar.SetVisibility(true));
+				() =>
+				{
+					_avatar.RemoveFromClassList(USS_AVATAR_NFT);
+					_avatar.SetVisibility(true);
+				});
 		}
 
 		protected override void SubscribeToEvents()
@@ -454,8 +455,9 @@ namespace FirstLight.Game.Presenters
 					{
 						buttonClass = "play-button--get-ready";
 						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
-						buttonEnabled =
-							false; // TODO: Would be better to throttle requests than to block players from un-readying themselves
+
+						// TODO: Would be better to throttle requests than to block players from un-readying themselves
+						buttonEnabled = false;
 					}
 					else
 					{

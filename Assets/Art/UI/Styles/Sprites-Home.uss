@@ -1,6 +1,7 @@
 /* AUTO GENERATED */
 :root {
     --sprite-home__avatar-default: url('/Assets/Art/UI/Sprites/Home/avatar-default.png');
+    --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
     --sprite-home__background-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/background-gamemode-battleroyale.png');
@@ -193,6 +194,12 @@
     background-image: var(--sprite-home__avatar-default);
     width: 108px;
     height: 108px;
+}
+
+.sprite-home__background-avatar-nft {
+    background-image: var(--sprite-home__background-avatar-nft);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__background-bpchestreward {

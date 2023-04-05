@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -32,6 +34,8 @@ namespace FirstLight.Game.Presenters
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
+		private const string USS_AVATAR_NFT = "player-header__avatar--nft";
+
 		public struct StateData
 		{
 			public Action OnPlayButtonClicked;
@@ -58,6 +62,8 @@ namespace FirstLight.Game.Presenters
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
+		private VisualElement _avatar;
+		private VisualElement _avatarPfp;
 
 		private VisualElement _equipmentNotification;
 
@@ -85,6 +91,7 @@ namespace FirstLight.Game.Presenters
 		private MatchmakingStatusView _matchmakingStatusView;
 
 		private Coroutine _updatePoolsCoroutine;
+		private int _avatarRequestHandle = -1;
 
 		private void Awake()
 		{
@@ -100,6 +107,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
+			_avatar = root.Q("Avatar").Required();
+			_avatarPfp = root.Q("AvatarPFP").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
@@ -162,6 +171,38 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
+
+			UpdatePFP();
+		}
+
+		protected override Task OnClosed()
+		{
+			_services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
+			return base.OnClosed();
+		}
+
+		private void UpdatePFP()
+		{
+			var avatarUrl = _dataProvider.AppDataProvider.AvatarUrl;
+			if (string.IsNullOrEmpty(avatarUrl)) return;
+
+			// DBG: Use random PFP
+			// avatarUrl = avatarUrl.Replace("1.png", $"{Random.Range(1, 888)}.png");
+
+			_avatar.SetVisibility(false);
+			_avatar.AddToClassList(USS_AVATAR_NFT);
+			_avatarRequestHandle = _services.RemoteTextureService.RequestTexture(
+				avatarUrl,
+				tex =>
+				{
+					_avatarPfp.style.backgroundImage = new StyleBackground(tex);
+					_avatar.SetVisibility(true);
+				},
+				() =>
+				{
+					_avatar.RemoveFromClassList(USS_AVATAR_NFT);
+					_avatar.SetVisibility(true);
+				});
 		}
 
 		protected override void SubscribeToEvents()
@@ -414,7 +455,9 @@ namespace FirstLight.Game.Presenters
 					{
 						buttonClass = "play-button--get-ready";
 						translationKey = ScriptTerms.UITHomeScreen.youre_ready;
-						buttonEnabled = false; // TODO: Would be better to throttle requests than to block players from un-readying themselves
+
+						// TODO: Would be better to throttle requests than to block players from un-readying themselves
+						buttonEnabled = false;
 					}
 					else
 					{

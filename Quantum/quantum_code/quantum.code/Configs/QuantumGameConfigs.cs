@@ -53,6 +53,10 @@ namespace Quantum
 		public FP MightRarityMultiplier;
 		public FP MightLevelMultiplier;
 		public FP TrophiesPerKill;
+		public FP RoofDamageHeight;
+		public FP RoofDamageDelay;
+		public FP RoofDamageAmount;
+		public FP RoofDamageCooldown;
 	}
 
 	/// <summary>

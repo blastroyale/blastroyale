@@ -94,6 +94,11 @@ namespace FirstLight.Game.Logic
 		/// Determines if the player is a guest
 		/// </summary>
 		bool IsGuest { get; }
+		
+		/// <summary>
+		/// The URL of the player's avatar.
+		/// </summary>
+		string AvatarUrl { get; }
 
 		/// <summary>
 		/// Returns the last gamemode user has chosen
@@ -192,6 +197,8 @@ namespace FirstLight.Game.Logic
 		public bool IsDeviceLinked => !string.IsNullOrWhiteSpace(DeviceID.Value);
 
 		public bool IsGuest => string.IsNullOrEmpty(LastLoginEmail.Value);
+
+		public string AvatarUrl => Data.AvatarUrl;
 
 		public GameModeRotationConfig.GameModeEntry LastGameMode
 		{

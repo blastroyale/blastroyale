@@ -61,6 +61,8 @@ MonoBehaviour:
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
+      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
     - Id: BattleRoyaleTrios
       MaxPlayers: 30
       MinPlayers: 1
@@ -103,6 +105,8 @@ MonoBehaviour:
       IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
+      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
     - Id: Deathmatch
       MaxPlayers: 10
@@ -269,4 +273,6 @@ MonoBehaviour:
       IsDebugOnly: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
+      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

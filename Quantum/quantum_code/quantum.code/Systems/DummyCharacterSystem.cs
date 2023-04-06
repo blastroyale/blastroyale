@@ -7,7 +7,7 @@ namespace Quantum.Systems
 	                                    ISignalHealthIsZeroFromAttacker
 	{
 		/// <inheritdoc />
-		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			if (f.Has<DummyCharacter>(entity))
 			{

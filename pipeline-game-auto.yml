@@ -48,6 +48,11 @@ variables:
     value: "STAGE_SERVER"
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
     value: "LIVE_SERVER"
+- name: androidFileType
+  ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))  }}:
+    value: "apk"
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+    value: "aab"
 - name: webhookUrl
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
@@ -91,6 +96,7 @@ stages:
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          androidFileType: $(androidFileType)
     - job: iOSBuild
       timeoutInMinutes: 0
       dependsOn: EditorTests

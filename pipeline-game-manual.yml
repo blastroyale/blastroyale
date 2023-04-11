@@ -51,12 +51,18 @@ variables:
 - ${{  if eq(parameters['build_type'], 'DEVELOPMENT_BUILD') }}:
     - name: configuration
       value: "Debug"
+    - name: androidFileType
+      value: "apk"
 - ${{  if eq(parameters['build_type'], 'RELEASE_BUILD') }}:
     - name: configuration
       value: "Release"
+    - name: androidFileType
+      value: "apk"
 - ${{  if eq(parameters['build_type'], 'STORE_BUILD') }}:
     - name: configuration
       value: "Release"
+    - name: androidFileType
+      value: "aab"
 - name: build_type
   value: ${{ parameters.build_type }}
 - name: server_environment
@@ -104,6 +110,7 @@ stages:
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          androidFileType: $(androidFileType)
     - job: iOSBuild
       timeoutInMinutes: 0
       dependsOn: EditorTests

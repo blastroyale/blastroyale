@@ -75,9 +75,11 @@ stages:
         parameters:
           testPlatform: EditMode
     - job: AndroidBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: Android Build
+      workspace:
+        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
@@ -98,9 +100,11 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
     - job: iOSBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: iOS Build
+      workspace:
+        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self

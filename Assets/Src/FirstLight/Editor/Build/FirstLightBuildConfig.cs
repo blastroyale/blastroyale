@@ -42,8 +42,9 @@ namespace FirstLight.Editor.Build
 
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
-		private const string _appStoreProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
+		private const string _distributionProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
 		private const string _developmentProvisioningProfile = "c82c954d-8257-434f-a063-c83a53f968d9";
+		private const string _adHocProvisioningProfile = "5e2d88fb-74a0-4d5d-8109-ab06b89142d2";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
@@ -103,8 +104,8 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.useAPKExpansionFiles = false;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _developmentProvisioningProfile;
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _adHocProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = false;
@@ -132,7 +133,7 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.useAPKExpansionFiles = true;
 			PlayerSettings.Android.targetArchitectures = _androidReleaseTargetArchitectures;
 			PlayerSettings.iOS.appleDeveloperTeamID = _firstLightAppleTeamId;
-			PlayerSettings.iOS.iOSManualProvisioningProfileID = _appStoreProvisioningProfile;
+			PlayerSettings.iOS.iOSManualProvisioningProfileID = _distributionProvisioningProfile;
 			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
 			PlayerSettings.iOS.appleEnableAutomaticSigning = false;
 			EditorUserBuildSettings.development = false;

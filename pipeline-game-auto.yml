@@ -56,7 +56,7 @@ variables:
 - name: webhookUrl
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
-  value: (PROD-COMMON-CUTTLY-KEY)
+  value: $(PROD-COMMON-CUTTLY-KEY)
 
 pool: macos
 
@@ -120,3 +120,5 @@ stages:
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          developmentiOSCertPwd: $(developmentiOSCertPwd)
+          distributioniOSCertPwd: $(distributioniOSCertPwd)

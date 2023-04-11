@@ -117,7 +117,6 @@ stages:
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
-          certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
           build_type: ${{ variables.build_type }}

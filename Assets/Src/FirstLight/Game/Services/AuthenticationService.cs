@@ -316,16 +316,12 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
-					_services.MessageBrokerService.Publish(new RedirectToEnvironmentMessage()
-					{
-						NewEnvironment = Environment.STAGING
-					});
+					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
 					onSuccess(loginData);
 					return;
 				}
 			}
-		
-			
+			_services.GameBackendService.EnvironmentRedirect = null;
 			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;

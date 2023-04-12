@@ -139,7 +139,7 @@ namespace FirstLight.Game.Services
 		/// Handles if we should redirect the login flow to another environment after logging in.
 		/// This is mainly for store approval where we redirect builds to staging.
 		/// </summary>
-		bool IsEnvironmentRedirect { get; set; }
+		Environment? EnvironmentRedirect { get; set; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -204,9 +204,9 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 		}
 
-		private void SetupEnvironmentFromLocalConfig(BackendEnvironmentData envData)
+		private void SetupEnvironmentFromLocalConfig(Environment env, BackendEnvironmentData envData)
 		{
-			switch (FeatureFlags.GetLocalConfiguration().EnvironmentOverride)
+			switch (env)
 			{
 				case Environment.PROD:
 					SetupLive(envData);
@@ -232,7 +232,7 @@ namespace FirstLight.Game.Services
 #elif STAGE_SERVER
 			SetupStaging(envData);
 #else
-			SetupEnvironmentFromLocalConfig(envData);
+			SetupEnvironmentFromLocalConfig(FeatureFlags.GetLocalConfiguration().EnvironmentOverride, envData);
 #endif
 		}
 
@@ -242,9 +242,10 @@ namespace FirstLight.Game.Services
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
 
-			if (IsEnvironmentRedirect)
+			if (EnvironmentRedirect.HasValue)
 			{
-				SetupEnvironmentFromLocalConfig(envData);
+				FLog.Info("Environment Redirect");
+				SetupEnvironmentFromLocalConfig(EnvironmentRedirect.Value, envData);
 			}
 			else
 			{
@@ -431,7 +432,7 @@ namespace FirstLight.Game.Services
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
 		}
 
-		public bool IsEnvironmentRedirect { get; set; }
+		public Environment? EnvironmentRedirect { get; set; } = null;
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{

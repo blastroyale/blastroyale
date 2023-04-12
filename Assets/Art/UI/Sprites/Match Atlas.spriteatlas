@@ -41,6 +41,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 40ab0820dd8ac4243b5f16dd35ef8c88, type: 3}
   - {fileID: 21300000, guid: 6f5a4ee05498c40c6923e88c70187edb, type: 3}
   - {fileID: 21300000, guid: 01e27a0254d4c4324976497ffe21d60d, type: 3}
+  - {fileID: 21300000, guid: d82e5dc2de30a408db68d2974774392a, type: 3}
   - {fileID: 21300000, guid: 5d481686bba814837a46397288517385, type: 3}
   - {fileID: 21300000, guid: 6c934a861c6894e5aa47fb1431470371, type: 3}
   - {fileID: 21300000, guid: fbc205c6b803547f7b8a1aa5310736c6, type: 3}
@@ -61,6 +62,7 @@ SpriteAtlas:
   - button-next
   - background-gradient-blue
   - background-reward-normal
+  - text-busted
   - text-youwon
   - banner-winner
   - banner-rainbow

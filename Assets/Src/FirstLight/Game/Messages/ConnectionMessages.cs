@@ -1,4 +1,5 @@
 using System.Net;
+using FirstLight.Game.Services;
 using Photon.Realtime;
 using FirstLight.SDK.Services;
 
@@ -14,6 +15,8 @@ namespace FirstLight.Game.Messages
 		public HttpStatusCode ErrorCode;
 		public string Message;
 	}
+	
+	public struct RedirectToEnvironmentMessage : IMessage { public Environment NewEnvironment; }
 	
 	public struct PingedRegionsMessage : IMessage { public RegionHandler RegionHandler; }
 	

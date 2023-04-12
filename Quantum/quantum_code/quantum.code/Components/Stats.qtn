@@ -94,5 +94,5 @@ synced event OnStatModifierRemoved
 }
 
 signal HealthChangedFromAttacker(entity_ref entity, entity_ref attacker, Int32 previousHealth);
-signal HealthIsZeroFromAttacker(entity_ref entity, entity_ref attacker);
+signal HealthIsZeroFromAttacker(entity_ref entity, entity_ref attacker, bool fromRoofDamage);
 

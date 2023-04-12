@@ -108,8 +108,10 @@
             </ui:Button>
             <FirstLight.Game.UIElements.ImageButton name="ProfileButton" class="player-header__profile-button sfx-click-forwards">
                 <ui:VisualElement name="Holder" class="player-header__profile-holder">
-                    <ui:VisualElement name="AvatarBg" class="player-header__avatar-bg">
-                        <ui:VisualElement name="Avatar" class="player-header__avatar" />
+                    <ui:VisualElement name="Avatar" class="player-header__avatar">
+                        <ui:VisualElement name="AvatarMask" class="player-header__avatar-mask">
+                            <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
                 </ui:VisualElement>

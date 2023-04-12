@@ -126,6 +126,15 @@ namespace FirstLight.Editor.Build
 			}
 		}
 
+		/// <summary>
+		/// Combines the configure and build steps
+		/// </summary>
+		public static void AzureBuild()
+		{
+			ConfigureBuild();
+			JenkinsBuild();
+		}
+
 		private static void LogBuildReport(BuildReport buildReport)
 		{
 			var stringBuilder = new StringBuilder();

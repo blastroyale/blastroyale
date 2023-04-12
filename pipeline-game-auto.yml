@@ -48,10 +48,15 @@ variables:
     value: "STAGE_SERVER"
   ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
     value: "LIVE_SERVER"
+- name: androidFileType
+  ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))  }}:
+    value: "apk"
+  ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+    value: "aab"
 - name: webhookUrl
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
-  value: (PROD-COMMON-CUTTLY-KEY)
+  value: $(PROD-COMMON-CUTTLY-KEY)
 
 pool: macos
 
@@ -70,9 +75,11 @@ stages:
         parameters:
           testPlatform: EditMode
     - job: AndroidBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: Android Build
+      workspace:
+        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
@@ -91,10 +98,13 @@ stages:
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          androidFileType: $(androidFileType)
     - job: iOSBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: iOS Build
+      workspace:
+        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
@@ -107,10 +117,11 @@ stages:
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
-          certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
           build_type: ${{ variables.build_type }}
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          developmentiOSCertPwd: $(developmentiOSCertPwd)
+          distributioniOSCertPwd: $(distributioniOSCertPwd)

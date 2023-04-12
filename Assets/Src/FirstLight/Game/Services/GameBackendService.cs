@@ -204,19 +204,8 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 		}
 
-		public void SetupBackendEnvironment()
+		private void SetupEnvironmentFromLocalConfig(BackendEnvironmentData envData)
 		{
-			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			var appData = _dataService.GetData<AppData>();
-			var envData = new BackendEnvironmentData();
-
-#if LIVE_SERVER
-			SetupLive(envData);
-#elif LIVE_TESTNET_SERVER
-			SetupTestnet(envData);
-#elif STAGE_SERVER
-			SetupStaging(envData);
-#else
 			switch (FeatureFlags.GetLocalConfiguration().EnvironmentOverride)
 			{
 				case Environment.PROD:
@@ -232,7 +221,35 @@ namespace FirstLight.Game.Services
 					SetupDev(envData);
 					break;
 			}
+		}
+
+		private void SetupEnvironmentFromCompilerFlags(BackendEnvironmentData envData)
+		{
+#if LIVE_SERVER
+			SetupLive(envData);
+#elif LIVE_TESTNET_SERVER
+			SetupTestnet(envData);
+#elif STAGE_SERVER
+			SetupStaging(envData);
+#else
+			SetupEnvironmentFromLocalConfig(envData);
 #endif
+		}
+
+		public void SetupBackendEnvironment()
+		{
+			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.GetData<AppData>();
+			var envData = new BackendEnvironmentData();
+
+			if (IsEnvironmentRedirect)
+			{
+				SetupEnvironmentFromLocalConfig(envData);
+			}
+			else
+			{
+				SetupEnvironmentFromCompilerFlags(envData);
+			}
 
 			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 			CurrentEnvironmentData = envData;

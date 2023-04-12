@@ -298,6 +298,11 @@ namespace FirstLight.Game.Services
 			});
 		}
 
+		private Environment? ShouldRedictEnvironemnt(Dictionary<string, string> titleData)
+		{
+			return Environment.STAGING;
+		}
+
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
 										  Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
@@ -306,6 +311,22 @@ namespace FirstLight.Game.Services
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
+
+			if (titleData.TryGetValue("REDIRECT_TESTSERVER", out var version))
+			{
+				if (version == VersionUtils.VersionExternal)
+				{
+					_services.MessageBrokerService.Publish(new RedirectToEnvironmentMessage()
+					{
+						NewEnvironment = Environment.STAGING
+					});
+					onSuccess(loginData);
+					return;
+				}
+			}
+		
+			
+			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;

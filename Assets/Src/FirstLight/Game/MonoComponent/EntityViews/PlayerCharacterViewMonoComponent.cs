@@ -324,7 +324,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			RenderersContainerProxy.SetRendererState(false);
-			RigidbodyContainerMonoComponent.SetState(false);
 		}
 
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)

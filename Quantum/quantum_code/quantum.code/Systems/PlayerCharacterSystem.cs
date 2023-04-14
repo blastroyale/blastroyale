@@ -102,7 +102,7 @@ namespace Quantum.Systems
 
 
 		/// <inheritdoc />
-		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
 			{
@@ -113,7 +113,7 @@ namespace Quantum.Systems
 			var step = 0;
 			var gameModeConfig = f.Context.GameModeConfig;
 
-			playerDead->Dead(f, entity, attacker);
+			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
 			// Try to drop player weapon
 			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly ||

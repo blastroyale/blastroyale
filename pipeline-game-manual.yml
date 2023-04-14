@@ -51,12 +51,18 @@ variables:
 - ${{  if eq(parameters['build_type'], 'DEVELOPMENT_BUILD') }}:
     - name: configuration
       value: "Debug"
+    - name: androidFileType
+      value: "apk"
 - ${{  if eq(parameters['build_type'], 'RELEASE_BUILD') }}:
     - name: configuration
       value: "Release"
+    - name: androidFileType
+      value: "apk"
 - ${{  if eq(parameters['build_type'], 'STORE_BUILD') }}:
     - name: configuration
       value: "Release"
+    - name: androidFileType
+      value: "aab"
 - name: build_type
   value: ${{ parameters.build_type }}
 - name: server_environment
@@ -64,7 +70,7 @@ variables:
 - name: webhookUrl
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
-  value: (PROD-COMMON-CUTTLY-KEY)
+  value: $(PROD-COMMON-CUTTLY-KEY)
 
 pool: macos
 
@@ -83,10 +89,12 @@ stages:
         parameters:
           testPlatform: EditMode
     - job: AndroidBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: Android Build
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
+      workspace:
+        clean: all
       steps:
       - checkout: self
         lfs: true
@@ -104,10 +112,13 @@ stages:
           server_environment: ${{ variables.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          androidFileType: $(androidFileType)
     - job: iOSBuild
-      timeoutInMinutes: 0
+      timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: iOS Build
+      workspace:
+        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
@@ -120,10 +131,11 @@ stages:
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
-          certPwd: $(certPwd)
           workingDirectory: .
           branchName: $(branchName)
           build_type: ${{ parameters.build_type }}
           server_environment: ${{ parameters.server_environment }}
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
+          developmentiOSCertPwd: $(developmentiOSCertPwd)
+          distributioniOSCertPwd: $(distributioniOSCertPwd)

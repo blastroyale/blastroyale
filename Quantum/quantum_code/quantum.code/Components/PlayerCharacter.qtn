@@ -16,6 +16,7 @@
 component AlivePlayerCharacter
 {
     bool InCircle;
+    bool AboveGroundIllegally;
 }
 
 component DeadPlayerCharacter

@@ -22,21 +22,23 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _matchEndTitle;
 		private VisualElement _blastedTitle;
+		private VisualElement _bustedTitle;
 		private VisualElement _youWinTitle;
 		private VisualElement _youChoseDeathTitle;
-		
+
 		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
-		
+
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
 			_matchEndTitle = root.Q<VisualElement>("MatchEndedTitle").Required();
 			_blastedTitle = root.Q<VisualElement>("BlastedTitle").Required();
+			_bustedTitle = root.Q<VisualElement>("BustedTitle").Required();
 			_youWinTitle = root.Q<VisualElement>("YouWinTitle").Required();
 			_youChoseDeathTitle = root.Q<VisualElement>("YouChoseDeathTitle").Required();
 		}
@@ -55,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			_blastedTitle.SetDisplay(false);
 			_youWinTitle.SetDisplay(false);
 			_youChoseDeathTitle.SetDisplay(false);
+			_bustedTitle.SetDisplay(false);
 
 			if (localWinner && gameOver)
 			{
@@ -63,6 +66,10 @@ namespace FirstLight.Game.Presenters
 			else if (gameOver)
 			{
 				_matchEndTitle.SetDisplay(true);
+			}
+			else if (_matchServices.MatchEndDataService.DiedFromRoofDamage)
+			{
+				_bustedTitle.SetDisplay(true);
 			}
 			else if (_matchServices.MatchEndDataService.LocalPlayerKiller == localPlayer.Data.Player)
 			{

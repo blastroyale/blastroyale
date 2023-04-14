@@ -54,6 +54,8 @@ namespace FirstLight.Tests.EditorMode
 			return true;
 		}
 
+		public bool IsEnvironmentRedirect { get; set; }
+
 		public void SetupBackendEnvironment()
 		{
 

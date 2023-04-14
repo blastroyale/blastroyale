@@ -19,59 +19,64 @@ namespace FirstLight.Game.Services
 		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GeneratePlayersMatchData
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
-		
+
 		Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; }
-		
+
 		/// <summary>
 		/// Config value used to know if the match end leaderboard should show the extra info
 		/// </summary>
 		bool ShowUIStandingsExtraInfo { get; }
-		
+
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
 		PlayerRef LocalPlayer { get; }
-		
+
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
 		QuantumPlayerMatchData LocalPlayerMatchData { get; }
-		
+
 		/// <summary>
 		/// Player that killed the local player. Will have a value if the player was killed.
 		/// </summary>
 		PlayerRef LocalPlayerKiller { get; }
 
 		/// <summary>
+		/// If the player was killed by standing on a roof and taking damage.
+		/// </summary>
+		bool DiedFromRoofDamage { get; }
+
+		/// <summary>
 		/// Information about all the players that played in the match that ended.
 		/// </summary>
 		Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; }
-		
+
 		/// <summary>
 		/// List of rewards
 		/// </summary>
 		public List<RewardData> Rewards { get; }
-		
+
 		/// <summary>
 		/// How trophies total changed
 		/// </summary>
 		public int TrophiesChange { get; }
-		
+
 		/// <summary>
 		/// How many trophies player had before change
 		/// </summary>
 		public uint TrophiesBeforeChange { get; }
-		
+
 		/// <summary>
 		/// How much CS the player had before the change
 		/// </summary>
 		public uint CSBeforeChange { get; }
-		
+
 		/// <summary>
 		/// How much BPP the player had before the change
 		/// </summary>
 		public uint BPPBeforeChange { get; }
-		
+
 		/// <summary>
 		/// What level was the player in BP before the change
 		/// </summary>
@@ -92,12 +97,13 @@ namespace FirstLight.Game.Services
 	public struct PlayerMatchData
 	{
 		public PlayerRef PlayerRef { get; }
-		
+
 		public QuantumPlayerMatchData QuantumPlayerMatchData;
 		public Equipment Weapon { get; }
 		public List<Equipment> Gear { get; }
 
-		public PlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon, List<Equipment> gear)
+		public PlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon,
+							   List<Equipment> gear)
 		{
 			PlayerRef = playerRef;
 			QuantumPlayerMatchData = quantumData;
@@ -105,40 +111,23 @@ namespace FirstLight.Game.Services
 			Gear = gear;
 		}
 	}
-	
-	/// <inheritdoc />
+
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
-		/// <inheritdoc />
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
-
 		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
-
-		/// <inheritdoc />
 		public bool ShowUIStandingsExtraInfo { get; private set; }
-		/// <inheritdoc />
 		public PlayerRef LocalPlayer { get; private set; }
-
 		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
-
-		/// <inheritdoc />
 		public PlayerRef LocalPlayerKiller { get; private set; }
-
-		/// <inheritdoc />
-		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new ();
-		/// <inheritdoc />
+		public bool DiedFromRoofDamage { get; private set; }
+		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new();
 		public List<RewardData> Rewards { get; private set; }
-		/// <inheritdoc />
 		public int TrophiesChange { get; private set; }
-		/// <inheritdoc />
 		public uint TrophiesBeforeChange { get; private set; }
-		/// <inheritdoc />
 		public uint CSBeforeChange { get; private set; }
-		/// <inheritdoc />
 		public uint BPPBeforeChange { get; private set; }
-		/// <inheritdoc />
 		public uint BPLevelBeforeChange { get; private set; }
-		/// <inheritdoc />
 		public bool LeftBeforeMatchFinished { get; private set; }
 
 		public void Reload()
@@ -160,19 +149,19 @@ namespace FirstLight.Game.Services
 		private void ReadInitialValues(QuantumGame game)
 		{
 			TrophiesBeforeChange = _dataProvider.PlayerDataProvider.Trophies.Value;
-			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
+			CSBeforeChange = (uint) _dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
 			ShowUIStandingsExtraInfo = game.Frames.Verified.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			LocalPlayer = game.GetLocalPlayerRef();
 			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
 			PlayersFinalEquipment.Clear();
 		}
-		
+
 		/// <inheritdoc />
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			ReadInitialValues(game);
-			
+
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
@@ -182,7 +171,7 @@ namespace FirstLight.Game.Services
 		{
 			PlayersFinalEquipment[callback.Player] = callback.EquipmentData;
 		}
-		
+
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			LocalPlayerMatchData =
@@ -192,6 +181,7 @@ namespace FirstLight.Game.Services
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			LocalPlayerKiller = callback.PlayerKiller;
+			DiedFromRoofDamage = callback.FromRoofDamage;
 		}
 
 		public void ReadMatchDataForEndingScreens(QuantumGame game)
@@ -199,7 +189,7 @@ namespace FirstLight.Game.Services
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
-			
+
 			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
 
 			PlayerMatchData.Clear();
@@ -221,13 +211,13 @@ namespace FirstLight.Game.Services
 					gear = equipmentData.Gear.ToList().FindAll(equipment => equipment.IsValid());
 					weapon = equipmentData.CurrentWeapon;
 				}
-				else if(frame.Has<PlayerCharacter>(quantumPlayerData.Data.Entity))
+				else if (frame.Has<PlayerCharacter>(quantumPlayerData.Data.Entity))
 				{
 					var playerCharacter = frame.Get<PlayerCharacter>(quantumPlayerData.Data.Entity);
 					gear = playerCharacter.Gear.ToList().FindAll(equipment => equipment.IsValid());
 					weapon = playerCharacter.CurrentWeapon;
 				}
-				else if(frameData != null)
+				else if (frameData != null)
 				{
 					weapon = frameData.Weapon;
 					gear = frameData.Loadout.Where(l => l.IsValid()).ToList();
@@ -237,16 +227,15 @@ namespace FirstLight.Game.Services
 				{
 					gear.Add(weapon);
 				}
-				
+
 				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{
 					LocalPlayerMatchData = quantumPlayerData;
 				}
-				
+
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
-				
 			}
 
 			GetRewards(frame, gameContainer);
@@ -262,9 +251,10 @@ namespace FirstLight.Game.Services
 			{
 				ReadInitialValues(game);
 			}
+
 			ReadMatchDataForEndingScreens(game);
 		}
-		
+
 		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
 		{
 			LeftBeforeMatchFinished = true;
@@ -284,7 +274,7 @@ namespace FirstLight.Game.Services
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			BPPBeforeChange = predictedProgress.Item2;
 			BPLevelBeforeChange = predictedProgress.Item1;
-			
+
 			var rewardSource = new RewardSource()
 			{
 				MatchData = QuantumPlayerMatchData,

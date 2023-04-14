@@ -38,6 +38,10 @@ parameters:
     values:
       - false
       - true
+  - name: useUnityAccelerator
+    displayName: Use Accelerator
+    type: boolean
+    default: true
 
 variables:
 - group: Secrets

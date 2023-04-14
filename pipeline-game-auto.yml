@@ -27,6 +27,8 @@ variables:
   value: $(UNITY-PASSWORD)
 - name: unity_serial
   value: $(UNITY-SERIAL)
+- name: unity_email
+  value: $(UNITY-EMAIL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
 - name: configuration
@@ -89,7 +91,7 @@ stages:
         parameters:
           configuration: $(configuration)
           platform: Android
-          unity_username: ian.moroney@firstlight.games
+          unity_username: $(unity_email)
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
           workingDirectory: .
@@ -99,6 +101,7 @@ stages:
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
+          useUnityAccelerator: $(useUnityAccelerator)
     - job: iOSBuild
       timeoutInMinutes: 90
       dependsOn: EditorTests
@@ -114,7 +117,7 @@ stages:
         parameters:
           configuration: $(configuration)
           platform: iOS
-          unity_username: ian.moroney@firstlight.games
+          unity_username: $(unity_email)
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)
           workingDirectory: .
@@ -125,3 +128,4 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           developmentiOSCertPwd: $(developmentiOSCertPwd)
           distributioniOSCertPwd: $(distributioniOSCertPwd)
+          useUnityAccelerator: $(useUnityAccelerator)

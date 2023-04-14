@@ -68,7 +68,7 @@ stages:
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite
-      condition: eq('${{ variables.runUnitTests }}', true)
+      condition: eq('${{ variables.runUnitTests }}', 'true')
       steps:
       - checkout: self
         lfs: true

@@ -32,12 +32,9 @@ parameters:
       - STAGE_SERVER
       - LIVE_SERVER
   - name: runUnitTests
-    displayName: Run Unit Tests?
-    type: string
-    default: false
-    values:
-      - false
-      - true
+    displayName: Run Unit Tests
+    type: boolean
+    default: true
   - name: useUnityAccelerator
     displayName: Use Accelerator
     type: boolean
@@ -119,7 +116,7 @@ stages:
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: ${{ parameters.useUnityAccelerator }}
     - job: iOSBuild
       timeoutInMinutes: 90
       dependsOn: EditorTests
@@ -146,4 +143,4 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           developmentiOSCertPwd: $(developmentiOSCertPwd)
           distributioniOSCertPwd: $(distributioniOSCertPwd)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: ${{ parameters.useUnityAccelerator }}

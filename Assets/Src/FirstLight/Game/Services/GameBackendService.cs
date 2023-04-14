@@ -129,12 +129,17 @@ namespace FirstLight.Game.Services
 		/// Will handle a recoverable exception, making sure it will get to all analytics services
 		/// </summary>
 		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
-
-
+		
 		/// <summary>
 		/// Returns if the game is running on dev env. On dev things can be different.
 		/// </summary>
 		bool IsDev();
+		
+		/// <summary>
+		/// Handles if we should redirect the login flow to another environment after logging in.
+		/// This is mainly for store approval where we redirect builds to staging.
+		/// </summary>
+		bool IsEnvironmentRedirect { get; set; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -201,11 +206,6 @@ namespace FirstLight.Game.Services
 
 		public void SetupBackendEnvironment()
 		{
-			if (CurrentEnvironmentData != null)
-			{
-				return;
-			}
-
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
@@ -413,6 +413,8 @@ namespace FirstLight.Game.Services
 		{
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
 		}
+
+		public bool IsEnvironmentRedirect { get; set; }
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{

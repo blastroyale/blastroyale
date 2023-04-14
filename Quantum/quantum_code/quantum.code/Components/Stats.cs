@@ -274,7 +274,7 @@ namespace Quantum
 				return;
 			}
 
-			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - damageAmount);
+			AttackerSetCurrentHealth(f, entity, spell, previousHealth - damageAmount);
 		}
 
 		private void SetCurrentShield(Frame f, EntityRef entity, int amount, int previousShieldCapacity)
@@ -290,21 +290,21 @@ namespace Quantum
 			}
 		}
 
-		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, EntityRef attacker, int amount)
+		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, Spell spell, int amount)
 		{
 			var previousHealth = CurrentHealth;
 
 			SetCurrentHealth(f, entity, amount);
 
-			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
+			if (CurrentHealth != previousHealth && spell.Attacker != EntityRef.None)
 			{
-				f.Signals.HealthChangedFromAttacker(entity, attacker, previousHealth);
+				f.Signals.HealthChangedFromAttacker(entity, spell.Attacker, previousHealth);
 			}
 
 			if (CurrentHealth == 0)
 			{
-				f.Signals.HealthIsZeroFromAttacker(entity, attacker);
-				f.Events.OnHealthIsZeroFromAttacker(entity, attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
+				f.Signals.HealthIsZeroFromAttacker(entity, spell.Attacker, spell.Id == Spell.HeightDamageId);
+				f.Events.OnHealthIsZeroFromAttacker(entity, spell.Attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
 			}
 		}
 

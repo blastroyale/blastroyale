@@ -55,9 +55,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - EnginePower: 3
-    - GradPower: 0.5
-    - NoiseSpeed: 0.2
+    - EnginePower: 5
+    - GradPower: 0.8
+    - NoiseSpeed: 0.3
     - PulseFrequency: 1
     - PulseOffset: 0.1
     - PulseSpeed: 1

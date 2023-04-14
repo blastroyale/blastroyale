@@ -49,6 +49,7 @@ namespace Quantum
 				new TriggerSystem(),
 				new DestructibleSystem(),
 				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
+				new RoofDamageSystem(),
 
 				// Debugging
 				new BotSDKDebuggerSystem(),

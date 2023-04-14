@@ -44,12 +44,12 @@ namespace Quantum
 				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
 			}
 
-			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
+			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity, QBoolean fromRoofDamage)
 			{
 				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 				var matchData = data[player];
 
-				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity);
+				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity, fromRoofDamage);
 
 				if (ev == null)
 				{

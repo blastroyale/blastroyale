@@ -41,6 +41,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fe3d64007f4f54e41a97a8372dce8235, type: 3}
   - {fileID: 21300000, guid: 062e0c1009f9f442e8322f4e78215bfa, type: 3}
   - {fileID: 21300000, guid: 6c8816209eb3543fabf19cd382d6cab2, type: 3}
+  - {fileID: 21300000, guid: 51c83a205dc4f4aefa974a6dd68d3ee7, type: 3}
   - {fileID: 21300000, guid: 7ffb27509a1d146a8957bdb2a5922475, type: 3}
   - {fileID: 21300000, guid: bb3c9b50f762955b2a65f5ebdf6242d5, type: 3}
   - {fileID: 21300000, guid: 1c482670299c848719f57b20a568dcf6, type: 3}
@@ -236,6 +237,7 @@ SpriteAtlas:
   - button-popup-equipment-close-pressed
   - button-long-red
   - icon-jetpack
+  - background-avatar-nft
   - background-gamemode-deathmatch-top
   - button-play-disabled
   - button-equipmentslot-uncommon-pressed

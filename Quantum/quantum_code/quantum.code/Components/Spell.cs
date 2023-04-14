@@ -5,8 +5,9 @@ namespace Quantum
 {
 	public partial struct Spell
 	{
-		public const uint DefaultId = 0;
-		public const uint ShrinkingCircleId = 1;
+		public const byte DefaultId = 0;
+		public const byte ShrinkingCircleId = 1;
+		public const byte HeightDamageId = 2;
 		
 		/// <summary>
 		/// Checks if this is a instant hit spell type

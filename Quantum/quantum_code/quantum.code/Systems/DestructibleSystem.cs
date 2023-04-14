@@ -35,7 +35,7 @@ namespace Quantum.Systems
 		}
 		
 		/// <inheritdoc />
-		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			if (!f.Unsafe.TryGetPointer<Destructible>(entity, out var destructible) || destructible->IsDestructing)
 			{

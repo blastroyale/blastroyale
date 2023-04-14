@@ -78,8 +78,8 @@ variables:
 pool: macos
 
 stages:
-- stage: AutoBuilds
-  displayName: Auto Builds
+- stage: ManualBuilds
+  displayName: Manual Builds
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite

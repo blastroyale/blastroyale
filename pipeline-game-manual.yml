@@ -96,8 +96,6 @@ stages:
       dependsOn: EditorTests
       displayName: Android Build
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
-      workspace:
-        clean: all
       steps:
       - checkout: self
         lfs: true
@@ -121,8 +119,6 @@ stages:
       timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: iOS Build
-      workspace:
-        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self

@@ -31,10 +31,10 @@ namespace Quantum.Systems
 
 			hazard->NextTickTime += hazard->NextTickTime == FP._0 ? f.Time + hazard->Interval : hazard->Interval;
 
-			ProcessAreaHazard(f, hazard, filter);
+			ProcessAreaHazard(f, hazard, ref filter);
 		}
 
-		private void ProcessAreaHazard(Frame f, Hazard* hazard, HazardFilter filter)
+		private void ProcessAreaHazard(Frame f, Hazard* hazard, ref HazardFilter filter)
 		{
 
 			if (f.GetSingleton<GameContainer>().IsGameOver)
@@ -79,26 +79,26 @@ namespace Quantum.Systems
 						spell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER);
 					}
 
-					if (!QuantumHelpers.ProcessHit(f, spell))
+					if (!QuantumHelpers.ProcessHit(f, &spell))
 					{
 						continue;
 					}
 
-					OnHit(f, spell);
+					OnHit(f, &spell);
 				}
 			}
 		}
 
-		private void OnHit(Frame f, Spell spell)
+		private void OnHit(Frame f, Spell* spell)
 		{
-			var source = f.Get<Hazard>(spell.SpellSource);
+			var source = f.Get<Hazard>(spell->SpellSource);
 			
 			if (source.StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnHazardHit(spell.Attacker, spell.Victim, source, spell.OriginalHitPosition);
+			f.Events.OnHazardHit(spell->Attacker, spell->Victim, source, spell->OriginalHitPosition);
 		}
 	}
 }

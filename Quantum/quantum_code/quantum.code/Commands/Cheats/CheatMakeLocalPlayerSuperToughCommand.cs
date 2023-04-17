@@ -32,7 +32,8 @@ namespace Quantum.Commands
 			
 			stats->AddModifier(f, entity, healthModifier);
 			stats->GainShield(f, entity, int.MaxValue);
-			stats->GainHealth(f, entity, new Spell {PowerAmount = uint.MaxValue});
+			var spell = new Spell {PowerAmount = uint.MaxValue};
+			stats->GainHealth(f, entity, &spell);
 #else
 		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
 #endif

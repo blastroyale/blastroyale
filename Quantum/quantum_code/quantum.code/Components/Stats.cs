@@ -218,20 +218,20 @@ namespace Quantum
 		/// <summary>
 		/// Gives this entity the health based on the given `<paramref name="spell"/> 
 		/// </summary>
-		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
+		internal void GainHealth(Frame f, EntityRef entity, Spell* spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}
 			
-			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell.PowerAmount));
+			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell->PowerAmount));
 		}
 
 		/// <summary>
 		/// Reduces the health of this <paramref name="entity"/> based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
+		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
@@ -244,7 +244,7 @@ namespace Quantum
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 			
-			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell.PowerAmount).AsInt);
+			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell->PowerAmount).AsInt);
 
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
@@ -290,21 +290,21 @@ namespace Quantum
 			}
 		}
 
-		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, Spell spell, int amount)
+		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, Spell* spell, int amount)
 		{
 			var previousHealth = CurrentHealth;
 
 			SetCurrentHealth(f, entity, amount);
 
-			if (CurrentHealth != previousHealth && spell.Attacker != EntityRef.None)
+			if (CurrentHealth != previousHealth && spell->Attacker != EntityRef.None)
 			{
-				f.Signals.HealthChangedFromAttacker(entity, spell.Attacker, previousHealth);
+				f.Signals.HealthChangedFromAttacker(entity, spell->Attacker, previousHealth);
 			}
 
 			if (CurrentHealth == 0)
 			{
-				f.Signals.HealthIsZeroFromAttacker(entity, spell.Attacker, spell.Id == Spell.HeightDamageId);
-				f.Events.OnHealthIsZeroFromAttacker(entity, spell.Attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
+				f.Signals.HealthIsZeroFromAttacker(entity, spell->Attacker, spell->Id == Spell.HeightDamageId);
+				f.Events.OnHealthIsZeroFromAttacker(entity, spell->Attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
 			}
 		}
 

@@ -29,7 +29,7 @@ namespace Quantum.Systems
 			var spell = Spell.CreateInstant(f, filter.Entity, filter.Destructible->Destroyer, filter.Destructible->Destroyer, power, 0,
 			                                filter.Transform->Position);
 
-			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);
+			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, &spell);
 			f.Events.OnHazardLand(filter.Destructible->GameId, filter.Transform->Position, filter.Destructible->Destroyer);
 			f.Add<EntityDestroyer>(filter.Entity);
 		}

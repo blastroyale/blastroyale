@@ -39,7 +39,8 @@ namespace Quantum
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) Amount.AsInt});
+					var spell = new Spell {PowerAmount = (uint) Amount.AsInt};
+					stats->GainHealth(f, playerEntity, &spell);
 					break;
 				case ConsumableType.Rage:
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, Amount.AsInt);
@@ -87,7 +88,8 @@ namespace Quantum
 					switch (ConsumableType)
 					{
 						case ConsumableType.Health:
-							stats->GainHealth(f, teammateCandidate.Entity, new Spell { PowerAmount = (uint)Amount.AsInt });
+							var spell = new Spell {PowerAmount = (uint) Amount.AsInt};
+							stats->GainHealth(f, teammateCandidate.Entity, &spell);
 							break;
 						case ConsumableType.Ammo:
 							f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity)->GainAmmoPercent(f, teammateCandidate.Entity, Amount);

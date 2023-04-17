@@ -49,23 +49,23 @@ namespace Quantum.Systems
 				                           filter.Spell->OriginalHitPosition, filter.Spell->PowerAmount);
 			}
 			
-			HandleHealth(f, *filter.Spell, false);
+			HandleHealth(f, filter.Spell, false);
 		}
 
-		private void HandleHealth(Frame f, Spell spell, bool isHealing)
+		private void HandleHealth(Frame f, Spell* spell, bool isHealing)
 		{
-			if (!f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats) || spell.PowerAmount == 0)
+			if (!f.Unsafe.TryGetPointer<Stats>(spell->Victim, out var stats) || spell->PowerAmount == 0)
 			{
 				return;
 			}
 
 			if (isHealing)
 			{
-				stats->GainHealth(f, spell.Victim, spell);
+				stats->GainHealth(f, spell->Victim, spell);
 			}
 			else
 			{
-				stats->ReduceHealth(f, spell.Victim, spell);
+				stats->ReduceHealth(f, spell->Victim, spell);
 			}
 		}
 

@@ -194,7 +194,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					CheckEnemiesToShooAt(f, ref filter, weaponConfig);
+					CheckEnemiesToShooAt(f, ref filter, ref weaponConfig);
 				}
 
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
@@ -397,7 +397,7 @@ namespace Quantum.Systems
 		}
 
 		// We loop through targetable entities trying to find if any is eligible to shoot at
-		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, QuantumWeaponConfig weaponConfig)
+		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, ref QuantumWeaponConfig weaponConfig)
 		{
 			var target = EntityRef.None;
 

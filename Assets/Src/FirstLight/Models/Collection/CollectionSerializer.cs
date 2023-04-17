@@ -2,7 +2,6 @@ using System;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.PolymorphicMessagePack;
 using MessagePack;
-using Sirenix.Serialization;
 
 namespace FirstLight.Models.Collection
 {

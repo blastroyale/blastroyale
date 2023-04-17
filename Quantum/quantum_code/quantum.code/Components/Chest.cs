@@ -188,13 +188,6 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					//TODO: add a large health consumable drop
-					if (ammoFilled > FP._0_75 && shieldFilled > Constants.ENERGY_CHEST_DROP_THRESHOLD - 1)
-					{
-						drop = GameId.EnergyCubeSmall;
-						ammoFilled -= FP._0_20;
-						shieldFilled -= FP._0_20;
-					}
 					if (ammoFilled < shieldFilled) //ammo
 					{
 						drop = GameId.AmmoSmall;
@@ -315,7 +308,6 @@ namespace Quantum
 						
 						continue;
 					}
-
 
 					// If we dropped all equipment from loadout, then choose between upgrades for equipment or consumables
 					// chances are: 25% equipment, 25% large shields consumable, 25% large ammo consumable, 25% health

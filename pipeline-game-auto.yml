@@ -68,7 +68,7 @@ stages:
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite
-      condition: eq('${{ variables.runUnitTests }}', true)
+      condition: eq('${{ variables.runUnitTests }}', 'true')
       steps:
       - checkout: self
         lfs: true
@@ -101,7 +101,7 @@ stages:
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: true
     - job: iOSBuild
       timeoutInMinutes: 90
       dependsOn: EditorTests
@@ -128,4 +128,4 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           developmentiOSCertPwd: $(developmentiOSCertPwd)
           distributioniOSCertPwd: $(distributioniOSCertPwd)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: true

@@ -32,12 +32,13 @@ parameters:
       - STAGE_SERVER
       - LIVE_SERVER
   - name: runUnitTests
-    displayName: Run Unit Tests?
-    type: string
-    default: false
-    values:
-      - false
-      - true
+    displayName: Run Unit Tests
+    type: boolean
+    default: true
+  - name: useUnityAccelerator
+    displayName: Use Accelerator
+    type: boolean
+    default: true
 
 variables:
 - group: Secrets
@@ -77,8 +78,8 @@ variables:
 pool: macos
 
 stages:
-- stage: AutoBuilds
-  displayName: Auto Builds
+- stage: ManualBuilds
+  displayName: Manual Builds
   jobs:
     - job: EditorTests
       displayName: Run Editor Test Suite
@@ -95,8 +96,6 @@ stages:
       dependsOn: EditorTests
       displayName: Android Build
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
-      workspace:
-        clean: all
       steps:
       - checkout: self
         lfs: true
@@ -115,13 +114,11 @@ stages:
           webhookUrl: $(webhookUrl)
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: ${{ parameters.useUnityAccelerator }}
     - job: iOSBuild
       timeoutInMinutes: 90
       dependsOn: EditorTests
       displayName: iOS Build
-      workspace:
-        clean: all
       condition: in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
       steps:
       - checkout: self
@@ -142,4 +139,4 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           developmentiOSCertPwd: $(developmentiOSCertPwd)
           distributioniOSCertPwd: $(distributioniOSCertPwd)
-          useUnityAccelerator: $(useUnityAccelerator)
+          useUnityAccelerator: ${{ parameters.useUnityAccelerator }}

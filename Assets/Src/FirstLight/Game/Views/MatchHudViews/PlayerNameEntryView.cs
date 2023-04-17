@@ -1,5 +1,6 @@
 ﻿using System;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Photon.Realtime;
 using TMPro;
@@ -66,7 +67,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_hostIconObject.SetActive(isHost);
 
-			_playerNameText.text = string.IsNullOrEmpty(partyId) ? $"{PlayerName} [{partyId}]" : PlayerName;
+			_playerNameText.text = string.IsNullOrEmpty(partyId) ? PlayerName : $"{PlayerName} [{partyId.Replace(GameConstants.Network.MANUAL_TEAM_ID_PREFIX, "")}]";
 
 			if (!isLoaded)
 			{

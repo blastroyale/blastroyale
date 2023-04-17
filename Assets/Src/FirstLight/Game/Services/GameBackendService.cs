@@ -192,8 +192,8 @@ namespace FirstLight.Game.Services
 		{
 			envData.EnvironmentID = Environment.STAGING;
 			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
 		}
 
 		private void SetupDev(BackendEnvironmentData envData)

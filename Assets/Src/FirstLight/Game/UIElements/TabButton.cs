@@ -4,6 +4,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Copied from Shader Graph package
+	/// </summary>
 	public class TabButton : VisualElement
 	{
 		internal new class UxmlFactory : UxmlFactory<TabButton, UxmlTraits>
@@ -77,12 +80,24 @@ namespace FirstLight.Game.UIElements
 		private void Init()
 		{
 			AddToClassList(s_UssClassName);
-			styleSheets.Add(Resources.Load<StyleSheet>($"Styles/{styleName}"));
+			// styleSheets.Add(Resources.Load<StyleSheet>($"Styles/{styleName}"));
+			//
+			// VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"UXML/{UxmlName}");
+			// visualTree.CloneTree(this);
 
-			VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"UXML/{UxmlName}");
-			visualTree.CloneTree(this);
-
-			m_Label = this.Q<Label>("Label");
+			// m_Label = this.Q<Label>("Label");
+			
+			var topBar = new VisualElement();
+			Add(topBar);
+			topBar.AddToClassList("unity-tab-button__top-bar");
+			
+			var content = new VisualElement();
+			Add(content);
+			content.AddToClassList("unity-tab-button__content");
+			
+			m_Label = new Label {name = "Label"};
+			content.Add(m_Label);
+			m_Label.AddToClassList("unity-tab-button__content-label");
 
 			CreateContextMenu(this);
 

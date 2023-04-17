@@ -5,6 +5,11 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Copied from Shader Graph package.
+	///
+	/// Used to create a tabbed view with a tab bar and a content area.
+	/// </summary>
 	public class TabbedView : VisualElement
 	{
 		public new class UxmlFactory : UxmlFactory<TabbedView, UxmlTraits>
@@ -28,7 +33,7 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(s_UssClassName);
 
-			styleSheets.Add(Resources.Load<StyleSheet>($"Styles/{k_styleName}"));
+			// styleSheets.Add(Resources.Load<StyleSheet>($"Styles/{k_styleName}"));
 
 			m_TabContent = new VisualElement();
 			m_TabContent.name = "unity-tabs-container";

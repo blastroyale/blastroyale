@@ -3,7 +3,8 @@ using UnityEditor;
 
 namespace FirstLight.Editor.EditorTools
 {
-	// TODO DYNAMIC CODE GEN 
+	// TODO DYNAMIC CODE GEN
+	[InitializeOnLoad]
 	public static class FlagsEditorMenu
 	{
 		private const string DisableTutorial = "FLG/Flags/Disable Tutorial";

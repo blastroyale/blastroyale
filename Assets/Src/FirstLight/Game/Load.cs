@@ -43,6 +43,7 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService(uiService);
+
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,

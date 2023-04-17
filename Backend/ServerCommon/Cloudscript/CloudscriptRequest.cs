@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Modules;
+using FirstLightServerSDK.Modules;
 using PlayFab;
 
 namespace ServerCommon.Cloudscript
@@ -10,12 +11,12 @@ namespace ServerCommon.Cloudscript
 	/// Objects that represent cloudscript response formats
 	/// </summary>
 	[Serializable]
-	public class CloudscriptRequest
+	public class CloudscriptRequest<T> where T : ICloudScriptDataObject
 	{
 		[Required(ErrorMessage = "Caller entity profile is required")]
 		public PlayfabEntityProfile? CallerEntityProfile { get; set; }
 		
-		public LogicRequest? FunctionArgument { get; set; }
+		public T? FunctionArgument { get; set; }
 		
 		public string PlayfabId => CallerEntityProfile?.Lineage?.MasterPlayerAccountId;
         

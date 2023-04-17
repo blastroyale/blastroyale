@@ -19,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -448,7 +449,12 @@ namespace FirstLight.Game.Services
 				try
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
+					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
+					{
+						// _services.CollectionEnrichnmentService.Enrich(enrichmentData);
+					}
+					_dataService.AddData(type, dataInstance);
 				}
 				catch (Exception)
 				{

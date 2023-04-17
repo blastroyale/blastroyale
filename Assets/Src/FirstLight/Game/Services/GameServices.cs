@@ -9,6 +9,7 @@ using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
+using FirstLightServerSDK.Modules.RemoteCollection;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -114,6 +115,8 @@ namespace FirstLight.Game.Services
 		
 		public IGameUiService GameUiService { get; }
 		
+		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -159,7 +162,11 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
+		
+		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		
 		public string QuitReason { get; set; }
+		
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
@@ -194,6 +201,7 @@ namespace FirstLight.Game.Services
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
+			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService, GameBackendService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);

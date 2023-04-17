@@ -346,7 +346,7 @@ namespace FirstLight.Game.Services
 		private Exception ExtractException(ExecuteFunctionResult req)
 		{
 			var result = req.FunctionResult as JsonObject;
-			if (result.TryGetValue("error", out var error) && error != null)
+			if (result != null && result.TryGetValue("error", out var error) && error != null)
 			{
 				return new Exception(error.ToString());
 			}

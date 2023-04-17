@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Backend;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using GameLogicService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("ConsumeValidatedPurchaseCommand")]
-		public async Task<dynamic> ConsumeValidatedPurchaseCommand([FromBody] CloudscriptRequest request)
+		public async Task<dynamic> ConsumeValidatedPurchaseCommand([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			var itemId = request.FunctionArgument.Data["item_id"];
 			var fakeStore = bool.Parse(request.FunctionArgument.Data["fake_store"]);
@@ -46,7 +47,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("ExecuteCommand")]
-		public async Task<dynamic> ExecuteCommand([FromBody] CloudscriptRequest request)
+		public async Task<dynamic> ExecuteCommand([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.RunLogic(request.PlayfabId, request.FunctionArgument)));
 		}
@@ -54,7 +55,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("GetPlayerData")]
-		public async Task<IActionResult> GetPlayerData([FromBody] CloudscriptRequest request)
+		public async Task<IActionResult> GetPlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.GetPlayerData(request.PlayfabId)));
 		}
@@ -62,7 +63,7 @@ namespace ServerCommon.Cloudscript
 		[HttpPost]
 		[RequiresApiKey]
 		[Route("RemovePlayerData")]
-		public async Task<IActionResult> DeletePlayerData([FromBody] CloudscriptRequest request)
+		public async Task<IActionResult> DeletePlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.RemovePlayerData(request.PlayfabId)));
 		}

@@ -29,7 +29,7 @@ public class TestCommandManager
 
 		var serializedCommand = ModelSerializer.Serialize(cmd).Value;
 		
-		Assert.AreEqual("{\"Item\":{\"Id\":\"Male01Avatar\"}}", serializedCommand);
+		Assert.AreEqual("{\"Item\":{\"Id\":\"Male01Avatar\",\"Meta\":[]}}", serializedCommand);
 	}
 	
 	[Test]

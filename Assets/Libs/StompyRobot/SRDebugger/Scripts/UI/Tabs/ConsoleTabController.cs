@@ -22,6 +22,9 @@ namespace SRDebugger.UI.Tabs
         private static bool _hasWarnedAboutLogHandler;
         private static bool _hasWarnedAboutLoggingDisabled;
 
+        [Import]
+        public IConsoleFilterState FilterState;
+
         [RequiredField]
         public ConsoleLogControl ConsoleLogControl;
 
@@ -80,10 +83,28 @@ namespace SRDebugger.UI.Tabs
             base.Start();
 
             _consoleCanvas = GetComponent<Canvas>();
+            
+            ToggleErrors.isOn = FilterState.GetConsoleFilterState(LogType.Error);
+            ToggleWarnings.isOn = FilterState.GetConsoleFilterState(LogType.Warning);
+            ToggleInfo.isOn = FilterState.GetConsoleFilterState(LogType.Log);
+            
+            ToggleErrors.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Error, isOn);
+                _isDirty = true;
+            });
 
-            ToggleErrors.onValueChanged.AddListener(isOn => _isDirty = true);
-            ToggleWarnings.onValueChanged.AddListener(isOn => _isDirty = true);
-            ToggleInfo.onValueChanged.AddListener(isOn => _isDirty = true);
+            ToggleWarnings.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Warning, isOn);
+                _isDirty = true;
+            });
+
+            ToggleInfo.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Log, isOn);
+                _isDirty = true;
+            });
 
             PinToggle.onValueChanged.AddListener(PinToggleValueChanged);
 
@@ -100,6 +121,7 @@ namespace SRDebugger.UI.Tabs
 
             Service.Console.Updated += ConsoleOnUpdated;
             Service.Panel.VisibilityChanged += PanelOnVisibilityChanged;
+            FilterState.FilterStateChange += OnFilterStateChange;
 
             StackTraceText.supportRichText = Settings.Instance.RichTextInConsole;
             PopulateStackTraceArea(null);
@@ -107,7 +129,22 @@ namespace SRDebugger.UI.Tabs
             Refresh();
         }
 
-
+        private void OnFilterStateChange(LogType logtype, bool newstate)
+        {
+            switch (logtype)
+            {
+                case LogType.Error:
+                    ToggleErrors.isOn = newstate;
+                    break;
+                case LogType.Warning:
+                    ToggleWarnings.isOn = newstate;
+                    break;
+                case LogType.Log:
+                    ToggleInfo.isOn = newstate;
+                    break;
+            }
+        }
+        
         private void FilterToggleValueChanged(bool isOn)
         {
             if (isOn)
@@ -164,6 +201,8 @@ namespace SRDebugger.UI.Tabs
             {
                 Service.Console.Updated -= ConsoleOnUpdated;
             }
+
+            FilterState.FilterStateChange -= OnFilterStateChange;
 
             
             base.OnDestroy();

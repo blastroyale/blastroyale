@@ -279,6 +279,14 @@ namespace SRDebugger
 #endif
         }
 
+        public float BackgroundTransparency
+        {
+            get { return _backgroundTransparency; }
+#if UNITY_EDITOR
+            set { _backgroundTransparency = value; }
+#endif
+        }
+
         public bool RequireCode
         {
             get { return _requireEntryCode; }
@@ -552,11 +560,21 @@ namespace SRDebugger
 #endif
         }
 
-        #endregion
+#if UNITY_EDITOR
+        public bool DisableWelcomePopup
+        {
+            get { return _disableWelcomePopup; }
+            set { _disableWelcomePopup = value; }
+        }
+#endif
+
+#endregion
 
         #region Serialization
 
         [SerializeField] private bool _isEnabled = true;
+
+        [SerializeField] private bool _disableWelcomePopup = false;
 
         [SerializeField] private UIModes _uiInputMode = UIModes.NewInputSystem;
 
@@ -585,6 +603,8 @@ namespace SRDebugger
         [SerializeField] private bool _keyboardEscapeClose = true;
 
         [SerializeField] private bool _enableBackgroundTransparency = true;
+
+        [SerializeField] private float _backgroundTransparency = 0.9f;
 
         [SerializeField] private bool _collapseDuplicateLogEntries = true;
 

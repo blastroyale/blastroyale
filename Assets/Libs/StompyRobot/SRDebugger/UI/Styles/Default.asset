@@ -79,6 +79,7 @@ MonoBehaviour:
   - Icon_Copy
   - Button_Background
   - Modal_BackgroundFade
+  - Tab_Background_Transparent
   _styles:
   - ActiveColor: {r: 1, g: 1, b: 1, a: 1}
     DisabledColor: {r: 1, g: 1, b: 1, a: 1}
@@ -134,7 +135,7 @@ MonoBehaviour:
     DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     HoverColor: {r: 1, g: 1, b: 1, a: 1}
     Image: {fileID: 0}
-    NormalColor: {r: 0.20392157, g: 0.20392157, b: 0.20392157, a: 1}
+    NormalColor: {r: 0.16470589, g: 0.16078432, b: 0.16078432, a: 1}
   - ActiveColor: {r: 1, g: 1, b: 1, a: 1}
     DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     HoverColor: {r: 1, g: 1, b: 1, a: 1}
@@ -209,7 +210,7 @@ MonoBehaviour:
     DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     HoverColor: {r: 1, g: 1, b: 1, a: 1}
     Image: {fileID: 0}
-    NormalColor: {r: 0.11372549, g: 0.11372549, b: 0.12156863, a: 0.9019608}
+    NormalColor: {r: 0.11372549, g: 0.11372549, b: 0.12156863, a: 1}
   - ActiveColor: {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
     DisabledColor: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
     HoverColor: {r: 0.3254902, g: 0.3254902, b: 0.3254902, a: 1}
@@ -410,4 +411,9 @@ MonoBehaviour:
     HoverColor: {r: 1, g: 1, b: 1, a: 1}
     Image: {fileID: 0}
     NormalColor: {r: 0, g: 0, b: 0, a: 0.7607843}
+  - ActiveColor: {r: 1, g: 1, b: 1, a: 1}
+    DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    HoverColor: {r: 1, g: 1, b: 1, a: 1}
+    Image: {fileID: 0}
+    NormalColor: {r: 0.16470589, g: 0.16078432, b: 0.16078432, a: 0.95}
   Parent: {fileID: 0}

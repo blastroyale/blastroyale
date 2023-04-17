@@ -53,6 +53,7 @@
         public const string InheritColour = UIRoot + "/Inherit Colour";
         public const string FlashGraphic = UIRoot + "/Flash Graphic";
         public const string CopyPreferredSize = UIRoot + "/Copy Preferred Size";
+        public const string CopyPreferredSizes = UIRoot + "/Copy Preferred Size (Multiple)";
         public const string CopyLayoutElement = UIRoot + "/Copy Layout Element";
         public const string CopySizeIntoLayoutElement = UIRoot + "/Copy Size Into Layout Element";
         public const string SRText = UIRoot + "/SRText";

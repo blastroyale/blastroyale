@@ -277,9 +277,9 @@ namespace SRF.Service
                 try
                 {
 #if NETFX_CORE
-                    types.AddRange(assembly.ExportedTypes);
+                    types.AddRange(assembly.Types);
 #else
-                    types.AddRange(assembly.GetExportedTypes());
+                    types.AddRange(assembly.GetTypes());
 #endif
                 }
                 catch (Exception e)

@@ -60,11 +60,11 @@
 
         public Dictionary<string, Dictionary<string, object>> CreateReport(bool includePrivate = false)
         {
-            var dict = new Dictionary<string, Dictionary<string, object>>();
+            var dict = new Dictionary<string, Dictionary<string, object>>(_info.Count);
 
             foreach (var keyValuePair in _info)
             {
-                var category = new Dictionary<string, object>();
+                var category = new Dictionary<string, object>(keyValuePair.Value.Count);
 
                 foreach (var systemInfo in keyValuePair.Value)
                 {
@@ -125,6 +125,7 @@
                 InfoEntry.Create("Sandbox", Application.sandboxType),
                 InfoEntry.Create("IL2CPP", IL2CPP),
                 InfoEntry.Create("Application Version", Application.version),
+                InfoEntry.Create("Application Id", Application.identifier),
                 InfoEntry.Create("SRDebugger Version", SRDebug.Version),
             });
 

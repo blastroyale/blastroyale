@@ -89,9 +89,11 @@ namespace SRDebugger.Profiler
 
         IEnumerator EndOfFrameCoroutine()
         {
+			var endOfFrame = new WaitForEndOfFrame();
+			
             while (true)
             {
-                yield return new WaitForEndOfFrame();
+                yield return endOfFrame;
                 _renderDuration = _stopwatch.Elapsed.TotalSeconds - _renderStartTime;
             }
         }

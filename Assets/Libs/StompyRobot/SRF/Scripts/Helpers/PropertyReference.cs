@@ -195,5 +195,14 @@ namespace SRF.Helpers
             NotifyValueChanged();
         }
 
+        public override string ToString()
+        {
+            if (_property != null)
+            {
+                return "{0}.{1}".Fmt(_property.DeclaringType.Name, _property.Name);
+            }
+
+            return "<delegate>";
+        }
     }
 }

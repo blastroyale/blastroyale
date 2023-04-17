@@ -197,11 +197,16 @@ namespace Quantum.Systems
 					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
 					step++;
 				}
-				for(uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
+
+				if(QuantumFeatureFlags.DropEnergyCubes)
 				{
-					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false);
-					step++;
+					for (uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
+					{
+						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false);
+						step++;
+					}
 				}
+				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);

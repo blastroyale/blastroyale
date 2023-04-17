@@ -1,5 +1,8 @@
-﻿namespace SRDebugger.UI.Tabs
+﻿using SRF.Service;
+
+namespace SRDebugger.UI.Tabs
 {
+    using Services;
     using Other;
     using SRF;
     using UnityEngine;
@@ -8,13 +11,13 @@
     {
         [RequiredField] public BugReportSheetController BugReportSheetPrefab;
 
-        [RequiredField] public RectTransform Container;
+        [RequiredField] public RectTransform Container; 
 
         public bool IsEnabled
         {
-            get { return Settings.Instance.EnableBugReporter; }
+            get { return SRServiceManager.GetService<IBugReportService>().IsUsable; }
         }
-
+        
         protected override void Start()
         {
             base.Start();

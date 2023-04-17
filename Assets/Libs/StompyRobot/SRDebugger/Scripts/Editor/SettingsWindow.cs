@@ -104,7 +104,7 @@
                     case SRInternalEditorUtil.SettingsResult.Waiting:
                     {
                         EditorGUILayout.Space();
-                        GUILayout.Label(message);
+                        GUILayout.Label(message, SRInternalEditorUtil.Styles.ParagraphLabel);
                         return false;
                     }
 
@@ -737,6 +737,13 @@
                 EditorGUILayout.Toggle(new GUIContent("Transparent Background"),
                     settings.EnableBackgroundTransparency);
 
+            EditorGUI.BeginDisabledGroup(!settings.EnableBackgroundTransparency);
+
+            settings.BackgroundTransparency = EditorGUILayout.Slider(new GUIContent("Background Opacity"),
+                settings.BackgroundTransparency, 0.0f, 1.0f);
+
+            EditorGUI.EndDisabledGroup();
+
             EditorGUILayout.BeginHorizontal();
 
             EditorGUILayout.PrefixLabel(new GUIContent("Layer", "The layer the debug panel UI will be drawn to"));
@@ -841,6 +848,10 @@
                 "The panel loads again automatically when opened. You can always unload the panel by holding down the close button.",
                 MessageType.Info);
 
+            settings.DisableWelcomePopup =
+            EditorGUILayout.Toggle(
+                new GUIContent("Disable Welcome Popup", "Disable the welcome popup that appears when a project with SRDebugger is opened for the first time."),
+                settings.DisableWelcomePopup);
 
             EditorGUILayout.Separator();
 

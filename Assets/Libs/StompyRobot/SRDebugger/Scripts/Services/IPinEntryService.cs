@@ -16,11 +16,7 @@
         /// <param name="message">Message to display to the user on the form.</param>
         /// <param name="callback">Callback to invoke when the pin entry is complete or cancelled.</param>
         /// <param name="allowCancel">True to allow the user to cancel the form.</param>
-        void ShowPinEntry(IList<int> requiredPin, string message, PinEntryCompleteCallback callback,
+        void ShowPinEntry(IReadOnlyList<int> requiredPin, string message, PinEntryCompleteCallback callback,
             bool allowCancel = true);
-
-        [Obsolete("blockInput param is deprecated (and ignored), please use overload without it.")]
-        void ShowPinEntry(IList<int> requiredPin, string message, PinEntryCompleteCallback callback, bool blockInput,
-            bool allowCancel);
     }
 }

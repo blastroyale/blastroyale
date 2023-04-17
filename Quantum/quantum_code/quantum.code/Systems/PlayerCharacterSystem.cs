@@ -301,13 +301,14 @@ namespace Quantum.Systems
 					return;
 				}
 
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
-					stats->GainHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->GainHealth(f, filter.Entity, &spell);
 				}
 				else
 				{
-					stats->ReduceHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->ReduceHealth(f, filter.Entity, & spell);
 				}
 			}
 		}

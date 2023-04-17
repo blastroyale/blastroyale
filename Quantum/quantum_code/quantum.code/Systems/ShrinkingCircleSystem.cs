@@ -32,7 +32,8 @@ namespace Quantum.Systems
 
 				if (circle->Step < 0)
 				{
-					SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
+					var config = f.ShrinkingCircleConfigs.QuantumConfigs[0];
+					SetShrinkingCircleData(f, circle, ref config);
 				}
 
 				if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
@@ -83,10 +84,11 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
-			SetShrinkingCircleData(f, circle, configs[circle->Step]);
+			var config = configs[circle->Step];
+			SetShrinkingCircleData(f, circle, ref config);
 		}
 
-		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
+		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, ref QuantumShrinkingCircleConfig config)
 		{
 			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
 			{

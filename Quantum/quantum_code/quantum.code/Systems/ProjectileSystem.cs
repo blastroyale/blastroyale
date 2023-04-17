@@ -74,11 +74,11 @@ namespace Quantum.Systems
 					(uint)(projectile.KnockbackAmount * projectile.SplashDamageRatio), position,
 					projectile.TeamSource);
 
-				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, splashSpell, uint.MaxValue, OnHit);
+				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, &splashSpell, uint.MaxValue, OnHit);
 				f.Events.OnProjectileExplosion(projectile.SourceId, position);
 			}
 
-			if (QuantumHelpers.ProcessHit(f, spell))
+			if (QuantumHelpers.ProcessHit(f, &spell))
 			{
 				OnHit(f, spell);
 			}

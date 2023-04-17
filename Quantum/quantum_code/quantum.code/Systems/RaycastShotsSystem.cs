@@ -60,12 +60,12 @@ namespace Quantum.Systems
 
 				if (filter.RaycastShots->SplashRadius > FP._0)
 				{
-					QuantumHelpers.ProcessAreaHit(f, filter.RaycastShots->SplashRadius, spell);
+					QuantumHelpers.ProcessAreaHit(f, filter.RaycastShots->SplashRadius, &spell);
 					f.Events.OnRaycastShotExplosion(filter.RaycastShots->WeaponConfigId, spell.OriginalHitPosition);
 				}
 				else
 				{
-					QuantumHelpers.ProcessHit(f, spell);
+					QuantumHelpers.ProcessHit(f, &spell);
 				}
 			
 				f.Add<EntityDestroyer>(filter.Entity);

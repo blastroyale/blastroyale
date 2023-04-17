@@ -25,6 +25,8 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IDataSaver"/>
 		IDataSaver DataSaver { get; }
+		
+		IDataService DataService { get; }
 
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
@@ -127,6 +129,7 @@ namespace FirstLight.Game.Services
 	public class GameServices : IGameServices
 	{
 		public IDataSaver DataSaver { get; }
+		public IDataService DataService { get; }
 		public IConfigsProvider ConfigsProvider { get; }
 		public IGuidService GuidService { get; }
 		public IGameNetworkService NetworkService { get; }
@@ -169,6 +172,7 @@ namespace FirstLight.Game.Services
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;
+			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;

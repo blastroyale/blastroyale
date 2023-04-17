@@ -15,6 +15,7 @@ namespace FirstLight.Tests.EditorMode
 	public class StubGameServices : IGameServices
 	{
 		public virtual IDataSaver DataSaver { get; }
+		public IDataService DataService { get; }
 		public virtual IConfigsProvider ConfigsProvider { get; }
 		public virtual IGuidService GuidService { get; }
 		public virtual IGameNetworkService NetworkService { get; }
@@ -64,6 +65,7 @@ namespace FirstLight.Tests.EditorMode
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;
+			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;

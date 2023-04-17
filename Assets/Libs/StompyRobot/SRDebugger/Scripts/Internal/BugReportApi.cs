@@ -8,7 +8,7 @@
     using System.Text;
     using UnityEngine.Networking;
 
-    class BugReportApi : MonoBehaviour
+    public class BugReportApi : MonoBehaviour
     {
         private string _apiKey;
         private BugReport _bugReport;

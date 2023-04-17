@@ -1,4 +1,6 @@
-﻿namespace SRF.UI
+﻿using UnityEngine.UI;
+
+namespace SRF.UI
 {
     using Internal;
     using UnityEngine;

@@ -13,6 +13,8 @@
         private PinAlignment _position;
         private TriggerRoot _trigger;
         private IConsoleService _consoleService;
+        private bool _showErrorNotification;
+
         public bool IsEnabled
         {
             get { return _trigger != null && _trigger.CachedGameObject.activeSelf; }
@@ -30,6 +32,34 @@
                 }
             }
         }
+
+        public bool ShowErrorNotification
+        {
+            get
+            {
+                return _showErrorNotification;
+            }
+            set
+            {
+                if (_showErrorNotification == value) return;
+
+                _showErrorNotification = value;
+
+                if (_trigger == null) return;
+
+                if(_showErrorNotification)
+                {
+                    _consoleService = SRServiceManager.GetService<IConsoleService>();
+                    _consoleService.Error += OnError;
+                }
+                else
+                {
+                    _consoleService.Error -= OnError;
+                    _consoleService = null;
+                }
+            }
+        }
+
         public PinAlignment Position
         {
             get { return _position; }
@@ -43,12 +73,14 @@
                 _position = value;
             }
         }
+
         protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(CachedGameObject);
 
             CachedTransform.SetParent(Hierarchy.Get("SRDebugger"), true);
+            ShowErrorNotification = Settings.Instance.ErrorNotification;
 
             name = "Trigger";
         }
@@ -111,12 +143,13 @@
 
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
 
-            if (Settings.Instance.ErrorNotification)
+            if (_showErrorNotification)
             {
                 _consoleService = SRServiceManager.GetService<IConsoleService>();
                 _consoleService.Error += OnError;
             }
         }
+
         protected override void OnDestroy()
         {
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnActiveSceneChanged;
@@ -128,6 +161,7 @@
 
             base.OnDestroy();
         }
+
         private static void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene s1, UnityEngine.SceneManagement.Scene s2)
         {
             SRDebuggerUtil.EnsureEventSystemExists();

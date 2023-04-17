@@ -76,6 +76,7 @@ namespace SRDebugger.UI.Controls.Data
         {
             _lastValue = newValue;
             Value.text = newValue.ToString();
+            LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
         }
 
         public override bool CanBind(Type type, bool isReadOnly)

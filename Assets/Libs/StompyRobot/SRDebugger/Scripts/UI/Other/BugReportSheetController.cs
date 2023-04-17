@@ -113,7 +113,7 @@ namespace SRDebugger.UI.Other
 
             BugReportScreenshotUtil.ScreenshotData = null;
 
-            s.SendBugReport(r, OnBugReportComplete, OnBugReportProgress);
+            s.SendBugReport(r, OnBugReportComplete, new Progress<float>(OnBugReportProgress));
         }
 
         private void OnBugReportProgress(float progress)

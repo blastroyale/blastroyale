@@ -14,14 +14,7 @@ namespace SRDebugger
     using System;
     using System.Collections;
     using System.Collections.Generic;
-
-    public interface IReadOnlyList<T> : IEnumerable<T>
-    {
-        int Count { get; }
-
-        T this[int index] { get; }
-    }
-
+    
     /// <summary>
     /// Circular buffer.
     /// When writting to a full buffer:

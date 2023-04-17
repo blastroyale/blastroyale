@@ -1,4 +1,6 @@
-﻿namespace SRDebugger.Internal
+﻿using System.Diagnostics;
+
+namespace SRDebugger.Internal
 {
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -129,8 +131,23 @@
 
 #endif
 
+            var ignoreAssembly = typeof(MonoBehaviour).Assembly;
+
             foreach (var memberInfo in members)
             {
+                // Skip any properties that are from built-in Unity types (e.g. Behaviour, MonoBehaviour)
+                if (memberInfo.DeclaringType != null && memberInfo.DeclaringType.Assembly == ignoreAssembly)
+                {
+                    continue;
+                }
+
+                var browsable = memberInfo.GetCustomAttribute<BrowsableAttribute>();
+                if (browsable != null)
+                {
+                    if (!browsable.Browsable)
+                        continue;
+                }
+
                 // Find user-specified category name from attribute
                 var categoryAttribute = SRReflection.GetAttribute<CategoryAttribute>(memberInfo);
                 var category = categoryAttribute == null ? "Default" : categoryAttribute.Category;

@@ -15,6 +15,9 @@
         private bool _isDragging;
         private int _pointersOver;
 
+        [Import]
+        public IConsoleFilterState FilterState;
+
         [RequiredField] public GameObject BottomHandle;
 
         [RequiredField] public CanvasGroup CanvasGroup;
@@ -57,6 +60,30 @@
             //_canvasScaler = Canvas.GetComponent<CanvasScaler>();
             Service.Console.Updated += ConsoleOnUpdated;
 
+            ToggleErrors.isOn = FilterState.GetConsoleFilterState(LogType.Error);
+            ToggleWarnings.isOn = FilterState.GetConsoleFilterState(LogType.Warning);
+            ToggleInfo.isOn = FilterState.GetConsoleFilterState(LogType.Log);
+
+            ToggleErrors.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Error, isOn);
+                _isDirty = true;
+            });
+
+            ToggleWarnings.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Warning, isOn);
+                _isDirty = true;
+            });
+
+            ToggleInfo.onValueChanged.AddListener(isOn =>
+            {
+                FilterState.SetConsoleFilterState(LogType.Log, isOn);
+                _isDirty = true;
+            });
+
+            FilterState.FilterStateChange += OnFilterStateChange;
+
             Refresh();
             RefreshAlpha();
         }
@@ -69,6 +96,8 @@
             {
                 Service.Console.Updated -= ConsoleOnUpdated;
             }
+
+            FilterState.FilterStateChange -= OnFilterStateChange;
         }
 
         protected override void OnEnable()
@@ -93,6 +122,22 @@
             if (_isDirty)
             {
                 Refresh();
+            }
+        }
+
+        private void OnFilterStateChange(LogType logType, bool newState)
+        {
+            switch (logType)
+            {
+                case LogType.Error:
+                    ToggleErrors.isOn = newState;
+                    break;
+                case LogType.Warning:
+                    ToggleWarnings.isOn = newState;
+                    break;
+                case LogType.Log:
+                    ToggleInfo.isOn = newState;
+                    break;
             }
         }
 
@@ -145,6 +190,10 @@
             TextInfo.text = SRDebuggerUtil.GetNumberString(Service.Console.InfoCount, 999, "999+");
             TextWarnings.text = SRDebuggerUtil.GetNumberString(Service.Console.WarningCount, 999, "999+");
             TextErrors.text = SRDebuggerUtil.GetNumberString(Service.Console.ErrorCount, 999, "999+");
+
+            ToggleErrors.isOn = FilterState.GetConsoleFilterState(LogType.Error);
+            ToggleWarnings.isOn = FilterState.GetConsoleFilterState(LogType.Warning);
+            ToggleInfo.isOn = FilterState.GetConsoleFilterState(LogType.Log);
 
             _isDirty = false;
         }

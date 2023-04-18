@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
@@ -698,8 +699,18 @@ namespace FirstLight.Game.Utils
 		/// Check if the player have NFTs
 		/// </summary>
 		/// <param name="equipmentLogic"></param>
-		/// <returns></returns>
+		[Obsolete("Please use iGameLogic.HasNfts")]
 		public static bool HasNfts(this IEquipmentDataProvider equipmentLogic)
+		{
+			return MainInstaller.Resolve<IGameDataProvider>().HasNfts();
+		}
+		
+		/// <summary>
+		/// Check if the player have NFTs
+		/// </summary>
+		/// <param name="equipmentLogic"></param>
+
+		public static bool HasNfts(this IGameDataProvider data)
 		{
 #if  UNITY_EDITOR || DEVELOPMENT_BUILD
 			if (FeatureFlags.GetLocalConfiguration().ForceHasNfts)
@@ -707,7 +718,9 @@ namespace FirstLight.Game.Utils
 				return true;
 			}
 #endif
-			return equipmentLogic.NftInventory.Count > 0;
+			var profilePictures =
+				data.CollectionDataProvider.GetOwnedCollection(CollectionCategories.PROFILE_PICTURE);
+			return profilePictures.Count > 0 || data.EquipmentDataProvider.NftInventory.Count > 0;
 		}
 
 

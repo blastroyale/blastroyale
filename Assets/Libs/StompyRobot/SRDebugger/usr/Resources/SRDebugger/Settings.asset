@@ -54,8 +54,8 @@ MonoBehaviour:
   _useDebugCamera: 0
   _debugLayer: 5
   _debugCameraDepth: 100
-  _apiKey: 
-  _enableBugReporter: 0
+  _apiKey: 067927c153774aea8ea37922786967c9
+  _enableBugReporter: 1
   _enableBugReportScreenshot: 1
   _disabledTabs: 
   _profilerAlignment: 2

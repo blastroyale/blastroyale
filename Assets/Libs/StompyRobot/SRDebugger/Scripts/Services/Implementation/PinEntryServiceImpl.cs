@@ -15,14 +15,14 @@
         private PinEntryCompleteCallback _callback;
         private bool _isVisible;
         private PinEntryControl _pinControl;
-        private List<int> _requiredPin = new List<int>(4);
+        private readonly List<int> _requiredPin = new List<int>(4);
 
         public bool IsShowingKeypad
         {
             get { return _isVisible; }
         }
 
-        public void ShowPinEntry(IList<int> requiredPin, string message, PinEntryCompleteCallback callback,
+        public void ShowPinEntry(IReadOnlyList<int> requiredPin, string message, PinEntryCompleteCallback callback,
             bool allowCancel = true)
         {
             if (_isVisible)
@@ -60,15 +60,7 @@
 
             SRDebuggerUtil.EnsureEventSystemExists();
         }
-
-        [Obsolete]
-        public void ShowPinEntry(IList<int> requiredPin, string message, PinEntryCompleteCallback callback,
-            bool blockInput,
-            bool allowCancel)
-        {
-            ShowPinEntry(requiredPin, message, callback, allowCancel);
-        }
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -118,7 +110,7 @@
             _callback(isValid);
         }
 
-        private void VerifyPin(IList<int> pin)
+        private void VerifyPin(IReadOnlyList<int> pin)
         {
             if (pin.Count != 4)
             {

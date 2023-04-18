@@ -19,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -306,7 +307,7 @@ namespace FirstLight.Game.Services
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
 										  Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
-			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
+			FLog.Info($"Logged in. PlayfabId={result.PlayFabId}");
 			
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
@@ -316,6 +317,7 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
+					FLog.Info("Redirecting to staging server!");
 					_services.MessageBrokerService.Publish(new RedirectToEnvironmentMessage()
 					{
 						NewEnvironment = Environment.STAGING
@@ -341,8 +343,9 @@ namespace FirstLight.Game.Services
 				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
 				_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime = photonAppId;
-				FLog.Verbose("Setting up photon app id by playfab title data");
+				FLog.Info("Setting up photon app id by playfab title data "+photonAppId);
 			}
+			FLog.Info("Using photon with the id "+_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime);
 			
 			var requiredServices = 2;
 			var doneServices = 0;
@@ -446,7 +449,12 @@ namespace FirstLight.Game.Services
 				try
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
+					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
+					{
+						// _services.CollectionEnrichnmentService.Enrich(enrichmentData);
+					}
+					_dataService.AddData(type, dataInstance);
 				}
 				catch (Exception)
 				{

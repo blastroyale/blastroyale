@@ -177,7 +177,11 @@ namespace Quantum.Systems
 					step++;
 				}
 
-				Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false); //drop a single level on kill
+				if (QuantumFeatureFlags.DropEnergyCubes)
+				{
+					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false); //drop a single level on kill
+
+				}
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
@@ -272,13 +276,14 @@ namespace Quantum.Systems
 					return;
 				}
 
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
-					stats->GainHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->GainHealth(f, filter.Entity, &spell);
 				}
 				else
 				{
-					stats->ReduceHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->ReduceHealth(f, filter.Entity, & spell);
 				}
 			}
 		}

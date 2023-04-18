@@ -192,8 +192,8 @@ namespace FirstLight.Game.Services
 		{
 			envData.EnvironmentID = Environment.STAGING;
 			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
 		}
 
 		private void SetupDev(BackendEnvironmentData envData)
@@ -346,7 +346,7 @@ namespace FirstLight.Game.Services
 		private Exception ExtractException(ExecuteFunctionResult req)
 		{
 			var result = req.FunctionResult as JsonObject;
-			if (result.TryGetValue("error", out var error) && error != null)
+			if (result != null && result.TryGetValue("error", out var error) && error != null)
 			{
 				return new Exception(error.ToString());
 			}

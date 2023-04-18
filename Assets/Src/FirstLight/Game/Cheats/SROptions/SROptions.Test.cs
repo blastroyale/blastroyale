@@ -367,5 +367,13 @@ public partial class SROptions
         get { return "This is a really long string with no reason other than to test long strings."; }
     }
 
+    [Browsable(false)]
+    public bool ThisBooleanPropertyShouldBeHidden { get; set; }
+
+    [Browsable(false)]
+    public void ThisMethodShouldBeHidden()
+    {
+    }
+
 #endif
 }

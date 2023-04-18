@@ -14,6 +14,8 @@ public static class SRDebug
 {
     public const string Version = SRDebugger.VersionInfo.Version;
 
+    public static bool IsInitialized { get; private set; }
+
     public static IDebugService Instance
     {
         get { return SRServiceManager.GetService<IDebugService>(); }
@@ -27,6 +29,8 @@ public static class SRDebug
 
     public static void Init()
     {
+        IsInitialized = true;
+
         SRServiceManager.RegisterAssembly<IDebugService>();
 
         // Initialize console if it hasn't already initialized.

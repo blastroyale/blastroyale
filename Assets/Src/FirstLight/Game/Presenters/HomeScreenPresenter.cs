@@ -7,12 +7,14 @@ using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Models.Collection;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -218,6 +220,7 @@ namespace FirstLight.Game.Presenters
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 		}
+
 
 		protected override void UnsubscribeFromEvents()
 		{

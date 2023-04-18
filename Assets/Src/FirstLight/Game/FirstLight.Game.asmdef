@@ -42,7 +42,8 @@
         "GUID:fe25561d224ed4743af4c60938a59d0b",
         "GUID:16ebecac2e530446695668fac2719eb9",
         "GUID:9069ac25d95ca17448a247f3bb1c769f",
-        "ParrelSync"
+        "ParrelSync",
+        "GUID:fe6c947ebf6d4c59907488965651eda6"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

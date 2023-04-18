@@ -313,10 +313,13 @@ namespace Quantum
 						
 						continue;
 					}
-					// If we dropped all equipment from loadout, then we drop energy cubes
 
-					// Drop consumable otherwise
-					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, chestPosition, angleStep++, false);
+					// If we dropped all equipment from loadout, then we drop energy cubes
+					if(QuantumFeatureFlags.DropEnergyCubes)
+					{
+						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, chestPosition, angleStep++, false);
+					}
+
 					chestItems.Add(new ChestItemDropped
 					{
 						ChestType = config.Id,

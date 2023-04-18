@@ -162,7 +162,7 @@ MonoBehaviour:
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
-      SingleSlotMode: 0
+      SingleSlotMode: 1
       DescriptionLocalisationKey: 
       Lives: 1
       DropWeaponOnPickup: 1

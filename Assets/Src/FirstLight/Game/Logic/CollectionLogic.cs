@@ -61,7 +61,7 @@ namespace FirstLight.Game.Logic
 
 		public List<CollectionItem> GetOwnedCollection(CollectionCategory group)
 		{
-			if (!Data.Collections.TryGetValue(group, out var collection))
+			if (!Data.OwnedCollectibles.TryGetValue(group, out var collection))
 			{
 				collection = new();
 			}

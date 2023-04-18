@@ -32,7 +32,6 @@ public class TestConfigsProvider
 	[Test]
 	public void TestCurrentDevData()
 	{
-
 		var cfg = new EmbeddedConfigProvider();
 		foreach (var cfgType in cfg.GetAllConfigs().Keys)
 		{

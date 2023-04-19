@@ -260,7 +260,7 @@ namespace Quantum
 					{
 						var weaponItem = hasLoadoutWeapon ? loadoutWeapon : gameContainer->GenerateNextWeapon(f);
 
-						ModifyEquipmentRarity(f, ref weaponItem, minimumRarity, gameContainer->DropPool.AverageRarity);
+						ModifyEquipmentRarity(f, ref weaponItem, gameContainer->DropPool.AverageRarity, gameContainer->DropPool.AverageRarity);
 						Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++);
 						playerCharacter->SetDroppedLoadoutItem(weaponItem);
 						skipDropNumber++;
@@ -297,7 +297,6 @@ namespace Quantum
 					if (drop.GameId != GameId.Random && drop.IsValid())
 					{
 						playerCharacter->SetDroppedLoadoutItem(drop);
-						ModifyEquipmentRarity(f, ref drop, drop.Rarity, gameContainer->DropPool.AverageRarity);
 						Collectable.DropEquipment(f, drop, chestPosition, angleStep++, playerRef);
 
 						chestItems.Add(new ChestItemDropped

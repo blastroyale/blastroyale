@@ -3440,9 +3440,9 @@ MonoBehaviour:
         RawValue: 0
       SpawnCount: 0
       RespawnTimeInSec: 0
-      InitialSpawnDelayInSec: 2
+      InitialSpawnDelayInSec: 0
       GameId:
-        Value: 91
+        Value: 86
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -3523,7 +3523,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
+        Value: 84
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -3604,7 +3604,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 79
+        Value: 84
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []

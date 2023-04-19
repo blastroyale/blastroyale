@@ -3986,7 +3986,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 49152
       DamageTakenMultiplier:
-        RawValue: 22938
+        RawValue: 26214
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
@@ -4035,8 +4035,8 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 26214
       DamageTakenMultiplier:
-        RawValue: 229376
-    - BehaviourType: 1
+        RawValue: 196608
+    - BehaviourType: 4
       GameMode: BattleRoyale First Game
       Difficulty: 0
       DecisionInterval:

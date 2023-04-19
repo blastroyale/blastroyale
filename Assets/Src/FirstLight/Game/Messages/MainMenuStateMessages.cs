@@ -32,6 +32,10 @@ namespace FirstLight.Game.Messages
 	{
 		public bool IsSpectator;
 	}
+	public struct ManualTeamIdSetMessage : IMessage
+	{
+		public string TeamId;
+	}
 	public struct RequestKickPlayerMessage : IMessage
 	{
 		public Player Player;

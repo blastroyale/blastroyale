@@ -150,6 +150,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoadedMessage);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
+			_services.MessageBrokerService.Subscribe<ManualTeamIdSetMessage>(OnManualTeamIdSetMessage);
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
@@ -157,7 +158,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MatchmakingService.OnMatchmakingJoined += OnMatchmakingJoined;
 			_services.MatchmakingService.OnMatchmakingCancelled += OnMatchmakingCancelled;
 		}
-
 
 		private void UnsubscribeEvents()
 		{
@@ -669,6 +669,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnSpectatorToggleMessage(SpectatorModeToggledMessage message)
 		{
 			_networkService.SetSpectatePlayerProperty(message.IsSpectator);
+		}
+		
+		private void OnManualTeamIdSetMessage(ManualTeamIdSetMessage message)
+		{
+			_networkService.SetManualTeamId(message.TeamId);
 		}
 
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)

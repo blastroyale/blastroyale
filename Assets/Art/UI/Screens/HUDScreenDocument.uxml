@@ -1,0 +1,72 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+            <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement class="joystick--move" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AimJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement class="joystick--aim" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button">
+                <ui:VisualElement name="Icon" class="menu-button__icon" />
+            </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
+            <FirstLight.Game.UIElements.ImageButton name="WeaponSwitchButton" class="match-button match-button--weapon-switch" style="position: absolute; top: 530px; left: 2114px;">
+                <ui:VisualElement class="match-button__bg-circle" />
+                <ui:VisualElement name="Icon" class="match-button__icon" />
+                <ui:VisualElement name="Overlay" class="match-button__overlay" />
+            </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special2" class="special-button--special2" />
+            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
+                <ui:VisualElement name="MatchStatus" class="match-status">
+                    <ui:Label text="12" display-tooltip-when-elided="true" name="AliveCountText" />
+                    <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
+                    <ui:VisualElement name="Counter" style="border-top-left-radius: 50%; border-bottom-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; width: 120px; height: 120px; background-color: rgb(128, 58, 81); margin-left: 45px; margin-right: 45px;" />
+                    <ui:Label text="12" display-tooltip-when-elided="true" name="KilledCountText" />
+                    <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="DeviceStatus" class="device-status-bar">
+                <ui:VisualElement name="IconBattery" class="icon-battery" />
+                <ui:VisualElement name="IconWifi" class="icon-wifi" />
+                <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="WeaponDisplay" class="weapon-display">
+                <ui:VisualElement name="Connector" class="weapon-display__connector" />
+                <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
+                    <ui:VisualElement name="SelectedBgPink" class="weapon-display__selected-bg-pink weapon-display__selected-bg-pink-weapon" />
+                    <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-weapon">
+                        <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
+                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">
+                        <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon">
+                            <ui:VisualElement name="FactionIcon" class="sprite-equipmentcard__card-faction-dimensional weapon-display__weapon-faction-icon" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Melee" class="weapon-display__melee">
+                    <ui:VisualElement name="SelectedBgPink" class="weapon-display__selected-bg-pink weapon-display__selected-bg-pink-melee" />
+                    <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-melee">
+                        <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
+                            <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--shadow">
+                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="SquadMember" class="squad-member" style="position: absolute; top: 260px; left: 128px;">
+        <ui:VisualElement name="Background" class="squad-member__bg" />
+        <ui:VisualElement name="PFP" class="squad-member__pfp" />
+        <ui:VisualElement name="Might" class="squad-member__might">
+            <ui:Label text="1324" />
+        </ui:VisualElement>
+        <ui:Label text="PLAYER NAME" name="Name" style="position: absolute; top: -5px; left: 97px; font-size: 30px; color: rgb(255, 255, 255); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(24, 18, 54); text-shadow: 2px 2px 0 rgb(24, 18, 54);" />
+    </ui:VisualElement>
+</ui:UXML>

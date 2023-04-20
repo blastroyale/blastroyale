@@ -60,45 +60,75 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 40ab0820dd8ac4243b5f16dd35ef8c88, type: 3}
+  - {fileID: 21300000, guid: 26da9a203cad14cf3a36915e45e02d15, type: 3}
+  - {fileID: 21300000, guid: b5bda46016b984d50a0eab531b6f6e0c, type: 3}
   - {fileID: 21300000, guid: 6f5a4ee05498c40c6923e88c70187edb, type: 3}
   - {fileID: 21300000, guid: 01e27a0254d4c4324976497ffe21d60d, type: 3}
+  - {fileID: 21300000, guid: d7a3f1320c9af4f1ebe4df043b3c921e, type: 3}
+  - {fileID: 21300000, guid: 67d0ed826f1b7438dba8ba6634a450b2, type: 3}
   - {fileID: 21300000, guid: d82e5dc2de30a408db68d2974774392a, type: 3}
+  - {fileID: 21300000, guid: feae0f25bbb704eec82b08e8e5a10dac, type: 3}
+  - {fileID: 21300000, guid: c6bb034554bd34b4687b5ec48e01e1a2, type: 3}
   - {fileID: 21300000, guid: 5d481686bba814837a46397288517385, type: 3}
   - {fileID: 21300000, guid: 6c934a861c6894e5aa47fb1431470371, type: 3}
   - {fileID: 21300000, guid: fbc205c6b803547f7b8a1aa5310736c6, type: 3}
+  - {fileID: 21300000, guid: 30e882f6d6fea4b0f94dd823b4e3490e, type: 3}
   - {fileID: 21300000, guid: 681a7b0998cf042d0b839deac580b8be, type: 3}
+  - {fileID: 21300000, guid: 9ce2a9d9d0f054255b00227d781779d4, type: 3}
   - {fileID: 21300000, guid: 2c17914a41722485a8135fd9383c67bc, type: 3}
+  - {fileID: 21300000, guid: c141205a3f2794e0194d1e29dc0e26c7, type: 3}
   - {fileID: 21300000, guid: 74dfe6aae9fd442df834365aa5c5b47e, type: 3}
   - {fileID: 21300000, guid: 2cbe4eda34a9a4fe7b266d669ad03edb, type: 3}
+  - {fileID: 21300000, guid: 9ad410ea737ce46969a799a660b9ccbc, type: 3}
   - {fileID: 21300000, guid: 2ef9293be92774201807bed809ed8d39, type: 3}
+  - {fileID: 21300000, guid: cd586f5b03fc245079634fcc0ed40bb5, type: 3}
   - {fileID: 21300000, guid: ef9fbedbd6a4244d3ad1b56498e4c5b0, type: 3}
   - {fileID: 21300000, guid: 2684c9fbaa731447abdb4883664c1f73, type: 3}
+  - {fileID: 21300000, guid: 07819a9c57f534c698f169113a0bd6d6, type: 3}
   - {fileID: 21300000, guid: 155324dc350544260944ab3e70528f9b, type: 3}
   - {fileID: 21300000, guid: f997290d68ec7446089da88e9946d6ca, type: 3}
   - {fileID: 21300000, guid: 66f6df5d5bf1844458404ed7145ffefc, type: 3}
+  - {fileID: 21300000, guid: ac15518ea28c74495bc23c8d8104cdff, type: 3}
   - {fileID: 21300000, guid: ec86f78e373954a9382ab2e97adeff45, type: 3}
   - {fileID: 21300000, guid: f289839ede58e49de8f0eed122b9ebf7, type: 3}
+  - {fileID: 21300000, guid: 6cc8edeed6498446f9d8173927bc5d90, type: 3}
+  - {fileID: 21300000, guid: b841ce3f981f74ce9b04caf3f42b3c1d, type: 3}
   - {fileID: 21300000, guid: 7da8f4ef18a9a4678ab8e5fc7dcca87c, type: 3}
   m_PackedSpriteNamesToIndex:
   - button-next
+  - icon-joystick-shoot
+  - icon-battery-low
   - background-gradient-blue
   - background-reward-normal
+  - icon-weaponswitch
+  - background-equippedweapons
   - text-busted
+  - icon-players-killed
+  - icon-battery-full
   - text-youwon
   - banner-winner
   - banner-rainbow
+  - icon-menu
   - pattern-jagged-vertical
+  - icon-joystick-move
   - background-reward-bpp
+  - vfx-joystick-direction
   - text-matchended
   - icon-hide
+  - icon-wifi-high
   - icon-arrow-yellow-right
+  - icon-battery-medium
   - icon-crown-winner
   - icon-show
+  - icon-wifi-medium
   - button-next-pressed
   - vfx-crack-red
   - text-youchosedeath
+  - icon-wifi-low
   - text-blasted
   - banner-red
+  - icon-players-alive
+  - icon-wifi-noconnection
   - icon-arrow-yellow-left
   m_RenderDataMap: {}
   m_Tag: Match Atlas

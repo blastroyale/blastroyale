@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/AdventureAssets
   _configs:
-  - Key: 1
+  - Key: 25
     Value:
-      m_AssetGUID: 0192d544f609f49d480f2da9ae68c276
+      m_AssetGUID: 3fe499e06f167214a8013f8a11a2d085
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 2
+  - Key: 75
     Value:
-      m_AssetGUID: f0bbea9ea682f4711aa59062f39b2dc2
+      m_AssetGUID: 29690234ce974ee45949a5b9c7213cec
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -35,18 +35,6 @@ MonoBehaviour:
   - Key: 6
     Value:
       m_AssetGUID: 1ba8314222fdf5044bf3057951886228
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 13
-    Value:
-      m_AssetGUID: 62aaef5e3db0c6940b9509a368a4b76a
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 16
-    Value:
-      m_AssetGUID: 593f372a5895f4e40a46532912ee8213
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -284,12 +272,6 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 76
-    Value:
-      m_AssetGUID: 49029296e2f38404eacd3b7d7267b06b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 78
     Value:
       m_AssetGUID: 271194ac38ae4824c90057951c127e4d
@@ -410,12 +392,6 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Key: 116
-    Value:
-      m_AssetGUID: b2754cea286c045459002576b7e5ef6e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Key: 127
     Value:
       m_AssetGUID: a6ebc807f7c671a49993d1146688ab79
@@ -437,6 +413,12 @@ MonoBehaviour:
   - Key: 107
     Value:
       m_AssetGUID: 11eb8b4ee4c44d84fb9cd6c4c7fcb1ec
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Key: 76
+    Value:
+      m_AssetGUID: 622972e7049e3e444973b1e5dd472b28
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

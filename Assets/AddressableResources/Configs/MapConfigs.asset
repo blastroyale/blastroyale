@@ -54,7 +54,7 @@ MonoBehaviour:
       MaxPlayers: 20
       IsTestMap: 0
       DropSelectionSize: 0.8
-    - Map: 142
+    - Map: 1
       MaxPlayers: 20
       IsTestMap: 0
       DropSelectionSize: 0.8

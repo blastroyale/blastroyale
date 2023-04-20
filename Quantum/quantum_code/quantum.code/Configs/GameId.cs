@@ -610,13 +610,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Divinci, new List<GameIdGroup>
-					{
-						GameIdGroup.Glider,
-						GameIdGroup.BotItem
-					}.AsReadOnly()
-				},
-				{
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
@@ -1129,14 +1122,12 @@ namespace Quantum
 					{
 						GameId.Male02Avatar,
 						GameId.Female02Avatar,
-						GameId.Divinci,
 						GameId.Tombstone
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Glider, new List<GameId>
 					{
-						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
 						GameId.Turbine

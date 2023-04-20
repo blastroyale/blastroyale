@@ -21,6 +21,7 @@ namespace FirstLight.Game.Logic
 	{
 		All,
 		NftOnly,
+		NftOnlyNotOnCooldown,
 		NoNftOnly,
 		Broken,
 		Unbroken
@@ -301,7 +302,10 @@ namespace FirstLight.Game.Logic
 			{
 				var contains = _nftInventory.ContainsKey(id);
 				
-				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
+				if (filter == EquipmentFilter.NftOnly && !contains
+				    || filter == EquipmentFilter.NoNftOnly && contains
+				    || filter == EquipmentFilter.NftOnlyNotOnCooldown &&
+				    (!contains || (TryGetNftInfo(id, out var nftInfo) && nftInfo.IsOnCooldown)))
 				{
 					continue;
 				}
@@ -330,7 +334,10 @@ namespace FirstLight.Game.Logic
 			{
 				var contains = _nftInventory.ContainsKey(id);
 				
-				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
+				if (filter == EquipmentFilter.NftOnly && !contains
+				    || filter == EquipmentFilter.NoNftOnly && contains
+				    || filter == EquipmentFilter.NftOnlyNotOnCooldown &&
+				    (!contains || (TryGetNftInfo(id, out var nftInfo) && nftInfo.IsOnCooldown)))
 				{
 					continue;
 				}

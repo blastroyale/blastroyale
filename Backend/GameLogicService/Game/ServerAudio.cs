@@ -59,16 +59,26 @@ namespace Backend.Game
         public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
     	{
     	}
-    
-    	public void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
+
+		public void PlayAmbience(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
+		{
+			
+		}
+
+		public void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
     	{
     	}
     
     	public void StopMusic(float fadeOutDuration = 0)
     	{
     	}
-    
-    	public void StopAllSfx()
+
+		public void StopAmbience(float fadeOutDuration = 0)
+		{
+			
+		}
+
+		public void StopAllSfx()
     	{
         }
 
@@ -84,9 +94,11 @@ namespace Backend.Game
     	public AudioListenerMonoComponent AudioListener { get; }
     
     	public bool IsBgmMuted { get; set; }
-        public bool IsSfxMuted { get; set; }
+		public bool IsAmbienceMuted { get; set; }
+		public bool IsSfxMuted { get; set; }
         public bool IsDialogueMuted { get; set; }
         public bool IsMusicPlaying { get; }
-    }
+		public bool IsAmbiencePlaying { get; }
+	}
 }
 

@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;

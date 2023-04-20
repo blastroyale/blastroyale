@@ -30,6 +30,7 @@
     "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
+        "Newtonsoft.Json.dll",
         "nunit.framework.dll",
         "NSubstitute.dll",
         "quantum.code.dll",

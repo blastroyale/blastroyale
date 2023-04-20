@@ -5,7 +5,7 @@ using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 using Photon.Deterministic;
 
-namespace FirstLight.Game.Utils
+namespace FirstLight.Game.Serializers
 {
 	[Serializable]
 	internal struct SerializableVector
@@ -143,6 +143,7 @@ namespace FirstLight.Game.Utils
 			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			ModelSerializer.RegisterConverter(new FPConverter());
+			ModelSerializer.RegisterConverter(new EquipmentSerializer());
 		}
 	}
 }

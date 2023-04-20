@@ -126,6 +126,11 @@ namespace FirstLight.Game.Services
 		void SetSpectatePlayerProperty(bool isSpectator);
 
 		/// <summary>
+		/// Sets a team ID manually (for custom games).
+		/// </summary>
+		void SetManualTeamId(string teamId);
+
+		/// <summary>
 		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
 		/// </summary>
 		public void SetDropPosition(Vector2 dropPosition);
@@ -667,6 +672,18 @@ namespace FirstLight.Game.Services
 				FLog.Info("ReconnectPhoton - ReconnectToMaster");
 				QuantumClient.ReconnectToMaster();
 			}
+		}
+
+		public void SetManualTeamId(string teamId)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{
+					GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId
+				}
+			};
+
+			SetPlayerCustomProperties(playerPropsUpdate);
 		}
 
 		public void SetDropPosition(Vector2 dropPosition)

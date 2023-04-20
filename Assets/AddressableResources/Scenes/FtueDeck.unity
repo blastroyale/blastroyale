@@ -3732,7 +3732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 79
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -7971,7 +7971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 91
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec
@@ -7979,7 +7979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.InitialSpawnDelayInSec
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3587682744574828602, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_Name
@@ -12727,7 +12727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 79
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RespawnTimeInSec

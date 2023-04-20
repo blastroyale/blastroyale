@@ -113,7 +113,6 @@ namespace Quantum
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment, spawnerEntityRef);
-
 			return entity;
 		}
 

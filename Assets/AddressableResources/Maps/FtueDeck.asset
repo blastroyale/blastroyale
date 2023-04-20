@@ -3108,6 +3108,8 @@ MonoBehaviour:
       - Value: 24
       - Value: 45
       - Value: 53
+      Rarity:
+        Value: 4
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -3118,7 +3120,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 1
       GameId:
-        Value: 2
+        Value: 19
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []

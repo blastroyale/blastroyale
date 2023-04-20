@@ -11123,7 +11123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.GameId.Value
-      value: 2
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3211066964538719523, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: Prototype.RarityModifier
@@ -11185,6 +11185,8 @@ MonoBehaviour:
     - Value: 24
     - Value: 45
     - Value: 53
+    Rarity:
+      Value: 4
 --- !u!1 &1831252397
 GameObject:
   m_ObjectHideFlags: 0

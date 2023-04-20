@@ -6,9 +6,7 @@ component Chest
 
 enum ChestType
 {
-	Common,
-	Uncommon,
-	Rare,
-	Epic,
-	Legendary,
+	Consumable,
+    Equipment,
+    Legendary,
 }

@@ -48,10 +48,8 @@ namespace Quantum {
     FindOneOrNoAmmoOrRandomChance,
   }
   public enum ChestType : int {
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
+    Consumable,
+    Equipment,
     Legendary,
   }
   public enum ConsumableType : int {
@@ -166,7 +164,6 @@ namespace Quantum {
     FloodCitySimple = 7,
     BlimpDeck = 8,
     BRGenesis = 9,
-    FTUEMiniMap = 142,
     MapTestScene = 63,
     TestScene = 11,
     NewBRMap = 65,
@@ -243,10 +240,8 @@ namespace Quantum {
     ShieldCapacityLarge = 18,
     EnergyCubeSmall = 106,
     EnergyCubeLarge = 107,
-    ChestCommon = 13,
-    ChestUncommon = 1,
-    ChestRare = 16,
-    ChestEpic = 2,
+    ChestEquipment = 25,
+    ChestConsumable = 75,
     ChestLegendary = 19,
     SpecialAimingAirstrike = 10,
     SpecialAimingStunGrenade = 85,
@@ -263,11 +258,15 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Tombstone = 37,
+    Demon = 76,
+    Superstar = 105,
+    Unicorn = 108,
     CoreCommon = 15,
     CoreUncommon = 46,
     CoreRare = 47,
     CoreEpic = 48,
     CoreLegendary = 59,
+    Corpo = 111,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,
@@ -299,6 +298,7 @@ namespace Quantum {
     DeathMarker = 10,
     Core = 22,
     IAP = 23,
+    ProfilePicture = 9,
   }
   public enum GameSimulationStateMachine : int {
     Deathmatch,
@@ -4007,11 +4007,13 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct ChestOverride : Quantum.IComponent {
-    public const Int32 SIZE = 4;
+    public const Int32 SIZE = 8;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     [FramePrinter.PtrQListAttribute(typeof(GameId))]
     private Quantum.Ptr ContentsOverridePtr;
+    [FieldOffset(0)]
+    public EquipmentRarity Rarity;
     public QListPtr<GameId> ContentsOverride {
       get {
         return new QListPtr<GameId>(ContentsOverridePtr);
@@ -4024,6 +4026,7 @@ namespace Quantum {
       unchecked { 
         var hash = 461;
         hash = hash * 31 + ContentsOverridePtr.GetHashCode();
+        hash = hash * 31 + (Int32)Rarity;
         return hash;
       }
     }
@@ -4036,6 +4039,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (ChestOverride*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Rarity);
         QList.Serialize(p->ContentsOverride, &p->ContentsOverridePtr, serializer, StaticDelegates.SerializeGameId);
     }
   }
@@ -10410,6 +10414,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class ChestOverride_Prototype : ComponentPrototype<ChestOverride> {
     [DynamicCollectionAttribute()]
     public GameId_Prototype[] ContentsOverride = {};
+    public EquipmentRarity_Prototype Rarity;
     partial void MaterializeUser(Frame frame, ref ChestOverride result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       ChestOverride component = default;
@@ -10428,6 +10433,7 @@ namespace Quantum.Prototypes {
         }
         result.ContentsOverride = list;
       }
+      result.Rarity = this.Rarity;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

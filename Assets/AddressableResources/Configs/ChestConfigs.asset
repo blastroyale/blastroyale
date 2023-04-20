@@ -18,11 +18,8 @@ MonoBehaviour:
       Guid:
         Value: 4100866902722562598
     QuantumConfigs:
-    - Id: 1
-      ChestType: 1
-      RarityModifierRange:
-        Value1: 0
-        Value2: 0
+    - Id: 75
+      ChestType: 0
       RandomEquipment: []
       SmallConsumable:
       - Value1:
@@ -32,40 +29,25 @@ MonoBehaviour:
       - Value1:
           RawValue: 65536
         Value2: 1
-      ChestTypeModifiers:
-        Default: []
-        Keys: []
-    - Id: 2
-      ChestType: 3
-      RarityModifierRange:
-        Value1: 0
-        Value2: 0
+    - Id: 25
+      ChestType: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 1
       SmallConsumable: []
       LargeConsumable: []
-      ChestTypeModifiers:
-        Default: []
-        Keys: []
     - Id: 19
-      ChestType: 4
-      RarityModifierRange:
-        Value1: 0
-        Value2: 0
+      ChestType: 2
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 2
       SmallConsumable:
       - Value1:
-          RawValue: 0
+          RawValue: 65536
         Value2: 3
       LargeConsumable:
       - Value1:
           RawValue: 65536
         Value2: 2
-      ChestTypeModifiers:
-        Default: []
-        Keys: []

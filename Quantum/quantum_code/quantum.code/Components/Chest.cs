@@ -61,7 +61,7 @@ namespace Quantum
 				{
 					if(item.IsInGroup(GameIdGroup.Equipment))
 					{
-						var equipment = Equipment.Create(item, f.ChestConfigs.GetChestRarity(config.ChestType), 1);
+						var equipment = Equipment.Create(item, overrideComponent->Rarity, 1);
 						Collectable.DropEquipment(f, equipment, chestPosition, angleStep++);
 
 					} else if (item.IsInGroup(GameIdGroup.Consumable))
@@ -336,11 +336,10 @@ namespace Quantum
 		                                   EquipmentRarity medianRarity)
 		{
 			var config = f.ChestConfigs.GetConfig(Id);
-			var chestRarityModifier = f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2);
 			var medianModifier = f.RNG->NextInclusive(-1, 1);
 			var medianRarityInt = (int) medianRarity;
 
-			var chosenRarity = FPMath.Clamp(medianRarityInt + medianModifier + chestRarityModifier,
+			var chosenRarity = FPMath.Clamp(medianRarityInt + medianModifier,
 			                                (int) minimumRarity,
 			                                (int) EquipmentRarity.TOTAL - 1);
 

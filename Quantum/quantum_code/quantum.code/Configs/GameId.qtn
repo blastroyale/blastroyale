@@ -16,7 +16,6 @@ enum GameId
 	FloodCitySimple = 7,
 	BlimpDeck = 8,
 	BRGenesis = 9,
-    FTUEMiniMap = 142,
 	MapTestScene = 63,
 	TestScene = 11,
 	NewBRMap = 65,
@@ -93,10 +92,8 @@ enum GameId
 	ShieldCapacityLarge = 18,
 	EnergyCubeSmall = 106,
 	EnergyCubeLarge = 107,
-	ChestCommon = 13,
-	ChestUncommon = 1,
-	ChestRare = 16,
-	ChestEpic = 2,
+	ChestEquipment = 25,
+	ChestConsumable = 75,
 	ChestLegendary = 19,
 	SpecialAimingAirstrike = 10,
 	SpecialAimingStunGrenade = 85,
@@ -113,11 +110,15 @@ enum GameId
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,
 	Tombstone = 37,
+	Demon = 76,
+	Superstar = 105,
+	Unicorn = 108,
 	CoreCommon = 15,
 	CoreUncommon = 46,
 	CoreRare = 47,
 	CoreEpic = 48,
 	CoreLegendary = 59,
+	Corpo = 111,
 }
 
 enum GameIdGroup
@@ -151,4 +152,5 @@ enum GameIdGroup
 	DeathMarker = 10,
 	Core = 22,
 	IAP = 23,
+	ProfilePicture = 9,
 }

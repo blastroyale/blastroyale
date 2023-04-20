@@ -188,7 +188,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
-			if (evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
 			{
 				return;
 			}

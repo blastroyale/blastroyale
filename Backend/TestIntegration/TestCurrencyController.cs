@@ -18,7 +18,7 @@ namespace IntegrationTests
 	{
 		private TestLogicServer _server;
 		private string _playerId;
-		
+
 		[SetUp]
 		public void Setup()
 		{
@@ -27,8 +27,6 @@ namespace IntegrationTests
 			{
 				CustomId = "integration_test", CreateAccount = true
 			}).GetAwaiter().GetResult().Result.PlayFabId;
-
-		
 		}
 
 		[Test]
@@ -41,12 +39,12 @@ namespace IntegrationTests
 			playerData.Currencies[GameId.CS] = csAmmount;
 			state.UpdateModel(playerData);
 			await stateService.UpdatePlayerState(_playerId, state);
-		
-			var response = _server.Get($"/currency/getcurrency?key=devkey&playerId={_playerId}&currencyId={(int)GameId.CS}");
+
+			var response = _server.Get($"/currency/getcurrency?key=devkey&playerId={_playerId}&currencyId={(int) GameId.CS}");
 
 			Assert.AreEqual(Int32.Parse(response), csAmmount);
 		}
-		
+
 		[Test]
 		public async Task TestSettingCurrencyAmount()
 		{
@@ -62,18 +60,18 @@ namespace IntegrationTests
 			var result = _server.Post("/currency/modifycurrency?key=devkey", new CurrencyUpdateRequest()
 			{
 				Delta = csDelta,
-				CurrencyId = (int)GameId.CS,
+				CurrencyId = (int) GameId.CS,
 				PlayerId = _playerId
 			});
-			
+
 			state = await stateService.GetPlayerState(_playerId);
 			playerData = state.DeserializeModel<PlayerData>();
-			
+
 			var expected = Convert.ToInt64(initialCS) + csDelta;
-			Assert.AreEqual(Int32.Parse(result), expected);
-			Assert.AreEqual(playerData.Currencies[GameId.CS], expected);
+			Assert.AreEqual(expected, Int32.Parse(result));
+			Assert.AreEqual(expected, playerData.Currencies[GameId.CS]);
 		}
-		
+
 		[Test]
 		public async Task TestInsufficientFunds()
 		{
@@ -89,7 +87,7 @@ namespace IntegrationTests
 			var result = _server.PostAndGetResponse("/currency/modifycurrency?key=devkey", new CurrencyUpdateRequest()
 			{
 				Delta = csDelta,
-				CurrencyId = (int)GameId.CS,
+				CurrencyId = (int) GameId.CS,
 				PlayerId = _playerId
 			});
 

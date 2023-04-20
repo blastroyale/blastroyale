@@ -59,6 +59,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="KillFeed" class="kill-feed"/>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
     <ui:VisualElement name="SquadMember" class="squad-member" style="position: absolute; top: 260px; left: 128px;">

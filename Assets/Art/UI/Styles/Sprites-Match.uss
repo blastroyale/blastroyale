@@ -16,6 +16,8 @@
     --sprite-match__icon-battery-low: url('/Assets/Art/UI/Sprites/Match/icon-battery-low.png');
     --sprite-match__icon-battery-medium: url('/Assets/Art/UI/Sprites/Match/icon-battery-medium.png');
     --sprite-match__icon-crown-winner: url('/Assets/Art/UI/Sprites/Match/icon-crown-winner.png');
+    --sprite-match__icon-deathnotification-killer: url('/Assets/Art/UI/Sprites/Match/icon-deathnotification-killer.png');
+    --sprite-match__icon-deathnotification-victim: url('/Assets/Art/UI/Sprites/Match/icon-deathnotification-victim.png');
     --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
     --sprite-match__icon-joystick-move: url('/Assets/Art/UI/Sprites/Match/icon-joystick-move.png');
     --sprite-match__icon-joystick-shoot: url('/Assets/Art/UI/Sprites/Match/icon-joystick-shoot.png');
@@ -131,6 +133,18 @@
     background-image: var(--sprite-match__icon-crown-winner);
     width: 90px;
     height: 64px;
+}
+
+.sprite-match__icon-deathnotification-killer {
+    background-image: var(--sprite-match__icon-deathnotification-killer);
+    width: 80px;
+    height: 40px;
+}
+
+.sprite-match__icon-deathnotification-victim {
+    background-image: var(--sprite-match__icon-deathnotification-victim);
+    width: 80px;
+    height: 40px;
 }
 
 .sprite-match__icon-hide {

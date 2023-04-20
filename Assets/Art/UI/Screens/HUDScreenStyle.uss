@@ -627,11 +627,11 @@
     height: 35px;
     top: 65px;
     left: 52px;
-    background-color: rgba(54, 48, 75, 255);
-    border-left-color: rgba(24, 18, 54, 255);
-    border-right-color: rgba(24, 18, 54, 255);
-    border-top-color: rgba(24, 18, 54, 255);
-    border-bottom-color: rgba(24, 18, 54, 255);
+    background-color: rgb(54, 48, 75);
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -642,10 +642,119 @@
     border-bottom-right-radius: 50%;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     font-size: 28px;
     -unity-text-align: middle-center;
     -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgba(24, 18, 54, 255);
-    text-shadow: 2px 2px 0 rgba(24, 18, 54, 255);
+    -unity-text-outline-color: rgb(24, 18, 54);
+    text-shadow: 2px 2px 0 rgb(24, 18, 54);
+}
+
+.death-notification {
+    height: 40px;
+    width: 530px;
+    overflow: hidden;
+    transition-property: height, opacity;
+    transition-duration: 0.5s, 0.5s;
+    margin-bottom: 18px;
+}
+
+.death-notification--hidden {
+    height: 0;
+}
+
+.death-notification--hidden-end {
+    opacity: 0;
+}
+
+.death-notification__container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    background-color: rgb(137, 133, 133);
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.death-notification__bar {
+    width: 10px;
+}
+
+.death-notification__bar--killer {
+    background-color: rgb(90, 182, 189);
+}
+
+.death-notification__bar--victim {
+    background-color: rgb(212, 82, 80);
+}
+
+.death-notification__name {
+    font-size: 21px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 128px;
+    white-space: nowrap;
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
+}
+
+.death-notification__name--killer {
+    -unity-text-align: middle-left;
+    color: rgb(48, 46, 72);
+    padding-left: 9px;
+}
+
+.death-notification__name--victim {
+    -unity-text-align: middle-right;
+    color: rgb(212, 82, 80);
+    padding-right: 9px;
+}
+
+.death-notification__pfp {
+    width: 80px;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.death-notification__pfp--killer {
+    background-image: var(--sprite-match__icon-deathnotification-killer);
+}
+
+.death-notification__pfp--victim {
+    background-image: var(--sprite-match__icon-deathnotification-victim);
+}
+
+.death-notification__gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 190px;
+}
+
+.death-notification__gradient--killer {
+    position: absolute;
+    left: 0;
+    --gradient-from: rgb(85, 117, 120);
+    --gradient-to: rgb(137, 133, 133);
+}
+
+.death-notification__gradient--victim {
+    position: absolute;
+    right: 0;
+    --gradient-from: rgb(137, 133, 133);
+    --gradient-to: rgb(130, 76, 88);
+}
+
+.kill-feed {
+    position: absolute;
+    left: 3px;
+    top: 27px;
+    flex-direction: column-reverse;
 }

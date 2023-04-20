@@ -63,10 +63,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 26da9a203cad14cf3a36915e45e02d15, type: 3}
   - {fileID: 21300000, guid: b5bda46016b984d50a0eab531b6f6e0c, type: 3}
   - {fileID: 21300000, guid: 6f5a4ee05498c40c6923e88c70187edb, type: 3}
+  - {fileID: 21300000, guid: 6e8914e17f7ef4525a8d20a9b2a89bc2, type: 3}
   - {fileID: 21300000, guid: 01e27a0254d4c4324976497ffe21d60d, type: 3}
   - {fileID: 21300000, guid: d7a3f1320c9af4f1ebe4df043b3c921e, type: 3}
   - {fileID: 21300000, guid: 67d0ed826f1b7438dba8ba6634a450b2, type: 3}
+  - {fileID: 21300000, guid: d7346bb2941c7443c80bb105e4caf77f, type: 3}
   - {fileID: 21300000, guid: d82e5dc2de30a408db68d2974774392a, type: 3}
+  - {fileID: 21300000, guid: 41a582a44b8ae470e9d55b9d6402e3d1, type: 3}
   - {fileID: 21300000, guid: feae0f25bbb704eec82b08e8e5a10dac, type: 3}
   - {fileID: 21300000, guid: c6bb034554bd34b4687b5ec48e01e1a2, type: 3}
   - {fileID: 21300000, guid: 5d481686bba814837a46397288517385, type: 3}
@@ -93,16 +96,20 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f289839ede58e49de8f0eed122b9ebf7, type: 3}
   - {fileID: 21300000, guid: 6cc8edeed6498446f9d8173927bc5d90, type: 3}
   - {fileID: 21300000, guid: b841ce3f981f74ce9b04caf3f42b3c1d, type: 3}
+  - {fileID: 21300000, guid: dfcb1fdf76ccf4f31b84f6d5d3dbeff0, type: 3}
   - {fileID: 21300000, guid: 7da8f4ef18a9a4678ab8e5fc7dcca87c, type: 3}
   m_PackedSpriteNamesToIndex:
   - button-next
   - icon-joystick-shoot
   - icon-battery-low
   - background-gradient-blue
+  - icon-deathnotification-killer
   - background-reward-normal
   - icon-weaponswitch
   - background-equippedweapons
+  - background-squadmember
   - text-busted
+  - icon-x-red
   - icon-players-killed
   - icon-battery-full
   - text-youwon
@@ -129,6 +136,7 @@ SpriteAtlas:
   - banner-red
   - icon-players-alive
   - icon-wifi-noconnection
+  - icon-deathnotification-victim
   - icon-arrow-yellow-left
   m_RenderDataMap: {}
   m_Tag: Match Atlas

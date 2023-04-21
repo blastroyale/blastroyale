@@ -59,7 +59,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="KillFeed" class="kill-feed"/>
+            <ui:VisualElement name="KillFeed" class="kill-feed" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
     <ui:VisualElement name="SquadMember" class="squad-member" style="position: absolute; top: 260px; left: 128px;">
@@ -69,5 +69,13 @@
             <ui:Label text="1324" />
         </ui:VisualElement>
         <ui:Label text="PLAYER NAME" name="Name" style="position: absolute; top: -5px; left: 97px; font-size: 30px; color: rgb(255, 255, 255); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(24, 18, 54); text-shadow: 2px 2px 0 rgb(24, 18, 54);" />
+        <ui:VisualElement name="ShieldHealthContainer" class="squad-member__shield-health-container">
+            <ui:VisualElement name="ShieldBG" class="squad-member__shield-bg">
+                <ui:VisualElement name="Shield" class="squad-member__shield-bar" />
+            </ui:VisualElement>
+            <ui:VisualElement name="HealthBG" class="squad-member__health-bg">
+                <ui:VisualElement name="Health" class="squad-member__health-bar" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

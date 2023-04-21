@@ -76,6 +76,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6c934a861c6894e5aa47fb1431470371, type: 3}
   - {fileID: 21300000, guid: fbc205c6b803547f7b8a1aa5310736c6, type: 3}
   - {fileID: 21300000, guid: 30e882f6d6fea4b0f94dd823b4e3490e, type: 3}
+  - {fileID: 21300000, guid: a3f658f645bf24c33a839ea21aa10f87, type: 3}
   - {fileID: 21300000, guid: 681a7b0998cf042d0b839deac580b8be, type: 3}
   - {fileID: 21300000, guid: 9ce2a9d9d0f054255b00227d781779d4, type: 3}
   - {fileID: 21300000, guid: 2c17914a41722485a8135fd9383c67bc, type: 3}
@@ -91,9 +92,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 155324dc350544260944ab3e70528f9b, type: 3}
   - {fileID: 21300000, guid: f997290d68ec7446089da88e9946d6ca, type: 3}
   - {fileID: 21300000, guid: 66f6df5d5bf1844458404ed7145ffefc, type: 3}
+  - {fileID: 21300000, guid: 6cba625e3bde44002a91a5723acf2be0, type: 3}
   - {fileID: 21300000, guid: ac15518ea28c74495bc23c8d8104cdff, type: 3}
   - {fileID: 21300000, guid: ec86f78e373954a9382ab2e97adeff45, type: 3}
   - {fileID: 21300000, guid: f289839ede58e49de8f0eed122b9ebf7, type: 3}
+  - {fileID: 21300000, guid: a892bebea6ea14b579a0731f2d17341a, type: 3}
   - {fileID: 21300000, guid: 6cc8edeed6498446f9d8173927bc5d90, type: 3}
   - {fileID: 21300000, guid: b841ce3f981f74ce9b04caf3f42b3c1d, type: 3}
   - {fileID: 21300000, guid: dfcb1fdf76ccf4f31b84f6d5d3dbeff0, type: 3}
@@ -116,6 +119,7 @@ SpriteAtlas:
   - banner-winner
   - banner-rainbow
   - icon-menu
+  - progress-health-red
   - pattern-jagged-vertical
   - icon-joystick-move
   - background-reward-bpp
@@ -131,9 +135,11 @@ SpriteAtlas:
   - button-next-pressed
   - vfx-crack-red
   - text-youchosedeath
+  - progress-health
   - icon-wifi-low
   - text-blasted
   - banner-red
+  - progress-shield
   - icon-players-alive
   - icon-wifi-noconnection
   - icon-deathnotification-victim

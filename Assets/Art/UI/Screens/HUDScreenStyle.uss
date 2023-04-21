@@ -582,74 +582,6 @@
     bottom: 37px;
 }
 
-.squad-member {
-    width: 343px;
-    height: 104px;
-}
-
-.squad-member__bg {
-    background-image: var(--sprite-match__background-squadmember);
-    width: 324px;
-    height: 78px;
-    position: absolute;
-    top: 12px;
-    left: 24px;
-    -unity-background-image-tint-color: rgba(49, 45, 71, 0.5);
-}
-
-.squad-member__pfp {
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 80px;
-    height: 80px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(77, 25, 87);
-}
-
-.squad-member__might {
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    top: 65px;
-    left: 52px;
-    background-color: rgb(54, 48, 75);
-    border-left-color: rgb(24, 18, 54);
-    border-right-color: rgb(24, 18, 54);
-    border-top-color: rgb(24, 18, 54);
-    border-bottom-color: rgb(24, 18, 54);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    color: rgb(255, 255, 255);
-    font-size: 28px;
-    -unity-text-align: middle-center;
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(24, 18, 54);
-    text-shadow: 2px 2px 0 rgb(24, 18, 54);
-}
-
 .death-notification {
     height: 40px;
     width: 530px;
@@ -757,4 +689,111 @@
     left: 3px;
     top: 27px;
     flex-direction: column-reverse;
+}
+
+.squad-member {
+    width: 343px;
+    height: 104px;
+}
+
+.squad-member__bg {
+    background-image: var(--sprite-match__background-squadmember);
+    width: 324px;
+    height: 78px;
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    -unity-background-image-tint-color: rgba(49, 45, 71, 0.5);
+}
+
+.squad-member__pfp {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 80px;
+    height: 80px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(77, 25, 87);
+}
+
+.squad-member__might {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 65px;
+    left: 52px;
+    background-color: rgb(54, 48, 75);
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    font-size: 28px;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(24, 18, 54);
+    text-shadow: 2px 2px 0 rgb(24, 18, 54);
+}
+
+.squad-member__shield-health-container {
+    position: absolute;
+    left: 107px;
+    top: 39px;
+    width: 200px;
+    height: 25px;
+    background-color: rgb(24, 18, 54);
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.squad-member__shield-bg {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: stretch;
+    flex-shrink: 0;
+    margin-bottom: 1px;
+}
+
+.squad-member__health-bg {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: stretch;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.squad-member__shield-bar {
+    flex-grow: 1;
+    background-image: var(--sprite-match__progress-shield);
+}
+
+.squad-member__health-bar {
+    flex-grow: 1;
+    background-image: var(--sprite-match__progress-health);
 }

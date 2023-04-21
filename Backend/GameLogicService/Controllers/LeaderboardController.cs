@@ -32,7 +32,7 @@ namespace ServerCommon.Controllers
 			{
 				StatisticName = name,
 				StartPosition = position,
-				ProfileConstraints =
+				ProfileConstraints = new ()
 				{
 					ShowAvatarUrl = true
 				},

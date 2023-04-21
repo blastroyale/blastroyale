@@ -139,7 +139,7 @@ namespace FirstLight.Game.Services
 		/// Handles if we should redirect the login flow to another environment after logging in.
 		/// This is mainly for store approval where we redirect builds to staging.
 		/// </summary>
-		bool IsEnvironmentRedirect { get; set; }
+		Environment? EnvironmentRedirect { get; set; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -204,20 +204,9 @@ namespace FirstLight.Game.Services
 			envData.AppIDRealtime = "***REMOVED***";
 		}
 
-		public void SetupBackendEnvironment()
+		private void SetupEnvironmentFromLocalConfig(Environment env, BackendEnvironmentData envData)
 		{
-			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			var appData = _dataService.GetData<AppData>();
-			var envData = new BackendEnvironmentData();
-
-#if LIVE_SERVER
-			SetupLive(envData);
-#elif LIVE_TESTNET_SERVER
-			SetupTestnet(envData);
-#elif STAGE_SERVER
-			SetupStaging(envData);
-#else
-			switch (FeatureFlags.GetLocalConfiguration().EnvironmentOverride)
+			switch (env)
 			{
 				case Environment.PROD:
 					SetupLive(envData);
@@ -232,7 +221,36 @@ namespace FirstLight.Game.Services
 					SetupDev(envData);
 					break;
 			}
+		}
+
+		private void SetupEnvironmentFromCompilerFlags(BackendEnvironmentData envData)
+		{
+#if LIVE_SERVER
+			SetupLive(envData);
+#elif LIVE_TESTNET_SERVER
+			SetupTestnet(envData);
+#elif STAGE_SERVER
+			SetupStaging(envData);
+#else
+			SetupEnvironmentFromLocalConfig(FeatureFlags.GetLocalConfiguration().EnvironmentOverride, envData);
 #endif
+		}
+
+		public void SetupBackendEnvironment()
+		{
+			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.GetData<AppData>();
+			var envData = new BackendEnvironmentData();
+
+			if (EnvironmentRedirect.HasValue)
+			{
+				FLog.Info("Environment Redirect");
+				SetupEnvironmentFromLocalConfig(EnvironmentRedirect.Value, envData);
+			}
+			else
+			{
+				SetupEnvironmentFromCompilerFlags(envData);
+			}
 
 			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 			CurrentEnvironmentData = envData;
@@ -414,7 +432,7 @@ namespace FirstLight.Game.Services
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
 		}
 
-		public bool IsEnvironmentRedirect { get; set; }
+		public Environment? EnvironmentRedirect { get; set; } = null;
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{

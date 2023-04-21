@@ -8,6 +8,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -54,8 +55,8 @@ namespace FirstLight.Tests.EditorMode
 			return true;
 		}
 
-		public bool IsEnvironmentRedirect { get; set; }
-
+		public Environment? EnvironmentRedirect { get; set; }
+		
 		public void SetupBackendEnvironment()
 		{
 

@@ -73,29 +73,30 @@ namespace Quantum.Systems
 					(uint)(projectile.PowerAmount * projectile.SplashDamageRatio), 
 					(uint)(projectile.KnockbackAmount * projectile.SplashDamageRatio), position,
 					projectile.TeamSource);
-
+				
 				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, &splashSpell, uint.MaxValue, OnHit);
+				
 				f.Events.OnProjectileExplosion(projectile.SourceId, position);
 			}
 
 			if (QuantumHelpers.ProcessHit(f, &spell))
 			{
-				OnHit(f, spell);
+				OnHit(f, &spell);
 			}
 
 			f.Destroy(hitSource);
 		}
 
-		private void OnHit(Frame f, Spell spell)
+		private void OnHit(Frame f, Spell* spell)
 		{
-			var source = f.Get<Projectile>(spell.SpellSource);
+			var source = f.Get<Projectile>(spell->SpellSource);
 			
 			if (source.StunDuration > FP._0)
 			{
-				StatusModifiers.AddStatusModifierToEntity(f, spell.Victim, StatusModifierType.Stun, source.StunDuration);
+				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnProjectileTargetableHit(spell.SpellSource, spell.Victim, source, spell.OriginalHitPosition);
+			f.Events.OnProjectileTargetableHit(spell->SpellSource, spell->Victim, source, spell->OriginalHitPosition);
 		}
 	}
 }

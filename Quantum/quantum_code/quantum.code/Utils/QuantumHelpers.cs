@@ -4,6 +4,8 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public unsafe delegate void SpellCallBack(Frame f, Spell* spell);  
+	
 	/// <summary>
 	/// This class contains various helper functions to use inside Quantum
 	/// </summary>
@@ -101,8 +103,7 @@ namespace Quantum
 		/// On each hit, the <paramref name="onHitCallback"/> will be called.
 		/// Return true if at least one hit was successful, false otherwise.
 		/// </summary>
-		public static bool ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue,
-		                                  Action<Frame, Spell> onHitCallback = null)
+		public static bool ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue, SpellCallBack onHitCallback = null)
 		{
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
@@ -134,8 +135,8 @@ namespace Quantum
 				}
 
 				hitCount++;
-					
-				onHitCallback?.Invoke(f, hitSpell);
+
+				onHitCallback?.Invoke(f, &hitSpell);
 
 				if (hitCount >= maxHitCount)
 				{

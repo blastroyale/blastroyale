@@ -9,7 +9,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialStunGrenade
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special* special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{
@@ -49,19 +49,19 @@ namespace Quantum
 				targetPosition = attackerPosition + (aimInput * maxRange).XOY;
 			}
 			
-			var targetRange = special->MaxRange;
-			var launchTime = special->Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
+			var targetRange = special.MaxRange;
+			var launchTime = special.Speed * ((targetPosition - attackerPosition).Magnitude / targetRange);
 
 			var hazardData = new Hazard
 			{
 				Attacker = e,
 				EndTime = f.Time + launchTime,
-				GameId = special->SpecialId,
-				Interval = special->Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
 				NextTickTime = f.Time + launchTime,
 				PowerAmount = 0,
-				Radius = special->Radius,
-				StunDuration = special->SpecialPower,
+				Radius = special.Radius,
+				StunDuration = special.SpecialPower,
 				TeamSource = team,
 				MaxHitCount = uint.MaxValue
 			};

@@ -5,11 +5,11 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class SpecialSelfStatusModifier
 	{
-		public static bool Use(Frame f, EntityRef e, Special* special)
+		public static bool Use(Frame f, EntityRef e, ref Special special)
 		{
-			var duration = special->SpecialPower;
+			var duration = special.SpecialPower;
 			
-			switch (special->SpecialType)
+			switch (special.SpecialType)
 			{
 				case SpecialType.ShieldSelfStatus:
 					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, duration);

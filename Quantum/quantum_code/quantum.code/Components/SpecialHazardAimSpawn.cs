@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialHazardAimSpawn
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special* special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{
@@ -50,16 +50,16 @@ namespace Quantum
 			var hazardData = new Hazard
 			{
 				Attacker = e,
-				EndTime = f.Time + special->Speed,
-				GameId = special->SpecialId,
-				Interval = special->Speed,
-				NextTickTime = f.Time + special->Speed,
-				PowerAmount = special->SpecialPower,
-				Radius = special->Radius,
+				EndTime = f.Time + special.Speed,
+				GameId = special.SpecialId,
+				Interval = special.Speed,
+				NextTickTime = f.Time + special.Speed,
+				PowerAmount = special.SpecialPower,
+				Radius = special.Radius,
 				StunDuration = FP._0,
 				TeamSource = team,
 				MaxHitCount = 1,
-				Knockback = special->Knockback,
+				Knockback = special.Knockback,
 			};
 			
 			var hazard = Hazard.Create(f, hazardData, targetPosition);

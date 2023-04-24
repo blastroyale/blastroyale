@@ -66,28 +66,25 @@ namespace Quantum
 		
 		private bool TryUse(Frame f, EntityRef entity, PlayerRef playerRef, FPVector2 aimInput)
 		{
-			fixed (Special* ptr = &this)
-			{
-				switch (SpecialType)
+			switch (SpecialType)
 				{
 					case SpecialType.Airstrike:
-						return SpecialAirstrike.Use(f, entity, ptr, aimInput, MaxRange);
+						return SpecialAirstrike.Use(f, entity, ref this, aimInput, MaxRange);
 					case SpecialType.ShieldSelfStatus:
-						return SpecialSelfStatusModifier.Use(f, entity, ptr);
+						return SpecialSelfStatusModifier.Use(f, entity, ref this );
 					case SpecialType.StunGrenade:
-						return SpecialStunGrenade.Use(f, entity, ptr, aimInput, MaxRange);
+						return SpecialStunGrenade.Use(f, entity, ref this , aimInput, MaxRange);
 					case SpecialType.HazardAimSpawn:
-						return SpecialHazardAimSpawn.Use(f, entity, ptr, aimInput, MaxRange);
+						return SpecialHazardAimSpawn.Use(f, entity, ref this, aimInput, MaxRange);
 					case SpecialType.ShieldedCharge:
-						return SpecialShieldedCharge.Use(f, entity, ptr, aimInput, MaxRange);
+						return SpecialShieldedCharge.Use(f, entity, ref this, aimInput, MaxRange);
 					case SpecialType.Grenade:
-						return SpecialGrenade.Use(f, entity, ptr, aimInput, MaxRange);
+						return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
 					case SpecialType.Radar:
-						return SpecialRadar.Use(f, entity, playerRef, ptr);
+						return SpecialRadar.Use(f, entity, playerRef, ref this);
 					default:
 						return false;
 				}
-			}
 		}
 	}
 }

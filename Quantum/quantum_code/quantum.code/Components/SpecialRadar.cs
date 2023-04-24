@@ -5,15 +5,15 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class SpecialRadar
 	{
-		public static bool Use(Frame f, EntityRef e, PlayerRef player, Special* special)
+		public static bool Use(Frame f, EntityRef e, PlayerRef player, ref Special special)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{
 				return false;
 			}
 
-			var duration = special->SpecialPower;
-			var range = special->Radius;
+			var duration = special.SpecialPower;
+			var range = special.Radius;
 			f.Events.OnRadarUsed(player, duration, range);
 
 			return true;

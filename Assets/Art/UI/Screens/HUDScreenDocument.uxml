@@ -33,9 +33,17 @@
                 <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
             </ui:VisualElement>
             <ui:VisualElement name="WeaponDisplay" class="weapon-display">
-                <ui:VisualElement name="Connector" class="weapon-display__connector" />
+                <ui:VisualElement name="Melee" class="weapon-display__melee">
+                    <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-melee">
+                        <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
+                            <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--shadow">
+                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
-                    <ui:VisualElement name="SelectedBgPink" class="weapon-display__selected-bg-pink weapon-display__selected-bg-pink-weapon" />
                     <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-weapon">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
                             <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
@@ -45,17 +53,6 @@
                         <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon">
                             <ui:VisualElement name="FactionIcon" class="sprite-equipmentcard__card-faction-dimensional weapon-display__weapon-faction-icon" />
                         </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="Melee" class="weapon-display__melee">
-                    <ui:VisualElement name="SelectedBgPink" class="weapon-display__selected-bg-pink weapon-display__selected-bg-pink-melee" />
-                    <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-melee">
-                        <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
-                            <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--shadow">
-                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

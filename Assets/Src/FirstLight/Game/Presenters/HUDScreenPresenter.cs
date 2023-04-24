@@ -32,5 +32,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_killFeedView.SpawnDeathNotification("GAMESTERWITHAREALLYLONGNAME", "CUPCAKE");
 		}
+		
+		[Button]
+		public void DebugSwitchWeapon()
+		{
+			_weaponDisplayView.Switch();
+		}
 	}
 }

@@ -101,7 +101,7 @@ namespace Quantum
 			ApplyModifierUpdate(&modifier, false);
 			f.ResolveList(Modifiers).Add(modifier);
 
-			f.Events.OnStatModifierAdded(entity, modifier);
+			f.Events.OnStatModifierAdded(entity);
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Quantum
 
 			list.RemoveAt(index);
 
-			f.Events.OnStatModifierRemoved(entity, modifier);
+			f.Events.OnStatModifierRemoved(entity);
 		}
 
 		/// <summary>

@@ -5899,19 +5899,17 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnStatModifierAdded OnStatModifierAdded(EntityRef Entity, Modifier Modifier) {
+      public EventOnStatModifierAdded OnStatModifierAdded(EntityRef Entity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnStatModifierAdded>(EventOnStatModifierAdded.ID);
         ev.Entity = Entity;
-        ev.Modifier = Modifier;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnStatModifierRemoved OnStatModifierRemoved(EntityRef Entity, Modifier Modifier) {
+      public EventOnStatModifierRemoved OnStatModifierRemoved(EntityRef Entity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnStatModifierRemoved>(EventOnStatModifierRemoved.ID);
         ev.Entity = Entity;
-        ev.Modifier = Modifier;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5967,11 +5965,10 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnTriggerActivated OnTriggerActivated(EntityRef target, TriggerData triggerData) {
+      public EventOnTriggerActivated OnTriggerActivated(EntityRef target) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnTriggerActivated>(EventOnTriggerActivated.ID);
         ev.target = target;
-        ev.triggerData = triggerData;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7493,7 +7490,6 @@ namespace Quantum {
   public unsafe partial class EventOnStatModifierAdded : EventBase {
     public new const Int32 ID = 34;
     public EntityRef Entity;
-    public Modifier Modifier;
     protected EventOnStatModifierAdded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7512,7 +7508,6 @@ namespace Quantum {
       unchecked {
         var hash = 199;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Modifier.GetHashCode();
         return hash;
       }
     }
@@ -7520,7 +7515,6 @@ namespace Quantum {
   public unsafe partial class EventOnStatModifierRemoved : EventBase {
     public new const Int32 ID = 35;
     public EntityRef Entity;
-    public Modifier Modifier;
     protected EventOnStatModifierRemoved(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7539,7 +7533,6 @@ namespace Quantum {
       unchecked {
         var hash = 211;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Modifier.GetHashCode();
         return hash;
       }
     }
@@ -7715,7 +7708,6 @@ namespace Quantum {
   public unsafe partial class EventOnTriggerActivated : EventBase {
     public new const Int32 ID = 42;
     public EntityRef target;
-    public TriggerData triggerData;
     protected EventOnTriggerActivated(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7734,7 +7726,6 @@ namespace Quantum {
       unchecked {
         var hash = 251;
         hash = hash * 31 + target.GetHashCode();
-        hash = hash * 31 + triggerData.GetHashCode();
         return hash;
       }
     }

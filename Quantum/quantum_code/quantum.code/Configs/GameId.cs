@@ -610,6 +610,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Divinci, new List<GameIdGroup>
+					{
+						GameIdGroup.Glider
+					}.AsReadOnly()
+				},
+				{
 					GameId.Falcon, new List<GameIdGroup>
 					{
 						GameIdGroup.Glider
@@ -702,14 +708,28 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.ChestEquipment, new List<GameIdGroup>
+					GameId.ChestCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
 						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
-					GameId.ChestConsumable, new List<GameIdGroup>
+					GameId.ChestUncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestRare, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestEpic, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
 						GameIdGroup.Collectable
@@ -814,24 +834,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Demon, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
-					GameId.Superstar, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
-					GameId.Unicorn, new List<GameIdGroup>
-					{
-						GameIdGroup.DeathMarker
-					}.AsReadOnly()
-				},
-				{
 					GameId.CoreCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Core
@@ -862,12 +864,6 @@ namespace Quantum
 					{
 						GameIdGroup.Core,
 						GameIdGroup.IAP
-					}.AsReadOnly()
-				},
-				{
-					GameId.Corpo, new List<GameIdGroup>
-					{
-						GameIdGroup.ProfilePicture
 					}.AsReadOnly()
 				},
 			};
@@ -1128,6 +1124,7 @@ namespace Quantum
 				{
 					GameIdGroup.Glider, new List<GameId>
 					{
+						GameId.Divinci,
 						GameId.Falcon,
 						GameId.Rocket,
 						GameId.Turbine
@@ -1145,7 +1142,7 @@ namespace Quantum
 						GameId.ShieldCapacitySmall,
 						GameId.ShieldCapacityLarge,
 						GameId.EnergyCubeSmall,
-						GameId.EnergyCubeLarge
+						GameId.EnergyCubeLarge,
 					}.AsReadOnly()
 				},
 				{
@@ -1161,8 +1158,10 @@ namespace Quantum
 						GameId.ShieldCapacityLarge,
 						GameId.EnergyCubeSmall,
 						GameId.EnergyCubeLarge,
-						GameId.ChestEquipment,
-						GameId.ChestConsumable,
+						GameId.ChestCommon,
+						GameId.ChestUncommon,
+						GameId.ChestRare,
+						GameId.ChestEpic,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
@@ -1183,8 +1182,10 @@ namespace Quantum
 				{
 					GameIdGroup.Chest, new List<GameId>
 					{
-						GameId.ChestEquipment,
-						GameId.ChestConsumable,
+						GameId.ChestCommon,
+						GameId.ChestUncommon,
+						GameId.ChestRare,
+						GameId.ChestEpic,
 						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
@@ -1226,9 +1227,6 @@ namespace Quantum
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
 						GameId.Tombstone,
-						GameId.Demon,
-						GameId.Superstar,
-						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{
@@ -1247,12 +1245,6 @@ namespace Quantum
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.ProfilePicture, new List<GameId>
-					{
-						GameId.Corpo
 					}.AsReadOnly()
 				},
 			};

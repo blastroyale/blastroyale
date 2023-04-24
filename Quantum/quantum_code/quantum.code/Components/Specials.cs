@@ -6,7 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// Has all necessary data and methods to work with Special
 	/// </summary>
-	public partial struct Special
+	public unsafe partial struct Special
 	{
 		public bool IsAimable => MaxRange > FP._0;
 		public bool IsValid => SpecialId != GameId.Random;
@@ -53,9 +53,13 @@ namespace Quantum
 			}
 
 			AvailableTime = f.Time + Cooldown;
-			
-			f.Signals.SpecialUsed(playerEntity, this, specialIndex);
-			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
+
+			fixed (Special* ptr = &this)
+			{
+
+				f.Signals.SpecialUsed(playerEntity, ptr, specialIndex);
+				f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
+			}
 
 			return true;
 		}

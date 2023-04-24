@@ -68,4 +68,4 @@ synced event OnRadarUsed
 	FP Range;
 }
 
-signal SpecialUsed(entity_ref entity, Special* special, Int32 specialIndex);
+signal SpecialUsed(entity_ref entity, Int32 specialIndex);

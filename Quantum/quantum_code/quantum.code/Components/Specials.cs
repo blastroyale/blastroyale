@@ -53,14 +53,10 @@ namespace Quantum
 			}
 
 			AvailableTime = f.Time + Cooldown;
-
-			fixed (Special* ptr = &this)
-			{
-
-				f.Signals.SpecialUsed(playerEntity, ptr, specialIndex);
-				f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
-			}
-
+			
+			f.Signals.SpecialUsed(playerEntity, specialIndex);
+			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
+			
 			return true;
 		}
 		

@@ -5447,12 +5447,12 @@ namespace Quantum {
           }
         }
       }
-      public void SpecialUsed(EntityRef entity, Special* special, Int32 specialIndex) {
+      public void SpecialUsed(EntityRef entity, Int32 specialIndex) {
         var array = _f._ISignalSpecialUsedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.SpecialUsed(_f, entity, special, specialIndex);
+            s.SpecialUsed(_f, entity, specialIndex);
           }
         }
       }
@@ -6505,7 +6505,7 @@ namespace Quantum {
     void PlayerColliderDisabled(Frame f, EntityRef playerEntity);
   }
   public unsafe interface ISignalSpecialUsed : ISignal {
-    void SpecialUsed(Frame f, EntityRef entity, Special* special, Int32 specialIndex);
+    void SpecialUsed(Frame f, EntityRef entity, Int32 specialIndex);
   }
   public unsafe interface ISignalHealthChangedFromAttacker : ISignal {
     void HealthChangedFromAttacker(Frame f, EntityRef entity, EntityRef attacker, Int32 previousHealth);

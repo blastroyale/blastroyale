@@ -96,7 +96,7 @@ namespace Quantum.Systems
 				StatusModifiers.AddStatusModifierToEntity(f, spell->Victim, StatusModifierType.Stun, source.StunDuration);
 			}
 			
-			f.Events.OnProjectileTargetableHit(spell->SpellSource, spell->Victim, source, spell->OriginalHitPosition);
+			f.Events.OnProjectileTargetableHit(spell->SpellSource, spell->Victim, spell->OriginalHitPosition);
 		}
 	}
 }

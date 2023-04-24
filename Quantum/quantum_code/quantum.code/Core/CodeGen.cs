@@ -5701,13 +5701,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnConsumableCollected OnConsumableCollected(EntityRef Entity, PlayerRef Player, EntityRef PlayerEntity, Consumable Consumable) {
+      public EventOnConsumableCollected OnConsumableCollected(EntityRef Entity, PlayerRef Player, EntityRef PlayerEntity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnConsumableCollected>(EventOnConsumableCollected.ID);
         ev.Entity = Entity;
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
-        ev.Consumable = Consumable;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5728,12 +5727,11 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHazardHit OnHazardHit(EntityRef Hazard, EntityRef HitEntity, Hazard HazardData, FPVector3 HitPosition) {
+      public EventOnHazardHit OnHazardHit(EntityRef Hazard, EntityRef HitEntity, FPVector3 HitPosition) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnHazardHit>(EventOnHazardHit.ID);
         ev.Hazard = Hazard;
         ev.HitEntity = HitEntity;
-        ev.HazardData = HazardData;
         ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
@@ -5754,12 +5752,11 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnProjectileTargetableHit OnProjectileTargetableHit(EntityRef Projectile, EntityRef HitEntity, Projectile ProjectileData, FPVector3 HitPosition) {
+      public EventOnProjectileTargetableHit OnProjectileTargetableHit(EntityRef Projectile, EntityRef HitEntity, FPVector3 HitPosition) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnProjectileTargetableHit>(EventOnProjectileTargetableHit.ID);
         ev.Projectile = Projectile;
         ev.HitEntity = HitEntity;
-        ev.ProjectileData = ProjectileData;
         ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
@@ -5833,27 +5830,24 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnSpellHit OnSpellHit(EntityRef Entity, Spell Spell) {
+      public EventOnSpellHit OnSpellHit(EntityRef Entity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnSpellHit>(EventOnSpellHit.ID);
         ev.Entity = Entity;
-        ev.Spell = Spell;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnSpellAdded OnSpellAdded(EntityRef Entity, Spell Spell) {
+      public EventOnSpellAdded OnSpellAdded(EntityRef Entity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnSpellAdded>(EventOnSpellAdded.ID);
         ev.Entity = Entity;
-        ev.Spell = Spell;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnSpellRemoved OnSpellRemoved(EntityRef Entity, Spell Spell) {
+      public EventOnSpellRemoved OnSpellRemoved(EntityRef Entity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnSpellRemoved>(EventOnSpellRemoved.ID);
         ev.Entity = Entity;
-        ev.Spell = Spell;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6850,7 +6844,6 @@ namespace Quantum {
     public EntityRef Entity;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    public Consumable Consumable;
     protected EventOnConsumableCollected(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6871,7 +6864,6 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + Consumable.GetHashCode();
         return hash;
       }
     }
@@ -6936,7 +6928,6 @@ namespace Quantum {
     public new const Int32 ID = 14;
     public EntityRef Hazard;
     public EntityRef HitEntity;
-    public Hazard HazardData;
     public FPVector3 HitPosition;
     protected EventOnHazardHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -6957,7 +6948,6 @@ namespace Quantum {
         var hash = 101;
         hash = hash * 31 + Hazard.GetHashCode();
         hash = hash * 31 + HitEntity.GetHashCode();
-        hash = hash * 31 + HazardData.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
@@ -7021,7 +7011,6 @@ namespace Quantum {
     public new const Int32 ID = 17;
     public EntityRef Projectile;
     public EntityRef HitEntity;
-    public Projectile ProjectileData;
     public FPVector3 HitPosition;
     protected EventOnProjectileTargetableHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -7042,7 +7031,6 @@ namespace Quantum {
         var hash = 109;
         hash = hash * 31 + Projectile.GetHashCode();
         hash = hash * 31 + HitEntity.GetHashCode();
-        hash = hash * 31 + ProjectileData.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
@@ -7279,7 +7267,6 @@ namespace Quantum {
   public unsafe partial class EventOnSpellHit : EventBase {
     public new const Int32 ID = 26;
     public EntityRef Entity;
-    public Spell Spell;
     protected EventOnSpellHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7298,7 +7285,6 @@ namespace Quantum {
       unchecked {
         var hash = 163;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Spell.GetHashCode();
         return hash;
       }
     }
@@ -7306,7 +7292,6 @@ namespace Quantum {
   public unsafe partial class EventOnSpellAdded : EventBase {
     public new const Int32 ID = 27;
     public EntityRef Entity;
-    public Spell Spell;
     protected EventOnSpellAdded(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7325,7 +7310,6 @@ namespace Quantum {
       unchecked {
         var hash = 167;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Spell.GetHashCode();
         return hash;
       }
     }
@@ -7333,7 +7317,6 @@ namespace Quantum {
   public unsafe partial class EventOnSpellRemoved : EventBase {
     public new const Int32 ID = 28;
     public EntityRef Entity;
-    public Spell Spell;
     protected EventOnSpellRemoved(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7352,7 +7335,6 @@ namespace Quantum {
       unchecked {
         var hash = 173;
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + Spell.GetHashCode();
         return hash;
       }
     }

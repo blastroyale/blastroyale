@@ -31,7 +31,6 @@ synced event OnProjectileTargetableHit
 {
 	entity_ref Projectile;
 	entity_ref HitEntity;
-	Projectile ProjectileData;
 	FPVector3 HitPosition;
 }
 

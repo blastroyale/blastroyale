@@ -66,7 +66,7 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 			
-			f.Events.OnConsumableCollected(entity, player, playerEntity, this);
+			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
 		
 		private void ShareCollectWithTeammates(Frame f, EntityRef playerEntity, int team)

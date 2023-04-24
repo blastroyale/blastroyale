@@ -33,14 +33,14 @@ namespace Quantum
 			var besc = f.BaseEquipmentStatConfigs.GetConfig(item.GameId);
 			var esc = f.EquipmentStatConfigs.GetConfig(item);
 			
-			health = CalculateWeaponStat(wc, statConfigs[StatType.Health], besc, esc, item, bonusLevel).AsInt;
-			speed = CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, item, bonusLevel);
-			armour = CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, item, bonusLevel).AsInt;
-			power = CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, item, bonusLevel);
-			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, item, bonusLevel);
-			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, item, bonusLevel);
-			ammoCapacity = CalculateWeaponStat(wc, statConfigs[StatType.AmmoCapacity], besc, esc, item, bonusLevel);
-			shieldCapacity = CalculateWeaponStat(wc, statConfigs[StatType.Shield], besc, esc, item, bonusLevel);
+			health = CalculateWeaponStat(ref wc, statConfigs[StatType.Health], ref besc, ref esc, item, bonusLevel).AsInt;
+			speed = CalculateWeaponStat(ref wc, statConfigs[StatType.Speed], ref besc, ref esc, item, bonusLevel);
+			armour = CalculateWeaponStat(ref wc, statConfigs[StatType.Armour], ref besc, ref esc, item, bonusLevel).AsInt;
+			power = CalculateWeaponStat(ref wc, statConfigs[StatType.Power], ref besc, ref esc, item, bonusLevel);
+			attackRange = CalculateWeaponStat(ref wc, statConfigs[StatType.AttackRange], ref besc, ref esc, item, bonusLevel);
+			pickupSpeed = CalculateWeaponStat(ref wc, statConfigs[StatType.PickupSpeed], ref besc, ref esc, item, bonusLevel);
+			ammoCapacity = CalculateWeaponStat(ref wc, statConfigs[StatType.AmmoCapacity], ref besc, ref esc, item, bonusLevel);
+			shieldCapacity = CalculateWeaponStat(ref wc, statConfigs[StatType.Shield], ref besc, ref esc, item, bonusLevel);
 		}
 		
 		/// <summary>
@@ -67,14 +67,14 @@ namespace Quantum
 			var besc = f.BaseEquipmentStatConfigs.GetConfig(item.GameId);
 			var esc = f.EquipmentStatConfigs.GetConfig(item);
 
-			health = CalculateGearStat(statConfigs[StatType.Health], besc, esc, item, bonusLevel).AsInt;
-			speed = CalculateGearStat(statConfigs[StatType.Speed], besc, esc, item, bonusLevel);
-			armour = CalculateGearStat(statConfigs[StatType.Armour], besc, esc, item, bonusLevel).AsInt;
-			power = CalculateGearStat(statConfigs[StatType.Power], besc, esc, item, bonusLevel);
-			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, item, bonusLevel);
-			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, item, bonusLevel);
-			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, item, bonusLevel);
-			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], besc, esc, item, bonusLevel);
+			health = CalculateGearStat(statConfigs[StatType.Health], ref besc, ref esc, item, bonusLevel).AsInt;
+			speed = CalculateGearStat(statConfigs[StatType.Speed], ref besc, ref esc, item, bonusLevel);
+			armour = CalculateGearStat(statConfigs[StatType.Armour], ref besc, ref esc, item, bonusLevel).AsInt;
+			power = CalculateGearStat(statConfigs[StatType.Power], ref besc, ref esc, item, bonusLevel);
+			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], ref besc, ref esc, item, bonusLevel);
+			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], ref besc, ref esc, item, bonusLevel);
+			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], ref besc, ref esc, item, bonusLevel);
+			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], ref besc, ref esc, item, bonusLevel);
 		}
 
 		/// <summary>
@@ -113,13 +113,13 @@ namespace Quantum
 		/// <summary>
 		/// Calculates the <paramref name="equipment"/> stats based on all Weapon <see cref="Equipment"/> stat configs.
 		/// </summary>
-		public static FP CalculateWeaponStat(QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
-		                                     QuantumBaseEquipmentStatConfig baseStatConfig,
-		                                     QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment, uint playerLevel = 0)
+		public static FP CalculateWeaponStat(ref QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
+		                                     ref QuantumBaseEquipmentStatConfig baseStatConfig,
+		                                     ref QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment, uint playerLevel = 0)
 		{
 			//TODO: make a second method that calls the frame in order to get game mode dependant stats
 			
-			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, equipment, playerLevel);
+			var attributeValue = CalculateGearStat(statConfig, ref baseStatConfig, ref equipmentStatConfig, equipment, playerLevel);
 			
 			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
@@ -127,17 +127,17 @@ namespace Quantum
 		/// <summary>
 		/// Calculates the <paramref name="equipment"/> stats based on all <see cref="Equipment"/> stat configs.
 		/// </summary>
-		public static FP CalculateGearStat(QuantumStatConfig statConfig, QuantumBaseEquipmentStatConfig baseStatConfig,
-		                               QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment, uint playerLevel = 0)
+		public static FP CalculateGearStat(QuantumStatConfig statConfig, ref QuantumBaseEquipmentStatConfig baseStatConfig,
+		                               ref QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment, uint playerLevel = 0)
 		{
 			var statRatio = equipmentStatConfig.GetValue(statConfig.StatType);
-			var attributeValue = CalculateAttributeStatValue(statConfig, baseStatConfig.GetValue(statConfig.StatType), 
+			var attributeValue = CalculateAttributeStatValue(ref statConfig, baseStatConfig.GetValue(statConfig.StatType), 
 			                                                 statRatio, equipment, playerLevel);
 
 			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
 
-		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment, uint playerLevel)
+		private static FP CalculateAttributeStatValue(ref QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment, uint playerLevel)
 		{
 			if (equipment.Level <= 0)
 			{

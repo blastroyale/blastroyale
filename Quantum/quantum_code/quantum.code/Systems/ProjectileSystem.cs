@@ -23,7 +23,7 @@ namespace Quantum.Systems
 
 			if (distance.SqrMagnitude > range * range)
 			{
-				EndProjectile(f,filter.Entity, filter.Entity, *filter.Projectile);
+				EndProjectile(f,filter.Entity, filter.Entity, filter.Projectile);
 				return;
 			}
 			
@@ -53,30 +53,30 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			EndProjectile(f, targetHit, hitSource, projectile);
+			EndProjectile(f, targetHit, hitSource, &projectile);
 		}
 		
-		private void EndProjectile(Frame f, EntityRef targetHit, EntityRef hitSource, Projectile projectile)
+		private void EndProjectile(Frame f, EntityRef targetHit, EntityRef hitSource, Projectile* projectile)
 		{
 			var position = f.Get<Transform3D>(hitSource).Position;
-			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, projectile.PowerAmount,
-			                                projectile.KnockbackAmount, position, projectile.TeamSource);
+			var spell = Spell.CreateInstant(f, targetHit, projectile->Attacker, hitSource, projectile->PowerAmount,
+			                                projectile->KnockbackAmount, position, projectile->TeamSource);
 			
 			if(targetHit == hitSource)
-				f.Events.OnProjectileFailedHit(hitSource, projectile, position);
+				f.Events.OnProjectileFailedHit(hitSource, position);
 			else
-				f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
+				f.Events.OnProjectileSuccessHit(hitSource, targetHit, position);
 
-			if (projectile.SplashRadius > FP._0)
+			if (projectile->SplashRadius > FP._0)
 			{
-				var splashSpell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, 
-					(uint)(projectile.PowerAmount * projectile.SplashDamageRatio), 
-					(uint)(projectile.KnockbackAmount * projectile.SplashDamageRatio), position,
-					projectile.TeamSource);
+				var splashSpell = Spell.CreateInstant(f, targetHit, projectile->Attacker, hitSource, 
+					(uint)(projectile->PowerAmount * projectile->SplashDamageRatio), 
+					(uint)(projectile->KnockbackAmount * projectile->SplashDamageRatio), position,
+					projectile->TeamSource);
 				
-				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, &splashSpell, uint.MaxValue, OnHit);
+				QuantumHelpers.ProcessAreaHit(f, projectile->SplashRadius, &splashSpell, uint.MaxValue, OnHit);
 				
-				f.Events.OnProjectileExplosion(projectile.SourceId, position);
+				f.Events.OnProjectileExplosion(projectile->SourceId, position);
 			}
 
 			if (QuantumHelpers.ProcessHit(f, &spell))

@@ -5764,19 +5764,17 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnProjectileFailedHit OnProjectileFailedHit(EntityRef Projectile, Projectile ProjectileData, FPVector3 LastPosition) {
+      public EventOnProjectileFailedHit OnProjectileFailedHit(EntityRef Projectile, FPVector3 LastPosition) {
         var ev = _f.Context.AcquireEvent<EventOnProjectileFailedHit>(EventOnProjectileFailedHit.ID);
         ev.Projectile = Projectile;
-        ev.ProjectileData = ProjectileData;
         ev.LastPosition = LastPosition;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnProjectileSuccessHit OnProjectileSuccessHit(EntityRef Projectile, EntityRef HitEntity, Projectile ProjectileData, FPVector3 HitPosition) {
+      public EventOnProjectileSuccessHit OnProjectileSuccessHit(EntityRef Projectile, EntityRef HitEntity, FPVector3 HitPosition) {
         var ev = _f.Context.AcquireEvent<EventOnProjectileSuccessHit>(EventOnProjectileSuccessHit.ID);
         ev.Projectile = Projectile;
         ev.HitEntity = HitEntity;
-        ev.ProjectileData = ProjectileData;
         ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
@@ -7054,7 +7052,6 @@ namespace Quantum {
   public unsafe partial class EventOnProjectileFailedHit : EventBase {
     public new const Int32 ID = 18;
     public EntityRef Projectile;
-    public Projectile ProjectileData;
     public FPVector3 LastPosition;
     protected EventOnProjectileFailedHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -7074,7 +7071,6 @@ namespace Quantum {
       unchecked {
         var hash = 113;
         hash = hash * 31 + Projectile.GetHashCode();
-        hash = hash * 31 + ProjectileData.GetHashCode();
         hash = hash * 31 + LastPosition.GetHashCode();
         return hash;
       }
@@ -7084,7 +7080,6 @@ namespace Quantum {
     public new const Int32 ID = 19;
     public EntityRef Projectile;
     public EntityRef HitEntity;
-    public Projectile ProjectileData;
     public FPVector3 HitPosition;
     protected EventOnProjectileSuccessHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -7105,7 +7100,6 @@ namespace Quantum {
         var hash = 127;
         hash = hash * 31 + Projectile.GetHashCode();
         hash = hash * 31 + HitEntity.GetHashCode();
-        hash = hash * 31 + ProjectileData.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }

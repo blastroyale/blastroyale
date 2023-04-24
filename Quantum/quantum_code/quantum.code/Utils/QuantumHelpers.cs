@@ -388,7 +388,7 @@ namespace Quantum
 		/// <summary>
 		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
 		/// </summary>
-		public static FPVector2 GetAimDirection(FPVector2 attackDirection, FPQuaternion rotation)
+		public static FPVector2 GetAimDirection(FPVector2 attackDirection, ref FPQuaternion rotation)
 		{
 			var lookDirection = (rotation * FPVector3.Forward).XZ;
 			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;

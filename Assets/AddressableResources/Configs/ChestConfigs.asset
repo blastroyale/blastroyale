@@ -18,7 +18,7 @@ MonoBehaviour:
       Guid:
         Value: 4100866902722562598
     QuantumConfigs:
-    - Id: 75
+    - Id: 131
       ChestType: 0
       RandomEquipment: []
       SmallConsumable:
@@ -29,7 +29,7 @@ MonoBehaviour:
       - Value1:
           RawValue: 65536
         Value2: 1
-    - Id: 25
+    - Id: 130
       ChestType: 1
       RandomEquipment:
       - Value1:

@@ -160,6 +160,7 @@ namespace Quantum {
     FloodCity = 137,
     MainDeck = 143,
     FtueDeck = 5,
+    FtueMiniMap = 133,
     SmallWilderness = 144,
     FloodCitySimple = 7,
     BlimpDeck = 8,

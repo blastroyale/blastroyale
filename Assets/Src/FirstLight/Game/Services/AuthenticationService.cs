@@ -317,7 +317,6 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
-					FLog.Info("Redirecting to staging server!");
 					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
 					onSuccess(loginData);
 					return;

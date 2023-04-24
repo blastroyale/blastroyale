@@ -45,7 +45,7 @@ namespace Quantum
 										// If you got the same type of weapon you have in loadout
 										Item.GameId == loadoutWeapon.GameId;
 
-				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
+				playerCharacter->AddWeapon(f, playerEntity, ref Item, primaryWeapon);
 			}
 			else
 			{

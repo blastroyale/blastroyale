@@ -14,7 +14,7 @@ namespace Quantum
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,
-			                                                        FPQuaternion.Identity, configConsumable, EntityRef.None);
+			                                                        FPQuaternion.Identity, ref configConsumable, EntityRef.None);
 		}
 
 		/// <summary>

@@ -76,7 +76,7 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, config, spawnerEntityRef);
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform.Position, transform.Rotation, ref config, spawnerEntityRef);
 
 			return entity;
 		}
@@ -135,7 +135,7 @@ namespace Quantum
 			{
 				overrideComponent->CopyComponent(f, chestEntity, e, overrideComponent);
 			}
-			f.Unsafe.GetPointer<Chest>(chestEntity)->Init(f, chestEntity, position, FPQuaternion.Identity, config);
+			f.Unsafe.GetPointer<Chest>(chestEntity)->Init(f, chestEntity, position, FPQuaternion.Identity, ref config);
 
 			return chestEntity;
 		}

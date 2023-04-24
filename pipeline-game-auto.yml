@@ -88,7 +88,8 @@ variables:
       value: "apk"
     ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
       value: "aab"
-
+  - name: useAccelerator
+    value: true
 # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
   - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
@@ -173,6 +174,7 @@ stages:
             cuttlyApiKey: $(cuttlyApiKey)
             androidFileType: $(androidFileType)
             useUnityAccelerator: ${{ variables.useAccelerator }}
+            publishDlls: true
             
       - job: iOSBuild
         timeoutInMinutes: 90

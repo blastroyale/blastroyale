@@ -1,0 +1,159 @@
+# Game Logic build and release pipeline
+# This pipeline is respsonsible for building the game logic code and pushing it to the artifact repository
+# as a nuget package.
+
+name: $(Rev:r)
+
+trigger: none
+pool:
+  vmImage: 'windows-latest'
+parameters:
+  - name: inputPipelineName
+    type: string
+    default: 'Manual-Build'
+    values:
+      - "Manual-Build"
+      - "Auto-Build"
+  - name: inputBuildNumber
+    type: string
+    default: ''
+variables:
+  - name: inputArtifactName
+    value: 'GameVersionArtifacts'
+  - group: Secrets
+  - group: Non-secrets
+    
+jobs:
+  - job: BuildAndUploadQuantumPlugin
+    steps:
+      - checkout: none
+      - powershell: |
+          $VerbosePreference = "Continue"
+          
+          $organizationName = "firstlightgames"
+          $projectName = "blast-royale"
+          $pipelineName = "${{ parameters.inputPipelineName }}"
+          $buildNumber = "${{ parameters.inputBuildNumber }}"
+          $artifactName = "${{ variables.inputArtifactName }}"
+          
+          $baseUrl = "https://dev.azure.com/$organizationName/$projectName/_apis"
+          $definitionsUrl = "$baseUrl/build/definitions?api-version=6.1-preview.7&name=$pipelineName"
+          $definitionsResponse = Invoke-RestMethod -Uri $definitionsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+          Write-Host "$definitionResponse"
+          if ($definitionsResponse.count -ne 1) {
+            Write-Error "Error: Pipeline $pipelineName not found or multiple pipelines were found."
+            exit 1
+          }
+          
+          $pipelineId = $definitionsResponse.value.id
+          $buildsUrl = "$baseUrl/build/builds?api-version=6.1-preview.6&definitions=$pipelineId&buildNumber=$buildNumber&statusFilter=completed"
+          $buildsResponse = Invoke-RestMethod -Uri $buildsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+          
+          if ($buildsResponse.count -ne 1) {
+            Write-Error "Error: Build number $buildNumber not found or multiple builds were found for pipeline $pipelineName."
+            exit 1
+          }
+
+          $buildId = $buildsResponse.value.id
+          $sourceVersion = $buildsResponse.value.sourceVersion
+          Write-Host "SourceVersion: $sourceVersion"
+          Write-Host "##vso[task.setvariable variable=buildCommit]$sourceVersion"
+          
+          $artifactsUrl = "$baseUrl/build/builds/$buildId/artifacts?api-version=6.1-preview.5"
+          $artifactsResponse = Invoke-RestMethod -Uri $artifactsUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+          
+          $artifact = $artifactsResponse.value | Where-Object { $_.name -eq $artifactName }
+          if (!$artifact) {
+            Write-Error "Error: Artifact '$artifactName' not found in build $buildNumber for pipeline $pipelineName."
+            exit 1
+          }
+          
+          $downloadUrl = $artifact.resource.downloadUrl
+          $artifactContent = Invoke-RestMethod -Uri $downloadUrl -Headers @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"} -OutFile "$env:ARTIFACT_DIR\$($artifactName).zip"
+          
+          Write-Host "Artifact '$artifactName' downloaded from build $buildNumber for pipeline $pipelineName to  $env:ARTIFACT_DIR\$($artifactName).zip."
+          
+        displayName: 'Download Artifact'
+        env:
+          SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+          ARTIFACT_DIR: $(System.ArtifactsDirectory)
+    
+      - task: ExtractFiles@1
+        displayName: 'Extract Artifact'
+        inputs:
+          archiveFilePatterns: '$(System.ArtifactsDirectory)\$(inputArtifactName).zip'
+          destinationFolder: '$(System.ArtifactsDirectory)\Extracted'
+    
+      - powershell: |
+          $VerbosePreference = "Continue"
+          
+          cd $(System.DefaultWorkingDirectory)
+          git version
+          git init $(System.DefaultWorkingDirectory)
+          git remote add origin https://x-token-auth:$(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)@bitbucket.org/first-light/blast-royale.git
+          $commit = "$(buildCommit)"
+          
+          git fetch --force -n --prune --prune-tags --progress --no-recurse-submodules origin --depth=1 +${commit}:refs/remotes/origin/${commit}
+          git fetch --force -n --prune --prune-tags --progress --no-recurse-submodules origin --depth=1 +${commit}
+          git sparse-checkout set Quantum/quantum_server
+          git checkout --progress --force refs/remotes/origin/$commit
+        displayName: "Clone repo with build commit"
+        
+      - powershell: |
+          $gameArtifacts = "$(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)"
+          $backendLibs = "$(System.DefaultWorkingDirectory)\Backend\Lib\"
+          $quantumLibs = "$(System.DefaultWorkingDirectory)\Assets\Libs\Photon\Quantum\Assemblies\"
+          if (!(Test-Path -path $backendLibs)) {New-Item $backendLibs -Type Directory}
+          if (!(Test-Path -path $quantumLibs)) {New-Item $quantumLibs -Type Directory}
+          
+          Copy-Item -Force $gameArtifacts\assetDatabase.json -Destination "Quantum\quantum_server\quantum.custom.plugin\assetDatabase.json"
+          
+        displayName: "Copy dlls from build"
+          
+      - task: NuGetToolInstaller@1
+        inputs:
+          versionSpec: '5.x'
+          checkLatest: true
+          
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution: 'Quantum/quantum_server/quantum.custom.plugin.sln'
+          
+      - task: MSBuild@1
+        displayName: 'Build Quantum Plugin'
+        inputs:
+          solution: 'Quantum/quantum_server/quantum.custom.plugin/quantum.custom.plugin.csproj'
+          configuration: 'Release'
+          platform: 'AnyCPU'
+          msbuildArguments: '/p:ReferencePath="$(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)"'
+      
+      - task: ArchiveFiles@2
+        displayName: "Zip Plugin"
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin' # string. Required. Root folder or file to archive. Default: $(Build.BinariesDirectory).
+          #includeRootFolder: true # boolean. Prepend root folder name to archive paths. Default: true.
+          # Archive
+          archiveType: 'zip' # 'zip' | '7z' | 'tar' | 'wim'. Required. Archive type. Default: zip.
+          #sevenZipCompression: 'normal' # 'ultra' | 'maximum' | 'normal' | 'fast' | 'fastest' | 'none'. Optional. Use when archiveType = 7z. 7z compression. Default: normal.
+          #tarCompression: 'gz' # 'gz' | 'bz2' | 'xz' | 'none'. Optional. Use when archiveType = tar. Tar compression. Default: gz.
+          archiveFile: '$(Build.ArtifactStagingDirectory)/QuantumPlugin.zip' # string. Required. Archive file to create. Default: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip.
+          replaceExistingArchive: true # boolean. Replace existing archive. Default: true.
+          verbose: true # boolean. Force verbose output. Default: false.
+          #quiet: false # boolean. Force quiet output. Default: false.
+     
+      - powershell: |
+          Remove-Item '$(System.ArtifactsDirectory)\Extracted\' -Recurse        
+          Remove-Item '$(System.ArtifactsDirectory)\$(inputArtifactName).zip' -Recurse
+
+        displayName: "Clean artifacts "
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: QuantumPlugin
+          
+      - powershell: |
+          cd "$(System.DefaultWorkingDirectory)/Quantum/quantum_server/DeployScripts"
+          Import-Module .\Photon.PrivateCloud.Plugin.Client.SAS.psm1
+          Add-PhotonPlugin -Customer FirstLightDev -Plugin QuantumPlugin -File "$(Build.ArtifactStagingDirectory)/QuantumPlugin.zip" -Key $(STAGING-QUANTUM-SERVER-KEY)
+        displayName: "Upload to Quantum"  

@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.EditorTools;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
@@ -13,7 +14,6 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class Builder
 	{
-
 		/// <summary>
 		/// Exports the necessary backend dlls & configurations to the correct folders
 		/// for building & running our logic service & quantum server
@@ -23,14 +23,14 @@ namespace FirstLight.Editor.Build
 			BackendMenu.MoveBackendDlls();
 			BackendMenu.ExportQuantumAssets();
 		}
-		
+
 		/// <summary>
 		/// Sets the symbols for the Unity build
 		/// </summary>
 		public static void ConfigureBuild()
 		{
 			var arguments = Environment.GetCommandLineArgs();
-			
+
 			if (!FirstLightBuildUtil.TryGetBuildSymbolFromCommandLineArgs(out var buildSymbol, arguments))
 			{
 				Debug.LogError("Could not get build symbol from command line args.");
@@ -42,7 +42,7 @@ namespace FirstLight.Editor.Build
 				Debug.LogError("Could not get the server symbol from command line args.");
 				EditorApplication.Exit(1);
 			}
-			
+
 			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, buildSymbol, serverSymbol);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, buildSymbol, serverSymbol);
@@ -74,13 +74,23 @@ namespace FirstLight.Editor.Build
 		}
 
 		/// <summary>
+		/// Combines the configure and build steps
+		/// </summary>
+		public static void AzureBuild()
+		{
+			ConfigureBuild();
+			JenkinsBuild();
+		}
+
+
+		/// <summary>
 		/// Execute method for Jenkins builds
 		/// </summary>
 		public static void JenkinsBuild()
 		{
 			var buildTarget = BuildTarget.NoTarget;
 			var arguments = Environment.GetCommandLineArgs();
-			
+
 #if UNITY_ANDROID
 			buildTarget = BuildTarget.Android;
 #elif UNITY_IOS
@@ -105,34 +115,28 @@ namespace FirstLight.Editor.Build
 
 			PlayerSettings.SplashScreen.show = false;
 			PlayerSettings.SplashScreen.showUnityLogo = false;
-			
+
 			// Search all generic implementations to pre-compile them with IL2CPP
 			PlayerSettings.SetAdditionalIl2CppArgs("--generic-virtual-method-iterations=10");
-			
+
 			// TODO: Master IL2CPP seems to fail android builds
 			//PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Master);
 			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Master);
-			
+
 			AddressableAssetSettings.BuildPlayerContent();
-			
+
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
-			
+
+			// Copy Dlls to a folder that will be publish as a pipeline artifact
+			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
+
 			LogBuildReport(buildReport);
 
 			if (buildReport.summary.result != BuildResult.Succeeded)
 			{
 				EditorApplication.Exit(1);
 			}
-		}
-
-		/// <summary>
-		/// Combines the configure and build steps
-		/// </summary>
-		public static void AzureBuild()
-		{
-			ConfigureBuild();
-			JenkinsBuild();
 		}
 
 		private static void LogBuildReport(BuildReport buildReport)
@@ -152,10 +156,10 @@ namespace FirstLight.Editor.Build
 			}
 
 			Debug.Log($"Build Result: {buildReport.summary.result.ToString()}\n " +
-			          $"Errors {buildReport.summary.totalErrors}\n " +
-			          $"Size {buildReport.summary.totalSize}\n " +
-			          $"Duration {buildReport.summary.totalTime} Ended {buildReport.summary.buildEndedAt} \n" +
-			          $"{stringBuilder}");
+				$"Errors {buildReport.summary.totalErrors}\n " +
+				$"Size {buildReport.summary.totalSize}\n " +
+				$"Duration {buildReport.summary.totalTime} Ended {buildReport.summary.buildEndedAt} \n" +
+				$"{stringBuilder}");
 		}
 	}
 }

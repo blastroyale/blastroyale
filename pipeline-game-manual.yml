@@ -115,6 +115,7 @@ stages:
           cuttlyApiKey: $(cuttlyApiKey)
           androidFileType: $(androidFileType)
           useUnityAccelerator: ${{ parameters.useUnityAccelerator }}
+          publishDlls: true
     - job: iOSBuild
       timeoutInMinutes: 90
       dependsOn: EditorTests

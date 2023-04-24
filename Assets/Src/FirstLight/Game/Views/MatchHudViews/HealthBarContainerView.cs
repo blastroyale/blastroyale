@@ -235,6 +235,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_healthBarPlayerPool.DespawnAll();
+			_squadContainer.gameObject.SetActive(false);
 		}
 
 		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator(bool squad)

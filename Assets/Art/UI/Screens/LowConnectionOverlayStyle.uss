@@ -5,7 +5,7 @@
     height: 100%;
 }
 
-.hidden {
+.lag-hidden {
     display: none;
 }
 

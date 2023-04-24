@@ -66,24 +66,27 @@ namespace Quantum
 		
 		private bool TryUse(Frame f, EntityRef entity, PlayerRef playerRef, FPVector2 aimInput)
 		{
-			switch (SpecialType)
+			fixed (Special* ptr = &this)
 			{
-				case SpecialType.Airstrike:
-					return SpecialAirstrike.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.ShieldSelfStatus:
-					return SpecialSelfStatusModifier.Use(f, entity, this);
-				case SpecialType.StunGrenade:
-					return SpecialStunGrenade.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.HazardAimSpawn:
-					return SpecialHazardAimSpawn.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.ShieldedCharge:
-					return SpecialShieldedCharge.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.Grenade:
-					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.Radar:
-					return SpecialRadar.Use(f, entity, playerRef, this);
-				default:
-					return false;
+				switch (SpecialType)
+				{
+					case SpecialType.Airstrike:
+						return SpecialAirstrike.Use(f, entity, ptr, aimInput, MaxRange);
+					case SpecialType.ShieldSelfStatus:
+						return SpecialSelfStatusModifier.Use(f, entity, ptr);
+					case SpecialType.StunGrenade:
+						return SpecialStunGrenade.Use(f, entity, ptr, aimInput, MaxRange);
+					case SpecialType.HazardAimSpawn:
+						return SpecialHazardAimSpawn.Use(f, entity, ptr, aimInput, MaxRange);
+					case SpecialType.ShieldedCharge:
+						return SpecialShieldedCharge.Use(f, entity, ptr, aimInput, MaxRange);
+					case SpecialType.Grenade:
+						return SpecialGrenade.Use(f, entity, ptr, aimInput, MaxRange);
+					case SpecialType.Radar:
+						return SpecialRadar.Use(f, entity, playerRef, ptr);
+					default:
+						return false;
+				}
 			}
 		}
 	}

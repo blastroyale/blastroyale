@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialShieldedCharge
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, Special* special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
@@ -72,7 +72,7 @@ namespace Quantum
 				return false;
 			}
 			
-			var chargeDuration = chargeDistance / special.Speed;
+			var chargeDuration = chargeDistance / special->Speed;
 
 			var chargeComponent = new PlayerCharging
 			{
@@ -80,7 +80,7 @@ namespace Quantum
 				ChargeStartPos = attackerPosition,
 				ChargeEndPos = targetPosition,
 				ChargeStartTime = f.Time,
-				PowerAmount = special.SpecialPower,
+				PowerAmount = special->SpecialPower,
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);

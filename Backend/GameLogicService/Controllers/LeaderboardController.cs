@@ -34,6 +34,7 @@ namespace ServerCommon.Controllers
 				StartPosition = position,
 				ProfileConstraints = new ()
 				{
+					ShowDisplayName = true,
 					ShowAvatarUrl = true
 				},
 				MaxResultsCount = Math.Min(200, limit)

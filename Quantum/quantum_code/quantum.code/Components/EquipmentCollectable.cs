@@ -8,7 +8,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, Equipment equipment, EntityRef spawner,
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref Equipment equipment, EntityRef spawner,
 		                   PlayerRef owner = new PlayerRef())
 		{
 			var collectable = new Collectable {GameId = equipment.GameId};
@@ -52,7 +52,7 @@ namespace Quantum
 				playerCharacter->EquipGear(f, playerEntity, Item);
 			}
 
-			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity, Item);
+			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity);
 		}
 	}
 }

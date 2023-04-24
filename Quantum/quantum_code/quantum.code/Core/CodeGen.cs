@@ -5964,13 +5964,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnEquipmentCollected OnEquipmentCollected(EntityRef Entity, PlayerRef Player, EntityRef PlayerEntity, Equipment Item) {
+      public EventOnEquipmentCollected OnEquipmentCollected(EntityRef Entity, PlayerRef Player, EntityRef PlayerEntity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnEquipmentCollected>(EventOnEquipmentCollected.ID);
         ev.Entity = Entity;
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
-        ev.Item = Item;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7707,7 +7706,6 @@ namespace Quantum {
     public EntityRef Entity;
     public PlayerRef Player;
     public EntityRef PlayerEntity;
-    public Equipment Item;
     protected EventOnEquipmentCollected(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7728,7 +7726,6 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + Item.GetHashCode();
         return hash;
       }
     }

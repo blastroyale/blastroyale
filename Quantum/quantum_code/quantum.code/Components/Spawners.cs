@@ -98,7 +98,7 @@ namespace Quantum
 								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
-			                                                        equipment, spawnerEntityRef);
+			                                                        ref equipment, spawnerEntityRef);
 
 			return entity;
 		}
@@ -112,7 +112,7 @@ namespace Quantum
 			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
-			                                                        equipment, spawnerEntityRef);
+			                                                        ref equipment, spawnerEntityRef);
 
 			return entity;
 		}

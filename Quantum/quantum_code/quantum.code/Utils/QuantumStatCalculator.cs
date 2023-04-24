@@ -132,12 +132,12 @@ namespace Quantum
 		{
 			var statRatio = equipmentStatConfig.GetValue(statConfig.StatType);
 			var attributeValue = CalculateAttributeStatValue(ref statConfig, baseStatConfig.GetValue(statConfig.StatType), 
-			                                                 statRatio, equipment, playerLevel);
+			                                                 statRatio, ref equipment, playerLevel);
 
 			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
 
-		private static FP CalculateAttributeStatValue(ref QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment, uint playerLevel)
+		private static FP CalculateAttributeStatValue(ref QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, ref Equipment equipment, uint playerLevel)
 		{
 			if (equipment.Level <= 0)
 			{

@@ -33,7 +33,7 @@ namespace Quantum
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-			                                                        equipment, EntityRef.None, owner);
+			                                                        ref equipment, EntityRef.None, owner);
 		}
 
 		/// <summary>

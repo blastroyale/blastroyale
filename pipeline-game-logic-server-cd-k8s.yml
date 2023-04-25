@@ -8,7 +8,7 @@ resources:
     source: 'Game-Builds'
     trigger:
       tags:
-      - IndividualCI
+      - BatchedCI
   repositories:
   - repository: templates
     type: git

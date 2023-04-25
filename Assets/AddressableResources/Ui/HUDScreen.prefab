@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9107933737851029003}
   - component: {fileID: 1992658982101314426}
+  - component: {fileID: 2048047923676842665}
   m_Layer: 0
   m_Name: HUDScreen
   m_TagString: Untagged
@@ -48,3 +49,18 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 1ef7c16a5493a4c00bb9accbdf10e106, type: 3}
   m_SortingOrder: 0
+--- !u!114 &2048047923676842665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510300625755016602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d860a648d241e7be742efa46dbcff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _document: {fileID: 1992658982101314426}
+  _background: {fileID: 0}
+  _millisecondsToClose: 0

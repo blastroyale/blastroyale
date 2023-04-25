@@ -16,12 +16,6 @@ namespace FirstLight.Game.Presenters
 		private KillFeedView _killFeedView;
 		private MatchStatusView _matchStatusView;
 
-		// TODO: For testing only, remove
-		private void Awake()
-		{
-			OnOpened();
-		}
-
 		protected override void QueryElements(VisualElement root)
 		{
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);

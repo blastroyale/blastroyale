@@ -67,17 +67,17 @@ namespace FirstLight.Game.StateMachines
 			spawning.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 
-			alive.OnEnter(OpenControlsHud);
+			// TODO mihak: alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
-			alive.OnExit(CloseControlsHud);
+			// TODO mihak: alive.OnExit(CloseControlsHud);
 
 			deadCheck.Transition().Condition(IsNotOnline).Target(final);
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 			
 			dead.OnEnter(MatchEndAnalytics);
-			dead.OnEnter(CloseMatchHud);
+			// TODO mihak: dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
@@ -86,7 +86,7 @@ namespace FirstLight.Game.StateMachines
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 
-			final.OnEnter(CloseMatchHud);
+			// TODO mihak: final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -151,26 +151,21 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
-		private void OpenControlsHud()
-		{
-			_uiService.OpenUi<MatchControlsHudPresenter>();
-		}
-
-		private void CloseControlsHud()
-		{
-			_uiService.CloseUi<MatchControlsHudPresenter>();
-		}
-
+		// private void OpenControlsHud()
+		// {
+		// 	_uiService.OpenUi<MatchControlsHudPresenter>();
+		// }
+		//
+		// private void CloseControlsHud()
+		// {
+		// 	_uiService.CloseUi<MatchControlsHudPresenter>();
+		// }
+		//
 		private void OpenMatchHud()
 		{
-			_uiService.OpenUi<MatchHudPresenter>();
+			_uiService.OpenScreen<HUDScreenPresenter>();
 		}
-
-		private void CloseMatchHud()
-		{
-			_uiService.CloseUi<MatchHudPresenter>();
-		}
-
+		
 		private void OpenMatchEndScreen()
 		{
 			var data = new MatchEndScreenPresenter.StateData

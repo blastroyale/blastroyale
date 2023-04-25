@@ -12,11 +12,6 @@
                 <ui:VisualElement name="Icon" class="menu-button__icon" />
             </FirstLight.Game.UIElements.ImageButton>
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
-            <FirstLight.Game.UIElements.ImageButton name="WeaponSwitchButton" class="match-button match-button--weapon-switch" style="position: absolute; top: 530px; left: 2114px;">
-                <ui:VisualElement class="match-button__bg-circle" />
-                <ui:VisualElement name="Icon" class="match-button__icon" />
-                <ui:VisualElement name="Overlay" class="match-button__overlay" />
-            </FirstLight.Game.UIElements.ImageButton>
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special2" class="special-button--special2" />
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">

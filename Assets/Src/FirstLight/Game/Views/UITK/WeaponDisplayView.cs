@@ -31,13 +31,15 @@ namespace FirstLight.Game.Views.UITK
 
 		public void Attached(VisualElement element)
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
+
 			_root = (ImageButton) element;
 			_melee = element.Q("Melee").Required();
 			_weapon = element.Q("Boomstick").Required();
-			_weaponRarity = _weapon.Q("WeaponRarityIcon");
-			_weaponIcon = _weapon.Q("WeaponIcon");
-			_weaponShadow = _weapon.Q("WeaponIconShadow");
-			_factionIcon = _weapon.Q("FactionIcon");
+			_weaponRarity = _weapon.Q("WeaponRarityIcon").Required();
+			_weaponIcon = _weapon.Q("WeaponIcon").Required();
+			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
+			_factionIcon = _weapon.Q("FactionIcon").Required();
 
 			_root.clicked += OnClick;
 		}
@@ -56,7 +58,7 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			SetWeapon(pc.CurrentWeapon);
+			SetWeapon(pc.WeaponSlots[BOOMSTICK_INDEX].Weapon);
 		}
 
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
@@ -66,6 +68,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private async void SetWeapon(Equipment weapon)
 		{
+			if (!weapon.IsValid()) return;
+
 			_weaponRarity.RemoveSpriteClasses();
 			_weaponRarity.AddToClassList(string.Format(UssSpriteRarity,
 				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));

@@ -104,68 +104,6 @@
     border-bottom-width: var(--match-button-outline-width);
 }
 
-.match-button {
-    background-color: var(--match-button-background-color);
-    border-left-color: var(--match-button-outline-color);
-    border-right-color: var(--match-button-outline-color);
-    border-top-color: var(--match-button-outline-color);
-    border-bottom-color: var(--match-button-outline-color);
-    border-left-width: var(--match-button-outline-width);
-    border-right-width: var(--match-button-outline-width);
-    border-top-width: var(--match-button-outline-width);
-    border-bottom-width: var(--match-button-outline-width);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    width: 140px;
-    height: 140px;
-}
-
-.match-button--weapon-switch {
-}
-
-.match-button__bg-circle {
-    width: 85px;
-    height: 85px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    background-color: rgba(49, 45, 71, 0.25);
-    position: absolute;
-}
-
-.match-button__icon {
-}
-
-.match-button--weapon-switch > .match-button__icon {
-    background-image: var(--sprite-match__icon-weaponswitch);
-    width: 96px;
-    height: 88px;
-    top: 10px;
-}
-
-.match-button__overlay {
-    visibility: hidden;
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.31);
-}
-
-.match-button:active > .match-button__overlay {
-    visibility: visible;
-}
-
 .joystick {
     position: absolute;
     width: 280px;
@@ -214,6 +152,7 @@
 .joystick__bg-circle {
     width: 120px;
     height: 120px;
+    position: absolute;
 }
 
 .joystick--free > .joystick__bg-circle {
@@ -224,6 +163,7 @@
     background-image: var(--sprite-match__icon-joystick-move);
     width: 126px;
     height: 126px;
+    position: absolute;
 }
 
 .joystick__stick--free {

@@ -86,7 +86,7 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Execute method for Jenkins builds
 		/// </summary>
-		public static void JenkinsBuild()
+		public static async void JenkinsBuild()
 		{
 			var buildTarget = BuildTarget.NoTarget;
 			var arguments = Environment.GetCommandLineArgs();
@@ -129,7 +129,7 @@ namespace FirstLight.Editor.Build
 			var buildReport = BuildPipeline.BuildPlayer(options);
 
 			// Copy Dlls to a folder that will be publish as a pipeline artifact
-			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
+			await ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
 
 			LogBuildReport(buildReport);
 

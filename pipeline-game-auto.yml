@@ -263,9 +263,9 @@ stages:
               cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/Lib/"
               cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/UnityLib/"
               cp -vf $dllDir/*.json "$(System.DefaultWorkingDirectory)/Backend/ServerCommon/Resources/"
-          - displayName: Copy the Dlls
+            displayName: Copy the Dlls
           - template: pipelines/game-logic-build-push.yml@templates  
-            displayName: Build and Push
+           
             
 ## Quantum Plugin Build
       - job: BuildQuantumPlugin

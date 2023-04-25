@@ -36,21 +36,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[Button]
-		public void DebugSwitchWeapon()
-		{
-			_weaponDisplayView.Switch();
-		}
-
-		[Button]
 		public void DebugStartCountdown(long warningTime = 5000, long shrinkingTime = 7000)
 		{
 			_matchStatusView.StartCountdown(warningTime, shrinkingTime);
 		}
-
-		// [Button]
-		// public void DebugAnimateCount()
-		// {
-		// 	_matchStatusView.TestCount();
-		// }
 	}
 }

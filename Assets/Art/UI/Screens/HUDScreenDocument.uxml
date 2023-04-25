@@ -18,7 +18,7 @@
                 <ui:VisualElement name="Overlay" class="match-button__overlay" />
             </FirstLight.Game.UIElements.ImageButton>
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special2" class="special-button--special2" />
-            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container" style="top: 135px;">
+            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
                     <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
                     <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
@@ -36,7 +36,7 @@
                 <ui:VisualElement name="IconWifi" class="icon-wifi" />
                 <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
             </ui:VisualElement>
-            <ui:VisualElement name="WeaponDisplay" class="weapon-display">
+            <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display">
                 <ui:VisualElement name="Melee" class="weapon-display__melee">
                     <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-melee">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
@@ -55,11 +55,11 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">
                         <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon">
-                            <ui:VisualElement name="FactionIcon" class="sprite-equipmentcard__card-faction-dimensional weapon-display__weapon-faction-icon" />
+                            <ui:VisualElement name="FactionIcon" class="weapon-display__weapon-faction-icon sprite-equipmentcard__card-faction-dimensional" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-            </ui:VisualElement>
+            </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="KillFeed" class="kill-feed" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

@@ -265,8 +265,8 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 80px;
-    height: 80px;
+    width: 132px;
+    height: 92px;
     align-items: center;
     justify-content: center;
 }

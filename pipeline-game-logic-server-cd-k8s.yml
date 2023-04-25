@@ -5,13 +5,10 @@ pr: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'Game Logic Service CI'
+    source: 'Game-Builds'
     trigger:
-      branches:
-        include:
-        - 'develop'
-        - 'release/*'
-        - 'master'
+      tags:
+      - IndividualCI
   repositories:
   - repository: templates
     type: git
@@ -28,6 +25,8 @@ variables:
   value: game-logic-service
 - name: registry
   value: $(REGISTRY_NAME).azurecr.io
+- name: dockerImage
+  value: ${{ resources.pipeline.build.sourceCommit }}-${{resources.pipeline.build.runID}}
 
 pool: linux-k8s
 
@@ -37,7 +36,7 @@ stages:
     parameters:
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
-      image: $(image_manual_override)
+      image: $(dockerImage)
       environment: dev
       system: dev
       minReplicas: 1
@@ -64,7 +63,7 @@ stages:
     parameters:
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
-      image: $(image_manual_override)
+      image: $(dockerImage)
       environment: staging
       system: staging
       minReplicas: 1
@@ -92,7 +91,7 @@ stages:
     parameters:
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
-      image: $(image_manual_override)
+      image: $(dockerImage)
       environment: testnet-prod
       system: testnetprod
       minReplicas: 1
@@ -119,7 +118,7 @@ stages:
     parameters:
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
-      image: $(image_manual_override)
+      image: $(dockerImage)
       environment: mainnet-prod
       system: mainnetprod
       minReplicas: 1
@@ -151,7 +150,7 @@ stages:
     parameters:
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
-      image: $(image_manual_override)
+      image: $(dockerImage)
       environment: dev
       system: dev
       minReplicas: 1

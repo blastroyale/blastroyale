@@ -36,7 +36,7 @@ namespace Backend
 		/// Obtains the current player state.
 		/// </summary>
 		public Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId);
-		
+
 		/// <summary>
 		/// Removes the player from playfab.
 		/// </summary>
@@ -48,16 +48,18 @@ namespace Backend
 		private readonly ILogger _log;
 		private readonly IPlayerSetupService _setupService;
 		private readonly IServerStateService _stateService;
+		private readonly IBaseServiceConfiguration _serviceConfiguration;
 		private readonly GameServer _server;
 		private readonly IEventManager _eventManager;
 		private readonly IStateMigrator<ServerState> _migrator;
 
 		public GameLogicWebWebService(IEventManager eventManager, ILogger log, IStateMigrator<ServerState> migrator,
-									  IPlayerSetupService service, IServerStateService stateService, GameServer server)
+									  IPlayerSetupService service, IServerStateService stateService, GameServer server, IBaseServiceConfiguration serviceConfiguration)
 		{
 			_setupService = service;
 			_stateService = stateService;
 			_server = server;
+			_serviceConfiguration = serviceConfiguration;
 			_eventManager = eventManager;
 			_migrator = migrator;
 			_log = log;
@@ -101,10 +103,14 @@ namespace Backend
 				{
 					Result = new BackendLogicResult()
 					{
-						PlayFabId = playerId, 
+						PlayFabId = playerId,
 						// TODO: Review data structures, response exceeded max playfab limit
 						// https://firstlightgames.atlassian.net/browse/BRG-1134
-						Data = new() // await _stateService.GetPlayerState(playerId) 
+						Data = new()
+						{
+							{"BuildNumber", _serviceConfiguration.BuildNumber},
+							{"BuildCommit", _serviceConfiguration.BuildCommit}
+						} // await _stateService.GetPlayerState(playerId) 
 					}
 				};
 			}

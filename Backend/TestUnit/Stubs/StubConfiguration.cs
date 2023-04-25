@@ -15,5 +15,9 @@ namespace Tests.Stubs
 		public bool DevelopmentMode { get; set; }
 		public bool NftSync { get; set; }
 		public bool RemoteGameConfiguration { get; set; }
+		public string BuildCommit { get; set; }
+		public string BuildNumber { get; set; }
+		
+		
 	}
 }

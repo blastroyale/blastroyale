@@ -37,6 +37,14 @@ parameters:
       - DEVELOPMENT_SERVER
       - STAGE_SERVER
       - LIVE_SERVER
+  - name: build_ios
+    displayName: Build iOS
+    type: boolean
+    default: true
+  - name: build_android
+    displayName: Build Android
+    type: boolean
+    default: true
   - name: param_run_unity_tests
     displayName: Run Unit Tests
     type: boolean
@@ -45,7 +53,6 @@ parameters:
     displayName: Use Accelerator
     type: boolean
     default: true
-    
 
 variables:
 - group: Secrets
@@ -62,81 +69,82 @@ variables:
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
   value: $(PROD-COMMON-CUTTLY-KEY)
-# Auto setup
+
+  # Auto setup
 - ${{ if ne(variables['Build.Reason'], 'Manual') }}:
-  - name: configuration
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-      value: "Debug"
-    ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
-      value: "Release"
-  - name: build_type
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-      value: "DEVELOPMENT_BUILD"
-    ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
-      value: "RELEASE_BUILD"
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
-      value: "STORE_BUILD"
-  - name: server_environment
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-      value: "DEVELOPMENT_SERVER"
-    ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
-      value: "STAGE_SERVER"
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
-      value: "LIVE_SERVER"
-  - name: androidFileType
-    ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))  }}:
-      value: "apk"
-    ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
-      value: "aab"
-  - name: useAccelerator
-    value: true
-# Manual setup
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
-      - name: configuration
+    - name: configuration
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
         value: "Debug"
-      - name: androidFileType
-        value: "apk"
-  - ${{  if eq(parameters['param_build_type'], 'RELEASE_BUILD') }}:
-      - name: configuration
+      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
         value: "Release"
-      - name: androidFileType
+    - name: build_type
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+        value: "DEVELOPMENT_BUILD"
+      ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
+        value: "RELEASE_BUILD"
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+        value: "STORE_BUILD"
+    - name: server_environment
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
+        value: "DEVELOPMENT_SERVER"
+      ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
+        value: "STAGE_SERVER"
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+        value: "LIVE_SERVER"
+    - name: androidFileType
+      ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'))  }}:
         value: "apk"
-  - ${{  if eq(parameters['param_build_type'], 'STORE_BUILD') }}:
-      - name: configuration
-        value: "Release"
-      - name: androidFileType
+      ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
         value: "aab"
-  - name: build_type
-    value: ${{ parameters.param_build_type }}
-  - name: server_environment
-    value: ${{ parameters.param_server_environment }}
-  - name: runUnitTests
-    value: ${{ parameters.param_run_unity_tests }}           
-  - name: useAccelerator
-    value: ${{ parameters.param_use_accelerator }}
-
-
+    - name: useAccelerator
+      value: true
+  # Manual setup
+- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+    - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
+        - name: configuration
+          value: "Debug"
+        - name: androidFileType
+          value: "apk"
+    - ${{  if eq(parameters['param_build_type'], 'RELEASE_BUILD') }}:
+        - name: configuration
+          value: "Release"
+        - name: androidFileType
+          value: "apk"
+    - ${{  if eq(parameters['param_build_type'], 'STORE_BUILD') }}:
+        - name: configuration
+          value: "Release"
+        - name: androidFileType
+          value: "aab"
+    - name: build_type
+      value: ${{ parameters.param_build_type }}
+    - name: server_environment
+      value: ${{ parameters.param_server_environment }}
+    - name: runUnitTests
+      value: ${{ parameters.param_run_unity_tests }}
+    - name: useAccelerator
+      value: ${{ parameters.param_use_accelerator }}      
+      
 pool: macos
 
 
 stages:
   - stage: Builds
     jobs:
-      - job: PrintBuildSetup
-        displayName: Print Build Setup
+      - job: DisplayAndTagBuild
         steps:
-          - checkout: none
-          - bash: |
-              echo "Build Reason: $(Build.Reason)"
-              echo "Server Environment: $(server_environment)"
-              echo "Build Type: $(build_type)"
-              echo "Configuration: $(configuration)"
-              echo "Android File Type: $(androidFileType)"
-              echo "Use Accelerator: $(useAccelerator)"
-              echo "Run Tests: $(runUnitTests)"
-            displayName: Print Build Setup
+        - checkout: none
+        - bash: |
+            echo "Build Reason: $(Build.Reason)"
+            echo "Server Environment: $(server_environment)"
+            echo "Build Type: $(build_type)"
+            echo "Configuration: $(configuration)"
+            echo "Android File Type: $(androidFileType)"
+            echo "Use Accelerator: $(useAccelerator)"
+            echo "Run Tests: $(runUnitTests)"
             
+            echo "##vso[build.addbuildtag]$(Build.Reason)"
+          displayName: "Print variables"
+          
       - job: EditorTests
         displayName: Run Editor Test Suite
         condition: eq('${{ lower(variables.runUnitTests) }}', 'true')
@@ -146,19 +154,42 @@ stages:
           submodules: true
         - template: pipelines/unity-tests.yml@templates
           parameters:
-            testPlatform: EditMode
-            
+            testPlatform: EditMode 
+              
+          
       - job: AndroidBuild
         timeoutInMinutes: 90
-        dependsOn: EditorTests
+        dependsOn:  EditorTests
         displayName: Android Build
         workspace:
           clean: all
-        condition: and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'), ne(variables['SkipBuilds'], 'true'))
+        condition: |
+          and(
+            eq(${{ parameters.build_android }}, true),
+            in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
+          )
+      
+      
         steps:
+#          Republishes a fixed build id artifact, helpful for debugging so you can skip the eternal unity builds 
+#          - checkout: none
+#          - task: DownloadPipelineArtifact@2
+#            inputs:
+#              buildType: 'specific'
+#              project: 'blast-royale'
+#              pipeline: 'Game-Builds'
+#              pipelineId: 11726
+#              runVersion: 'specific'
+#              artifactName: 'GameDlls'
+#              downloadPath: '$(Pipeline.Workspace)/GameDlls'
+#              allowFailedBuilds: true
+#          - task: PublishPipelineArtifact@1
+#            inputs:
+#              artifactName: 'GameDlls'
+#              targetPath: '$(Pipeline.Workspace)/GameDlls'
         - checkout: self
           lfs: true
-          submodules: true
+          fetchTags: false            
         - template: pipelines/unity-build.yml@templates
           parameters:
             configuration: $(configuration)
@@ -178,15 +209,19 @@ stages:
             
       - job: iOSBuild
         timeoutInMinutes: 90
-        dependsOn: EditorTests
+        dependsOn:  EditorTests
         displayName: iOS Build
         workspace:
           clean: all
-        condition: and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'), ne(variables['SkipBuilds'], 'true'))
+        condition: |
+          and(
+            eq(${{ parameters.build_ios }}, true),
+            in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
+          )
         steps:
         - checkout: self
           lfs: true
-          submodules: true
+          fetchTags: false
         - template: pipelines/unity-build.yml@templates
           parameters:
             configuration: $(configuration)
@@ -203,3 +238,55 @@ stages:
             developmentiOSCertPwd: $(developmentiOSCertPwd)
             distributioniOSCertPwd: $(distributioniOSCertPwd)
             useUnityAccelerator: ${{ variables.useAccelerator }}
+            # Publish dlls in IOS build if we skipped the android one
+            publishDlls:  ${{ not(parameters.build_android) }}
+
+
+# GAME LOGIC
+      - job: BuildAndPushGameLogic
+        pool:
+          vmImage: "ubuntu-latest"
+        dependsOn: AndroidBuild
+        displayName: Build and Push Game Logic
+        condition: eq(dependencies.AndroidBuild.result, 'Succeeded')
+        steps:
+          - checkout: self
+            lfs: true
+          - download: current
+            artifact: 'GameDlls'
+          - bash: |
+              set -x
+              
+              dllDir=$(Pipeline.Workspace)/GameDlls
+              ls -la $dllDir
+            
+              cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/Lib/"
+              cp -vf $dllDir/*.dll "$(System.DefaultWorkingDirectory)/Backend/UnityLib/"
+              cp -vf $dllDir/*.json "$(System.DefaultWorkingDirectory)/Backend/ServerCommon/Resources/"
+          - displayName: Copy the Dlls
+          - template: pipelines/game-logic-build-push.yml@templates  
+            displayName: Build and Push
+            
+## Quantum Plugin Build
+      - job: BuildQuantumPlugin
+        displayName: Build/Push Quantum Plugin
+        pool:
+          vmImage: 'windows-latest'
+        # Run just for staging from now
+        dependsOn: AndroidBuild
+        condition: and(eq('${{ variables.server_environment }}', 'STAGE_SERVER'), eq(dependencies.AndroidBuild.result, 'Succeeded'))
+        steps:
+          - checkout: self
+            lfs: true
+
+          - download: current
+            artifact: 'GameDlls'
+            displayName: Download game dlls
+            
+          - template: pipelines/quantum-plugin-build-push.yml@templates  
+            parameters:
+              gameDllsDir: $(Pipeline.Workspace)/GameDlls
+              photonCustomer: FirstLightDev
+              photonKey: $(STAGING-QUANTUM-SERVER-KEY)
+  
+    

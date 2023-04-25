@@ -14,6 +14,7 @@ namespace FirstLight.Game.Presenters
 
 		private WeaponDisplayView _weaponDisplayView;
 		private KillFeedView _killFeedView;
+		private MatchStatusView _matchStatusView;
 
 		// TODO: For testing only, remove
 		private void Awake()
@@ -25,6 +26,7 @@ namespace FirstLight.Game.Presenters
 		{
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
+			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
 		}
 
 		[Button]
@@ -32,11 +34,23 @@ namespace FirstLight.Game.Presenters
 		{
 			_killFeedView.SpawnDeathNotification("GAMESTERWITHAREALLYLONGNAME", "CUPCAKE");
 		}
-		
+
 		[Button]
 		public void DebugSwitchWeapon()
 		{
 			_weaponDisplayView.Switch();
 		}
+
+		[Button]
+		public void DebugStartCountdown(long warningTime = 5000, long shrinkingTime = 7000)
+		{
+			_matchStatusView.StartCountdown(warningTime, shrinkingTime);
+		}
+
+		// [Button]
+		// public void DebugAnimateCount()
+		// {
+		// 	_matchStatusView.TestCount();
+		// }
 	}
 }

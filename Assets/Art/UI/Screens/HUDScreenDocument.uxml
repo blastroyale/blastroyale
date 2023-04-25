@@ -18,12 +18,16 @@
                 <ui:VisualElement name="Overlay" class="match-button__overlay" />
             </FirstLight.Game.UIElements.ImageButton>
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special2" class="special-button--special2" />
-            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
+            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container" style="top: 135px;">
                 <ui:VisualElement name="MatchStatus" class="match-status">
-                    <ui:Label text="12" display-tooltip-when-elided="true" name="AliveCountText" />
+                    <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
                     <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
-                    <ui:VisualElement name="Counter" style="border-top-left-radius: 50%; border-bottom-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; width: 120px; height: 120px; background-color: rgb(128, 58, 81); margin-left: 45px; margin-right: 45px;" />
-                    <ui:Label text="12" display-tooltip-when-elided="true" name="KilledCountText" />
+                    <ui:VisualElement name="Counter" class="match-status__counter">
+                        <ui:VisualElement name="PingBG" usage-hints="DynamicTransform" class="match-status__ping-bg" />
+                        <ui:VisualElement name="BG" class="match-status__bg" />
+                        <ui:Label text="30" name="TimerText" class="match-status__counter-text" />
+                    </ui:VisualElement>
+                    <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
                     <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
                 </ui:VisualElement>
             </ui:VisualElement>

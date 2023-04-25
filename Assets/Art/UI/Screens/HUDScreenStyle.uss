@@ -341,24 +341,6 @@
     width: 180px;
 }
 
-.top-center-container {
-    position: absolute;
-    left: 500px;
-    right: 500px;
-    top: 0;
-    align-items: center;
-}
-
-.match-status {
-    margin-top: 22px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-size: 46px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-}
-
 .weapon-display {
     position: absolute;
     right: 432px;
@@ -538,12 +520,12 @@
 }
 
 .death-notification {
-    height: 40px;
+    height: 58px;
     width: 530px;
     overflow: hidden;
     transition-property: height, opacity;
     transition-duration: 0.5s, 0.5s;
-    margin-bottom: 18px;
+    transition-timing-function: ease-in, ease-in;
 }
 
 .death-notification--hidden {
@@ -751,4 +733,72 @@
 .squad-member__health-bar {
     flex-grow: 1;
     background-image: var(--sprite-match__progress-health);
+}
+
+.top-center-container {
+    position: absolute;
+    left: 500px;
+    right: 500px;
+    top: 0;
+    align-items: center;
+}
+
+.match-status {
+    margin-top: 22px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 46px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
+.match-status__counter {
+    width: 120px;
+    height: 120px;
+    margin-left: 45px;
+    margin-right: 45px;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-status__ping-bg {
+    width: 120px;
+    height: 120px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: rgba(216, 75, 121, 0.5);
+    position: absolute;
+}
+
+.match-status__bg {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(248, 237, 235);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-color: rgb(215, 75, 120);
+    border-right-color: rgb(215, 75, 120);
+    border-top-color: rgb(215, 75, 120);
+    border-bottom-color: rgb(215, 75, 120);
+}
+
+.match-status__counter-text {
+    position: absolute;
+    color: rgb(49, 46, 72);
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    font-size: 42px;
+}
+
+.match-status__playercount {
+    width: 50px;
+    -unity-text-align: upper-center;
 }

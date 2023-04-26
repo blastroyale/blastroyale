@@ -53,14 +53,33 @@ MonoBehaviour:
         - RawValue: 2621440
       ConsumableCollectTime:
         Default:
-          RawValue: 98304
+          RawValue: 49152
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 98304
+        - RawValue: 49152
         - RawValue: 13107
     - Id: 127
+      AssetRef:
+        Id:
+          Value: 240296495379453662
+      ConsumableType: 2
+      Amount:
+        Default:
+          RawValue: 3277
+        Keys: []
+        Values: []
+      ConsumableCollectTime:
+        Default:
+          RawValue: 39322
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 39322
+        - RawValue: 13107
+    - Id: 128
       AssetRef:
         Id:
           Value: 240296495379453662
@@ -72,31 +91,12 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 78643
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 78643
-        - RawValue: 13107
-    - Id: 128
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 2
-      Amount:
-        Default:
-          RawValue: 16384
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 131072
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 131072
+        - RawValue: 65536
         - RawValue: 13107
     - Id: 20
       AssetRef:
@@ -110,12 +110,12 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 78643
+          RawValue: 39322
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 78643
+        - RawValue: 39322
         - RawValue: 13107
     - Id: 21
       AssetRef:
@@ -129,12 +129,12 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 131072
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 131072
+        - RawValue: 65536
         - RawValue: 13107
     - Id: 17
       AssetRef:
@@ -148,7 +148,7 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 117965
+          RawValue: 58982
         Keys:
         - BattleRoyale
         - Deathmatch
@@ -167,12 +167,12 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 117965
+          RawValue: 58982
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 117965
+        - RawValue: 58982
         - RawValue: 13107
     - Id: 106
       AssetRef:
@@ -186,12 +186,12 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 78643
+          RawValue: 39322
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 78643
+        - RawValue: 39322
         - RawValue: 13107
     - Id: 107
       AssetRef:
@@ -205,10 +205,10 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 131072
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 131072
+        - RawValue: 65536
         - RawValue: 13107

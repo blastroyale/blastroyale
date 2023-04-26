@@ -211,7 +211,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
-			SetPlayerSilhouetteVisible(true);
+			SetRenderContainerVisible(true);
+			//SetPlayerSilhouetteVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
@@ -219,7 +220,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				var visVolumeHasSpectatedPlayer =
 					CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
+				//SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
+				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
 			}
 		}
 

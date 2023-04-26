@@ -24,11 +24,8 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 2
-      LargeConsumable:
-      - Value1:
-          RawValue: 65536
-        Value2: 1
+        Value2: 3
+      LargeConsumable: []
     - Id: 130
       ChestType: 1
       RandomEquipment:
@@ -46,8 +43,5 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
-      LargeConsumable:
-      - Value1:
-          RawValue: 65536
-        Value2: 2
+        Value2: 5
+      LargeConsumable: []

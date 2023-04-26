@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - ResourceType: 61
-    BaseRepairCost: 300
+    BaseRepairCost: 150
     BasePower:
-      RawValue: 395182
+      RawValue: 65536
     DurabilityCostIncreasePerPoint:
-      RawValue: 13107
+      RawValue: 0
   - ResourceType: 12
     BaseRepairCost: 20
     BasePower:

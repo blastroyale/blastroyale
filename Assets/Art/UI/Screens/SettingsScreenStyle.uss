@@ -52,7 +52,8 @@
 }
 
 .settings-container--account {
-    height: 359px;
+    height: 400px;
+    justify-content: space-around;
 }
 
 .settings-footer {
@@ -188,13 +189,36 @@
 .settings-radio-button-group {
     color: white;
     background-image: var(--sprite-home__background-settings-item);
-    padding-top: 14px;
-    padding-bottom: 48px;
     margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: flex-end;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.settings-radio-button-group:focus .unity-base-field__label {
+.settings-radio-button-group .unity-base-field__label {
     color: white;
+    -unity-text-align: middle-center;
+}
+
+.settings-radio-button-group > .unity-base-field__input {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 79px;
+    flex-grow: 1;
+}
+
+.settings-radio-button-group .unity-radio-button {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.settings-radio-button-group .unity-radio-button__text {
+    margin-left: 10px;
 }
 
 .settings-radio-button-group .unity-radio-button__checkmark-background {
@@ -208,7 +232,6 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    overflow: hidden;
     align-items: center;
     justify-content: center;
 }
@@ -223,20 +246,6 @@
     border-bottom-right-radius: 50%;
 }
 
-.settings-radio-button-group .unity-radio-button__label {
-    color: white;
-}
-
-.settings-radio-button-group .unity-base-field__input {
-    flex-direction: row;
-    justify-content: center;
-}
-
-.settings-radio-button-group .unity-base-field__input .unity-radio-button {
-    width: 200px;
-    justify-content: space-around;
-}
-
 .settings-title {
     height: 80px;
     justify-content: center;
@@ -248,143 +257,16 @@
     background-image: var(--sprite-home__header-popup-equipment);
 }
 
-.connection-status-label {
-    -unity-text-align: upper-center;
-    top: 79px;
-}
-
-.connection-name-label {
-    -unity-text-align: upper-center;
-    top: 107px;
-}
-
-.button-delete-account {
-    position: absolute;
-    background-image: none;
-    left: 40px;
-    bottom: 25px;
-}
-
-.settings-content-graphics {
-    height: 354px;
-    justify-content: space-around;
-}
-
-.settings-radio-button-group-fps {
-    -unity-text-align: upper-center;
-    height: auto;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    flex-grow: 1;
-    background-image: var(--sprite-home__background-settings-item);
-}
-
-.settings-radio-button-group-fps .unity-base-field__input {
+.account-buttons {
     flex-direction: row;
-    justify-content: center;
-}
-
-.settings-radio-button-group-fps .unity-base-field__input .unity-radio-button {
-    width: 200px;
     justify-content: space-around;
 }
 
-.settings-radio-button-group-fps:focus .unity-base-field__label {
-    color: white;
-}
-
-.settings-radio-button-group-fps .unity-radio-button__checkmark-background {
-    height: 44px;
-    width: 44px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-}
-
-.settings-radio-button-group-fps .unity-radio-button__checkmark {
-    background-color: rgb(247, 107, 106);
-    height: 34px;
-    width: 34px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-}
-
-.settings-radio-button-group-graphics {
+.account-status-label {
     -unity-text-align: upper-center;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-grow: 1;
-    background-image: var(--sprite-home__background-settings-item);
 }
 
-.settings-radio-button-group-graphics .unity-base-field__input {
-    flex-direction: row;
-    justify-content: center;
-}
-
-.settings-radio-button-group-graphics .unity-base-field__input .unity-radio-button {
-    width: 200px;
-    justify-content: space-around;
-}
-
-.settings-radio-button-group-graphics:focus .unity-base-field__label {
-    color: white;
-}
-
-.settings-radio-button-group-graphics .unity-radio-button__checkmark-background {
-    height: 44px;
-    width: 44px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-}
-
-.settings-radio-button-group-graphics .unity-radio-button__checkmark {
-    background-color: rgb(247, 107, 106);
-    height: 34px;
-    width: 34px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-}
-
-.button-connect-account {
-    position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-yellow-pressed.png?fileID=21300000&guid=50365762fd4d549e2bbf30c7827ce650&type=3#button-long-yellow-pressed');
-    right: 40px;
-    bottom: 35px;
-}
-
-.button-logout-account {
-    position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-red-pressed.png?fileID=21300000&guid=c145e479df096482486e6f4f8e67fcc5&type=3#button-long-red-pressed');
-    right: 40px;
-    bottom: 35px;
-}
-
-.settings-container--graphics {
-    justify-content: space-around;
-    height: 400px;
+.account-button {
+    margin-left: 10px;
+    margin-right: 10px;
 }

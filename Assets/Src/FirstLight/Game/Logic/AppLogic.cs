@@ -414,7 +414,7 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void SetFpsTarget()
 		{
-			Application.targetFrameRate = (int) FpsTarget;
+			Application.targetFrameRate = FpsTarget == FpsTarget.High ? 60 : 30;
 		}
 	}
 }

@@ -30,16 +30,16 @@ MonoBehaviour:
       RawValue: 2621
   - Adjective: 5
     PoolCapacityModifier:
-      RawValue: 5243
+      RawValue: 4260
   - Adjective: 6
     PoolCapacityModifier:
-      RawValue: 8520
+      RawValue: 6881
   - Adjective: 7
     PoolCapacityModifier:
-      RawValue: 13107
+      RawValue: 10486
   - Adjective: 8
     PoolCapacityModifier:
-      RawValue: 19661
+      RawValue: 15729
   - Adjective: 9
     PoolCapacityModifier:
-      RawValue: 32768
+      RawValue: 24248

@@ -143,17 +143,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<RedirectToEnvironmentMessage>(OnRedirectEnvironment);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpError);
-		}
-
-		private void OnRedirectEnvironment(RedirectToEnvironmentMessage msg)
-		{
-			var localConfig = FeatureFlags.GetLocalConfiguration();
-			localConfig.EnvironmentOverride = msg.NewEnvironment;
-			_services.GameBackendService.IsEnvironmentRedirect = true;
-			FeatureFlags.SaveLocalConfig();
 		}
 
 		private void OnServerHttpError(ServerHttpErrorMessage msg)
@@ -191,7 +182,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsEnvironmentRedirect()
 		{
-			return _services.GameBackendService.IsEnvironmentRedirect;
+			return _services.GameBackendService.EnvironmentRedirect.HasValue;
 		}
 
 		private bool IsAccountDeleted()

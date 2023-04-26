@@ -164,8 +164,8 @@
 
 .leaderboard-entry-positioner__highlight {
     background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
-    width: 1100;
-    height: 92;
+    width: 1100px;
+    height: 92px;
     right: -40px;
     position: absolute;
     overflow: visible;
@@ -202,7 +202,6 @@
 }
 
 .leaderboard-entry__pfp--nft > .leaderboard-entry__pfp-image {
-    background-image: url('project://database/Assets/TestPFP.png?fileID=2800000&guid=27e9edfd266db4e10b9c763df3884f0e&type=3#TestPFP');
     bottom: -33px;
     top: 0;
     left: 0;

@@ -141,8 +141,12 @@ stages:
             echo "Android File Type: $(androidFileType)"
             echo "Use Accelerator: $(useAccelerator)"
             echo "Run Tests: $(runUnitTests)"
-            
-            echo "##vso[build.addbuildtag]$(Build.Reason)"
+            if [ "$(FAKE_AUTO_BUILD)" == "true" ]; then
+                echo "##vso[build.addbuildtag]BatchedCI"
+            else
+                echo "##vso[build.addbuildtag]$(Build.Reason)"
+            fi
+          
           displayName: "Print variables"
           
       - job: EditorTests

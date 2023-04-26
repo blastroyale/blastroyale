@@ -1,6 +1,4 @@
 # Pipeline to release new containers on container apps
-
-trigger: none
 pr: none
 resources:
   pipelines:

@@ -53,5 +53,14 @@ namespace FirstLight.Server.SDK.Services
 		/// If false will fetch config baked into the server.
 		/// </summary>
 		bool RemoteGameConfiguration { get; }
+		
+		/// <summary>
+		/// Git commit used to build this image
+		/// </summary>
+		string BuildCommit { get; }
+		/// <summary>
+		/// Devops build number used to build
+		/// </summary>
+		string BuildNumber { get; }
 	}
 }

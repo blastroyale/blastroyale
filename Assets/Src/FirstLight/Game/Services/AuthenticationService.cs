@@ -420,6 +420,20 @@ namespace FirstLight.Game.Services
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
 
+			if (data != null)
+			{
+				if (data.TryGetValue("BuildNumber", out var buildNumber))
+				{
+					VersionUtils.ServerBuildNumber = buildNumber;
+				}
+				if (data.TryGetValue("BuildCommit", out var buildCommit))
+				{
+					VersionUtils.ServerBuildCommit = buildCommit;
+				}
+
+				VersionUtils.ValidateServer();
+
+			}
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.GameBackendService.FetchServerState(state =>

@@ -118,7 +118,6 @@
     <Compile Include="CustomQuantumPlugin.cs" />
     <Compile Include="CustomQuantumServer.cs" />
     <Compile Include="FlgConfig.cs" />
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="PlayfabPhotonHttp.cs" />
     <Compile Include="PhotonPlayfabSDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

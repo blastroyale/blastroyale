@@ -34,6 +34,8 @@ namespace FirstLight.Game.Presenters
 			public Action LeaveRoomClicked;
 		}
 
+		private const int MAX_SQUAD_ID = 30;
+
 		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private GameObject _rootObject;
@@ -556,16 +558,16 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSquadIdUp()
 		{
-			_squadId = Mathf.Clamp(_squadId + 1, 1, 99);
+			_squadId = _squadId == MAX_SQUAD_ID ? 1 : Mathf.Clamp(_squadId + 1, 1, MAX_SQUAD_ID);
 			UpdateSquadIdDelayed();
 		}
 
 		private void OnSquadIdDown()
 		{
-			_squadId = Mathf.Clamp(_squadId - 1, 1, 99);
+			_squadId = _squadId == 1 ? MAX_SQUAD_ID : Mathf.Clamp(_squadId - 1, 1, MAX_SQUAD_ID);
 			UpdateSquadIdDelayed();
 		}
-		
+
 		private void UpdateSquadIdDelayed()
 		{
 			_squadIdText.text = _squadId.ToString();

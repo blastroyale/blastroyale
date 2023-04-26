@@ -12,18 +12,3 @@ component Spell
 	FP NextHitTime;
 	FP EndTime;
 }
-
-synced event OnSpellHit
-{
-	entity_ref Entity;
-}
-
-synced event OnSpellAdded
-{
-    entity_ref Entity;
-}
-
-synced event OnSpellRemoved
-{
-    entity_ref Entity;
-}

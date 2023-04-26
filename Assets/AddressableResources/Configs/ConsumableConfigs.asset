@@ -205,10 +205,10 @@ MonoBehaviour:
         Values: []
       ConsumableCollectTime:
         Default:
-          RawValue: 65536
+          RawValue: 131072
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 65536
+        - RawValue: 131072
         - RawValue: 13107

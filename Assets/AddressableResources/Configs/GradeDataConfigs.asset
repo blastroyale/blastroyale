@@ -15,13 +15,13 @@ MonoBehaviour:
   _configs:
   - Grade: 0
     PoolIncreaseModifier:
-      RawValue: 1310720
+      RawValue: 65536
   - Grade: 1
     PoolIncreaseModifier:
-      RawValue: 131072
+      RawValue: 29491
   - Grade: 2
     PoolIncreaseModifier:
-      RawValue: 13107
+      RawValue: 9830
   - Grade: 3
     PoolIncreaseModifier:
       RawValue: 3277

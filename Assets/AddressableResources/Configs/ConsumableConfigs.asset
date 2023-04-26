@@ -53,12 +53,12 @@ MonoBehaviour:
         - RawValue: 2621440
       ConsumableCollectTime:
         Default:
-          RawValue: 49152
+          RawValue: 98304
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 49152
+        - RawValue: 98304
         - RawValue: 13107
     - Id: 127
       AssetRef:

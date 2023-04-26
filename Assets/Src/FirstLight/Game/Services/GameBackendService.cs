@@ -314,9 +314,10 @@ namespace FirstLight.Game.Services
 				StatisticName = _leaderboardLadderName,
 				StartPosition = 0,
 				MaxResultsCount = amountOfEntries,
-				ProfileConstraints = new ()
+				ProfileConstraints = new PlayerProfileViewConstraints
 				{
-					ShowAvatarUrl = true
+					ShowAvatarUrl = true,
+					ShowDisplayName = true,
 				}
 			};
 

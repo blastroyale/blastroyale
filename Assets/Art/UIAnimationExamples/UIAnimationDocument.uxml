@@ -17,12 +17,19 @@
             </ui:Button>
             <ui:Button text="Class" name="ButtonClass" class="animation-button" />
         </ui:VisualElement>
+        <ui:VisualElement name="TimelineByClass" class="animation-category">
+            <ui:Label text="Timeline (By Class)" name="Title" class="animation-catagory__title" />
+            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
+            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
+            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
+            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
+        </ui:VisualElement>
         <ui:VisualElement name="Transitions" class="animation-category">
             <ui:Label text="Transitions" name="Title" class="animation-catagory__title" />
-            <ui:Button text="transition-button" name="ButtonTransition" class="transition-button" />
-            <ui:Button text="transition-button--green" name="ButtonTransitionGreen" class="transition-button transition-button--green" />
-            <ui:Button text="transition-button--circle" name="ButtonTransitionCircle" class="transition-button transition-button--circle" />
-            <ui:Button text="transition-button--smalltext" name="ButtonTransitionSmalltext" class="transition-button transition-button--smalltext" />
+            <ui:Button text=".transition-button" name="ButtonTransition" class="transition-button" />
+            <ui:Button text=".transition-button--green" name="ButtonTransitionGreen" class="transition-button transition-button--green" />
+            <ui:Button text=".transition-button--circle" name="ButtonTransitionCircle" class="transition-button transition-button--circle" />
+            <ui:Button text=".transition-button--smalltext" name="ButtonTransitionSmalltext" class="transition-button transition-button--smalltext" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

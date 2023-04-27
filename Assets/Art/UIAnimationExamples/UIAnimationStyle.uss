@@ -10,6 +10,14 @@
     align-items: center;
     justify-content: space-around;
     padding-top: 94px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
 }
 
 .animation-button {
@@ -28,6 +36,7 @@
     right: 0;
     top: 20px;
     -unity-text-align: upper-center;
+    background-color: rgba(147, 147, 147, 255);
 }
 
 .animation-button--green {

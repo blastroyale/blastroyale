@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 		public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
 			var mixer = ScriptPlayable<UIDocumentMixerBehaviour>.Create(graph, inputCount);
-			mixer.GetBehaviour().Element = GetQuoteUnquoteBoundElement(go);
+			mixer.GetBehaviour().Elements = GetQuoteUnquoteBoundElements(go);
 			return mixer;
 		}
 
@@ -28,18 +29,40 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			return Playable.Null;
 		}
 
-		private VisualElement GetQuoteUnquoteBoundElement(GameObject go)
+		private List<VisualElement> GetQuoteUnquoteBoundElements(GameObject go)
 		{
 			var root = go.GetComponent<UIDocument>().rootVisualElement;
-			var path = name.Split('#', StringSplitOptions.RemoveEmptyEntries);
 
-			var ve = root;
-			foreach (var elementName in path)
+			var elements = new List<VisualElement>(1);
+
+			if (name.StartsWith("#"))
 			{
-				ve = ve.Q(elementName);
+				var path = name.Split('#', StringSplitOptions.RemoveEmptyEntries);
+
+				var ve = root;
+				foreach (var elementName in path)
+				{
+					ve = ve.Q(name: elementName);
+				}
+
+				elements.Add(ve);
+			}
+			else if (name.StartsWith("."))
+			{
+				root.Query(className: name.Replace(".", "")).Build().ToList(elements);
+			}
+			else
+			{
+				Debug.LogError("Invalid track / element name");
+				return null;
 			}
 
-			return ve;
+			if (elements.Count == 0)
+			{
+				Debug.LogError($"Could not find any elements matching the pattern: {name}");
+			}
+
+			return elements;
 		}
 	}
 }

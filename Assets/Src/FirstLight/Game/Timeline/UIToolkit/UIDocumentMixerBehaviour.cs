@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	[Serializable]
 	public class UIDocumentMixerBehaviour : PlayableBehaviour
 	{
-		public VisualElement Element;
+		public List<VisualElement> Elements;
 
 		public override void ProcessFrame(Playable playable, FrameData info, object playerData)
 		{
@@ -38,7 +39,11 @@ namespace FirstLight.Game.Timeline.UIToolkit
 					case UIDocumentClassBehaviour cls:
 						// TODO: Bad! Called every frame!
 						var enable = playable.GetInputWeight(i) > 0f;
-						Element.EnableInClassList(cls.ClassName, enable);
+						foreach (var e in Elements)
+						{
+							e.EnableInClassList(cls.ClassName, enable);
+						}
+
 						break;
 					case UIDocumentOpacityBehaviour op:
 						opacity += op.Opacity * playable.GetInputWeight(i);
@@ -46,10 +51,13 @@ namespace FirstLight.Game.Timeline.UIToolkit
 				}
 			}
 
-			Element.transform.position = position;
-			Element.transform.scale = Vector3.one * scale;
-			Element.transform.rotation = Quaternion.Euler(0, 0, rotation);
-			Element.style.opacity = opacity;
+			foreach (var e in Elements)
+			{
+				e.transform.position = position;
+				e.transform.scale = Vector3.one * scale;
+				e.transform.rotation = Quaternion.Euler(0, 0, rotation);
+				e.style.opacity = opacity;
+			}
 		}
 	}
 }

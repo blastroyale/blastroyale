@@ -97,6 +97,7 @@
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
+    <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.Threadsafe.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
+    <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
@@ -297,6 +299,7 @@
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
     <Compile Include="Utils\BitUtil.cs" />
+    <Compile Include="Utils\DebugExtensions.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />

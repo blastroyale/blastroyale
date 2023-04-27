@@ -83,7 +83,9 @@ namespace Quantum
 				}
 			}
 
-			CurrentProgress = (uint) (TargetProgress - teamsAlive.Count + 1);
+			// We count how many teams are alive towards our goal (we remove ours)
+			var teamsAliveForGoal = teamsAlive.Count - 1;
+			CurrentProgress = (uint) (TargetProgress - teamsAliveForGoal);
 
 			if (CurrentProgress >= TargetProgress)
 			{
@@ -96,7 +98,7 @@ namespace Quantum
 		/// Battle Royale Ranking: More frags == higher rank and Dead longer == lower rank
 		/// Deathmatch Ranking: More frags == higher rank and Same frags && more deaths == lower rank 
 		/// </summary>
-		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader)
+		public List<QuantumPlayerMatchData> GeneratePlayersMatchData(Frame f, out PlayerRef leader, out int leaderTeam)
 		{
 			var data = PlayersData;
 			var gameModeConfig = f.Context.GameModeConfig;
@@ -123,6 +125,7 @@ namespace Quantum
 				.ToList();
 
 			leader = playersData[0].Data.Player;
+			leaderTeam = playersData[0].TeamId;
 
 			for (var i = 0; i < playersData.Count; i++)
 			{

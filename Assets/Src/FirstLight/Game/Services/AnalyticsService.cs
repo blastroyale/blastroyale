@@ -142,10 +142,8 @@ namespace FirstLight.Game.Services
 					SingularSDK.Event(parameters, eventName);
 				}
 
-				// Prepare parameters for Unity and Firebase
-				var unityParams = new Dictionary<string, object>();
+				// Prepare parameters for Firebase
 				var firebaseParams = new List<Parameter>(parameters.Count);
-				int count = 0;
 				foreach (var parameter in parameters)
 				{
 					if (parameter.Value == null)
@@ -154,13 +152,7 @@ namespace FirstLight.Game.Services
 							"Analytics null parameter '" + parameter.Key + "' in event '" + eventName + "'");
 						continue;
 					}
-
-					// Unity (max 10 params)
-					if (count++ < 10)
-					{
-						unityParams.Add(parameter.Key, parameter.Value);
-					}
-
+					
 					switch (parameter.Value)
 					{
 						// Firebase
@@ -176,8 +168,6 @@ namespace FirstLight.Game.Services
 					}
 				}
 
-				// Unity
-				Analytics.CustomEvent(eventName, unityParams);
 				// Firebase
 				FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
 			}

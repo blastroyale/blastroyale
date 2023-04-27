@@ -22,8 +22,14 @@ namespace FirstLight.Game.Presenters
 		private void QueryElementsSquads(VisualElement root)
 		{
 			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
+			_partyView.SetRoot(root);
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.clicked += OnPartyClicked;
+		}
+
+		private void UpdateSquadsButtonVisibility()
+		{
+			_partyButton.SetVisibility(FeatureFlags.DISPLAY_SQUADS_BUTTON);
 		}
 
 		private void SubscribeToSquadEvents()
@@ -122,7 +128,6 @@ namespace FirstLight.Game.Presenters
 				await _uiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
 			}
 		}
-
 
 		private void OnAnyPartyUpdate()
 		{

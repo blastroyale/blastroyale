@@ -2,21 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
-using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -26,9 +21,17 @@ using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	public enum Environment
+	{
+		DEV,
+		STAGING,
+		TESTNET,
+		PROD
+	}
+
 	public class BackendEnvironmentData
 	{
-		public string EnvironmentID;
+		public Environment EnvironmentID;
 		public string TitleID;
 		public string AppIDRealtime;
 		public string RecoveryEmailTemplateID;
@@ -121,6 +124,22 @@ namespace FirstLight.Game.Services
 		/// Handle an unrecoverable exception in the game, it will close and send analytics
 		/// </summary>
 		void HandleUnrecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType);
+
+		/// <summary>
+		/// Will handle a recoverable exception, making sure it will get to all analytics services
+		/// </summary>
+		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
+		
+		/// <summary>
+		/// Returns if the game is running on dev env. On dev things can be different.
+		/// </summary>
+		bool IsDev();
+		
+		/// <summary>
+		/// Handles if we should redirect the login flow to another environment after logging in.
+		/// This is mainly for store approval where we redirect builds to staging.
+		/// </summary>
+		Environment? EnvironmentRedirect { get; set; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -153,48 +172,97 @@ namespace FirstLight.Game.Services
 			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { onSuccess(r.Segments); }, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
 
-		public void SetupBackendEnvironment()
+		private void SetupLive(BackendEnvironmentData envData)
 		{
-			if (CurrentEnvironmentData != null)
-			{
-				return;
-			}
-
-			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			var appData = _dataService.GetData<AppData>();
-			var envData = new BackendEnvironmentData();
-#if LIVE_SERVER
-			envData.EnvironmentID = "live";
+			envData.EnvironmentID = Environment.PROD;
 			envData.TitleID = "***REMOVED***";
 			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
-#elif LIVE_TESTNET_SERVER
-			envData.EnvironmentID = "live testnet";
+		}
+
+		private void SetupTestnet(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.TESTNET;
 			envData.TitleID = "***REMOVED***";
 			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
-#elif STAGE_SERVER
-			envData.EnvironmentID = "stage";
-			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-#else
-			envData.EnvironmentID = "dev";
-			envData.TitleID = "***REMOVED***";
-			envData.RecoveryEmailTemplateID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
-#endif
+		}
 
+		private void SetupStaging(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.STAGING;
+			envData.TitleID = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+		}
+
+		private void SetupDev(BackendEnvironmentData envData)
+		{
+			envData.EnvironmentID = Environment.DEV;
+			envData.TitleID = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+		}
+
+		private void SetupEnvironmentFromLocalConfig(Environment env, BackendEnvironmentData envData)
+		{
+			switch (env)
+			{
+				case Environment.PROD:
+					SetupLive(envData);
+					break;
+				case Environment.STAGING:
+					SetupStaging(envData);
+					break;
+				case Environment.TESTNET:
+					SetupTestnet(envData);
+					break;
+				default:
+					SetupDev(envData);
+					break;
+			}
+		}
+
+		private void SetupEnvironmentFromCompilerFlags(BackendEnvironmentData envData)
+		{
+#if LIVE_SERVER
+			SetupLive(envData);
+#elif LIVE_TESTNET_SERVER
+			SetupTestnet(envData);
+#elif STAGE_SERVER
+			SetupStaging(envData);
+#else
+			SetupEnvironmentFromLocalConfig(FeatureFlags.GetLocalConfiguration().EnvironmentOverride, envData);
+#endif
+		}
+
+		public void SetupBackendEnvironment()
+		{
+			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.GetData<AppData>();
+			var envData = new BackendEnvironmentData();
+
+			if (EnvironmentRedirect.HasValue)
+			{
+				FLog.Info("Environment Redirect");
+				SetupEnvironmentFromLocalConfig(EnvironmentRedirect.Value, envData);
+			}
+			else
+			{
+				SetupEnvironmentFromCompilerFlags(envData);
+			}
+
+			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
 			CurrentEnvironmentData = envData;
 
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
 			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
 
-			if (CurrentEnvironmentData.EnvironmentID != appData.Environment)
+			if (CurrentEnvironmentData.EnvironmentID != appData.LastEnvironment)
 			{
 				var newData = appData.CopyForNewEnvironment();
 
-				newData.Environment = CurrentEnvironmentData.EnvironmentID;
+				newData.LastEnvironment = CurrentEnvironmentData.EnvironmentID;
 
 				_dataService.AddData(newData, true);
 				_dataService.SaveData<AppData>();
@@ -245,7 +313,12 @@ namespace FirstLight.Game.Services
 			{
 				StatisticName = _leaderboardLadderName,
 				StartPosition = 0,
-				MaxResultsCount = amountOfEntries
+				MaxResultsCount = amountOfEntries,
+				ProfileConstraints = new PlayerProfileViewConstraints
+				{
+					ShowAvatarUrl = true,
+					ShowDisplayName = true,
+				}
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
@@ -296,7 +369,7 @@ namespace FirstLight.Game.Services
 		private Exception ExtractException(ExecuteFunctionResult req)
 		{
 			var result = req.FunctionResult as JsonObject;
-			if (result.TryGetValue("error", out var error) && error != null)
+			if (result != null && result.TryGetValue("error", out var error) && error != null)
 			{
 				return new Exception(error.ToString());
 			}
@@ -318,6 +391,13 @@ namespace FirstLight.Game.Services
 			});
 
 			callback?.Invoke(error);
+		}
+
+		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		{
+			// Unfortunately we have to log as an Error to send to crash analytics, and it is impossible to send exceptions manually :( 
+			FLog.Error("recoverable exception", ex);
+			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, ex.Message);
 		}
 
 		/// <inheritdoc/>
@@ -347,11 +427,17 @@ namespace FirstLight.Game.Services
 					_services.QuitGame(descriptiveError);
 				},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
-					Text = ScriptLocalization.MainMenu.QuitGameButton
+					Text = I2.Loc.ScriptLocalization.MainMenu.QuitGameButton
 			});
 #endif
 		}
 
+		public bool IsDev()
+		{
+			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
+		}
+
+		public Environment? EnvironmentRedirect { get; set; } = null;
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{

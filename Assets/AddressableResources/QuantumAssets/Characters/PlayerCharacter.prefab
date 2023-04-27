@@ -407,6 +407,7 @@ MonoBehaviour:
         RawValue: 25362
     Player:
       _index: 0
+    TeamId: 0
     CurrentWeaponSlot: 0
     WeaponSlots:
     - Weapon:
@@ -424,8 +425,6 @@ MonoBehaviour:
           Value: 0
         Material:
           Value: 0
-        Manufacturer:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
@@ -499,8 +498,6 @@ MonoBehaviour:
           Value: 0
         Material:
           Value: 0
-        Manufacturer:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
@@ -573,8 +570,6 @@ MonoBehaviour:
         Adjective:
           Value: 0
         Material:
-          Value: 0
-        Manufacturer:
           Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
@@ -649,7 +644,27 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
+      MaxDurability: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
         Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
@@ -673,8 +688,6 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
-        Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
       Tuning: 0
@@ -697,8 +710,6 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
-        Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
       Tuning: 0
@@ -720,32 +731,6 @@ MonoBehaviour:
       Adjective:
         Value: 0
       Material:
-        Value: 0
-      Manufacturer:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      Manufacturer:
         Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0

@@ -21,7 +21,9 @@
             <ui:VisualElement name="MapHolder" class="map-holder">
                 <ui:VisualElement name="Map" class="map">
                     <ui:VisualElement name="Mask" class="map__mask">
-                        <ui:VisualElement name="MapImage" class="map__image" />
+                        <ui:VisualElement name="MapImage" class="map__image">
+                            <ui:VisualElement name="TutorialDropPos" picking-mode="Ignore" class="tutorial-drop-pos" />
+                        </ui:VisualElement>
                         <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
                             <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
                             <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
@@ -43,9 +45,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="SquadContainer" class="squad-container">
-                <ui:Label text="SQUAD [0]" name="SquadLabel" class="squad-container__label" />
+                <ui:VisualElement name="Header" class="squad-container__header">
+                    <FirstLight.Game.UIElements.LocalizedButton name="Title" localization-key="UITHomeScreen/party" class="squad-container__title" />
+                </ui:VisualElement>
                 <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
+            <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client"/>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -29,11 +29,8 @@
 }
 
 .back_avatar {
-    background-image: var(--sprite-ftue__background-character);
     position: absolute;
     display: none;
-    width: 302px;
-    height: 285px;
 }
 
 .back_avatar--top {
@@ -59,11 +56,10 @@
 }
 
 .bubble {
-    background-image: var(--sprite-ftue__background-dialog);
     position: absolute;
     display: none;
     width: 544px;
-    height: 244px;
+    height: 344px;
 }
 
 .bubble--left {
@@ -101,43 +97,6 @@
     white-space: normal;
 }
 
-.bubble__text__right {
+.bubble__text--right {
     scale: -1, 1;
-}
-
-.character {
-    width: 302px;
-    height: 285px;
-}
-
-.male_happy {
-    background-image: var(--sprite-ftue__character-male-happy);
-}
-
-.male_neutral {
-    background-image: var(--sprite-ftue__character-male-neutral);
-}
-
-.male_thinking {
-    background-image: var(--sprite-ftue__character-male-thinking);
-}
-
-.male_shocked {
-    background-image: var(--sprite-ftue__character-male-shocked);
-}
-
-.female_happy {
-    background-image: var(--sprite-ftue__character-female-happy);
-}
-
-.female_neutral {
-    background-image: var(--sprite-ftue__character-female-neutral);
-}
-
-.female_thinking {
-    background-image: var(--sprite-ftue__character-female-thinking);
-}
-
-.female_shocked {
-    background-image: var(--sprite-ftue__character-female-shocked);
 }

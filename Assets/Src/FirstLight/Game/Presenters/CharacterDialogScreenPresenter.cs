@@ -22,13 +22,15 @@ namespace FirstLight.Game.Presenters
 		private const string CHARACTER_TOP = "back_avatar--top";
 		private const string CHARACTER_CENTER = "back_avatar--center";
 		
+		private const string MOOD_STYLE = "sprite-ftue__character-";
+
 		private const string BUBBLE_LEFT = "bubble--left";
 		private const string BUBBLE_RIGHT = "bubble--right";
 		private const string BUBBLE_BOTTOM = "bubble--bottom";
 		private const string BUBBLE_TOP = "bubble--top";
 		private const string BUBBLE_CENTER = "bubble--center";
 		
-		private const string LOC_TEXT_RIGHT = "bubble__localized-text__right";
+		private const string LOC_TEXT_RIGHT = "bubble__text--right";
 
 		private const int SCALE_DURATION_MS = 250;
 		private const int SCALE_BUMP_DURATION_MS = 150;
@@ -106,7 +108,8 @@ namespace FirstLight.Game.Presenters
 			{
 				_characters[character][3].SetDisplay(false);
 				RemovePosStyles(character);
-				RemoveMoodStyles(character);
+				_characters[character][0].RemoveSpriteClasses();
+				
 			});
 
 			_characters[character][1].experimental.animation.Start((e) => e.transform.scale, new Vector3(0, 0, 1),
@@ -136,11 +139,12 @@ namespace FirstLight.Game.Presenters
 
 		private void SetMood(CharacterType character, CharacterDialogMoodType mood)
 		{
-			var moodClass = character.ToString().ToLower() + "_" + mood.ToString().ToLower();
+			var moodClass = MOOD_STYLE+character.ToString().ToLower() + "-" + mood.ToString().ToLower();
 			if (_characters[character][0].ClassListContains(moodClass))
 				return;
 			
-			RemoveMoodStyles(character);
+			_characters[character][0].RemoveSpriteClasses();
+			
 			_characters[character][0].AddToClassList(moodClass);
 			
 			SmallBumpAnimElement(_characters[character][3]);
@@ -158,8 +162,8 @@ namespace FirstLight.Game.Presenters
 			if (position is CharacterDialogPosition.TopRight or CharacterDialogPosition.BottomRight)
 			{
 				_characters[character][3].AddToClassList(CHARACTER_RIGHT);
-				_characters[character][1].AddToClassList(BUBBLE_RIGHT);
 				_characters[character][2].AddToClassList(LOC_TEXT_RIGHT);
+				_characters[character][1].AddToClassList(BUBBLE_RIGHT);
 			}
 			else if (position is CharacterDialogPosition.TopLeft or CharacterDialogPosition.BottomLeft)
 			{
@@ -213,15 +217,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void RemoveMoodStyles(CharacterType character)
-		{
-			foreach (CharacterDialogMoodType mood in (CharacterDialogMoodType[]) Enum.GetValues(
-						 typeof(CharacterDialogMoodType)))
-			{
-				_characters[character][0].RemoveFromClassList(String.Concat(character.ToString().ToLower(), "_", mood.ToString().ToLower()));
-			}
-		}
-		
 		private void SmallBumpAnimElement(VisualElement ve)
 		{
 			var currentScale = ve.transform.scale;

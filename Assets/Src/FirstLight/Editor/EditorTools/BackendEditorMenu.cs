@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Editor.Artifacts;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -12,6 +15,7 @@ using Quantum.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -38,43 +42,21 @@ namespace FirstLight.Editor.EditorTools
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 		}
-
-		private static void CopyAssembly(string from, string assemblyName)
-		{
-			var gameDllPath = $"{from}{assemblyName}";
-			var destDll = $"{_backendLibsPath}/{assemblyName}";
-			if (!Directory.Exists(_backendLibsPath))
-			{
-				Directory.CreateDirectory(_backendLibsPath);
-			}
-
-			File.Copy(gameDllPath, destDll, true);
-		}
+		
 
 		[MenuItem("FLG/Backend/Copy DLLs")]
-		public static void MoveBackendDlls()
+		public static async void MoveBackendDlls()
 		{
-			// Quantum Dependencies
-			CopyAssembly(_quantumLibPath, "quantum.code.dll");
-			CopyAssembly(_quantumLibPath, "quantum.core.dll");
-			CopyAssembly(_quantumLibPath, "PhotonDeterministic.dll");
+			await ArtifactCopier.Copy(_backendLibsPath, ArtifactCopier.QuantumDlls, ArtifactCopier.GameDlls);
 
-			// Script Assembly Dependencies
-			CopyAssembly(_unityPath, "FirstLight.DataExtensions.dll");
-			CopyAssembly(_unityPath, "FirstLight.Game.Server.dll");
-			CopyAssembly(_unityPath, "FirstLight.Game.dll");
-			CopyAssembly(_unityPath, "FirstLight.Services.dll");
-			CopyAssembly(_unityPath, "PhotonQuantum.dll");
-
-			CopyConfigs(); // also copy configs to ensure everything is updated
-			CopyTranslations();
+			await CopyConfigs(); // also copy configs to ensure everything is updated
+			await CopyTranslations();
 		}
 
 		[MenuItem("FLG/Backend/Generate Quantum Assets")]
-		public static void ExportQuantumAssets()
+		public static async Task ExportQuantumAssets()
 		{
-			AssetDBGeneration.Export(_quantumServerPath + "assetDatabase.json");
-			Debug.Log("Exported Quantum asset database");
+			await ArtifactCopier.QuantumAssetDBArtifact.CopyTo(_quantumServerPath);
 		}
 
 		/// <summary>
@@ -82,18 +64,53 @@ namespace FirstLight.Editor.EditorTools
 		/// and moves the config file to the backend.
 		/// </summary>
 		[MenuItem("FLG/Backend/Copy Server Test Configs")]
-		public static async void CopyConfigs()
+		public static async Task CopyConfigs()
 		{
-			var serializer = new ConfigsSerializer();
-			var configs = new ConfigsProvider();
-			var configsLoader = new GameConfigsLoader(new AssetResolverService());
-			Debug.Log("Parsing Configs");
-			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
-			var serialiezd = serializer.Serialize(configs, "develop");
+			await ArtifactCopier.GameConfigs.CopyTo(_backendResources);
+		}
 
-			var path = $"{_backendResources}/gameConfig.json";
-			File.WriteAllText(path, serialiezd);
-			Debug.Log($"Parsed and saved gameConfigs at {path}");
+		/// <summary>
+		/// Generates and copies a gameTranslations.json to be shared to the backend
+		/// and moves the file to the backend directory.
+		/// </summary>
+		[MenuItem("FLG/Backend/ValidateConfigs")]
+		public static async Task TestConfigs()
+		{
+			FeatureFlags.REMOTE_CONFIGURATION = false;
+			var serializer = new ConfigsSerializer();
+			var allConfigs = new ConfigsProvider();
+			var configsLoader = new GameConfigsLoader(new AssetResolverService());
+			await Task.WhenAll(configsLoader.LoadConfigTasks(allConfigs));
+
+			FeatureFlags.REMOTE_CONFIGURATION = true;
+			var onlyClientConfigs = new ConfigsProvider();
+			await Task.WhenAll(configsLoader.LoadConfigTasks(onlyClientConfigs));
+
+			var serverConfigs = new ConfigsProvider();
+			var serializedConfigs = serializer.Serialize(allConfigs, "test");
+			serializer.Deserialize(serializedConfigs, serverConfigs);
+
+			var inBoth = new List<Type>();
+			foreach (var config in allConfigs.GetAllConfigs().Keys)
+			{
+				if (serverConfigs.GetAllConfigs().ContainsKey(config))
+				{
+					if (onlyClientConfigs.GetAllConfigs().ContainsKey(config))
+					{
+						inBoth.Add(config);
+					}
+				}
+			}
+
+			if (inBoth.Count > 0)
+			{
+				Debug.Log("Configs in both server & client (bad): ");
+				Debug.Log(string.Join(",", inBoth.Select(t => t.Name)));
+			}
+			else
+			{
+				Debug.Log("All Good");
+			}
 		}
 
 		/// <summary>
@@ -101,20 +118,11 @@ namespace FirstLight.Editor.EditorTools
 		/// and moves the file to the backend directory.
 		/// </summary>
 		[MenuItem("FLG/Backend/Copy Server Translations")]
-		public static  void CopyTranslations()
+		public static async Task CopyTranslations()
 		{
-			var language = "English";
-			var terms = new Dictionary<string, string>();
-			foreach (var s in LocalizationManager.GetTermsList())
-			{
-				terms[s] = LocalizationManager.GetTranslation(s, default, default, default, default, default, language);
-			}
-
-			var serialized = ModelSerializer.Serialize(terms).Value;
-			var path = $"{_backendResources}/gameTranslations.json";
-			File.WriteAllText(path, serialized);
-			Debug.Log($"Parsed and saved translations at {path}");
+			await ArtifactCopier.GameTranslations.CopyTo(_backendResources);
 		}
+
 
 #if ENABLE_PLAYFABADMIN_API
 		/// <summary>
@@ -142,7 +150,7 @@ namespace FirstLight.Editor.EditorTools
 				}
 
 				if (!EditorUtility.DisplayDialog("Confirm Version Update",
-												 @$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+					    @$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
 				{
 					return;
 				}
@@ -160,7 +168,7 @@ namespace FirstLight.Editor.EditorTools
 		private static void ForceUpdate()
 		{
 			var services = MainInstaller.Resolve<IGameServices>();
-			((GameCommandService)services.CommandService).ForceServerDataUpdate();
+			((GameCommandService) services.CommandService).ForceServerDataUpdate();
 			Debug.Log("Force Update Sent to Server");
 		}
 
@@ -171,6 +179,31 @@ namespace FirstLight.Editor.EditorTools
 			FeatureFlags.SaveLocalConfig();
 			PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			Debug.Log("Requests will go to LOCAL server now");
+		}
+
+
+		[MenuItem("FLG/Backend/Environments/Use DEV")]
+		private static void DevServer()
+		{
+			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.DEV;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
+		}
+
+		[MenuItem("FLG/Backend/Environments/Use STAGING")]
+		private static void StagingServer()
+		{
+			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.STAGING;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
+		}
+
+		[MenuItem("FLG/Backend/Environments/PROD")]
+		private static void ProdServer()
+		{
+			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.PROD;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
 		}
 
 		[MenuItem("FLG/Backend/Use Remote Server")]
@@ -221,12 +254,12 @@ namespace FirstLight.Editor.EditorTools
 
 					catItem.AddPayout();
 					catItem.Payouts[0].type = ProductCatalogPayout.ProductCatalogPayoutType.Item;
-					catItem.Payouts[0].quantity = (double)item.Consumable.UsageCount;
+					catItem.Payouts[0].quantity = (double) item.Consumable.UsageCount;
 					catItem.Payouts[0].data = item.CustomData;
 
 					var price = item.VirtualCurrencyPrices["RM"] / 100f;
 					catItem.applePriceTier = Mathf.RoundToInt(price);
-					catItem.googlePrice = new Price { value = (decimal)price };
+					catItem.googlePrice = new Price {value = (decimal) price};
 
 					catalog.Add(catItem);
 				}

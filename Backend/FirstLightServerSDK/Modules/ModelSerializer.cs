@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -15,6 +16,10 @@ namespace FirstLight.Server.SDK.Modules
 
         public static void RegisterConverter(JsonConverter converter)
         {
+            if (_settings.Converters.Any(c => c.GetType() == converter.GetType()))
+            {
+                return; 
+            }
             _settings.Converters.Add(converter);
         }
 

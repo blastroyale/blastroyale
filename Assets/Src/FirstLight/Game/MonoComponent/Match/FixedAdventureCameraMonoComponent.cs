@@ -53,9 +53,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
+			gameObject.SetActive(false);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 
-			gameObject.SetActive(false);
+			
 		}
 
 		/// <summary>

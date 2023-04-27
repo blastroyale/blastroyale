@@ -187,7 +187,11 @@ namespace FirstLight.Game.Presenters
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
-				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail);
+				
+				// We need to disconnect photon to re-authenticate and re-generate an auth token
+				// when logging in with a different user
+				_services.NetworkService.DisconnectPhoton();
+				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail, true);
 			}
 			else
 			{

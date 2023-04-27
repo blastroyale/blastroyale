@@ -395,7 +395,7 @@ namespace FirstLight.Game.Services
 		{
 			var idType = typeof(TId);
 			var assetReferences = new Dictionary<TId, AssetReference>(configs.Count);
-
+		
 			for (var i = 0; i < configs.Count; i++)
 			{
 				assetReferences.Add(configs[i].Key, configs[i].Value);

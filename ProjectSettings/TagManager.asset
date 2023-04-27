@@ -6,6 +6,9 @@ TagManager:
   tags:
   - VisibilityVolume
   - MainOverlayCamera
+  - VisualCollider
+  - GroundIndicator
+  - GuideUiTarget
   layers:
   - Default
   - TransparentFX

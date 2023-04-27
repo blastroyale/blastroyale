@@ -8,25 +8,7 @@ namespace FirstLight.Editor.Build
 	public static class FirstLightBuildMenu
 	{
 		private const string _defaultAppName = "blast_royale";
-		
-		[MenuItem("FLG/Build/Android/Local Build")]
-		private static void BuildAndroidLocal()
-		{
-			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
-			
-			if (string.IsNullOrWhiteSpace(outputPath))
-			{
-				return;
-			}
-			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
-			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.DevelopmentSymbol);
 
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.LocalSymbol);
-			
-			BuildPipeline.BuildPlayer(options);
-		}
-		
 		[MenuItem("FLG/Build/Android/Development Build")]
 		private static void BuildAndroidDevelopment()
 		{
@@ -80,28 +62,7 @@ namespace FirstLight.Editor.Build
 			
 			BuildPipeline.BuildPlayer(options);
 		}
-		
-		[MenuItem("FLG/Build/iOS/Local Build")]
-		private static void BuildIosLocal()
-		{
-			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
-			
-			if (string.IsNullOrWhiteSpace(outputPath))
-			{
-				return;
-			}
-			
-			FirstLightBuildConfig.SetupDevelopmentConfig();
-			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.DevelopmentSymbol);
 
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.LocalSymbol);
-
-			PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Automatic;
-			PlayerSettings.iOS.appleEnableAutomaticSigning = true;
-			
-			BuildPipeline.BuildPlayer(options);
-		}
-		
 		[MenuItem("FLG/Build/iOS/Development Build")]
 		private static void BuildIosDevelopment()
 		{

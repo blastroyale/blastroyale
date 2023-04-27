@@ -55,6 +55,11 @@
                     _cursorWasVisible = Cursor.visible;
                     _cursorLockMode = Cursor.lockState;
 
+                    foreach (var c in _debugPanelRootObject.GetComponentsInChildren<Canvas>())
+                    {
+                        c.enabled = true;
+                    }
+                    
                     if (Settings.Instance.AutomaticallyShowCursor)
                     {
                         Cursor.visible = true;
@@ -68,6 +73,11 @@
                         _debugPanelRootObject.CanvasGroup.alpha = 0.0f;
                         _debugPanelRootObject.CanvasGroup.interactable = false;
                         _debugPanelRootObject.CanvasGroup.blocksRaycasts = false;
+
+                        foreach (var c in _debugPanelRootObject.GetComponentsInChildren<Canvas>())
+                        {
+                            c.enabled = false;
+                        }
                     }
 
                     if (_cursorWasVisible.HasValue)

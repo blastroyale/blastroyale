@@ -28,7 +28,22 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial should be skipped
 		/// </summary>
-		public bool DisableTutorial = true;
+		public bool DisableTutorial = false;	
+		
+		/// <summary>
+		/// If we should consider if the player has NFTs even if he doens't
+		/// </summary>
+		public bool ForceHasNfts = false;
+		
+		/// <summary>
+		/// If we ignore equipment requirement to play ranked games
+		/// </summary>
+		public bool IgnoreEquipmentRequirementForRanked = false;
+
+		/// <summary>
+		/// Which environment to connect
+		/// </summary>
+		public Environment EnvironmentOverride = Environment.DEV;
 	}
 	
 	
@@ -87,12 +102,7 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool SQUAD_PINGS = true;
-
-		/// <summary>
-		/// Flag to determine if we should use playfab matchmaking
-		/// </summary>
-		public static bool PLAYFAB_MATCHMAKING = false;
-
+		
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
@@ -106,8 +116,44 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
-		public static bool TUTORIAL_BATTLE_PASS = false;
+		public static bool TUTORIAL_BATTLE_PASS = true;
+
+		/// <summary>
+		/// If the squads button is enabled in the UI
+		/// </summary>
+		public static bool DISPLAY_SQUADS_BUTTON = true;
+
+		/// <summary>
+		/// When enabled will enable aiming deadzone to avoid missfires
+		/// </summary>
+		public static bool AIM_DEADZONE = true;
+
+		/// <summary>
+		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
+		/// If false it will be more accurate visually but not necessarily shoot where you aim
+		/// </summary>
+		public static bool QUANTUM_PREDICTED_AIM = false;
 		
+		/// <summary>
+		/// If true limits special radius and moves special handle to have reference point
+		/// </summary>
+		public static bool SPECIAL_RADIUS = true;
+
+		/// <summary>
+		/// Should specials use new input system
+		/// </summary>
+		public static bool SPECIAL_NEW_INPUT = true;
+		
+		/// <summary>
+		/// Camera shake when player receives damage
+		/// </summary>
+		public static bool DAMAGED_CAMERA_SHAKE = false;
+		
+		/// <summary>
+		/// Should game fetch remote web3 collections
+		/// </summary>
+		public static bool REMOTE_COLLECTIONS = false;
+	
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
@@ -154,15 +200,20 @@ namespace FirstLight.Game.Utils
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
-			
-			if (TrySetFlag("PLAYFAB_MATCHMAKING", overrideData, out var pfmm))
-			{
-				PLAYFAB_MATCHMAKING = pfmm;
-			}
 
 			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
 			{
 				SQUAD_PINGS = squadPings;
+			}
+			
+			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
+			{
+				TUTORIAL = tutorial;
+			}
+
+			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
+			{
+				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
 		}
 

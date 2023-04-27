@@ -64,9 +64,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public UnityEvent FootprintRightEvent;
 		public UnityEvent FootprintLeftEvent;
-
-		[FormerlySerializedAs("_rigidbodyContainerMonoComponent")] [SerializeField]
-		protected RigidbodyContainerMonoComponent RigidbodyContainerMonoComponent;
+		
 
 		[SerializeField, Required] private Animator _animator;
 		[SerializeField] private EnumSelector<VfxId> _projectileHitVfx;
@@ -99,14 +97,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
 		}
-
-		protected override void OnInit(QuantumGame game)
-		{
-			RigidbodyContainerMonoComponent.SetState(false);
-
-			EntityView.OnEntityDestroyed.AddListener(HandleOnEntityDestroyed);
-		}
-
+		
 		/// <summary>
 		/// Sets the modifier effect for the player
 		/// </summary>
@@ -159,21 +150,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
+			AnimatorWrapper.SetTrigger(Triggers.Die);
 			
 			
 			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
 			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
 					 {
+						 if (this.IsDestroyed())
+						 {
+							 return;
+						 }
 						 RenderersContainerProxy.SetRendererState(false);
 					 });
-		}
-
-		private void HandleOnEntityDestroyed(QuantumGame game)
-		{
-			transform.parent = null;
-
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
@@ -182,23 +170,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-
-			var direction = Vector3.zero;
-
-			if (MatchServices.EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
-			{
-				direction = (transform.position - attackerView.transform.position).normalized;
-			}
-
-			AnimatorWrapper.Enabled = false;
-			direction = direction.sqrMagnitude > Mathf.Epsilon ? direction : transform.rotation.eulerAngles.normalized;
-			direction *= Mathf.Lerp(GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MIN, GameConstants.Visuals.PLAYER_RAGDOLL_FORCE_MAX,
-			                        (float) callback.DamageAmount / callback.MaxHealth);
-
-			RigidbodyContainerMonoComponent.SetState(true);
+			
+			SetCulled(false);
+			
 			OnAvatarEliminated(callback.Game);
-
-			RigidbodyContainerMonoComponent.AddForce(direction, ForceMode.VelocityChange);
 		}
 
 		private void HandleEventOnPlayerAlive(EventOnPlayerAlive evnt)
@@ -213,7 +188,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
-			if (evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
 			{
 				return;
 			}

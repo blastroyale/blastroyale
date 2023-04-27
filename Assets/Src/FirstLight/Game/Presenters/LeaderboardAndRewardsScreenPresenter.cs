@@ -20,18 +20,19 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the Leaderboards and Rewards Screen
 	/// </summary>
-	public class LeaderboardAndRewardsScreenPresenter : UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
+	public class LeaderboardAndRewardsScreenPresenter :
+		UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
 		private const string UssPlayerName = "player-name";
 		private const string UssFirst = UssPlayerName + "--first";
 		private const string UssSecond = UssPlayerName + "--second";
 		private const string UssThird = UssPlayerName + "--third";
 		private const string UssSpectator = "spectator";
-		
+
 		[SerializeField] private BaseCharacterMonoComponent _character;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
-		
+
 		public struct StateData
 		{
 			public Action ContinueClicked;
@@ -39,7 +40,7 @@ namespace FirstLight.Game.Presenters
 
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private Button _nextButton;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
@@ -59,11 +60,11 @@ namespace FirstLight.Game.Presenters
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			
+
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
-		
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -120,7 +121,7 @@ namespace FirstLight.Game.Presenters
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 			_rewardsPanel.style.display = DisplayStyle.None;
 		}
-		
+
 		private void ShowRewards()
 		{
 			_rewardsPanel.style.display = DisplayStyle.Flex;
@@ -143,14 +144,15 @@ namespace FirstLight.Game.Presenters
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-			
+
 			// craft spice
 			var csReward = 0;
 			if (rewards.ContainsKey(GameId.CS))
 			{
 				csReward = rewards[GameId.CS];
 			}
-			_craftSpiceView.SetData(csReward, (int)_matchServices.MatchEndDataService.CSBeforeChange);
+
+			_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
 
 			// Trophies
 			var trophiesReward = 0;
@@ -158,35 +160,37 @@ namespace FirstLight.Game.Presenters
 			{
 				trophiesReward = rewards[GameId.Trophies];
 			}
-			_trophiesView.SetData(trophiesReward, (int)_matchServices.MatchEndDataService.TrophiesBeforeChange);
-			
+
+			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
+
 			// BPP
 			var bppReward = 0;
 			if (rewards.ContainsKey(GameId.BPP))
 			{
 				bppReward = rewards[GameId.BPP];
 			}
-			
+
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
-			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel);
+			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel);
 			var currentLevel = nextLevel;
-			
+
 			do
 			{
 				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
 
-				levelRewardInfo.MaxLevel = (int)maxLevel;
-				
+				levelRewardInfo.MaxLevel = (int) maxLevel;
+
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
 					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.BPPBeforeChange;
 				}
 
-				levelRewardInfo.MaxForLevel = (int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
+				levelRewardInfo.MaxForLevel =
+					(int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
 				levelRewardInfo.NextLevel = (int) currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
@@ -206,7 +210,7 @@ namespace FirstLight.Game.Presenters
 				currentLevel++;
 			} while (gainedLeft > 0 && currentLevel < maxLevel);
 
-			_bppView.SetData(levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity, bppPoolInfo);
+			_bppView.SetData(levelsInfo, (int) bppPoolInfo.CurrentAmount, (int) bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
 
 		private void UpdatePlayerName()
@@ -216,15 +220,15 @@ namespace FirstLight.Game.Presenters
 				_playerNameText.text = "";
 				return;
 			}
-			
+
 			// Cleanup in case the screen is re-used
 			_playerName.RemoveModifiers();
-			
+
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];
 
 			_playerNameText.text = "";
-			
+
 			// If the player is in the top 3 we show a badge
 			if (localPlayerData.QuantumPlayerMatchData.PlayerRank <= 3)
 			{
@@ -255,16 +259,19 @@ namespace FirstLight.Game.Presenters
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 
 			entries.SortByPlayerRank(false);
-			
+
 			foreach (var entry in entries)
 			{
+				// TODO: PFP
 				var newEntry = _leaderboardEntryAsset.Instantiate();
 				newEntry.AttachView(this, out LeaderboardEntryView view);
-				view.SetData((int)entry.PlayerRank, entry.GetPlayerName(), (int)entry.Data.PlayersKilledCount, (int)entry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
+				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
+					(int) entry.Data.PlayerTrophies,
+					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}
-		
+
 		private Dictionary<GameId, int> ProcessRewards()
 		{
 			var dictionary = new Dictionary<GameId, int>();
@@ -292,7 +299,7 @@ namespace FirstLight.Game.Presenters
 			// A very magic number that makes the character look good enough in any aspect ratio
 			_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.aspect);
 		}
-		
+
 		private async void UpdateCharacter()
 		{
 			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
@@ -300,17 +307,23 @@ namespace FirstLight.Game.Presenters
 				_character.gameObject.SetActive(false);
 				return;
 			}
-			
+
+			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(_matchServices.MatchEndDataService
+					.LocalPlayer))
+			{
+				return;
+			}
+
 			var playerData =
 				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
-			
+
 			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
-			
+
 			var targetPosition = _character.transform.position;
 			var initialPosition = targetPosition;
 			initialPosition.x += 20f;
 			_character.transform.position = initialPosition;
-			
+
 			_character.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.Linear);
 		}
 	}

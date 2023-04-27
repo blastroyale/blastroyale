@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -25,6 +27,48 @@ namespace FirstLight.Game.Presenters
 			_animation.Rewind();
 			_animation.Play();
 			_versionText.text = $"v{VersionUtils.VersionExternal}";
+			
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+			var y = 3;
+			var services = MainInstaller.Resolve<IGameServices>();
+			AddTextBar(y, services.GameBackendService.CurrentEnvironmentData.EnvironmentID.ToString());
+			var config = FeatureFlags.GetLocalConfiguration();
+			if (config.UseLocalServer)
+			{
+				y += 3;
+				AddTextBar(y, "Local Server");
+			}
+
+			if (config.DisableTutorial)
+			{
+				y += 3;
+				AddTextBar(y, "No Tuto");
+			}
+
+			if (config.ForceHasNfts)
+			{
+				y += 3;
+				AddTextBar(y,"Have NFTs");
+			}
+			if (config.IgnoreEquipmentRequirementForRanked)
+			{
+				y += 3;
+				AddTextBar(y,"Ranked w/o Equip");
+			}
+#endif
+		}
+
+		private void AddTextBar(int heightMod, string text)
+		{
+			var original = _versionText.transform.parent.gameObject;
+			var parent = original.transform.parent;
+			
+			var newBar = Instantiate(original, parent);
+			var position = newBar.transform.position;
+			position = new Vector3(position.x, position.y+ heightMod,
+				position.z);
+			newBar.transform.position = position;
+			newBar.GetComponentInChildren<TextMeshProUGUI>().text = text;
 		}
 		
 		/// <inheritdoc />

@@ -8,6 +8,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
+using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
@@ -15,6 +16,7 @@ namespace FirstLight.Tests.EditorMode
 	public class StubGameServices : IGameServices
 	{
 		public virtual IDataSaver DataSaver { get; }
+		public IDataService DataService { get; }
 		public virtual IConfigsProvider ConfigsProvider { get; }
 		public virtual IGuidService GuidService { get; }
 		public virtual IGameNetworkService NetworkService { get; }
@@ -44,6 +46,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPartyService PartyService { get; }
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
+		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -64,6 +67,7 @@ namespace FirstLight.Tests.EditorMode
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;
+			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;
@@ -75,21 +79,24 @@ namespace FirstLight.Tests.EditorMode
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
-			PartyService = Substitute.For<PartyService>();
-			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentLogic, ThreadService, PartyService);
+			PartyService = Substitute.For<IPartyService>();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentDataProvider,
+				PartyService, gameLogic.AppDataProvider);
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this,
+				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			GameUiService = uiService;
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
-			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService, MessageBrokerService);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
+				MessageBrokerService, NetworkService, GameBackendService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
-			PlayfabPubSubService = Substitute.For<PlayfabPubSubService>();
+			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 		}
 	}
 }

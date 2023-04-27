@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -18,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -55,7 +57,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Authenticates the backend with an email address and password
 		/// </summary>
-		void LoginWithEmail(string email, string password, Action<LoginData> onSuccess, Action<PlayFabError> onError);
+		void LoginWithEmail(string email, string password, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn = false);
 
 		/// <summary>
 		/// Logs out of the current account. This includes unlinking the device, and logging out of other services
@@ -101,7 +103,7 @@ namespace FirstLight.Game.Services
 		/// This includes setting auth context, parsing feature flags, parsing remote configs, saving relevant local data, etc.
 		/// </summary>
 		void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
-								   Action<PlayFabError> onError);
+								   Action<PlayFabError> onError, bool previouslyLoggedIn);
 
 		/// <summary>
 		/// Calls request to download the player account data
@@ -132,6 +134,11 @@ namespace FirstLight.Game.Services
 		/// Unlinks this device current account
 		/// </summary>
 		void UnlinkDeviceID(Action onSuccess = null, Action<PlayFabError> errorCallback = null);
+
+		/// <summary>
+		/// Attempts to migrate data between accounts if the correct conditions have been met
+		/// </summary>
+		void TryMigrateData(MigrationData migrationData);
 	}
 
 	/// <inheritdoc cref="IAuthenticationService" />
@@ -235,7 +242,7 @@ namespace FirstLight.Game.Services
 		}
 
 		public void LoginWithEmail(string email, string password, Action<LoginData> onSuccess,
-								   Action<PlayFabError> onError)
+								   Action<PlayFabError> onError, bool previouslyLoggedIn = false)
 		{
 			var login = new LoginWithEmailAddressRequest
 			{
@@ -243,11 +250,10 @@ namespace FirstLight.Game.Services
 				Password = password,
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
-
+			
 			var loginData = new LoginData() {IsGuest = false};
-
 			PlayFabClientAPI.LoginWithEmailAddress(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				(res) => ProcessAuthentication(res, loginData, onSuccess, onError, previouslyLoggedIn),e =>
 				{
 					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
 				});
@@ -293,19 +299,37 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
-										  Action<PlayFabError> onError)
+		private Environment? ShouldRedictEnvironemnt(Dictionary<string, string> titleData)
 		{
-			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
+			return Environment.STAGING;
+		}
+
+		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
+										  Action<PlayFabError> onError, bool previouslyLoggedIn = false)
+		{
+			FLog.Info($"Logged in. PlayfabId={result.PlayFabId}");
 			
 			var appData = _dataService.GetData<AppData>();
+			var tutorialData = _dataService.GetData<TutorialData>();
 			var titleData = result.InfoResultPayload.TitleData;
+
+			if (titleData.TryGetValue("REDIRECT_TESTSERVER", out var version))
+			{
+				if (version == VersionUtils.VersionExternal)
+				{
+					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
+					onSuccess(loginData);
+					return;
+				}
+			}
+			_services.GameBackendService.EnvironmentRedirect = null;
+			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
-			var previouslyLoggedIn = false;
+			var migrationData = new MigrationData() { TutorialSections = tutorialData.TutorialSections };
 			_networkService.UserId.Value = result.PlayFabId;
 			
 			//AppleApprovalHack(result);
@@ -314,17 +338,28 @@ namespace FirstLight.Game.Services
 				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
 				_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime = photonAppId;
-				FLog.Verbose("Setting up photon app id by playfab title data");
+				FLog.Info("Setting up photon app id by playfab title data "+photonAppId);
 			}
+			FLog.Info("Using photon with the id "+_services.GameBackendService.CurrentEnvironmentData.AppIDRealtime);
 			
 			var requiredServices = 2;
 			var doneServices = 0;
-			void ServiceConnection(LoginData data)
+			
+			void OnServiceConnected(LoginData data)
 			{
-				if (++doneServices >= requiredServices) onSuccess(loginData);
+				if (++doneServices >= requiredServices)
+				{
+					if (previouslyLoggedIn)
+					{
+						TryMigrateData(migrationData);
+					}
+					_dataService.SaveData<AppData>();
+					onSuccess(loginData);
+				}
 			}
-			AuthenticateGameNetwork(loginData, ServiceConnection, onError);
-			GetPlayerData(loginData,ServiceConnection, onError, previouslyLoggedIn);
+
+			AuthenticateGameNetwork(loginData, OnServiceConnected, onError);
+			GetPlayerData(loginData,OnServiceConnected, onError, previouslyLoggedIn);
 			
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
@@ -337,11 +372,6 @@ namespace FirstLight.Game.Services
 			if (string.IsNullOrWhiteSpace(appData.DeviceId) || result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
 			{
 				LinkDeviceID(null, null);
-			}
-
-			if (result.InfoResultPayload.AccountInfo.PrivateInfo.Email != appData.LastLoginEmail)
-			{
-				previouslyLoggedIn = true;
 			}
 
 			if (email != null && email.Contains("@") && isMissingContactEmail)
@@ -361,37 +391,20 @@ namespace FirstLight.Game.Services
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
+			appData.AvatarUrl = result.InfoResultPayload.AccountInfo.TitleInfo.AvatarUrl;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			appData.TitleData = titleData;
-
-			if (FeatureFlags.REMOTE_CONFIGURATION)
-			{
-				FLog.Verbose("Parsing Remote Configurations");
-				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
-				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose(
-					$"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
-				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
-				{
-					NewConfig = remoteConfig,
-					OldConfig = _configsAdder
-				});
-				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
-			}
-
+			
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId,
-				_dataProvider.AppDataProvider.IsGuest);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
 			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
-
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError, bool previouslyLoggedIn)
 		{
 			_services.GameBackendService.CallFunction("GetPlayerData",
@@ -407,6 +420,20 @@ namespace FirstLight.Game.Services
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
 
+			if (data != null)
+			{
+				if (data.TryGetValue("BuildNumber", out var buildNumber))
+				{
+					VersionUtils.ServerBuildNumber = buildNumber;
+				}
+				if (data.TryGetValue("BuildCommit", out var buildCommit))
+				{
+					VersionUtils.ServerBuildCommit = buildCommit;
+				}
+
+				VersionUtils.ValidateServer();
+
+			}
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.GameBackendService.FetchServerState(state =>
@@ -431,7 +458,12 @@ namespace FirstLight.Game.Services
 				try
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
+					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
+					{
+						_services.CollectionEnrichnmentService.Enrich(enrichmentData);
+					}
+					_dataService.AddData(type, dataInstance);
 				}
 				catch (Exception)
 				{
@@ -452,7 +484,7 @@ namespace FirstLight.Game.Services
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
 			var request = new GetPhotonAuthenticationTokenRequest {PhotonApplicationId = appId};
-
+			
 			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthSuccess, onError);
 
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)
@@ -545,6 +577,11 @@ namespace FirstLight.Game.Services
 				_services.AuthenticationService.SetLinkedDevice(false);
 				onSuccess?.Invoke();
 			}
+		}
+
+		public void TryMigrateData(MigrationData migrationData)
+		{
+			_services.CommandService.ExecuteCommand(new MigrateGuestDataCommand{ GuestMigrationData = migrationData });
 		}
 
 		public void AttachLoginDataToAccount(string email, string username, string password,

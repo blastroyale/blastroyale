@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DG.DemiLib;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -13,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -29,6 +31,7 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class CoreLoopState
 	{
+		private readonly ReconnectionState _reconnection;
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameServices _services;
@@ -39,7 +42,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
@@ -49,6 +52,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_reconnection = reconnection;
 		}
 
 		/// <summary>
@@ -59,6 +63,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var firstMatchCheck = stateFactory.Choice("First Match Check");
+			var reconnection = stateFactory.Nest("Reconnection");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var joinTutorialRoom = stateFactory.State("Room Join Wait");
@@ -67,8 +72,11 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(connectionWait);
 			initial.OnExit(SubscribeEvents);
 			
-			connectionWait.WaitingFor(WaitForPhotonConnection).Target(firstMatchCheck);
-			
+			connectionWait.WaitingFor(WaitForPhotonConnection).Target(reconnection);
+
+			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
+
+			firstMatchCheck.Transition().Condition(InRoom).Target(match);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
@@ -83,6 +91,8 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private bool InRoom() => _networkService.InRoom;
+
 		private async Task WaitForPhotonConnection()
 		{
 			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady)
@@ -95,7 +105,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			await Task.Delay(GameConstants.Tutorial.TUTORIAL_SCREEN_TRANSITION_TIME_LONG);
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
@@ -109,15 +119,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
-		
+
 		private bool HasCompletedFirstGameTutorial()
 		{
 			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
-		}
-
-		private void CallLeaveRoom()
-		{
-			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
 		}
 	}
 }

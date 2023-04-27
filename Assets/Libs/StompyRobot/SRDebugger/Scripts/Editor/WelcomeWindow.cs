@@ -33,8 +33,17 @@ namespace SRDebugger.Editor
             GetWindowWithRect<WelcomeWindow>(new Rect(0, 0, 449, 500), true, "SRDebugger - Welcome", true);
         }
 
-        public static bool ShouldOpen()
+        private static bool ShouldOpen()
         {
+            var settings = Settings.GetInstance();
+            if (settings != null)
+            {
+                if (settings.DisableWelcomePopup)
+                {
+                    return false;
+                }
+            }
+
             var hasKey = EditorPrefs.HasKey(WelcomeWindowPlayerPrefsKey);
 
             if (!hasKey)

@@ -83,6 +83,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.GuestOrRegisteredPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GuideHandPresenter.prefab
+    Layer: 10
+    UiType: GuideHandPresenter, FirstLight.Game, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - AddressableAddress: Ui/Home Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -102,10 +106,6 @@ MonoBehaviour:
   - AddressableAddress: Ui/LowConnectionOverlay.prefab
     Layer: -2
     UiType: FirstLight.Game.Presenters.LowConnectionPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/MainMenu Hud.prefab
-    Layer: 4
-    UiType: FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Match Controls Hud.prefab
     Layer: -3
@@ -131,14 +131,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.PartyDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/ResultsScreen.prefab
-    Layer: -2
-    UiType: FirstLight.Game.Presenters.ResultsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/RewardsScreen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/RoomJoinCreateScreen.prefab
     Layer: -1
     UiType: FirstLight.Game.Presenters.RoomJoinCreateScreenPresenter, FirstLight.Game,
@@ -163,14 +155,6 @@ MonoBehaviour:
     Layer: 3
     UiType: FirstLight.Game.Presenters.SwipeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/TalkingHeadDialog.prefab
-    Layer: 3
-    UiType: FirstLight.Game.Presenters.TalkingHeadDialogPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/TrophiesScreen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/TutorialUtilsScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.TutorialUtilsScreenPresenter, FirstLight.Game,
@@ -194,14 +178,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.EquipmentRewardDialogPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
-    - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,

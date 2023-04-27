@@ -25,17 +25,43 @@ namespace FirstLight.Game.Services.Party
 		private SemaphoreSlim _pubSubSemaphore = new(1, 1);
 		private int listenForLobbyUpdateFails = 0;
 
+
+		private async Task OnReconnectPubSub()
+		{
+			if (!HasParty.Value) return;
+			try
+			{
+				await FetchPartyAndUpdateState();
+			}
+			catch (PartyException ex)
+			{
+				FLog.Warn("party", ex);
+			}
+
+			// play lost party while was disconnected
+			if (!HasParty.Value)
+			{
+				// TODO: Translation
+				_genericDialogService.OpenButtonDialog("Squad", "You left your squad due to timeout", true, new GenericDialogButton());
+			}
+			else
+			{
+				// User still on the lobby so lets reconnect
+				await ListenForLobbyUpdates(_lobbyId);
+			}
+		}
+
 		private async Task ListenForLobbyUpdates(string lobbyId)
 		{
 			try
 			{
-				await _pubSubSemaphore.WaitAsync();
 				if (_pubSubState != PartySubscriptionState.NotConnected)
 				{
 					// If somehow the old one still connected let disconnect it
 					await UnsubscribeToLobbyUpdates();
 				}
 
+				await _pubSubSemaphore.WaitAsync();
 				_pubSubState = PartySubscriptionState.FetchConnectionURL;
 				var connectionHandle = await _pubsub.GetConnectionHandle(true);
 
@@ -100,7 +126,7 @@ namespace FirstLight.Game.Services.Party
 
 				_genericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, PartyErrors.Unknown.GetTranslation(), true,
 					new GenericDialogButton());
-				FLog.Warn("failed subscribing to lobby notifications", ex);
+				FLog.Error($"failed subscribing to lobby notifications: {ex.Message}", ex);
 				// Lets leave the party so the player can try again
 				try
 				{
@@ -271,6 +297,22 @@ namespace FirstLight.Game.Services.Party
 				}
 			}
 
+			// Player lost connection 
+			if (change.memberToMerge is {noPubSubConnectionHandle: true})
+			{
+				var disconnectedMember = Members.FirstOrDefault(m => m.PlayfabID == change.memberToMerge.memberEntity.Id);
+				if (disconnectedMember != null)
+				{
+					// Let the leader kick it
+					if (LocalPartyMember() is {Leader: true})
+					{
+#pragma warning disable CS4014 This is a websocket and we do not need to wait for this
+						KickDisconnectedPlayer(disconnectedMember.PlayfabID);
+#pragma warning restore CS4014
+					}
+				}
+			}
+
 			foreach (var invokeUpdate in invokeUpdates)
 			{
 				var member = Members.FirstOrDefault(m => m.PlayfabID == invokeUpdate);
@@ -280,6 +322,19 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				Members.InvokeUpdate(Members.IndexOf(member));
+			}
+		}
+
+		private async Task KickDisconnectedPlayer(string playfabId)
+		{
+			try
+			{
+				await Kick(playfabId, false, false);
+			}
+			catch (PartyException ex)
+			{
+				// Ignore it because it is not an action that the player manually did
+				FLog.Warn("failed to kick disconnected player", ex);
 			}
 		}
 

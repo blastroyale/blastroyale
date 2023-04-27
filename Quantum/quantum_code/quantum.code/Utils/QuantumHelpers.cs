@@ -4,6 +4,8 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public unsafe delegate void SpellCallBack(Frame f, Spell* spell);  
+	
 	/// <summary>
 	/// This class contains various helper functions to use inside Quantum
 	/// </summary>
@@ -27,38 +29,53 @@ namespace Quantum
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, EntityRef target)
+		public static void LookAt2d(Frame f, EntityRef e, EntityRef target, FP lerpTime)
 		{
-			LookAt2d(f, e, f.Get<Transform3D>(target).Position);
+			LookAt2d(f, e, f.Get<Transform3D>(target).Position, lerpTime);
 		}
 
 		/// <inheritdoc cref="LookAt2d(Quantum.Frame,Quantum.EntityRef,Quantum.EntityRef)"/>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target)
+		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target, FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var direction = target - transform->Position;
 
-			LookAt2d(transform, direction.XZ);
+			LookAt2d(transform, direction.XZ, lerpTime);
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction)
+		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction, FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
-			LookAt2d(transform, direction);
+			LookAt2d(transform, direction, lerpTime);
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="transform"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Transform3D* transform, FPVector2 direction)
+		public static void LookAt2d(Transform3D* transform, FPVector2 direction, FP lerpAngle)
 		{
-			var angle = FPMath.Atan2(direction.X, direction.Y);
-			
-			transform->Rotation = FPQuaternion.AngleAxis(angle * FP.Rad2Deg, FPVector3.Up);
+			var targetAngle = FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg;
+			if (lerpAngle == FP._0)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+			}
+
+			var currentAngle = transform->Rotation.AsEuler.Y;
+			var deltaAngle = FPMath.AngleBetweenDegrees(targetAngle, currentAngle);
+			if (FPMath.Abs(deltaAngle) < FP._2)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+				return;
+			}
+			var diff = FPMath.Abs(deltaAngle);
+			var complementDiff = 360 - diff;
+			var maxAngleDelta = lerpAngle * (diff < complementDiff ? diff : complementDiff);
+			var clampedDeltaAngle = FPMath.Clamp(deltaAngle, -maxAngleDelta, maxAngleDelta);
+			transform->Rotation = FPQuaternion.AngleAxis(currentAngle - clampedDeltaAngle, FPVector3.Up);
 		}
 		
 		/// <summary>
@@ -101,8 +118,7 @@ namespace Quantum
 		/// On each hit, the <paramref name="onHitCallback"/> will be called.
 		/// Return true if at least one hit was successful, false otherwise.
 		/// </summary>
-		public static bool ProcessAreaHit(Frame f, FP radius, Spell spell, uint maxHitCount = uint.MaxValue,
-		                                  Action<Frame, Spell> onHitCallback = null)
+		public static bool ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue, SpellCallBack onHitCallback = null)
 		{
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
@@ -111,31 +127,31 @@ namespace Quantum
 			
 			var hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
-			var hits = f.Physics3D.OverlapShape(spell.OriginalHitPosition, FPQuaternion.Identity, shape, 
+			var hits = f.Physics3D.OverlapShape(spell->OriginalHitPosition, FPQuaternion.Identity, shape, 
 			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
 
 			for (var j = 0; j < hits.Count; j++)
 			{
-				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell.Attacker, spell.SpellSource,
-				                                   spell.PowerAmount, spell.KnockbackAmount, hits[j].Point, spell.TeamSource);
+				var hitSpell = Spell.CreateInstant(f, hits[j].Entity, spell->Attacker, spell->SpellSource,
+				                                   spell->PowerAmount, spell->KnockbackAmount, hits[j].Point, spell->TeamSource);
 
-				if (hitSpell.Victim == spell.Attacker)
+				if (hitSpell.Victim == spell->Attacker)
 				{
 					hitSpell.TeamSource = 0;
 					//TODO: this self damage modifier should take into account equipment modifiers once we have it, for now it's just a constant
-					hitSpell.PowerAmount = (uint)(spell.PowerAmount * Constants.SELF_DAMAGE_MODIFIER); 
+					hitSpell.PowerAmount = (uint)(spell->PowerAmount * Constants.SELF_DAMAGE_MODIFIER); 
 				}
 
-				if (!ProcessHit(f, hitSpell))
+				if (!ProcessHit(f, &hitSpell))
 				{
 					continue;
 				}
 
 				hitCount++;
-					
-				onHitCallback?.Invoke(f, hitSpell);
+
+				onHitCallback?.Invoke(f, &hitSpell);
 
 				if (hitCount >= maxHitCount)
 				{
@@ -150,24 +166,24 @@ namespace Quantum
 		/// Process a hit source from the given <paramref name="spell"/> to be processed.
 		/// Returns true if the hit was successful and false otherwise
 		/// </summary>
-		public static bool ProcessHit(Frame f, Spell spell)
+		public static bool ProcessHit(Frame f, Spell* spell)
 		{
-			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
+			if (!IsAttackable(f, spell->Victim, spell->TeamSource))
 			{
 				return false;
 			}
 
-			if (spell.KnockbackAmount > 0 &&
-			    f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
-			    f.TryGet<Transform3D>(spell.Victim, out var victimTransform))
+			if (spell->KnockbackAmount > 0 &&
+			    f.Unsafe.TryGetPointer<CharacterController3D>(spell->Victim, out var kcc) &&
+			    f.TryGet<Transform3D>(spell->Victim, out var victimTransform))
 			{
-				var kick = (victimTransform.Position - spell.OriginalHitPosition).Normalized *
-				           spell.KnockbackAmount;
+				var kick = (victimTransform.Position - spell->OriginalHitPosition).Normalized *
+				           spell->KnockbackAmount;
 				kick.Y = FP._0;
 				kcc->Velocity += kick;
 			}
 
-			f.Add(f.Create(), spell);
+			f.Add(f.Create(), *spell);
 
 			return true;
 		}
@@ -376,9 +392,10 @@ namespace Quantum
 		{
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+
 			if (maxSpeedSqr == 0)
 			{
-				return 0;
+				return stationaryValue;
 			}
 			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
 		}
@@ -388,8 +405,7 @@ namespace Quantum
 		/// </summary>
 		public static FPVector2 GetAimDirection(FPVector2 attackDirection, FPQuaternion rotation)
 		{
-			var lookDirection = (rotation * FPVector3.Forward).XZ;
-			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
+			return attackDirection == FPVector2.Zero ? (rotation * FPVector3.Forward).XZ : attackDirection;
 		}
 		
 		/// <summary>

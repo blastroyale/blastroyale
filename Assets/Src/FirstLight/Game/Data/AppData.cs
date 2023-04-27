@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using Quantum;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Game.Data
 {
@@ -19,6 +21,15 @@ namespace FirstLight.Game.Data
 	}
 	
 	/// <summary>
+	/// The FPS values we support.
+	/// </summary>
+	public enum FpsTarget
+	{
+		Normal = 30,
+		High = 60
+	}
+	
+	/// <summary>
 	/// Contains all the data in the scope of the Game's App
 	/// </summary>
 	[Serializable]
@@ -26,22 +37,23 @@ namespace FirstLight.Game.Data
 	{
 		public string DisplayName;
 		public string PlayerId;
+		public string AvatarUrl;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
-		public bool UseDynamicJoystick = true;
+		public bool UseDynamicJoystick = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
 
-		public string Environment;
+		public Environment LastEnvironment;
 		public string DeviceId;
 		public string LastLoginEmail;
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
-
+		
 		public FrameSnapshot LastCapturedFrameSnapshot;
 
 		public bool SfxEnabled = true;
@@ -49,11 +61,15 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		
 		public bool DialogueEnabled = true;
-		public int FpsTarget = 30;
+		public FpsTarget FpsTarget = FpsTarget.Normal;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
+		public bool ConeAim;
+		public bool MovespeedControl;
+		public bool AngleTapShoot;
+		public bool StopShootingShake;
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 		

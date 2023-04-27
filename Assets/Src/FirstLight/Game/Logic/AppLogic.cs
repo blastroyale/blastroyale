@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the current FPS target
 		/// </summary>
-		int FpsTarget { get; set; }
+		FpsTarget FpsTarget { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -94,6 +95,11 @@ namespace FirstLight.Game.Logic
 		/// Determines if the player is a guest
 		/// </summary>
 		bool IsGuest { get; }
+		
+		/// <summary>
+		/// The URL of the player's avatar.
+		/// </summary>
+		string AvatarUrl { get; }
 
 		/// <summary>
 		/// Returns the last gamemode user has chosen
@@ -153,6 +159,37 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
+		
+		/// <summary>
+		/// Last time player snapshotted a frame
+		/// </summary>
+		IObservableField<FrameSnapshot> LastFrameSnapshot { get; }
+		
+		/// <summary>
+		/// Checks if player has logged in in this or other session
+		/// This ensures his app data is enriched with his player data
+		/// </summary>
+		bool IsPlayerLoggedIn { get; }
+		
+		/// <summary>
+		/// Displays cone aim instead of line aim
+		/// </summary>
+		bool ConeAim { get; }
+
+		/// <summary>
+		/// Allows players to control movement using analogs
+		/// </summary>
+		bool MovespeedControl { get; }
+		
+		/// <summary>
+		/// Allows players to tap an angle fo the analog to shoot
+		/// </summary>
+		bool AngleTapShoot { get; }
+		
+		/// <summary>
+		/// Prevents screen shaking when shooting
+		/// </summary>
+		bool StopShootingShake { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -166,6 +203,11 @@ namespace FirstLight.Game.Logic
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
+		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
+		public bool ConeAim { get; set; }
+		public bool MovespeedControl { get; set; }
+		public bool AngleTapShoot { get; set; }
+		public bool StopShootingShake { get; set; }
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -180,6 +222,8 @@ namespace FirstLight.Game.Logic
 		public bool IsDeviceLinked => !string.IsNullOrWhiteSpace(DeviceID.Value);
 
 		public bool IsGuest => string.IsNullOrEmpty(LastLoginEmail.Value);
+
+		public string AvatarUrl => Data.AvatarUrl;
 
 		public GameModeRotationConfig.GameModeEntry LastGameMode
 		{
@@ -264,7 +308,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public int FpsTarget
+		public FpsTarget FpsTarget
 		{
 			get => Data.FpsTarget;
 			set
@@ -285,6 +329,8 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
+		
+		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
 
 		/// <inheritdoc />
 		public string DisplayNameTrimmed => GetDisplayName();
@@ -309,6 +355,8 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+			LastFrameSnapshot = new ObservableResolverField<FrameSnapshot>(() => Data.LastCapturedFrameSnapshot,
+				snap => Data.LastCapturedFrameSnapshot = snap);
 		}
 
 		public void ReInit()
@@ -385,13 +433,14 @@ namespace FirstLight.Game.Logic
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
 				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
 
+			FLog.Verbose("Setting detail level to " + detailLevelConf.DetailLevelIndex);
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 		}
 
 		/// <inheritdoc />
 		public void SetFpsTarget()
 		{
-			Application.targetFrameRate = FpsTarget;
+			Application.targetFrameRate = FpsTarget == FpsTarget.High ? 60 : 30;
 		}
 	}
 }

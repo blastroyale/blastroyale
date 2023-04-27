@@ -31,6 +31,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			// Do nothing in case of offline Tutorial match
+			if (callback.PlayersMatchData.Count <= 1)
+			{
+				return;
+			}
+			
 			var view = _killTrackerPool.Spawn();
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var deadData = callback.PlayersMatchData[callback.PlayerDead];

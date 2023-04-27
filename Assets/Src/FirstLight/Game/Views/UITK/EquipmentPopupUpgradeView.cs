@@ -20,7 +20,7 @@ namespace FirstLight.Game.Views.UITK
 		private Label _currentLvl;
 		private Label _nextLvl;
 		private ListView _statsList;
-		private LocalizedButton _upgradeButton;
+		private PriceButton _upgradeButton;
 		private VisualElement _requirements;
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.UITK
 			_currentLvl = element.Q<Label>("LevelCurrent").Required();
 			_nextLvl = element.Q<Label>("LevelNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
-			_upgradeButton = element.Q<LocalizedButton>("UpgradePopupButton").Required();
+			_upgradeButton = element.Q<PriceButton>("UpgradePopupButton").Required();
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
@@ -53,10 +53,11 @@ namespace FirstLight.Game.Views.UITK
 
 			_upgradeButton.SetDisplay(!info.IsNft);
 			_upgradeButton.SetEnabled(!insufficient);
+			_upgradeButton.SetPrice(info.UpgradeCost, insufficient);
 
 			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
 			//_requirements.SetDisplay(info.IsNft);
-			_requirements.SetDisplay(!info.IsNft);
+			_requirements.SetDisplay(false);
 
 			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
 			_requirementsIcon.RemoveSpriteClasses();

@@ -86,15 +86,6 @@ namespace FirstLightEditor.GoogleSheetImporter.Tests
 		}
 
 		[Test]
-		public void ConvertCsv_MissMatchColumnsCount_ThrowsException()
-		{
-			var csv = "int,float,double\r\n" +
-			          "1,1.1";
-
-			Assert.Throws<IndexOutOfRangeException>(() => CsvParser.ConvertCsv(csv));
-		}
-
-		[Test]
 		public void Deserialize_Successfully()
 		{
 			var csv = "Ignored,String,Int,Float,Double,Enum,Array,List,Pair,Dictionary\r\n" +

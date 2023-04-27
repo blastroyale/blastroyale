@@ -55,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
+			var setupEnvironment = stateFactory.Transition("Setup Environment");
 			var authLoginGuest = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
@@ -67,8 +68,10 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(SetupBackendEnvironmentData);
 
+			setupEnvironment.OnEnter(SetupBackendEnvironmentData);
+			setupEnvironment.Transition().Target(autoAuthCheck);
+				
 			autoAuthCheck.Transition().Condition(IsAsyncLogin).Target(asyncLoginWait);
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Target(authLoginGuest);
@@ -86,6 +89,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authFailEvent).Target(authFail);
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
+			postAuthCheck.Transition().Condition(IsEnvironmentRedirect).Target(setupEnvironment);
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
 			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
@@ -134,17 +138,51 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsAsyncLogin()
 		{
-			return _asyncLogin != null;
+			return !IsEnvironmentRedirect() && _asyncLogin != null;
 		}
 
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpError);
+		}
+
+		private void OnServerHttpError(ServerHttpErrorMessage msg)
+		{
+			_services.AnalyticsService.CrashLog($"Login error code {msg.ErrorCode} -  {msg.Message}");
+			if (msg.ErrorCode != HttpStatusCode.RequestTimeout)
+			{
+				return;
+			}
+
+			var title = "Login Timeout"; 
+				var desc = $"Please Retry";
+#if UNITY_EDITOR
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+					ButtonOnClick = () => { _services.QuitGame("Close due to login error"); }
+				};
+				_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
+#else
+				var button = new FirstLight.NativeUi.AlertButton
+				{
+					Callback = () => {_services.QuitGame("Close due to login error"); },
+					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
+					Text = ScriptLocalization.MainMenu.QuitGameButton
+				};
+				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, title, desc, button);
+#endif
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private bool IsEnvironmentRedirect()
+		{
+			return _services.GameBackendService.EnvironmentRedirect.HasValue;
 		}
 
 		private bool IsAccountDeleted()

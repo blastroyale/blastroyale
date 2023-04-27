@@ -1,6 +1,10 @@
+using System;
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -29,6 +33,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _gunSwitchButton;
 		[SerializeField, Required] private UiButtonView _pingButton;
 
+		private IGameDataProvider _data;
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
@@ -38,9 +43,16 @@ namespace FirstLight.Game.Presenters
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
 		private bool _allowPing = true;
+		private bool _sentMovementMessage;
+
+		private void OnSpecialToggle(bool toggle, int index)
+		{
+			_indicatorContainerView.GetSpecialIndicator(index)?.SetVisualState(toggle);
+		}
 
 		private void Awake()
 		{
+			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
@@ -52,13 +64,13 @@ namespace FirstLight.Game.Presenters
 
 			_weaponSlotsHolder.gameObject.SetActive(false);
 			_specialButtons[0].OnCancelEnter
-				.AddListener(() => _indicatorContainerView.GetIndicator(0)?.SetVisualState(false));
+				.AddListener(() => OnSpecialToggle(false, 0));
 			_specialButtons[0].OnCancelExit
-				.AddListener(() => _indicatorContainerView.GetIndicator(0)?.SetVisualState(true));
+				.AddListener(() => OnSpecialToggle(true, 0));
 			_specialButtons[1].OnCancelEnter
-				.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(false));
+				.AddListener(() => OnSpecialToggle(false, 1));
 			_specialButtons[1].OnCancelExit
-				.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(true));
+				.AddListener(() => OnSpecialToggle(true, 1));
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
@@ -73,12 +85,16 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 
+			FLog.Verbose("Match Controls Registered");
 			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS && _services.NetworkService.CurrentRoomGameModeConfig.Value.Teams);
 		}
 
 		private void OnDestroy()
 		{
+			FLog.Verbose("Match Controls Destroyed");
 			_indicatorContainerView?.Dispose();
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
@@ -96,8 +112,16 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMove(InputAction.CallbackContext context)
 		{
-			_direction = context.ReadValue<Vector2>();
-			_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+			if (QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				_direction = context.ReadValue<Vector2>();
+				_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+			}
+			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
+				TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+			}
 		}
 
 		/// <inheritdoc />
@@ -113,17 +137,17 @@ namespace FirstLight.Game.Presenters
 
 			if (input.SpecialButton0.IsPressed())
 			{
-				_indicatorContainerView.GetIndicator(0).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetSpecialIndicator(0).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
 			else if (input.SpecialButton1.IsPressed())
 			{
-				_indicatorContainerView.GetIndicator(1).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetSpecialIndicator(1).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
 		}
 
 		void Update()
 		{
-			if (QuantumRunner.Default?.Game != null)
+			if (QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				_indicatorContainerView.OnUpdateAim(QuantumRunner.Default.Game.Frames.Predicted, _aim.ToFPVector2(), _shooting);
 			}
@@ -233,16 +257,29 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var indicator = _indicatorContainerView.GetIndicator(specialIndex);
+			var indicator = _indicatorContainerView.GetSpecialIndicator(specialIndex);
 
 			if (context.started)
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
+
+				if (FeatureFlags.SPECIAL_RADIUS)
+				{
+					var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+					radiusIndicator.SetVisualState(true);
+					radiusIndicator.SetTransformState(Vector2.zero);
+				}
 				return;
 			}
 
 			indicator.SetVisualState(false);
+			
+			if (FeatureFlags.SPECIAL_RADIUS)
+			{
+				var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				radiusIndicator.SetVisualState(false);
+			}
 
 			if (context.control.device is OnScreenControlsDevice && !specialButton.DraggingValidPosition())
 			{
@@ -296,6 +333,7 @@ namespace FirstLight.Game.Presenters
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 			InitSlotsView(playerCharacter);
+			
 		}
 
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
@@ -381,6 +419,8 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(false);
 			}
+			
+			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
@@ -402,6 +442,8 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
+			
+			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
@@ -461,7 +503,12 @@ namespace FirstLight.Game.Presenters
 
 		private void PollInput(CallbackPollInput callback)
 		{
-			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting);
+			float moveSpeedPercentage = 100;
+			if (_data.AppDataProvider.MovespeedControl)
+			{
+				moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+			}
+			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 

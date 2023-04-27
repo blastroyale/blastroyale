@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services.Party
 			return new EntityKey()
 			{
 				Id = Local().EntityId,
-				Type = Local().EntityType
+				Type = PlayFabConstants.TITLE_PLAYER_ENTITY_TYPE
 			};
 		}
 
@@ -109,9 +109,8 @@ namespace FirstLight.Game.Services.Party
 					{
 						continue;
 					}
-					
 				}
-				
+
 				member.RawProperties[key] = value;
 				updated = true;
 			}
@@ -164,15 +163,29 @@ namespace FirstLight.Game.Services.Party
 				err = ConvertErrors(playfabEx);
 			}
 
+			if (err == PartyErrors.TryingToGetDetailsOfNonMemberParty)
+			{
+				ResetState();
+			}
+
 			throw new PartyException(ex, err);
 		}
 
 		private PartyErrors ConvertErrors(WrappedPlayFabException ex)
 		{
 			var code = ex.Error.Error;
+
 			if (_errorMapping.TryGetValue(code, out var partyError))
 			{
 				return partyError;
+			}
+
+			if (code == PlayFabErrorCode.LobbyBadRequest)
+			{
+				if (ex.Error.ErrorMessage == "Cannot get lobby details since user is not lobby owner or member")
+				{
+					return PartyErrors.TryingToGetDetailsOfNonMemberParty;
+				}
 			}
 
 			return PartyErrors.Unknown;

@@ -21,6 +21,9 @@ namespace Backend.Game.Services
 		public Version MinClientVersion => new Version(FromEnv("MIN_CLIENT_VERSION", "0.10.0"));
 		public bool DevelopmentMode => FromEnv("DEV_MODE", "false")?.ToLower() == "true";
 		public bool RemoteGameConfiguration => FromEnv("REMOTE_CONFIGURATION", "false")?.ToLower() == "true";
+		public string BuildCommit => FromEnv("BUILD_COMMIT", "n/a");
+		public string BuildNumber => FromEnv("BUILD_NUMBER", "n/a");
+
 		private static string FromEnv(string name, string? defaultValue = null)
 		{
 			var envValue = Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
@@ -28,8 +31,8 @@ namespace Backend.Game.Services
 			{
 				throw new Exception($"Missing environment variable: {name}");
 			}
+
 			return envValue ?? defaultValue;
 		}
 	}
 }
-

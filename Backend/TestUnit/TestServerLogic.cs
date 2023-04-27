@@ -50,7 +50,7 @@ public class TestServerLogic
 		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState).Result;
 		var newPlayerData = newState.DeserializeModel<CollectionData>();
 		
-		Assert.AreEqual(newSkin, newPlayerData.Equipped[GameIdGroup.PlayerSkin].Id);
+		Assert.AreEqual(newSkin, newPlayerData.Equipped[new (GameIdGroup.PlayerSkin)].Id);
 	}
 
 }

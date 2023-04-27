@@ -25,6 +25,7 @@ namespace FirstLight.Game.Services.Party
 	{
 		public EntityKey memberEntity { get; set; }
 		public Dictionary<string, string> memberData { get; set; }
+		public bool noPubSubConnectionHandle { get; set; }
 	}
 
 	public class MemberToDelete

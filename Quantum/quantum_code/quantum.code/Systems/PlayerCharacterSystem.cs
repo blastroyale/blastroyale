@@ -1,17 +1,20 @@
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
-using Quantum.Commands;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-												ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
+		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
+		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + + FP._0_25;
+		private static readonly FP SKYDIVE_FALL_SPEED = -FP._8;
+		private static readonly FP SKYDIVE_DIRECTION_MULT = 3;
+		
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
@@ -63,7 +66,6 @@ namespace Quantum.Systems
 		{
 			var membersByTeam = new Dictionary<string, HashSet<int>>();
 
-
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
 				var playerData = f.GetPlayerData(i);
@@ -85,7 +87,6 @@ namespace Quantum.Systems
 				}
 			}
 
-
 			int partyIndex = Constants.TEAM_ID_START_PARTIES;
 			var teamByPlayer = new Dictionary<int, int>();
 			foreach (var kv in membersByTeam)
@@ -100,10 +101,9 @@ namespace Quantum.Systems
 
 			return teamByPlayer;
 		}
-
-
+		
 		/// <inheritdoc />
-		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
 			{
@@ -114,7 +114,7 @@ namespace Quantum.Systems
 			var step = 0;
 			var gameModeConfig = f.Context.GameModeConfig;
 
-			playerDead->Dead(f, entity, attacker);
+			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
 			// Try to drop player weapon
 			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly ||
@@ -169,12 +169,12 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var ammoFilled = FP.MaxValue;
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (int i = 0; i < FPMath.RoundToInt(itemCount / 2); i++)
+				for (uint i = 0; i < (FPMath.RoundToInt(itemCount / 2) + 1); i++)
 				{
 					var consumable = GameId.Health;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
@@ -199,6 +199,15 @@ namespace Quantum.Systems
 					step++;
 				}
 
+				if(QuantumFeatureFlags.DropEnergyCubes)
+				{
+					for (uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
+					{
+						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false);
+						step++;
+					}
+				}
+				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
@@ -244,12 +253,12 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-
+			var skyDiving = bb->GetBoolean(f, Constants.IsSkydiving);
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
-
-			if (direction != FPVector2.Zero) 
+			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
+			if (direction != FPVector2.Zero || skyDiving) 
 			{
 				movedirection = direction;
 			}
@@ -260,16 +269,68 @@ namespace Quantum.Systems
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
+			} else if (f.Time < lastShotAt + FP._0_33)
+			{
+				rotation = prevRotation;
 			}
+			
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey)) 
 			{
 				rotation = prevRotation;
 			}
 
+			var moveSpeed = input->MovementMagnitude;
+			if (moveSpeed >= MOVE_SPEED_UP_CAP) moveSpeed = 1;
+
+			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
+			
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
+			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
+			
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			
+			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
+			{
+				bb->Set(f, nameof(Constants.NextTapTime), f.Time + weaponConfig.AimDelay);
+			}
+			
+			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			if (aimDirection.SqrMagnitude > FP._0)
+			{
+				QuantumHelpers.LookAt2d(f, filter.Entity, aimDirection, f.GameConfig.HardAngleAim ? FP._0 : TURN_RATE );
+			}
+			
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var maxSpeed = f.GameConfig.PlayerDefaultSpeed.Get(f);
+			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
+			var velocity = kcc->Velocity;
+
+			if (moveSpeed != FP._1)
+			{
+				maxSpeed *= moveSpeed;
+				velocity.X *= moveSpeed;
+				velocity.Z *= moveSpeed;
+			}
+
+			if (skyDiving)
+			{
+				maxSpeed *= SKYDIVE_DIRECTION_MULT;
+				velocity.Y = SKYDIVE_FALL_SPEED;
+			}
+			else if(shooting)
+			{
+				maxSpeed *= weaponConfig.AimingMovementSpeed;
+			}
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			kcc->MaxSpeed = speedUpMutatorExists?maxSpeed * speedUpMutatorConfig.Param1:maxSpeed;
+
+			kcc->Velocity = velocity;
+			
+			kcc->Move(f, filter.Entity, moveDirection);
 		}
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
@@ -293,13 +354,14 @@ namespace Quantum.Systems
 					return;
 				}
 
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
-					stats->GainHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->GainHealth(f, filter.Entity, &spell);
 				}
 				else
 				{
-					stats->ReduceHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->ReduceHealth(f, filter.Entity, & spell);
 				}
 			}
 		}

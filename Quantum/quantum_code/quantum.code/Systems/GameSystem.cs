@@ -119,7 +119,7 @@ namespace Quantum.Systems
 				{
 					var index = f.RNG->Next(0, offPool.Count);
 
-					equipment = Equipment.Create(offPool[index], EquipmentRarity.Common, 1, f);
+					equipment = Equipment.Create(offPool[index], EquipmentRarity.Common, 1);
 
 					if (offPool.Count > 1)
 					{
@@ -185,7 +185,9 @@ namespace Quantum.Systems
 			}
 
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			container->TargetProgress = (uint) teams.Count;
+			
+			// The target of the game is that all teams die but one (ourselves)
+			container->TargetProgress = (uint) teams.Count -1;
 		}
 	}
 }

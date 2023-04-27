@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using FirstLight.Game.Data;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Services;
 using FirstLight.Server.SDK.Models;
+using FirstLightServerSDK.Modules.RemoteCollection;
 using PlayFab;
 
 
@@ -98,7 +96,13 @@ namespace Backend.Game
 		{
 			return _state.Keys.Select(s => typeof(PlayerData).GetAssembly().GetType(s))!;
 		}
-		
+
+		public ICollectionEnrichmentService GetEnrichmentService()
+		{
+			// Server-Side collection enrichment for logic commands coming soon [TM]
+			return null!;
+		}
+
 		public void ClearDeltas()
 		{
 			_modelsConsumed.Clear();

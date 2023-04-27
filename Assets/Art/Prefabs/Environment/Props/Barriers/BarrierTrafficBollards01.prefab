@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 7320908637694195362}
   - component: {fileID: 7320908637694195361}
   - component: {fileID: 7320908637694195360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficCone03 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 7320908638157588741}
   - component: {fileID: 7320908638157588740}
   - component: {fileID: 7320908638157588739}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficCone03 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 4863178955462585507}
   - component: {fileID: 3792876587766972669}
   - component: {fileID: 3137313943906565347}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrafficCone03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

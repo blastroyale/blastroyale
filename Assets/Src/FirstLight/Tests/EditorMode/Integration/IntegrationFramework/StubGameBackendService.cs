@@ -8,6 +8,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using Environment = FirstLight.Game.Services.Environment;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -44,6 +45,18 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
+		public void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable)
+		{
+			
+		}
+
+		public bool IsDev()
+		{
+			return true;
+		}
+
+		public Environment? EnvironmentRedirect { get; set; }
+		
 		public void SetupBackendEnvironment()
 		{
 

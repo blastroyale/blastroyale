@@ -6,6 +6,7 @@ using Backend.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -17,6 +18,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using Environment = System.Environment;
 
 /// <summary>
 /// Represents what is needed to run a isolated server testing environment.

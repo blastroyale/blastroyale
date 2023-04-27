@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views
 
 		private const string UssOutlineClaimed = "reward__button-outline--claimed";
 		private const string UssLevelBgComplete = "progress-bar__level-bg--complete";
+		private const string UssFirstReward = "first-reward";
 		public event Action<BattlePassSegmentView> Clicked;
 
 		private VisualElement _root;
@@ -84,7 +85,7 @@ namespace FirstLight.Game.Views
 		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
-
+			
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
@@ -92,11 +93,7 @@ namespace FirstLight.Game.Views
 			_levelNumber.text = levelForUi.ToString();
 
 			_rarityImage.RemoveSpriteClasses();
-			var rarityStyle = GetRarityStyle(_data.RewardConfig.GameId);
-			if (!_rarityImage.ClassListContains(rarityStyle))
-			{
-				_rarityImage.AddToClassList(rarityStyle);
-			}
+			_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
@@ -121,24 +118,17 @@ namespace FirstLight.Game.Views
 			{
 				SetProgressFill(0);
 			}
+
+			// Used for tutorial targeting
+			if (data.SegmentLevel == 0)
+			{
+				_rewardRoot.AddToClassList(UssFirstReward);
+			}
 		}
 
 		private void SetProgressFill(float percent)
 		{
 			_progressBarFill.style.flexGrow = percent;
-		}
-
-		private string GetRarityStyle(GameId id)
-		{
-			return id switch
-			{
-				GameId.CoreCommon    => UssSpriteRarityCommon,
-				GameId.CoreUncommon  => UssSpriteRarityUncommon,
-				GameId.CoreRare      => UssSpriteRarityRare,
-				GameId.CoreEpic      => UssSpriteRarityEpic,
-				GameId.CoreLegendary => UssSpriteRarityLegendary,
-				_                    => UssSpriteRarityRainbow
-			};
 		}
 
 		private string GetRewardName(GameId id)

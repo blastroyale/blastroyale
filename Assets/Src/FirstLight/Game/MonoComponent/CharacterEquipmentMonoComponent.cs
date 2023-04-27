@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -105,6 +106,7 @@ namespace FirstLight.Game.MonoComponent
 				
 				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
+					renderContainer.SetRenderersLayer(_renderersContainerProxy.MainRenderersContainer.Renderers.First().gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 				}
 			}

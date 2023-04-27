@@ -16,6 +16,7 @@
 component AlivePlayerCharacter
 {
     bool InCircle;
+    bool AboveGroundIllegally;
 }
 
 component DeadPlayerCharacter
@@ -47,6 +48,7 @@ component PlayerCharacter
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] Int32 DroppedLoadoutFlags;
+    [HideInInspector] Int16 CurrentEnergy;
 }
 
 component PlayerCharging

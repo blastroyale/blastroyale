@@ -35,7 +35,7 @@ namespace Quantum
 			transform->Rotation = spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
-			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1, f);
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1);
 			if (loadoutWeapon.IsValid())
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
@@ -120,7 +120,7 @@ namespace Quantum
 			}
 			
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->ResetStats(f, CurrentWeapon, Gear);
+			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -136,7 +136,7 @@ namespace Quantum
 			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
-			stats->ResetStats(f, CurrentWeapon, Gear);
+			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			var maxHealth = FPMath.RoundToInt(stats->GetStatData(StatType.Health).StatValue);
 			var currentHealth = stats->CurrentHealth;
@@ -156,7 +156,7 @@ namespace Quantum
 		/// <summary>
 		/// Kills this <see cref="PlayerCharacter"/> and mark it as done for the session
 		/// </summary>
-		internal void Dead(Frame f, EntityRef e, EntityRef attacker)
+		internal void Dead(Frame f, EntityRef e, EntityRef attacker, QBoolean fromRoofDamage)
 		{
 			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
 			
@@ -194,7 +194,7 @@ namespace Quantum
 			equipmentData.Gear.CopyFixedArray(Gear);
 			equipmentData.CurrentWeapon = CurrentWeapon;
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
-			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
+			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
@@ -204,6 +204,48 @@ namespace Quantum
 			{
 				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 			}
+		}
+
+		/// <summary>
+		/// Has the Player Character gain an <paramref name="amount"/> of energy
+		/// </summary>
+		public void GainEnergy(Frame f, EntityRef e, int amount)
+		{
+			var prevEnergyLevel = GetEnergyLevel(f);
+			if(prevEnergyLevel == f.GameConfig.PlayerMaxEnergyLevel)
+			{
+				return;
+			}
+			var prevEnergy = CurrentEnergy;
+			CurrentEnergy += (short)amount;
+			var newEnergyLevel = GetEnergyLevel(f);
+
+			f.Events.OnPlayerEnergyChanged(Player, e, prevEnergy, CurrentEnergy, amount, prevEnergyLevel);
+
+			if (newEnergyLevel > prevEnergyLevel)
+			{
+				f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+				f.Events.OnPlayerLevelUp(Player, e, newEnergyLevel);
+			}
+		}
+		
+		/// <summary>
+		/// Returns the total energy level of the player based on <paramref name="energyCollected"/>
+		/// </summary>
+		public int GetEnergyLevel(Frame f)
+		{
+			int energyCollected = CurrentEnergy;
+			var gameconfigs = f.GameConfig;
+			for (int i = 0; i < gameconfigs.PlayerMaxEnergyLevel; i++)
+			{
+				 var requiredEnergy = FPMath.Lerp(gameconfigs.MinMaxEnergyLevelRequirement.Value1, gameconfigs.MinMaxEnergyLevelRequirement.Value2,
+					 (FP)i / gameconfigs.PlayerMaxEnergyLevel).AsInt;
+				energyCollected -= requiredEnergy;
+				if (energyCollected >= 0)
+					continue;
+				return i;
+			}
+			return (int)gameconfigs.PlayerMaxEnergyLevel;
 		}
 
 		/// <summary>

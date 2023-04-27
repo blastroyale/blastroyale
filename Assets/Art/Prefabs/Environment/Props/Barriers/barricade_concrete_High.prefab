@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8009689075449652800}
   - component: {fileID: 9199850262855388752}
   - component: {fileID: 1643741912393185520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BoxStaticCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 8885369176560261983}
   - component: {fileID: 1239824698229329168}
   - component: {fileID: 6925963490227418483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barricade_concrete_High
   m_TagString: Untagged
   m_Icon: {fileID: 0}

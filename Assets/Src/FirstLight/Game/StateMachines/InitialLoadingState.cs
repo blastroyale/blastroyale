@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -26,9 +29,10 @@ namespace FirstLight.Game.StateMachines
 		private readonly IVfxInternalService<VfxId> _vfxService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IConfigsLoader _configsLoader;
+		private readonly IDataService _dataService;
 		
 		public InitialLoadingState(IGameServices services, IGameUiServiceInit uiService, 
-		                           IAssetAdderService assetService, IConfigsAdder configsAdder, 
+		                           IAssetAdderService assetService, IDataService dataService, IConfigsAdder configsAdder, 
 		                           IVfxInternalService<VfxId> vfxService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
@@ -37,6 +41,7 @@ namespace FirstLight.Game.StateMachines
 			_configsAdder = configsAdder;
 			_vfxService = vfxService;
 			_statechartTrigger = statechartTrigger;
+			_dataService = dataService;
 			_configsLoader = new GameConfigsLoader(_assetService);
 		}
 
@@ -108,8 +113,28 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.WhenAll(tasks);
 			
-			_services.GameModeService.Init();
+			if (FeatureFlags.REMOTE_CONFIGURATION)
+			{
+				var appData = _dataService.GetData<AppData>();
+				while (appData.TitleData.Count == 0)
+				{
+					await Task.Delay(1);
+				}
 
+				if (!appData.TitleData.TryGetValue(PlayfabConfigurationProvider.ConfigName, out var remoteStringConfig))
+				{
+					throw new Exception("Remote Configs is ON but no remote configs found. Please upload.");
+				}
+				var serializer = new ConfigsSerializer();
+				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
+				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
+				{
+					NewConfig = remoteConfig,
+					OldConfig = _configsAdder
+				});
+				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
+			}
+			
 			var audioTasks = new List<Task>();
 			
 			audioTasks.Add(_services.AudioFxService
@@ -169,6 +194,10 @@ namespace FirstLight.Game.StateMachines
 
 			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
 			{
+				if (vfxAsset.name == "LocationPointerVFX")
+				{
+					Debug.LogError("LOADED");
+				}
 				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
 			}
 		}

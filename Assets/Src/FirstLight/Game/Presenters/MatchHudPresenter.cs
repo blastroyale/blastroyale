@@ -38,6 +38,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private ContendersLeftView _contendersLeftHolderView;
 		[SerializeField, Required] private GameObject _minimapHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
+		[SerializeField, Required] private TextMeshProUGUI _roofDamageText;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -63,6 +64,7 @@ namespace FirstLight.Game.Presenters
 			_leaderHolderView.gameObject.SetActive(false);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerRoofDetected>(this, OnLocalPlayerRoofDetected);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
@@ -70,7 +72,6 @@ namespace FirstLight.Game.Presenters
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
 
 		protected override void OnOpened()
@@ -87,6 +88,7 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(!gameModeConfig.ShowUITimer);
 			_minimapHolder.gameObject.SetActive(gameModeConfig.ShowUIMinimap);
 			_quitButton.gameObject.SetActive(true);
+			_roofDamageText.gameObject.SetActive(false);
 
 			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
 			{
@@ -105,6 +107,11 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			CheckEnableQuitFunctionality(callback.Game);
+		}
+		
+		private void OnLocalPlayerRoofDetected(EventOnLocalPlayerRoofDetected callback)
+		{
+			_roofDamageText.gameObject.SetActive(callback.OnRoof);
 		}
 
 		private void CheckEnableQuitFunctionality(QuantumGame game)
@@ -141,9 +148,7 @@ namespace FirstLight.Game.Presenters
 		private void OnStandingsClicked()
 		{
 			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GeneratePlayersMatchData(frame, out _);
+			var playerData = game.GeneratePlayersMatchDataLocal(out _, out _);
 			
 			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);

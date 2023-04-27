@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4658917084185605433}
   - component: {fileID: 6268892435660293576}
   - component: {fileID: 3751617300359630792}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BoxStaticCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 7238335658605532039}
   - component: {fileID: 2953200467739799774}
   - component: {fileID: 787775411969892943}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: barricade_sandbags
   m_TagString: Untagged
   m_Icon: {fileID: 0}

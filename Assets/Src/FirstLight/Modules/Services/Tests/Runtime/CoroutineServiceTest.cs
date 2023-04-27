@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 
 namespace FirstLightEditor.Services.Tests
 {
-	[RequiresPlayMode]
+	[RequiresPlayMode, Category("PlayMode")]
 	public class CoroutineServiceTest
 	{
 		private CoroutineService _coroutineService;

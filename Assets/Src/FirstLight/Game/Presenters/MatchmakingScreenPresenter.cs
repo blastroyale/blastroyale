@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
+		private Label _debugMasterClient;
 		private IGameServices _services;
 		private Coroutine _matchmakingTimerCoroutine;
 		private Tweener _planeFlyTween;
@@ -65,7 +67,7 @@ namespace FirstLight.Game.Presenters
 		private List<Player> _squadMembers = new();
 
 		private Room CurrentRoom => _services.NetworkService.CurrentRoom;
-		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
+		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
 		{
@@ -98,8 +100,8 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
+			_debugMasterClient = root.Q<Label>("DebugMasterClient").Required();
 			_squadContainer = root.Q("SquadContainer").Required();
-			_squadLabel = root.Q<Label>("SquadLabel").Required();
 			_squadMembersList = root.Q<ListView>("SquadList").Required();
 			_partyMarkers = root.Q("PartyMarkers").Required();
 
@@ -123,6 +125,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			RefreshPartyList();
+			UpdateMasterClient();
 		}
 
 		private void RefreshPartyList()
@@ -132,7 +135,7 @@ namespace FirstLight.Game.Presenters
 			if (isSquadGame)
 			{
 				var teamId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetTeamId();
-				
+
 				_squadContainer.SetDisplay(true);
 				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
 					.Where(p => p.GetTeamId() == teamId)
@@ -140,8 +143,6 @@ namespace FirstLight.Game.Presenters
 
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
-
-				_squadLabel.text = ScriptLocalization.UITMatchmaking.squad;
 
 				RefreshPartyMarkers();
 			}
@@ -174,6 +175,8 @@ namespace FirstLight.Game.Presenters
 
 		private void BindSquadListEntry(VisualElement element, int index)
 		{
+			if (index < 0 || index >= _squadMembers.Count) return;
+			
 			((Label) element).text = _squadMembers[index].NickName;
 		}
 
@@ -205,6 +208,11 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
+			if (checkClickWithinRadius)
+			{
+				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
+			}
+			
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
@@ -281,17 +289,25 @@ namespace FirstLight.Game.Presenters
 			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
+			UpdateMasterClient();
 
-			if (!gameModeConfig.SkydiveSpawn)
+			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
-				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				if(_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
+				{
+					var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
+					_mapImage.style.backgroundImage = new StyleBackground(sprite);
+				}
+				else
+				{
+					FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
+				}
 				return;
 			}
-
+			
 			_dropSelectionAllowed = !RejoiningRoom;
 
 			if (RejoiningRoom)
@@ -310,15 +326,27 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			
 			// Init DZ position/rotation
-			var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
 			var mapWidth = _mapHolder.contentRect.width;
 			var mapHeight = _mapHolder.contentRect.height;
-			var posX = mapWidth * dropzonePosRot.x;
-			var posY = mapHeight * dropzonePosRot.y;
+			var posX = 0f;
+			var posY = 0f;
 
-			_dropzone.transform.position = new Vector3(posX, posY);
-			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			if (gameModeConfig.SpawnPattern)
+			{
+				var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
+				_dropzone.SetDisplay(true);
+				posX = mapWidth * dropzonePosRot.x;
+				posY = mapHeight * dropzonePosRot.y;
+				_dropzone.transform.position = new Vector3(posX, posY);
+				_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			}
+			else
+			{
+				_dropzone.SetDisplay(false);
+			}
 
 			SelectMapPosition(new Vector2(posX, posY), false, false);
 
@@ -345,7 +373,16 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_closeButton.SetDisplay(false);
-			_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+
+			if (RejoiningRoom)
+			{
+				_loadStatusLabel.text = "Reconnecting to Game !"; // todo translation
+			}
+			else
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+			}
+		
 			_dropSelectionAllowed = false;
 		}
 
@@ -357,21 +394,39 @@ namespace FirstLight.Game.Presenters
 				: "";
 		}
 
+		private void UpdateMasterClient()
+		{
+			if (!Debug.isDebugBuild)
+			{
+				_debugMasterClient.SetDisplay(false);
+				return;
+			}
+			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
+		}
+
+		
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
 			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
 
-			while (DateTime.UtcNow < matchmakingEndTime)
+
+			while (DateTime.UtcNow < matchmakingEndTime && !CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
-				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_timer,
-					timeLeft.TotalSeconds.ToString("F0"));
-
-				yield return null;
+				var translation = CurrentRoom.ShouldUsePlayFabMatchmaking(_services.ConfigsProvider)
+					? ScriptLocalization.UITMatchmaking.loading_status_waiting_timer
+					: ScriptLocalization.UITMatchmaking.loading_status_timer;
+				_loadStatusLabel.text = string.Format(translation, timeLeft.TotalSeconds.ToString("F0"));
+				
+				yield return new WaitForSeconds(.2f);
 			}
 
-			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
+			if (CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
+			}
+			else if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
 			{
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			}

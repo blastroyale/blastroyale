@@ -61,6 +61,8 @@ namespace SRDebugger.UI.Controls.Data
             {
                 NumberSpinner.text = _lastValue;
             }
+
+            LayoutRebuilder.MarkLayoutForRebuild(GetComponent<RectTransform>());
         }
 
         protected override void OnBind(string propertyName, Type t)

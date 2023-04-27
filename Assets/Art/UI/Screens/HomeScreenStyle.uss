@@ -21,87 +21,190 @@
 .main-buttons--right {
     right: 36px;
     align-items: flex-end;
+    justify-content: flex-end;
 }
 
 .currency-display {
     margin-right: 50px;
+    -unity-text-align: upper-left;
 }
 
 .player-header {
-    background-image: var(--sprite-home__header-profile-pressed);
-    width: 772px;
-    height: 208px;
-    margin-left: 20px;
-}
-
-.player-header:active {
-    background-image: var(--sprite-home__header-profile-pressed);
+    flex-direction: row-reverse;
+    position: absolute;
+    left: 36px;
+    top: 36px;
+    align-items: center;
 }
 
 .player-header__name {
     position: absolute;
-    left: -420px;
-    top: 105px;
+    left: 35px;
+    right: 70px;
+    bottom: 14px;
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
-    width: 310px;
-    rotate: -14.2deg;
-    white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -unity-text-overflow-position: end;
+    text-overflow: ellipsis;
+}
+
+.player-header__profile-button {
+    background-image: var(--sprite-home__button-profile);
+    width: 342px;
+    height: 138px;
+}
+
+.player-header__profile-button:active {
+    width: 342px;
+    height: 138px;
+    background-image: var(--sprite-home__button-profile-pressed);
 }
 
 .player-header__profile-holder {
-    left: 444px;
-    top: 0;
+    position: absolute;
+    left: 0;
     right: 0;
-    bottom: 5px;
-    width: 326px;
+    top: 0;
+    bottom: 0;
 }
 
-.player-header:active .player-header__profile-holder {
-    left: 450px;
-    bottom: 3px;
+.player-header__profile-button:active .player-header__profile-holder {
+    left: 6px;
+    right: -6px;
+    top: 6px;
+    bottom: -6px;
+}
+
+.player-header__avatar {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    background-color: rgb(214, 74, 123);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    left: 97px;
+    top: 6px;
+}
+
+.player-header__avatar--nft {
+    background-color: initial;
+    background-image: var(--sprite-home__background-avatar-nft);
+}
+
+.player-header__avatar-mask {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.player-header__avatar--nft > .player-header__avatar-mask {
+    background-image: url('project://database/Assets/Art/UI/Vectors/ProfileBgShapeNft.svg?fileID=7388822144124034973&guid=383af2f3fddfd49a28a8e090f2857a24&type=3#ProfileBgShapeNft');
+}
+
+.player-header__avatar-pfp {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: var(--sprite-home__avatar-default);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.player-header__avatar--nft .player-header__avatar-pfp {
+    border-top-left-radius: initial;
+    border-bottom-left-radius: initial;
+    border-top-right-radius: initial;
+    border-bottom-right-radius: initial;
 }
 
 .player-header__trophies-holder {
-    position: absolute;
-    width: 340px;
-    height: 150px;
-    left: 321px;
-    top: -6px;
+    position: relative;
+    width: 454px;
+    height: 116px;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    background-image: var(--sprite-home__background-profile);
+    left: -83px;
+    justify-content: space-between;
+    padding-left: 53px;
+    padding-right: 94px;
 }
 
-.player-header__trophy-icon {
-    background-image: var(--sprite-shared__icon-trophy);
-    width: 48px;
-    height: 48px;
-    margin-left: 23px;
-    margin-top: 30px;
-}
-
-.player-header__trophies_label {
-    margin-left: -4px;
-    margin-top: 17px;
+.player-header__trophies-label {
+    flex-grow: 1;
     color: rgb(255, 255, 255);
     font-size: 34px;
     -unity-text-align: middle-left;
-    white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    rotate: -15deg;
-    left: 5px;
+}
+
+.player-header__leaderboards-button {
+    width: 83px;
+    height: 68px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-left-color: rgb(147, 139, 197);
+    border-right-color: rgb(147, 139, 197);
+    border-top-color: rgb(147, 139, 197);
+    border-bottom-color: rgb(147, 139, 197);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.player-header__leaderboards-button:active {
+    background-color: rgba(147, 139, 197, 0.48);
+}
+
+.player-header__leaderboards-icon {
+    background-image: var(--sprite-home__icon-leaderboards);
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
 }
 
 .battle-pass-button {
     background-image: var(--sprite-home__button-battlepass);
-    width: 479px;
-    height: 179px;
+    width: 558px;
+    height: 172px;
 }
 
 .battle-pass-button:active {
     background-image: var(--sprite-home__button-battlepass-pressed);
+    -unity-background-image-tint-color: rgb(164, 162, 166);
+}
+
+.battle-pass-button--claimreward {
+    background-image: var(--sprite-home__button-battlepass-claimreward);
+}
+
+.battle-pass-button--claimreward:active {
+    background-image: var(--sprite-home__button-battlepass-claimreward-pressed);
 }
 
 .battle-pass-button__holder {
@@ -119,88 +222,131 @@
     bottom: -8px;
 }
 
-.battle-pass-button__crown {
-    background-image: var(--sprite-home__icon-battlepass-crown);
-    width: 104px;
-    height: 88px;
+.battle-pass-button_bp-title-holder {
     position: absolute;
-    top: -27px;
-    right: 5px;
+    left: 58px;
+    right: 0;
+    top: 28px;
+    height: 65px;
+    flex-direction: row;
+}
+
+.battle-pass-button--claimreward .battle-pass-button_bp-title-holder {
+    display: none;
+}
+
+.battle-pass-button_reward-title-holder {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.battle-pass-button--claimreward .battle-pass-button_reward-title-holder {
+    display: flex;
 }
 
 .battle-pass-button__title {
-    text-shadow: -5px 5px 0 rgb(10, 10, 10);
-    font-size: 55px;
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(10, 10, 10);
+    text-shadow: -4px 4px 0 rgb(49, 7, 108);
+    font-size: 60px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(48, 6, 106);
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     margin: 0;
     padding: 0;
-    left: 43px;
-    right: 28px;
-    top: 28px;
-    position: absolute;
-}
-
-.battle-pass-button__title_claim_reward {
-    text-shadow: -5px 5px 0 rgb(107, 4, 2);
-    font-size: 55px;
     -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(141, 27, 0);
-    -unity-text-align: upper-center;
-    color: rgb(255, 255, 255);
-    margin: 0;
-    padding: 0;
-    left: 43px;
-    right: 28px;
-    top: 56px;
+    letter-spacing: -1px;
+}
+
+.battle-pass-button_reward-title-holder .battle-pass-button__title {
+    left: 48px;
     position: absolute;
+    top: 19px;
+    font-size: 76px;
+    -unity-text-outline-color: rgb(166, 16, 1);
+    text-shadow: -4px 4px 0 rgb(166, 16, 1);
 }
 
-.battle-pass-level-holder {
-    left: 376px;
-    top: -53px;
-    width: 68px;
-    height: 55px;
-    align-items: flex-end;
-    flex-shrink: 1;
-    flex-grow: 1;
-    flex-direction: row-reverse;
+.battle-pass-button__subtitle {
+    font-size: 40px;
+    margin-left: 12px;
+    color: rgb(48, 6, 106);
 }
 
-.battle-pass-button__level {
-    -unity-text-align: middle-right;
+.battle-pass-button_reward-title-holder .battle-pass-button__subtitle {
+    left: 40px;
+    position: absolute;
+    right: 68px;
+    bottom: 26px;
     font-size: 46px;
-    -unity-font-definition: var(--font-bold);
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    position: relative;
-    flex-grow: 1;
+    -unity-text-align: lower-center;
+    color: rgb(166, 16, 1);
 }
 
-.battle-pass-button__leveltext {
-    font-size: 36px;
+.battle-pass-button__progress-text {
+    -unity-text-align: middle-right;
+    font-size: 42px;
     color: rgb(255, 255, 255);
-    margin: 18px 4px 4px 2px;
-    padding: 1px 2px 4px 4px;
-    position: relative;
-    left: 2px;
-    top: -1px;
+    -unity-font-style: bold;
+    position: absolute;
+    bottom: 26px;
+    left: 194px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: -2px 2px 0 rgb(0, 0, 0);
+}
+
+.battle-pass-button--claimreward .battle-pass-button__progress-text {
+    display: none;
+}
+
+.battle-pass-button--completed .battle-pass-button__progress-text {
+    display: none;
+}
+
+.battle-pass-button__completed-text {
+    display: none;
+    -unity-text-align: middle-right;
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    position: absolute;
+    bottom: 38px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: -2px 2px 0 rgb(0, 0, 0);
+    right: 200px;
+}
+
+.battle-pass-button--completed .battle-pass-button__completed-text {
+    display: flex;
 }
 
 .battle-pass-button__progress-bg {
-    height: 20px;
+    height: 24px;
     padding: 2px;
     flex-direction: row;
     background-image: var(--sprite-home__progress-battlepassbtn-bg);
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
-    bottom: 42px;
-    left: 57px;
-    right: 19px;
+    bottom: 41px;
+    left: 100px;
+    width: 293px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.battle-pass-button--claimreward .battle-pass-button__progress-bg {
+    display: none;
+}
+
+.battle-pass-button--completed .battle-pass-button__progress-bg {
+    display: none;
 }
 
 .battle-pass-button__progress {
@@ -211,14 +357,72 @@
     flex-grow: 0.5;
 }
 
-.battle-pass-button--claimreward {
-    background-image: var(--sprite-home__button-battlepass-claimreward);
-    width: 479px;
-    height: 179px;
+.battle-pass-button__bpp-icon {
+    background-image: var(--sprite-shared__icon-currency-bpp);
+    width: 60px;
+    height: 64px;
+    position: absolute;
+    left: 50px;
+    bottom: 24px;
+    scale: -0.9 0.9;
 }
 
-.battle-pass-button--claimreward:active {
-    background-image: var(--sprite-home__button-battlepass-claimreward-pressed);
+.battle-pass-button--claimreward .battle-pass-button__bpp-icon {
+    display: none;
+}
+
+.battle-pass-button--completed .battle-pass-button__bpp-icon {
+    display: none;
+}
+
+.battle-pass-button__reward {
+    position: absolute;
+    right: 40px;
+    bottom: 26px;
+    width: 132px;
+    height: 142px;
+    background-image: var(--sprite-home__background-bpchestreward);
+}
+
+.battle-pass-button__reward-rays {
+    display: none;
+    background-image: var(--sprite-home__vfx-lightrays-reward);
+    width: 346px;
+    height: 198px;
+    right: -70px;
+    bottom: 71px;
+    position: absolute;
+}
+
+.battle-pass-button--claimreward .battle-pass-button__reward-rays {
+    display: flex;
+}
+
+.battle-pass-button__reward-rarity {
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+.battle-pass-button--completed .battle-pass-button__reward-rarity {
+    display: none;
+}
+
+.battle-pass-button__reward-questionmark {
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    left: 0;
+    top: 22px;
+    right: 0;
+    bottom: 31px;
+    background-image: var(--sprite-home__icon-questionmark);
+}
+
+.battle-pass-button--completed .battle-pass-button__reward-questionmark {
+    display: none;
 }
 
 .play-button {
@@ -228,9 +432,9 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(141, 27, 0);
+    -unity-text-outline-color: rgb(166, 16, 1);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(107, 4, 2);
+    text-shadow: 5px 5px 0 rgb(166, 16, 1);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
     background-color: rgba(0, 0, 0, 0);
@@ -239,20 +443,28 @@
     border-top-width: 0;
     border-bottom-width: 0;
     background-image: var(--sprite-home__button-play);
+    align-items: center;
+    justify-content: center;
+}
+
+.play-button--loading {
+    font-size: 0;
+    -unity-text-outline-width: 0;
+}
+
+.play-button--get-ready {
+    -unity-background-image-tint-color: rgb(190, 190, 190);
+    -unity-text-outline-width: 0;
+    color: rgb(141, 27, 0);
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    -unity-font-style: normal;
+    font-size: 48px;
+    padding-left: 145px;
 }
 
 .play-button:disabled {
-    background-image: var(--sprite-home__button-play-disabled);
-    color: rgb(213, 213, 213);
-    -unity-text-outline-color: rgb(65, 65, 65);
-    text-shadow: 5px 5px 0 rgb(35, 35, 35);
     opacity: 1;
-}
-
-.play-button--ready {
-    background-image: var(--sprite-home__button-play-ready);
-    -unity-text-outline-color: rgb(0, 189, 52);
-    text-shadow: 5px 5px 0 rgb(40, 84, 3);
+    -unity-background-image-tint-color: rgb(190, 190, 190);
 }
 
 .play-button:active {
@@ -261,8 +473,64 @@
     padding-top: 27px;
 }
 
-.play-button--ready:active {
-    background-image: var(--sprite-home__button-play-ready-pressed);
+.play-button__spinner {
+    display: none;
+    height: 80px;
+    width: 80px;
+}
+
+.play-button--loading .play-button__spinner {
+    display: flex;
+}
+
+.play-button__checkmark-bg {
+    display: none;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(141, 27, 0);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    align-items: center;
+    position: absolute;
+    left: 112px;
+    top: 51px;
+}
+
+.play-button--get-ready .play-button__checkmark-bg {
+    display: flex;
+}
+
+.play-button__checkmark {
+    background-image: var(--sprite-home__icon-checkmark);
+    width: 88px;
+    height: 72px;
+}
+
+.play-button .glint-element {
+    left: 4px;
+    top: 4px;
+    position: absolute;
+    right: 13px;
+    bottom: 22px;
+    background-image: url('project://database/Assets/Art/UI/Vectors/button-play-mask.svg?fileID=7388822144124034973&guid=34dd17c5baf534d41b1ffeceefca7356&type=3#button-play-mask');
+}
+
+.button-party {
+    width: 320px;
+    height: 78px;
+    background-image: var(--sprite-home__button-long-darkblue);
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    padding-top: 0;
+    margin-bottom: 20px;
+}
+
+.button-party:active {
+    background-image: var(--sprite-home__button-long-darkblue-pressed);
+    padding-top: 15px;
 }
 
 .game-mode-button {
@@ -271,8 +539,7 @@
     width: 414px;
     height: 168px;
     padding-left: 45px;
-    padding-bottom: 0;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
 .game-mode-button:active > .game-mode-button__label-holder {
@@ -284,8 +551,19 @@
     background-image: var(--sprite-home__button-gamemode-pressed);
 }
 
+.game-mode-button__dimmer {
+    display: none;
+    background-image: var(--sprite-home__button-gamemode);
+    -unity-background-image-tint-color: rgba(188, 188, 188, 0.9);
+}
 
+.game-mode-button:disabled {
+    opacity: 1;
+}
 
+.game-mode-button:disabled .game-mode-button__dimmer {
+    display: flex;
+}
 
 .game-mode-button__overlay {
     position: absolute;
@@ -304,7 +582,6 @@
     left: 13px;
     top: 27px;
 }
-
 
 .game-mode-button__label-holder {
     padding-bottom: 30px;
@@ -358,7 +635,6 @@
     bottom: 0;
 }
 
-
 .game-mode-button__type--ranked {
     color: rgb(255, 174, 0);
 }
@@ -388,7 +664,8 @@
 
 .resource-pool--bpp {
     left: -9px;
-    top: -42px;
+    top: -49px;
+    width: 504px;
 }
 
 .resource-pool--cs {
@@ -408,7 +685,7 @@
 
 .resource-pool--bpp .resource-pool__holder {
     flex-direction: row;
-    rotate: 3deg;
+    rotate: 2deg;
 }
 
 .resource-pool--cs .resource-pool__holder {
@@ -435,8 +712,11 @@
 
 .resource-pool__background {
     background-image: var(--sprite-home__background-resourcepool);
-    width: 428px;
-    height: 102px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .resource-pool--cs .resource-pool__background {
@@ -488,16 +768,12 @@
     background-image: var(--sprite-home__icon-discord);
 }
 
-.button-with-icon--party > .button-with-icon__icon {
-    background-image: var(--sprite-home__icon-heroes);
-}
-
 #LeaderboardsButton {
     letter-spacing: -4px;
 }
 
 .main-button-margin {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .button-with-pool {
@@ -505,43 +781,148 @@
 }
 
 .squad-member {
-    font-size: 40px;
+    font-size: 32px;
+    background-color: rgba(16, 12, 34, 0.59);
+    -unity-text-align: middle-left;
+}
+
+.squad-member.unity-collection-view__item--alternative-background {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .squad-container {
-    position: absolute;
-    bottom: 628px;
-    width: 300px;
-    background-color: rgba(71, 128, 166, 0.65);
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    width: 320px;
+    background-color: rgba(16, 12, 34, 0.59);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 0;
     color: rgb(255, 255, 255);
     overflow: hidden;
-    right: 301px;
-    min-height: 200px;
+    right: -3px;
+    bottom: -11px;
+    height: 222px;
+    transition-property: height;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
 }
 
-.squad-container__label {
-    font-size: 48px;
-    height: 75px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
+.squad-container--hidden {
+    height: 0;
+}
+
+.squad-container__title {
+    font-size: 36px;
     -unity-text-align: middle-center;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgb(16, 12, 34);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-grow: 1;
 }
 
 .squad-container__list {
     position: absolute;
-    left: 25px;
-    top: 85px;
+    left: 0;
+    top: 59px;
+    bottom: 11px;
+    right: 0;
+}
+
+.squad-member:active {
+    font-size: 32px;
+    background-color: rgba(255, 255, 255, 0.27);
+}
+
+.squad-container__roomcode {
+    font-size: 32px;
+    background-color: rgb(196, 194, 220);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(16, 12, 34);
+}
+
+.squad-container__header {
+    flex-direction: row;
+    height: 59px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgb(16, 12, 34);
+    padding-left: 5px;
+    padding-right: 4px;
+    align-items: center;
+}
+
+.squad-button-kick {
+    font-size: 32px;
+    color: rgb(239, 80, 78);
+    background-color: rgb(33, 28, 55);
+    min-width: 256px;
+    -unity-text-align: middle-left;
+}
+
+.matchmaking-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
     bottom: 0;
-    right: 25px;
+    background-color: rgba(0, 0, 0, 0.71);
+    transition-duration: 0.3s;
+    translate: 0 0;
+}
+
+.matchmaking-container__safearea {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.matchmaking-status {
+    background-image: var(--sprite-home__background-matchmakingstatus);
+    top: 36px;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+    align-items: center;
+    justify-content: center;
+}
+
+.matchmaking-container--hidden {
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.matchmaking-container--hidden .matchmaking-status {
+    translate: 0 -200px;
+}
+
+.matchmaking-status__subtitle {
+    font-size: 28px;
+    color: rgb(148, 139, 196);
+}
+
+.matchmaking-status__title {
+    color: rgb(255, 255, 255);
+    font-size: 52px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: -6px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }

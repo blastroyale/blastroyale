@@ -29,6 +29,8 @@ namespace FirstLight.Game.Data
 		public uint Trophies = 1000;
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
+		public bool MigratedGuestData = false;
+		public GameId DeathMarker = GameId.Tombstone;
 		public readonly List<RewardData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer())
@@ -67,6 +69,12 @@ namespace FirstLight.Game.Data
 			
 			return hash;
 		}
+	}
+	
+	[Serializable]
+	public struct MigrationData
+	{
+		public TutorialSection TutorialSections;
 	}
 	
 }

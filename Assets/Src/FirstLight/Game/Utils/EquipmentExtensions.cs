@@ -63,7 +63,11 @@ namespace FirstLight.Game.Utils
 			//var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
 			// TODO: Gabriel delete when we update the backend
 			var dropDays = FP._7;
-			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
+			
+			// We don't let days drop below 0, this way we can set LastRepairTimestamp in the future if needed
+			var daysOfRustingPassed = Math.Max(0d, rustTime.TotalDays);
+			
+			var durabilityDropped = (uint) Math.Floor(daysOfRustingPassed / dropDays.AsDouble);
 			
 			if ((isNft && !FeatureFlags.ITEM_DURABILITY_NFTS) || (!isNft && !FeatureFlags.ITEM_DURABILITY_NON_NFTS))
 			{
@@ -169,7 +173,7 @@ namespace FirstLight.Game.Utils
 
 			foreach (EquipmentStatType type in Enum.GetValues(typeof(EquipmentStatType)))
 			{
-				if (stats.ContainsKey(type) && CanShowStat(type, stats[type]))
+				if (stats.ContainsKey(type) && (type.IsSpecial() || CanShowStat(type, stats[type])))
 				{
 					formattedStats.Add(type, stats[type].ToString(GetValueFormat(type)));
 				}
@@ -185,6 +189,11 @@ namespace FirstLight.Game.Utils
 			return INVERT_VALUES.Contains(type) || value != 0f;
 		}
 
+		public static bool IsSpecial(this EquipmentStatType type)
+		{
+			return SPECIAL_TYPES.Contains(type);
+		}
+		
 		public static string GetValueFormat(EquipmentStatType type)
 		{
 			return type switch
@@ -230,6 +239,12 @@ namespace FirstLight.Game.Utils
 			EquipmentStatType.MaxAttackAngle,
 			EquipmentStatType.MinAttackAngle,
 			EquipmentStatType.ReloadTime
+		};
+		
+		public static readonly HashSet<EquipmentStatType> SPECIAL_TYPES = new()
+		{
+			EquipmentStatType.SpecialId0,
+			EquipmentStatType.SpecialId1,
 		};
 	}
 }

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Serializers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
@@ -243,7 +243,7 @@ namespace Quantum
 				return false;
 			}
 
-			if (gameSession.Session.FrameVerified == null)
+			if (gameSession?.Session?.FrameVerified == null)
 			{
 				return false;
 			}
@@ -384,7 +384,8 @@ namespace Quantum
 
 			foreach (var itemTuple in equipmentData.Inventory)
 			{
-				if (!itemTuple.Value.IsBroken())
+				var isNft = equipmentData.NftInventory.ContainsKey(itemTuple.Key);
+				if (isNft || !itemTuple.Value.IsBroken())
 				{
 					validItemHashes.Add(itemTuple.Value.GetServerHashCode());
 				}

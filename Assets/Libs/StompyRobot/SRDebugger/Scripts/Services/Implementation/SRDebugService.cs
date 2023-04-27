@@ -17,6 +17,18 @@
             get { return Service.DockConsole; }
         }
 
+        public IConsoleFilterState ConsoleFilter
+        {
+            get
+            {
+                if (_consoleFilterState == null)
+                {
+                    _consoleFilterState = SRServiceManager.GetService<IConsoleFilterState>();
+                }
+                return _consoleFilterState;
+            }
+        }
+
         public event VisibilityChangedDelegate PanelVisibilityChanged;
         public event PinnedUiCanvasCreated PinnedUiCanvasCreated;
 
@@ -25,12 +37,15 @@
         private readonly ISystemInformationService _informationService;
         private readonly IOptionsService _optionsService;
         private readonly IPinnedUIService _pinnedUiService;
+        private IConsoleFilterState _consoleFilterState;
 
-        private bool _entryCodeEnabled;
+        private EntryCode? _entryCode;
         private bool _hasAuthorised;
+
         private DefaultTabs? _queuedTab;
         private RectTransform _worldSpaceTransform;
         private DynamicOptionContainer _looseOptionContainer;
+
 
         public SRDebugService()
         {
@@ -77,13 +92,19 @@
                 SRServiceManager.GetService<KeyboardShortcutListenerService>();
             }
 
-            _entryCodeEnabled = Settings.Instance.RequireCode && Settings.Instance.EntryCode.Count == 4;
-
-            if (Settings.Instance.RequireCode && !_entryCodeEnabled)
+            if (Settings.Instance.RequireCode)
             {
-                Debug.LogError("[SRDebugger] RequireCode is enabled, but pin is not 4 digits");
+                if (Settings.Instance.EntryCode.Count != 4)
+                {
+                    Debug.LogError("[SRDebugger] RequireCode is enabled, but pin is not 4 digits");
+                }
+                else
+                {
+                    _entryCode = new EntryCode(Settings.Instance.EntryCode[0], Settings.Instance.EntryCode[1],
+                        Settings.Instance.EntryCode[2], Settings.Instance.EntryCode[3]);
+                }
             }
-
+            
             // Ensure that root object cannot be destroyed on scene loads
             var srDebuggerParent = Hierarchy.Get("SRDebugger");
             Object.DontDestroyOnLoad(srDebuggerParent.gameObject);
@@ -109,6 +130,12 @@
             set { _debugTrigger.IsEnabled = value; }
         }
 
+        public bool IsTriggerErrorNotificationEnabled
+        {
+            get { return _debugTrigger.ShowErrorNotification; }
+            set { _debugTrigger.ShowErrorNotification = value; }
+        }
+
         public bool IsProfilerDocked
         {
             get { return Service.PinnedUI.IsProfilerPinned; }
@@ -122,7 +149,7 @@
 
         public void ShowDebugPanel(bool requireEntryCode = true)
         {
-            if (requireEntryCode && _entryCodeEnabled && !_hasAuthorised)
+            if (requireEntryCode && _entryCode.HasValue && !_hasAuthorised)
             {
                 PromptEntryCode();
                 return;
@@ -133,7 +160,7 @@
 
         public void ShowDebugPanel(DefaultTabs tab, bool requireEntryCode = true)
         {
-            if (requireEntryCode && _entryCodeEnabled && !_hasAuthorised)
+            if (requireEntryCode && _entryCode.HasValue && !_hasAuthorised)
             {
                 _queuedTab = tab;
                 PromptEntryCode();
@@ -147,6 +174,17 @@
         public void HideDebugPanel()
         {
             _debugPanelService.IsVisible = false;
+        }
+
+        public void SetEntryCode(EntryCode newCode)
+        {
+            _hasAuthorised = false;
+            _entryCode = newCode;
+        }
+
+        public void DisableEntryCode()
+        {
+            _entryCode = null;
         }
 
         public void DestroyDebugPanel()
@@ -283,7 +321,7 @@
         private void PromptEntryCode()
         {
             SRServiceManager.GetService<IPinEntryService>()
-                .ShowPinEntry(Settings.Instance.EntryCode, SRDebugStrings.Current.PinEntryPrompt,
+                .ShowPinEntry(_entryCode.Value, SRDebugStrings.Current.PinEntryPrompt,
                     entered =>
                     {
                         if (entered)
@@ -334,6 +372,11 @@
             rectTransform.position = Vector3.zero;
 
             return _worldSpaceTransform = rectTransform;
+        }
+
+        public void SetBugReporterHandler(IBugReporterHandler bugReporterHandler)
+        {
+            SRServiceManager.GetService<IBugReportService>().SetHandler(bugReporterHandler);
         }
     }
 }

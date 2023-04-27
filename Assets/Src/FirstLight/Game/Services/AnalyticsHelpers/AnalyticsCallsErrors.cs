@@ -15,6 +15,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			LinkGuestAccount,
 			MatchLoad,
 			Squads,
+			Recoverable,
 		}
 		public AnalyticsCallsErrors(IAnalyticsService analyticsService) : base(analyticsService)
 		{

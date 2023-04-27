@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5055303719264290864}
   - component: {fileID: 1017999411678316458}
   - component: {fileID: 7406839625139629096}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GuardrailB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,11 +21,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		[SerializeField, Required] private OverlayWorldView _healthBarSpectateRef;
 		[SerializeField, Required] private OverlayWorldView _healthBarRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarSquadRef;
+
+		[SerializeField, Required] private Transform _squadContainer;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;
 		private Dictionary<EntityRef, SpectatePlayerHealthBarObject> _friendlyHealthBars;
+		private Dictionary<EntityRef, SpectatePlayerHealthBarObject> _squadHealthBars;
 
 		private void Awake()
 		{
@@ -33,6 +37,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
 			_friendlyHealthBars = new Dictionary<EntityRef, SpectatePlayerHealthBarObject>();
+			_squadHealthBars = new Dictionary<EntityRef, SpectatePlayerHealthBarObject>();
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
@@ -42,6 +47,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_healthBarSpectateRef.gameObject.SetActive(false);
 			_healthBarRef.gameObject.SetActive(false);
+			_healthBarSquadRef.gameObject.SetActive(false);
+			_squadContainer.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
@@ -75,7 +82,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var healthBar = _healthBarPlayerPool.Spawn();
 
-			SetupHealthBar(e.Game.Frames.Verified, e.HitEntity, healthBar);
+			SetupHealthBar(e.Game.Frames.Verified, e.HitEntity, healthBar, false);
 			healthBar.Despawn();
 		}
 
@@ -91,16 +98,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (ShouldShowHealthBar(f, entity) && !_friendlyHealthBars.ContainsKey(entity))
 			{
-				var healthBar = FriendlyPlayerHealthBarInstantiator();
+				var healthBar = FriendlyPlayerHealthBarInstantiator(false);
 				_friendlyHealthBars.Add(entity, healthBar);
-				SetupFriendlyHealthBar(f, entity, healthBar);
+				SetupFriendlyHealthBar(f, entity, healthBar, false);
 
-				if (_friendlyHealthBars.Count >= 1)
+				if (_squadHealthBars.Count < 2 && entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
-					foreach (var hbo in _friendlyHealthBars.Values)
-					{
-						hbo.HealthBarNameView.EnableFriendlyMode();
-					}
+					var healthBarSquad = FriendlyPlayerHealthBarInstantiator(true);
+					_squadHealthBars.Add(entity, healthBarSquad);
+					SetupFriendlyHealthBar(f, entity, healthBarSquad, true);
+				}
+
+				_squadContainer.gameObject.SetActive(_squadHealthBars.Count > 0);
+
+				foreach (var hbo in _friendlyHealthBars.Values)
+				{
+					hbo.HealthBarNameView.EnableFriendlyMode();
+				}
+
+				foreach (var hbo in _squadHealthBars.Values)
+				{
+					hbo.HealthBarNameView.EnableFriendlyMode();
 				}
 			}
 		}
@@ -121,7 +139,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 				hb.OnDespawn();
 			}
 
+			foreach (var (_, hb) in _squadHealthBars)
+			{
+				hb.OnDespawn();
+			}
+
 			_friendlyHealthBars.Clear();
+			_squadHealthBars.Clear();
 
 			if (newPlayer.Entity.IsValid)
 			{
@@ -135,7 +159,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		}
 
 		private async void SetupFriendlyHealthBar(Frame f, EntityRef playerEntity,
-												  SpectatePlayerHealthBarObject healthBar)
+												  SpectatePlayerHealthBarObject healthBar, bool squad)
 		{
 			if (!f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter))
 			{
@@ -149,10 +173,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			healthBar.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
 			healthBar.ReloadBarView.SetupView(f, playerCharacter, playerEntity);
-			SetupHealthBar(f, playerEntity, healthBar);
+			SetupHealthBar(f, playerEntity, healthBar, squad);
 		}
 
-		private void SetupHealthBar(Frame f, EntityRef entity, PlayerHealthBarPoolObject healthBar)
+		private void SetupHealthBar(Frame f, EntityRef entity, PlayerHealthBarPoolObject healthBar, bool squad)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) ||
 				!f.TryGet<Stats>(entity, out var stats))
@@ -163,29 +187,39 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
+			var currentLevel = 0;
+
+			if (f.TryGet<PlayerCharacter>(entity, out var player))
+			{
+				currentLevel = player.GetEnergyLevel(f);
+			}
 
 			if (f.Has<Destructible>(entity))
 			{
 				healthBar.HealthBarNameView.NameText.text = "";
 			}
+
 			if (f.Has<DummyCharacter>(entity))
 			{
 				healthBar.HealthBarNameView.NameText.text = "Dummy " + entity.Index;
-
 			}
 			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
-					? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
+					? Extensions.GetBotName(botCharacter.BotNameIndex, entity)
 					: f.GetPlayerData(playerCharacter.Player).PlayerName;
 
 				healthBar.HealthBarNameView.NameText.text = playerName;
 			}
 
 			healthBar.OverlayView.gameObject.SetActive(true);
-			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);
+			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth, currentLevel);
 			healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
-			healthBar.OverlayView.Follow(anchor);
+
+			if (!squad)
+			{
+				healthBar.OverlayView.Follow(anchor);
+			}
 		}
 
 		private void OnMatchEnded(MatchEndedMessage msg)
@@ -195,13 +229,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 				hb.OnDespawn();
 			}
 
+			foreach (var (_, hb) in _squadHealthBars)
+			{
+				hb.OnDespawn();
+			}
+
 			_healthBarPlayerPool.DespawnAll();
+			_squadContainer.gameObject.SetActive(false);
 		}
 
-		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator()
+		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator(bool squad)
 		{
-			var instance = Instantiate(_healthBarSpectateRef, transform, true);
-			;
+			var instance = squad
+				? Instantiate(_healthBarSquadRef, _squadContainer, true)
+				: Instantiate(_healthBarSpectateRef, transform, true);
 
 			return new SpectatePlayerHealthBarObject
 			{

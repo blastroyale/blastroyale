@@ -20,27 +20,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-			
 			_text.text = "";
 			_progressIndicator.fillAmount = 0f;
-			
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 			_canvas = GetComponentInChildren<Canvas>();
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
-		protected override void HandleGameDestroyed(CallbackGameDestroyed callback)
-		{
-			// Override to remove gameObject destroy behavior.
-			// Collectable platforms should always be in the scene, never destroyed. Re-initialize instead only.
-		}
-
-		private void OnUpdateView(CallbackUpdateView callback)
+		private new void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
 			
 			if (Culled)
 			{
-				_canvas.gameObject.SetActive(false);
+				_canvas?.gameObject?.SetActive(false);
 				return;
 			}
 			
@@ -49,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (remaining > 0)
 			{
-				_canvas.gameObject.SetActive(true);
+				_canvas?.gameObject.SetActive(true);
 				var intervalTime = spawner.IntervalTime.AsFloat;
 				var normalizedValue = remaining / intervalTime;
 				var sec = intervalTime * normalizedValue;
@@ -59,7 +51,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else
 			{
-				_canvas.gameObject.SetActive(false);
+				_canvas?.gameObject?.SetActive(false);
 				_text.text = "";
 				_progressIndicator.fillAmount = 0f;
 			}

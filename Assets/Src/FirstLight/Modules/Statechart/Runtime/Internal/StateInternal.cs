@@ -1,202 +1,247 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
+using UnityEngine;
+using UnityEngine.Events;
 
 // ReSharper disable CheckNamespace
 
 namespace FirstLight.Statechart.Internal
 {
-	/// <inheritdoc cref="IState"/>
-	internal interface IStateInternal : IState, IEquatable<IStateInternal>
-	{
-		/// <summary>
-		/// The unique value identifying this state
-		/// </summary>
-		uint Id { get; }
+   /// <inheritdoc cref="IState"/>
+   internal interface IStateInternal : IState, IEquatable<IStateInternal>
+   {
+      /// <summary>
+      /// The unique value identifying this state
+      /// </summary>
+      uint Id { get; }
 
-		/// <summary>
-		/// The string representation identifying this state
-		/// </summary>
-		string Name { get; }
+      /// <summary>
+      /// The string representation identifying this state
+      /// </summary>
+      string Name { get; }
 
-		/// <summary>
-		/// The layer in the nested setup this state is in. If in the root then the value will be 0
-		/// </summary>
-		uint RegionLayer { get; }
+      /// <summary>
+      /// The layer in the nested setup this state is in. If in the root then the value will be 0
+      /// </summary>
+      uint RegionLayer { get; }
 
-		/// <summary>
-		/// The stack trace when this setup was created. Relevant for debugging purposes
-		/// </summary>
-		string CreationStackTrace { get; }
+      /// <summary>
+      /// The stack trace when this setup was created. Relevant for debugging purposes
+      /// </summary>
+      string CreationStackTrace { get; }
+      
+      string Creator { get; }
 
-		/// <summary>
-		/// Triggers the given <paramref name="statechartEvent"/> as input to the <see cref="IStatechart"/> and returns
-		/// the processed <see cref="IStateInternal"/> as an output
-		/// </summary>
-		IStateInternal Trigger(IStatechartEvent statechartEvent);
+      /// <summary>
+      /// Triggers the given <paramref name="statechartEvent"/> as input to the <see cref="IStatechart"/> and returns
+      /// the processed <see cref="IStateInternal"/> as an output
+      /// </summary>
+      IStateInternal Trigger(IStatechartEvent statechartEvent);
 
-		/// <summary>
-		/// Marks the initial moment of this state as the new current state in the <see cref="IStatechart"/>
-		/// </summary>
-		void Enter();
+      /// <summary>
+      /// Marks the initial moment of this state as the new current state in the <see cref="IStatechart"/>
+      /// </summary>
+      void Enter();
 
-		/// <summary>
-		/// Marks the final moment of this state as the current state in the <see cref="IStatechart"/>
-		/// </summary>
-		void Exit();
+      /// <summary>
+      /// Marks the final moment of this state as the current state in the <see cref="IStatechart"/>
+      /// </summary>
+      void Exit();
 
-		/// <summary>
-		/// Validates this state to any potential bad setup schemes. Relevant to debug purposes.
-		/// It requires the <see cref="IStatechart"/> to run at runtime.
-		/// </summary>
-		void Validate();
-	}
+      /// <summary>
+      /// Validates this state to any potential bad setup schemes. Relevant to debug purposes.
+      /// It requires the <see cref="IStatechart"/> to run at runtime.
+      /// </summary>
+      void Validate();
+   }
 
-	/// <inheritdoc />
-	internal abstract class StateInternal : IStateInternal
-	{
-		protected readonly IStateFactoryInternal _stateFactory;
+   /// <inheritdoc />
+   internal abstract class StateInternal : IStateInternal
+   {
+      protected readonly IStateFactoryInternal _stateFactory;
 
-		private static uint _idRef;
+      private static uint _idRef;
 
-		/// <inheritdoc />
-		public uint Id { get; }
+      /// <inheritdoc />
+      public uint Id { get; }
 
-		/// <inheritdoc />
-		public string Name { get; }
+      /// <inheritdoc />
+      public string Name { get; }
 
-		/// <inheritdoc />
-		public uint RegionLayer => _stateFactory.RegionLayer;
+      /// <inheritdoc />
+      public uint RegionLayer => _stateFactory.RegionLayer;
 
-		/// <inheritdoc />
-		public string CreationStackTrace { get; }
+      /// <inheritdoc />
+      public string CreationStackTrace { get; }
+      
+      public string Creator { get; private set; }
 
-		protected StateInternal(string name, IStateFactoryInternal stateFactory)
-		{
-			Id = ++_idRef;
-			Name = name;
+      public bool RunningAsync { get; private set; }
+      
+      protected StateInternal(string name, IStateFactoryInternal stateFactory)
+      {
+         Id = ++_idRef;
+         Name = name;
 
-			_stateFactory = stateFactory;
+         _stateFactory = stateFactory;
 
 #if UNITY_EDITOR || DEBUG
-			CreationStackTrace = StatechartUtils.RemoveGarbageFromStackTrace(Environment.StackTrace);
+         CreationStackTrace = StatechartUtils.RemoveGarbageFromStackTrace(Environment.StackTrace);
+         Creator = Regex.Match(CreationStackTrace, "(?<=Game/StateMachines/)(.*?)(?=.cs)").Value;
 #endif
-		}
+      }
 
-		/// <inheritdoc />
-		public IStateInternal Trigger(IStatechartEvent statechartEvent)
-		{
-			var transition = OnTrigger(statechartEvent);
+      [Conditional("DEBUG")]
+      private void LogStateLoop(IStatechartEvent statechartEvent)
+      {
+         FLog.Verbose("Statechart", $"{Creator} - '{statechartEvent?.Name}' : " +
+            $"'{Name}' -> '{Name}' because => {GetType().UnderlyingSystemType.Name}");
+      }
 
-			if (transition == null)
-			{
-				FLog.Verbose("Statechart", $"{GetType().UnderlyingSystemType.Name} - '{statechartEvent?.Name}' : " +
-				                           $"## STOP ## '{Name}'");
+      [Conditional("DEBUG")]
+      private void LogExit()
+      {
+         FLog.Verbose("Statechart", $"{Creator} Exiting '{Name}'");
+      }
 
-				return null;
-			}
+      [Conditional("DEBUG")]
+      private void LogTransition(string eventName, ITransitionInternal transition)
+      {
+         if (eventName == null)
+         {
+            FLog.Verbose("Statechart", $"{Creator} transition complete " +
+               $"{Name} -> {transition.TargetState?.Name ?? "empty OnTransition()"}'");
+         }
+         else
+         {
+            FLog.Verbose("Statechart", $"{Creator} received '{eventName}' causing " +
+               $"{Name} -> {transition.TargetState?.Name ?? "only invokes OnTransition()"}'");
+         }
+      }
 
-			var nextState = transition.TargetState;
+      private void LogEnter(IStateInternal state)
+      {
+         FLog.Verbose("Statechart", $"{state.Creator} Entering '{state.Name}'");
+      }
+      
+      /// <inheritdoc />
+      public IStateInternal Trigger(IStatechartEvent statechartEvent)
+      {
+         var transition = OnTrigger(statechartEvent);
+         
+         if (transition == null)
+         {
+            return null;
+         }
 
-			if (Equals(nextState))
-			{
-				FLog.Verbose("Statechart", $"{GetType().UnderlyingSystemType.Name} - '{statechartEvent?.Name}' : " +
-				                           $"'{Name}' -> '{Name}' because => {GetType().UnderlyingSystemType.Name}");
+         var nextState = transition.TargetState;
 
-				return nextState;
-			}
+         if (Equals(nextState))
+         {
 
-			if (nextState == null)
-			{
-				TriggerTransition(transition, statechartEvent?.Name);
+            LogStateLoop(statechartEvent);
 
-				return null;
-			}
+            return nextState;
+         }
 
-			TriggerExit();
-			TriggerTransition(transition, statechartEvent?.Name);
-			TriggerEnter(nextState);
+         if (nextState == null)
+         {
+            TriggerTransition(transition, statechartEvent?.Name);
 
-			return nextState;
-		}
+            return null;
+         }
 
-		/// <inheritdoc />
-		public bool Equals(IStateInternal stateInternal)
-		{
-			return stateInternal != null && Id == stateInternal.Id;
-		}
+         TriggerExit();
+         TriggerTransition(transition, statechartEvent?.Name);
+         TriggerEnter(nextState);
 
-		/// <inheritdoc />
-		public override bool Equals(object obj)
-		{
-			return obj is IStateInternal stateBase && Equals(stateBase);
-		}
+         return nextState;
+      }
 
-		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			return (int) Id;
-		}
+      /// <inheritdoc />
+      public bool Equals(IStateInternal stateInternal)
+      {
+         return stateInternal != null && Id == stateInternal.Id;
+      }
 
-		/// <inheritdoc />
-		public override string ToString()
-		{
-			return Name;
-		}
+      /// <inheritdoc />
+      public override bool Equals(object obj)
+      {
+         return obj is IStateInternal stateBase && Equals(stateBase);
+      }
 
-		/// <inheritdoc />
-		public abstract void Enter();
+      /// <inheritdoc />
+      public override int GetHashCode()
+      {
+         return (int) Id;
+      }
 
-		/// <inheritdoc />
-		public abstract void Exit();
+      /// <inheritdoc />
+      public override string ToString()
+      {
+         return Name;
+      }
 
-		/// <inheritdoc />
-		public abstract void Validate();
+      /// <inheritdoc />
+      public abstract void Enter();
 
-		protected abstract ITransitionInternal OnTrigger(IStatechartEvent statechartEvent);
+      /// <inheritdoc />
+      public abstract void Exit();
 
-		private void TriggerEnter(IStateInternal state)
-		{
-			try
-			{
-				FLog.Verbose("Statechart", $"({state.GetType().UnderlyingSystemType.Name}) - Entering '{state.Name}'");
+      /// <inheritdoc />
+      public abstract void Validate();
 
-				state.Enter();
-			}
-			catch (Exception e)
-			{
-				throw new Exception($"Exception in the state {state.Name}, OnEnter() actions.\n" + CreationStackTrace,
-				                    e);
-			}
-		}
+      protected abstract ITransitionInternal OnTrigger(IStatechartEvent statechartEvent);
 
-		private void TriggerExit()
-		{
-			try
-			{
-				FLog.Verbose("Statechart", $"({GetType().UnderlyingSystemType.Name}) - Exiting '{Name}'");
+      private void TriggerEnter(IStateInternal state)
+      {
+         try
+         {
 
-				Exit();
-			}
-			catch (Exception e)
-			{
-				throw new Exception($"Exception in the state '{Name}', OnExit() actions.\n" + CreationStackTrace, e);
-			}
-		}
+            LogEnter(state);
 
-		private void TriggerTransition(ITransitionInternal transition, string eventName)
-		{
-			try
-			{
-				FLog.Verbose("Statechart", $"({GetType().UnderlyingSystemType.Name}) - '{eventName}' : " +
-				                           $"'{Name}' -> '{transition.TargetState?.Name ?? "only invokes OnTransition()"}'");
+            state.Enter();
+         }
+         catch (Exception e)
+         {
+            throw new Exception($"Exception in the state {state.Name}, OnEnter() actions.\n" + CreationStackTrace,
+                                e);
+         }
+      }
 
-				transition.TriggerTransition();
-			}
-			catch (Exception e)
-			{
-				throw new Exception($"Exception in the transition '{Name}' -> '{transition.TargetState?.Name}'," +
-				                    $" TriggerTransition() actions.\n{transition.CreationStackTrace}", e);
-			}
-		}
-	}
+      private void TriggerExit()
+      {
+         try
+         {
+            LogExit();
+            Exit();
+         }
+         catch (Exception e)
+         {
+            throw new Exception($"Exception in the state '{Name}', OnExit() actions.\n" + CreationStackTrace, e);
+         }
+      }
+
+      private void TriggerTransition(ITransitionInternal transition, string eventName)
+      {
+         try
+         {
+            LogTransition(eventName, transition);
+
+            transition.TriggerTransition();
+         }
+         catch (Exception e)
+         {
+            throw new Exception($"Exception in the transition '{Name}' -> '{transition.TargetState?.Name}'," +
+                                $" TriggerTransition() actions.\n{transition.CreationStackTrace}", e);
+         }
+      }
+   }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using FirstLight.FLogger;
 using FirstLight.Statechart.Internal;
+using Quantum;
 
 // ReSharper disable CheckNamespace
 
@@ -81,6 +83,12 @@ namespace FirstLight.Statechart
 #endif
 		}
 
+		[Conditional("DEBUG")]
+		private void LogTrigger(IStatechartEvent trigger)
+		{
+			FLog.Verbose($"{_currentState.Creator} in {_currentState.Name} triggered {trigger.Name}");
+		}
+		
 		/// <inheritdoc />
 		public void Trigger(IStatechartEvent trigger)
 		{
@@ -88,6 +96,9 @@ namespace FirstLight.Statechart
 			{
 				return;
 			}
+
+			LogTrigger(trigger);
+			
 
 			MoveNext(trigger);
 		}

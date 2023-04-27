@@ -23,7 +23,7 @@ namespace ServerCommon.Controllers
 			_configs = cfg;
 			_errorHandler = errors;
 		}
-		
+
 		[HttpGet]
 		[Route("get")]
 		public async Task<dynamic> GetLeaderboard(string name, int position, int limit)
@@ -32,17 +32,22 @@ namespace ServerCommon.Controllers
 			{
 				StatisticName = name,
 				StartPosition = position,
+				ProfileConstraints = new ()
+				{
+					ShowDisplayName = true,
+					ShowAvatarUrl = true
+				},
 				MaxResultsCount = Math.Min(200, limit)
 			});
 			_errorHandler.CheckErrors(result);
 			return Ok(result.Result.Leaderboard);
 		}
-		
+
 		[HttpGet]
 		[Route("getrank")]
 		public async Task<dynamic> GetPlayerRank(string name, string playerId)
 		{
-			var result = await PlayFabServerAPI.GetLeaderboardAroundUserAsync(new ()
+			var result = await PlayFabServerAPI.GetLeaderboardAroundUserAsync(new()
 			{
 				StatisticName = name,
 				PlayFabId = playerId,

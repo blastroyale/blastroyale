@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace FirstLight.FLogger
 {
@@ -125,6 +126,25 @@ namespace FirstLight.FLogger
 		public static void Verbose(string message, Exception e = null) =>
 			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, null, message, e));
 
+		
+		/// <summary>
+		/// Verbose log that will only de-serialize the object if the log level is verbose.
+		/// Will serialize via .ToString() method
+		/// </summary>
+		[Conditional("LOG_LEVEL_VERBOSE")]
+		public static void Verbose(object o) =>
+			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, o.ToString()));
+
+		
+		/// <summary>
+		/// Verbose log that will only de-serialize the object if the log level is verbose.
+		/// Will Serialize via JSON
+		/// </summary>
+		[Conditional("LOG_LEVEL_VERBOSE")]
+		public static void VerboseToJson(object o) =>
+			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
+
+		
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void Spank() => WriteToAll(FLogLevel.Verbose, "Slap!!!");

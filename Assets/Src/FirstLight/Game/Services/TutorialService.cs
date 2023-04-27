@@ -61,7 +61,7 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		
-		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialSection.NONE;
+		bool ITutorialService.IsTutorialRunning => FeatureFlags.TUTORIAL && CurrentRunningTutorial.Value != TutorialSection.NONE;
 
 		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 				Mutators = Array.Empty<string>()
 			};
 			
-			_services.NetworkService.CreateRoom(roomSetup, false);
+			_services.NetworkService.CreateRoom(roomSetup, true);
 		}
 		
 		public void CreateJoinSecondTutorialRoom()

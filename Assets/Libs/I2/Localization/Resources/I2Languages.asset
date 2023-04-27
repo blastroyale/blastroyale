@@ -270,13 +270,79 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARD
+      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410"
+      - RECOMPENSA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_reward_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - "\u0422\u0420\u0415\u0411\u041E\u0412\u0410\u0422\u042C"
+      - ALEGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_subtitle
+      TermType: 0
+      Description: 
+      Languages:
+      - PASS
+      - "\u041F\u0420\u041E\u0425\u041E\u0414\u0418\u0422\u042C"
+      - PASSAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_title
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST
+      - "\u0412\u0417\u0420\u042B\u0412"
+      - "EXPLOS\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - CANCEL
+      - "\u041E\u0422\u041C\u0415\u041D\u0410"
+      - CANCELAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/collection
+      TermType: 0
+      Description: 
+      Languages:
+      - COLLECTION
+      - "\u041A\u041E\u041B\u041B\u0415\u041A\u0426\u0418\u042F"
+      - "COLE\xC7\xC3O"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/create_party
       TermType: 0
       Description: 
       Languages:
       - CREATE SQUAD
       - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
-      - "Criar esquadr\xE3o"
+      - "Crie esquadr\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -314,6 +380,39 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - BATTLE ROYALE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - BATTLE ROYALE\nTRIOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - DEATHMATCH
+      - DEATHMATCH
+      - DEATHMATCH
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/heroes
       TermType: 0
       Description: 
@@ -321,17 +420,6 @@ MonoBehaviour:
       - HEROES
       - "\u0413\u0435\u0440\u043E\u0438"
       - "HER\xD3IS"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/collection
-      TermType: 0
-      Description: 
-      Languages:
-      - COLLECTION
-      - "\u041A\u041E\u041B\u041B\u0415\u041A\u0426\u0418\u042F"
-      - "COLE\xC7\xC3O"
       - 
       - 
       Flags: 0000000000
@@ -359,6 +447,18 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/joining
+      TermType: 0
+      Description: 
+      Languages:
+      - Joining...
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
+        ..."
+      - Juntando -se ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/leaderboards
       TermType: 0
       Description: 
@@ -377,6 +477,17 @@ MonoBehaviour:
       - LEAVE SQUAD
       - "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u0430\u043D\u0434\u0443"
       - "Deixe o esquadr\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/matchmaking
+      TermType: 0
+      Description: 
+      Languages:
+      - Matchmaking...
+      - "\u0417\u0430\u043A\u0430\u0437 ..."
+      - Matchmaking ...
       - 
       - 
       Flags: 0000000000
@@ -404,6 +515,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/party_code
+      TermType: 0
+      Description: 
+      Languages:
+      - 'CODE: {0}'
+      - "\u041A\u043E\u0434: {0}"
+      - "C\xF3digo: {0}"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/party_id
       TermType: 0
       Description: 
@@ -422,7 +544,7 @@ MonoBehaviour:
       Languages:
       - Input the squad id you want to join.
       - "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043A\u043E\u043C\u0430\u043D\u0434\u044B, \u043A\u043E\u0442\u043E\u0440\u044B\u0439
+        \u043E\u0442\u0440\u044F\u0434\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0439
         \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F."
       - "Insira o ID do esquadr\xE3o que voc\xEA deseja participar."
       - 
@@ -434,7 +556,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Create or Join a squad!
-      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+      - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F
         \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
       - "Crie ou junte -se a um esquadr\xE3o!"
       - 
@@ -460,6 +582,17 @@ MonoBehaviour:
       - PLAY
       - "\u0418\u0413\u0420\u0410\u0422\u042C"
       - JOGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/ready
+      TermType: 0
+      Description: 
+      Languages:
+      - READY
+      - "\u0413\u041E\u0422\u041E\u0412\u042B\u0419"
+      - PREPARAR
       - 
       - 
       Flags: 0000000000
@@ -520,28 +653,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/ready
-      TermType: 0
-      Description: 
-      Languages:
-      - READY
-      - "\u0413\u041E\u0422\u041E\u0412\u042B\u0419"
-      - PREPARAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/cancel
-      TermType: 0
-      Description: 
-      Languages:
-      - CANCEL
-      - "\u041E\u0422\u041C\u0415\u041D\u0410"
-      - CANCELAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/waiting_for_members
       TermType: 0
       Description: 
@@ -553,94 +664,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_title
-      TermType: 0
-      Description: 
-      Languages:
-      - BLAST
-      - "\u0412\u0417\u0420\u042B\u0412"
-      - "EXPLOS\xC3O"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_subtitle
-      TermType: 0
-      Description: 
-      Languages:
-      - PASS
-      - "\u041F\u0420\u041E\u0425\u041E\u0414\u0418\u0422\u042C"
-      - PASSAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_reward_title
-      TermType: 0
-      Description: 
-      Languages:
-      - CLAIM
-      - "\u0422\u0420\u0415\u0411\u041E\u0412\u0410\u0422\u042C"
-      - ALEGAR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/bp_button_reward_subtitle
-      TermType: 0
-      Description: 
-      Languages:
-      - REWARD
-      - "\u041D\u0410\u0413\u0420\u0410\u0414\u0410"
-      - RECOMPENSA
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_BattleRoyale
-      TermType: 0
-      Description: 
-      Languages:
-      - BATTLE ROYALE
-      - BATTLE ROYALE
-      - BATTLE ROYALE
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_BattleRoyaleTrios
-      TermType: 0
-      Description: 
-      Languages:
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/gamemode_Deathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - DEATHMATCH
-      - DEATHMATCH
-      - DEATHMATCH
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_code
-      TermType: 0
-      Description: 
-      Languages:
-      - 'CODE: {0}'
-      - "\u041A\u043E\u0434: {0}"
-      - "C\xF3digo: {0}"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/youre_ready
       TermType: 0
       Description: 
@@ -648,6 +671,28 @@ MonoBehaviour:
       - YOU'RE READY
       - "\u0422\u042B \u0413\u041E\u0422\u041E\u0412"
       - "VOC\xCA EST\xC1 PRONTO"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/bp_button_completed
+      TermType: 0
+      Description: 
+      Languages:
+      - COMPLETED
+      - "\u0417\u0410\u0412\u0415\u0420\u0428\u0415\u041D"
+      - COMPLETADA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_AlreadyInParty
+      TermType: 0
+      Description: 
+      Languages:
+      - You are already in a squad!
+      - "\u0412\u044B \u0443\u0436\u0435 \u0432 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
+      - "Voc\xEA j\xE1 est\xE1 em um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -664,58 +709,15 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/error_NoPermission
+    - Term: UITSquads/error_ConnectionError
       TermType: 0
       Description: 
       Languages:
-      - You have no permission to do that!
-      - "\u0423 \u0432\u0430\u0441 \u043D\u0435\u0442 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F
-        \u043D\u0430 \u044D\u0442\u043E!"
-      - "Voc\xEA n\xE3o tem permiss\xE3o para fazer isso!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_NoParty
-      TermType: 0
-      Description: 
-      Languages:
-      - You don't have a squad!
-      - "\u0423 \u0442\u0435\u0431\u044F \u043D\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B!"
-      - "Voc\xEA n\xE3o tem um esquadr\xE3o!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_PartyFull
-      TermType: 0
-      Description: 
-      Languages:
-      - The squad is already full!
-      - "\u041E\u0442\u0440\u044F\u0434 \u0443\u0436\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D!"
-      - "O esquadr\xE3o j\xE1 est\xE1 cheio!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_AlreadyInParty
-      TermType: 0
-      Description: 
-      Languages:
-      - You are already in a squad!
-      - "\u0412\u044B \u0443\u0436\u0435 \u0432 \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
-      - "Voc\xEA j\xE1 est\xE1 em um esquadr\xE3o!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSquads/error_PartyNotFound
-      TermType: 0
-      Description: 
-      Languages:
-      - Squad not found.
-      - "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430."
-      - "Esquadr\xE3o n\xE3o encontrado."
+      - Connection error, please try again.
+      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u044F,
+        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
+        \u0440\u0430\u0437."
+      - "Erro de conex\xE3o, tente novamente."
       - 
       - 
       Flags: 0000000000
@@ -728,7 +730,7 @@ MonoBehaviour:
       - "\u041E\u0442\u0440\u044F\u0434, \u0441 \u043A\u043E\u0442\u043E\u0440\u044B\u043C
         \u0432\u044B \u043F\u044B\u0442\u0430\u0435\u0442\u0435\u0441\u044C \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F,
         \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0434\u0440\u0443\u0433\u0443\u044E
-        \u0438\u0433\u0440\u043E\u0432\u0443\u044E \u0432\u0435\u0440\u0441\u0438\u044E."
+        \u0432\u0435\u0440\u0441\u0438\u044E \u0438\u0433\u0440\u044B."
       - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar est\xE1 usando outra
         vers\xE3o do jogo."
       - 
@@ -747,15 +749,47 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/error_ConnectionError
+    - Term: UITSquads/error_NoParty
       TermType: 0
       Description: 
       Languages:
-      - Connection error, please try again.
-      - "\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u044F,
-        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
-        \u0440\u0430\u0437."
-      - "Erro de conex\xE3o, tente novamente."
+      - You don't have a squad!
+      - "\u0423 \u0442\u0435\u0431\u044F \u043D\u0435\u0442 \u043A\u043E\u043C\u0430\u043D\u0434\u044B!"
+      - "Voc\xEA n\xE3o tem um esquadr\xE3o!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_NoPermission
+      TermType: 0
+      Description: 
+      Languages:
+      - You have no permission to do that!
+      - "\u0423 \u0432\u0430\u0441 \u043D\u0435\u0442 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F
+        \u043D\u0430 \u044D\u0442\u043E!"
+      - "Voc\xEA n\xE3o tem permiss\xE3o para fazer isso!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyFull
+      TermType: 0
+      Description: 
+      Languages:
+      - The squad is already full!
+      - "\u041E\u0442\u0440\u044F\u0434 \u0443\u0436\u0435 \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D!"
+      - "O esquadr\xE3o j\xE1 est\xE1 cheio!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/error_PartyNotFound
+      TermType: 0
+      Description: 
+      Languages:
+      - Squad not found.
+      - "\u041A\u043E\u043C\u0430\u043D\u0434\u0430 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430."
+      - "Esquadr\xE3o n\xE3o encontrado."
       - 
       - 
       Flags: 0000000000
@@ -773,7 +807,31 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSquads/Kicked
+    - Term: UITSquads/error_PartyUsingOtherServer
+      TermType: 0
+      Description: 
+      Languages:
+      - This squad is using another server region!
+      - "\u042D\u0442\u043E\u0442 \u043E\u0442\u0440\u044F\u0434 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+        \u0434\u0440\u0443\u0433\u043E\u0439 \u0440\u0435\u0433\u0438\u043E\u043D
+        \u0441\u0435\u0440\u0432\u0435\u0440\u0430!"
+      - "Este esquadr\xE3o est\xE1 utilizando outra regi\xE3o de servidor."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/kick
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick
+      - "\u041F\u0438\u043D\u0430\u0442\u044C"
+      - Expulsar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/kicked
       TermType: 0
       Description: 
       Languages:
@@ -781,6 +839,19 @@ MonoBehaviour:
       - "\u0422\u0435\u0431\u044F \u0443\u0434\u0430\u0440\u0438\u043B\u0438 \u0438\u0437
         \u043A\u043E\u043C\u0430\u043D\u0434\u044B."
       - "Voc\xEA foi chutado da equipe."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSquads/timeout
+      TermType: 0
+      Description: 
+      Languages:
+      - You got removed from the squad due to timeout!
+      - "\u0412\u0430\u0441 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u043B\u0438
+        \u0438\u0437 \u0441\u043E\u0441\u0442\u0430\u0432\u0430 \u0438\u0437-\u0437\u0430
+        \u0442\u0430\u0439\u043C-\u0430\u0443\u0442\u0430!"
+      - "Voc\xEA foi removido da equipe devido a problemas de conex\xE3o. "
       - 
       - 
       Flags: 0000000000
@@ -901,7 +972,7 @@ MonoBehaviour:
       Languages:
       - <size=65%>LV</size>{0}
       - <size = 65%> lv </size> {0}
-      - <size = 65%> lv </size> {0}
+      - <size = 65%> lv </semge> {0}
       - 
       - 
       Flags: 0000000000
@@ -1119,7 +1190,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - GRADE II
-      - II
+      - "\u041A\u043B\u0430\u0441\u0441 II"
       - Grau II
       - 
       - 
@@ -1186,7 +1257,7 @@ MonoBehaviour:
       Languages:
       - <size=65%>LV</size>{0}
       - <size = 65%> lv </size> {0}
-      - <size = 65%> lv </size> {0}
+      - <size = 65%> lv </semge> {0}
       - 
       - 
       Flags: 0000000000
@@ -1340,7 +1411,7 @@ MonoBehaviour:
       Languages:
       - MIGHT <size=60px>{0}</size>
       - "\u041C\u043E\u0436\u0435\u0442 <size = 60px> {0} </size>"
-      - Pode <size = 60px> {0} </semge>
+      - Pode <size = 60px> {0} </Sizer>
       - 
       - 
       Flags: 0000000000
@@ -1428,7 +1499,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR ITEMS HAVE RUSTED
-      - "\u0412\u0430\u0448\u0438 \u0432\u0435\u0449\u0438 \u043F\u0440\u043E\u0440\u0436\u0430\u043B\u0438"
+      - "\u0412\u0430\u0448\u0438 \u0432\u0435\u0449\u0438 \u0437\u0430\u0440\u0436\u0430\u043B\u0438"
       - Seus itens enferrujaram
       - 
       - 
@@ -1442,8 +1513,9 @@ MonoBehaviour:
 
         REPAIR ITEMS TO BE ABLE TO EQUIP THEM AGAIN'
       - "\u041F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0431\u044B\u043B\u0438
-        \u043D\u0435 \u044D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u044B\n\u0420\u0435\u043C\u043E\u043D\u0442\u0438\u0440\u0443\u0439\u0442\u0435
+        \u043D\u0435 \u044D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u044B\n\u0420\u0435\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
         \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B, \u0447\u0442\u043E\u0431\u044B
+        \u0438\u043C\u0435\u0442\u044C \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C
         \u0441\u043D\u043E\u0432\u0430 \u0438\u0445 \u043E\u0441\u043D\u0430\u0441\u0442\u0438\u0442\u044C"
       - "Os itens n\xE3o estavam equipados\nReparar itens para poder equip\xE1 -los
         novamente"
@@ -1517,7 +1589,7 @@ MonoBehaviour:
       Languages:
       - SCRAPPING ITEM
       - "\u0421\u0431\u043E\u0440\u043A\u0430 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430"
-      - Item de descarte
+      - "Item de demoli\xE7\xE3o"
       - 
       - 
       Flags: 0000000000
@@ -1528,7 +1600,7 @@ MonoBehaviour:
       Languages:
       - LV<size=52px>{0}
       - Lv <size = 52px> {0}
-      - Lv <tamanho = 52px> {0}
+      - Lv <size = 52px> {0}
       - 
       - 
       Flags: 0000000000
@@ -1776,28 +1848,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/collection
-      TermType: 0
-      Description: 
-      Languages:
-      - YOUR COLLECTION
-      - "\u0412\u0430\u0448\u0430 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F"
-      - "Sua cole\xE7\xE3o"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/characters
-      TermType: 0
-      Description: 
-      Languages:
-      - CHARACTERS
-      - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
-      - PERSONAGENS
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITCollectionScreen/banners
       TermType: 0
       Description: 
@@ -1805,17 +1855,6 @@ MonoBehaviour:
       - BANNERS
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITCollectionScreen/gliders
-      TermType: 0
-      Description: 
-      Languages:
-      - GLIDERS
-      - "\u0413\u043B\u0438\u043D\u0435\u0440\u044B"
-      - Planadores
       - 
       - 
       Flags: 0000000000
@@ -1831,6 +1870,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/characters
+      TermType: 0
+      Description: 
+      Languages:
+      - CHARACTERS
+      - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
+      - PERSONAGENS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/collection
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR COLLECTION
+      - "\u0412\u0430\u0448\u0430 \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F"
+      - "Sua cole\xE7\xE3o"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/comingsoon
       TermType: 0
       Description: 
@@ -1838,6 +1899,17 @@ MonoBehaviour:
       - COMING SOON!
       - "\u0412\u0421\u041A\u041E\u0420\u0415!"
       - EM BREVE!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/gliders
+      TermType: 0
+      Description: 
+      Languages:
+      - GLIDERS
+      - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
+      - Planadores
       - 
       - 
       Flags: 0000000000
@@ -1893,7 +1965,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - CLAIM REWARDS
-      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0437\u0438\u0438"
+      - "\u0412\u043E\u0437\u043D\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043D\u0438\u0435
+        \u043F\u0440\u0435\u0442\u0435\u043D\u0437\u0438\u0439"
       - "Recompensas de reivindica\xE7\xE3o"
       - 
       - 
@@ -2014,27 +2087,87 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/welcome_to_wastelands
+    - Term: UITTutorial/drop_down_to_arena
       TermType: 0
       Description: 
       Languages:
-      - WELCOME TO THE WASTELANDS!
-      - "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C
-        \u0432 \u043F\u0443\u0441\u0442\u043E\u0448\u0438!"
-      - Bem -vindo ao Wastelands!
+      - 'ELIMINATE THE
+
+        FINAL CHALLENGER'
+      - "\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C\n\u0424\u0438\u043D\u0430\u043B\u044C\u043D\u044B\u0439
+        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442"
+      - 'Eliminar o
+
+        Challenger final'
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/use_left_joystick
+    - Term: UITTutorial/enter_your_name
       TermType: 0
       Description: 
       Languages:
-      - USE THE LEFT JOYSTICK TO MOVE
-      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0439
-        \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A, \u0447\u0442\u043E\u0431\u044B
-        \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
-      - Use o joystick esquerdo para se mover
+      - "WHAT'S YOUR NAME, \nCHALLENGER?"
+      - "\u041A\u0430\u043A \u043C\u044B \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u0430\u0441
+        \u043D\u0430\u0437\u044B\u0432\u0430\u0442\u044C, Challenger?"
+      - "Como devemos cham\xE1 -lo, Challenger?"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/lets_play_real_match
+      TermType: 0
+      Description: 
+      Languages:
+      - "LET'S PLAY A MATCH! \nGET READY FOR ACTION!"
+      - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
+        \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
+        \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
+        \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
+      - "Vamos jogar uma nova partida!\nPrepare -se para uma a\xE7\xE3o real!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_chest_area
+      TermType: 0
+      Description: 
+      Languages:
+      - 'GO UP THE RAMP
+
+        TO THE NEXT AREA!'
+      - "\u041F\u043E\u0434\u043D\u0438\u043C\u0430\u0442\u044C\u0441\u044F \u043F\u043E
+        \u0440\u0430\u043C\u043F\u0435\n\u0412 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E
+        \u043E\u0431\u043B\u0430\u0441\u0442\u044C!"
+      - "Suba a rampa\nPara a pr\xF3xima \xE1rea!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/nice_proceed_dummy_area
+      TermType: 0
+      Description: 
+      Languages:
+      - "NICE JOB! \nGO TO THE NEXT AREA"
+      - "\u0425\u041E\u0420\u041E\u0428\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u041F\u0435\u0440\u0435\u0439\u0442\u0438
+        \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438"
+      - "BOM TRABALHO!\nV\xE1 para a pr\xF3xima \xE1rea"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/open_chest
+      TermType: 0
+      Description: 
+      Languages:
+      - 'OPEN THE CHEST,
+
+        GET SOME EQUIPMENT'
+      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C,\n\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435
+        \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F"
+      - 'Abra o peito,
+
+        Obtenha alguns equipamentos'
       - 
       - 
       Flags: 0000000000
@@ -2050,26 +2183,42 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/shoot_barrier
+    - Term: UITTutorial/proceed_iron_gate
       TermType: 0
       Description: 
       Languages:
-      - SHOOT THE BARRICADE AND DESTROY IT
-      - "\u0421\u0442\u0440\u0435\u043B\u044F\u0442\u044C \u0432 \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443
-        \u0438 \u0443\u043D\u0438\u0447\u0442\u043E\u0436\u0438\u0442\u044C \u0435\u0435"
-      - Atire na barricada e destrua -a
+      - 'AMAZING!
+
+        GO THROUGH THE GATE'
+      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C
+        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
+      - "INCR\xCDVEL!\nPassar pelo port\xE3o"
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/nice_proceed_dummy_area
+    - Term: UITTutorial/shoot_barrier
       TermType: 0
       Description: 
       Languages:
-      - "NICE JOB! \nGO TO THE NEXT AREA"
-      - "\u0425\u041E\u0420\u041E\u0428\u0410\u042F \u0420\u0410\u0411\u041E\u0422\u0410!\n\u041F\u0435\u0440\u0435\u0439\u0442\u0438
-        \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439 \u043E\u0431\u043B\u0430\u0441\u0442\u0438"
-      - "BOM TRABALHO!\nV\xE1 para a pr\xF3xima \xE1rea"
+      - 'DRAG THE <color=#FF9933>RIGHT </color> JOYSTICK
+
+        TO BREAK THE BARRIER'
+      - "\u0421\u043B\u043E\u043C\u0430\u0442\u044C \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0443"
+      - Quebrar a barricada
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/move_forward
+      TermType: 0
+      Description: 
+      Languages:
+      - 'GO TO THE
+
+        BARRIER'
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -2092,53 +2241,41 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "THROW YOUR GRENADE \nAT THE DUMMY BEHIND BOXES"
-      - "\u0411\u0440\u043E\u0441\u044C\u0442\u0435 \u0441\u0432\u043E\u044E \u0433\u0440\u0430\u043D\u0430\u0442\u0443\n\u0412
-        \u043C\u0430\u043D\u0435\u043A\u0435\u043D\u0430\u0445 \u0437\u0430 \u043A\u043E\u0440\u043E\u0431\u043A\u0430\u043C\u0438"
-      - "Jogue sua granada\nNo manequim atr\xE1s de caixas"
+      - THROW A GRENADE!
+      - "\u0411\u0440\u043E\u0441\u044C \u0433\u0440\u0430\u043D\u0430\u0442!"
+      - Jogue uma granada!
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/nice_proceed_chest_area
+    - Term: UITTutorial/use_left_joystick
       TermType: 0
       Description: 
       Languages:
-      - "AMAZING! \nPROCEED THROUGH THE GATE"
-      - "\u0423\u0414\u0418\u0412\u0418\u0422\u0415\u041B\u042C\u041D\u042B\u0419!\n\u041F\u0440\u043E\u0439\u0442\u0438
-        \u0447\u0435\u0440\u0435\u0437 \u0432\u043E\u0440\u043E\u0442\u0430"
-      - "INCR\xCDVEL!\nProsseguir pelo port\xE3o"
+      - 'USE THE <color=#3300FF>LEFT</color>
+
+        JOYSTICK TO MOVE'
+      - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043B\u0435\u0432\u044B\u0435\n\u0414\u0436\u043E\u0439\u0441\u0442\u0438\u043A,
+        \u0447\u0442\u043E\u0431\u044B \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F"
+      - 'Use a esquerda
+
+        Joystick para se mover'
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/open_chest
+    - Term: UITTutorial/welcome_to_wastelands
       TermType: 0
       Description: 
       Languages:
-      - 'OPEN THE CHEST
+      - 'WELCOME TO
 
-        AND GET SOME NEW EQUIPMENT'
-      - "\u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0433\u0440\u0443\u0434\u044C\n\u0418
-        \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043D\u043E\u0432\u043E\u0435
-        \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
-      - 'Abra o peito
+        THE WASTELANDS!'
+      - "\u0414\u041E\u0411\u0420\u041E \u041F\u041E\u0416\u0410\u041B\u041E\u0412\u0410\u0422\u042C
+        \u0412\n\u041F\u0443\u0441\u0442\u043E\u0448\u0438!"
+      - 'BEM-VINDO AO
 
-        E pegue algum equipamento novo'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/drop_down_to_arena
-      TermType: 0
-      Description: 
-      Languages:
-      - 'DROP DOWN TO THE ARENA!
-
-        ELIMINATE THE FINAL CHALLENGER'
-      - "\u0421\u043F\u0440\u044B\u0433\u043D\u0438\u0442\u0435 \u043D\u0430 \u0430\u0440\u0435\u043D\u0443!\n\u0423\u0441\u0442\u0440\u0430\u043D\u0438\u0442\u044C
-        \u0444\u0438\u043D\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442\u0430"
-      - "Des\xE7a para a arena!\nElimine o desafiante final"
+        Os Wastelands!'
       - 
       - 
       Flags: 0000000000
@@ -2157,28 +2294,83 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/enter_your_name
+    - Term: UITTutorial/lets_claim_rewards
       TermType: 0
       Description: 
       Languages:
-      - WHAT SHOULD WE CALL YOU, CHALLENGER?
-      - "\u041A\u0430\u043A \u043C\u044B \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u0430\u0441
-        \u043D\u0430\u0437\u044B\u0432\u0430\u0442\u044C, Challenger?"
-      - "Como devemos cham\xE1 -lo, Challenger?"
+      - YOU HAVE NEW REWARDS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/lets_play_real_match
+    - Term: UITTutorial/click_to_claim_reward
       TermType: 0
       Description: 
       Languages:
-      - "LET'S PLAY A NEW MATCH! \nGET READY FOR SOME REAL ACTION!"
-      - "\u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u0441\u044B\u0433\u0440\u0430\u0435\u043C
-        \u043D\u043E\u0432\u044B\u0439 \u043C\u0430\u0442\u0447!\n\u0411\u0443\u0434\u044C\u0442\u0435
-        \u0433\u043E\u0442\u043E\u0432\u044B \u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E\u043C\u0443
-        \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
-      - "Vamos jogar uma nova partida!\nPrepare -se para uma a\xE7\xE3o real!"
+      - 'PRESS THE REWARD
+
+        TO CLAIM IT'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/lets_equip_new_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - 'LET''S EQUIP YOUR
+
+        NEW WEAPON'
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/click_on_category
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON SLOT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/select_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/equip_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - NOW EQUIP IT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/select_map_position
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT YOUR SPAWN POSITION
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -2206,11 +2398,10 @@ MonoBehaviour:
         \u043C\u0430\u0442\u0447\u0438, \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C
         \u0442\u0440\u043E\u0444\u0435\u0438. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435
         Discord \u043D\u0430 \u0442\u0435\u043A\u0443\u0449\u0438\u0435 \u0441\u043E\u0440\u0435\u0432\u043D\u043E\u0432\u0430\u043D\u0438\u044F.\n\u0427\u0435\u043C
-        \u0431\u043E\u043B\u044C\u0448\u0435 \u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044C
-        \u0442\u0440\u043E\u0444\u0435\u0438, \u0442\u0435\u043C \u0431\u043E\u043B\u044C\u0448\u0435
-        \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0445 \u0441\u043F\u0435\u0446\u0438\u0439
-        \u0432\u044B \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0435."
-      - "Jogue os jogos classificados para ganhar trof\xE9us. Verifique a disc\xF3rdia
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u0443 \u0432\u0430\u0441 \u0442\u0440\u043E\u0444\u0435\u0435\u0432,
+        \u0442\u0435\u043C \u0431\u043E\u043B\u044C\u0448\u0435 \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0445
+        \u0441\u043F\u0435\u0446\u0438\u0439 \u0432\u044B \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0435."
+      - "Jogou as partidas classificadas para ganhar trof\xE9us. Verifique a disc\xF3rdia
         para as competi\xE7\xF5es atuais.\nQuanto mais trof\xE9us voc\xEA tiver,
         mais tempero artesanal ganha."
       - 
@@ -2363,7 +2554,19 @@ MonoBehaviour:
       Languages:
       - WAITING FOR PLAYERS
       - "\u0412 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432"
-      - Esperando os jogadores
+      - Esperando pelos jogadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/loading_status_waiting_timer
+      TermType: 0
+      Description: 
+      Languages:
+      - WAITING FOR PLAYERS {0}s
+      - "\u0412 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438 \u0438\u0433\u0440\u043E\u043A\u043E\u0432
+        {0} s"
+      - Esperando os jogadores {0} s
       - 
       - 
       Flags: 0000000000
@@ -2415,6 +2618,139 @@ MonoBehaviour:
       - WINS THE MATCH
       - "\u0412\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u043C\u0430\u0442\u0447"
       - Vence a partida
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_epic_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common
+        45%, Common+ 45%, Uncommon 10%
+
+        <b>Faction</b>
+
+        Order 20%,
+        Chaos 20%, Organic 20%, Dark 20%, Shadow 10%, Celestial 10%
+
+        <b>Material</b>
+
+        Plastic
+        80%, Steel 20%
+
+        <b>Max durability</b>
+
+        1 100%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
+        45%, \u043E\u0431\u0449\u0438\u0435+ 45%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435
+        10%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F </b>\n\u0417\u0430\u043A\u0430\u0437
+        20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
+        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 80%, \u0441\u0442\u0430\u043B\u044C
+        20%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 100%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum 45%, comum+ 45%, incomum 10%\n<b> Fac\xE7\xE3o </b>\nEncomendar
+        20%, caos 20%, 20%org\xE2nico, 20%escuro, sombra 10%, celestial 10%\n<b>
+        Material </b>\nPl\xE1stico 80%, a\xE7o 20%\n<b> Durabilidade m\xE1xima </b>\n1
+        100%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_legendary_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common+
+        80%, Uncommon 20%
+
+        <b>Faction</b>
+
+        Order 20%, Chaos 20%,
+        Organic 20%, Dark 20%, Shadow 10%, Celestial 10%,
+
+        <b>Material</b>
+
+        Plastic
+        50%, Steel 50%
+
+        <b>Max durability</b>
+
+        1 50%, 2 50%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435+
+        80%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435 20%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
+        </b>\n\u0417\u0430\u043A\u0430\u0437 20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
+        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%,\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 50%, \u0441\u0442\u0430\u043B\u044C
+        50%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 50%, 2 50%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum+ 80%, incomum 20%\n<b> Fac\xE7\xE3o </b>\nEncomendar 20%, caos
+        20%, 20%org\xE2nico, 20%escuro, sombra 10%, Celestial 10%,\n<b> Material
+        </b>\nPl\xE1stico 50%, a\xE7o 50%\n<b> Durabilidade m\xE1xima </b>\n1 50%,
+        2 50%"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITStore/description_rare_core
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Contains <b>1 random non-tradable item</b>
+
+
+        <b>Rarity</b>
+
+        Common
+        75%, Common+ 25%
+
+        <b>Faction</b>
+
+        Order 25% Chaos 25% Organic
+        25% Dark 25%
+
+        <b>Material</b>
+
+        Plastic 100%
+
+        <b>Max
+        durability</b>
+
+        1 100%'
+      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
+        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
+        75%, \u043E\u0431\u0449\u0438\u0435+ 25%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
+        </b>\n\u0417\u0430\u043A\u0430\u0437 25% \u0445\u0430\u043E\u0441 25% \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        25% \u0442\u0435\u043C\u043D\u043E 25%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
+        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 100%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
+        </b>\n1 100%"
+      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
+        </b>\nComum 75%, comum+ 25%\n<b> Fac\xE7\xE3o </b>\nEncomendar 25% caos 25%
+        org\xE2nico 25% escuro 25%\n<b> Material </b>\nPl\xE1stico 100%\n<b> Durabilidade
+        m\xE1xima </b>\n1 100%"
       - 
       - 
       Flags: 0000000000
@@ -2508,6 +2844,30 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/i_dont_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I don't have an account
+      - "\u0423 \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0443\u0447\u0435\u0442\u043D\u043E\u0439
+        \u0437\u0430\u043F\u0438\u0441\u0438"
+      - "Eu n\xE3o tenho uma conta"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/i_have_account
+      TermType: 0
+      Description: 
+      Languages:
+      - I already have an account
+      - "\u0443 \u043C\u0435\u043D\u044F \u0443\u0436\u0435 \u0435\u0441\u0442\u044C
+        \u0430\u043A\u043A\u0430\u0443\u043D\u0442"
+      - "eu j\xE1 tenho uma conta"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/invalid_input
       TermType: 0
       Description: 
@@ -2531,6 +2891,18 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/login_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN TO EXISTING FIRST LIGHT ID
+      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - "Fa\xE7a login no primeiro ID de luz existente"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/login_with_fl_id
       TermType: 0
       Description: 
@@ -2538,7 +2910,7 @@ MonoBehaviour:
       - LOGIN WITH FIRSTLIGHT ID
       - "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0441 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u043C
         Firstlight"
-      - "Fa\xE7a login com o primeiro ID da Light"
+      - "Fa\xE7a login com ID da primeira luz"
       - 
       - 
       Flags: 0000000000
@@ -2569,6 +2941,19 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLoginRegister/recommended_to_save_progress
+      TermType: 0
+      Description: 
+      Languages:
+      - Use First Light ID to save your progress
+      - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
+        \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
+        \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
+      - Recomendado para salvar seu progresso
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/register
       TermType: 0
       Description: 
@@ -2576,6 +2961,18 @@ MonoBehaviour:
       - REGISTER
       - "\u0420\u0415\u0413\u0418\u0421\u0422\u0420"
       - REGISTRO
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_first_light_id
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE NEW FIRST LIGHT ID
+      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
+      - Crie novo primeiro ID da luz
       - 
       - 
       Flags: 0000000000
@@ -2612,10 +3009,21 @@ MonoBehaviour:
       Description: 
       Languages:
       - REGISTER NEW FIRST LIGHT ID
-      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
         \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
       - Registre um novo ID da primeira luz
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_button
+      TermType: 0
+      Description: 
+      Languages:
+      - RESET
+      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
+      - REINICIAR
       - 
       - 
       Flags: 0000000000
@@ -2631,29 +3039,16 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITLoginRegister/secure_progress
+    - Term: UITLoginRegister/reset_password_confirm
       TermType: 0
       Description: 
       Languages:
-      - to secure your progress and unlock more features!
-      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
-        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
-        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
-      - Para garantir seu progresso e desbloquear mais recursos!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/send_password_recovery
-      TermType: 0
-      Description: 
-      Languages:
-      - Send Password Recovery Email
-      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443\u044E
-        \u043F\u043E\u0447\u0442\u0443 \u0434\u043B\u044F \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F
-        \u043F\u0430\u0440\u043E\u043B\u044F"
-      - "Enviar e -mail de recupera\xE7\xE3o de senha"
+      - A recovery link has been sent to the email.
+      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
+        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
+        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E."
+      - "Um link de recupera\xE7\xE3o foi enviado para o email."
       - 
       - 
       Flags: 0000000000
@@ -2681,27 +3076,29 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITLoginRegister/reset_button
+    - Term: UITLoginRegister/secure_progress
       TermType: 0
       Description: 
       Languages:
-      - RESET
-      - "\u041F\u0415\u0420\u0415\u0417\u0410\u0413\u0420\u0423\u0417\u0418\u0422\u042C"
-      - REINICIAR
+      - to secure your progress and unlock more features!
+      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
+        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
+        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
+      - Para garantir seu progresso e desbloquear mais recursos!
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITLoginRegister/reset_password_confirm
+    - Term: UITLoginRegister/send_password_recovery
       TermType: 0
       Description: 
       Languages:
-      - A recovery link has been sent to the email.
-      - "\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
-        \u0431\u044B\u043B\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430
-        \u200B\u200B\u043D\u0430 \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
-        \u043F\u0438\u0441\u044C\u043C\u043E."
-      - "Um link de recupera\xE7\xE3o foi enviado para o email."
+      - Send Password Recovery Email
+      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E
+        \u043F\u0430\u0440\u043E\u043B\u044F"
+      - "Enviar e -mail de recupera\xE7\xE3o de senha"
       - 
       - 
       Flags: 0000000000
@@ -2713,67 +3110,6 @@ MonoBehaviour:
       - USERNAME
       - "\u0418\u041C\u042F \u041F\u041E\u041B\u042C\u0417\u041E\u0412\u0410\u0422\u0415\u041B\u042F"
       - "NOME DE USU\xC1RIO"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/recommended_to_save_progress
-      TermType: 0
-      Description: 
-      Languages:
-      - Recommended to save your progress
-      - "\u0420\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F
-        \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u0430\u0448
-        \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
-      - Recomendado para salvar seu progresso
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/i_dont_have_account
-      TermType: 0
-      Description: 
-      Languages:
-      - I don't have an account
-      - "\u0423 \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0443\u0447\u0435\u0442\u043D\u043E\u0439
-        \u0437\u0430\u043F\u0438\u0441\u0438"
-      - "Eu n\xE3o tenho uma conta"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/i_have_account
-      TermType: 0
-      Description: 
-      Languages:
-      - I already have an account
-      - "\u0443 \u043C\u0435\u043D\u044F \u0443\u0436\u0435 \u0435\u0441\u0442\u044C
-        \u0430\u043A\u043A\u0430\u0443\u043D\u0442"
-      - "eu j\xE1 tenho uma conta"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/login_first_light_id
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGIN TO EXISTING FIRST LIGHT ID
-      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - "Fa\xE7a login no primeiro id de luz existente"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_first_light_id
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE NEW FIRST LIGHT ID
-      - "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - Crie um novo primeiro ID da luz
       - 
       - 
       Flags: 0000000000
@@ -2798,8 +3134,47 @@ MonoBehaviour:
       Description: 
       Languages:
       - ACCOUNT DELETED
-      - "\u0423\u0434\u0430\u043B\u0435\u043D\u0430"
+      - "\u0423\u0434\u0430\u043B\u0435\u043D\u0430 \u0443\u0447\u0435\u0442\u043D\u0430\u044F
+        \u0437\u0430\u043F\u0438\u0441\u044C"
       - "Conta exclu\xEDda"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect
+      TermType: 0
+      Description: 
+      Languages:
+      - CONNECT
+      - "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0442\u044C"
+      - Conectar
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect_flg_id
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect new First Light ID
+      - "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430"
+      - Conecte um novo ID da primeira luz
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/connect_flg_id_advice
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
+        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
+        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
+      - Para garantir seu progresso e desbloquear mais recursos!
       - 
       - 
       Flags: 0000000000
@@ -2830,6 +3205,117 @@ MonoBehaviour:
         \u0411\u042B\u0422\u042C \u041E\u0422\u041C\u0415\u041D\u0415\u041D\u041E."
       - "Tem certeza de que deseja excluir sua conta?\nESSA A\xC7\xC3O N\xC3O PODE
         SER DESFEITA."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/failure
+      TermType: 0
+      Description: 
+      Languages:
+      - Failure
+      - "\u041E\u0442\u043A\u0430\u0437"
+      - Falha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connect_login_success
+      TermType: 0
+      Description: 
+      Languages:
+      - Logged into new account successfully!
+      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0432\u043E\u0448\u0435\u043B
+        \u0432 \u043D\u043E\u0432\u0443\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E
+        \u0437\u0430\u043F\u0438\u0441\u044C!"
+      - Logado na nova conta com sucesso!
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connect_register_success
+      TermType: 0
+      Description: 
+      Languages:
+      - New account has been created and connected successfully! Your progress is
+        safe now.
+      - "\u041D\u043E\u0432\u0430\u044F \u0443\u0447\u0435\u0442\u043D\u0430\u044F
+        \u0437\u0430\u043F\u0438\u0441\u044C \u0431\u044B\u043B\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0430
+        \u0438 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430!
+        \u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0441\u0435\u0439\u0447\u0430\u0441
+        \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u0435\u043D."
+      - "Nova conta foi criada e conectada com sucesso! Seu progresso est\xE1 seguro
+        agora."
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_connected
+      TermType: 0
+      Description: 
+      Languages:
+      - 'First Light ID connected!
+
+
+        User ID: <color=#948bc4>{0}</color>'
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
+        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!\n\n\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F: 
+        <color=#948bc4>{0}</color>"
+      - "Primeira ID da luz conectada!\n\nID do usu\xE1rio: <color=#948bc4>{0}</color>"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_login_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Failed to log into an existing First Light ID
+
+
+        {0}'
+      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u043E\u0439\u0442\u0438
+        \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430\n\n{0}"
+      - 'Falha ao fazer login em um primeiro ID de luz existente
+
+
+        {0}'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_not_connected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID not connected!
+      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
+        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - "Primeira ID da luz n\xE3o conectada!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/flg_id_register_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Failed to register a new First Light ID
+
+
+        {0}'
+      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430\n\n{0}"
+      - 'Falha ao registrar um novo primeiro ID da luz
+
+
+        {0}'
       - 
       - 
       Flags: 0000000000
@@ -2876,140 +3362,9 @@ MonoBehaviour:
       Description: 
       Languages:
       - LOGGED OUT SUCCESSFULLY
-      - "\u0412\u044B\u0448\u0435\u043B \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E
+        \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
       - Registrado com sucesso
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect_flg_id
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect new First Light ID
-      - "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
-      - Conecte um novo ID da primeira luz
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect_flg_id_advice
-      TermType: 0
-      Description: 
-      Languages:
-      - to secure your progress and unlock more features!
-      - "\u0427\u0442\u043E\u0431\u044B \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0442\u044C
-        \u0441\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
-        \u0438 \u0440\u0430\u0437\u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439!"
-      - Para garantir seu progresso e desbloquear mais recursos!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/connect
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect
-      - "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0442\u044C"
-      - Conectar
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connected
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - Primeira ID da luz conectada!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_not_connected
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID not connected!
-      - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - "Primeira ID da luz n\xE3o conectada!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connect_register_success
-      TermType: 0
-      Description: 
-      Languages:
-      - New account has been created and connected successfully! Your progress is
-        safe now.
-      - "\u041D\u043E\u0432\u0430\u044F \u0443\u0447\u0435\u0442\u043D\u0430\u044F
-        \u0437\u0430\u043F\u0438\u0441\u044C \u0431\u044B\u043B\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0430
-        \u0438 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430!
-        \u0412\u0430\u0448 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0441\u0435\u0439\u0447\u0430\u0441
-        \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u0435\u043D."
-      - "Nova conta foi criada e conectada com sucesso! Seu progresso est\xE1 seguro
-        agora."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_connect_login_success
-      TermType: 0
-      Description: 
-      Languages:
-      - Logged into new account successfully!
-      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0432\u043E\u0448\u0435\u043B
-        \u0432 \u043D\u043E\u0432\u0443\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E
-        \u0437\u0430\u043F\u0438\u0441\u044C!"
-      - Logado na nova conta com sucesso!
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_login_fail
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Failed to log into an existing First Light ID
-
-
-        {0}'
-      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u043E\u0439\u0442\u0438
-        \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
-        \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442.\n\n{0}"
-      - 'Falha ao fazer login em um primeiro ID de luz existente
-
-
-        {0}'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITSettings/flg_id_register_fail
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Failed to register a new First Light ID
-
-
-        {0}'
-      - "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-        \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430\n\n{0}"
-      - 'Falha ao registrar um novo primeiro ID da luz
-
-
-        {0}'
       - 
       - 
       Flags: 0000000000
@@ -3025,13 +3380,288 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITSettings/failure
+    - Term: UITSettings/settings_title
       TermType: 0
       Description: 
       Languages:
-      - Failure
-      - "\u041E\u0442\u043A\u0430\u0437"
-      - Falha
+      - SETTINGS
+      - SETTINGS
+      - SETTINGS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_title
+      TermType: 0
+      Description: 
+      Languages:
+      - SOUND
+      - SOUND
+      - SOUND
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sound_effects
+      TermType: 0
+      Description: 
+      Languages:
+      - Sound Effects
+      - Sound Effects
+      - Sound Effects
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/graphics_title
+      TermType: 0
+      Description: 
+      Languages:
+      - GRAPHICS
+      - GRAPHICS
+      - GRAPHICS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/controls_title
+      TermType: 0
+      Description: 
+      Languages:
+      - CONTROLS
+      - CONTROLS
+      - CONTROLS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/account_title
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCOUNT
+      - ACCOUNT
+      - ACCOUNT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/announcer
+      TermType: 0
+      Description: 
+      Languages:
+      - Announcer
+      - Announcer
+      - Announcer
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/bg_music
+      TermType: 0
+      Description: 
+      Languages:
+      - BG Music
+      - BG Music
+      - BG Music
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/server
+      TermType: 0
+      Description: 
+      Languages:
+      - SERVER
+      - SERVER
+      - SERVER
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/europe
+      TermType: 0
+      Description: 
+      Languages:
+      - EUROPE
+      - EUROPE
+      - EUROPE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/asia
+      TermType: 0
+      Description: 
+      Languages:
+      - ASIA
+      - ASIA
+      - ASIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/usa
+      TermType: 0
+      Description: 
+      Languages:
+      - USA
+      - USA
+      - USA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/faq
+      TermType: 0
+      Description: 
+      Languages:
+      - FAQ
+      - FAQ
+      - FAQ
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/on
+      TermType: 0
+      Description: 
+      Languages:
+      - ON
+      - ON
+      - ON
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/off
+      TermType: 0
+      Description: 
+      Languages:
+      - OFF
+      - OFF
+      - OFF
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/dynamic_joystick
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - Dynamic Joystick
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/haptic_feedback
+      TermType: 0
+      Description: 
+      Languages:
+      - Haptic Feedback
+      - Haptic Feedback
+      - Haptic Feedback
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/fps
+      TermType: 0
+      Description: 
+      Languages:
+      - FPS
+      - FPS
+      - FPS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/low
+      TermType: 0
+      Description: 
+      Languages:
+      - Low
+      - Low
+      - Low
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/medium
+      TermType: 0
+      Description: 
+      Languages:
+      - Medium
+      - Medium
+      - Medium
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/high
+      TermType: 0
+      Description: 
+      Languages:
+      - High
+      - High
+      - High
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/graphics_quality
+      TermType: 0
+      Description: 
+      Languages:
+      - Graphics Quality
+      - Graphics Quality
+      - Graphics Quality
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/thirty
+      TermType: 0
+      Description: 
+      Languages:
+      - 30
+      - 30
+      - 30
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/sixty
+      TermType: 0
+      Description: 
+      Languages:
+      - 60
+      - 60
+      - 60
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/screenshake
+      TermType: 0
+      Description: 
+      Languages:
+      - Screen Shake
+      - Screen Shake
+      - Screen Shake
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/camera_panning
+      TermType: 0
+      Description: 
+      Languages:
+      - Camera Panning
+      - Camera Panning
+      - Camera Panning
       - 
       - 
       Flags: 0000000000
@@ -3074,7 +3704,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - RECONNECT
-      - "\u0412\u043E\u0441\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
+      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C
+        \u0441\u0432\u044F\u0437\u044C"
       - Reconectar
       - 
       - 
@@ -3321,7 +3952,7 @@ MonoBehaviour:
       Languages:
       - Attack Cooldown
       - "\u0410\u0442\u0430\u043A\u0430 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0438"
-      - Ataque ecoado
+      - ATACT ECOLDOWN
       - 
       - 
       Flags: 0000000000
@@ -3748,11 +4379,10 @@ MonoBehaviour:
       - Game devs are doing magic to improve Blast Royale. Check out our Discord
         in the meantime.
       - "\u0418\u0433\u0440\u043E\u0432\u044B\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438
-        \u0434\u0435\u043B\u0430\u044E\u0442 \u0432\u043E\u043B\u0448\u0435\u0431\u0441\u0442\u0432\u043E,
-        \u0447\u0442\u043E\u0431\u044B \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C
-        Blast Royale. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u043D\u0430\u0448\u0438
-        \u0440\u0430\u0437\u043D\u043E\u0433\u043B\u0430\u0441\u0438\u044F \u0442\u0435\u043C
-        \u0432\u0440\u0435\u043C\u0435\u043D\u0435\u043C."
+        \u0434\u0435\u043B\u0430\u044E\u0442 \u043C\u0430\u0433\u0438\u044E, \u0447\u0442\u043E\u0431\u044B
+        \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C Blast Royale. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435
+        \u043D\u0430\u0448\u0435 \u0440\u0430\u0437\u043D\u043E\u0433\u043B\u0430\u0441\u0438\u044F
+        \u0442\u0435\u043C \u0432\u0440\u0435\u043C\u0435\u043D\u0435\u043C."
       - "Os desenvolvedores de jogos est\xE3o fazendo magia para melhorar o Blast
         Royale. Enquanto isso, confira nossa disc\xF3rdia."
       - 
@@ -3941,7 +4571,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -3963,7 +4593,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -3974,7 +4604,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -3985,7 +4615,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -3996,7 +4626,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4007,7 +4637,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4018,7 +4648,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4029,7 +4659,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4040,7 +4670,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4051,7 +4681,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4062,7 +4692,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4095,7 +4725,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4106,7 +4736,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4117,7 +4747,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4128,7 +4758,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4139,7 +4769,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4150,7 +4780,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - th
-      - "\u0442\u0443\u0440\u043D\u0438\u0440"
+      - "\u0442\u0443\u0440"
       - "\xBA"
       - 
       - 
@@ -4282,7 +4912,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Reloading
-      - "\u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430"
+      - "\u041F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430"
       - Recarregar
       - 
       - 
@@ -4339,7 +4969,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Selected
-      - "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439"
+      - "\u0412\u044B\u0431\u0440\u0430\u043D"
       - Selecionado
       - 
       - 
@@ -4361,7 +4991,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Sell this item for {0}
-      - "\u041F\u0440\u043E\u0434\u0430\u0439 \u044D\u0442\u043E\u0442 \u0442\u043E\u0432\u0430\u0440
+      - "\u041F\u0440\u043E\u0434\u0430\u0442\u044C \u044D\u0442\u043E\u0442 \u0442\u043E\u0432\u0430\u0440
         \u0434\u043B\u044F {0}"
       - Venda este item para {0}
       - 
@@ -4387,7 +5017,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Shields Capacity
-      - "\u0429\u0438\u0442\u044B \u0435\u043C\u043A\u043E\u0441\u0442\u044C"
+      - "\u0429\u0438\u0442\u044B \u0435\u043C\u043A\u043E\u0441\u0442\u0438"
       - Capacidade de escudos
       - 
       - 
@@ -4454,7 +5084,7 @@ MonoBehaviour:
       Languages:
       - Splash Radius
       - "\u0420\u0430\u0434\u0438\u0443\u0441 \u0432\u0441\u043F\u043B\u0435\u0441\u043A\u0430"
-      - Raio de respingos
+      - Raio de respingo
       - 
       - 
       Flags: 0000000000
@@ -4550,7 +5180,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'User Id: {0}'
+      - 'User Id: <color=#948bc4>{0}</color> '
       - "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F:
         {0}"
@@ -4621,7 +5251,7 @@ MonoBehaviour:
       Languages:
       - Air Drop Incoming!
       - "\u0412\u0445\u043E\u0434 \u0432 \u0432\u043E\u0437\u0434\u0443\u0445!"
-      - Drop do ar de entrada!
+      - Air Drop Incoming!
       - 
       - 
       Flags: 0000000000
@@ -4655,7 +5285,7 @@ MonoBehaviour:
       Languages:
       - Area shrinking!
       - "\u041E\u0431\u043B\u0430\u0441\u0442\u044C \u0441\u0436\u0438\u043C\u0430\u0435\u0442\u0441\u044F!"
-      - "Encolher da \xE1rea!"
+      - Arela encolhendo!
       - 
       - 
       Flags: 0000000000
@@ -4878,7 +5508,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - IS GODLIKE!
-      - "\u0411\u043E\u0433!"
+      - "\u0411\u043E\u0436\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439!"
       - "\xC9 divino!"
       - 
       - 
@@ -4966,7 +5596,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Kills
-      - "\u0423\u0431\u0438\u0439\u0441\u0442\u0432\u043E"
+      - "\u0423\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
       - Mata
       - 
       - 
@@ -5144,7 +5774,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Respawning In:'
-      - "\u0420\u0435\u0441\u043F\u0443\u0431\u043B\u0438\u043A\u0430\u0446\u0438\u044F
+      - "\u0420\u0435\u0441\u043F\u043E\u0441\u043E\u0431\u043B\u0435\u043D\u0438\u0435
         \u0432:"
       - 'Responsando em:'
       - 
@@ -5156,7 +5786,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Revives
-      - "\u041E\u0436\u0438\u0432\u043B\u044F\u0435\u0442"
+      - Revives
       - Revive
       - 
       - 
@@ -5178,7 +5808,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Spawning Enemies
-      - "\u041D\u0435\u0440\u0435\u0441\u0442\u044F\u0442 \u0432\u0440\u0430\u0433\u0438"
+      - "\u041D\u0435\u0440\u0435\u0441\u0442\u043E\u0432\u044B\u0435 \u0432\u0440\u0430\u0433\u0438"
       - Desova inimigos
       - 
       - 
@@ -5300,7 +5930,7 @@ MonoBehaviour:
       Languages:
       - Total Looters {0}
       - Total Looters {0}
-      - Total Looters {0}
+      - Total de saqueadores {0}
       - 
       - 
       Flags: 0000000000
@@ -5379,7 +6009,7 @@ MonoBehaviour:
       Languages:
       - I'll never financially recover from this...
       - "\u042F \u043D\u0438\u043A\u043E\u0433\u0434\u0430 \u043D\u0435 \u0431\u0443\u0434\u0443
-        \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\u043E \u043F\u043E\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F
+        \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\u043E \u043E\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F
         \u043E\u0442 \u044D\u0442\u043E\u0433\u043E ..."
       - Eu nunca vou me recuperar financeiramente disso ...
       - 
@@ -5430,7 +6060,7 @@ MonoBehaviour:
       Languages:
       - You can't win if you can't hit me
       - "\u0422\u044B \u043D\u0435 \u043C\u043E\u0436\u0435\u0448\u044C \u043F\u043E\u0431\u0435\u0434\u0438\u0442\u044C,
-        \u0435\u0441\u043B\u0438 \u043D\u0435 \u0441\u043C\u043E\u0436\u0435\u0448\u044C
+        \u0435\u0441\u043B\u0438 \u043D\u0435 \u043C\u043E\u0436\u0435\u0448\u044C
         \u043C\u0435\u043D\u044F \u0443\u0434\u0430\u0440\u0438\u0442\u044C"
       - "Voc\xEA n\xE3o pode ganhar se n\xE3o puder me bater"
       - 
@@ -5465,6 +6095,32 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: FTUE/BPComplete
+      TermType: 0
+      Description: 
+      Languages:
+      - You completed the starting battle pass ! New rewards awaits you !
+      - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
+        \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
+        \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
+        \u043D\u0430\u0433\u0440\u0430\u0434\u044B!"
+      - "Voc\xEA completou o passe de batalha inicial! Novas recompensas esperam
+        voc\xEA!"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: FTUE/BPName
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastPass
+      - BlastPass
+      - Blastpass
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: FTUE/CollectWeapon
       TermType: 0
       Description: 
@@ -5473,7 +6129,7 @@ MonoBehaviour:
       - "\u0412\u0430\u043C \u043F\u043E\u043D\u0430\u0434\u043E\u0431\u0438\u0442\u0441\u044F
         \u043B\u0443\u0447\u0448\u0435\u0435 \u043E\u0440\u0443\u0436\u0438\u0435,
         \u0447\u0442\u043E\u0431\u044B \u0434\u043E\u0431\u0438\u0442\u044C\u0441\u044F
-        \u0443\u0441\u043F\u0435\u0445\u0430. <color =#85bbfc> \u0437\u0430\u0431\u0435\u0440\u0438\u0442\u0435
+        \u0443\u0441\u043F\u0435\u0445\u0430. <color =#85bbfc> \u041F\u043E\u0434\u043D\u0438\u043C\u0438\u0442\u0435
         \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0443! </color>"
       - "Voc\xEA precisar\xE1 de uma arma melhor para ter sucesso. <color =#85bbfc>
         Pegue o rifle! </ro Color>"
@@ -5499,7 +6155,7 @@ MonoBehaviour:
       - <color=#85bbfc>Proceed to the Entrance</color> and join the Death Match!
       - "<Color =#85BBFC> \u041F\u0435\u0440\u0435\u0439\u0434\u0438\u0442\u0435
         \u043A \u0432\u0445\u043E\u0434\u0443 </color> \u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
-        \u043A \u0441\u043C\u0435\u0440\u0442\u0438!"
+        \u043A \u043C\u0430\u0442\u0447\u0443 \u0441\u043C\u0435\u0440\u0442\u0438!"
       - "<color =#85bbfc> Prossiga para a entrada </ro Color> e junte -se \xE0 partida
         da morte!"
       - 
@@ -5591,6 +6247,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: FTUE/RichTextTest
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
+      - <size=65%>65% size text</size> and normal size text
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: FTUE/SpecialAbilities
       TermType: 0
       Description: 
@@ -5610,7 +6277,8 @@ MonoBehaviour:
       - "\u0425\u043E\u0440\u043E\u0448\u0438\u0439! <color =#ff9700> \u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435
         \u043F\u0440\u0430\u0432\u044B\u0439 \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A,
         \u0447\u0442\u043E\u0431\u044B \u0430\u0442\u0430\u043A\u043E\u0432\u0430\u0442\u044C
-        </color> Training Oppent"
+        </color> \u0442\u0440\u0435\u043D\u0438\u0440\u043E\u0432\u043E\u0447\u043D\u044B\u0439
+        \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A"
       - Bom! <color =#ff9700> arraste o joystick direito para atacar </sor> o oponente
         de treinamento
       - 
@@ -5642,7 +6310,7 @@ MonoBehaviour:
       - "<color =#ff9700> \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
         \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u0443\u044E \u0430\u0442\u0430\u043A\u0443
         \u043E\u0440\u0443\u0436\u0438\u044F </color>, \u0447\u0442\u043E\u0431\u044B
-        \u0441\u043D\u0435\u0441\u0442\u0438 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
+        \u0441\u043D\u044F\u0442\u044C \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
         \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u043E\u0432"
       - "<color =#ff9700> Use o ataque especial da arma </ro Color> para derrubar
         v\xE1rios oponentes"
@@ -5656,47 +6324,9 @@ MonoBehaviour:
       Languages:
       - Welcome contender. Let us begin your training.
       - "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C
-        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u0435\u043D\u0442. \u041F\u043E\u0437\u0432\u043E\u043B\u044C\u0442\u0435
-        \u043D\u0430\u043C \u043D\u0430\u0447\u0430\u0442\u044C \u0432\u0430\u0448\u0435
-        \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435."
+        \u0441\u043E\u043F\u0435\u0440\u043D\u0438\u043A. \u0414\u0430\u0432\u0430\u0439\u0442\u0435
+        \u043D\u0430\u0447\u043D\u0435\u043C \u0432\u0430\u0448\u0435 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435."
       - "Welcome Contender. Vamos come\xE7ar seu treinamento."
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/BPComplete
-      TermType: 0
-      Description: 
-      Languages:
-      - You completed the starting battle pass ! New rewards awaits you !
-      - "\u0412\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u043B\u0438 \u0441\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
-        \u0431\u043E\u0435\u0432\u043E\u0439 \u043F\u0440\u043E\u0445\u043E\u0434!
-        \u0412\u0430\u0441 \u0436\u0434\u0443\u0442 \u043D\u043E\u0432\u044B\u0435
-        \u043D\u0430\u0433\u0440\u0430\u0434\u044B!"
-      - "Voc\xEA completou o passe de batalha inicial! Novas recompensas esperam
-        voc\xEA!"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/BPName
-      TermType: 0
-      Description: 
-      Languages:
-      - BlastPass
-      - BlastPass
-      - BlastPass
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: FTUE/RichTextTest
-      TermType: 0
-      Description: 
-      Languages:
-      - <size=65%>65% size text</size> and normal size text
-      - <size=65%>65% size text</size> and normal size text
-      - <size=65%>65% size text</size> and normal size text
       - 
       - 
       Flags: 0000000000
@@ -5975,8 +6605,8 @@ MonoBehaviour:
         \u043D\u0430\u0433\u0440\u0430\u0434\u0430\u043C\u0438, \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u043D\u044B\u043C\u0438
         \u043E\u0441\u043E\u0431\u044B\u043C\u0438 \u0441\u043F\u043E\u0441\u043E\u0431\u0430\u043C\u0438
         \u0432 \u0438\u0433\u0440\u0435 \u0438\u043B\u0438 \u043F\u0440\u0438\u043E\u0431\u0440\u0435\u0442\u0435\u043D\u043D\u044B\u0445.\n\n\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
-        Blast Tokens \u0434\u043B\u044F \u043F\u043E\u043A\u0443\u043F\u043A\u0438
-        \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F
+        Blast Tokens, \u0447\u0442\u043E\u0431\u044B \u043F\u0440\u0438\u043E\u0431\u0440\u0435\u0441\u0442\u0438
+        \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435
         \u043D\u0430 \u0440\u044B\u043D\u043A\u0435."
       - "Os tokens de explos\xE3o ser\xE3o uma valiosa recompensa obtida de maneiras
         especiais no jogo ou comprada.\n\nUse tokens de explos\xE3o para comprar
@@ -6018,14 +6648,14 @@ MonoBehaviour:
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
         \u0441\u043F\u0435\u0446\u0438\u044E, \u043F\u043E\u043C\u0435\u0441\u0442\u0438\u0432
         \u0431\u043E\u043B\u0435\u0435 \u0432\u044B\u0441\u043E\u043A\u0438\u0435
-        \u0432 \u0440\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445
+        \u0432 \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
         \u043C\u0430\u0442\u0447\u0430\u0445 Battle Royale \u0441 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435\u043C
         NFTS.\n\nCraft Spice \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F
         \u0432 \u0432\u0437\u0440\u044B\u0432\u043D\u043E\u043C \u0446\u0435\u043D\u0442\u0440\u0435
         \u0434\u043B\u044F \u043C\u043E\u0434\u0435\u0440\u043D\u0438\u0437\u0430\u0446\u0438\u0438,
         \u0440\u0435\u043C\u043E\u043D\u0442\u0430 \u0438 \u0440\u0435\u043F\u043B\u0438\u043A\u0430\u0446\u0438\u0438
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F."
-      - "Ganhe tempero artesanal colocando -se mais alto nas partidas classificadas
+      - "Ganhe especiarias artesanais colocando -se mais alto nas partidas classificadas
         de Battle Royale usando NFTs.\n\nO tempero artesanal \xE9 usado no cubo de
         explos\xE3o para atualizar, reparar e replicar equipamentos."
       - 
@@ -6041,16 +6671,13 @@ MonoBehaviour:
 
         Craft Spice pool
         refreshes over time.'
-      - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
-        \u0441\u043F\u0435\u0446\u0438\u044E \u0432 \u0440\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445
+      - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0435
+        \u0441\u043F\u0435\u0446\u0438\u0438 \u0432 \u0440\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445
         \u043C\u0430\u0442\u0447\u0430\u0445 \u0441 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435\u043C
         NFT.\n\nCraft Spice Bool \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442\u0441\u044F
         \u0441\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0435\u043C."
-      - 'Ganhe tempero artesanal em partidas classificadas usando NFTs.
-
-
-        A
-        piscina de especiarias artesanal atualiza com o tempo.'
+      - "Ganhe especiarias artesanais em partidas classificadas usando NFTs.\n\nA
+        piscina de especiarias artesanal \xE9 atualizada com o tempo."
       - 
       - 
       Flags: 0000000000
@@ -6083,10 +6710,10 @@ MonoBehaviour:
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043C\u043E\u043D\u0435\u0442\u044B,
         \u043E\u0442\u043A\u0430\u0437\u0430\u0432\u0448\u0438\u0441\u044C \u043E\u0442
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F.\n\n\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
-        \u043C\u043E\u043D\u0435\u0442\u044B \u0434\u043B\u044F \u043C\u043E\u0434\u0435\u0440\u043D\u0438\u0437\u0430\u0446\u0438\u0438
+        \u043C\u043E\u043D\u0435\u0442\u044B \u0434\u043B\u044F \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F
         \u0438 \u0440\u0435\u043C\u043E\u043D\u0442\u0430 \u0432\u0430\u0448\u0435\u0433\u043E
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F."
-      - 'Ganhe moedas descartando equipamentos.
+      - 'Ganhe moedas sucateando o equipamento.
 
 
         Use moedas para atualizar
@@ -6107,9 +6734,9 @@ MonoBehaviour:
       - "\u042D\u0442\u043E\u0442 \u043F\u0440\u0435\u0434\u043C\u0435\u0442 \u0431\u044B\u043B
         \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D \u043D\u0435\u0434\u0430\u0432\u043D\u043E.\n\n\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u044B
         \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0438
-        \u043D\u0435 \u0432\u043D\u043E\u0441\u044F\u0442 \u0432\u043A\u043B\u0430\u0434
-        \u0432 \u043A\u0430\u043A\u0443\u044E-\u043B\u0438\u0431\u043E \u0438\u0433\u0440\u043E\u0432\u043E\u0439
-        \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u043E\u043A."
+        \u043D\u0435 \u0441\u043F\u043E\u0441\u043E\u0431\u0441\u0442\u0432\u0443\u044E\u0442
+        \u043A\u0430\u043A\u0438\u043C-\u043B\u0438\u0431\u043E \u0438\u0433\u0440\u043E\u0432\u044B\u043C
+        \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u043A\u0430\u043C."
       - "Este item foi transferido recentemente.\n\nOs itens em recarga n\xE3o contribuem
         para nenhum lucro no jogo."
       - 
@@ -6146,8 +6773,8 @@ MonoBehaviour:
       - "\u0422\u0440\u043E\u0444\u0435\u0438 \u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u044E\u0442
         \u0432\u0430\u0448 \u0431\u0430\u0441\u0441\u0435\u0439\u043D \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0445
         \u0441\u043F\u0435\u0446\u0438\u0439 \u0438 \u043F\u043E\u0434\u043D\u0438\u043C\u0430\u044E\u0442
-        \u0432\u0430\u0441 \u043D\u0430 \u0433\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0443\u044E
-        \u0434\u043E\u0441\u043A\u0443.\n\n\u041F\u043E\u043C\u0435\u0441\u0442\u0438\u0442\u0435
+        \u0432\u0430\u0441 \u0432\u044B\u0448\u0435 \u043D\u0430 \u0433\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u043E\u0439
+        \u0434\u043E\u0441\u043A\u0435 \u0434\u043B\u044F \u0441\u0432\u0438\u043D\u0446\u043E\u0432\u043E\u0433\u043E.\n\n\u041F\u043E\u043C\u0435\u0441\u0442\u0438\u0442\u0435
         \u0432\u044B\u0448\u0435 \u0432 \u0440\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445
         \u043C\u0430\u0442\u0447\u0430\u0445 Battle Royale, \u0447\u0442\u043E\u0431\u044B
         \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C \u0442\u0440\u043E\u0444\u0435\u0438."
@@ -6221,7 +6848,7 @@ MonoBehaviour:
       - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
         \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
         \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
-        \u0432\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u0432 \u043C\u0430\u0442\u0447\u0435"
+        \u0437\u0430 \u043C\u0430\u0442\u0447\u0435\u043C"
       - "Uma vida. Grande mapa. \xDAltimo jogador em p\xE9 vence a partida"
       - 
       - 
@@ -6232,8 +6859,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim all rewards
-      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u043D\u0430
-        \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
+      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C
+        \u043D\u0430 \u0432\u0441\u0435 \u043D\u0430\u0433\u0440\u0430\u0434\u044B"
       - Reivindicar todas as recompensas
       - 
       - 
@@ -6364,7 +6991,7 @@ MonoBehaviour:
       - BEAT {0} CHAPTER {1} LEVEL {2} FIRST!
       - "Beat {0} \u0413\u043B\u0430\u0432\u0430 {1} \u0423\u0440\u043E\u0432\u0435\u043D\u044C
         {2} \u0421\u043D\u0430\u0447\u0430\u043B\u0430!"
-      - "Beat {0} cap\xEDtulo {1} n\xEDvel {2} primeiro!"
+      - "Beat {0} Cap\xEDtulo {1} N\xEDvel {2} primeiro!"
       - 
       - 
       Flags: 0000000000
@@ -6502,8 +7129,8 @@ MonoBehaviour:
       Languages:
       - Connect new First Light ID
       - "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439
-        \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
+        \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u0441\u0432\u0435\u0442\u0430"
       - Conecte um novo ID da primeira luz
       - 
       - 
@@ -6657,7 +7284,7 @@ MonoBehaviour:
         \u041F\u0435\u0440\u0432\u044B\u0439 \u0438\u0433\u0440\u043E\u043A, \u0447\u0442\u043E\u0431\u044B
         \u0434\u043E\u0441\u0442\u0438\u0447\u044C \u043F\u043E\u0431\u0435\u0434\u044B
         Max Kills."
-      - "Reaparas infinitas. Primeiro jogador a alcan\xE7ar o Max Kills vence."
+      - "Reaparas infinitas. Primeiro jogador a alcan\xE7ar o Max mata vit\xF3rias."
       - 
       - 
       Flags: 0000000000
@@ -6712,7 +7339,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Account Deleted
-      - "\u0423\u0434\u0430\u043B\u0435\u043D\u0430"
+      - "\u0423\u0434\u0430\u043B\u0435\u043D\u0430 \u0443\u0447\u0435\u0442\u043D\u0430\u044F
+        \u0437\u0430\u043F\u0438\u0441\u044C"
       - "Conta exclu\xEDda"
       - 
       - 
@@ -6725,8 +7353,7 @@ MonoBehaviour:
       - "Your account will be deleted soon. \nYour game will close now."
       - "\u0412\u0430\u0448\u0430 \u0443\u0447\u0435\u0442\u043D\u0430\u044F \u0437\u0430\u043F\u0438\u0441\u044C
         \u0441\u043A\u043E\u0440\u043E \u0431\u0443\u0434\u0435\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u0430.\n\u0412\u0430\u0448\u0430
-        \u0438\u0433\u0440\u0430 \u0437\u0430\u043A\u0440\u043E\u0435\u0442\u0441\u044F
-        \u0441\u0435\u0439\u0447\u0430\u0441."
+        \u0438\u0433\u0440\u0430 \u0441\u0435\u0439\u0447\u0430\u0441 \u0437\u0430\u043A\u0440\u043E\u0435\u0442\u0441\u044F."
       - "Sua conta ser\xE1 exclu\xEDda em breve.\nSeu jogo vai fechar agora."
       - 
       - 
@@ -6841,17 +7468,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/ScreenShakeSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - Screen Shake
-      - "\u042D\u043A\u0440\u0430\u043D\u043D\u0430\u044F \u0432\u0441\u0442\u0440\u044F\u0441\u043A\u0430"
-      - Tremor da tela
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: MainMenu/EmailTitle
       TermType: 0
       Description: 
@@ -6881,13 +7497,12 @@ MonoBehaviour:
       - USE PIECES OF THE SAME TYPE OF EQUIPMENT TO CREATE A NEW ITEM OF THE SAME
         TYPE BUT OF HIGHER RARITY
       - "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u0447\u0430\u0441\u0442\u0438
-        \u0442\u043E\u0433\u043E \u0436\u0435 \u0442\u0438\u043F\u0430 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F,
-        \u0447\u0442\u043E\u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C
-        \u043D\u043E\u0432\u044B\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442
-        \u0442\u043E\u0433\u043E \u0436\u0435 \u0442\u0438\u043F\u0430, \u043D\u043E
-        \u0431\u043E\u043B\u0435\u0435 \u0432\u044B\u0441\u043E\u043A\u0438\u0439
-        \u0440\u0435\u0434\u043A\u043E\u0441\u0442\u044C"
-      - "Use pe\xE7as do mesmo tipo de equipamento para criar um novo item do mesmo
+        \u0442\u043E\u0433\u043E \u0436\u0435 \u0442\u0438\u043F\u0430 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F
+        \u0434\u043B\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F \u043D\u043E\u0432\u043E\u0433\u043E
+        \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430 \u0442\u043E\u0433\u043E
+        \u0436\u0435 \u0442\u0438\u043F\u0430, \u043D\u043E \u0431\u043E\u043B\u0435\u0435
+        \u0432\u044B\u0441\u043E\u043A\u043E\u0439 \u0440\u0435\u0434\u043A\u043E\u0441\u0442\u0438"
+      - "Use peda\xE7os do mesmo tipo de equipamento para criar um novo item do mesmo
         tipo, mas de maior raridade"
       - 
       - 
@@ -6987,7 +7602,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - FPS Mode
-      - "\u0420\u0435\u0436\u0438\u043C FPS"
+      - "FPS -\u0440\u0435\u0436\u0438\u043C"
       - Modo FPS
       - 
       - 
@@ -7121,7 +7736,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Hold down the button to fire this weapon continuously.
-      - "\u0423\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0439\u0442\u0435 \u043A\u043D\u043E\u043F\u043A\u0443,
+      - "\u0414\u0435\u0440\u0436\u0438\u0442\u0435 \u043A\u043D\u043E\u043F\u043A\u0443,
         \u0447\u0442\u043E\u0431\u044B \u043D\u0435\u043F\u0440\u0435\u0440\u044B\u0432\u043D\u043E
         \u0441\u0442\u0440\u0435\u043B\u044F\u0442\u044C \u0432 \u044D\u0442\u043E
         \u043E\u0440\u0443\u0436\u0438\u0435."
@@ -7181,7 +7796,7 @@ MonoBehaviour:
       Languages:
       - '{0}{1}{2} ITEM WILL BE CRAFTED'
       - "{0} {1} {2} \u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u0431\u0443\u0434\u0435\u0442
-        \u0441\u043E\u0437\u0434\u0430\u043D"
+        \u0438\u0437\u0433\u043E\u0442\u043E\u0432\u043B\u0435\u043D"
       - "{0} {1} {2} item ser\xE1 criado"
       - 
       - 
@@ -7274,7 +7889,7 @@ MonoBehaviour:
       - Login to existing First Light ID
       - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439
         \u043F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442."
-      - "Fa\xE7a login no primeiro id de luz existente"
+      - "Fa\xE7a login no primeiro ID de luz existente"
       - 
       - 
       Flags: 0000000000
@@ -7295,7 +7910,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Login to an existing account
-      - "\u0412\u043E\u0439\u0442\u0438 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0443\u044E
+      - "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0443\u044E
         \u0443\u0447\u0435\u0442\u043D\u0443\u044E \u0437\u0430\u043F\u0438\u0441\u044C"
       - "Fa\xE7a login em uma conta existente"
       - 
@@ -7330,7 +7945,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Restart the game to log in to a new account.
-      - "\u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435
+      - "\u041F\u0435\u0440\u0435\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u0435
         \u0438\u0433\u0440\u0443, \u0447\u0442\u043E\u0431\u044B \u0432\u043E\u0439\u0442\u0438
         \u0432 \u043D\u043E\u0432\u0443\u044E \u0443\u0447\u0435\u0442\u043D\u0443\u044E
         \u0437\u0430\u043F\u0438\u0441\u044C."
@@ -7344,7 +7959,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Logged out successfully
-      - "\u0412\u044B\u0448\u0435\u043B \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
+      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
       - Registrado com sucesso
       - 
       - 
@@ -7412,8 +8027,8 @@ MonoBehaviour:
       - Select a player to kick, or tap anywhere else to cancel
       - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0433\u0440\u043E\u043A\u0430,
         \u0447\u0442\u043E\u0431\u044B \u043F\u043D\u0443\u0442\u044C, \u0438\u043B\u0438
-        \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u0433\u0434\u0435 -\u043D\u0438\u0431\u0443\u0434\u044C
-        \u0435\u0449\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C"
+        \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u0433\u0434\u0435 \u0443\u0433\u043E\u0434\u043D\u043E,
+        \u0447\u0442\u043E\u0431\u044B \u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C"
       - Selecione um jogador para chutar ou tocar em qualquer outro lugar para cancelar
       - 
       - 
@@ -7424,8 +8039,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - You have been kicked from the room.
-      - "\u0412\u0430\u0441 \u0432\u044B\u0433\u043D\u0430\u043B\u0438 \u0438\u0437
-        \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
+      - "\u0412\u044B \u0431\u044B\u043B\u0438 \u0432\u044B\u0433\u043D\u0430\u043D\u044B
+        \u0438\u0437 \u043A\u043E\u043C\u043D\u0430\u0442\u044B."
       - "Voc\xEA foi expulso da sala."
       - 
       - 
@@ -7437,7 +8052,7 @@ MonoBehaviour:
       Languages:
       - '{0} Match'
       - "{0} \u0441\u043E\u0432\u043F\u0430\u0434\u0435\u043D\u0438\u0435"
-      - '{0} corresponde'
+      - "{0} correspond\xEAncia"
       - 
       - 
       Flags: 0000000000
@@ -7447,7 +8062,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Damage & Healing Meters
-      - "\u0421\u0447\u0435\u0442\u0447\u0438\u043A \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0435\u043D\u0438\u0439
+      - "\u0421\u0447\u0435\u0442\u0447\u0438\u043A\u0438 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0435\u043D\u0438\u044F
         \u0438 \u0438\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u044F"
       - Danos e medidores de cura
       - 
@@ -7651,7 +8266,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Item on cooldown for {0}
-      - "\u042D\u043B\u0435\u043C\u0435\u043D\u0442 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0438
+      - "\u041F\u0443\u043D\u043A\u0442 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0438
         \u0434\u043B\u044F {0}"
       - Item em recarga para {0}
       - 
@@ -7687,7 +8302,7 @@ MonoBehaviour:
         \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C 3 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430,
         \u043E\u0441\u043D\u0430\u0449\u0435\u043D\u043D\u044B\u0445 \u0434\u043B\u044F
         \u0438\u0433\u0440\u044B."
-      - "Voc\xEA deve ter pelo menos tr\xEAs itens equipados para jogar classificado."
+      - "Voc\xEA deve ter pelo menos 3 itens equipados para jogar classificado."
       - 
       - 
       Flags: 0000000000
@@ -7840,7 +8455,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Prepare for action!
-      - "\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u044C\u0442\u0435\u0441\u044C
+      - "\u041F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u044C\u0442\u0435\u0441\u044C
         \u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
       - "Prepare -se para a a\xE7\xE3o!"
       - 
@@ -7909,7 +8524,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Reconnect
-      - "\u0412\u043E\u0441\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
+      - "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C
+        \u0441\u0432\u044F\u0437\u044C"
       - Reconectar
       - 
       - 
@@ -7923,7 +8539,7 @@ MonoBehaviour:
       - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435
         \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u0441\u0432\u0435\u0442\u0430"
-      - Registre o primeiro ID da luz
+      - "Registre a primeira identifica\xE7\xE3o da luz"
       - 
       - 
       Flags: 0000000000
@@ -7933,7 +8549,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Register new First Light ID
-      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0439\u0442\u0435
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C
         \u043D\u043E\u0432\u044B\u0439 \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u0441\u0432\u0435\u0442\u0430"
       - Registre um novo ID da primeira luz
@@ -8182,6 +8798,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/ScreenShakeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Screen Shake
+      - "\u042D\u043A\u0440\u0430\u043D\u043D\u0430\u044F \u0434\u0440\u043E\u0436\u044C"
+      - Tremor da tela
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/SelectDropZone
       TermType: 0
       Description: 
@@ -8222,7 +8849,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - SELECTED
-      - "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439"
+      - "\u0412\u044B\u0431\u0440\u0430\u043D"
       - SELECIONADO
       - 
       - 
@@ -8276,8 +8903,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Send Password Recovery Email
-      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0443\u044E
-        \u043F\u043E\u0447\u0442\u0443 \u0434\u043B\u044F \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F
+      - "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0435
+        \u043F\u0438\u0441\u044C\u043C\u043E \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E
         \u043F\u0430\u0440\u043E\u043B\u044F"
       - "Enviar e -mail de recupera\xE7\xE3o de senha"
       - 
@@ -8495,7 +9122,7 @@ MonoBehaviour:
       - Too Much Loot!
       - "\u0421\u043B\u0438\u0448\u043A\u043E\u043C \u043C\u043D\u043E\u0433\u043E
         \u0434\u043E\u0431\u044B\u0447\u0438!"
-      - Muito saque!
+      - Muito pilhagem!
       - 
       - 
       Flags: 0000000000
@@ -8549,7 +9176,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - New Total
-      - "\u041D\u043E\u0432\u0430\u044F \u0432\u0441\u0435\u0433\u043E \u043E\u0431\u0449\u0430\u044F"
+      - "\u041D\u043E\u0432\u0430\u044F \u043E\u0431\u0449\u0430\u044F \u0441\u0443\u043C\u043C\u0430"
       - Novo total
       - 
       - 
@@ -11976,8 +12603,8 @@ MonoBehaviour:
       Languages:
       - '{0} is now open! Defeat the boss and collect awesome rewards!'
       - "{0} \u0442\u0435\u043F\u0435\u0440\u044C \u043E\u0442\u043A\u0440\u044B\u0442!
-        \u041F\u043E\u0431\u0435\u0434\u0438\u0442\u0435 \u0431\u043E\u0441\u0441\u0430
-        \u0438 \u0441\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0442\u0440\u044F\u0441\u0430\u044E\u0449\u0438\u0435
+        \u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u0431\u043E\u0441\u0441\u0430
+        \u0438 \u0441\u043E\u0431\u0440\u0430\u0442\u044C \u043F\u043E\u0442\u0440\u044F\u0441\u0430\u044E\u0449\u0438\u0435
         \u043D\u0430\u0433\u0440\u0430\u0434\u044B!"
       - "{0} agora est\xE1 aberto! Derrote o chefe e colete recompensas incr\xEDveis!"
       - 
@@ -12070,7 +12697,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Claim Your Loot!
-      - "\u0422\u0420\u0415\u0419\u0422\u0418 \u0421\u0412\u041E\u0415 \u0414\u041E\u041A\u041B\u0410!"
+      - "\u041F\u0440\u0435\u0442\u0435\u043D\u0434\u0443\u0439\u0442\u0435 \u0441\u0432\u043E\u044E
+        \u0434\u043E\u0431\u044B\u0447\u0443!"
       - Reivindique seu saque!
       - 
       - 
@@ -12233,7 +12861,7 @@ MonoBehaviour:
         \u0442\u043E\u043A\u0435\u043D\u044B \u0432\u0437\u0440\u044B\u0432\u0430
         \u0434\u043B\u044F \u043F\u043E\u043A\u0443\u043F\u043A\u0438\n\u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u0435
         \u043D\u0430 \u0440\u044B\u043D\u043A\u0435."
-      - "Tokens de explos\xE3o ser\xE3o valiosos\nrecompensas obtidas de maneiras
+      - "Tokens de explos\xE3o ser\xE1 um valioso\nrecompensas obtidas de maneiras
         especiais\nno jogo, ou comprado.\n\nUse tokens de explos\xE3o para comprar\nEquipamento
         no mercado."
       - 
@@ -12295,12 +12923,23 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
       Languages:
       - BLIMP DECK
-      - "\u0411\u0440\u0438\u0434\u0436\u043A\u043E\u0432\u0430\u044F \u043A\u043E\u043B\u043E\u0434\u0430"
+      - "\u0411\u0438\u043C -\u043A\u043E\u043B\u043E\u0434\u0430"
       - "Deck de dirig\xEDvel"
       - 
       - 
@@ -12356,7 +12995,7 @@ MonoBehaviour:
       Languages:
       - Snake Bojo
       - "\u0417\u043C\u0435\u044F \u0411\u043E\u0436\u043E"
-      - Snake Bojo
+      - Cobra bojo
       - 
       - 
       Flags: 0000000000
@@ -12389,13 +13028,13 @@ MonoBehaviour:
         \u043C\u043E\u043D\u0435\u0442\u044B \u0434\u043B\u044F \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F\n\u0438
         \u0440\u0435\u043C\u043E\u043D\u0442 \u0432\u0430\u0448\u0435\u0433\u043E
         \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F."
-      - 'Ganhe moedas descartando equipamentos.
+      - 'Ganhe moedas sucateando o equipamento.
 
 
         Use moedas para atualizar
 
         e
-        reparando seu equipamento.'
+        reparar seu equipamento.'
       - 
       - 
       Flags: 0000000000
@@ -12427,8 +13066,8 @@ MonoBehaviour:
         \u0432 \u0441\u0442\u0443\u043F\u0438\u0446\u0435 \u0432\u0437\u0440\u044B\u0432\u0430\n\u0434\u043B\u044F
         \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F, \u0440\u0435\u043C\u043E\u043D\u0442\u0430
         \u0438\n\u0420\u0435\u043F\u043B\u0438\u043A\u0430\u0446\u0438\u044F \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F."
-      - "Ganhe tempero artesanal colocando mais alto\nNas partidas de batalha classificadas\nusando
-        NFTs.\n\nO tempero artesanal \xE9 usado no hub de explos\xE3o\npara atualizar,
+      - "Ganhe tempero artesanal colocando mais alto\nEm partidas de batalha classificadas\nusando
+        NFTs.\n\nTempero artesanal \xE9 usado no hub de explos\xE3o\npara atualizar,
         reparar e\nEquipamento de replica\xE7\xE3o."
       - 
       - 
@@ -12567,6 +13206,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Demon
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag
+      - Demon Flag
+      - Demon Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/DemonDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Demon Flag Description
+      - Demon Flag Description
+      - Demon Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Diagonalshot
       TermType: 0
       Description: 
@@ -12575,6 +13236,28 @@ MonoBehaviour:
       - "\u0414\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439
         \u0432\u044B\u0441\u0442\u0440\u0435\u043B"
       - Tiro diagonal
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Divinci
+      TermType: 0
+      Description: 
+      Languages:
+      - Divinci Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/DivinciDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Divinci Glider Description
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -12595,7 +13278,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - An arid landscape with both riches and risks!
-      - "\u0417\u0430\u0441\u0443\u0448\u043B\u0438\u0432\u043E\u0439 \u043F\u0435\u0439\u0437\u0430\u0436
+      - "\u0417\u0430\u0441\u0443\u0448\u043B\u0438\u0432\u044B\u0439 \u043B\u0430\u043D\u0434\u0448\u0430\u0444\u0442
         \u0441 \u0431\u043E\u0433\u0430\u0442\u0441\u0442\u0432\u043E\u043C \u0438
         \u0440\u0438\u0441\u043A\u0430\u043C\u0438!"
       - "Uma paisagem \xE1rida com riquezas e riscos!"
@@ -12637,6 +13320,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Falcon
+      TermType: 0
+      Description: 
+      Languages:
+      - Falcon Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FalconDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Falcon Glider Description
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Fastershot
       TermType: 0
       Description: 
@@ -12644,7 +13349,7 @@ MonoBehaviour:
       - Faster Shots
       - "\u0411\u043E\u043B\u0435\u0435 \u0431\u044B\u0441\u0442\u0440\u044B\u0435
         \u0441\u043D\u0438\u043C\u043A\u0438"
-      - "Fotos mais r\xE1pidas"
+      - "Tiros mais r\xE1pidos"
       - 
       - 
       Flags: 0000000000
@@ -12803,116 +13508,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/Tombstone
-      TermType: 0
-      Description: 
-      Languages:
-      - Tombstone
-      - Tombstone
-      - Tombstone
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/TombstoneDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - A marker of a fallen Blaster
-      - A marker of a fallen Blaster
-      - A marker of a fallen Blaster
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_Punk
-      TermType: 0
-      Description: 
-      Languages:
-      - Punk Flag
-      - Punk Flag
-      - Punk Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_PunkDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Punk Flag Description
-      - Punk Flag Description
-      - Punk Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_Demon
-      TermType: 0
-      Description: 
-      Languages:
-      - Demon Flag
-      - Demon Flag
-      - Demon Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_DemonDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Demon Flag Description
-      - Demon Flag Description
-      - Demon Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_SuperStar
-      TermType: 0
-      Description: 
-      Languages:
-      - Super Star Flag
-      - Super Star Flag
-      - Super Star Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_SuperStarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Super Star Flag Description
-      - Super Star Flag Description
-      - Super Star Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_Unicorn
-      TermType: 0
-      Description: 
-      Languages:
-      - Unicorn Flag
-      - Unicorn Flag
-      - Unicorn Flag
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/Flag_UnicornDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Unicorn Flag Description
-      - Unicorn Flag Description
-      - Unicorn Flag Description
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/FloodCity
       TermType: 0
       Description: 
@@ -12930,7 +13525,7 @@ MonoBehaviour:
       Languages:
       - FLOOD TOWN
       - "\u041F\u043E\u0442\u043E\u043A \u0433\u043E\u0440\u043E\u0434\u0430"
-      - "Cidade da inunda\xE7\xE3o"
+      - "Inunda\xE7\xE3o da cidade"
       - 
       - 
       Flags: 0000000000
@@ -12951,7 +13546,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - FOOTBULL HELMET
-      - "\u0428\u043B\u0435\u043C \u0441 \u043F\u0443\u0448\u0430\u043B\u044C\u044E"
+      - "\u0428\u043B\u0435\u043C \u0441 \u043F\u0443\u043B\u044C\u043E\u043D\u043E\u043C"
       - Capacete de Footbull
       - 
       - 
@@ -12976,7 +13571,7 @@ MonoBehaviour:
       - "\u041E\u0441\u0442\u0430\u0442\u043A\u0438 \u0448\u0443\u043C\u043D\u043E\u0439
         \u0430\u0432\u0442\u043E\u0441\u0442\u0440\u0430\u0434\u044B \u0438\u0437
         \u043F\u0440\u043E\u0448\u043B\u043E\u0433\u043E"
-      - Os remanaores de uma rodovia movimentada do passado
+      - Os remenantes de uma rodovia movimentada do passado
       - 
       - 
       Flags: 0000000000
@@ -13234,7 +13829,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - SKY DECK
-      - "\u041D\u0435\u0431\u043E \u043F\u0430\u043B\u0443\u0431\u0430"
+      - "\u041D\u0435\u0431\u0435\u0441\u043D\u0430\u044F \u043F\u0430\u043B\u0443\u0431\u0430"
       - "Deck do c\xE9u"
       - 
       - 
@@ -13251,17 +13846,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/Male02Avatar
-      TermType: 0
-      Description: 
-      Languages:
-      - Hugo Marks
-      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
-      - Hugo Marks
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/Male01AvatarDescription
       TermType: 0
       Description: 
@@ -13269,6 +13853,17 @@ MonoBehaviour:
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Male02Avatar
+      TermType: 0
+      Description: 
+      Languages:
+      - Hugo Marks
+      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
+      - Hugo Marks
       - 
       - 
       Flags: 0000000000
@@ -13295,7 +13890,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/MaaleAssassinDescription
+    - Term: GameIds/MaleAssassinDescription
       TermType: 0
       Description: 
       Languages:
@@ -13368,6 +13963,18 @@ MonoBehaviour:
       - Male Superstar Description
       - Male Superstar Description
       - Male Superstar Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MapTestScene
+      TermType: 0
+      Description: 
+      Languages:
+      - Map Test Scene
+      - "\u0421\u0446\u0435\u043D\u0430 \u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
+        \u043A\u0430\u0440\u0442\u044B"
+      - Cena do teste de mapa
       - 
       - 
       Flags: 0000000000
@@ -13543,7 +14150,7 @@ MonoBehaviour:
       Languages:
       - MOUSE SHIELD
       - "\u041C\u044B\u0448\u0438 \u0449\u0438\u0442"
-      - Escudo do mouse
+      - Escudo de mouse
       - 
       - 
       Flags: 0000000000
@@ -13570,6 +14177,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/NewBRMap
+      TermType: 0
+      Description: 
+      Languages:
+      - New BR Map
+      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
+      - Novo mapa BR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/FTUEMiniMap
+      TermType: 0
+      Description: 
+      Languages:
+      - FTUE Mini Map
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
       Description: 
@@ -13588,8 +14217,30 @@ MonoBehaviour:
       - Once a busy city, now a looters battleground
       - "\u041A\u043E\u0433\u0434\u0430 -\u0442\u043E \u0437\u0430\u043D\u044F\u0442\u044B\u0439
         \u0433\u043E\u0440\u043E\u0434, \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u043B\u044F
-        \u0431\u0438\u0442\u0432\u044B \u043F\u043E \u043C\u0430\u0440\u043E\u0434\u0435\u0440\u0430\u043C"
-      - Uma vez uma cidade movimentada, agora um campo de batalha saqueadores
+        \u0431\u043E\u0435\u0432\u044B\u0445 \u0441\u0430\u043B\u043E\u043D\u043E\u0432"
+      - Uma vez uma cidade movimentada, agora um campo de batalha de saqueadores
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Punk
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag
+      - Punk Flag
+      - Punk Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/PunkDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk Flag Description
+      - Punk Flag Description
+      - Punk Flag Description
       - 
       - 
       Flags: 0000000000
@@ -13599,7 +14250,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Quad Damage
-      - "\u041A\u0432\u0430\u0434\u0431\u0430\u0442 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0435\u043D\u0438\u044F"
+      - "\u041A\u0432\u0430\u0434\u0440\u0430\u0442\u043D\u044B\u0439 \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0435\u043D\u0438\u0435"
       - "Dano qu\xE1dro"
       - 
       - 
@@ -13676,7 +14327,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - RIOT ARMOR
-      - "\u0411\u0443\u043D\u0442\u043E\u0432\u044B\u0435 \u0431\u0440\u043E\u043D\u044F"
+      - "\u0411\u0443\u043D\u0442 \u0434\u043E\u0441\u043F\u0435\u0445\u0438"
       - Armadura de tumulto
       - 
       - 
@@ -13742,7 +14393,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - RIOT SHIELD
-      - "\u0411\u0443\u043D\u0442 \u0449\u0438\u0442"
+      - "\u0411\u0443\u0439\u043D\u044B\u0439 \u0449\u0438\u0442"
       - Escudo de tumulto
       - 
       - 
@@ -13765,7 +14416,7 @@ MonoBehaviour:
       Languages:
       - ROAD CONE
       - "\u0414\u043E\u0440\u043E\u0436\u043D\u044B\u0439 \u043A\u043E\u043D\u0443\u0441"
-      - "Cone rodovi\xE1rio"
+      - Cone da estrada
       - 
       - 
       Flags: 0000000000
@@ -13799,6 +14450,28 @@ MonoBehaviour:
       - 
       - 
       - '#VALUE!'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Rocket
+      TermType: 0
+      Description: 
+      Languages:
+      - Rocket Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/RocketDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Rocket Glider Description
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -13875,7 +14548,7 @@ MonoBehaviour:
       Languages:
       - ELECTRON THROWER
       - "\u042D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u044B\u0439 \u043C\u0435\u0442\u0430\u0442\u0435\u043B\u044C"
-      - "Locador de el\xE9trons"
+      - "Trower de el\xE9trons"
       - 
       - 
       Flags: 0000000000
@@ -13940,7 +14613,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Shields Capacity
-      - "\u0429\u0438\u0442\u044B \u0435\u043C\u043A\u043E\u0441\u0442\u044C"
+      - "\u0429\u0438\u0442\u044B \u0435\u043C\u043A\u043E\u0441\u0442\u0438"
       - Capacidade de escudos
       - 
       - 
@@ -14018,7 +14691,7 @@ MonoBehaviour:
       Languages:
       - SOLDIER AMULET
       - "\u0421\u043E\u043B\u0434\u0430\u0442 \u0410\u043C\u0443\u043B\u0435\u0442"
-      - Soldado amuleto
+      - Soldier Amulet
       - 
       - 
       Flags: 0000000000
@@ -14128,7 +14801,7 @@ MonoBehaviour:
       Languages:
       - Tantalizing Beacon
       - "\u0414\u0440\u0430\u0437\u043D\u044F\u0449\u0438\u0439 \u043C\u0430\u044F\u043A"
-      - Farol tentador
+      - Beacon tentador
       - 
       - 
       Flags: 0000000000
@@ -14218,7 +14891,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - AIMED HEALING SPHERE
-      - "\u041D\u0430\u0446\u0435\u043B\u0435\u043D\u0430 \u043D\u0430 \u0446\u0435\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u0443\u044E
+      - "\u041D\u0430\u0446\u0435\u043B\u0435\u043D\u0430 \u043D\u0430 \u043B\u0435\u0447\u0435\u0431\u043D\u0443\u044E
         \u0441\u0444\u0435\u0440\u0443"
       - Esfera de cura apontada
       - 
@@ -14259,7 +14932,8 @@ MonoBehaviour:
 
         fixed area go Invisible.'
       - "\u0412\u0441\u0435 \u0438\u0433\u0440\u043E\u043A\u0438 \u0432\n\u0421\u0442\u043E\u0440\u043E\u0447\u043D\u0430\u044F
-        \u043E\u0431\u043B\u0430\u0441\u0442\u044C \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0439."
+        \u043E\u0431\u043B\u0430\u0441\u0442\u044C \u0438\u043D\u0430\u0447\u0435
+        \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0439."
       - "Todos os jogadores dentro de um\n\xC1rea fixa fica invis\xEDvel."
       - 
       - 
@@ -14284,7 +14958,8 @@ MonoBehaviour:
 
         area gain Rage status.'
       - "\u0412\u0441\u0435 \u0438\u0433\u0440\u043E\u043A\u0438 \u0432 \u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u043C\n\u0421\u0442\u0430\u0442\u0443\u0441
-        \u044F\u0440\u043E\u0441\u0442\u0438"
+        \u044F\u0440\u043E\u0441\u0442\u0438 \u0443\u0441\u0438\u043B\u0435\u043D\u0438\u044F
+        \u043E\u0431\u043B\u0430\u0441\u0442\u0438."
       - "Todos os jogadores dentro de um fixo\nA \xE1rea ganha status de raiva."
       - 
       - 
@@ -14322,7 +14997,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - STUN GRENADE
-      - "\u041E\u0433\u043B\u0443\u0448\u0430\u044E\u0449\u0430\u044F \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
+      - "\u041E\u0433\u043B\u0443\u0448\u0435\u043D\u043D\u0430\u044F \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
       - Granada de atordoamento
       - 
       - 
@@ -14342,7 +15017,7 @@ MonoBehaviour:
         \u0432\u0440\u0430\u0433\u043E\u0432 \u0432\u043D\u0443\u0442\u0440\u0438\n\u0440\u0430\u0434\u0438\u0443\u0441
         \u0432\u0437\u0440\u044B\u0432\u0430\n\u0431\u0440\u043E\u0448\u0435\u043D\u043D\u0430\u044F
         \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
-      - "Atordoa todos os inimigos dentro\no raio de explos\xE3o de um\ngranada jogada"
+      - "Atordoa todos os inimigos dentro\no raio de explos\xE3o de um\nGrenada jogada"
       - 
       - 
       Flags: 0000000000
@@ -14591,12 +15266,12 @@ MonoBehaviour:
 
         for
         the duration of the dash'
-      - "\u0427\u0435\u0440\u0442\u0435\u0442\u044C, \u0447\u0442\u043E \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0430\u0435\u0442
+      - "\u0411\u0440\u043E\u0441\u0438\u0442\u044C, \u0447\u0442\u043E \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0430\u0435\u0442
         \u0432\u0440\u0430\u0433\u043E\u0432\n\u043F\u043E \u0434\u043E\u0440\u043E\u0433\u0435
         \u0438 \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442
         \u0449\u0438\u0442\n\u043D\u0430 \u0432\u0440\u0435\u043C\u044F"
-      - "Dash que danifica os inimigos\na caminho e concede o escudo\ndurante a dura\xE7\xE3o
-        do painel"
+      - "Dash que danifica os inimigos\nno caminho e concede o escudo\ndurante a
+        dura\xE7\xE3o do painel"
       - 
       - 
       Flags: 0000000000
@@ -14606,7 +15281,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - SKY LASER BEAM
-      - "\u041D\u0435\u0431\u0430 -\u043B\u0430\u0437\u0435\u0440\u043D\u044B\u0439
+      - "\u041D\u0435\u0431\u043E \u043B\u0430\u0437\u0435\u0440\u043D\u044B\u0439
         \u043B\u0443\u0447"
       - "Feixe de laser do c\xE9u"
       - 
@@ -14683,7 +15358,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - A lively venue turned into a base of evil forces
-      - "\u0416\u0438\u0432\u043E\u0435 \u043C\u0435\u0441\u0442\u043E, \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043D\u043D\u043E\u0435
+      - "\u0416\u0438\u0432\u043E\u0435 \u043C\u0435\u0441\u0442\u043E \u043F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u043B\u043E\u0441\u044C
         \u0432 \u0431\u0430\u0437\u0443 \u0437\u043B\u044B\u0445 \u0441\u0438\u043B"
       - "Um local animado se transformou em uma base de for\xE7as malignas"
       - 
@@ -14724,6 +15399,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/SuperStar
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag
+      - Super Star Flag
+      - Super Star Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/SuperStarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - Super Star Flag Description
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/TestScene
       TermType: 0
       Description: 
@@ -14757,6 +15454,50 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/Tombstone
+      TermType: 0
+      Description: 
+      Languages:
+      - Punk
+      - Tombstone
+      - Tombstone
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TombstoneDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - A marker of a fallen Blaster
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Turbine
+      TermType: 0
+      Description: 
+      Languages:
+      - Turbine Glider
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TurbineDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Turbine Glider Description
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/Tutorial
       TermType: 0
       Description: 
@@ -14786,6 +15527,28 @@ MonoBehaviour:
       - GOOD CORE
       - "\u0425\u043E\u0440\u043E\u0448\u0435\u0435 \u044F\u0434\u0440\u043E"
       - "Bom n\xFAcleo"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Unicorn
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag
+      - Unicorn Flag
+      - Unicorn Flag
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/UnicornDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Unicorn Flag Description
+      - Unicorn Flag Description
+      - Unicorn Flag Description
       - 
       - 
       Flags: 0000000000
@@ -14894,7 +15657,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - WARRIOR SHIELD
-      - "\u0429\u0438\u0442 \u0432\u043E\u0438\u043D\u0430"
+      - "\u0412\u043E\u0438\u043D \u0449\u0438\u0442"
       - Escudo guerreiro
       - 
       - 
@@ -14922,35 +15685,12 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/MapTestScene
-      TermType: 0
-      Description: 
-      Languages:
-      - Map Test Scene
-      - "\u041A\u0430\u0440\u0442\u0430 \u0438\u0441\u043F\u044B\u0442\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
-        \u0441\u0446\u0435\u043D\u0430"
-      - Cena do teste de mapa
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: GameIds/NewBRMap
-      TermType: 0
-      Description: 
-      Languages:
-      - New BR Map
-      - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
-      - Novo mapa BR
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
       Languages:
       - PURCHASE {0}?
-      - "\u041A\u0443\u043F\u0438\u0442\u044C {0}?"
+      - "\u041F\u043E\u043A\u0443\u043F\u043A\u0430 {0}?"
       - Compra {0}?
       - 
       - 
@@ -14985,7 +15725,7 @@ MonoBehaviour:
       Languages:
       - x5 EXCELLENT CORES
       - "x5 \u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0435 \u044F\u0434\u0440\u0430"
-      - "x5 Excelentes n\xFAcleos"
+      - "X5 Excelentes n\xFAcleos"
       - 
       - 
       Flags: 0000000000
@@ -15237,7 +15977,7 @@ MonoBehaviour:
       - Metamask failed to switch chain network
       - "Metamask \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C
         \u0441\u0435\u0442\u044C \u0446\u0435\u043F\u0438"
-      - Metamask falhou ao trocar de rede de corrente
+      - Metamask falhou ao trocar a rede de corrente
       - 
       - metamask.ts
       Flags: 0000000000
@@ -15250,7 +15990,7 @@ MonoBehaviour:
       - "\u041D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C
         \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0441\u0442\u0438
         Blastbox"
-      - Incapaz de acessar a disponibilidade de BlastBox
+      - Incapaz de acessar a disponibilidade de blastbox
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -15264,7 +16004,7 @@ MonoBehaviour:
         \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435
         \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E
         \u043E \u0441\u0431\u043E\u0440\u0435."
-      - "Havia uma quest\xE3o t\xE9cnica ao tentar recuperar informa\xE7\xF5es de
+      - "Houve uma quest\xE3o t\xE9cnica ao tentar recuperar informa\xE7\xF5es de
         coleta de aquisi\xE7\xE3o."
       - 
       - vesting.ts
@@ -15289,9 +16029,10 @@ MonoBehaviour:
       Description: 
       Languages:
       - There was an issue when trying to claim your tokens. Please try again.
-      - "\u041F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C
-        \u043D\u0430 \u0432\u0430\u0448\u0438 \u0436\u0435\u0442\u043E\u043D\u044B
-        \u0431\u044B\u043B\u0430 \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430.
+      - "\u0411\u044B\u043B\u0430 \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430,
+        \u043A\u043E\u0433\u0434\u0430 \u043F\u044B\u0442\u0430\u043B\u0430\u0441\u044C
+        \u043F\u0440\u0435\u0442\u0435\u043D\u0434\u043E\u0432\u0430\u0442\u044C
+        \u043D\u0430 \u0432\u0430\u0448\u0438 \u0436\u0435\u0442\u043E\u043D\u044B.
         \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435
         \u0435\u0449\u0435 \u0440\u0430\u0437."
       - Houve um problema ao tentar reivindicar seus tokens. Por favor, tente novamente.
@@ -15384,8 +16125,8 @@ MonoBehaviour:
         \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u043B\u0438 \u043F\u0440\u0435\u0442\u0435\u043D\u0437\u0438\u044F.
         \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u0435
         \u043F\u043E\u043F\u044B\u0442\u043A\u0443 \u043F\u043E\u0437\u0436\u0435"
-      - "Incapaz de verificar se a reivindica\xE7\xE3o est\xE1 dispon\xEDvel. Por
-        favor, tente novamente mais tarde"
+      - "N\xE3o \xE9 poss\xEDvel verificar se a reivindica\xE7\xE3o est\xE1 dispon\xEDvel.
+        Por favor, tente novamente mais tarde"
       - 
       - user.ts
       Flags: 0000000000
@@ -15410,9 +16151,10 @@ MonoBehaviour:
       Languages:
       - Minting error. Nothing has been lost, but please try again
       - "\u041E\u0448\u0438\u0431\u043A\u0430 \u043C\u0430\u0442\u0447\u0430. \u041D\u0438\u0447\u0435\u0433\u043E
-        \u043D\u0435 \u043F\u043E\u0442\u0435\u0440\u044F\u043D\u043E, \u043D\u043E,
-        \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435
-        \u0435\u0449\u0435 \u0440\u0430\u0437"
+        \u043D\u0435 \u0431\u044B\u043B\u043E \u043F\u043E\u0442\u0435\u0440\u044F\u043D\u043E,
+        \u043D\u043E, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430,
+        \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
+        \u0440\u0430\u0437"
       - Erro de atendimento. Nada foi perdido, mas tente novamente
       - 
       - user.ts
@@ -15423,8 +16165,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - A craft spice request is already ongoing, please try again later
-      - "\u0417\u0430\u043F\u0440\u043E\u0441 \u043D\u0430 \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
-        \u0441\u043F\u0435\u0446\u0438\u044E \u0443\u0436\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F,
+      - "\u0417\u0430\u043F\u0440\u043E\u0441 \u043D\u0430 \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0435
+        \u0441\u043F\u0435\u0446\u0438\u0438 \u0443\u0436\u0435 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F,
         \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435
         \u0440\u0430\u0437 \u043F\u043E\u0437\u0436\u0435"
       - "Uma solicita\xE7\xE3o de especiarias artesanais j\xE1 est\xE1 em andamento,
@@ -15541,7 +16283,7 @@ MonoBehaviour:
       - "\u0411\u044B\u043B\u0430 \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430
         \u0432 \u043F\u043E\u0438\u0441\u043A\u0430\u0445 \u0442\u0435\u043A\u0443\u0449\u0435\u0439
         \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0438 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D\u0438\u044F."
-      - "Havia um problema \xE0 procura de estat\xEDsticas atuais de equipamentos."
+      - "Havia um problema \xE0 procura de estat\xEDsticas de equipamentos atuais."
       - 
       - NftStore.ts
       Flags: 0000000000
@@ -15554,7 +16296,7 @@ MonoBehaviour:
       - "\u0411\u044B\u043B\u0430 \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0430
         \u043F\u0440\u0438 \u0438\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438
         \u0440\u044B\u043D\u043A\u0430"
-      - Havia um problema ao inicializar o mercado
+      - Houve um problema ao inicializar o mercado
       - 
       - NftStore.ts
       Flags: 0000000000
@@ -15580,7 +16322,7 @@ MonoBehaviour:
       - BlastBox information error.
       - "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u0430\u044F
         \u043E\u0448\u0438\u0431\u043A\u0430 \u0431\u043B\u0430\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430."
-      - "Erro de informa\xE7\xE3o blastbox."
+      - "Erro de informa\xE7\xE3o do BlastBox."
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -15616,12 +16358,12 @@ MonoBehaviour:
       - You have one login request pending. Please, finalize this one first before
         requesting it again.
       - "\u0423 \u0432\u0430\u0441 \u0435\u0441\u0442\u044C \u043E\u0434\u0438\u043D
-        \u0437\u0430\u043F\u0440\u043E\u0441 \u0434\u043B\u044F \u0432\u0445\u043E\u0434\u0430
-        \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0443. \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430,
-        \u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0435
-        \u044D\u0442\u043E, \u043F\u0440\u0435\u0436\u0434\u0435 \u0447\u0435\u043C
-        \u043F\u043E\u043F\u0440\u043E\u0441\u0438\u0442\u044C \u0435\u0433\u043E
-        \u0441\u043D\u043E\u0432\u0430."
+        \u0437\u0430\u043F\u0440\u043E\u0441 \u0432\u0445\u043E\u0434\u0430 \u0432
+        \u0441\u0438\u0441\u0442\u0435\u043C\u0443 \u0432 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0438.
+        \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0441\u043D\u0430\u0447\u0430\u043B\u0430
+        \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0435 \u044D\u0442\u043E,
+        \u043F\u0440\u0435\u0436\u0434\u0435 \u0447\u0435\u043C \u043F\u043E\u043F\u0440\u043E\u0441\u0438\u0442\u044C
+        \u0435\u0433\u043E \u0441\u043D\u043E\u0432\u0430."
       - "Voc\xEA tem uma solicita\xE7\xE3o de login pendente. Por favor, finalize
         este primeiro antes de solicit\xE1 -lo novamente."
       - 
@@ -15687,10 +16429,10 @@ MonoBehaviour:
       - "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435
         \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044E \u0438
         \u0441\u0432\u044F\u0436\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 \u043A\u043E\u0448\u0435\u043B\u0435\u043A
-        \u0441 \u0432\u0430\u0448\u0438\u043C \u0438\u0433\u0440\u043E\u0432\u044B\u043C
-        \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u043E\u043C. \\ n \u0415\u0441\u043B\u0438
-        \u0443 \u0432\u0430\u0441 \u0435\u0433\u043E \u043D\u0435\u0442, \u043D\u0430\u0436\u043C\u0438\u0442\u0435
-        \xAB\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F\xBB."
+        \u0441 \u0432\u0430\u0448\u0435\u0439 \u0438\u0433\u0440\u043E\u0432\u043E\u0439
+        \u0443\u0447\u0435\u0442\u043D\u043E\u0439 \u0437\u0430\u043F\u0438\u0441\u044C\u044E.
+        \\ n \u0415\u0441\u043B\u0438 \u0443 \u0432\u0430\u0441 \u0435\u0433\u043E
+        \u043D\u0435\u0442, \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \xAB\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F\xBB."
       - "Preencha seu registro e vincule sua carteira \xE0 sua conta de jogo. \\
         n Se voc\xEA n\xE3o tiver um, clique em registrar."
       - 
@@ -15752,7 +16494,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - It can take time to open a Blastbox. Please be patient whilst they open.
-      - "\u042D\u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u043D\u044F\u0442\u044C
+      - "\u042D\u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0442\u0440\u0435\u0431\u043E\u0432\u0430\u0442\u044C\u0441\u044F
         \u0432\u0440\u0435\u043C\u044F, \u0447\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u044C
         \u0432\u0437\u0440\u044B\u0432\u043D\u0443\u044E \u043A\u043E\u0440\u043E\u0431\u043A\u0443.
         \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0431\u0443\u0434\u044C\u0442\u0435
@@ -15802,7 +16544,7 @@ MonoBehaviour:
         \u0434\u0440\u0443\u0433\u043E\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442,
         \u043F\u043E\u043A\u0430 \u0442\u0440\u0430\u043D\u0437\u0430\u043A\u0446\u0438\u044F
         \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0441\u044F
-        \u0438\u043B\u0438 \u043D\u0435 \u043E\u0442\u043C\u0435\u043D\u0435\u043D\u0430"
+        \u0438\u043B\u0438 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442 \u043E\u0442\u043C\u0435\u043D\u0435\u043D\u0430"
       - "Uma transa\xE7\xE3o de venda est\xE1 em andamento. Voc\xEA n\xE3o pode vender
         outro item at\xE9 que a transa\xE7\xE3o termine ou seja cancelada"
       - 
@@ -15840,7 +16582,7 @@ MonoBehaviour:
       - Signature failure. Wallet not linked
       - "\u0424\u0438\u0440\u043C\u0435\u043D\u043D\u044B\u0439 \u0441\u0431\u043E\u0439.
         \u041A\u043E\u0448\u0435\u043B\u0435\u043A \u043D\u0435 \u0441\u0432\u044F\u0437\u0430\u043D"
-      - "Falha na assinatura. Carteira n\xE3o vinculada"
+      - "Falha na assinatura. Carteira n\xE3o est\xE1 ligada"
       - 
       - user.ts
       Flags: 0000000000
@@ -15880,10 +16622,10 @@ MonoBehaviour:
       Flags: 0
     IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
-    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
+    Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyVNIyglKtXwSpGE6W6XlcS9aN9mxNcQYucHkpy-IXjgIrgKIleDE-4h7-V1-iIqPLIsg/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1677514366249
+    Google_LastUpdatedVersion: 1680532703718
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

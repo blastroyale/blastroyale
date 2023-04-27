@@ -44,12 +44,12 @@ namespace Quantum
 				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
 			}
 
-			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
+			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity, QBoolean fromRoofDamage)
 			{
 				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 				var matchData = data[player];
 
-				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity);
+				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity, fromRoofDamage);
 
 				if (ev == null)
 				{
@@ -75,17 +75,17 @@ namespace Quantum
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 			}
 
-			public void OnEntityDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,
+			public void OnEntityDamaged(Spell* spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,
 										int previousHealth, int maxHealth, int previousShield, int maxShield)
 			{
 				var playerRef = PlayerRef.None;
 				
-				if (_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
+				if (_f.Unsafe.TryGetPointer<PlayerCharacter>(spell->Victim, out var playerCharacter))
 				{
 					playerRef = playerCharacter->Player;
 				}
 
-				OnEntityDamaged(playerRef, spell, (uint) totalDamage, (uint) shieldDamageAmount,
+				OnEntityDamaged(playerRef, *spell, (uint) totalDamage, (uint) shieldDamageAmount,
 				                previousShield, maxShield, (uint) healthDamageAmount, previousHealth, maxHealth);
 			}
 
@@ -93,7 +93,7 @@ namespace Quantum
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
 				var data = container->PlayersData;
-				var matchData = container->GeneratePlayersMatchData(_f, out var leader);
+				var matchData = container->GeneratePlayersMatchData(_f, out var leader, out _);
 				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity,
 				                              playerKiller, data[playerKiller].Entity,
 				                              leader, data[leader].Entity, data[playerKiller].CurrentKillStreak,

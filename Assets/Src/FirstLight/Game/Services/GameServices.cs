@@ -9,6 +9,7 @@ using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
+using FirstLightServerSDK.Modules.RemoteCollection;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -25,6 +26,8 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IDataSaver"/>
 		IDataSaver DataSaver { get; }
+		
+		IDataService DataService { get; }
 
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
@@ -112,6 +115,8 @@ namespace FirstLight.Game.Services
 		
 		public IGameUiService GameUiService { get; }
 		
+		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -127,6 +132,7 @@ namespace FirstLight.Game.Services
 	public class GameServices : IGameServices
 	{
 		public IDataSaver DataSaver { get; }
+		public IDataService DataService { get; }
 		public IConfigsProvider ConfigsProvider { get; }
 		public IGuidService GuidService { get; }
 		public IGameNetworkService NetworkService { get; }
@@ -155,9 +161,12 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		
 		public IGameUiService GameUiService { get; }
+		
+		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		
 		public string QuitReason { get; set; }
+		
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
@@ -170,6 +179,7 @@ namespace FirstLight.Game.Services
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;
+			DataService = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;
@@ -180,18 +190,19 @@ namespace FirstLight.Game.Services
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
-			PlayfabPubSubService = new PlayfabPubSubService();
+			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService,networkService, gameLogic, configsProvider);
-			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService);
-			GameModeService = new GameModeService(ConfigsProvider, gameLogic.EquipmentDataProvider, ThreadService, PartyService);
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
-			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService, PartyService, MessageBrokerService);
+			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
+			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService, GameBackendService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;

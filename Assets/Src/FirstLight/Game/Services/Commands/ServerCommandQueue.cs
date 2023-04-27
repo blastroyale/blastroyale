@@ -28,6 +28,7 @@ namespace FirstLight.Game.Services
 	{
 		private IDataService _data;
 		private IGameLogic _logic;
+		private IGameLogicInitializer _logicInitializer;
 		private IGameBackendService _gameBackend;
 		private Queue<ServerCommandQueueEntry> _queue;
 		private IGameServices _services;
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Services
 		{
 			_data = data;
 			_logic = logic;
+			_logicInitializer = logic as IGameLogicInitializer;
 			_gameBackend = gameBackend;
 			_queue = new();
 			_services = services;
@@ -116,6 +118,8 @@ namespace FirstLight.Game.Services
 				OnCommandException(logicException);
 			}
 
+			var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
+			
 			if (FeatureFlags.REMOTE_CONFIGURATION &&
 			    logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
 			{
@@ -123,16 +127,23 @@ namespace FirstLight.Game.Services
 				if (serverVersionNumber > _logic.ConfigsProvider.Version)
 				{
 					FLog.Verbose("Client configs outdated, updating !");
-					UpdateConfiguration(serverVersionNumber, current.GameCommand);
-					return;
+					UpdateConfiguration(serverVersionNumber, current);
+					if (desynchs.Count > 0)
+					{
+						RollbackToServerState(current.GameCommand, desynchs);
+						return;
+					}
 				}
 			}
 
 			if (FeatureFlags.DESYNC_DETECTION)
 			{
-				var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
 				if (desynchs.Count > 0)
 				{
+#if !STORE_BUILD && !UNITY_EDITOR
+					SROptions.Current.SendQuietBugReport($"models desynched {string.Join(',', desynchs)}");
+#endif
+					
 					OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
 					// TODO: Do a json diff and show which data exactly is different
 				}
@@ -185,7 +196,7 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		private void UpdateConfiguration(ulong serverVersion, IGameCommand lastCommand)
+		private void UpdateConfiguration(ulong serverVersion, ServerCommandQueueEntry lastCommand)
 		{
 			var configAdder = _logic.ConfigsProvider as IConfigsAdder;
 			_gameBackend.GetTitleData(PlayfabConfigurationProvider.ConfigName, configString =>
@@ -193,7 +204,6 @@ namespace FirstLight.Game.Services
 				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
 				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
 				FLog.Info($"Updated game configs to version {serverVersion}");
-				RollbackToServerState(lastCommand);
 			}, null);
 		}
 
@@ -201,17 +211,27 @@ namespace FirstLight.Game.Services
 		/// Fetches current server state and override client's state.
 		/// Will not cause a UI refresh.
 		/// </summary>
-		private void RollbackToServerState<TCommand>(TCommand lastCommand) where TCommand : IGameCommand
+		private void RollbackToServerState<TCommand>(TCommand lastCommand, List<Type> desynced) where TCommand : IGameCommand
 		{
+			FLog.Warn("Desync caused by config updates - rolling back last command");
+			bool rolledBack = false;
 			_gameBackend.FetchServerState(state =>
 			{
 				foreach (var typeFullName in state.Keys)
 				{
 					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_data.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					if(desynced.Contains(type))
+					{
+						rolledBack = true;
+						_data.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					}
 				}
-
 				FLog.Verbose("Fetched user state from server");
+				if (rolledBack)
+				{
+					FLog.Info("Rolling back client UI");
+					_logicInitializer.ReInit();
+				}
 				OnServerExecutionFinished();
 			}, null);
 		}

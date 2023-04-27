@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot)
+		public static EnterRoomParams GetRoomCreateParams(MatchRoomSetup setup, Vector3 dropzonePosRot, string[] expectedPlayers = null)
 		{
 			if (FeatureFlags.FORCE_RANKED)
 			{
@@ -40,23 +41,16 @@ namespace FirstLight.Game.Utils
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
-
-			if (!isRandomMatchmaking)
-			{
-				emptyTtl = roomNameFinal.IsPlayTestRoom()
-					? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					: GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
-			}
-			else
-			{
-				emptyTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
-			}
-
+			
+			emptyTtl = roomNameFinal.IsPlayTestRoom()
+				? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+				: GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
+			
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,
+				ExpectedUsers = expectedPlayers,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -67,7 +61,7 @@ namespace FirstLight.Game.Utils
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
-					PublishUserId = false,
+					PublishUserId = setup.GameMode().ShouldUsePlayfabMatchmaking(),
 					DeleteNullProperties = true,
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
@@ -75,7 +69,7 @@ namespace FirstLight.Game.Utils
 					MaxPlayers = isRandomMatchmaking
 						? (byte) maxPlayers
 						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
-					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
+					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},
 			};
 
@@ -102,8 +96,8 @@ namespace FirstLight.Game.Utils
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
-					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS
+					PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS,
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				}
 			};
 		}
@@ -170,6 +164,7 @@ namespace FirstLight.Game.Utils
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
+			properties.Add(GameConstants.Network.ROOM_PROPS_SETUP, ModelSerializer.Serialize(setup).Value);
 
 			// TODO - RENAME "SpawnPattern"
 			if (setup.GameMode().SpawnPattern)
@@ -182,6 +177,9 @@ namespace FirstLight.Game.Utils
 
 		private static Hashtable GetJoinRoomProperties(MatchRoomSetup setup)
 		{
+			// !!!NOTE!!!
+			// If you add anything here you must also add the key in GetCreateRoomPropertiesForLobby!
+
 			return new Hashtable
 			{
 				// The commit should guarantee the same Quantum build version + App version etc.
@@ -230,7 +228,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsOnlineAndConnected()
 		{
-			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnected;
 		}
 
 		/// <summary>
@@ -238,7 +236,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsOfflineOrDisconnected()
 		{
-			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnected;
 		}
 
 		/// <summary>

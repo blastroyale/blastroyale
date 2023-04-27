@@ -4,21 +4,27 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
-using FirstLight.Game.UIElements;
+using FirstLight.Game.Services;
+using FirstLight.Game.Logic;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Server.SDK.Modules;
 using I2.Loc;
-using Photon.Deterministic;
 using Photon.Realtime;
-using PlayFab.MultiplayerModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using EventBase = Quantum.EventBase;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using PlayerMatchData = Quantum.PlayerMatchData;
 
 namespace FirstLight.Game.Utils
 {
@@ -52,7 +58,6 @@ namespace FirstLight.Game.Utils
 		}
 
 
-		
 		/// <summary>
 		/// Get Photon region translation for the given <paramref name="regionKey"/> 
 		/// </summary>
@@ -251,20 +256,26 @@ namespace FirstLight.Game.Utils
 		{
 			if (data.IsBot)
 			{
-				return GetBotName(data.PlayerName);
+				return GetBotName(data.Data.BotNameIndex, data.Data.Entity);
 			}
 
 			return data.PlayerName;
 		}
 
 		/// <summary>
-		/// Requests the bot name for the given bot's <paramref name="nameIndex"/>
+		/// Requests the bot name for the given bot. In debug build this would
+		/// display "BOT-e(entity_index)-b(behaviour_index).
 		/// </summary>
-		public static string GetBotName(string nameIndex)
+		public static string GetBotName(int nameIndex, EntityRef entityRef)
 		{
+			if (Debug.isDebugBuild)
+			{
+				return $"BOT-{entityRef.Index}";
+			}
+
 			var term = ScriptTerms.BotNames.Bot1.Remove(ScriptTerms.BotNames.Bot1.Length - 1);
 
-			return LocalizationManager.GetTranslation($"{term}{nameIndex}");
+			return LocalizationManager.GetTranslation($"{term}{nameIndex.ToString()}");
 		}
 
 		/// <summary>
@@ -301,7 +312,7 @@ namespace FirstLight.Game.Utils
 		{
 			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
 		}
-		
+
 		/// <summary>
 		/// Returns true if the given <paramref name="roomName"/> is a playtest room
 		/// </summary>
@@ -309,7 +320,7 @@ namespace FirstLight.Game.Utils
 		{
 			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
 		}
-		
+
 		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
@@ -317,7 +328,7 @@ namespace FirstLight.Game.Utils
 		{
 			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
 		}
-		
+
 		/// <summary>
 		/// Obtains the current selected game mode id in the given <paramref name="room"/>
 		/// </summary>
@@ -325,7 +336,17 @@ namespace FirstLight.Game.Utils
 		{
 			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
 		}
-		
+
+		/// <summary>
+		/// Return if this room was created by playfab matchmaking
+		/// </summary>
+		public static bool ShouldUsePlayFabMatchmaking(this Room room, IConfigsProvider configsProvider)
+		{
+			var gamemodeId = room.GetGameModeId();
+			return configsProvider.GetConfig<QuantumGameModeConfig>(gamemodeId).ShouldUsePlayfabMatchmaking();
+		}
+
+
 		/// <summary>
 		/// Obtains the current room creation time (created with UTC.Now)
 		/// </summary>
@@ -333,7 +354,7 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
-		
+
 		/// <summary>
 		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
 		/// </summary>
@@ -341,7 +362,7 @@ namespace FirstLight.Game.Utils
 		{
 			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
 		}
-		
+
 		/// <summary>
 		/// Obtains the current room creation time (created with UTC.Now)
 		/// </summary>
@@ -376,11 +397,71 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool HaveStartedGame(this Room room)
+		{
+			return room.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME);
+		}
+
+		/// <summary>
 		/// Obtains the <see cref="MatchType"/> of this room.
 		/// </summary>
 		public static MatchType GetMatchType(this Room room)
 		{
 			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
+		}
+
+		/// <summary>
+		/// Can a game room frame be restored from a local snapshot ?
+		/// </summary>
+		public static bool CanBeRestoredWithLocalSnapshot(this Room room)
+		{
+			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
+			{
+				return false;
+			}
+
+			if (!_services.NetworkService.JoinSource.IsSnapshotAutoConnect())
+			{
+				FLog.Verbose("Not snapshot connect room");
+				return false;
+			}
+
+			return (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+		}
+
+		/// <summary>
+		/// Can a local snapshot with current simulation frame be saved locally to be restored later ?
+		/// </summary>
+		public static bool CanBeRestoredWithLocalSnapshot(this FrameSnapshot snapshot)
+		{
+			if (!MainInstaller.TryResolve<IGameServices>(out var _services))
+			{
+				return false;
+			}
+
+			return (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+		}
+
+		public static void SetProperty(this Room room, string prop, object value)
+		{
+			var table = new Hashtable();
+			table[prop] = value;
+			room.SetCustomProperties(table);
+		}
+
+		public static T GetProp<T>(this Room room, string prop)
+		{
+			if (room.CustomProperties.TryGetValue(prop, out var v))
+				return (T) v;
+			return default;
+		}
+
+		public static MatchRoomSetup GetMatchSetup(this Room room)
+		{
+			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_SETUP];
+			return ModelSerializer.Deserialize<MatchRoomSetup>(str);
 		}
 
 		/// <summary>
@@ -438,15 +519,25 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
-		
+
 		/// <summary>
 		/// Obtains info on whether room has all its player slots full
 		/// </summary>
-		public static bool IsAtFullPlayerCapacity(this Room room)
+		public static bool IsAtFullPlayerCapacity(this Room room, IConfigsProvider cfgProvider)
 		{
+			// This is playfab mm
+			if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
+			{
+				bool everyBodyJoined = room.ExpectedUsers
+					.All(id => room.Players.Any(p => p.Value.UserId == id));
+
+				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
+				return everyBodyJoined && everybodyLoadedCoreAssets;
+			}
+
 			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
 		}
-		
+
 		/// <summary>
 		/// Obtains info on whether room has all its spectator slots full
 		/// </summary>
@@ -463,7 +554,7 @@ namespace FirstLight.Game.Utils
 		{
 			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 		}
-		
+
 		/// <summary>
 		/// Requests the team id of the player (-1 for no team).
 		/// </summary>
@@ -476,7 +567,7 @@ namespace FirstLight.Game.Utils
 
 			return string.Empty;
 		}
-		
+
 		/// <summary>
 		/// Requests the team id of the player (-1 for no team).
 		/// </summary>
@@ -489,7 +580,7 @@ namespace FirstLight.Game.Utils
 
 			return Vector2.zero;
 		}
-		
+
 		/// <summary>
 		/// Requests to check if player has loaded core match assets
 		/// </summary>
@@ -506,8 +597,11 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var playerKvp in room.Players)
 			{
+				if (playerKvp.Value.IsInactive)
+					continue;
+
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
-				                                                  out var propertyValue) || !(bool) propertyValue)
+					    out var propertyValue) || !(bool) propertyValue)
 				{
 					return false;
 				}
@@ -515,7 +609,7 @@ namespace FirstLight.Game.Utils
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Copy properties from one model to another.
 		/// Only a shallow copy.
@@ -530,17 +624,17 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// Requests the <see cref="Quantum.PlayerMatchData"/> of the current local player playing the game
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
 			var localPlayers = game.GetLocalPlayers();
-			
+
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
-			
+
 			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="PlayerRef"/> of the current local player playing the game.
 		/// If there is no local player in the match (ex: spectator in the match), returns <see cref="PlayerRef.None"/>
@@ -548,7 +642,7 @@ namespace FirstLight.Game.Utils
 		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
 		{
 			var localPlayers = game.GetLocalPlayers();
-   
+
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
 
@@ -581,7 +675,7 @@ namespace FirstLight.Game.Utils
 		{
 			element.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
 		}
-		
+
 		/// <summary>
 		/// Iterates over a list by chunks
 		/// </summary>
@@ -597,7 +691,73 @@ namespace FirstLight.Game.Utils
 					chunk = new List<T>(size);
 				}
 			}
+
 			yield return chunk;
+		}
+
+		/// <summary>
+		/// Check if the player have NFTs
+		/// </summary>
+		/// <param name="equipmentLogic"></param>
+		[Obsolete("Please use iGameLogic.HasNfts")]
+		public static bool HasNfts(this IEquipmentDataProvider equipmentLogic)
+		{
+			return MainInstaller.Resolve<IGameDataProvider>().HasNfts();
+		}
+		
+		/// <summary>
+		/// Check if the player have NFTs
+		/// </summary>
+		/// <param name="equipmentLogic"></param>
+
+		public static bool HasNfts(this IGameDataProvider data)
+		{
+#if  UNITY_EDITOR || DEVELOPMENT_BUILD
+			if (FeatureFlags.GetLocalConfiguration().ForceHasNfts)
+			{
+				return true;
+			}
+#endif
+			var profilePictures =
+				data.CollectionDataProvider.GetOwnedCollection(CollectionCategories.PROFILE_PICTURE);
+			return profilePictures.Count > 0 || data.EquipmentDataProvider.NftInventory.Count > 0;
+		}
+
+
+		public static void SelectDefaultCasualMode(this IGameModeService service)
+		{
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			service.SelectedGameMode.Value = gameMode;
+		}
+
+		public static AudioId GetAmbientAudioId(this AmbienceType ambience)
+		{
+			switch(ambience)
+			{
+				case AmbienceType.CityCenter:
+					return AudioId.CentralAmbientLoop;
+				
+				case AmbienceType.Desert:
+					return AudioId.DesertAmbientLoop;
+				
+				case AmbienceType.Forest:
+					return AudioId.ForestAmbientLoop;
+				
+				case AmbienceType.Frost:
+					return AudioId.FrostAmbientLoop;
+				
+				case AmbienceType.Lava:
+					return AudioId.LavaAmbientLoop;
+				
+				case AmbienceType.Urban:
+					return AudioId.UrbanAmbientLoop;
+				
+				case AmbienceType.Water:
+					return AudioId.WaterAmbientLoop;
+				
+				default:
+					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
+			}
 		}
 	}
 }

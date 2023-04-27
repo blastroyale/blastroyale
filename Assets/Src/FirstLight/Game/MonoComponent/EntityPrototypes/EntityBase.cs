@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -18,7 +19,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		
 		private IGameServices _services;
 		
-		protected GameObject Instance;
+		public GameObject Instance { get; private set; }
+
+		public bool HasRenderedView()
+		{
+			return Instance != null;
+		}
+
 		protected IGameServices Services => _services ??= MainInstaller.Resolve<IGameServices>();
 
 		private void OnValidate()
@@ -30,8 +37,20 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiated);
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
-			
+
 			OnAwake();
+		}
+
+		protected void RemoveListeners()
+		{
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
+			Services.MessageBrokerService.UnsubscribeAll(this);
+		}
+
+		void OnDestroy()
+		{
+			RemoveListeners();
 		}
 
 		protected T GetComponentData<T>(QuantumGame game) where T : unmanaged, IComponent
@@ -67,7 +86,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			return game.Frames.Verified.TryGet(EntityView.EntityRef, out component);
 		}
-
+		
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			var runner = QuantumRunner.Default;
@@ -77,17 +96,15 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				Destroy(instance);
 				return;
 			}
-			
 			var cacheTransform = instance.transform;
-
+			Instance = instance;
 			if(instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
 			{
-				mainViewBase.SetEntityView(runner.Game, EntityView);
+				mainViewBase.SetEntityView(QuantumRunner.Default.Game, EntityView);
 			}
-			
+
 			cacheTransform.SetParent(transform);
-			
-			Instance = instance;
+
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
 		}

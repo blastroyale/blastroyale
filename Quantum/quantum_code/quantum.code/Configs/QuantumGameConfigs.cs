@@ -26,6 +26,8 @@ namespace Quantum
 		public QuantumGameModePair<int> PlayerStartingShieldCapacity;
 		public QuantumGameModePair<FP> CollectableCollectTime;
 		public QuantumGameModePair<FP> PlayerAliveShieldDuration;
+		public uint PlayerMaxEnergyLevel;
+		public QuantumPair<ushort, ushort> MinMaxEnergyLevelRequirement;
 		public uint MaxPlayerRanks;
 		public FP RageStatusDamageMultiplier;
 		public FP DeathDropHealthChance;
@@ -53,6 +55,11 @@ namespace Quantum
 		public FP MightRarityMultiplier;
 		public FP MightLevelMultiplier;
 		public FP TrophiesPerKill;
+		public FP RoofDamageHeight;
+		public FP RoofDamageDelay;
+		public FP RoofDamageAmount;
+		public FP RoofDamageCooldown;
+		public bool HardAngleAim;
 	}
 
 	/// <summary>

@@ -73,6 +73,23 @@ synced event OnPlayerKilledPlayer
 	UInt32 CurrentMultiKill;
 }
 
+synced event OnPlayerLevelUp
+{
+	player_ref Player;
+	entity_ref Entity;
+    Int32 CurrentLevel;
+}
+
+synced event OnPlayerEnergyChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+    Int32 PreviousPowerValue;
+    Int32 CurrentPowerValue;
+    Int32 ChangeAmount;
+    Int32 CurrentLevel;
+}
+
 synced event OnPlayerAmmoEmpty
 {
 	player_ref Player;
@@ -224,6 +241,7 @@ synced event OnLocalPlayerDead
 	entity_ref Entity;
 	player_ref PlayerKiller;
 	entity_ref EntityKiller;
+	bool FromRoofDamage;
 }
 
 synced event OnLocalPlayerAmmoEmpty
@@ -255,4 +273,10 @@ synced event OnLocalPlayerSpecialUsed
 	Special Special;
 	Int32 SpecialIndex;
 	FPVector3 HitPosition;
+}
+
+synced event OnLocalPlayerRoofDetected
+{
+	local player_ref Player;
+	bool OnRoof;
 }

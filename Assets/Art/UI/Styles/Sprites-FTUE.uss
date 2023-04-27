@@ -14,41 +14,61 @@
 
 .sprite-ftue__background-character {
     background-image: var(--sprite-ftue__background-character);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__background-dialog {
     background-image: var(--sprite-ftue__background-dialog);
+    width: 544px;
+    height: 244px;
 }
 
 .sprite-ftue__character-female-happy {
     background-image: var(--sprite-ftue__character-female-happy);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-female-neutral {
     background-image: var(--sprite-ftue__character-female-neutral);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-female-shocked {
     background-image: var(--sprite-ftue__character-female-shocked);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-female-thinking {
     background-image: var(--sprite-ftue__character-female-thinking);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-male-happy {
     background-image: var(--sprite-ftue__character-male-happy);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-male-neutral {
     background-image: var(--sprite-ftue__character-male-neutral);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-male-shocked {
     background-image: var(--sprite-ftue__character-male-shocked);
+    width: 302px;
+    height: 286px;
 }
 
 .sprite-ftue__character-male-thinking {
     background-image: var(--sprite-ftue__character-male-thinking);
+    width: 302px;
+    height: 286px;
 }
 

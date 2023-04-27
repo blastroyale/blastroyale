@@ -12,6 +12,8 @@ enum ConsumableType
 	Ammo,
 	Shield,
 	ShieldCapacity,
+    Energy,
+    SpecialRefresh,
 }
 
 synced event OnConsumableCollected

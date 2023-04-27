@@ -2,7 +2,7 @@
     flex-direction: row;
     flex-grow: 1;
     font-size: 40px;
-    background-color: rgba(171, 171, 171, 255);
+    background-color: rgb(171, 171, 171);
 }
 
 .animation-category {
@@ -14,10 +14,11 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    flex-basis: 4px;
 }
 
 .animation-button {
@@ -36,7 +37,7 @@
     right: 0;
     top: 20px;
     -unity-text-align: upper-center;
-    background-color: rgba(147, 147, 147, 255);
+    background-color: rgb(147, 147, 147);
 }
 
 .animation-button--green {
@@ -57,6 +58,11 @@
     transition-property: all;
     transition-timing-function: ease-in-out;
     font-size: 26px;
+}
+
+.transition-button:active {
+    width: 320px;
+    height: 170px;
 }
 
 .transition-button--green {

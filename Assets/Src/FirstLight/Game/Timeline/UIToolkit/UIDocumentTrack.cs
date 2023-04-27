@@ -31,7 +31,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 		private VisualElement GetQuoteUnquoteBoundElement(GameObject go)
 		{
 			var root = go.GetComponent<UIDocument>().rootVisualElement;
-			var path = name.Split('#');
+			var path = name.Split('#', StringSplitOptions.RemoveEmptyEntries);
 
 			var ve = root;
 			foreach (var elementName in path)

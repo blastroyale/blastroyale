@@ -126,7 +126,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 69d1c717616e62905a4e7d2ea243fc93, type: 3}
   - {fileID: 21300000, guid: 5db528171ce7e43ceaaad19d38e24b92, type: 3}
   - {fileID: 21300000, guid: 64898817438f9408c96d237ff01892ca, type: 3}
-  - {fileID: 21300000, guid: 8fcc5b373e63d42388e46558c456d606, type: 3}
   - {fileID: 21300000, guid: 40a49e478e2a64d8ba5857e4e7116e77, type: 3}
   - {fileID: 21300000, guid: 42c36257cd63e460ea5327a85de7656b, type: 3}
   - {fileID: 21300000, guid: a3323e773a3d94bfda84717a55d45241, type: 3}
@@ -221,7 +220,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a586a1ae1408749e9b1267b30f1bc628, type: 3}
   - {fileID: 21300000, guid: ce83c8bea7bca44b893b799aca685404, type: 3}
   - {fileID: 21300000, guid: 851991ee848a84b6997cd953ceaa782a, type: 3}
-  - {fileID: 21300000, guid: fa870ffe7de68412c8d52332175c181e, type: 3}
   - {fileID: 21300000, guid: f7f1600fc490043a4b7bfbe992ed1354, type: 3}
   - {fileID: 21300000, guid: 3239f11f9671f4e658a54a4e98fb976d, type: 3}
   - {fileID: 21300000, guid: a49be92fdecf54e4ebae741388eb08a5, type: 3}
@@ -270,7 +268,7 @@ SpriteAtlas:
   - icon-mutator-quickspecials
   - icon-customgame
   - icon-hide-purple
-  - character-malesuperstar
+  - character-male-superstar
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
@@ -319,7 +317,6 @@ SpriteAtlas:
   - icon-gamemode-battleroyale-shadow
   - background-gamemode-custom
   - background-settings-item
-  - character-punk-male
   - icon-mutator-healthyair
   - header-background
   - icon-crown-ranked
@@ -342,7 +339,7 @@ SpriteAtlas:
   - button-collection-item
   - header-profile
   - header-back-pressed
-  - character-maleassassin
+  - character-assasins-male
   - button-long-red-pressed
   - icon-equipmentcategory-shield
   - button-equipmentslot-legendary-pressed
@@ -357,7 +354,7 @@ SpriteAtlas:
   - progress-battlepass
   - button-collection-item-pressed
   - background-modeselection-custom
-  - glider-turbine
+  - glider-shark
   - logo-blasthub
   - pattern-rewardglow-rare
   - icon-special-aiminggrenade
@@ -414,7 +411,6 @@ SpriteAtlas:
   - avatar-default
   - glider-falcon
   - icon-close
-  - character-assasins-female
   - button-long-darkblue
   - character-male01avatar
   - pattern-rewardglow-common

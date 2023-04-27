@@ -1,17 +1,20 @@
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
-using Quantum.Commands;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-												ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
+		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
+		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + + FP._0_25;
+		private static readonly FP SKYDIVE_FALL_SPEED = -FP._8;
+		private static readonly FP SKYDIVE_DIRECTION_MULT = 3;
+		
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
@@ -84,7 +87,6 @@ namespace Quantum.Systems
 				}
 			}
 
-
 			int partyIndex = Constants.TEAM_ID_START_PARTIES;
 			var teamByPlayer = new Dictionary<int, int>();
 			foreach (var kv in membersByTeam)
@@ -99,8 +101,7 @@ namespace Quantum.Systems
 
 			return teamByPlayer;
 		}
-
-
+		
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
@@ -252,12 +253,12 @@ namespace Quantum.Systems
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-
+			var skyDiving = bb->GetBoolean(f, Constants.IsSkydiving);
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
-
-			if (direction != FPVector2.Zero) 
+			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
+			if (direction != FPVector2.Zero || skyDiving) 
 			{
 				movedirection = direction;
 			}
@@ -268,16 +269,68 @@ namespace Quantum.Systems
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
+			} else if (f.Time < lastShotAt + FP._0_33)
+			{
+				rotation = prevRotation;
 			}
+			
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey)) 
 			{
 				rotation = prevRotation;
 			}
 
+			var moveSpeed = input->MovementMagnitude;
+			if (moveSpeed >= MOVE_SPEED_UP_CAP) moveSpeed = 1;
+
+			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
+			
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
+			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
+			
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			
+			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
+			{
+				bb->Set(f, nameof(Constants.NextTapTime), f.Time + weaponConfig.AimDelay);
+			}
+			
+			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			if (aimDirection.SqrMagnitude > FP._0)
+			{
+				QuantumHelpers.LookAt2d(f, filter.Entity, aimDirection, f.GameConfig.HardAngleAim ? FP._0 : TURN_RATE );
+			}
+			
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var maxSpeed = f.GameConfig.PlayerDefaultSpeed.Get(f);
+			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
+			var velocity = kcc->Velocity;
+
+			if (moveSpeed != FP._1)
+			{
+				maxSpeed *= moveSpeed;
+				velocity.X *= moveSpeed;
+				velocity.Z *= moveSpeed;
+			}
+
+			if (skyDiving)
+			{
+				maxSpeed *= SKYDIVE_DIRECTION_MULT;
+				velocity.Y = SKYDIVE_FALL_SPEED;
+			}
+			else if(shooting)
+			{
+				maxSpeed *= weaponConfig.AimingMovementSpeed;
+			}
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			kcc->MaxSpeed = speedUpMutatorExists?maxSpeed * speedUpMutatorConfig.Param1:maxSpeed;
+
+			kcc->Velocity = velocity;
+			
+			kcc->Move(f, filter.Entity, moveDirection);
 		}
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)

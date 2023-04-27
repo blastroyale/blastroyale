@@ -110,8 +110,8 @@ namespace FirstLight.Game.Presenters
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
-				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				leaderboardEntry.StatValue, isLocalPlayer);
+				leaderboardEntry.DisplayName[..^5], -1,
+				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl);
 		}
 
 		private void OnLeaderboardRequestError(PlayFabError error)
@@ -200,8 +200,7 @@ namespace FirstLight.Game.Presenters
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				trophies,
-				true);
+				trophies, true, _dataProvider.AppDataProvider.AvatarUrl);
 
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);

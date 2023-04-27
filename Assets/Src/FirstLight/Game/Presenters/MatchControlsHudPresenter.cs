@@ -1,8 +1,10 @@
+using System;
 using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -31,6 +33,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _gunSwitchButton;
 		[SerializeField, Required] private UiButtonView _pingButton;
 
+		private IGameDataProvider _data;
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
@@ -42,9 +45,14 @@ namespace FirstLight.Game.Presenters
 		private bool _allowPing = true;
 		private bool _sentMovementMessage;
 
+		private void OnSpecialToggle(bool toggle, int index)
+		{
+			_indicatorContainerView.GetSpecialIndicator(index)?.SetVisualState(toggle);
+		}
 
 		private void Awake()
 		{
+			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
@@ -56,13 +64,13 @@ namespace FirstLight.Game.Presenters
 
 			_weaponSlotsHolder.gameObject.SetActive(false);
 			_specialButtons[0].OnCancelEnter
-				.AddListener(() => _indicatorContainerView.GetSpecialIndicator(0)?.SetVisualState(false));
+				.AddListener(() => OnSpecialToggle(false, 0));
 			_specialButtons[0].OnCancelExit
-				.AddListener(() => _indicatorContainerView.GetSpecialIndicator(0)?.SetVisualState(true));
+				.AddListener(() => OnSpecialToggle(true, 0));
 			_specialButtons[1].OnCancelEnter
-				.AddListener(() => _indicatorContainerView.GetSpecialIndicator(1)?.SetVisualState(false));
+				.AddListener(() => OnSpecialToggle(false, 1));
 			_specialButtons[1].OnCancelExit
-				.AddListener(() => _indicatorContainerView.GetSpecialIndicator(1)?.SetVisualState(true));
+				.AddListener(() => OnSpecialToggle(true, 1));
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
@@ -255,10 +263,23 @@ namespace FirstLight.Game.Presenters
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
+
+				if (FeatureFlags.SPECIAL_RADIUS)
+				{
+					var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+					radiusIndicator.SetVisualState(true);
+					radiusIndicator.SetTransformState(Vector2.zero);
+				}
 				return;
 			}
 
 			indicator.SetVisualState(false);
+			
+			if (FeatureFlags.SPECIAL_RADIUS)
+			{
+				var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				radiusIndicator.SetVisualState(false);
+			}
 
 			if (context.control.device is OnScreenControlsDevice && !specialButton.DraggingValidPosition())
 			{
@@ -482,7 +503,12 @@ namespace FirstLight.Game.Presenters
 
 		private void PollInput(CallbackPollInput callback)
 		{
-			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting);
+			float moveSpeedPercentage = 100;
+			if (_data.AppDataProvider.MovespeedControl)
+			{
+				moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+			}
+			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Cheats.SROptions
 						Count = 1,
 					});
 				}
-
+				
 				report.ConsoleLog = console;
 				BugReportApi.Submit(report, Settings.Instance.ApiKey, onComplete, progress);
 			}, (err) => FLog.Error(err.ErrorMessage));

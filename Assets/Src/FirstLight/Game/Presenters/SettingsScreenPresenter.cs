@@ -1,14 +1,10 @@
 using System;
 using FirstLight.Game.Services;
-using UnityEngine;
-using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
-using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
-using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -28,35 +24,29 @@ namespace FirstLight.Game.Presenters
 			public Action OnDeleteAccountClicked;
 		}
 
-		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
-
-		private ImageButton _closeScreenButton;
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
+
+		private ImageButton _closeScreenButton;
 
 		private Label _buildInfoLabel;
 		private Button _faqButton;
 		private Button _serverButton;
-
-		// Account Toggle
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
-		private Label _connectionStatusLabel;
-		private Label _connectionNameText;
+		private Label _accountStatusLabel;
 
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
 		}
 
 		protected override void QueryElements(VisualElement root)
 		{
 			_closeScreenButton = root.Q<ImageButton>("CloseButton");
-			_closeScreenButton.clicked += OnCloseClicked;
+			_closeScreenButton.clicked += Data.OnClose;
 
 			// Build Info Text
 			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
@@ -95,22 +85,25 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
 				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
 
-			// Account Buttons
+			// Account
 			_logoutButton = root.Q<Button>("LogoutButton");
 			_logoutButton.clicked += OnLogoutClicked;
 			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
 			_deleteAccountButton.clicked += OnDeleteAccountClicked;
 			_connectIdButton = root.Q<Button>("ConnectButton");
-			_connectIdButton.clicked += OpenConnectId;
-			_connectionNameText = root.Q<Label>("ConnectionNameLabel");
-			_connectionStatusLabel = root.Q<Label>("ConnectionStatusLabel");
+			_connectIdButton.clicked += Data.OnConnectIdClicked;
+			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
 			UpdateAccountStatus();
 
-			// Misc Buttons
+			// Footer buttons
 			_faqButton = root.Q<Button>("FAQButton");
-			_faqButton.clicked += OnFaqButtonPressed;
+			_faqButton.clicked += _services.HelpdeskService.ShowFaq;
 			_serverButton = root.Q<Button>("ServerButton");
 			_serverButton.clicked += OpenServerSelect;
+
+#if UNITY_IOS && !UNITY_EDITOR
+			_faqButton.SetDisplay(false);
+#endif
 
 			root.SetupClicks(_services);
 		}
@@ -131,60 +124,23 @@ namespace FirstLight.Game.Presenters
 			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) => s((T) (object) e.newValue), setter);
 		}
 
-		private void OnCloseClicked()
-		{
-			Debug.Log("Close Clicked");
-			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
-			Data.OnClose();
-		}
-
 		public void UpdateAccountStatus()
 		{
 			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
 				_connectIdButton.SetDisplay(true);
-				_connectionNameText.SetDisplay(false);
-				_connectionStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
+				_deleteAccountButton.SetDisplay(false);
+				_logoutButton.SetDisplay(false);
+				_accountStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
 			}
 			else
 			{
 				_connectIdButton.SetDisplay(false);
-				_connectionNameText.SetDisplay(true);
-				_connectionStatusLabel.text = ScriptLocalization.UITSettings.flg_id_connected;
-				_connectionNameText.text = string.Format(ScriptLocalization.General.UserId,
+				_deleteAccountButton.SetDisplay(true);
+				_logoutButton.SetDisplay(true);
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected,
 					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
-		}
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
-			_versionText.text = VersionUtils.VersionInternal;
-
-			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
-
-#if UNITY_IOS && !UNITY_EDITOR
-			_faqButton.SetDisplay(false);
-#endif
-		}
-
-		private void OnConnectionRegionChange(string previousValue, string newValue)
-		{
-			var regionName = newValue.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
-		}
-
-		protected void OnClosedCompleted()
-		{
-			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
-			Data.OnClose();
-		}
-
-		private void OpenConnectId()
-		{
-			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
@@ -192,21 +148,6 @@ namespace FirstLight.Game.Presenters
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
 			Data.OnServerSelectClicked();
-		}
-
-		private void OnHelpdeskButtonPressed()
-		{
-			_services.HelpdeskService.StartConversation();
-		}
-
-		private void OnFaqButtonPressed()
-		{
-			_services.HelpdeskService.ShowFaq();
-		}
-
-		private void OnScreenshakeToggleChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
 		}
 
 		private void OnLogoutClicked()

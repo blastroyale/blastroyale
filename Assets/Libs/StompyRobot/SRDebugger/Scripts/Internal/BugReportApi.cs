@@ -149,7 +149,7 @@
             ht.Add("userEmail", report.Email);
             ht.Add("userDescription", report.UserDescription);
 
-            ht.Add("console", CreateConsoleDump());
+            ht.Add("console", CreateConsoleDump(report));
             ht.Add("systemInformation", report.SystemInformation);
             ht.Add("applicationIdentifier", Application.identifier);
 
@@ -162,9 +162,9 @@
             return json;
         }
 
-        private static List<List<string>> CreateConsoleDump()
+        private static List<List<string>> CreateConsoleDump(BugReport report)
         {
-            var consoleLog = Service.Console.AllEntries;
+            var consoleLog = report.ConsoleLog;
             var list = new List<List<string>>(consoleLog.Count);
 
             foreach (var consoleEntry in consoleLog)

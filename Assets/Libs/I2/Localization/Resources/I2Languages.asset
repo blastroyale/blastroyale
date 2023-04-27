@@ -3254,11 +3254,16 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - First Light ID connected!
+      - 'First Light ID connected!
+
+
+        User ID: <color=#948bc4>{0}</color>'
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
-      - Primeira ID da luz conectada!
+        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!\n\n\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
+        \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F: 
+        <color=#948bc4>{0}</color>"
+      - "Primeira ID da luz conectada!\n\nID do usu\xE1rio: <color=#948bc4>{0}</color>"
       - 
       - 
       Flags: 0000000000

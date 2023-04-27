@@ -1,4 +1,6 @@
 input
 {
-	ushort CompressedInput;
+	byte B1;
+	byte B2;
+	byte B3;
 }

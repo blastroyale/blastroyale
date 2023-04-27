@@ -21,6 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class JoystickView : MonoBehaviour
 	{ 
+		[SerializeField, Required] private Image _backgroundCircle;
 		[SerializeField, Required] private RectTransform _rootAnchor;
 		[SerializeField, Required] private RectTransform _joystick;
 		[SerializeField, Required] private RectTransform _handleImage;
@@ -34,7 +35,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private EventSystem _eventSystem;
-		
+		private Vector2 _deadzone = new (10, 10);
+		private bool _leftDeadzone = false;
 		private float _joystickRadius;
 		private float _joystickCorrectionRadius;
 		private int? _touch = null;
@@ -97,10 +99,34 @@ namespace FirstLight.Game.Views.MatchHudViews
 				IsValidStartPosition(f.currentTouch.screenPosition))
 			{
 				_touch = f.currentTouch.touchId;
-				_joystick.position = f.screenPosition;
-				_handleImage.anchoredPosition = Vector2.zero;
-				_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
-				_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
+				SetAlpha(_backgroundCircle, 0.6f);
+				SetAlpha(_handleImage.GetComponent<Image>(), 0.6f);
+				if (_leftSideJoystick || !_dataProvider.AppDataProvider.AngleTapShoot)
+				{
+					_joystick.position = f.screenPosition;
+					_handleImage.anchoredPosition = Vector2.zero;
+					_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
+					if (_leftSideJoystick)
+					{
+						_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
+					}
+				}
+				else 
+				{
+					var delta = f.currentTouch.screenPosition - (Vector2) _joystick.position;
+					var clampedMag = Vector2.ClampMagnitude(delta, _joystickRadius);
+					var normalized = clampedMag / _joystickRadius;
+			
+					if (_allowDynamicRepositioning && delta.sqrMagnitude > _joystickCorrectionRadius * _joystickCorrectionRadius)
+					{
+						var closestPosition = _joystick.position + (Vector3)Vector2.ClampMagnitude(delta, _joystickRadius - _joystickCorrectionRadius);
+						_joystick.position = closestPosition;
+						_joystick.anchoredPosition += delta - normalized * _joystickCorrectionRadius;
+					}
+					_handleImage.anchoredPosition = clampedMag;
+					_onscreenJoystickDirectionAdapter.SendValueToControl(normalized);
+					_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
+				}
 			}
 		}
 
@@ -109,6 +135,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_touch.HasValue || _touch.Value != f.currentTouch.touchId) return;
 
 			var delta = f.currentTouch.screenPosition - (Vector2) _joystick.position;
+			
+			if (_leftSideJoystick || !FeatureFlags.AIM_DEADZONE || (!_leftDeadzone && (Math.Abs(delta.x) > _deadzone.x || Math.Abs(delta.y) > _deadzone.y)))
+			{
+				_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
+				_leftDeadzone = true;
+			}
+
 			var clampedMag = Vector2.ClampMagnitude(delta, _joystickRadius);
 			var normalized = clampedMag / _joystickRadius;
 			
@@ -126,9 +159,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (_touch.HasValue && _touch.Value == f.currentTouch.touchId)
 			{
+				SetAlpha(_handleImage.GetComponent<Image>(), 1f);
+				SetAlpha(_backgroundCircle, 0.2f);
 				_touch = null;
+				_leftDeadzone = false;
 				SetDefaultUI();
 			}
+		}
+
+		private void SetAlpha(Image i, float alpha)
+		{
+			i.color = new Color(i.color.r, i.color.g, i.color.b, alpha);
 		}
 
 		private void SetDefaultUI()

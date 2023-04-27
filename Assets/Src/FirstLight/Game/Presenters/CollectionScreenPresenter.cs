@@ -224,6 +224,11 @@ namespace FirstLight.Game.Presenters
 			return GetCollectionAll()[_selectedIndex];
 		}
 		
+		public List<CollectionItem> GetViewCollection()
+		{
+			return _gameDataProvider.CollectionDataProvider.GetOwnedCollection(_selectedCategory);
+		}
+		
 		public List<CollectionItem> GetCollectionAll()
 		{
 			return _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);

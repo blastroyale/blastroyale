@@ -8,11 +8,11 @@ namespace Quantum
 		public static readonly FP CHARGE_VALIDITY_CHECK_DISTANCE_STEP = FP._0_25;
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
-		public static readonly FP DROP_OFFSET_RADIUS = FP._1;
-		public static readonly int DROP_AMOUNT_ANGLES = 8;
+		public static readonly FP DROP_OFFSET_RADIUS = FP._1_50;
+		public static readonly int DROP_AMOUNT_ANGLES = 6;
 		public static readonly int OFFHAND_POOLSIZE = 20;
 		public static readonly FP BOT_STUCK_DETECTION_DISTANCE = FP._0_50;
-		public static readonly int BURST_INTERVAL_DIVIDER = 2;
+		public static readonly int BURST_INTERVAL_DIVIDER = 3;
 		public static readonly FP SELF_DAMAGE_MODIFIER= FP._0_75;
 		public static readonly FP PICKUP_SPEED_MINIMUM = FP._0_10;
 		public static readonly int[] APPRX_NORMAL_DISTRIBUTION = {1, 13, 35, 65, 87, 99, 100};

@@ -659,7 +659,6 @@ namespace I2.Loc
 			public static string WarriorShield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShield"); } }
 			public static string WarriorShieldDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/WarriorShieldDescription"); } }
 			public static string Weapon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Weapon"); } }
-			public static string MaleAssassinDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/MaleAssassinDescription"); } }
 		}
 
 		public static class General
@@ -2193,7 +2192,6 @@ namespace I2.Loc
 		    public const string WarriorShield = "GameIds/WarriorShield";
 		    public const string WarriorShieldDescription = "GameIds/WarriorShieldDescription";
 		    public const string Weapon = "GameIds/Weapon";
-		    public const string MaleAssassinDescription = "GameIds/MaleAssassinDescription";
 		}
 
 		public static class General

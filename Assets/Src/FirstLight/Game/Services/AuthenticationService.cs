@@ -317,17 +317,12 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
-					FLog.Info("Redirecting to staging server!");
-					_services.MessageBrokerService.Publish(new RedirectToEnvironmentMessage()
-					{
-						NewEnvironment = Environment.STAGING
-					});
+					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
 					onSuccess(loginData);
 					return;
 				}
 			}
-		
-			
+			_services.GameBackendService.EnvironmentRedirect = null;
 			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
@@ -425,6 +420,20 @@ namespace FirstLight.Game.Services
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
 
+			if (data != null)
+			{
+				if (data.TryGetValue("BuildNumber", out var buildNumber))
+				{
+					VersionUtils.ServerBuildNumber = buildNumber;
+				}
+				if (data.TryGetValue("BuildCommit", out var buildCommit))
+				{
+					VersionUtils.ServerBuildCommit = buildCommit;
+				}
+
+				VersionUtils.ValidateServer();
+
+			}
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.GameBackendService.FetchServerState(state =>

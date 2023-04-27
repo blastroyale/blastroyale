@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.EditorTools;
 using UnityEditor;
@@ -76,17 +77,17 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Combines the configure and build steps
 		/// </summary>
-		public static void AzureBuild()
+		public static async void AzureBuild()
 		{
 			ConfigureBuild();
-			JenkinsBuild();
+			await JenkinsBuild();
 		}
 
 
 		/// <summary>
 		/// Execute method for Jenkins builds
 		/// </summary>
-		public static void JenkinsBuild()
+		public static async Task JenkinsBuild()
 		{
 			var buildTarget = BuildTarget.NoTarget;
 			var arguments = Environment.GetCommandLineArgs();
@@ -125,12 +126,13 @@ namespace FirstLight.Editor.Build
 
 			AddressableAssetSettings.BuildPlayerContent();
 
+			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
-
+		
 			// Copy Dlls to a folder that will be publish as a pipeline artifact
-			ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
-
+			await ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
+			
 			LogBuildReport(buildReport);
 
 			if (buildReport.summary.result != BuildResult.Succeeded)

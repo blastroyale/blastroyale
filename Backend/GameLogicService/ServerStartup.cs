@@ -47,6 +47,7 @@ namespace Backend
 			{
 				services.AddSingleton<IMetricsService, NoMetrics>();
 			}
+
 			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
@@ -80,15 +81,17 @@ namespace Backend
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)
 		{
+			var log = services.GetService<ILogger>();
 			var env = services.GetService<IBaseServiceConfiguration>();
+			log.LogInformation("Build commit number is " + env.BuildCommit);
+
 			services.GetService<IPlayfabServer>();
-			
+
 			if (!env.RemoteGameConfiguration)
 			{
 				return new EmbeddedConfigProvider();
 			}
 
-			var log = services.GetService<ILogger>();
 			log.Log(LogLevel.Information, "Downloading remote configurations");
 			var cfgBackend = services.GetService<IConfigBackendService>();
 			var task = cfgBackend.GetRemoteVersion();

@@ -9,17 +9,23 @@ pool:
   vmImage: 'windows-latest'
 parameters:
   - name: inputPipelineName
+    displayName: Game pipeline with Dlls
     type: string
-    default: 'Manual-Build'
+    default: 'Game-Builds'
     values:
-      - "Manual-Build"
-      - "Auto-Build"
+      - "Game-Builds"
+  - name: targetServer
+    displayName: Quantum server environment
+    default: 'Staging'
+    values:
+      - 'Staging'
   - name: inputBuildNumber
+    displayName: Build number of game pipeline
     type: string
     default: ''
 variables:
   - name: inputArtifactName
-    value: 'GameVersionArtifacts'
+    value: 'GameDlls'
   - group: Secrets
   - group: Non-secrets
     
@@ -73,13 +79,13 @@ jobs:
           
           Write-Host "Artifact '$artifactName' downloaded from build $buildNumber for pipeline $pipelineName to  $env:ARTIFACT_DIR\$($artifactName).zip."
           
-        displayName: 'Download Artifact'
+        displayName: 'Download game DLLs artifact'
         env:
           SYSTEM_ACCESSTOKEN: $(System.AccessToken)
           ARTIFACT_DIR: $(System.ArtifactsDirectory)
     
       - task: ExtractFiles@1
-        displayName: 'Extract Artifact'
+        displayName: 'Extract game DLLs artifact'
         inputs:
           archiveFilePatterns: '$(System.ArtifactsDirectory)\$(inputArtifactName).zip'
           destinationFolder: '$(System.ArtifactsDirectory)\Extracted'
@@ -97,9 +103,11 @@ jobs:
           git fetch --force -n --prune --prune-tags --progress --no-recurse-submodules origin --depth=1 +${commit}
           git sparse-checkout set Quantum/quantum_server
           git checkout --progress --force refs/remotes/origin/$commit
-        displayName: "Clone repo with build commit"
+        displayName: "Clone repo with DLLs commit"
         
       - powershell: |
+          $VerbosePreference = "Continue"
+
           $gameArtifacts = "$(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)"
           $backendLibs = "$(System.DefaultWorkingDirectory)\Backend\Lib\"
           $quantumLibs = "$(System.DefaultWorkingDirectory)\Assets\Libs\Photon\Quantum\Assemblies\"
@@ -108,18 +116,22 @@ jobs:
           
           Copy-Item -Force $gameArtifacts\assetDatabase.json -Destination "Quantum\quantum_server\quantum.custom.plugin\assetDatabase.json"
           
-        displayName: "Copy dlls from build"
+        displayName: "Copy DLLs from build"
           
       - task: NuGetToolInstaller@1
         inputs:
           versionSpec: '5.x'
           checkLatest: true
-          
+        displayName: "Install NuGet"
+      
+      
       - task: NuGetCommand@2
         inputs:
           command: 'restore'
           restoreSolution: 'Quantum/quantum_server/quantum.custom.plugin.sln'
-          
+        displayName: "NuGet Restore"
+      
+      
       - task: MSBuild@1
         displayName: 'Build Quantum Plugin'
         inputs:

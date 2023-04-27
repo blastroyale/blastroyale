@@ -466,7 +466,8 @@ namespace FirstLight.Game.StateMachines
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
-				PartyId = GetTeamId()
+				PartyId = GetTeamId(),
+				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl
 			});
 		}
 		

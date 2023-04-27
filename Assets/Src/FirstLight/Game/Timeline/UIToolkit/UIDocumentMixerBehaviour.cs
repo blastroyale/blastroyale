@@ -14,6 +14,23 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	{
 		public List<VisualElement> Elements;
 
+		public override void OnGraphStart(Playable playable)
+		{
+			// Initialize clips
+			for (int i = 0; i < playable.GetInputCount(); i++)
+			{
+				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);
+				var behaviour = playableInput.GetBehaviour();
+
+				switch (behaviour)
+				{
+					case UIDocumentClassBehaviour cls:
+						cls.Elements = Elements;
+						break;
+				}
+			}
+		}
+
 		public override void ProcessFrame(Playable playable, FrameData info, object playerData)
 		{
 			var position = new Vector2();
@@ -35,15 +52,6 @@ namespace FirstLight.Game.Timeline.UIToolkit
 						break;
 					case UIDocumentRotationBehaviour rot:
 						rotation += rot.Rotation * playable.GetInputWeight(i);
-						break;
-					case UIDocumentClassBehaviour cls:
-						// TODO: Bad! Called every frame!
-						var enable = playable.GetInputWeight(i) > 0f;
-						foreach (var e in Elements)
-						{
-							e.EnableInClassList(cls.ClassName, enable);
-						}
-
 						break;
 					case UIDocumentOpacityBehaviour op:
 						opacity += op.Opacity * playable.GetInputWeight(i);

@@ -612,7 +612,8 @@ namespace Quantum
 				{
 					GameId.Divinci, new List<GameIdGroup>
 					{
-						GameIdGroup.Glider
+						GameIdGroup.Glider,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1142,7 +1143,7 @@ namespace Quantum
 						GameId.ShieldCapacitySmall,
 						GameId.ShieldCapacityLarge,
 						GameId.EnergyCubeSmall,
-						GameId.EnergyCubeLarge,
+						GameId.EnergyCubeLarge
 					}.AsReadOnly()
 				},
 				{
@@ -1226,7 +1227,7 @@ namespace Quantum
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
-						GameId.Tombstone,
+						GameId.Tombstone
 					}.AsReadOnly()
 				},
 				{

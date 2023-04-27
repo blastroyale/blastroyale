@@ -23,6 +23,7 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			
 			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
@@ -58,7 +59,8 @@ namespace Quantum
 
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
-
+			bb->Set(f, Constants.LastShotAt, f.Time);
+			
 			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
 			Projectile.Create(f, projectile);
 		}

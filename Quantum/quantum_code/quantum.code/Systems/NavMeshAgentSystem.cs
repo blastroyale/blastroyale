@@ -18,7 +18,7 @@ namespace Quantum.Systems
 			transform->Position.X.RawValue = transform->Position.X.RawValue + ((desiredDirection.X.RawValue * f.DeltaTime.RawValue) >> FPLut.PRECISION);
 			transform->Position.Z.RawValue = transform->Position.Z.RawValue + ((desiredDirection.Y.RawValue * f.DeltaTime.RawValue) >> FPLut.PRECISION);
 			
-			QuantumHelpers.LookAt2d(transform, desiredDirection);
+			QuantumHelpers.LookAt2d(transform, desiredDirection, FP._0);
 			
 			// TODO: Do the Y position calculation when Quantum 2.1 is released
 		}

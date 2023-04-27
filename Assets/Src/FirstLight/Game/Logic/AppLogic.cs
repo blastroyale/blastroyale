@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
@@ -169,6 +170,26 @@ namespace FirstLight.Game.Logic
 		/// This ensures his app data is enriched with his player data
 		/// </summary>
 		bool IsPlayerLoggedIn { get; }
+		
+		/// <summary>
+		/// Displays cone aim instead of line aim
+		/// </summary>
+		bool ConeAim { get; }
+
+		/// <summary>
+		/// Allows players to control movement using analogs
+		/// </summary>
+		bool MovespeedControl { get; }
+		
+		/// <summary>
+		/// Allows players to tap an angle fo the analog to shoot
+		/// </summary>
+		bool AngleTapShoot { get; }
+		
+		/// <summary>
+		/// Prevents screen shaking when shooting
+		/// </summary>
+		bool StopShootingShake { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -183,7 +204,11 @@ namespace FirstLight.Game.Logic
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
-		
+		public bool ConeAim { get; set; }
+		public bool MovespeedControl { get; set; }
+		public bool AngleTapShoot { get; set; }
+		public bool StopShootingShake { get; set; }
+
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -408,6 +433,7 @@ namespace FirstLight.Game.Logic
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
 				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
 
+			FLog.Verbose("Setting detail level to " + detailLevelConf.DetailLevelIndex);
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 		}
 

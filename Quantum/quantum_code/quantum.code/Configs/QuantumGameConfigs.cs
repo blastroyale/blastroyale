@@ -59,6 +59,7 @@ namespace Quantum
 		public FP RoofDamageDelay;
 		public FP RoofDamageAmount;
 		public FP RoofDamageCooldown;
+		public bool HardAngleAim;
 	}
 
 	/// <summary>

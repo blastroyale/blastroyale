@@ -141,7 +141,7 @@ namespace Quantum.Systems
 					kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
 
 					filter.BotCharacter->Target = targetHit;
-					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit);
+					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit, FP._0);
 					bb->Set(f, Constants.IsAimPressedKey, true);
 					target = targetHit;
 				}

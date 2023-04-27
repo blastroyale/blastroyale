@@ -1,6 +1,7 @@
 using Cinemachine;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class MatchCameraService : IMatchCameraService, MatchServices.IMatchService
 	{
+		private static readonly FP MIN_ATK_SPEED_CAMERA = FP._0_50 + FP._0_20;
+		
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
 
@@ -41,8 +44,18 @@ namespace FirstLight.Game.Services
 			_matchServices = matchServices;
 			_cameraServiceObject = new GameObject("CameraService", typeof(CinemachineImpulseSource));
 			_impulseSource = _cameraServiceObject.GetComponent<CinemachineImpulseSource>();
+
+			if (FeatureFlags.DAMAGED_CAMERA_SHAKE)
+			{
+				QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
+			}
+
+			if (!_gameDataProvider.AppDataProvider.StopShootingShake)
+			{
+				QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
+			}
 			
-			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
+			
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
 			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
@@ -72,6 +85,20 @@ namespace FirstLight.Game.Services
 			position += cameraSkew;
 			
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
+		}
+
+		private void OnPlayerAttack(EventOnPlayerAttack ev)
+		{
+			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == ev.Player;
+			if (!damagedPlayerIsLocal)
+			{
+				return;
+			}
+			var duration = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_DURATION;
+			var power = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_STRENGTH;
+			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Bump,
+				duration, power,
+				ev.PlayerEntity.GetPosition(ev.Game.Frames.Predicted).ToUnityVector3());
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)

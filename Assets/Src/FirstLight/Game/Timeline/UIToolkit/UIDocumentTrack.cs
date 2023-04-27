@@ -31,7 +31,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 
 		private List<VisualElement> GetQuoteUnquoteBoundElements(GameObject go)
 		{
-			var root = go.GetComponent<UIDocument>().rootVisualElement;
+			var root = go.GetComponentInParent<UIDocument>().rootVisualElement;
 
 			var elements = new List<VisualElement>(1);
 

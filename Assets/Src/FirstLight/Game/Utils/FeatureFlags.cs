@@ -122,7 +122,38 @@ namespace FirstLight.Game.Utils
 		/// If the squads button is enabled in the UI
 		/// </summary>
 		public static bool DISPLAY_SQUADS_BUTTON = true;
+
+		/// <summary>
+		/// When enabled will enable aiming deadzone to avoid missfires
+		/// </summary>
+		public static bool AIM_DEADZONE = true;
+
+		/// <summary>
+		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
+		/// If false it will be more accurate visually but not necessarily shoot where you aim
+		/// </summary>
+		public static bool QUANTUM_PREDICTED_AIM = false;
 		
+		/// <summary>
+		/// If true limits special radius and moves special handle to have reference point
+		/// </summary>
+		public static bool SPECIAL_RADIUS = true;
+
+		/// <summary>
+		/// Should specials use new input system
+		/// </summary>
+		public static bool SPECIAL_NEW_INPUT = true;
+		
+		/// <summary>
+		/// Camera shake when player receives damage
+		/// </summary>
+		public static bool DAMAGED_CAMERA_SHAKE = false;
+		
+		/// <summary>
+		/// Should game fetch remote web3 collections
+		/// </summary>
+		public static bool REMOTE_COLLECTIONS = false;
+	
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.

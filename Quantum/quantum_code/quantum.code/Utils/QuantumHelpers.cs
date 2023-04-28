@@ -29,38 +29,53 @@ namespace Quantum
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, EntityRef target)
+		public static void LookAt2d(Frame f, EntityRef e, EntityRef target, FP lerpTime)
 		{
-			LookAt2d(f, e, f.Get<Transform3D>(target).Position);
+			LookAt2d(f, e, f.Get<Transform3D>(target).Position, lerpTime);
 		}
 
 		/// <inheritdoc cref="LookAt2d(Quantum.Frame,Quantum.EntityRef,Quantum.EntityRef)"/>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target)
+		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target, FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var direction = target - transform->Position;
 
-			LookAt2d(transform, direction.XZ);
+			LookAt2d(transform, direction.XZ, lerpTime);
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction)
+		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction, FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
-			LookAt2d(transform, direction);
+			LookAt2d(transform, direction, lerpTime);
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="transform"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Transform3D* transform, FPVector2 direction)
+		public static void LookAt2d(Transform3D* transform, FPVector2 direction, FP lerpAngle)
 		{
-			var angle = FPMath.Atan2(direction.X, direction.Y);
-			
-			transform->Rotation = FPQuaternion.AngleAxis(angle * FP.Rad2Deg, FPVector3.Up);
+			var targetAngle = FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg;
+			if (lerpAngle == FP._0)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+			}
+
+			var currentAngle = transform->Rotation.AsEuler.Y;
+			var deltaAngle = FPMath.AngleBetweenDegrees(targetAngle, currentAngle);
+			if (FPMath.Abs(deltaAngle) < FP._2)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+				return;
+			}
+			var diff = FPMath.Abs(deltaAngle);
+			var complementDiff = 360 - diff;
+			var maxAngleDelta = lerpAngle * (diff < complementDiff ? diff : complementDiff);
+			var clampedDeltaAngle = FPMath.Clamp(deltaAngle, -maxAngleDelta, maxAngleDelta);
+			transform->Rotation = FPQuaternion.AngleAxis(currentAngle - clampedDeltaAngle, FPVector3.Up);
 		}
 		
 		/// <summary>
@@ -390,8 +405,7 @@ namespace Quantum
 		/// </summary>
 		public static FPVector2 GetAimDirection(FPVector2 attackDirection, ref FPQuaternion rotation)
 		{
-			var lookDirection = (rotation * FPVector3.Forward).XZ;
-			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
+			return attackDirection == FPVector2.Zero ? (rotation * FPVector3.Forward).XZ : attackDirection;
 		}
 		
 		/// <summary>

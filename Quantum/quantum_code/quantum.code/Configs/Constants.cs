@@ -32,9 +32,13 @@ namespace Quantum
 		public static readonly string StunDurationKey = "StunDuration";
 		public static readonly string AimDirectionKey = "AimDirection";
 		public static readonly string MoveDirectionKey = "MoveDirection";
+		public static readonly string MoveSpeedKey = "MoveSpeed";
 		public static readonly string HasMeleeWeaponKey = "HasMeleeWeapon";
 		public static readonly string BurstTimeDelay = "BurstTimeDelay";
 		public static readonly string BurstShotCount = "BurstShotCount";
+		public static readonly string NextTapTime = "NextTapTime";
+		public static readonly string NextShotTime = "NextShotTime";
+		public static readonly string LastShotAt = "LastShotAt";
 		public static readonly string RampUpTimeStart = "RampUpTimeStart";
 		public static readonly string IsAimPressedKey = "IsAimPressed";
 		public static readonly string IsSkydiving = "IsSkydiving";

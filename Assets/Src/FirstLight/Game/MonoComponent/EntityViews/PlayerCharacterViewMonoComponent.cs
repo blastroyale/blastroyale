@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;
@@ -23,8 +24,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 
+		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
+		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
-
+		
 		private Vector3 _lastPosition;
 		private Collider[] _colliders;
 
@@ -155,6 +158,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
+
+			if (IsLocalPlayer)
+			{
+				_moveSpeedControl = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.MovespeedControl;
+			}
 			
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
@@ -476,7 +484,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
-			const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
 			{
@@ -490,6 +497,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
+
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
@@ -502,9 +510,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
+				if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
 			}
 			else
 			{
+				if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
 			}

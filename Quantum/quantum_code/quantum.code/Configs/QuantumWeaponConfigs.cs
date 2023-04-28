@@ -14,6 +14,7 @@ namespace Quantum
 		public int MagazineSize;
 		public FP ReloadTime;
 		public FP AimingMovementSpeed;
+		public FP AimDelay;
 		public FP TapCooldown;
 		public FP AttackCooldown;
 		public FP PowerToDamageRatio;

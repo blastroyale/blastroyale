@@ -220,15 +220,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
 			SetRenderContainerVisible(true);
-			//SetPlayerSilhouetteVisible(true);
-
+			
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
 			if (CollidingVisibilityVolumes.Count > 0)
 			{
 				var visVolumeHasSpectatedPlayer =
 					CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				//SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
 				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
 			}
 		}

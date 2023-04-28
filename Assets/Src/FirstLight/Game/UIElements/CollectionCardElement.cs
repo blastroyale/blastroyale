@@ -186,6 +186,8 @@ namespace FirstLight.Game.UIElements
 					break;
 			}
 
+			Debug.Log("Item: " + item);
+
 			_image.AddToClassList(item);
 		}
 		

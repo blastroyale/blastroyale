@@ -656,30 +656,6 @@
     height: 304px;
 }
 
-.sprite-home__character-assasins-female {
-    background-image: var(--sprite-home__character-assasins-female);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-assasins-male {
-    background-image: var(--sprite-home__character-assasins-male);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-corpo-female {
-    background-image: var(--sprite-home__character-corpo-female);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-corpo-male {
-    background-image: var(--sprite-home__character-corpo-male);
-    width: 128px;
-    height: 128px;
-}
-
 .sprite-home__character-female01avatar {
     background-image: var(--sprite-home__character-female01avatar);
     width: 128px;
@@ -694,18 +670,26 @@
 
 .sprite-home__character-femaleassassin {
     background-image: var(--sprite-home__character-femaleassassin);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-femalecorpos {
     background-image: var(--sprite-home__character-femalecorpos);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-femalepunk {
     background-image: var(--sprite-home__character-femalepunk);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-femalesuperstar {
     background-image: var(--sprite-home__character-femalesuperstar);
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-male01avatar {
@@ -720,26 +704,26 @@
     height: 128px;
 }
 
-.sprite-home__character-male-superstar {
-    background-image: var(--sprite-home__character-male-superstar);
+.sprite-home__character-maleassassin {
+    background-image: var(--sprite-home__character-maleassassin);
     width: 128px;
     height: 128px;
 }
 
-.sprite-home__character-punk-female {
-    background-image: var(--sprite-home__character-punk-female);
+.sprite-home__character-malecorpos {
+    background-image: var(--sprite-home__character-malecorpos);
     width: 128px;
     height: 128px;
 }
 
-.sprite-home__character-punk-male {
-    background-image: var(--sprite-home__character-punk-male);
+.sprite-home__character-malepunk {
+    background-image: var(--sprite-home__character-malepunk);
     width: 128px;
     height: 128px;
 }
 
-.sprite-home__character-superstar-female {
-    background-image: var(--sprite-home__character-superstar-female);
+.sprite-home__character-malesuperstar {
+    background-image: var(--sprite-home__character-malesuperstar);
     width: 128px;
     height: 128px;
 }
@@ -764,6 +748,8 @@
 
 .sprite-home__flag-tombstone {
     background-image: var(--sprite-home__flag-tombstone);
+    width: 324px;
+    height: 324px;
 }
 
 .sprite-home__flag-unicorn {
@@ -790,8 +776,8 @@
     height: 324px;
 }
 
-.sprite-home__glider-shark {
-    background-image: var(--sprite-home__glider-shark);
+.sprite-home__glider-turbine {
+    background-image: var(--sprite-home__glider-turbine);
     width: 324px;
     height: 324px;
 }

@@ -532,7 +532,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -581,6 +581,7 @@ MonoBehaviour:
   - {fileID: 6255149695479449042}
   - {fileID: 8242364939165310159}
   - {fileID: 1215827734946522878}
+  _gliderAnchor: {fileID: 0}
   _renderersContainerProxy: {fileID: 8829898175700640617}
   _mainMenuCharacterAnimations: {fileID: 11400000, guid: f430d77df41d54ca2ad72bdbcebc55cf, type: 2}
 --- !u!114 &7133389341511250123

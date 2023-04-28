@@ -7,21 +7,21 @@ using UnityEngine.Timeline;
 namespace FirstLight.Game.Timeline.UIToolkit
 {
 	/// <summary>
-	/// A UI Toolkit timeline clip to make a VisualElement visible or invisible.
+	/// A UI Toolkit timeline clip to set a VisualElement ti Display.None or Display.Flex.
 	///
-	/// <see cref="UIDocumentClassBehaviour"/>
+	/// <see cref="UITClassBehaviour"/>
 	/// </summary>
 	[Serializable]
 	[HideMonoScript]
-	public class UIDocumentVisibilityClip : PlayableAsset, ITimelineClipAsset
+	public class UITDisplayClip : PlayableAsset, ITimelineClipAsset
 	{
-		[InlineProperty, HideLabel] public UIDocumentVisibilityBehaviour _template = new();
+		[InlineProperty, HideLabel] public UITDisplayBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.None;
 
 		public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
 		{
-			return ScriptPlayable<UIDocumentVisibilityBehaviour>.Create(graph, _template);
+			return ScriptPlayable<UITDisplayBehaviour>.Create(graph, _template);
 		}
 	}
 }

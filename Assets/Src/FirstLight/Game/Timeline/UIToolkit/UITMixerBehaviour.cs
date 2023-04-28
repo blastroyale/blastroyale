@@ -10,7 +10,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// A mixer for mixing / blending together UIT clips (behaviours).
 	/// </summary>
 	[Serializable]
-	public class UIDocumentMixerBehaviour : PlayableBehaviour
+	public class UITMixerBehaviour : PlayableBehaviour
 	{
 		public List<VisualElement> Elements;
 
@@ -19,19 +19,19 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			// Initialize clips
 			for (int i = 0; i < playable.GetInputCount(); i++)
 			{
-				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);
+				var playableInput = (ScriptPlayable<UITBehaviour>) playable.GetInput(i);
 				var behaviour = playableInput.GetBehaviour();
 
 				switch (behaviour)
 				{
-					case UIDocumentClassBehaviour cls:
+					case UITClassBehaviour cls:
 						// Class behaviour handles it's own logic - doesn't use a mixer
 						cls.Elements = Elements;
 						break;
-					case UIDocumentDisplayBehaviour dsp:
+					case UITDisplayBehaviour dsp:
 						dsp.Elements = Elements;
 						break;
-					case UIDocumentVisibilityBehaviour vis:
+					case UITVisibilityBehaviour vis:
 						vis.Elements = Elements;
 						break;
 				}
@@ -47,21 +47,21 @@ namespace FirstLight.Game.Timeline.UIToolkit
 
 			for (int i = 0; i < playable.GetInputCount(); i++)
 			{
-				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);
+				var playableInput = (ScriptPlayable<UITBehaviour>) playable.GetInput(i);
 				var behaviour = playableInput.GetBehaviour();
 
 				switch (behaviour)
 				{
-					case UIDocumentPositionBehaviour trs:
+					case UITPositionBehaviour trs:
 						position += trs.Position * playable.GetInputWeight(i);
 						break;
-					case UIDocumentScaleBehaviour scl:
+					case UITScaleBehaviour scl:
 						scale += scl.Scale * playable.GetInputWeight(i);
 						break;
-					case UIDocumentRotationBehaviour rot:
+					case UITRotationBehaviour rot:
 						rotation += rot.Rotation * playable.GetInputWeight(i);
 						break;
-					case UIDocumentOpacityBehaviour op:
+					case UITOpacityBehaviour op:
 						opacity += op.Opacity * playable.GetInputWeight(i);
 						break;
 				}

@@ -12,17 +12,17 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// A track supporting animation for UIDocuments / UIToolkit. A single track is responsible for a single element.
 	/// </summary>
 	[Serializable]
-	[TrackClipType(typeof(UIDocumentScaleClip)), TrackClipType(typeof(UIDocumentPositionClip)),
-	 TrackClipType(typeof(UIDocumentRotationClip)), TrackClipType(typeof(UIDocumentClassClip)),
-	 TrackClipType(typeof(UIDocumentOpacityClip)), TrackClipType(typeof(UIDocumentVisibilityClip)),
-	 TrackClipType(typeof(UIDocumentDisplayClip))]
+	[TrackClipType(typeof(UITScaleClip)), TrackClipType(typeof(UITPositionClip)),
+	 TrackClipType(typeof(UITRotationClip)), TrackClipType(typeof(UITClassClip)),
+	 TrackClipType(typeof(UITOpacityClip)), TrackClipType(typeof(UITVisibilityClip)),
+	 TrackClipType(typeof(UITDisplayClip))]
 	[TrackColor(0.259f, 0.529f, 0.961f)]
 	[HideMonoScript]
-	public class UIDocumentTrack : TrackAsset, ILayerable
+	public class UITTrack : TrackAsset, ILayerable
 	{
 		public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
-			var mixer = ScriptPlayable<UIDocumentMixerBehaviour>.Create(graph, inputCount);
+			var mixer = ScriptPlayable<UITMixerBehaviour>.Create(graph, inputCount);
 			mixer.GetBehaviour().Elements =
 				QueryElements(name, go.GetComponentInParent<UIDocument>().rootVisualElement);
 			return mixer;

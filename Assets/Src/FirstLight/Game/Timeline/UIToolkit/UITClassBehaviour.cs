@@ -8,15 +8,15 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Timeline.UIToolkit
 {
 	/// <summary>
-	/// The behaviour / data of the visibility enable / disable.
+	/// The behaviour / data of the class add / remove operation.
 	/// 
-	/// <see cref="UIDocumentVisibilityClip"/>
+	/// <see cref="UITClassClip"/>
 	/// </summary>
 	[Serializable]
 	[HideMonoScript]
-	public class UIDocumentVisibilityBehaviour : UIDocumentBehaviour
+	public class UITClassBehaviour : UITBehaviour
 	{
-		public bool Visible;
+		public string ClassName;
 
 		[HideInInspector] public List<VisualElement> Elements;
 
@@ -25,7 +25,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			if (Elements == null) return;
 			foreach (var e in Elements)
 			{
-				e.visible = Visible;
+				e.AddToClassList(ClassName);
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			if (Elements == null) return;
 			foreach (var e in Elements)
 			{
-				e.visible = !Visible;
+				e.RemoveFromClassList(ClassName);
 			}
 		}
 	}

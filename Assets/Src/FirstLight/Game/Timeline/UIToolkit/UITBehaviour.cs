@@ -7,7 +7,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// Generic behaviour for all UIT behaviours.
 	/// </summary>
 	[Serializable]
-	public class UIDocumentBehaviour : PlayableBehaviour
+	public class UITBehaviour : PlayableBehaviour
 	{
 	}
 }

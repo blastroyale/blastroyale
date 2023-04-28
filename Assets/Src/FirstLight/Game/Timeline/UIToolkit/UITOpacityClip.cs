@@ -9,19 +9,19 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <summary>
 	/// A UI Toolkit timeline clip to change the opacity.
 	///
-	/// <see cref="UIDocumentOpacityBehaviour"/>
+	/// <see cref="UITOpacityBehaviour"/>
 	/// </summary>
 	[Serializable]
 	[HideMonoScript]
-	public class UIDocumentOpacityClip : PlayableAsset, ITimelineClipAsset
+	public class UITOpacityClip : PlayableAsset, ITimelineClipAsset
 	{
-		[InlineProperty, HideLabel] public UIDocumentOpacityBehaviour _template = new();
+		[InlineProperty, HideLabel] public UITOpacityBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 
 		public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
 		{
-			return ScriptPlayable<UIDocumentOpacityBehaviour>.Create(graph, _template);
+			return ScriptPlayable<UITOpacityBehaviour>.Create(graph, _template);
 		}
 	}
 }

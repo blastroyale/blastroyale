@@ -5,10 +5,10 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <summary>
 	/// The behaviour / data of the rotation operation.
 	/// 
-	/// <see cref="UIDocumentScaleClip"/>
+	/// <see cref="UITScaleClip"/>
 	/// </summary>
 	[Serializable]
-	public class UIDocumentRotationBehaviour : UIDocumentBehaviour
+	public class UITRotationBehaviour : UITBehaviour
 	{
 		public float Rotation;
 	}

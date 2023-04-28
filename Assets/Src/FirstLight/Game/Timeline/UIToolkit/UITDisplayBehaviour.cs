@@ -10,11 +10,11 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <summary>
 	/// The behaviour / data of the display enable / disable (Flex / None).
 	/// 
-	/// <see cref="UIDocumentDisplayClip"/>
+	/// <see cref="UITDisplayClip"/>
 	/// </summary>
 	[Serializable]
 	[HideMonoScript]
-	public class UIDocumentDisplayBehaviour : UIDocumentBehaviour
+	public class UITDisplayBehaviour : UITBehaviour
 	{
 		public bool Display;
 

@@ -7,21 +7,21 @@ using UnityEngine.Timeline;
 namespace FirstLight.Game.Timeline.UIToolkit
 {
 	/// <summary>
-	/// A UI Toolkit timeline clip to change the position.
+	/// A UI Toolkit timeline clip to change the scale.
 	///
-	/// <see cref="UIDocumentPositionBehaviour"/>
+	/// <see cref="UITScaleBehaviour"/>
 	/// </summary>
 	[Serializable]
 	[HideMonoScript]
-	public class UIDocumentPositionClip : PlayableAsset, ITimelineClipAsset
+	public class UITScaleClip : PlayableAsset, ITimelineClipAsset
 	{
-		[InlineProperty, HideLabel] public UIDocumentPositionBehaviour _template = new();
+		[InlineProperty, HideLabel] public UITScaleBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 
 		public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
 		{
-			return ScriptPlayable<UIDocumentPositionBehaviour>.Create(graph, _template);
+			return ScriptPlayable<UITScaleBehaviour>.Create(graph, _template);
 		}
 	}
 }

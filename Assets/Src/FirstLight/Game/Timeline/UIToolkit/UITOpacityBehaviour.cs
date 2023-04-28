@@ -6,10 +6,10 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <summary>
 	/// The behaviour / data of the opacity operation.
 	/// 
-	/// <see cref="UIDocumentOpacityClip"/>
+	/// <see cref="UITOpacityClip"/>
 	/// </summary>
 	[Serializable]
-	public class UIDocumentOpacityBehaviour : UIDocumentBehaviour
+	public class UITOpacityBehaviour : UITBehaviour
 	{
 		[Range(-1, 0)] public float Opacity;
 	}

@@ -161,7 +161,14 @@ namespace FirstLight.Game.Presenters
 			
 			_collectionList.ScrollToItem(0);
 			_selectedCategory = group;
+			
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
 
+			if (!equipped.IsValid())
+			{
+				_selectedIndex = 0;
+			}
+			
 			foreach (var category in _categoriesRoot.Children().Cast<CollectionCategoryElement>())
 			{
 				category.SetSelected(category.Category == group);
@@ -219,8 +226,6 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void ViewOwnedItemsFromCategory(CollectionCategory category)
 		{
-			Debug.Log("View Owned Items");
-			
 			var collection = GetCollectionAll();
 			_selectedCategory = category;
 			_collectionList.itemsSource = collection.ChunksOf(PAGE_SIZE).ToList();

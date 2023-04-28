@@ -21,5 +21,4 @@ synced event OnConsumableCollected
 	entity_ref Entity;
 	player_ref Player;
 	entity_ref PlayerEntity;
-	Consumable Consumable;
 }

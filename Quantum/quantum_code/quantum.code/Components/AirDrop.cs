@@ -7,13 +7,13 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this <see cref="AirDrop"/> with values from <see cref="QuantumShrinkingCircleConfig"/>
 		/// </summary>
-		public static EntityRef Create(Frame f, QuantumShrinkingCircleConfig config,
+		public static EntityRef Create(Frame f, ref QuantumShrinkingCircleConfig config,
 		                               FPVector3 positionOverride = new FPVector3())
 		{
 			var circle = f.GetSingleton<ShrinkingCircle>();
 			
 			var dropPosition = positionOverride;
-			if (dropPosition == FPVector3.Zero && !GetDropPosition(f, circle, out dropPosition))
+			if (dropPosition == FPVector3.Zero && !GetDropPosition(f, &circle, out dropPosition))
 			{
 				return EntityRef.None;
 			}
@@ -39,11 +39,11 @@ namespace Quantum
 			return entity;
 		}
 
-		private static bool GetDropPosition(Frame f, ShrinkingCircle circle, out FPVector3 dropPosition)
+		private static bool GetDropPosition(Frame f, ShrinkingCircle* circle, out FPVector3 dropPosition)
 		{
 			var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
-			var radius = FPMath.Lerp(circle.TargetRadius, circle.CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
-			var areaCenter = FPVector2.Lerp(circle.TargetCircleCenter, circle.CurrentCircleCenter,
+			var radius = FPMath.Lerp(circle->TargetRadius, circle->CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
+			var areaCenter = FPVector2.Lerp(circle->TargetCircleCenter, circle->CurrentCircleCenter,
 			                                f.GameConfig.AirdropPositionOffsetMultiplier);
 			var areaCenterV3 = new FPVector3(areaCenter.X, 0, areaCenter.Y);
 			var x = radius * FPMath.Sin(radialDir) + areaCenter.X;

@@ -9,7 +9,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, QuantumConsumableConfig config, EntityRef spawner)
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref QuantumConsumableConfig config, EntityRef spawner)
 		{
 			var collectable = new Collectable {GameId = config.Id};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
@@ -66,7 +66,7 @@ namespace Quantum
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
 			
-			f.Events.OnConsumableCollected(entity, player, playerEntity, this);
+			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
 		
 		private void ShareCollectWithTeammates(Frame f, EntityRef playerEntity, int team)

@@ -30,5 +30,4 @@ signal TriggerActivated(entity_ref target, TriggerData triggerData);
 synced event OnTriggerActivated
 {
 	entity_ref target;
-	TriggerData triggerData;
 }

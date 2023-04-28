@@ -32,12 +32,13 @@ namespace Quantum.Commands
 				position = f.Get<Transform3D>(characterEntity).Position;
 			}
 
-			AirDrop.Create(f, new QuantumShrinkingCircleConfig
+			var config = new QuantumShrinkingCircleConfig
 			{
 				AirdropStartTimeRange = new QuantumPair<FP, FP>(FP._0, FP._0),
 				AirdropDropDuration = FP._10,
 				AirdropChest = Chest
-			}, position);
+			};
+			AirDrop.Create(f, ref config , position);
 #else
 		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
 #endif

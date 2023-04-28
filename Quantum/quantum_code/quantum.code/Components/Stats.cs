@@ -98,10 +98,10 @@ namespace Quantum
 		/// </summary>
 		internal void AddModifier(Frame f, EntityRef entity, Modifier modifier)
 		{
-			ApplyModifierUpdate(modifier, false);
+			ApplyModifierUpdate(&modifier, false);
 			f.ResolveList(Modifiers).Add(modifier);
 
-			f.Events.OnStatModifierAdded(entity, modifier);
+			f.Events.OnStatModifierAdded(entity);
 		}
 
 		/// <summary>
@@ -112,11 +112,11 @@ namespace Quantum
 			var list = f.ResolveList(Modifiers);
 			var modifier = list[index];
 
-			ApplyModifierUpdate(modifier, true);
+			ApplyModifierUpdate(&modifier, true);
 
 			list.RemoveAt(index);
 
-			f.Events.OnStatModifierRemoved(entity, modifier);
+			f.Events.OnStatModifierRemoved(entity);
 		}
 
 		/// <summary>
@@ -356,7 +356,7 @@ namespace Quantum
 
 			foreach (var modifier in modifiers)
 			{
-				ApplyModifierUpdate(modifier, false);
+				ApplyModifierUpdate(&modifier, false);
 			}
 			
 			return might;
@@ -393,26 +393,26 @@ namespace Quantum
 			}
 		}
 
-		private void ApplyModifierUpdate(Modifier modifier, bool toRemove)
+		private void ApplyModifierUpdate(Modifier* modifier, bool toRemove)
 		{
-			var statData = Values[(int) modifier.Type];
-			var multiplier = modifier.IsNegative ? -1 : 1;
+			var statData = Values[(int) modifier->Type];
+			var multiplier = modifier->IsNegative ? -1 : 1;
 
-			var additiveValue = modifier.OpType switch
+			var additiveValue = modifier->OpType switch
 			{
-				OperationType.Add      => modifier.Power * multiplier,
-				OperationType.Multiply => statData.BaseValue * modifier.Power * multiplier,
-				_                      => statData.BaseValue * modifier.Power * multiplier
+				OperationType.Add      => modifier->Power * multiplier,
+				OperationType.Multiply => statData.BaseValue * modifier->Power * multiplier,
+				_                      => statData.BaseValue * modifier->Power * multiplier
 			};
 			
-			if (modifier.Type != StatType.Speed)
+			if (modifier->Type != StatType.Speed)
 			{
 				additiveValue = FPMath.CeilToInt(additiveValue);
 			}
 			
 			statData.StatValue += toRemove ? additiveValue * -FP._1 : additiveValue;
 
-			Values[(int) modifier.Type] = statData;
+			Values[(int) modifier->Type] = statData;
 
 		}
 	}

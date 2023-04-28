@@ -24556,6 +24556,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4173640590466686882, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4581329903781455655, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
       propertyPath: ShapeModule.type
       value: 0

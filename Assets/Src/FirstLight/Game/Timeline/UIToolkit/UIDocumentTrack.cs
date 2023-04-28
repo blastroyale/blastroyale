@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -13,14 +14,17 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	[Serializable]
 	[TrackClipType(typeof(UIDocumentScaleClip)), TrackClipType(typeof(UIDocumentPositionClip)),
 	 TrackClipType(typeof(UIDocumentRotationClip)), TrackClipType(typeof(UIDocumentClassClip)),
-	 TrackClipType(typeof(UIDocumentOpacityClip))]
+	 TrackClipType(typeof(UIDocumentOpacityClip)), TrackClipType(typeof(UIDocumentVisibilityClip)),
+	 TrackClipType(typeof(UIDocumentDisplayClip))]
 	[TrackColor(0.259f, 0.529f, 0.961f)]
+	[HideMonoScript]
 	public class UIDocumentTrack : TrackAsset, ILayerable
 	{
 		public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
 			var mixer = ScriptPlayable<UIDocumentMixerBehaviour>.Create(graph, inputCount);
-			mixer.GetBehaviour().Elements = GetQuoteUnquoteBoundElements(go);
+			mixer.GetBehaviour().Elements =
+				QueryElements(name, go.GetComponentInParent<UIDocument>().rootVisualElement);
 			return mixer;
 		}
 
@@ -29,13 +33,12 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			return Playable.Null;
 		}
 
-		private List<VisualElement> GetQuoteUnquoteBoundElements(GameObject go)
+		private List<VisualElement> QueryElements(string queryPath, VisualElement root)
 		{
-			var root = go.GetComponentInParent<UIDocument>().rootVisualElement;
 			var query = root.Query();
 			var results = new List<VisualElement>(1);
 
-			var path = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+			var path = queryPath.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
 			for (var i = 0; i < path.Length; i++)
 			{
@@ -55,7 +58,8 @@ namespace FirstLight.Game.Timeline.UIToolkit
 				{
 					if (part.Contains('#'))
 					{
-						Debug.LogError($"Invalid pattern (no mixing of Names(#) and Classes(#) in a part). Did you forget a space?: {part}");
+						Debug.LogError(
+							$"Invalid pattern (no mixing of Names(#) and Classes(#) in a part). Did you forget a space?: {part}");
 						return results;
 					}
 

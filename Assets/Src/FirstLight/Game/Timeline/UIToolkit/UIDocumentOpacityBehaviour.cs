@@ -11,6 +11,6 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	[Serializable]
 	public class UIDocumentOpacityBehaviour : UIDocumentBehaviour
 	{
-		[Range(-1, 1)] public float Opacity;
+		[Range(-1, 0)] public float Opacity;
 	}
 }

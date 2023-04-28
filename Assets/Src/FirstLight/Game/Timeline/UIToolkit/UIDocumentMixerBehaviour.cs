@@ -28,6 +28,12 @@ namespace FirstLight.Game.Timeline.UIToolkit
 						// Class behaviour handles it's own logic - doesn't use a mixer
 						cls.Elements = Elements;
 						break;
+					case UIDocumentDisplayBehaviour dsp:
+						dsp.Elements = Elements;
+						break;
+					case UIDocumentVisibilityBehaviour vis:
+						vis.Elements = Elements;
+						break;
 				}
 			}
 		}
@@ -64,7 +70,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			foreach (var e in Elements)
 			{
 				e.transform.position = position;
-				e.transform.scale = Vector3.one * scale;
+				e.transform.scale = scale;
 				e.transform.rotation = Quaternion.Euler(0, 0, rotation);
 				e.style.opacity = opacity;
 			}

@@ -23,12 +23,20 @@
 
 .animation-button {
     width: 300px;
-    height: 150px;
+    height: 100px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: rgb(219, 113, 113);
+    background-color: rgb(0, 147, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
 }
 
 .animation-catagory__title {

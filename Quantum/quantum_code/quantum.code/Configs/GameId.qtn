@@ -115,11 +115,15 @@ enum GameId
 	WeaponPlatformSpawner = 138,
 	ConsumablePlatformSpawner = 140,
 	Tombstone = 37,
+	Demon = 25,
+	Superstar = 75,
+	Unicorn = 76,
 	CoreCommon = 15,
 	CoreUncommon = 46,
 	CoreRare = 47,
 	CoreEpic = 48,
 	CoreLegendary = 59,
+	Corpo = 105,
 }
 
 enum GameIdGroup
@@ -153,4 +157,5 @@ enum GameIdGroup
 	DeathMarker = 10,
 	Core = 22,
 	IAP = 23,
+	ProfilePicture = 9,
 }

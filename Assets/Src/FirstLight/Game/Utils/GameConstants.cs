@@ -88,6 +88,12 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 15;
 
+			public const float SCREENSHAKE_SMALL_SHOT_STRENGTH = 0.08f;
+			public const float SCREENSHAKE_SMALL_SHOT_DURATION = 0.06f;
+
+			public const float SCREENSHAKE_SHOT_STRENGTH = 0.12f;
+			public const float SCREENSHAKE_SHOT_DURATION = 0.08f;
+			
 			public const float SCREENSHAKE_SMALL_STRENGTH = 0.25f;
 			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;
 
@@ -241,7 +247,7 @@ namespace FirstLight.Game.Utils
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
 			
-			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
+			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
 			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
 		}

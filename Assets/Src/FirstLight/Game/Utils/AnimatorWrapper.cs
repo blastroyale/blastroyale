@@ -46,6 +46,12 @@ namespace FirstLight.Game.Utils
 		{
 			_animator.SetTrigger(key.Hash);
 		}
+
+		public float Speed
+		{
+			get => _animator.speed;
+			set => _animator.speed = value;
+		}
 		
 		/// <summary>
 		/// Reset a trigger animation parameter on the wrapped animator component.

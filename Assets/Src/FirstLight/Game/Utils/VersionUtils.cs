@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using SRDebugger;
 using UnityEngine;
 
@@ -29,6 +30,16 @@ namespace FirstLight.Game.Utils
 		/// Name of the git branch that this app was built from.
 		/// </summary>
 		public static string Branch => IsLoaded() ? _versionData.BranchName : string.Empty;
+
+		/// <summary>
+		/// Logic Server Commit Hash
+		/// </summary>
+		public static string ServerBuildCommit { get; set; } = "n/a";
+
+		/// <summary>
+		/// Logic server build number
+		/// </summary>
+		public static string ServerBuildNumber { get; set; } = "n/a";
 
 		/// <summary>
 		/// Short hash of the commit this app was built from.
@@ -131,6 +142,22 @@ namespace FirstLight.Game.Utils
 			public string BranchName;
 			public string BuildType;
 			public string BuildNumber;
+		}
+
+		public static void ValidateServer()
+		{
+			FLog.Info("Server commit: "+ServerBuildCommit);
+			FLog.Info("Client commit: "+Commit);
+			if (IsOutOfSync())
+			{
+				FLog.Error("Missmatch server and client commits, desyncs may occur!");
+			}
+		}
+
+		public static bool IsOutOfSync()
+		{
+			// The game doesn't have the full hash
+			return !ServerBuildCommit.StartsWith(Commit);
 		}
 	}
 }

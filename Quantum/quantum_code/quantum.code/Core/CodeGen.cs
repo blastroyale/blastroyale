@@ -263,11 +263,15 @@ namespace Quantum {
     WeaponPlatformSpawner = 138,
     ConsumablePlatformSpawner = 140,
     Tombstone = 37,
+    Demon = 25,
+    Superstar = 75,
+    Unicorn = 76,
     CoreCommon = 15,
     CoreUncommon = 46,
     CoreRare = 47,
     CoreEpic = 48,
     CoreLegendary = 59,
+    Corpo = 105,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,
@@ -299,6 +303,7 @@ namespace Quantum {
     DeathMarker = 10,
     Core = 22,
     IAP = 23,
+    ProfilePicture = 9,
   }
   public enum GameSimulationStateMachine : int {
     Deathmatch,
@@ -2734,16 +2739,22 @@ namespace Quantum {
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
     public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 2;
-    [FieldOffset(2)]
-    private fixed Byte _alignment_padding_[2];
+    public const Int32 ALIGNMENT = 1;
+    [FieldOffset(3)]
+    private fixed Byte _alignment_padding_[1];
     [FieldOffset(0)]
-    public UInt16 CompressedInput;
+    public Byte B1;
+    [FieldOffset(1)]
+    public Byte B2;
+    [FieldOffset(2)]
+    public Byte B3;
     public const int MAX_COUNT = 32;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 317;
-        hash = hash * 31 + CompressedInput.GetHashCode();
+        hash = hash * 31 + B1.GetHashCode();
+        hash = hash * 31 + B2.GetHashCode();
+        hash = hash * 31 + B3.GetHashCode();
         return hash;
       }
     }
@@ -2767,7 +2778,9 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        serializer.Stream.Serialize(&p->CompressedInput);
+        serializer.Stream.Serialize(&p->B1);
+        serializer.Stream.Serialize(&p->B2);
+        serializer.Stream.Serialize(&p->B3);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -5382,7 +5395,9 @@ namespace Quantum {
     public void SetPlayerInput(Int32 player, Input input) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
-      i->CompressedInput = input.CompressedInput;
+      i->B1 = input.B1;
+      i->B2 = input.B2;
+      i->B3 = input.B3;
     }
     public Input* GetPlayerInput(Int32 player) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -10935,10 +10950,14 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(Input))]
   public sealed unsafe partial class Input_Prototype : StructPrototype {
-    public UInt16 CompressedInput;
+    public Byte B1;
+    public Byte B2;
+    public Byte B3;
     partial void MaterializeUser(Frame frame, ref Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Input result, in PrototypeMaterializationContext context) {
-      result.CompressedInput = this.CompressedInput;
+      result.B1 = this.B1;
+      result.B2 = this.B2;
+      result.B3 = this.B3;
       MaterializeUser(frame, ref result, in context);
     }
   }

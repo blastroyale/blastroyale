@@ -72,7 +72,7 @@ namespace Quantum
 
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1); //reduce burst count by 1
-
+			bb->Set(f, Constants.LastShotAt, f.Time);
 			f.Add(f.Create(), raycastShot);
 			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
 		}

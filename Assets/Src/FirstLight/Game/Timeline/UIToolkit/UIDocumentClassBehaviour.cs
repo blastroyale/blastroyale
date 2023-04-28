@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -12,6 +13,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <see cref="UIDocumentClassClip"/>
 	/// </summary>
 	[Serializable]
+	[HideMonoScript]
 	public class UIDocumentClassBehaviour : UIDocumentBehaviour
 	{
 		public string ClassName;
@@ -20,6 +22,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 
 		public override void OnBehaviourPlay(Playable playable, FrameData info)
 		{
+			if (Elements == null) return;
 			foreach (var e in Elements)
 			{
 				e.AddToClassList(ClassName);
@@ -28,6 +31,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 
 		public override void OnBehaviourPause(Playable playable, FrameData info)
 		{
+			if (Elements == null) return;
 			foreach (var e in Elements)
 			{
 				e.RemoveFromClassList(ClassName);

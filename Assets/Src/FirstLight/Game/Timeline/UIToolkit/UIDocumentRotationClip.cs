@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -11,9 +12,10 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <see cref="UIDocumentRotationBehaviour"/>
 	/// </summary>
 	[Serializable]
+	[HideMonoScript]
 	public class UIDocumentRotationClip : PlayableAsset, ITimelineClipAsset
 	{
-		public UIDocumentRotationBehaviour _template = new();
+		[InlineProperty, HideLabel] public UIDocumentRotationBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 

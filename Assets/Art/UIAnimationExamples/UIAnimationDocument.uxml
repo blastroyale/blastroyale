@@ -14,6 +14,8 @@
             <ui:Button text="Layers" name="ButtonLayers" class="animation-button" />
             <ui:Button text="Sub Item" name="ButtonSubItem" class="animation-button">
                 <ui:VisualElement name="Dot" style="border-top-left-radius: 50%; border-bottom-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; position: absolute; width: 30px; height: 30px; background-color: rgb(144, 65, 65); left: 20px; top: 20px;" />
+                <ui:VisualElement name="Square" class="square" style="position: absolute; width: 30px; height: 30px; background-color: rgb(144, 65, 65); left: 20px; top: 20px;" />
+                <ui:VisualElement name="Line" class="line animated" style="position: absolute; width: 30px; height: 5px; background-color: rgb(144, 65, 65); left: 20px; top: 20px;" />
             </ui:Button>
             <ui:Button text="Class" name="ButtonClass" class="animation-button" />
         </ui:VisualElement>
@@ -21,7 +23,9 @@
             <ui:Label text="Timeline (By Class)" name="Title" class="animation-catagory__title" />
             <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
             <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
-            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
+            <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button">
+                <ui:VisualElement name="Icon" class="scaling-button__icon" style="width: 20px; height: 20px; position: absolute; background-color: rgb(147, 0, 0);" />
+            </ui:Button>
             <ui:Button text=".scaling-button" name="ScalingButton" class="animation-button scaling-button" />
         </ui:VisualElement>
         <ui:VisualElement name="Transitions" class="animation-category">

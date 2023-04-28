@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -11,9 +12,10 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <see cref="UIDocumentOpacityBehaviour"/>
 	/// </summary>
 	[Serializable]
+	[HideMonoScript]
 	public class UIDocumentOpacityClip : PlayableAsset, ITimelineClipAsset
 	{
-		public UIDocumentOpacityBehaviour _template = new();
+		[InlineProperty, HideLabel] public UIDocumentOpacityBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 

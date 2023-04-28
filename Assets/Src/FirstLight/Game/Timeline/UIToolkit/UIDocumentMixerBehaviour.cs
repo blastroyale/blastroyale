@@ -25,6 +25,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 				switch (behaviour)
 				{
 					case UIDocumentClassBehaviour cls:
+						// Class behaviour handles it's own logic - doesn't use a mixer
 						cls.Elements = Elements;
 						break;
 				}
@@ -37,6 +38,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			var rotation = 0f;
 			var scale = new Vector2(1f, 1f);
 			var opacity = 1f;
+
 			for (int i = 0; i < playable.GetInputCount(); i++)
 			{
 				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);

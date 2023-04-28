@@ -32,37 +32,51 @@ namespace FirstLight.Game.Timeline.UIToolkit
 		private List<VisualElement> GetQuoteUnquoteBoundElements(GameObject go)
 		{
 			var root = go.GetComponentInParent<UIDocument>().rootVisualElement;
+			var query = root.Query();
+			var results = new List<VisualElement>(1);
 
-			var elements = new List<VisualElement>(1);
+			var path = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-			if (name.StartsWith("#"))
+			for (var i = 0; i < path.Length; i++)
 			{
-				var path = name.Split('#', StringSplitOptions.RemoveEmptyEntries);
+				var part = path[i];
 
-				var ve = root;
-				foreach (var elementName in path)
+				if (part.StartsWith('#'))
 				{
-					ve = ve.Q(name: elementName);
+					if (part.IndexOf('#') != part.LastIndexOf('#'))
+					{
+						Debug.LogError($"Invalid pattern (only one Name(#) selector is allowed per part): {part}");
+						return results;
+					}
+
+					query.Name(part.Replace("#", ""));
+				}
+				else if (part.StartsWith('.'))
+				{
+					if (part.Contains('#'))
+					{
+						Debug.LogError($"Invalid pattern (no mixing of Names(#) and Classes(#) in a part). Did you forget a space?: {part}");
+						return results;
+					}
+
+					var classes = part.Split('.', StringSplitOptions.RemoveEmptyEntries);
+					foreach (var @class in classes)
+					{
+						query.Class(@class);
+					}
+				}
+				else
+				{
+					Debug.LogError($"Invalid pattern (only Name(#) and Class(.) is allowed): {part}");
 				}
 
-				elements.Add(ve);
-			}
-			else if (name.StartsWith("."))
-			{
-				root.Query(className: name.Replace(".", "")).Build().ToList(elements);
-			}
-			else
-			{
-				Debug.LogError("Invalid track / element name");
-				return null;
+				if (i < path.Length - 1)
+				{
+					query = query.Children<VisualElement>();
+				}
 			}
 
-			if (elements.Count == 0)
-			{
-				Debug.LogError($"Could not find any elements matching the pattern: {name}");
-			}
-
-			return elements;
+			return query.Build().ToList();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -11,9 +12,10 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// <see cref="UIDocumentScaleBehaviour"/>
 	/// </summary>
 	[Serializable]
+	[HideMonoScript]
 	public class UIDocumentScaleClip : PlayableAsset, ITimelineClipAsset
 	{
-		public UIDocumentScaleBehaviour _template = new();
+		[InlineProperty, HideLabel] public UIDocumentScaleBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace FirstLight.Game.Timeline.UIToolkit
 {
@@ -10,6 +11,6 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	[Serializable]
 	public class UIDocumentOpacityBehaviour : UIDocumentBehaviour
 	{
-		public float Opacity;
+		[Range(-1, 1)] public float Opacity;
 	}
 }

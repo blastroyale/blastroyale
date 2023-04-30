@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Melee_APC
-  m_Shader: {fileID: -6465566751694194690, guid: d9dfbf9d63b50c84fa42b9f84d42d33e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7b49d2fe5bf084ac1ac401639f1da0c3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2

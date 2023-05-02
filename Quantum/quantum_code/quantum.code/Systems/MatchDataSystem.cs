@@ -97,7 +97,7 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void SpecialUsed(Frame f, EntityRef entity, Special special, int specialIndex)
+		public void SpecialUsed(Frame f, EntityRef entity, int specialIndex)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);

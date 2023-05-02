@@ -724,9 +724,9 @@ namespace FirstLight.Game.Utils
 		}
 
 
-		public static void SelectDefaultCasualMode(this IGameModeService service)
+		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
 			service.SelectedGameMode.Value = gameMode;
 		}
 

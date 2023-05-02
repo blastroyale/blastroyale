@@ -122,7 +122,7 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				this.SelectDefaultCasualMode();
+				this.SelectDefaultRankedMode();
 			}
 		}
 
@@ -149,7 +149,7 @@ namespace FirstLight.Game.Services
 			// If the player have NFT he can play squads alone so there is no need to change back
 			if (!CanSelectGameMode(SelectedGameMode.Value.Entry))
 			{
-				this.SelectDefaultCasualMode();
+				this.SelectDefaultRankedMode();
 			}
 		}
 

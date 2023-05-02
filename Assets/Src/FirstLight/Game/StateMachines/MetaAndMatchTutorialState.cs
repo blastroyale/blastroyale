@@ -63,7 +63,7 @@ namespace FirstLight.Game.StateMachines
 			SectionVersion = 1;
 			CurrentStep = 1;
 			CurrentStepName = "TutorialStart";
-			_services.GameModeService.SelectDefaultCasualMode();
+			_services.GameModeService.SelectDefaultRankedMode();
 		}
 
 		/// <summary> 

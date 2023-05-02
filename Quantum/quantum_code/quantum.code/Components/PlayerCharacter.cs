@@ -48,7 +48,7 @@ namespace Quantum
 			{
 				foreach (var item in startingEquipment)
 				{
-					Gear[GetGearSlot(item)] = item;
+					Gear[GetGearSlot(&item)] = item;
 				}
 			}
 
@@ -110,7 +110,7 @@ namespace Quantum
 			{
 				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
-				var specials = GetSpecials(f, weaponConfig);
+				var specials = GetSpecials(f, ref weaponConfig);
 				for (var i = 0; i < defaultSlot->Specials.Length; i++)
 				{
 					var id = specials[i];
@@ -251,7 +251,7 @@ namespace Quantum
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
+		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
@@ -287,7 +287,7 @@ namespace Quantum
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
-			var specials = GetSpecials(f, weaponConfig);
+			var specials = GetSpecials(f, ref weaponConfig);
 			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
 			{
 				var id = specials[i];
@@ -339,7 +339,7 @@ namespace Quantum
 		{
 			Assert.Check(!gear.IsWeapon(), gear);
 
-			var gearSlot = GetGearSlot(gear);
+			var gearSlot = GetGearSlot(&gear);
 			
 			Gear[gearSlot] = gear;
 			
@@ -409,7 +409,7 @@ namespace Quantum
 		///
 		/// This does not check if this item is actually in the loadout.
 		/// </summary>
-		public bool HasDroppedLoadoutItem(Equipment equipment)
+		public bool HasDroppedLoadoutItem(Equipment* equipment)
 		{
 			var shift = GetGearSlot(equipment) + 1;
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
@@ -429,16 +429,16 @@ namespace Quantum
 		/// <summary>
 		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
 		/// </summary>
-		public static int GetGearSlot(Equipment equipment)
+		public static int GetGearSlot(Equipment* equipment)
 		{
-			return equipment.GetEquipmentGroup() switch
+			return equipment->GetEquipmentGroup() switch
 			{
 				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
 				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
+				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment->GameId})")
 			};
 		}
 
@@ -462,12 +462,12 @@ namespace Quantum
 		/// Gets specific metadata around a specific loadout item.
 		/// Can return null if the equipment is not part of the loadout.
 		/// </summary>
-		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment e)
+		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment* e)
 		{
 			var loadout = GetLoadout(f);
 			for (var i = 0; i < loadout.Length; i++)
 			{
-				if (loadout[i].GameId == e.GameId) // only compare game id for speed
+				if (loadout[i].GameId == e->GameId) // only compare game id for speed
 				{
 					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
 				}
@@ -496,7 +496,7 @@ namespace Quantum
 		///
 		/// This does not check if this item is actually in the loadout.
 		/// </summary>
-		internal void SetDroppedLoadoutItem(Equipment equipment)
+		internal void SetDroppedLoadoutItem(Equipment* equipment)
 		{
 			var shift = GetGearSlot(equipment) + 1;
 			DroppedLoadoutFlags |= 1 << shift;
@@ -507,12 +507,12 @@ namespace Quantum
 		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
 		/// GameId and Rarity (rarity of equipped item has to be higher).
 		/// </summary>
-		internal bool HasBetterWeaponEquipped(Equipment equipment)
+		internal bool HasBetterWeaponEquipped(Equipment* equipment)
 		{
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
 				var weapon = WeaponSlots[i].Weapon;
-				if (weapon.GameId == equipment.GameId && weapon.Rarity >= equipment.Rarity)
+				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
 				{
 					return true;
 				}
@@ -565,7 +565,7 @@ namespace Quantum
 			return weaponConfig;
 		}
 
-		private GameId[] GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
+		private GameId[] GetSpecials(Frame f, ref QuantumWeaponConfig weaponConfig)
 		{
 			var specials = weaponConfig.Specials.ToArray();
 			

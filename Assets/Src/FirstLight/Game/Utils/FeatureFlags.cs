@@ -116,7 +116,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
-		public static bool TUTORIAL_BATTLE_PASS = false;
+		public static bool TUTORIAL_BATTLE_PASS = true;
 
 		/// <summary>
 		/// If the squads button is enabled in the UI

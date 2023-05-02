@@ -327,11 +327,11 @@
     position: absolute;
 }
 
-.game-mode-button--ranked .game-mode-button__crown {
+.game-mode-button--selected .game-mode-button__crown {
     background-image: var(--sprite-home__pattern-glow-crownlight);
 }
 
-.game-mode-button--ranked .game-mode-button__crown__image {
+.game-mode-button--selected .game-mode-button__crown__image {
     background-image: var(--sprite-home__icon-crown-ranked);
     width: 86px;
     height: 58px;

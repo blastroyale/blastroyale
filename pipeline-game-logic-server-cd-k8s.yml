@@ -35,33 +35,6 @@ variables:
 pool: linux-k8s
 
 stages:
-- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-  - template: pipelines/release-helm-chart.yml@templates
-    parameters:
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: dev
-      system: dev
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set env.API_KEY=$(DEV-COMMON-API-KEY) \
-        --set env.API_URL="***REMOVED***" \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=dev \
-        --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=TRUE \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
-
 - ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
@@ -90,7 +63,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+- ${{  elseif eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)
@@ -117,7 +90,7 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
+- ${{  elseif eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)

@@ -89,8 +89,6 @@ stages:
         --set env.PLAYFAB_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
-
-- ${{  elseif eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
       serviceConnection: $(serviceConnection)

@@ -1,12 +1,18 @@
 # Pipeline to release new containers on container apps
 pr: none
+trigger: none
 resources:
   pipelines:
   - pipeline: build
     source: 'Game-Builds'
     trigger:
+      branches:
+        include:
+          - 'develop'
+          - 'release/*'
+          - 'master'
       tags:
-      - BatchedCI
+        - DeployGameLogic
   repositories:
   - repository: templates
     type: git
@@ -24,7 +30,7 @@ variables:
 - name: registry
   value: $(REGISTRY_NAME).azurecr.io
 - name: dockerImage
-  value: ${{ resources.pipeline.build.sourceCommit }}-${{resources.pipeline.build.runID}}
+  value: 
 
 pool: linux-k8s
 

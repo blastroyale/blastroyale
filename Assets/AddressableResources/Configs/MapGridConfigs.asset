@@ -130,25 +130,25 @@ MonoBehaviour:
     - AreaName: 
       X: 5
       Y: 2
-    - AreaName: 
+    - AreaName: Fountain
       X: 6
       Y: 2
-    - AreaName: 
+    - AreaName: Fountain
       X: 7
       Y: 2
-    - AreaName: 
+    - AreaName: Motel
       X: 8
       Y: 2
-    - AreaName: 
+    - AreaName: Motel
       X: 9
       Y: 2
     - AreaName: 
       X: 10
       Y: 2
-    - AreaName: EastCamp
+    - AreaName: 
       X: 11
       Y: 2
-    - AreaName: EastCamp
+    - AreaName: 
       X: 12
       Y: 2
     - AreaName: 
@@ -173,469 +173,469 @@ MonoBehaviour:
     - AreaName: 
       X: 3
       Y: 3
-    - AreaName: 
-      X: 4
-      Y: 3
-    - AreaName: 
-      X: 5
-      Y: 3
-    - AreaName: Motel
-      X: 6
-      Y: 3
-    - AreaName: Motel
-      X: 7
-      Y: 3
-    - AreaName: MainCamp
-      X: 8
-      Y: 3
-    - AreaName: MainCamp
-      X: 9
-      Y: 3
-    - AreaName: 
-      X: 10
-      Y: 3
-    - AreaName: EastCamp
-      X: 11
-      Y: 3
-    - AreaName: EastCamp
-      X: 12
-      Y: 3
-    - AreaName: 
-      X: 13
-      Y: 3
-    - AreaName: 
-      X: 14
-      Y: 3
-    - AreaName: 
-      X: 15
-      Y: 3
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 4
-    - AreaName: 
-      X: 1
-      Y: 4
-    - AreaName: 
-      X: 2
-      Y: 4
-    - AreaName: 
-      X: 3
-      Y: 4
-    - AreaName: Park
-      X: 4
-      Y: 4
-    - AreaName: Park
-      X: 5
-      Y: 4
-    - AreaName: Motel
-      X: 6
-      Y: 4
-    - AreaName: Motel
-      X: 7
-      Y: 4
-    - AreaName: MainCamp
-      X: 8
-      Y: 4
-    - AreaName: MainCamp
-      X: 9
-      Y: 4
-    - AreaName: 
-      X: 10
-      Y: 4
-    - AreaName: 
-      X: 11
-      Y: 4
-    - AreaName: 
-      X: 12
-      Y: 4
-    - AreaName: 
-      X: 13
-      Y: 4
-    - AreaName: 
-      X: 14
-      Y: 4
-    - AreaName: 
-      X: 15
-      Y: 4
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 5
-    - AreaName: 
-      X: 1
-      Y: 5
-    - AreaName: 
-      X: 2
-      Y: 5
-    - AreaName: 
-      X: 3
-      Y: 5
-    - AreaName: park
-      X: 4
-      Y: 5
-    - AreaName: 
-      X: 5
-      Y: 5
-    - AreaName: 
-      X: 6
-      Y: 5
-    - AreaName: 
-      X: 7
-      Y: 5
-    - AreaName: 
-      X: 8
-      Y: 5
-    - AreaName: 
-      X: 9
-      Y: 5
-    - AreaName: 
-      X: 10
-      Y: 5
-    - AreaName: 
-      X: 11
-      Y: 5
-    - AreaName: 
-      X: 12
-      Y: 5
-    - AreaName: 
-      X: 13
-      Y: 5
-    - AreaName: 
-      X: 14
-      Y: 5
-    - AreaName: 
-      X: 15
-      Y: 5
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 6
-    - AreaName: 
-      X: 1
-      Y: 6
     - AreaName: Cinema
-      X: 2
-      Y: 6
-    - AreaName: 
-      X: 3
-      Y: 6
-    - AreaName: 
       X: 4
-      Y: 6
-    - AreaName: Church
+      Y: 3
+    - AreaName: Cinema
       X: 5
-      Y: 6
-    - AreaName: Church
+      Y: 3
+    - AreaName: Fountain
       X: 6
-      Y: 6
-    - AreaName: 
+      Y: 3
+    - AreaName: Fountain
       X: 7
-      Y: 6
-    - AreaName: Tower
+      Y: 3
+    - AreaName: Motel
       X: 8
-      Y: 6
-    - AreaName: 
+      Y: 3
+    - AreaName: Motel
       X: 9
-      Y: 6
-    - AreaName: Park
+      Y: 3
+    - AreaName: 
       X: 10
-      Y: 6
-    - AreaName: Park
+      Y: 3
+    - AreaName: 
       X: 11
-      Y: 6
+      Y: 3
     - AreaName: 
       X: 12
-      Y: 6
-    - AreaName: TheIsle
+      Y: 3
+    - AreaName: 
       X: 13
-      Y: 6
-    - AreaName: TheIsle
+      Y: 3
+    - AreaName: 
       X: 14
-      Y: 6
+      Y: 3
     - AreaName: 
       X: 15
-      Y: 6
+      Y: 3
   - Row:
     - AreaName: 
       X: 0
-      Y: 7
+      Y: 4
     - AreaName: 
       X: 1
-      Y: 7
+      Y: 4
     - AreaName: 
       X: 2
-      Y: 7
-    - AreaName: 
+      Y: 4
+    - AreaName: Cinema
       X: 3
-      Y: 7
-    - AreaName: Market
+      Y: 4
+    - AreaName: Cinema
       X: 4
-      Y: 7
-    - AreaName: 
+      Y: 4
+    - AreaName: Cinema
       X: 5
-      Y: 7
-    - AreaName: 
+      Y: 4
+    - AreaName: Church
       X: 6
-      Y: 7
-    - AreaName: TheCore
+      Y: 4
+    - AreaName: Church
       X: 7
-      Y: 7
-    - AreaName: TheCore
+      Y: 4
+    - AreaName: Motel
       X: 8
-      Y: 7
-    - AreaName: 
+      Y: 4
+    - AreaName: Motel
       X: 9
-      Y: 7
-    - AreaName: Park
+      Y: 4
+    - AreaName: MainCamp
       X: 10
-      Y: 7
-    - AreaName: Park
+      Y: 4
+    - AreaName: MainCamp
       X: 11
-      Y: 7
-    - AreaName: TheIsle
+      Y: 4
+    - AreaName: EastCamp
       X: 12
-      Y: 7
-    - AreaName: TheIsle
+      Y: 4
+    - AreaName: 
       X: 13
-      Y: 7
-    - AreaName: TheIsle
+      Y: 4
+    - AreaName: 
       X: 14
-      Y: 7
+      Y: 4
     - AreaName: 
       X: 15
-      Y: 7
+      Y: 4
   - Row:
     - AreaName: 
       X: 0
-      Y: 8
-    - AreaName: GastStation
+      Y: 5
+    - AreaName: 
       X: 1
-      Y: 8
-    - AreaName: GastStation
-      X: 2
-      Y: 8
+      Y: 5
     - AreaName: Repairs
+      X: 2
+      Y: 5
+    - AreaName: PetShop
       X: 3
-      Y: 8
-    - AreaName: 
+      Y: 5
+    - AreaName: PetShop
       X: 4
-      Y: 8
-    - AreaName: 
+      Y: 5
+    - AreaName: Cafe
       X: 5
-      Y: 8
-    - AreaName: 
+      Y: 5
+    - AreaName: Church
       X: 6
-      Y: 8
-    - AreaName: TheCore
+      Y: 5
+    - AreaName: Church
       X: 7
-      Y: 8
-    - AreaName: TheCore
+      Y: 5
+    - AreaName: Motel
       X: 8
-      Y: 8
-    - AreaName: 
+      Y: 5
+    - AreaName: Motel
       X: 9
-      Y: 8
-    - AreaName: Park
+      Y: 5
+    - AreaName: MainCamp
       X: 10
-      Y: 8
-    - AreaName: Park
+      Y: 5
+    - AreaName: MainCamp
       X: 11
-      Y: 8
-    - AreaName: 
+      Y: 5
+    - AreaName: EastCamp
       X: 12
-      Y: 8
-    - AreaName: TheIsle
+      Y: 5
+    - AreaName: EastCamp
       X: 13
-      Y: 8
-    - AreaName: TheIsle
+      Y: 5
+    - AreaName: 
       X: 14
-      Y: 8
+      Y: 5
     - AreaName: 
       X: 15
-      Y: 8
+      Y: 5
   - Row:
     - AreaName: 
       X: 0
-      Y: 9
-    - AreaName: GasStation
-      X: 1
-      Y: 9
-    - AreaName: GasStation
-      X: 2
-      Y: 9
+      Y: 6
     - AreaName: 
+      X: 1
+      Y: 6
+    - AreaName: Repairs
+      X: 2
+      Y: 6
+    - AreaName: PetShop
       X: 3
-      Y: 9
+      Y: 6
+    - AreaName: PetShop
+      X: 4
+      Y: 6
+    - AreaName: Cafe
+      X: 5
+      Y: 6
+    - AreaName: Cafe
+      X: 6
+      Y: 6
+    - AreaName: TheCore
+      X: 7
+      Y: 6
+    - AreaName: TheCore
+      X: 8
+      Y: 6
+    - AreaName: Park
+      X: 9
+      Y: 6
+    - AreaName: Park
+      X: 10
+      Y: 6
+    - AreaName: EastCamp
+      X: 11
+      Y: 6
+    - AreaName: EastCamp
+      X: 12
+      Y: 6
+    - AreaName: EastCamp
+      X: 13
+      Y: 6
+    - AreaName: 
+      X: 14
+      Y: 6
+    - AreaName: 
+      X: 15
+      Y: 6
+  - Row:
+    - AreaName: 
+      X: 0
+      Y: 7
+    - AreaName: 
+      X: 1
+      Y: 7
+    - AreaName: 
+      X: 2
+      Y: 7
+    - AreaName: Diner
+      X: 3
+      Y: 7
     - AreaName: Diner
       X: 4
+      Y: 7
+    - AreaName: Diner
+      X: 5
+      Y: 7
+    - AreaName: TheCore
+      X: 6
+      Y: 7
+    - AreaName: TheCore
+      X: 7
+      Y: 7
+    - AreaName: TheCore
+      X: 8
+      Y: 7
+    - AreaName: TheCore
+      X: 9
+      Y: 7
+    - AreaName: Park
+      X: 10
+      Y: 7
+    - AreaName: Park
+      X: 11
+      Y: 7
+    - AreaName: Park
+      X: 12
+      Y: 7
+    - AreaName: 
+      X: 13
+      Y: 7
+    - AreaName: 
+      X: 14
+      Y: 7
+    - AreaName: 
+      X: 15
+      Y: 7
+  - Row:
+    - AreaName: 
+      X: 0
+      Y: 8
+    - AreaName: 
+      X: 1
+      Y: 8
+    - AreaName: 
+      X: 2
+      Y: 8
+    - AreaName: Diner
+      X: 3
+      Y: 8
+    - AreaName: Tower
+      X: 4
+      Y: 8
+    - AreaName: Tower
+      X: 5
+      Y: 8
+    - AreaName: TheCore
+      X: 6
+      Y: 8
+    - AreaName: TheCore
+      X: 7
+      Y: 8
+    - AreaName: TheCore
+      X: 8
+      Y: 8
+    - AreaName: TheCore
+      X: 9
+      Y: 8
+    - AreaName: Park
+      X: 10
+      Y: 8
+    - AreaName: TheIsle
+      X: 11
+      Y: 8
+    - AreaName: TheIsle
+      X: 12
+      Y: 8
+    - AreaName: 
+      X: 13
+      Y: 8
+    - AreaName: 
+      X: 14
+      Y: 8
+    - AreaName: 
+      X: 15
+      Y: 8
+  - Row:
+    - AreaName: 
+      X: 0
       Y: 9
     - AreaName: 
+      X: 1
+      Y: 9
+    - AreaName: Liberty
+      X: 2
+      Y: 9
+    - AreaName: Liberty
+      X: 3
+      Y: 9
+    - AreaName: Tower
+      X: 4
+      Y: 9
+    - AreaName: Tower
       X: 5
       Y: 9
-    - AreaName: 
+    - AreaName: Tower
       X: 6
       Y: 9
-    - AreaName: 
+    - AreaName: TheCore
       X: 7
       Y: 9
-    - AreaName: 
+    - AreaName: TheCore
       X: 8
       Y: 9
-    - AreaName: 
+    - AreaName: Park
       X: 9
       Y: 9
-    - AreaName: 
+    - AreaName: Park
       X: 10
-      Y: 9
-    - AreaName: 
-      X: 11
-      Y: 9
-    - AreaName: 
-      X: 12
       Y: 9
     - AreaName: TheIsle
-      X: 13
-      Y: 9
-    - AreaName: 
-      X: 14
-      Y: 9
-    - AreaName: 
-      X: 15
-      Y: 9
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 10
-    - AreaName: 
-      X: 1
-      Y: 10
-    - AreaName: 
-      X: 2
-      Y: 10
-    - AreaName: 
-      X: 3
-      Y: 10
-    - AreaName: 
-      X: 4
-      Y: 10
-    - AreaName: 
-      X: 5
-      Y: 10
-    - AreaName: 
-      X: 6
-      Y: 10
-    - AreaName: 
-      X: 7
-      Y: 10
-    - AreaName: 
-      X: 8
-      Y: 10
-    - AreaName: 
-      X: 9
-      Y: 10
-    - AreaName: Aircraft
-      X: 10
-      Y: 10
-    - AreaName: 
       X: 11
-      Y: 10
-    - AreaName: 
+      Y: 9
+    - AreaName: TheIsle
       X: 12
-      Y: 10
+      Y: 9
     - AreaName: 
       X: 13
-      Y: 10
+      Y: 9
     - AreaName: 
       X: 14
-      Y: 10
+      Y: 9
     - AreaName: 
       X: 15
-      Y: 10
+      Y: 9
   - Row:
     - AreaName: 
       X: 0
-      Y: 11
+      Y: 10
     - AreaName: 
       X: 1
-      Y: 11
-    - AreaName: 
+      Y: 10
+    - AreaName: Liberty
       X: 2
-      Y: 11
-    - AreaName: Slum
-      X: 3
-      Y: 11
-    - AreaName: 
-      X: 4
-      Y: 11
-    - AreaName: 
-      X: 5
-      Y: 11
-    - AreaName: 
-      X: 6
-      Y: 11
-    - AreaName: 
-      X: 7
-      Y: 11
-    - AreaName: 
-      X: 8
-      Y: 11
-    - AreaName: Aircraft
-      X: 9
-      Y: 11
-    - AreaName: Aircraft
-      X: 10
-      Y: 11
-    - AreaName: 
-      X: 11
-      Y: 11
-    - AreaName: 
-      X: 12
-      Y: 11
-    - AreaName: 
-      X: 13
-      Y: 11
-    - AreaName: 
-      X: 14
-      Y: 11
-    - AreaName: 
-      X: 15
-      Y: 11
-  - Row:
-    - AreaName: 
-      X: 0
-      Y: 12
-    - AreaName: 
-      X: 1
-      Y: 12
-    - AreaName: 
-      X: 2
-      Y: 12
+      Y: 10
     - AreaName: Liberty
       X: 3
-      Y: 12
-    - AreaName: Slum
+      Y: 10
+    - AreaName: Port
       X: 4
+      Y: 10
+    - AreaName: Port
+      X: 5
+      Y: 10
+    - AreaName: Port
+      X: 6
+      Y: 10
+    - AreaName: Aircraft
+      X: 7
+      Y: 10
+    - AreaName: Aircraft
+      X: 8
+      Y: 10
+    - AreaName: Park
+      X: 9
+      Y: 10
+    - AreaName: Park
+      X: 10
+      Y: 10
+    - AreaName: TheIsle
+      X: 11
+      Y: 10
+    - AreaName: TheIsle
+      X: 12
+      Y: 10
+    - AreaName: 
+      X: 13
+      Y: 10
+    - AreaName: 
+      X: 14
+      Y: 10
+    - AreaName: 
+      X: 15
+      Y: 10
+  - Row:
+    - AreaName: 
+      X: 0
+      Y: 11
+    - AreaName: 
+      X: 1
+      Y: 11
+    - AreaName: 
+      X: 2
+      Y: 11
+    - AreaName: Port
+      X: 3
+      Y: 11
+    - AreaName: Port
+      X: 4
+      Y: 11
+    - AreaName: Port
+      X: 5
+      Y: 11
+    - AreaName: Port
+      X: 6
+      Y: 11
+    - AreaName: Aircraft
+      X: 7
+      Y: 11
+    - AreaName: Aircraft
+      X: 8
+      Y: 11
+    - AreaName: Aircraft
+      X: 9
+      Y: 11
+    - AreaName: Park
+      X: 10
+      Y: 11
+    - AreaName: TheIsle
+      X: 11
+      Y: 11
+    - AreaName: 
+      X: 12
+      Y: 11
+    - AreaName: 
+      X: 13
+      Y: 11
+    - AreaName: 
+      X: 14
+      Y: 11
+    - AreaName: 
+      X: 15
+      Y: 11
+  - Row:
+    - AreaName: 
+      X: 0
       Y: 12
     - AreaName: 
+      X: 1
+      Y: 12
+    - AreaName: 
+      X: 2
+      Y: 12
+    - AreaName: 
+      X: 3
+      Y: 12
+    - AreaName: Ship
+      X: 4
+      Y: 12
+    - AreaName: Ship
       X: 5
       Y: 12
     - AreaName: Port
       X: 6
-      Y: 12
-    - AreaName: Port
-      X: 7
-      Y: 12
-    - AreaName: 
-      X: 8
-      Y: 12
-    - AreaName: 
-      X: 9
-      Y: 12
-    - AreaName: 
-      X: 10
       Y: 12
     - AreaName: Lighthouse
+      X: 7
+      Y: 12
+    - AreaName: Lighthouse
+      X: 8
+      Y: 12
+    - AreaName: Lighthouse
+      X: 9
+      Y: 12
+    - AreaName: 
+      X: 10
+      Y: 12
+    - AreaName: 
       X: 11
       Y: 12
     - AreaName: 
@@ -660,22 +660,22 @@ MonoBehaviour:
     - AreaName: 
       X: 2
       Y: 13
-    - AreaName: Liberty
+    - AreaName: 
       X: 3
       Y: 13
-    - AreaName: Slum
+    - AreaName: 
       X: 4
       Y: 13
     - AreaName: 
       X: 5
       Y: 13
-    - AreaName: Port
+    - AreaName: 
       X: 6
       Y: 13
-    - AreaName: Port
+    - AreaName: 
       X: 7
       Y: 13
-    - AreaName: Port
+    - AreaName: 
       X: 8
       Y: 13
     - AreaName: 
@@ -718,16 +718,16 @@ MonoBehaviour:
     - AreaName: 
       X: 5
       Y: 14
-    - AreaName: Ship
+    - AreaName: 
       X: 6
       Y: 14
-    - AreaName: Shio
+    - AreaName: 
       X: 7
       Y: 14
-    - AreaName: Ship
+    - AreaName: 
       X: 8
       Y: 14
-    - AreaName: Port
+    - AreaName: 
       X: 9
       Y: 14
     - AreaName: 
@@ -767,7 +767,7 @@ MonoBehaviour:
     - AreaName: 
       X: 5
       Y: 15
-    - AreaName: Shp
+    - AreaName: 
       X: 6
       Y: 15
     - AreaName: 

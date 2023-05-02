@@ -131,7 +131,7 @@ namespace Quantum.Systems
 
 				if (!f.Has<BotCharacter>(playerEntity))
 				{
-					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, &equipment->Item);
 					
 					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
 					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
@@ -141,7 +141,7 @@ namespace Quantum.Systems
 						
 						var slotIsBusy = equipment->Item.IsWeapon() ?
 											 playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid() :
-											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].IsValid();
+											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
 						
 						if (!slotIsBusy)
 						{
@@ -157,7 +157,7 @@ namespace Quantum.Systems
 					}
 				}
 			
-				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
+				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
 					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);

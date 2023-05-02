@@ -1,15 +1,16 @@
 using System;
+using UnityEngine;
 
 namespace FirstLight.Game.Timeline.UIToolkit
 {
 	/// <summary>
 	/// The behaviour / data of the opacity operation.
 	/// 
-	/// <see cref="UIDocumentOpacityClip"/>
+	/// <see cref="UITOpacityClip"/>
 	/// </summary>
 	[Serializable]
-	public class UIDocumentOpacityBehaviour : UIDocumentBehaviour
+	public class UITOpacityBehaviour : UITBehaviour
 	{
-		public float Opacity;
+		[Range(-1, 0)] public float Opacity;
 	}
 }

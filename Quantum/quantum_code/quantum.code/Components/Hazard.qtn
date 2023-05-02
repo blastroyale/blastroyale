@@ -24,6 +24,5 @@ synced event OnHazardHit
 {
  	entity_ref Hazard;
  	entity_ref HitEntity;
- 	Hazard HazardData;
  	FPVector3 HitPosition;
  }

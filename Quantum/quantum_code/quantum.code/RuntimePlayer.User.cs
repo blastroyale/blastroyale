@@ -17,6 +17,7 @@ namespace Quantum
 		public Equipment Weapon;
 		public Equipment[] Loadout;
 		public EquipmentSimulationMetadata[] LoadoutMetadata;
+		public string AvatarUrl;
 
 		partial void SerializeUserData(BitStream stream)
 		{

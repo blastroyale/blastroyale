@@ -84,13 +84,11 @@ synced event OnHealthIsZeroFromAttacker
 synced event OnStatModifierAdded
 {
 	entity_ref Entity;
-	Modifier Modifier;
 }
 
 synced event OnStatModifierRemoved
 {
 	entity_ref Entity;
-	Modifier Modifier;
 }
 
 signal HealthChangedFromAttacker(entity_ref entity, entity_ref attacker, Int32 previousHealth);

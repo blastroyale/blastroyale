@@ -584,7 +584,7 @@
 }
 
 .game-mode-button__label-holder {
-    padding-bottom: 30px;
+    padding-bottom: 60px;
     align-items: flex-start;
     transform-origin: left top;
     margin-right: 0;
@@ -633,10 +633,6 @@
     padding-top: 0;
     top: -8px;
     bottom: 0;
-}
-
-.game-mode-button__type--ranked {
-    color: rgb(255, 174, 0);
 }
 
 .game-mode-button__icon {

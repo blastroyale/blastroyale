@@ -12,7 +12,7 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, bool makeCollectable = true)
+		                   ref QuantumChestConfig config, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
@@ -97,7 +97,7 @@ namespace Quantum
 
 					ModifyEquipmentRarity(f, ref weaponItem, minimumRarity, gameContainer->DropPool.AverageRarity);
 					Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++);
-					playerCharacter->SetDroppedLoadoutItem(weaponItem);
+					playerCharacter->SetDroppedLoadoutItem(&weaponItem);
 
 					chestItems.Add(new ChestItemDropped()
 					{
@@ -111,11 +111,11 @@ namespace Quantum
 					});
 				}
 
-				DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
+				DropPowerUps(f, playerEntity, ref config, playerCharacter, gameContainer, minimumRarity, &loadoutWeapon,
 							 chestPosition, ref angleStep, chestItems, chestItems.Count);
-				DropSmallConsumable(f, playerEntity, playerRef, config, ref ammoFilled, ref shieldFilled, ref healthFilled,
+				DropSmallConsumable(f, playerEntity, playerRef, ref config, ref ammoFilled, ref shieldFilled, ref healthFilled,
 									chestPosition, ref angleStep, chestItems);
-				DropLargeConsumable(f, playerEntity, playerRef, config, ref ammoFilled, ref shieldFilled,
+				DropLargeConsumable(f, playerEntity, playerRef, ref config, ref ammoFilled, ref shieldFilled,
 									chestPosition, ref angleStep, chestItems);
 			}
 
@@ -123,7 +123,7 @@ namespace Quantum
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 
-		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, ref FP healthFilled,
+		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, ref QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, ref FP healthFilled,
 		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
 		{
 			var stats = f.Get<Stats>(playerEntity);
@@ -174,7 +174,7 @@ namespace Quantum
 			}
 		}
 
-		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, 
+		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, ref QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, 
 		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
 		{
 			var stats = f.Get<Stats>(playerEntity);
@@ -219,8 +219,8 @@ namespace Quantum
 			}
 		}
 
-		private void DropPowerUps(Frame f, EntityRef playerEntity, QuantumChestConfig config, PlayerCharacter* playerCharacter, 
-		                          GameContainer* gameContainer, EquipmentRarity minimumRarity, Equipment loadoutWeapon, 
+		private void DropPowerUps(Frame f, EntityRef playerEntity, ref QuantumChestConfig config, PlayerCharacter* playerCharacter, 
+		                          GameContainer* gameContainer, EquipmentRarity minimumRarity, Equipment* loadoutWeapon, 
 		                          FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems, int skipDropNumber)
 		{
 			var playerRef = playerCharacter->Player;
@@ -291,7 +291,7 @@ namespace Quantum
 					
 					if (drop.GameId != GameId.Random && drop.IsValid())
 					{
-						playerCharacter->SetDroppedLoadoutItem(drop);
+						playerCharacter->SetDroppedLoadoutItem(&drop);
 						ModifyEquipmentRarity(f, ref drop, drop.Rarity, gameContainer->DropPool.AverageRarity);
 						Collectable.DropEquipment(f, drop, chestPosition, angleStep++, playerRef);
 
@@ -397,7 +397,7 @@ namespace Quantum
 			{
 				foreach (var e in loadout)
 				{
-					loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
+					loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(&e) + 1);
 				}
 			}
 

@@ -313,7 +313,12 @@ namespace FirstLight.Game.Services
 			{
 				StatisticName = _leaderboardLadderName,
 				StartPosition = 0,
-				MaxResultsCount = amountOfEntries
+				MaxResultsCount = amountOfEntries,
+				ProfileConstraints = new PlayerProfileViewConstraints
+				{
+					ShowAvatarUrl = true,
+					ShowDisplayName = true,
+				}
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });

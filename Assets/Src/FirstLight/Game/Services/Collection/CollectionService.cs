@@ -34,6 +34,10 @@ namespace FirstLight.Game.Services
 
 		public void Enrich<T>(T clientData) where T : IEnrichableData
 		{
+			if (!FeatureFlags.REMOTE_COLLECTIONS)
+			{
+				return;
+			}
 			var services = MainInstaller.Resolve<IGameServices>();
 			foreach (var collectionType in clientData.GetEnrichedTypes())
 			{

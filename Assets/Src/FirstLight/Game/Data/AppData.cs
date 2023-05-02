@@ -43,7 +43,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
-		public bool UseDynamicJoystick = true;
+		public bool UseDynamicJoystick = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
 
@@ -66,6 +66,10 @@ namespace FirstLight.Game.Data
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
+		public bool ConeAim;
+		public bool MovespeedControl;
+		public bool AngleTapShoot;
+		public bool StopShootingShake;
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 		

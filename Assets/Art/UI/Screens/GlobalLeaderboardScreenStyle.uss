@@ -89,6 +89,10 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
+.leaderboard-entries > .unity-scroll-view {
+    width: 980px;
+}
+
 .spinner {
     background-image: var(--sprite-home__icon-spinner-thick);
     width: 68px;

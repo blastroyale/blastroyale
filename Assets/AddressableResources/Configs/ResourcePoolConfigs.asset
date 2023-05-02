@@ -18,7 +18,7 @@ MonoBehaviour:
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     UseNftData: 1
-    BaseMaxTake: 16
+    BaseMaxTake: 9
     ScaleMultiplier:
       RawValue: 458752
     ShapeModifier:

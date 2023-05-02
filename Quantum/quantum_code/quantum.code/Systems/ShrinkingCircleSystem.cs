@@ -119,7 +119,7 @@ namespace Quantum.Systems
 			// Air drop
 			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
 			{
-				AirDrop.Create(f, config);
+				AirDrop.Create(f, ref config);
 			}
 			else
 			{

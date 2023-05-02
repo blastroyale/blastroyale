@@ -9,5 +9,4 @@ synced event OnEquipmentCollected
 	entity_ref Entity;
 	player_ref Player;
 	entity_ref PlayerEntity;
-	Equipment Item;
 }

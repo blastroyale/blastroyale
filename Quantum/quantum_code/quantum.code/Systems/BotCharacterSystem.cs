@@ -141,7 +141,7 @@ namespace Quantum.Systems
 					kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
 
 					filter.BotCharacter->Target = targetHit;
-					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit);
+					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit, FP._0);
 					bb->Set(f, Constants.IsAimPressedKey, true);
 					target = targetHit;
 				}
@@ -275,7 +275,7 @@ namespace Quantum.Systems
 						|| TryGoForWeapons(f, ref filter)
 						|| TryGoForCrates(f, ref filter)
 						|| TryGoForRage(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, weaponConfig)
+						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
 						|| Wander(f, ref filter);
 					break;
 				case BotBehaviourType.Cautious:
@@ -288,7 +288,7 @@ namespace Quantum.Systems
 						|| TryGoForWeapons(f, ref filter)
 						|| TryGoForCrates(f, ref filter)
 						|| TryGoForRage(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, weaponConfig)
+						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
 						|| Wander(f, ref filter);
 					break;
 				case BotBehaviourType.Aggressive:
@@ -299,7 +299,7 @@ namespace Quantum.Systems
 						|| TryGoForWeapons(f, ref filter)
 						|| TryGoForAmmo(f, ref filter)
 						|| TryGoForCrates(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, weaponConfig)
+						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
 						|| TryGoForShield(f, ref filter)
 						|| TryGoForHealth(f, ref filter)
 						|| Wander(f, ref filter);
@@ -313,7 +313,7 @@ namespace Quantum.Systems
 						|| TryGoForWeapons(f, ref filter)
 						|| TryGoForShield(f, ref filter)
 						|| TryGoForCrates(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, weaponConfig)
+						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
 						|| TryGoForRage(f, ref filter)
 						|| Wander(f, ref filter);
 					break;
@@ -826,7 +826,7 @@ namespace Quantum.Systems
 			return isGoing;
 		}
 
-		private bool TryGoForEnemies(Frame f, ref BotCharacterFilter filter, QuantumWeaponConfig weaponConfig)
+		private bool TryGoForEnemies(Frame f, ref BotCharacterFilter filter, ref QuantumWeaponConfig weaponConfig)
 		{
 			var isGoing = f.RNG->Next() < filter.BotCharacter->ChanceToSeekEnemies;
 

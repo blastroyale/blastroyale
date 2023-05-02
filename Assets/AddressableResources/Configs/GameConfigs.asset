@@ -27,9 +27,9 @@ MonoBehaviour:
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
-        RawValue: 3932160
+        RawValue: 983040
       PlayfabMatchmakingTime:
-        RawValue: 3932160
+        RawValue: 983040
       RankedMatchmakingMinPlayers: 1
       BotsNameCount: 300
       PlayerRespawnTime:
@@ -116,7 +116,7 @@ MonoBehaviour:
       EarningsAugmentationStrengthSteepnessMod:
         RawValue: 196608
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 3
+      NftRequiredEquippedForPlay: 0
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
@@ -149,3 +149,4 @@ MonoBehaviour:
         RawValue: 13107
       RoofDamageCooldown:
         RawValue: 98304
+      HardAngleAim: 0

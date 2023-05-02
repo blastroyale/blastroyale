@@ -71,7 +71,6 @@ namespace FirstLight.Game.Presenters
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
-		private Label _gameTypeLabel;
 
 		private Label _csAmountLabel;
 		private Label _blstAmountLabel;
@@ -115,7 +114,6 @@ namespace FirstLight.Game.Presenters
 			_avatarPfp = root.Q("AvatarPFP").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
-			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
@@ -419,7 +417,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-			_gameTypeLabel.text = current.MatchType.ToString().ToUpper();
 
 			var hasPool = current.MatchType == MatchType.Ranked;
 			_csPoolContainer.SetDisplay(hasPool);
@@ -427,7 +424,6 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
 				_gameModeLabel.text.Contains("\\n"));
-			_gameTypeLabel.EnableInClassList("game-mode-button__type--ranked", current.MatchType == MatchType.Ranked);
 
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}

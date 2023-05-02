@@ -71,12 +71,10 @@ namespace Quantum.Systems
 
 		public void OnAdded(Frame f, EntityRef entity, Spell* component)
 		{
-			f.Events.OnSpellAdded(entity, *component);
 		}
 
 		public void OnRemoved(Frame f, EntityRef entity, Spell* component)
 		{
-			f.Events.OnSpellRemoved(entity, *component);
 		}
 	}
 }

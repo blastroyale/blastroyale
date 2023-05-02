@@ -29,7 +29,7 @@ namespace Quantum
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
-			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), transform->Rotation).Normalized;
+			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), ref  transform->Rotation).Normalized;
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = isAccuracyMutator ?
@@ -72,7 +72,7 @@ namespace Quantum
 
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1); //reduce burst count by 1
-
+			bb->Set(f, Constants.LastShotAt, f.Time);
 			f.Add(f.Create(), raycastShot);
 			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
 		}

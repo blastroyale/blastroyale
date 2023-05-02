@@ -461,7 +461,7 @@ namespace FirstLight.Game.Services
 					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
 					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
 					{
-						// _services.CollectionEnrichnmentService.Enrich(enrichmentData);
+						_services.CollectionEnrichnmentService.Enrich(enrichmentData);
 					}
 					_dataService.AddData(type, dataInstance);
 				}

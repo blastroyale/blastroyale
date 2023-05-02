@@ -253,6 +253,37 @@ Transform:
   m_Father: {fileID: 7069881689772188570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &586350803754486022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1805916544006735400}
+  m_Layer: 10
+  m_Name: GliderAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1805916544006735400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586350803754486022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 41412329513558788}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &776352943762711322
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +621,7 @@ MonoBehaviour:
   - {fileID: 6255149695479449042}
   - {fileID: 8242364939165310159}
   - {fileID: 1215827734946522878}
+  _gliderAnchor: {fileID: 1805916544006735400}
   _renderersContainerProxy: {fileID: 8829898175700640617}
 --- !u!114 &7133389341511250123
 MonoBehaviour:
@@ -653,7 +685,6 @@ MonoBehaviour:
   FootprintLeftEvent:
     m_PersistentCalls:
       m_Calls: []
-  RigidbodyContainerMonoComponent: {fileID: 0}
   _animator: {fileID: 0}
   _projectileHitVfx:
     _selection: FootprintL
@@ -1712,6 +1743,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3165119148310236850}
+  - {fileID: 1805916544006735400}
   m_Father: {fileID: 5545331689132306555}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -186,6 +186,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7196454055281926514}
+  - {fileID: 4287404123016660142}
   m_Father: {fileID: 344184554193199035}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1927,6 +1928,37 @@ Transform:
   m_Father: {fileID: 7314325373329891278}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6172992352357596627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4287404123016660142}
+  m_Layer: 10
+  m_Name: GliderAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4287404123016660142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6172992352357596627}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5233485709978111172}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6224024076941278500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,6 +2542,7 @@ MonoBehaviour:
   - {fileID: 8461577619338316912}
   - {fileID: 8750503361712292386}
   - {fileID: 8025146960902021987}
+  _gliderAnchor: {fileID: 4287404123016660142}
   _renderersContainerProxy: {fileID: 8479027828082328512}
 --- !u!114 &6644258599515364175
 MonoBehaviour:
@@ -2573,7 +2606,6 @@ MonoBehaviour:
   FootprintLeftEvent:
     m_PersistentCalls:
       m_Calls: []
-  RigidbodyContainerMonoComponent: {fileID: 0}
   _animator: {fileID: 0}
   _projectileHitVfx:
     _selection: FootprintL

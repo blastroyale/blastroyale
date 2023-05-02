@@ -652,6 +652,37 @@ Transform:
   m_Father: {fileID: 7858867518742138693}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2202482351961079370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6310356714261930796}
+  m_Layer: 10
+  m_Name: GliderAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6310356714261930796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2202482351961079370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 852924859948307658}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2293289594905595824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,6 +1669,7 @@ Transform:
   m_Children:
   - {fileID: 2353643143334345084}
   - {fileID: 1897002396606560327}
+  - {fileID: 6310356714261930796}
   m_Father: {fileID: 5166168791731210165}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2445,6 +2477,7 @@ MonoBehaviour:
   - {fileID: 2331828032104189237}
   - {fileID: 3670499470564112777}
   - {fileID: 1897002396606560327}
+  _gliderAnchor: {fileID: 6310356714261930796}
   _renderersContainerProxy: {fileID: 7487162076333206181}
 --- !u!114 &683741315902650895
 MonoBehaviour:
@@ -2517,7 +2550,6 @@ MonoBehaviour:
   FootprintLeftEvent:
     m_PersistentCalls:
       m_Calls: []
-  RigidbodyContainerMonoComponent: {fileID: 0}
   _animator: {fileID: 0}
   _projectileHitVfx:
     _selection: FootprintL

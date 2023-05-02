@@ -49,7 +49,6 @@ namespace FirstLight.Game.Views
 		private Label _gameModeLabel;
 		private Label _gameModeDescriptionLabel;
 		private Label _gameModeTimerLabel;
-		private Label _modeTagTitleLabel;
 		private bool _selected;
 		private Coroutine _timerCoroutine;
 
@@ -74,9 +73,6 @@ namespace FirstLight.Game.Views
 			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_gameModeTimerLabel = dataPanel.Q<Label>("Timer");
-			
-			
-			_modeTagTitleLabel = _root.Q<VisualElement>("ModeTag").Q<Label>("Title");
 
 			_mutatorsPanel = _root.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
@@ -132,8 +128,6 @@ namespace FirstLight.Game.Views
 			{
 				_gameModeLabel.AddToClassList("game-mode-button-trios__label");
 			}
-
-			_modeTagTitleLabel.text = GameModeInfo.Entry.MatchType == MatchType.Custom?"":GameModeInfo.Entry.MatchType.ToString().ToUpper();
 
 			UpdateDescription();
 			UpdateMutators();

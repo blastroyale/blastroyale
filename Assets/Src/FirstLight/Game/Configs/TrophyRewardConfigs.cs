@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -7,8 +8,10 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct TrophyRewardConfig
 	{
-		public int[] Rewards;
-		public int TrophyRange;
+		public int MatchRewardId;
+		public int Placement;
+		public int TeamSize;
+		public SerializedDictionary<int, int> BracketReward;
 	}
 
 	/// <summary>

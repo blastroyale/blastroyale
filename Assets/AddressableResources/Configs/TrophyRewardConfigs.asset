@@ -13,17 +13,243 @@ MonoBehaviour:
   m_Name: TrophyRewardConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - reward: 230000001e0000001e0000001b0000001b00000019000000190000001700000017000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a0000000a0000000700000007000000050000000500000003000000030000000100000001000000000000000000000000000000
-    trophyRange: 500
-  - reward: 230000001e0000001e0000001b0000001b00000019000000190000001700000017000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a0000000a000000070000000700000005000000050000000300000003000000000000000000000000000000fdfffffffdffffff
-    trophyRange: 1000
-  - reward: 1e00000019000000190000001700000017000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a0000000a000000070000000700000005000000050000000300000003000000000000000000000000000000fdfffffffdfffffffbfffffffbfffffff9fffffff9ffffff
-    trophyRange: 1500
-  - reward: 1e00000019000000190000001700000017000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a00000007000000050000000300000003000000000000000000000000000000fdfffffffdfffffffbfffffffbfffffff9fffffff9fffffff6fffffff6fffffff6ffffff
-    trophyRange: 2000
-  - reward: 190000001700000017000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a000000070000000500000003000000030000000000000000000000fdfffffffdfffffffbfffffffbfffffff9fffffff9fffffff6fffffff6fffffff4fffffff4fffffff1fffffff1ffffff
-    trophyRange: 2500
-  - reward: 19000000140000001400000011000000110000000f0000000f0000000c0000000c0000000a000000070000000500000003000000030000000000000000000000fdfffffffdfffffffbfffffff9fffffff6fffffff4fffffff4fffffff1fffffff1ffffffefffffffefffffffecffffffecffffffe7ffffff
-    trophyRange: 3000
-  - reward: 140000000f0000000f0000000c0000000c0000000a0000000a0000000700000005000000030000000000000000000000fdfffffffdfffffffbfffffffbfffffff9fffffff9fffffff6fffffff6fffffff4fffffff4fffffff1fffffff1ffffffefffffffefffffffecffffffecffffffe7ffffffe7ffffff
-    trophyRange: 4000
+  - MatchRewardId: -1467239176
+    Placement: 1
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 23000000230000001e0000001e000000190000001900000014000000
+  - MatchRewardId: -1467239173
+    Placement: 2
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1e0000001e000000190000001900000017000000140000000f000000
+  - MatchRewardId: -1467239174
+    Placement: 3
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1e0000001e000000190000001900000017000000140000000f000000
+  - MatchRewardId: -1467239179
+    Placement: 4
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1b0000001b000000170000001700000014000000110000000c000000
+  - MatchRewardId: -1467239180
+    Placement: 5
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1b0000001a000000170000001700000014000000110000000c000000
+  - MatchRewardId: -1467239177
+    Placement: 6
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 19000000190000001400000014000000110000000f0000000a000000
+  - MatchRewardId: -1467239178
+    Placement: 7
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 19000000190000001400000014000000110000000f0000000a000000
+  - MatchRewardId: -1467239167
+    Placement: 8
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 170000001700000011000000110000000f0000000c00000007000000
+  - MatchRewardId: -1467239168
+    Placement: 9
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 170000001700000011000000110000000f0000000c00000005000000
+  - MatchRewardId: 104526574
+    Placement: 10
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 14000000140000000f0000000f0000000c0000000a00000003000000
+  - MatchRewardId: -1461557367
+    Placement: 11
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 14000000140000000f0000000f0000000c0000000700000000000000
+  - MatchRewardId: -1058272840
+    Placement: 12
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 11000000110000000c0000000c0000000a0000000500000000000000
+  - MatchRewardId: 1670610515
+    Placement: 13
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 11000000110000000c0000000c0000000700000003000000fdffffff
+  - MatchRewardId: -1864841894
+    Placement: 14
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0f0000000f0000000a0000000a0000000500000003000000fdffffff
+  - MatchRewardId: 864041461
+    Placement: 15
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0f0000000f0000000a000000070000000300000000000000fbffffff
+  - MatchRewardId: 1267325988
+    Placement: 16
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0c0000000c00000007000000050000000300000000000000fbffffff
+  - MatchRewardId: -298757953
+    Placement: 17
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0c0000000c000000070000000300000000000000fdfffffff9ffffff
+  - MatchRewardId: -251703786
+    Placement: 18
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0a0000000a000000050000000300000000000000fdfffffff9ffffff
+  - MatchRewardId: -1817787727
+    Placement: 19
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0a0000000a0000000500000000000000fdfffffffbfffffff6ffffff
+  - MatchRewardId: 104526607
+    Placement: 20
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 07000000070000000300000000000000fdfffffff9fffffff6ffffff
+  - MatchRewardId: -1461557334
+    Placement: 21
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 07000000070000000300000000000000fbfffffff6fffffff4ffffff
+  - MatchRewardId: -1058272807
+    Placement: 22
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 050000000500000000000000fdfffffffbfffffff4fffffff4ffffff
+  - MatchRewardId: 1670610548
+    Placement: 23
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 050000000500000000000000fdfffffff9fffffff4fffffff1ffffff
+  - MatchRewardId: -1864841861
+    Placement: 24
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 030000000300000000000000fbfffffff9fffffff1fffffff1ffffff
+  - MatchRewardId: 864041494
+    Placement: 25
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0300000003000000fcfffffffbfffffff6fffffff1ffffffefffffff
+  - MatchRewardId: 1267326021
+    Placement: 26
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0100000000000000fcfffffff9fffffff6ffffffefffffffefffffff
+  - MatchRewardId: -298757920
+    Placement: 27
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0100000000000000fbfffffff9fffffff4ffffffefffffffecffffff
+  - MatchRewardId: -251703753
+    Placement: 28
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0000000000000000fbfffffff6fffffff4ffffffecffffffecffffff
+  - MatchRewardId: -1817787694
+    Placement: 29
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 00000000fdfffffff9fffffff6fffffff1ffffffecffffffe7ffffff
+  - MatchRewardId: 104526640
+    Placement: 30
+    TeamSize: 1
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 00000000fdfffffff9fffffff6fffffff1ffffffe7ffffffe7ffffff
+  - MatchRewardId: 1664928706
+    Placement: 1
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 23000000230000001e0000001e000000190000001900000014000000
+  - MatchRewardId: 1664928709
+    Placement: 2
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1900000019000000190000001900000014000000140000000f000000
+  - MatchRewardId: 1664928708
+    Placement: 3
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 140000001400000014000000140000000f0000000f0000000a000000
+  - MatchRewardId: 1664928703
+    Placement: 4
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1100000011000000110000000f0000000a0000000a00000000000000
+  - MatchRewardId: 1664928702
+    Placement: 5
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0f0000000f0000000f0000000a000000070000000000000000000000
+  - MatchRewardId: 1664928705
+    Placement: 6
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0c0000000c0000000c000000070000000000000000000000f6ffffff
+  - MatchRewardId: 1664928704
+    Placement: 7
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0a0000000a0000000a00000000000000f9fffffff6fffffff1ffffff
+  - MatchRewardId: 1664928715
+    Placement: 8
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 070000000700000000000000f9fffffff6fffffff1ffffffecffffff
+  - MatchRewardId: 1664928714
+    Placement: 9
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0500000000000000f6fffffff6fffffff1ffffffecffffffe7ffffff
+  - MatchRewardId: 104526576
+    Placement: 10
+    TeamSize: 3
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 00000000f9fffffff4fffffff1ffffffecffffffe7ffffffe2ffffff

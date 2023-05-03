@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using FirstLight.Game.Configs;
+using FirstLightServerSDK.Modules;
+using FirstLight.Game.Utils;
+using UnityEngine;
 
 namespace FirstLight.Editor.SheetImporters
 {
@@ -8,18 +12,25 @@ namespace FirstLight.Editor.SheetImporters
 	public class TrophyRewardConfigImporter : GoogleSheetQuantumConfigsImporter<TrophyRewardConfig, TrophyRewardConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1565053521";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=190590325";
 
 		protected override TrophyRewardConfig Deserialize(Dictionary<string, string> data)
 		{
 			var config = base.Deserialize(data);
+			var hashCode = string.Concat(config.Placement, config.TeamSize).GetDeterministicHashCode();
+			var rewards = new SerializedDictionary<int, int>();
 
-			var rewards = new int[data.Count - 1];
-			for(int i = 1; i < data.Count; i++)
+			foreach (var key in data.Keys)
 			{
-				rewards[i-1] = int.Parse(data[i.ToString()]);
+				if(int.TryParse(key, out _))
+				{
+					rewards.Add(int.Parse(key), int.Parse(data[key]));
+				}
 			}
-			config.Rewards = rewards;
+
+			config.BracketReward = rewards;
+			config.MatchRewardId = hashCode;
+
 			return config;
 		}
 	}

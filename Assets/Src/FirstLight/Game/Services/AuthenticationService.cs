@@ -465,9 +465,9 @@ namespace FirstLight.Game.Services
 					}
 					_dataService.AddData(type, dataInstance);
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					FLog.Error("Error reading data type " + typeFullName);
+					FLog.Error("Error reading data type " + typeFullName, e);
 				}
 			}
 

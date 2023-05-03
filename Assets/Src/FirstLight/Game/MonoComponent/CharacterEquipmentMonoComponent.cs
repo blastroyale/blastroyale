@@ -45,6 +45,9 @@ namespace FirstLight.Game.MonoComponent
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
 		}
 
+		/// <summary>
+		/// Instantiate a Game Item of the specified GameIdGroup
+		/// </summary>
 		public async Task<List<GameObject>> InstantiateItem(GameId gameId, GameIdGroup gameIdGroup)
 		{
 			var anchors = GetEquipmentAnchors(gameIdGroup);
@@ -121,6 +124,9 @@ namespace FirstLight.Game.MonoComponent
 			return instances;
 		}
 
+		/// <summary>
+		/// Destroy an item currently equipped on the character.
+		/// </summary>
 		public void DestroyItem(GameIdGroup slotType)
 		{
 			var anchors = GetEquipmentAnchors(slotType);
@@ -153,6 +159,9 @@ namespace FirstLight.Game.MonoComponent
 			_equipment.Remove(slotType);
 		}
 
+		/// <summary>
+		/// Hide all Equipment currently equipped on a character.
+		/// </summary>
 		public void HideAllEquipment()
 		{
 			foreach (var items in _equipment.Values)
@@ -164,6 +173,9 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		/// <summary>
+		/// Show all Equipment currently equipped on a character.
+		/// </summary>
 		public void ShowAllEquipment()
 		{
 			foreach (var items in _equipment.Values)

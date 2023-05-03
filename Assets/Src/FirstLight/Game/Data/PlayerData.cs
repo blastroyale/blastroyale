@@ -30,7 +30,6 @@ namespace FirstLight.Game.Data
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
 		public bool MigratedGuestData = false;
-		public GameId DeathMarker = GameId.Tombstone;
 		public readonly List<RewardData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer())

@@ -1194,7 +1194,7 @@ namespace Quantum.Systems
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
-					Glider = gliders[f.RNG->Next(0, gliders.Length)],
+					Glider = GameId.Falcon,
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
 					// We modify intervals to make them more unique to avoid performance spikes

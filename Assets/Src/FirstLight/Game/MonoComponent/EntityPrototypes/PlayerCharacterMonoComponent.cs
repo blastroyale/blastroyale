@@ -124,8 +124,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		                                   out Equipment weapon, out Equipment[] gear)
 		{
 			var playerCharacter = f.Get<PlayerCharacter>(EntityView.EntityRef);
-
-			var playerData = f.GetSingleton<GameContainer>().PlayersData[player];
 			
 			// Weapon
 			weapon = playerCharacter.CurrentWeapon;

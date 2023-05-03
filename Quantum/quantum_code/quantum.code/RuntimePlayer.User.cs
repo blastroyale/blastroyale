@@ -33,6 +33,7 @@ namespace Quantum
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
 			stream.Serialize(ref PartyId);
+			stream.Serialize(ref AvatarUrl);
 			stream.SerializeArrayLength(ref Loadout);
 
 			for (var i = 0; i < Loadout.Length; i++)

@@ -92,10 +92,11 @@ namespace FirstLight.Game.Presenters
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
 
+			// This is a debug button for internal builds to allow us to fast check animations on characters.
 			_changeAnimButton = root.Q<Button>("ChangeButton").Required();
 			_changeAnimButton.clicked += OnChangeAnimClicked;
-			_changeAnimButton.text = "CHANGE ANIM";
-			_changeAnimButton.visible = UnityEngine.Debug.isDebugBuild;
+			_changeAnimButton.text = "PLAY ANIM";
+			_changeAnimButton.visible = false;
 
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
@@ -195,11 +196,6 @@ namespace FirstLight.Game.Presenters
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;
-
-			if (UnityEngine.Debug.isDebugBuild)
-			{
-				_changeAnimButton.visible = _selectedCategory.Id == GameIdGroup.PlayerSkin;
-			}
 		}
 
 		private void SelectEquipped(CollectionCategory category)

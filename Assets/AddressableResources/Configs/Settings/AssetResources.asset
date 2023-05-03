@@ -409,11 +409,6 @@ MonoBehaviour:
         Id:
           Value: 1501081643659677846
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_19]
-    - Path: AddressableResources/Maps/FTUEMiniMap_mesh
-      AssetRef:
-        Id:
-          Value: 1536258848976152407
-      Address: Maps/FTUEMiniMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_15
       AssetRef:
         Id:
@@ -644,11 +639,6 @@ MonoBehaviour:
         Id:
           Value: 2549353079267951186
       Address: Maps/FtueDeck_NavMesh_data.asset
-    - Path: AddressableResources/Maps/FTUEMiniMap_NavMesh
-      AssetRef:
-        Id:
-          Value: 2575471535425279547
-      Address: Maps/FTUEMiniMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShouldPerformSkydiveDecision_34
       AssetRef:
         Id:
@@ -706,11 +696,6 @@ MonoBehaviour:
           Value: 3001958099177705209
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Change Weapon
         Default_12]
-    - Path: AddressableResources/Maps/FTUEMiniMap_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 3005366737582492223
-      Address: Maps/FTUEMiniMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveDrop_2
       AssetRef:
         Id:
@@ -1017,11 +1002,6 @@ MonoBehaviour:
         Id:
           Value: 4332060462896694051
       Address: Maps/FloodCity.asset
-    - Path: AddressableResources/Maps/FTUEMiniMap
-      AssetRef:
-        Id:
-          Value: 4344381221028547365
-      Address: Maps/FTUEMiniMap.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartReload_14
       AssetRef:
         Id:

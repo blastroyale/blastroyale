@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 using Photon.Deterministic;
@@ -18,7 +19,7 @@ namespace FirstLight.Game.Serializers
 		{
 			return X == 0 && Y == 0 && Z == 0;
 		}
-		
+
 		public static SerializableVector From(FPVector3 v)
 		{
 			return new SerializableVector()
@@ -28,7 +29,7 @@ namespace FirstLight.Game.Serializers
 				Z = v.Z
 			};
 		}
-		
+
 		public static SerializableVector From(FPVector2 v)
 		{
 			return new SerializableVector()
@@ -36,7 +37,6 @@ namespace FirstLight.Game.Serializers
 				X = v.X,
 				Y = v.Y,
 			};
-		
 		}
 	}
 
@@ -58,7 +58,7 @@ namespace FirstLight.Game.Serializers
 			return new FPVector3(values.X, values.Y, values.Z);
 		}
 	}
-	
+
 	/// <summary>
 	/// Vector2 newtonsoft converter
 	/// </summary>
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Serializers
 			return new FPVector2(values.X, values.Y);
 		}
 	}
-	
+
 	[Serializable]
 	internal struct SerializableFP
 	{
@@ -118,16 +118,14 @@ namespace FirstLight.Game.Serializers
 			return serializableVector.ToFP();
 		}
 	}
-	
+
 	public class CustomDictionaryConverter<TKey, TValue> : JsonConverter
 	{
 		public override bool CanConvert(Type objectType) => objectType == typeof(Dictionary<TKey, TValue>);
 
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-			=> serializer.Serialize(writer, ((Dictionary<TKey, TValue>)value).ToList());
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => serializer.Serialize(writer, ((Dictionary<TKey, TValue>) value).ToList());
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-			=> serializer.Deserialize<KeyValuePair<TKey, TValue>[]>(reader).ToDictionary(kv => kv.Key, kv => kv.Value);
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => serializer.Deserialize<KeyValuePair<TKey, TValue>[]>(reader).ToDictionary(kv => kv.Key, kv => kv.Value);
 	}
 
 	/// <summary>
@@ -144,6 +142,13 @@ namespace FirstLight.Game.Serializers
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			ModelSerializer.RegisterConverter(new FPConverter());
 			ModelSerializer.RegisterConverter(new EquipmentSerializer());
+		}
+
+
+		public static void RegisterAOT()
+		{
+			// TODO Move this to AOTCode and reformat this file
+			Newtonsoft.Json.Utilities.AotHelper.EnsureList<CollectionMeta>();
 		}
 	}
 }

@@ -1,22 +1,16 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLightEditor.GoogleSheetImporter;
 using FirstLightServerSDK.Modules;
 
 namespace FirstLight.Editor.SheetImporters
 {
 	/// <inheritdoc />
-	public class TrophyRewardConfigImporter : GoogleSheetQuantumConfigsImporter<TrophyRewardConfig, TrophyRewardConfigs>
+	public class TrophyRewardConfigImporter : GoogleSheetQuantumConfigsImporter<TrophyRewardConfig, TrophyRwardConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=462188583";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1565053521";
 
-		protected override TrophyRewardConfig Deserialize(Dictionary<string, string> data)
-		{
-			var config = base.Deserialize(data);
-			var hashCode = String.Concat(config.Placement).GetDeterministicHashCode();
-			
-			return config;
-		}
 	}
 }

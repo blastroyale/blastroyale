@@ -37,14 +37,6 @@ parameters:
       - DEVELOPMENT_SERVER
       - STAGE_SERVER
       - LIVE_SERVER
-  - name: build_ios
-    displayName: Build iOS
-    type: boolean
-    default: true
-  - name: build_android
-    displayName: Build Android
-    type: boolean
-    default: true
   - name: param_run_unity_tests
     displayName: Run Unit Tests
     type: boolean
@@ -53,6 +45,18 @@ parameters:
     displayName: Use Accelerator
     type: boolean
     default: true
+  - name: param_deploy_game_logic
+    displayName: "[CD] Deploy Game Logic"
+    type: boolean
+    default: false
+  - name: param_deploy_quantum_plugin
+    displayName: "[CD] Deploy Quantum Plugin"
+    type: boolean
+    default: false  
+  - name: param_fake_build
+    displayName: "[DEBUG] Skip game builds and reuse dlls"
+    type: boolean
+    default: false
 
 variables:
 - group: Secrets
@@ -69,7 +73,8 @@ variables:
   value: $(SLACK-WEBHOOK-URL)
 - name: cuttlyApiKey
   value: $(PROD-COMMON-CUTTLY-KEY)
-
+- name: isQuantumPluginBumpVersion
+  value: ${{ or(eq(variables['Build.Reason'], 'BatchedCI'), eq(parameters['param_deploy_quantum_plugin'], 'True')) }}
   # Auto setup
 - ${{ if ne(variables['Build.Reason'], 'Manual') }}:
     - name: configuration
@@ -141,13 +146,19 @@ stages:
             echo "Android File Type: $(androidFileType)"
             echo "Use Accelerator: $(useAccelerator)"
             echo "Run Tests: $(runUnitTests)"
-            if [ "$(FAKE_AUTO_BUILD)" == "true" ]; then
-                echo "##vso[build.addbuildtag]BatchedCI"
-            else
-                echo "##vso[build.addbuildtag]$(Build.Reason)"
-            fi
-          
           displayName: "Print variables"
+        # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
+        # So we just want to run for automatic builds or if manually ticked 
+        - bash: |
+            if [ "${{ parameters.param_deploy_game_logic }}" == "True" ]; then
+              echo "##vso[build.addbuildtag]DeployGameLogic"
+            fi
+            if [ "$(Build.Reason)" == "BatchedCI" ]; then
+              echo "##vso[build.addbuildtag]DeployGameLogic"
+            fi
+            echo "##vso[build.addbuildtag]$(server_environment)"
+            echo "##vso[build.addbuildtag]$(build_type)"
+          displayName: "Add Tags"
           
       - job: EditorTests
         displayName: Run Editor Test Suite
@@ -168,48 +179,48 @@ stages:
         workspace:
           clean: all
         condition: |
-          and(
-            eq(${{ parameters.build_android }}, true),
             in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
-          )
-      
+          
       
         steps:
-#          Republishes a fixed build id artifact, helpful for debugging so you can skip the eternal unity builds 
-#          - checkout: none
-#          - task: DownloadPipelineArtifact@2
-#            inputs:
-#              buildType: 'specific'
-#              project: 'blast-royale'
-#              pipeline: 'Game-Builds'
-#              pipelineId: 11726
-#              runVersion: 'specific'
-#              artifactName: 'GameDlls'
-#              downloadPath: '$(Pipeline.Workspace)/GameDlls'
-#              allowFailedBuilds: true
-#          - task: PublishPipelineArtifact@1
-#            inputs:
-#              artifactName: 'GameDlls'
-#              targetPath: '$(Pipeline.Workspace)/GameDlls'
-        - checkout: self
-          lfs: true
-          fetchTags: false            
-        - template: pipelines/unity-build.yml@templates
-          parameters:
-            configuration: $(configuration)
-            platform: Android
-            unity_username: $(unity_email)
-            unity_password: $(unity_password)
-            unity_serial: $(unity_serial)
-            workingDirectory: .
-            branchName: $(branchName)
-            build_type: ${{ variables.build_type }}
-            server_environment: ${{ variables.server_environment }}
-            webhookUrl: $(webhookUrl)
-            cuttlyApiKey: $(cuttlyApiKey)
-            androidFileType: $(androidFileType)
-            useUnityAccelerator: ${{ variables.useAccelerator }}
-            publishDlls: true
+        # This is a helper to debug this hellish pipeline, it bypasses the GameBuilds and uses a previous artifact
+        # and continue the execution to the game logic / quantum plugin deployment
+        - ${{ if eq(parameters['param_fake_build'], 'true') }}:              
+          - checkout: none
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'specific'
+              project: 'blast-royale'
+              pipeline: 'Game-Builds'
+              pipelineId: 11726
+              runVersion: 'specific'
+              artifactName: 'GameDlls'
+              downloadPath: '$(Pipeline.Workspace)/GameDlls'
+              allowFailedBuilds: true
+          - task: PublishPipelineArtifact@1
+            inputs:
+              artifactName: 'GameDlls'
+              targetPath: '$(Pipeline.Workspace)/GameDlls'
+        - ${{ else }}:
+          - checkout: self
+            lfs: true
+            fetchTags: false
+          - template: pipelines/unity-build.yml@templates
+            parameters:
+              configuration: $(configuration)
+              platform: Android
+              unity_username: $(unity_email)
+              unity_password: $(unity_password)
+              unity_serial: $(unity_serial)
+              workingDirectory: .
+              branchName: $(branchName)
+              build_type: ${{ variables.build_type }}
+              server_environment: ${{ variables.server_environment }}
+              webhookUrl: $(webhookUrl)
+              cuttlyApiKey: $(cuttlyApiKey)
+              androidFileType: $(androidFileType)
+              useUnityAccelerator: ${{ variables.useAccelerator }}
+              publishDlls: true
             
       - job: iOSBuild
         timeoutInMinutes: 90
@@ -219,7 +230,7 @@ stages:
           clean: all
         condition: |
           and(
-            eq(${{ parameters.build_ios }}, true),
+            ne(${{ parameters.param_fake_build }}, true),
             in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
           )
         steps:
@@ -243,7 +254,7 @@ stages:
             distributioniOSCertPwd: $(distributioniOSCertPwd)
             useUnityAccelerator: ${{ variables.useAccelerator }}
             # Publish dlls in IOS build if we skipped the android one
-            publishDlls:  ${{ not(parameters.build_android) }}
+            publishDlls: false
 
 
 # GAME LOGIC
@@ -254,8 +265,15 @@ stages:
         displayName: Build and Push Game Logic
         condition: eq(dependencies.AndroidBuild.result, 'Succeeded')
         steps:
-          - checkout: self
-            lfs: true
+          - checkout: none
+            # Sparse checkout is a lot faster
+          - template: pipelines/bitbucket-sparse-checkout.yml@templates
+            parameters:
+              repositoryName: blast-royale
+              commit: $(Build.SourceVersion)
+              bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
+              directory: 'Backend/'
+              
           - download: current
             artifact: 'GameDlls'
           - bash: |
@@ -278,11 +296,21 @@ stages:
           vmImage: 'windows-latest'
         # Run just for staging from now
         dependsOn: AndroidBuild
-        condition: and(eq('${{ variables.server_environment }}', 'STAGE_SERVER'), eq(dependencies.AndroidBuild.result, 'Succeeded'))
+        condition: | 
+          and(
+              eq('${{ variables.server_environment }}', 'STAGE_SERVER'),
+              eq(dependencies.AndroidBuild.result, 'Succeeded')
+          )
         steps:
-          - checkout: self
-            lfs: true
-
+          - checkout: none
+            # Sparse checkout is a lot faster
+          - template: pipelines/bitbucket-sparse-checkout.yml@templates
+            parameters:
+              repositoryName: blast-royale
+              commit: $(Build.SourceVersion)
+              bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
+              directory: 'Quantum/quantum_server'
+          
           - download: current
             artifact: 'GameDlls'
             displayName: Download game dlls
@@ -292,5 +320,7 @@ stages:
               gameDllsDir: $(Pipeline.Workspace)/GameDlls
               photonCustomer: FirstLightDev
               photonKey: $(STAGING-QUANTUM-SERVER-KEY)
-  
+              photonAppId: ***REMOVED***
+              # Only bump version on Automatic triggers or manually inputted
+              bumpVersion: ${{ variables.isQuantumPluginBumpVersion }}
     

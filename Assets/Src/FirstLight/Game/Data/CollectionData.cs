@@ -8,6 +8,8 @@ using FirstLight.Server.SDK.Models;
 using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Utilities;
 using Quantum;
 using UnityEngine;
 
@@ -147,6 +149,9 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class CollectionData : CollectionItemEnrichmentData
 	{
+#if UNITY_ANDROID || UNITY_IOS
+		static CollectionData() => AotHelper.EnsureList<CollectionMeta>();
+#endif
 		[JsonProperty]
 		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<CollectionItem>>))]
 		public readonly Dictionary<CollectionCategory, List<CollectionItem>> OwnedCollectibles = new()

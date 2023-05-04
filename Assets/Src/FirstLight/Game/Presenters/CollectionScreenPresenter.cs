@@ -58,7 +58,6 @@ namespace FirstLight.Game.Presenters
 		private GameObject _collectionObject;
 		private GameObject _anchorObject;
 		private readonly List<UniqueId> _seenItems = new();
-		public UniqueId SelectedItem { get; private set; }
 
 		private void Awake()
 		{
@@ -332,12 +331,6 @@ namespace FirstLight.Game.Presenters
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
-			
-			// Set the first item as viewed
-			if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
-			{
-				_seenItems.Add(SelectedItem);
-			}
 		}
 
 		private VisualElement MakeCollectionListItem()
@@ -408,13 +401,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionList.RefreshItem(newRow);
-			
-			// Set item as viewed
-			if (!_seenItems.Contains(SelectedItem) &&
-			    _gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
-			{
-				_seenItems.Add(SelectedItem);
-			}
 		}
 		
 		private bool IsItemSeen(UniqueId item)

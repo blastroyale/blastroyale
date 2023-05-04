@@ -133,8 +133,8 @@ namespace Quantum
 			return new Equipment
 			{
 				GameId = id,
-				Rarity = f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _) ? 
-					EquipmentRarity.Rare : rarity,
+				Rarity = f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _) ?
+					Constants.STANDARDISED_EQUIPMENT_RARITY : rarity,
 				Level = level
 			};
 		}

@@ -98,7 +98,7 @@ namespace Quantum
 					ModifyEquipmentRarity(f, ref weaponItem, minimumRarity, gameContainer->DropPool.AverageRarity);
 					if(f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
 					{
-						weaponItem.Rarity = EquipmentRarity.Rare;
+						weaponItem.Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
 					}
 					Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++);
 					playerCharacter->SetDroppedLoadoutItem(weaponItem);

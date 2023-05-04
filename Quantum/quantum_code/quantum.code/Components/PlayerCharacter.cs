@@ -485,7 +485,7 @@ namespace Quantum
 			{
 				for(int i = 0; i < loadout.Length; i++)
 				{
-					loadout[i].Rarity = EquipmentRarity.Rare;
+					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
 				}
 			}
 			return loadout;
@@ -499,7 +499,7 @@ namespace Quantum
 			var weapon = f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
 			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
 			{
-				weapon.Rarity = EquipmentRarity.Rare;
+				weapon.Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
 			}
 			return weapon;
 		}

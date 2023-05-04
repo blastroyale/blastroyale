@@ -106,7 +106,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
-		public static bool TUTORIAL = false;
+		public static bool TUTORIAL = true;
 		
 		/// <summary>
 		/// If the tutorial is active, useful for testing

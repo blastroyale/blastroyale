@@ -39,7 +39,7 @@ namespace Quantum
 			for (var i = 0; i < Loadout.Length; i++)
 			{
 				var localGear = Loadout[i];
-				
+
 				Equipment.Serialize(&localGear, serializer);
 
 				if (localGear.IsWeapon())

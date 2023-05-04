@@ -35,7 +35,7 @@ namespace Quantum
 			transform->Rotation = spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
-			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1);
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
 			if (loadoutWeapon.IsValid())
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
@@ -480,7 +480,15 @@ namespace Quantum
 		/// </summary>
 		public Equipment[] GetLoadout(Frame f)
 		{
-			return f.GetPlayerData(Player)?.Loadout;
+			var loadout = f.GetPlayerData(Player)?.Loadout;
+			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
+			{
+				for(int i = 0; i < loadout.Length; i++)
+				{
+					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
+				}
+			}
+			return loadout;
 		}
 		
 		/// <summary>
@@ -488,7 +496,12 @@ namespace Quantum
 		/// </summary>
 		public Equipment GetLoadoutWeapon(Frame f)
 		{
-			return f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
+			var weapon = f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
+			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
+			{
+				weapon.Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
+			}
+			return weapon;
 		}
 
 		/// <summary>

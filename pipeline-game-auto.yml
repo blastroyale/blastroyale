@@ -192,7 +192,7 @@ stages:
               buildType: 'specific'
               project: 'blast-royale'
               pipeline: 'Game-Builds'
-              pipelineId: 11726
+              pipelineId: $(fake_build_id)
               runVersion: 'specific'
               artifactName: 'GameDlls'
               downloadPath: '$(Pipeline.Workspace)/GameDlls'

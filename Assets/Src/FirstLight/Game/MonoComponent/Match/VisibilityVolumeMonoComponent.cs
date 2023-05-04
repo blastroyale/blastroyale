@@ -141,7 +141,7 @@ namespace FirstLight.Game.MonoComponent.Match
 					continue;
 				}
 
-				player.Value.SetPlayerSilhouetteVisible(spectatedPlayerWithinVolume);
+				player.Value.SetRenderContainerVisible(spectatedPlayerWithinVolume);
 			}
 
 			foreach (var entity in destroyedPlayers)
@@ -160,7 +160,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
 
-			player.SetPlayerSilhouetteVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
+			player.SetRenderContainerVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
 				(spectatedPlayerWithinVolume));
 		}
 	}

@@ -1392,6 +1392,8 @@ namespace I2.Loc
 			public static string announcer 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/announcer"); } }
 			public static string asia 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/asia"); } }
 			public static string bg_music 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/bg_music"); } }
+			public static string camera_panning 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/camera_panning"); } }
+			public static string cone_aim 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/cone_aim"); } }
 			public static string connect 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect"); } }
 			public static string connect_flg_id 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id"); } }
 			public static string connect_flg_id_advice 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/connect_flg_id_advice"); } }
@@ -1421,6 +1423,7 @@ namespace I2.Loc
 			public static string medium 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/medium"); } }
 			public static string off 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/off"); } }
 			public static string on 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/on"); } }
+			public static string screenshake 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/screenshake"); } }
 			public static string server 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/server"); } }
 			public static string settings_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/settings_title"); } }
 			public static string sixty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sixty"); } }
@@ -2925,6 +2928,8 @@ namespace I2.Loc
 		    public const string announcer = "UITSettings/announcer";
 		    public const string asia = "UITSettings/asia";
 		    public const string bg_music = "UITSettings/bg_music";
+		    public const string camera_panning = "UITSettings/camera_panning";
+		    public const string cone_aim = "UITSettings/cone_aim";
 		    public const string connect = "UITSettings/connect";
 		    public const string connect_flg_id = "UITSettings/connect_flg_id";
 		    public const string connect_flg_id_advice = "UITSettings/connect_flg_id_advice";
@@ -2954,6 +2959,7 @@ namespace I2.Loc
 		    public const string medium = "UITSettings/medium";
 		    public const string off = "UITSettings/off";
 		    public const string on = "UITSettings/on";
+		    public const string screenshake = "UITSettings/screenshake";
 		    public const string server = "UITSettings/server";
 		    public const string settings_title = "UITSettings/settings_title";
 		    public const string sixty = "UITSettings/sixty";

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using FirstLight.Game.Cheats.SROptions;
 using FirstLight.Game.Utils;
 using SRF.Service;
 using UnityEngine;
@@ -27,7 +26,7 @@ public partial class SROptions : INotifyPropertyChanged
     {
         _current = new SROptions(); // Need to reset options here so if we enter play-mode without a domain reload there will be the default set of options.
         SRServiceManager.GetService<SRDebugger.Internal.InternalOptionsRegistry>().AddOptionContainer(Current);
-		SRDebug.Instance.SetBugReporterHandler(new FLGBugReporter());
+		SRDebug.Instance.SetBugReporterHandler(new FirstLight.Game.Cheats.SROptions.FLGBugReporter());
 
 		
 		SRDebug.Instance.AddSystemInfo( SRDebugger.InfoEntry.Create("Client Build Commit", () => VersionUtils.Commit),"Version");

@@ -140,6 +140,10 @@ namespace FirstLight.Game.Services
 			{
 				if (desynchs.Count > 0)
 				{
+#if !STORE_BUILD && !UNITY_EDITOR
+					SROptions.Current.SendQuietBugReport($"models desynched {string.Join(',', desynchs)}");
+#endif
+					
 					OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
 					// TODO: Do a json diff and show which data exactly is different
 				}

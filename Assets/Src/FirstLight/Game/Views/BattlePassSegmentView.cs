@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views
 
 		private const string UssOutlineClaimed = "reward__button-outline--claimed";
 		private const string UssLevelBgComplete = "progress-bar__level-bg--complete";
+		private const string UssFirstReward = "first-reward";
 		public event Action<BattlePassSegmentView> Clicked;
 
 		private VisualElement _root;
@@ -84,7 +85,7 @@ namespace FirstLight.Game.Views
 		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
-
+			
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
@@ -116,6 +117,12 @@ namespace FirstLight.Game.Views
 			else
 			{
 				SetProgressFill(0);
+			}
+
+			// Used for tutorial targeting
+			if (data.SegmentLevel == 0)
+			{
+				_rewardRoot.AddToClassList(UssFirstReward);
 			}
 		}
 

@@ -1,30 +1,42 @@
-﻿
-#if NETFX_CORE
-using System.Threading.Tasks;
-#endif
-
-namespace SRDebugger.Services.Implementation
+﻿namespace SRDebugger.Services.Implementation
 {
     using System;
     using Internal;
-    using SRF;
     using SRF.Service;
     using UnityEngine;
 
     [Service(typeof (IBugReportService))]
-    public class BugReportApiService : SRServiceBase<IBugReportService>, IBugReportService
+    class BugReportApiService : IBugReportService
     {
-        public const float Timeout = 12f;
-        private BugReportCompleteCallback _completeCallback;
-        private string _errorMessage;
-        private bool _isBusy;
-        private float _previousProgress;
-        private BugReportProgressCallback _progressCallback;
-        private BugReportApi _reportApi;
+        private IBugReporterHandler _handler = new InternalBugReporterHandler();
+
+        public bool IsUsable
+        {
+            get
+            {
+                return _handler != null && _handler.IsUsable;
+            }
+        }
+
+        public void SetHandler(IBugReporterHandler handler)
+        {
+            Debug.LogFormat("[SRDebugger] Bug Report handler set to {0}", handler);
+            _handler = handler;
+        }
 
         public void SendBugReport(BugReport report, BugReportCompleteCallback completeHandler,
-            BugReportProgressCallback progressCallback = null)
+            IProgress<float> progress = null)
         {
+            if (_handler == null)
+            {
+                throw new InvalidOperationException("No bug report handler has been configured.");
+            }
+
+            if (!_handler.IsUsable)
+            {
+                throw new InvalidOperationException("Bug report handler is not usable.");
+            }
+
             if (report == null)
             {
                 throw new ArgumentNullException("report");
@@ -34,84 +46,14 @@ namespace SRDebugger.Services.Implementation
             {
                 throw new ArgumentNullException("completeHandler");
             }
-
-            if (_isBusy)
-            {
-                completeHandler(false, "BugReportApiService is already sending a bug report");
-                return;
-            }
-
+            
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 completeHandler(false, "No Internet Connection");
                 return;
             }
 
-            _errorMessage = "";
-            enabled = true;
-
-            _isBusy = true;
-
-            _completeCallback = completeHandler;
-            _progressCallback = progressCallback;
-
-            _reportApi = new BugReportApi(report, Settings.Instance.ApiKey);
-
-            StartCoroutine(_reportApi.Submit());
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            CachedTransform.SetParent(Hierarchy.Get("SRDebugger"));
-        }
-
-        private void OnProgress(float progress)
-        {
-            if (_progressCallback != null)
-            {
-                _progressCallback(progress);
-            }
-        }
-
-        private void OnComplete()
-        {
-            _isBusy = false;
-
-            enabled = false;
-
-            _completeCallback(_reportApi.WasSuccessful,
-                string.IsNullOrEmpty(_reportApi.ErrorMessage) ? _errorMessage : _reportApi.ErrorMessage);
-
-            _completeCallback = null;
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            if (!_isBusy)
-            {
-                return;
-            }
-
-            if (_reportApi == null)
-            {
-                _isBusy = false;
-            }
-
-            if (_reportApi.IsComplete)
-            {
-                OnComplete();
-                return;
-            }
-
-            if (_previousProgress != _reportApi.Progress)
-            {
-                OnProgress(_reportApi.Progress);
-                _previousProgress = _reportApi.Progress;
-            }
+            _handler.Submit(report, result => completeHandler(result.IsSuccessful, result.ErrorMessage), progress);
         }
     }
 }

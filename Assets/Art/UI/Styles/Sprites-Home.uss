@@ -20,6 +20,9 @@
     --sprite-home__background-popup-equipment: url('/Assets/Art/UI/Sprites/Home/background-popup-equipment.png');
     --sprite-home__background-profile: url('/Assets/Art/UI/Sprites/Home/background-profile.png');
     --sprite-home__background-resourcepool: url('/Assets/Art/UI/Sprites/Home/background-resourcepool.png');
+    --sprite-home__background-settings-item: url('/Assets/Art/UI/Sprites/Home/background-settings-item.png');
+    --sprite-home__background-settingstab: url('/Assets/Art/UI/Sprites/Home/background-settingstab.png');
+    --sprite-home__background-settingstab-chosen: url('/Assets/Art/UI/Sprites/Home/background-settingstab-chosen.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
     --sprite-home__background-tooltip-bottomleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png');
     --sprite-home__background-tooltip-bottomright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png');
@@ -77,6 +80,7 @@
     --sprite-home__button-popup-equipment-close-pressed: url('/Assets/Art/UI/Sprites/Home/button-popup-equipment-close-pressed.png');
     --sprite-home__button-profile: url('/Assets/Art/UI/Sprites/Home/button-profile.png');
     --sprite-home__button-profile-pressed: url('/Assets/Art/UI/Sprites/Home/button-profile-pressed.png');
+    --sprite-home__button-settings-toggle: url('/Assets/Art/UI/Sprites/Home/button-settings-toggle.png');
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
@@ -110,6 +114,7 @@
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
+    --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
@@ -308,6 +313,24 @@
     background-image: var(--sprite-home__background-resourcepool);
     width: 428px;
     height: 102px;
+}
+
+.sprite-home__background-settings-item {
+    background-image: var(--sprite-home__background-settings-item);
+    width: 172px;
+    height: 172px;
+}
+
+.sprite-home__background-settingstab {
+    background-image: var(--sprite-home__background-settingstab);
+    width: 68px;
+    height: 84px;
+}
+
+.sprite-home__background-settingstab-chosen {
+    background-image: var(--sprite-home__background-settingstab-chosen);
+    width: 57px;
+    height: 80px;
 }
 
 .sprite-home__background-textbubble-yellow {
@@ -608,6 +631,12 @@
     background-image: var(--sprite-home__button-profile-pressed);
 }
 
+.sprite-home__button-settings-toggle {
+    background-image: var(--sprite-home__button-settings-toggle);
+    width: 88px;
+    height: 68px;
+}
+
 .sprite-home__button-special {
     background-image: var(--sprite-home__button-special);
     width: 142px;
@@ -798,6 +827,12 @@
     background-image: var(--sprite-home__icon-arrow-level);
     width: 44px;
     height: 36px;
+}
+
+.sprite-home__icon-arrow-settingstab {
+    background-image: var(--sprite-home__icon-arrow-settingstab);
+    width: 40px;
+    height: 28px;
 }
 
 .sprite-home__icon-arrow-upgrade {

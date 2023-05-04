@@ -20,7 +20,8 @@
         "GUID:69448af7b92c7f342b298e06a37122aa",
         "GUID:84651a3751eca9349aac36a66bba901b",
         "GUID:4e0274c636228486ab0c943b70b2f5cc",
-        "GUID:e25a61468ff30f44fad56a6b40062363"
+        "GUID:e25a61468ff30f44fad56a6b40062363",
+        "GUID:fe6c947ebf6d4c59907488965651eda6"
     ],
     "includePlatforms": [
         "Editor"
@@ -29,6 +30,7 @@
     "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
+        "Newtonsoft.Json.dll",
         "nunit.framework.dll",
         "NSubstitute.dll",
         "quantum.code.dll",

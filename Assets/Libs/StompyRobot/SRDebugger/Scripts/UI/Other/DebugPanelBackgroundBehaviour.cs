@@ -7,30 +7,25 @@
     [RequireComponent(typeof (StyleComponent))]
     public class DebugPanelBackgroundBehaviour : SRMonoBehaviour
     {
-        private string _defaultKey;
-        private bool _isTransparent;
         private StyleComponent _styleComponent;
         public string TransparentStyleKey = "";
+
+        [SerializeField]
+        private StyleSheet _styleSheet;
 
         private void Awake()
         {
             _styleComponent = GetComponent<StyleComponent>();
 
-            _defaultKey = _styleComponent.StyleKey;
-            Update();
-        }
+            if (Settings.Instance.EnableBackgroundTransparency)
+            {
+                // Update transparent style to have the transparency set in the settings menu.
+                Style style = _styleSheet.GetStyle(TransparentStyleKey);
+                Color c = style.NormalColor;
+                c.a = Settings.Instance.BackgroundTransparency;
+                style.NormalColor = c;
 
-        private void Update()
-        {
-            if (!_isTransparent && Settings.Instance.EnableBackgroundTransparency)
-            {
                 _styleComponent.StyleKey = TransparentStyleKey;
-                _isTransparent = true;
-            }
-            else if (_isTransparent && !Settings.Instance.EnableBackgroundTransparency)
-            {
-                _styleComponent.StyleKey = _defaultKey;
-                _isTransparent = false;
             }
         }
     }

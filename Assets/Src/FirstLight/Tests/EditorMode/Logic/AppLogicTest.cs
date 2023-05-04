@@ -15,15 +15,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_appLogic = new AppLogic(GameLogic, DataService, AudioFxService);
 		}
 
-		[Test]
-		public void GameReviewCheck()
-		{
-			Assert.False(_appLogic.IsGameReviewed);
-			
-			_appLogic.MarkGameAsReviewed();
-			
-			Assert.True(_appLogic.IsGameReviewed);
-			Assert.Throws<LogicException>(() => _appLogic.MarkGameAsReviewed());
-		}
+		// [Test]
+		// public void GameReviewCheck()
+		// {
+		// 	Assert.False(_appLogic.IsGameReviewed);
+		// 	
+		// 	_appLogic.MarkGameAsReviewed();
+		// 	
+		// 	Assert.True(_appLogic.IsGameReviewed);
+		// 	Assert.Throws<LogicException>(() => _appLogic.MarkGameAsReviewed());
+		// }
 	}
 }

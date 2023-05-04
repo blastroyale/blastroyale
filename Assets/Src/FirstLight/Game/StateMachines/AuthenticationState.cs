@@ -66,7 +66,7 @@ namespace FirstLight.Game.StateMachines
 			var gameUpdate = stateFactory.State("Game Update Dialog");
 			var asyncLoginWait = stateFactory.TaskWait("Async Login Wait");
 
-			initial.Transition().Target(setupEnvironment);
+			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 
 			setupEnvironment.OnEnter(SetupBackendEnvironmentData);

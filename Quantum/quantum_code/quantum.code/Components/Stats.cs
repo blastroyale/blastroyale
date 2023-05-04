@@ -16,8 +16,8 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields,
+					 FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity, int minimumHealth)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -35,9 +35,9 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
-			Values[(int)StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
-			Values[(int)StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
-			Values[(int)StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
+			Values[(int) StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
+			Values[(int) StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
+			Values[(int) StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace Quantum
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>
-		internal void ResetStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
+		internal void ResetStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, EntityRef e)
 		{
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
@@ -68,8 +68,8 @@ namespace Quantum
 					modifiersList.Remove(modifier);
 				}
 			}
-			RefreshStats(f, weapon, gear);
-			
+			RefreshStats(f, weapon, gear, e);
+
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
 		}
 
@@ -81,7 +81,7 @@ namespace Quantum
 			var previousStats = this;
 			var previousMaxHeath = GetStatData(StatType.Health).StatValue.AsInt;
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
-			var might = RefreshStats(f, weapon, gear);
+			var might = RefreshStats(f, weapon, gear,e );
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
@@ -89,7 +89,7 @@ namespace Quantum
 			// Adapts the player health & shield if new equipment changes player's max HP or shields capacity
 			SetCurrentHealth(f, e, newHealthAmount);
 			SetCurrentShield(f, e, CurrentShield, previousMaxShield);
-			
+
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
 
@@ -113,7 +113,7 @@ namespace Quantum
 			var modifier = list[index];
 
 			ApplyModifierUpdate(modifier, true);
-			
+
 			list.RemoveAt(index);
 
 			f.Events.OnStatModifierRemoved(entity, modifier);
@@ -144,10 +144,10 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 
 			// Do not do reduce for melee weapons or if your weapon does not consume ammo
-			if (!player->HasMeleeWeapon(f, e))
+			if (weapon.MaxAmmo.Get(f) != -1)
 			{
 				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
 			}
@@ -218,20 +218,20 @@ namespace Quantum
 		/// <summary>
 		/// Gives this entity the health based on the given `<paramref name="spell"/> 
 		/// </summary>
-		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
+		internal void GainHealth(Frame f, EntityRef entity, Spell* spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}
 			
-			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell.PowerAmount));
+			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell->PowerAmount));
 		}
 
 		/// <summary>
 		/// Reduces the health of this <paramref name="entity"/> based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
+		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
@@ -244,7 +244,7 @@ namespace Quantum
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 			
-			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell.PowerAmount).AsInt);
+			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell->PowerAmount).AsInt);
 
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
@@ -290,21 +290,21 @@ namespace Quantum
 			}
 		}
 
-		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, Spell spell, int amount)
+		private void AttackerSetCurrentHealth(Frame f, EntityRef entity, Spell* spell, int amount)
 		{
 			var previousHealth = CurrentHealth;
 
 			SetCurrentHealth(f, entity, amount);
 
-			if (CurrentHealth != previousHealth && spell.Attacker != EntityRef.None)
+			if (CurrentHealth != previousHealth && spell->Attacker != EntityRef.None)
 			{
-				f.Signals.HealthChangedFromAttacker(entity, spell.Attacker, previousHealth);
+				f.Signals.HealthChangedFromAttacker(entity, spell->Attacker, previousHealth);
 			}
 
 			if (CurrentHealth == 0)
 			{
-				f.Signals.HealthIsZeroFromAttacker(entity, spell.Attacker, spell.Id == Spell.HeightDamageId);
-				f.Events.OnHealthIsZeroFromAttacker(entity, spell.Attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
+				f.Signals.HealthIsZeroFromAttacker(entity, spell->Attacker, spell->Id == Spell.HeightDamageId);
+				f.Events.OnHealthIsZeroFromAttacker(entity, spell->Attacker, amount, GetStatData(StatType.Health).StatValue.AsInt);
 			}
 		}
 
@@ -322,14 +322,14 @@ namespace Quantum
 			}
 		}
 
-		private int RefreshStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
+		private int RefreshStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, EntityRef e)
 		{
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
 			var modifiers = f.ResolveList(Modifiers);
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			
-			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
+			GetLoadoutStats(f, weapon, gear, e, out var armour, out var health, out var speed, out var power, 
 			                out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
 			
 			var might = QuantumStatCalculator.GetTotalMight(f.GameConfig, weapon, gear);
@@ -338,6 +338,7 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 			ammoCapacity = f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) * (ammoCapacity / FP._100 + FP._1);
+			
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			
@@ -361,12 +362,14 @@ namespace Quantum
 			return might;
 		}
 		
-		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour, 
+		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, EntityRef e, out int armour, 
 		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed,
 		                             out FP ammoCapacity, out FP shieldCapacity)
 		{
+			var bonusLevel = (uint)f.Get<PlayerCharacter>(e).GetEnergyLevel(f);
+
 			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power, 
-			                                           out attackRange, out pickupSpeed, out ammoCapacity, out shieldCapacity);
+			                                           out attackRange, out pickupSpeed, out ammoCapacity, out shieldCapacity, bonusLevel);
 
 			for (var i = 0; i < gear.Length; i++)
 			{
@@ -377,7 +380,7 @@ namespace Quantum
 				
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
 				                                         out var power2, out var attackRange2, out var pickupSpeed2,
-				                                         out var ammoCapacity2, out var shieldCapacity2);
+				                                         out var ammoCapacity2, out var shieldCapacity2, bonusLevel);
 				
 				health += health2;
 				speed += speed2;

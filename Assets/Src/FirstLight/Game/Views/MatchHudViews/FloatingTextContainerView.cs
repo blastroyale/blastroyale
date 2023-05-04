@@ -26,6 +26,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _neutralTextColor = Color.white;
 		[SerializeField] private Color _healthGainTextColor = Color.green;
 		[SerializeField] private Color _shieldGainTextColor = Color.cyan;
+		[SerializeField] private Color _energyGainColour = Color.magenta;
 
 		[SerializeField, Required, Title("Icons")]
 		private Sprite _iconArmour;
@@ -64,6 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			QuantumEvent.Subscribe<EventOnEntityDamaged>(this, OnEntityDamaged);
+			QuantumEvent.Subscribe<EventOnPlayerEnergyChanged>(this, OnEnergyChanged);
 		}
 
 		private void OnDestroy()
@@ -79,6 +81,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
+		private void OnEnergyChanged(EventOnPlayerEnergyChanged callback)
+		{
+			var changeValue = callback.ChangeAmount;
+
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity || changeValue < 0)
+			{
+				return;
+			}
+
+			EnqueueText(callback.Entity, $"+{changeValue.ToString()}", _energyGainColour, MessageType.Info);
+		}
+
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
 			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity ||
@@ -90,6 +104,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				ConsumableType.Ammo => _ammoTextColor,
 				ConsumableType.Shield => _shieldGainTextColor,
 				ConsumableType.ShieldCapacity => _shieldGainTextColor,
+				ConsumableType.Energy => _energyGainColour,
 				_ => throw new
 					     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
 			};

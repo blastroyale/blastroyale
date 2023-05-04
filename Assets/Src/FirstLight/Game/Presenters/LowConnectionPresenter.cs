@@ -25,6 +25,9 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class LowConnectionPresenter : UiToolkitPresenter
 	{
+		
+		private const string HIDDEN_CLASS = "lag-hidden";
+		
 		private VisualElement[] _loading;
 		private VisualElement _lowConnectionIcon;
 		private VisualElement _overlay;
@@ -41,7 +44,7 @@ namespace FirstLight.Game.Presenters
 
 		public bool IsSimulationOverlayOpen()
 		{
-			return !_overlay.ClassListContains("hidden");
+			return !_overlay.ClassListContains(HIDDEN_CLASS);
 		}
 
 		private void OnUpdateView(CallbackUpdateView cb)
@@ -94,10 +97,10 @@ namespace FirstLight.Game.Presenters
 		
 		private void SetLowConnectionActive(bool active)
 		{
-			_lowConnectionIcon.EnableInClassList("hidden", !active);
-			_overlay.EnableInClassList("hidden",
-				_lowConnectionIcon.ClassListContains("hidden") &&
-				_loading[0].ClassListContains("hidden"));
+			_lowConnectionIcon.EnableInClassList(HIDDEN_CLASS, !active);
+			_overlay.EnableInClassList(HIDDEN_CLASS,
+				_lowConnectionIcon.ClassListContains(HIDDEN_CLASS) &&
+				_loading[0].ClassListContains(HIDDEN_CLASS));
 		}
 
 		private void SetLoadingGame(bool loading)
@@ -121,11 +124,11 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var l in _loading)
 			{
-				l.EnableInClassList("hidden", !loading);
+				l.EnableInClassList(HIDDEN_CLASS, !loading);
 			}
-			_overlay.EnableInClassList("hidden",
-				_lowConnectionIcon.ClassListContains("hidden") &&
-				_loading[0].ClassListContains("hidden"));
+			_overlay.EnableInClassList(HIDDEN_CLASS,
+				_lowConnectionIcon.ClassListContains(HIDDEN_CLASS) &&
+				_loading[0].ClassListContains(HIDDEN_CLASS));
 		}
 	}
 }

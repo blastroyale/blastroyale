@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Serializers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
@@ -44,8 +44,7 @@ namespace Quantum
 			_receivedPlayers = new Dictionary<string, SetPlayerData>();
 			_validPlayers = new Dictionary<int, SetPlayerData>();
 			_actorNrToIndex = new Dictionary<int, int>();
-			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
-			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+			FlgCustomSerializers.RegisterSerializers();
 			if(photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
 			{
 				_serverSimulation = false;

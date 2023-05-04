@@ -46,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _bppProgressFill;
 		private VisualElement _nextLevelRoot;
 		private LocalizedButton _claimButton;
+		private ImageButton _fullScreenClaimButton;
 		private Label _bppProgressLabel;
 		private Label _currentLevelLabel;
 		private Label _nextLevelValueLabel;
@@ -75,16 +76,20 @@ namespace FirstLight.Game.Presenters
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
 			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
+			_fullScreenClaimButton = root.Q<ImageButton>("FullScreenClaim").Required();
 			_currentLevelLabel = root.Q<Label>("CurrentLevelValue").Required();
 			_nextLevelValueLabel = root.Q<Label>("NextLevelValue").Required();
 			_bppProgressLabel = root.Q<Label>("BppProgressLabel").Required();
 			_bppProgressBackground = root.Q("BppBackground").Required();
 			_bppProgressFill = root.Q("BppProgress").Required();
 			_nextLevelRoot = root.Q("NextLevel").Required();
-
+			
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
+			_fullScreenClaimButton.clicked += OnClaimClicked;
 			_claimButton.clicked += OnClaimClicked;
+			
+			_fullScreenClaimButton.SetDisplay(false);
 		}
 
 		protected override void OnOpened()
@@ -92,6 +97,11 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			InitScreenAndSegments();
+		}
+
+		public void CloseManual()
+		{
+			Data.BackClicked();
 		}
 
 		private void InitScreenAndSegments()
@@ -126,6 +136,11 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
 		}
 
+		public void EnableFullScreenClaim(bool enableFullScreenClaim)
+		{
+			_fullScreenClaimButton.SetDisplay(enableFullScreenClaim);
+		}
+
 		private void OnSegmentRewardClicked(BattlePassSegmentView view)
 		{
 			OnClaimClicked();
@@ -133,6 +148,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClaimClicked()
 		{
+			EnableFullScreenClaim(false);
+			
 			if (_dataProvider.BattlePassDataProvider.IsRedeemable())
 			{
 				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
@@ -209,8 +226,7 @@ namespace FirstLight.Game.Presenters
 				var segmentInstance = _battlePassSegmentAsset.Instantiate();
 				segmentInstance.AttachView(this, out BattlePassSegmentView view);
 				view.Clicked += OnSegmentRewardClicked;
-				_segmentViewsAndElements.Add(
-					new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
+				_segmentViewsAndElements.Add(new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
 				_rewardsScroll.Add(segmentInstance);
 			}
 
@@ -311,6 +327,8 @@ namespace FirstLight.Game.Presenters
 				{
 					CompleteTutorialPass();
 				}
+				
+				_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
 				
 				return;
 			}

@@ -44,7 +44,6 @@ namespace FirstLight.Game.Utils
 				PlayerCount=room.PlayerCount
 			}, Formatting.Indented);
 		}
-		
 
 		public static string GetSimulationDebugString(this QuantumRunner runner)
 		{
@@ -75,14 +74,6 @@ namespace FirstLight.Game.Utils
 
 		public static bool IsDefinedAndRunning(this QuantumRunner runner)
 		{
-			if (MainInstaller.TryResolve<IGameServices>(out var s))
-			{
-				if (s.GameUiService.HasUiPresenter<LowConnectionPresenter>() &&
-					s.GameUiService.GetUi<LowConnectionPresenter>().IsSimulationOverlayOpen())
-				{
-					return false;
-				}
-			}
 			return runner != null && !runner.IsDestroyed() && runner.isActiveAndEnabled && runner.IsRunning && !runner.Session.IsStalling &&
 				!runner.Session.IsPaused;
 		}

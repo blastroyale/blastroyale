@@ -208,6 +208,11 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
+			if (checkClickWithinRadius)
+			{
+				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
+			}
+			
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
@@ -302,7 +307,7 @@ namespace FirstLight.Game.Presenters
 				}
 				return;
 			}
-
+			
 			_dropSelectionAllowed = !RejoiningRoom;
 
 			if (RejoiningRoom)
@@ -321,15 +326,27 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			
 			// Init DZ position/rotation
-			var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
 			var mapWidth = _mapHolder.contentRect.width;
 			var mapHeight = _mapHolder.contentRect.height;
-			var posX = mapWidth * dropzonePosRot.x;
-			var posY = mapHeight * dropzonePosRot.y;
+			var posX = 0f;
+			var posY = 0f;
 
-			_dropzone.transform.position = new Vector3(posX, posY);
-			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			if (gameModeConfig.SpawnPattern)
+			{
+				var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
+				_dropzone.SetDisplay(true);
+				posX = mapWidth * dropzonePosRot.x;
+				posY = mapHeight * dropzonePosRot.y;
+				_dropzone.transform.position = new Vector3(posX, posY);
+				_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
+			}
+			else
+			{
+				_dropzone.SetDisplay(false);
+			}
 
 			SelectMapPosition(new Vector2(posX, posY), false, false);
 

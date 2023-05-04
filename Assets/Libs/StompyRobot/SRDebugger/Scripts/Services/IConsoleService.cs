@@ -1,4 +1,6 @@
-﻿namespace SRDebugger.Services
+﻿using System.Collections.Generic;
+
+namespace SRDebugger.Services
 {
     using UnityEngine;
 

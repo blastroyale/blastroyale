@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Id: 12
-    PoolCapacity: 100
+    PoolCapacity: 25
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     UseNftData: 1
-    BaseMaxTake: 16
+    BaseMaxTake: 9
     ScaleMultiplier:
-      RawValue: 458752
+      RawValue: 229376
     ShapeModifier:
       RawValue: 131072
     MaxPoolCapacityDecreaseModifier:

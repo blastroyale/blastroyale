@@ -52,7 +52,7 @@
 
 .season-header__background {
     position: absolute;
-    background-image: url('/Assets/Art/UI/Textures/battlepass-header.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-header.png?fileID=21300000&guid=aaff47116a62f45e0a362688aa274e19&type=3#battlepass-header');
     width: 100%;
     height: 100%;
     flex-direction: row-reverse;
@@ -166,7 +166,7 @@
     height: 100%;
     width: 425px;
     overflow: visible;
-    background-image: url('/Assets/Art/UI/Vectors/SeasonImageMask.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
     -unity-background-image-tint-color: rgb(0, 0, 0);
     position: absolute;
     left: 0;
@@ -176,14 +176,14 @@
     position: absolute;
     height: 100%;
     overflow: hidden;
-    background-image: url('/Assets/Art/UI/Vectors/SeasonImageMask.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
     width: 425px;
     left: -3px;
     align-items: center;
 }
 
 .season-image__bp-image {
-    background-image: url('/Assets/Art/UI/Textures/battlepass-season1.png');
+    background-image: url('project://database/Assets/Art/UI/Textures/battlepass-season1.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#battlepass-season1');
     height: 1221px;
     width: 791px;
     -unity-background-image-tint-color: rgb(255, 255, 255);
@@ -236,4 +236,14 @@
 
 .screen-header .screen-header__title {
     bottom: 70px;
+}
+
+.fullscreen-claim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
 }

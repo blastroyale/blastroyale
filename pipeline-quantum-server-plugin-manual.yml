@@ -1,0 +1,104 @@
+# Game Logic build and release pipeline
+# This pipeline is respsonsible for building the game logic code and pushing it to the artifact repository
+# as a nuget package.
+
+name: $(Rev:r)
+
+trigger: none
+pool:
+  vmImage: 'windows-latest'
+
+resources:
+  repositories:
+    - repository: self
+    - repository: templates
+      type: git
+      ref: main
+      name: Infrastructure/core-templates
+
+
+parameters:
+  - name: inputPipelineName
+    displayName: Game pipeline with Dlls
+    type: string
+    default: 'Game-Builds'
+    values:
+      - "Game-Builds"
+  - name: targetServer
+    displayName: Quantum server environment
+    default: 'Staging'
+    values:
+      - 'Staging'
+      - 'Production'
+  - name: inputBuildNumber
+    displayName: Build number of game pipeline
+    type: number
+
+variables:
+  - name: inputArtifactName
+    value: 'GameDlls'
+  - group: Secrets
+  - group: Non-secrets
+  - ${{  if eq(parameters['targetServer'], 'Production') }}:
+      - name: photonKey
+        value: $(STAGING-QUANTUM-SERVER-KEY)
+      - name: photonAppId
+        value: ***REMOVED***
+      - name: photonCustomer
+        value: FirstLightDev
+      - name: targetEnvironment
+        value: mainnet-prod
+  - ${{  if eq(parameters['targetServer'], 'Staging') }}:
+      - name: photonKey
+        value: $(STAGING-QUANTUM-SERVER-KEY)
+      - name: photonAppId
+        value: ***REMOVED***
+      - name: photonCustomer
+        value: FirstLightDev
+      - name: targetEnvironment
+        value: staging
+jobs:
+  - job: BuildAndPush
+    steps:
+      - checkout: none
+
+      - template: pipelines/download-artifact-with-build-number.yml@templates
+        parameters:
+          pipelineName: ${{ parameters.inputPipelineName }}
+          buildNumber: ${{ parameters.inputBuildNumber }}
+          artifactName: ${{ variables.inputArtifactName }}
+          downloadPath: $(System.ArtifactsDirectory)\Extracted
+
+
+      - template: pipelines/bitbucket-sparse-checkout.yml@templates
+        parameters:
+          repositoryName: blast-royale
+          commit: $(buildCommit) # This is set in download artifact with number
+          bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
+          directory: 'Quantum/quantum_server'
+
+      - template: pipelines/quantum-plugin-build-push.yml@templates
+        parameters:
+          gameDllsDir: $(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)
+          photonCustomer: $(photonCustomer)
+          photonKey: $(photonKey)
+          photonAppId: $(photonAppId)
+          bumpVersion: false
+          
+  - deployment: DeployPlugin
+    environment: $(targetEnvironment)
+    dependsOn: 'BuildAndPush'
+    condition:  eq(dependencies.BuildAndPush.result, 'Succeeded')
+    variables:
+      pluginVersion: $[ dependencies.BuildAndPush.outputs['upload.quantumPluginVersionExternal'] ]
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: none
+            - template: pipelines/quantum-plugin-bump-version.yml@templates
+              parameters:
+                version: $(pluginVersion)
+                photonCustomer: $(photonCustomer)
+                photonKey: $(photonKey)
+                photonAppId: $(photonAppId)        

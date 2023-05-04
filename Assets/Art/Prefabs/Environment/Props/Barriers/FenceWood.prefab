@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 6410537256898712045}
   - component: {fileID: 1434048630832004532}
   - component: {fileID: 2591075167315379010}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FenceWood_5Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}

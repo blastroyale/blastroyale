@@ -1,56 +1,51 @@
-﻿
-using System.IO;
-using System.Text;
-using UnityEngine.Networking;
-
-#if NETFX_CORE
-using UnityEngine.Windows;
-#endif
-
-namespace SRDebugger.Internal
+﻿namespace SRDebugger.Internal
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Services;
     using SRF;
     using UnityEngine;
+    using System.Text;
+    using UnityEngine.Networking;
 
-    public class BugReportApi
+    public class BugReportApi : MonoBehaviour
     {
-        private readonly string _apiKey;
-        private readonly BugReport _bugReport;
+        private string _apiKey;
+        private BugReport _bugReport;
         private bool _isBusy;
 
         private UnityWebRequest _webRequest;
+        private Action<BugReportSubmitResult> _onComplete;
+        private IProgress<float> _progress;
 
-        public BugReportApi(BugReport report, string apiKey)
+        public static void Submit(BugReport report, string apiKey, Action<BugReportSubmitResult> onComplete, IProgress<float> progress)
+        {
+            var go = new GameObject("BugReportApi");
+            go.transform.parent = Hierarchy.Get("SRDebugger");
+
+            var bugReportApi = go.AddComponent<BugReportApi>();
+            bugReportApi.Init(report, apiKey, onComplete, progress);
+            bugReportApi.StartCoroutine(bugReportApi.Submit());
+        }
+
+        private void Init(BugReport report, string apiKey, Action<BugReportSubmitResult> onComplete, IProgress<float> progress)
         {
             _bugReport = report;
             _apiKey = apiKey;
+            _onComplete = onComplete;
+            _progress = progress;
         }
-
-        public bool IsComplete { get; private set; }
-        public bool WasSuccessful { get; private set; }
-        public string ErrorMessage { get; private set; }
-
-        public float Progress
+        
+        void Update()
         {
-            get
+            if (_isBusy && _webRequest != null)
             {
-                if (_webRequest == null)
-                {
-                    return 0;
-                }
-
-                return Mathf.Clamp01(_webRequest.uploadProgress);
+                _progress.Report(_webRequest.uploadProgress);
             }
         }
 
-        public IEnumerator Submit()
+        IEnumerator Submit()
         {
-            //Debug.Log("[BugReportApi] Submit()");
-
             if (_isBusy)
             {
                 throw new InvalidOperationException("BugReportApi is already sending a bug report");
@@ -58,9 +53,6 @@ namespace SRDebugger.Internal
 
             // Reset state
             _isBusy = true;
-            ErrorMessage = "";
-            IsComplete = false;
-            WasSuccessful = false;
             _webRequest = null;
 
             string json;
@@ -73,9 +65,8 @@ namespace SRDebugger.Internal
             }
             catch (Exception e)
             {
-                ErrorMessage = "Error building bug report.";
                 Debug.LogError(e);
-                SetCompletionState(false);
+                SetCompletionState(BugReportSubmitResult.Error("Error building bug report."));
                 yield break;
             }
 
@@ -88,43 +79,37 @@ namespace SRDebugger.Internal
                     {
                         contentType = jsonContentType
                     });
-
                 _webRequest.SetRequestHeader("Accept", jsonContentType);
                 _webRequest.SetRequestHeader("X-ApiKey", _apiKey);
             }
             catch (Exception e)
             {
-                ErrorMessage = "Error building bug report request.";
                 Debug.LogError(e);
 
                 if (_webRequest != null)
                 {
                     _webRequest.Dispose();
+                    _webRequest = null;
                 }
-
-                SetCompletionState(false);
             }
             
             if (_webRequest == null)
             {
-                SetCompletionState(false);
+                SetCompletionState(BugReportSubmitResult.Error("Error building bug report request."));
                 yield break;
             }
 
-#if !UNITY_2017_2_OR_NEWER
-            yield return _webRequest.Send();
-#else
             yield return _webRequest.SendWebRequest();
+
+#if UNITY_2018 || UNITY_2019
+            bool isError = _webRequest.isNetworkError;
+#else
+            bool isError = _webRequest.result == UnityWebRequest.Result.ConnectionError || _webRequest.result == UnityWebRequest.Result.DataProcessingError;
 #endif
 
-#if !UNITY_2017_1_OR_NEWER
-            if(_webRequest.isError)
-#else
-                if (_webRequest.result == UnityWebRequest.Result.ConnectionError)
-#endif
+            if (isError)
             {
-                ErrorMessage = "Request Error: " + _webRequest.error;
-                SetCompletionState(false);
+                SetCompletionState(BugReportSubmitResult.Error("Request Error: " + _webRequest.error));
                 _webRequest.Dispose();
                 yield break;
             }
@@ -136,25 +121,25 @@ namespace SRDebugger.Internal
 
             if (responseCode != 200)
             {
-                ErrorMessage = "Server: " + SRDebugApiUtil.ParseErrorResponse(responseJson, "Unknown response from server");
-                SetCompletionState(false);
+                SetCompletionState(BugReportSubmitResult.Error("Server: " + SRDebugApiUtil.ParseErrorResponse(responseJson, "Unknown response from server")));
                 yield break;
             }
 
-            SetCompletionState(true);
+            SetCompletionState(BugReportSubmitResult.Success);
         }
 
-        private void SetCompletionState(bool wasSuccessful)
+        private void SetCompletionState(BugReportSubmitResult result)
         {
-            _bugReport.ScreenshotData = null;
-            WasSuccessful = wasSuccessful;
-            IsComplete = true;
+            _bugReport.ScreenshotData = null; // Clear the heaviest data in case something holds onto it
             _isBusy = false;
 
-            if (!wasSuccessful)
+            if (!result.IsSuccessful)
             {
-                Debug.LogError("Bug Reporter Error: " + ErrorMessage);
+                Debug.LogError("Bug Reporter Error: " + result.ErrorMessage);
             }
+
+            Destroy(gameObject);
+            _onComplete(result);
         }
 
         private static string BuildJsonRequest(BugReport report)
@@ -164,28 +149,27 @@ namespace SRDebugger.Internal
             ht.Add("userEmail", report.Email);
             ht.Add("userDescription", report.UserDescription);
 
-            ht.Add("console", CreateConsoleDump());
+            ht.Add("console", CreateConsoleDump(report));
             ht.Add("systemInformation", report.SystemInformation);
+            ht.Add("applicationIdentifier", Application.identifier);
 
             if (report.ScreenshotData != null)
             {
                 ht.Add("screenshot", Convert.ToBase64String(report.ScreenshotData));
             }
-
             var json = Json.Serialize(ht);
 
             return json;
         }
 
-        private static IList<IList<string>> CreateConsoleDump()
+        private static List<List<string>> CreateConsoleDump(BugReport report)
         {
-            var list = new List<IList<string>>();
-
-            var consoleLog = Service.Console.AllEntries;
+            var consoleLog = report.ConsoleLog;
+            var list = new List<List<string>>(consoleLog.Count);
 
             foreach (var consoleEntry in consoleLog)
             {
-                var entry = new List<string>();
+                var entry = new List<string>(5);
 
                 entry.Add(consoleEntry.LogType.ToString());
                 entry.Add(consoleEntry.Message);

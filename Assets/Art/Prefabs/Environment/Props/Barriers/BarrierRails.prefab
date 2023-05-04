@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 458306525026238384}
   - component: {fileID: 458306525026238387}
   - component: {fileID: 458306525026238386}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarrierRails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4756724097668397594}
   - component: {fileID: 8603742435996991292}
   - component: {fileID: 7848770707397920946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BoxStaticCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

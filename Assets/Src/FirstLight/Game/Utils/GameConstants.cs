@@ -44,17 +44,20 @@ namespace FirstLight.Game.Utils
 		{
 			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
 			public const string MIXER_LOBBY_SNAPSHOT_ID = "Lobby";
+			public const string MIXER_INDOOR_SNAPSHOT_ID = "Indoor";
+			
 			public const string MIXER_GROUP_MASTER_ID = "Master";
 			public const string MIXER_GROUP_MUSIC_ID = "Music";
 			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
 			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
 			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
-			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
+			public const string MIXER_GROUP_AMBIENT_ID = "Ambient";
 			
 			public const int SOUND_QUEUE_BREAK_MS = 75;
 			public const float SPATIAL_3D_THRESHOLD = 0.1f;
 			
-			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
+			public const float MIXER_OCCLUSION_TRANSITION_SECONDS = 0.25f;
+			public const float MIXER_MUSIC_TRANSITION_SECONDS = 0.5f;
 			
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
@@ -64,6 +67,8 @@ namespace FirstLight.Game.Utils
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
+			
+			public const float AMBIENCE_FADE_SECONDS = 0.75f;
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
@@ -177,6 +182,8 @@ namespace FirstLight.Game.Utils
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 100;
 			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 1;
+			
+			public const string MANUAL_TEAM_ID_PREFIX = "manual_";
 		}
 
 		public static class Visuals
@@ -272,9 +279,14 @@ namespace FirstLight.Game.Utils
 			public const string FIRST_TUTORIAL_GAME_MODE_ID = "Tutorial";
 			public const string SECOND_BOT_MODE_ID = "BattleRoyale First Game";
 
-			public const int TUTORIAL_SCREEN_TRANSITION_TIME_SHORT = 500;
-			public const int TUTORIAL_SCREEN_TRANSITION_TIME_LONG = 1000;
-
+			public const int TIME_250MS = 250;
+			public const int TIME_500MS = 500;
+			public const int TIME_750MS = 750;
+			public const int TIME_1000MS = 1000;
+			public const int TIME_4000MS = 4000;
+			
+			public const int TIME_HIGHLIGHT_FADE = 450;
+			
 			public const string TAG_INDICATORS = "GroundIndicator";
 			public const string TAG_GUIDE_UI = "GuideUiTarget";
 			

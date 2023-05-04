@@ -10,6 +10,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Messages;
 using FirstLight.Game.UIElements;
 using FirstLight.UiService;
 using I2.Loc;
@@ -453,6 +454,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipmentClicked(Equipment equipment, UniqueId id)
 		{
+			_services.MessageBrokerService.Publish(new SelectedEquipmentItemMessage(){ItemID = id});
+			
 			if (id == SelectedItem) return;
 
 			var previousItem = SelectedItem;

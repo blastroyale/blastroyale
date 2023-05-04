@@ -63,7 +63,6 @@ namespace Quantum.Systems
 		{
 			var membersByTeam = new Dictionary<string, HashSet<int>>();
 
-
 			for (var i = 0; i < f.PlayerCount; i++)
 			{
 				var playerData = f.GetPlayerData(i);
@@ -169,7 +168,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var ammoFilled = FP.MaxValue;
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 
@@ -199,6 +198,15 @@ namespace Quantum.Systems
 					step++;
 				}
 
+				if(QuantumFeatureFlags.DropEnergyCubes)
+				{
+					for (uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
+					{
+						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false);
+						step++;
+					}
+				}
+				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
@@ -293,13 +301,14 @@ namespace Quantum.Systems
 					return;
 				}
 
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
-					stats->GainHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->GainHealth(f, filter.Entity, &spell);
 				}
 				else
 				{
-					stats->ReduceHealth(f, filter.Entity, new Spell() {PowerAmount = (uint) health});
+					stats->ReduceHealth(f, filter.Entity, & spell);
 				}
 			}
 		}

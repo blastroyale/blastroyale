@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 8834892528115562411}
   - component: {fileID: 7619344700367772793}
   - component: {fileID: 1481673152170048754}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GuardrailC
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -90,6 +90,11 @@
     right: -260px;
 }
 
+
+.first-reward-segment
+{
+}
+
 .reward__title {
     -unity-font-style: normal;
     font-size: 50px;

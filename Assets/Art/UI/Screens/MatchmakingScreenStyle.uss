@@ -320,15 +320,15 @@
 .map-marker-party {
     width: 40px;
     height: 40px;
-    background-color: rgba(0, 172, 255, 255);
+    background-color: rgb(0, 172, 255);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -338,4 +338,12 @@
 .party-markers {
     justify-content: center;
     align-items: center;
+}
+
+.tutorial-drop-pos {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    left: 45%;
+    top: 45%;
 }

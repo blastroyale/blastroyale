@@ -1504,8 +1504,13 @@ namespace I2.Loc
 
 		public static class UITTutorial
 		{
+			public static string click_on_category 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/click_on_category"); } }
+			public static string click_to_claim_reward 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/click_to_claim_reward"); } }
 			public static string drop_down_to_arena 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/drop_down_to_arena"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/enter_your_name"); } }
+			public static string equip_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/equip_weapon"); } }
+			public static string lets_claim_rewards 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/lets_claim_rewards"); } }
+			public static string lets_equip_new_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/lets_equip_new_weapon"); } }
 			public static string lets_play_real_match 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/lets_play_real_match"); } }
 			public static string move_forward 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/move_forward"); } }
 			public static string nice_proceed_chest_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_chest_area"); } }
@@ -1513,6 +1518,8 @@ namespace I2.Loc
 			public static string open_chest 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/open_chest"); } }
 			public static string pick_up_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/pick_up_weapon"); } }
 			public static string proceed_iron_gate 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/proceed_iron_gate"); } }
+			public static string select_map_position 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/select_map_position"); } }
+			public static string select_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/select_weapon"); } }
 			public static string shoot_barrier 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_barrier"); } }
 			public static string shoot_dummies 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/shoot_dummies"); } }
 			public static string use_grenade 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/use_grenade"); } }
@@ -3030,8 +3037,13 @@ namespace I2.Loc
 
 		public static class UITTutorial
 		{
+		    public const string click_on_category = "UITTutorial/click_on_category";
+		    public const string click_to_claim_reward = "UITTutorial/click_to_claim_reward";
 		    public const string drop_down_to_arena = "UITTutorial/drop_down_to_arena";
 		    public const string enter_your_name = "UITTutorial/enter_your_name";
+		    public const string equip_weapon = "UITTutorial/equip_weapon";
+		    public const string lets_claim_rewards = "UITTutorial/lets_claim_rewards";
+		    public const string lets_equip_new_weapon = "UITTutorial/lets_equip_new_weapon";
 		    public const string lets_play_real_match = "UITTutorial/lets_play_real_match";
 		    public const string move_forward = "UITTutorial/move_forward";
 		    public const string nice_proceed_chest_area = "UITTutorial/nice_proceed_chest_area";
@@ -3039,6 +3051,8 @@ namespace I2.Loc
 		    public const string open_chest = "UITTutorial/open_chest";
 		    public const string pick_up_weapon = "UITTutorial/pick_up_weapon";
 		    public const string proceed_iron_gate = "UITTutorial/proceed_iron_gate";
+		    public const string select_map_position = "UITTutorial/select_map_position";
+		    public const string select_weapon = "UITTutorial/select_weapon";
 		    public const string shoot_barrier = "UITTutorial/shoot_barrier";
 		    public const string shoot_dummies = "UITTutorial/shoot_dummies";
 		    public const string use_grenade = "UITTutorial/use_grenade";

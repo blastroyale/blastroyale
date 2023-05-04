@@ -98,6 +98,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					col.enabled = true;
 				}
 			}
+			
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = !culled;
+			}
 
 			base.SetCulled(culled);
 		}
@@ -121,6 +126,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footstepVfxSpawners[i].CanSpawnVfx = active;
 			}
 		}
+		
 
 		public void SetPlayerSilhouetteVisible(bool visible)
 		{
@@ -285,7 +291,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
+			if (Culled || EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
 			{
 				return;
 			}
@@ -324,7 +330,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			RenderersContainerProxy.SetRendererState(false);
-			RigidbodyContainerMonoComponent.SetState(false);
 		}
 
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)

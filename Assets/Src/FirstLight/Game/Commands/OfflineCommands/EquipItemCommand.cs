@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
@@ -21,6 +22,7 @@ namespace FirstLight.Game.Commands.OfflineCommands
 		public void Execute(CommandExecutionContext ctx)
 		{
 			ctx.Logic.EquipmentLogic().Equip(Item);
+			ctx.Services.MessageBrokerService().Publish(new EquippedItemMessage(){ItemID = Item});
 		}
 	}
 }

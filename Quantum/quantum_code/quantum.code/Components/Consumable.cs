@@ -31,6 +31,7 @@ namespace Quantum
 		/// </summary>
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
+			var playerChar = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 			var isTeamsMode = f.Context.GameModeConfig.Teams;
 			var team = f.Get<Targetable>(playerEntity).Team;
@@ -38,7 +39,8 @@ namespace Quantum
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) Amount.AsInt});
+					var spell = new Spell {PowerAmount = (uint) Amount.AsInt};
+					stats->GainHealth(f, playerEntity, &spell);
 					break;
 				case ConsumableType.Rage:
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, Amount.AsInt);
@@ -51,6 +53,9 @@ namespace Quantum
 					break;
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
+					break;
+				case ConsumableType.Energy:
+					playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -79,16 +84,21 @@ namespace Quantum
 					teammateCandidate.Component->Team == team)
 				{
 					var stats = f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity);
+					var playerChar = f.Unsafe.GetPointer<PlayerCharacter>(teammateCandidate.Entity);
 					switch (ConsumableType)
 					{
 						case ConsumableType.Health:
-							stats->GainHealth(f, teammateCandidate.Entity, new Spell { PowerAmount = (uint)Amount.AsInt });
+							var spell = new Spell {PowerAmount = (uint) Amount.AsInt};
+							stats->GainHealth(f, teammateCandidate.Entity, &spell);
 							break;
 						case ConsumableType.Ammo:
 							f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity)->GainAmmoPercent(f, teammateCandidate.Entity, Amount);
 							break;
 						case ConsumableType.Shield:
 							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
+							break;
+						case ConsumableType.Energy:
+							playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
 							break;
 					}
 				}

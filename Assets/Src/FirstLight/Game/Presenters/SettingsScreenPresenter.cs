@@ -1,23 +1,19 @@
 using System;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.Game.UIElements;
 using I2.Loc;
-using Sirenix.OdinInspector;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Shop Menu.
 	/// </summary>
-	public class SettingsScreenPresenter : AnimatedUiPresenterData<SettingsScreenPresenter.StateData>
+	public class SettingsScreenPresenter : UiToolkitPresenterData<SettingsScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -28,150 +24,123 @@ namespace FirstLight.Game.Presenters
 			public Action OnDeleteAccountClicked;
 		}
 
-		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private Button _closeButton;
-		[SerializeField, Required] private Button _blockerButton;
-		[SerializeField, Required] private Button _logoutButton;
-		[SerializeField, Required] private Button _deleteAccountButton;
-		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
-		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
-		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
-		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
-		[SerializeField, Required] private UiToggleButtonView _dynamicCameraToggle;
-		[SerializeField, Required] private UiToggleButtonView _screenshakeToggle;
-		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
-		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
-		[SerializeField, Required] private Button _helpdesk;
-		[SerializeField, Required] private Button _faq;
-		[SerializeField, Required] private Button _serverSelectButton;
-		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
-		[SerializeField, Required] private Button _connectIdButton;
-		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
-		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
-
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
+
+		private ImageButton _closeScreenButton;
+
+		private Label _buildInfoLabel;
+		private Button _faqButton;
+		private Button _serverButton;
+		private Button _logoutButton;
+		private Button _deleteAccountButton;
+		private Button _connectIdButton;
+		private Label _accountStatusLabel;
 
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-
-			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
-			_services.PartyService.HasParty.InvokeObserve(OnHasPartyUpdate);
-			_services.MatchmakingService.IsMatchmaking.InvokeObserve(OnIsMatchmakingUpdate);
-
-			_closeButton.onClick.AddListener(OnClosedCompleted);
-			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
-			_logoutButton.onClick.AddListener(OnLogoutClicked);
-			_deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
-			_connectIdButton.onClick.AddListener(OpenConnectId);
-			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
-			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
-			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
-			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
-			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
-			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
-			_screenshakeToggle.onValueChanged.AddListener(OnScreenshakeToggleChanged);
-			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
-			_detailLevelView.ValueChanged += OnDetailLevelChanged;
-			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
-			_faq.onClick.AddListener(OnFaqButtonPressed);
-			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 		}
 
-		private void OnHasPartyUpdate(bool _, bool __)
+		protected override void QueryElements(VisualElement root)
 		{
-			UpdateServerSelectButton();
-		}
-		
-		private void OnIsMatchmakingUpdate(bool _, bool __)
-		{
-			UpdateServerSelectButton();
-		}
+			_closeScreenButton = root.Q<ImageButton>("CloseButton");
+			_closeScreenButton.clicked += Data.OnClose;
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
+			// Build Info Text
+			_buildInfoLabel = root.Q<Label>("BuildInfoLabel");
+			_buildInfoLabel.text = VersionUtils.VersionInternal;
 
+			// Sound
+			SetupToggle(root.Q<LocalizedToggle>("SoundEffects").Required(),
+				() => _gameDataProvider.AppDataProvider.IsSfxEnabled,
+				val => _gameDataProvider.AppDataProvider.IsSfxEnabled = val);
+			SetupToggle(root.Q<LocalizedToggle>("Announcer").Required(),
+				() => _gameDataProvider.AppDataProvider.IsDialogueEnabled,
+				val => _gameDataProvider.AppDataProvider.IsDialogueEnabled = val);
+			SetupToggle(root.Q<LocalizedToggle>("BGMusic").Required(),
+				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
+				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
+
+			// Controls
+			SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
+				() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
+				val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
+			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
+				() => _gameDataProvider.AppDataProvider.IsHapticOn,
+				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
+			SetupToggle(root.Q<LocalizedToggle>("CameraPanning").Required(),
+				() => _gameDataProvider.AppDataProvider.UseDynamicCamera,
+				val => _gameDataProvider.AppDataProvider.UseDynamicCamera = val);
+			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
+				() => _gameDataProvider.AppDataProvider.UseScreenShake,
+				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
+
+			// Graphics
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
+				() => _gameDataProvider.AppDataProvider.FpsTarget,
+				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
+			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").Required(),
+				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
+				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
+
+			// Account
+			_logoutButton = root.Q<Button>("LogoutButton");
+			_logoutButton.clicked += OnLogoutClicked;
+			_deleteAccountButton = root.Q<Button>("DeleteAccountButton");
+			_deleteAccountButton.clicked += OnDeleteAccountClicked;
+			_connectIdButton = root.Q<Button>("ConnectButton");
+			_connectIdButton.clicked += Data.OnConnectIdClicked;
+			_accountStatusLabel = root.Q<Label>("AccountStatusLabel");
 			UpdateAccountStatus();
 
-			_versionText.text = VersionUtils.VersionInternal;
+			// Footer buttons
+			_faqButton = root.Q<Button>("FAQButton");
+			_faqButton.clicked += _services.HelpdeskService.ShowFaq;
+			_serverButton = root.Q<Button>("ServerButton");
+			_serverButton.clicked += OpenServerSelect;
 
-			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
-			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
-			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
-			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
-			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
-			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
-			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
-			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			_logoutButton.gameObject.SetActive(true);
-
-			UpdateServerSelectButton();
-
-
-#if UNITY_IOS
-			_faq.gameObject.SetActive(false);
+#if UNITY_IOS && !UNITY_EDITOR
+			_faqButton.SetDisplay(false);
 #endif
+
+			root.SetupClicks(_services);
 		}
 
-		private void UpdateServerSelectButton()
+		private static void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
 		{
-			UpdateServerSelectButton(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
+			toggle.value = getter();
+			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) => s(e.newValue), setter);
 		}
 
-		private void UpdateServerSelectButton(string connectionRegion)
+		private static void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter)
+			where T : Enum, IConvertible
 		{
-			if (_selectedServerText == null) return;
-			var regionName = connectionRegion.GetPhotonRegionTranslation();
-			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
-			if (_services.PartyService.HasParty.Value|| _services.MatchmakingService.IsMatchmaking.Value)
-			{
-				_serverSelectButton.interactable = false;
-			}
-			else
-			{
-				_serverSelectButton.interactable = true;
-			}
+			var options = Enum.GetNames(typeof(T)); // TODO: Needs some sort of localization
+			group.choices = options;
+			group.value = (int) (object) getter();
+
+			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) => s((T) (object) e.newValue), setter);
 		}
 
-		/// <summary>
-		/// Updates the FLG ID account status
-		/// </summary>
 		public void UpdateAccountStatus()
 		{
 			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
-				_connectIdButton.gameObject.SetActive(true);
-				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_not_connected;
+				_connectIdButton.SetDisplay(true);
+				_deleteAccountButton.SetDisplay(false);
+				_logoutButton.SetDisplay(false);
+				_accountStatusLabel.text = ScriptLocalization.UITSettings.flg_id_not_connected;
 			}
 			else
 			{
-				_connectIdButton.gameObject.SetActive(false);
-				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.UITSettings.flg_id_connected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId, _gameDataProvider.AppDataProvider.DisplayName.Value);
+				_connectIdButton.SetDisplay(false);
+				_deleteAccountButton.SetDisplay(true);
+				_logoutButton.SetDisplay(true);
+				_accountStatusLabel.text = string.Format(ScriptLocalization.UITSettings.flg_id_connected,
+					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
-		}
-
-		private void OnConnectionRegionChange(string previousValue, string newValue)
-		{
-			UpdateServerSelectButton(newValue);
-		}
-
-		/// <inheritdoc />
-		protected override void OnClosedCompleted()
-		{
-			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
-			Data.OnClose();
-		}
-
-		private void OpenConnectId()
-		{
-			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
@@ -179,68 +148,6 @@ namespace FirstLight.Game.Presenters
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
 			Data.OnServerSelectClicked();
-		}
-
-		private void OnHelpdeskButtonPressed()
-		{
-			_services.HelpdeskService.StartConversation();
-		}
-
-		private void OnFaqButtonPressed()
-		{
-			_services.HelpdeskService.ShowFaq();
-		}
-
-		private void OnBgmChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsBgmEnabled = value;
-		}
-
-		private void OnSfxChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsSfxEnabled = value;
-		}
-
-		private void OnDialogueChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsDialogueEnabled = value;
-		}
-
-		private void OnHapticChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.IsHapticOn = value;
-		}
-
-		private void OnDynamicJoystickChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
-		}
-
-		private void OnDynamicCameraChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
-		}
-
-		private void OnScreenshakeToggleChanged(bool value)
-		{
-			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
-		}
-
-		private void OnHighFpsModeChanged(bool value)
-		{
-			var targetFps = value
-				? GameConstants.Visuals.LOW_FPS_MODE_TARGET
-				: GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
-
-			_gameDataProvider.AppDataProvider.FpsTarget = targetFps;
-		}
-
-		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
-		{
-			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
-
-			// This is temporary solution. When settings screen is made in UITK, the whole 
-			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
 		}
 
 		private void OnLogoutClicked()
@@ -271,11 +178,6 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
-		}
-
-		private void OnBlockerButtonPressed()
-		{
-			Data.OnClose();
 		}
 	}
 }

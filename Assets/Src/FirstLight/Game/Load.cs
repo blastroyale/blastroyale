@@ -6,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
@@ -43,6 +44,7 @@ namespace FirstLight.Game
 			var configsProvider = new ConfigsProvider();
 			var networkService = new GameNetworkService(configsProvider);
 			var tutorialService = new TutorialService(uiService);
+
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService,
@@ -67,6 +69,7 @@ namespace FirstLight.Game
 		private void Start()
 		{
 			TrySetLocalServer();
+			FlgCustomSerializers.RegisterAOT();
 			FlgCustomSerializers.RegisterSerializers();
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();

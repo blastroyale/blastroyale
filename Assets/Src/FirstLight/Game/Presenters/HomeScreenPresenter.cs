@@ -7,12 +7,14 @@ using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Models.Collection;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -88,6 +90,8 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
 
+		private Label _outOfSyncWarningLabel;
+
 		private MatchmakingStatusView _matchmakingStatusView;
 
 		private Coroutine _updatePoolsCoroutine;
@@ -140,6 +144,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
 
+			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
+
 			_gameModeButton.clicked += Data.OnGameModeClicked;
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
@@ -171,7 +177,11 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
-
+#if !STORE_BUILD
+			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
+#else
+			_outOfSyncWarningLabel.SetDisplay(false);
+#endif
 			UpdatePFP();
 		}
 
@@ -218,6 +228,7 @@ namespace FirstLight.Game.Presenters
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 		}
+
 
 		protected override void UnsubscribeFromEvents()
 		{
@@ -343,7 +354,7 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassReward();
 
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -428,7 +439,7 @@ namespace FirstLight.Game.Presenters
 			var buttonEnabled = true;
 
 			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-				_services.MatchmakingService.IsMatchmaking.Value)
+			    _services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
@@ -492,8 +503,8 @@ namespace FirstLight.Game.Presenters
 			if (!hasRewards)
 			{
 				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
-					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
-					_dataProvider.BattlePassDataProvider.MaxLevel)
+				    _dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+				    _dataProvider.BattlePassDataProvider.MaxLevel)
 				{
 					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);
 					_bppPoolContainer.SetDisplay(false);

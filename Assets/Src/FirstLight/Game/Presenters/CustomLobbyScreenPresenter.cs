@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using DG.Tweening;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -26,12 +27,14 @@ namespace FirstLight.Game.Presenters
 	/// - Showing the loading status
 	/// </summary>
 	public class CustomLobbyScreenPresenter : UiPresenterData<CustomLobbyScreenPresenter.StateData>,
-	                                                 IInRoomCallbacks
+											  IInRoomCallbacks
 	{
 		public struct StateData
 		{
 			public Action LeaveRoomClicked;
 		}
+
+		private const int MAX_SQUAD_ID = 30;
 
 		public MapSelectionView mapSelectionView;
 
@@ -62,7 +65,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
 		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		[SerializeField] private Color _spectateDisabledColor;
-		
+
+		[SerializeField, Required] private GameObject _topTitleHolder;
+		[SerializeField, Required] private GameObject _squadContainer;
+		[SerializeField, Required] private TextMeshProUGUI _squadIdText;
+		[SerializeField, Required] private Button _squadIdUpButton;
+		[SerializeField, Required] private Button _squadIdDownButton;
+
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
@@ -70,6 +79,9 @@ namespace FirstLight.Game.Presenters
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
+
+		private int _squadId = 1;
+		private Tween _squadIdUpdateDelayed = null;
 
 		private void Awake()
 		{
@@ -89,6 +101,8 @@ namespace FirstLight.Game.Presenters
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
+			_squadIdDownButton.onClick.AddListener(OnSquadIdDown);
+			_squadIdUpButton.onClick.AddListener(OnSquadIdUp);
 		}
 
 		private void OnDestroy()
@@ -101,7 +115,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
-			
+
 			_rootObject.SetActive(true);
 
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
@@ -126,6 +140,8 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.gameObject.SetActive(false);
 				_leaveRoomButton.gameObject.SetActive(false);
 				_loadingText.SetActive(true);
+				_squadContainer.SetActive(false);
+				_topTitleHolder.SetActive(true);
 
 				foreach (var playerKvp in CurrentRoom.Players)
 				{
@@ -134,7 +150,7 @@ namespace FirstLight.Game.Presenters
 
 				return;
 			}
-			
+
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
@@ -148,16 +164,27 @@ namespace FirstLight.Game.Presenters
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			
+			_squadContainer.SetActive(gameModeConfig.Teams);
+			_topTitleHolder.SetActive(!gameModeConfig.Teams);
+			_squadIdText.text = _squadId.ToString();
+
+			// TODO: Sets the initial TeamID. Hacky, should be somewhere else, but it should do for custom games for now.
+			if (gameModeConfig.Teams)
+			{
+				_services.MessageBrokerService.Publish(new ManualTeamIdSetMessage
+					{TeamId = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}"});
+			}
+
 			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
 			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
-			var matchmakingTime = matchType == MatchType.Ranked ? 
-				                      quantumGameConfig.RankedMatchmakingTime.AsFloat :
-				                      quantumGameConfig.CasualMatchmakingTime.AsFloat;
-			
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
+			var matchmakingTime = matchType == MatchType.Ranked
+				? quantumGameConfig.RankedMatchmakingTime.AsFloat
+				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
+
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
+				matchType.ToString().ToUpper(), gameMode);
 
 			UpdateRoomPlayerCounts();
 
@@ -191,8 +218,8 @@ namespace FirstLight.Game.Presenters
 					AddOrUpdatePlayerInList(playerKvp.Value);
 				}
 			}
-			
-			if(_services.NetworkService.LocalPlayer.LoadedCoreMatchAssets())
+
+			if (_services.NetworkService.LocalPlayer.LoadedCoreMatchAssets())
 			{
 				OnCoreMatchAssetsLoaded(new CoreMatchAssetsLoadedMessage());
 			}
@@ -237,7 +264,7 @@ namespace FirstLight.Game.Presenters
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
 			_leaveRoomButton.gameObject.SetActive(false);
-			
+
 			foreach (var playerKvp in CurrentRoom.Players)
 			{
 				AddOrUpdatePlayerInList(playerKvp.Value);
@@ -443,8 +470,9 @@ namespace FirstLight.Game.Presenters
 			while (DateTime.UtcNow < matchmakingEndTime)
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
-				_topTitleText.text = string.Format(ScriptLocalization.MainMenu.PrepareForActionTimer, timeLeft.TotalSeconds.ToString("F0"));
-				
+				_topTitleText.text = string.Format(ScriptLocalization.MainMenu.PrepareForActionTimer,
+					timeLeft.TotalSeconds.ToString("F0"));
+
 				yield return null;
 			}
 
@@ -461,7 +489,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() { AddBots = _botsToggle.isOn });
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
 		}
 
 		private void OnLeaveRoomClicked()
@@ -477,13 +505,14 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
+				confirmButton);
 		}
 
 		private void ReadyToPlay()
 		{
 			mapSelectionView.SelectionEnabled = false;
-			
+
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
@@ -491,6 +520,8 @@ namespace FirstLight.Game.Presenters
 			_botsToggleObjectRoot.SetActive(false);
 			_kickButton.gameObject.SetActive(false);
 			_spectateToggleObjectRoot.SetActive(false);
+			_squadContainer.SetActive(false);
+			_topTitleHolder.SetActive(true);
 
 			if (CurrentRoom.IsMatchmakingRoom())
 			{
@@ -521,15 +552,39 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(false);
 			}
-			
+
 			_kickModeActive = false;
+		}
+
+		private void OnSquadIdUp()
+		{
+			_squadId = _squadId == MAX_SQUAD_ID ? 1 : Mathf.Clamp(_squadId + 1, 1, MAX_SQUAD_ID);
+			UpdateSquadIdDelayed();
+		}
+
+		private void OnSquadIdDown()
+		{
+			_squadId = _squadId == 1 ? MAX_SQUAD_ID : Mathf.Clamp(_squadId - 1, 1, MAX_SQUAD_ID);
+			UpdateSquadIdDelayed();
+		}
+
+		private void UpdateSquadIdDelayed()
+		{
+			_squadIdText.text = _squadId.ToString();
+
+			_squadIdUpdateDelayed?.Kill();
+			_squadIdUpdateDelayed = DOVirtual.DelayedCall(1f, () =>
+			{
+				_services.MessageBrokerService.Publish(new ManualTeamIdSetMessage
+					{TeamId = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}"});
+			});
 		}
 
 		private void RequestKickPlayer(Player player)
 		{
 			if (player.UserId == _services.NetworkService.LocalPlayer.UserId ||
-			    !_kickModeActive || !_services.NetworkService.LocalPlayer.IsMasterClient ||
-			    !player.LoadedCoreMatchAssets())
+				!_kickModeActive || !_services.NetworkService.LocalPlayer.IsMasterClient ||
+				!player.LoadedCoreMatchAssets())
 			{
 				return;
 			}
@@ -545,7 +600,8 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true,
+				confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

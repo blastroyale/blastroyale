@@ -192,8 +192,8 @@ namespace FirstLight.Game.Services
 		{
 			envData.EnvironmentID = Environment.STAGING;
 			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
 		}
 
 		private void SetupDev(BackendEnvironmentData envData)
@@ -313,7 +313,12 @@ namespace FirstLight.Game.Services
 			{
 				StatisticName = _leaderboardLadderName,
 				StartPosition = 0,
-				MaxResultsCount = amountOfEntries
+				MaxResultsCount = amountOfEntries,
+				ProfileConstraints = new PlayerProfileViewConstraints
+				{
+					ShowAvatarUrl = true,
+					ShowDisplayName = true,
+				}
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
@@ -364,7 +369,7 @@ namespace FirstLight.Game.Services
 		private Exception ExtractException(ExecuteFunctionResult req)
 		{
 			var result = req.FunctionResult as JsonObject;
-			if (result.TryGetValue("error", out var error) && error != null)
+			if (result != null && result.TryGetValue("error", out var error) && error != null)
 			{
 				return new Exception(error.ToString());
 			}

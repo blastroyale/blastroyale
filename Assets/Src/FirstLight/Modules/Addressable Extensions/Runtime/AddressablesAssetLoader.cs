@@ -19,6 +19,11 @@ namespace FirstLight.AddressablesExtensions
 		{			
 			var operation = Addressables.LoadAssetAsync<T>(key);
 
+			if (Application.isBatchMode)
+			{
+				return operation.WaitForCompletion();
+			}
+			
 			await operation.Task;
 
 			if (operation.Status != AsyncOperationStatus.Succeeded)

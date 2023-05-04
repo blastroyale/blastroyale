@@ -26,6 +26,8 @@ namespace Quantum
 		public QuantumGameModePair<int> PlayerStartingShieldCapacity;
 		public QuantumGameModePair<FP> CollectableCollectTime;
 		public QuantumGameModePair<FP> PlayerAliveShieldDuration;
+		public uint PlayerMaxEnergyLevel;
+		public QuantumPair<ushort, ushort> MinMaxEnergyLevelRequirement;
 		public uint MaxPlayerRanks;
 		public FP RageStatusDamageMultiplier;
 		public FP DeathDropHealthChance;

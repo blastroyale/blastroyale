@@ -194,7 +194,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					CheckEnemiesToShooAt(f, ref filter, weaponConfig);
+					CheckEnemiesToShooAt(f, ref filter, ref weaponConfig);
 				}
 
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
@@ -397,7 +397,7 @@ namespace Quantum.Systems
 		}
 
 		// We loop through targetable entities trying to find if any is eligible to shoot at
-		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, QuantumWeaponConfig weaponConfig)
+		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, ref QuantumWeaponConfig weaponConfig)
 		{
 			var target = EntityRef.None;
 
@@ -854,7 +854,7 @@ namespace Quantum.Systems
 				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
 
 				if (IsInVisionRange(newSqrDistance, ref filter) && newSqrDistance < sqrDistance &&
-				    (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				    (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					enemyPosition = positionCandidate;
@@ -911,7 +911,7 @@ namespace Quantum.Systems
 			{
 				if (navMesh.FindRandomPointOnNavmesh(filter.Transform->Position, wanderRadius, f.RNG,
 					    agent->RegionMask, out var closestPosition)
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, circle, closestPosition)))
+				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, closestPosition)))
 				{
 					agent->SetTarget(f, closestPosition, navMesh);
 
@@ -958,7 +958,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					consumablePosition = positionCandidate;
@@ -991,7 +991,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					gearPickupPosition = positionCandidate;
@@ -1030,7 +1030,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					weaponPickupPosition = positionCandidate;
@@ -1058,7 +1058,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					chestPosition = positionCandidate;
@@ -1076,11 +1076,11 @@ namespace Quantum.Systems
 			return visionRangeSqr < FP._0 || distanceSqr <= visionRangeSqr;
 		}
 
-		private bool IsInCircle(ref BotCharacterFilter filter, ShrinkingCircle circle, FPVector3 positionToCheck)
+		private bool IsInCircle(ref BotCharacterFilter filter, ShrinkingCircle* circle, FPVector3 positionToCheck)
 		{
-			var distanceSqr = FPVector2.DistanceSquared(positionToCheck.XZ, circle.CurrentCircleCenter);
+			var distanceSqr = FPVector2.DistanceSquared(positionToCheck.XZ, circle->CurrentCircleCenter);
 
-			return distanceSqr <= circle.CurrentRadius * circle.CurrentRadius;
+			return distanceSqr <= circle->CurrentRadius * circle->CurrentRadius;
 		}
 
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)

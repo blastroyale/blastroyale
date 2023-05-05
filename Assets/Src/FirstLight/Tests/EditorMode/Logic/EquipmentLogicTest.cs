@@ -152,7 +152,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void Equip_NotInInventory_ThrowsException()
 		{
-			Assert.Throws<ArgumentException>(() => _equipmentLogic.Equip(UniqueId.Invalid));
+			Assert.Throws<LogicException>(() => _equipmentLogic.Equip(UniqueId.Invalid));
 		}
 
 		[Test]

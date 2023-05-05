@@ -107,13 +107,6 @@ namespace Quantum
 
 #endregion
 
-#region Loot
-
-		[BoxGroup("Loot"), PropertyTooltip(DESC_ENABLE_BOX_RARITY_MODIFIERS)]
-		public bool EnableBoxRarityModifiers;
-
-#endregion
-
 #region Bots
 
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]

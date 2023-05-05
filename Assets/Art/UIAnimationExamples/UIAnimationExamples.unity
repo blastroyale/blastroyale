@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 184016299}
   - component: {fileID: 184016300}
+  - component: {fileID: 184016301}
   m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
@@ -169,17 +170,21 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 3054733622849480980, guid: d30c3ef8b4a453a449c7394ecc813ad2, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -8958586673232843957, guid: d30c3ef8b4a453a449c7394ecc813ad2, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -853575011589441933, guid: d30c3ef8b4a453a449c7394ecc813ad2, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -8164430812988977914, guid: d30c3ef8b4a453a449c7394ecc813ad2, type: 2}
-    value: {fileID: 0}
+  m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
+--- !u!114 &184016301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184016298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb16891808144bea2830016a0ed3700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147327270
 GameObject:
   m_ObjectHideFlags: 0

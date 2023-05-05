@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 0900000041000000
+      AllowedMaps: 090000004100000085000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -45,7 +45,6 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
-      EnableBoxRarityModifiers: 1
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1
@@ -90,7 +89,6 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
-      EnableBoxRarityModifiers: 1
       AllowBots: 1
       UseBotsFromGamemode: BattleRoyale
       BotSearchForCrates: 1
@@ -135,7 +133,6 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
-      EnableBoxRarityModifiers: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -176,7 +173,6 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
-      EnableBoxRarityModifiers: 0
       AllowBots: 0
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -217,7 +213,6 @@ MonoBehaviour:
       DeathDropStrategy: 5
       DeathMarker: 0
       MinimumHealth: 100
-      EnableBoxRarityModifiers: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -237,7 +232,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 09000000
+      AllowedMaps: 0900000085000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -258,7 +253,6 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
-      EnableBoxRarityModifiers: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1

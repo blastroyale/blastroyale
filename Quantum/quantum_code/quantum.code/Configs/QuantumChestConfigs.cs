@@ -16,15 +16,10 @@ namespace Quantum
 	{
 		public GameId Id;
 		public ChestType ChestType;
-		public QuantumPair<int, int> RarityModifierRange;
 
 		public List<QuantumPair<FP, uint>> RandomEquipment;
 		public List<QuantumPair<FP, uint>> SmallConsumable;
 		public List<QuantumPair<FP, uint>> LargeConsumable;
-
-		public QuantumPair<int, int> DropFromPlayerBasedOnItemsRange;
-
-		public QuantumGameModePair<List<QuantumChestRarityModifierEntry>> ChestTypeModifiers;
 	}
 
 	/// <summary>
@@ -61,41 +56,6 @@ namespace Quantum
 		public QuantumChestConfig GetConfig(ChestType type)
 		{
 			return GetConfig(type.GameId());
-		}
-
-		public GameId CheckItemRange(int itemCount)
-		{
-			for (var i = 0; i < QuantumConfigs.Count; i++)
-			{
-				var config = GetConfig(QuantumConfigs[i].Id);
-
-				if (itemCount >= config.DropFromPlayerBasedOnItemsRange.Value1 &&
-				    itemCount <= config.DropFromPlayerBasedOnItemsRange.Value2)
-				{
-					return config.Id;
-				}
-			}
-
-			throw new ArgumentOutOfRangeException(nameof(ChestType), itemCount, null);
-		}
-
-		public EquipmentRarity GetChestRarity(ChestType type)
-		{
-			switch (type)
-			{
-				case ChestType.Common:
-					return EquipmentRarity.Common;
-				case ChestType.Uncommon:
-					return EquipmentRarity.Uncommon;
-				case ChestType.Rare:
-					return EquipmentRarity.Rare;
-				case ChestType.Epic:
-					return EquipmentRarity.Epic;
-				case ChestType.Legendary:
-					return EquipmentRarity.Legendary;
-				default:
-					return EquipmentRarity.Common;
-			}
 		}
 	}
 }

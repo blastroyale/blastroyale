@@ -48,10 +48,8 @@ namespace Quantum {
     FindOneOrNoAmmoOrRandomChance,
   }
   public enum ChestType : int {
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
+    Consumable,
+    Equipment,
     Legendary,
   }
   public enum ConsumableType : int {
@@ -162,6 +160,7 @@ namespace Quantum {
     FloodCity = 137,
     MainDeck = 143,
     FtueDeck = 5,
+    FtueMiniMap = 133,
     SmallWilderness = 144,
     FloodCitySimple = 7,
     BlimpDeck = 8,
@@ -247,6 +246,8 @@ namespace Quantum {
     ChestRare = 16,
     ChestEpic = 2,
     ChestLegendary = 19,
+    ChestEquipment = 130,
+    ChestConsumable = 131,
     SpecialAimingAirstrike = 10,
     SpecialAimingStunGrenade = 85,
     SpecialShieldSelf = 89,
@@ -4027,11 +4028,13 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct ChestOverride : Quantum.IComponent {
-    public const Int32 SIZE = 4;
+    public const Int32 SIZE = 8;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
+    [FieldOffset(4)]
     [FramePrinter.PtrQListAttribute(typeof(GameId))]
     private Quantum.Ptr ContentsOverridePtr;
+    [FieldOffset(0)]
+    public EquipmentRarity Rarity;
     public QListPtr<GameId> ContentsOverride {
       get {
         return new QListPtr<GameId>(ContentsOverridePtr);
@@ -4044,6 +4047,7 @@ namespace Quantum {
       unchecked { 
         var hash = 461;
         hash = hash * 31 + ContentsOverridePtr.GetHashCode();
+        hash = hash * 31 + (Int32)Rarity;
         return hash;
       }
     }
@@ -4056,6 +4060,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (ChestOverride*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Rarity);
         QList.Serialize(p->ContentsOverride, &p->ContentsOverridePtr, serializer, StaticDelegates.SerializeGameId);
     }
   }
@@ -10299,6 +10304,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class ChestOverride_Prototype : ComponentPrototype<ChestOverride> {
     [DynamicCollectionAttribute()]
     public GameId_Prototype[] ContentsOverride = {};
+    public EquipmentRarity_Prototype Rarity;
     partial void MaterializeUser(Frame frame, ref ChestOverride result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       ChestOverride component = default;
@@ -10317,6 +10323,7 @@ namespace Quantum.Prototypes {
         }
         result.ContentsOverride = list;
       }
+      result.Rarity = this.Rarity;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

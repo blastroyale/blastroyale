@@ -38,9 +38,10 @@ namespace FirstLight.Game.Presenters
 
 		public MapSelectionView mapSelectionView;
 
+		[SerializeField, Required] private Button _backButton;
+		[SerializeField, Required] private Button _homeButton;
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
-		[SerializeField, Required] private Button _leaveRoomButton;
 		[SerializeField, Required] private Button _kickButton;
 		[SerializeField, Required] private Button _cancelKickButton;
 		[SerializeField, Required] private Image[] _playersWaitingImage;
@@ -54,7 +55,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _topTitleText;
 		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
-		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private GameObject _playerCountHolder;
 		[SerializeField, Required] private GameObject _selectDropZoneTextRootObject;
@@ -92,10 +92,11 @@ namespace FirstLight.Game.Presenters
 				image.gameObject.SetActive(false);
 			}
 
+			_backButton.onClick.AddListener(OnLeaveRoomClicked);
+			_homeButton.onClick.AddListener(OnLeaveRoomClicked);
 			_spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
-			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
 			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
@@ -138,7 +139,6 @@ namespace FirstLight.Game.Presenters
 				_spectateToggleObjectRoot.SetActive(false);
 				_botsToggleObjectRoot.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
-				_leaveRoomButton.gameObject.SetActive(false);
 				_loadingText.SetActive(true);
 				_squadContainer.SetActive(false);
 				_topTitleHolder.SetActive(true);
@@ -153,7 +153,6 @@ namespace FirstLight.Game.Presenters
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_lockRoomButton.gameObject.SetActive(false);
-			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
@@ -194,7 +193,6 @@ namespace FirstLight.Game.Presenters
 				_spectatorListHolder.gameObject.SetActive(false);
 				_playerMatchmakingRootObject.SetActive(true);
 				_playerCountHolder.SetActive(false);
-				_roomNameRootObject.SetActive(false);
 
 				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
 				StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
@@ -211,7 +209,6 @@ namespace FirstLight.Game.Presenters
 
 				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
-				_roomNameRootObject.SetActive(true);
 
 				foreach (var playerKvp in CurrentRoom.Players)
 				{
@@ -244,8 +241,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
-			_leaveRoomButton.gameObject.SetActive(true);
+			
 			_loadingText.SetActive(false);
 
 			if (_services.NetworkService.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
@@ -262,9 +258,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
-		{
-			_leaveRoomButton.gameObject.SetActive(false);
-
+		{ 
 			foreach (var playerKvp in CurrentRoom.Players)
 			{
 				AddOrUpdatePlayerInList(playerKvp.Value);
@@ -516,7 +510,6 @@ namespace FirstLight.Game.Presenters
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
-			_leaveRoomButton.gameObject.SetActive(false);
 			_botsToggleObjectRoot.SetActive(false);
 			_kickButton.gameObject.SetActive(false);
 			_spectateToggleObjectRoot.SetActive(false);

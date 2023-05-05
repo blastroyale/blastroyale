@@ -27,9 +27,15 @@
     left: 468px;
     bottom: 0;
     overflow: visible;
-    right: 700px;
+    right: 550px;
     flex-direction: row;
     flex-grow: 1;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.collection-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .collection-list .unity-list-view__item:hover {
@@ -62,14 +68,16 @@
 .info-holder__item-name {
     color: rgb(255, 255, 255);
     font-size: 48px;
-    position: absolute;
-    right: 50px;
-    bottom: 234px;
-    width: 388px;
-    height: 50px;
+    -unity-text-align: middle-left;
 }
 
 .info-holder__equip-button {
+    position: absolute;
+    top: 182px;
+    left: 168px;
+}
+
+.info-holder__change-button {
     position: absolute;
     top: 182px;
     left: 168px;

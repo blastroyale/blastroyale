@@ -37,6 +37,11 @@ namespace FirstLight.Game.Logic
 		/// Get all available collections
 		/// </summary>
 		List<CollectionCategory> GetCollectionsCategories();
+
+		/// <summary>
+		/// Does the player own a specific item?
+		/// </summary>
+		bool IsItemOwned(CollectionItem item);
 	}
 
 	/// <summary>
@@ -71,8 +76,13 @@ namespace FirstLight.Game.Logic
 		[CanBeNull]
 		public CollectionItem GetEquipped(CollectionCategory group)
 		{
-			Data.Equipped.TryGetValue(group, out var equipped);
-			return equipped;
+			if (Data.Equipped.TryGetValue(group, out var equipped))
+			{
+				return equipped;
+			}
+
+			Data.DefaultEquipped.TryGetValue(group, out var defaultEquipped);
+			return defaultEquipped;
 		}
 
 		public CollectionCategory GetCollectionType(CollectionItem item)
@@ -86,6 +96,12 @@ namespace FirstLight.Game.Logic
 			{
 				new (GameIdGroup.PlayerSkin), new (GameIdGroup.DeathMarker), new (GameIdGroup.Glider)
 			};
+		}
+
+		public bool IsItemOwned(CollectionItem item)
+		{
+			var group = GetCollectionType(item);
+			return GetOwnedCollection(group).Contains(item);
 		}
 
 		public CollectionCategory Equip(CollectionItem item)

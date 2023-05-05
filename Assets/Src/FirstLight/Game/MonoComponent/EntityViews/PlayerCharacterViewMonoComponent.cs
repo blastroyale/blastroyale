@@ -541,6 +541,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetBool(Bools.Flying, false);
+			
+			_characterView.DestroyItem(GameIdGroup.Glider);
 		}
 	}
 }

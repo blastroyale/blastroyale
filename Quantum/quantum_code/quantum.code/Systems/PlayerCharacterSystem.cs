@@ -209,7 +209,7 @@ namespace Quantum.Systems
 			spawnTransform.Position = spawnPosition.XOY;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, teamId,
+				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Glider, teamId,
 				playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
 		}
 

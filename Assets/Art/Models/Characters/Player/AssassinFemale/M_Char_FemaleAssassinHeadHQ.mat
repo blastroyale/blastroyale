@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Char_FemaleAssassinHeadHQ
-  m_Shader: {fileID: -6465566751694194690, guid: 54226dad6a35e0b4990fe57845222f7a, type: 3}
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -66,12 +66,12 @@ Material:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
-    - Vector1_A3CA1DE4: 1
+    - Vector1_A3CA1DE4: 0
     - Vector1_FA9A29A7: 1
     - _Death: 0
     - _EmissTexAmount: 0
-    - _Fresnel_Power: 6
-    - _Hit: 0.4
+    - _Fresnel_Power: 0
+    - _Hit: 0
     - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0

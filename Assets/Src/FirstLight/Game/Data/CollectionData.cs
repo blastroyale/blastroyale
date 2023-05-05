@@ -181,6 +181,12 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
 			{ CollectionCategories.PLAYER_SKINS, new(GameId.Male01Avatar) },
+		};
+		
+		[JsonProperty]
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
+		public readonly Dictionary<CollectionCategory, CollectionItem> DefaultEquipped = new()
+		{
 			{ CollectionCategories.GLIDERS, new(GameId.Falcon) },
 			{ CollectionCategories.GRAVE, new(GameId.Tombstone) }
 		};

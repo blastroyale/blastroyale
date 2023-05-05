@@ -76,8 +76,13 @@ namespace FirstLight.Game.Logic
 		[CanBeNull]
 		public CollectionItem GetEquipped(CollectionCategory group)
 		{
-			Data.Equipped.TryGetValue(group, out var equipped);
-			return equipped;
+			if (Data.Equipped.TryGetValue(group, out var equipped))
+			{
+				return equipped;
+			}
+
+			Data.DefaultEquipped.TryGetValue(group, out var defaultEquipped);
+			return defaultEquipped;
 		}
 
 		public CollectionCategory GetCollectionType(CollectionItem item)

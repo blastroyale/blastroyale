@@ -91,8 +91,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab7fe09aa9b23a14e922ebbb2e1d13e2
-    m_Address: Assets/Art/Models/Characters/Player/MaleAssassin/Char_PlayerMaleAssassin.fbx
+  - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
+    m_Address: VFX/WeaponAim.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

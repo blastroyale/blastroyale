@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
@@ -23,6 +24,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
 		private readonly IIndicator[] _specialRadiusIndicators = new IIndicator[Constants.MAX_SPECIALS];
+		private WeaponAim _weaponAim;
+		
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
 		private IIndicator MovementIndicator => _indicators[(int) IndicatorVfxId.Movement];
 		
@@ -71,7 +74,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init(EntityView playerView)
 		{
 			_localPlayerEntity = playerView.EntityRef;
-			
+
+			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
+			_weaponAim = aim.GetComponent<WeaponAim>();
+			_weaponAim.SetView(playerView);
+
 			for (int i = 0; i < _specialIndicators.Length; i++)
 			{
 				_specialIndicators[i] = null;
@@ -125,23 +132,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
-			ShootIndicator.SetVisualState(false);
-			
-			if (!_data.AppDataProvider.ConeAim || _weaponConfig.MaxAttackAngle == 0)
+			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
-				_shootIndicatorId = IndicatorVfxId.Line;
+				ShootIndicator.SetVisualState(false);
+				if (_weaponConfig.MaxAttackAngle == 0)
+				{
+					_shootIndicatorId = IndicatorVfxId.Line;
+				}
+				else
+				{
+					_shootIndicatorId = IndicatorVfxId.Cone;
+				}
+				if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
+				{
+					_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+				}
+				ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 			}
 			else
 			{
-				_shootIndicatorId = IndicatorVfxId.Cone;
+				_weaponAim.UpdateWeapon(f, _localPlayerEntity, _weaponConfig);
 			}
-
-			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
-			{
-				_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			}
-
-			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 		}
 
 		/// <summary>
@@ -176,7 +187,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
-		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
+		private void LegacyConeAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!f.Unsafe.TryGetPointer<CharacterController3D>(_localPlayerEntity, out var kcc) ||
 				!f.Unsafe.TryGetPointer<PlayerCharacter>(_localPlayerEntity, out var playerCharacter))
@@ -193,28 +204,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(aim, ref transform->Rotation).Normalized.ToUnityVector2();
-
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
 			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
-
 			var minAttackAngle = _weaponConfig.MaxAttackAngle == 0 ? 0 : _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle == 0 ? 0 :_weaponConfig.MaxAttackAngle;
-
 			var lerp = QuantumHelpers.GetDynamicAimValue(kcc,maxAttackAngle, minAttackAngle).AsFloat;
 			var angleInRad = maxAttackAngle == minAttackAngle || f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) 
 				? minAttackAngle : lerp;
 
-			float size = 0;
 			// We use a formula to calculate the scale of a shooting indicator
-			if (!_data.AppDataProvider.ConeAim)
-			{
-				size = 0.3f;
-			}
-			else
-			{
-				size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
-			}
-			
+			float size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
 			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
 			{
@@ -223,11 +223,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var isAiming = shooting || aim != FPVector2.Zero;
-
-			MovementIndicator.SetVisualState(!isAiming);
+			
 			ShootIndicator.SetTransformState(aimDirection);
 			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, range);
+		}
+
+		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
+		{
+			MovementIndicator.SetVisualState(!shooting && aim == FPVector2.Zero);
+			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
+			{
+				LegacyConeAim(f, aim, shooting);
+			}
+			else
+			{
+				_weaponAim.UpdateAimAngle(f, _localPlayerEntity, aim);
+			}
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)

@@ -76,6 +76,10 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
+			
+			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
+				() => _gameDataProvider.AppDataProvider.ConeAim,
+				val => _gameDataProvider.AppDataProvider.ConeAim = val);
 
 			// Graphics
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
@@ -142,7 +146,8 @@ namespace FirstLight.Game.Presenters
 					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 		}
-
+		
+		
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

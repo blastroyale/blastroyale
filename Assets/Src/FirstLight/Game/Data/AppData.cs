@@ -51,7 +51,7 @@ namespace FirstLight.Game.Data
 		public string DeviceId;
 		public string LastLoginEmail;
 		public string ConnectionRegion;
-		
+
 		public DateTime GameReviewDate;
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;

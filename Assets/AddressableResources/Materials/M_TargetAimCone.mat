@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_TargetAimCone
-  m_Shader: {fileID: -6465566751694194690, guid: 7ae8122422817ca4193fd84d5b34dedf, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 2ff385516f374a64a958be8b16650216, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_A7AD1AC1:
+        m_Texture: {fileID: 2800000, guid: b90773611f2d54952888f6058d99a5a5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_ac57cf9f20074fdd88b2641f1bc0b444_Out_0:
         m_Texture: {fileID: 2800000, guid: 4081fa95da2634fda832dd5b1d3b31f8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -56,6 +60,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
+    - Color_4E5AAFF6: {r: 1, g: 1, b: 1, a: 1}
     - Color_c456f3cd5c7a48ceb6529b327462c057: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_0725aee017b6472ea0ce6140deb30d9d: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_46ecf186811348489c2ad34b1512e3bc: {r: 0, g: -0.19, b: 0, a: 0}

@@ -15610,6 +15610,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/cone_aim
+      TermType: 0
+      Description: 
+      Languages:
+      - Cone Aim
+      - Cone Aim
+      - Mira em Cone
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/back_to
       TermType: 0
       Description: 
@@ -16622,7 +16633,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbzRk6UiWHONXDFdtVQ4rF8M_VG8Xs9kv7ZEg95Dnc_Zo2lw0mN7UQ4hVJ5Y0yfrgeqk/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1682885377003
+    Google_LastUpdatedVersion: 1683200323748
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

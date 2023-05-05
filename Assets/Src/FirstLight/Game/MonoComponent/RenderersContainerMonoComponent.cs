@@ -118,9 +118,12 @@ namespace FirstLight.Game.MonoComponent
 
 				_renderers.Add(render);
 
-				foreach (var material in render.sharedMaterials)
+				for (var i = 0; i<render.sharedMaterials.Length; i++)
 				{
-					_originalMaterials.Add(material);
+					if (i == 0)
+					{
+						_originalMaterials.Add(render.sharedMaterials[i]);
+					}
 				}
 			}
 		}
@@ -140,7 +143,7 @@ namespace FirstLight.Game.MonoComponent
 				rendererItem.GetPropertyBlock(_propBlock);
 				_propBlock.SetFloat(propertyId, value);
 
-				var materialCount = rendererItem.materials.Length;
+				var materialCount = Math.Min(rendererItem.materials.Length, 1);
 
 				for (var j = 0; j < materialCount; j++)
 				{
@@ -161,7 +164,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			foreach (var rendererItem in _renderers)
 			{
-				var materialCount = rendererItem.materials.Length;
+				var materialCount = Math.Min(rendererItem.materials.Length, 1);
 
 				for (var j = 0; j < materialCount; j++)
 				{
@@ -221,8 +224,10 @@ namespace FirstLight.Game.MonoComponent
 			// Original Materials have all the materials in order of the renderers
 			for (int i = 0, count = 0; i < _renderers.Count; i++)
 			{
-				var materialCount = _renderers[i].materials.Length;
-				var newMaterials = new Material[materialCount];
+				var sharedMaterialCount = _renderers[i].sharedMaterials.Length;
+				var materialCount =  Math.Min(_renderers[i].materials.Length, 1);
+				
+				var newMaterials = new Material[sharedMaterialCount];
 
 				for (var j = 0; j < materialCount; j++, count++)
 				{
@@ -234,6 +239,12 @@ namespace FirstLight.Game.MonoComponent
 					}
 
 					newMaterials[j] = material;
+				}
+
+				if (sharedMaterialCount > 1)
+				{
+					var lastIndex = sharedMaterialCount - 1;
+					newMaterials[lastIndex] = _renderers[i].sharedMaterials[lastIndex];
 				}
 
 				_renderers[i].materials = newMaterials;

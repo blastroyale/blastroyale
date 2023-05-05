@@ -3,41 +3,88 @@ pr: none
 trigger: none
 resources:
   pipelines:
-  - pipeline: build
-    source: 'Game-Builds'
-    trigger:
-      branches:
-        include:
-          - 'develop'
-          - 'release/*'
-          - 'master'
-      tags:
-        - DeployGameLogic
+    - pipeline: build
+      source: 'Game-Builds'
+      trigger:
+        branches:
+          include:
+            - 'develop'
+            - 'release/*'
+            - 'master'
+        tags:
+          - DeployGameLogic
   repositories:
-  - repository: templates
-    type: git
-    ref: main
-    name: Infrastructure/core-templates
+    - repository: templates
+      type: git
+      ref: main
+      name: Infrastructure/core-templates
 
 variables:
-# Variable called 'image_manual_override' is defined for optional per-run manual override.
-- group: Secrets
-- group: Non-secrets
-- name: serviceConnection
-  value: AzureRM
-- name: serviceName
-  value: game-logic-service
-- name: registry
-  value: $(REGISTRY_NAME).azurecr.io
-- name: dockerImage
-  value: 
+  # Variable called 'image_manual_override' is defined for optional per-run manual override.
+  - group: Secrets
+  - group: Non-secrets
+  - name: serviceConnection
+    value: AzureRM
+  - name: serviceName
+    value: game-logic-service
+  - name: registry
+    value: $(REGISTRY_NAME).azurecr.io
+  - name: dockerImage
+    value:
+  - name: deployStaging
+    value: $[ startsWith(variables['resources.pipeline.build.sourceBranch'], 'refs/heads/release/') ]
+  - name: deployLive
+    value: $[eq(variables['resources.pipeline.build.sourceBranch'], 'refs/heads/master') ]
+  - name: deployDev
+    value: $[and(eq(variables['deployStaging'],'False'), eq(variables['deployLive'],'False')) ]
 
 pool: linux-k8s
 
 stages:
-- ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
+  - stage: PrintVariables
+    condition: eq(variables['system.debug'], 'true')
+    jobs:
+      - job: TestRuntimeVars
+        steps:
+          - checkout: none
+          - script: |
+              for var in $(compgen -e); do
+              echo $var ${!var};
+              done
+              echo "DEPLOY LIVE IS $(deployLive)"
+              echo "DEPLOY STAGING IS $(deployStaging)"
+              echo "DEPLOY DEV IS $(deployDev)"
+              echo "TRIGGER BRANCH: $(triggerBranch)"
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
+      run: $(deployDev)
+      serviceConnection: $(serviceConnection)
+      serviceName: $(serviceName)
+      image: $(dockerImage)
+      environment: dev
+      system: dev
+      minReplicas: 1
+      maxReplicas: 2
+      cpu: 1
+      memory: 2Gi
+      ipwhitelist: 0.0.0.0/0
+      helmRepoPassword: $(HELM-REPO-PASSWORD)
+      envVars: |
+        --set env.API_KEY=$(DEV-COMMON-API-KEY) \
+        --set env.API_URL="***REMOVED***" \
+        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
+        --set env.APPLICATION_ENVIRONMENT=dev \
+        --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.DEV_MODE=TRUE \
+        --set env.NFT_SYNC=true \
+        --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_TITLE=***REMOVED*** \
+        --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
+
+  - template: pipelines/release-helm-chart.yml@templates
+    parameters:
+      run: $(deployStaging)
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
       image: $(dockerImage)
@@ -63,9 +110,9 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  elseif eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
+      run: $(deployLive)
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
       image: $(dockerImage)
@@ -89,8 +136,10 @@ stages:
         --set env.PLAYFAB_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
+
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
+      run: $(deployLive)
       serviceConnection: $(serviceConnection)
       serviceName: $(serviceName)
       image: $(dockerImage)
@@ -120,32 +169,6 @@ stages:
         --set env.PLAYFAB_TITLE=***REMOVED*** \
         --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 
-- ${{  else  }}:
-  - template: pipelines/release-helm-chart.yml@templates
-    parameters:
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: dev
-      system: dev
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
-      helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set env.API_KEY=$(DEV-COMMON-API-KEY) \
-        --set env.API_URL="***REMOVED***" \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=dev \
-        --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=TRUE \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
 # The above `else` statement is redundant. Azure devops requires at least one stage with no dependencies.
 
 # autoscaling percentage values are bsed on request values, not limits.

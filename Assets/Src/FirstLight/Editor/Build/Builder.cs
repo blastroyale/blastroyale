@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Editor.Artifacts;
 using FirstLight.Editor.EditorTools;
+using Photon.Realtime;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
@@ -47,7 +48,7 @@ namespace FirstLight.Editor.Build
 			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, buildSymbol, serverSymbol);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, buildSymbol, serverSymbol);
-
+		
 			switch (buildSymbol)
 			{
 				case FirstLightBuildConfig.DevelopmentSymbol:
@@ -119,14 +120,9 @@ namespace FirstLight.Editor.Build
 
 			// Search all generic implementations to pre-compile them with IL2CPP
 			PlayerSettings.SetAdditionalIl2CppArgs("--generic-virtual-method-iterations=10");
-
-			// TODO: Master IL2CPP seems to fail android builds
-			//PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Master);
-			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Master);
-
+			
 			AddressableAssetSettings.BuildPlayerContent();
 
-			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
 		

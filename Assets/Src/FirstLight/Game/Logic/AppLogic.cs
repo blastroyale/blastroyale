@@ -174,7 +174,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Displays cone aim instead of line aim
 		/// </summary>
-		bool ConeAim { get; }
+		bool ConeAim { get; set; }
 
 		/// <summary>
 		/// Allows players to control movement using analogs
@@ -204,7 +204,6 @@ namespace FirstLight.Game.Logic
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
-		public bool ConeAim { get; set; }
 		public bool MovespeedControl { get; set; }
 		public bool AngleTapShoot { get; set; }
 		public bool StopShootingShake { get; set; }
@@ -337,6 +336,11 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
+
+		public bool ConeAim { 
+			get => Data.ConeAim;
+			set => Data.ConeAim = value;
+		}
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)

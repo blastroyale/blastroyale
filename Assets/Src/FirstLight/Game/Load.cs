@@ -69,6 +69,7 @@ namespace FirstLight.Game
 		private void Start()
 		{
 			TrySetLocalServer();
+			FlgCustomSerializers.RegisterAOT();
 			FlgCustomSerializers.RegisterSerializers();
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();

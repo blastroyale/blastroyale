@@ -11,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
-		public async Task Init(EntityView entityView, Equipment weapon, Equipment[] gear)
+		public async Task Init(EntityView entityView, Equipment weapon, Equipment[] gear, GameId glider)
 		{
 			var weaponTask = EquipWeapon(weapon.GameId);
 			var list = new List<Task> {weaponTask};
@@ -25,6 +25,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				list.Add(EquipItem(item.GameId));
 			}
+			
+			list.Add(InstantiateItem(glider, GameIdGroup.Glider));
 
 			await Task.WhenAll(list);
 

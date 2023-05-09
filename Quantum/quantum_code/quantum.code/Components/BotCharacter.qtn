@@ -13,6 +13,7 @@ component BotCharacter
 	Int32 BotNameIndex;
 	GameId Skin;
 	GameId DeathMarker;
+	GameId Glider;
 	
 	// General settings and data of a bot
 	FP DecisionInterval;

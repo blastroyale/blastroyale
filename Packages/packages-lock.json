@@ -304,8 +304,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.6.4",
-      "depth": 0,
+      "version": "1.6.5",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.director": "1.0.0",
@@ -349,6 +349,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "f45424822189ebd875d864a17d7f03b72eafbff7"
+    },
+    "dev.krajnc.uitoolkittimeline": {
+      "version": "https://github.com/mihakrajnc/UITTimeline.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.timeline": "1.6.5"
+      },
+      "hash": "68e9114b94ba4a9123a4612d6fd6ce9fc98a7868"
     },
     "unity-dependencies-hunter": {
       "version": "https://github.com/AlexeyPerov/Unity-Dependencies-Hunter.git#upm",

@@ -69,6 +69,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1c518c3237ea941049cb80756b5d064a, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: 9cf0065253bc247b29b6d2be2850eccb, type: 3}
+  - {fileID: 21300000, guid: 4e79c952922fc493fbe0b0c6cda74e3b, type: 3}
   - {fileID: 21300000, guid: 50365762fd4d549e2bbf30c7827ce650, type: 3}
   - {fileID: 21300000, guid: cbfdaa628fb8f4e0786a9a134c3b4323, type: 3}
   - {fileID: 21300000, guid: dd13a282a4ccd406f9e1fba93a72a527, type: 3}
@@ -92,11 +93,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 35f9d03475a6a4c5ab77c9d55e1bd97e, type: 3}
   - {fileID: 21300000, guid: 15d784641546343d4ba4b70be338fbc0, type: 3}
   - {fileID: 21300000, guid: f52f79846f13d40c5a8b178e5a3820ee, type: 3}
+  - {fileID: 21300000, guid: 7cdf8b844857a474c9eed60ec3663f49, type: 3}
   - {fileID: 21300000, guid: 05a4d1a4e6852454787bb90bdd4ffbac, type: 3}
   - {fileID: 21300000, guid: 960a98a43ff154709a1f7a3cfeac35b1, type: 3}
   - {fileID: 21300000, guid: f5379ec454d4b46e7bcd5a474adc5ac6, type: 3}
   - {fileID: 21300000, guid: 200f11153aed542e3aeb0adb534ade89, type: 3}
   - {fileID: 21300000, guid: 05460215ca74e4b5baa3781e20e550dd, type: 3}
+  - {fileID: 21300000, guid: af24e6359bb4c490b8f0965b851e7d72, type: 3}
   - {fileID: 21300000, guid: 71f6a045524114e68a5e7294e0b95a6c, type: 3}
   - {fileID: 21300000, guid: 939f9d55c3bea4ada9601d4a0843b2f3, type: 3}
   - {fileID: 21300000, guid: 924e9a658b38a417982f18d0ba0dc4e4, type: 3}
@@ -126,13 +129,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 69d1c717616e62905a4e7d2ea243fc93, type: 3}
   - {fileID: 21300000, guid: 5db528171ce7e43ceaaad19d38e24b92, type: 3}
   - {fileID: 21300000, guid: 64898817438f9408c96d237ff01892ca, type: 3}
-  - {fileID: 21300000, guid: 8fcc5b373e63d42388e46558c456d606, type: 3}
   - {fileID: 21300000, guid: 40a49e478e2a64d8ba5857e4e7116e77, type: 3}
   - {fileID: 21300000, guid: 42c36257cd63e460ea5327a85de7656b, type: 3}
   - {fileID: 21300000, guid: a3323e773a3d94bfda84717a55d45241, type: 3}
   - {fileID: 21300000, guid: 3e5652b7ecea04363b108b5a07a418e9, type: 3}
   - {fileID: 21300000, guid: 36e49cd75c11647259f49fcd8852500a, type: 3}
-  - {fileID: 21300000, guid: 21352bf708828456aba36e7074fd4bf0, type: 3}
   - {fileID: 21300000, guid: 8bda900808592449aafbdc6498ba944a, type: 3}
   - {fileID: 21300000, guid: fec2c038b4fd64e349c7afb5d98f3cee, type: 3}
   - {fileID: 21300000, guid: 1a7062387a0e94272bda86c013e125de, type: 3}
@@ -153,10 +154,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8d6a1d691e64f422fa586d41e6523734, type: 3}
   - {fileID: 21300000, guid: c145e479df096482486e6f4f8e67fcc5, type: 3}
   - {fileID: 21300000, guid: 1825fba91a2ec4c61b2ca02cc1b0e119, type: 3}
-  - {fileID: 21300000, guid: fbd9a0b93fd6446f0a2a3e1616f4aa0b, type: 3}
   - {fileID: 21300000, guid: 8d953de975b4b4dcdb1e6347abe65e1b, type: 3}
   - {fileID: 21300000, guid: 8dc8750adc12340ba9c5a7d381f9732d, type: 3}
   - {fileID: 21300000, guid: 1fe1380aae6a2415ebb8ad3774901c63, type: 3}
+  - {fileID: 21300000, guid: 0bce921ac74214fada8d5ebed1b28e6e, type: 3}
   - {fileID: 21300000, guid: 3b196d1a9145c4220b265b4d0ff754a1, type: 3}
   - {fileID: 21300000, guid: 3f3e6e2aea9444cbb92bb223a33ea6a8, type: 3}
   - {fileID: 21300000, guid: ac9fab4a1916b48ea8d60ac71cfa471a, type: 3}
@@ -211,6 +212,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0c1582fd373454a23a0eb59fd8950cd4, type: 3}
   - {fileID: 21300000, guid: 11b7e4fda3df5460a9ca687ad2347355, type: 3}
   - {fileID: 21300000, guid: ed3decfd505b34a329a69123a943bd71, type: 3}
+  - {fileID: 21300000, guid: d3812d1e1c56b4a188ccfb9324966a36, type: 3}
   - {fileID: 21300000, guid: af29ed1ea7c4150a4bb3ea7030523a38, type: 3}
   - {fileID: 21300000, guid: a0c3566edae4a44798a1c7eaf010348a, type: 3}
   - {fileID: 21300000, guid: 4dcea76e0c52e43d6b931b8c957efe36, type: 3}
@@ -221,14 +223,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a586a1ae1408749e9b1267b30f1bc628, type: 3}
   - {fileID: 21300000, guid: ce83c8bea7bca44b893b799aca685404, type: 3}
   - {fileID: 21300000, guid: 851991ee848a84b6997cd953ceaa782a, type: 3}
-  - {fileID: 21300000, guid: fa870ffe7de68412c8d52332175c181e, type: 3}
   - {fileID: 21300000, guid: f7f1600fc490043a4b7bfbe992ed1354, type: 3}
   - {fileID: 21300000, guid: 3239f11f9671f4e658a54a4e98fb976d, type: 3}
   - {fileID: 21300000, guid: a49be92fdecf54e4ebae741388eb08a5, type: 3}
   - {fileID: 21300000, guid: 52f7975f7a5a24e04ab18c4ea9cb930d, type: 3}
   - {fileID: 21300000, guid: 4809267f509664a1693763b14f4f90c7, type: 3}
-  - {fileID: 21300000, guid: 427e188f7c68b42e982c900f4a1bbaa2, type: 3}
   - {fileID: 21300000, guid: 64ec2e9f6d98448fa981fa898a918755, type: 3}
+  - {fileID: 21300000, guid: 585976af6489d4d16a641895f4adc942, type: 3}
   - {fileID: 21300000, guid: 9da5c1bf95cb14250aacab06348ab34d, type: 3}
   - {fileID: 21300000, guid: 278346cf582f948558a2b38a14e56b24, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -263,6 +264,7 @@ SpriteAtlas:
   - button-equipmentslot-legendary
   - progress-battlepassbtn-bg
   - button-battlepass-pressed
+  - character-malepunk
   - button-long-yellow-pressed
   - button-equipmentslot-rare
   - background-textbubble-yellow
@@ -271,7 +273,7 @@ SpriteAtlas:
   - icon-mutator-quickspecials
   - icon-customgame
   - icon-hide-purple
-  - character-male-superstar
+  - character-malesuperstar
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
@@ -285,12 +287,14 @@ SpriteAtlas:
   - icon-banner
   - icon-arrow-upgrade
   - background-settingstab-chosen
-  - character-corpo-female
+  - character-femalecorpos
+  - character-femaleassassin
   - header-back
   - pattern-dots-gradient
   - character-female01avatar
   - flag-demon
   - button-equipmentslot-empty-pressed
+  - character-femalesuperstar
   - background-tooltip-bottomleft
   - glider-rocket
   - background-settingstab
@@ -320,13 +324,11 @@ SpriteAtlas:
   - icon-gamemode-battleroyale-shadow
   - background-gamemode-custom
   - background-settings-item
-  - character-punk-male
   - icon-mutator-healthyair
   - header-background
   - icon-crown-ranked
   - icon-arrow-settingstab
   - background-tooltip-bottomright
-  - character-corpo-male
   - background-bpreward-outline
   - button-main-yellow
   - button-bpreward-pressed
@@ -344,13 +346,13 @@ SpriteAtlas:
   - button-collection-item
   - header-profile
   - header-back-pressed
-  - character-assasins-male
+  - character-maleassassin
   - button-long-red-pressed
   - icon-equipmentcategory-shield
-  - character-superstar-female
   - button-equipmentslot-legendary-pressed
   - button-popup-equipment-close
   - background-modetag-ranked
+  - character-malecorpos
   - glider-divinci
   - background-profile
   - button-equipmentslot-uncommon
@@ -359,7 +361,7 @@ SpriteAtlas:
   - progress-battlepass
   - button-collection-item-pressed
   - background-modeselection-custom
-  - glider-shark
+  - glider-turbine
   - logo-blasthub
   - pattern-rewardglow-rare
   - icon-special-aiminggrenade
@@ -405,6 +407,7 @@ SpriteAtlas:
   - button-play-pressed
   - vfx-lightrays-reward
   - button-equipmentslot-rare-pressed
+  - flag-tombstone
   - button-gamemode-overlay-battleroyale
   - icon-shop
   - icon-gamemode-custom
@@ -415,14 +418,13 @@ SpriteAtlas:
   - avatar-default
   - glider-falcon
   - icon-close
-  - character-assasins-female
   - button-long-darkblue
   - character-male01avatar
   - pattern-rewardglow-common
   - pattern-glow-chosengamemode
   - icon-special-defaultdash
-  - character-punk-female
   - icon-special-aimingairstrike
+  - character-femalepunk
   - button-long-yellow
   - background-modetag-casual
   m_RenderDataMap: {}

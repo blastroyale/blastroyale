@@ -6,6 +6,7 @@ struct PlayerMatchData
 	UInt32 PlayerTrophies;
 	Int32 TeamId;
 	GameId PlayerSkin;
+	GameId Glider;
 	GameId PlayerDeathMarker;
 	Int32 BotNameIndex;
 	

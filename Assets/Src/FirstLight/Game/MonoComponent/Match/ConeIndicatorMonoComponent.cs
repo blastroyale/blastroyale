@@ -14,8 +14,10 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		[SerializeField] private Color _reloadColor = new Color(255, 64, 118);
 		[SerializeField, Required] private MeshRenderer _indicator;
-		[SerializeField] private float _localHeight = 0.25f;
-
+		
+		// Those values reflect the bullet offset of a player
+		[SerializeField] private Vector3 _offset = new Vector3(0.16f,  0.25f, 0.386f);
+		
 		private Quaternion _rotation;
 
 		/// <inheritdoc />
@@ -55,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			cacheTransform.SetParent(playerEntityView.transform);
 
 			cacheTransform.localRotation = Quaternion.identity;
-			cacheTransform.localPosition = new Vector3(0, _localHeight, 0);
+			cacheTransform.localPosition = _offset;
 		}
 
 		/// <inheritdoc />

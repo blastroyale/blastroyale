@@ -449,7 +449,7 @@ namespace FirstLight.Game.StateMachines
 			var loadoutArray = spawnWithloadout
 				? finalLoadOut.ToArray()
 				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
-
+			
 			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
 			{
@@ -460,7 +460,8 @@ namespace FirstLight.Game.StateMachines
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id,
-				DeathMarker = info.DeathMarker,
+				DeathMarker = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.DeathMarker)).Id,
+				Glider = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.Glider)).Id,
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),

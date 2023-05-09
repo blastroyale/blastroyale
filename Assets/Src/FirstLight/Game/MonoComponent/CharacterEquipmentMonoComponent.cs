@@ -25,6 +25,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField] private Transform[] _shieldAnchors;
 		[SerializeField] private Transform[] _amuletAnchors;
 		[SerializeField] private Transform[] _armorAnchors;
+		[SerializeField] private Transform _gliderAnchor;
 		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
 		
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
@@ -42,6 +43,33 @@ namespace FirstLight.Game.MonoComponent
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
+		}
+
+		/// <summary>
+		/// Instantiate a Game Item of the specified GameIdGroup
+		/// </summary>
+		public async Task<List<GameObject>> InstantiateItem(GameId gameId, GameIdGroup gameIdGroup)
+		{
+			var anchors = GetEquipmentAnchors(gameIdGroup);
+			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			var instances = new List<GameObject>(anchors.Length);
+			
+			if (this.IsDestroyed())
+			{
+				Destroy(instance);
+
+				return instances;
+			}
+			
+			var piece = instance.transform;
+			piece.SetParent(anchors[0]);
+			
+			piece.localPosition = Vector3.zero;
+			piece.localRotation = Quaternion.identity;
+			piece.localScale = Vector3.one;
+			instances.Add(piece.gameObject);
+
+			return instances;
 		}
 
 		/// <summary>
@@ -92,8 +120,21 @@ namespace FirstLight.Game.MonoComponent
 			}
 			
 			_equipment.Add(slot, instances);
-
+			
 			return instances;
+		}
+
+		/// <summary>
+		/// Destroy an item currently equipped on the character.
+		/// </summary>
+		public void DestroyItem(GameIdGroup slotType)
+		{
+			var anchors = GetEquipmentAnchors(slotType);
+			
+			for (var i = 0; i < anchors.Length; i++)
+			{
+				DestroyImmediate(anchors[i].GetChild(0).gameObject);
+			}
 		}
 
 		/// <summary>
@@ -118,6 +159,9 @@ namespace FirstLight.Game.MonoComponent
 			_equipment.Remove(slotType);
 		}
 
+		/// <summary>
+		/// Hide all Equipment currently equipped on a character.
+		/// </summary>
 		public void HideAllEquipment()
 		{
 			foreach (var items in _equipment.Values)
@@ -129,6 +173,9 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		/// <summary>
+		/// Show all Equipment currently equipped on a character.
+		/// </summary>
 		public void ShowAllEquipment()
 		{
 			foreach (var items in _equipment.Values)
@@ -171,6 +218,8 @@ namespace FirstLight.Game.MonoComponent
 					return _amuletAnchors;
 				case GameIdGroup.Armor:
 					return _armorAnchors;
+				case GameIdGroup.Glider:
+					return new []{_gliderAnchor};
 				default:
 					throw new ArgumentOutOfRangeException(nameof(slotType), slotType, null);
 			}

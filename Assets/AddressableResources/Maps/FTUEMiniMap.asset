@@ -34440,7 +34440,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 3
       GameId:
-        Value: 2
+        Value: 19
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -34521,7 +34521,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 3
       GameId:
-        Value: 2
+        Value: 19
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []

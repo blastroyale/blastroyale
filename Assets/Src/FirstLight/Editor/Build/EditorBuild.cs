@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+using UnityEngine;
 
 #if UNITY_EDITOR
 namespace FirstLight.Editor.Build
@@ -16,6 +17,7 @@ namespace FirstLight.Editor.Build
 		
 		public void OnPreprocessBuild(BuildReport report)
 		{
+			Debug.Log("Setting up editor FLG Build");
 			FirstLightBuildConfig.SetupDevelopmentConfig();
 		}
 

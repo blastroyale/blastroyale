@@ -8,17 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_WaterBRRefract
-  m_Shader: {fileID: 4800000, guid: 21b10b45ee7f00f49b66e7ec7d10a116, type: 3}
-  m_ValidKeywords:
-  - _COLORMODE_LINEAR
-  - _FOAMMODE_GRADIENT_NOISE
-  - _WAVEMODE_GRID
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -87,18 +85,28 @@ Material:
     - _Amount: 1
     - _Amplitude: 0.51
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _CameraDistanceFadeClose: 0
     - _CameraDistanceFadeFar: 10
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
     - _ColorMode: 0
     - _CrestSharpness: 0
     - _CrestSize: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _Depth: 100
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0.1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FadeDistance: 0.4
+    - _FlipbookBlending: 0
+    - _FlipbookMode: 0
     - _FoamAmount: 0.18
     - _FoamDepth: 0.15
     - _FoamDirection: 0.09
@@ -118,6 +126,7 @@ Material:
     - _GlossyReflections: 0
     - _LightContribution: 0
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Opaque: 1
     - _ProceduralFoam: 1
@@ -128,9 +137,13 @@ Material:
     - _RefractionScale: 25
     - _RefractionSpeed: 0.03
     - _RefractionStrength: 0.01
+    - _SampleGI: 0
     - _ShadowStrength: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _Speed: 0.3
     - _SrcBlend: 1
@@ -146,7 +159,7 @@ Material:
     - _WaveNoise: 0
     - _WaveSpeed: 1
     - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - Color_17AB51B8: {r: 0.454902, g: 2.682353, b: 4, a: 0}
     - Color_20EAE851: {r: 0, g: 0.6984148, b: 2, a: 0}
@@ -154,8 +167,10 @@ Material:
     - ShearCenter: {r: 0, g: 0, b: 0, a: 0}
     - ShearStrenght: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_348319FB: {r: 0.5, g: 0, b: 0, a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 1, b: 0.7287984, a: 1}
+    - _BaseColor: {r: 0.5977661, g: 0.8044615, b: 0.9528302, a: 1}
+    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5977661, g: 0.8044615, b: 0.9528302, a: 1}
     - _ColorDeep: {r: 0.40583837, g: 0.74980193, b: 0.9056604, a: 1}
     - _ColorShallow: {r: 0.24857599, g: 0.9245283, b: 0.866877, a: 1}
     - _ColorTop: {r: 1, g: 1, b: 1, a: 0}
@@ -163,5 +178,19 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.9975696, g: 1, b: 0.9575471, a: 0.7372549}
     - _FoamStretch: {r: 1, g: 1, b: 1, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &4725867193522961603
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

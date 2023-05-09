@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5554296432100938403}
   - component: {fileID: 6886974931980761459}
   - component: {fileID: 53174510504326518}
+  - component: {fileID: 8865377099271092021}
+  - component: {fileID: 956513160909845963}
   m_Layer: 7
   m_Name: Car_Convertable_Orange_PRFB
   m_TagString: Untagged
@@ -85,6 +87,62 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8865377099271092021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254379030037135157}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.98, y: 1.3454782, z: 4.52}
+  m_Center: {x: 0, y: 0.67273325, z: -0.18859196}
+--- !u!114 &956513160909845963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254379030037135157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8865377099271092021}
+  Size:
+    X:
+      RawValue: 129761
+    Y:
+      RawValue: 88177
+    Z:
+      RawValue: 296222
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 44088
+    Z:
+      RawValue: -12359
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0
 --- !u!1 &9143672709273785809
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &111111429112387588
 Transform:
   m_ObjectHideFlags: 0

@@ -3838,89 +3838,94 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 288;
+    public const Int32 SIZE = 296;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(28)]
+    [FieldOffset(32)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
+    [FieldOffset(40)]
+    public EntityRef BlacklistedMoveTarget;
     [FieldOffset(16)]
     public Int32 BotNameIndex;
-    [FieldOffset(64)]
-    public FP ChanceToAbandonTarget;
     [FieldOffset(72)]
-    public FP ChanceToSeekChests;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(80)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToSeekChests;
     [FieldOffset(88)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(96)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekRage;
     [FieldOffset(104)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(112)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(120)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToUseSpecial;
     [FieldOffset(128)]
-    public FP CurrentEvasionStepEndTime;
+    public FP CloseFightIntolerance;
     [FieldOffset(136)]
-    public FP DamageDoneMultiplier;
+    public FP CurrentEvasionStepEndTime;
     [FieldOffset(144)]
+    public FP DamageDoneMultiplier;
+    [FieldOffset(152)]
     public FP DamageTakenMultiplier;
     [FieldOffset(4)]
     public GameId DeathMarker;
-    [FieldOffset(152)]
+    [FieldOffset(160)]
     public FP DecisionInterval;
     [FieldOffset(8)]
     public GameId Glider;
-    [FieldOffset(32)]
+    [FieldOffset(36)]
     public UInt32 LoadoutGearNumber;
-    [FieldOffset(160)]
-    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(168)]
-    public FP LowAmmoSensitivity;
+    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(176)]
-    public FP LowArmourSensitivity;
+    public FP LowAmmoSensitivity;
     [FieldOffset(184)]
-    public FP LowHealthSensitivity;
+    public FP LowArmourSensitivity;
     [FieldOffset(192)]
-    public FP MaxAimingRange;
+    public FP LowHealthSensitivity;
     [FieldOffset(200)]
-    public FP MaxDistanceToTeammateSquared;
-    [FieldOffset(40)]
-    public EntityRef MoveTarget;
+    public FP MaxAimingRange;
     [FieldOffset(208)]
-    public FP MovementSpeedMultiplier;
-    [FieldOffset(216)]
-    public FP NextDecisionTime;
-    [FieldOffset(224)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP MaxDistanceToTeammateSquared;
     [FieldOffset(48)]
-    public EntityRef RandomTeammate;
+    public EntityRef MoveTarget;
+    [FieldOffset(216)]
+    public FP MovementSpeedMultiplier;
+    [FieldOffset(224)]
+    public FP NextDecisionTime;
     [FieldOffset(232)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(56)]
+    public EntityRef RandomTeammate;
+    [FieldOffset(240)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(12)]
     public GameId Skin;
     [FieldOffset(24)]
     public QBoolean SpawnWithPlayer;
-    [FieldOffset(240)]
+    [FieldOffset(248)]
     public FP SpecialAimingDeviation;
-    [FieldOffset(264)]
+    [FieldOffset(28)]
+    public QBoolean SpeedResetAfterLanding;
+    [FieldOffset(272)]
     public FPVector3 StuckDetectionPosition;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public EntityRef Target;
     [FieldOffset(20)]
     public Int32 TeamSize;
-    [FieldOffset(248)]
-    public FP VisionRangeSqr;
     [FieldOffset(256)]
+    public FP VisionRangeSqr;
+    [FieldOffset(264)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 449;
         hash = hash * 31 + AccuracySpreadAngle.GetHashCode();
         hash = hash * 31 + (Int32)BehaviourType;
+        hash = hash * 31 + BlacklistedMoveTarget.GetHashCode();
         hash = hash * 31 + BotNameIndex.GetHashCode();
         hash = hash * 31 + ChanceToAbandonTarget.GetHashCode();
         hash = hash * 31 + ChanceToSeekChests.GetHashCode();
@@ -3952,6 +3957,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)Skin;
         hash = hash * 31 + SpawnWithPlayer.GetHashCode();
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
+        hash = hash * 31 + SpeedResetAfterLanding.GetHashCode();
         hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
         hash = hash * 31 + TeamSize.GetHashCode();
@@ -3969,8 +3975,10 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->TeamSize);
         QBoolean.Serialize(&p->SpawnWithPlayer, serializer);
+        QBoolean.Serialize(&p->SpeedResetAfterLanding, serializer);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
+        EntityRef.Serialize(&p->BlacklistedMoveTarget, serializer);
         EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->RandomTeammate, serializer);
         EntityRef.Serialize(&p->Target, serializer);
@@ -10179,6 +10187,8 @@ namespace Quantum.Prototypes {
     public FPVector3 StuckDetectionPosition;
     public Int32 TeamSize;
     public MapEntityId RandomTeammate;
+    public MapEntityId BlacklistedMoveTarget;
+    public QBoolean SpeedResetAfterLanding;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -10211,6 +10221,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context) {
       result.AccuracySpreadAngle = this.AccuracySpreadAngle;
       result.BehaviourType = this.BehaviourType;
+      PrototypeValidator.FindMapEntity(this.BlacklistedMoveTarget, in context, out result.BlacklistedMoveTarget);
       result.BotNameIndex = this.BotNameIndex;
       result.ChanceToAbandonTarget = this.ChanceToAbandonTarget;
       result.ChanceToSeekChests = this.ChanceToSeekChests;
@@ -10242,6 +10253,7 @@ namespace Quantum.Prototypes {
       result.Skin = this.Skin;
       result.SpawnWithPlayer = this.SpawnWithPlayer;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
+      result.SpeedResetAfterLanding = this.SpeedResetAfterLanding;
       result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
       result.TeamSize = this.TeamSize;

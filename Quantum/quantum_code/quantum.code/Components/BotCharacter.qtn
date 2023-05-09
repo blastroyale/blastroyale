@@ -26,6 +26,8 @@ component BotCharacter
 	FPVector3 StuckDetectionPosition;
 	Int32 TeamSize;
 	entity_ref RandomTeammate;
+	entity_ref BlacklistedMoveTarget;
+	bool SpeedResetAfterLanding;
 	
 	// How far the bot can see (square value)
 	// Set to -1 to allow a bot fully cheat and don't check range

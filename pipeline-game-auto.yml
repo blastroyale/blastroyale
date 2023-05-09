@@ -36,6 +36,7 @@ parameters:
     values:
       - DEVELOPMENT_SERVER
       - STAGE_SERVER
+      - LIVE_TESTNET_SERVER
       - LIVE_SERVER
   - name: param_run_unity_tests
     displayName: Run Unit Tests

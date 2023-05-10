@@ -26,6 +26,23 @@ namespace FirstLight.Editor.Build
 			BackendMenu.ExportQuantumAssets();
 		}
 
+		public static void SetBasicPlayerSettings()
+		{
+			// Include graphics apis so device can pick best case
+			PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, true);
+			PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.iOS, true);
+			
+			// Always build using master IL2CPP for best performance
+			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Master);
+			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Master);
+
+			// Smaller GC sweeps to avoid lag spikes
+			PlayerSettings.gcIncremental = true;
+			
+			// Faster
+			PlayerSettings.colorSpace = ColorSpace.Gamma;
+		}
+
 		/// <summary>
 		/// Sets the symbols for the Unity build
 		/// </summary>

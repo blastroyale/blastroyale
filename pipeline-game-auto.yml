@@ -151,15 +151,29 @@ stages:
         # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
         # So we just want to run for automatic builds or if manually ticked 
         - bash: |
-            if [ "${{ parameters.param_deploy_game_logic }}" == "True" ]; then
+            if [ "${{ parameters.param_deploy_game_logic }}" == "True" ] || [ "$(Build.Reason)" == "BatchedCI" ]; then
               echo "##vso[build.addbuildtag]DeployGameLogic"
-            fi
-            if [ "$(Build.Reason)" == "BatchedCI" ]; then
-              echo "##vso[build.addbuildtag]DeployGameLogic"
+              echo "##vso[task.setvariable variable=deploy_game_logic;]true"
+            else
+              echo "##vso[task.setvariable variable=deploy_game_logic;]false"
             fi
             echo "##vso[build.addbuildtag]$(server_environment)"
             echo "##vso[build.addbuildtag]$(build_type)"
           displayName: "Add Tags"
+        - powershell: |
+            $json = @"
+            {
+            "server_environment": "$(server_environment)",
+            "build_type": "$(build_type)",
+            "deploy_game_logic": "$(deploy_game_logic)"
+            }
+            "@
+            $json | Out-File $(Build.ArtifactStagingDirectory)\parameters.json
+            Get-Content $(Build.ArtifactStagingDirectory)\parameters.json                
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'parameters'
           
       - job: EditorTests
         displayName: Run Editor Test Suite

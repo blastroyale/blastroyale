@@ -1,0 +1,78 @@
+parameters:
+  - name: dependsOn
+    type: string
+    default: ''
+  - name: serviceConnection
+    type: string
+    default: ''
+  - name: serviceName
+    type: string
+    default: ''
+  - name: environment
+    type: string
+    default: ''
+  - name: system
+    type: string
+    default: ''
+  - name: minReplicas
+    type: string
+    default: 1
+  - name: maxReplicas
+    type: string
+    default: 2
+  - name: cpu
+    type: string
+    default: 1
+  - name: memory
+    type: string
+    default: '2Gi'
+  - name: ipwhitelist
+    type: string
+    default: '0.0.0.0/0'
+  - name: helmRepoPassword
+    type: string
+    default: ''
+  - name: dockerImage
+    type: string
+    default: ''
+  - name: envVars
+    type: string
+    default: ''
+  - name: autoDeployIfServer
+    type: string
+    default: ''
+
+stages:
+  - template: pipelines/release-helm-chart.yml@templates
+    parameters:
+      preRunDeciderStep:
+        - script: |
+            json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
+            deploy_game_logic=$(echo "$json" | jq -r '.deploy_game_logic')
+            server_environment=$(echo "$json" | jq -r '.server_environment')
+            echo "Server environment of the build is: $server_environment"
+            if [ "${{ parameters.autoDeployIfServer }}" == "" ]; then
+              exit
+            fi
+            
+            if [ "$deploy_game_logic" != "true" ]; then
+              echo "##vso[task.setvariable variable=skipDeploy]true"
+              exit
+            fi
+            
+            if [ "${{ parameters.autoDeployIfServer }}" != "$server_environment" ]; then
+              echo "##vso[task.setvariable variable=skipDeploy]true"
+            fi
+          name: CheckIfSkip
+      image: ${{ parameters.dockerImage }}
+      serviceConnection: AzureRM
+      serviceName: game-logic-service
+      environment: ${{ parameters.environment }}
+      system: ${{ parameters.system }}
+      minReplicas: ${{ parameters.minReplicas }}
+      maxReplicas: ${{ parameters.maxReplicas }}
+      cpu: ${{ parameters.cpu }}
+      memory: ${{ parameters.memory }}
+      ipwhitelist: ${{ parameters.ipwhitelist }}
+      helmRepoPassword: ${{ parameters.helmRepoPassword }}
+      envVars: ${{ parameters.envVars }}

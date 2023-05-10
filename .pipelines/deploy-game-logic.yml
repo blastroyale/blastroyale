@@ -45,22 +45,30 @@ parameters:
 stages:
   - template: pipelines/release-helm-chart.yml@templates
     parameters:
+      dependsOn: []
       preRunDeciderStep:
+        - download: build
+          artifact: parameters
         - script: |
             json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
             deploy_game_logic=$(echo "$json" | jq -r '.deploy_game_logic')
             server_environment=$(echo "$json" | jq -r '.server_environment')
             echo "Server environment of the build is: $server_environment"
+            echo "Deploy Game Logic: $deploy_game_logic"
+            echo "Json Value: $json"
             if [ "${{ parameters.autoDeployIfServer }}" == "" ]; then
+              echo "Deploy because autoDeployIfServer is empty"
               exit
             fi
             
             if [ "$deploy_game_logic" != "true" ]; then
+              echo "Skip deploy because deploy_game_logic != true"
               echo "##vso[task.setvariable variable=skipDeploy]true"
               exit
             fi
             
             if [ "${{ parameters.autoDeployIfServer }}" != "$server_environment" ]; then
+              echo "Skip deploy because ${{ parameters.autoDeployIfServer }} != $server_environment"
               echo "##vso[task.setvariable variable=skipDeploy]true"
             fi
           name: CheckIfSkip

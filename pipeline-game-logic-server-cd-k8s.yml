@@ -5,14 +5,7 @@ resources:
   pipelines:
     - pipeline: build
       source: 'Game-Builds'
-      trigger:
-        branches:
-          include:
-            - 'develop'
-            - 'release/*'
-            - 'master'
-        tags:
-          - DeployGameLogic
+      trigger: true
   repositories:
     - repository: templates
       type: git

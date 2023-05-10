@@ -30,6 +30,10 @@ parameters:
     values:
       - 'Staging'
       - 'Production'
+  - name: bumpVersion
+    displayName: Bump Version in Quantum?
+    type: boolean
+    default: false
   - name: inputBuildNumber
     displayName: Build number of game pipeline
     type: number
@@ -41,11 +45,11 @@ variables:
   - group: Non-secrets
   - ${{  if eq(parameters['targetServer'], 'Production') }}:
       - name: photonKey
-        value: $(STAGING-QUANTUM-SERVER-KEY)
+        value: $(LIVE-QUANTUM-SERVER-KEY)
       - name: photonAppId
         value: ***REMOVED***
       - name: photonCustomer
-        value: FirstLightDev
+        value: FirstLight
       - name: targetEnvironment
         value: mainnet-prod
   - ${{  if eq(parameters['targetServer'], 'Staging') }}:
@@ -57,48 +61,57 @@ variables:
         value: FirstLightDev
       - name: targetEnvironment
         value: staging
-jobs:
-  - job: BuildAndPush
-    steps:
-      - checkout: none
-
-      - template: pipelines/download-artifact-with-build-number.yml@templates
-        parameters:
-          pipelineName: ${{ parameters.inputPipelineName }}
-          buildNumber: ${{ parameters.inputBuildNumber }}
-          artifactName: ${{ variables.inputArtifactName }}
-          downloadPath: $(System.ArtifactsDirectory)\Extracted
-
-
-      - template: pipelines/bitbucket-sparse-checkout.yml@templates
-        parameters:
-          repositoryName: blast-royale
-          commit: $(buildCommit) # This is set in download artifact with number
-          bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
-          directory: 'Quantum/quantum_server'
-
-      - template: pipelines/quantum-plugin-build-push.yml@templates
-        parameters:
-          gameDllsDir: $(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)
-          photonCustomer: $(photonCustomer)
-          photonKey: $(photonKey)
-          photonAppId: $(photonAppId)
-          bumpVersion: false
-          
-  - deployment: DeployPlugin
-    environment: $(targetEnvironment)
+        
+stages:
+  - stage: BuildAndPush
+    jobs:
+      - job: BuildAndPushJob
+        steps:
+          - checkout: none
+    
+          - template: pipelines/download-artifact-with-build-number.yml@templates
+            parameters:
+              pipelineName: ${{ parameters.inputPipelineName }}
+              buildNumber: ${{ parameters.inputBuildNumber }}
+              artifactName: ${{ variables.inputArtifactName }}
+              downloadPath: $(System.ArtifactsDirectory)\Extracted
+    
+    
+          - template: pipelines/bitbucket-sparse-checkout.yml@templates
+            parameters:
+              repositoryName: blast-royale
+              commit: $(buildCommit) # This is set in download artifact with number
+              bitbucketToken: $(BITBUCKET-BLAST-ROYALE-ACCESS-TOKEN)
+              directory: 'Quantum/quantum_server'
+    
+          - template: pipelines/quantum-plugin-build-push.yml@templates
+            parameters:
+              gameDllsDir: $(System.ArtifactsDirectory)\Extracted\$(inputArtifactName)
+              photonCustomer: $(photonCustomer)
+              photonKey: $(photonKey)
+              photonAppId: $(photonAppId)
+              bumpVersion: false
+          - bash: |
+              echo "##vso[task.setvariable variable=deployVersion;isoutput=true]$(quantumPluginVersion)"
+              echo "##vso[build.updatebuildnumber]${{parameters.targetServer}}-$(quantumPluginVersion)"
+            displayName: Rename Release 
+            name: renaming
+  - stage: DeployPlugin
     dependsOn: 'BuildAndPush'
-    condition:  eq(dependencies.BuildAndPush.result, 'Succeeded')
-    variables:
-      pluginVersion: $[ dependencies.BuildAndPush.outputs['upload.quantumPluginVersionExternal'] ]
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - checkout: none
-            - template: pipelines/quantum-plugin-bump-version.yml@templates
-              parameters:
-                version: $(pluginVersion)
-                photonCustomer: $(photonCustomer)
-                photonKey: $(photonKey)
-                photonAppId: $(photonAppId)        
+    condition: and(succeeded(), eq(${{ parameters.bumpVersion }},true))
+    jobs:
+      - deployment: DeployPluginJob
+        environment: $(targetEnvironment)
+        variables:
+          pluginVersion: $[ stageDependencies.BuildAndPush.BuildAndPushJob.outputs['renaming.deployVersion'] ]
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: none
+                - template: pipelines/quantum-plugin-bump-version.yml@templates
+                  parameters:
+                    version: $(pluginVersion)
+                    photonCustomer: $(photonCustomer)
+                    photonKey: $(photonKey)
+                    photonAppId: $(photonAppId)        

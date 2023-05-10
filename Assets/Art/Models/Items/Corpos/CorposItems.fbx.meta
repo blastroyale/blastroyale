@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 730a817297f1bcf4c8eb937c36dc3d4d
 ModelImporter:
   serializedVersion: 21300
@@ -8,17 +8,26 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Corpos_Amulet_LowPoly_mat
-    second: {fileID: 2100000, guid: 4e461118c29488347a6594040b44597f, type: 2}
+    second:
+      fileID: 2100000
+      guid: 4e461118c29488347a6594040b44597f
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Corpos_Headgear_LowPoly_mat
-    second: {fileID: 2100000, guid: ea9fba1745a5f5940939e40065e582e5, type: 2}
+    second:
+      fileID: 2100000
+      guid: ea9fba1745a5f5940939e40065e582e5
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second: {fileID: 2100000, guid: 467ffcf96fa51ec4f83f4d6fb34dc6d5, type: 2}
+    second:
+      fileID: 2100000
+      guid: 467ffcf96fa51ec4f83f4d6fb34dc6d5
+      type: 2
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,7 +48,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -51,7 +60,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -108,7 +117,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

@@ -47,8 +47,10 @@ stages:
     parameters:
       dependsOn: []
       preRunDeciderStep:
-        - download: build
-          artifact: parameters
+        # Only download parameters if is auto deploy
+        - ${{ if ne(parameters.autoDeployIfServer, '')}}:
+          - download: build
+            artifact: parameters
         - script: |
             json=$(cat "$(Pipeline.Workspace)/build/parameters/parameters.json" | jq -c '.')
             deploy_game_logic=$(echo "$json" | jq -r '.deploy_game_logic')

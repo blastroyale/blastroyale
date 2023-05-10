@@ -29,147 +29,32 @@ variables:
     value: game-logic-service
   - name: registry
     value: $(REGISTRY_NAME).azurecr.io
-  - name: dockerImage
-    value:
-  - name: deployStaging
-    value: $[ startsWith(variables['resources.pipeline.build.sourceBranch'], 'refs/heads/release/') ]
-  - name: deployLive
-    value: $[eq(variables['resources.pipeline.build.sourceBranch'], 'refs/heads/master') ]
-  - name: deployDev
-    value: $[and(eq(variables['deployStaging'],'False'), eq(variables['deployLive'],'False')) ]
+
 
 pool: linux-k8s
 
 stages:
-  - stage: PrintVariables
-    condition: eq(variables['system.debug'], 'true')
-    jobs:
-      - job: TestRuntimeVars
-        steps:
-          - checkout: none
-          - script: |
-              for var in $(compgen -e); do
-              echo $var ${!var};
-              done
-              echo "DEPLOY LIVE IS $(deployLive)"
-              echo "DEPLOY STAGING IS $(deployStaging)"
-              echo "DEPLOY DEV IS $(deployDev)"
-              echo "TRIGGER BRANCH: $(triggerBranch)"
-  - template: pipelines/release-helm-chart.yml@templates
+  - template: .pipelines/deploy-game-logic-dev.yml
     parameters:
-      run: $(deployDev)
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: dev
-      system: dev
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set env.API_KEY=$(DEV-COMMON-API-KEY) \
-        --set env.API_URL="***REMOVED***" \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=dev \
-        --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=TRUE \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
-
-  - template: pipelines/release-helm-chart.yml@templates
+      autoDeployIfServer: DEVELOPMENT_SERVER
+      dockerImage:
+      
+  - template: .pipelines/deploy-game-logic-testnet.yml
     parameters:
-      run: $(deployStaging)
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: staging
-      system: staging
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set env.API_KEY=$(STAGING-COMMON-API-KEY) \
-        --set env.API_URL="https://staging-hub-blockchain-service.blastroyale.com" \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(STAGING-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=staging \
-        --set env.REMOTE_CONFIGURATION=true \
-        --set env.CONNECTION_STRING="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=false \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
-
-  - template: pipelines/release-helm-chart.yml@templates
+      autoDeployIfServer: LIVE_TESTNET_SERVER
+      dockerImage: 
+        
+  - template: .pipelines/deploy-game-logic-staging.yml
     parameters:
-      run: $(deployLive)
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: testnet-prod
-      system: testnetprod
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set env.API_KEY=$(TESTNET-PROD-COMMON-API-KEY) \
-        --set env.API_URL="https://testnet-prod-blockchain-service.blastroyale.com" \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(TESTNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=testnet-prod \
-        --set env.CONNECTION_STRING="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=false \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
-
-  - template: pipelines/release-helm-chart.yml@templates
+      autoDeployIfServer: STAGE_SERVER
+      dockerImage:
+        
+  - template: .pipelines/deploy-game-logic-prod.yml
     parameters:
-      run: $(deployLive)
-      serviceConnection: $(serviceConnection)
-      serviceName: $(serviceName)
-      image: $(dockerImage)
-      environment: mainnet-prod
-      system: mainnetprod
-      minReplicas: 1
-      maxReplicas: 2
-      cpu: 1
-      memory: 2Gi
-      ipwhitelist: 0.0.0.0/0
       helmRepoPassword: $(HELM-REPO-PASSWORD)
-      envVars: |
-        --set autoscaling.enabled=true \
-        --set autoscaling.minReplicas=1 \
-        --set autoscaling.targetCPUUtilizationPercentage=190 \
-        --set autoscaling.targetMemoryUtilizationPercentage=230 \
-        --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
-        --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
-        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
-        --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
-        --set env.REMOTE_CONFIGURATION=true \
-        --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
-        --set env.DEV_MODE=false \
-        --set env.NFT_SYNC=true \
-        --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-        --set env.PLAYFAB_TITLE=***REMOVED*** \
-        --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
+      autoDeployIfServer: LIVE_SERVER
+      dockerImage:
 
-# The above `else` statement is redundant. Azure devops requires at least one stage with no dependencies.
-
-# autoscaling percentage values are bsed on request values, not limits.
-# by default, we request 100 millicores. 190% of 100 millicores is 190 millicores.

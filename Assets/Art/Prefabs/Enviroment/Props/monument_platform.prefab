@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7249117968488500729
+--- !u!1 &3539676009762519894
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8057461787112036163}
-  - component: {fileID: 9014662452518637299}
-  - component: {fileID: 5173707918023181516}
-  - component: {fileID: 2573767405622230207}
-  - component: {fileID: 2041138748723599599}
+  - component: {fileID: 143972898208548516}
+  - component: {fileID: 7723724081197115894}
+  - component: {fileID: 5913270474995982126}
+  - component: {fileID: 784110644622433851}
+  - component: {fileID: 5191006663277863106}
   m_Layer: 0
-  m_Name: Statue_PRFB
+  m_Name: monument_platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8057461787112036163
+--- !u!4 &143972898208548516
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249117968488500729}
+  m_GameObject: {fileID: 3539676009762519894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,21 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9014662452518637299
+--- !u!33 &7723724081197115894
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249117968488500729}
-  m_Mesh: {fileID: 1693146904097924092, guid: d94d01977b13d7a44999d594361724fd, type: 3}
---- !u!23 &5173707918023181516
+  m_GameObject: {fileID: 3539676009762519894}
+  m_Mesh: {fileID: 6714570937022045173, guid: eb987c8a33d6e0f479c9f7d4a369aef3, type: 3}
+--- !u!23 &5913270474995982126
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249117968488500729}
+  m_GameObject: {fileID: 3539676009762519894}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
+  - {fileID: 2100000, guid: 73811a2f97587cc4582e908c95c11fe7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,44 +85,44 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2573767405622230207
+--- !u!65 &784110644622433851
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249117968488500729}
+  m_GameObject: {fileID: 3539676009762519894}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 4, z: 1.5}
-  m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &2041138748723599599
+  m_Size: {x: 1.5016212, y: 0.49312973, z: 1.5016251}
+  m_Center: {x: 0.0000010728836, y: 0.27173805, z: 0}
+--- !u!114 &5191006663277863106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249117968488500729}
+  m_GameObject: {fileID: 3539676009762519894}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 2573767405622230207}
+  SourceCollider: {fileID: 784110644622433851}
   Size:
     X:
-      RawValue: 98304
+      RawValue: 98410
     Y:
-      RawValue: 262144
+      RawValue: 32317
     Z:
-      RawValue: 98304
+      RawValue: 98410
   PositionOffset:
     X:
       RawValue: 0
     Y:
-      RawValue: 131072
+      RawValue: 17808
     Z:
       RawValue: 0
   RotationOffset:

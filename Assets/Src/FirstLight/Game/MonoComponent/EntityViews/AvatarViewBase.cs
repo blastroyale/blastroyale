@@ -193,9 +193,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var cacheTransform = transform;
-
-			Services.VfxService.Spawn(_projectileHitVfx).transform.SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
+			// On hit VFX (green splats) are disabled. We can enable them back if we make a good, clean, subtle VFX
+			// var cacheTransform = transform;
+			// Services.VfxService.Spawn(_projectileHitVfx).transform.SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
 			
 			_animatorWrapper.SetTrigger(Triggers.Hit);
 

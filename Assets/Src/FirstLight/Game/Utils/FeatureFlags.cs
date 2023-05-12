@@ -122,6 +122,12 @@ namespace FirstLight.Game.Utils
 		/// If the squads button is enabled in the UI
 		/// </summary>
 		public static bool DISPLAY_SQUADS_BUTTON = true;
+
+		/// <summary>
+		/// Should preload quantum assets manually ?
+		/// Causes android file concurrency (slow loading)
+		/// </summary>
+		public static bool PRELOAD_QUANTUM_ASSETS = false;
 		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -183,6 +189,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
 			{
 				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
+			}
+			
+			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
+			{
+				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
 			}
 		}
 

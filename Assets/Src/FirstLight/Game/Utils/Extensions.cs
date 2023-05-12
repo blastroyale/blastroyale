@@ -67,13 +67,11 @@ namespace FirstLight.Game.Utils
 			{
 				case "eu":
 					return ScriptLocalization.MainMenu.ServerNameEu;
-
 				case "us":
 					return ScriptLocalization.MainMenu.ServerNameUs;
-
 				case "hk":
+				case "asia":
 					return ScriptLocalization.MainMenu.ServerNameHk;
-
 				default:
 					return "";
 			}

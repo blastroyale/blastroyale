@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: da41ae21c658fc541b9c9d96b396e739
 ModelImporter:
   serializedVersion: 21202
@@ -8,12 +8,18 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ColorPalette
-    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
+    second:
+      fileID: 2100000
+      guid: bc31393375bdcce478995e048d720af2
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Currency
-    second: {fileID: 2100000, guid: e1e3f11e7a6f8c544bf87005d7a0f579, type: 2}
+    second:
+      fileID: 2100000
+      guid: e1e3f11e7a6f8c544bf87005d7a0f579
+      type: 2
   materials:
     materialImportMode: 1
     materialName: 0
@@ -34,7 +40,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -46,7 +52,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -103,7 +109,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

@@ -140,7 +140,7 @@ Material:
     - Color_DEABE623: {r: 1, g: 1, b: 1, a: 1}
     - Color_F2EE02DC: {r: 0.28235295, g: 1.1529412, b: 1.4980392, a: 1}
     - _BaseColor: {r: 0.990566, g: 0.92385405, b: 0.7631719, a: 1}
-    - _Color: {r: 0.99056596, g: 0.92385405, b: 0.7631719, a: 1}
+    - _Color: {r: 0.990566, g: 0.92385405, b: 0.7631719, a: 1}
     - _EmissionColor: {r: 75.42296, g: 38.52502, b: 3.3205004, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

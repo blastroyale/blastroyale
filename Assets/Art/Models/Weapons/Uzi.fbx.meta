@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 53e05e54c1e8f854594abc0998fe6dc1
 ModelImporter:
   serializedVersion: 21202
@@ -8,7 +8,10 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_WeaponAtlas01
-    second: {fileID: 2100000, guid: d93fc4b5d3cec834ba31dde84a343798, type: 2}
+    second:
+      fileID: 2100000
+      guid: d93fc4b5d3cec834ba31dde84a343798
+      type: 2
   materials:
     materialImportMode: 1
     materialName: 0
@@ -29,7 +32,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -41,7 +44,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -98,7 +101,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

@@ -1,0 +1,36 @@
+parameters:
+  - name: helmRepoPassword
+    type: string
+    default: ''
+  - name: dockerImage
+    type: string
+    default: ''
+  - name: autoDeployIfServer
+    default: ''
+    type: string
+    
+stages:
+  - template: deploy-game-logic.yml
+    parameters:
+      dockerImage: ${{ parameters.dockerImage }}
+      autoDeployIfServer: ${{ parameters.autoDeployIfServer }}
+      environment: dev
+      system: dev
+      minReplicas: 1
+      maxReplicas: 2
+      cpu: 1
+      memory: 2Gi
+      ipwhitelist: 0.0.0.0/0
+      helmRepoPassword: ${{ parameters.helmRepoPassword }}
+      envVars: |
+        --set env.API_KEY=$(DEV-COMMON-API-KEY) \
+        --set env.API_URL="***REMOVED***" \
+        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
+        --set env.APPLICATION_ENVIRONMENT=dev \
+        --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.DEV_MODE=TRUE \
+        --set env.NFT_SYNC=true \
+        --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_TITLE=***REMOVED*** \
+        --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"

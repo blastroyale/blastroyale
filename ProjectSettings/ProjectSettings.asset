@@ -137,8 +137,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.14.0
-  preloadedAssets:
-  - {fileID: 11400000, guid: c3452a039b34041249d840c527f7b803, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -230,7 +229,7 @@ PlayerSettings:
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 8UB22L9ZW7
-  iOSManualSigningProvisioningProfileID: ccc3c960-87a5-4e29-9d9d-64d34c6c57fb
+  iOSManualSigningProvisioningProfileID: 7dfad8ae-667c-4140-844e-694791a0a46a
   tvOSManualSigningProvisioningProfileID: 
   iOSManualSigningProvisioningProfileType: 1
   tvOSManualSigningProvisioningProfileType: 0
@@ -249,7 +248,7 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 3
+  AndroidTargetArchitectures: 2
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}

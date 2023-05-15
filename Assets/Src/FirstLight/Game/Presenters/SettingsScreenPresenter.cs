@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -76,7 +77,7 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);
-			
+
 			SetupToggle(root.Q<Toggle>("AimBackground").Required(),
 				() => _gameDataProvider.AppDataProvider.ConeAim,
 				val => _gameDataProvider.AppDataProvider.ConeAim = val);
@@ -112,20 +113,33 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 		}
 
-		private static void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
+		private void SetupToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
 		{
 			toggle.value = getter();
-			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) => s(e.newValue), setter);
+			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
+			{
+				s(e.newValue);
+				Save();
+			}, setter);
 		}
 
-		private static void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter)
+		private void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter)
 			where T : Enum, IConvertible
 		{
 			var options = Enum.GetNames(typeof(T)); // TODO: Needs some sort of localization
 			group.choices = options;
-			group.value = (int) (object) getter();
+			group.value = EnumUtils.ToInt(getter());
 
-			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) => s((T) (object) e.newValue), setter);
+			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) =>
+			{
+				s(EnumUtils.FromInt<T>(e.newValue));
+				Save();
+			}, setter);
+		}
+
+		private void Save()
+		{
+			_services.DataSaver.SaveData<AppData>();
 		}
 
 		public void UpdateAccountStatus()

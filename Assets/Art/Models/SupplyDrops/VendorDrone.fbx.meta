@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 8557b113f8c73d9458a560b9c609b30e
 ModelImporter:
   serializedVersion: 21202
@@ -8,17 +8,26 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_DropObjects
-    second: {fileID: 2100000, guid: bed2e826e6edc914eae459c94ff34bc0, type: 2}
+    second:
+      fileID: 2100000
+      guid: bed2e826e6edc914eae459c94ff34bc0
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Vendor
-    second: {fileID: 2100000, guid: bed2e826e6edc914eae459c94ff34bc0, type: 2}
+    second:
+      fileID: 2100000
+      guid: bed2e826e6edc914eae459c94ff34bc0
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_VendorFace
-    second: {fileID: 2100000, guid: 92ee4f058e6a66a4091e19b0a50aab97, type: 2}
+    second:
+      fileID: 2100000
+      guid: 92ee4f058e6a66a4091e19b0a50aab97
+      type: 2
   materials:
     materialImportMode: 1
     materialName: 0
@@ -39,7 +48,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -51,7 +60,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -108,7 +117,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

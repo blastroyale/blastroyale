@@ -153,6 +153,12 @@ namespace FirstLight.Game.Utils
 		/// Should game fetch remote web3 collections
 		/// </summary>
 		public static bool REMOTE_COLLECTIONS = false;
+
+		/// <summary>
+		/// Checks if quantum preloads all its assets.
+		/// Causes loading slowdown.
+		/// </summary>
+		public static bool PRELOAD_QUANTUM_ASSETS = false;
 	
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

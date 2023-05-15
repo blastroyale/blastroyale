@@ -3,16 +3,16 @@
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
-                <FirstLight.Game.UIElements.JoystickElement class="joystick--move" />
+                <FirstLight.Game.UIElements.JoystickElement name="MovementJoystick" class="joystick--move" />
             </ui:VisualElement>
             <ui:VisualElement name="AimJoystickArea" class="joystick-container">
-                <FirstLight.Game.UIElements.JoystickElement class="joystick--aim" />
+                <FirstLight.Game.UIElements.JoystickElement name="ShootingJoystick" class="joystick--aim" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button">
                 <ui:VisualElement name="Icon" class="menu-button__icon" />
             </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0" />
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special2" class="special-button--special2" />
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
                     <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />

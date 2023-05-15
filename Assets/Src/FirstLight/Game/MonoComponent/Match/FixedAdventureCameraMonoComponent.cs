@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_matchServices.MatchCameraService.SetCameras(_adventureCamera);
 
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			input.SpecialButton0.started += SetActiveCamera;
 			input.SpecialButton0.canceled += SetActiveCamera;
@@ -92,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnDestroy()
 		{
-			var input = _services?.PlayerInputService?.Input?.Gameplay;
+			var input = _matchServices?.PlayerInputService?.Input?.Gameplay;
 
 			if (input.HasValue)
 			{

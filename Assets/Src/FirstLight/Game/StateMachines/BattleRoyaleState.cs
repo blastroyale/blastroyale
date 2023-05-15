@@ -67,17 +67,17 @@ namespace FirstLight.Game.StateMachines
 			spawning.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 
-			// TODO mihak: alive.OnEnter(OpenControlsHud);
+			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
-			// TODO mihak: alive.OnExit(CloseControlsHud);
+			alive.OnExit(CloseControlsHud);
 
 			deadCheck.Transition().Condition(IsNotOnline).Target(final);
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 			
 			dead.OnEnter(MatchEndAnalytics);
-			// TODO mihak: dead.OnEnter(CloseMatchHud);
+			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
@@ -151,19 +151,26 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
-		// private void OpenControlsHud()
-		// {
-		// 	_uiService.OpenUi<MatchControlsHudPresenter>();
-		// }
-		//
-		// private void CloseControlsHud()
-		// {
-		// 	_uiService.CloseUi<MatchControlsHudPresenter>();
-		// }
-		//
+		private void OpenControlsHud()
+		{
+			//_uiService.OpenUi<HUDScreenPresenter>();
+		}
+		
+		private void CloseControlsHud()
+		{
+			//_uiService.CloseUi<HUDScreenPresenter>();
+		}
+		
 		private void OpenMatchHud()
 		{
-			_uiService.OpenScreen<HUDScreenPresenter>();
+			//_uiService.OpenUi<MatchHudPresenter>();
+			_uiService.OpenUi<HUDScreenPresenter>();
+		}
+		
+		private void CloseMatchHud()
+		{
+			_uiService.CloseUi<HUDScreenPresenter>();
+			//_uiService.CloseUi<MatchHudPresenter>();
 		}
 		
 		private void OpenMatchEndScreen()

@@ -1,4 +1,4 @@
-using FirstLight.Game.UIElements.Events;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,6 +22,9 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _stick;
 		private readonly VisualElement _directionHalo;
 
+		public event Action<Vector2> OnMove;
+		public event Action<float> OnClick; // Float so that we can use it directly with the input system
+
 		public JoystickElement()
 		{
 			AddToClassList(UssBlock);
@@ -34,9 +37,12 @@ namespace FirstLight.Game.UIElements
 
 			Add(_directionHalo = new VisualElement {name = "direction-vfx"});
 			_directionHalo.AddToClassList(UssDirectionHalo);
+			_directionHalo.usageHints =
+				UsageHints.DynamicTransform; // TODO: This could be added / removed in  PointerDown / PointerUp
 
 			Add(_stick = new VisualElement {name = "stick"});
 			_stick.AddToClassList(UssStick);
+			_stick.usageHints = UsageHints.DynamicTransform;
 
 			if (Application.isPlaying)
 			{
@@ -71,6 +77,8 @@ namespace FirstLight.Game.UIElements
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			transform.position = offsetPosition;
+
+			OnClick?.Invoke(1f);
 		}
 
 		private void OnPointerMove(PointerMoveEvent evt)
@@ -90,7 +98,8 @@ namespace FirstLight.Game.UIElements
 
 			_directionHalo.style.opacity = stickPositionClamped.magnitude / (worldBound.width / 2f);
 
-			SendEvent(JoystickEvent.GetPooled(stickPositionClampedNormalized));
+			stickPositionClampedNormalized.y = -stickPositionClampedNormalized.y;
+			OnMove?.Invoke(stickPositionClampedNormalized);
 		}
 
 		private void OnPointerUp(PointerUpEvent evt)
@@ -103,6 +112,9 @@ namespace FirstLight.Game.UIElements
 			transform.position = Vector3.zero;
 			_stick.transform.position = Vector3.zero;
 			_directionHalo.style.opacity = 0f;
+
+			OnMove?.Invoke(Vector3.zero);
+			OnClick?.Invoke(0f);
 		}
 
 		private static Quaternion VectorToRotation(Vector2 direction)

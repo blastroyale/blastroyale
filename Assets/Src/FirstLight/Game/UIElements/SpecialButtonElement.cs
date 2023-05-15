@@ -1,5 +1,7 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Utils;
+using MessagePack.Formatters;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +11,8 @@ namespace FirstLight.Game.UIElements
 	public class SpecialButtonElement : VisualElement
 	{
 		private const string UssBlock = "special-button";
-		private const string UssDragging = UssBlock + "--dragging";
+		private const string UssDraggable = UssBlock + "--draggable";
+		private const string UssPressed = UssBlock + "--pressed";
 		private const string UssContainer = UssBlock + "__container";
 		private const string UssStick = UssBlock + "__stick";
 		private const string UssBgCircle = UssBlock + "__bg-circle";
@@ -23,15 +26,17 @@ namespace FirstLight.Game.UIElements
 
 		private Vector2 _startingPosition;
 
-		/// <summary>
-		/// Triggered when the joystick is being dragged.
-		/// </summary>
-		public event Action<Vector2> OnDrag;
+		private bool _draggable;
 
 		/// <summary>
-		/// Triggered when a draggable element is released, or an un-draggable one is clicked.
+		/// Triggered with 0f when button is pressed and with 1f when button is released.
 		/// </summary>
-		public event Action OnClick;
+		public event Action<float> OnPress;
+
+		/// <summary>
+		/// Triggered when the joystick is being dragged (always triggered between OnPress callbacks).
+		/// </summary>
+		public event Action<Vector2> OnDrag;
 
 		public SpecialButtonElement()
 		{
@@ -61,13 +66,16 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/// <summary>
-		/// TODO: Write summary.
+		/// Sets the current special visuals and behaviour (if it's draggable or not).
 		/// </summary>
 		public void SetSpecial(GameId special, bool draggable)
 		{
+			_draggable = draggable;
 			_icon.RemoveSpriteClasses();
 			_icon.AddToClassList(string.Format(UssSpriteSpecial,
 				special.ToString().ToLowerInvariant().Replace("special", "")));
+
+			EnableInClassList(UssDraggable, draggable);
 		}
 
 		private void OnAttachToPanel(AttachToPanelEvent evt)
@@ -88,16 +96,18 @@ namespace FirstLight.Game.UIElements
 		{
 			_container.CapturePointer(evt.pointerId);
 
-			AddToClassList(UssDragging);
+			AddToClassList(UssPressed);
 
 			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
 			var parentPosition = parent.WorldToLocal(panelPosition);
 			_startingPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
+
+			OnPress?.Invoke(0f);
 		}
 
 		private void OnPointerMove(PointerMoveEvent evt)
 		{
-			if (!_container.HasPointerCapture(evt.pointerId)) return;
+			if (!_draggable || !_container.HasPointerCapture(evt.pointerId)) return;
 
 			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
 			var parentPosition = parent.WorldToLocal(panelPosition);
@@ -109,6 +119,8 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = stickPositionClamped;
 
+			stickPositionClampedNormalized.y = -stickPositionClampedNormalized.y;
+
 			OnDrag?.Invoke(stickPositionClampedNormalized);
 		}
 
@@ -116,9 +128,11 @@ namespace FirstLight.Game.UIElements
 		{
 			_container.ReleasePointer(evt.pointerId);
 
-			RemoveFromClassList(UssDragging);
+			RemoveFromClassList(UssPressed);
 
 			_stick.transform.position = Vector3.zero;
+
+			OnPress?.Invoke(1f);
 		}
 
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>

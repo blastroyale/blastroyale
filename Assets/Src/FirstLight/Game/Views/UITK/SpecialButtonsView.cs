@@ -1,0 +1,81 @@
+using System;
+using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils;
+using FirstLight.UiService;
+using Quantum;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace FirstLight.Game.Views.UITK
+{
+	public class SpecialButtonsView : IUIView
+	{
+		private SpecialButtonElement _special0Button;
+		private SpecialButtonElement _special1Button;
+
+		/// <summary>
+		/// Called with 0f when Special0 starts dragging / presses the button and with 1f when Special0 is released.
+		/// </summary>
+		public event Action<float> OnSpecial0Pressed;
+
+		/// <summary>
+		/// Called with 0f when Special1 starts dragging / presses the button and with 1f when Special1 is released.
+		/// </summary>
+		public event Action<float> OnSpecial1Pressed;
+
+		/// <summary>
+		/// Called with the aiming direction of the special currently being aimed. Not called on non-draggable specials.
+		/// </summary>
+		public event Action<Vector2> OnDrag;
+
+		public void Attached(VisualElement root)
+		{
+			_special0Button = root.Q<SpecialButtonElement>("Special0").Required();
+			_special1Button = root.Q<SpecialButtonElement>("Special1").Required();
+
+			_special0Button.OnPress += val => OnSpecial0Pressed?.Invoke(val);
+			_special1Button.OnPress += val => OnSpecial1Pressed?.Invoke(val);
+			_special0Button.OnDrag += val => OnDrag?.Invoke(val);
+			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
+		}
+
+		public void SubscribeToEvents()
+		{
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
+		}
+
+		public void UnsubscribeFromEvents()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			UpdateSpecials(callback.WeaponSlot);
+		}
+
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		{
+			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
+			UpdateSpecials(pc.WeaponSlots[pc.CurrentWeaponSlot]);
+		}
+
+		private void UpdateSpecials(WeaponSlot currentSlot)
+		{
+			var special0 = currentSlot.Specials[0];
+			_special0Button.SetSpecial(special0.SpecialId, special0.IsAimable);
+
+			var special1 = currentSlot.Specials[1];
+			if (special1.IsValid)
+			{
+				_special1Button.SetVisibility(true);
+				_special1Button.SetSpecial(special1.SpecialId, special1.IsAimable);
+			}
+			else
+			{
+				_special1Button.SetVisibility(false);
+			}
+		}
+	}
+}

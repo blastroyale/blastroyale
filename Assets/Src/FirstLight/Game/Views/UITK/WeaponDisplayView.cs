@@ -1,9 +1,9 @@
+using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
-using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +29,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private IGameServices _services;
 
+		public event Action<float> OnClick;
+
 		public void Attached(VisualElement element)
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -41,13 +43,19 @@ namespace FirstLight.Game.Views.UITK
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
 			_factionIcon = _weapon.Q("FactionIcon").Required();
 
-			_root.clicked += OnClick;
+			_root.clicked += () =>
+			{
+				// Both have to be sent so the input system resets the click state
+				OnClick?.Invoke(1.0f);
+				OnClick?.Invoke(0.0f);
+			};
 		}
 
 		public void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(OnLocalPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 		}
 
 		public void UnsubscribeFromEvents()
@@ -59,6 +67,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			SetWeapon(pc.WeaponSlots[BOOMSTICK_INDEX].Weapon);
+			SetSlot(MELEE_INDEX);
 		}
 
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
@@ -66,47 +75,49 @@ namespace FirstLight.Game.Views.UITK
 			SetWeapon(callback.Weapon);
 		}
 
+		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			SetSlot(callback.Slot);
+		}
+
+		private void SetSlot(int slot)
+		{
+			if (slot == MELEE_INDEX)
+			{
+				_melee.BringToFront();
+				_root.EnableInClassList(UssMeleeWeapon, true);
+			}
+			else
+			{
+				_weapon.BringToFront();
+				_root.EnableInClassList(UssMeleeWeapon, false);
+			}
+		}
+
 		private async void SetWeapon(Equipment weapon)
 		{
-			if (!weapon.IsValid()) return;
-
 			_weaponRarity.RemoveSpriteClasses();
+			_factionIcon.RemoveSpriteClasses();
+			_weaponIcon.style.backgroundImage = null;
+			_weaponShadow.style.backgroundImage = null;
+
+			if (!weapon.IsValid())
+			{
+				_weaponRarity.AddToClassList(string.Format(UssSpriteRarity,
+					EquipmentRarity.Common.ToString().ToLowerInvariant()));
+
+				return;
+			}
+
 			_weaponRarity.AddToClassList(string.Format(UssSpriteRarity,
 				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
 
-			_factionIcon.RemoveSpriteClasses();
 			_factionIcon.AddToClassList(string.Format(UssSpriteFaction, weapon.Faction.ToString().ToLowerInvariant()));
-
-			_weaponIcon.style.backgroundImage = null;
-			_weaponShadow.style.backgroundImage = null;
 
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
 				new StyleBackground(
 					await _services.AssetResolverService.RequestAsset<GameId, Sprite>(weapon.GameId, instantiate: false)
 				);
-		}
-
-		private void OnClick()
-		{
-			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			var pc = f.Get<PlayerCharacter>(data.Entity);
-			var nextSlot = pc.CurrentWeaponSlot == MELEE_INDEX ? BOOMSTICK_INDEX : MELEE_INDEX;
-
-			if (pc.WeaponSlots[nextSlot].Weapon.IsValid())
-			{
-				QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = nextSlot});
-
-				if (nextSlot == MELEE_INDEX)
-				{
-					_melee.BringToFront();
-					_root.EnableInClassList(UssMeleeWeapon, true);
-				}
-				else
-				{
-					_weapon.BringToFront();
-					_root.EnableInClassList(UssMeleeWeapon, false);
-				}
-			}
 		}
 	}
 }

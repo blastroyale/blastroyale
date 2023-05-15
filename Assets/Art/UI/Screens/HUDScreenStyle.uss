@@ -227,41 +227,11 @@
 .icon-battery {
     width: 34px;
     height: 16px;
-    background-image: var(--sprite-match__icon-battery-medium);
-}
-
-.icon-battery--full {
-    background-image: var(--sprite-match__icon-battery-full);
-}
-
-.icon-battery--medium {
-    background-image: var(--sprite-match__icon-battery-medium);
-}
-
-.icon-battery--low {
-    background-image: var(--sprite-match__icon-battery-low);
 }
 
 .icon-wifi {
     width: 34px;
     height: 26px;
-    background-image: var(--sprite-match__icon-wifi-medium);
-}
-
-.icon-wifi--high {
-    background-image: var(--sprite-match__icon-wifi-high);
-}
-
-.icon-wifi--medium {
-    background-image: var(--sprite-match__icon-wifi-medium);
-}
-
-.icon-wifi--low {
-    background-image: var(--sprite-match__icon-wifi-low);
-}
-
-.icon-wifi--noconnection {
-    background-image: var(--sprite-match__icon-wifi-noconnection);
 }
 
 .latency-label {
@@ -272,6 +242,10 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(6, 0, 51);
     display: flex;
+}
+
+.latency-label--high {
+    color: rgb(210, 81, 81);
 }
 
 .device-status-bar {

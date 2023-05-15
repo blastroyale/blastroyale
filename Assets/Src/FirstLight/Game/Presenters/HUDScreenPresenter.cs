@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		private KillFeedView _killFeedView;
 		private MatchStatusView _matchStatusView;
 		private SpecialButtonsView _specialButtonsView;
+		private DeviceStatusView _deviceStatusView;
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
@@ -44,6 +45,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
 			root.AttachView(this, out _specialButtonsView);
+			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

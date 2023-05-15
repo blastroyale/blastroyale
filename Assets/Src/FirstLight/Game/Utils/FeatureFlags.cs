@@ -214,7 +214,7 @@ namespace FirstLight.Game.Utils
 			
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
 			{
-				TUTORIAL = tutorial;
+				TUTORIAL = true;
 			}
 
 			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))

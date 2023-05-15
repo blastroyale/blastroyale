@@ -15,7 +15,7 @@ namespace FirstLight.Game.Logic
 		/// Returns the number of times the Rng has been counted;
 		/// </summary>
 		int Counter { get; }
-		
+
 		/// <summary>
 		/// Requests the next <see cref="int"/> generated value without changing the state.
 		/// Calling this multiple times in sequence gives always the same result.
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Logic
 
 			return Rng.Range(min, max, Data.State);
 		}
-		
+
 		public FP PeekRange(FP min, FP max)
 		{
 			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State));
@@ -115,6 +115,19 @@ namespace FirstLight.Game.Logic
 		{
 			Data.Count = count;
 			Data.State = Rng.Restore(count, Data.Seed);
+		}
+	}
+
+
+	public static class RngExtensions
+	{
+		/// <summary>
+		/// Return a random element from an array
+		/// </summary>
+		/// <returns></returns>
+		public static T RandomElement<T>(this IRngLogic rng, T[] list)
+		{
+			return list[rng.Range(0, list.Length)];
 		}
 	}
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5698772487761198582}
   - component: {fileID: 7293764191995220873}
   - component: {fileID: 2203016847474208553}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rounded_side_walk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

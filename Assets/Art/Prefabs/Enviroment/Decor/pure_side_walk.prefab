@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4239643178531695119}
   - component: {fileID: 736995323138728946}
   - component: {fileID: 693058133876312098}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: pure_side_walk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

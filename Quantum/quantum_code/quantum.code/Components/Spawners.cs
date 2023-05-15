@@ -93,9 +93,10 @@ namespace Quantum
 			var rarity = (EquipmentRarity) FPMath.Clamp((int) gameContainer.DropPool.AverageRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
+
 			var equipment = id == GameId.Random
 				                ? gameContainer.GenerateNextWeapon(f)
-								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1);
+								: Equipment.Create(f, configs.GetConfig(id).Id, rarity, 1);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
 			                                                        ref equipment, spawnerEntityRef);
@@ -109,7 +110,7 @@ namespace Quantum
 		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D* transform, EntityRef spawnerEntityRef)
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1);
+			var equipment = Equipment.Create(f, id, EquipmentRarity.Common, 1);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
 			                                                        ref equipment, spawnerEntityRef);

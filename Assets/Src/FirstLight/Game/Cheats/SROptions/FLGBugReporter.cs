@@ -1,3 +1,4 @@
+#if !DISABLE_SRDEBUGGER
 using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
@@ -57,3 +58,4 @@ namespace FirstLight.Game.Cheats.SROptions
 		}
 	}
 }
+#endif

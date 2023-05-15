@@ -26,7 +26,7 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="IDataSaver"/>
 		IDataSaver DataSaver { get; }
-		
+
 		IDataService DataService { get; }
 
 		/// <inheritdoc cref="IConfigsProvider"/>
@@ -37,7 +37,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameNetworkService"/>
 		IGameNetworkService NetworkService { get; }
-		
+
 		/// <inheritdoc cref="IPlayerInputService"/>
 		IPlayerInputService PlayerInputService { get; }
 
@@ -79,13 +79,13 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameBackendService"/>
 		IGameBackendService GameBackendService { get; }
-		
+
 		/// <inheritdoc cref="IAuthenticationService"/>
 		IAuthenticationService AuthenticationService { get; }
-		
+
 		/// <inheritdoc cref="ITutorialService"/>
 		ITutorialService TutorialService { get; }
-		
+
 		/// <inheritdoc cref="IPlayfabService"/>
 		ILiveopsService LiveopsService { get; }
 
@@ -94,34 +94,34 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IThreadService"/>
 		public IThreadService ThreadService { get; }
-		
+
 		/// <inheritdoc cref="IHelpdeskService"/>
 		public IHelpdeskService HelpdeskService { get; }
-		
+
 		/// <inheritdoc cref="IGameModeService"/>
 		public IGameModeService GameModeService { get; }
-		
+
 		/// <inheritdoc cref="IMatchmakingService"/>
 		public IMatchmakingService MatchmakingService { get; }
 
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
-		
+
 		/// <inheritdoc cref="IPartyService"/>
 		public IPartyService PartyService { get; }
-		
+
 		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
-		
+
 		public IGameUiService GameUiService { get; }
-		
+
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
-		
+
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
 		public string QuitReason { get; }
-		
+
 		/// <summary>
 		/// Method used when we want to leave the app, so we can record the reason
 		/// </summary>
@@ -162,15 +162,17 @@ namespace FirstLight.Game.Services
 		public IPartyService PartyService { get; }
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
-		
+
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
-		
+
+		public ICheatsService CheatsService { get; }
+
 		public string QuitReason { get; set; }
-		
+
 
 		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
-							IGameLogic gameLogic, IGenericDialogService genericDialogService, 
+							IGameLogic gameLogic, IGenericDialogService genericDialogService,
 							IAssetResolverService assetResolverService, ITutorialService tutorialService,
 							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
 		{
@@ -191,8 +193,8 @@ namespace FirstLight.Game.Services
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
-			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService,networkService, gameLogic, configsProvider);
+			GameBackendService = new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService, networkService, gameLogic, configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
@@ -207,30 +209,33 @@ namespace FirstLight.Game.Services
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;
 			NotificationService = new MobileNotificationService(
-			                                                    new
-				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,
-					                                                    GameConstants.Notifications
-						                                                    .NOTIFICATION_BOXES_CHANNEL,
-					                                                    GameConstants.Notifications
-						                                                    .NOTIFICATION_BOXES_CHANNEL),
-			                                                    new
-				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,
-					                                                    GameConstants.Notifications
-						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL,
-					                                                    GameConstants.Notifications
-						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL));
+				new
+					GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,
+						GameConstants.Notifications
+							.NOTIFICATION_BOXES_CHANNEL,
+						GameConstants.Notifications
+							.NOTIFICATION_BOXES_CHANNEL),
+				new
+					GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_IDLE_BOXES_CHANNEL,
+						GameConstants.Notifications
+							.NOTIFICATION_IDLE_BOXES_CHANNEL,
+						GameConstants.Notifications
+							.NOTIFICATION_IDLE_BOXES_CHANNEL));
+
+			var environmentService = new EnvironmentService(MessageBrokerService);
+			CheatsService = new CheatsService(CommandService, messageBrokerService, GenericDialogService, environmentService);
 		}
-		
+
 		/// <inheritdoc />
-		public void QuitGame(string reason) 
+		public void QuitGame(string reason)
 		{
 			MessageBrokerService.Publish(new ApplicationQuitMessage());
 			QuitReason = reason;
-			#if UNITY_EDITOR
-				UnityEditor.EditorApplication.isPlaying = false;
-			#else
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
 				Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
-			#endif
+#endif
 		}
 	}
 }

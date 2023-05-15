@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Items_HQ
-  m_Shader: {fileID: -6465566751694194690, guid: 54226dad6a35e0b4990fe57845222f7a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1ef35b67e47a54aa794c768731359434, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -115,6 +115,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 2, g: 2, b: 2, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1003972878125913395
 MonoBehaviour:

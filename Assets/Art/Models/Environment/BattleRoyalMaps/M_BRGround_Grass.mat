@@ -21,14 +21,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_BRGround_Grass
-  m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _FLIPBOOKBLENDING_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -39,6 +41,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_80E45D9B:
         m_Texture: {fileID: 2800000, guid: 4790c5b33696e9d4687ba63e981819c8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -67,11 +81,40 @@ Material:
     - Vector1_C53D494A: 0
     - Vector1_C53F84B0: 0.5
     - Vector1_CDB3DABE: 0.2
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BlendOp: 0
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
+    - _ColorMode: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0.1
+    - _DstBlend: 0
+    - _FlipbookBlending: 0
+    - _FlipbookMode: 0
+    - _Mode: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _ZWrite: 1
     m_Colors:
     - Color_1E8D7265: {r: 0.9646511, g: 1.8399999, b: 0.26010466, a: 1}
     - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_FD0C58A4: {r: 0.2, g: 0.2, b: 1, a: 1}
     - Vector4_F799D26D: {r: 1, g: 1, b: 0, a: 90}
+    - _BaseColor: {r: 0.60928327, g: 0.8207547, b: 0.5458793, a: 1}
+    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.60928327, g: 0.8207547, b: 0.5458793, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

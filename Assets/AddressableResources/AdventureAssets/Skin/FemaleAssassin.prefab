@@ -224,7 +224,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ca3ee76254787ee46b3f9b1c54d31366, type: 3}
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -334,22 +334,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb6f4fdfeda41e3b97523b7eb3f6ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderersContainerProxy: {fileID: 0}
+  RenderersContainerProxy: {fileID: 8006895881196900784}
   FootprintRightEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 960310083965950391}
+        m_TargetAssemblyTypeName: FirstLight.Game.MonoComponent.Vfx.AdventureVfxSpawnerMonoComponent,
+          FirstLight.Game
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   FootprintLeftEvent:
     m_PersistentCalls:
-      m_Calls: []
-  _animator: {fileID: 0}
+      m_Calls:
+      - m_Target: {fileID: 8555206983961280241}
+        m_TargetAssemblyTypeName: FirstLight.Game.MonoComponent.Vfx.AdventureVfxSpawnerMonoComponent,
+          FirstLight.Game
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _animator: {fileID: 6469672351747221080}
   _projectileHitVfx:
-    _selection: FootprintL
+    _selection: SplatsHitPlayer
   _vfxLocalScale: {x: 1, y: 1, z: 1}
-  _characterView: {fileID: 0}
+  _characterView: {fileID: 3178442356640708539}
   _footstepVfxSpawners:
   - {fileID: 8555206983961280241}
   - {fileID: 960310083965950391}
-  RootTransform: {fileID: 0}
+  RootTransform: {fileID: 6743811377823525288}
 --- !u!1 &341266554199935817
 GameObject:
   m_ObjectHideFlags: 0

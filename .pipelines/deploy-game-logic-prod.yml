@@ -1,0 +1,41 @@
+parameters:
+  - name: helmRepoPassword
+    type: string
+    default: ''
+  - name: dockerImage
+    type: string
+    default: ''
+  - name: autoDeployIfServer
+    default: ''
+    type: string
+
+stages:
+  - template: deploy-game-logic.yml
+    parameters:
+      autoDeployIfServer: ${{ parameters.autoDeployIfServer }}
+      dockerImage: ${{ parameters.dockerImage }}
+      helmRepoPassword: ${{ parameters.helmRepoPassword }}     
+      environment: mainnet-prod
+      system: mainnetprod
+      minReplicas: 1
+      maxReplicas: 2
+      cpu: 1
+      memory: 2Gi
+      ipwhitelist: 0.0.0.0/0
+      envVars: |
+        --set autoscaling.enabled=true \
+        --set autoscaling.minReplicas=1 \
+        --set autoscaling.targetCPUUtilizationPercentage=190 \
+        --set autoscaling.targetMemoryUtilizationPercentage=230 \
+        --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
+        --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
+        --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
+        --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
+        --set env.REMOTE_CONFIGURATION=true \
+        --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
+        --set env.DEV_MODE=false \
+        --set env.NFT_SYNC=true \
+        --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
+        --set env.PLAYFAB_TITLE=***REMOVED*** \
+        --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"

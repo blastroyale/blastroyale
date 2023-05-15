@@ -99,7 +99,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f5379ec454d4b46e7bcd5a474adc5ac6, type: 3}
   - {fileID: 21300000, guid: 200f11153aed542e3aeb0adb534ade89, type: 3}
   - {fileID: 21300000, guid: 05460215ca74e4b5baa3781e20e550dd, type: 3}
-  - {fileID: 21300000, guid: af24e6359bb4c490b8f0965b851e7d72, type: 3}
   - {fileID: 21300000, guid: 71f6a045524114e68a5e7294e0b95a6c, type: 3}
   - {fileID: 21300000, guid: 939f9d55c3bea4ada9601d4a0843b2f3, type: 3}
   - {fileID: 21300000, guid: 924e9a658b38a417982f18d0ba0dc4e4, type: 3}
@@ -294,7 +293,6 @@ SpriteAtlas:
   - character-female01avatar
   - flag-demon
   - button-equipmentslot-empty-pressed
-  - character-femalesuperstar
   - background-tooltip-bottomleft
   - glider-rocket
   - background-settingstab

@@ -141,6 +141,7 @@ public class TestServer
 		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("APPLICATION_ENVIRONMENT", "dev", EnvironmentVariableTarget.Process);
 	}
 
 }

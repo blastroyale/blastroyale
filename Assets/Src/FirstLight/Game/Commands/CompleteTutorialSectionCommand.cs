@@ -1,6 +1,7 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Messages;
 using FirstLight.Services;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -30,6 +31,7 @@ namespace FirstLight.Game.Commands
 			ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
 			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
 			ctx.Logic.RewardLogic().GiveItems(rewardItems);
+			ctx.Services.MessageBrokerService().Publish(new CompletedTutorialSectionMessage(){Section = Section});
 		}
 	}
 }

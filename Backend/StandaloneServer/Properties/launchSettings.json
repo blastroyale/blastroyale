@@ -20,7 +20,8 @@
         "DEV_MODE": "true",
         "API_URL": "***REMOVED***",
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
-        "API_KEY": "devkey"
+        "API_KEY": "devkey",
+        "APPLICATION_ENVIRONMENT": "dev"
       }
     },
     "IIS Express": {

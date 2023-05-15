@@ -13,6 +13,7 @@ namespace Backend.Game.Services
 		}
 
 		public string AppPath => _path;
+		public string ApplicationEnvironment => FromEnv("APPLICATION_ENVIRONMENT");
 		public string PlayfabSecretKey => FromEnv("PLAYFAB_DEV_SECRET_KEY");
 		public string PlayfabTitle => FromEnv("PLAYFAB_TITLE");
 		public bool NftSync => FromEnv("NFT_SYNC", "true")?.ToLower() != "false";

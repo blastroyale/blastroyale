@@ -238,6 +238,8 @@ namespace FirstLight.Editor.Build
 				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
 			}
 
+			buildConfig.options |= BuildOptions.CompressWithLz4HC;
+
 			SetScenesFromEditor(ref buildConfig);
 
 			return buildConfig;

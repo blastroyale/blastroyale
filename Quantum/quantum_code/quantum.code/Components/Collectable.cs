@@ -28,7 +28,7 @@ namespace Quantum
 				Log.Error($"Trying to drop a default item, skipping: {equipment.GameId}!");
 				return;
 			}
-			
+
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));

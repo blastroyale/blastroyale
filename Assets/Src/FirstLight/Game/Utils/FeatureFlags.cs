@@ -215,6 +215,11 @@ namespace FirstLight.Game.Utils
 			{
 				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
+			
+			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
+			{
+				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
+			}
 		}
 
 		/// <summary>

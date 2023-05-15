@@ -15,14 +15,15 @@ MonoBehaviour:
   version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_PlasmaBeamPrurple
   m_Shader: {fileID: -6465566751694194690, guid: ba2966107d34c6e4f8cb75f0aa350aee, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -56,6 +57,8 @@ Material:
     - Vector1_5de994fa8e9d457684acae8a9c7cc646: 0.39
     - Vector1_7054c526300243f2b2f85d1af03477f6: 4.19
     - Width_: 0.7
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - ColorInner_: {r: 8.219608, g: 0.5647059, b: 11.984314, a: 0}
     - ColorOuter_: {r: 0.9411765, g: 0.08627451, b: 2, a: 0}

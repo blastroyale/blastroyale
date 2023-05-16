@@ -51,6 +51,8 @@ namespace Quantum.Systems
 				playerLimit = (int)maxPlayers;
 			}
 			
+			// playerLimit = 3;
+			
 			for (var i = 0; i < playerLimit; i++)
 			{
 				if (i >= f.PlayerCount || (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) ==
@@ -107,6 +109,14 @@ namespace Quantum.Systems
 
 				return;
 			}
+			
+			if (!filter.BotCharacter->SpeedResetAfterLanding)
+			{
+				filter.BotCharacter->SpeedResetAfterLanding = true;
+				
+				// We call stop aiming once here to set the movement speed to a proper stat value
+				StopAiming(f, ref filter);
+			}
 
 			// If a bot has a valid target then we correct the bot's speed according
 			// to the weapon they carry and turn the bot towards the target
@@ -116,115 +126,99 @@ namespace Quantum.Systems
 			speed *= filter.BotCharacter->MovementSpeedMultiplier;
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 
-			// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
-			if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target))
+			if (target != EntityRef.None)
 			{
-				ClearTarget(f, ref filter);
-			}
-			else
-			{
-				var weaponTargetRange =
-					FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue,
-						filter.BotCharacter->MaxAimingRange);
-				var botPosition = filter.Transform->Position;
-				var team = f.Get<Targetable>(filter.Entity).Team;
-				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-
-				botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, target, out var targetHit))
-				{
-					var speedUpMutatorExists =
-						f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-					speed *= weaponConfig.AimingMovementSpeed;
-
-					kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
-
-					filter.BotCharacter->Target = targetHit;
-					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit, FP._0);
-					bb->Set(f, Constants.IsAimPressedKey, true);
-					target = targetHit;
-				}
-				else
+				// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
+				if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target))
 				{
 					ClearTarget(f, ref filter);
+				}
+				// Aim at target
+				else
+				{
+					var weaponTargetRange =
+						FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue,
+								   filter.BotCharacter->MaxAimingRange);
+					var botPosition = filter.Transform->Position;
+					var team = f.Get<Targetable>(filter.Entity).Team;
+					var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+
+					botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+
+					if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, target, out var targetHit))
+					{
+						var speedUpMutatorExists =
+							f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+						speed *= weaponConfig.AimingMovementSpeed;
+
+						kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
+
+						filter.BotCharacter->Target = targetHit;
+						QuantumHelpers.LookAt2d(f, filter.Entity, targetHit, FP._0);
+						bb->Set(f, Constants.IsAimPressedKey, true);
+						target = targetHit;
+					}
+					// Clear target if can't aim at it
+					else
+					{
+						ClearTarget(f, ref filter);
+					}
 				}
 			}
 
 			// Bots look for others to shoot at not on every frame
 			if (f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
 			{
-				// Check if target exists otherwise look for new enemies
-				if (filter.BotCharacter->Target != EntityRef.None)
-				{
-					// Bots have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
-					// Versus other bots this chance is 4 times lower
-					if (f.RNG->Next() < (f.Has<BotCharacter>(filter.BotCharacter->Target)
-						    ? filter.BotCharacter->ChanceToAbandonTarget * FP._0_25
-						    : filter.BotCharacter->ChanceToAbandonTarget))
-					{
-						ClearTarget(f, ref filter);
-					}
-					else
-					{
-						// Checking how close is the target and stop the movement if the target is closer
-						// than allowed by closefight intolerance
-						var weaponTargetRange =
-							FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue,
-								filter.BotCharacter->MaxAimingRange);
-						var minDistanceToTarget =
-							FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
-						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
-							.SqrMagnitude;
-
-						// If target is too far then we stop attacking
-						if (sqrDistanceToTarget > weaponTargetRange * weaponTargetRange)
-						{
-							ClearTarget(f, ref filter);
-						}
-						// If the bot was moving towards enemy or not moving anywhere then we do distance checks to not get too close
-						else if ((filter.BotCharacter->MoveTarget == target ||
-									 filter.BotCharacter->MoveTarget == EntityRef.None)
-								 && sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
-						{
-							filter.BotCharacter->MoveTarget = EntityRef.None;
-							filter.NavMeshAgent->Stop(f, filter.Entity, true);
-						}
-					}
-				}
-				else
-				{
-					CheckEnemiesToShooAt(f, ref filter, ref weaponConfig);
-				}
+				CheckEnemiesToShooAt(f, ref filter, ref weaponConfig);
 
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
 					f.Time + filter.BotCharacter->LookForTargetsToShootAtInterval;
 			}
-
+			
+			// Static bots don't move so no need to process anything else
+			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static)
+			{
+				return;
+			}
+			
 			// Check move target in case it disappeared or a bot collected it and needs to move on
+			// We set 0.5 second delay before letting a bot making another decision
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 			    QuantumHelpers.IsDestroyed(f, filter.BotCharacter->MoveTarget))
 			{
 				filter.BotCharacter->MoveTarget = EntityRef.None;
 				filter.NavMeshAgent->Stop(f, filter.Entity, true);
+				filter.BotCharacter->NextDecisionTime = f.Time + FP._0_50;
 			}
-
-			var botStuckWandering = filter.NavMeshAgent->IsActive == false &&
-				filter.BotCharacter->MoveTarget == filter.Entity;
 
 			if (filter.BotCharacter->TeamSize > 1)
 			{
 				CheckOnTeammates(f, ref filter);
 			}
 
-			// Do not do any decision making if the time has not come, unless a bot stucked wandering or collected a target or has no one to shoot at
-			if (!botStuckWandering
-			    && (filter.BotCharacter->MoveTarget != EntityRef.None || filter.BotCharacter->Target != EntityRef.None)
-			    && f.Time < filter.BotCharacter->NextDecisionTime)
+			// Do not do any decision making if the time has not come, unless a bot have no target to move to
+			if (filter.BotCharacter->MoveTarget != EntityRef.None
+				&& f.Time < filter.BotCharacter->NextDecisionTime)
 			{
 				return;
 			}
-
+			
+			///////////////////////////////////////////////////////////
+			// The following code works in Decision time intervals
+			///////////////////////////////////////////////////////////
+			
+			
+			// If bot is collecting something at the moment then let this bot finish collection before doing anything else
+			// and also clear StuckPosition so bot doesn't think that they stuck
+			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
+				f.TryGet<Collectable>(filter.BotCharacter->MoveTarget, out var collectable) &&
+				collectable.IsCollecting(filter.PlayerCharacter->Player))
+			{
+				filter.BotCharacter->NextDecisionTime = collectable.CollectorsEndTime[filter.PlayerCharacter->Player] + FP._0_50;
+				filter.BotCharacter->StuckDetectionPosition = FPVector3.Zero;
+				return;
+			}
+			
 			// Check that bot isn't stuck in place. If it does then force repath
 			// If this solution won't prevent bots from standing in one place doing nothing then we should consider
 			// doing check "filter.NavMeshAgent->IsOnLink(f)" instead of "filter.NavMeshAgent->IsActive"
@@ -232,20 +226,46 @@ namespace Quantum.Systems
 			// hence why we are Forcing Repath;
 			// Another reason why a bot isn't going anywhere can be because the point they want to go to is
 			// unreachable due to how navmesh were baked or consumable placed
-			// if (FPVector3.DistanceSquared(filter.BotCharacter->StuckDetectionPosition, 
-			//                               filter.Transform->Position) < Constants.BOT_STUCK_DETECTION_DISTANCE)
-			// {
-			// 	filter.NavMeshAgent->ForceRepath(f);
-			// }
+			if (FPVector3.DistanceSquared(filter.BotCharacter->StuckDetectionPosition, 
+										  filter.Transform->Position) < Constants.BOT_STUCK_DETECTION_SQR_DISTANCE)
+			{
+				// Blacklist Entity that we are trying to move to so we don't try to go to it again
+				filter.BotCharacter->BlacklistedMoveTarget = filter.BotCharacter->MoveTarget;
+				filter.BotCharacter->MoveTarget = EntityRef.None;
+				
+				// In case a bot is stuck - try moving a little bit sideways or back
+				var sidewaysPosition = filter.Transform->Position;
+				var direction = f.RNG->Next();
+				if (direction < FP._0_33)
+				{
+					sidewaysPosition += filter.Transform->Left * FP._3;
+				}
+				else if (direction < (FP._0_33 * FP._2))
+				{
+					sidewaysPosition += filter.Transform->Right * FP._3;
+				}
+				else
+				{
+					sidewaysPosition += filter.Transform->Back * FP._3;
+				}
+				
+				if (QuantumHelpers.SetClosestTarget(f, filter.Entity, sidewaysPosition))
+				{
+					filter.BotCharacter->NextDecisionTime = f.Time + FP._1;
+					filter.BotCharacter->StuckDetectionPosition = FPVector3.Zero;
+					filter.BotCharacter->MoveTarget = filter.Entity;
+					return;
+				}
+			}
 
 			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 			filter.BotCharacter->StuckDetectionPosition = filter.Transform->Position;
 
-			// We call ClearTarget after the use of special because real players can't shoot and use specials at the same time
+			// We stop aiming after the use of special because real players can't shoot and use specials at the same time
 			// So we don't allow bots to do it as well
 			if (TryUseSpecials(f, ref filter))
 			{
-				ClearTarget(f, ref filter);
+				StopAiming(f, ref filter);
 			}
 
 			// In case a bot has a gun and ammo but switched to a hammer - we switch back to a gun
@@ -261,63 +281,77 @@ namespace Quantum.Systems
 					}
 				}
 			}
-
-			switch (filter.BotCharacter->BehaviourType)
+			
+			var circleCenter = FPVector2.Zero;
+			var circleRadius = FP._0;
+			var circleIsShrinking = false;
+			if (f.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
-				case BotBehaviourType.Static:
-					break;
-				case BotBehaviourType.Dumb:
-					var dumb = TryAvoidShrinkingCircle(f, ref filter)
-						|| TryGoForGear(f, ref filter)
-						|| TryGoForHealth(f, ref filter)
-						|| TryGoForShield(f, ref filter)
-						|| TryGoForAmmo(f, ref filter)
-						|| TryGoForWeapons(f, ref filter)
-						|| TryGoForCrates(f, ref filter)
-						|| TryGoForRage(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
-						|| Wander(f, ref filter);
-					break;
-				case BotBehaviourType.Cautious:
-					var cautious = TryAvoidShrinkingCircle(f, ref filter)
-						|| TryStayCloseToTeammate(f, ref filter)
-						|| TryGoForGear(f, ref filter)
-						|| TryGoForHealth(f, ref filter)
-						|| TryGoForShield(f, ref filter)
-						|| TryGoForAmmo(f, ref filter)
-						|| TryGoForWeapons(f, ref filter)
-						|| TryGoForCrates(f, ref filter)
-						|| TryGoForRage(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
-						|| Wander(f, ref filter);
-					break;
-				case BotBehaviourType.Aggressive:
-					var aggressive = TryAvoidShrinkingCircle(f, ref filter)
-						|| TryStayCloseToTeammate(f, ref filter)
-						|| TryGoForGear(f, ref filter)
-						|| TryGoForRage(f, ref filter)
-						|| TryGoForWeapons(f, ref filter)
-						|| TryGoForAmmo(f, ref filter)
-						|| TryGoForCrates(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
-						|| TryGoForShield(f, ref filter)
-						|| TryGoForHealth(f, ref filter)
-						|| Wander(f, ref filter);
-					break;
-				case BotBehaviourType.Balanced:
-					var balanced = TryAvoidShrinkingCircle(f, ref filter)
-						|| TryStayCloseToTeammate(f, ref filter)
-						|| TryGoForGear(f, ref filter)
-						|| TryGoForAmmo(f, ref filter)
-						|| TryGoForHealth(f, ref filter)
-						|| TryGoForWeapons(f, ref filter)
-						|| TryGoForShield(f, ref filter)
-						|| TryGoForCrates(f, ref filter)
-						|| TryGoForEnemies(f, ref filter, ref weaponConfig)
-						|| TryGoForRage(f, ref filter)
-						|| Wander(f, ref filter);
-					break;
+				circle.GetMovingCircle(f, out circleCenter, out circleRadius);
+				circleIsShrinking = circle.ShrinkingStartTime <= f.Time;
 			}
+			
+			var action = TryGoForClosestCollectable(f, ref filter, circleCenter, circleRadius, circleIsShrinking)
+						 || TryStayCloseToTeammate(f, ref filter, circleCenter, circleRadius, circleIsShrinking)
+						 || TryGoToSafeArea(f, ref filter, circleCenter, circleRadius, circleIsShrinking);
+			
+			// TODO: Reuse switch when we have differences for various behaviour types
+			// switch (filter.BotCharacter->BehaviourType)
+			// {
+			// 	case BotBehaviourType.Static:
+			// 		break;
+			// 	case BotBehaviourType.Dumb:
+			// 		var dumb = TryAvoidShrinkingCircle(f, ref filter)
+			// 			|| TryGoForGear(f, ref filter)
+			// 			|| TryGoForHealth(f, ref filter)
+			// 			|| TryGoForShield(f, ref filter)
+			// 			|| TryGoForAmmo(f, ref filter)
+			// 			|| TryGoForWeapons(f, ref filter)
+			// 			|| TryGoForCrates(f, ref filter)
+			// 			|| TryGoForRage(f, ref filter)
+			// 			|| TryGoForEnemies(f, ref filter, ref weaponConfig)
+			// 			|| Wander(f, ref filter);
+			// 		break;
+			// 	case BotBehaviourType.Cautious:
+			// 		var cautious = TryAvoidShrinkingCircle(f, ref filter)
+			// 			|| TryStayCloseToTeammate(f, ref filter)
+			// 			|| TryGoForGear(f, ref filter)
+			// 			|| TryGoForHealth(f, ref filter)
+			// 			|| TryGoForShield(f, ref filter)
+			// 			|| TryGoForAmmo(f, ref filter)
+			// 			|| TryGoForWeapons(f, ref filter)
+			// 			|| TryGoForCrates(f, ref filter)
+			// 			|| TryGoForRage(f, ref filter)
+			// 			|| TryGoForEnemies(f, ref filter, ref weaponConfig)
+			// 			|| Wander(f, ref filter);
+			// 		break;
+			// 	case BotBehaviourType.Aggressive:
+			// 		var aggressive = TryAvoidShrinkingCircle(f, ref filter)
+			// 			|| TryStayCloseToTeammate(f, ref filter)
+			// 			|| TryGoForGear(f, ref filter)
+			// 			|| TryGoForRage(f, ref filter)
+			// 			|| TryGoForWeapons(f, ref filter)
+			// 			|| TryGoForAmmo(f, ref filter)
+			// 			|| TryGoForCrates(f, ref filter)
+			// 			|| TryGoForEnemies(f, ref filter, ref weaponConfig)
+			// 			|| TryGoForShield(f, ref filter)
+			// 			|| TryGoForHealth(f, ref filter)
+			// 			|| Wander(f, ref filter);
+			// 		break;
+			// 	case BotBehaviourType.Balanced:
+			// 		var balanced = TryAvoidShrinkingCircle(f, ref filter)
+			// 			|| TryStayCloseToTeammate(f, ref filter)
+			// 			|| TryGoForGear(f, ref filter)
+			// 			|| TryGoForAmmo(f, ref filter)
+			// 			|| TryGoForHealth(f, ref filter)
+			// 			|| TryGoForWeapons(f, ref filter)
+			// 			|| TryGoForShield(f, ref filter)
+			// 			|| TryGoForCrates(f, ref filter)
+			// 			|| TryGoForEnemies(f, ref filter, ref weaponConfig)
+			// 			|| TryGoForRage(f, ref filter)
+			// 			|| Wander(f, ref filter);
+			// 		break;
+			// }
 		}
 
 		private List<QuantumBotConfig> GetBotConfigsList(Frame f, int botsDifficulty)
@@ -342,19 +376,10 @@ namespace Quantum.Systems
 			return list;
 		}
 
-		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
+		private void StopAiming(Frame f, ref BotCharacterFilter filter)
 		{
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			speed *= filter.BotCharacter->MovementSpeedMultiplier;
-
-			// If the bot was moving towards this enemy then we clear move target and force a bot to make a decision
-			if (filter.BotCharacter->MoveTarget == filter.BotCharacter->Target)
-			{
-				filter.BotCharacter->MoveTarget = EntityRef.None;
-				filter.NavMeshAgent->Stop(f, filter.Entity, true);
-			}
-
-			filter.BotCharacter->Target = EntityRef.None;
 
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
 			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
@@ -365,6 +390,20 @@ namespace Quantum.Systems
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 			bb->Set(f, Constants.IsAimPressedKey, false);
+		}
+
+		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
+		{
+			StopAiming(f, ref filter);
+			
+			// If the bot was moving towards this enemy then we clear move target and force a bot to make a decision
+			// if (filter.BotCharacter->MoveTarget == filter.BotCharacter->Target)
+			// {
+			// 	filter.BotCharacter->MoveTarget = EntityRef.None;
+			// 	filter.NavMeshAgent->Stop(f, filter.Entity, true);
+			// }
+			
+			filter.BotCharacter->Target = EntityRef.None;
 		}
 
 		// We loop through players to find a reference for alive teammate in case current is dead
@@ -511,7 +550,159 @@ namespace Quantum.Systems
 
 			return false;
 		}
+		
+		private bool TryGoForClosestCollectable(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+		{
+			// Strategy is to pick up everything you can possible pick up
+			// So we will look at closest pickups and discard things that we can't / don't need to pickup
+			
+			var sqrDistance = FP.MaxValue;
+			var collectablePosition = FPVector3.Zero;
+			var collectableEntity = EntityRef.None;
+			var iterator = f.Unsafe.GetComponentBlockIterator<Collectable>();
+			
+			var botPosition = filter.Transform->Position;
+			var stats = f.Get<Stats>(filter.Entity);
+			var maxShields = stats.Values[(int) StatType.Shield].StatValue;
+			var currentAmmo = filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity);
+			var maxHealth = stats.Values[(int) StatType.Health].StatValue;
+			
+			var needWeapon = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;
+			var needAmmo = currentAmmo < FP._0_99;
+			var needShields = stats.CurrentShield < maxShields;
+			var needHealth = stats.CurrentHealth < maxHealth;
 
+			foreach (var collectableCandidate in iterator)
+			{
+				if (filter.BotCharacter->BlacklistedMoveTarget == collectableCandidate.Entity)
+				{
+					continue;
+				}
+				
+				if (collectableCandidate.Component->GameId.IsInGroup(GameIdGroup.Weapon) && !needWeapon)
+				{
+					continue;
+				}
+
+				if (f.TryGet<Consumable>(collectableCandidate.Entity, out var consumable))
+				{
+					var usefulConsumable = consumable.ConsumableType switch
+					{
+						ConsumableType.Ammo   => needAmmo,
+						ConsumableType.Shield => needShields,
+						ConsumableType.Health => needHealth,
+						_ => true
+					};
+
+					if (!usefulConsumable)
+					{
+						continue;
+					}
+				}
+
+				var positionCandidate = f.Get<Transform3D>(collectableCandidate.Entity).Position;
+				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
+
+				if (IsInVisionRange(newSqrDistance, ref filter)
+					&& newSqrDistance < sqrDistance
+					&& IsInCircle(f, ref filter, circleCenter, circleRadius, circleIsShrinking, positionCandidate))
+				{
+					sqrDistance = newSqrDistance;
+					collectablePosition = positionCandidate;
+					collectableEntity = collectableCandidate.Entity;
+				}
+			}
+			
+			if (collectableEntity == EntityRef.None)
+			{
+				return false;
+			}
+			
+			if (filter.NavMeshAgent->IsActive
+				&& filter.BotCharacter->MoveTarget == collectableEntity)
+			{
+				return true;
+			}
+			
+			if (QuantumHelpers.SetClosestTarget(f, filter.Entity, collectablePosition))
+			{
+				//Log.Warn("Bot: " + filter.Entity.Index + "; moves to Collectable: " + collectableEntity + " at " + collectablePosition);
+				
+				filter.BotCharacter->MoveTarget = collectableEntity;
+
+				return true;
+			}
+
+			return false;
+		}
+		
+		private bool TryGoToSafeArea(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+		{
+			// Not all game modes have a Shrinking Circle
+			if (circleRadius < FP.SmallestNonZero)
+			{
+				return false;
+			}
+			
+			var range = FP._0;
+			
+			// If circle is shrinking then we try to stay closer to the center
+			if (circleIsShrinking)
+			{
+				range = circleRadius * FP._0_33;
+			}
+			else
+			{
+				range = circleRadius * (FP._0_75 + FP._0_10);
+			}
+			
+			var newPosition = circleCenter;
+			var x = f.RNG->Next(-range, range);
+			var y = f.RNG->Next(-range, range);
+			newPosition.X += x;
+			newPosition.Y += y;
+			
+			// We try to go into random position OR into circle center (it's good for a very small circle)
+			if (QuantumHelpers.SetClosestTarget(f, filter.Entity, newPosition.XOY)
+				|| QuantumHelpers.SetClosestTarget(f, filter.Entity, circleCenter.XOY))
+			{
+				filter.BotCharacter->MoveTarget = filter.Entity;
+				return true;
+			}
+
+			return false;
+		}
+
+		private bool TryStayCloseToTeammate(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking)
+		{
+			if (filter.BotCharacter->TeamSize <= 1 || QuantumHelpers.IsDestroyed(f, filter.BotCharacter->RandomTeammate))
+			{
+				return false;
+			}
+
+			var teammatePosition = filter.BotCharacter->RandomTeammate.GetPosition(f);
+			var botPosition = filter.Transform->Position;
+			var vectorToTeammate = teammatePosition - botPosition;
+			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
+
+			if (vectorToTeammate.SqrMagnitude < maxDistanceSquared)
+			{
+				return false;
+			}
+
+			var destination = filter.Transform->Position + vectorToTeammate.Normalized * (vectorToTeammate.Magnitude / FP._2);
+			var isGoing = IsInCircle(f, ref filter, circleCenter, circleRadius, circleIsShrinking, destination)
+						  && QuantumHelpers.SetClosestTarget(f, filter.Entity, destination);
+			
+			if (isGoing)
+			{
+				filter.BotCharacter->MoveTarget = filter.Entity;
+			}
+
+			return isGoing;
+		}
+		
+/*
 		private bool TryAvoidShrinkingCircle(Frame f, ref BotCharacterFilter filter)
 		{
 			// Not all game modes have a Shrinking Circle
@@ -554,34 +745,6 @@ namespace Quantum.Systems
 				// We are setting "self" as a target when there's no specific entity a bot is moving towards
 				filter.BotCharacter->MoveTarget = filter.Entity;
 				filter.BotCharacter->CurrentEvasionStepEndTime = f.Time + filter.BotCharacter->DecisionInterval;
-			}
-
-			return isGoing;
-		}
-
-		private bool TryStayCloseToTeammate(Frame f, ref BotCharacterFilter filter)
-		{
-			if (filter.BotCharacter->TeamSize <= 1 || QuantumHelpers.IsDestroyed(f, filter.BotCharacter->RandomTeammate))
-			{
-				return false;
-			}
-
-			var teammatePosition = filter.BotCharacter->RandomTeammate.GetPosition(f);
-			var botPosition = filter.Transform->Position;
-			var vectorToTeammate = teammatePosition - botPosition;
-			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
-
-			if (vectorToTeammate.SqrMagnitude < maxDistanceSquared)
-			{
-				return false;
-			}
-
-			var destination = filter.Transform->Position + vectorToTeammate.Normalized * (vectorToTeammate.Magnitude / FP._2);
-			var isGoing = QuantumHelpers.SetClosestTarget(f, filter.Entity, destination);
-
-			if (isGoing)
-			{
-				filter.BotCharacter->MoveTarget = filter.Entity;
 			}
 
 			return isGoing;
@@ -854,7 +1017,7 @@ namespace Quantum.Systems
 				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
 
 				if (IsInVisionRange(newSqrDistance, ref filter) && newSqrDistance < sqrDistance &&
-				    (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
+				    (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					enemyPosition = positionCandidate;
@@ -911,7 +1074,7 @@ namespace Quantum.Systems
 			{
 				if (navMesh.FindRandomPointOnNavmesh(filter.Transform->Position, wanderRadius, f.RNG,
 					    agent->RegionMask, out var closestPosition)
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, closestPosition)))
+				    && (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, closestPosition)))
 				{
 					agent->SetTarget(f, closestPosition, navMesh);
 
@@ -958,7 +1121,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					consumablePosition = positionCandidate;
@@ -991,7 +1154,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					gearPickupPosition = positionCandidate;
@@ -1030,7 +1193,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					weaponPickupPosition = positionCandidate;
@@ -1058,7 +1221,7 @@ namespace Quantum.Systems
 
 				if (IsInVisionRange(newSqrDistance, ref filter)
 				    && newSqrDistance < sqrDistance
-				    && (!hasShrinkingCircle || IsInCircle(ref filter, &circle, positionCandidate)))
+				    && (!hasShrinkingCircle || IsInCircle(f, ref filter, &circle, positionCandidate)))
 				{
 					sqrDistance = newSqrDistance;
 					chestPosition = positionCandidate;
@@ -1068,7 +1231,7 @@ namespace Quantum.Systems
 
 			return chestPosition != FPVector3.Zero;
 		}
-
+*/
 		private bool IsInVisionRange(FP distanceSqr, ref BotCharacterFilter filter)
 		{
 			var visionRangeSqr = filter.BotCharacter->VisionRangeSqr;
@@ -1076,11 +1239,23 @@ namespace Quantum.Systems
 			return visionRangeSqr < FP._0 || distanceSqr <= visionRangeSqr;
 		}
 
-		private bool IsInCircle(ref BotCharacterFilter filter, ShrinkingCircle* circle, FPVector3 positionToCheck)
+		private bool IsInCircle(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter, FP circleRadius, bool circleIsShrinking, FPVector3 positionToCheck)
 		{
-			var distanceSqr = FPVector2.DistanceSquared(positionToCheck.XZ, circle->CurrentCircleCenter);
-
-			return distanceSqr <= circle->CurrentRadius * circle->CurrentRadius;
+			// If circle doesn't exist then we always return true
+			if (circleRadius < FP.SmallestNonZero)
+			{
+				return true;
+			}
+			
+			var distanceSqr = (positionToCheck.XZ - circleCenter).SqrMagnitude;
+			
+			// If circle is shrinking then it's risky to get to consumables on the edge so we don't do it
+			if (circleIsShrinking)
+			{
+				return distanceSqr <= (circleRadius * circleRadius) * (FP._0_20 + FP._0_10);
+			}
+			
+			return distanceSqr <= (circleRadius * circleRadius) * (FP._0_75);
 		}
 
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
@@ -1090,12 +1265,18 @@ namespace Quantum.Systems
 			var botsNameCount = f.GameConfig.BotsNameCount;
 			var botNamesIndices = new List<int>(botsNameCount);
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
+			var gliders = GameIdGroup.Glider.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
-			var gliders = GameIdGroup.Glider.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
 			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
+			var weaponsPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
+			weaponsPool.Remove(GameId.Hammer);
+			var helmetsPool = new List<GameId>(GameIdGroup.Helmet.GetIds());
+			var shieldsPool = new List<GameId>(GameIdGroup.Shield.GetIds());
+			var amuletsPool = new List<GameId>(GameIdGroup.Amulet.GetIds());
+			var armorsPool = new List<GameId>(GameIdGroup.Armor.GetIds());
 
 			var forcedBotTypes = new List<BotBehaviourType>();
 			foreach (var playerSpawner in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
@@ -1194,7 +1375,7 @@ namespace Quantum.Systems
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
-					Glider = GameId.Falcon,
+					Glider = gliders[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
 					// We modify intervals to make them more unique to avoid performance spikes
@@ -1203,33 +1384,36 @@ namespace Quantum.Systems
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval +
 						botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_01,
 					VisionRangeSqr = botConfig.VisionRangeSqr,
-					LowArmourSensitivity = botConfig.LowArmourSensitivity,
-					LowHealthSensitivity = botConfig.LowHealthSensitivity,
-					LowAmmoSensitivity = botConfig.LowAmmoSensitivity,
-					ChanceToSeekWeapons = botConfig.ChanceToSeekWeapons,
-					ChanceToSeekEnemies = botConfig.ChanceToSeekEnemies,
-					ChanceToSeekRage = botConfig.ChanceToSeekRage,
-					ChanceToAbandonTarget = botConfig.ChanceToAbandonTarget,
-					ChanceToSeekReplenishSpecials = botConfig.ChanceToSeekReplenishSpecials,
-					CloseFightIntolerance = botConfig.CloseFightIntolerance,
-					WanderRadius = botConfig.WanderRadius,
+					//LowArmourSensitivity = botConfig.LowArmourSensitivity,
+					//LowHealthSensitivity = botConfig.LowHealthSensitivity,
+					//LowAmmoSensitivity = botConfig.LowAmmoSensitivity,
+					//ChanceToSeekWeapons = botConfig.ChanceToSeekWeapons,
+					//ChanceToSeekEnemies = botConfig.ChanceToSeekEnemies,
+					//ChanceToSeekRage = botConfig.ChanceToSeekRage,
+					//ChanceToAbandonTarget = botConfig.ChanceToAbandonTarget,
+					//ChanceToSeekReplenishSpecials = botConfig.ChanceToSeekReplenishSpecials,
+					//CloseFightIntolerance = botConfig.CloseFightIntolerance,
+					//WanderRadius = botConfig.WanderRadius,
 					AccuracySpreadAngle = botConfig.AccuracySpreadAngle,
 					ChanceToUseSpecial = botConfig.ChanceToUseSpecial,
 					SpecialAimingDeviation = botConfig.SpecialAimingDeviation,
-					ShrinkingCircleRiskTolerance = botConfig.ShrinkingCircleRiskTolerance,
-					ChanceToSeekChests = botConfig.ChanceToSeekChests,
+					//ShrinkingCircleRiskTolerance = botConfig.ShrinkingCircleRiskTolerance,
+					//ChanceToSeekChests = botConfig.ChanceToSeekChests,
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 					CurrentEvasionStepEndTime = FP._0,
 					StuckDetectionPosition = FPVector3.Zero,
 					LoadoutGearNumber = botConfig.LoadoutGearNumber,
+					LoadoutRarity = botConfig.LoadoutRarity,
 					MaxAimingRange = botConfig.MaxAimingRange,
 					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier,
 					TeamSize = teamSize,
 					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared,
 					SpawnWithPlayer = withPlayer,
 					DamageTakenMultiplier = botConfig.DamageTakenMultiplier,
-					DamageDoneMultiplier = botConfig.DamageDoneMultiplier
+					DamageDoneMultiplier = botConfig.DamageDoneMultiplier,
+					SpeedResetAfterLanding = false,
+					BlacklistedMoveTarget = EntityRef.None
 				};
 
 				botNamesIndices.RemoveAt(listNamesIndex);
@@ -1248,20 +1432,10 @@ namespace Quantum.Systems
 				// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 				// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 				var trophies = (uint) (baseTrophiesAmount + f.RNG->Next(-50, 50));
-
-				// TODO: Give bots random weapon based on median quality that players have
-				// TODO: Give bots random gear in their loadout initially based on median quality that players have
-
-				// array of test equipment for testing purposes
-/*				var equipmentRarity = EquipmentRarity.Rare;
-				var loadout = new Equipment[]
-				{
-					new Equipment(GameId.RiotHelmet, EquipmentEdition.Genesis, equipmentRarity),
-					new Equipment(GameId.RiotAmulet, EquipmentEdition.Genesis, equipmentRarity),
-					new Equipment(GameId.RiotArmor, EquipmentEdition.Genesis, equipmentRarity),
-					new Equipment(GameId.RiotShield, EquipmentEdition.Genesis, equipmentRarity),
-				};*/
-
+				
+				// Giving bots random weapon based on loadout rarity provided in bot configs
+				var randomWeapon = new Equipment(weaponsPool[f.RNG->Next(0, weaponsPool.Count)],
+												 EquipmentEdition.Genesis, botCharacter.LoadoutRarity);
 
 				List<Modifier> modifiers = null;
 
@@ -1297,10 +1471,10 @@ namespace Quantum.Systems
 						});
 					}
 				}
-				
-				
+
+
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-					botCharacter.DeathMarker, botCharacter.Glider, teamId, Array.Empty<Equipment>(), Equipment.None, modifiers);
+					botCharacter.DeathMarker, botCharacter.Glider, teamId, Array.Empty<Equipment>(), randomWeapon, modifiers);
 			}
 		}
 

@@ -274,11 +274,7 @@ namespace FirstLight.Game.Presenters
 			var matchType = CurrentRoom.GetMatchType();
 			var gameMode = CurrentRoom.GetGameModeId();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var image = _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false, true).Result;
-			_mapImage.style.backgroundImage = new StyleBackground(image);
-
 			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
@@ -328,6 +324,9 @@ namespace FirstLight.Game.Presenters
 			}
 
 			InitSkydiveSpawnMapData();
+
+			var image = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false, true);
+			_mapImage.style.backgroundImage = new StyleBackground(image);
 		}
 
 		private void InitSkydiveSpawnMapData()

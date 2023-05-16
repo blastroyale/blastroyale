@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4577771345333646677}
   - component: {fileID: 2851232253402335597}
   - component: {fileID: 1067864393782878614}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rounded_corners_raised_platform_large
   m_TagString: Untagged
   m_Icon: {fileID: 0}

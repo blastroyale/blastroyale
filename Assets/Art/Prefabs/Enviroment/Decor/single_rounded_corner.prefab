@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7010831965561554109}
   - component: {fileID: 4287388290339642267}
   - component: {fileID: 373010169132138852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: single_rounded_corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5641a23ebd99e9f4799ff63daf5d37d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _occludeAudio: 1
 --- !u!54 &828961381491411254
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -793,7 +794,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076009468928682806}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 12.619824, y: 3.2284842, z: 11.836785}

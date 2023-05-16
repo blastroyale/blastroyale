@@ -70,6 +70,11 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetSpecial(GameId special, bool draggable)
 		{
+			if (special == GameId.TutorialGrenade)
+			{
+				special = GameId.SpecialAimingGrenade;
+			}
+			
 			_draggable = draggable;
 			_icon.RemoveSpriteClasses();
 			_icon.AddToClassList(string.Format(UssSpriteSpecial,
@@ -115,7 +120,7 @@ namespace FirstLight.Game.UIElements
 
 			var stickPosition = offsetPosition - _startingPosition;
 			var stickPositionClamped = Vector2.ClampMagnitude(stickPosition, worldBound.width / 2f);
-			var stickPositionClampedNormalized = stickPositionClamped.normalized;
+			var stickPositionClampedNormalized = stickPositionClamped / (worldBound.width / 2f);
 
 			_stick.transform.position = stickPositionClamped;
 

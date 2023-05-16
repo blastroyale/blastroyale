@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-match__background-equipmentcharacter: url('/Assets/Art/UI/Sprites/Match/background-equipmentcharacter.png');
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
@@ -20,6 +21,10 @@
     --sprite-match__icon-crown-winner: url('/Assets/Art/UI/Sprites/Match/icon-crown-winner.png');
     --sprite-match__icon-deathnotification-killer: url('/Assets/Art/UI/Sprites/Match/icon-deathnotification-killer.png');
     --sprite-match__icon-deathnotification-victim: url('/Assets/Art/UI/Sprites/Match/icon-deathnotification-victim.png');
+    --sprite-match__icon-equipmentcharacter-amulet: url('/Assets/Art/UI/Sprites/Match/icon-equipmentcharacter-amulet.png');
+    --sprite-match__icon-equipmentcharacter-armor: url('/Assets/Art/UI/Sprites/Match/icon-equipmentcharacter-armor.png');
+    --sprite-match__icon-equipmentcharacter-helmet: url('/Assets/Art/UI/Sprites/Match/icon-equipmentcharacter-helmet.png');
+    --sprite-match__icon-equipmentcharacter-shield: url('/Assets/Art/UI/Sprites/Match/icon-equipmentcharacter-shield.png');
     --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
     --sprite-match__icon-joystick-move: url('/Assets/Art/UI/Sprites/Match/icon-joystick-move.png');
     --sprite-match__icon-joystick-shoot: url('/Assets/Art/UI/Sprites/Match/icon-joystick-shoot.png');
@@ -45,6 +50,12 @@
     --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites/Match/text-youwon.png');
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
+}
+
+.sprite-match__background-equipmentcharacter {
+    background-image: var(--sprite-match__background-equipmentcharacter);
+    width: 192px;
+    height: 186px;
 }
 
 .sprite-match__background-equippedweapons {
@@ -163,6 +174,30 @@
     background-image: var(--sprite-match__icon-deathnotification-victim);
     width: 80px;
     height: 40px;
+}
+
+.sprite-match__icon-equipmentcharacter-amulet {
+    background-image: var(--sprite-match__icon-equipmentcharacter-amulet);
+    width: 42px;
+    height: 46px;
+}
+
+.sprite-match__icon-equipmentcharacter-armor {
+    background-image: var(--sprite-match__icon-equipmentcharacter-armor);
+    width: 72px;
+    height: 68px;
+}
+
+.sprite-match__icon-equipmentcharacter-helmet {
+    background-image: var(--sprite-match__icon-equipmentcharacter-helmet);
+    width: 94px;
+    height: 98px;
+}
+
+.sprite-match__icon-equipmentcharacter-shield {
+    background-image: var(--sprite-match__icon-equipmentcharacter-shield);
+    width: 95px;
+    height: 122px;
 }
 
 .sprite-match__icon-hide {

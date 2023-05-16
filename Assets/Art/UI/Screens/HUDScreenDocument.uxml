@@ -68,6 +68,15 @@
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
+            <ui:VisualElement name="EquipmentDisplay" class="equipment-display">
+                <ui:VisualElement name="Character" class="equipment-display__character">
+                    <ui:VisualElement name="Armor" class="equipment-display__gear-item equipment-display__gear-item--armor" />
+                    <ui:VisualElement name="Amulet" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
+                    <ui:VisualElement name="Helmet" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
+                    <ui:VisualElement name="Shield" class="equipment-display__gear-item equipment-display__gear-item--shield" />
+                </ui:VisualElement>
+                <ui:Label text="0/4" name="Count" class="equipment-display__count" />
+            </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

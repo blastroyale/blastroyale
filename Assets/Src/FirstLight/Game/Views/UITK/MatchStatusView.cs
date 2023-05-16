@@ -89,7 +89,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_aliveCount = (int) enemiesLeft;
 				_aliveCountLabel.text = enemiesLeft.ToString();
-				AnimateTextPing(_aliveCountLabel);
+				_aliveCountLabel.AnimatePing();
 			}
 
 			var killsCount = container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player]
@@ -98,7 +98,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_killsCount = (int) killsCount;
 				_killsCountLabel.text = killsCount.ToString();
-				AnimateTextPing(_killsCountLabel);
+				_killsCountLabel.AnimatePing();
 			}
 		}
 
@@ -134,15 +134,6 @@ namespace FirstLight.Game.Views.UITK
 				.Until(() =>
 					warningSeconds == 0 &&
 					shrinkingSeconds == -1); // -1 because we want to show empty string after the countdown
-		}
-
-		// TODO: Move to common methods
-		private static void AnimateTextPing(VisualElement element)
-		{
-			element.experimental.animation.Scale(1.4f, 150).OnCompleted(() =>
-			{
-				element.experimental.animation.Scale(1f, 150).Start();
-			}).Start();
 		}
 	}
 }

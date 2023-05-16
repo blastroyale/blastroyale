@@ -20,13 +20,13 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 197px;
+    right: 267px;
     bottom: 377px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 382px;
+    right: 454px;
     bottom: 254px;
 }
 
@@ -129,12 +129,12 @@
 }
 
 .joystick--move {
-    left: 177px;
+    left: 228px;
     bottom: 145px;
 }
 
 .joystick--aim {
-    right: 141px;
+    right: 206px;
     bottom: 100px;
     width: 250px;
     height: 250px;
@@ -268,7 +268,7 @@
 
 .weapon-display {
     position: absolute;
-    right: 432px;
+    right: 505px;
     width: 216px;
     height: 193px;
     bottom: 51px;
@@ -831,4 +831,75 @@
     position: absolute;
     right: 39px;
     top: -6px;
+}
+
+.equipment-display {
+    position: absolute;
+    left: 597px;
+    bottom: 64px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.equipment-display__character {
+    background-image: var(--sprite-match__background-equipmentcharacter);
+    width: 192px;
+    height: 186px;
+}
+
+.equipment-display__gear-item {
+    position: absolute;
+    visibility: hidden;
+}
+
+.equipment-display__gear-item--acquired {
+    visibility: visible;
+}
+
+.equipment-display__gear-item--shield {
+    background-image: var(--sprite-match__icon-equipmentcharacter-shield);
+    width: 95px;
+    height: 122px;
+    top: 12px;
+    left: 1px;
+}
+
+.equipment-display__gear-item--armor {
+    background-image: var(--sprite-match__icon-equipmentcharacter-armor);
+    width: 72px;
+    height: 68px;
+    top: 74px;
+    left: 92px;
+}
+
+.equipment-display__gear-item--amulet {
+    background-image: var(--sprite-match__icon-equipmentcharacter-amulet);
+    width: 42px;
+    height: 46px;
+    top: 82px;
+    left: 113px;
+}
+
+.equipment-display__gear-item--helmet {
+    background-image: var(--sprite-match__icon-equipmentcharacter-helmet);
+    width: 94px;
+    height: 98px;
+    top: -2px;
+    left: 92px;
+}
+
+.equipment-display__count {
+    color: rgb(255, 255, 255);
+    font-size: 34px;
+    margin-left: 25px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-align: upper-right;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
+    -unity-text-outline-width: 1px;
 }

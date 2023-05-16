@@ -733,7 +733,7 @@
     background-color: rgb(77, 25, 87);
 }
 
-.squad-member__might {
+.squad-member__level {
     position: absolute;
     width: 45px;
     height: 45px;

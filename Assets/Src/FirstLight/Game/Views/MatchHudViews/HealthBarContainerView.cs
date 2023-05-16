@@ -109,7 +109,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					SetupFriendlyHealthBar(f, entity, healthBarSquad, true);
 				}
 
-				_squadContainer.gameObject.SetActive(_squadHealthBars.Count > 0);
+				//_squadContainer.gameObject.SetActive(_squadHealthBars.Count > 0);
 
 				foreach (var hbo in _friendlyHealthBars.Values)
 				{
@@ -235,7 +235,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_healthBarPlayerPool.DespawnAll();
-			_squadContainer.gameObject.SetActive(false);
+			//_squadContainer.gameObject.SetActive(false);
 		}
 
 		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator(bool squad)

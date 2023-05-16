@@ -8,10 +8,11 @@ namespace FirstLight.Game.UIElements
 	public class SquadMemberElement : VisualElement
 	{
 		private const string USS_BLOCK = "squad-member";
+		private const string USS_DEAD = USS_BLOCK + "--dead";
 		private const string USS_BG = USS_BLOCK + "__bg";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
 		private const string USS_NAME = USS_BLOCK + "__name";
-		private const string USS_MIGHT = USS_BLOCK + "__might";
+		private const string USS_LEVEL = USS_BLOCK + "__level";
 		private const string USS_SHIELD_HEALTH_CONTAINER = USS_BLOCK + "__shield-health-container";
 		private const string USS_SHIELD_HEALTH_BG = USS_BLOCK + "__shield-health-bg";
 		private const string USS_SHIELD_BAR = USS_BLOCK + "__shield-bar";
@@ -24,7 +25,7 @@ namespace FirstLight.Game.UIElements
 
 		private VisualElement _bg;
 		private VisualElement _pfp;
-		private Label _might;
+		private Label _level;
 		private Label _name;
 
 		private VisualElement _shieldBar;
@@ -36,6 +37,8 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _equipmentAmulet;
 		private VisualElement _equipmentArmor;
 
+		private PlayerRef _player;
+
 		public SquadMemberElement()
 		{
 			AddToClassList(USS_BLOCK);
@@ -46,8 +49,8 @@ namespace FirstLight.Game.UIElements
 			Add(_pfp = new VisualElement {name = "pfp"});
 			_pfp.AddToClassList(USS_PFP);
 
-			Add(_might = new Label("1324") {name = "might"});
-			_might.AddToClassList(USS_MIGHT);
+			Add(_level = new Label("1324") {name = "level"});
+			_level.AddToClassList(USS_LEVEL);
 
 			Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
@@ -99,15 +102,32 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void SetPlayer(EntityRef entity)
+		public void SetPlayer(PlayerRef player, string name, int level, string pfpUrl)
 		{
+			if (_player == player) return;
+			_player = player;
+
+			_name.text = name;
+			_level.text = level.ToString();
+
+			// TODO: PFP
 		}
 
-		public void UpdateMight(int might)
+		public void UpdateLevel(int might)
 		{
-			_might.text = might.ToString();
+			_level.text = might.ToString();
 		}
-		
+
+		public void UpdateHealth(float health)
+		{
+			_healthBar.style.flexGrow = health;
+		}
+
+		public void UpdateShield(float shield)
+		{
+			_shieldBar.style.flexGrow = shield;
+		}
+
 		public void UpdateEquipment(Equipment equipment)
 		{
 			switch (equipment.GetEquipmentGroup())
@@ -135,6 +155,11 @@ namespace FirstLight.Game.UIElements
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		public void SetDead()
+		{
+			AddToClassList(USS_DEAD);
 		}
 
 		public new class UxmlFactory : UxmlFactory<SquadMemberElement, UxmlTraits>

@@ -29,9 +29,12 @@ namespace FirstLight.Game.Views.UITK
 		public void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerGearChanged>(this, OnPlayerGearChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
-			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
+			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
+			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 		}
 
 		public void UnsubscribeFromEvents()
@@ -42,6 +45,14 @@ namespace FirstLight.Game.Views.UITK
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			RecheckSquadMembers(callback.Game.Frames.Verified);
+		}
+
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
+
+			squadMember.SetDead();
+			_squadMembers.Remove(callback.Entity);
 		}
 
 		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -58,11 +69,25 @@ namespace FirstLight.Game.Views.UITK
 			squadMember.UpdateEquipment(callback.Gear);
 		}
 
-		private void OnEntityDamaged(EventOnEntityDamaged callback)
+		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
-			// TODO;
+			squadMember.UpdateHealth((float) callback.CurrentHealth / callback.MaxHealth);
+		}
+		
+		private void OnShieldChanged(EventOnShieldChanged callback)
+		{
+			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
+			
+			squadMember.UpdateShield((float) callback.CurrentShield / callback.CurrentShieldCapacity);
+		}
+
+		private void OnPlayerLevelUp(EventOnPlayerLevelUp callback)
+		{
+			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
+
+			squadMember.UpdateLevel(callback.CurrentLevel);
 		}
 
 		private void RecheckSquadMembers(Frame f)
@@ -89,7 +114,14 @@ namespace FirstLight.Game.Views.UITK
 
 					_squadMembers.Add(e, squadMember);
 
-					squadMember.SetPlayer(e);
+					var isBot = f.TryGet<BotCharacter>(e, out var botCharacter);
+					var playerName = isBot
+						? Extensions.GetBotName(botCharacter.BotNameIndex, e)
+						: f.GetPlayerData(pc.Player).PlayerName;
+
+					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
+						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl);
+
 					index++;
 				}
 			}

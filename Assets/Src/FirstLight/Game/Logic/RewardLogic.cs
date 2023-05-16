@@ -169,13 +169,18 @@ namespace FirstLight.Game.Logic
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
 			                                     .GetConfigsList<MatchRewardConfig>()
 			                                     .OrderByDescending(x => x.Placement).ToList();
+			var gameModeTrophyConfigs = GameLogic.ConfigsProvider //clean this up
+												 .GetConfigsList<TrophyRewardConfig>()
+												 .OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
-			
+			var trophyRewardConfig = gameModeTrophyConfigs[0];
+
 			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
 			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
 			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
 			var rankValue = (int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
 			
+			//clean this up
 			foreach (var config in gameModeRewardConfigs)
 			{
 				if (teamSize == config.TeamSize && rankValue > config.Placement)
@@ -189,13 +194,27 @@ namespace FirstLight.Game.Logic
 					break;
 				}
 			}
-			
+
+			foreach (var config in gameModeTrophyConfigs)
+			{
+				if (teamSize == config.TeamSize && rankValue > config.Placement)
+				{
+					break;
+				}
+
+				if (config.Placement == rankValue && config.TeamSize == teamSize)
+				{
+					trophyRewardConfig = config;
+					break;
+				}
+			}
+
 			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
 			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
 				{
-					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
+					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 				}
 
 				return rewards;
@@ -204,7 +223,7 @@ namespace FirstLight.Game.Logic
 			if (source.MatchType == MatchType.Ranked)
 			{
 				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
-				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
+				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 			}
 
 			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
@@ -439,12 +458,24 @@ namespace FirstLight.Game.Logic
 		private void CalculateTrophiesReward(ICollection<RewardData> rewards,
 										IReadOnlyCollection<QuantumPlayerMatchData> players,
 										QuantumPlayerMatchData localPlayerData,
-										MatchRewardConfig rewardConfig,
+										TrophyRewardConfig rewardConfig,
 										out int trophyChangeOut)
 		{
 			trophyChangeOut = 0;
+
+			var playerTrophies = localPlayerData.Data.PlayerTrophies;
+			var bracket = 0;
+			foreach (var rewardBracket in rewardConfig.BracketReward)
+			{
+				if (playerTrophies > rewardBracket.Key)
+				{
+					continue;
+				}
+				bracket = rewardBracket.Key;
+				break;
+			}
 			
-			if (rewardConfig.Rewards.TryGetValue(GameId.Trophies, out var amount))
+			if (rewardConfig.BracketReward.TryGetValue(bracket, out var amount))
 			{
 				var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 				

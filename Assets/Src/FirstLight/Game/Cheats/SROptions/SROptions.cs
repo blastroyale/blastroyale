@@ -1,11 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using FirstLight.Game.Cheats.SROptions;
 using FirstLight.Game.Utils;
-using SRDebugger;
-using SRDebugger.Internal;
-using SRDebugger.Services;
 using SRF.Service;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -30,13 +26,13 @@ public partial class SROptions : INotifyPropertyChanged
     {
         _current = new SROptions(); // Need to reset options here so if we enter play-mode without a domain reload there will be the default set of options.
         SRServiceManager.GetService<SRDebugger.Internal.InternalOptionsRegistry>().AddOptionContainer(Current);
-		SRDebug.Instance.SetBugReporterHandler(new FLGBugReporter());
+		SRDebug.Instance.SetBugReporterHandler(new FirstLight.Game.Cheats.SROptions.FLGBugReporter());
 
 		
-		SRDebug.Instance.AddSystemInfo( InfoEntry.Create("Client Build Commit", () => VersionUtils.Commit),"Version");
-		SRDebug.Instance.AddSystemInfo( InfoEntry.Create("Server Build Commit", () => VersionUtils.ServerBuildCommit),"Version");
-		SRDebug.Instance.AddSystemInfo( InfoEntry.Create("Server Build Number", () => VersionUtils.ServerBuildNumber),"Version");
-		SRDebug.Instance.AddSystemInfo( InfoEntry.Create("Client Build Number", () => VersionUtils.BuildNumber),"Version");
+		SRDebug.Instance.AddSystemInfo( SRDebugger.InfoEntry.Create("Client Build Commit", () => VersionUtils.Commit),"Version");
+		SRDebug.Instance.AddSystemInfo( SRDebugger.InfoEntry.Create("Server Build Commit", () => VersionUtils.ServerBuildCommit),"Version");
+		SRDebug.Instance.AddSystemInfo( SRDebugger.InfoEntry.Create("Server Build Number", () => VersionUtils.ServerBuildNumber),"Version");
+		SRDebug.Instance.AddSystemInfo( SRDebugger.InfoEntry.Create("Client Build Number", () => VersionUtils.BuildNumber),"Version");
 	}
 #endif
 
@@ -58,22 +54,24 @@ public partial class SROptions : INotifyPropertyChanged
         }
     }
 
+#if !DISABLE_SRDEBUGGER
 	public void SendQuietBugReport(string desc)
 	{
-		var s = SRServiceManager.GetService<IBugReportService>();
+		var s = SRServiceManager.GetService<SRDebugger.Services.IBugReportService>();
 
-		var r = new BugReport
+		var r = new SRDebugger.BugReport
 		{
 			Email = "quiet report",
 			UserDescription = desc,
-			ConsoleLog = Service.Console.AllEntries.ToList(),
-			SystemInformation = SRServiceManager.GetService<ISystemInformationService>().CreateReport(),
+			ConsoleLog = SRDebugger.Internal.Service.Console.AllEntries.ToList(),
+			SystemInformation = SRServiceManager.GetService<SRDebugger.Services.ISystemInformationService>().CreateReport(),
 			ScreenshotData = null
 		};
 
 
 		s.SendBugReport(r, (succeed, message) =>{} ,new Progress<float>());
 	}
+#endif
 
     private event PropertyChangedEventHandler InterfacePropertyChangedEventHandler;
 

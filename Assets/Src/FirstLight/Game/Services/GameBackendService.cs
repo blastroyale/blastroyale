@@ -9,6 +9,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
@@ -129,12 +130,12 @@ namespace FirstLight.Game.Services
 		/// Will handle a recoverable exception, making sure it will get to all analytics services
 		/// </summary>
 		void HandleRecoverableException(Exception ex, AnalyticsCallsErrors.ErrorType errorType = AnalyticsCallsErrors.ErrorType.Recoverable);
-		
+
 		/// <summary>
 		/// Returns if the game is running on dev env. On dev things can be different.
 		/// </summary>
 		bool IsDev();
-		
+
 		/// <summary>
 		/// Handles if we should redirect the login flow to another environment after logging in.
 		/// This is mainly for store approval where we redirect builds to staging.
@@ -151,6 +152,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameBackendService" />
 	public class GameBackendService : IInternalGameBackendService
 	{
+		private readonly IMessageBrokerService _messageBrokerService;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IDataService _dataService;
 		private readonly IGameServices _services;
@@ -159,8 +161,9 @@ namespace FirstLight.Game.Services
 
 		public BackendEnvironmentData CurrentEnvironmentData { get; set; }
 
-		public GameBackendService(IGameDataProvider dataProvider, IGameServices services, IDataService dataService, string leaderboardLadderName)
+		public GameBackendService(IMessageBrokerService msgBroker, IGameDataProvider dataProvider, IGameServices services, IDataService dataService, string leaderboardLadderName)
 		{
+			_messageBrokerService = msgBroker;
 			_dataProvider = dataProvider;
 			_dataService = dataService;
 			_services = services;
@@ -184,7 +187,7 @@ namespace FirstLight.Game.Services
 		{
 			envData.EnvironmentID = Environment.TESTNET;
 			envData.TitleID = "***REMOVED***";
-			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			envData.AppIDRealtime = "***REMOVED***";
 			envData.RecoveryEmailTemplateID = "***REMOVED***";
 		}
 
@@ -253,8 +256,9 @@ namespace FirstLight.Game.Services
 			}
 
 			FLog.Info($"Using environment: {envData.EnvironmentID.ToString()}");
-			CurrentEnvironmentData = envData;
 
+			_messageBrokerService.Publish(new EnvironmentChanged() { NewEnvironment = envData.EnvironmentID });
+			CurrentEnvironmentData = envData;
 			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
 			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
 
@@ -272,7 +276,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
-			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
+			var request = new UpdateUserTitleDisplayNameRequest { DisplayName = newNickname };
 			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 
 			void OnSuccess(UpdateUserTitleDisplayNameResult result)
@@ -284,10 +288,7 @@ namespace FirstLight.Game.Services
 
 		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest()
-			{
-				Keys = new List<string>() {typeof(PlayerData).FullName}
-			}, result =>
+			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest() { Keys = new List<string>() { typeof(PlayerData).FullName } }, result =>
 			{
 				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
 				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
@@ -309,17 +310,7 @@ namespace FirstLight.Game.Services
 		public void GetTopRankLeaderboard(int amountOfEntries,
 										  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError)
 		{
-			var leaderboardRequest = new GetLeaderboardRequest()
-			{
-				StatisticName = _leaderboardLadderName,
-				StartPosition = 0,
-				MaxResultsCount = amountOfEntries,
-				ProfileConstraints = new PlayerProfileViewConstraints
-				{
-					ShowAvatarUrl = true,
-					ShowDisplayName = true,
-				}
-			};
+			var leaderboardRequest = new GetLeaderboardRequest() { StatisticName = _leaderboardLadderName, StartPosition = 0, MaxResultsCount = amountOfEntries, ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowDisplayName = true, } };
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
@@ -329,11 +320,7 @@ namespace FirstLight.Game.Services
 											   Action<GetLeaderboardAroundPlayerResult> onSuccess,
 											   Action<PlayFabError> onError)
 		{
-			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
-			{
-				StatisticName = _leaderboardLadderName,
-				MaxResultsCount = amountOfEntries
-			};
+			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest() { StatisticName = _leaderboardLadderName, MaxResultsCount = amountOfEntries };
 
 			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
 		}
@@ -342,13 +329,7 @@ namespace FirstLight.Game.Services
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 								 Action<PlayFabError> onError, object parameter = null)
 		{
-			var request = new ExecuteFunctionRequest
-			{
-				FunctionName = functionName,
-				GeneratePlayStreamEvent = true,
-				FunctionParameter = parameter,
-				AuthenticationContext = PlayFabSettings.staticPlayer
-			};
+			var request = new ExecuteFunctionRequest { FunctionName = functionName, GeneratePlayStreamEvent = true, FunctionParameter = parameter, AuthenticationContext = PlayFabSettings.staticPlayer };
 
 			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
 			{
@@ -384,11 +365,7 @@ namespace FirstLight.Game.Services
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
 
-			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
-			{
-				ErrorCode = (HttpStatusCode) error.HttpCode,
-				Message = descriptiveError
-			});
+			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage() { ErrorCode = (HttpStatusCode)error.HttpCode, Message = descriptiveError });
 
 			callback?.Invoke(error);
 		}
@@ -455,7 +432,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
-			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
+			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() { Keys = new List<string>() { key } }, res =>
 			{
 				if (!res.Data.TryGetValue(key, out var data))
 				{

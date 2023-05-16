@@ -48,3 +48,9 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
+    - Id: ForceLevelPlayingField
+      Type: 5
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

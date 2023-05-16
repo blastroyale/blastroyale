@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -11,7 +10,6 @@ using FirstLight.Game.Services;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Unity.Services.Core;
-using UnityEngine.Analytics;
 
 #pragma warning disable CS1998
 
@@ -69,9 +67,9 @@ namespace FirstLight.Game.Views
 		{
 #if UNITY_IOS
 			Unity.Advertisement.IosSupport.SkAdNetworkBinding.SkAdNetworkRegisterAppForNetworkAttribution();
-			
-			if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == 
-			    Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
+
+			if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() ==
+				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
 			{
 				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
 
@@ -89,7 +87,7 @@ namespace FirstLight.Game.Views
 			if (dependencyStatus.Result != DependencyStatus.Available)
 			{
 				throw new InitializationException(InitResult.FailedMissingDependency,
-				                                  $"Firebase could not be initialized properly. Status: {dependencyStatus}");
+					$"Firebase could not be initialized properly. Status: {dependencyStatus}");
 			}
 
 			FirebaseApp.Create();
@@ -123,20 +121,22 @@ namespace FirstLight.Game.Views
 			{
 				await Task.Yield();
 			}
-			
+
 			await WaitForInstaller();
 
 			SceneManager.MergeScenes(SceneManager.GetSceneByName(_bootSceneName),
-			                         SceneManager.GetSceneByName(_mainSceneName));
+				SceneManager.GetSceneByName(_mainSceneName));
 			Destroy(gameObject);
 		}
 
 		private void InitializePlugins()
 		{
+#if !DISABLE_SRDEBUGGER
 			if (Debug.isDebugBuild)
 			{
 				SRDebug.Init();
 			}
+#endif
 		}
 	}
 }

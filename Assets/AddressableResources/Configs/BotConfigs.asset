@@ -29,7 +29,7 @@ MonoBehaviour:
         RawValue: 104857600
       AccuracySpreadAngle: 0
       ChanceToUseSpecial:
-        RawValue: 65536
+        RawValue: 32768
       SpecialAimingDeviation:
         RawValue: 0
       LoadoutGearNumber: 4
@@ -41,9 +41,9 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 65536
+        RawValue: 52428
       DamageTakenMultiplier:
-        RawValue: 65536
+        RawValue: 78643
     - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 0

@@ -17,6 +17,7 @@ namespace IntegrationTests.Setups
 				NftSync = false,
 				MinClientVersion = new Version("0.1.0"),
 				RemoteGameConfiguration = true,
+				ApplicationEnvironment = "dev"
 			};
 		}
 	}

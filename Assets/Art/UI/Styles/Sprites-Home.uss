@@ -133,11 +133,6 @@
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
-    --sprite-home__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-amulet.png');
-    --sprite-home__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-armor.png');
-    --sprite-home__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-helmet.png');
-    --sprite-home__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-shield.png');
-    --sprite-home__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-weapon.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
     --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
     --sprite-home__icon-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-custom.png');
@@ -934,36 +929,6 @@
     background-image: var(--sprite-home__icon-equipment);
     width: 128px;
     height: 85px;
-}
-
-.sprite-home__icon-equipmentcategory-amulet {
-    background-image: var(--sprite-home__icon-equipmentcategory-amulet);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-armor {
-    background-image: var(--sprite-home__icon-equipmentcategory-armor);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-helmet {
-    background-image: var(--sprite-home__icon-equipmentcategory-helmet);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-shield {
-    background-image: var(--sprite-home__icon-equipmentcategory-shield);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-weapon {
-    background-image: var(--sprite-home__icon-equipmentcategory-weapon);
-    width: 54px;
-    height: 54px;
 }
 
 .sprite-home__icon-gamemode-battleroyale {

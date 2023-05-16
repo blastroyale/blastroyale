@@ -1,3 +1,4 @@
+using System;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -16,6 +17,9 @@ namespace FirstLight.Game.UIElements
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
 		private const string USS_EQUIPMENT_CONTAINER = USS_BLOCK + "__equipment-container";
 		private const string USS_EQUIPMENT = USS_BLOCK + "__equipment";
+		private const string USS_EQUIPMENT_ACQUIRED = USS_EQUIPMENT + "--acquired";
+
+		private const string USS_SPRITE_EQUIPMENTCATEGORY = "sprite-shared__icon-equipmentcategory-{0}";
 
 		private VisualElement _bg;
 		private VisualElement _pfp;
@@ -74,18 +78,23 @@ namespace FirstLight.Game.UIElements
 			{
 				equipmentContainer.Add(_equipmentWeapon = new VisualElement {name = "weapon"});
 				_equipmentWeapon.AddToClassList(USS_EQUIPMENT);
+				_equipmentWeapon.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "weapon"));
 
 				equipmentContainer.Add(_equipmentHelmet = new VisualElement {name = "helmet"});
 				_equipmentHelmet.AddToClassList(USS_EQUIPMENT);
+				_equipmentHelmet.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "helmet"));
 
 				equipmentContainer.Add(_equipmentShield = new VisualElement {name = "shield"});
 				_equipmentShield.AddToClassList(USS_EQUIPMENT);
+				_equipmentShield.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "shield"));
 
 				equipmentContainer.Add(_equipmentAmulet = new VisualElement {name = "amulet"});
 				_equipmentAmulet.AddToClassList(USS_EQUIPMENT);
+				_equipmentAmulet.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "amulet"));
 
 				equipmentContainer.Add(_equipmentArmor = new VisualElement {name = "armor"});
 				_equipmentArmor.AddToClassList(USS_EQUIPMENT);
+				_equipmentArmor.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "armor"));
 			}
 		}
 
@@ -93,13 +102,37 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlFactory : UxmlFactory<SquadMemberElement, UxmlTraits>
+		public void UpdateMight(int might)
 		{
+			_might.text = might.ToString();
 		}
-
+		
 		public void UpdateEquipment(Equipment equipment)
 		{
-			throw new System.NotImplementedException();
+			switch (equipment.GetEquipmentGroup())
+			{
+				case GameIdGroup.Helmet:
+					_equipmentHelmet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					break;
+				case GameIdGroup.Weapon:
+					_equipmentWeapon.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					break;
+				case GameIdGroup.Amulet:
+					_equipmentAmulet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					break;
+				case GameIdGroup.Armor:
+					_equipmentArmor.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					break;
+				case GameIdGroup.Shield:
+					_equipmentShield.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public new class UxmlFactory : UxmlFactory<SquadMemberElement, UxmlTraits>
+		{
 		}
 	}
 }

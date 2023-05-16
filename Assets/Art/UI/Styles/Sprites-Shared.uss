@@ -8,6 +8,11 @@
     --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
     --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
     --sprite-shared__icon-currency-cs: url('/Assets/Art/UI/Sprites/Shared/icon-currency-cs.png');
+    --sprite-shared__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-amulet.png');
+    --sprite-shared__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-armor.png');
+    --sprite-shared__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-helmet.png');
+    --sprite-shared__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-shield.png');
+    --sprite-shared__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-weapon.png');
     --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites/Shared/icon-lowconnection.png');
     --sprite-shared__icon-medal-1st: url('/Assets/Art/UI/Sprites/Shared/icon-medal-1st.png');
     --sprite-shared__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-2nd.png');
@@ -75,6 +80,36 @@
     background-image: var(--sprite-shared__icon-currency-cs);
     width: 64px;
     height: 64px;
+}
+
+.sprite-shared__icon-equipmentcategory-amulet {
+    background-image: var(--sprite-shared__icon-equipmentcategory-amulet);
+    width: 54px;
+    height: 54px;
+}
+
+.sprite-shared__icon-equipmentcategory-armor {
+    background-image: var(--sprite-shared__icon-equipmentcategory-armor);
+    width: 54px;
+    height: 54px;
+}
+
+.sprite-shared__icon-equipmentcategory-helmet {
+    background-image: var(--sprite-shared__icon-equipmentcategory-helmet);
+    width: 54px;
+    height: 54px;
+}
+
+.sprite-shared__icon-equipmentcategory-shield {
+    background-image: var(--sprite-shared__icon-equipmentcategory-shield);
+    width: 54px;
+    height: 54px;
+}
+
+.sprite-shared__icon-equipmentcategory-weapon {
+    background-image: var(--sprite-shared__icon-equipmentcategory-weapon);
+    width: 54px;
+    height: 54px;
 }
 
 .sprite-shared__icon-lowconnection {

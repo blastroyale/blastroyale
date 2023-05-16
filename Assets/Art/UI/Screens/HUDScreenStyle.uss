@@ -540,7 +540,7 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
 .death-notification__name--killer {
@@ -669,17 +669,17 @@
 }
 
 .squad-member {
-    width: 343px;
-    height: 104px;
-    margin-bottom: 30px;
+    width: 424px;
+    height: 126px;
+    margin-bottom: 42px;
 }
 
 .squad-member__bg {
     background-image: var(--sprite-match__background-squadmember);
-    width: 324px;
-    height: 78px;
+    width: 407px;
+    height: 96px;
     position: absolute;
-    top: 12px;
+    top: 11px;
     left: 24px;
     -unity-background-image-tint-color: rgba(49, 45, 71, 0.5);
 }
@@ -688,8 +688,8 @@
     position: absolute;
     left: 0;
     top: 10px;
-    width: 80px;
-    height: 80px;
+    width: 95px;
+    height: 95px;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -710,10 +710,10 @@
 
 .squad-member__might {
     position: absolute;
-    width: 35px;
-    height: 35px;
-    top: 65px;
-    left: 52px;
+    width: 45px;
+    height: 45px;
+    top: 66px;
+    left: 59px;
     background-color: rgb(54, 48, 75);
     border-left-color: rgb(24, 18, 54);
     border-right-color: rgb(24, 18, 54);
@@ -739,10 +739,10 @@
 
 .squad-member__shield-health-container {
     position: absolute;
-    left: 107px;
-    top: 39px;
-    width: 200px;
-    height: 25px;
+    left: 134px;
+    top: 46px;
+    width: 244px;
+    height: 29px;
     background-color: rgb(24, 18, 54);
     padding-left: 2px;
     padding-right: 2px;
@@ -770,8 +770,8 @@
 
 .squad-member__name {
     position: absolute;
-    top: -5px;
-    left: 97px;
+    top: -3px;
+    left: 139px;
     font-size: 30px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
@@ -783,14 +783,14 @@
     position: absolute;
     bottom: 0;
     right: 39px;
-    left: 109px;
+    left: 137px;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .squad-member__equipment {
-    width: 30px;
-    height: 30px;
+    width: 42px;
+    height: 42px;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -804,10 +804,15 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
+    -unity-background-image-tint-color: rgb(148, 139, 196);
+}
+
+.squad-member__equipment--acquired {
+    -unity-background-image-tint-color: white;
 }
 
 .squad-members-container {
     position: absolute;
-    top: 261px;
-    left: 128px;
+    top: 252px;
+    left: 29px;
 }

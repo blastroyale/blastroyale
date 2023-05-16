@@ -27,12 +27,13 @@ namespace Quantum.Systems
 			f.Add(entity, new PlayerCharacter());
 			
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
-			playerCharacter->Player = entity.Index;
+			playerCharacter->Player = component->PlayerReference;
 			f.GetOrAddSingleton<GameContainer>().AddPlayer(f, playerCharacter->Player, entity, 0, 0, 0, 0, 0, -1);
 
 			f.Add(entity, targetable);
-			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-
+			f.Add(entity, new Stats(component->Health, 0, 0, 0, component->Shields, component->Shields, 0, 0, 0, 0));
+			
+			f.Unsafe.GetPointer<Stats>(entity)->GainShield(f, entity, component->Shields.AsInt);
 		}
 	}
 }

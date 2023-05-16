@@ -248,7 +248,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e3105ee0359b54f27ba4c6c7e3b62e8d, type: 3}
   - {fileID: 21300000, guid: b1b4a0f0d286243dca54199c42a09b34, type: 3}
   - {fileID: 21300000, guid: 4ca9c5f04543a4922b6954b4d787a779, type: 3}
-  - {fileID: 21300000, guid: da661ff02c2ad4426affd51e2441da05, type: 3}
   - {fileID: 21300000, guid: 5191701181eb8447bba4401c79aab59a, type: 3}
   - {fileID: 21300000, guid: b6356221f2f24496c9e5a5161654c099, type: 3}
   - {fileID: 21300000, guid: 57e23c21c38ad444b8edc6fd8e9eac32, type: 3}
@@ -336,7 +335,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 36ae06c82870bc94aa74701adad704a6, type: 3}
   - {fileID: 21300000, guid: fdde3ec87d7064745b5fb41804e95c04, type: 3}
   - {fileID: 21300000, guid: 33af11d8941e246a299225ab7cdd517d, type: 3}
-  - {fileID: 21300000, guid: aa1149e873cd64bbf8bc7f9c3a7329ad, type: 3}
   - {fileID: 21300000, guid: 4df85ce872a81074581fef9150897ae5, type: 3}
   - {fileID: 21300000, guid: bc7bab094144e42b590f013a59db1d14, type: 3}
   - {fileID: 21300000, guid: dbf33629a45de4830b1198af2ec88192, type: 3}
@@ -344,7 +342,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 23bad7695273b464dad215a879eecf98, type: 3}
   - {fileID: 21300000, guid: 8d6a1d691e64f422fa586d41e6523734, type: 3}
   - {fileID: 21300000, guid: c145e479df096482486e6f4f8e67fcc5, type: 3}
-  - {fileID: 21300000, guid: 1825fba91a2ec4c61b2ca02cc1b0e119, type: 3}
   - {fileID: 21300000, guid: 8d953de975b4b4dcdb1e6347abe65e1b, type: 3}
   - {fileID: 21300000, guid: 8dc8750adc12340ba9c5a7d381f9732d, type: 3}
   - {fileID: 21300000, guid: 1fe1380aae6a2415ebb8ad3774901c63, type: 3}
@@ -373,11 +370,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b0a6a9bbdcfe84fac924a7939940dd87, type: 3}
   - {fileID: 21300000, guid: 9bf7b0db9f8824b4dbd1701c2e204610, type: 3}
   - {fileID: 21300000, guid: 5b9c38eb132eb4f3ea16b2c0b307b68b, type: 3}
-  - {fileID: 21300000, guid: 551e6debe04f34e5ba8ff71d81a1027b, type: 3}
   - {fileID: 21300000, guid: 0fa8deeb5d5ca446186b3ff8990fb390, type: 3}
   - {fileID: 21300000, guid: d79a551cfd15449f080ac48ff8575857, type: 3}
   - {fileID: 21300000, guid: a0d98a5cd5f3b46e1ae0de7dce158932, type: 3}
-  - {fileID: 21300000, guid: af4c5f6c3cf87454080cf2eac58325bf, type: 3}
   - {fileID: 21300000, guid: 805b077c9a6dc4cc8acf308e183b7a0b, type: 3}
   - {fileID: 21300000, guid: 32bda4cc7610b44a0be8e2b87626774c, type: 3}
   - {fileID: 21300000, guid: 3a3d67ec0b51048edbe15cac73e34ecb, type: 3}
@@ -436,7 +431,6 @@ SpriteAtlas:
   - button-grey
   - icon-gamemode-deathmatch
   - button-equipmentslot-epic-pressed
-  - icon-equipmentcategory-armor
   - button-equipmentslot-empty
   - background-bpchestreward
   - button-bpreward-outline
@@ -524,7 +518,6 @@ SpriteAtlas:
   - character-femalesuperstar
   - button-settings-toggle
   - button-info
-  - icon-equipmentcategory-weapon
   - icon-close-white
   - button-special
   - button-collection-item
@@ -532,7 +525,6 @@ SpriteAtlas:
   - header-back-pressed
   - character-maleassassin
   - button-long-red-pressed
-  - icon-equipmentcategory-shield
   - button-equipmentslot-legendary-pressed
   - button-popup-equipment-close
   - background-modetag-ranked
@@ -561,11 +553,9 @@ SpriteAtlas:
   - button-long-purple
   - icon-player-blue
   - button-equipmentslot-common
-  - icon-equipmentcategory-helmet
   - button-collection-tab
   - icon-cooldown-cs
   - button-main-purple
-  - icon-equipmentcategory-amulet
   - progress-battlepassbtn
   - icon-discord
   - button-collection-tab-selected

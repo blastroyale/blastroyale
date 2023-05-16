@@ -480,10 +480,17 @@
 .weapon-display__ammo-gradient {
     position: absolute;
     top: 0;
-    bottom: 0;
     left: -194px;
     background-image: var(--sprite-match__background-gradient-yellow);
     width: 274px;
+    transform-origin: right;
+    height: 144px;
+    transition-duration: var(--weapon-switch-animation-duration);
+    transition-timing-function: var(--weapon-switch-animation-ease);
+}
+
+.weapon-display--melee .weapon-display__ammo-gradient {
+    scale: 0.7 0.7;
 }
 
 .death-notification {
@@ -815,4 +822,13 @@
     position: absolute;
     top: 252px;
     left: 29px;
+}
+
+.weapon-display__switch-icon {
+    background-image: var(--sprite-match__icon-switch);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 39px;
+    top: -6px;
 }

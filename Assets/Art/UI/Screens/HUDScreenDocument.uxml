@@ -42,8 +42,9 @@
                         <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
+                <ui:VisualElement name="SwitchIcon" class="weapon-display__switch-icon" />
                 <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
-                    <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
                     <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-weapon">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
                             <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />

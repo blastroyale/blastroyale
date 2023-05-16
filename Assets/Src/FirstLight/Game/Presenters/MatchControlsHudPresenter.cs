@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
+			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
 
 			for (var i = 0; i < _slots.Length; i++)
 			{
@@ -396,8 +396,7 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
-
-			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			
 			SetupSpecialsInput(callback.Game.Frames.Verified.Time, callback.WeaponSlot, playerView);
 
 			for (var i = 0; i < _slots.Length; i++)
@@ -419,8 +418,6 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(false);
 			}
-
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
@@ -442,8 +439,6 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
-
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
@@ -553,8 +548,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var special = weaponSlot.Specials[i];
 				var inputButton = _matchServices.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
-
-				_indicatorContainerView.SetupIndicator(i, weaponSlot.Specials[i].SpecialId, playerView);
+				
 				_specialButtons[i].Init(special.SpecialId);
 
 				if (special.IsValid)

@@ -149,7 +149,7 @@ namespace FirstLight.Game.UIElements
 			var parentPosition = parent.WorldToLocal(panelPosition);
 			_startingPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
-			OnPress?.Invoke(0f);
+			OnPress?.Invoke(1f);
 		}
 
 		private void OnPointerMove(PointerMoveEvent evt)
@@ -181,7 +181,7 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = Vector3.zero;
 
-			OnPress?.Invoke(1f);
+			OnPress?.Invoke(0f);
 		}
 
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>

@@ -19,6 +19,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _data;
 		private EntityRef _localPlayerEntity;
+		private EntityView _playerView;
 		private QuantumWeaponConfig _weaponConfig;
 		private IndicatorVfxId _shootIndicatorId;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
@@ -29,18 +30,46 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
 		private IIndicator MovementIndicator => _indicators[(int) IndicatorVfxId.Movement];
 		
-		public LocalPlayerIndicatorContainerView(IGameServices services)
+		public LocalPlayerIndicatorContainerView()
 		{
-			_services = services;
+			_services = MainInstaller.Resolve<IGameServices>();
 			_data = MainInstaller.Resolve<IGameDataProvider>();
+			
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 		}
-
+		
 		/// <inheritdoc />
 		public void Dispose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{ 
+			SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			SetupWeaponSpecials(callback.WeaponSlot);
+		}
+
+		public void SetupWeaponSpecials(WeaponSlot slot)
+		{
+			for (var i = 0; i < slot.Specials.Length; i++)
+			{
+				SetupIndicator(i, slot.Specials[i].SpecialId, _playerView);
+			}
+		}
+
+		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
+		{
+			GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
+		}
+		
+		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
+		{
+			GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		/// <summary>
@@ -74,7 +103,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init(EntityView playerView)
 		{
 			_localPlayerEntity = playerView.EntityRef;
-
+			_playerView = playerView;
 			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
 			_weaponAim = aim.GetComponent<WeaponAim>();
 			_weaponAim.SetView(playerView);
@@ -162,11 +191,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int)specialId, out var config);
 			
+			Debug.Log("Setting up specials for "+specialId+ "index "+index);
+			
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
 			
+			// TODO: Use addressables
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
 			                                  .GetComponent<IIndicator>();
 			
@@ -231,7 +263,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
-			MovementIndicator.SetVisualState(!shooting && aim == FPVector2.Zero);
+			if (!_localPlayerEntity.IsAlive(f)) return;
+			
+			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);

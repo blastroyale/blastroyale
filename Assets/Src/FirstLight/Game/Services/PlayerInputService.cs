@@ -174,7 +174,7 @@ namespace FirstLight.Game.Services
 		private void OnSpecialButtonUsed(InputAction.CallbackContext context, int specialIndex)
 		{
 			// TODO: Also check for valid position: || context.control.device is OnScreenControlsDevice && !specialButton.DraggingValidPosition()
-			if (context.started)
+			if (!context.canceled)
 			{
 				return;
 			}

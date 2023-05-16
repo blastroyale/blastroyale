@@ -381,6 +381,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 805b077c9a6dc4cc8acf308e183b7a0b, type: 3}
   - {fileID: 21300000, guid: 32bda4cc7610b44a0be8e2b87626774c, type: 3}
   - {fileID: 21300000, guid: 3a3d67ec0b51048edbe15cac73e34ecb, type: 3}
+  - {fileID: 21300000, guid: 234f23fcf210048df8155e9e1785e706, type: 3}
   - {fileID: 21300000, guid: 2f545dfc9035448debac531ed20fdcd5, type: 3}
   - {fileID: 21300000, guid: e8f9490de6f124c18836af353c4e927e, type: 3}
   - {fileID: 21300000, guid: 81218c1d1077f457695f794e0baee0ce, type: 3}
@@ -568,6 +569,7 @@ SpriteAtlas:
   - progress-battlepassbtn
   - icon-discord
   - button-collection-tab-selected
+  - character-femalesuperstar.png
   - button-equipmentslot-epic
   - button-gamemodeselection
   - background-modeselection-ranked

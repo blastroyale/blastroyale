@@ -9,14 +9,14 @@
                 <FirstLight.Game.UIElements.JoystickElement name="ShootingJoystick" class="joystick--aim" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button">
-                <ui:VisualElement name="Icon" class="menu-button__icon" />
+                <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />
             </FirstLight.Game.UIElements.ImageButton>
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0" />
             <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
-                    <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
                     <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
+                    <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
                     <ui:VisualElement name="Counter" class="match-status__counter">
                         <ui:VisualElement name="PingBG" usage-hints="DynamicTransform" class="match-status__ping-bg" />
                         <ui:VisualElement name="BG" class="match-status__bg" />
@@ -43,6 +43,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
+                    <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
                     <ui:VisualElement name="SelectedBg" usage-hints="DynamicColor" class="weapon-display__selected-bg weapon-display__selected-bg-weapon">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
                             <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
@@ -54,24 +55,18 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:Label text="67" name="Ammo" class="weapon-display__ammo">
+                    <ui:VisualElement name="Icon" class="sprite-match__icon-ammo weapon-display__ammo-icon" />
+                </ui:Label>
             </FirstLight.Game.UIElements.ImageButton>
-            <ui:VisualElement name="KillFeed" class="kill-feed" />
+            <ui:VisualElement name="KillFeed" class="kill-feed">
+                <FirstLight.Game.UIElements.DeathNotificationElement />
+                <FirstLight.Game.UIElements.DeathNotificationElement />
+            </ui:VisualElement>
+            <ui:VisualElement name="SquadMembers" class="squad-members-container">
+                <FirstLight.Game.UIElements.SquadMemberElement />
+                <FirstLight.Game.UIElements.SquadMemberElement />
+            </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="SquadMember" class="squad-member" style="position: absolute; top: 260px; left: 128px; display: none;">
-        <ui:VisualElement name="Background" class="squad-member__bg" />
-        <ui:VisualElement name="PFP" class="squad-member__pfp" />
-        <ui:VisualElement name="Might" class="squad-member__might">
-            <ui:Label text="1324" />
-        </ui:VisualElement>
-        <ui:Label text="PLAYER NAME" name="Name" style="position: absolute; top: -5px; left: 97px; font-size: 30px; color: rgb(255, 255, 255); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(24, 18, 54); text-shadow: 2px 2px 0 rgb(24, 18, 54);" />
-        <ui:VisualElement name="ShieldHealthContainer" class="squad-member__shield-health-container">
-            <ui:VisualElement name="ShieldBG" class="squad-member__shield-bg">
-                <ui:VisualElement name="Shield" class="squad-member__shield-bar" />
-            </ui:VisualElement>
-            <ui:VisualElement name="HealthBG" class="squad-member__health-bg">
-                <ui:VisualElement name="Health" class="squad-member__health-bar" />
-            </ui:VisualElement>
-        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

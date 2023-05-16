@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -26,14 +27,21 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _weaponIcon;
 		private VisualElement _weaponShadow;
 		private VisualElement _factionIcon;
+		private Label _ammoLabel;
 
 		private IGameServices _services;
+		private IMatchServices _matchServices;
+
+		// A bit silly, events need to be looked at
+		private int _reserveAmmo;
+		private int _magazineAmmo;
 
 		public event Action<float> OnClick;
 
 		public void Attached(VisualElement element)
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			_root = (ImageButton) element;
 			_melee = element.Q("Melee").Required();
@@ -42,6 +50,7 @@ namespace FirstLight.Game.Views.UITK
 			_weaponIcon = _weapon.Q("WeaponIcon").Required();
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
 			_factionIcon = _weapon.Q("FactionIcon").Required();
+			_ammoLabel = element.Q<Label>("Ammo").Required();
 
 			_root.clicked += () =>
 			{
@@ -56,6 +65,8 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(OnLocalPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(OnPlayerAmmoChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerMagazineChanged>(OnPlayerMagazineChanged);
 		}
 
 		public void UnsubscribeFromEvents()
@@ -68,6 +79,7 @@ namespace FirstLight.Game.Views.UITK
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			SetWeapon(pc.WeaponSlots[BOOMSTICK_INDEX].Weapon);
 			SetSlot(MELEE_INDEX);
+			_ammoLabel.text = "0";
 		}
 
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
@@ -78,6 +90,25 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			SetSlot(callback.Slot);
+		}
+
+		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_reserveAmmo = callback.CurrentAmmo;
+			UpdateAmmo();
+		}
+
+		private void OnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			_magazineAmmo = callback.ShotCount;
+			UpdateAmmo();
+		}
+
+		private void UpdateAmmo()
+		{
+			_ammoLabel.text = (_reserveAmmo + _magazineAmmo).ToString();
 		}
 
 		private void SetSlot(int slot)

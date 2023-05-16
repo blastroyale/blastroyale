@@ -19,10 +19,7 @@ namespace FirstLight.Game.Views.UITK
 			_feed = feed;
 
 			// Clean feed items added during development
-			foreach (var e in feed.Children())
-			{
-				e.RemoveFromHierarchy();
-			}
+			feed.Clear();
 		}
 
 		public void SubscribeToEvents()

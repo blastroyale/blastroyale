@@ -208,15 +208,15 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 132px;
-    height: 92px;
+    width: 129px;
+    height: 91px;
     align-items: center;
     justify-content: center;
 }
 
 .menu-button__icon {
     background-image: var(--sprite-match__icon-menu);
-    width: 40px;
+    width: 50px;
     height: 36px;
 }
 
@@ -242,6 +242,14 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(6, 0, 51);
     display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .latency-label--high {
@@ -250,12 +258,12 @@
 
 .device-status-bar {
     position: absolute;
-    right: 332px;
-    top: 22px;
+    right: 366px;
+    top: 38px;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
-    width: 180px;
+    width: 187px;
 }
 
 .weapon-display {
@@ -436,9 +444,51 @@
     bottom: 37px;
 }
 
+.weapon-display__ammo {
+    color: rgb(242, 176, 53);
+    font-size: 36px;
+    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    position: absolute;
+    top: 50px;
+    -unity-text-align: upper-right;
+    right: 265px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition-duration: var(--weapon-switch-animation-duration);
+    transition-timing-function: var(--weapon-switch-animation-ease);
+}
+
+.weapon-display--melee .weapon-display__ammo {
+    translate: 30px 0;
+    scale: 0.8 0.8;
+}
+
+.weapon-display__ammo-icon {
+    position: relative;
+    right: -37px;
+    rotate: -64deg;
+    top: 8px;
+}
+
+.weapon-display__ammo-gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -194px;
+    background-image: var(--sprite-match__background-gradient-yellow);
+    width: 274px;
+}
+
 .death-notification {
-    height: 58px;
-    width: 530px;
+    height: 63px;
+    width: 457px;
     overflow: hidden;
     transition-property: height, opacity;
     transition-duration: 0.5s, 0.5s;
@@ -458,7 +508,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 40px;
+    height: 46px;
     background-color: rgb(137, 133, 133);
     flex-direction: row;
     justify-content: space-between;
@@ -477,7 +527,7 @@
 }
 
 .death-notification__name {
-    font-size: 21px;
+    font-size: 26px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -490,22 +540,23 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
 }
 
 .death-notification__name--killer {
     -unity-text-align: middle-left;
-    color: rgb(48, 46, 72);
+    color: rgb(212, 83, 80);
     padding-left: 9px;
 }
 
 .death-notification__name--victim {
     -unity-text-align: middle-right;
-    color: rgb(212, 82, 80);
+    color: rgb(35, 210, 233);
     padding-right: 9px;
 }
 
 .death-notification__pfp {
-    width: 80px;
+    width: 60px;
     -unity-background-scale-mode: scale-and-crop;
 }
 
@@ -521,33 +572,106 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 190px;
+    width: 230px;
 }
 
 .death-notification__gradient--killer {
     position: absolute;
     left: 0;
-    --gradient-from: rgb(85, 117, 120);
-    --gradient-to: rgb(137, 133, 133);
+    --gradient-from: rgb(55, 42, 62);
+    --gradient-to: rgb(42, 40, 61);
 }
 
 .death-notification__gradient--victim {
     position: absolute;
     right: 0;
-    --gradient-from: rgb(137, 133, 133);
-    --gradient-to: rgb(130, 76, 88);
+    --gradient-from: rgb(42, 40, 61);
+    --gradient-to: rgb(39, 71, 91);
 }
 
 .kill-feed {
     position: absolute;
-    left: 3px;
-    top: 27px;
+    left: 30px;
+    top: 2px;
     flex-direction: column-reverse;
+}
+
+.top-center-container {
+    position: absolute;
+    left: 500px;
+    right: 500px;
+    top: 0;
+    align-items: center;
+}
+
+.match-status {
+    margin-top: 22px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 54px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
+.match-status__counter {
+    width: 120px;
+    height: 120px;
+    margin-left: 45px;
+    margin-right: 45px;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-status__ping-bg {
+    width: 120px;
+    height: 120px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: rgba(216, 75, 121, 0.5);
+    position: absolute;
+}
+
+.match-status__bg {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(248, 237, 235);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgb(215, 75, 120);
+    border-right-color: rgb(215, 75, 120);
+    border-top-color: rgb(215, 75, 120);
+    border-bottom-color: rgb(215, 75, 120);
+}
+
+.match-status__counter-text {
+    position: absolute;
+    color: rgb(49, 46, 72);
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    font-size: 50px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 2px;
+    padding-bottom: 0;
+}
+
+.match-status__playercount {
+    width: 50px;
+    -unity-text-align: upper-center;
 }
 
 .squad-member {
     width: 343px;
     height: 104px;
+    margin-bottom: 30px;
 }
 
 .squad-member__bg {
@@ -626,20 +750,12 @@
     padding-bottom: 2px;
 }
 
-.squad-member__shield-bg {
+.squad-member__shield-health-bg {
     flex-grow: 1;
     flex-direction: row;
     align-items: stretch;
     flex-shrink: 0;
     margin-bottom: 1px;
-}
-
-.squad-member__health-bg {
-    flex-grow: 1;
-    flex-direction: row;
-    align-items: stretch;
-    flex-shrink: 0;
-    margin-top: 1px;
 }
 
 .squad-member__shield-bar {
@@ -652,70 +768,46 @@
     background-image: var(--sprite-match__progress-health);
 }
 
-.top-center-container {
+.squad-member__name {
     position: absolute;
-    left: 500px;
-    right: 500px;
-    top: 0;
-    align-items: center;
-}
-
-.match-status {
-    margin-top: 22px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-size: 46px;
+    top: -5px;
+    left: 97px;
+    font-size: 30px;
     color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(24, 18, 54);
+    text-shadow: 2px 2px 0 rgb(24, 18, 54);
 }
 
-.match-status__counter {
-    width: 120px;
-    height: 120px;
-    margin-left: 45px;
-    margin-right: 45px;
-    align-items: center;
-    justify-content: center;
+.squad-member__equipment-container {
+    position: absolute;
+    bottom: 0;
+    right: 39px;
+    left: 109px;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.match-status__ping-bg {
-    width: 120px;
-    height: 120px;
+.squad-member__equipment {
+    width: 30px;
+    height: 30px;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: rgba(216, 75, 121, 0.5);
+    background-color: rgb(24, 18, 54);
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.squad-members-container {
     position: absolute;
-}
-
-.match-status__bg {
-    width: 80px;
-    height: 80px;
-    background-color: rgb(248, 237, 235);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
-    border-left-color: rgb(215, 75, 120);
-    border-right-color: rgb(215, 75, 120);
-    border-top-color: rgb(215, 75, 120);
-    border-bottom-color: rgb(215, 75, 120);
-}
-
-.match-status__counter-text {
-    position: absolute;
-    color: rgb(49, 46, 72);
-    text-shadow: 0 0 0 rgb(0, 0, 0);
-    font-size: 42px;
-}
-
-.match-status__playercount {
-    width: 50px;
-    -unity-text-align: upper-center;
+    top: 261px;
+    left: 128px;
 }

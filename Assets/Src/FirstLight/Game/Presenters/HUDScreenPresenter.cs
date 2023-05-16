@@ -1,5 +1,4 @@
 using FirstLight.Game.Input;
-using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
@@ -30,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		private MatchStatusView _matchStatusView;
 		private SpecialButtonsView _specialButtonsView;
 		private DeviceStatusView _deviceStatusView;
+		private SquadMembersView _squadMembersView;
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
@@ -46,6 +46,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
 			root.AttachView(this, out _specialButtonsView);
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
+			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

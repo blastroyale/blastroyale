@@ -2,6 +2,7 @@
 :root {
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
+    --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
     --sprite-match__background-squadmember: url('/Assets/Art/UI/Sprites/Match/background-squadmember.png');
@@ -10,6 +11,7 @@
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
     --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
     --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
+    --sprite-match__icon-ammo: url('/Assets/Art/UI/Sprites/Match/icon-ammo.png');
     --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-left.png');
     --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
     --sprite-match__icon-battery-full: url('/Assets/Art/UI/Sprites/Match/icon-battery-full.png');
@@ -25,6 +27,7 @@
     --sprite-match__icon-players-alive: url('/Assets/Art/UI/Sprites/Match/icon-players-alive.png');
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
+    --sprite-match__icon-switch: url('/Assets/Art/UI/Sprites/Match/icon-switch.png');
     --sprite-match__icon-weaponswitch: url('/Assets/Art/UI/Sprites/Match/icon-weaponswitch.png');
     --sprite-match__icon-wifi-high: url('/Assets/Art/UI/Sprites/Match/icon-wifi-high.png');
     --sprite-match__icon-wifi-low: url('/Assets/Art/UI/Sprites/Match/icon-wifi-low.png');
@@ -54,6 +57,12 @@
     background-image: var(--sprite-match__background-gradient-blue);
     width: 466px;
     height: 92px;
+}
+
+.sprite-match__background-gradient-yellow {
+    background-image: var(--sprite-match__background-gradient-yellow);
+    width: 274px;
+    height: 126px;
 }
 
 .sprite-match__background-reward-bpp {
@@ -100,6 +109,12 @@
 
 .sprite-match__button-next:active {
     background-image: var(--sprite-match__button-next-pressed);
+}
+
+.sprite-match__icon-ammo {
+    background-image: var(--sprite-match__icon-ammo);
+    width: 28px;
+    height: 28px;
 }
 
 .sprite-match__icon-arrow-yellow-left {
@@ -190,6 +205,12 @@
     background-image: var(--sprite-match__icon-show);
     width: 42px;
     height: 42px;
+}
+
+.sprite-match__icon-switch {
+    background-image: var(--sprite-match__icon-switch);
+    width: 50px;
+    height: 50px;
 }
 
 .sprite-match__icon-weaponswitch {

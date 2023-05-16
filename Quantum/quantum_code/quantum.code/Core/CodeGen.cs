@@ -4254,20 +4254,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct DummyCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
+    [FieldOffset(8)]
     public FP Health;
+    [FieldOffset(0)]
+    public Int32 PlayerReference;
+    [FieldOffset(16)]
+    public FP Shields;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 503;
         hash = hash * 31 + Health.GetHashCode();
+        hash = hash * 31 + PlayerReference.GetHashCode();
+        hash = hash * 31 + Shields.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (DummyCharacter*)ptr;
+        serializer.Stream.Serialize(&p->PlayerReference);
         FP.Serialize(&p->Health, serializer);
+        FP.Serialize(&p->Shields, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -10455,6 +10463,8 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(DummyCharacter))]
   public sealed unsafe partial class DummyCharacter_Prototype : ComponentPrototype<DummyCharacter> {
     public FP Health;
+    public FP Shields;
+    public Int32 PlayerReference;
     partial void MaterializeUser(Frame frame, ref DummyCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       DummyCharacter component = default;
@@ -10463,6 +10473,8 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref DummyCharacter result, in PrototypeMaterializationContext context) {
       result.Health = this.Health;
+      result.PlayerReference = this.PlayerReference;
+      result.Shields = this.Shields;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

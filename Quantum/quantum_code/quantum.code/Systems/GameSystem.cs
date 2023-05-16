@@ -34,6 +34,7 @@ namespace Quantum.Systems
 			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
 				case GameCompletionStrategy.Never:
+					component->TargetProgress = uint.MaxValue;
 					break;
 				case GameCompletionStrategy.EveryoneDead:
 					// Set after AllPlayersJoined

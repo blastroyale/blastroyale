@@ -197,8 +197,10 @@ namespace Quantum
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);
 
-			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
-			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+			if (f.Unsafe.TryGetPointer<HFSMAgent>(e, out var agent))
+			{
+				HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+			}
 
 			if (!f.Has<BotCharacter>(e))
 			{

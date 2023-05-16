@@ -27,7 +27,7 @@ MonoBehaviour:
         RawValue: 65536
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 0
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -41,9 +41,9 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 52428
+        RawValue: 39321
       DamageTakenMultiplier:
-        RawValue: 78643
+        RawValue: 91750
     - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 0

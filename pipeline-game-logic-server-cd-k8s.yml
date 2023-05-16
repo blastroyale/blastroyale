@@ -1,6 +1,8 @@
 # Pipeline to release new containers on container apps
 pr: none
 trigger: none
+# This pipeline doesn't use the current branch to deploy, it uses an image as parameter so it makes no sense to append the commit message to the run
+appendCommitMessageToRunName: false
 resources:
   pipelines:
     - pipeline: build

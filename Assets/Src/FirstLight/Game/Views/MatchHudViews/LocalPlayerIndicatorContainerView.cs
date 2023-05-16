@@ -190,15 +190,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
 		{
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int)specialId, out var config);
-			
-			Debug.Log("Setting up specials for "+specialId+ "index "+index);
-			
 			if (_specialIndicators[index] != null)
 			{
 				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
-			
-			// TODO: Use addressables
+
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
 			                                  .GetComponent<IIndicator>();
 			

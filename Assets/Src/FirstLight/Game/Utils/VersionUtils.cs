@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
-using SRDebugger;
 using UnityEngine;
 
 namespace FirstLight.Game.Utils
@@ -76,11 +75,13 @@ namespace FirstLight.Game.Utils
 			
 			_versionData = JsonUtility.FromJson<VersionData>(textAsset.text);
 			_loaded = true;
-			
+
+#if !DISABLE_SRDEBUGGER
 			if (Debug.isDebugBuild && SRDebug.Instance != null)
 			{
-				SRDebug.Instance.AddSystemInfo(InfoEntry.Create("Version", VersionUtils.VersionInternal), "Game");
+				SRDebug.Instance.AddSystemInfo(SRDebugger.InfoEntry.Create("Version", VersionUtils.VersionInternal), "Game");
 			}
+#endif
 			
 			Resources.UnloadAsset(textAsset);
 		}

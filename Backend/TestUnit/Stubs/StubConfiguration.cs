@@ -7,6 +7,7 @@ namespace Tests.Stubs
 	public class StubConfiguration : IBaseServiceConfiguration
 	{
 		public string AppPath { get; set; }
+		public string ApplicationEnvironment { get; set; }
 		public string PlayfabTitle { get; set; }
 		public string PlayfabSecretKey { get; set; }
 		public string? DbConnectionString { get; set; }

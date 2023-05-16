@@ -38,9 +38,7 @@ MonoBehaviour:
     GridSizeX: 20
     GridSizeY: 20
     GridNodeSize: 16
-    NavMeshLinks:
-    - Id:
-        Value: 3321959121446098905
+    NavMeshLinks: []
     Regions: []
     StaticColliders2D: []
     StaticColliders3D:
@@ -1285,11 +1283,11 @@ MonoBehaviour:
           RawValue: -61880
       Position:
         X:
-          RawValue: 5490338
+          RawValue: 5487202
         Y:
-          RawValue: 101649
+          RawValue: 146238
         Z:
-          RawValue: -1189510
+          RawValue: -1191103
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1298,11 +1296,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 398181
+          RawValue: 339244
         Y:
-          RawValue: 164510
+          RawValue: 220296
         Z:
-          RawValue: 207219
+          RawValue: 159374
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1326,11 +1324,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 6080757
+          RawValue: 6072134
         Y:
           RawValue: 148775
         Z:
-          RawValue: -350607
+          RawValue: -351904
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1339,11 +1337,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 183538
+          RawValue: 158148
         Y:
           RawValue: 204751
         Z:
-          RawValue: 240258
+          RawValue: 186071
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1408,11 +1406,11 @@ MonoBehaviour:
           RawValue: 53031
       Position:
         X:
-          RawValue: 6230175
+          RawValue: 6230284
         Y:
           RawValue: 103254
         Z:
-          RawValue: -850991
+          RawValue: -848980
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1421,11 +1419,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54529
+          RawValue: 33884
         Y:
           RawValue: 165486
         Z:
-          RawValue: 63119
+          RawValue: 34584
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1449,11 +1447,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4751500
+          RawValue: 4747235
         Y:
           RawValue: 80734
         Z:
-          RawValue: -943403
+          RawValue: -945877
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1462,11 +1460,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1490,11 +1488,11 @@ MonoBehaviour:
           RawValue: 65421
       Position:
         X:
-          RawValue: 5423615
+          RawValue: 5420272
         Y:
-          RawValue: 101649
+          RawValue: 146238
         Z:
-          RawValue: 1512156
+          RawValue: 1513247
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1503,11 +1501,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 398181
+          RawValue: 339244
         Y:
-          RawValue: 164510
+          RawValue: 220296
         Z:
-          RawValue: 207219
+          RawValue: 159374
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1531,11 +1529,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 5007821
+          RawValue: 4999198
         Y:
           RawValue: 148775
         Z:
-          RawValue: 928849
+          RawValue: 927551
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1544,11 +1542,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 183538
+          RawValue: 158148
         Y:
           RawValue: 204751
         Z:
-          RawValue: 240258
+          RawValue: 186071
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1613,11 +1611,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4936132
+          RawValue: 4931868
         Y:
           RawValue: 80734
         Z:
-          RawValue: 2138498
+          RawValue: 2136023
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1626,11 +1624,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1654,11 +1652,11 @@ MonoBehaviour:
           RawValue: -65510
       Position:
         X:
-          RawValue: 6454558
+          RawValue: 6449627
         Y:
           RawValue: 80734
         Z:
-          RawValue: -28924
+          RawValue: -28931
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1667,11 +1665,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1695,11 +1693,11 @@ MonoBehaviour:
           RawValue: 53037
       Position:
         X:
-          RawValue: 4677611
+          RawValue: 4677719
         Y:
           RawValue: 103254
         Z:
-          RawValue: 246511
+          RawValue: 248522
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1708,11 +1706,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54529
+          RawValue: 33884
         Y:
           RawValue: 165486
         Z:
-          RawValue: 63119
+          RawValue: 34584
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1736,11 +1734,11 @@ MonoBehaviour:
           RawValue: -65510
       Position:
         X:
-          RawValue: 5755623
+          RawValue: 5750693
         Y:
           RawValue: 80734
         Z:
-          RawValue: 631302
+          RawValue: 631294
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1749,11 +1747,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1818,11 +1816,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4185765
+          RawValue: 4181501
         Y:
           RawValue: 80734
         Z:
-          RawValue: -169716
+          RawValue: -172190
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1831,11 +1829,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1859,11 +1857,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4348315
+          RawValue: 4344051
         Y:
           RawValue: 80734
         Z:
-          RawValue: -1920826
+          RawValue: -1923301
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1872,11 +1870,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1900,11 +1898,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 3989765
+          RawValue: 3985501
         Y:
           RawValue: 80734
         Z:
-          RawValue: 1215061
+          RawValue: 1212586
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1913,11 +1911,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1941,11 +1939,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2622068
+          RawValue: 2617804
         Y:
           RawValue: 80734
         Z:
-          RawValue: 965684
+          RawValue: 963210
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1954,11 +1952,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -1982,11 +1980,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2757081
+          RawValue: 2752817
         Y:
           RawValue: 80734
         Z:
-          RawValue: -207859
+          RawValue: -210334
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1995,11 +1993,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27114
+          RawValue: 12787
         Y:
           RawValue: 113495
         Z:
-          RawValue: 23790
+          RawValue: 13034
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2146,11 +2144,11 @@ MonoBehaviour:
           RawValue: 53037
       Position:
         X:
-          RawValue: 3691537
+          RawValue: 3691645
         Y:
           RawValue: 103254
         Z:
-          RawValue: 1550143
+          RawValue: 1552154
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2159,11 +2157,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54529
+          RawValue: 33884
         Y:
           RawValue: 165486
         Z:
-          RawValue: 63119
+          RawValue: 34584
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2187,11 +2185,11 @@ MonoBehaviour:
           RawValue: 10318
       Position:
         X:
-          RawValue: 3512024
+          RawValue: 3514035
         Y:
           RawValue: 103254
         Z:
-          RawValue: -1029879
+          RawValue: -1029987
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2200,11 +2198,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54529
+          RawValue: 33884
         Y:
           RawValue: 165486
         Z:
-          RawValue: 63119
+          RawValue: 34584
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2269,11 +2267,11 @@ MonoBehaviour:
           RawValue: 10318
       Position:
         X:
-          RawValue: 3604798
+          RawValue: 3606809
         Y:
           RawValue: 103254
         Z:
-          RawValue: 322653
+          RawValue: 322545
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2282,11 +2280,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 54529
+          RawValue: 33884
         Y:
           RawValue: 165486
         Z:
-          RawValue: 63119
+          RawValue: 34584
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2494,7 +2492,7 @@ MonoBehaviour:
           RawValue: 135394
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -2535,7 +2533,7 @@ MonoBehaviour:
           RawValue: 129905
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -2556,11 +2554,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4665564
+          RawValue: 4664840
         Y:
           RawValue: 67857
         Z:
-          RawValue: 4784664
+          RawValue: 4784927
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2569,11 +2567,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2597,11 +2595,11 @@ MonoBehaviour:
           RawValue: 63727
       Position:
         X:
-          RawValue: 1663396
+          RawValue: 1659065
         Y:
           RawValue: 87891
         Z:
-          RawValue: 2402225
+          RawValue: 2394447
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2610,11 +2608,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2638,11 +2636,11 @@ MonoBehaviour:
           RawValue: -15216
       Position:
         X:
-          RawValue: 370934
+          RawValue: 375265
         Y:
           RawValue: 87891
         Z:
-          RawValue: 2824590
+          RawValue: 2832369
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2651,11 +2649,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2679,11 +2677,11 @@ MonoBehaviour:
           RawValue: 30377
       Position:
         X:
-          RawValue: -55825
+          RawValue: -62938
         Y:
           RawValue: 87891
         Z:
-          RawValue: 4929647
+          RawValue: 4935002
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2692,11 +2690,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2720,11 +2718,11 @@ MonoBehaviour:
           RawValue: -27538
       Position:
         X:
-          RawValue: 1116942
+          RawValue: 1123955
         Y:
           RawValue: 87891
         Z:
-          RawValue: 4820536
+          RawValue: 4826021
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2733,11 +2731,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2761,11 +2759,11 @@ MonoBehaviour:
           RawValue: -38099
       Position:
         X:
-          RawValue: 3393963
+          RawValue: 3402494
         Y:
           RawValue: 87891
         Z:
-          RawValue: 5488410
+          RawValue: 5490957
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2774,11 +2772,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2802,11 +2800,11 @@ MonoBehaviour:
           RawValue: 19070
       Position:
         X:
-          RawValue: 4884621
+          RawValue: 4879954
         Y:
           RawValue: 87891
         Z:
-          RawValue: 5148322
+          RawValue: 5155904
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2815,11 +2813,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2843,11 +2841,11 @@ MonoBehaviour:
           RawValue: 29969
       Position:
         X:
-          RawValue: 3038175
+          RawValue: 3031138
         Y:
           RawValue: 87891
         Z:
-          RawValue: 2717350
+          RawValue: 2722804
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2856,11 +2854,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 124251
+          RawValue: 122432
         Y:
           RawValue: 129074
         Z:
-          RawValue: 372943
+          RawValue: 327044
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2884,11 +2882,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 344589
+          RawValue: 344718
         Y:
           RawValue: 111520
         Z:
-          RawValue: 4199069
+          RawValue: 4201939
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2897,11 +2895,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 172911
         Y:
           RawValue: 161889
         Z:
-          RawValue: 196363
+          RawValue: 161339
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2925,11 +2923,11 @@ MonoBehaviour:
           RawValue: 22136
       Position:
         X:
-          RawValue: 1695257
+          RawValue: 1695448
         Y:
           RawValue: 111520
         Z:
-          RawValue: 3525358
+          RawValue: 3522491
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2938,11 +2936,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 172911
         Y:
           RawValue: 161889
         Z:
-          RawValue: 196363
+          RawValue: 161339
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -2966,11 +2964,11 @@ MonoBehaviour:
           RawValue: 22136
       Position:
         X:
-          RawValue: 2430294
+          RawValue: 2430485
         Y:
           RawValue: 111520
         Z:
-          RawValue: 5341867
+          RawValue: 5339001
       PhysicsMaterial:
         Id:
           Value: 0
@@ -2979,11 +2977,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 172911
         Y:
           RawValue: 161889
         Z:
-          RawValue: 196363
+          RawValue: 161339
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3007,11 +3005,11 @@ MonoBehaviour:
           RawValue: -48480
       Position:
         X:
-          RawValue: 3964613
+          RawValue: 3962451
         Y:
           RawValue: 111520
         Z:
-          RawValue: 4242136
+          RawValue: 4244028
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3020,11 +3018,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 172911
         Y:
           RawValue: 161889
         Z:
-          RawValue: 196363
+          RawValue: 161339
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3061,11 +3059,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 169082
         Y:
-          RawValue: 161889
+          RawValue: 119930
         Z:
-          RawValue: 196363
+          RawValue: 172032
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3089,11 +3087,11 @@ MonoBehaviour:
           RawValue: -64029
       Position:
         X:
-          RawValue: 2945737
+          RawValue: 2946294
         Y:
           RawValue: 111520
         Z:
-          RawValue: 1912115
+          RawValue: 1914933
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3102,11 +3100,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 223238
+          RawValue: 172911
         Y:
           RawValue: 161889
         Z:
-          RawValue: 196363
+          RawValue: 161339
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3130,11 +3128,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 1554166
+          RawValue: 1553096
         Y:
           RawValue: 123256
         Z:
-          RawValue: 4683380
+          RawValue: 4681500
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3143,11 +3141,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 38536
+          RawValue: 18316
         Y:
           RawValue: 184747
         Z:
-          RawValue: 28268
+          RawValue: 17716
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3212,11 +3210,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4424723
+          RawValue: 4423652
         Y:
           RawValue: 123256
         Z:
-          RawValue: 5650854
+          RawValue: 5648974
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3225,11 +3223,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 38536
+          RawValue: 18316
         Y:
           RawValue: 184747
         Z:
-          RawValue: 28268
+          RawValue: 17716
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3253,11 +3251,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 3311164
+          RawValue: 3310093
         Y:
           RawValue: 123256
         Z:
-          RawValue: 4089620
+          RawValue: 4087739
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3266,11 +3264,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 38536
+          RawValue: 18316
         Y:
           RawValue: 184747
         Z:
-          RawValue: 28268
+          RawValue: 17716
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3294,11 +3292,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 3728083
+          RawValue: 3727013
         Y:
           RawValue: 123256
         Z:
-          RawValue: 2472051
+          RawValue: 2470171
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3307,11 +3305,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 38536
+          RawValue: 18316
         Y:
           RawValue: 184747
         Z:
-          RawValue: 28268
+          RawValue: 17716
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3335,11 +3333,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2154718
+          RawValue: 2153647
         Y:
           RawValue: 123256
         Z:
-          RawValue: 2114313
+          RawValue: 2112433
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3348,11 +3346,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 38536
+          RawValue: 18316
         Y:
           RawValue: 184747
         Z:
-          RawValue: 28268
+          RawValue: 17716
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3376,11 +3374,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 3593432
+          RawValue: 3598883
         Y:
           RawValue: 100788
         Z:
-          RawValue: 3531516
+          RawValue: 3533711
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3389,11 +3387,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3417,11 +3415,11 @@ MonoBehaviour:
           RawValue: 61535
       Position:
         X:
-          RawValue: 2086773
+          RawValue: 2090445
         Y:
           RawValue: 100788
         Z:
-          RawValue: 2810383
+          RawValue: 2805795
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3430,11 +3428,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3458,11 +3456,11 @@ MonoBehaviour:
           RawValue: 61535
       Position:
         X:
-          RawValue: -719154
+          RawValue: -715483
         Y:
           RawValue: 100788
         Z:
-          RawValue: 5624009
+          RawValue: 5619421
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3471,11 +3469,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3499,11 +3497,11 @@ MonoBehaviour:
           RawValue: 32655
       Position:
         X:
-          RawValue: -2154075
+          RawValue: -2157959
         Y:
           RawValue: 100788
         Z:
-          RawValue: 6370173
+          RawValue: 6365764
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3512,11 +3510,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3540,11 +3538,11 @@ MonoBehaviour:
           RawValue: 32655
       Position:
         X:
-          RawValue: 2355550
+          RawValue: 2351666
         Y:
           RawValue: 100788
         Z:
-          RawValue: 4412104
+          RawValue: 4407694
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3553,11 +3551,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3581,11 +3579,11 @@ MonoBehaviour:
           RawValue: -50083
       Position:
         X:
-          RawValue: 3917269
+          RawValue: 3919369
         Y:
           RawValue: 100788
         Z:
-          RawValue: 5453453
+          RawValue: 5458941
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3594,11 +3592,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3622,11 +3620,11 @@ MonoBehaviour:
           RawValue: -50083
       Position:
         X:
-          RawValue: 1049339
+          RawValue: 1051438
         Y:
           RawValue: 100788
         Z:
-          RawValue: 3368290
+          RawValue: 3373778
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3635,11 +3633,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 34365
+          RawValue: 12378
         Y:
           RawValue: 147580
         Z:
-          RawValue: 25965
+          RawValue: 16602
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3663,11 +3661,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 1401510
+          RawValue: 1401788
         Y:
           RawValue: 57821
         Z:
-          RawValue: 2888390
+          RawValue: 2888352
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3676,11 +3674,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3704,11 +3702,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2074999
+          RawValue: 2075277
         Y:
           RawValue: 57821
         Z:
-          RawValue: 3963988
+          RawValue: 3963951
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3717,11 +3715,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3745,11 +3743,11 @@ MonoBehaviour:
           RawValue: 62028
       Position:
         X:
-          RawValue: 1740742
+          RawValue: 1740799
         Y:
           RawValue: 57821
         Z:
-          RawValue: 4696588
+          RawValue: 4696313
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3758,11 +3756,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3786,11 +3784,11 @@ MonoBehaviour:
           RawValue: 62028
       Position:
         X:
-          RawValue: 1803344
+          RawValue: 1803400
         Y:
           RawValue: 57821
         Z:
-          RawValue: 5592905
+          RawValue: 5592631
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3799,11 +3797,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3827,11 +3825,11 @@ MonoBehaviour:
           RawValue: -64731
       Position:
         X:
-          RawValue: 4494401
+          RawValue: 4494659
         Y:
           RawValue: 57821
         Z:
-          RawValue: 4009177
+          RawValue: 4009068
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3840,11 +3838,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3868,11 +3866,11 @@ MonoBehaviour:
           RawValue: -64731
       Position:
         X:
-          RawValue: 3540151
+          RawValue: 3540408
         Y:
           RawValue: 57821
         Z:
-          RawValue: 2114190
+          RawValue: 2114081
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3881,11 +3879,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3909,11 +3907,11 @@ MonoBehaviour:
           RawValue: -64731
       Position:
         X:
-          RawValue: 2686007
+          RawValue: 2686265
         Y:
           RawValue: 57821
         Z:
-          RawValue: 2508937
+          RawValue: 2508828
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3922,11 +3920,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 28597
+          RawValue: 16231
         Y:
           RawValue: 92912
         Z:
-          RawValue: 31653
+          RawValue: 17204
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3950,11 +3948,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 4502922
+          RawValue: 4502197
         Y:
           RawValue: 67857
         Z:
-          RawValue: 5373537
+          RawValue: 5373800
       PhysicsMaterial:
         Id:
           Value: 0
@@ -3963,11 +3961,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -3991,11 +3989,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2106948
+          RawValue: 2106223
         Y:
           RawValue: 67857
         Z:
-          RawValue: 4983853
+          RawValue: 4984115
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4004,11 +4002,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -4032,11 +4030,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 1546013
+          RawValue: 1545288
         Y:
           RawValue: 67857
         Z:
-          RawValue: 4367567
+          RawValue: 4367829
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4045,11 +4043,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -4073,11 +4071,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: -1901501
+          RawValue: -1902226
         Y:
           RawValue: 67857
         Z:
-          RawValue: 5867854
+          RawValue: 5868116
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4086,11 +4084,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -4114,11 +4112,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: 2191612
+          RawValue: 2190887
         Y:
           RawValue: 67857
         Z:
-          RawValue: 2697483
+          RawValue: 2697745
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4127,11 +4125,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 27996
+          RawValue: 20631
         Y:
           RawValue: 123332
         Z:
-          RawValue: 21074
+          RawValue: 15103
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: CLLSN
@@ -4995,7 +4993,7 @@ MonoBehaviour:
           RawValue: 14682
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -5364,7 +5362,7 @@ MonoBehaviour:
           RawValue: 285080
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -5405,7 +5403,7 @@ MonoBehaviour:
           RawValue: 246171
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6020,7 +6018,7 @@ MonoBehaviour:
           RawValue: 327680
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6061,7 +6059,7 @@ MonoBehaviour:
           RawValue: 268695
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6102,7 +6100,7 @@ MonoBehaviour:
           RawValue: 327680
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6184,7 +6182,7 @@ MonoBehaviour:
           RawValue: 14682
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6348,7 +6346,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6389,7 +6387,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6430,7 +6428,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6471,7 +6469,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6512,7 +6510,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6553,7 +6551,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6594,7 +6592,7 @@ MonoBehaviour:
           RawValue: 14682
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6635,7 +6633,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6676,7 +6674,7 @@ MonoBehaviour:
           RawValue: 258865
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6717,7 +6715,7 @@ MonoBehaviour:
           RawValue: 268695
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6799,7 +6797,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:
@@ -6840,7 +6838,7 @@ MonoBehaviour:
           RawValue: 12486
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Coll
+        Name: Coll_
         Tag: Untagged
         Layer: 0
         Asset:

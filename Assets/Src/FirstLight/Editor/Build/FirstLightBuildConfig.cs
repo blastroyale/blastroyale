@@ -62,6 +62,11 @@ namespace FirstLight.Editor.Build
 			"QUANTUM_REMOTE_PROFILER",
 			InfoLogLevelSymbol
 		};
+		private static readonly string[] StoreSymbols = new []
+		{
+			"DISABLE_SRDEBUGGER",
+		};
+		
 
 		/// <summary>
 		/// <inheritdoc cref="DevelopmentSymbol"/>
@@ -188,6 +193,11 @@ namespace FirstLight.Editor.Build
 			{
 				symbols.Add(InfoLogLevelSymbol);
 			}
+
+			if (buildSymbols.Contains(StoreSymbol))
+			{
+				symbols.AddRange(StoreSymbols);
+			}
 			
 			symbols.AddRange(buildSymbols);
 			
@@ -227,6 +237,8 @@ namespace FirstLight.Editor.Build
 			{
 				buildConfig.options |= BuildOptions.AcceptExternalModificationsToPlayer;
 			}
+
+			buildConfig.options |= BuildOptions.CompressWithLz4HC;
 
 			SetScenesFromEditor(ref buildConfig);
 

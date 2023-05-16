@@ -107,6 +107,7 @@ Material:
     - _EnvironmentReflections: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
+    - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Metallic: 0.2
     - _OcclusionStrength: 1
@@ -115,7 +116,9 @@ Material:
     - _ReceiveShadows: 0
     - _SampleGI: 0
     - _Smoothness: 0.4
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0

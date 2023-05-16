@@ -33,6 +33,24 @@
 .special-button--draggable {
 }
 
+.special-button__cooldown {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(49, 45, 71, 0.85);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    font-size: 64px;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 255);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 255);
+}
+
 .special-button__container {
     background-color: var(--match-button-background-color);
     border-left-color: var(--match-button-outline-color);
@@ -900,6 +918,6 @@
     padding-top: 0;
     padding-bottom: 0;
     -unity-text-align: upper-right;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 1px;
 }

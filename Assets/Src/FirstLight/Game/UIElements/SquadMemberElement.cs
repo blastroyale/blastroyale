@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -111,20 +112,25 @@ namespace FirstLight.Game.UIElements
 		{
 			switch (equipment.GetEquipmentGroup())
 			{
-				case GameIdGroup.Helmet:
+				case GameIdGroup.Helmet when !_equipmentHelmet.ClassListContains(USS_EQUIPMENT_ACQUIRED):
 					_equipmentHelmet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					_equipmentHelmet.AnimatePing();
 					break;
-				case GameIdGroup.Weapon:
+				case GameIdGroup.Weapon when !_equipmentWeapon.ClassListContains(USS_EQUIPMENT_ACQUIRED):
 					_equipmentWeapon.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					_equipmentWeapon.AnimatePing();
 					break;
-				case GameIdGroup.Amulet:
+				case GameIdGroup.Amulet when !_equipmentAmulet.ClassListContains(USS_EQUIPMENT_ACQUIRED):
 					_equipmentAmulet.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					_equipmentAmulet.AnimatePing();
 					break;
-				case GameIdGroup.Armor:
+				case GameIdGroup.Armor when !_equipmentArmor.ClassListContains(USS_EQUIPMENT_ACQUIRED):
 					_equipmentArmor.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					_equipmentArmor.AnimatePing();
 					break;
-				case GameIdGroup.Shield:
+				case GameIdGroup.Shield when !_equipmentShield.ClassListContains(USS_EQUIPMENT_ACQUIRED):
 					_equipmentShield.AddToClassList(USS_EQUIPMENT_ACQUIRED);
+					_equipmentShield.AnimatePing();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

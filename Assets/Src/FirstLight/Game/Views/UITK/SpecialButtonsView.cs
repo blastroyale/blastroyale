@@ -43,6 +43,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
 		}
 
 		public void UnsubscribeFromEvents()
@@ -59,6 +60,22 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 			UpdateSpecials(pc.WeaponSlots[pc.CurrentWeaponSlot]);
+		}
+		
+		private void OnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		{
+			// TODO: Disable input. Here?
+			switch (callback.SpecialIndex)
+			{
+				case 0:
+					// TODO: Callback to enable input
+					_special0Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					break;
+				case 1:
+					// TODO: Callback to enable input
+					_special1Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					break;
+			}
 		}
 
 		private void UpdateSpecials(WeaponSlot currentSlot)

@@ -50,6 +50,7 @@ namespace FirstLight.Game.Views.UITK
 		public void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)

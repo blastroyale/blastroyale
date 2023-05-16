@@ -1,7 +1,5 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
-using MessagePack.Formatters;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,23 +8,27 @@ namespace FirstLight.Game.UIElements
 {
 	public class SpecialButtonElement : VisualElement
 	{
-		private const string UssBlock = "special-button";
-		private const string UssDraggable = UssBlock + "--draggable";
-		private const string UssPressed = UssBlock + "--pressed";
-		private const string UssContainer = UssBlock + "__container";
-		private const string UssStick = UssBlock + "__stick";
-		private const string UssBgCircle = UssBlock + "__bg-circle";
-		private const string UssIcon = UssBlock + "__icon";
+		private const string USS_BLOCK = "special-button";
+		private const string USS_DRAGGABLE = USS_BLOCK + "--draggable";
+		private const string USS_PRESSED = USS_BLOCK + "--pressed";
+		private const string USS_CONTAINER = USS_BLOCK + "__container";
+		private const string USS_STICK = USS_BLOCK + "__stick";
+		private const string USS_BG_CIRCLE = USS_BLOCK + "__bg-circle";
+		private const string USS_ICON = USS_BLOCK + "__icon";
+		private const string USS_COOLDOWN = USS_BLOCK + "__cooldown";
 
-		private const string UssSpriteSpecial = "sprite-shared__icon-special-{0}";
+		private const string USS_SPRITE_SPECIAL = "sprite-shared__icon-special-{0}";
 
 		private readonly VisualElement _stick;
 		private readonly VisualElement _container;
 		private readonly VisualElement _icon;
+		private readonly VisualElement _cooldown;
+		private readonly Label _cooldownLabel;
 
 		private Vector2 _startingPosition;
 
 		private bool _draggable;
+		private bool _onCooldown;
 
 		/// <summary>
 		/// Triggered with 0f when button is pressed and with 1f when button is released.
@@ -40,21 +42,27 @@ namespace FirstLight.Game.UIElements
 
 		public SpecialButtonElement()
 		{
-			AddToClassList(UssBlock);
+			AddToClassList(USS_BLOCK);
 			pickingMode = PickingMode.Ignore;
 
 			Add(_container = new VisualElement {name = "container"});
-			_container.AddToClassList(UssContainer);
+			_container.AddToClassList(USS_CONTAINER);
 
 			var bgCircle = new VisualElement {name = "bg-circle"};
 			_container.Add(bgCircle);
-			bgCircle.AddToClassList(UssBgCircle);
+			bgCircle.AddToClassList(USS_BG_CIRCLE);
 
 			_container.Add(_stick = new VisualElement {name = "stick"});
-			_stick.AddToClassList(UssStick);
+			_stick.AddToClassList(USS_STICK);
 
 			_stick.Add(_icon = new VisualElement {name = "icon"});
-			_icon.AddToClassList(UssIcon);
+			_icon.AddToClassList(USS_ICON);
+
+			_container.Add(_cooldown = new VisualElement {name = "cooldown"});
+			_cooldown.AddToClassList(USS_COOLDOWN);
+			_cooldown.SetVisibility(false);
+
+			_cooldown.Add(_cooldownLabel = new Label("14") {name = "cooldown-label"});
 
 			SetSpecial(GameId.SpecialAimingGrenade, true);
 
@@ -74,13 +82,45 @@ namespace FirstLight.Game.UIElements
 			{
 				special = GameId.SpecialAimingGrenade;
 			}
-			
+
 			_draggable = draggable;
 			_icon.RemoveSpriteClasses();
-			_icon.AddToClassList(string.Format(UssSpriteSpecial,
+			_icon.AddToClassList(string.Format(USS_SPRITE_SPECIAL,
 				special.ToString().ToLowerInvariant().Replace("special", "")));
 
-			EnableInClassList(UssDraggable, draggable);
+			EnableInClassList(USS_DRAGGABLE, draggable);
+		}
+
+		/// <summary>
+		/// Disables the special button for a given time with a visual countdown.
+		/// </summary>
+		public void DisableFor(long time, Action onEnable)
+		{
+			var seconds = (int) (time / 1000);
+
+			_onCooldown = true;
+			_cooldown.SetVisibility(true);
+			_cooldownLabel.text = seconds.ToString();
+
+			// Don't think we need to save this scheduled item
+			schedule.Execute(() =>
+				{
+					if (seconds > 0)
+					{
+						_cooldownLabel.text = seconds.ToString();
+						seconds--;
+						_cooldownLabel.AnimatePing(1.2f);
+					}
+					else
+					{
+						_cooldownLabel.text = string.Empty;
+						_onCooldown = false;
+						_cooldown.SetVisibility(false);
+						onEnable?.Invoke();
+					}
+				})
+				.Every(1000)
+				.Until(() => seconds < 0);
 		}
 
 		private void OnAttachToPanel(AttachToPanelEvent evt)
@@ -99,9 +139,11 @@ namespace FirstLight.Game.UIElements
 
 		private void OnPointerDown(PointerDownEvent evt)
 		{
+			if (_onCooldown) return;
+
 			_container.CapturePointer(evt.pointerId);
 
-			AddToClassList(UssPressed);
+			AddToClassList(USS_PRESSED);
 
 			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
 			var parentPosition = parent.WorldToLocal(panelPosition);
@@ -112,7 +154,7 @@ namespace FirstLight.Game.UIElements
 
 		private void OnPointerMove(PointerMoveEvent evt)
 		{
-			if (!_draggable || !_container.HasPointerCapture(evt.pointerId)) return;
+			if (_onCooldown || !_draggable || !_container.HasPointerCapture(evt.pointerId)) return;
 
 			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
 			var parentPosition = parent.WorldToLocal(panelPosition);
@@ -131,9 +173,11 @@ namespace FirstLight.Game.UIElements
 
 		private void OnPointerUp(PointerUpEvent evt)
 		{
+			if (_onCooldown) return;
+
 			_container.ReleasePointer(evt.pointerId);
 
-			RemoveFromClassList(UssPressed);
+			RemoveFromClassList(USS_PRESSED);
 
 			_stick.transform.position = Vector3.zero;
 

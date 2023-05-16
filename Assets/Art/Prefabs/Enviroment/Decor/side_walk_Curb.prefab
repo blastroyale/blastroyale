@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5433711902454449235}
   - component: {fileID: 9078494967007211914}
   - component: {fileID: 2145252034126505622}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: side_walk_Curb
   m_TagString: Untagged
   m_Icon: {fileID: 0}

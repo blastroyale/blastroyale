@@ -102,7 +102,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fc05c78bb0518349b009b01f360d673
-    m_Address: Scenes/FTUEMiniMap.unity
+    m_Address: Scenes/FtueMiniMap.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -1,5 +1,5 @@
-﻿fileFormatVersion: 2
-guid: 0335033c1de679c4f966ef1dc9753033
+fileFormatVersion: 2
+guid: 100b6a5031e65db49a99730f6df5746a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,11 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BR_atlas
-    second:
-      fileID: 2100000
-      guid: 8ff40c23389a5e74191cc748616c84ca
-      type: 2
+      name: lambert6
+    second: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -32,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -43,15 +40,15 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.045
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-    sortHierarchyByName: 1
+    sortHierarchyByName: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -96,13 +93,12 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.045
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

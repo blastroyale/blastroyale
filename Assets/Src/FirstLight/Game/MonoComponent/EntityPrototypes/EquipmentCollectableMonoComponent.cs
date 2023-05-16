@@ -30,26 +30,29 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_collectableView.SetEntityView(game, EntityView);
 			
 			tasks.Add(TryShowEquipment(collectable.Item.GameId));
-			tasks.Add(TryShowRarityEffect(collectable.Item.Rarity));
-
+			
+			// Rarity visual effect is disabled
+			// tasks.Add(TryShowRarityEffect(collectable.Item.Rarity));
+			
+			// This await is commented because there's no code after it
 			/*
 			 * Attention:
 			 * The loading frame might be called when the simulation is closing and the assets unloaded,
 			 * creating a CPU race condition between the loading thread and the unloading thread.
 			 */
-			await Task.WhenAll(tasks);
-
-			foreach (var task in tasks)
-			{
-				if (!task.Result)
-				{
-					return;
-				}
-			}
+			// await Task.WhenAll(tasks);
+			//
+			// foreach (var task in tasks)
+			// {
+			// 	if (!task.Result)
+			// 	{
+			// 		return;
+			// 	}
+			// }
 			
-
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
-			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
+			// These events were used to show Green arrow on equipment pickups; Now disabled
+			// _matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
+			// QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 		}
 
 		protected override void OnEntityDestroyed(QuantumGame game)
@@ -76,70 +79,72 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return true;
 		}
 
-		private async Task<bool> TryShowRarityEffect(EquipmentRarity rarity)
-		{
-			var instance = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
+		// Rarity visual effect is disabled
+		// private async Task<bool> TryShowRarityEffect(EquipmentRarity rarity)
+		// {
+		// 	var instance = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
+		//
+		// 	if (this.IsDestroyed())
+		// 	{
+		// 		Destroy(instance);
+		// 		return false;
+		// 	}
+		// 	
+		// 	var effectTransform = instance.transform;
+		//
+		// 	effectTransform.SetParent(transform);
+		// 	effectTransform.localPosition = Vector3.zero;
+		// 	effectTransform.localScale = Vector3.one;
+		// 	effectTransform.localRotation = Quaternion.identity;
+		//
+		// 	return true;
+		// }
 
-			if (this.IsDestroyed())
-			{
-				Destroy(instance);
-				return false;
-			}
-			
-			var effectTransform = instance.transform;
+		// Green arrow is disabled
+		// private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
+		// {
+		// 	if (!next.Entity.IsValid) return; 
+		// 	
+		// 	ShowHigherRarityArrow(QuantumRunner.Default.Game.Frames.Verified, next.Entity);
+		// }
 
-			effectTransform.SetParent(transform);
-			effectTransform.localPosition = Vector3.zero;
-			effectTransform.localScale = Vector3.one;
-			effectTransform.localRotation = Quaternion.identity;
+		// private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
+		// {
+		// 	if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+		//
+		// 	ShowHigherRarityArrow(callback.Game.Frames.Verified, callback.Entity);
+		// }
 
-			return true;
-		}
-
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
-		{
-			if (!next.Entity.IsValid) return; 
-
-			ShowHigherRarityArrow(QuantumRunner.Default.Game.Frames.Verified, next.Entity);
-		}
-
-		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
-		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-
-			ShowHigherRarityArrow(callback.Game.Frames.Verified, callback.Entity);
-		}
-
-		private void ShowHigherRarityArrow(Frame f, EntityRef playerEntity)
-		{
-			if (!f.TryGet<EquipmentCollectable>(EntityView.EntityRef, out var collectable) || 
-			    !collectable.Item.IsWeapon() || 
-			    !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)) return;
-
-			var numOfSlots = playerCharacter.WeaponSlots.Length;
-			for (int slotIndex = 0; slotIndex < numOfSlots; slotIndex++)
-			{
-				var weaponSlot = playerCharacter.WeaponSlots[slotIndex];
-
-				// If we already have the weapon, we would use that slot
-				if (weaponSlot.Weapon.GameId == collectable.Item.GameId)
-				{
-					_higherRarityArrow.SetActive(weaponSlot.Weapon.Rarity < collectable.Item.Rarity);
-					return;
-				}
-
-				// If there's an empty slot starting on a lower index, we would use that slot
-				if (!weaponSlot.Weapon.IsValid())
-				{
-					_higherRarityArrow.SetActive(true);
-					return;
-				}
-			}
-
-			// If no other criteria selected a slot, we use the secondary slot
-			var secondaryWeaponSlot = playerCharacter.WeaponSlots[Constants.WEAPON_INDEX_SECONDARY];
-			_higherRarityArrow.SetActive(secondaryWeaponSlot.Weapon.Rarity < collectable.Item.Rarity);
-		}
+		// private void ShowHigherRarityArrow(Frame f, EntityRef playerEntity)
+		// {
+		// 	if (!f.TryGet<EquipmentCollectable>(EntityView.EntityRef, out var collectable) || 
+		// 	    !collectable.Item.IsWeapon() || 
+		// 	    !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)) return;
+		//
+		// 	var numOfSlots = playerCharacter.WeaponSlots.Length;
+		// 	for (int slotIndex = 0; slotIndex < numOfSlots; slotIndex++)
+		// 	{
+		// 		var weaponSlot = playerCharacter.WeaponSlots[slotIndex];
+		//
+		// 		// If we already have the weapon, we would use that slot
+		// 		if (weaponSlot.Weapon.GameId == collectable.Item.GameId)
+		// 		{
+		// 			_higherRarityArrow.SetActive(weaponSlot.Weapon.Rarity < collectable.Item.Rarity);
+		// 			return;
+		// 		}
+		//
+		// 		// If there's an empty slot starting on a lower index, we would use that slot
+		// 		if (!weaponSlot.Weapon.IsValid())
+		// 		{
+		// 			_higherRarityArrow.SetActive(true);
+		// 			return;
+		// 		}
+		// 	}
+		//
+		// 	// If no other criteria selected a slot, we use the secondary slot
+		// 	var secondaryWeaponSlot = playerCharacter.WeaponSlots[Constants.WEAPON_INDEX_SECONDARY];
+		// 	_higherRarityArrow.SetActive(secondaryWeaponSlot.Weapon.Rarity < collectable.Item.Rarity);
+		// }
 	}
 
 	[Serializable]

@@ -20,23 +20,23 @@ MonoBehaviour:
     QuantumConfigs:
     - StatType: 0
       BaseValue:
-        RawValue: 9830400
+        RawValue: 655360
       RarityMultiplier:
         RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 1933
+        RawValue: 12124
       CeilToInt: 1
     - StatType: 1
       BaseValue:
-        RawValue: 9830400
+        RawValue: 3276800
       RarityMultiplier:
-        RawValue: 72090
+        RawValue: 66191
       LevelStepMultiplier:
-        RawValue: 655
+        RawValue: 852
       CeilToInt: 1
     - StatType: 2
       BaseValue:
-        RawValue: 13107
+        RawValue: 6554
       RarityMultiplier:
         RawValue: 78512
       LevelStepMultiplier:
@@ -76,9 +76,9 @@ MonoBehaviour:
       CeilToInt: 0
     - StatType: 4
       BaseValue:
-        RawValue: 6553600
+        RawValue: 458752
       RarityMultiplier:
         RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 1933
+        RawValue: 12124
       CeilToInt: 1

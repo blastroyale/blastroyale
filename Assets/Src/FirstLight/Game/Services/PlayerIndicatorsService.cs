@@ -3,6 +3,7 @@ using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum;
+using Sirenix.OdinInspector.Editor.Licensing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ namespace FirstLight.Game.Services
 		private LocalInput.GameplayActions _inputs;
 		private bool _shooting;
 		private int _specialPressed = -1;
+		private bool _disposed = false;
 
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
@@ -34,6 +36,7 @@ namespace FirstLight.Game.Services
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnPlayerDied);
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -47,22 +50,12 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			QuantumEvent.UnsubscribeListener(this);
-			_services?.TickService.Unsubscribe(OnUpdate);
-			_indicatorContainerView?.Dispose();
-			if (_inputs.Get() != null)
-			{
-				_inputs.Move.performed -= OnMove;
-				_inputs.AimButton.performed -= OnShooting;
-				_inputs.AimButton.canceled -= OnShooting;
-				_inputs.SpecialButton0.started -= OnSpecial0;
-				_inputs.SpecialButton0.performed -= OnSpecial0;
-				_inputs.SpecialButton0.canceled -= OnSpecial0;
-				_inputs.SpecialButton1.started -= OnSpecial1;
-				_inputs.SpecialButton1.performed -= OnSpecial1;
-				_inputs.SpecialButton1.canceled -= OnSpecial1;
-				_inputs.SpecialAim.performed -= OnSpecialAim;
-			}
+			Dispose();
+		}
+
+		private void OnPlayerDied(EventOnLocalPlayerDead ev)
+		{
+			Dispose();
 		}
 
 		public void RegisterListeners()
@@ -84,10 +77,31 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			if (_disposed) return;
+			QuantumEvent.UnsubscribeListener(this);
+			_services?.TickService.Unsubscribe(OnUpdate);
+			_indicatorContainerView?.Dispose();
+			if (_inputs.Get() != null)
+			{
+				_inputs.Move.performed -= OnMove;
+				_inputs.AimButton.performed -= OnShooting;
+				_inputs.AimButton.canceled -= OnShooting;
+				_inputs.SpecialButton0.started -= OnSpecial0;
+				_inputs.SpecialButton0.performed -= OnSpecial0;
+				_inputs.SpecialButton0.canceled -= OnSpecial0;
+				_inputs.SpecialButton1.started -= OnSpecial1;
+				_inputs.SpecialButton1.performed -= OnSpecial1;
+				_inputs.SpecialButton1.canceled -= OnSpecial1;
+				_inputs.SpecialAim.performed -= OnSpecialAim;
+			}
+			_disposed = true;
 		}
+
+		private bool CanListen() => QuantumRunner.Default.IsDefinedAndRunning();
 
 		private void OnUpdate(float timeDelta)
 		{
+			if (!CanListen()) return;
 			_indicatorContainerView?.OnUpdateAim(
 				QuantumRunner.Default.Game.Frames.Predicted,
 				_inputs.Aim.ReadValue<Vector2>().ToFPVector2(),
@@ -101,16 +115,19 @@ namespace FirstLight.Game.Services
 
 		private void OnSpecial0(InputAction.CallbackContext c)
 		{
+			if (!CanListen()) return;
 			OnSpecialSetupIndicator(c, 0);
 		}
 
 		private void OnSpecial1(InputAction.CallbackContext c)
 		{
+			if (!CanListen()) return;
 			OnSpecialSetupIndicator(c, 1);
 		}
 
 		private void OnSpecialAim(InputAction.CallbackContext c)
 		{
+			if (!CanListen()) return;
 			if (_specialPressed != -1)
 			{
 				_indicatorContainerView.GetSpecialIndicator(_specialPressed)
@@ -152,19 +169,24 @@ namespace FirstLight.Game.Services
 
 		private void OnMove(InputAction.CallbackContext context)
 		{
+			if (!CanListen()) return;
 			var direction = context.ReadValue<Vector2>();
 			_indicatorContainerView.OnMoveUpdate(direction, direction != Vector2.zero);
 		}
 
 		private unsafe void InitializeLocalPlayer(QuantumGame game)
 		{
+			if (!CanListen()) return;
 			var localPlayer = game.GetLocalPlayerData(false, out var f);
 			if (!localPlayer.IsValid || !localPlayer.Entity.IsValid || !localPlayer.Entity.IsAlive(f))
 			{
 				return;
 			}
 
-			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(localPlayer.Entity);
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(localPlayer.Entity, out var playerView))
+			{
+				return;
+			}
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
 			_indicatorContainerView.InstantiateAllIndicators();
 			_indicatorContainerView.Init(playerView);

@@ -55,7 +55,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			var countdown = (callback.ShrinkingCircle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time * 1000)
+			var countdown = ((callback.ShrinkingCircle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000)
 				.AsLong;
 
 			StartCountdown(countdown, (callback.ShrinkingCircle.ShrinkingDurationTime * 1000).AsLong);
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (_timerUpdate == null && callback.Game.Frames.Predicted.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
-				var countdown = (circle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time * 1000).AsLong;
+				var countdown = ((circle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000).AsLong;
 				StartCountdown(countdown, (circle.ShrinkingDurationTime * 1000).AsLong);
 			}
 		}

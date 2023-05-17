@@ -47,8 +47,8 @@
     font-size: 64px;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 255);
-    text-shadow: 4px 4px 0 rgba(0, 0, 0, 255);
+    color: rgb(255, 255, 255);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
 
 .special-button__container {

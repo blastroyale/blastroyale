@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Char_MalePunkBodyHQ
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 7b49d2fe5bf084ac1ac401639f1da0c3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -82,7 +82,7 @@ Material:
     - Color_F2EE02DC: {r: 1.2265332, g: 7.675874, b: 15.396227, a: 1}
     - Vector2_A8F95C61: {r: 1, g: 2, b: 0, a: 0}
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.5287747, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
     - _TintColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 0}
   m_BuildTextureStacks: []

@@ -477,7 +477,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 39322
       PowerRatioToBase:
-        RawValue: 98304
+        RawValue: 245760
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -495,7 +495,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 36864
+        RawValue: 92160
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -513,7 +513,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 18022
+        RawValue: 45056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -531,7 +531,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 13107
       PowerRatioToBase:
-        RawValue: 17203
+        RawValue: 43008
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -549,7 +549,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 19661
+        RawValue: 49152
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -567,7 +567,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 87163
+        RawValue: 217907
       AttackRangeRatioToBase:
         RawValue: 22938
       PickupSpeedRatioToBase:
@@ -585,7 +585,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 22938
+        RawValue: 57344
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -603,7 +603,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 18874
+        RawValue: 47186
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -621,7 +621,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 45875
+        RawValue: 114688
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -639,7 +639,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 49152
+        RawValue: 122880
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -657,7 +657,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 13107
       PowerRatioToBase:
-        RawValue: 49152
+        RawValue: 122880
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -675,7 +675,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 61440
+        RawValue: 153600
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -693,7 +693,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 131072
+        RawValue: 327680
       AttackRangeRatioToBase:
         RawValue: 22938
       PickupSpeedRatioToBase:
@@ -711,7 +711,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 24576
+        RawValue: 61440
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -729,7 +729,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 62259
+        RawValue: 155648
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -747,7 +747,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 29491
+        RawValue: 73728
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -765,7 +765,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 24576
+        RawValue: 61440
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -783,7 +783,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 13107
       PowerRatioToBase:
-        RawValue: 12812
+        RawValue: 32031
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -801,7 +801,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 39322
+        RawValue: 98304
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -819,7 +819,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 36864
+        RawValue: 92160
       AttackRangeRatioToBase:
         RawValue: 22938
       PickupSpeedRatioToBase:
@@ -837,7 +837,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 57344
+        RawValue: 143360
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -855,7 +855,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 24576
+        RawValue: 61440
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:

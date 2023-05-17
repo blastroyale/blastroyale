@@ -86,7 +86,7 @@ namespace FirstLight.Game.Services
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
 			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
-			PlayerInputService = Configure(new PlayerInputService(this, _dataProvider));
+			PlayerInputService = Configure(new PlayerInputService(_gameServices, this, _dataProvider));
 			PlayerIndicatorService = Configure(new PlayerIndicatorsService());
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

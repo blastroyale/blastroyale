@@ -1,7 +1,9 @@
 using System;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Input;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -37,6 +39,7 @@ namespace FirstLight.Game.Services
 		public LocalInput Input { get; }
 
 		private readonly IMatchServices _matchServices;
+		private readonly IGameServices _gameServices;
 		private readonly IGameDataProvider _dataProvider;
 
 		private Quantum.Input _quantumInput;
@@ -45,10 +48,13 @@ namespace FirstLight.Game.Services
 		private Vector2 _aim;
 		private bool _shooting;
 
-		public PlayerInputService(IMatchServices matchServices, IGameDataProvider dataProvider)
+		private bool _sentMovementMessage;
+
+		public PlayerInputService(IGameServices gameServices, IMatchServices matchServices, IGameDataProvider dataProvider)
 		{
 			_matchServices = matchServices;
 			_dataProvider = dataProvider;
+			_gameServices = gameServices;
 
 			Input = new LocalInput();
 			Input.Gameplay.SetCallbacks(this);
@@ -88,11 +94,12 @@ namespace FirstLight.Game.Services
 			_direction = context.ReadValue<Vector2>();
 
 			// TODO: Try to move this to TutorialService
-			// if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
-			// 	TutorialSection.FIRST_GUIDE_MATCH)
-			// {
-			// 	_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
-			// }
+			if (!_sentMovementMessage && _gameServices.TutorialService.CurrentRunningTutorial.Value ==
+				TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				_gameServices.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+				_sentMovementMessage = true;
+			}
 		}
 
 		public void OnAim(InputAction.CallbackContext context)

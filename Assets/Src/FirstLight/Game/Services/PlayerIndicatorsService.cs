@@ -44,27 +44,8 @@ namespace FirstLight.Game.Services
 				InitializeLocalPlayer(game);
 			}
 		}
-		
-		public void OnMatchEnded(QuantumGame game, bool isDisconnected) { }
 
-		public void RegisterListeners()
-		{
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
-			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
-			_inputs.Move.performed += OnMove;
-			_inputs.AimButton.performed += OnShooting;
-			_inputs.AimButton.canceled += OnShooting;
-			_inputs.SpecialButton0.started += OnSpecial0;
-			_inputs.SpecialButton0.performed += OnSpecial0;
-			_inputs.SpecialButton0.canceled += OnSpecial0;
-			_inputs.SpecialButton1.started += OnSpecial1;
-			_inputs.SpecialButton1.performed += OnSpecial1;
-			_inputs.SpecialButton1.canceled += OnSpecial1;
-			_inputs.SpecialAim.performed += OnSpecialAim;
-		}
-		
-		public void Dispose()
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_services?.TickService.Unsubscribe(OnUpdate);
@@ -83,11 +64,32 @@ namespace FirstLight.Game.Services
 				_inputs.SpecialAim.performed -= OnSpecialAim;
 			}
 		}
-		
+
+		public void RegisterListeners()
+		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
+			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
+			_inputs.Move.performed += OnMove;
+			_inputs.AimButton.performed += OnShooting;
+			_inputs.AimButton.canceled += OnShooting;
+			_inputs.SpecialButton0.started += OnSpecial0;
+			_inputs.SpecialButton0.performed += OnSpecial0;
+			_inputs.SpecialButton0.canceled += OnSpecial0;
+			_inputs.SpecialButton1.started += OnSpecial1;
+			_inputs.SpecialButton1.performed += OnSpecial1;
+			_inputs.SpecialButton1.canceled += OnSpecial1;
+			_inputs.SpecialAim.performed += OnSpecialAim;
+		}
+
+		public void Dispose()
+		{
+		}
+
 		private void OnUpdate(float timeDelta)
 		{
 			_indicatorContainerView?.OnUpdateAim(
-				QuantumRunner.Default.Game.Frames.Predicted, 
+				QuantumRunner.Default.Game.Frames.Predicted,
 				_inputs.Aim.ReadValue<Vector2>().ToFPVector2(),
 				_shooting);
 		}
@@ -96,7 +98,7 @@ namespace FirstLight.Game.Services
 		{
 			InitializeLocalPlayer(callback.Game);
 		}
-		
+
 		private void OnSpecial0(InputAction.CallbackContext c)
 		{
 			OnSpecialSetupIndicator(c, 0);
@@ -111,7 +113,8 @@ namespace FirstLight.Game.Services
 		{
 			if (_specialPressed != -1)
 			{
-				_indicatorContainerView.GetSpecialIndicator(_specialPressed).SetTransformState(_inputs.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetSpecialIndicator(_specialPressed)
+					.SetTransformState(_inputs.SpecialAim.ReadValue<Vector2>());
 			}
 		}
 
@@ -119,7 +122,7 @@ namespace FirstLight.Game.Services
 		{
 			_shooting = c.ReadValueAsButton();
 		}
-		
+
 		private void OnSpecialSetupIndicator(InputAction.CallbackContext context, int specialIndex)
 		{
 			var indicator = _indicatorContainerView.GetSpecialIndicator(specialIndex);
@@ -130,21 +133,23 @@ namespace FirstLight.Game.Services
 				indicator.SetTransformState(Vector2.zero);
 				if (FeatureFlags.SPECIAL_RADIUS)
 				{
-					var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+					var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 					radiusIndicator.SetVisualState(true);
 					radiusIndicator.SetTransformState(Vector2.zero);
 				}
+
 				return;
 			}
+
 			_specialPressed = -1;
 			indicator.SetVisualState(false);
 			if (FeatureFlags.SPECIAL_RADIUS)
 			{
-				var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 				radiusIndicator.SetVisualState(false);
 			}
 		}
-		
+
 		private void OnMove(InputAction.CallbackContext context)
 		{
 			var direction = context.ReadValue<Vector2>();
@@ -158,6 +163,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(localPlayer.Entity);
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
 			_indicatorContainerView.InstantiateAllIndicators();

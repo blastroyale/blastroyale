@@ -80,12 +80,12 @@ variables:
 - ${{ if ne(variables['Build.Reason'], 'Manual') }}:
     - name: configuration
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: "Debug"
+        value: "Release" # TODO: Revert when we find the bug that is broken input in development builds
       ${{  if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))  }}:
         value: "Release"
     - name: build_type
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: "DEVELOPMENT_BUILD"
+        value: "RELEASE_BUILD" # TODO: Revert when we find the bug that is broken input in development builds
       ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
         value: "RELEASE_BUILD"
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:

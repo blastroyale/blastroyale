@@ -89,6 +89,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (culled)
 			{
+				AnimatorWrapper.Enabled = false;
 				foreach (var col in _colliders)
 				{
 					col.enabled = false;
@@ -96,6 +97,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else
 			{
+				AnimatorWrapper.Enabled = true;
 				foreach (var col in _colliders)
 				{
 					col.enabled = true;

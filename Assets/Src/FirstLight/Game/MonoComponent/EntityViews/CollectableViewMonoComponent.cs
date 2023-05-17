@@ -44,7 +44,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_animation.AddClip(_spawnClip, CLIP_SPAWN);
+			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
 			_animation.AddClip(_idleClip, CLIP_IDLE);
 			_animation.AddClip(_collectClip, CLIP_COLLECT);
 
@@ -58,9 +58,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-
-			_animation.Play(CLIP_SPAWN);
-			_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
+			
+			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
+			//_animation.Play(CLIP_SPAWN);
+			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
+			
+			_animation.Play(CLIP_IDLE);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -113,12 +116,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			QuantumEvent.UnsubscribeListener(this);
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
-
+			
+			// Animation of a collected collectable is disabled. We can enable it again if we need it
 			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.
-			_animation.enabled = true;
-			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
-
-			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
+			//_animation.enabled = true;
+			//_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
+			//this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
+			
+			Destroy(gameObject);
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)

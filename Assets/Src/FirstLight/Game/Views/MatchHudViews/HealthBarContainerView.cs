@@ -102,12 +102,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_friendlyHealthBars.Add(entity, healthBar);
 				SetupFriendlyHealthBar(f, entity, healthBar, false);
 
-				if (_squadHealthBars.Count < 2 && entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					var healthBarSquad = FriendlyPlayerHealthBarInstantiator(true);
-					_squadHealthBars.Add(entity, healthBarSquad);
-					SetupFriendlyHealthBar(f, entity, healthBarSquad, true);
-				}
+				// if (_squadHealthBars.Count < 2 && entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+				// {
+				// 	var healthBarSquad = FriendlyPlayerHealthBarInstantiator(true);
+				// 	_squadHealthBars.Add(entity, healthBarSquad);
+				// 	SetupFriendlyHealthBar(f, entity, healthBarSquad, true);
+				// }
 
 				//_squadContainer.gameObject.SetActive(_squadHealthBars.Count > 0);
 

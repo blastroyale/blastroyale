@@ -1,6 +1,5 @@
 /* AUTO GENERATED */
 :root {
-    --sprite-home__avatar-default: url('/Assets/Art/UI/Sprites/Home/avatar-default.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
@@ -181,12 +180,6 @@
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
-}
-
-.sprite-home__avatar-default {
-    background-image: var(--sprite-home__avatar-default);
-    width: 108px;
-    height: 108px;
 }
 
 .sprite-home__background-avatar-nft {

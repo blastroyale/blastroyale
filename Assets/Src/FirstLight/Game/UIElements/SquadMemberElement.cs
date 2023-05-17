@@ -1,14 +1,19 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.UIElements
 {
 	public class SquadMemberElement : VisualElement
 	{
 		private const string USS_BLOCK = "squad-member";
+		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_DEAD = USS_BLOCK + "--dead";
+		private const string USS_DEAD_CROSS = USS_BLOCK + "__dead-cross";
 		private const string USS_BG = USS_BLOCK + "__bg";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
 		private const string USS_NAME = USS_BLOCK + "__name";
@@ -23,6 +28,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string USS_SPRITE_EQUIPMENTCATEGORY = "sprite-shared__icon-equipmentcategory-{0}";
 
+		private VisualElement _container;
 		private VisualElement _bg;
 		private VisualElement _pfp;
 		private Label _level;
@@ -38,25 +44,33 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _equipmentArmor;
 
 		private PlayerRef _player;
+		private int _pfpRequestHandle;
 
 		public SquadMemberElement()
 		{
 			AddToClassList(USS_BLOCK);
+			
+			Add(_container = new VisualElement {name = "container"});
+			_container.AddToClassList(USS_CONTAINER);
+			
+			var deadCross = new VisualElement {name = "dead-cross"};
+			Add(deadCross);
+			deadCross.AddToClassList(USS_DEAD_CROSS);
 
-			Add(_bg = new VisualElement {name = "bg"});
+			_container.Add(_bg = new VisualElement {name = "bg"});
 			_bg.AddToClassList(USS_BG);
 
-			Add(_pfp = new VisualElement {name = "pfp"});
+			_container.Add(_pfp = new VisualElement {name = "pfp"});
 			_pfp.AddToClassList(USS_PFP);
 
-			Add(_level = new Label("1324") {name = "level"});
+			_container.Add(_level = new Label("1324") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
 
-			Add(_name = new Label("PLAYER NAME") {name = "name"});
+			_container.Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
 
 			var shieldHealthContainer = new VisualElement {name = "shieldhealth-container"};
-			Add(shieldHealthContainer);
+			_container.Add(shieldHealthContainer);
 			shieldHealthContainer.AddToClassList(USS_SHIELD_HEALTH_CONTAINER);
 			{
 				var shieldBg = new VisualElement {name = "shield-bg"};
@@ -77,7 +91,7 @@ namespace FirstLight.Game.UIElements
 			}
 
 			var equipmentContainer = new VisualElement {name = "equipment-container"};
-			Add(equipmentContainer);
+			_container.Add(equipmentContainer);
 			equipmentContainer.AddToClassList(USS_EQUIPMENT_CONTAINER);
 			{
 				equipmentContainer.Add(_equipmentWeapon = new VisualElement {name = "weapon"});
@@ -110,7 +124,28 @@ namespace FirstLight.Game.UIElements
 			_name.text = name;
 			_level.text = level.ToString();
 
-			// TODO: PFP
+			if (Application.isPlaying)
+			{
+				// pfpUrl =
+				// 	$"https://mainnetprodflghubstorage.blob.core.windows.net/collections/corpos/{Random.Range(1, 888)}.png";
+
+				if (!string.IsNullOrEmpty(pfpUrl))
+				{
+					_pfpRequestHandle = MainInstaller.Resolve<IGameServices>().RemoteTextureService.RequestTexture(
+						pfpUrl,
+						tex =>
+						{
+							if (_pfp != null && _pfp.panel != null)
+							{
+								_pfp.style.backgroundImage = new StyleBackground(tex);
+							}
+						}, null);
+				}
+				else
+				{
+					_pfp.style.backgroundImage = StyleKeyword.Null;
+				}
+			}
 		}
 
 		public void UpdateLevel(int might)

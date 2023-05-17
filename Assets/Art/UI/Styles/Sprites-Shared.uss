@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-shared__avatar-default: url('/Assets/Art/UI/Sprites/Shared/avatar-default.png');
     --sprite-shared__background-currentplayer: url('/Assets/Art/UI/Sprites/Shared/background-currentplayer.png');
     --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
     --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
@@ -32,6 +33,12 @@
     --sprite-shared__progress-battlepass-bpp-bg: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-bg.png');
     --sprite-shared__progress-battlepass-bpp-rewards: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-rewards.png');
     --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
+}
+
+.sprite-shared__avatar-default {
+    background-image: var(--sprite-shared__avatar-default);
+    width: 108px;
+    height: 108px;
 }
 
 .sprite-shared__background-currentplayer {

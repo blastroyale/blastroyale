@@ -87,6 +87,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: af4c5f6c3cf87454080cf2eac58325bf, type: 3}
   - {fileID: 21300000, guid: d49b2a8c0f8344da4a317261f81e6850, type: 3}
   - {fileID: 21300000, guid: 234622ad06622bb46ab4b6618b7a2a6a, type: 3}
+  - {fileID: 21300000, guid: a586a1ae1408749e9b1267b30f1bc628, type: 3}
   - {fileID: 21300000, guid: c91f1aee7012e4686ae8c14fc85514a6, type: 3}
   - {fileID: 21300000, guid: 4809267f509664a1693763b14f4f90c7, type: 3}
   - {fileID: 21300000, guid: 64ec2e9f6d98448fa981fa898a918755, type: 3}
@@ -120,6 +121,7 @@ SpriteAtlas:
   - icon-equipmentcategory-amulet
   - background-stat-dark
   - highlight-leaderboard-localplayer
+  - avatar-default
   - icon-lowconnection
   - icon-special-defaultdash
   - icon-special-aimingairstrike

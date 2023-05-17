@@ -597,7 +597,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 230px;
+    width: 228px;
 }
 
 .death-notification__gradient--killer {
@@ -699,6 +699,18 @@
     margin-bottom: 42px;
 }
 
+.squad-member__container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.squad-member--dead > .squad-member__container {
+    opacity: 0.5;
+}
+
 .squad-member__bg {
     background-image: var(--sprite-match__background-squadmember);
     width: 407px;
@@ -731,6 +743,21 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(77, 25, 87);
+    background-image: var(--sprite-shared__avatar-default);
+}
+
+.squad-member__dead-cross {
+    visibility: hidden;
+    background-image: var(--sprite-match__icon-x-red);
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 21px;
+    top: 30px;
+}
+
+.squad-member--dead .squad-member__dead-cross {
+    visibility: visible;
 }
 
 .squad-member__level {

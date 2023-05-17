@@ -405,7 +405,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d5fdce7e14ab2304093a3fcd1cbc38e0, type: 3}
   - {fileID: 21300000, guid: fef6e38e312e84405ab3c562cac02d0d, type: 3}
   - {fileID: 21300000, guid: 8b7ba78e2985a484eb604578991570fc, type: 3}
-  - {fileID: 21300000, guid: a586a1ae1408749e9b1267b30f1bc628, type: 3}
   - {fileID: 21300000, guid: ce83c8bea7bca44b893b799aca685404, type: 3}
   - {fileID: 21300000, guid: 851991ee848a84b6997cd953ceaa782a, type: 3}
   - {fileID: 21300000, guid: f7f1600fc490043a4b7bfbe992ed1354, type: 3}
@@ -588,7 +587,6 @@ SpriteAtlas:
   - icon-mapmarker
   - pattern-jagged-horizontal
   - button-bpreward
-  - avatar-default
   - glider-falcon
   - icon-close
   - button-long-darkblue

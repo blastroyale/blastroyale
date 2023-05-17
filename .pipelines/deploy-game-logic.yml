@@ -74,6 +74,20 @@ stages:
               echo "##vso[task.setvariable variable=skipDeploy]true"
             fi
           name: CheckIfSkip
+
+          # If auto deploy
+        - ${{ if ne(parameters.autoDeployIfServer, '')}}:   
+          - script: |
+              if [ "$(skipDeploy)" != "true" ]; then
+                echo "##vso[build.updatebuildnumber]$(Build.BuildId)-${{parameters.system}}-GameBuild_$(resources.pipeline.build.runName)"
+              fi
+            name: RenameBuild
+        # If Manual deploy
+        - ${{ else }}:
+          - script: |
+              echo "##vso[build.updatebuildnumber]$(Build.BuildId)-${{parameters.system}}-${{parameters.dockerImage}}"
+            name: RenameBuild
+
       image: ${{ parameters.dockerImage }}
       serviceConnection: AzureRM
       serviceName: game-logic-service

@@ -1,4 +1,6 @@
 using FirstLight.Game.Input;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
@@ -24,6 +26,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private UnityInputScreenControl _special1PressedInput;
 		[SerializeField] private UnityInputScreenControl _specialAimInput;
 
+		private IGameServices _gameServices;
+
 		private WeaponDisplayView _weaponDisplayView;
 		private KillFeedView _killFeedView;
 		private MatchStatusView _matchStatusView;
@@ -42,6 +46,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_gameServices = MainInstaller.Resolve<IGameServices>();
+
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
@@ -53,6 +59,8 @@ namespace FirstLight.Game.Presenters
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
 
+			root.Q<ImageButton>("MenuButton").Required().clicked += OnMenuClicked;
+
 			_movementJoystick.OnMove += _moveDirectionJoystickInput.SendValueToControl;
 			_movementJoystick.OnClick += _moveDownJoystickInput.SendValueToControl;
 			_shootingJoystick.OnMove += _aimDirectionJoystickInput.SendValueToControl;
@@ -63,6 +71,11 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial0Pressed += _special0PressedInput.SendValueToControl;
 			_specialButtonsView.OnSpecial1Pressed += _special1PressedInput.SendValueToControl;
 			_specialButtonsView.OnDrag += _specialAimInput.SendValueToControl;
+		}
+
+		private void OnMenuClicked()
+		{
+			_gameServices.MessageBrokerService.Publish(new QuitGameClickedMessage());
 		}
 
 		[Button]

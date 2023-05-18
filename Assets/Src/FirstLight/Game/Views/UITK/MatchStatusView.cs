@@ -77,6 +77,8 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
 		{
+			if (!current.Entity.IsValid) return;
+
 			UpdatePlayerCounts(QuantumRunner.Default.Game.Frames.Verified);
 		}
 

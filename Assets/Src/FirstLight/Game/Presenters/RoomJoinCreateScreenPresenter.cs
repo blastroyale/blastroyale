@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -14,7 +15,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
+using Button = UnityEngine.UIElements.Button;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
@@ -23,7 +24,6 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Custom Game Creation Menu.
 	/// </summary>
 	public class RoomJoinCreateScreenPresenter : UiToolkitPresenterData<RoomJoinCreateScreenPresenter.StateData>
-		//: AnimatedUiPresenterData<RoomJoinCreateScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -31,9 +31,7 @@ namespace FirstLight.Game.Presenters
 			public Action PlayClicked;
 		}
 		
-		[SerializeField, Required] private Button _createDeathmatchRoomButton;
-		[SerializeField, Required] private Button _joinRoomButton;
-		[SerializeField, Required] private Button _playtestButton;
+		
 		[SerializeField, Required] private TMP_Dropdown _gameModeSelection;
 		[SerializeField, Required] private TMP_Dropdown _mapSelection;
 		[SerializeField, Required] private TMP_Dropdown[] _mutatorsSelections;
@@ -41,51 +39,49 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
+		private List<QuantumGameModeConfig> _quantumGameModeConfigs;
 		private LocalizedDropDown _gameModeDropDown;
+		private LocalizedDropDown _mapDropDown;
+		private LocalizedDropDown [] _mutatorModeDropDown;
+		private Button _joinRoomButton;
+		private Button _playtestButton;
+		private Button _createRoomButton;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-			/*
-			_gameModeSelection.onValueChanged.AddListener(FillMapSelectionList);
-			FillGameModesSelectionList();
-			FillMapSelectionList(0);
-			FillMutatorsSelectionList();
-			
-			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
-			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
-			if (Debug.isDebugBuild)
-			{
-				_playtestButton.gameObject.SetActive(true);
-				_playtestButton.onClick.AddListener(PlaytestClicked);
-			}
-			else
-			{
-				Destroy(_playtestButton);
-			}
-
-			SetPreviouslyUsedValues();
-			*/
 		}
 
 		protected override void QueryElements(VisualElement root)
 		{
-			Debug.Log("Query Elements!");
-			
-			// _collectionList = root.Q<ListView>("CollectionList").Required();
-			// _collectionList.DisableScrollbars();
-
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.CloseClicked;
 			header.homeClicked += Data.CloseClicked;
 
+			_playtestButton = root.Q<Button>("PlaytestButton");
+			_playtestButton.clicked += PlaytestClicked;
+			_playtestButton.SetEnabled(Debug.isDebugBuild);
+			
+			_joinRoomButton = root.Q<Button>("JoinButton");
+			_joinRoomButton.clicked += JoinRoomClicked;
+			
+			_createRoomButton = root.Q<Button>("CreateButton");
+			_createRoomButton.clicked += CreateRoomClicked;
+			
 			_gameModeDropDown = root.Q<LocalizedDropDown>("GameMode").Required();
+			// _gameModeSelection.onValueChanged.AddListener(FillMapSelectionList);
+			_mapDropDown = root.Q<LocalizedDropDown>("Map").Required();
+
+			_mutatorModeDropDown = new LocalizedDropDown[2];
+			_mutatorModeDropDown[0] = root.Q<LocalizedDropDown>("Mutator1").Required();
+			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
 			
 			FillGameModesSelectionList();
+			FillMapSelectionList(0);
+			FillMutatorsSelectionList();
 
-			
+			SetPreviouslyUsedValues();
 		}
 
 		private void SetPreviouslyUsedValues()
@@ -93,11 +89,13 @@ namespace FirstLight.Game.Presenters
 			var lastUsedOptions = _gameDataProvider.AppDataProvider.LastCustomGameOptions;
 			if (lastUsedOptions != null)
 			{
+				
 				if (_gameModeSelection.options.Count > lastUsedOptions.GameModeIndex)
 				{
 					_gameModeSelection.value = lastUsedOptions.GameModeIndex;
+					_gameModeDropDown.index = lastUsedOptions.GameModeIndex;
 				}
-
+				
 				if (lastUsedOptions.Mutators?.Count > 0)
 				{
 					SetMutatorsList(lastUsedOptions.Mutators);
@@ -105,8 +103,10 @@ namespace FirstLight.Game.Presenters
 
 				if (lastUsedOptions.MapIndex < _mapSelection.options.Count)
 				{
-					_mapSelection.value = lastUsedOptions.MapIndex;
+					// _mapSelection.value = lastUsedOptions.MapIndex;
+					_mapDropDown.index = lastUsedOptions.MapIndex;
 				}
+				
 			}
 		}
 
@@ -224,6 +224,19 @@ namespace FirstLight.Game.Presenters
 		{
 			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
 
+			foreach (var mutatorsSelection in _mutatorModeDropDown)
+			{
+				var menuChoices = new List<string>();
+				
+				foreach (var mutatorConfig in mutatorConfigs)
+				{
+					menuChoices.Add(mutatorConfig.Id);
+				}
+
+				mutatorsSelection.choices = menuChoices;
+			}
+
+			/*
 			foreach (var mutatorsSelection in _mutatorsSelections)
 			{
 				mutatorsSelection.options.Clear();
@@ -236,38 +249,34 @@ namespace FirstLight.Game.Presenters
 
 				mutatorsSelection.RefreshShownValue();
 			}
+			*/
 		}
 		
 		private void FillMapSelectionList(int gameModeSelectionIndex)
 		{
-			_mapSelection.options.Clear();
-
-			var gameModeConfig = ((GameModeDropdownMenuOption) _gameModeSelection.options[gameModeSelectionIndex]).GameModeConfig;
-
+			var gameModeConfig =  _quantumGameModeConfigs[gameModeSelectionIndex];
+			var menuChoices = new List<string>();
+			
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
 				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
 				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
 					_mapSelection.options.Add(new MapDropdownMenuOption(mapId.GetLocalization(), mapConfig));
+					menuChoices.Add(mapId.GetLocalization());
 				}
 			}
 
 			_mapSelection.RefreshShownValue();
+			_mapDropDown.choices = menuChoices;
 		}
 		
 		private void FillGameModesSelectionList()
 		{
-			Debug.Log("Fill Game Modes");
-			
-			// _gameModeDropDown.choices.Clear();
-			// _gameModeDropDown.choices = new List<string>();
-
 			var menuChoices = new List<string>();
-		
-			// _gameModeSelection.options.Clear();
-
 			var gameModeConfigs = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
+
+			_quantumGameModeConfigs = new List<QuantumGameModeConfig>();
 
 			foreach (var gameModeConfig in gameModeConfigs)
 			{
@@ -276,15 +285,11 @@ namespace FirstLight.Game.Presenters
 					continue;
 				}
 				
+				_quantumGameModeConfigs.Add(gameModeConfig);
 				menuChoices.Add(gameModeConfig.Id);
-				
-				// _gameModeDropDown.labelElement.Add(gameModeConfig.Id);
-				// _gameModeSelection.options.Add(new GameModeDropdownMenuOption(gameModeConfig.Id, gameModeConfig));
 			}
 
 			_gameModeDropDown.choices = menuChoices;
-
-			// _gameModeSelection.RefreshShownValue();
 		}
 
 		private class GameModeDropdownMenuOption : TMP_Dropdown.OptionData

@@ -938,6 +938,7 @@ namespace I2.Loc
 			public static string PlayGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayGame"); } }
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
 			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
+			public static string Playtest 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Playtest"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
 			public static string PrepareForActionBasic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionBasic"); } }
 			public static string PrepareForActionTimer 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionTimer"); } }
@@ -2440,6 +2441,7 @@ namespace I2.Loc
 		    public const string PlayGame = "MainMenu/PlayGame";
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
 		    public const string PlayfabError = "MainMenu/PlayfabError";
+		    public const string Playtest = "MainMenu/Playtest";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
 		    public const string PrepareForActionBasic = "MainMenu/PrepareForActionBasic";
 		    public const string PrepareForActionTimer = "MainMenu/PrepareForActionTimer";

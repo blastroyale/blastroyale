@@ -14,77 +14,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Level: 1
-    LevelUpXP: 100
-    RewardId: 12
-    RewardValue: 2130
-    Systems: 
+    LevelUpXP: 0
+    Rewards:
+      _keyData: 
+      _valueData: 
+    Systems: 000000000100000006000000
   - Level: 2
-    LevelUpXP: 200
-    RewardId: 12
-    RewardValue: 2210
+    LevelUpXP: 100
+    Rewards:
+      _keyData: 3d0000000c000000
+      _valueData: 6400000019000000
     Systems: 
   - Level: 3
-    LevelUpXP: 300
-    RewardId: 12
-    RewardValue: 1500
-    Systems: 
+    LevelUpXP: 150
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 96000000
+    Systems: 09000000
   - Level: 4
-    LevelUpXP: 300
-    RewardId: 12
-    RewardValue: 211
-    Systems: 
+    LevelUpXP: 200
+    Rewards:
+      _keyData: 3d0000000c000000
+      _valueData: c800000032000000
+    Systems: 02000000
   - Level: 5
-    LevelUpXP: 300
-    RewardId: 12
-    RewardValue: 5000
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
+    Systems: 0a000000
   - Level: 6
-    LevelUpXP: 900
-    RewardId: 12
-    RewardValue: 221
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 0c000000
+      _valueData: 64000000
+    Systems: 0300000004000000
   - Level: 7
-    LevelUpXP: 1100
-    RewardId: 12
-    RewardValue: 221
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 0c000000
+      _valueData: 64000000
+    Systems: 0d000000
   - Level: 8
-    LevelUpXP: 1000
-    RewardId: 12
-    RewardValue: 10000
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 3d000000
+      _valueData: f4010000
+    Systems: 08000000
   - Level: 9
-    LevelUpXP: 2000
-    RewardId: 12
-    RewardValue: 231
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 64000000
+    Systems: 05000000
   - Level: 10
-    LevelUpXP: 1000
-    RewardId: 12
-    RewardValue: 231
-    Systems: 
+    LevelUpXP: 400
+    Rewards:
+      _keyData: 3d000000
+      _valueData: e8030000
+    Systems: 0b000000
   - Level: 11
-    LevelUpXP: 2000
-    RewardId: 12
-    RewardValue: 200
-    Systems: 
+    LevelUpXP: 600
+    Rewards:
+      _keyData: 3d000000
+      _valueData: e8030000
+    Systems: 0b000000
   - Level: 12
-    LevelUpXP: 2000
-    RewardId: 12
-    RewardValue: 241
-    Systems: 
+    LevelUpXP: 800
+    Rewards:
+      _keyData: 3d000000
+      _valueData: d0070000
+    Systems: 07000000
   - Level: 13
-    LevelUpXP: 2000
-    RewardId: 12
-    RewardValue: 251
-    Systems: 
-  - Level: 14
-    LevelUpXP: 2000
-    RewardId: 12
-    RewardValue: 50000
-    Systems: 
-  - Level: 15
-    LevelUpXP: 5000
-    RewardId: 12
-    RewardValue: 251
+    LevelUpXP: 1500
+    Rewards:
+      _keyData: 3d0000000c000000
+      _valueData: d0070000c8000000
     Systems: 

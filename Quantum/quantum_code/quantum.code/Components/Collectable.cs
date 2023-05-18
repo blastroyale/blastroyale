@@ -7,9 +7,10 @@ namespace Quantum
 		/// <summary>
 		/// Drops a consumable of the given <paramref name="gameId"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isWeapon)
+		public static void DropConsumable(Frame f, GameId gameId, FPVector3 position, int angleDropStep, bool isConsiderNavMesh,
+										  bool isWeapon)
 		{
-			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
+			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh);
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
@@ -20,8 +21,8 @@ namespace Quantum
 		/// <summary>
 		/// Drops an equipment item (weapon / gear) from <paramref name="equipment"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep,
-		                                 PlayerRef owner = new PlayerRef())
+		public static void DropEquipment(Frame f, Equipment equipment, FPVector3 position, int angleDropStep, bool isConsiderNavMesh,
+										 PlayerRef owner = new PlayerRef())
 		{
 			if (equipment.IsDefaultItem())
 			{
@@ -29,7 +30,7 @@ namespace Quantum
 				return;
 			}
 
-			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep);
+			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
@@ -44,7 +45,7 @@ namespace Quantum
 			return CollectorsEndTime[playerRef] > FP._0;
 		}
 
-		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep)
+		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh)
 		{
 			var angleLevel = (angleDropStep / Constants.DROP_AMOUNT_ANGLES);
 			var angleGranularity = FP.PiTimes2 / Constants.DROP_AMOUNT_ANGLES;
@@ -52,7 +53,12 @@ namespace Quantum
 			                                 (angleGranularity * angleDropStep) +
 			                                 (angleLevel % 2) * angleGranularity / 2);
 			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS * (angleLevel + 1)).XOY + position;
-
+			
+			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition, NavMeshRegionMask.Default, true))
+			{
+				return dropPosition;
+			}
+			
 			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS, out var newPosition);
 			return newPosition;
 		}

@@ -5,6 +5,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,6 +17,8 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 		}
+		
+		private const string USS_SKYDIVING = "skydiving";
 
 		[SerializeField] private UnityInputScreenControl _moveDirectionJoystickInput;
 		[SerializeField] private UnityInputScreenControl _moveDownJoystickInput;
@@ -71,6 +74,20 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial0Pressed += _special0PressedInput.SendValueToControl;
 			_specialButtonsView.OnSpecial1Pressed += _special1PressedInput.SendValueToControl;
 			_specialButtonsView.OnDrag += _specialAimInput.SendValueToControl;
+			
+			HideSkydivingElements(true);
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, _ => HideSkydivingElements(false));
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnMenuClicked()
@@ -78,16 +95,9 @@ namespace FirstLight.Game.Presenters
 			_gameServices.MessageBrokerService.Publish(new QuitGameClickedMessage());
 		}
 
-		[Button]
-		public void DebugSpawnFeed()
+		private void HideSkydivingElements(bool hide)
 		{
-			_killFeedView.SpawnDeathNotification("GAMESTERWITHAREALLYLONGNAME", "CUPCAKE");
-		}
-
-		[Button]
-		public void DebugStartCountdown(long warningTime = 5000, long shrinkingTime = 7000)
-		{
-			_matchStatusView.StartCountdown(warningTime, shrinkingTime);
+			Root.EnableInClassList(USS_SKYDIVING, hide);
 		}
 	}
 }

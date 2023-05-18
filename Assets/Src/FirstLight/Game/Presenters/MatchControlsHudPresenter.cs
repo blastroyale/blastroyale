@@ -105,12 +105,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			_matchServices.PlayerInputService.EnableInput();
+			_matchServices.PlayerInputService.Input.Enable();
 		}
 
 		protected override Task OnClosed()
 		{
-			_matchServices.PlayerInputService.DisableInput();
+			_matchServices.PlayerInputService.Input.Disable();
 			return Task.CompletedTask;
 		}
 

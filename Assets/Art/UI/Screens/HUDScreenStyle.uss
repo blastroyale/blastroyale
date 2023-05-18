@@ -18,6 +18,10 @@
     height: 260px;
 }
 
+.skydiving .special-button {
+    display: none;
+}
+
 .special-button--special0 {
     position: absolute;
     right: 267px;
@@ -158,6 +162,10 @@
     height: 250px;
 }
 
+.skydiving .joystick--aim {
+    display: none;
+}
+
 .joystick--free {
     left: initial;
     right: initial;
@@ -290,6 +298,10 @@
     width: 216px;
     height: 193px;
     bottom: 51px;
+}
+
+.skydiving .weapon-display {
+    display: none;
 }
 
 .weapon-display--melee {

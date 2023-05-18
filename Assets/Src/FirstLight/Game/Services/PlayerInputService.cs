@@ -22,16 +22,6 @@ namespace FirstLight.Game.Services
 		/// Enable accessor for the player spell control input 
 		/// </summary>
 		LocalInput Input { get; }
-
-		/// <summary>
-		/// Enable Player spell control input 
-		/// </summary>
-		void EnableInput();
-
-		/// <summary>
-		/// Disable Player spell control input
-		/// </summary>
-		void DisableInput();
 	}
 
 	public class PlayerInputService : IPlayerInputService, MatchServices.IMatchService, LocalInput.IGameplayActions
@@ -50,7 +40,8 @@ namespace FirstLight.Game.Services
 
 		private bool _sentMovementMessage;
 
-		public PlayerInputService(IGameServices gameServices, IMatchServices matchServices, IGameDataProvider dataProvider)
+		public PlayerInputService(IGameServices gameServices, IMatchServices matchServices,
+								  IGameDataProvider dataProvider)
 		{
 			_matchServices = matchServices;
 			_dataProvider = dataProvider;
@@ -62,31 +53,53 @@ namespace FirstLight.Game.Services
 			// TODO: Setup input enable / disable for specials based on current weapon
 		}
 
-		public void EnableInput()
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			Input.Enable();
 			QuantumCallback.SubscribeManual<CallbackPollInput>(this, PollInput);
-		}
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 
-		public void DisableInput()
-		{
-			Input.Disable();
-			QuantumCallback.UnsubscribeListener<CallbackPollInput>(this);
-		}
-
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
-		{
-			EnableInput();
+			if (!isReconnect)
+			{
+				DisableSkydivingControls(true);
+			}
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			DisableInput();
+			Input.Disable();
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		public void Dispose()
 		{
 			Input.Dispose();
+		}
+
+		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
+		{
+			DisableSkydivingControls(false);
+		}
+
+		private void DisableSkydivingControls(bool disable)
+		{
+			if (disable)
+			{
+				Input.Gameplay.Aim.Disable();
+				Input.Gameplay.SpecialAim.Disable();
+				Input.Gameplay.SpecialButton0.Disable();
+				Input.Gameplay.SpecialButton1.Disable();
+				Input.Gameplay.SwitchWeaponButton.Disable();
+			}
+			else
+			{
+				Input.Gameplay.Aim.Enable();
+				Input.Gameplay.SpecialAim.Enable();
+				Input.Gameplay.SpecialButton0.Enable();
+				Input.Gameplay.SpecialButton1.Enable();
+				Input.Gameplay.SwitchWeaponButton.Enable();
+			}
 		}
 
 		public void OnMove(InputAction.CallbackContext context)

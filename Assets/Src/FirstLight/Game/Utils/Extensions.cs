@@ -420,7 +420,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
 		}
 
 		/// <summary>
@@ -433,7 +433,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
 		}
 
 		public static void SetProperty(this Room room, string prop, object value)

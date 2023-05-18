@@ -271,8 +271,6 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var gameModeConfig in gameModeConfigs)
 			{
-				Debug.Log("Game Mode Config: " + gameModeConfig.Id);
-				
 				if (gameModeConfig.IsDebugOnly && !Debug.isDebugBuild)
 				{
 					continue;
@@ -281,7 +279,6 @@ namespace FirstLight.Game.Presenters
 				menuChoices.Add(gameModeConfig.Id);
 				
 				// _gameModeDropDown.labelElement.Add(gameModeConfig.Id);
-				
 				// _gameModeSelection.options.Add(new GameModeDropdownMenuOption(gameModeConfig.Id, gameModeConfig));
 			}
 

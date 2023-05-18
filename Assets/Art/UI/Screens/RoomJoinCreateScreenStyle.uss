@@ -30,10 +30,46 @@
 .room-dropdown .unity-base-popup-field__text {
     flex-grow: 1;
     flex-shrink: 0;
-    color: rgb(255, 255, 255);
+    color: black;
     font-size: 50px;
     align-self: center;
 }
+
+.room-dropdown .unity-base-dropdown__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: black;
+    height: 100;
+    font-size: 50px;
+    align-self: center;
+}
+
+.room-dropdown .unity-base-dropdown__label:hover {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: black;
+    height: 100;
+    font-size: 50px;
+    align-self: center;
+}
+
+
+.room-dropdown .unity-base-popup-field__active {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: black;
+    font-size: 50px;
+    align-self: center;
+}
+
+.unity-base-dropdown__item  {
+    font-size: 50px;
+}
+
+.unity-base-dropdown__item :hover {
+    font-size: 50px;
+}
+
 
 .room-dropdown .unity-base-field__input {
     flex-grow: 1;

@@ -10,7 +10,8 @@ namespace Quantum
 		Speed,
 		HealthPerSeconds,
 		AbsoluteAccuracy,
-		HammerTime
+		HammerTime,
+		ForceLevelPlayingField,
 	}
 
 	[Serializable]

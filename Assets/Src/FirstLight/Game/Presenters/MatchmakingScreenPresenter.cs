@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -322,6 +324,9 @@ namespace FirstLight.Game.Presenters
 			}
 
 			InitSkydiveSpawnMapData();
+
+			var image = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false, true);
+			_mapImage.style.backgroundImage = new StyleBackground(image);
 		}
 
 		private void InitSkydiveSpawnMapData()

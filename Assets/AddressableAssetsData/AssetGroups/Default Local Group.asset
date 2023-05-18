@@ -70,11 +70,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d1a12da34601b469c887d3f4e0c245e8
-    m_Address: Scenes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e8d470cf8919e4bb78638804bc4397ba
     m_Address: Maps
     m_ReadOnly: 0
@@ -93,6 +88,31 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf2e71bde4a694081a6c35be5418d3e2
     m_Address: VFX/WeaponAim.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56f00c6dcef50ec48a931a333df3cc21
+    m_Address: Scenes/BRGenesis.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 716196f43d523334481ac4ba581947b7
+    m_Address: Scenes/FtueDeck.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fc05c78bb0518349b009b01f360d673
+    m_Address: Scenes/FtueMiniMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f318fba89b3c7cf4ab1ae49325ca033d
+    m_Address: Scenes/MainMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 322ba97b8db6d4b29a57bbe15ca381c8
+    m_Address: Scenes/TestScene.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -61,7 +61,7 @@ namespace Quantum
 				{
 					if(item.IsInGroup(GameIdGroup.Equipment))
 					{
-						var equipment = Equipment.Create(item, overrideComponent->Rarity, 1);
+						var equipment = Equipment.Create(f, item, overrideComponent->Rarity, 1);
 						Collectable.DropEquipment(f, equipment, chestPosition, angleStep++);
 
 					} else if (item.IsInGroup(GameIdGroup.Consumable))
@@ -216,25 +216,23 @@ namespace Quantum
 			var botLoadout = new List<Equipment>();
 			if (f.Unsafe.TryGetPointer<BotCharacter>(playerEntity, out var botCharacter) && botCharacter->LoadoutGearNumber > 0)
 			{
-				var medianRarity = gameContainer->DropPool.MedianRarity;
+				var gearRarity = botCharacter->LoadoutRarity;
 				var helmetsList = new List<GameId>(GameIdGroup.Helmet.GetIds());
-				var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
-				var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
-				var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
-
-				
-				botLoadout.Add(Equipment.Create(helmetsList[f.RNG->Next(0, helmetsList.Count)], medianRarity, 1));
+				botLoadout.Add(Equipment.Create(f, helmetsList[f.RNG->Next(0, helmetsList.Count)], gearRarity, 1));
 				if (botCharacter->LoadoutGearNumber > 1)
 				{
-					botLoadout.Add(Equipment.Create(shieldsList[f.RNG->Next(0, shieldsList.Count)], medianRarity, 1));
+					var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
+					botLoadout.Add(Equipment.Create(f, shieldsList[f.RNG->Next(0, shieldsList.Count)], gearRarity, 1));
 				}
 				if (botCharacter->LoadoutGearNumber > 2)
 				{
-					botLoadout.Add(Equipment.Create(armorsList[f.RNG->Next(0, armorsList.Count)], medianRarity, 1));
+					var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
+					botLoadout.Add(Equipment.Create(f, armorsList[f.RNG->Next(0, armorsList.Count)], gearRarity, 1));
 				}
 				if (botCharacter->LoadoutGearNumber > 3)
 				{
-					botLoadout.Add(Equipment.Create(amuletsList[f.RNG->Next(0, amuletsList.Count)], medianRarity, 1));
+					var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
+					botLoadout.Add(Equipment.Create(f, amuletsList[f.RNG->Next(0, amuletsList.Count)], gearRarity, 1));
 				}
 			}
 			
@@ -255,8 +253,7 @@ namespace Quantum
 					// There are items in the pool to drop
 					if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
 						!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) &&
-						!gameContainer->DropPool.IsPoolEmpty &&
-						!isBot)
+						!gameContainer->DropPool.IsPoolEmpty)
 					{
 						var weaponItem = hasLoadoutWeapon ? *loadoutWeapon : gameContainer->GenerateNextWeapon(f);
 

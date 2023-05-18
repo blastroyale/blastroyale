@@ -181,7 +181,7 @@ MonoBehaviour:
       BotsTeamOverride: 0
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
-      CompletionStrategy: 1
+      CompletionStrategy: 0
       CompletionKillCount: 0
       AllowEarlyRewards: 1
       IsDebugOnly: 1

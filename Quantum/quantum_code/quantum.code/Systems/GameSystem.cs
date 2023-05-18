@@ -34,6 +34,7 @@ namespace Quantum.Systems
 			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
 				case GameCompletionStrategy.Never:
+					component->TargetProgress = uint.MaxValue;
 					break;
 				case GameCompletionStrategy.EveryoneDead:
 					// Set after AllPlayersJoined
@@ -119,7 +120,7 @@ namespace Quantum.Systems
 				{
 					var index = f.RNG->Next(0, offPool.Count);
 
-					equipment = Equipment.Create(offPool[index], EquipmentRarity.Common, 1);
+					equipment = Equipment.Create(f, offPool[index], EquipmentRarity.Common, 1);
 
 					if (offPool.Count > 1)
 					{

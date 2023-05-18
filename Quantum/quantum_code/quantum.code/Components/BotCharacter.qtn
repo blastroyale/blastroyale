@@ -26,6 +26,8 @@ component BotCharacter
 	FPVector3 StuckDetectionPosition;
 	Int32 TeamSize;
 	entity_ref RandomTeammate;
+	entity_ref BlacklistedMoveTarget;
+	bool SpeedResetAfterLanding;
 	
 	// How far the bot can see (square value)
 	// Set to -1 to allow a bot fully cheat and don't check range
@@ -33,36 +35,36 @@ component BotCharacter
 	
 	// [0;100] where 0 is "never care" and 100 is "look for Armour even with a slight loss"
 	// Formula is "IsLookForArmour = RNG(0;1) < CLAMP01((1 - CurrentArmour/MaxArmour) * LowArmourSensitivity)"
-	FP LowArmourSensitivity;
+	// FP LowArmourSensitivity;
 	
 	// [0;100] where 0 is "never care" and 100 is "look for HP even with a slight loss"
 	// Formula is "IsLookForHp = RNG(0;1) < CLAMP01((1 - CurrentHP/MaxHP) * LowHPSensitivity)"
-	FP LowHealthSensitivity;
+	// FP LowHealthSensitivity;
 	
 	// [0;100] where 0 is "never care" and 100 is "look for Ammo even with a bit less of maximum"
 	// Formula is "IsLookForAmmo = RNG(0;1) < CLAMP01((1 - CurrentAmmo/MaxAmmo) * LowAmmoSensitivity)"
-	FP LowAmmoSensitivity;
+	// FP LowAmmoSensitivity;
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
-	FP ChanceToSeekWeapons;
+	// FP ChanceToSeekWeapons;
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
-	FP ChanceToSeekEnemies;
+	// FP ChanceToSeekEnemies;
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
-	FP ChanceToSeekReplenishSpecials;
+	// FP ChanceToSeekReplenishSpecials;
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
-	FP ChanceToSeekRage;
+	// FP ChanceToSeekRage;
 	
 	// [0;1] where 0 is "never abandon" and 1 is "always abandon" which will result in a bot not shooting at all
-	FP ChanceToAbandonTarget;
+	// FP ChanceToAbandonTarget;
 	
 	// [0;1] where 0 is "be as close as possible to enemy" and 1 is "keep enemy at maximum range"
-	FP CloseFightIntolerance;
+	// FP CloseFightIntolerance;
 	
 	// Determines the Wander distance
-	FP WanderRadius;
+	// FP WanderRadius;
 	
 	// Determines how inaccurate the bot is in its aiming where 0 is the perfect accuracy
 	UInt32 AccuracySpreadAngle;
@@ -70,18 +72,21 @@ component BotCharacter
 	// [0;1] where 0 is "never use" and 1 is "always use"
 	FP ChanceToUseSpecial;
 	
-	// Random deviation up to this value from the center of aiming
+	// Random deviation up to this value from the center of aiming (used inside the code of specials)
 	FP SpecialAimingDeviation;
 	
 	// [0;1] where 0 is "try to stay in the center of the shrinking area"
 	// and 1 is "care about shrinking circle only when on the edge of it"
-	FP ShrinkingCircleRiskTolerance;
+	// FP ShrinkingCircleRiskTolerance;
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
-	FP ChanceToSeekChests;
+	// FP ChanceToSeekChests;
 	
 	// Defines how many categories of gear a bot will get from crates 
 	UInt32 LoadoutGearNumber;
+	
+	// Defines the rarity of equipment a bot gets in their loadout 
+	EquipmentRarity LoadoutRarity;
 	
 	// This setting limits a distance from which bots will aim/shoot
 	FP MaxAimingRange;
@@ -94,11 +99,9 @@ component BotCharacter
 	
 	// Spawn with player
 	bool SpawnWithPlayer;
-
+	
 	FP DamageTakenMultiplier;
-    
-    FP DamageDoneMultiplier;
-    
+	FP DamageDoneMultiplier;
 }
 
 synced event OnDummyCharacterKilled

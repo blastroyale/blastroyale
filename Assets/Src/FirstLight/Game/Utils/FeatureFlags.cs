@@ -153,7 +153,20 @@ namespace FirstLight.Game.Utils
 		/// Should game fetch remote web3 collections
 		/// </summary>
 		public static bool REMOTE_COLLECTIONS = false;
+
+		/// <summary>
+		/// Checks if quantum preloads all its assets.
+		/// Causes loading slowdown.
+		/// </summary>
+		public static bool PRELOAD_QUANTUM_ASSETS = false;
 	
+		/// <summary>
+		/// Can the client record frame snapshots to be restored when server do not know the game anymore ?
+		/// Default disabled as this is not good practice for the live game as we have a server
+		/// This is mainly useful when you don't have a quantum server - but we cant afford to maintain this feature.
+		/// </summary>
+		public static bool RESTORE_SNAPSHOT_GAMES = false;
+		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
@@ -214,6 +227,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("DISPLAY_SQUADS_BUTTON", overrideData, out var displaySquadsButton))
 			{
 				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
+			}
+			
+			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
+			{
+				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
 			}
 		}
 

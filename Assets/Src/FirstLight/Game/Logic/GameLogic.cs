@@ -22,7 +22,7 @@ namespace FirstLight.Game.Logic
 		/// Initializes the Game Logic states to its default values
 		/// </summary>
 		void Init();
-		
+
 		/// <summary>
 		/// Reinitializes the Game Logic states to its default values, and copies over any relevant values that would be
 		/// otherwise lost by doing a simple init. E.g. copying over observable listeners from already initialized
@@ -30,7 +30,7 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void ReInit();
 	}
-	
+
 	/// <summary>
 	/// Provides access to all game's data.
 	/// This interface provides the data with view only permissions
@@ -39,23 +39,31 @@ namespace FirstLight.Game.Logic
 	{
 		/// <inheritdoc cref="IAppDataProvider"/>
 		IAppDataProvider AppDataProvider { get; }
+
 		/// <inheritdoc cref="IUniqueIdDataProvider"/>
 		IUniqueIdDataProvider UniqueIdDataProvider { get; }
+
 		/// <inheritdoc cref="IRngDataProvider"/>
 		IRngDataProvider RngDataProvider { get; }
+
 		/// <inheritdoc cref="ICurrencyDataProvider"/>
 		ICurrencyDataProvider CurrencyDataProvider { get; }
+
 		/// <inheritdoc cref="IResourceDataProvider"/>
 		IResourceDataProvider ResourceDataProvider { get; }
+
 		/// <inheritdoc cref="IPlayerDataProvider"/>
 		IPlayerDataProvider PlayerDataProvider { get; }
+
 		/// <inheritdoc cref="IEquipmentDataProvider"/>
 		IEquipmentDataProvider EquipmentDataProvider { get; }
+
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardDataProvider RewardDataProvider { get; }
+
 		/// <inheritdoc cref="IBattlePassDataProvider"/>
 		IBattlePassDataProvider BattlePassDataProvider { get; }
-		
+
 		ICollectionDataProvider CollectionDataProvider { get; }
 	}
 
@@ -68,32 +76,43 @@ namespace FirstLight.Game.Logic
 	{
 		/// <inheritdoc cref="IMessageBrokerService"/>
 		IMessageBrokerService MessageBrokerService { get; }
+
 		/// <inheritdoc cref="ITimeService"/>
 		ITimeService TimeService { get; }
+
 		/// <inheritdoc cref="IConfigsProvider"/>
 		IConfigsProvider ConfigsProvider { get; }
-		
+
 		/// <inheritdoc cref="IAppLogic"/>
 		IAppLogic AppLogic { get; }
+
 		/// <inheritdoc cref="IUniqueIdLogic"/>
 		IUniqueIdLogic UniqueIdLogic { get; }
+
 		/// <inheritdoc cref="IRngLogic"/>
 		IRngLogic RngLogic { get; }
+
 		/// <inheritdoc cref="ICurrencyLogic"/>
 		ICurrencyLogic CurrencyLogic { get; }
+
 		/// <inheritdoc cref="IResourceLogic"/>
 		IResourceLogic ResourceLogic { get; }
+
 		/// <inheritdoc cref="IPlayerLogic"/>
 		IPlayerLogic PlayerLogic { get; }
+
 		/// <inheritdoc cref="IEquipmentLogic"/>
 		IEquipmentLogic EquipmentLogic { get; }
+
 		/// <inheritdoc cref="IRewardLogic"/>
 		IRewardLogic RewardLogic { get; }
+
 		/// <inheritdoc cref="IBattlePassLogic"/>
 		IBattlePassLogic BattlePassLogic { get; }
+
 		/// <inheritdoc cref="ILiveopsLogic"/>
 		ILiveopsLogic LiveopsLogic { get; }
-		
+
 		ICollectionLogic CollectionLogic { get; }
 	}
 
@@ -101,36 +120,46 @@ namespace FirstLight.Game.Logic
 	public class GameLogic : IGameLogic, IGameLogicInitializer
 	{
 		private List<IGameLogicInitializer> _logicInitializers;
-		
+
 		/// <inheritdoc />
 		public IMessageBrokerService MessageBrokerService { get; }
-		
+
 		/// <inheritdoc />
 		public ITimeService TimeService { get; }
-		
+
 		/// <inheritdoc />
 		public IAnalyticsService AnalyticsService { get; }
 
 		/// <inheritdoc />
 		public IConfigsProvider ConfigsProvider { get; }
+
 		/// <inheritdoc />
 		public IAppDataProvider AppDataProvider => AppLogic;
+
 		/// <inheritdoc />
 		public IUniqueIdDataProvider UniqueIdDataProvider => UniqueIdLogic;
+
 		/// <inheritdoc />
 		public IRngDataProvider RngDataProvider => RngLogic;
+
 		/// <inheritdoc />
 		public ICurrencyDataProvider CurrencyDataProvider => CurrencyLogic;
+
 		/// <inheritdoc />
 		public IResourceDataProvider ResourceDataProvider => ResourceLogic;
+
 		/// <inheritdoc />
 		public IPlayerDataProvider PlayerDataProvider => PlayerLogic;
+
 		/// <inheritdoc />
 		public IEquipmentDataProvider EquipmentDataProvider => EquipmentLogic;
+
 		/// <inheritdoc />
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
+
 		/// <inheritdoc />
 		public IBattlePassDataProvider BattlePassDataProvider => BattlePassLogic;
+
 		/// <inheritdoc />
 		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
@@ -138,12 +167,16 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
+
 		/// <inheritdoc />
 		public IUniqueIdLogic UniqueIdLogic { get; }
+
 		/// <inheritdoc />
 		public IRngLogic RngLogic { get; }
+
 		/// <inheritdoc />
 		public ICurrencyLogic CurrencyLogic { get; }
+
 		/// <inheritdoc />
 		public IResourceLogic ResourceLogic { get; }
 
@@ -152,17 +185,20 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IEquipmentLogic EquipmentLogic { get; }
+
 		/// <inheritdoc />
 		public IRewardLogic RewardLogic { get; }
+
 		/// <inheritdoc />
 		public IBattlePassLogic BattlePassLogic { get; }
+
 		/// <inheritdoc />
 		public ILiveopsLogic LiveopsLogic { get; }
-		
+
 		public ICollectionLogic CollectionLogic { get; }
-		
-		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
-		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
+
+		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider,
+						 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
 		{
 			MessageBrokerService = messageBroker;
 			TimeService = timeService;
@@ -179,9 +215,8 @@ namespace FirstLight.Game.Logic
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 			LiveopsLogic = new LiveopsLogic(this, dataProvider);
 			CollectionLogic = new CollectionLogic(this, dataProvider);
-
 			_logicInitializers = new List<IGameLogicInitializer>();
-			
+
 			_logicInitializers.Add(AppLogic);
 			_logicInitializers.Add(UniqueIdLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CurrencyLogic as IGameLogicInitializer);
@@ -193,7 +228,7 @@ namespace FirstLight.Game.Logic
 			_logicInitializers.Add(LiveopsLogic as IGameLogicInitializer);
 			_logicInitializers.Add(CollectionLogic as IGameLogicInitializer);
 		}
-		
+
 		/// <summary>
 		/// Initializes the local-only Game Logic state to it's default values
 		/// </summary>
@@ -218,12 +253,12 @@ namespace FirstLight.Game.Logic
 			{
 				logicInitializer.ReInit();
 			}
-			
+
 			MessageBrokerService.Publish(new DataReinitializedMessage());
 		}
 	}
-	
-	
+
+
 	/// <summary>
 	/// Exposes blast royale typed services into generic services container
 	/// </summary>
@@ -234,17 +269,17 @@ namespace FirstLight.Game.Logic
 			container.Add(services.MessageBrokerService);
 			return container;
 		}
-		
+
 		public static IMessageBrokerService MessageBrokerService(this ServiceContainer c)
 		{
 			return c.Get<IMessageBrokerService>();
 		}
 	}
-	
+
 	/// <summary>
 	/// Exposes blast royale typed logic objects from generic container
 	/// </summary>
-	public static class BlastRoyaleLogicContainer 
+	public static class BlastRoyaleLogicContainer
 	{
 		public static LogicContainer Build(this LogicContainer container, IGameLogic logic)
 		{
@@ -257,6 +292,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.UniqueIdLogic);
 			container.Add(logic.LiveopsLogic);
 			container.Add(logic.CollectionLogic);
+			container.Add(logic.RngLogic);
 			return container;
 		}
 
@@ -269,6 +305,6 @@ namespace FirstLight.Game.Logic
 		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
 		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();
 		public static ICollectionLogic CollectionLogic(this LogicContainer c) => c.Get<ICollectionLogic>();
+		public static IRngLogic RngLogic(this LogicContainer c) => c.Get<IRngLogic>();
 	}
-
 }

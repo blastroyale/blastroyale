@@ -597,7 +597,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 228px;
+    width: 229px;
 }
 
 .death-notification__gradient--killer {
@@ -691,6 +691,12 @@
 .match-status__playercount {
     width: 50px;
     -unity-text-align: upper-center;
+    margin-left: 10px;
+    margin-right: 12px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .squad-member {

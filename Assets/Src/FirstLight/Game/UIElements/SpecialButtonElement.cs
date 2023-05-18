@@ -30,6 +30,8 @@ namespace FirstLight.Game.UIElements
 		private bool _draggable;
 		private bool _onCooldown;
 
+		private IVisualElementScheduledItem _disableScheduledItem;
+
 		/// <summary>
 		/// Triggered with 0f when button is pressed and with 1f when button is released.
 		/// </summary>
@@ -64,7 +66,7 @@ namespace FirstLight.Game.UIElements
 
 			_cooldown.Add(_cooldownLabel = new Label("14") {name = "cooldown-label"});
 
-			SetSpecial(GameId.SpecialAimingGrenade, true);
+			SetSpecial(GameId.SpecialAimingGrenade, true, 0);
 
 			if (Application.isPlaying)
 			{
@@ -76,7 +78,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the current special visuals and behaviour (if it's draggable or not).
 		/// </summary>
-		public void SetSpecial(GameId special, bool draggable)
+		public void SetSpecial(GameId special, bool draggable, long availableIn)
 		{
 			if (special == GameId.TutorialGrenade)
 			{
@@ -89,6 +91,16 @@ namespace FirstLight.Game.UIElements
 				special.ToString().ToLowerInvariant().Replace("special", "")));
 
 			EnableInClassList(USS_DRAGGABLE, draggable);
+
+			_disableScheduledItem?.Pause();
+			if (availableIn > 0)
+			{
+				DisableFor(availableIn, null);
+			}
+			else if (_onCooldown)
+			{
+				DisableCooldown();
+			}
 		}
 
 		/// <summary>
@@ -96,31 +108,40 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void DisableFor(long time, Action onEnable)
 		{
-			var seconds = (int) (time / 1000);
+			var seconds = Math.Max(1, (int) (time / 1000));
 
 			_onCooldown = true;
 			_cooldown.SetVisibility(true);
 			_cooldownLabel.text = seconds.ToString();
 
-			// Don't think we need to save this scheduled item
-			schedule.Execute(() =>
+			_disableScheduledItem = schedule.Execute(() =>
 				{
 					if (seconds > 0)
 					{
+						if (seconds <= 3)
+						{
+							_cooldownLabel.AnimatePing(1.2f);
+						}
+
 						_cooldownLabel.text = seconds.ToString();
-						seconds--;
-						_cooldownLabel.AnimatePing(1.2f);
 					}
 					else
 					{
-						_cooldownLabel.text = string.Empty;
-						_onCooldown = false;
-						_cooldown.SetVisibility(false);
+						DisableCooldown();
 						onEnable?.Invoke();
 					}
+
+					seconds--;
 				})
 				.Every(1000)
 				.Until(() => seconds < 0);
+		}
+
+		private void DisableCooldown()
+		{
+			_cooldownLabel.text = string.Empty;
+			_onCooldown = false;
+			_cooldown.SetVisibility(false);
 		}
 
 		private void OnAttachToPanel(AttachToPanelEvent evt)

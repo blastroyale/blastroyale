@@ -53,15 +53,15 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
-			UpdateSpecials(callback.WeaponSlot);
+			UpdateSpecials(callback.Game.Frames.Predicted, callback.WeaponSlot);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			UpdateSpecials(pc.WeaponSlots[pc.CurrentWeaponSlot]);
+			UpdateSpecials(callback.Game.Frames.Predicted, pc.WeaponSlots[pc.CurrentWeaponSlot]);
 		}
-		
+
 		private void OnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			// TODO: Disable input. Here?
@@ -78,19 +78,22 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void UpdateSpecials(WeaponSlot currentSlot)
+		private void UpdateSpecials(Frame f, WeaponSlot currentSlot)
 		{
 			var special0 = currentSlot.Specials[0];
-			_special0Button.SetSpecial(special0.SpecialId, special0.IsAimable);
+			_special0Button.SetSpecial(special0.SpecialId, special0.IsAimable,
+				Math.Max(0L, (long) (special0.AvailableTime - f.Time).AsFloat * 1000L));
 
 			var special1 = currentSlot.Specials[1];
 			if (special1.IsValid)
 			{
 				_special1Button.SetVisibility(true);
-				_special1Button.SetSpecial(special1.SpecialId, special1.IsAimable);
+				_special1Button.SetSpecial(special1.SpecialId, special1.IsAimable,
+					Math.Max(0L, (long) (special1.AvailableTime - f.Time).AsFloat * 1000L));
 			}
 			else
 			{
+				_special1Button.SetSpecial(GameId.Random, false, 0L);
 				_special1Button.SetVisibility(false);
 			}
 		}

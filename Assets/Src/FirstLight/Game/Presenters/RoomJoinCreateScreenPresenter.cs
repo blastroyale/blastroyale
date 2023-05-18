@@ -5,12 +5,15 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
 
@@ -19,16 +22,15 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Custom Game Creation Menu.
 	/// </summary>
-	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenterData<RoomJoinCreateScreenPresenter.StateData>
+	public class RoomJoinCreateScreenPresenter : UiToolkitPresenterData<RoomJoinCreateScreenPresenter.StateData>
+		//: AnimatedUiPresenterData<RoomJoinCreateScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
 			public Action CloseClicked;
 			public Action PlayClicked;
 		}
-
-		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private Button _homeButton;
+		
 		[SerializeField, Required] private Button _createDeathmatchRoomButton;
 		[SerializeField, Required] private Button _joinRoomButton;
 		[SerializeField, Required] private Button _playtestButton;
@@ -39,18 +41,19 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
+		private LocalizedDropDown _gameModeDropDown;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+
+			/*
 			_gameModeSelection.onValueChanged.AddListener(FillMapSelectionList);
-			
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
 			FillMutatorsSelectionList();
 			
-			_backButton.onClick.AddListener(CloseRequested);
-			_homeButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 			if (Debug.isDebugBuild)
@@ -64,6 +67,25 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SetPreviouslyUsedValues();
+			*/
+		}
+
+		protected override void QueryElements(VisualElement root)
+		{
+			Debug.Log("Query Elements!");
+			
+			// _collectionList = root.Q<ListView>("CollectionList").Required();
+			// _collectionList.DisableScrollbars();
+
+			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			header.backClicked += Data.CloseClicked;
+			header.homeClicked += Data.CloseClicked;
+
+			_gameModeDropDown = root.Q<LocalizedDropDown>("GameMode").Required();
+			
+			FillGameModesSelectionList();
+
+			
 		}
 
 		private void SetPreviouslyUsedValues()
@@ -236,21 +258,36 @@ namespace FirstLight.Game.Presenters
 		
 		private void FillGameModesSelectionList()
 		{
-			_gameModeSelection.options.Clear();
+			Debug.Log("Fill Game Modes");
+			
+			// _gameModeDropDown.choices.Clear();
+			// _gameModeDropDown.choices = new List<string>();
+
+			var menuChoices = new List<string>();
+		
+			// _gameModeSelection.options.Clear();
 
 			var gameModeConfigs = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
 
 			foreach (var gameModeConfig in gameModeConfigs)
 			{
+				Debug.Log("Game Mode Config: " + gameModeConfig.Id);
+				
 				if (gameModeConfig.IsDebugOnly && !Debug.isDebugBuild)
 				{
 					continue;
 				}
 				
-				_gameModeSelection.options.Add(new GameModeDropdownMenuOption(gameModeConfig.Id, gameModeConfig));
+				menuChoices.Add(gameModeConfig.Id);
+				
+				// _gameModeDropDown.labelElement.Add(gameModeConfig.Id);
+				
+				// _gameModeSelection.options.Add(new GameModeDropdownMenuOption(gameModeConfig.Id, gameModeConfig));
 			}
 
-			_gameModeSelection.RefreshShownValue();
+			_gameModeDropDown.choices = menuChoices;
+
+			// _gameModeSelection.RefreshShownValue();
 		}
 
 		private class GameModeDropdownMenuOption : TMP_Dropdown.OptionData

@@ -480,6 +480,7 @@ namespace I2.Loc
 			public static string FreewayDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FreewayDescription"); } }
 			public static string Frontshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Frontshot"); } }
 			public static string FtueDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FtueDeck"); } }
+			public static string FtueMiniMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FtueMiniMap"); } }
 			public static string GoldenBoots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBoots"); } }
 			public static string GoldenBootsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBootsDescription"); } }
 			public static string HC 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HC"); } }
@@ -1981,6 +1982,7 @@ namespace I2.Loc
 		    public const string FreewayDescription = "GameIds/FreewayDescription";
 		    public const string Frontshot = "GameIds/Frontshot";
 		    public const string FtueDeck = "GameIds/FtueDeck";
+		    public const string FtueMiniMap = "GameIds/FtueMiniMap";
 		    public const string GoldenBoots = "GameIds/GoldenBoots";
 		    public const string GoldenBootsDescription = "GameIds/GoldenBootsDescription";
 		    public const string HC = "GameIds/HC";

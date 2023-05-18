@@ -1,0 +1,103 @@
+.category-holder {
+    align-items: flex-start;
+    border-top-width: 0;
+    position: absolute;
+    top: 228px;
+    left: -226px;
+    justify-content: center;
+}
+
+.screen-header {
+}
+
+.room-dropdown {
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    flex-direction: column;
+}
+
+.room-dropdown .unity-base-field__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    align-self: center;
+}
+
+
+.room-dropdown .unity-base-popup-field__text {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    align-self: center;
+}
+
+.room-dropdown .unity-base-field__input {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    flex-basis: initial;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition-duration: 0.15s;
+}
+
+
+.info-holder {
+    width: 600px;
+    align-items: stretch;
+    right: 20px;
+    top: 188px;
+    position: absolute;
+    justify-content: space-between;
+    bottom: 12px;
+}
+
+
+.info-holder__item-name {
+    color: rgb(255, 255, 255);
+    font-size: 48px;
+    -unity-text-align: middle-left;
+}
+
+.info-holder__equip-button {
+    position: absolute;
+    top: 182px;
+    left: 168px;
+}
+
+.info-holder__change-button {
+    position: absolute;
+    top: 182px;
+    left: 168px;
+}
+
+.info-holder__item-description {
+    color: rgb(197, 197, 197);
+    font-size: 36px;
+    position: absolute;
+    right: 54px;
+    bottom: 145px;
+    height: 50px;
+    width: 388px;
+}
+
+.info-holder__buy-button {
+    position: absolute;
+    top: 180px;
+    left: 164px;
+}
+
+.category-holder {
+}
+
+.safe-area {
+}
+
+.button-holder {
+    height: 300px;
+}

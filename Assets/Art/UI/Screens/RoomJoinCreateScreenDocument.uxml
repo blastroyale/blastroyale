@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/RoomJoinCreateScreenStyle.uss?fileID=7433441132597879392&amp;guid=f0f95f28b17824921a16fcc97046c66f&amp;type=3#RoomJoinCreateScreenStyle" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="MainMenu/CustomGame" subtitle-back="true" name="Header" class="screen-header" />
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
+            <ui:VisualElement name="OptionsHolder" style="position: absolute; width: 600px; height: 600px; left: 50px; top: 200px; bottom: 0; right: 0;">
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/GameMode" name="GameMode" class="room-dropdown" style="width: 444px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="CreateJoinHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
+                <ui:VisualElement name="ButtonHolder" class="button-holder">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/CreateRoom" name="CreateButton" class="button-long button-long--yellow info-holder__equip-button" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/JoinRoom" name="JoinButton" class="button-long button-long--yellow info-holder__equip-button" style="top: 305px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

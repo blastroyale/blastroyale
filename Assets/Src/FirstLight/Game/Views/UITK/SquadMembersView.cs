@@ -9,24 +9,21 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class SquadMembersView : IUIView
+	public class SquadMembersView : UIView
 	{
-		private VisualElement _root;
-
 		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new();
 
-		public void Attached(VisualElement root)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_root = root;
-
-			_root.Clear(); // Clears development-time child elements.
+			element.Clear(); // Clears development-time child elements.
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -37,7 +34,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -103,13 +100,13 @@ namespace FirstLight.Game.Views.UITK
 				if (pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != e)
 				{
 					SquadMemberElement squadMember;
-					if (_root.childCount <= index)
+					if (Element.childCount <= index)
 					{
-						_root.Add(squadMember = new SquadMemberElement());
+						Element.Add(squadMember = new SquadMemberElement());
 					}
 					else
 					{
-						squadMember = (SquadMemberElement) _root[index];
+						squadMember = (SquadMemberElement) Element[index];
 					}
 
 					_squadMembers.Add(e, squadMember);
@@ -126,9 +123,9 @@ namespace FirstLight.Game.Views.UITK
 				}
 			}
 
-			while (_root.childCount > index)
+			while (Element.childCount > index)
 			{
-				_root.RemoveAt(index);
+				Element.RemoveAt(index);
 			}
 		}
 	}

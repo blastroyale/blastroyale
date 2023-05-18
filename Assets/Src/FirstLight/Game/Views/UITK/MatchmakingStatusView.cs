@@ -13,13 +13,12 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Shows the matchmaking status on the HomeScreen
 	/// </summary>
-	public class MatchmakingStatusView : IUIView
+	public class MatchmakingStatusView : UIView
 	{
 		private const string UssContainerHidden = "matchmaking-container--hidden";
 
 		private IGameNetworkService _gameNetworkService;
 		private bool _shouldUseMatchmaking;
-		private VisualElement _container;
 		private LocalizedLabel _matchmakingText;
 		private Label _timeLabel;
 		private ImageButton _closeButton;
@@ -29,10 +28,10 @@ namespace FirstLight.Game.Views.UITK
 		public event Action CloseClicked;
 
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_gameNetworkService = MainInstaller.ResolveServices().NetworkService;
-			_container = element;
 			_timeLabel = element.Q<Label>("Time").Required();
 			_matchmakingText = element.Q<LocalizedLabel>("MatchmakingText").Required();
 			_closeButton = element.Q<ImageButton>("MatchmakingCloseButton").Required();
@@ -66,7 +65,7 @@ namespace FirstLight.Game.Views.UITK
 
 		public void Show(bool show)
 		{
-			_container.EnableInClassList(UssContainerHidden, !show);
+			Element.EnableInClassList(UssContainerHidden, !show);
 			if (!show) return;
 			
 			_startTime = 0;

@@ -11,7 +11,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the LeaderboardEntry elements in the LeaderboardAndRewardsScreen
 	/// </summary>
-	public class LeaderboardEntryView : IUIView
+	public class LeaderboardEntryView : UIView
 	{
 		private const string USS_LEADERBOARD_ENTRY = "leaderboard-entry";
 		private const string USS_LEADERBOARD_ENTRY_FIRST = USS_LEADERBOARD_ENTRY + "--first";
@@ -21,7 +21,6 @@ namespace FirstLight.Game.Views
 
 		private const string USS_AVATAR_NFT = "leaderboard-entry__pfp--nft";
 
-		private VisualElement _root;
 		private VisualElement _leaderboardEntry;
 		private Label _rankNumber;
 		private Label _playerName;
@@ -34,17 +33,16 @@ namespace FirstLight.Game.Views
 
 		private int _pfpRequestHandle = -1;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_services = MainInstaller.Resolve<IGameServices>();
 
-			_root = element;
-
-			_leaderboardEntry = _root.Q<VisualElement>("LeaderboardEntryParent").Required();
-			_rankNumber = _root.Q<Label>("RankNumber").Required();
-			_playerName = _root.Q<Label>("PlayerName").Required();
-			_kills = _root.Q<Label>("Kills").Required();
-			_trophies = _root.Q<Label>("TrophiesAmount").Required();
+			_leaderboardEntry = element.Q<VisualElement>("LeaderboardEntryParent").Required();
+			_rankNumber = element.Q<Label>("RankNumber").Required();
+			_playerName = element.Q<Label>("PlayerName").Required();
+			_kills = element.Q<Label>("Kills").Required();
+			_trophies = element.Q<Label>("TrophiesAmount").Required();
 			//_pfp = _root.Q<VisualElement>("PFP").Required();
 			_pfp = element.Q("PFP").Required();
 			_pfpImage = element.Q("PFPImage").Required();
@@ -119,11 +117,7 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}

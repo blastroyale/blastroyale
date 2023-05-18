@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class SpecialButtonsView : IUIView
+	public class SpecialButtonsView : UIView
 	{
 		private SpecialButtonElement _special0Button;
 		private SpecialButtonElement _special1Button;
@@ -28,10 +28,11 @@ namespace FirstLight.Game.Views.UITK
 		/// </summary>
 		public event Action<Vector2> OnDrag;
 
-		public void Attached(VisualElement root)
+		public override void Attached(VisualElement element)
 		{
-			_special0Button = root.Q<SpecialButtonElement>("Special0").Required();
-			_special1Button = root.Q<SpecialButtonElement>("Special1").Required();
+			base.Attached(element);
+			_special0Button = element.Q<SpecialButtonElement>("Special0").Required();
+			_special1Button = element.Q<SpecialButtonElement>("Special1").Required();
 
 			_special0Button.OnPress += val => OnSpecial0Pressed?.Invoke(val);
 			_special1Button.OnPress += val => OnSpecial1Pressed?.Invoke(val);
@@ -39,14 +40,14 @@ namespace FirstLight.Game.Views.UITK
 			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

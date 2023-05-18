@@ -7,27 +7,24 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class KillFeedView : IUIView
+	public class KillFeedView : UIView
 	{
 		private const long SHOWN_DURATION = 5000;
 		private const long RELEASED_AFTER = 6000;
-
-		private VisualElement _feed;
-
-		public void Attached(VisualElement feed)
+		
+		public override void Attached(VisualElement element)
 		{
-			_feed = feed;
-
+			base.Attached(element);
 			// Clean feed items added during development
-			feed.Clear();
+			element.Clear();
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -54,7 +51,7 @@ namespace FirstLight.Game.Views.UITK
 			deathNotification.schedule.Execute(() => deathNotification.RemoveFromHierarchy())
 				.StartingIn(RELEASED_AFTER);
 
-			_feed.Add(deathNotification);
+			Element.Add(deathNotification);
 		}
 	}
 }

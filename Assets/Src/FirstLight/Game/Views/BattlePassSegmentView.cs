@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual elements of battle pass segments on the battle pass screen
 	/// </summary>
-	public class BattlePassSegmentView : IUIView
+	public class BattlePassSegmentView : UIView
 	{
 		private const string UssSpriteRarityModifier = "--sprite-home__pattern-rewardglow-";
 		private const string UssSpriteRarityCommon = UssSpriteRarityModifier + "common";
@@ -32,7 +32,6 @@ namespace FirstLight.Game.Views
 		private const string UssFirstReward = "first-reward";
 		public event Action<BattlePassSegmentView> Clicked;
 
-		private VisualElement _root;
 		private VisualElement _rewardRoot;
 		private VisualElement _blocker;
 		private VisualElement _claimBubble;
@@ -50,33 +49,25 @@ namespace FirstLight.Game.Views
 
 		private BattlePassSegmentData _data;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
-			_root = element;
-			_rewardRoot = _root.Q("Reward").Required();
-			_progressBackground = _root.Q("ProgressBackground").Required();
-			_progressBarFill = _root.Q("ProgressFill").Required();
-			_blocker = _root.Q("Blocker").Required();
-			_claimStatusOutline = _root.Q("Outline").Required();
-			_readyToClaimShine = _root.Q("ReadyToClaimShine").Required();
-			_readyToClaimOutline = _root.Q("ReadyToClaimOutline").Required();
-			_claimBubble = _root.Q("ClaimBubble").Required();
-			_claimStatusCheckmark = _root.Q("Checkmark").Required();
-			_levelBg = _root.Q("LevelBg").Required();
-			_button = _root.Q<ImageButton>("Button").Required();
-			_rarityImage = _root.Q("RewardRarity").Required();
-			_title = _root.Q<AutoSizeLabel>("Title");
-			_levelNumber = _root.Q<AutoSizeLabel>("LevelLabel");
+			base.Attached(element);
+			_rewardRoot = element.Q("Reward").Required();
+			_progressBackground = element.Q("ProgressBackground").Required();
+			_progressBarFill = element.Q("ProgressFill").Required();
+			_blocker = element.Q("Blocker").Required();
+			_claimStatusOutline = element.Q("Outline").Required();
+			_readyToClaimShine = element.Q("ReadyToClaimShine").Required();
+			_readyToClaimOutline = element.Q("ReadyToClaimOutline").Required();
+			_claimBubble = element.Q("ClaimBubble").Required();
+			_claimStatusCheckmark = element.Q("Checkmark").Required();
+			_levelBg = element.Q("LevelBg").Required();
+			_button = element.Q<ImageButton>("Button").Required();
+			_rarityImage = element.Q("RewardRarity").Required();
+			_title = element.Q<AutoSizeLabel>("Title");
+			_levelNumber = element.Q<AutoSizeLabel>("LevelLabel");
 
 			_button.clicked += () => Clicked?.Invoke(this);
-		}
-
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
 		}
 
 		/// <summary>

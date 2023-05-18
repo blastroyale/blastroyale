@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class WeaponDisplayView : IUIView
+	public class WeaponDisplayView : UIView
 	{
 		private const int BOOMSTICK_INDEX = 1;
 		private const int MELEE_INDEX = 0;
@@ -20,7 +20,6 @@ namespace FirstLight.Game.Views.UITK
 
 		private const string UssMeleeWeapon = "weapon-display--melee";
 
-		private ImageButton _root;
 		private VisualElement _melee;
 		private VisualElement _weapon;
 		private VisualElement _weaponRarity;
@@ -38,12 +37,12 @@ namespace FirstLight.Game.Views.UITK
 
 		public event Action<float> OnClick;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_root = (ImageButton) element;
 			_melee = element.Q("Melee").Required();
 			_weapon = element.Q("Boomstick").Required();
 			_weaponRarity = _weapon.Q("WeaponRarityIcon").Required();
@@ -52,7 +51,7 @@ namespace FirstLight.Game.Views.UITK
 			_factionIcon = _weapon.Q("FactionIcon").Required();
 			_ammoLabel = element.Q<Label>("Ammo").Required();
 
-			_root.clicked += () =>
+			((ImageButton) element).clicked += () =>
 			{
 				// Both have to be sent so the input system resets the click state
 				OnClick?.Invoke(1.0f);
@@ -60,7 +59,7 @@ namespace FirstLight.Game.Views.UITK
 			};
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(OnLocalPlayerWeaponAdded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
@@ -69,7 +68,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerMagazineChanged>(OnPlayerMagazineChanged);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -116,12 +115,12 @@ namespace FirstLight.Game.Views.UITK
 			if (slot == MELEE_INDEX)
 			{
 				_melee.BringToFront();
-				_root.EnableInClassList(UssMeleeWeapon, true);
+				Element.EnableInClassList(UssMeleeWeapon, true);
 			}
 			else
 			{
 				_weapon.BringToFront();
-				_root.EnableInClassList(UssMeleeWeapon, false);
+				Element.EnableInClassList(UssMeleeWeapon, false);
 			}
 		}
 

@@ -9,9 +9,8 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class MatchStatusView : IUIView
+	public class MatchStatusView : UIView
 	{
-		private VisualElement _root;
 		private Label _aliveCountLabel;
 		private Label _killsCountLabel;
 		private Label _timerLabel;
@@ -25,11 +24,11 @@ namespace FirstLight.Game.Views.UITK
 		private int _aliveCount = -1;
 		private int _killsCount = -1;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_root = element;
 			_aliveCountLabel = element.Q<Label>("AliveCountText");
 			_killsCountLabel = element.Q<Label>("KilledCountText");
 			_pingElement = element.Q<VisualElement>("PingBG");
@@ -39,7 +38,7 @@ namespace FirstLight.Game.Views.UITK
 			_pingAnimation.from = 1f;
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -47,7 +46,7 @@ namespace FirstLight.Game.Views.UITK
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
@@ -115,7 +114,7 @@ namespace FirstLight.Game.Views.UITK
 			var shrinkingSeconds = (int) (shrinkingTimeMs / 1000);
 
 			_timerUpdate?.Pause();
-			_timerUpdate = _root.schedule.Execute(() =>
+			_timerUpdate = Element.schedule.Execute(() =>
 				{
 					if (warningSeconds > 0)
 					{

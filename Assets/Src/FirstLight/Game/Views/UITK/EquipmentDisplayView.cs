@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class EquipmentDisplayView : IUIView
+	public class EquipmentDisplayView : UIView
 	{
 		private const string USS_GEAR_ACQUIRED = "equipment-display__gear-item--acquired";
 
@@ -21,8 +21,9 @@ namespace FirstLight.Game.Views.UITK
 
 		private int _currentGear;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			_armor = element.Q<VisualElement>("Armor");
@@ -32,12 +33,12 @@ namespace FirstLight.Game.Views.UITK
 			_count = element.Q<Label>("Count");
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerGearChanged>(this, OnPlayerGearChanged);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}

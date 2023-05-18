@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class DeviceStatusView : IUIView
+	public class DeviceStatusView : UIView
 	{
 		private const long UPDATE_INTERVAL = 1000;
 
@@ -21,29 +21,28 @@ namespace FirstLight.Game.Views.UITK
 
 		private IGameServices _gameServices;
 
-		private VisualElement _root;
 		private VisualElement _batteryIcon;
 		private VisualElement _wifiIcon;
 		private Label _latency;
 
 		private IVisualElementScheduledItem _tickScheduledItem;
 
-		public void Attached(VisualElement root)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			_root = root;
-			_batteryIcon = root.Q("BatteryIcon").Required();
-			_wifiIcon = root.Q("WifiIcon").Required();
-			_latency = root.Q<Label>("LatencyLabel").Required();
+			_batteryIcon = element.Q("BatteryIcon").Required();
+			_wifiIcon = element.Q("WifiIcon").Required();
+			_latency = element.Q<Label>("LatencyLabel").Required();
 		}
 
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
-			_tickScheduledItem = _root.schedule.Execute(Tick).Every(UPDATE_INTERVAL);
+			_tickScheduledItem = Element.schedule.Execute(Tick).Every(UPDATE_INTERVAL);
 		}
 
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			// Probably not strictly necessary, but just in case
 			_tickScheduledItem.Pause();

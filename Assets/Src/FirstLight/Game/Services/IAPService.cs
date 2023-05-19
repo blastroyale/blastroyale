@@ -129,14 +129,14 @@ namespace FirstLight.Game.Services
 
 		public void OnInitializeFailed(InitializationFailureReason error)
 		{
-			FLog.Warn($"IAP Initialization failed: {error}");
-
-			_initialized.Value = false;
+			OnInitializeFailed(error, null);
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error, string message)
 		{
-			throw new NotImplementedException();
+			FLog.Warn($"IAP Initialization failed: {error} - {message}");
+
+			_initialized.Value = false;
 		}
 
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)

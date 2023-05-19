@@ -37,6 +37,8 @@ MonoBehaviour:
         Values:
         - RawValue: 144179
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 4
       AssetRef:
         Id:
@@ -60,6 +62,8 @@ MonoBehaviour:
         Values:
         - RawValue: 98304
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 127
       AssetRef:
         Id:
@@ -79,6 +83,8 @@ MonoBehaviour:
         Values:
         - RawValue: 78643
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 128
       AssetRef:
         Id:
@@ -98,6 +104,8 @@ MonoBehaviour:
         Values:
         - RawValue: 131072
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 20
       AssetRef:
         Id:
@@ -117,6 +125,8 @@ MonoBehaviour:
         Values:
         - RawValue: 78643
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 21
       AssetRef:
         Id:
@@ -136,6 +146,8 @@ MonoBehaviour:
         Values:
         - RawValue: 131072
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 17
       AssetRef:
         Id:
@@ -155,6 +167,8 @@ MonoBehaviour:
         Values:
         - RawValue: 117965
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 18
       AssetRef:
         Id:
@@ -174,6 +188,8 @@ MonoBehaviour:
         Values:
         - RawValue: 117965
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 106
       AssetRef:
         Id:
@@ -193,6 +209,8 @@ MonoBehaviour:
         Values:
         - RawValue: 78643
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428
     - Id: 107
       AssetRef:
         Id:
@@ -212,3 +230,5 @@ MonoBehaviour:
         Values:
         - RawValue: 131072
         - RawValue: 13107
+      CollectableConsumablePickupRadius:
+        RawValue: 52428

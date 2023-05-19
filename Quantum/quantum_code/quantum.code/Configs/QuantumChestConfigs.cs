@@ -20,6 +20,9 @@ namespace Quantum
 		public List<QuantumPair<FP, uint>> RandomEquipment;
 		public List<QuantumPair<FP, uint>> SmallConsumable;
 		public List<QuantumPair<FP, uint>> LargeConsumable;
+
+		public FP CollectableChestPickupRadius;
+		public FP CollectTime;
 	}
 
 	/// <summary>

@@ -3,6 +3,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private AnimationClip _spawnClip;
 		[SerializeField, Required] private AnimationClip _idleClip;
 		[SerializeField, Required] private AnimationClip _collectClip;
+		[SerializeField] private Transform _pickupCircle;
 
 		private IMatchServices _matchServices;
 
@@ -58,6 +60,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
+			
+			var frame = game.Frames.Verified;
+
+			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
+			{
+				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
+				_pickupCircle.localPosition += new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+			}
 			
 			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
 			//_animation.Play(CLIP_SPAWN);
@@ -147,11 +157,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_collectingVfx =
 					(CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(VfxId.CollectableIndicator);
 				var collectablePosition = _collectableIndicatorAnchor.position;
-				var position = new Vector3(collectablePosition.x,
-				                           spectatedPlayer.Transform.position.y +
-				                           GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
+				var position = new Vector3(collectablePosition.x,GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
 
-				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.identity);
+				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
+				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f, _pickupCircle.localScale.y * 2.5f);
 				_collectingVfx.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
 

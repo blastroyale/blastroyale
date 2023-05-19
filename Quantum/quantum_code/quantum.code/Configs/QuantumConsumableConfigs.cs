@@ -12,6 +12,7 @@ namespace Quantum
 		public ConsumableType ConsumableType;
 		public QuantumGameModePair<FP> Amount;
 		public QuantumGameModePair<FP> ConsumableCollectTime;
+		public FP CollectableConsumablePickupRadius;
 	}
 
 	/// <summary>

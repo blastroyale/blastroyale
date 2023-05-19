@@ -18,22 +18,26 @@ namespace Quantum
 
 			Id = config.Id;
 			ChestType = config.ChestType;
+			CollectTime = config.CollectTime;
 
 			transform->Position = position;
 			transform->Rotation = rotation;
 
 			if (makeCollectable)
 			{
-				MakeCollectable(f, e);
+				MakeCollectable(f, e, config.CollectableChestPickupRadius);
 			}
 		}
 
 		/// <summary>
 		/// Adds a <see cref="Collectable"/> component to <paramref name="e"/>.
 		/// </summary>
-		internal void MakeCollectable(Frame f, EntityRef e)
+		internal void MakeCollectable(Frame f, EntityRef e, FP collectableChestPickupRadius)
 		{
-			f.Add(e, new Collectable { GameId = Id });
+			f.Add(e, new Collectable { GameId = Id, PickupRadius = collectableChestPickupRadius });
+
+			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
+			collider->Shape.Sphere.Radius = collectableChestPickupRadius;
 		}
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)

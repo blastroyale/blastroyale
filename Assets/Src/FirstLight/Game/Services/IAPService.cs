@@ -134,6 +134,11 @@ namespace FirstLight.Game.Services
 			_initialized.Value = false;
 		}
 
+		public void OnInitializeFailed(InitializationFailureReason error, string message)
+		{
+			throw new NotImplementedException();
+		}
+
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
 		{
 			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);

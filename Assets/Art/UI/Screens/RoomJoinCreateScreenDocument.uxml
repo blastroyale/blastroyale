@@ -3,11 +3,11 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="MainMenu/RoomJoinCreateTitle" subtitle-back="true" name="Header" class="screen-header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
-            <ui:VisualElement name="OptionsHolder" style="position: absolute; width: 600px; height: 600px; left: 50px; top: 200px; bottom: 0; right: 0;">
-                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/GameMode" name="GameMode" class="room-dropdown" style="width: 444px;" />
-                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMapSelect" name="Map" class="room-dropdown" style="width: 444px;" />
-                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorOneSelect" name="Mutator1" class="room-dropdown" style="width: 444px;" />
-                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorTwoSelect" name="Mutator2" class="room-dropdown" style="width: 444px;" />
+            <ui:VisualElement name="OptionsHolder" style="position: absolute; width: 600px; height: 600px; left: 50px; top: 200px; bottom: 0; right: 1672px;">
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/GameMode" name="GameMode" class="room-dropdown" style="width: 542px;" />
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMapSelect" name="Map" class="room-dropdown" style="width: 544px;" />
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorOneSelect" name="Mutator1" class="room-dropdown" style="width: 538px;" />
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorTwoSelect" name="Mutator2" class="room-dropdown" style="width: 540px;" />
             </ui:VisualElement>
             <ui:VisualElement name="CreateJoinHolder" focusable="true" class="anim-delay-0 anim-translate anim-translate--left-xxl info-holder">
                 <ui:VisualElement name="ButtonHolder" class="button-holder" style="height: 606px;">

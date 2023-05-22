@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 namespace FirstLight.Game.MonoComponent.MainMenu
 {
 	/// <inheritdoc cref="CharacterEquipmentMonoComponent"/>
-	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler, IPointerClickHandler
+	public class MainMenuCharacterViewComponent : CharacterEquipmentMonoComponent, IDragHandler
 	{
 		[SerializeField] private MainMenuCharacterAnimationConfigs _mainMenuCharacterAnimations;
 		
@@ -46,16 +46,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await Task.WhenAll(list);
 		}
 		
-		public void OnPointerClick(PointerEventData eventData)
-		{
-			if (eventData.dragging)
-			{
-				return;
-			}
-
-			PlayAnimation();
-		}
-
 		public void PlayAnimation()
 		{
 			// Animator.SetTrigger(_triggerNamesClicked[Random.Range(0, _triggerNamesClicked.Length)]);

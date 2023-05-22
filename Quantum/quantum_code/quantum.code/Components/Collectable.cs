@@ -48,10 +48,6 @@ namespace Quantum
 
 		private static FPVector3 GetPointOnNavMesh(Frame f, FPVector3 position, int angleDropStep, bool isConsiderNavMesh)
 		{
-			// TODO: Remove this temp code that was used to measure performance
-			var now = DateTime.UtcNow;
-			///////////////////////////////////////////////////////////////////
-			
 			var angleLevel = (angleDropStep / Constants.DROP_AMOUNT_ANGLES);
 			var angleGranularity = FP.PiTimes2 / Constants.DROP_AMOUNT_ANGLES;
 			var angleStep = FPVector2.Rotate(FPVector2.Left,
@@ -61,21 +57,10 @@ namespace Quantum
 			
 			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition, NavMeshRegionMask.Default, true))
 			{
-				// TODO: Remove this temp code that was used to measure performance
-				if (isConsiderNavMesh)
-				{
-					Log.Info("GetPointOnNavMesh method; Branch 1. NavMesh contains drop position. Time spent: " + (DateTime.UtcNow - now).TotalMilliseconds);
-				}
-				///////////////////////////////////////////////////////////////////
-				
 				return dropPosition;
 			}
 			
 			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS, out var newPosition);
-			
-			// TODO: Remove this temp code that was used to measure performance
-			Log.Info("GetPointOnNavMesh method; Branch 2. NavMesh didn't contain position. Time spent: " + (DateTime.UtcNow - now).TotalMilliseconds);
-			///////////////////////////////////////////////////////////////////
 			
 			return newPosition;
 		}

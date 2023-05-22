@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
 		
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
-		private IGameServices _services;
+		protected IGameServices _services;
 		
 		private void OnValidate()
 		{
@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent
 			OnEditorValidate();
 		}
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();

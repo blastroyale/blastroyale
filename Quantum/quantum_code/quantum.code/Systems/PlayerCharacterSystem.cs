@@ -119,7 +119,7 @@ namespace Quantum.Systems
 			// Try to drop player weapon
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly && !playerDead->HasMeleeWeapon(f, entity))
 			{
-				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
+				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step, true);
 				step++;
 			}
 
@@ -174,25 +174,25 @@ namespace Quantum.Systems
 							stats->GetStatData(StatType.Shield).StatValue;
 					}
 
-					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
+					Collectable.DropConsumable(f, consumable, deathPosition, step, true, false);
 					step++;
 				}
 
 				if (QuantumFeatureFlags.DropEnergyCubes)
 				{
-					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false); //drop a single level on kill
+					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, true, false); //drop a single level on kill
 
 				}
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
-					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
+					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step, true);
 					step++;
 				}
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
+				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, true, false);
 			}
 		}
 

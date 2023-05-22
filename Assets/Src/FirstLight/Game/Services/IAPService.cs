@@ -129,7 +129,12 @@ namespace FirstLight.Game.Services
 
 		public void OnInitializeFailed(InitializationFailureReason error)
 		{
-			FLog.Warn($"IAP Initialization failed: {error}");
+			OnInitializeFailed(error, null);
+		}
+
+		public void OnInitializeFailed(InitializationFailureReason error, string message)
+		{
+			FLog.Warn($"IAP Initialization failed: {error} - {message}");
 
 			_initialized.Value = false;
 		}

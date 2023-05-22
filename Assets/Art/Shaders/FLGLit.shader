@@ -2,7 +2,7 @@ Shader "FLG/FastLit"
 {
     Properties
     {
-        _BaseMap("Base Map", 2D) = "white"
+        _MainTex("Base Map", 2D) = "white"
     }
 
     SubShader
@@ -25,30 +25,26 @@ Shader "FLG/FastLit"
             {
                 float4 position : POSITION;
                 float2 uv : TEXCOORD0;
-                half3 normal : NORMAL;
+                float3 normal : NORMAL;
             };
 
             struct Varyings
             {
                 float4 position : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                half3 normal : TEXCOORD1;
+                float3 normal : TEXCOORD1;
             };
 
-            TEXTURE2D(_BaseMap);
-            SAMPLER(sampler_BaseMap);
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
 
             CBUFFER_START(UnityPerMaterial)
-            // The following line declares the _BaseMap_ST variable, so that you
-            // can use the _BaseMap variable in the fragment shader. The _ST 
-            // suffix is necessary for the tiling and offset function to work.
-            float4 _BaseMap_ST;
+            float4 _MainTex_ST;
             CBUFFER_END
 
-            half3 lambert(float3 lightColor, float3 lightDir, float3 normal)
+            float3 lambert(float3 lightColor, float3 lightDir, float3 normal)
             {
-                const float NdotL = saturate(dot(normal, lightDir));
-                return lightColor * NdotL * 0.05;
+                return lightColor * saturate(dot(normal, lightDir));
             }
 
             Varyings vert(Attributes IN)
@@ -56,20 +52,15 @@ Shader "FLG/FastLit"
                 Varyings OUT;
                 OUT.position = TransformObjectToHClip(IN.position.xyz);
                 OUT.normal = TransformObjectToWorldNormal(IN.normal);
-
-                // This can be simplified with OUT.uv = IN.uv if we don't need tiling / offset
-                OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
-
+                OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
                 return OUT;
             }
 
             half4 frag(const Varyings IN) : SV_Target
             {
-                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv);
-
-                // Apply Lambert lighting.
+                half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
+                color.rgb *= 0.8;
                 color.rgb += lambert(_MainLightColor * unity_LightData.z, _MainLightPosition.xyz, IN.normal);
-
                 return color;
             }
             ENDHLSL

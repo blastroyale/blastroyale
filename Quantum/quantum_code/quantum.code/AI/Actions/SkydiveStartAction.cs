@@ -19,9 +19,12 @@ namespace Quantum
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e, true, transform->Position);
+			
+			transform->Position = spawnPoint.Component.Position;
 			transform->Position.Y = FP._0;
 			transform->Position += FPVector3.Up * SkydiveHeight.Resolve(f, e, bb, null);
-
+			
 			if (f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot))
 			{
 				if (bot->SpawnWithPlayer)
@@ -31,7 +34,7 @@ namespace Quantum
 					transform->Position.Z += f.RNG->NextInclusive(FP._1,FP._3) * f.RNG->Sign() ;
 				}
 			}
-
+			
 			player->Spawn(f, e);
 			player->Activate(f, e);
 

@@ -27,7 +27,6 @@
     align-self: center;
 }
 
-
 .room-dropdown .unity-base-popup-field__text {
     flex-grow: 1;
     flex-shrink: 0;
@@ -54,7 +53,6 @@
     align-self: center;
 }
 
-
 .room-dropdown .unity-base-popup-field__active {
     flex-grow: 1;
     flex-shrink: 0;
@@ -63,14 +61,13 @@
     align-self: center;
 }
 
-.unity-base-dropdown__item  {
+.unity-base-dropdown__item {
     font-size: 50px;
 }
 
 .unity-base-dropdown__item :hover {
     font-size: 50px;
 }
-
 
 .room-dropdown .unity-base-field__input {
     flex-grow: 1;
@@ -83,7 +80,6 @@
     transition-duration: 0.15s;
 }
 
-
 .info-holder {
     width: 600px;
     align-items: stretch;
@@ -92,41 +88,6 @@
     position: absolute;
     justify-content: space-between;
     bottom: 12px;
-}
-
-
-.info-holder__item-name {
-    color: rgb(255, 255, 255);
-    font-size: 48px;
-    -unity-text-align: middle-left;
-}
-
-.info-holder__equip-button {
-    position: absolute;
-    top: 182px;
-    left: 168px;
-}
-
-.info-holder__change-button {
-    position: absolute;
-    top: 182px;
-    left: 168px;
-}
-
-.info-holder__item-description {
-    color: rgb(197, 197, 197);
-    font-size: 36px;
-    position: absolute;
-    right: 54px;
-    bottom: 145px;
-    height: 50px;
-    width: 388px;
-}
-
-.info-holder__buy-button {
-    position: absolute;
-    top: 180px;
-    left: 164px;
 }
 
 .category-holder {
@@ -138,3 +99,20 @@
 .button-holder {
     height: 300px;
 }
+
+.roomjoin-options {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    left: 50px;
+    top: 200px;
+    bottom: 0;
+    right: 1672px;
+}
+.roomjoin-button-holder {
+    width: 359px;
+    right: auto; 
+    left: 1800px; 
+    bottom: -260px;
+}
+

@@ -66,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
 			{
 				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
-				_pickupCircle.localPosition += new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+				_pickupCircle.position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 			}
 			
 			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
@@ -156,8 +156,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_collectingVfx =
 					(CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(VfxId.CollectableIndicator);
-				var collectablePosition = _collectableIndicatorAnchor.position;
-				var position = new Vector3(collectablePosition.x,GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
+				var position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
 				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f, _pickupCircle.localScale.y * 2.5f);

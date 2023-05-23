@@ -166,8 +166,7 @@ namespace FirstLight.Game.UIElements
 
 			AddToClassList(USS_PRESSED);
 
-			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
-			var parentPosition = parent.WorldToLocal(panelPosition);
+			var parentPosition = parent.WorldToLocal(evt.position);
 			_startingPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			OnPress?.Invoke(1f);
@@ -177,8 +176,7 @@ namespace FirstLight.Game.UIElements
 		{
 			if (_onCooldown || !_draggable || !_container.HasPointerCapture(evt.pointerId)) return;
 
-			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
-			var parentPosition = parent.WorldToLocal(panelPosition);
+			var parentPosition = parent.WorldToLocal(evt.position);
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			var stickPosition = offsetPosition - _startingPosition;

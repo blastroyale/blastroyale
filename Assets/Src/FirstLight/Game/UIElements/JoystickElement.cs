@@ -72,8 +72,7 @@ namespace FirstLight.Game.UIElements
 			AddToClassList(UssFree);
 			_stick.AddToClassList(UssStickFree);
 
-			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
-			var parentPosition = parent.WorldToLocal(panelPosition);
+			var parentPosition = parent.WorldToLocal(evt.position);
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			transform.position = offsetPosition;
@@ -85,8 +84,7 @@ namespace FirstLight.Game.UIElements
 		{
 			if (!parent.HasPointerCapture(evt.pointerId)) return;
 
-			var panelPosition = RuntimePanelUtils.ScreenToPanel(panel, evt.position);
-			var parentPosition = parent.WorldToLocal(panelPosition);
+			var parentPosition = parent.WorldToLocal(evt.position);
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			var stickPosition = offsetPosition - (Vector2) transform.position;

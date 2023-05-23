@@ -42,7 +42,7 @@ namespace Quantum
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
-			var angleStep = 0;
+			var anglesToDrop = 0;
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
@@ -59,6 +59,9 @@ namespace Quantum
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			
+			var equipmentToDrop = new Dictionary<Equipment, int>();
+			var consumablesToDrop = new List<GameId>();
 
 			//if we have an override component to change what spawns within the chest
 			if(f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent) && 
@@ -69,11 +72,15 @@ namespace Quantum
 					if(item.IsInGroup(GameIdGroup.Equipment))
 					{
 						var equipment = Equipment.Create(f, item, overrideComponent->Rarity, 1);
-						Collectable.DropEquipment(f, equipment, chestPosition, angleStep++, false);
+						equipmentToDrop.Add(equipment, -1);
+						anglesToDrop++;
+						// Collectable.DropEquipment(f, equipment, chestPosition, angleStep++, false);
 
 					} else if (item.IsInGroup(GameIdGroup.Consumable))
 					{
-						Collectable.DropConsumable(f, item, chestPosition, angleStep++, false, false);
+						consumablesToDrop.Add(item);
+						anglesToDrop++;
+						// Collectable.DropConsumable(f, item, chestPosition, angleStep++, false, false);
 					} else
 					{
 						continue;
@@ -86,23 +93,43 @@ namespace Quantum
 						PlayerEntity = playerEntity,
 						ItemType = item,
 						Amount = 1,
-						AngleStepAroundChest = angleStep
+						AngleStepAroundChest = anglesToDrop
 					});
 				}
 			} else
 			{
 				DropPowerUps(f, playerEntity, ref config, playerCharacter, gameContainer, minimumRarity, &loadoutWeapon,
-							 chestPosition, ref angleStep, chestItems, chestItems.Count);
+							 chestPosition, ref anglesToDrop, chestItems, chestItems.Count, ref equipmentToDrop, ref consumablesToDrop);
 				DropSmallConsumable(f, playerEntity, playerRef, ref config, ref ammoFilled, ref shieldFilled, ref healthFilled,
-									chestPosition, ref angleStep, chestItems);
+									chestPosition, ref anglesToDrop, chestItems, ref equipmentToDrop, ref consumablesToDrop);
 			}
-
+			
+			var step = 0;
+			foreach (var drop in equipmentToDrop)
+			{
+				if (drop.Value != -1)
+				{
+					Collectable.DropEquipment(f, drop.Key, chestPosition, step, true, anglesToDrop);
+				}
+				else
+				{
+					Collectable.DropEquipment(f, drop.Key, chestPosition, step, true, anglesToDrop, drop.Value);
+				}
+				step++;
+			}
+			foreach (var drop in consumablesToDrop)
+			{
+				Collectable.DropConsumable(f, drop, chestPosition, step, true, anglesToDrop);
+				step++;
+			}
+			
 			f.Signals.ChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 
 		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, ref QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, ref FP healthFilled,
-		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
+		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems,
+														   ref Dictionary<Equipment, int> equipmentToDrop, ref List<GameId> consumablesToDrop)
 		{
 			var stats = f.Get<Stats>(playerEntity);
 			foreach (var (chance, count) in config.SmallConsumable)
@@ -136,8 +163,10 @@ namespace Quantum
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
 					}
-
-					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false, false);
+					
+					consumablesToDrop.Add(drop);
+					angleStep++;
+					
 					chestItems.Add(new ChestItemDropped()
 					{
 						ChestType = config.Id,
@@ -154,22 +183,11 @@ namespace Quantum
 
 		private void DropPowerUps(Frame f, EntityRef playerEntity, ref QuantumChestConfig config, PlayerCharacter* playerCharacter, 
 		                          GameContainer* gameContainer, EquipmentRarity minimumRarity, Equipment* loadoutWeapon, 
-		                          FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems, int skipDropNumber)
+		                          FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems, int skipDropNumber,
+								  ref Dictionary<Equipment, int> equipmentToDrop, ref List<GameId> consumablesToDrop)
 		{
 			var playerRef = playerCharacter->Player;
-			var isBot = f.Has<BotCharacter>(playerEntity);
 			var hasLoadoutWeapon = loadoutWeapon->IsValid() && !loadoutWeapon->IsDefaultItem();
-
-			var allEquipment = new List<Equipment>
-			{
-				playerCharacter->WeaponSlots[1].Weapon,
-				playerCharacter->WeaponSlots[2].Weapon,
-				playerCharacter->Gear[0],
-				playerCharacter->Gear[1],
-				playerCharacter->Gear[2],
-				playerCharacter->Gear[3],
-				playerCharacter->Gear[4],
-			};
 			
 			// In case we are giving equipment to a bot - we gather a random loadout based on LoadoutGearNumber of a bot
 			var botLoadout = new List<Equipment>();
@@ -217,7 +235,10 @@ namespace Quantum
 						var weaponItem = hasLoadoutWeapon ? *loadoutWeapon : gameContainer->GenerateNextWeapon(f);
 
 						ModifyEquipmentRarity(f, ref weaponItem, gameContainer->DropPool.AverageRarity, gameContainer->DropPool.AverageRarity);
-						Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++, false);
+						
+						equipmentToDrop.Add(weaponItem, -1);
+						angleStep++;
+						
 						playerCharacter->SetDroppedLoadoutItem(&weaponItem);
 						skipDropNumber++;
 						chestItems.Add(new ChestItemDropped()
@@ -253,7 +274,9 @@ namespace Quantum
 					if (drop.GameId != GameId.Random && drop.IsValid())
 					{
 						playerCharacter->SetDroppedLoadoutItem(&drop);
-						Collectable.DropEquipment(f, drop, chestPosition, angleStep++, false, playerRef);
+						
+						equipmentToDrop.Add(drop, playerRef);
+						angleStep++;
 
 						chestItems.Add(new ChestItemDropped
 						{
@@ -272,7 +295,8 @@ namespace Quantum
 					// If we dropped all equipment from loadout, then we drop energy cubes
 					if(QuantumFeatureFlags.DropEnergyCubes)
 					{
-						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, chestPosition, angleStep++, false, false);
+						consumablesToDrop.Add(GameId.EnergyCubeLarge);
+						angleStep++;
 					}
 
 					chestItems.Add(new ChestItemDropped

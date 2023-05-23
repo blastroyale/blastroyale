@@ -11,7 +11,6 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_25;
-		public static readonly int DROP_AMOUNT_ANGLES = 5;
 		public static readonly int OFFHAND_POOLSIZE = 20;
 		public static readonly FP BOT_STUCK_DETECTION_SQR_DISTANCE = FP._2;
 		public static readonly int BURST_INTERVAL_DIVIDER = 3;

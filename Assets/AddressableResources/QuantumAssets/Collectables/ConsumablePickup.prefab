@@ -119,9 +119,9 @@ MonoBehaviour:
       CompoundShapes: []
       IsSetFromSourceCollider: 0
     Shape3D:
-      ShapeType: 2
+      ShapeType: 1
       SphereRadius:
-        RawValue: 0
+        RawValue: 65536
       PositionOffset:
         X:
           RawValue: 0

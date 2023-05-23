@@ -118,9 +118,9 @@ MonoBehaviour:
       CompoundShapes: []
       IsSetFromSourceCollider: 0
     Shape3D:
-      ShapeType: 2
+      ShapeType: 1
       SphereRadius:
-        RawValue: 0
+        RawValue: 65536
       PositionOffset:
         X:
           RawValue: 0
@@ -240,6 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
+    Id:
+      Value: 0
     ChestType:
       Value: 0
 --- !u!1 &4764048967066448840

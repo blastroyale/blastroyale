@@ -208,8 +208,12 @@ namespace Quantum.Systems
 			// We default to global collect time
 			var endTime = f.GameConfig.CollectableCollectTime.Get(f);
 
-			// Unless it's a consumable in which case we use it's collect time
-			if (f.TryGet<Consumable>(consumableEntity, out var consumable))
+			// Unless it's a chest or non-equipment consumable in which case we use its collect time
+			if (f.TryGet<Chest>(consumableEntity, out var chest))
+			{
+				endTime = chest.CollectTime;
+			}
+			else if (f.TryGet<Consumable>(consumableEntity, out var consumable))
 			{
 				endTime = consumable.CollectTime;
 			}

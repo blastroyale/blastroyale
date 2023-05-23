@@ -147,13 +147,15 @@ namespace Quantum.Systems
 				{
 					return;
 				}
-
-				var ammoFilled = FP.MaxValue;
+				
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
+				
+				// Because max ammo is deliberately practically unreachable, we use half of ammo to compare
+				var ammoFilled = stats->CurrentAmmo / (stats->GetStatData(StatType.Health).StatValue * FP._0_50);
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0; i < (FPMath.RoundToInt(itemCount / 2) + 1); i++)
+				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)
 				{
 					var consumable = GameId.Health;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
@@ -181,8 +183,9 @@ namespace Quantum.Systems
 				if (QuantumFeatureFlags.DropEnergyCubes)
 				{
 					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, true, false); //drop a single level on kill
-
+					step++;
 				}
+				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
 					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step, true);

@@ -7,11 +7,16 @@
                 <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="coming-soon" />
             </ui:VisualElement>
             <ui:ListView focusable="true" />
-            <ui:VisualElement name="ButtonHolder" class="button-holder" style="height: 113px; top: auto; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: -450px;">
+            <ui:VisualElement name="ButtonHolder" class="button-holder" style="height: 113px; top: 600px; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: auto;">
                 <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchBotsToggle" name="BotsToggle" class="lobby-toggle" />
                 <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchSpectateToggle" name="SpectateToggle" class="lobby-toggle" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/MatchmakingKickButton" name="KickButton" class="button-long button-long--yellow info-holder__equip-button" style="position: relative; top: auto; left: auto;" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/RoomLock" name="LockButton" class="button-long button-long--yellow info-holder__equip-button" style="top: auto; position: relative; left: auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SquadSelectHolder" class="button-holder" style="height: 100px; top: 211px; flex-direction: row; justify-content: space-around; align-self: center; bottom: auto; width: 238px;">
+                <ui:Button text="&lt;" display-tooltip-when-elided="true" name="SquadDownButton" style="font-size: 60px;" />
+                <FirstLight.Game.UIElements.LocalizedLabel name="SquadLabel" localization-key="UITHomeScreen/party" class="coming-soon" style="font-size: 40px; height: auto; flex-grow: 1; -unity-text-align: upper-center; align-self: center;" />
+                <ui:Button text="&gt;" display-tooltip-when-elided="true" name="SquadUpButton" style="font-size: 60px;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

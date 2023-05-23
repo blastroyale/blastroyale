@@ -75,6 +75,11 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _squadIdUpButton;
 		[SerializeField, Required] private Button _squadIdDownButton;
 
+		// private Button _squadIdUpButton;
+		// private Button _squadIdDownButton;
+		// private LocalizedToggle _botsToggleObjectRoot;
+		// private LocalizedToggle _spectateToggleObjectRoot;
+		
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;

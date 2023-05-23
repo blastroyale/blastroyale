@@ -1,3 +1,4 @@
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -11,7 +12,7 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private const long SHOWN_DURATION = 5000;
 		private const long RELEASED_AFTER = 6000;
-		
+
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
@@ -31,6 +32,12 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
+			// Do nothing in case of offline Tutorial match where there are bots on the map which are not in PlayersMatchData
+			if (callback.PlayersMatchData.Count <= 1)
+			{
+				return;
+			}
+			
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var victimData = callback.PlayersMatchData[callback.PlayerDead];
 

@@ -160,8 +160,8 @@ namespace Quantum.Systems
 				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
-					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);
-					var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
+					var ammoSmallConfig = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall);
+					var initialAmmo = ammoSmallConfig.Amount.Get(f);
 					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
 					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
 

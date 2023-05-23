@@ -7,6 +7,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
@@ -16,9 +17,10 @@ using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Image = UnityEngine.UI.Image;
 
 namespace FirstLight.Game.Presenters
 {
@@ -26,7 +28,8 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class CustomLobbyScreenPresenter : UiPresenterData<CustomLobbyScreenPresenter.StateData>,
+	public class CustomLobbyScreenPresenter : UiToolkitPresenterData<CustomLobbyScreenPresenter.StateData>,
+											  // UiPresenterData<CustomLobbyScreenPresenter.StateData>, 
 											  IInRoomCallbacks
 	{
 		public struct StateData
@@ -112,9 +115,20 @@ namespace FirstLight.Game.Presenters
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		protected override void QueryElements(VisualElement root)
+		{
+			Debug.Log("Query Elements");
+			
+			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			header.backClicked += OnLeaveRoomClicked;
+			header.homeClicked += OnLeaveRoomClicked;
+		}
+
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
+			base.OnOpened();
+		
 			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
 
 			_rootObject.SetActive(true);

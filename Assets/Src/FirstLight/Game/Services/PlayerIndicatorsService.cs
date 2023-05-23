@@ -3,7 +3,6 @@ using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using Quantum;
-using Sirenix.OdinInspector.Editor.Licensing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

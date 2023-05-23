@@ -414,6 +414,7 @@ namespace FirstLight.Game.Presenters
 			input.SpecialButton1.Disable();
 			input.Aim.Disable();
 			input.AimButton.Disable();
+			input.Move.Disable();
 
 			foreach (var go in _disableWhileParachuting)
 			{
@@ -442,6 +443,7 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
+			input.Move.Enable();
 			
 			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2519710826503657405}
   - component: {fileID: 239393191174332763}
   - component: {fileID: 6145894822900367786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,6 +221,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: d49ad62f98347d04b9ae6d98ff9d1b96, type: 2}
+    - target: {fileID: 243041194690276544, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
       propertyPath: m_Name
       value: Clapperboard_Broken Variant

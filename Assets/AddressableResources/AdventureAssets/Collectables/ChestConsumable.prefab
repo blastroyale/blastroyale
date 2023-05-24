@@ -233,6 +233,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7496525629958753994}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
@@ -291,11 +292,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
       propertyPath: m_Name
       value: Consumable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
 --- !u!23 &2338164641347958546 stripped
 MeshRenderer:

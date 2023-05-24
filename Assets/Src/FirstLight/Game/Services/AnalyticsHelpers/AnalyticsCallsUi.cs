@@ -31,7 +31,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			var data = new Dictionary<string, object>
 			{
-				{"screen-name", screenName}
+				{"screen_name", screenName}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.ScreenView, data);

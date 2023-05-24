@@ -42,6 +42,10 @@ parameters:
     displayName: Run Unit Tests
     type: boolean
     default: false
+  - name: param_run_testlab
+    displayName: Run Tests with Physical Devices at TestLab
+    type: boolean
+    default: false
   - name: param_use_accelerator
     displayName: Use Accelerator
     type: boolean
@@ -56,6 +60,10 @@ parameters:
     default: false  
   - name: param_fake_build
     displayName: "[DEBUG] Skip game builds and reuse dlls"
+    type: boolean
+    default: false
+  - name: param_skip_ios # In theory this should make androids builds faster, because there is nothing running in parallel
+    displayName: "[DEBUG] Skip IOS build"
     type: boolean
     default: false
 
@@ -104,6 +112,8 @@ variables:
         value: "aab"
     - name: useAccelerator
       value: true
+    - name: runTestLab
+      value: true
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
@@ -129,12 +139,13 @@ variables:
       value: ${{ parameters.param_run_unity_tests }}
     - name: useAccelerator
       value: ${{ parameters.param_use_accelerator }}      
-      
+    - name: runTestLab
+      value: ${{ parameters.param_run_testlab }}
 pool: macos
-
 
 stages:
   - stage: Builds
+    lockBehavior: sequential
     jobs:
       - job: DisplayAndTagBuild
         steps:
@@ -146,6 +157,7 @@ stages:
             echo "Configuration: $(configuration)"
             echo "Android File Type: $(androidFileType)"
             echo "Use Accelerator: $(useAccelerator)"
+            echo "Run TestLabs: $(runTestLabs)"
             echo "Run Tests: $(runUnitTests)"
           displayName: "Print variables"
         # This step adds a tag to the build, the Game Logic CD uses it to decide if should run or not
@@ -235,6 +247,7 @@ stages:
               cuttlyApiKey: $(cuttlyApiKey)
               androidFileType: $(androidFileType)
               useUnityAccelerator: ${{ variables.useAccelerator }}
+              runTestLab: ${{ variables.runTestLab }}
               publishDlls: true
             
       - job: iOSBuild
@@ -246,6 +259,7 @@ stages:
         condition: |
           and(
             ne(${{ parameters.param_fake_build }}, true),
+            ne(${{ parameters.param_skip_ios }}, true),
             in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
           )
         steps:
@@ -268,7 +282,7 @@ stages:
             developmentiOSCertPwd: $(developmentiOSCertPwd)
             distributioniOSCertPwd: $(distributioniOSCertPwd)
             useUnityAccelerator: ${{ variables.useAccelerator }}
-            # Publish dlls in IOS build if we skipped the android one
+            runTestLab: ${{ variables.runTestLab }}
             publishDlls: false
 
 

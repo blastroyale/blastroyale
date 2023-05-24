@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.google.external-dependency-manager": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
-    "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-9.3.0.tgz",
-    "com.google.firebase.app": "file:../Google/com.google.firebase.app-9.3.0.tgz",
-    "com.google.firebase.crashlytics": "file:../Google/com.google.firebase.crashlytics-9.3.0.tgz",
+    "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-11.0.0.tgz",
+    "com.google.firebase.app": "file:../Google/com.google.firebase.app-11.0.0.tgz",
+    "com.google.firebase.crashlytics": "file:../Google/com.google.firebase.crashlytics-11.0.0.tgz",
     "com.unity.2d.animation": "9.0.3",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.9",
@@ -57,5 +57,7 @@
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
   },
-  "scopedRegistries": []
+  "scopedRegistries": [
+
+  ]
 }

@@ -22,6 +22,8 @@ namespace FirstLight.Game.Presenters
 		private Action _closeCallback;
 		private Action _confirmCallback;
 
+		public string Title => _titleLabel?.text; 
+
 		private void CloseRequested()
 		{
 			Close(false);

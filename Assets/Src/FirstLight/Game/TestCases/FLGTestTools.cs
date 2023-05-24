@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Toggle = UnityEngine.UI.Toggle;
 
-namespace FirstLight.Tests.PlayTests
+namespace FirstLight.Game.TestCases
 {
 	public class FLGTestTools
 	{

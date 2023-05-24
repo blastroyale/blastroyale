@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			
 			var orderNumber = 1;
-			var canUseSquads = _gameDataProvider.EquipmentDataProvider.HasNfts();
+			var canUseSquads = _gameDataProvider.HasNfts();
 			
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)

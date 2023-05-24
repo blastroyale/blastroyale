@@ -55,14 +55,6 @@ namespace FirstLight.Game.Views.UITK
 			_matchmakingText.Localize(translationTerm);
 		}
 
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
-		}
-
 		public void Show(bool show)
 		{
 			Element.EnableInClassList(UssContainerHidden, !show);

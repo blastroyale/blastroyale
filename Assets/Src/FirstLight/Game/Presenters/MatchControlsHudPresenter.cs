@@ -438,6 +438,8 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
+			input.SpecialButton0.Enable();
+			input.SpecialButton1.Enable();
 			input.Aim.Enable();
 			input.AimButton.Enable();
 			input.Move.Enable();

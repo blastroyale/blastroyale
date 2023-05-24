@@ -35,9 +35,8 @@ namespace FirstLight.Editor.Artifacts
 		public static DllArtifacts ServerSdk = new()
 		{
 			SourceDir = $"{Application.dataPath}/../Assets/Src/FirstLight/Server/Plugin/net48/",
-			Dlls = new []
+			Dlls = new[]
 			{
-				
 				"FirstLightServerSDK.dll"
 			}
 		};
@@ -45,15 +44,13 @@ namespace FirstLight.Editor.Artifacts
 		public static DllArtifacts Odin = new()
 		{
 			SourceDir = $"{Application.dataPath}/../Assets/Libs/Odin/Plugins/Sirenix/Assemblies/",
-			Dlls = new []
+			Dlls = new[]
 			{
-				
 				"Sirenix.OdinInspector.Attributes.dll"
 			}
 		};
-		
-		public static GameConfigArtifact GameConfigs = new();
 
+		public static GameConfigArtifact GameConfigs = new();
 
 		public static GameTranslationArtifact GameTranslations = new();
 

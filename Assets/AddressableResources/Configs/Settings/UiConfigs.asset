@@ -91,6 +91,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/HUDScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.HUDScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LeaderboardAndRewardsScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.LeaderboardAndRewardsScreenPresenter, FirstLight.Game,
@@ -188,11 +192,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:
-    - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.HUDScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 3
     UiConfigsType:

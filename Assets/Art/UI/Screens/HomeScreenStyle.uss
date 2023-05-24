@@ -121,7 +121,7 @@
 .player-header__avatar-pfp {
     flex-grow: 1;
     -unity-background-scale-mode: scale-to-fit;
-    background-image: var(--sprite-home__avatar-default);
+    background-image: var(--sprite-shared__avatar-default);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;

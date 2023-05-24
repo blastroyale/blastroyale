@@ -9201,7 +9201,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Create
+      - CREATE
       - "\u0421\u043E\u0437\u0434\u0430\u0432\u0430\u0442\u044C"
       - Criar
       - 
@@ -9316,7 +9316,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom Game
+      - CUSTOM GAME
       - "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F
         \u0438\u0433\u0440\u0430"
       - Jogo personalizado
@@ -9830,7 +9830,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Join
+      - JOIN
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
       - Juntar
       - 
@@ -10321,6 +10321,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/None
+      TermType: 0
+      Description: 
+      Languages:
+      - None
+      - None
+      - None
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/NotEnoughSpace
       TermType: 0
       Description: 
@@ -10414,6 +10425,17 @@ MonoBehaviour:
       - PLAY
       - "\u0418\u0413\u0420\u0410\u0422\u042C"
       - JOGAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/Playtest
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYTEST
+      - PLAYTEST
+      - PLAYTEST
       - 
       - 
       Flags: 0000000000
@@ -10692,7 +10714,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Join
+      - JOIN
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
       - Juntar
       - 
@@ -10715,7 +10737,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - game mode
+      - GAME MODE
       - "\u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u0440\u0435\u0436\u0438\u043C"
       - modo de jogo
       - 
@@ -10726,7 +10748,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - map
+      - MAP
       - "\u043A\u0430\u0440\u0442\u0430"
       - mapa
       - 
@@ -10737,7 +10759,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - mutator 1
+      - MUTATOR 1
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 1"
       - Mutator 1
       - 
@@ -10748,7 +10770,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - mutator 2
+      - MUTATOR 2
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 2"
       - Mutator 2
       - 
@@ -10759,7 +10781,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom Game
+      - CUSTOM GAME
       - "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F
         \u0438\u0433\u0440\u0430"
       - Jogo personalizado
@@ -10771,7 +10793,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Leave
+      - LEAVE
       - "\u041E\u0441\u0442\u0430\u0432\u043B\u044F\u0442\u044C"
       - Deixar
       - 
@@ -10782,7 +10804,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lock & Play!
+      - LOCK & PLAY
       - "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u0443\u0439 \u0438 \u0438\u0433\u0440\u0430\u0439!"
       - Lock & Play!
       - 
@@ -16154,7 +16176,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1684255176957
+    Google_LastUpdatedVersion: 1684760819090
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

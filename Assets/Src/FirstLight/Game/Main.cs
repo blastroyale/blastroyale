@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
+using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -29,7 +30,7 @@ namespace FirstLight.Game
 	{
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
-		
+
 		private void Awake()
 		{
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskExceptionLogging;
@@ -44,13 +45,13 @@ namespace FirstLight.Game
 		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			StartCoroutine(HeartbeatCoroutine());
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			_services?.MessageBrokerService?.Publish(new ApplicationFocusMessage() {IsFocus = hasFocus});
+			_services?.MessageBrokerService?.Publish(new ApplicationFocusMessage() { IsFocus = hasFocus });
 			if (!hasFocus)
 			{
 				_services?.DataSaver?.SaveAllData();
@@ -70,7 +71,7 @@ namespace FirstLight.Game
 				_pauseCoroutine = null;
 			}
 
-			_services?.MessageBrokerService?.Publish(new ApplicationPausedMessage {IsPaused = isPaused});
+			_services?.MessageBrokerService?.Publish(new ApplicationPausedMessage { IsPaused = isPaused });
 		}
 
 		private void OnApplicationQuit()
@@ -97,11 +98,13 @@ namespace FirstLight.Game
 
 		private IEnumerator HeartbeatCoroutine()
 		{
-			var waitForSeconds = new WaitForSeconds(30);
+			var waitFor30Seconds = new WaitForSeconds(30);
+			var waitFor5Seconds = new WaitForSeconds(5);
 			
+
 			while (true)
 			{
-				yield return waitForSeconds;
+				yield return FLGTestRunner.Instance.IsRunning() ? waitFor5Seconds : waitFor30Seconds;
 				_services?.AnalyticsService.SessionCalls.Heartbeat();
 			}
 		}
@@ -113,14 +116,14 @@ namespace FirstLight.Game
 			{
 				var task = sender as Task<object>;
 				var objName = task.Result is UnityEngine.Object ? ((UnityEngine.Object)task.Result).name : task.Result.ToString();
-				
+
 				Debug.LogError($"Task exception sent by the object {objName}");
 			}
 			else
-			{	
-					Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
+			{
+				Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
 			}
-			
+
 			Debug.LogException(e.Exception);
 		}
 	}

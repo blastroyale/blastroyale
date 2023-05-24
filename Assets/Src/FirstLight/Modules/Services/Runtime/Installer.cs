@@ -55,10 +55,10 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class Installer : IInstaller
 	{
-		private readonly Dictionary<Type, object> _bindings = new Dictionary<Type, object>();
+		protected readonly Dictionary<Type, object> _bindings = new Dictionary<Type, object>();
 
 		/// <inheritdoc />
-		public void Bind<T>(T instance) where T : class
+		public virtual void Bind<T>(T instance) where T : class
 		{
 			var type = typeof(T);
 

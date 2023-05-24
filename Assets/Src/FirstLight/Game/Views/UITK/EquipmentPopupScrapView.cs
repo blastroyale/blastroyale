@@ -10,7 +10,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the scrapping content on the equipment popup
 	/// </summary>
-	public class EquipmentPopupScrapView : IUIView
+	public class EquipmentPopupScrapView : UIView
 	{
 		private Label _amount;
 		private VisualElement _requirements;
@@ -21,8 +21,9 @@ namespace FirstLight.Game.Views.UITK
 
 		private Action _confirmAction;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_amount = element.Q<Label>("Amount").Required();
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_areYouSureLabel = element.Q<VisualElement>("AreYouSureLabel").Required();
@@ -44,14 +45,6 @@ namespace FirstLight.Game.Views.UITK
 			_bottomFiller.SetDisplay(info.IsNft);
 			
 			_confirmAction = confirmAction;
-		}
-
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
 		}
 	}
 }

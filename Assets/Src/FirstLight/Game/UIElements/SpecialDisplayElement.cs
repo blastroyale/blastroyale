@@ -8,7 +8,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssBlock = "special-display";
 		private const string UssIcon = UssBlock + "__icon";
 
-		private const string UssSpriteSpecial = "sprite-home__icon-special-{0}";
+		private const string UssSpriteSpecial = "sprite-shared__icon-special-{0}";
 
 		private VisualElement _icon;
 

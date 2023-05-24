@@ -13,7 +13,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardBPPanelView : IUIView
+	public class RewardBPPanelView : UIView
 	{
 		public struct BPPLevelRewardInfo
 		{
@@ -24,7 +24,6 @@ namespace FirstLight.Game.Views
 			public int MaxLevel;
 		}
 		
-		private VisualElement _root;
 		private Label _gainedLabel;
 		private Label _nextLevelLabel;
 		private Label _toLevelLabel;
@@ -37,19 +36,18 @@ namespace FirstLight.Game.Views
 		
 		private List<BPPLevelRewardInfo> _levelRewardsInfo;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
-			_root = element;
-			
-			_gainedLabel = _root.Q<Label>("Gained").Required();
-			_nextLevelLabel = _root.Q<Label>("Level").Required();
-			_totalLabel = _root.Q<Label>("Total").Required();
-			_previousPointsBar = _root.Q<VisualElement>("GreenBar").Required();
-			_newPointsBar = _root.Q<VisualElement>("YellowBar").Required();
-			_gainedWeek = _root.Q<Label>("GainedWeek").Required();
-			_next = _root.Q<Label>("Next").Required();
-			_totalWeek = _root.Q<Label>("TotalWeek").Required();
-			_toLevelLabel = _root.Q<Label>("ToLevel").Required();
+			base.Attached(element);
+			_gainedLabel = element.Q<Label>("Gained").Required();
+			_nextLevelLabel = element.Q<Label>("Level").Required();
+			_totalLabel = element.Q<Label>("Total").Required();
+			_previousPointsBar = element.Q<VisualElement>("GreenBar").Required();
+			_newPointsBar = element.Q<VisualElement>("YellowBar").Required();
+			_gainedWeek = element.Q<Label>("GainedWeek").Required();
+			_next = element.Q<Label>("Next").Required();
+			_totalWeek = element.Q<Label>("TotalWeek").Required();
+			_toLevelLabel = element.Q<Label>("ToLevel").Required();
 			
 			HidePanel();
 		}
@@ -137,21 +135,13 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
-		}
-		
 		private void ShowPanel()
 		{
-			_root.RemoveFromClassList("hidden-reward");
+			Element.RemoveFromClassList("hidden-reward");
 		}
 		private void HidePanel()
 		{
-			_root.AddToClassList("hidden-reward");
+			Element.AddToClassList("hidden-reward");
 		}
 	}
 }

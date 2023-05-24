@@ -86,7 +86,7 @@ namespace FirstLight.Game.StateMachines
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 
-			final.OnEnter(CloseMatchHud);
+			// TODO mihak: final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -153,24 +153,26 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenControlsHud()
 		{
-			_uiService.OpenUi<MatchControlsHudPresenter>();
+			//_uiService.OpenUi<HUDScreenPresenter>();
 		}
-
+		
 		private void CloseControlsHud()
 		{
-			_uiService.CloseUi<MatchControlsHudPresenter>();
+			//_uiService.CloseUi<HUDScreenPresenter>();
 		}
-
+		
 		private void OpenMatchHud()
 		{
-			_uiService.OpenUi<MatchHudPresenter>();
+			//_uiService.OpenUi<MatchHudPresenter>();
+			_uiService.OpenUi<HUDScreenPresenter>();
 		}
-
+		
 		private void CloseMatchHud()
 		{
-			_uiService.CloseUi<MatchHudPresenter>();
+			_uiService.CloseUi<HUDScreenPresenter>();
+			//_uiService.CloseUi<MatchHudPresenter>();
 		}
-
+		
 		private void OpenMatchEndScreen()
 		{
 			var data = new MatchEndScreenPresenter.StateData

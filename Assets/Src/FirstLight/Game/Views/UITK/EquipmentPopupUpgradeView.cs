@@ -12,7 +12,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the upgrade content on the equipment popup
 	/// </summary>
-	public class EquipmentPopupUpgradeView : IUIView
+	public class EquipmentPopupUpgradeView : UIView
 	{
 		private const string UssPriceInsufficient = "requirements--insufficient";
 		private const string UssSpriteCurrency = "sprite-shared__icon-currency-{0}";
@@ -30,8 +30,9 @@ namespace FirstLight.Game.Views.UITK
 
 		private readonly List<Tuple<EquipmentStatType, float, float>> _statItems = new();
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_currentLvl = element.Q<Label>("LevelCurrent").Required();
 			_nextLvl = element.Q<Label>("LevelNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
@@ -100,14 +101,6 @@ namespace FirstLight.Game.Views.UITK
 			var stat = _statItems[index];
 
 			statElement.SetValue(stat.Item1, stat.Item2, true, stat.Item3);
-		}
-
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
 		}
 	}
 }

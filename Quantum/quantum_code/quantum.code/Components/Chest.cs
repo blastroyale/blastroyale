@@ -53,7 +53,7 @@ namespace Quantum
 			var stats = f.Get<Stats>(playerEntity);
 
 			// We use half of ammo to calculate whether to drop ammo or not
-			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity) * FP._0_50;
+			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity) * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
 
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -85,7 +86,8 @@ namespace FirstLight.Game.Presenters
 			// Graphics
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("FPSRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.FpsTarget,
-				val => _gameDataProvider.AppDataProvider.FpsTarget = val);
+				val => _gameDataProvider.AppDataProvider.FpsTarget = val,
+				FpsTarget.Normal, FpsTarget.High);
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
 				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
@@ -123,16 +125,33 @@ namespace FirstLight.Game.Presenters
 			}, setter);
 		}
 
-		private void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter)
+		private void SetupRadioButtonGroup<T>(RadioButtonGroup group, Func<T> getter, Action<T> setter, params T[] validValues)
 			where T : Enum, IConvertible
 		{
-			var options = Enum.GetNames(typeof(T)); // TODO: Needs some sort of localization
-			group.choices = options;
-			group.value = EnumUtils.ToInt(getter());
+			var allowedValues = validValues;
+			if (allowedValues.Length == 0)
+			{
+				allowedValues = Enum.GetValues(typeof(T))
+					.Cast<T>()
+					.ToArray();
+			}
 
+			var options = allowedValues.Select(v => Enum.GetName(typeof(T), v));
+			// TODO: Needs some sort of localization
+			group.choices = options;
+
+			// If the allowed values change in the future set the first value of the list
+			var currentValue = getter();
+			if (!EnumUtils.IsValid(allowedValues, currentValue))
+			{
+				currentValue = allowedValues[0];
+			}
+
+			group.value = EnumUtils.ToInt(allowedValues, currentValue);
 			group.RegisterCallback<ChangeEvent<int>, Action<T>>((e, s) =>
 			{
-				s(EnumUtils.FromInt<T>(e.newValue));
+				var value = Math.Max(0, e.newValue);
+				s(EnumUtils.FromInt<T>(allowedValues, value));
 				Save();
 			}, setter);
 		}
@@ -160,8 +179,8 @@ namespace FirstLight.Game.Presenters
 					_gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 		}
-		
-		
+
+
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

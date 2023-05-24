@@ -116,6 +116,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
+			
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);

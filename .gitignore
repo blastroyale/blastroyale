@@ -138,3 +138,5 @@ Assets/Plugins/Android/org.*
 Assets/Plugins/Android/FirebaseCrashlytics.*
 blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
 blast_royale_BurstDebugInformation_DoNotShip
+Assets/InitTestScene*.unity
+Assets/InitTestScene*.unity.meta

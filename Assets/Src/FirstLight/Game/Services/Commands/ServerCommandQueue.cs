@@ -167,6 +167,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnCommandException(string exceptionMsg)
 		{
+			FLog.Info($"Command exception: {exceptionMsg}");
+
 			DebugUtils.SaveState(_gameBackend, _data, () =>
 			{
 #if UNITY_EDITOR

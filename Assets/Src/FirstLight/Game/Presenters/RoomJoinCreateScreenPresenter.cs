@@ -227,6 +227,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var mutatorsSelection in _mutatorModeDropDown)
 			{
 				var menuChoices = new List<string>();
+				menuChoices.Add(ScriptLocalization.MainMenu.None);
 				
 				foreach (var mutatorConfig in mutatorConfigs)
 				{

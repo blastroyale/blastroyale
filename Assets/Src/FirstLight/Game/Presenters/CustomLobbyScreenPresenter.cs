@@ -18,7 +18,8 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
+// using Button = UnityEngine.UI.Button;
+using Button = UnityEngine.UIElements.Button;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Image = UnityEngine.UI.Image;
 
@@ -44,9 +45,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private Button _homeButton;
 		[SerializeField, Required] private GameObject _rootObject;
-		[SerializeField, Required] private Button _lockRoomButton;
-		[SerializeField, Required] private Button _kickButton;
-		[SerializeField, Required] private Button _cancelKickButton;
+
 		[SerializeField, Required] private Image[] _playersWaitingImage;
 		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
 		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
@@ -72,11 +71,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _topTitleHolder;
 		[SerializeField, Required] private GameObject _squadContainer;
 		[SerializeField, Required] private TextMeshProUGUI _squadIdText;
-		[SerializeField, Required] private Button _squadIdUpButton;
-		[SerializeField, Required] private Button _squadIdDownButton;
 
-		// private Button _squadIdUpButton;
-		// private Button _squadIdDownButton;
+		private Button _lockRoomButton;
+		private Button _kickButton;
+		private Button _cancelKickButton;
+		
+		private Button _squadIdUpButton;
+		private Button _squadIdDownButton;
 		private LocalizedToggle _botsToggle;
 		private LocalizedToggle _spectateToggle;
 		private ListView _playerListView;
@@ -100,19 +101,17 @@ namespace FirstLight.Game.Presenters
 			{
 				image.gameObject.SetActive(false);
 			}
-
-			_backButton.onClick.AddListener(OnLeaveRoomClicked);
-			_homeButton.onClick.AddListener(OnLeaveRoomClicked);
-			// _spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
+			
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
-			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
-			_kickButton.onClick.AddListener(ActivateKickOverlay);
-			// _botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
-			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
+			// _lockRoomButton.onClick.AddListener(OnLockRoomClicked);
+			// _kickButton.onClick.AddListener(ActivateKickOverlay);
+
+			// _cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
+			// _squadIdDownButton.onClick.AddListener(OnSquadIdDown);
+			// _squadIdUpButton.onClick.AddListener(OnSquadIdUp);
+			
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
-			_squadIdDownButton.onClick.AddListener(OnSquadIdDown);
-			_squadIdUpButton.onClick.AddListener(OnSquadIdUp);
 		}
 
 		private void OnDestroy()
@@ -135,11 +134,24 @@ namespace FirstLight.Game.Presenters
 			SetupBotsToggle(root.Q<LocalizedToggle>("BotsToggle").Required(),
 			() => _botsToggle.value,
 			val => _botsToggle.value = val);
-			
-			// _botsToggle.SetupToggle(OnBotsToggleChanged);
-			
+
 			_spectateToggle = root.Q<LocalizedToggle>("SpectateToggle").Required();
-			// _spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
+			SetupSpectatorToggle(root.Q<LocalizedToggle>("SpectateToggle").Required(),
+				() => _spectateToggle.value,
+				val => _spectateToggle.value = val);
+
+			_lockRoomButton = root.Q<Button>("LockButton").Required();
+			_lockRoomButton.clicked += OnLockRoomClicked;
+
+			_kickButton = root.Q<Button>("KickButton").Required();
+			_kickButton.clicked += ActivateKickOverlay;
+
+			_squadIdDownButton = root.Q<Button>("SquadDownButton").Required();
+			_squadIdDownButton.clicked += OnSquadIdDown;
+			_squadIdUpButton = root.Q<Button>("SquadUpButton").Required();
+			_squadIdUpButton.clicked += OnSquadIdUp;
+			
+			// _cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 		}
 		
 		private void SetupBotsToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
@@ -151,6 +163,17 @@ namespace FirstLight.Game.Presenters
 				CheckEnableLockRoomButton();
 			}, setter);
 		}
+		
+		private void SetupSpectatorToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
+		{
+			// toggle.value = getter();
+			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
+			{
+				s(e.newValue);
+				OnSpectatorToggle(toggle.value);
+			}, setter);
+		}
+		
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
@@ -176,14 +199,10 @@ namespace FirstLight.Game.Presenters
 				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig), RequestKickPlayer);
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
 
-				_kickButton.gameObject.SetActive(false);
-				// _spectateToggleObjectRoot.SetActive(false);
-				// _botsToggleObjectRoot.SetActive(false);
-				
+				_kickButton.SetDisplay(false);
 				_botsToggle.SetDisplay(false);
 				_spectateToggle.SetDisplay(false);
-				
-				_lockRoomButton.gameObject.SetActive(false);
+				_lockRoomButton.SetDisplay(false);
 				_loadingText.SetActive(true);
 				_squadContainer.SetActive(false);
 				_topTitleHolder.SetActive(true);
@@ -197,19 +216,17 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
-			_lockRoomButton.gameObject.SetActive(false);
+			_lockRoomButton.SetDisplay(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
 			
 			_botsToggle.SetValueWithoutNotify(true);
-			// _botsToggleObjectRoot.SetActive(false);
 			_botsToggle.SetDisplay(false);
 			_spectateToggle.SetValueWithoutNotify(false);
-			// _spectateToggleObjectRoot.SetActive(false);
 			_spectateToggle.SetDisplay(false);
 			
-			_kickButton.gameObject.SetActive(false);
+			_kickButton.SetDisplay(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
 			_squadContainer.SetActive(gameModeConfig.Teams);
@@ -295,8 +312,8 @@ namespace FirstLight.Game.Presenters
 
 			if (_services.NetworkService.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
 			{
-				_lockRoomButton.gameObject.SetActive(true);
-				_kickButton.gameObject.SetActive(true);
+				_lockRoomButton.SetDisplay(true);
+				_kickButton.SetDisplay(true);
 				_botsToggle.SetDisplay(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
 
@@ -360,8 +377,8 @@ namespace FirstLight.Game.Presenters
 
 			if (!CurrentRoom.IsMatchmakingRoom() && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
-				_kickButton.gameObject.SetActive(true);
-				_lockRoomButton.gameObject.SetActive(true);
+				_kickButton.SetDisplay(true);
+				_lockRoomButton.SetDisplay(true);
 				_botsToggle.SetDisplay(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
 		}
@@ -457,21 +474,12 @@ namespace FirstLight.Game.Presenters
 		private void CheckEnableLockRoomButton()
 		{
 			var realPlayers = CurrentRoom.GetRealPlayerAmount();
-			_lockRoomButton.interactable = realPlayers > 1 || realPlayers == 1 && _botsToggle.value;
+			_lockRoomButton.SetEnabled(realPlayers > 1 || realPlayers == 1 && _botsToggle.value);
 		}
 
 		private void SetSpectateInteractable(bool interactable)
 		{
 			_spectateToggle.SetEnabled(interactable);
-
-			if (interactable)
-			{
-				// _spectateToggle.SetTargetCustomGraphicsColor(Color.white);
-			}
-			else
-			{
-				// _spectateToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
-			}
 		}
 
 		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
@@ -558,12 +566,12 @@ namespace FirstLight.Game.Presenters
 
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
-			_lockRoomButton.gameObject.SetActive(false);
-			// _botsToggleObjectRoot.SetActive(false);
+			_lockRoomButton.SetDisplay(false);
+			
+			
 			_botsToggle.SetDisplay(false);
-			_kickButton.gameObject.SetActive(false);
+			_kickButton.SetDisplay(false);
 			_spectateToggle.SetDisplay(false);
-			// _spectateToggleObjectRoot.SetActive(false);
 			_squadContainer.SetActive(false);
 			_topTitleHolder.SetActive(true);
 
@@ -653,7 +661,7 @@ namespace FirstLight.Game.Presenters
 			// Set lock room button to be inactive immediately - gets enabled when player properties change
 			if (_services.NetworkService.LocalPlayer.IsMasterClient)
 			{
-				_lockRoomButton.interactable = false;
+				_lockRoomButton.SetEnabled(false);
 			}
 
 			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});

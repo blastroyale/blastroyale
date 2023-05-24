@@ -58,5 +58,12 @@ namespace FirstLight.Game.Utils
 		{
 			return Resolve<IGameServices>();
 		}
+		/// <summary>
+		/// Helper to resolve match services
+		/// </summary>
+		public static IMatchServices ResolveMatchServices()
+		{
+			return Resolve<IMatchServices>();
+		}
 	}
 }

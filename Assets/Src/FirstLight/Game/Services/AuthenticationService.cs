@@ -381,11 +381,15 @@ namespace FirstLight.Game.Services
 
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();
+			_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+
 
 			_services.LiveopsService.FetchSegments(_ =>
 			{
 				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
 				FeatureFlags.ParseFlags(liveopsFeatureFlags);
+				_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+
 			});
 
 			_networkService.UserId.Value = result.PlayFabId;

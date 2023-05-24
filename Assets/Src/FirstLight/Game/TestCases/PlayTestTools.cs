@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-namespace FirstLight.Tests.PlayTests
+namespace FirstLight.Game.TestCases
 {
 	public class TestTools
 	{
@@ -23,14 +24,14 @@ namespace FirstLight.Tests.PlayTests
 				yield return null;
 			}
 		}
-		
+
 		/// <summary>
 		/// Coroutine that waits until an object of a certain type is in the scene
 		/// </summary>
 		/// <typeparam name="T">Type of the object to wait for</typeparam>
-		public static IEnumerator UntilObjectOfType<T>() where T : MonoBehaviour
+		public static IEnumerator UntilObjectOfType<T>(float timeout = 30, bool crash = true) where T : MonoBehaviour
 		{
-			yield return Until(() => Object.FindObjectOfType<T>() != null && Object.FindObjectOfType<T>().gameObject.activeSelf);
+			yield return Until(() => Object.FindObjectOfType<T>() != null && Object.FindObjectOfType<T>().gameObject.activeSelf, timeout, crash);
 		}
 
 		/// <summary>
@@ -41,7 +42,7 @@ namespace FirstLight.Tests.PlayTests
 		public static UIDocument GetUIDocument<T>() where T : Component
 		{
 			var pt = Object.FindObjectOfType<T>();
-			if(pt != null) return pt.GetComponent<UIDocument>();
+			if (pt != null) return pt.GetComponent<UIDocument>();
 			return null;
 		}
 
@@ -53,46 +54,62 @@ namespace FirstLight.Tests.PlayTests
 		/// <typeparam name="T">Type of button (ex: Button, ImageButton, etc)</typeparam>
 		public static void ClickUIToolKitButton<T>(UIDocument parent, string name) where T : VisualElement
 		{
-			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
+			if (parent == null)
+			{
+				throw new NullReferenceException($"UI Document for {name} not found");
+			}
+
 			var button = parent.rootVisualElement.Q<T>(name);
 
 			if (button == null)
 			{
 				throw new Exception($"Button with name \"{name}\" not found");
 			}
-			
-			var buttonPosition = RuntimePanelUtils.ScreenToPanel(parent.rootVisualElement.panel,button.GetPositionOnScreen(parent.rootVisualElement, false));
-			using (EventBase mouseDownEvent = MakeMouseEvent(EventType.MouseDown, buttonPosition))
+
+
+			var buttonPosition = RuntimePanelUtils.ScreenToPanel(parent.rootVisualElement.panel, button.GetPositionOnScreen(parent.rootVisualElement, false));
+			using (EventBase mouseDownEvent = MakeMouseEvent(EventType.TouchDown, buttonPosition))
 				parent.rootVisualElement.SendEvent(mouseDownEvent);
-			using (EventBase mouseUpEvent = MakeMouseEvent(EventType.MouseUp, buttonPosition))
+			using (EventBase mouseUpEvent = MakeMouseEvent(EventType.TouchUp, buttonPosition))
 				parent.rootVisualElement.SendEvent(mouseUpEvent);
 		}
 
+
 		private static EventBase MakeMouseEvent(EventType type, Vector2 position, MouseButton button = MouseButton.LeftMouse, EventModifiers modifiers = EventModifiers.None, int clickCount = 1)
 		{
-			var evt = new Event() { type = type, mousePosition = position, button = (int)button, modifiers = modifiers, clickCount = clickCount};
-			
+			var evt = new Event()
+			{
+				type = type,
+				mousePosition = position,
+				button = (int)button,
+				modifiers = modifiers,
+				clickCount = clickCount
+			};
+
 			EventBase returnEvent = type switch
 			{
 				EventType.MouseUp   => PointerUpEvent.GetPooled(evt),
 				EventType.MouseDown => PointerDownEvent.GetPooled(evt),
-				_ => null
+				_                   => null
 			};
 
 			return returnEvent;
 		}
-		
-		private static IEnumerator Until(Func<bool> condition, float timeout = 30f)
+
+		public static IEnumerator Until(Func<bool> condition, float timeout = 30f, bool crashGame = false)
 		{
 			float timePassed = 0f;
-			var wait = new WaitForSeconds(1);
+			float waitSeconds = 0.1f;
+			var wait = new WaitForSeconds(waitSeconds);
 			while (!condition() && timePassed < timeout)
 			{
 				yield return wait;
-				timePassed += Time.deltaTime;
+				timePassed += waitSeconds;
 			}
-			if (timePassed >= timeout) {
-				throw new TimeoutException("Condition was not fulfilled for " + timeout + " seconds.");
+
+			if (timePassed >= timeout)
+			{
+				yield return FLGTestRunner.Instance.Fail("Condition was not fulfilled for " + timeout + " seconds.");
 			}
 		}
 	}

@@ -423,6 +423,10 @@ namespace FirstLight.Game.StateMachines
 				EventType = typeof(EventOnPlayerKilledPlayer),
 				EventMetaAmount = 2
 			};
+			_services.MessageBrokerService.Publish(new AdvancedFirstMatchMessage
+			{
+				State = TutorialFirstMatchStates.EnterKill2Bots
+			});
 		}
 
 		private void OnEnterKill1BotSpecial()
@@ -491,6 +495,10 @@ namespace FirstLight.Game.StateMachines
 				EventType = typeof(EventOnPlayerKilledPlayer),
 				EventMetaAmount = 1
 			};
+			_services.MessageBrokerService.Publish(new AdvancedFirstMatchMessage
+			{
+				State = TutorialFirstMatchStates.EnterKillFinalBot
+			});
 		}
 
 		private void OnEnterWaitMatchFinish()

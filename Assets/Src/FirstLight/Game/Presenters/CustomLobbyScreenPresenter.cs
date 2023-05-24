@@ -63,10 +63,10 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _selectDropZoneTextRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
-		[SerializeField, Required] private UiToggleButtonView _botsToggle;
-		[SerializeField, Required] private UiToggleButtonView _spectateToggle;
-		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
-		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
+		// [SerializeField, Required] private UiToggleButtonView _botsToggle;
+		// [SerializeField, Required] private UiToggleButtonView _spectateToggle;
+		// [SerializeField, Required] private GameObject _botsToggleObjectRoot;
+		// [SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		[SerializeField] private Color _spectateDisabledColor;
 
 		[SerializeField, Required] private GameObject _topTitleHolder;
@@ -77,8 +77,9 @@ namespace FirstLight.Game.Presenters
 
 		// private Button _squadIdUpButton;
 		// private Button _squadIdDownButton;
-		// private LocalizedToggle _botsToggleObjectRoot;
-		// private LocalizedToggle _spectateToggleObjectRoot;
+		private LocalizedToggle _botsToggle;
+		private LocalizedToggle _spectateToggle;
+		private ListView _playerListView;
 		
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
@@ -102,11 +103,11 @@ namespace FirstLight.Game.Presenters
 
 			_backButton.onClick.AddListener(OnLeaveRoomClicked);
 			_homeButton.onClick.AddListener(OnLeaveRoomClicked);
-			_spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
+			// _spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
-			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
+			// _botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
@@ -127,8 +128,29 @@ namespace FirstLight.Game.Presenters
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += OnLeaveRoomClicked;
 			header.homeClicked += OnLeaveRoomClicked;
-		}
+			
+			_playerListView = root.Q<ListView>("PlayerListView").Required();
 
+			_botsToggle = root.Q<LocalizedToggle>("BotsToggle").Required();
+			SetupBotsToggle(root.Q<LocalizedToggle>("BotsToggle").Required(),
+			() => _botsToggle.value,
+			val => _botsToggle.value = val);
+			
+			// _botsToggle.SetupToggle(OnBotsToggleChanged);
+			
+			_spectateToggle = root.Q<LocalizedToggle>("SpectateToggle").Required();
+			// _spectateToggle.onValueChanged.AddListener(OnSpectatorToggle);
+		}
+		
+		private void SetupBotsToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
+		{
+			// toggle.value = getter();
+			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
+			{
+				s(e.newValue);
+				CheckEnableLockRoomButton();
+			}, setter);
+		}
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
@@ -155,8 +177,12 @@ namespace FirstLight.Game.Presenters
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
 
 				_kickButton.gameObject.SetActive(false);
-				_spectateToggleObjectRoot.SetActive(false);
-				_botsToggleObjectRoot.SetActive(false);
+				// _spectateToggleObjectRoot.SetActive(false);
+				// _botsToggleObjectRoot.SetActive(false);
+				
+				_botsToggle.SetDisplay(false);
+				_spectateToggle.SetDisplay(false);
+				
 				_lockRoomButton.gameObject.SetActive(false);
 				_loadingText.SetActive(true);
 				_squadContainer.SetActive(false);
@@ -175,10 +201,14 @@ namespace FirstLight.Game.Presenters
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);
 			_findingPlayersText.gameObject.SetActive(true);
-			_botsToggle.SetInitialValue(true);
-			_botsToggleObjectRoot.SetActive(false);
-			_spectateToggle.SetInitialValue(false);
-			_spectateToggleObjectRoot.SetActive(false);
+			
+			_botsToggle.SetValueWithoutNotify(true);
+			// _botsToggleObjectRoot.SetActive(false);
+			_botsToggle.SetDisplay(false);
+			_spectateToggle.SetValueWithoutNotify(false);
+			// _spectateToggleObjectRoot.SetActive(false);
+			_spectateToggle.SetDisplay(false);
+			
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
@@ -267,12 +297,12 @@ namespace FirstLight.Game.Presenters
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_kickButton.gameObject.SetActive(true);
-				_botsToggleObjectRoot.SetActive(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
+				_botsToggle.SetDisplay(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
 
 			if (!CurrentRoom.IsMatchmakingRoom())
 			{
-				_spectateToggleObjectRoot.SetActive(true);
+				_spectateToggle.SetDisplay(true);
 			}
 		}
 
@@ -332,7 +362,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_kickButton.gameObject.SetActive(true);
 				_lockRoomButton.gameObject.SetActive(true);
-				_botsToggleObjectRoot.SetActive(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
+				_botsToggle.SetDisplay(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
 		}
 
@@ -427,20 +457,20 @@ namespace FirstLight.Game.Presenters
 		private void CheckEnableLockRoomButton()
 		{
 			var realPlayers = CurrentRoom.GetRealPlayerAmount();
-			_lockRoomButton.interactable = realPlayers > 1 || realPlayers == 1 && _botsToggle.isOn;
+			_lockRoomButton.interactable = realPlayers > 1 || realPlayers == 1 && _botsToggle.value;
 		}
 
 		private void SetSpectateInteractable(bool interactable)
 		{
-			_spectateToggle.interactable = interactable;
+			_spectateToggle.SetEnabled(interactable);
 
 			if (interactable)
 			{
-				_spectateToggle.SetTargetCustomGraphicsColor(Color.white);
+				// _spectateToggle.SetTargetCustomGraphicsColor(Color.white);
 			}
 			else
 			{
-				_spectateToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
+				// _spectateToggle.SetTargetCustomGraphicsColor(_spectateDisabledColor);
 			}
 		}
 
@@ -502,7 +532,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.value});
 		}
 
 		private void OnLeaveRoomClicked()
@@ -529,9 +559,11 @@ namespace FirstLight.Game.Presenters
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
-			_botsToggleObjectRoot.SetActive(false);
+			// _botsToggleObjectRoot.SetActive(false);
+			_botsToggle.SetDisplay(false);
 			_kickButton.gameObject.SetActive(false);
-			_spectateToggleObjectRoot.SetActive(false);
+			_spectateToggle.SetDisplay(false);
+			// _spectateToggleObjectRoot.SetActive(false);
 			_squadContainer.SetActive(false);
 			_topTitleHolder.SetActive(true);
 

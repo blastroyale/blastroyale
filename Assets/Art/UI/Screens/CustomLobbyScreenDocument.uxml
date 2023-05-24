@@ -3,20 +3,21 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="MainMenu/RoomJoinCreateTitle" subtitle-back="true" name="Header" class="screen-header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
-            <ui:VisualElement name="PlayerListHolder" class="button-holder" style="height: 308px; top: 211px; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: auto; width: 640px;">
-                <FirstLight.Game.UIElements.LocalizedLabel name="ComingSoon" localization-key="UITCollectionScreen/comingsoon" class="coming-soon" />
+            <ui:VisualElement name="PlayerListHolder" class="button-holder" style="height: 557px; top: 405px; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: auto; width: 640px; position: absolute; left: 12px;">
+                <FirstLight.Game.UIElements.LocalizedLabel name="PlayerHeading" localization-key="UITLeaderboards/player" class="coming-soon" style="font-size: 40px; color: rgb(255, 255, 255);" />
+                <FirstLight.Game.UIElements.LocalizedLabel name="StatusHeading" localization-key="AdventureMenu/ReadyStatusTitle" class="coming-soon" style="font-size: 40px; color: rgb(255, 255, 255);" />
+                <ui:ListView focusable="true" name="PlayerListView" style="background-color: rgba(0, 0, 0, 0); width: 310px; position: absolute; top: 65px; left: 15px; height: 492px;" />
             </ui:VisualElement>
-            <ui:ListView focusable="true" />
-            <ui:VisualElement name="ButtonHolder" class="button-holder" style="height: 113px; top: 600px; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: auto;">
+            <ui:VisualElement name="ButtonHolder" class="button-holder" style="height: 113px; top: 976px; flex-direction: row; justify-content: space-around; align-self: stretch; bottom: auto;">
                 <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchBotsToggle" name="BotsToggle" class="lobby-toggle" />
                 <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchSpectateToggle" name="SpectateToggle" class="lobby-toggle" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/MatchmakingKickButton" name="KickButton" class="button-long button-long--yellow info-holder__equip-button" style="position: relative; top: auto; left: auto;" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/RoomLock" name="LockButton" class="button-long button-long--yellow info-holder__equip-button" style="top: auto; position: relative; left: auto;" />
             </ui:VisualElement>
-            <ui:VisualElement name="SquadSelectHolder" class="button-holder" style="height: 100px; top: 211px; flex-direction: row; justify-content: space-around; align-self: center; bottom: auto; width: 238px;">
-                <ui:Button text="&lt;" display-tooltip-when-elided="true" name="SquadDownButton" style="font-size: 60px;" />
-                <FirstLight.Game.UIElements.LocalizedLabel name="SquadLabel" localization-key="UITHomeScreen/party" class="coming-soon" style="font-size: 40px; height: auto; flex-grow: 1; -unity-text-align: upper-center; align-self: center;" />
-                <ui:Button text="&gt;" display-tooltip-when-elided="true" name="SquadUpButton" style="font-size: 60px;" />
+            <ui:VisualElement name="SquadSelectHolder" class="button-holder" style="height: 100px; top: 258px; flex-direction: row; justify-content: space-around; align-self: center; bottom: auto; width: 238px; position: absolute; left: 34px;">
+                <ui:Button text="&lt;" display-tooltip-when-elided="true" name="SquadDownButton" style="font-size: 60px; background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Home%20Screen/AreaButtonA.png?fileID=2800000&amp;guid=67e22ef73459147c4bf9cee536304c2c&amp;type=3#AreaButtonA&apos;); color: rgb(255, 255, 255);" />
+                <FirstLight.Game.UIElements.LocalizedLabel name="SquadLabel" localization-key="UITHomeScreen/party" class="coming-soon" style="font-size: 40px; height: auto; flex-grow: 1; -unity-text-align: upper-center; align-self: center; background-color: rgba(255, 255, 255, 0); color: rgb(255, 255, 255);" />
+                <ui:Button text="&gt;" display-tooltip-when-elided="true" name="SquadUpButton" style="font-size: 60px; color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Home%20Screen/AreaButtonB.png?fileID=2800000&amp;guid=e48c86e18b5c248a4b3310314a156f3f&amp;type=3#AreaButtonB&apos;);" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

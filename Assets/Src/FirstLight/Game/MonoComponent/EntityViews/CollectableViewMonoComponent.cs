@@ -32,6 +32,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private EntityRef _displayedCollector;
 		private CollectableIndicatorVfxMonoComponent _collectingVfx;
 
+		/// <summary>
+		/// Sets the visibility of the static Pickup Circle to provided value
+		/// </summary>
+		public void SetPickupCircleVisibility(bool value)
+		{
+			_pickupCircle.gameObject.SetActive(value);
+		}
+
 		private void OnValidate()
 		{
 			_animation = _animation ? _animation : GetComponent<Animation>();

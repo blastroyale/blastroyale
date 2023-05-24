@@ -221,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 7496525629958753993}
   m_LocalRotation: {x: 0, y: 0.95881975, z: 0, w: 0.2840153}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3475081845223427197}
@@ -233,6 +233,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7496525629958753994}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
@@ -296,6 +297,9 @@ PrefabInstance:
       value: Consumable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7800921534da3cb4a85432a8963a612a, type: 3}
 --- !u!23 &2338164641347958546 stripped
 MeshRenderer:

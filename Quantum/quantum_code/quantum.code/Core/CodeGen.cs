@@ -6126,12 +6126,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerMagazineChanged OnPlayerMagazineChanged(PlayerRef Player, EntityRef Entity, Int32 MagSize) {
+      public EventOnPlayerMagazineChanged OnPlayerMagazineChanged(PlayerRef Player, EntityRef Entity, Int32 MagSize, Int32 ShotCount) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerMagazineChanged>(EventOnPlayerMagazineChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.MagSize = MagSize;
+        ev.ShotCount = ShotCount;
         _f.AddEvent(ev);
         return ev;
       }
@@ -8180,6 +8181,7 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public Int32 MagSize;
+    public Int32 ShotCount;
     protected EventOnPlayerMagazineChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -8200,6 +8202,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + MagSize.GetHashCode();
+        hash = hash * 31 + ShotCount.GetHashCode();
         return hash;
       }
     }

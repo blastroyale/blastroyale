@@ -40,9 +40,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Currencies" class="season-header__currencies">
-                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" />
                     <ui:VisualElement class="width-spacer width-spacer--xl" />
-                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>

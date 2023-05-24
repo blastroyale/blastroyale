@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssEquipmentTagRarityModifier = UssEquipmentTagRarity + "-{0}";
 		private const string UssEquipmentTagSpecial = "equipment-tag--special";
 
-		private const string UssSpriteSpecial = "sprite-home__icon-special-{0}";
+		private const string UssSpriteSpecial = "sprite-shared__icon-special-{0}";
 
 		public struct StateData
 		{

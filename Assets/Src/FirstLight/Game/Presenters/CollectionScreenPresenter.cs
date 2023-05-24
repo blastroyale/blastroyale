@@ -11,6 +11,7 @@ using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -73,6 +74,9 @@ namespace FirstLight.Game.Presenters
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
 			header.homeClicked += Data.OnHomeClicked;
+			
+			root.Q<CurrencyDisplayElement>("CSCurrency").AttachView(this, out CurrencyDisplayView _);
+			root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_collectionList.selectionType = SelectionType.Single;
 			_collectionList.makeItem = MakeCollectionListItem;

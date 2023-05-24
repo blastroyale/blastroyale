@@ -65,8 +65,12 @@ namespace FirstLight.Game.Presenters
 			_repairingContent = root.Q<VisualElement>("Repairing").Required().AttachView(this, out _repairView);
 			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
 
+			root.Q<CurrencyDisplayElement>("CSCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+			root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			root.Q<VisualElement>("Background")
+				.RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
 			root.SetupClicks(_services);
 		}
@@ -93,7 +97,7 @@ namespace FirstLight.Game.Presenters
 
 				_title.text = ScriptLocalization.UITEquipment.popup_items_rusted;
 				_rustedView.SetData(Data.EquipmentIds.Select(id => _gameDataProvider.EquipmentDataProvider.GetInfo(id)),
-					() => Data.OnActionConfirmed(Mode.Rusted, UniqueId.Invalid), 
+					() => Data.OnActionConfirmed(Mode.Rusted, UniqueId.Invalid),
 					Data.OnCloseClicked);
 				return;
 			}

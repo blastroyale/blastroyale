@@ -9,21 +9,19 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardPanelView : IUIView
+	public class RewardPanelView : UIView
 	{
-		private VisualElement _root;
 		private Label _gainedLabel;
 		private Label _totalLabel;
 
 		private int _gained;
 		private int _total;
 		
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
-			_root = element;
-			
-			_gainedLabel = _root.Q<Label>("Gained").Required();
-			_totalLabel = _root.Q<Label>("Total").Required();
+			base.Attached(element);
+			_gainedLabel = element.Q<Label>("Gained").Required();
+			_totalLabel = element.Q<Label>("Total").Required();
 
 			HidePanel();
 		}
@@ -67,21 +65,13 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
-		}
-
 		private void ShowPanel()
 		{
-			_root.RemoveFromClassList("hidden-reward");
+			Element.RemoveFromClassList("hidden-reward");
 		}
 		private void HidePanel()
 		{
-			_root.AddToClassList("hidden-reward");
+			Element.AddToClassList("hidden-reward");
 		}
 	}
 }

@@ -188,7 +188,7 @@ namespace FirstLight.UiService
 		[SerializeField] private int _millisecondsToClose = 0;
 
 		protected VisualElement Root;
-		private readonly Dictionary<VisualElement, IUIView> _views = new();
+		private readonly Dictionary<VisualElement, UIView> _views = new();
 
 		public UIDocument Document => _document;
 
@@ -222,9 +222,9 @@ namespace FirstLight.UiService
 		}
 
 		/// <summary>
-		/// Adds a <see cref="IUIView"/> view to the list of views, and handles it's lifecycle events.
+		/// Adds a <see cref="UIView"/> view to the list of views, and handles it's lifecycle events.
 		/// </summary>
-		public void AddView(VisualElement element, IUIView view)
+		public void AddView(VisualElement element, UIView view)
 		{
 			_views.Add(element, view);
 			view.Attached(element);
@@ -245,12 +245,6 @@ namespace FirstLight.UiService
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
 				QueryElements(Root);
-
-				// TODO: There has to be a better way to make this query
-				Root.Query()
-					.Where(ve => typeof(IUIView).IsAssignableFrom(ve.GetType()))
-					.Build()
-					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
 
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);

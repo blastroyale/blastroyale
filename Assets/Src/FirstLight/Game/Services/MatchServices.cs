@@ -29,6 +29,10 @@ namespace FirstLight.Game.Services
 		public IMatchEndDataService MatchEndDataService { get; }
 		/// <inheritdoc cref="IMatchCameraService"/>
 		public IMatchCameraService MatchCameraService { get; }
+		/// <inheritdoc cref="IPlayerInputService"/>
+		public IPlayerInputService PlayerInputService { get; }
+		/// <inheritdoc cref="IPlayerIndicatorService"/>
+		public IPlayerIndicatorService PlayerIndicatorService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -60,16 +64,13 @@ namespace FirstLight.Game.Services
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
 
-		/// <inheritdoc />
 		public ISpectateService SpectateService { get; }
-		/// <inheritdoc />
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
-		/// <inheritdoc />
 		public IFrameSnapshotService FrameSnapshotService { get; }
-		/// <inheritdoc />
 		public IMatchEndDataService MatchEndDataService { get; }
-		/// <inheritdoc />
 		public IMatchCameraService MatchCameraService { get; }
+		public IPlayerInputService PlayerInputService { get; }
+		public IPlayerIndicatorService PlayerIndicatorService { get; }
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, 
 							 IGameServices services, 
@@ -85,7 +86,8 @@ namespace FirstLight.Game.Services
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
 			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
-
+			PlayerInputService = Configure(new PlayerInputService(_gameServices, this, _dataProvider));
+			PlayerIndicatorService = Configure(new PlayerIndicatorsService());
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 			FLog.Verbose("Registered Match Services");

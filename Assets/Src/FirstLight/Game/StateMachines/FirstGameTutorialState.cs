@@ -348,7 +348,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEnterMoveJoystick()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			_guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_MOVEMENT_JOYSTICK].transform.position);
+			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_MOVEMENT_JOYSTICK].transform.position);
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -375,7 +375,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
-			_guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SHOOTING_JOYSTICK].transform.position);
+			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SHOOTING_JOYSTICK].transform.position);
 			
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -434,7 +434,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, _localPlayerEntityView.transform);
-			_guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SPECIAL_BUTTON].transform.position);
+			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SPECIAL_BUTTON].transform.position);
 			
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

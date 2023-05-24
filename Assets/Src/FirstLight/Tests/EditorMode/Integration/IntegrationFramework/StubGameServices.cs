@@ -20,7 +20,6 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IConfigsProvider ConfigsProvider { get; }
 		public virtual IGuidService GuidService { get; }
 		public virtual IGameNetworkService NetworkService { get; }
-		public virtual IPlayerInputService PlayerInputService { get; }
 		public virtual IMessageBrokerService MessageBrokerService { get; }
 		public virtual IGameCommandService CommandService { get; }
 		public virtual IPoolService PoolService { get; }
@@ -59,8 +58,7 @@ namespace FirstLight.Tests.EditorMode
 								IGameLogic gameLogic, IDataProvider dataProvider,
 								IGenericDialogService genericDialogService,
 								IAssetResolverService assetResolverService, IInternalTutorialService tutorialService,
-								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
-								IPlayerInputService playerInputService, IGameUiService uiService)
+								IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IGameUiService uiService)
 		{
 			NetworkService = networkService;
 			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
@@ -73,7 +71,6 @@ namespace FirstLight.Tests.EditorMode
 			GenericDialogService = genericDialogService;
 			TutorialService = tutorialService;
 			AudioFxService = audioFxService;
-			PlayerInputService = playerInputService;
 			VfxService = vfxService;
 			GameLogic = gameLogic;
 

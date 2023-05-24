@@ -14,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.UIElements;
 using FirstLight.UiService;
 using I2.Loc;
+using JetBrains.Annotations;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -161,7 +162,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_seenItems.Count > 0)
 			{
-				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand { Ids = _seenItems });
 				_seenItems.Clear();
 			}
 
@@ -178,6 +179,22 @@ namespace FirstLight.Game.Presenters
 			UpdateEquipButtonText();
 			UpdateMight(false);
 		}
+
+
+		[CanBeNull]
+		public EquipmentCardElement GetCardFromItemId(UniqueId id)
+		{
+			if (!_itemRowMap.TryGetValue(id, out var row))
+			{
+				return null;
+			}
+			
+			return _equipmentList.GetRootElementForIndex(row)
+				.Children()
+				.OfType<EquipmentCardElement>()
+				.First(e => e.UniqueId == id);
+		}
+
 
 		private void OnLoadoutUpdated(GameIdGroup group, UniqueId previous, UniqueId current, ObservableUpdateType type)
 		{
@@ -284,7 +301,7 @@ namespace FirstLight.Game.Presenters
 			_durabilityAmount.text =
 				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(),
 					info.Equipment.MaxDurability.ToString());
-			_durabilityBar.style.flexGrow = (float) info.CurrentDurability / info.Equipment.MaxDurability;
+			_durabilityBar.style.flexGrow = (float)info.CurrentDurability / info.Equipment.MaxDurability;
 
 			// Stats
 			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)).ToList();
@@ -314,7 +331,7 @@ namespace FirstLight.Game.Presenters
 			_special0Tag.style.display = DisplayStyle.None;
 			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId0, out var special0))
 			{
-				var special0ID = (GameId) special0;
+				var special0ID = (GameId)special0;
 				_special0Tag.style.display = DisplayStyle.Flex;
 
 				_special0Icon.RemoveSpriteClasses();
@@ -327,7 +344,7 @@ namespace FirstLight.Game.Presenters
 			_special1Tag.RemoveModifiers();
 			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId1, out var special1))
 			{
-				var special1ID = (GameId) special1;
+				var special1ID = (GameId)special1;
 				_special1Tag.style.display = DisplayStyle.Flex;
 
 				_special1Icon.RemoveSpriteClasses();
@@ -399,8 +416,8 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			var item1 = new EquipmentCardElement {name = "item-1"};
-			var item2 = new EquipmentCardElement {name = "item-2"};
+			var item1 = new EquipmentCardElement { name = "item-1" };
+			var item2 = new EquipmentCardElement { name = "item-2" };
 
 			item1.clicked += OnEquipmentClicked;
 			item2.clicked += OnEquipmentClicked;
@@ -445,8 +462,8 @@ namespace FirstLight.Game.Presenters
 		private void BindEquipmentStatListItem(VisualElement visualElement, int index)
 		{
 			if (index < 0 || index >= _statItems.Count) return;
-			
-			var statElement = (EquipmentStatBarElement) visualElement;
+
+			var statElement = (EquipmentStatBarElement)visualElement;
 
 			var stat = _statItems[index];
 			statElement.SetValue(stat.Key, stat.Value);
@@ -454,8 +471,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipmentClicked(Equipment equipment, UniqueId id)
 		{
-			_services.MessageBrokerService.Publish(new SelectedEquipmentItemMessage(){ItemID = id});
-			
+			_services.MessageBrokerService.Publish(new SelectedEquipmentItemMessage() { ItemID = id });
+
 			if (id == SelectedItem) return;
 
 			var previousItem = SelectedItem;
@@ -506,13 +523,13 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			_services.CommandService.ExecuteCommand(new EquipItemCommand {Item = item});
+			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
 			_services.AnalyticsService.EquipmentCalls.EquipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
 		}
 
 		private void UnequipItem(UniqueId item)
 		{
-			_services.CommandService.ExecuteCommand(new UnequipItemCommand {Item = item});
+			_services.CommandService.ExecuteCommand(new UnequipItemCommand { Item = item });
 			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider
 				.GetInfo(item));
 		}

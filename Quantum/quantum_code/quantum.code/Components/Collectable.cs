@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -60,6 +61,7 @@ namespace Quantum
 			}
 			
 			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS, out var newPosition);
+			
 			return newPosition;
 		}
 	}

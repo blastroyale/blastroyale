@@ -638,6 +638,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new SimulationEndedMessage {Game = QuantumRunner.Default?.Game});
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
+				#if UNITY_EDITOR
+				if (FeatureFlags.GetLocalConfiguration().RecordQuantumInput)
+				{
+					Quantum.Editor.ReplayMenu.ExportDialogReplayAndDB(QuantumRunner.Default.Game, new QuantumUnityJsonSerializer(), ".json");
+				}				
+				#endif
 				_matchServices.MatchEndDataService.Reload();
 				QuantumRunner.ShutdownAll(true);
 			}

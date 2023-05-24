@@ -11,7 +11,7 @@ namespace Quantum
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref QuantumConsumableConfig config, EntityRef spawner)
 		{
-			var collectable = new Collectable {GameId = config.Id};
+			var collectable = new Collectable {GameId = config.Id, PickupRadius = config.CollectableConsumablePickupRadius};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
 			ConsumableType = config.ConsumableType;
@@ -24,6 +24,9 @@ namespace Quantum
 			transform->Rotation = rotation;
 			
 			f.Add(e, collectable);
+			
+			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
+			collider->Shape.Sphere.Radius = config.CollectableConsumablePickupRadius;
 		}
 
 		/// <summary>

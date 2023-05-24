@@ -24,16 +24,25 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
-      LargeConsumable: []
+        Value2: 2
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 196608
     - Id: 130
       ChestType: 1
       RandomEquipment:
       - Value1:
           RawValue: 65536
         Value2: 1
-      SmallConsumable: []
-      LargeConsumable: []
+      SmallConsumable:
+      - Value1:
+          RawValue: 65536
+        Value2: 1
+      CollectableChestPickupRadius:
+        RawValue: 111411
+      CollectTime:
+        RawValue: 196608
     - Id: 19
       ChestType: 2
       RandomEquipment:
@@ -43,5 +52,8 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 5
-      LargeConsumable: []
+        Value2: 3
+      CollectableChestPickupRadius:
+        RawValue: 131072
+      CollectTime:
+        RawValue: 393216

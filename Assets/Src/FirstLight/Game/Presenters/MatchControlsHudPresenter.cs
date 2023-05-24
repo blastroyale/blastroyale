@@ -18,6 +18,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FirstLight.Game.Views;
+using JetBrains.Annotations;
 
 namespace FirstLight.Game.Presenters
 {
@@ -26,6 +27,10 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
+		public unsafe delegate void SetQuantumInput(CallbackPollInput callback, ref Quantum.Input input);
+
+		[CanBeNull] public static SetQuantumInput OverwriteCallbackInput;
+
 		[SerializeField, Required] private WeaponSlotView[] _slots;
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField, Required] private GameObject[] _disableWhileParachuting;
@@ -117,11 +122,6 @@ namespace FirstLight.Game.Presenters
 				_direction = context.ReadValue<Vector2>();
 				_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
 			}
-			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
-				TutorialSection.FIRST_GUIDE_MATCH)
-			{
-				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
-			}
 		}
 
 		/// <inheritdoc />
@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = slotIndexToSwitch});
+			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand { WeaponSlotIndex = slotIndexToSwitch });
 		}
 
 		public void OnTeamPositionPing(InputAction.CallbackContext context)
@@ -266,18 +266,19 @@ namespace FirstLight.Game.Presenters
 
 				if (FeatureFlags.SPECIAL_RADIUS)
 				{
-					var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+					var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 					radiusIndicator.SetVisualState(true);
 					radiusIndicator.SetTransformState(Vector2.zero);
 				}
+
 				return;
 			}
 
 			indicator.SetVisualState(false);
-			
+
 			if (FeatureFlags.SPECIAL_RADIUS)
 			{
-				var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 				radiusIndicator.SetVisualState(false);
 			}
 
@@ -333,7 +334,6 @@ namespace FirstLight.Game.Presenters
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 			InitSlotsView(playerCharacter);
-			
 		}
 
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
@@ -392,7 +392,7 @@ namespace FirstLight.Game.Presenters
 
 			Init(f, callback.Entity);
 		}
-		
+
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
@@ -419,7 +419,7 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(false);
 			}
-			
+
 			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
@@ -442,7 +442,7 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
-			
+
 			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
 
@@ -503,12 +503,28 @@ namespace FirstLight.Game.Presenters
 
 		private void PollInput(CallbackPollInput callback)
 		{
-			float moveSpeedPercentage = 100;
-			if (_data.AppDataProvider.MovespeedControl)
+			if (OverwriteCallbackInput == null)
 			{
-				moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				float moveSpeedPercentage = 100;
+				if (_data.AppDataProvider.MovespeedControl)
+				{
+					moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				}
+
+				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			}
-			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
+			else
+			{
+				OverwriteCallbackInput.Invoke(callback, ref _quantumInput);
+			}
+
+
+			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
+				TutorialSection.FIRST_GUIDE_MATCH && _quantumInput.Direction.Magnitude > FP._0_05)
+			{
+				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+			}
+
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 

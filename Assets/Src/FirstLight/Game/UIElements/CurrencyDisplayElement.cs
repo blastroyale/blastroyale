@@ -14,7 +14,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// A small widget displaying the selected currency with it's icon. Also handles flying VFX for it.
 	/// </summary>
-	public class CurrencyDisplayElement : VisualElement, IUIView
+	public class CurrencyDisplayElement : VisualElement
 	{
 		/* Class names are at the top in const fields */
 		private const string UssBlock = "currency-display";
@@ -69,21 +69,18 @@ namespace FirstLight.Game.UIElements
 			this.OpenTooltip(panel.visualTree, currency.GetDescriptionLocalization());
 		}
 
-		/* IUIView: Called the first time this element is initialized (on first Open) */
-		public void Attached(VisualElement visualElement)
+		public void Init(IGameDataProvider gameDataProvider, IMainMenuServices mainMenuServices, IGameServices gameServices)
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
-			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_gameDataProvider = gameDataProvider;
+			_mainMenuServices = mainMenuServices;
+			_gameServices = gameServices;
 		}
 
-		/* IUIView: Called by the presenter when the screen is opened */
 		public void SubscribeToEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(currency, OnCurrencyChanged);
 		}
 
-		/* IUIView: Called by the presenter when the screen is closed */
 		public void UnsubscribeFromEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.StopObservingAll(this);

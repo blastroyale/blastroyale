@@ -388,7 +388,7 @@ namespace Quantum
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
 			{
 				slot->MagazineShotCount -= 1;
-				f.Events.OnPlayerMagazineChanged(Player, e, slot->MagazineSize);
+				f.Events.OnPlayerMagazineChanged(Player, e, slot->MagazineSize, slot->MagazineShotCount);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{

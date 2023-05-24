@@ -125,7 +125,7 @@ namespace FirstLight.Game.Services
 			if (request.result != UnityWebRequest.Result.Success)
 			{
 				FLog.Warn($"Error loading texture from {uri}: {request.error}");
-				error();
+				error?.Invoke();
 			}
 			else
 			{

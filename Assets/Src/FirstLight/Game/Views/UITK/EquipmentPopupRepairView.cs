@@ -10,7 +10,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the repairing content on the equipment popup
 	/// </summary>
-	public class EquipmentPopupRepairView : IUIView
+	public class EquipmentPopupRepairView : UIView
 	{
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 		private const string DURABILITY_PLUS_AMOUNT = "+{0}";
@@ -29,8 +29,9 @@ namespace FirstLight.Game.Views.UITK
 		
 		private Action _confirmAction;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_durabilityBar = element.Q<VisualElement>("DurabilityProgress").Required();
 			_durabilityAmount = element.Q<Label>("DurabilityAmount").Required();
 			_durabilityPlusAmount = element.Q<Label>("DurabilityPlusAmount").Required();
@@ -72,14 +73,6 @@ namespace FirstLight.Game.Views.UITK
 			}
 			
 			_confirmAction = confirmAction;
-		}
-
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
 		}
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.TestCases;
 using UnityEngine;
 
 namespace FirstLight.Game.Utils
@@ -149,10 +150,12 @@ namespace FirstLight.Game.Utils
 		{
 			FLog.Info("Server commit: "+ServerBuildCommit);
 			FLog.Info("Client commit: "+Commit);
-			if (IsOutOfSync())
+#if !UNITY_EDITOR
+			if (IsOutOfSync() && !FLGTestRunner.Instance.IsRunning())
 			{
-				FLog.Error("Missmatch server and client commits, desyncs may occur!");
+				FLog.Warn("Mismatch server and client commits, desyncs may occur!");
 			}
+#endif
 		}
 
 		public static bool IsOutOfSync()

@@ -121,6 +121,10 @@ namespace FirstLight.Game.Serializers
 
 	public class CustomDictionaryConverter<TKey, TValue> : JsonConverter
 	{
+		public CustomDictionaryConverter()
+		{
+		}
+
 		public override bool CanConvert(Type objectType) => objectType == typeof(Dictionary<TKey, TValue>);
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => serializer.Serialize(writer, ((Dictionary<TKey, TValue>) value).ToList());

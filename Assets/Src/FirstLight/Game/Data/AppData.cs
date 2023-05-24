@@ -26,7 +26,8 @@ namespace FirstLight.Game.Data
 	public enum FpsTarget
 	{
 		Normal = 30,
-		High = 60
+		High = 60,
+		Unlimited = 0,
 	}
 	
 	/// <summary>

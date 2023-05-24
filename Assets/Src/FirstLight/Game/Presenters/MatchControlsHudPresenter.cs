@@ -18,6 +18,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FirstLight.Game.Views;
+using JetBrains.Annotations;
 
 namespace FirstLight.Game.Presenters
 {
@@ -26,6 +27,10 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
+		public unsafe delegate void SetQuantumInput(CallbackPollInput callback, ref Quantum.Input input);
+
+		[CanBeNull] public static SetQuantumInput OverwriteCallbackInput;
+
 		[SerializeField, Required] private WeaponSlotView[] _slots;
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField, Required] private GameObject[] _disableWhileParachuting;
@@ -55,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
+			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
 
 			for (var i = 0; i < _slots.Length; i++)
 			{
@@ -100,12 +105,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			_services.PlayerInputService.EnableInput();
+			_matchServices.PlayerInputService.Input.Enable();
 		}
 
 		protected override Task OnClosed()
 		{
-			_services.PlayerInputService.DisableInput();
+			_matchServices.PlayerInputService.Input.Disable();
 			return Task.CompletedTask;
 		}
 
@@ -116,11 +121,6 @@ namespace FirstLight.Game.Presenters
 			{
 				_direction = context.ReadValue<Vector2>();
 				_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
-			}
-			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
-				TutorialSection.FIRST_GUIDE_MATCH)
-			{
-				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			if (input.SpecialButton0.IsPressed())
 			{
@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = slotIndexToSwitch});
+			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand { WeaponSlotIndex = slotIndexToSwitch });
 		}
 
 		public void OnTeamPositionPing(InputAction.CallbackContext context)
@@ -266,18 +266,19 @@ namespace FirstLight.Game.Presenters
 
 				if (FeatureFlags.SPECIAL_RADIUS)
 				{
-					var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+					var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 					radiusIndicator.SetVisualState(true);
 					radiusIndicator.SetTransformState(Vector2.zero);
 				}
+
 				return;
 			}
 
 			indicator.SetVisualState(false);
-			
+
 			if (FeatureFlags.SPECIAL_RADIUS)
 			{
-				var radiusIndicator =  _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
 				radiusIndicator.SetVisualState(false);
 			}
 
@@ -286,7 +287,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
+			var aim = _matchServices.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 
 			SendSpecialUsedCommand(specialIndex, aim);
 		}
@@ -326,14 +327,13 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
-			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
+			_matchServices.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 			InitSlotsView(playerCharacter);
-			
 		}
 
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
@@ -392,12 +392,11 @@ namespace FirstLight.Game.Presenters
 
 			Init(f, callback.Entity);
 		}
-		
+
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
-
-			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			
 			SetupSpecialsInput(callback.Game.Frames.Verified.Time, callback.WeaponSlot, playerView);
 
 			for (var i = 0; i < _slots.Length; i++)
@@ -408,7 +407,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			input.SpecialButton0.Disable();
 			input.SpecialButton1.Disable();
@@ -419,8 +418,6 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(false);
 			}
-			
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
@@ -430,7 +427,7 @@ namespace FirstLight.Game.Presenters
 				go.SetActive(true);
 			}
 
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			for (var i = 0; i < _specialButtons.Length; i++)
 			{
@@ -442,8 +439,6 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
-			
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
@@ -469,7 +464,7 @@ namespace FirstLight.Game.Presenters
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			var button = _specialButtons[callback.SpecialIndex];
-			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
+			var inputButton = _matchServices.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
 			var frame = callback.Game.Frames.Predicted;
 
 			// Disables the input until the cooldown is off
@@ -503,12 +498,28 @@ namespace FirstLight.Game.Presenters
 
 		private void PollInput(CallbackPollInput callback)
 		{
-			float moveSpeedPercentage = 100;
-			if (_data.AppDataProvider.MovespeedControl)
+			if (OverwriteCallbackInput == null)
 			{
-				moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				float moveSpeedPercentage = 100;
+				if (_data.AppDataProvider.MovespeedControl)
+				{
+					moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				}
+
+				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			}
-			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting, FP.FromFloat_UNSAFE(moveSpeedPercentage));
+			else
+			{
+				OverwriteCallbackInput.Invoke(callback, ref _quantumInput);
+			}
+
+
+			if (!_sentMovementMessage && _services.TutorialService.CurrentRunningTutorial.Value ==
+				TutorialSection.FIRST_GUIDE_MATCH && _quantumInput.Direction.Magnitude > FP._0_05)
+			{
+				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+			}
+
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
 		}
 
@@ -536,9 +547,8 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < weaponSlot.Specials.Length; i++)
 			{
 				var special = weaponSlot.Specials[i];
-				var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
-
-				_indicatorContainerView.SetupIndicator(i, weaponSlot.Specials[i].SpecialId, playerView);
+				var inputButton = _matchServices.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
+				
 				_specialButtons[i].Init(special.SpecialId);
 
 				if (special.IsValid)

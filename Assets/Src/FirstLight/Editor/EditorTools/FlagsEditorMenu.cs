@@ -9,6 +9,7 @@ namespace FirstLight.Editor.EditorTools
 	{
 		private const string DisableTutorial = "FLG/Flags/Disable Tutorial";
 		private const string ForceHasNfts = "FLG/Flags/Force Has NFTs";
+		private const string RecordInput = "FLG/Flags/Record Input";
 		private const string IgnoreEquipmentRequirementForRanked = "FLG/Flags/Ignore ranked equipment requirement";
 
 
@@ -19,6 +20,7 @@ namespace FirstLight.Editor.EditorTools
 				Menu.SetChecked(DisableTutorial, IsTutorialDisabled);
 				Menu.SetChecked(ForceHasNfts, IsForceHasNfts);
 				Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked);
+				Menu.SetChecked(RecordInput, IsRecordInput);
 			};
 		}
 
@@ -51,6 +53,16 @@ namespace FirstLight.Editor.EditorTools
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
+		
+		public static bool IsRecordInput
+		{
+			get => FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().RecordQuantumInput = value;
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
 
 
 		[MenuItem(DisableTutorial)]
@@ -72,6 +84,14 @@ namespace FirstLight.Editor.EditorTools
 		{
 			IsIgnoreEquipmentRequirementForRanked = !IsIgnoreEquipmentRequirementForRanked;
 			EditorApplication.delayCall += () => { Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked); };
+		}
+		
+		
+		[MenuItem(RecordInput)]
+		private static void ToggleRecordInput()
+		{
+			IsRecordInput = !IsRecordInput;
+			EditorApplication.delayCall += () => { Menu.SetChecked(RecordInput, IsRecordInput); };
 		}
 	}
 }

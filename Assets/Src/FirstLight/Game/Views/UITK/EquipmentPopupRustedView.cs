@@ -11,15 +11,16 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles the rusted items content on the equipment popup
 	/// </summary>
-	public class EquipmentPopupRustedView : IUIView
+	public class EquipmentPopupRustedView : UIView
 	{
 		private ScrollView _scrollView;
 
 		private Action _goRepairAction;
 		private Action _closeAction;
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
+			base.Attached(element);
 			_scrollView = element.Q<ScrollView>("ScrollView").Required();
 
 			element.Q<LocalizedButton>("RepairButton").clicked += () => _goRepairAction();
@@ -37,14 +38,6 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_scrollView.Add(new EquipmentCardElement(info.Equipment, info.Id, true));
 			}
-		}
-
-		public void SubscribeToEvents()
-		{
-		}
-
-		public void UnsubscribeFromEvents()
-		{
 		}
 	}
 }

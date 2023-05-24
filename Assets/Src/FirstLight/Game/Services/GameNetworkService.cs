@@ -243,6 +243,7 @@ namespace FirstLight.Game.Services
 		/// Set last connected room
 		/// </summary>
 		void SetLastRoom();
+		
 	}
 
 	public enum JoinRoomSource
@@ -391,6 +392,7 @@ namespace FirstLight.Game.Services
 		}
 
 		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
+		
 
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{

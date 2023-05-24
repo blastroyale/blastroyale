@@ -3968,11 +3968,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Chest : Quantum.IComponent {
-    public const Int32 SIZE = 8;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     [HideInInspector()]
     public ChestType ChestType;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public FP CollectTime;
     [FieldOffset(4)]
     [HideInInspector()]
     public GameId Id;
@@ -3980,6 +3983,7 @@ namespace Quantum {
       unchecked { 
         var hash = 457;
         hash = hash * 31 + (Int32)ChestType;
+        hash = hash * 31 + CollectTime.GetHashCode();
         hash = hash * 31 + (Int32)Id;
         return hash;
       }
@@ -3988,6 +3992,7 @@ namespace Quantum {
         var p = (Chest*)ptr;
         serializer.Stream.Serialize((Int32*)&p->ChestType);
         serializer.Stream.Serialize((Int32*)&p->Id);
+        FP.Serialize(&p->CollectTime, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -4030,7 +4035,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Collectable : Quantum.IComponent {
-    public const Int32 SIZE = 272;
+    public const Int32 SIZE = 280;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     [HideInInspector()]
@@ -4039,6 +4044,9 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
+    [FieldOffset(272)]
+    [HideInInspector()]
+    public FP PickupRadius;
     [FieldOffset(8)]
     [HideInInspector()]
     public EntityRef Spawner;
@@ -4052,6 +4060,7 @@ namespace Quantum {
         var hash = 463;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + PickupRadius.GetHashCode();
         hash = hash * 31 + Spawner.GetHashCode();
         return hash;
       }
@@ -4061,6 +4070,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->GameId);
         EntityRef.Serialize(&p->Spawner, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
+        FP.Serialize(&p->PickupRadius, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -6116,12 +6126,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerMagazineChanged OnPlayerMagazineChanged(PlayerRef Player, EntityRef Entity, Int32 MagSize) {
+      public EventOnPlayerMagazineChanged OnPlayerMagazineChanged(PlayerRef Player, EntityRef Entity, Int32 MagSize, Int32 ShotCount) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerMagazineChanged>(EventOnPlayerMagazineChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.MagSize = MagSize;
+        ev.ShotCount = ShotCount;
         _f.AddEvent(ev);
         return ev;
       }
@@ -8170,6 +8181,7 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef Entity;
     public Int32 MagSize;
+    public Int32 ShotCount;
     protected EventOnPlayerMagazineChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -8190,6 +8202,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + MagSize.GetHashCode();
+        hash = hash * 31 + ShotCount.GetHashCode();
         return hash;
       }
     }
@@ -10228,6 +10241,8 @@ namespace Quantum.Prototypes {
     public GameId_Prototype Id;
     [HideInInspector()]
     public ChestType_Prototype ChestType;
+    [HideInInspector()]
+    public FP CollectTime;
     partial void MaterializeUser(Frame frame, ref Chest result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Chest component = default;
@@ -10236,6 +10251,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Chest result, in PrototypeMaterializationContext context) {
       result.ChestType = this.ChestType;
+      result.CollectTime = this.CollectTime;
       result.Id = this.Id;
       MaterializeUser(frame, ref result, in context);
     }
@@ -10294,6 +10310,8 @@ namespace Quantum.Prototypes {
     public FP[] CollectorsEndTime = new FP[32];
     [HideInInspector()]
     public MapEntityId Spawner;
+    [HideInInspector()]
+    public FP PickupRadius;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -10305,6 +10323,7 @@ namespace Quantum.Prototypes {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
       result.GameId = this.GameId;
+      result.PickupRadius = this.PickupRadius;
       PrototypeValidator.FindMapEntity(this.Spawner, in context, out result.Spawner);
       MaterializeUser(frame, ref result, in context);
     }

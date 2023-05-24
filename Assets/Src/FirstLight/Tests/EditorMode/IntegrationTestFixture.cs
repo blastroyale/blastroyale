@@ -67,7 +67,6 @@ namespace FirstLight.Tests.EditorMode
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
-			var playerInputService = new PlayerInputService();
 			
 			TestVfx = new VfxService<VfxId>();
 
@@ -76,7 +75,7 @@ namespace FirstLight.Tests.EditorMode
 			                          audioFxService);
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, playerInputService, TestUI);
+			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, TestUI);
 			
 			TestLogic.Init();
 

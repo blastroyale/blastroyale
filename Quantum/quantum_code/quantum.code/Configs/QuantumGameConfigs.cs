@@ -60,6 +60,7 @@ namespace Quantum
 		public FP RoofDamageAmount;
 		public FP RoofDamageCooldown;
 		public bool HardAngleAim;
+		public FP CollectableEquipmentPickupRadius;
 	}
 
 	/// <summary>

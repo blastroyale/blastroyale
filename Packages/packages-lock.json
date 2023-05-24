@@ -7,27 +7,27 @@
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-9.3.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-11.0.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "9.3.0"
+        "com.google.firebase.app": "11.0.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-9.3.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-11.0.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.172"
+        "com.google.external-dependency-manager": "1.2.176"
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-9.3.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-11.0.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "9.3.0"
+        "com.google.firebase.app": "11.0.0"
       }
     },
     "com.unity.2d.animation": {
@@ -128,6 +128,13 @@
         "com.unity.burst": "1.6.6",
         "com.unity.test-framework": "1.1.31"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.device-simulator.devices": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {

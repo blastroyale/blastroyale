@@ -139,8 +139,12 @@ namespace FirstLight.Game.Presenters
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("CSCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("CoinCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);
 
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 
@@ -175,7 +179,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
-#if !STORE_BUILD
+#if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);

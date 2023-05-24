@@ -16,7 +16,7 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// This class manages the visual components of the GameModeSelectionButton elements in the GameModeSelectionScreen
 	/// </summary>
-	public class GameModeSelectionButtonView : IUIView
+	public class GameModeSelectionButtonView : UIView
 	{
 		private const string GameModeButtonBase = "game-mode-button";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
@@ -44,7 +44,6 @@ namespace FirstLight.Game.Views
 		}
 		
 		private IGameServices _services;
-		private VisualElement _root;
 		private Button _button;
 		private Label _gameModeLabel;
 		private Label _gameModeDescriptionLabel;
@@ -63,31 +62,28 @@ namespace FirstLight.Game.Views
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public void Attached(VisualElement element)
+		public override void Attached(VisualElement element)
 		{
-			_root = element;
+			base.Attached(element);
+			_button = element.Q<Button>().Required();
 			
-			_button = _root.Q<Button>().Required();
-			
-			var dataPanel = _root.Q<VisualElement>("DataPanel");
+			var dataPanel = element.Q<VisualElement>("DataPanel");
 			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_gameModeTimerLabel = dataPanel.Q<Label>("Timer");
 
-			_mutatorsPanel = _root.Q<VisualElement>("Mutators");
+			_mutatorsPanel = element.Q<VisualElement>("Mutators");
 			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
 			
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
-		/// <inheritdoc />
-		public void SubscribeToEvents()
+		public override void SubscribeToEvents()
 		{
 			UpdateTimer();
 		}
 
-		/// <inheritdoc />
-		public void UnsubscribeFromEvents()
+		public override void UnsubscribeFromEvents()
 		{
 			if (_timerCoroutine != null)
 			{

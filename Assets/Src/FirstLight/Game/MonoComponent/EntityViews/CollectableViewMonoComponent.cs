@@ -92,8 +92,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
+			var isLargeCollectable = callback.Collectable.PickupRadius > FP._1_25;
 
-			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime);
+			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime, isLargeCollectable);
 
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -154,8 +155,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else if (_displayedCollector != EntityRef.None && !hasVfx)
 			{
-				_collectingVfx =
-					(CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(VfxId.CollectableIndicator);
+				var vfxId = collectingData.IsLargeCollectable
+					            ? VfxId.CollectableIndicatorLarge
+					            : VfxId.CollectableIndicator;
+				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
 				var position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
 				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
@@ -173,11 +176,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			public float StartTime;
 			public float EndTime;
+			public bool IsLargeCollectable;
 
-			public CollectingData(float startTime, float endTime)
+			public CollectingData(float startTime, float endTime, bool isLargeCollectable)
 			{
 				StartTime = startTime;
 				EndTime = endTime;
+				IsLargeCollectable = isLargeCollectable;
 			}
 		}
 	}

@@ -480,6 +480,7 @@ namespace I2.Loc
 			public static string FreewayDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FreewayDescription"); } }
 			public static string Frontshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Frontshot"); } }
 			public static string FtueDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FtueDeck"); } }
+			public static string FtueMiniMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FtueMiniMap"); } }
 			public static string GoldenBoots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBoots"); } }
 			public static string GoldenBootsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBootsDescription"); } }
 			public static string HC 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HC"); } }
@@ -927,6 +928,7 @@ namespace I2.Loc
 			public static string NftCooldownTimerTooltip 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftCooldownTimerTooltip"); } }
 			public static string NftRestrictionText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NftRestrictionText"); } }
 			public static string NoAdventuresAvailable 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NoAdventuresAvailable"); } }
+			public static string None 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/None"); } }
 			public static string NotEnoughSpace 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpace"); } }
 			public static string NotEnoughSpaceWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NotEnoughSpaceWarning"); } }
 			public static string OpenCrate 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/OpenCrate"); } }
@@ -937,6 +939,7 @@ namespace I2.Loc
 			public static string PlayGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayGame"); } }
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
 			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
+			public static string Playtest 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Playtest"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
 			public static string PrepareForActionBasic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionBasic"); } }
 			public static string PrepareForActionTimer 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionTimer"); } }
@@ -1981,6 +1984,7 @@ namespace I2.Loc
 		    public const string FreewayDescription = "GameIds/FreewayDescription";
 		    public const string Frontshot = "GameIds/Frontshot";
 		    public const string FtueDeck = "GameIds/FtueDeck";
+		    public const string FtueMiniMap = "GameIds/FtueMiniMap";
 		    public const string GoldenBoots = "GameIds/GoldenBoots";
 		    public const string GoldenBootsDescription = "GameIds/GoldenBootsDescription";
 		    public const string HC = "GameIds/HC";
@@ -2428,6 +2432,7 @@ namespace I2.Loc
 		    public const string NftCooldownTimerTooltip = "MainMenu/NftCooldownTimerTooltip";
 		    public const string NftRestrictionText = "MainMenu/NftRestrictionText";
 		    public const string NoAdventuresAvailable = "MainMenu/NoAdventuresAvailable";
+		    public const string None = "MainMenu/None";
 		    public const string NotEnoughSpace = "MainMenu/NotEnoughSpace";
 		    public const string NotEnoughSpaceWarning = "MainMenu/NotEnoughSpaceWarning";
 		    public const string OpenCrate = "MainMenu/OpenCrate";
@@ -2438,6 +2443,7 @@ namespace I2.Loc
 		    public const string PlayGame = "MainMenu/PlayGame";
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
 		    public const string PlayfabError = "MainMenu/PlayfabError";
+		    public const string Playtest = "MainMenu/Playtest";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
 		    public const string PrepareForActionBasic = "MainMenu/PrepareForActionBasic";
 		    public const string PrepareForActionTimer = "MainMenu/PrepareForActionTimer";

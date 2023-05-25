@@ -7,7 +7,7 @@ namespace FirstLight.Game.TestCases.Helpers
 {
 	public class MessageBrokerHelper : TestHelper
 	{
-		public IEnumerator WaitForMessage<T>(Predicate<T> validate, float timeout) where T : IMessage
+		public IEnumerator WaitForMessage<T>(Predicate<T> validate = null, float timeout = 30) where T : IMessage
 		{
 			yield return WaitForGameAwaken();
 			
@@ -15,14 +15,14 @@ namespace FirstLight.Game.TestCases.Helpers
 
 			void MessageProcessor(T message)
 			{
-				if (validate.Invoke(message))
+				if (validate == null || validate.Invoke(message))
 				{
 					arrived = true;
 				}
 			}
 
 			Services.MessageBrokerService.Subscribe<T>(MessageProcessor);
-			yield return TestTools.Until(() => arrived, timeout, true);
+			yield return TestTools.Until(() => arrived, timeout, $"Not received {typeof(T).Name} in message broker!");
 			Services.MessageBrokerService.Unsubscribe<T>(MessageProcessor);
 		}
 

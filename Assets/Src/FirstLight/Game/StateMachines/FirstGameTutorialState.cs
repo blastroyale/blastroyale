@@ -347,6 +347,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveJoystick()
 		{
+			_services.TutorialService.ListenForSentMovement();
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_MOVEMENT_JOYSTICK].transform.position);
 			

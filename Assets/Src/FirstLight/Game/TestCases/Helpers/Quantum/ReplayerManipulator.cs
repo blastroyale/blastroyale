@@ -67,13 +67,6 @@ namespace FirstLight.Game.TestCases.Helpers
 			}
 
 			var replayInput = _replayFile.InputHistory[_replayIndex].Inputs[0];
-
-			if (callback.Frame != replayInput.Tick)
-			{
-				Debug.LogError($"Unsynced tick callback:{callback.Frame} replay:{replayInput.Tick}");
-			}
-
-
 			var replayInputData = replayInput.DataArray;
 			if (replayInput.DataArray.Length == 3)
 			{

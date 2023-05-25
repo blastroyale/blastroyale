@@ -64,6 +64,12 @@ namespace FirstLight.Game.TestCases.Helpers
 		protected IGameDataProvider DataProviders => MainInstaller.Resolve<IGameDataProvider>();
 		protected IMatchServices MatchServices => MainInstaller.ResolveMatchServices();
 
+
+		public IEnumerator WaitForMatchServices()
+		{
+			return TestTools.Until(() => MainInstaller.TryResolve<IMatchServices>(out _), 120, "Match services did not start");
+		}
+
 		public IEnumerator Fail(String reason)
 		{
 			yield return _testRunner.Fail(reason);
@@ -77,7 +83,7 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator WaitForGameAwaken()
 		{
-			return TestTools.Until(() => _isGameAwake, 60);
+			return TestTools.Until(() => _isGameAwake, 60, "Game did not awake!");
 		}
 	}
 }

@@ -93,9 +93,9 @@ namespace FirstLight.Game.TestCases
 
 		private IEnumerator PlayCasualMatch()
 		{
-			yield return Quantum.SetInputManipulator(new FixedManipulator(FPVector2.Right, 100));
 			yield return UIHome.ClickPlayButton();
 			yield return _tutorialTransitionWait;
+			yield return Quantum.SetInputManipulator(new FixedManipulator(FPVector2.Right, 100));
 			yield return UIGame.WaitDropZoneSelectScreen();
 			yield return UIGame.SelectPosition(0.6f, 0.6f);
 

@@ -38,7 +38,7 @@ namespace FirstLight.Game.TestCases.Helpers
 					return dialog != null && dialog.gameObject.activeSelf && (title == "" || dialog.Title == title);
 				},
 				timeout,
-				true);
+				$"Generic dialog with title {title} did not open.");
 		}
 
 		public IEnumerator WaitForGenericInputDialogAndInput(string inputText, string title = "", float timeout = 30f)
@@ -49,7 +49,7 @@ namespace FirstLight.Game.TestCases.Helpers
 					return dialog != null && dialog.gameObject.activeSelf && (title == "" || dialog.Title == title);
 				},
 				timeout,
-				true);
+				$"Generic input dialog with title {title} did not open.");
 
 			// Wait a little to be able to view the inputs
 			var presenter = Object.FindObjectOfType<GenericInputDialogPresenter>();
@@ -114,14 +114,14 @@ namespace FirstLight.Game.TestCases.Helpers
 				Fail("Not found button " + name + " to click!");
 				yield break;
 			}
-			
+
 			yield return TouchOnElement(searchResult.Value.Item1.rootVisualElement, searchResult.Value.Item2);
 		}
 
 		public IEnumerator TouchOnElement(VisualElement root, VisualElement element)
 		{
 			var elementPosition = RuntimePanelUtils.ScreenToPanel(root.panel, element.GetPositionOnScreen(root, false));
-			Log($"Touching on element {element.name}! Position on screen: "+elementPosition);
+			Log($"Touching on element {element.name}! Position on screen: " + elementPosition);
 			yield return TouchOnScreen(elementPosition, root);
 		}
 

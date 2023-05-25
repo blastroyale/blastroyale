@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using FirstLight.FLogger;
-using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,7 +29,7 @@ namespace FirstLight.Game.TestCases
 		/// <typeparam name="T">Type of the object to wait for</typeparam>
 		public static IEnumerator UntilObjectOfType<T>(float timeout = 30, bool crash = true) where T : MonoBehaviour
 		{
-			yield return Until(() => Object.FindObjectOfType<T>() != null && Object.FindObjectOfType<T>().gameObject.activeSelf, timeout, crash);
+			yield return Until(() => Object.FindObjectOfType<T>() != null && Object.FindObjectOfType<T>().gameObject.activeSelf, timeout, $"Object of type {typeof(T).Name} not found.");
 		}
 
 		/// <summary>
@@ -96,20 +94,23 @@ namespace FirstLight.Game.TestCases
 			return returnEvent;
 		}
 
-		public static IEnumerator Until(Func<bool> condition, float timeout = 30f, bool crashGame = false)
+		public static IEnumerator Until(Func<bool> condition, float timeout = 30f, string errorMessage = "")
 		{
-			float timePassed = 0f;
-			float waitSeconds = 0.1f;
-			var wait = new WaitForSeconds(waitSeconds);
+			var timePassed = 0f;
 			while (!condition() && timePassed < timeout)
 			{
-				yield return wait;
-				timePassed += waitSeconds;
+				yield return null;
+				timePassed += Time.deltaTime;
 			}
 
 			if (timePassed >= timeout)
 			{
-				yield return FLGTestRunner.Instance.Fail("Condition was not fulfilled for " + timeout + " seconds.");
+				if (string.IsNullOrEmpty(errorMessage))
+				{
+					errorMessage = "Condition was not fulfilled for " + timeout + " seconds.";
+				}
+
+				yield return FLGTestRunner.Instance.Fail(errorMessage);
 			}
 		}
 	}

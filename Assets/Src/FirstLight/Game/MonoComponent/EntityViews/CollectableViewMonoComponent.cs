@@ -16,13 +16,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class CollectableViewMonoComponent : EntityMainViewBase
 	{
-		private const string CLIP_SPAWN = "spawn";
+		//private const string CLIP_SPAWN = "spawn";
 		private const string CLIP_IDLE = "idle";
 		private const string CLIP_COLLECT = "collect";
 
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField, Required] private Animation _animation;
-		[SerializeField, Required] private AnimationClip _spawnClip;
+		//[SerializeField, Required] private AnimationClip _spawnClip;
 		[SerializeField, Required] private AnimationClip _idleClip;
 		[SerializeField, Required] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
@@ -47,8 +47,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			
-			_animation.AddClip(_spawnClip, CLIP_SPAWN);
-			_animation.AddClip(_idleClip, CLIP_IDLE);	
+			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
+			_animation.AddClip(_idleClip, CLIP_IDLE);
 			_animation.AddClip(_collectClip, CLIP_COLLECT);
 
 			QuantumEvent.Subscribe<EventOnStartedCollecting>(this, OnStartedCollecting);
@@ -56,6 +56,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			//disable mesh renderers before the object has been properly placed
+			foreach(var ren in GetComponentsInChildren<MeshRenderer>())
+			{
+				ren.enabled = false;
+			}
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -63,6 +68,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnInit(game);
 			
 			var frame = game.Frames.Verified;
+
+			//re enable renderers after the object has been properly placed
+			foreach (var ren in GetComponentsInChildren<MeshRenderer>())
+			{
+				ren.enabled = true;
+			}
 
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
 			{
@@ -72,7 +83,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				//animates between the spawning position to the display position if they are different
 				var originPos = collectable.OriginPosition.ToUnityVector3();
 				var displayPos = collectable.DisplayPosition.ToUnityVector3();
-				if(originPos != displayPos)
+
+				
+				if (originPos != displayPos)
 				{
 					StartCoroutine(goToPoint(0.5f, originPos, displayPos));
 				}
@@ -82,21 +95,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			//_animation.Play(CLIP_SPAWN);
 			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 			
-			//_animation.Play(CLIP_IDLE);
+			_animation.Play(CLIP_IDLE);
 		}
 
 		private IEnumerator goToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
 		{
 			var startTime = Time.time;
-			while(Time.time < startTime + moveTime)
+			var startScale = transform.localScale;
+			
+			while (Time.time <= startTime + moveTime)
 			{
-				var pos = Vector3.Lerp(startPos, endPos, (Time.time - startTime) / moveTime);
-				pos.y += Mathf.Sin(Mathf.PI * (Time.time - startTime) / moveTime) * 2;
+				var progress = (Time.time - startTime) / moveTime;
+				var scale = Vector3.Lerp(Vector3.zero, startScale, progress);
+				var pos = Vector3.Lerp(startPos, endPos, progress);
+				pos.y += Mathf.Sin(Mathf.PI * progress) * 2;
 
 				transform.position = pos;
+				transform.localScale = scale;
 				yield return new WaitForEndOfFrame();
 			}
 			transform.position = endPos;
+			transform.localScale = startScale;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

@@ -83,11 +83,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				//animates between the spawning position to the display position if they are different
 				var originPos = collectable.OriginPosition.ToUnityVector3();
 				var displayPos = collectable.DisplayPosition.ToUnityVector3();
-
 				
 				if (originPos != displayPos)
 				{
-					StartCoroutine(goToPoint(0.5f, originPos, displayPos));
+					StartCoroutine(goToPoint(GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_DURATION, originPos, displayPos));
 				}
 			}
 			
@@ -106,14 +105,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			while (Time.time <= startTime + moveTime)
 			{
 				var progress = (Time.time - startTime) / moveTime;
-				var scale = Vector3.Lerp(Vector3.zero, startScale, progress);
-				var pos = Vector3.Lerp(startPos, endPos, progress);
-				pos.y += Mathf.Sin(Mathf.PI * progress) * 2;
+				var scale = Vector3.Lerp(Vector3.zero, startScale, progress * 2); // scale should finish twice as fast as position
+				var pos = Vector3.Lerp(startPos, endPos, progress); 
+				pos.y += Mathf.Sin(Mathf.PI * progress) * GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_HEIGHT;
 
 				transform.position = pos;
 				transform.localScale = scale;
 				yield return new WaitForEndOfFrame();
 			}
+
 			transform.position = endPos;
 			transform.localScale = startScale;
 		}

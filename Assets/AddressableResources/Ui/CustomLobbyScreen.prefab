@@ -840,7 +840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2120115652778600371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6342,12 +6342,7 @@ MonoBehaviour:
   _background: {fileID: 0}
   _millisecondsToClose: 0
   mapSelectionView: {fileID: 9132774832499664606}
-  _backButton: {fileID: 5830404615344755016}
-  _homeButton: {fileID: 4853841448575624436}
   _rootObject: {fileID: 8028147853940128259}
-  _lockRoomButton: {fileID: 3066388737401384843}
-  _kickButton: {fileID: 6440307377171186735}
-  _cancelKickButton: {fileID: 3835780556339311063}
   _playersWaitingImage:
   - {fileID: 4688382207868803156}
   - {fileID: 2729174582534887932}
@@ -6383,10 +6378,8 @@ MonoBehaviour:
   _findingPlayersText: {fileID: 3421917748054743994}
   _getReadyToRumbleText: {fileID: 2271083543094415811}
   _roomNameText: {fileID: 8197117414341959740}
-  _selectedGameModeText: {fileID: 8095967368700346430}
   _playerCountText: {fileID: 8417088899061205114}
   _spectatorCountText: {fileID: 5007134362510740454}
-  _topTitleText: {fileID: 4419470714733192584}
   _kickOverlayObjects:
   - {fileID: 2375602479812299111}
   - {fileID: 2949961465567251211}
@@ -6396,16 +6389,6 @@ MonoBehaviour:
   _selectDropZoneTextRootObject: {fileID: 6689988662068204588}
   _playerListHolder: {fileID: 4707810532674525334}
   _spectatorListHolder: {fileID: 3596864323277955468}
-  _botsToggle: {fileID: 6463760608237282390}
-  _spectateToggle: {fileID: 8663616615634518102}
-  _botsToggleObjectRoot: {fileID: 8787406682845343222}
-  _spectateToggleObjectRoot: {fileID: 4220545976150976150}
-  _spectateDisabledColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-  _topTitleHolder: {fileID: 484583216124560056}
-  _squadContainer: {fileID: 1111081508837671684}
-  _squadIdText: {fileID: 1577668195990740656}
-  _squadIdUpButton: {fileID: 4132634205841041924}
-  _squadIdDownButton: {fileID: 2799078269315058689}
 --- !u!114 &5744470308538402352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7529,7 +7512,7 @@ MonoBehaviour:
   m_text: 10/12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: b83504fa082014114bc4bea2cb0e9cc4, type: 2}
+  m_sharedMaterial: {fileID: 8102028289063871304, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7553,7 +7536,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 48.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10202,7 +10185,7 @@ MonoBehaviour:
   m_text: FINDING PLAYERS...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: b83504fa082014114bc4bea2cb0e9cc4, type: 2}
+  m_sharedMaterial: {fileID: 8102028289063871304, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10226,7 +10209,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 45.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

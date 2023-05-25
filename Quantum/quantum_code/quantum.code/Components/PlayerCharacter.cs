@@ -319,7 +319,6 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -581,8 +580,13 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+
+			var stats = f.Unsafe.GetPointer<Stats>(e); 
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+			f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
+				stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}

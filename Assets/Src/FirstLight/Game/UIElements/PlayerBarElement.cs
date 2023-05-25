@@ -1,6 +1,6 @@
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
@@ -9,8 +9,11 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class PlayerBarElement : VisualElement
 	{
+		// TODO: Add dividers to the health and shield bars.
 		private const int SHIELD_DIVIDER_AMOUNT = 100;
 		private const int HEALTH_DIVIDER_AMOUNT = 100;
+
+		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
 		private const string USS_BLOCK = "playerbar";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
@@ -25,13 +28,14 @@ namespace FirstLight.Game.UIElements
 
 		private readonly Label _name;
 		private readonly Label _level;
-		private readonly VisualElement _shieldHolder;
 		private readonly VisualElement _shieldBar;
-		private readonly VisualElement _healthHolder;
 		private readonly VisualElement _healthBar;
 		private readonly VisualElement _ammoHolder;
 
 		private bool _isFriendly;
+
+		private readonly ValueAnimation<float> _opacityAnimation;
+		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 
 		public PlayerBarElement()
 		{
@@ -46,17 +50,19 @@ namespace FirstLight.Game.UIElements
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
 
-			Add(_shieldHolder = new VisualElement {name = "shield-holder"});
-			_shieldHolder.AddToClassList(USS_SHIELD_HOLDER);
+			var shieldHolder = new VisualElement {name = "shield-holder"};
+			Add(shieldHolder);
+			shieldHolder.AddToClassList(USS_SHIELD_HOLDER);
 			{
-				_shieldHolder.Add(_shieldBar = new VisualElement {name = "shield-bar"});
+				shieldHolder.Add(_shieldBar = new VisualElement {name = "shield-bar"});
 				_shieldBar.AddToClassList(USS_SHIELD_BAR);
 			}
 
-			Add(_healthHolder = new VisualElement {name = "health-holder"});
-			_healthHolder.AddToClassList(USS_HEALTH_HOLDER);
+			var healthHolder = new VisualElement {name = "health-holder"};
+			Add(healthHolder);
+			healthHolder.AddToClassList(USS_HEALTH_HOLDER);
 			{
-				_healthHolder.Add(_healthBar = new VisualElement {name = "health-bar"});
+				healthHolder.Add(_healthBar = new VisualElement {name = "health-bar"});
 				_healthBar.AddToClassList(USS_HEALTH_BAR);
 			}
 
@@ -66,24 +72,60 @@ namespace FirstLight.Game.UIElements
 			Add(_level = new Label("10") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
 
+			_opacityAnimation = experimental.animation.Start(1f, 0f, DAMAGE_ANIMATION_DURATION,
+				(e, o) => e.style.opacity = o).KeepAlive();
+			_opacityAnimation.Stop();
+
+			_opacityAnimationHandle = schedule.Execute(_opacityAnimation.Start);
+			_opacityAnimationHandle.Pause();
+
 			SetIsFriendly(true);
 			SetMagazine(4, 6);
 		}
 
+		/// <summary>
+		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
+		/// </summary>
 		public void SetIsFriendly(bool isFriendly)
 		{
 			_isFriendly = isFriendly;
 			_ammoHolder.SetDisplay(_isFriendly);
+
+			style.opacity = isFriendly ? 1f : 0f;
 		}
 
+		/// <summary>
+		/// If the bar is not friendly, display it for some amount of time.
+		/// </summary>
+		public void PingDamage()
+		{
+			if (_isFriendly) return;
+
+			_opacityAnimation.Stop();
+			style.opacity = 1f;
+			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+		}
+
+		/// <summary>
+		/// Sets the name of the player.
+		/// </summary>
 		public void SetName(string playerName)
 		{
 			_name.text = playerName;
 		}
 
+		/// <summary>
+		/// Sets the magazine size and how full it is. Only affects firendly players.
+		/// </summary>
 		public void SetMagazine(int currentMagazine, int maxMagazine)
 		{
 			if (!_isFriendly) return;
+
+			if (maxMagazine <= 0)
+			{
+				_ammoHolder.Clear();
+				return;
+			}
 
 			// Max ammo
 			if (_ammoHolder.childCount > maxMagazine)
@@ -104,8 +146,6 @@ namespace FirstLight.Game.UIElements
 			}
 
 			// Current ammo
-
-			// curr = 3
 			int index = 0;
 			foreach (var segment in _ammoHolder.Children())
 			{
@@ -113,18 +153,28 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		/// <summary>
+		/// Sets the max and current shield (i.e. the size of the shield bar).
+		/// </summary>
 		public void SetShield(int current, int max)
 		{
 			_shieldBar.style.flexGrow = (float) current / max;
 		}
 
+		/// <summary>
+		/// Sets the level of the player.
+		/// </summary>
 		public void SetLevel(int level)
 		{
 			_level.text = level.ToString();
 		}
 
+		/// <summary>
+		/// Sets the max and current health (i.e. the size of the health bar).
+		/// </summary>
 		public void SetHealth(int previous, int current, int max)
 		{
+			// TODO: Handle red bar when damaged (i.e. previous < current)
 			_healthBar.style.flexGrow = (float) current / max;
 		}
 

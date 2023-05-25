@@ -5,7 +5,8 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Spell"/>
 	/// </summary>
-	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalOnComponentAdded<Spell>, ISignalOnComponentRemoved<Spell>
+	public unsafe class SpellSystem : SystemMainThreadFilter<SpellSystem.SpellFilter>, ISignalOnComponentAdded<Spell>,
+									  ISignalOnComponentRemoved<Spell>
 	{
 		public struct SpellFilter
 		{
@@ -20,6 +21,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(spell.Entity);
 			}
+
 			foreach (var stat in f.Unsafe.GetComponentBlockIterator<Stats>())
 			{
 				f.ResolveList(stat.Component->SpellEffects).Clear();
@@ -35,7 +37,7 @@ namespace Quantum.Systems
 			{
 				f.Remove<Spell>(filter.Entity);
 			}
-			
+
 			if (f.Time < filter.Spell->NextHitTime)
 			{
 				return;

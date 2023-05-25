@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -9,6 +8,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Views.UITK
 {
@@ -19,7 +19,6 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private Camera _camera;
 
-		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, Transform> _anchors = new();
@@ -29,13 +28,11 @@ namespace FirstLight.Game.Views.UITK
 
 		private ObjectPool<PlayerBarElement> _barPool;
 
-
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
 
 			_camera = Camera.main;
-			_gameServices = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			element.Clear();
@@ -56,24 +53,40 @@ namespace FirstLight.Game.Views.UITK
 
 		public override void SubscribeToEvents()
 		{
-			_gameServices.TickService.SubscribeOnLateUpdate(OnUpdate);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
-			QuantumEvent.SubscribeManual<EventOnPlayerMagazineChanged>(this, OnPlayerMagazineChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
+			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
 		public override void UnsubscribeFromEvents()
 		{
-			_gameServices.TickService.UnsubscribeOnLateUpdate(OnUpdate);
 			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void OnUpdate(float _)
+		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			var f = QuantumRunner.Default.Game.Frames.Predicted;
+
+			// Un-Cull players that are currently culled but they shouldn't be
+			_entityCache.Clear();
+			foreach (var player in _culledPlayers)
+			{
+				if (f.IsCulled(player)) continue;
+
+				InitBar(f, player);
+				_entityCache.Add(player);
+			}
+
+			foreach (var entity in _entityCache)
+			{
+				_culledPlayers.Remove(entity);
+			}
 
 			// Cull players that are currently not culled but should be
 			_entityCache.Clear();
@@ -92,22 +105,7 @@ namespace FirstLight.Game.Views.UITK
 				_visiblePlayers.Remove(entity);
 			}
 
-			// Un-Cull players that are currently culled but they shouldn't be
-			_entityCache.Clear();
-			foreach (var player in _culledPlayers)
-			{
-				if (f.IsCulled(player)) continue;
-
-				var bar = _barPool.Get();
-				_visiblePlayers.Add(player, _barPool.Get());
-				SetupBar(f, player, bar);
-				_entityCache.Add(player);
-			}
-
-			foreach (var entity in _entityCache)
-			{
-				_culledPlayers.Remove(entity);
-			}
+			Assert.AreEqual(_visiblePlayers.Count, _barPool.CountActive, "Player bar pool mismatch!");
 
 			// Update all position of UI elements of all the un-culled players.
 			foreach (var (entity, bar) in _visiblePlayers)
@@ -123,35 +121,26 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
-			// TODO: Temp for testing
-			// if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
-
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var view)) return;
 
-			var f = callback.Game.Frames.Verified;
+			var f = callback.Game.Frames.Predicted;
 
 			_anchors.Add(callback.Entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
-			FLog.Info("PACO", $"SkydiveLandCulled: {f.IsCulled(callback.Entity)}");
-			
 			if (f.IsCulled(callback.Entity))
 			{
 				_culledPlayers.Add(callback.Entity);
 				return;
 			}
 
+			InitBar(f, callback.Entity);
+		}
+
+		private void InitBar(Frame f, EntityRef entity)
+		{
 			var bar = _barPool.Get();
-			_visiblePlayers.Add(callback.Entity, bar);
-			SetupBar(callback.Game.Frames.Verified, callback.Entity, bar);
-		}
+			_visiblePlayers.Add(entity, bar);
 
-		private void OnCulledChanged(EntityRef entity, bool culled)
-		{
-			FLog.Info("PACO", $"Culled changed: {entity}-{culled}");
-		}
-
-		private void SetupBar(Frame f, EntityRef entity, PlayerBarElement bar)
-		{
 			var pc = f.Get<PlayerCharacter>(entity);
 			var stats = f.Get<Stats>(entity);
 
@@ -160,6 +149,7 @@ namespace FirstLight.Game.Views.UITK
 				: f.GetPlayerData(pc.Player).PlayerName;
 
 			bar.SetName(playerName);
+			bar.SetIsFriendly(pc.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team);
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
@@ -197,13 +187,20 @@ namespace FirstLight.Game.Views.UITK
 			bar.SetHealth(callback.PreviousHealth, callback.CurrentHealth, callback.MaxHealth);
 		}
 
-		private void OnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
+		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			// FLog.Info("PACO", $"MagChanged {callback.ShotCount}, {callback.MagSize}");
+			bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
+		}
 
-			bar.SetMagazine(callback.ShotCount, callback.MagSize);
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
+		{
+			if (callback.PlayerTeamId != _matchServices.SpectateService.SpectatedPlayer.Value.Team) return;
+
+			if (!_visiblePlayers.TryGetValue(callback.HitEntity, out var bar)) return;
+
+			bar.PingDamage();
 		}
 	}
 }

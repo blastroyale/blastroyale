@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -15,10 +14,9 @@ namespace FirstLight.Game.Views.UITK
 		private const int BOOMSTICK_INDEX = 1;
 		private const int MELEE_INDEX = 0;
 
-		private const string UssSpriteRarity = "sprite-equipmentcard__card-rarity-{0}";
-		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
-
-		private const string UssMeleeWeapon = "weapon-display--melee";
+		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
+		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
+		private const string USS_MELEE_WEAPON = "weapon-display--melee";
 
 		private VisualElement _melee;
 		private VisualElement _weapon;
@@ -92,17 +90,18 @@ namespace FirstLight.Game.Views.UITK
 
 			_ammoLabel.text = (callback.CurrentAmmo + callback.CurrentMag).ToString();
 		}
+
 		private void SetSlot(int slot)
 		{
 			if (slot == MELEE_INDEX)
 			{
 				_melee.BringToFront();
-				Element.EnableInClassList(UssMeleeWeapon, true);
+				Element.EnableInClassList(USS_MELEE_WEAPON, true);
 			}
 			else
 			{
 				_weapon.BringToFront();
-				Element.EnableInClassList(UssMeleeWeapon, false);
+				Element.EnableInClassList(USS_MELEE_WEAPON, false);
 			}
 		}
 
@@ -115,16 +114,17 @@ namespace FirstLight.Game.Views.UITK
 
 			if (!weapon.IsValid())
 			{
-				_weaponRarity.AddToClassList(string.Format(UssSpriteRarity,
+				_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 					EquipmentRarity.Common.ToString().ToLowerInvariant()));
 
 				return;
 			}
 
-			_weaponRarity.AddToClassList(string.Format(UssSpriteRarity,
+			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
 
-			_factionIcon.AddToClassList(string.Format(UssSpriteFaction, weapon.Faction.ToString().ToLowerInvariant()));
+			_factionIcon.AddToClassList(string.Format(USS_SPRITE_FACTION,
+				weapon.Faction.ToString().ToLowerInvariant()));
 
 			_weaponIcon.style.backgroundImage = _weaponShadow.style.backgroundImage =
 				new StyleBackground(

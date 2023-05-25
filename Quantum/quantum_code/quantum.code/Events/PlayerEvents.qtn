@@ -114,7 +114,6 @@ synced event OnPlayerMagazineReloaded
 	Equipment Weapon;
 }
 
-
 synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
@@ -158,6 +157,7 @@ event OnPlayerAttackHit
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
+	Int32 PlayerTeamId;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
 	UInt32 TotalDamage;

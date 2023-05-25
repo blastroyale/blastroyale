@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles displaying the special buttons and their state.
+	/// </summary>
 	public class SpecialButtonsView : UIView
 	{
 		private SpecialButtonElement _special0Button;

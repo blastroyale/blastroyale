@@ -45,7 +45,7 @@ namespace Quantum
 		{
 			if (f.TryGet<PlayerCharacter>(Attacker, out var attacker))
 			{
-				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, Victim, 
+				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, attacker.TeamId, Victim, 
 					OriginalHitPosition, PowerAmount);
 			}
 			if (!f.Unsafe.TryGetPointer<Stats>(Victim, out var stats) || PowerAmount == 0)

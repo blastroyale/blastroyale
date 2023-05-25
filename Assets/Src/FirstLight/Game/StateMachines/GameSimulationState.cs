@@ -210,7 +210,8 @@ namespace FirstLight.Game.StateMachines
 		private async Task CloseMatchmakingScreen()
 		{
 			await WaitForCameraOnPlayer();
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
+			
+			_uiService.CloseUi<CustomLobbyScreenPresenter>(true);
 			_uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
 

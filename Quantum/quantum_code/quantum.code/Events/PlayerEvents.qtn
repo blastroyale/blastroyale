@@ -90,27 +90,14 @@ synced event OnPlayerEnergyChanged
     Int32 CurrentLevel;
 }
 
-synced event OnPlayerAmmoEmpty
-{
-	player_ref Player;
-	entity_ref Entity;
-}
-
 synced event OnPlayerAmmoChanged
 {
 	player_ref Player;
 	entity_ref Entity;
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
-	Int32 MagSize;
-}
-
-synced event OnPlayerMagazineChanged
-{
-	player_ref Player;
-	entity_ref Entity;
-	Int32 MagSize;
-	Int32 ShotCount;
+	Int32 CurrentMag;
+	Int32 MaxMag;
 }
 
 synced event OnPlayerReloadStart
@@ -244,11 +231,6 @@ synced event OnLocalPlayerDead
 	bool FromRoofDamage;
 }
 
-event OnLocalPlayerAmmoEmpty
-{
-	local player_ref Player;
-	entity_ref Entity;
-}
 
 synced event OnLocalPlayerWeaponAdded
 {

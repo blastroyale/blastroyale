@@ -31,10 +31,6 @@ namespace FirstLight.Game.Views.UITK
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 
-		// A bit silly, events need to be looked at
-		private int _reserveAmmo;
-		private int _magazineAmmo;
-
 		public event Action<float> OnClick;
 
 		public override void Attached(VisualElement element)
@@ -65,7 +61,6 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(OnPlayerAmmoChanged);
-			QuantumEvent.SubscribeManual<EventOnPlayerMagazineChanged>(OnPlayerMagazineChanged);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -94,22 +89,9 @@ namespace FirstLight.Game.Views.UITK
 		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			_reserveAmmo = callback.CurrentAmmo;
-			UpdateAmmo();
-		}
 
-		private void OnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
-		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			_magazineAmmo = callback.ShotCount;
-			UpdateAmmo();
+			_ammoLabel.text = (callback.CurrentAmmo + callback.CurrentMag).ToString();
 		}
-
-		private void UpdateAmmo()
-		{
-			_ammoLabel.text = (_reserveAmmo + _magazineAmmo).ToString();
-		}
-
 		private void SetSlot(int slot)
 		{
 			if (slot == MELEE_INDEX)

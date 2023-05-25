@@ -7,7 +7,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays the status bar above a player's head.
 	/// </summary>
-	public class PlayerBarElement : VisualElement
+	public class PlayerStatusBarElement : VisualElement
 	{
 		// TODO: Add dividers to the health and shield bars.
 		private const int SHIELD_DIVIDER_AMOUNT = 100;
@@ -15,7 +15,7 @@ namespace FirstLight.Game.UIElements
 
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
-		private const string USS_BLOCK = "playerbar";
+		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_LEVEL = USS_BLOCK + "__level";
@@ -37,7 +37,7 @@ namespace FirstLight.Game.UIElements
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 
-		public PlayerBarElement()
+		public PlayerStatusBarElement()
 		{
 			usageHints = UsageHints.DynamicTransform;
 
@@ -178,7 +178,7 @@ namespace FirstLight.Game.UIElements
 			_healthBar.style.flexGrow = (float) current / max;
 		}
 
-		public new class UxmlFactory : UxmlFactory<PlayerBarElement, UxmlTraits>
+		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>
 		{
 		}
 	}

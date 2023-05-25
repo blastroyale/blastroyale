@@ -15,18 +15,18 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the player bars on the screen.
 	/// </summary>
-	public class PlayerBarsView : UIView
+	public class PlayerStatusBarsView : UIView
 	{
 		private Camera _camera;
 
 		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, Transform> _anchors = new();
-		private readonly Dictionary<EntityRef, PlayerBarElement> _visiblePlayers = new();
+		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
 		private readonly HashSet<EntityRef> _culledPlayers = new();
 		private readonly List<EntityRef> _entityCache = new(5);
 
-		private ObjectPool<PlayerBarElement> _barPool;
+		private ObjectPool<PlayerStatusBarElement> _barPool;
 
 		public override void Attached(VisualElement element)
 		{
@@ -37,13 +37,13 @@ namespace FirstLight.Game.Views.UITK
 
 			element.Clear();
 
-			_barPool = new ObjectPool<PlayerBarElement>(
+			_barPool = new ObjectPool<PlayerStatusBarElement>(
 				() =>
 				{
-					var pbe = new PlayerBarElement();
-					pbe.SetDisplay(false);
-					Element.Add(pbe);
-					return pbe;
+					var bar = new PlayerStatusBarElement();
+					bar.SetDisplay(false);
+					Element.Add(bar);
+					return bar;
 				},
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),

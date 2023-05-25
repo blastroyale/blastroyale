@@ -979,7 +979,7 @@
     -unity-text-outline-width: 1px;
 }
 
-.playerbar {
+.player-status-bar {
     background-color: rgba(0, 0, 0, 0);
     width: 225px;
     height: 75px;
@@ -988,7 +988,7 @@
     top: -50px;
 }
 
-.playerbar__level {
+.player-status-bar__level {
     background-color: rgb(54, 46, 76);
     position: absolute;
     left: 0;
@@ -1022,7 +1022,7 @@
     font-size: 32px;
 }
 
-.playerbar__name {
+.player-status-bar__name {
     color: rgb(255, 255, 255);
     font-size: 28px;
     -unity-text-align: upper-center;
@@ -1040,7 +1040,7 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
-.playerbar__ammo-holder {
+.player-status-bar__ammo-holder {
     bottom: 2px;
     right: 11px;
     position: absolute;
@@ -1049,7 +1049,7 @@
     flex-direction: row;
 }
 
-.playerbar__ammo-segment {
+.player-status-bar__ammo-segment {
     background-color: rgb(242, 178, 51);
     flex-grow: 1;
     margin-left: 1px;
@@ -1060,7 +1060,7 @@
     border-bottom-right-radius: 3px;
 }
 
-.playerbar__health-holder {
+.player-status-bar__health-holder {
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
     left: 42px;
@@ -1070,12 +1070,12 @@
     flex-direction: row;
 }
 
-.playerbar__health-bar {
+.player-status-bar__health-bar {
     flex-grow: 1;
     background-image: var(--sprite-match__progress-health);
 }
 
-.playerbar__shield-holder {
+.player-status-bar__shield-holder {
     height: 10px;
     position: absolute;
     right: 5px;
@@ -1084,12 +1084,12 @@
     flex-direction: row;
 }
 
-.playerbar__shield-bar {
+.player-status-bar__shield-bar {
     flex-grow: 1;
     background-image: var(--sprite-match__progress-shield);
 }
 
-.playerbar__background {
+.player-status-bar__background {
     background-image: var(--sprite-match__background-playerbar);
     position: absolute;
     bottom: 1px;

@@ -1,84 +1,7 @@
-.category-holder {
-    align-items: flex-start;
-    border-top-width: 0;
-    position: absolute;
-    top: 228px;
-    left: -226px;
-    justify-content: center;
-}
 
 .screen-header {
 }
 
-.room-dropdown {
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    flex-direction: column;
-}
-
-.room-dropdown .unity-base-field__label {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: rgb(255, 255, 255);
-    font-size: 50px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    align-self: center;
-}
-
-.room-dropdown .unity-base-popup-field__text {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: black;
-    font-size: 50px;
-    align-self: center;
-}
-
-.room-dropdown .unity-base-dropdown__label {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: black;
-    height: 100;
-    font-size: 50px;
-    align-self: center;
-}
-
-.room-dropdown .unity-base-dropdown__label:hover {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: black;
-    height: 100;
-    font-size: 50px;
-    align-self: center;
-}
-
-.room-dropdown .unity-base-popup-field__active {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: black;
-    font-size: 50px;
-    align-self: center;
-}
-
-.unity-base-dropdown__item {
-    font-size: 50px;
-}
-
-.unity-base-dropdown__item :hover {
-    font-size: 50px;
-}
-
-.room-dropdown .unity-base-field__input {
-    flex-grow: 1;
-    flex-shrink: 0;
-    color: rgb(255, 255, 255);
-    font-size: 50px;
-    flex-basis: initial;
-    flex-direction: row;
-    justify-content: flex-start;
-    transition-duration: 0.15s;
-}
 
 .lobby-toggle {
     justify-content: space-between;
@@ -149,3 +72,87 @@
 .lobby-toggle {
     justify-content: space-between;
 }
+
+.custom-lobby-button-holder {
+    position: relative; 
+    height: 88px; 
+    width: 2530px; 
+    flex-direction: row; 
+    top: 940px; 
+    align-self: center; 
+    justify-content: space-around; 
+    left: 0;
+}
+
+.custom-lobby-top-title-holder {
+    flex-grow: 1; 
+    background-color: rgba(0, 0, 0, 0); 
+    position: absolute; 
+    height: 67px; 
+    width: 1097px; 
+    top: 186px; 
+    left: 61px; 
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+.custom-game-squad-select-holder {
+    height: 100px; 
+    top: 160px; 
+    flex-direction: row; 
+    justify-content: space-around; 
+    align-self: center; 
+    bottom: auto; 
+    width: 294px; 
+    position: absolute; 
+    left: 43px; 
+    display: flex;
+}
+
+.custom-game-squad-up-button {
+    font-size: 60px; 
+    color: rgb(255, 255, 255);
+    background-image: var(--sprite-home__button-equipmentslot-empty);
+}
+
+.custom-game-squad-down-button {
+    font-size: 60px; 
+    background-image: var(--sprite-home__button-equipmentslot-empty); 
+    color: rgb(255, 255, 255);
+}
+
+.custom-game-squad-label {
+    font-size: 40px; 
+    height: auto; 
+    flex-grow: 1; 
+    -unity-text-align: upper-center; 
+    align-self: center; 
+    background-color: rgba(255, 255, 255, 0); 
+    color: rgb(255, 255, 255); 
+    justify-content: flex-start;
+}
+
+.custom-game-squad-id-label {
+    color: rgb(255, 255, 255); 
+    font-size: 40px; 
+    align-self: center;
+}
+
+.custom-lobby-game-mode-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 450px;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-image: var(--sprite-home__background-popup-equipment);
+}
+
+.custom-lobby-get-ready-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 450px;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-image: var(--sprite-home__background-popup-equipment);
+}
+

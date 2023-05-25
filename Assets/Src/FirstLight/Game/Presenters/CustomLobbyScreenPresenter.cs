@@ -46,8 +46,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
 		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
-		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
-		
+
 		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
 		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
 		
@@ -72,8 +71,7 @@ namespace FirstLight.Game.Presenters
 		private Button _squadIdDownButton;
 		private LocalizedToggle _botsToggle;
 		private LocalizedToggle _spectateToggle;
-		private ListView _playerListView;
-		private ListView _spectatorListView;
+		private ScreenHeaderElement _header;
 		
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
@@ -108,12 +106,9 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			var header = root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked += OnLeaveRoomClicked;
-			header.homeClicked += OnLeaveRoomClicked;
-			
-			_playerListView = root.Q<ListView>("PlayerListView").Required();
-			_spectatorListView = root.Q<ListView>("SpectatorListView").Required();
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += OnLeaveRoomClicked;
+			_header.homeClicked += OnLeaveRoomClicked;
 
 			_botsToggle = root.Q<LocalizedToggle>("BotsToggle").Required();
 			SetupBotsToggle(root.Q<LocalizedToggle>("BotsToggle").Required(),
@@ -237,8 +232,10 @@ namespace FirstLight.Game.Presenters
 				? quantumGameConfig.RankedMatchmakingTime.AsFloat
 				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
 
-			_gameModeLabel.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
+			string cleanedGameMode = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
 				matchType.ToString().ToUpper(), gameMode);
+			cleanedGameMode = cleanedGameMode.Replace("\n", " ");
+			_gameModeLabel.text = cleanedGameMode;
 
 			UpdateRoomPlayerCounts();
 
@@ -263,7 +260,7 @@ namespace FirstLight.Game.Presenters
 				_playerCountHolder.SetActive(true);
 
 				_prepareForActionLabel.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
-				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
+				_header.SetTitle(string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName()));
 
 				foreach (var playerKvp in CurrentRoom.Players)
 				{

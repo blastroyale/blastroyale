@@ -52,7 +52,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssNotificationIcon = "notification-icon";
 
 		private const string UssSpriteSlotRarity = "sprite-home__button-equipmentslot-{0}";
-		private const string UssSpriteEquipmentCategory = "sprite-home__icon-equipmentcategory-{0}";
+		private const string UssSpriteEquipmentCategory = "sprite-shared__icon-equipmentcategory-{0}";
 		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
 
 		public GameIdGroup Category { get; set; }

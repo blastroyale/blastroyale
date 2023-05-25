@@ -15,7 +15,7 @@ namespace FirstLight.UiService
 			UiToolkitPresenterData<TPData> presenter, out TView view)
 			where TElement : VisualElement
 			where TPData : struct
-			where TView : IUIView, new()
+			where TView : UIView, new()
 		{
 			presenter.AddView(element, view = new TView());
 			return element;

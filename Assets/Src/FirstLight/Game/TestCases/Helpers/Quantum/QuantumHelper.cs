@@ -15,13 +15,15 @@ namespace FirstLight.Game.TestCases.Helpers
 	public class QuantumHelper : TestHelper
 	{
 		private IInputManipulator _inputManipulator;
+		private MessageBrokerHelper _messageBrokerHelper;
 
 		// events flags
 		private bool _gameEnded = false;
 		private bool _localPlayerDead = false;
 
-		public QuantumHelper(FLGTestRunner testRunner) : base(testRunner)
+		public QuantumHelper(FLGTestRunner testRunner, MessageBrokerHelper messageBrokerHelper) : base(testRunner)
 		{
+			this._messageBrokerHelper = messageBrokerHelper;
 			RunWhenGameAwake(SubscribeToQuantumEvents);
 		}
 
@@ -43,7 +45,7 @@ namespace FirstLight.Game.TestCases.Helpers
 				// This is the exact moment the user loses the input hability, when the match end screen open
 				if (_inputManipulator != null)
 				{
-					MatchControlsHudPresenter.OverwriteCallbackInput = null;
+					MatchServices.PlayerInputService.OverwriteCallbackInput = null;
 					_inputManipulator.Stop();
 				}
 			}
@@ -53,7 +55,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		public IEnumerator WaitForGameToFinish()
 		{
 			Debug.Log("WaitForGameToFinish");
-			yield return TestTools.Until(() => _gameEnded, 60, true);
+			yield return TestTools.Until(() => _gameEnded, 60, "Game did not end!");
 		}
 
 		public IEnumerator WaitForSimulationAndRunReplay(string replayName)
@@ -71,19 +73,20 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public IEnumerator SetInputManipulator(IInputManipulator inputManipulator)
 		{
+			yield return WaitForMatchServices();
 			_inputManipulator = inputManipulator;
 			yield return _inputManipulator.Start();
 			RunWhenGameAwake(() =>
 			{
 				inputManipulator.OnAwake();
-				MatchControlsHudPresenter.OverwriteCallbackInput = _inputManipulator.ChangeInput;
+				MatchServices.PlayerInputService.OverwriteCallbackInput = _inputManipulator.ChangeInput;
 			});
 		}
 
 		public IEnumerator WaitForLocalPlayerToDie()
 		{
 			Debug.Log("WaitForLocalPlayerToDie");
-			yield return TestTools.Until(() => _localPlayerDead, 60, true);
+			yield return TestTools.Until(() => _localPlayerDead, 60, $"Not received local player died!");
 		}
 
 		public IEnumerator WaitForSimulationToStart(bool replay = false)
@@ -94,7 +97,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			}
 
 			Debug.Log("WaitForSimulationToStart");
-			yield return TestTools.Until(IsSimulationRunning, 60, true);
+			yield return TestTools.Until(IsSimulationRunning, 60, $"Simulation did not start!");
 		}
 
 
@@ -108,7 +111,7 @@ namespace FirstLight.Game.TestCases.Helpers
 			var game = QuantumRunner.Default.Game;
 			if (game == null)
 			{
-				Fail("Simulation is not running yet");
+				yield return Fail("Simulation is not running yet");
 				yield break;
 			}
 

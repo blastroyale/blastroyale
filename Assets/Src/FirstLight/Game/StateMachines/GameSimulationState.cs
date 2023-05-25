@@ -90,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnExit(CloseSwipeTransition);
 	
 			modeCheck.OnEnter(OpenAdventureWorldHud);
-			modeCheck.OnEnter(OpenLowConnectionScreen);
+			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);

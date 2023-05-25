@@ -13,18 +13,20 @@ namespace FirstLight.Game.UIElements
 		private bool applyBottom { get; set; }
 		private bool applyLeft { get; set; }
 		private bool applyRight { get; set; }
+		private bool invert { get; set; }
 
-		public SafeAreaElement(): this(true)
+		public SafeAreaElement() : this(true)
 		{
 		}
 
-		public SafeAreaElement(bool applyTop = true, bool applyBottom = true, bool applyLeft = true, bool applyRight = true)
+		public SafeAreaElement(bool applyTop = true, bool applyBottom = true, bool applyLeft = true,
+							   bool applyRight = true)
 		{
 			this.applyTop = applyTop;
 			this.applyBottom = applyBottom;
 			this.applyLeft = applyLeft;
 			this.applyRight = applyRight;
-			
+
 			style.flexGrow = 1;
 			style.flexShrink = 1;
 
@@ -44,10 +46,10 @@ namespace FirstLight.Game.UIElements
 				var rightBottom =
 					RuntimePanelUtils.ScreenToPanel(panel, new Vector2(Screen.width - safeArea.xMax, safeArea.yMin));
 
-				if (applyTop) style.marginTop = leftTop.y;
-				if (applyBottom) style.marginBottom = rightBottom.y;
-				if (applyLeft) style.marginLeft = leftTop.x;
-				if (applyRight) style.marginRight = rightBottom.x;
+				if (applyTop) style.marginTop = invert ? -leftTop.y : leftTop.y;
+				if (applyBottom) style.marginBottom = invert ? -rightBottom.y : rightBottom.y;
+				if (applyLeft) style.marginLeft = invert ? -leftTop.x : leftTop.x;
+				if (applyRight) style.marginRight = invert ? -rightBottom.x : rightBottom.x;
 			}
 			catch (InvalidCastException)
 			{
@@ -89,6 +91,13 @@ namespace FirstLight.Game.UIElements
 				use = UxmlAttributeDescription.Use.Optional
 			};
 
+			private readonly UxmlBoolAttributeDescription _invertAttribute = new()
+			{
+				name = "invert",
+				defaultValue = false,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
@@ -96,6 +105,7 @@ namespace FirstLight.Game.UIElements
 				((SafeAreaElement) ve).applyBottom = _applyBottomAttribute.GetValueFromBag(bag, cc);
 				((SafeAreaElement) ve).applyLeft = _applyLeftAttribute.GetValueFromBag(bag, cc);
 				((SafeAreaElement) ve).applyRight = _applyRightAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).invert = _invertAttribute.GetValueFromBag(bag, cc);
 			}
 		}
 	}

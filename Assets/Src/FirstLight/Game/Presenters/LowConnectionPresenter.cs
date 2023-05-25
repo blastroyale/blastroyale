@@ -105,7 +105,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetLoadingGame(bool loading)
 		{
-			var controls = _services.GameUiService.GetUi<MatchControlsHudPresenter>();
+			var controls = _services.GameUiService.GetUi<HUDScreenPresenter>();
 			if (loading)
 			{
 				if (!controls.IsDestroyed())

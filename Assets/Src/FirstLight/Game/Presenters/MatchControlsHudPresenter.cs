@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
+			_indicatorContainerView = new LocalPlayerIndicatorContainerView();
 
 			for (var i = 0; i < _slots.Length; i++)
 			{
@@ -105,12 +105,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			_services.PlayerInputService.EnableInput();
+			_matchServices.PlayerInputService.Input.Enable();
 		}
 
 		protected override Task OnClosed()
 		{
-			_services.PlayerInputService.DisableInput();
+			_matchServices.PlayerInputService.Input.Disable();
 			return Task.CompletedTask;
 		}
 
@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			if (input.SpecialButton0.IsPressed())
 			{
@@ -287,7 +287,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
+			var aim = _matchServices.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 
 			SendSpecialUsedCommand(specialIndex, aim);
 		}
@@ -327,7 +327,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
-			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
+			_matchServices.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 
@@ -396,8 +396,7 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
-
-			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			
 			SetupSpecialsInput(callback.Game.Frames.Verified.Time, callback.WeaponSlot, playerView);
 
 			for (var i = 0; i < _slots.Length; i++)
@@ -408,7 +407,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			input.SpecialButton0.Disable();
 			input.SpecialButton1.Disable();
@@ -419,8 +418,6 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(false);
 			}
-
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
@@ -430,7 +427,7 @@ namespace FirstLight.Game.Presenters
 				go.SetActive(true);
 			}
 
-			var input = _services.PlayerInputService.Input.Gameplay;
+			var input = _matchServices.PlayerInputService.Input.Gameplay;
 
 			for (var i = 0; i < _specialButtons.Length; i++)
 			{
@@ -442,8 +439,6 @@ namespace FirstLight.Game.Presenters
 
 			input.Aim.Enable();
 			input.AimButton.Enable();
-
-			_indicatorContainerView.GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
@@ -469,7 +464,7 @@ namespace FirstLight.Game.Presenters
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			var button = _specialButtons[callback.SpecialIndex];
-			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
+			var inputButton = _matchServices.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
 			var frame = callback.Game.Frames.Predicted;
 
 			// Disables the input until the cooldown is off
@@ -552,9 +547,8 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < weaponSlot.Specials.Length; i++)
 			{
 				var special = weaponSlot.Specials[i];
-				var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
-
-				_indicatorContainerView.SetupIndicator(i, weaponSlot.Specials[i].SpecialId, playerView);
+				var inputButton = _matchServices.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
+				
 				_specialButtons[i].Init(special.SpecialId);
 
 				if (special.IsValid)

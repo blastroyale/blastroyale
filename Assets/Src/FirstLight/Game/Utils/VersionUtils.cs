@@ -150,12 +150,12 @@ namespace FirstLight.Game.Utils
 		{
 			FLog.Info("Server commit: "+ServerBuildCommit);
 			FLog.Info("Client commit: "+Commit);
-			#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 			if (IsOutOfSync() && !FLGTestRunner.Instance.IsRunning())
 			{
-				FLog.Error("Mismatch server and client commits, desyncs may occur!");
+				FLog.Warn("Mismatch server and client commits, desyncs may occur!");
 			}
-			#endif
+#endif
 		}
 
 		public static bool IsOutOfSync()

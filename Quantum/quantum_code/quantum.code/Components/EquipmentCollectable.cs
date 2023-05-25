@@ -11,7 +11,7 @@ namespace Quantum
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref Equipment equipment, EntityRef spawner,
 		                   PlayerRef owner = new PlayerRef())
 		{
-			var collectable = new Collectable {GameId = equipment.GameId};
+			var collectable = new Collectable {GameId = equipment.GameId, PickupRadius = f.GameConfig.CollectableEquipmentPickupRadius};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			transform->Position = position;
@@ -23,6 +23,9 @@ namespace Quantum
 			Owner = owner;
 
 			f.Add(e, collectable);
+			
+			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
+			collider->Shape.Sphere.Radius = f.GameConfig.CollectableEquipmentPickupRadius;
 		}
 
 		/// <summary>

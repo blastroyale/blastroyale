@@ -192,7 +192,7 @@
 }
 
 .leaderboard-entry__pfp-image {
-    background-image: var(--sprite-home__avatar-default);
+    background-image: var(--sprite-shared__avatar-default);
     bottom: 0;
     top: -10px;
     left: 0;

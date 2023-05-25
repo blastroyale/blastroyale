@@ -1,0 +1,102 @@
+using System;
+using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils;
+using FirstLight.UiService;
+using Quantum;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace FirstLight.Game.Views.UITK
+{
+	public class SpecialButtonsView : UIView
+	{
+		private SpecialButtonElement _special0Button;
+		private SpecialButtonElement _special1Button;
+
+		/// <summary>
+		/// Called with 0f when Special0 starts dragging / presses the button and with 1f when Special0 is released.
+		/// </summary>
+		public event Action<float> OnSpecial0Pressed;
+
+		/// <summary>
+		/// Called with 0f when Special1 starts dragging / presses the button and with 1f when Special1 is released.
+		/// </summary>
+		public event Action<float> OnSpecial1Pressed;
+
+		/// <summary>
+		/// Called with the aiming direction of the special currently being aimed. Not called on non-draggable specials.
+		/// </summary>
+		public event Action<Vector2> OnDrag;
+
+		public override void Attached(VisualElement element)
+		{
+			base.Attached(element);
+			_special0Button = element.Q<SpecialButtonElement>("Special0").Required();
+			_special1Button = element.Q<SpecialButtonElement>("Special1").Required();
+
+			_special0Button.OnPress += val => OnSpecial0Pressed?.Invoke(val);
+			_special1Button.OnPress += val => OnSpecial1Pressed?.Invoke(val);
+			_special0Button.OnDrag += val => OnDrag?.Invoke(val);
+			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
+		}
+
+		public override void SubscribeToEvents()
+		{
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(OnLocalPlayerWeaponChanged);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
+		}
+
+		public override void UnsubscribeFromEvents()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		{
+			UpdateSpecials(callback.Game.Frames.Predicted, callback.WeaponSlot);
+		}
+
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		{
+			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
+			UpdateSpecials(callback.Game.Frames.Predicted, pc.WeaponSlots[pc.CurrentWeaponSlot]);
+		}
+
+		private void OnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		{
+			// TODO: Disable input. Here?
+			switch (callback.SpecialIndex)
+			{
+				case 0:
+					// TODO: Callback to enable input
+					_special0Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					break;
+				case 1:
+					// TODO: Callback to enable input
+					_special1Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					break;
+			}
+		}
+
+		private void UpdateSpecials(Frame f, WeaponSlot currentSlot)
+		{
+			var special0 = currentSlot.Specials[0];
+			_special0Button.SetSpecial(special0.SpecialId, special0.IsAimable,
+				Math.Max(0L, (long) (special0.AvailableTime - f.Time).AsFloat * 1000L));
+
+			var special1 = currentSlot.Specials[1];
+			if (special1.IsValid)
+			{
+				_special1Button.SetVisibility(true);
+				_special1Button.SetSpecial(special1.SpecialId, special1.IsAimable,
+					Math.Max(0L, (long) (special1.AvailableTime - f.Time).AsFloat * 1000L));
+			}
+			else
+			{
+				_special1Button.SetSpecial(GameId.Random, false, 0L);
+				_special1Button.SetVisibility(false);
+			}
+		}
+	}
+}

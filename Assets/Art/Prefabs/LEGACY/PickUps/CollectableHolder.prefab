@@ -54,6 +54,7 @@ MonoBehaviour:
   _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
   _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  _pickupCircle: {fileID: 0}
 --- !u!114 &8031558781370260273
 MonoBehaviour:
   m_ObjectHideFlags: 0

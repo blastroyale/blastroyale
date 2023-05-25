@@ -88,7 +88,12 @@ namespace Backend.Game
 				}
 
 				ModelSerializer.SerializeToData(response, newState.GetDeltas());
-				return new BackendLogicResult() { Command = cmdType, Data = response, PlayFabId = playerId };
+				return new BackendLogicResult() {Command = cmdType, Data = response, PlayFabId = playerId};
+			}
+			catch (Exception ex)
+			{
+				_log.LogError(ex, "Error on run logic");
+				throw;
 			}
 			finally
 			{
@@ -149,7 +154,7 @@ namespace Backend.Game
 		{
 			_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
 			_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
-			return new BackendErrorResult() { Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() { { "LogicException", exp.Message } } };
+			return new BackendErrorResult() {Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() {{"LogicException", exp.Message}}};
 		}
 
 		/// <summary>

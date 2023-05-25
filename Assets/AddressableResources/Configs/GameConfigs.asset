@@ -150,3 +150,5 @@ MonoBehaviour:
       RoofDamageCooldown:
         RawValue: 98304
       HardAngleAim: 0
+      CollectableEquipmentPickupRadius:
+        RawValue: 65536

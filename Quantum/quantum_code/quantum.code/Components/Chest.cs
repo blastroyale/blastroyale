@@ -18,22 +18,26 @@ namespace Quantum
 
 			Id = config.Id;
 			ChestType = config.ChestType;
+			CollectTime = config.CollectTime;
 
 			transform->Position = position;
 			transform->Rotation = rotation;
 
 			if (makeCollectable)
 			{
-				MakeCollectable(f, e);
+				MakeCollectable(f, e, config.CollectableChestPickupRadius);
 			}
 		}
 
 		/// <summary>
 		/// Adds a <see cref="Collectable"/> component to <paramref name="e"/>.
 		/// </summary>
-		internal void MakeCollectable(Frame f, EntityRef e)
+		internal void MakeCollectable(Frame f, EntityRef e, FP collectableChestPickupRadius)
 		{
-			f.Add(e, new Collectable { GameId = Id });
+			f.Add(e, new Collectable { GameId = Id, PickupRadius = collectableChestPickupRadius });
+
+			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
+			collider->Shape.Sphere.Radius = collectableChestPickupRadius;
 		}
 
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
@@ -47,7 +51,10 @@ namespace Quantum
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
-			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity);
+
+			// We use half of ammo to calculate whether to drop ammo or not
+			var ammoFilled = playerCharacter->GetAmmoAmountFilled(f, playerEntity) * FP._0_50;
+
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
 			var healthFilled = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue;
 			var chestItems = new List<ChestItemDropped>();
@@ -84,12 +91,9 @@ namespace Quantum
 				}
 			} else
 			{
-
 				DropPowerUps(f, playerEntity, ref config, playerCharacter, gameContainer, minimumRarity, &loadoutWeapon,
 							 chestPosition, ref angleStep, chestItems, chestItems.Count);
 				DropSmallConsumable(f, playerEntity, playerRef, ref config, ref ammoFilled, ref shieldFilled, ref healthFilled,
-									chestPosition, ref angleStep, chestItems);
-				DropLargeConsumable(f, playerEntity, playerRef, ref config, ref ammoFilled, ref shieldFilled,
 									chestPosition, ref angleStep, chestItems);
 			}
 
@@ -111,18 +115,18 @@ namespace Quantum
 				for (uint i = 0; i < count; i++)
 				{
 					var drop = GameId.Random;
-					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
+					if (healthFilled < ammoFilled && healthFilled < shieldFilled && ChestType != ChestType.Equipment) //health
 					{
 						drop = GameId.Health;
 						healthFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
 							stats.GetStatData(StatType.Health).StatValue;
 					}
-					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					else if ((ammoFilled < healthFilled && ammoFilled < shieldFilled) || ChestType == ChestType.Equipment) //ammo
 					{
 						drop = GameId.AmmoSmall;
 						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
 					}
-					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled && ChestType != ChestType.Equipment) //shield
 					{
 						drop = GameId.ShieldSmall;
 						shieldFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
@@ -131,51 +135,6 @@ namespace Quantum
 					else
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
-					}
-
-					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false, false);
-					chestItems.Add(new ChestItemDropped()
-					{
-						ChestType = config.Id,
-						ChestPosition = chestPosition,
-						Player = playerRef,
-						PlayerEntity = playerEntity,
-						ItemType = drop,
-						Amount = 1,
-						AngleStepAroundChest = angleStep
-					});
-				}
-			}
-		}
-
-		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, ref QuantumChestConfig config, ref FP ammoFilled, ref FP shieldFilled, 
-		                                                   FPVector3 chestPosition, ref int angleStep, List<ChestItemDropped> chestItems)
-		{
-			var stats = f.Get<Stats>(playerEntity);
-			foreach (var (chance, count) in config.LargeConsumable)
-			{
-				if (f.RNG->Next() > chance)
-				{
-					continue;
-				}
-
-				for (uint i = 0; i < count; i++)
-				{
-					var drop = GameId.Random;
-					if (ammoFilled < shieldFilled) //ammo
-					{
-						drop = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f);
-					}
-					else if (shieldFilled < ammoFilled) //shield
-					{
-						drop = GameId.ShieldSmall;
-						shieldFilled += f.ConsumableConfigs.GetConfig(drop).Amount.Get(f) /
-							stats.GetStatData(StatType.Shield).StatValue;
-					}
-					else
-					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge, GameId.Health);
 					}
 
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false, false);

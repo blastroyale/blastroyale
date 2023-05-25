@@ -165,7 +165,7 @@ namespace FirstLight.Game.Presenters
 				if (squadMember.IsLocal) continue;
 
 				var memberDropPosition = squadMember.GetDropPosition();
-				var marker = new VisualElement {name = "marker"};
+				var marker = new VisualElement { name = "marker" };
 				marker.AddToClassList("map-marker-party");
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
@@ -178,8 +178,8 @@ namespace FirstLight.Game.Presenters
 		private void BindSquadListEntry(VisualElement element, int index)
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
-			
-			((Label) element).text = _squadMembers[index].NickName;
+
+			((Label)element).text = _squadMembers[index].NickName;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -206,6 +206,13 @@ namespace FirstLight.Game.Presenters
 			SelectMapPosition(evt.localPosition, true, true);
 		}
 
+		public void SelectDropZone(float x, float y)
+		{
+			var mapWidth = _mapImage.contentRect.width;
+
+			SelectMapPosition(new Vector2(x * mapWidth, y * mapWidth), true, false);
+		}
+
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
@@ -214,7 +221,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
 			}
-			
+
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
@@ -298,7 +305,7 @@ namespace FirstLight.Game.Presenters
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				if(_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
+				if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
 				{
 					var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 					_mapImage.style.backgroundImage = new StyleBackground(sprite);
@@ -307,9 +314,10 @@ namespace FirstLight.Game.Presenters
 				{
 					FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
 				}
+
 				return;
 			}
-			
+
 			_dropSelectionAllowed = !RejoiningRoom;
 
 			if (RejoiningRoom)
@@ -332,7 +340,7 @@ namespace FirstLight.Game.Presenters
 		private void InitSkydiveSpawnMapData()
 		{
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			
+
 			// Init DZ position/rotation
 			var mapWidth = _mapHolder.contentRect.width;
 			var mapHeight = _mapHolder.contentRect.height;
@@ -387,7 +395,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			}
-		
+
 			_dropSelectionAllowed = false;
 		}
 
@@ -406,10 +414,11 @@ namespace FirstLight.Game.Presenters
 				_debugMasterClient.SetDisplay(false);
 				return;
 			}
+
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
 		}
 
-		
+
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
@@ -423,7 +432,7 @@ namespace FirstLight.Game.Presenters
 					? ScriptLocalization.UITMatchmaking.loading_status_waiting_timer
 					: ScriptLocalization.UITMatchmaking.loading_status_timer;
 				_loadStatusLabel.text = string.Format(translation, timeLeft.TotalSeconds.ToString("F0"));
-				
+
 				yield return new WaitForSeconds(.2f);
 			}
 

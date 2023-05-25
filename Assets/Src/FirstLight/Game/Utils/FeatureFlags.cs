@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
@@ -44,6 +45,11 @@ namespace FirstLight.Game.Utils
 		/// Which environment to connect
 		/// </summary>
 		public Environment EnvironmentOverride = Environment.DEV;
+
+		/// <summary>
+		/// Record quantum input and save on simulation end
+		/// </summary>
+		public bool RecordQuantumInput = false;
 	}
 	
 	
@@ -253,6 +259,12 @@ namespace FirstLight.Game.Utils
 			if (_localConfig.DisableTutorial)
 			{
 				TUTORIAL = false;
+			}
+
+			if (_localConfig.RecordQuantumInput)
+			{
+				// Fix the seed
+				QuantumRunnerConfigs.FixedSeed = 42;
 			}
 		}
 

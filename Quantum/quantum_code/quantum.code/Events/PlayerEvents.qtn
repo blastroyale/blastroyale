@@ -110,6 +110,7 @@ synced event OnPlayerMagazineChanged
 	player_ref Player;
 	entity_ref Entity;
 	Int32 MagSize;
+	Int32 ShotCount;
 }
 
 synced event OnPlayerReloadStart

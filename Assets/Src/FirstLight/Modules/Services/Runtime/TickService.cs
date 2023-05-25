@@ -151,10 +151,6 @@ namespace FirstLight.Services
 			{
 				Id = ++_tickDataIdRef,
 				Action = action,
-				DeltaTime = deltaTime,
-				TimeOverflowToNextTick = timeOverflowToNextTick,
-				RealTime = realTime,
-				LastTickTime = realTime ? Time.realtimeSinceStartup : Time.time,
 				Subscriber = action.Target
 			});
 		}
@@ -166,10 +162,6 @@ namespace FirstLight.Services
 			{
 				Id = ++_tickDataIdRef,
 				Action = action,
-				DeltaTime = deltaTime,
-				TimeOverflowToNextTick = timeOverflowToNextTick,
-				RealTime = realTime,
-				LastTickTime = realTime ? Time.realtimeSinceStartup : Time.time,
 				Subscriber = action.Target
 			});
 		}
@@ -321,38 +313,9 @@ namespace FirstLight.Services
 
 		private void Update(List<TickData> list)
 		{
-			if (list.Count == 0)
+			foreach (var sub in list)
 			{
-				return;
-			}
-
-			var arrayCopy = list.ToArray();
-
-			for (int i = 0; i < arrayCopy.Length; i++)
-			{
-				var tickData = arrayCopy[i];
-				var time = tickData.RealTime ? Time.realtimeSinceStartup : Time.time;
-
-				if (time < tickData.LastTickTime + tickData.DeltaTime)
-				{
-					continue;
-				}
-
-				var deltaTime = time - tickData.LastTickTime;
-				var countBefore = list.Count;
-
-				tickData.Action(deltaTime);
-
-				// Check if the update was not unsubscribed in the call
-				var index = i - (arrayCopy.Length - countBefore);
-				if (list.Count > index && tickData == list[index])
-				{
-					var overFlow = tickData.DeltaTime == 0 ? 0 : deltaTime % tickData.DeltaTime;
-
-					tickData.LastTickTime = tickData.TimeOverflowToNextTick ? time - overFlow : time;
-
-					list[index] = tickData;
-				}
+				sub.Action(Time.deltaTime);
 			}
 		}
 
@@ -360,10 +323,6 @@ namespace FirstLight.Services
 		{
 			public int Id;
 			public Action<float> Action;
-			public float DeltaTime;
-			public bool TimeOverflowToNextTick;
-			public bool RealTime;
-			public float LastTickTime;
 			public object Subscriber;
 
 			public bool Equals(TickData other)

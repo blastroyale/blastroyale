@@ -29,4 +29,6 @@ namespace FirstLight.Game.Messages
 	{
 		public Environment NewEnvironment;
 	}
+		public struct FeatureFlagsChanged : IMessage { }
+
 }

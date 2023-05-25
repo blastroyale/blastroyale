@@ -28,6 +28,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
+	[LoadSynchronously]
 	public class CustomLobbyScreenPresenter : UiToolkitPresenterData<CustomLobbyScreenPresenter.StateData>,
 											  IInRoomCallbacks
 	{
@@ -275,7 +276,7 @@ namespace FirstLight.Game.Presenters
 		protected override Task OnClosed()
 		{
 			_rootObject.SetActive(true);
-			return Task.CompletedTask;
+			return base.OnClosed();
 		}
 
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)

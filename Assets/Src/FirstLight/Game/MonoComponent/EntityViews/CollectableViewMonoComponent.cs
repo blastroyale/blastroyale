@@ -7,6 +7,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Collections;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -45,9 +46,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
-			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
-			_animation.AddClip(_idleClip, CLIP_IDLE);
+			
+			_animation.AddClip(_spawnClip, CLIP_SPAWN);
+			_animation.AddClip(_idleClip, CLIP_IDLE);	
 			_animation.AddClip(_collectClip, CLIP_COLLECT);
 
 			QuantumEvent.Subscribe<EventOnStartedCollecting>(this, OnStartedCollecting);
@@ -67,13 +68,35 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
 				_pickupCircle.localPosition += new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+
+				//animates between the spawning position to the display position if they are different
+				var originPos = collectable.OriginPosition.ToUnityVector3();
+				var displayPos = collectable.DisplayPosition.ToUnityVector3();
+				if(originPos != displayPos)
+				{
+					StartCoroutine(goToPoint(0.5f, originPos, displayPos));
+				}
 			}
 			
 			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
 			//_animation.Play(CLIP_SPAWN);
 			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 			
-			_animation.Play(CLIP_IDLE);
+			//_animation.Play(CLIP_IDLE);
+		}
+
+		private IEnumerator goToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
+		{
+			var startTime = Time.time;
+			while(Time.time < startTime + moveTime)
+			{
+				var pos = Vector3.Lerp(startPos, endPos, (Time.time - startTime) / moveTime);
+				pos.y += Mathf.Sin(Mathf.PI * (Time.time - startTime) / moveTime) * 2;
+
+				transform.position = pos;
+				yield return new WaitForEndOfFrame();
+			}
+			transform.position = endPos;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -89,6 +112,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
+			Log.Warn(transform.position);
 			
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
@@ -129,11 +153,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			// Animation of a collected collectable is disabled. We can enable it again if we need it
 			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.
-			//_animation.enabled = true;
-			//_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
-			//this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
+			_animation.enabled = true;
+			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
+			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
 			
-			Destroy(gameObject);
+			//Destroy(gameObject);
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)

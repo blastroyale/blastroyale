@@ -54,7 +54,7 @@ MonoBehaviour:
   _animation: {fileID: 4159690803613263917}
   _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  _collectClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _pickupCircle: {fileID: 8584423475179726826}
 --- !u!114 &7154763326806129797
 MonoBehaviour:
@@ -86,11 +86,8 @@ Animation:
   m_GameObject: {fileID: 3587682744574828602}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  - {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  - {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  m_Animation: {fileID: 0}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -231,6 +228,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7273039971299085641}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 708f56a86f056b64d91fa27e49dee222, type: 3}
@@ -294,6 +292,9 @@ PrefabInstance:
       value: Ammo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 708f56a86f056b64d91fa27e49dee222, type: 3}
 --- !u!4 &45395878075135528 stripped
 Transform:

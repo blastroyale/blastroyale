@@ -4035,15 +4035,21 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Collectable : Quantum.IComponent {
-    public const Int32 SIZE = 280;
+    public const Int32 SIZE = 328;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(FP), 32)]
     private fixed Byte _CollectorsEndTime_[256];
+    [FieldOffset(280)]
+    [HideInInspector()]
+    public FPVector3 DisplayPosition;
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
+    [FieldOffset(304)]
+    [HideInInspector()]
+    public FPVector3 OriginPosition;
     [FieldOffset(272)]
     [HideInInspector()]
     public FP PickupRadius;
@@ -4059,7 +4065,9 @@ namespace Quantum {
       unchecked { 
         var hash = 463;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
+        hash = hash * 31 + DisplayPosition.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + OriginPosition.GetHashCode();
         hash = hash * 31 + PickupRadius.GetHashCode();
         hash = hash * 31 + Spawner.GetHashCode();
         return hash;
@@ -4071,6 +4079,8 @@ namespace Quantum {
         EntityRef.Serialize(&p->Spawner, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
         FP.Serialize(&p->PickupRadius, serializer);
+        FPVector3.Serialize(&p->DisplayPosition, serializer);
+        FPVector3.Serialize(&p->OriginPosition, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -10312,6 +10322,10 @@ namespace Quantum.Prototypes {
     public MapEntityId Spawner;
     [HideInInspector()]
     public FP PickupRadius;
+    [HideInInspector()]
+    public FPVector3 OriginPosition;
+    [HideInInspector()]
+    public FPVector3 DisplayPosition;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -10322,7 +10336,9 @@ namespace Quantum.Prototypes {
       for (int i = 0, count = PrototypeValidator.CheckLength(CollectorsEndTime, 32, in context); i < count; ++i) {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
+      result.DisplayPosition = this.DisplayPosition;
       result.GameId = this.GameId;
+      result.OriginPosition = this.OriginPosition;
       result.PickupRadius = this.PickupRadius;
       PrototypeValidator.FindMapEntity(this.Spawner, in context, out result.Spawner);
       MaterializeUser(frame, ref result, in context);

@@ -8,7 +8,7 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Weapon pick up with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref Equipment equipment, EntityRef spawner,
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, FPVector3 originPos, ref Equipment equipment, EntityRef spawner,
 		                   PlayerRef owner = new PlayerRef())
 		{
 			var collectable = new Collectable {GameId = equipment.GameId, PickupRadius = f.GameConfig.CollectableEquipmentPickupRadius};
@@ -18,6 +18,8 @@ namespace Quantum
 			transform->Rotation = rotation;
 
 			collectable.Spawner = spawner;
+			collectable.OriginPosition = originPos;
+			collectable.DisplayPosition = position;
 
 			Item = equipment;
 			Owner = owner;

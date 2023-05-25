@@ -58,8 +58,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 
-		// [SerializeField, Required] private GameObject _topTitleHolder;
-
 		private Button _lockRoomButton;
 		private Button _kickButton;
 		private VisualElement _squadHolder;
@@ -140,7 +138,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void SetupBotsToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
 		{
-			// toggle.value = getter();
+			toggle.value = getter();
 			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
 			{
 				s(e.newValue);
@@ -150,7 +148,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void SetupSpectatorToggle(Toggle toggle, Func<bool> getter, Action<bool> setter)
 		{
-			// toggle.value = getter();
+			toggle.value = getter();
 			toggle.RegisterCallback<ChangeEvent<bool>, Action<bool>>((e, s) =>
 			{
 				s(e.newValue);
@@ -553,8 +551,6 @@ namespace FirstLight.Game.Presenters
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.SetDisplay(false);
-			
-			
 			_botsToggle.SetDisplay(false);
 			_kickButton.SetDisplay(false);
 			_spectateToggle.SetDisplay(false);
@@ -585,11 +581,6 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(_kickModeActive);
 			}
-		}
-
-		private void OnBotsToggleChanged(bool _)
-		{
-			CheckEnableLockRoomButton();
 		}
 
 		private void DeactivateKickOverlay()

@@ -73,8 +73,10 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown = new LocalizedDropDown[2];
 			_mutatorModeDropDown[0] = root.Q<LocalizedDropDown>("Mutator1").Required();
 			_mutatorModeDropDown[0].value = ScriptLocalization.MainMenu.None;
+			_mutatorModeDropDown[0].RegisterValueChangedCallback(MutatorDropDownChanged);
 			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
+			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
 			
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
@@ -87,6 +89,12 @@ namespace FirstLight.Game.Presenters
 		{
 			FillMapSelectionList(_gameModeDropDown.index);
 		}
+
+		private void MutatorDropDownChanged(ChangeEvent<string> evt)
+		{
+			FillMutatorsSelectionList();
+		}
+		
 
 		private void SetPreviouslyUsedValues()
 		{
@@ -194,7 +202,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var mutatorMenuOption = _mutatorModeDropDown[i].value;
 				
-				if (mutatorMenuOption == null)
+				if (mutatorMenuOption == null || mutatorMenuOption.Equals(ScriptLocalization.MainMenu.None))
 				{
 					continue;
 				}
@@ -220,18 +228,42 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private List<string> GetSelectedMutators()
+		{
+			var selectedMutators = new List<string>();
+
+			foreach (var mutatorDropdown in _mutatorModeDropDown)
+			{
+				var presentMutator = mutatorDropdown.value;
+				
+				if (presentMutator != null)
+				{
+					selectedMutators.Add(presentMutator);
+					mutatorDropdown.value = presentMutator;
+				}
+			}
+			
+			return selectedMutators;
+		}
+		
+
 		private void FillMutatorsSelectionList()
 		{
+			var selectedMutators = GetSelectedMutators();
 			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
-
+			
 			foreach (var mutatorsSelection in _mutatorModeDropDown)
 			{
+				mutatorsSelection.choices.Clear();
 				var menuChoices = new List<string>();
 				menuChoices.Add(ScriptLocalization.MainMenu.None);
 				
 				foreach (var mutatorConfig in mutatorConfigs)
 				{
-					menuChoices.Add(mutatorConfig.Id);
+					if (!selectedMutators.Contains(mutatorConfig.Id))
+					{
+						menuChoices.Add(mutatorConfig.Id);
+					}
 				}
 
 				mutatorsSelection.choices = menuChoices;

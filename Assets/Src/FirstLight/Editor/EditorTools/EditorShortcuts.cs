@@ -141,8 +141,41 @@ namespace FirstLight.Editor.EditorTools
 		{
 			return AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"t:scene {scene}")[0]);
 		}
-		
-		
+
+		[MenuItem("FLG/Art/Copy to box Colliders %#m")]
+		private static void CopyToBoxColliders()
+		{
+			var go = Selection.activeGameObject;
+			if (go == null)
+			{
+				Debug.LogError("Select a Game Object first!");
+				return;
+			}
+
+			BoxCollider[] childColliders = go.GetComponentsInChildren<BoxCollider>();
+
+			foreach (BoxCollider childCollider in childColliders)
+			{
+				// Skip if the child collider is a trigger
+				if (childCollider.isTrigger)
+					continue;
+
+				// Get the position, rotation, and scale of the child collider
+				Vector3 position = childCollider.transform.position;
+				Vector3 scale = childCollider.transform.localScale;
+
+				// Create a new BoxCollider on the target object
+				BoxCollider newCollider = go.AddComponent<BoxCollider>();
+
+				// Set the position, rotation, and scale of the new collider
+				newCollider.center = position;
+				newCollider.size = scale;
+
+				// Adds a Quantum Box collider to the object 
+				QuantumStaticBoxCollider3D newQuantumCollider = go.AddComponent<QuantumStaticBoxCollider3D>();
+				newQuantumCollider.SourceCollider = newCollider;
+			}
+		}
 
 		[MenuItem("FLG/Art/Merge Colliders %#m")]
 		private static void MergeColliders()

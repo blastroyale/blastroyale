@@ -11,9 +11,9 @@ namespace Quantum.Systems
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
-		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + + FP._0_25;
-		private static readonly FP SKYDIVE_FALL_SPEED = -FP._8;
-		private static readonly FP SKYDIVE_DIRECTION_MULT = 3;
+		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
+		private static readonly FP SKYDIVE_FALL_SPEED = -FP._0_50 - FP._0_20;
+		private static readonly FP SKYDIVE_DIRECTION_MULT = FP._0;
 		
 		public struct PlayerCharacterFilter
 		{

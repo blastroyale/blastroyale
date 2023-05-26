@@ -22,11 +22,27 @@ namespace FirstLight.Game.Services
 		/// Enable accessor for the player spell control input 
 		/// </summary>
 		LocalInput Input { get; }
+
+		public delegate void SetQuantumInput(CallbackPollInput callback, ref Quantum.Input input);
+
+		/// <summary>
+		/// Allows to overwrite the quantum input polling, useful for tests
+		/// </summary>
+		SetQuantumInput OverwriteCallbackInput { set; }
+
+		public delegate void QuantumInputSent(Quantum.Input input);
+
+		/// <summary>
+		/// Called when we set a input in quantum poll function
+		/// </summary>
+		QuantumInputSent OnQuantumInputSent { get; set; }
 	}
 
 	public class PlayerInputService : IPlayerInputService, MatchServices.IMatchService, LocalInput.IGameplayActions
 	{
 		public LocalInput Input { get; }
+		public IPlayerInputService.SetQuantumInput OverwriteCallbackInput { get; set; }
+		public IPlayerInputService.QuantumInputSent OnQuantumInputSent { get; set; }
 
 		private readonly IMatchServices _matchServices;
 		private readonly IGameServices _gameServices;
@@ -37,8 +53,6 @@ namespace FirstLight.Game.Services
 		private Vector2 _direction;
 		private Vector2 _aim;
 		private bool _shooting;
-
-		private bool _sentMovementMessage;
 
 		public PlayerInputService(IGameServices gameServices, IMatchServices matchServices,
 								  IGameDataProvider dataProvider)
@@ -91,6 +105,7 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Disable();
 				Input.Gameplay.SpecialButton1.Disable();
 				Input.Gameplay.SwitchWeaponButton.Disable();
+				Input.Gameplay.Move.Disable();
 			}
 			else
 			{
@@ -99,20 +114,13 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Enable();
 				Input.Gameplay.SpecialButton1.Enable();
 				Input.Gameplay.SwitchWeaponButton.Enable();
+				Input.Gameplay.Move.Enable();
 			}
 		}
 
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			_direction = context.ReadValue<Vector2>();
-
-			// TODO: Try to move this to TutorialService
-			if (!_sentMovementMessage && _gameServices.TutorialService.CurrentRunningTutorial.Value ==
-				TutorialSection.FIRST_GUIDE_MATCH)
-			{
-				_gameServices.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
-				_sentMovementMessage = true;
-			}
 		}
 
 		public void OnAim(InputAction.CallbackContext context)
@@ -171,7 +179,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = slotIndexToSwitch});
+			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand { WeaponSlotIndex = slotIndexToSwitch });
 		}
 
 		public void OnTeamPositionPing(InputAction.CallbackContext context)
@@ -180,16 +188,26 @@ namespace FirstLight.Game.Services
 
 		private void PollInput(CallbackPollInput callback)
 		{
-			float moveSpeedPercentage = 100;
-			if (_dataProvider.AppDataProvider.MovespeedControl)
+			if (OverwriteCallbackInput == null)
 			{
-				moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				float moveSpeedPercentage = 100;
+				if (_dataProvider.AppDataProvider.MovespeedControl)
+				{
+					moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
+				}
+
+				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting,
+					FP.FromFloat_UNSAFE(moveSpeedPercentage));
+			}
+			else
+			{
+				OverwriteCallbackInput?.Invoke(callback, ref _quantumInput);
 			}
 
-			_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting,
-				FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
+			OnQuantumInputSent?.Invoke(_quantumInput);
 		}
+
 
 		private void OnSpecialButtonUsed(InputAction.CallbackContext context, int specialIndex)
 		{

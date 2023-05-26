@@ -5,7 +5,9 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -20,7 +22,7 @@ namespace FirstLight.Game.Services
 		/// Requests the current running tutorial step
 		/// </summary>
 		IObservableFieldReader<TutorialSection> CurrentRunningTutorial { get; }
-		
+
 		/// <summary>
 		/// Requests check if a tutorial is currently in progress
 		/// </summary>
@@ -30,6 +32,11 @@ namespace FirstLight.Game.Services
 		/// Requests to check if a tutorial step has been completed
 		/// </summary>
 		bool HasCompletedTutorialSection(TutorialSection section);
+
+		/// <summary>
+		/// Listen for the first player movement and send PlayerUsedMovementJoystick message
+		/// </summary>
+		void ListenForSentMovement();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -37,7 +44,7 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc cref="ITutorialService.CurrentRunningTutorial" />
 		new IObservableField<TutorialSection> CurrentRunningTutorial { get; }
-		
+
 		/// <summary>
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
 		/// </summary>
@@ -47,7 +54,7 @@ namespace FirstLight.Game.Services
 		/// Creates first match tutorial room and joins it
 		/// </summary>
 		void CreateJoinFirstTutorialRoom();
-		
+
 		/// <summary>
 		/// Creates second match tutorial room and joins it
 		/// </summary>
@@ -60,20 +67,20 @@ namespace FirstLight.Game.Services
 		private readonly IGameUiService _uiService;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
-		
+
 		bool ITutorialService.IsTutorialRunning => FeatureFlags.TUTORIAL && CurrentRunningTutorial.Value != TutorialSection.NONE;
 
 		public IObservableField<TutorialSection> CurrentRunningTutorial { get; }
 
 		IObservableFieldReader<TutorialSection> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
-		
+
 		public TutorialService(IGameUiService uiService)
 		{
 			_uiService = uiService;
 
 			CurrentRunningTutorial = new ObservableField<TutorialSection>(TutorialSection.NONE);
 		}
-		
+
 		/// <summary>
 		/// Binds services and data to the object, and starts starts ticking quantum client.
 		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
@@ -103,14 +110,14 @@ namespace FirstLight.Game.Services
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>()
 			};
-			
+
 			_services.NetworkService.CreateRoom(roomSetup, true);
 		}
-		
+
 		public void CreateJoinSecondTutorialRoom()
 		{
 			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
-			
+
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
@@ -118,13 +125,32 @@ namespace FirstLight.Game.Services
 				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
 				Mutators = Array.Empty<string>()
 			};
-			
+
 			_services.NetworkService.JoinOrCreateRandomRoom(setup);
 		}
-		
+
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
 			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
+		}
+
+
+		public void ListenForSentMovement()
+		{
+			if (!MainInstaller.TryResolve<IMatchServices>(out var matchServices))
+			{
+				throw new Exception("MatchServices not found!");
+			}
+
+			void OnQuantumInputSent(Quantum.Input input)
+			{
+				if (CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH || input.Direction.Magnitude <= FP._0_05) return;
+				_services.MessageBrokerService.Publish(new PlayerUsedMovementJoystick());
+				matchServices.PlayerInputService.OnQuantumInputSent -= OnQuantumInputSent;
+
+			}
+
+			matchServices.PlayerInputService.OnQuantumInputSent += OnQuantumInputSent;
 		}
 	}
 }

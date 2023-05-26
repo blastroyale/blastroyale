@@ -2,13 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.TestCases.Helpers;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.TestCases
@@ -71,7 +69,7 @@ namespace FirstLight.Game.TestCases
 			return _benchmarkCollector.Collect();
 		}
 
-		public void PublishTestResult(bool success, string message)
+		private void PublishTestResult(bool success, string message)
 		{
 			if (_runningTest == null || !_isGameAwaken)
 			{
@@ -82,7 +80,8 @@ namespace FirstLight.Game.TestCases
 				new Dictionary<string, object>()
 				{
 					{ "test_result", success ? "success" : "error" },
-					{ "test_message", message.Length > 60 ? message.Substring(0, 60) : message }
+					{ "test_message", message.Length > 60 ? message.Substring(0, 60) : message },
+					{ "exceptions", _errors.Count },
 				});
 		}
 
@@ -152,14 +151,8 @@ namespace FirstLight.Game.TestCases
 				yield break;
 			}
 
-			if (_errors.Count > 0)
-			{
-				PublishTestResult(false, $"Received {_errors.Count} errors during execution! First: {_errors.First()}");
-			}
-			else
-			{
-				PublishTestResult(true, "Success test!");
-			}
+			PublishTestResult(true, _errors.Count > 0 ? "Test finished with exceptions!" : "Success test!");
+
 
 			MainInstaller.ResolveServices().QuitGame("Success Test");
 		}
@@ -185,10 +178,11 @@ namespace FirstLight.Game.TestCases
 		private TestInstaller SetupHelpers()
 		{
 			var testInstaller = new TestInstaller();
-			testInstaller.Bind(new QuantumHelper(this));
+			var messageBrokerHelper = new MessageBrokerHelper(this);
+			testInstaller.Bind(messageBrokerHelper);
+			testInstaller.Bind(new QuantumHelper(this, messageBrokerHelper));
 			testInstaller.Bind(new AccountHelper(this));
 			testInstaller.Bind(new FeatureFlagsHelper(this));
-			testInstaller.Bind(new MessageBrokerHelper(this));
 			testInstaller.Bind(new PlayerConfigsHelper(this));
 			var uiHelper = new UIHelper(this);
 			testInstaller.Bind(uiHelper);

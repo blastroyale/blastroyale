@@ -74,11 +74,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
+			
+			// Disabled VXF on player spawn
+			//var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
+			//var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
 
-			var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
-			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
-
-			aliveVfx.transform.position = position;
+			//aliveVfx.transform.position = position;
 		}
 
 		private async void InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)

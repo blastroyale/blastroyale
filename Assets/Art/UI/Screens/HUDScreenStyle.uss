@@ -988,6 +988,10 @@
     top: -50px;
 }
 
+.player-status-bar--friendly {
+    
+}
+
 .player-status-bar__level {
     background-color: rgb(54, 46, 76);
     position: absolute;
@@ -1040,6 +1044,10 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
+.player-status-bar--friendly .player-status-bar__name {
+    color: #22D3E8;
+}
+
 .player-status-bar__ammo-holder {
     bottom: 2px;
     right: 11px;
@@ -1047,6 +1055,10 @@
     left: 32px;
     height: 6px;
     flex-direction: row;
+}
+
+.player-status-bar--friendly .player-status-bar__ammo-holder {
+    display: none;
 }
 
 .player-status-bar__ammo-segment {

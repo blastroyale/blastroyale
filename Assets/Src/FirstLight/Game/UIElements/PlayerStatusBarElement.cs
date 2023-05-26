@@ -16,6 +16,7 @@ namespace FirstLight.Game.UIElements
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
 		private const string USS_BLOCK = "player-status-bar";
+		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_LEVEL = USS_BLOCK + "__level";
@@ -89,7 +90,8 @@ namespace FirstLight.Game.UIElements
 		public void SetIsFriendly(bool isFriendly)
 		{
 			_isFriendly = isFriendly;
-			_ammoHolder.SetDisplay(_isFriendly);
+			
+			EnableInClassList(USS_FRIENDLY, isFriendly);
 
 			style.opacity = isFriendly ? 1f : 0f;
 		}

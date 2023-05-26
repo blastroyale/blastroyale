@@ -43,8 +43,8 @@ namespace FirstLight.Editor.Build
 		private const string _appIdentifier = "com.firstlightgames.blastroyale";
 		private const string _firstLightAppleTeamId = "8UB22L9ZW7";
 		private const string _distributionProvisioningProfile = "1c16ed57-e352-4cca-8950-7e1c7ec1730d";
-		private const string _developmentProvisioningProfile = "7dfad8ae-667c-4140-844e-694791a0a46a";
-		private const string _adHocProvisioningProfile = "cb867aa6-82a2-4cb8-93e4-46d85eea99c2";
+		private const string _developmentProvisioningProfile = "6adb9763-4459-4f33-a53e-df8192b4378b";
+		private const string _adHocProvisioningProfile = "7dcb3aff-4532-4394-bb3a-de27f0345bc9";
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";

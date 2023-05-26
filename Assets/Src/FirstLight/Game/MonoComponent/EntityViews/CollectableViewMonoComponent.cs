@@ -139,7 +139,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			Log.Warn(transform.position);
 			
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;

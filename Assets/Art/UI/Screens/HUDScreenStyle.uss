@@ -155,6 +155,10 @@
     bottom: 145px;
 }
 
+.skydiving .joystick--move {
+    display: none;
+}
+
 .joystick--aim {
     right: 206px;
     bottom: 100px;
@@ -651,6 +655,10 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
+.skydiving .match-status {
+    display: none;
+}
+
 .match-status__counter {
     width: 120px;
     height: 120px;
@@ -902,6 +910,10 @@
     bottom: 64px;
     flex-direction: row;
     align-items: center;
+}
+
+.skydiving .equipment-display {
+    display: none;
 }
 
 .equipment-display__character {

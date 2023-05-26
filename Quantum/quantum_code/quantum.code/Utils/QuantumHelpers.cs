@@ -275,7 +275,7 @@ namespace Quantum
 		/// It also activates the return spawn point
 		/// It also changes the bot's Behaviour type if the spawn point has ForceStatic
 		/// </summary>
-		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity )
+		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity, bool sortByDistance, FPVector3 positionToCompare)
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
 
@@ -296,7 +296,7 @@ namespace Quantum
 				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
 			}
 
-			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter));
+			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter, sortByDistance, positionToCompare));
 
 			if (spawners.Count == 0)
 			{
@@ -411,7 +411,7 @@ namespace Quantum
 		/// <summary>
 		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
 		/// </summary>
-		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter)
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter, bool sortByDistance, FPVector3 positionToCompare)
 		{
 			return (pair, pointerPair) =>
 			{
@@ -419,6 +419,17 @@ namespace Quantum
 				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
 					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
 				{
+					if (sortByDistance)
+					{
+						var pos1 = f.Get<Transform3D>(pair.Entity).Position;
+						var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
+
+						return FPVector3.DistanceSquared(pos1, positionToCompare) <
+							   FPVector3.DistanceSquared(pos2, positionToCompare)
+								   ? -1
+								   : 1;
+					}
+					
 					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
 					return f.RNG->Next(-1, 2);
 				}

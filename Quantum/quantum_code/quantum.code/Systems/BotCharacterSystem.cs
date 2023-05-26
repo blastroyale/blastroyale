@@ -100,7 +100,7 @@ namespace Quantum.Systems
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
 			if (!kcc->Grounded)
 			{
-				kcc->Velocity = FPVector3.Down * FP._8;
+				kcc->Velocity.Y = -FP._0_50 - FP._0_20;
 				kcc->Move(f, filter.Entity, FPVector3.Zero);
 
 				// TODO Nik: Make a specific branching decision in case we skydive in Battle Royale

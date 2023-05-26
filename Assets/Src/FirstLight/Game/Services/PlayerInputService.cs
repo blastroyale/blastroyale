@@ -105,6 +105,7 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Disable();
 				Input.Gameplay.SpecialButton1.Disable();
 				Input.Gameplay.SwitchWeaponButton.Disable();
+				Input.Gameplay.Move.Disable();
 			}
 			else
 			{
@@ -113,6 +114,7 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Enable();
 				Input.Gameplay.SpecialButton1.Enable();
 				Input.Gameplay.SwitchWeaponButton.Enable();
+				Input.Gameplay.Move.Enable();
 			}
 		}
 

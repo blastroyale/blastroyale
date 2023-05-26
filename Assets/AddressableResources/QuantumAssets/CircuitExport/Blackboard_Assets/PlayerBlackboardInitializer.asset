@@ -16,34 +16,12 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
       Guid:
-        Value: 1735155794366066578
+        Value: 2698469065823855534
     ReportMissingEntries: 1
     AIBlackboard:
       Id:
-        Value: 648001274895591165
+        Value: 389436364712682305
     InitialValues:
-    - Key: IsShooting
-      Value:
-        AsBoolean: 0
-        AsByte: 0
-        AsInteger: 0
-        AsFP:
-          RawValue: 0
-        AsFPVector2:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-        AsFPVector3:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        AsAssetRef:
-          Id:
-            Value: 0
     - Key: MoveSpeed
       Value:
         AsBoolean: 0
@@ -67,6 +45,28 @@ MonoBehaviour:
           Id:
             Value: 0
     - Key: IsSkydiving
+      Value:
+        AsBoolean: 0
+        AsByte: 0
+        AsInteger: 0
+        AsFP:
+          RawValue: 0
+        AsFPVector2:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        AsFPVector3:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        AsAssetRef:
+          Id:
+            Value: 0
+    - Key: IsShooting
       Value:
         AsBoolean: 0
         AsByte: 0

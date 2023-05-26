@@ -11,9 +11,9 @@ namespace Quantum.Systems
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
-		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + + FP._0_25;
-		private static readonly FP SKYDIVE_FALL_SPEED = -FP._8;
-		private static readonly FP SKYDIVE_DIRECTION_MULT = 3;
+		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
+		private static readonly FP SKYDIVE_FALL_SPEED = -FP._0_50 - FP._0_20;
+		private static readonly FP SKYDIVE_DIRECTION_MULT = FP._0;
 		
 		public struct PlayerCharacterFilter
 		{
@@ -111,16 +111,16 @@ namespace Quantum.Systems
 			}
 
 			var deathPosition = f.Get<Transform3D>(entity).Position;
-			var step = 0;
 			var gameModeConfig = f.Context.GameModeConfig;
+			var equipmentToDrop = new List<Equipment>();
+			var consumablesToDrop = new List<GameId>();
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
 			// Try to drop player weapon
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly && !playerDead->HasMeleeWeapon(f, entity))
 			{
-				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step, true);
-				step++;
+				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}
 
 			var itemCount = 0;
@@ -152,12 +152,12 @@ namespace Quantum.Systems
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 				
 				// Because max ammo is deliberately practically unreachable, we use half of ammo to compare
-				var ammoFilled = stats->CurrentAmmo / (stats->GetStatData(StatType.Health).StatValue * FP._0_50);
+				var ammoFilled = stats->CurrentAmmo / (stats->GetStatData(StatType.Health).StatValue * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE);
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
 				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)
 				{
-					var consumable = GameId.Health;
+					var consumable = GameId.AmmoSmall;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						consumable = GameId.Health;
@@ -175,27 +175,37 @@ namespace Quantum.Systems
 						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
 							stats->GetStatData(StatType.Shield).StatValue;
 					}
-
-					Collectable.DropConsumable(f, consumable, deathPosition, step, true, false);
-					step++;
+					
+					consumablesToDrop.Add(consumable);
 				}
 
 				if (QuantumFeatureFlags.DropEnergyCubes)
 				{
-					Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, true, false); //drop a single level on kill
-					step++;
+					consumablesToDrop.Add(GameId.EnergyCubeLarge);
 				}
 				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
-					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step, true);
-					step++;
+					equipmentToDrop.Add(playerDead->CurrentWeapon);
 				}
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, true, false);
+				consumablesToDrop.Add(GameId.Health);
+			}
+
+			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;
+			var step = 0;
+			foreach (var drop in equipmentToDrop)
+			{
+				Collectable.DropEquipment(f, drop, deathPosition, step, true, anglesToDrop);
+				step++;
+			}
+			foreach (var drop in consumablesToDrop)
+			{
+				Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				step++;
 			}
 		}
 

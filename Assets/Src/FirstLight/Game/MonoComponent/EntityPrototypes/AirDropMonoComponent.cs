@@ -72,6 +72,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_itemRoot.gameObject.SetActive(true);
+			
+			var collectable = _itemRoot.GetComponentInChildren<CollectableViewMonoComponent>();
+			collectable.SetPickupCircleVisibility(false);
 		}
 
 		private void OnAirDropLanded(EventOnAirDropLanded callback)
@@ -83,6 +86,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_landingPS.Play();
 			_landingAnim.Play();
+			
+			var collectable = _itemRoot.GetComponentInChildren<CollectableViewMonoComponent>();
+			collectable.SetPickupCircleVisibility(true);
 		}
 
 		private void OnChestLoaded(GameId id, GameObject instance, bool instantiated)

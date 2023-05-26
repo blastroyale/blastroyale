@@ -275,7 +275,7 @@ namespace Quantum
 			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
-				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true);
+				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
 			
 			// Add big bulk of initial ammo only when player picks up the first gun

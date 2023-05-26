@@ -103,6 +103,7 @@ SpriteAtlas:
     - 523d402cd81de4cdc9fb5aaee7712622: 21300000
     - b3cf5e3cdd4314e8ca4f90d654141bc8: 21300000
     - f1c8127c6813d4d4ca98d60991269065: 21300000
+    - d8dbbd9cdfb68ee459f6306669bba21b: 21300000
     - 0f00a1acb69574ad2a5863ef52275252: 21300000
     - 237b0bbc2afe0ab4bbb66369316b5361: -632566775
     - 237b0bbc2afe0ab4bbb66369316b5361: 810126229
@@ -128,6 +129,7 @@ SpriteAtlas:
     - bd5d2d0f52715473ca58a463cc941357: 21300000
     - 23beb82f33697664a8e8e12ace7b93f5: 21300000
     - ddaf3b2f1f5294775bf485c5459fd521: 21300000
+    - 9d40657fe19ef4e468e2d46f08c0936d: 21300000
     - f72f4e9f33524419caa8e91fdea624a5: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -190,6 +192,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 523d402cd81de4cdc9fb5aaee7712622, type: 3}
   - {fileID: 21300000, guid: b3cf5e3cdd4314e8ca4f90d654141bc8, type: 3}
   - {fileID: 21300000, guid: f1c8127c6813d4d4ca98d60991269065, type: 3}
+  - {fileID: 21300000, guid: d8dbbd9cdfb68ee459f6306669bba21b, type: 3}
   - {fileID: 21300000, guid: 0f00a1acb69574ad2a5863ef52275252, type: 3}
   - {fileID: -632566775, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
   - {fileID: 810126229, guid: 237b0bbc2afe0ab4bbb66369316b5361, type: 3}
@@ -215,6 +218,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bd5d2d0f52715473ca58a463cc941357, type: 3}
   - {fileID: 21300000, guid: 23beb82f33697664a8e8e12ace7b93f5, type: 3}
   - {fileID: 21300000, guid: ddaf3b2f1f5294775bf485c5459fd521, type: 3}
+  - {fileID: 21300000, guid: 9d40657fe19ef4e468e2d46f08c0936d, type: 3}
   - {fileID: 21300000, guid: f72f4e9f33524419caa8e91fdea624a5, type: 3}
   m_PackedSpriteNamesToIndex:
   - DefaultIndicatorBase
@@ -222,7 +226,7 @@ SpriteAtlas:
   - BossIndicatorOutside
   - WeaponNameBg
   - HUDRankBackground
-  - CircleThin
+  - CollectableStaticIndicatorLarge
   - SpeedPill
   - QuestBarFill
   - PlayerIndicatorFace
@@ -276,6 +280,7 @@ SpriteAtlas:
   - HealthBar
   - EnemyIndicatorFace
   - AirdropIcon
+  - CollectableDynamicIndicatorLarge
   - CheqFlag
   - hand_spritesheet_0
   - hand_spritesheet_1
@@ -293,7 +298,7 @@ SpriteAtlas:
   - PlayerAvatarGeneric
   - QuestTitleFrame
   - QuestBar
-  - CircleMedium
+  - CollectableStaticIndicator
   - SpecialButton
   - PlayerLeft
   - SmearNewShadow
@@ -301,6 +306,7 @@ SpriteAtlas:
   - PlayerIndicatorFaceKO
   - HUD_AdventureCoin
   - RadiusDirectionLine
+  - CollectableDynamicIndicator
   - SmearHighlighted
   m_RenderDataMap: {}
   m_Tag: AdventureHud

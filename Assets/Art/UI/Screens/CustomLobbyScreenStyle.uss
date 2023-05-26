@@ -1,0 +1,158 @@
+
+.screen-header {
+}
+
+
+.lobby-toggle {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.lobby-toggle .unity-toggle__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    justify-content: flex-start;
+}
+
+.lobby-toggle .unity-toggle__input {
+    background-color: rgb(24, 20, 38);
+    flex-shrink: initial;
+    flex-grow: initial;
+    width: 194px;
+    flex-basis: initial;
+    height: 68px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition-duration: 0.15s;
+}
+
+.lobby-toggle .unity-toggle__checkmark {
+    background-image: var(--sprite-home__button-settings-toggle);
+    width: 88px;
+    height: 68px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    -unity-background-image-tint-color: rgb(247, 107, 106);
+    transition-duration: 0.15s;
+}
+
+.lobby-toggle:checked .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(0, 255, 106);
+}
+
+.lobby-toggle:checked .unity-toggle__input {
+    padding-left: 106px;
+}
+
+.category-holder {
+}
+
+.safe-area {
+}
+
+.button-holder {
+    height: 300px;
+}
+
+.lobby-toggle {
+}
+
+.lobby-toggle {
+    justify-content: space-between;
+}
+
+.custom-lobby-button-holder {
+    position: relative; 
+    height: 88px; 
+    width: 2530px; 
+    flex-direction: row; 
+    top: 940px; 
+    align-self: center; 
+    justify-content: space-around; 
+    left: 0;
+}
+
+.custom-lobby-top-title-holder {
+    flex-grow: 1; 
+    background-color: rgba(0, 0, 0, 0); 
+    position: absolute; 
+    height: 67px; 
+    width: 1097px; 
+    top: 186px; 
+    left: 61px; 
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+.custom-game-squad-select-holder {
+    height: 100px; 
+    top: 160px; 
+    flex-direction: row; 
+    justify-content: space-around; 
+    align-self: center; 
+    bottom: auto; 
+    width: 294px; 
+    position: absolute; 
+    left: 43px; 
+    display: flex;
+}
+
+.custom-game-squad-up-button {
+    font-size: 60px; 
+    color: rgb(255, 255, 255);
+    background-image: var(--sprite-home__button-equipmentslot-empty);
+}
+
+.custom-game-squad-down-button {
+    font-size: 60px; 
+    background-image: var(--sprite-home__button-equipmentslot-empty); 
+    color: rgb(255, 255, 255);
+}
+
+.custom-game-squad-label {
+    font-size: 40px; 
+    height: auto; 
+    flex-grow: 1; 
+    -unity-text-align: upper-center; 
+    align-self: center; 
+    background-color: rgba(255, 255, 255, 0); 
+    color: rgb(255, 255, 255); 
+    justify-content: flex-start;
+}
+
+.custom-game-squad-id-label {
+    color: rgb(255, 255, 255); 
+    font-size: 40px; 
+    align-self: center;
+}
+
+.custom-lobby-game-mode-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 450px;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-image: var(--sprite-home__background-popup-equipment);
+}
+
+.custom-lobby-get-ready-label {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 450px;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-image: var(--sprite-home__background-popup-equipment);
+}
+

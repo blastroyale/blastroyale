@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6650924514108190406}
   - component: {fileID: 6369629610119479141}
   m_Layer: 13
-  m_Name: CollectableIndicator
+  m_Name: CollectableIndicatorLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id:
-    _selection: CollectableIndicator
+    _selection: CollectableIndicatorLarge
   _progressIndicator: {fileID: 6650924515104287630}
 --- !u!1 &6650924515104287624
 GameObject:
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d40657fe19ef4e468e2d46f08c0936d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8dbbd9cdfb68ee459f6306669bba21b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

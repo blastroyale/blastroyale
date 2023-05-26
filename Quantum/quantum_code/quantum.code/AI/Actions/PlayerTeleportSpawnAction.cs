@@ -22,7 +22,7 @@ namespace Quantum
 				}
 			}
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e);
+			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e, false, FPVector3.Zero);
 
 			transform->Position = spawnPoint.Component.Position;
 

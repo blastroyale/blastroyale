@@ -207,11 +207,12 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private async Task CloseMatchmakingScreen()
+		private async void CloseMatchmakingScreen()
 		{
 			await WaitForCameraOnPlayer();
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
-			_uiService.CloseUi<MatchmakingScreenPresenter>();
+			
+			await _uiService.CloseUi<CustomLobbyScreenPresenter>(true);
+			await _uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
 
 		private bool IsSpectator()

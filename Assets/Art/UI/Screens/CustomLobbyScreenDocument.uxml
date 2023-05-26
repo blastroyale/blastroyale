@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/CustomLobbyScreenStyle.uss?fileID=7433441132597879392&amp;guid=6bb277656771845e5af4049b5df6879b&amp;type=3#CustomLobbyScreenStyle" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="MainMenu/RoomJoinCreateTitle" subtitle-back="true" name="Header" class="screen-header" />
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" name="SafeAreaElement" class="safe-area">
+            <ui:VisualElement name="TopTitleHolder" class="custom-lobby-top-title-holder" style="justify-content: space-around;">
+                <ui:Label tabindex="-1" text="CUSTOM BATTLE ROYALE" display-tooltip-when-elided="true" name="GameModeLabel" class="custom-lobby-game-mode-label" style="align-self: center;" />
+                <ui:Label tabindex="-1" text="PREPARE FOR ACTION IN 10 SECONDS!" display-tooltip-when-elided="true" name="GetReadyLabel" class="custom-lobby-get-ready-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonHolder" class="button-holder custom-lobby-button-holder">
+                <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchBotsToggle" name="BotsToggle" class="lobby-toggle" />
+                <FirstLight.Game.UIElements.LocalizedToggle localization-key="MainMenu/CustomMatchSpectateToggle" name="SpectateToggle" class="lobby-toggle" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/MatchmakingKickButton" name="KickButton" class="button-long button-long--yellow info-holder__equip-button" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/RoomLock" name="LockButton" class="button-long button-long--yellow info-holder__equip-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SquadSelectHolder" class="button-holder custom-game-squad-select-holder">
+                <FirstLight.Game.UIElements.LocalizedLabel name="SquadLabel" localization-key="UITHomeScreen/party" class="coming-soon custom-game-squad-label" />
+                <ui:Button text="&lt;" display-tooltip-when-elided="true" name="SquadDownButton" class="custom-game-squad-down-button" />
+                <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="SquadIDLabel" class="custom-game-squad-id-label" />
+                <ui:Button text="&gt;" display-tooltip-when-elided="true" name="SquadUpButton" class="custom-game-squad-up-button" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -52,9 +52,8 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 8834092866769325628}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 2115767306961407324}
-  _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
-  _collectClip: {fileID: 7400000, guid: c6470cda5d6a35d4893249d78a1d41b8, type: 2}
+  _collectClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _pickupCircle: {fileID: 6051013697671601129}
 --- !u!114 &3388013072919493097
 MonoBehaviour:

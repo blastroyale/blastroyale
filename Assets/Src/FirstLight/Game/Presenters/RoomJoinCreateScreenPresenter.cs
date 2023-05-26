@@ -88,6 +88,7 @@ namespace FirstLight.Game.Presenters
 		private void GameModeDropDownChanged(ChangeEvent<string> evt)
 		{
 			FillMapSelectionList(_gameModeDropDown.index);
+			_mapDropDown.index = 0;
 		}
 
 		private void MutatorDropDownChanged(ChangeEvent<string> evt)
@@ -103,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (_quantumGameModeConfigs.Count> lastUsedOptions.GameModeIndex)
 				{
-					_gameModeDropDown.index = lastUsedOptions.GameModeIndex;
+					_gameModeDropDown.SetValueWithoutNotify(_gameModeDropDown.choices[lastUsedOptions.GameModeIndex]);
 				}
 				
 				if (lastUsedOptions.Mutators?.Count > 0)

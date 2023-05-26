@@ -28,7 +28,6 @@ namespace FirstLight.Game.Services
 		private bool _shooting;
 		private int _specialPressed = -1;
 		private bool _disposed = false;
-		private bool _registered = false;
 
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
@@ -73,7 +72,6 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.performed += OnSpecial1;
 			_inputs.SpecialButton1.canceled += OnSpecial1;
 			_inputs.SpecialAim.performed += OnSpecialAim;
-			_registered = true;
 		}
 
 		public void Dispose()
@@ -82,18 +80,19 @@ namespace FirstLight.Game.Services
 			QuantumEvent.UnsubscribeListener(this);
 			_services?.TickService.Unsubscribe(OnUpdate);
 			_indicatorContainerView?.Dispose();
-
-			if (!_registered) return;
-			_inputs.Move.performed -= OnMove;
-			_inputs.AimButton.performed -= OnShooting;
-			_inputs.AimButton.canceled -= OnShooting;
-			_inputs.SpecialButton0.started -= OnSpecial0;
-			_inputs.SpecialButton0.performed -= OnSpecial0;
-			_inputs.SpecialButton0.canceled -= OnSpecial0;
-			_inputs.SpecialButton1.started -= OnSpecial1;
-			_inputs.SpecialButton1.performed -= OnSpecial1;
-			_inputs.SpecialButton1.canceled -= OnSpecial1;
-			_inputs.SpecialAim.performed -= OnSpecialAim;
+			if (_inputs.Get() != null)
+			{
+				_inputs.Move.performed -= OnMove;
+				_inputs.AimButton.performed -= OnShooting;
+				_inputs.AimButton.canceled -= OnShooting;
+				_inputs.SpecialButton0.started -= OnSpecial0;
+				_inputs.SpecialButton0.performed -= OnSpecial0;
+				_inputs.SpecialButton0.canceled -= OnSpecial0;
+				_inputs.SpecialButton1.started -= OnSpecial1;
+				_inputs.SpecialButton1.performed -= OnSpecial1;
+				_inputs.SpecialButton1.canceled -= OnSpecial1;
+				_inputs.SpecialAim.performed -= OnSpecialAim;
+			}
 			_disposed = true;
 		}
 

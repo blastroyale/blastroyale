@@ -73,10 +73,8 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown = new LocalizedDropDown[2];
 			_mutatorModeDropDown[0] = root.Q<LocalizedDropDown>("Mutator1").Required();
 			_mutatorModeDropDown[0].value = ScriptLocalization.MainMenu.None;
-			_mutatorModeDropDown[0].RegisterValueChangedCallback(MutatorDropDownChanged);
 			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
-			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
 			
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
@@ -88,14 +86,7 @@ namespace FirstLight.Game.Presenters
 		private void GameModeDropDownChanged(ChangeEvent<string> evt)
 		{
 			FillMapSelectionList(_gameModeDropDown.index);
-			_mapDropDown.index = 0;
 		}
-
-		private void MutatorDropDownChanged(ChangeEvent<string> evt)
-		{
-			FillMutatorsSelectionList();
-		}
-		
 
 		private void SetPreviouslyUsedValues()
 		{
@@ -104,7 +95,7 @@ namespace FirstLight.Game.Presenters
 			{
 				if (_quantumGameModeConfigs.Count> lastUsedOptions.GameModeIndex)
 				{
-					_gameModeDropDown.SetValueWithoutNotify(_gameModeDropDown.choices[lastUsedOptions.GameModeIndex]);
+					_gameModeDropDown.index = lastUsedOptions.GameModeIndex;
 				}
 				
 				if (lastUsedOptions.Mutators?.Count > 0)
@@ -203,7 +194,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var mutatorMenuOption = _mutatorModeDropDown[i].value;
 				
-				if (mutatorMenuOption == null || mutatorMenuOption.Equals(ScriptLocalization.MainMenu.None))
+				if (mutatorMenuOption == null)
 				{
 					continue;
 				}
@@ -229,42 +220,17 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private List<string> GetSelectedMutators()
-		{
-			var selectedMutators = new List<string>();
-
-			foreach (var mutatorDropdown in _mutatorModeDropDown)
-			{
-				var presentMutator = mutatorDropdown.value;
-				
-				if (presentMutator != null)
-				{
-					selectedMutators.Add(presentMutator);
-					mutatorDropdown.value = presentMutator;
-				}
-			}
-			
-			return selectedMutators;
-		}
-		
-
 		private void FillMutatorsSelectionList()
 		{
-			var selectedMutators = GetSelectedMutators();
 			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
-			
+
 			foreach (var mutatorsSelection in _mutatorModeDropDown)
 			{
-				mutatorsSelection.choices.Clear();
 				var menuChoices = new List<string>();
-				menuChoices.Add(ScriptLocalization.MainMenu.None);
 				
 				foreach (var mutatorConfig in mutatorConfigs)
 				{
-					if (!selectedMutators.Contains(mutatorConfig.Id))
-					{
-						menuChoices.Add(mutatorConfig.Id);
-					}
+					menuChoices.Add(mutatorConfig.Id);
 				}
 
 				mutatorsSelection.choices = menuChoices;

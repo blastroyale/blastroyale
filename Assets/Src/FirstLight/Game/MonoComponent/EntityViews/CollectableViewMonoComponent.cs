@@ -32,6 +32,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private EntityRef _displayedCollector;
 		private CollectableIndicatorVfxMonoComponent _collectingVfx;
 
+		/// <summary>
+		/// Sets the visibility of the static Pickup Circle to provided value
+		/// </summary>
+		public void SetPickupCircleVisibility(bool value)
+		{
+			_pickupCircle.gameObject.SetActive(value);
+		}
+
 		private void OnValidate()
 		{
 			_animation = _animation ? _animation : GetComponent<Animation>();
@@ -66,7 +74,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
 			{
 				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
-				_pickupCircle.localPosition += new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+				_pickupCircle.position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 			}
 			
 			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
@@ -92,8 +100,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
+			var isLargeCollectable = callback.Collectable.PickupRadius > FP._1_25;
 
-			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime);
+			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime, isLargeCollectable);
 
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
 		}
@@ -154,10 +163,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else if (_displayedCollector != EntityRef.None && !hasVfx)
 			{
-				_collectingVfx =
-					(CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(VfxId.CollectableIndicator);
-				var collectablePosition = _collectableIndicatorAnchor.position;
-				var position = new Vector3(collectablePosition.x,GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, collectablePosition.z);
+				var vfxId = collectingData.IsLargeCollectable
+					            ? VfxId.CollectableIndicatorLarge
+					            : VfxId.CollectableIndicator;
+				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
+				var position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
 				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f, _pickupCircle.localScale.y * 2.5f);
@@ -174,11 +184,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			public float StartTime;
 			public float EndTime;
+			public bool IsLargeCollectable;
 
-			public CollectingData(float startTime, float endTime)
+			public CollectingData(float startTime, float endTime, bool isLargeCollectable)
 			{
 				StartTime = startTime;
 				EndTime = endTime;
+				IsLargeCollectable = isLargeCollectable;
 			}
 		}
 	}

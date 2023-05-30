@@ -42,6 +42,7 @@ SpriteAtlas:
     - da661ff02c2ad4426affd51e2441da05: 21300000
     - 0105ee11418824f55922741ba7aeec84: 21300000
     - c80896e1eb11a451f8969487be4b4fb1: 21300000
+    - 7d796d02f4adedf429089e9cf9f6cc7a: 21300000
     - 6cf835b380a764cf8acbb2b7b5d39db6: 21300000
     - c6686ad31d4424de88c8a4e4fdf47a01: 21300000
     - f63e212478a7f4fec8c790922a819e4c: 21300000
@@ -77,6 +78,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: da661ff02c2ad4426affd51e2441da05, type: 3}
   - {fileID: 21300000, guid: 0105ee11418824f55922741ba7aeec84, type: 3}
   - {fileID: 21300000, guid: c80896e1eb11a451f8969487be4b4fb1, type: 3}
+  - {fileID: 21300000, guid: 7d796d02f4adedf429089e9cf9f6cc7a, type: 3}
   - {fileID: 21300000, guid: 6cf835b380a764cf8acbb2b7b5d39db6, type: 3}
   - {fileID: 21300000, guid: c6686ad31d4424de88c8a4e4fdf47a01, type: 3}
   - {fileID: 21300000, guid: f63e212478a7f4fec8c790922a819e4c, type: 3}
@@ -111,6 +113,7 @@ SpriteAtlas:
   - icon-equipmentcategory-armor
   - icon-special-skylaserbeam
   - icon-medal-1st
+  - icon-back
   - icon-trophy
   - icon-special-aimingstungrenade
   - progress-battlepass-bpp

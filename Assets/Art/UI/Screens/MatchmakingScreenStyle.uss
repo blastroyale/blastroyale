@@ -46,7 +46,6 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-
 .debug-master-client {
     position: absolute;
     right: 25px;
@@ -93,6 +92,7 @@
     left: 50px;
     bottom: 50px;
     position: absolute;
+    margin-left: 34px;
 }
 
 .load-status-holder__labels {
@@ -109,18 +109,20 @@
 .load-status-holder__location-label {
     font-size: 58px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(65, 5, 25);
-    text-shadow: 3px 3px 0 rgb(65, 5, 25);
+    -unity-text-outline-color: rgb(16, 10, 63);
+    text-shadow: 5px 5px 0 rgb(16, 10, 63);
     color: rgb(214, 76, 123);
     -unity-font-style: bold;
     margin-top: -20px;
+    letter-spacing: -4px;
 }
 
 .load-status-holder__player-label {
     font-size: 68px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 3px 3px 0 rgb(16, 10, 63);
+    text-shadow: 4px 4px 0 rgb(16, 10, 63);
+    letter-spacing: -3px;
 }
 
 .dropzone {
@@ -167,7 +169,7 @@
 
 .map {
     width: 100%;
-    height: 75%;
+    height: 92%;
     background-image: url('project://database/Assets/Art/UI/Textures/background-mapselection.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#background-mapselection');
     align-items: center;
     justify-content: center;
@@ -177,8 +179,8 @@
 .map__mask {
     overflow: hidden;
     background-image: url('project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
-    height: 98%;
-    width: 98%;
+    height: 96%;
+    width: 96%;
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
 }
@@ -199,11 +201,12 @@
     font-size: 70px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 3px;
-    -unity-text-outline-color: rgb(65, 5, 25);
+    -unity-text-outline-color: rgb(108, 8, 40);
     rotate: -5deg;
-    text-shadow: 3px 3px 0 rgb(65, 5, 25);
+    text-shadow: 5px 5px 0 rgb(108, 8, 40);
     -unity-font-style: bold;
     display: flex;
+    letter-spacing: -4px;
 }
 
 .map__title-bg {
@@ -225,7 +228,7 @@
 }
 
 .map-marker__title {
-    font-size: 25px;
+    font-size: 36px;
     justify-content: center;
     align-items: center;
     padding-left: 10px;
@@ -329,10 +332,10 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
 }
 
 .party-markers {
@@ -346,4 +349,8 @@
     position: relative;
     left: 45%;
     top: 45%;
+}
+
+.screen-header--homeonly .screen-header__back {
+    display: none;
 }

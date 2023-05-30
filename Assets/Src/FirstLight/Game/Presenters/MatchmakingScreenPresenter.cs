@@ -39,7 +39,6 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField] private int _planeFlyDurationMs = 4500;
 
-		private ImageButton _closeButton;
 		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
@@ -86,7 +85,6 @@ namespace FirstLight.Game.Presenters
 		{
 			base.QueryElements(root);
 
-			_closeButton = root.Q<ImageButton>("CloseButton").Required();
 			_dropzone = root.Q("DropZone").Required();
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
@@ -111,7 +109,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.makeItem = CreateSquadListEntry;
 			_squadMembersList.bindItem = BindSquadListEntry;
 
-			_closeButton.clicked += OnCloseClicked;
+			root.Q<ScreenHeaderElement>("Header").homeClicked += OnCloseClicked;
 		}
 
 		protected override void SubscribeToEvents()
@@ -294,8 +292,7 @@ namespace FirstLight.Game.Presenters
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
-
-			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
+			//TODO _closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
@@ -385,7 +382,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
 
-			_closeButton.SetDisplay(false);
+			//TODO _closeButton.SetDisplay(false);
 
 			if (RejoiningRoom)
 			{

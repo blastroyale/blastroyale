@@ -1269,7 +1269,7 @@ namespace Quantum.Systems
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
-			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
+			var botsDifficulty = (int) FPMath.Floor(baseTrophiesAmount / (FP) botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
 			var weaponsPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
 			weaponsPool.Remove(GameId.Hammer);

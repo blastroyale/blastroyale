@@ -166,6 +166,18 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.FtueMiniMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.District, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
@@ -928,7 +940,9 @@ namespace Quantum
 						GameId.BRGenesis,
 						GameId.MapTestScene,
 						GameId.TestScene,
-						GameId.NewBRMap
+						GameId.NewBRMap,
+						GameId.FtueMiniMap,
+						GameId.District
 					}.AsReadOnly()
 				},
 				{

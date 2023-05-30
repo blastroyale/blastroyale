@@ -344,6 +344,11 @@ MonoBehaviour:
         Id:
           Value: 1181736976140049685
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Attacking_9]
+    - Path: AddressableResources/AdventureAssets/MapObjects/Bush|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1187171314464035236
+      Address: AdventureAssets/MapObjects/Bush.prefab[BushEntityPrototype]
     - Path: AddressableResources/Maps/BlimpDeck_NavMesh_data
       AssetRef:
         Id:
@@ -404,11 +409,11 @@ MonoBehaviour:
         Id:
           Value: 1501081643659677846
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_16]
-    - Path: AddressableResources/Maps/FTUEMiniMap_mesh
+    - Path: AddressableResources/Maps/District_mesh
       AssetRef:
         Id:
           Value: 1536258848976152407
-      Address: Maps/FTUEMiniMap_mesh.asset
+      Address: Maps/District_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_15
       AssetRef:
         Id:
@@ -564,6 +569,11 @@ MonoBehaviour:
         Id:
           Value: 2118060195476778747
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardFP_14]
+    - Path: AddressableResources/AdventureAssets/MapObjects/Bush|EntityView
+      AssetRef:
+        Id:
+          Value: 2131404972551470056
+      Address: AdventureAssets/MapObjects/Bush.prefab[BushEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Death_15
       AssetRef:
         Id:
@@ -629,11 +639,11 @@ MonoBehaviour:
         Id:
           Value: 2549353079267951186
       Address: Maps/FtueDeck_NavMesh_data.asset
-    - Path: AddressableResources/Maps/FTUEMiniMap_NavMesh
+    - Path: AddressableResources/Maps/District_NavMesh
       AssetRef:
         Id:
           Value: 2575471535425279547
-      Address: Maps/FTUEMiniMap_NavMesh.asset
+      Address: Maps/District_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
       AssetRef:
         Id:
@@ -696,11 +706,11 @@ MonoBehaviour:
           Value: 3001958099177705209
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Change Weapon
         Default_14]
-    - Path: AddressableResources/Maps/FTUEMiniMap_NavMesh_data
+    - Path: AddressableResources/Maps/District_NavMesh_data
       AssetRef:
         Id:
           Value: 3005366737582492223
-      Address: Maps/FTUEMiniMap_NavMesh_data.asset
+      Address: Maps/District_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveDrop_2
       AssetRef:
         Id:
@@ -992,11 +1002,11 @@ MonoBehaviour:
         Id:
           Value: 4332060462896694051
       Address: Maps/FloodCity.asset
-    - Path: AddressableResources/Maps/FTUEMiniMap
+    - Path: AddressableResources/Maps/District
       AssetRef:
         Id:
           Value: 4344381221028547365
-      Address: Maps/FTUEMiniMap.asset
+      Address: Maps/District.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartReload_7
       AssetRef:
         Id:

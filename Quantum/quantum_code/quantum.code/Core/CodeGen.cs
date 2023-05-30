@@ -168,6 +168,7 @@ namespace Quantum {
     MapTestScene = 63,
     TestScene = 11,
     NewBRMap = 65,
+    District = 108,
     MausHelmet = 24,
     SoldierHelmet = 49,
     RiotHelmet = 50,

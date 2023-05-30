@@ -80,7 +80,7 @@ namespace FirstLight.Game.Services
 			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
 			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
 			PlayerInputService = Configure(new PlayerInputService(_gameServices, this, _dataProvider));
-			PlayerIndicatorService = Configure(new PlayerIndicatorsService());
+			PlayerIndicatorService = Configure(new PlayerIndicatorsService(this, _gameServices));
 			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);

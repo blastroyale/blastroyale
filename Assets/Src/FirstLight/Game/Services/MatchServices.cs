@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
@@ -16,22 +17,13 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface  IMatchServices : IDisposable
 	{
-		/// <inheritdoc cref="ISpectateService"/>
 		public ISpectateService SpectateService { get; }
-		
-		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
-		
-		/// <inheritdoc cref="IFrameSnapshotService"/>
 		public IFrameSnapshotService FrameSnapshotService { get; }
-		
-		/// <inheritdoc cref="IMatchEndDataService"/>
 		public IMatchEndDataService MatchEndDataService { get; }
-		/// <inheritdoc cref="IMatchCameraService"/>
 		public IMatchCameraService MatchCameraService { get; }
-		/// <inheritdoc cref="IPlayerInputService"/>
+		public IEntityVisibilityService EntityVisibilityService { get; }
 		public IPlayerInputService PlayerInputService { get; }
-		/// <inheritdoc cref="IPlayerIndicatorService"/>
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
 	}
 
@@ -63,7 +55,7 @@ namespace FirstLight.Game.Services
 		private readonly List<IMatchService> _services = new();
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
-
+		
 		public ISpectateService SpectateService { get; }
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 		public IFrameSnapshotService FrameSnapshotService { get; }
@@ -71,6 +63,7 @@ namespace FirstLight.Game.Services
 		public IMatchCameraService MatchCameraService { get; }
 		public IPlayerInputService PlayerInputService { get; }
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
+		public IEntityVisibilityService EntityVisibilityService { get; }
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, 
 							 IGameServices services, 
@@ -88,6 +81,8 @@ namespace FirstLight.Game.Services
 			MatchCameraService = Configure(new MatchCameraService(dataProvider, this));
 			PlayerInputService = Configure(new PlayerInputService(_gameServices, this, _dataProvider));
 			PlayerIndicatorService = Configure(new PlayerIndicatorsService());
+			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
+
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 			FLog.Verbose("Registered Match Services");

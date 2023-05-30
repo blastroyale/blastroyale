@@ -11,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			var collectable = GetComponentData<Collectable>(game);
-			
+			if (HasRenderedView()) return;
 			Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId, true, true, OnLoaded);
 		}
 	}

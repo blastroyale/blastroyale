@@ -476,6 +476,11 @@ namespace Quantum.Systems
 		{
 			targetHit = EntityRef.None;
 
+			if (!VisibilityAreaSystem.CanEntityViewEntity(f, filter.Entity, targetToCheck).CanSee)
+			{
+				return false;
+			}
+			
 			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team) ||
 			    !QuantumHelpers.IsEntityInRange(f, filter.Entity, targetToCheck, FP._0, targetRange))
 			{

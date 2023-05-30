@@ -133,8 +133,7 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 			_propBlock = new MaterialPropertyBlock();
 		}
-
-		/// <inheritdoc />
+		
 		public void SetMaterialPropertyValue(int propertyId, float value)
 		{
 			foreach (var rendererItem in _renderers)
@@ -158,8 +157,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 			}
 		}
-
-		/// <inheritdoc />
+		
 		public void SetMaterialPropertyValue(int propertyId, float startValue, float endValue, float duration)
 		{
 			foreach (var rendererItem in _renderers)
@@ -183,8 +181,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 			}
 		}
-
-		/// <inheritdoc />
+		
 		public void SetRendererState(bool visible)
 		{
 			foreach (var render in _renderers)
@@ -203,6 +200,16 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		// TODO: Avoid duplicating the material
+		// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
+		public void SetRendererColor(Color c)
+		{
+			foreach (var render in _renderers)
+			{
+				render.material.color = c;
+			}
+		}
+
 		/// <inheritdoc />
 		public async void SetMaterial(MaterialVfxId materialId, ShadowCastingMode mode, bool keepTexture)
 		{
@@ -214,7 +221,7 @@ namespace FirstLight.Game.MonoComponent
 				Destroy(mat);
 				return;
 			}
-
+			
 			SetMaterial(i => mat, mode, keepTexture);
 		}
 

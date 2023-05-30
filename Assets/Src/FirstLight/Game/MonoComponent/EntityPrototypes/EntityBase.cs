@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -96,6 +97,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				Destroy(instance);
 				return;
 			}
+
 			var cacheTransform = instance.transform;
 			Instance = instance;
 			if(instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
@@ -107,6 +109,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
+			
+			_services.MessageBrokerService.Publish(new EntityViewLoaded()
+			{
+				Entity = this, View = EntityView
+			});
 		}
 
 		protected virtual void OnAwake() {}

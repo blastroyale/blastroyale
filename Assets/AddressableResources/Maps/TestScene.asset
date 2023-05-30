@@ -387,6 +387,352 @@ MonoBehaviour:
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 147291
+          Y:
+            RawValue: 8695
+          Z:
+            RawValue: 142362
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 1
+      Layer: 17
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 663224
+        Y:
+          RawValue: 8519
+        Z:
+          RawValue: -799539
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea:
+    - EntitiesIn: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 147291
+          Y:
+            RawValue: 8695
+          Z:
+            RawValue: 142362
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 1
+      Layer: 17
+      IsTrigger: 1
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 455
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 320471
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -593100
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate:
+    - IsOpening:
+        Value: 0
+      TimeToOpen:
+        RawValue: 0
+      OpeningTime:
+        RawValue: 131072
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger:
+    - Target:
+        SceneIndexPlusOne: 3
+      Data:
+        _field_used_: PLAYERSALIVETRIGGERDATA
+        PlayersAliveTriggerData:
+          PlayersAlive: 2
+        ChestOpenTriggerData:
+          _empty_prototype_dummy_field_: 0
+        WeaponCollectedTriggerData:
+          WeaponSpawner:
+            SceneIndexPlusOne: 0
+    UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D:
+    - ShapeConfig:
+        ShapeType: 2
+        SphereRadius:
+          RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 85196
+          Y:
+            RawValue: 32768
+          Z:
+            RawValue: 13107
+        RotationOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 0
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D:
+    - CallbackFlags:
+        Value: 0
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -218661
+        Y:
+          RawValue: 59493
+        Z:
+          RawValue: 491420
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
     Destructible:
     - IsDestructing:
         Value: 0
@@ -414,6 +760,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -430,6 +777,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -538,6 +886,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -554,6 +903,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -662,6 +1012,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -678,6 +1029,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -786,6 +1138,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -802,6 +1155,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -910,6 +1264,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -926,6 +1281,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1034,6 +1390,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1050,6 +1407,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1158,6 +1516,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1174,6 +1533,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1282,6 +1642,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1298,6 +1659,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1406,6 +1768,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1422,6 +1785,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1530,6 +1894,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1546,6 +1911,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1654,6 +2020,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1670,6 +2037,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1778,6 +2146,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1794,6 +2163,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -1902,6 +2272,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -1918,6 +2289,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2026,6 +2398,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2042,6 +2415,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2150,6 +2524,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2166,6 +2541,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2274,6 +2650,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2290,6 +2667,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2398,6 +2776,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2414,6 +2793,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2522,6 +2902,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2538,6 +2919,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2646,6 +3028,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2662,6 +3045,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2770,6 +3154,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2786,6 +3171,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -2894,6 +3280,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -2910,6 +3297,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3018,6 +3406,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3034,6 +3423,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3142,6 +3532,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3158,6 +3549,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3266,6 +3658,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3282,6 +3675,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3390,6 +3784,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3406,6 +3801,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3514,6 +3910,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3530,6 +3927,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3638,6 +4036,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3654,6 +4053,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3762,6 +4162,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3778,6 +4179,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -3886,6 +4288,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -3902,6 +4305,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4010,6 +4414,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4026,6 +4431,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4134,6 +4540,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4150,6 +4557,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4258,6 +4666,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4274,6 +4683,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4382,6 +4792,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4398,6 +4809,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4506,6 +4918,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4522,6 +4935,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4630,6 +5044,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4646,6 +5061,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4754,6 +5170,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4770,6 +5187,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -4878,6 +5296,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -4894,6 +5313,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -5002,6 +5422,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -5018,6 +5439,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -5126,6 +5548,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -5142,6 +5565,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -5182,7 +5606,7 @@ MonoBehaviour:
         CompoundShapes: []
         IsSetFromSourceCollider: 0
       Layer: 15
-      IsTrigger: 0
+      IsTrigger: 1
       PhysicsMaterial:
         Id:
           Value: 0
@@ -5250,6 +5674,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -5266,6 +5691,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -5374,6 +5800,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -5390,6 +5817,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -5472,136 +5900,12 @@ MonoBehaviour:
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate:
-    - IsOpening:
-        Value: 0
-      TimeToOpen:
-        RawValue: 0
-      OpeningTime:
-        RawValue: 131072
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger:
-    - Target:
-        SceneIndexPlusOne: 42
-      Data:
-        _field_used_: PLAYERSALIVETRIGGERDATA
-        PlayersAliveTriggerData:
-          PlayersAlive: 2
-        ChestOpenTriggerData:
-          _empty_prototype_dummy_field_: 0
-        WeaponCollectedTriggerData:
-          WeaponSpawner:
-            SceneIndexPlusOne: 0
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 85196
-          Y:
-            RawValue: 32768
-          Z:
-            RawValue: 13107
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 0
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 0
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -218661
-        Y:
-          RawValue: 59493
-        Z:
-          RawValue: 491420
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
     DummyCharacter:
     - Health:
-        RawValue: 6553600000
+        RawValue: 39321600
       Shields:
-        RawValue: 6553600000
-      PlayerReference: 2
+        RawValue: 39321600
+      PlayerReference: 22
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
@@ -5610,6 +5914,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -5626,454 +5931,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -522321
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 274595
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 3
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -3415
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 1047265
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 4
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 131072
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 1047265
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 5
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 260833
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 1047265
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 6
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -6128,1462 +5986,6 @@ MonoBehaviour:
     - Position:
         X:
           RawValue: 395837
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 1047265
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 7
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 525598
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 1047265
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 8
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -3415
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 927334
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 9
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 260833
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 927334
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 10
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 525598
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 927334
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 11
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 131072
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 927334
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 12
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 395837
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 927334
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 13
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -3415
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 802816
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 14
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 260833
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 802816
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 15
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 525598
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 802816
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 16
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 131072
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 802816
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 17
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 395837
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 802816
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 18
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -3415
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 673054
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 19
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 260833
         Y:
           RawValue: 0
         Z:
@@ -7626,6 +6028,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -7642,6 +6045,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -7695,235 +6099,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 525598
+          RawValue: 581304
         Y:
           RawValue: 0
         Z:
-          RawValue: 673054
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 21
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 131072
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 673054
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 39321600
-      Shields:
-        RawValue: 39321600
-      PlayerReference: 22
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 395837
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 673054
+          RawValue: -855244
       Rotation:
         X:
           RawValue: 0
@@ -7957,6 +6137,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -7979,6 +6160,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8034,6 +6216,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8056,6 +6239,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8111,6 +6295,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8133,6 +6318,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8188,6 +6374,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8210,6 +6397,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8281,6 +6469,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8297,6 +6486,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8362,6 +6552,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8378,6 +6569,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8443,6 +6635,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8459,6 +6652,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8524,6 +6718,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8540,6 +6735,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8605,6 +6801,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8621,6 +6818,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8686,6 +6884,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8702,6 +6901,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8767,6 +6967,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8783,6 +6984,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8848,6 +7050,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8864,6 +7067,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -8929,6 +7133,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -8945,6 +7150,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9010,6 +7216,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9026,6 +7233,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9091,6 +7299,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9107,6 +7316,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9172,6 +7382,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9188,6 +7399,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9253,6 +7465,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9269,6 +7482,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9334,6 +7548,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9350,6 +7565,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9415,6 +7631,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9431,6 +7648,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9496,6 +7714,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9512,6 +7731,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9577,6 +7797,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9593,6 +7814,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9658,6 +7880,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9674,6 +7897,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9739,6 +7963,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9755,6 +7980,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9820,6 +8046,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9836,6 +8063,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9901,6 +8129,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9917,6 +8146,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -9982,6 +8212,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -9998,6 +8229,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10063,6 +8295,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10079,6 +8312,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10144,6 +8378,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10160,6 +8395,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10225,6 +8461,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10241,6 +8478,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10306,6 +8544,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10322,6 +8561,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10387,6 +8627,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10403,6 +8644,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10468,6 +8710,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10484,6 +8727,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10549,6 +8793,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10565,6 +8810,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10630,6 +8876,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10646,6 +8893,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10711,6 +8959,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10727,6 +8976,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10792,6 +9042,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10808,6 +9059,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10873,6 +9125,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10889,6 +9142,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -10954,6 +9208,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -10970,6 +9225,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11035,6 +9291,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11051,6 +9308,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11116,6 +9374,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11132,6 +9391,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11182,7 +9442,7 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 96
+        Value: 95
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
@@ -11197,6 +9457,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11213,6 +9474,90 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 770310
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -736624
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 5898240
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 10
+      InitialSpawnDelayInSec: 0
+      GameId:
+        Value: 96
+      RarityModifier: 0
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    Gate: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    InVisibilityArea: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    Trigger: []
+    UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11278,6 +9623,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11294,6 +9640,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11359,6 +9706,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11375,6 +9723,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11440,6 +9789,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11456,6 +9806,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11521,6 +9872,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11537,6 +9889,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11602,6 +9955,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11618,6 +9972,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11683,6 +10038,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11699,6 +10055,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11764,6 +10121,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11780,6 +10138,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11845,6 +10204,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11861,6 +10221,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -11926,6 +10287,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -11942,6 +10304,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12007,6 +10370,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12023,6 +10387,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12088,6 +10453,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12104,6 +10470,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12169,6 +10536,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12185,6 +10553,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12250,6 +10619,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12266,6 +10636,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12331,6 +10702,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12347,6 +10719,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12412,6 +10785,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12428,6 +10802,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12493,6 +10868,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12509,6 +10885,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12574,6 +10951,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12590,6 +10968,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12655,6 +11034,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12671,6 +11051,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12736,6 +11117,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12752,6 +11134,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12817,6 +11200,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12833,6 +11217,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12898,6 +11283,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12914,6 +11300,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -12979,6 +11366,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -12995,6 +11383,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13060,6 +11449,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13076,6 +11466,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13141,6 +11532,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13157,6 +11549,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13222,6 +11615,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13238,6 +11632,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13303,6 +11698,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13319,6 +11715,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13384,6 +11781,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13400,6 +11798,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13465,6 +11864,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13481,6 +11881,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13546,6 +11947,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13562,6 +11964,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13627,6 +12030,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13643,6 +12047,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13708,6 +12113,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13724,6 +12130,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13789,6 +12196,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13805,6 +12213,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13870,6 +12279,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13886,6 +12296,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -13951,6 +12362,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -13967,6 +12379,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14032,6 +12445,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14048,6 +12462,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14113,6 +12528,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14129,6 +12545,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14194,6 +12611,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14210,6 +12628,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14275,6 +12694,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14291,6 +12711,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14356,6 +12777,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14372,6 +12794,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14437,6 +12860,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14453,6 +12877,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14518,6 +12943,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14534,6 +12960,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14599,6 +13026,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14615,6 +13043,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14680,6 +13109,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14696,6 +13126,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14761,6 +13192,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14777,6 +13209,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14842,6 +13275,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14858,6 +13292,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -14923,6 +13358,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -14939,6 +13375,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15004,6 +13441,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15020,6 +13458,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15085,6 +13524,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15101,6 +13541,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15166,6 +13607,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15182,6 +13624,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15247,6 +13690,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15263,6 +13707,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15328,6 +13773,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15344,6 +13790,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15409,6 +13856,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15425,6 +13873,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15490,6 +13939,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15506,6 +13956,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15571,6 +14022,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15587,6 +14039,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15652,6 +14105,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15668,6 +14122,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15733,6 +14188,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15749,6 +14205,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15814,6 +14271,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15830,6 +14288,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15895,6 +14354,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15911,6 +14371,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -15976,6 +14437,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -15992,6 +14454,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -16057,6 +14520,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -16073,6 +14537,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -16138,6 +14603,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -16154,6 +14620,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -16219,6 +14686,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -16235,6 +14703,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []
@@ -16300,6 +14769,7 @@ MonoBehaviour:
     HFSMAgent: []
     Hazard: []
     Immunity: []
+    InVisibilityArea: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -16316,6 +14786,7 @@ MonoBehaviour:
     Targetable: []
     Trigger: []
     UTAgent: []
+    VisibilityArea: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []

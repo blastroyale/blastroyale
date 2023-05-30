@@ -1431,7 +1431,7 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 				// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
-				var trophies = (uint) (baseTrophiesAmount + f.RNG->Next(-50, 50));
+				var trophies = (uint) Math.Max(0, baseTrophiesAmount + f.RNG->Next(-50, 50));
 				
 				// Giving bots random weapon based on loadout rarity provided in bot configs
 				var randomWeapon = new Equipment(weaponsPool[f.RNG->Next(0, weaponsPool.Count)],

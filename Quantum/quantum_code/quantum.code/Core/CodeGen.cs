@@ -4035,7 +4035,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Collectable : Quantum.IComponent {
-    public const Int32 SIZE = 280;
+    public const Int32 SIZE = 304;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     [HideInInspector()]
@@ -4044,6 +4044,9 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
+    [FieldOffset(280)]
+    [HideInInspector()]
+    public FPVector3 OriginPosition;
     [FieldOffset(272)]
     [HideInInspector()]
     public FP PickupRadius;
@@ -4060,6 +4063,7 @@ namespace Quantum {
         var hash = 463;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + OriginPosition.GetHashCode();
         hash = hash * 31 + PickupRadius.GetHashCode();
         hash = hash * 31 + Spawner.GetHashCode();
         return hash;
@@ -4071,6 +4075,7 @@ namespace Quantum {
         EntityRef.Serialize(&p->Spawner, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
         FP.Serialize(&p->PickupRadius, serializer);
+        FPVector3.Serialize(&p->OriginPosition, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -10450,6 +10455,8 @@ namespace Quantum.Prototypes {
     public MapEntityId Spawner;
     [HideInInspector()]
     public FP PickupRadius;
+    [HideInInspector()]
+    public FPVector3 OriginPosition;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -10461,6 +10468,7 @@ namespace Quantum.Prototypes {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
       result.GameId = this.GameId;
+      result.OriginPosition = this.OriginPosition;
       result.PickupRadius = this.PickupRadius;
       PrototypeValidator.FindMapEntity(this.Spawner, in context, out result.Spawner);
       MaterializeUser(frame, ref result, in context);

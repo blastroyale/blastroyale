@@ -7,6 +7,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Collections;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -15,16 +16,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class CollectableViewMonoComponent : EntityMainViewBase
 	{
-		private const string CLIP_SPAWN = "spawn";
+		//private const string CLIP_SPAWN = "spawn";
 		private const string CLIP_IDLE = "idle";
 		private const string CLIP_COLLECT = "collect";
 
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField, Required] private Animation _animation;
-		[SerializeField, Required] private AnimationClip _spawnClip;
+		//[SerializeField, Required] private AnimationClip _spawnClip;
 		[SerializeField, Required] private AnimationClip _idleClip;
 		[SerializeField, Required] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
+		[SerializeField] private bool _spawnAnim = true;
 
 		private IMatchServices _matchServices;
 
@@ -53,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
+			
 			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
 			_animation.AddClip(_idleClip, CLIP_IDLE);
 			_animation.AddClip(_collectClip, CLIP_COLLECT);
@@ -63,6 +65,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			//disable mesh renderers before the object has been properly placed
+			foreach(var ren in GetComponentsInChildren<MeshRenderer>())
+			{
+				ren.enabled = false;
+			}
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -71,10 +78,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			var frame = game.Frames.Verified;
 
+			//re enable renderers after the object has been properly placed
+			foreach (var ren in GetComponentsInChildren<MeshRenderer>())
+			{
+				ren.enabled = true;
+			}
+
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
 			{
 				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
 				_pickupCircle.position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+
+				//animates between the spawning position to the display position if they are different
+				var originPos = collectable.OriginPosition.ToUnityVector3();
+				var displayPos = frame.Get<Transform3D>(EntityView.EntityRef).Position.ToUnityVector3();
+
+				if (originPos != displayPos && _spawnAnim)
+				{
+					StartCoroutine(goToPoint(GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_DURATION, originPos, displayPos));
+				}
 			}
 			
 			// Animation of a spawning of collectable is disabled. We can enable it again if we need it
@@ -82,6 +104,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 			
 			_animation.Play(CLIP_IDLE);
+		}
+
+		private IEnumerator goToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
+		{
+			var startTime = Time.time;
+			var startScale = transform.localScale;
+			
+			while (Time.time <= startTime + moveTime)
+			{
+				var progress = (Time.time - startTime) / moveTime;
+				var scale = Vector3.Lerp(Vector3.zero, startScale, progress * 2); // scale should finish twice as fast as position
+				var pos = Vector3.Lerp(startPos, endPos, progress); 
+				pos.y += Mathf.Sin(Mathf.PI * progress) * GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_HEIGHT;
+
+				transform.position = pos;
+				transform.localScale = scale;
+				yield return new WaitForEndOfFrame();
+			}
+
+			transform.position = endPos;
+			transform.localScale = startScale;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -138,11 +181,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			// Animation of a collected collectable is disabled. We can enable it again if we need it
 			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.
-			//_animation.enabled = true;
-			//_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
-			//this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
+			_animation.enabled = true;
+			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
+			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
 			
-			Destroy(gameObject);
+			//Destroy(gameObject);
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)

@@ -76,7 +76,7 @@ namespace Quantum
 				             : configs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(config.AssetRef.Id));
 
-			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform->Position, transform->Rotation, ref config, spawnerEntityRef);
+			f.Unsafe.GetPointer<Consumable>(entity)->Init(f, entity, transform->Position, transform->Rotation, ref config, spawnerEntityRef, transform->Position);
 
 			return entity;
 		}
@@ -98,7 +98,7 @@ namespace Quantum
 				                ? gameContainer.GenerateNextWeapon(f)
 								: Equipment.Create(f, configs.GetConfig(id).Id, rarity, 1);
 
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity, transform->Position,
 			                                                        ref equipment, spawnerEntityRef);
 
 			return entity;
@@ -112,7 +112,7 @@ namespace Quantum
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 			var equipment = Equipment.Create(f, id, EquipmentRarity.Common, 1);
 
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity,
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform->Position, FPQuaternion.Identity, transform->Position,
 			                                                        ref equipment, spawnerEntityRef);
 
 			return entity;

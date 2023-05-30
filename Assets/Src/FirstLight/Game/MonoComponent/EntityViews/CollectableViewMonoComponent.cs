@@ -90,8 +90,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				//animates between the spawning position to the display position if they are different
 				var originPos = collectable.OriginPosition.ToUnityVector3();
-				var displayPos = collectable.DisplayPosition.ToUnityVector3();
-				
+				var displayPos = frame.Get<Transform3D>(EntityView.EntityRef).Position.ToUnityVector3();
+
 				if (originPos != displayPos)
 				{
 					StartCoroutine(goToPoint(GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_DURATION, originPos, displayPos));

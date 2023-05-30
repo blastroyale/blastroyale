@@ -20,7 +20,6 @@ namespace Quantum
 
 			collectable.Spawner = spawner;
 			collectable.OriginPosition = originPos;
-			collectable.DisplayPosition = position;
 			
 			transform->Position = position;
 			transform->Rotation = rotation;

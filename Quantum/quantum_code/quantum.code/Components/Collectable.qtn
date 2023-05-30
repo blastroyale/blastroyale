@@ -5,7 +5,6 @@ component Collectable
 	[HideInInspector] EntityRef Spawner;
 	[HideInInspector] FP PickupRadius;
     [HideInInspector] FPVector3 OriginPosition;
-    [HideInInspector] FPVector3 DisplayPosition;
 }
 
 synced event OnStartedCollecting

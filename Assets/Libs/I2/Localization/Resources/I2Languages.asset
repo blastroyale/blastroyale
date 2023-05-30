@@ -411,7 +411,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Spectator
+      - SPECTATOR
       - "\u0417\u0440\u0438\u0442\u0435\u043B\u044C"
       - Espectador
       - 
@@ -458,7 +458,7 @@ MonoBehaviour:
       - Next Wave In
       - "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0432\u043E\u043B\u043D\u0430
         \u0432"
-      - "Pr\xF3ximo aceno para entrar"
+      - "Pr\xF3ximo acena para entrar"
       - 
       - 
       Flags: 0000000000
@@ -4544,17 +4544,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyaleTrios
-      TermType: 0
-      Description: 
-      Languages:
-      - BATTLE ROYALE TRIOS
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
       Description: 
@@ -4670,12 +4659,14 @@ MonoBehaviour:
 
 
         Craft
-        Spice is used on the Blast Hub
+        Spice is used
 
-        for upgrading, repairing and
+        on the Blast Hub
 
-        replicating
-        equipment.'
+        for upgrading, repairing
+        and
+
+        replicating equipment.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
         \u0441\u043F\u0435\u0446\u0438\u044E, \u043F\u043E\u043C\u0435\u0441\u0442\u0438\u0432
         \u0431\u043E\u043B\u0435\u0435 \u0432\u044B\u0441\u043E\u043A\u0438\u0439\n\u0432
@@ -4939,17 +4930,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/FTUEMiniMap
-      TermType: 0
-      Description: 
-      Languages:
-      - FTUE Mini Map
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: GameIds/Falcon
       TermType: 0
       Description: 
@@ -4988,9 +4968,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jada Green
-      - "\u0414\u0436\u0430\u0434\u0430 \u0413\u0440\u0438\u043D"
-      - Jada Green
+      - ISIS
+      - Isis Fox
+      - Isis Fox
       - 
       - 
       Flags: 0000000000
@@ -4999,9 +4979,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Pilot
-      - Sky Pilot
-      - Sky Pilot
+      - Maverick Reporter
+      - Maverick Reporter
+      - Maverick Reporter
       - 
       - 
       Flags: 0000000000
@@ -5010,9 +4990,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cat Carter
-      - "\u041A\u043E\u0442 \u041A\u0430\u0440\u0442\u0435\u0440"
-      - CAT CARTER
+      - ELECTRA
+      - Electra Deckard
+      - Electra Deckard
       - 
       - 
       Flags: 0000000000
@@ -5021,9 +5001,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profession Thief
-      - Profession Thief
-      - Profession Thief
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
       - 
       - 
       Flags: 0000000000
@@ -5032,9 +5012,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Assassin
-      - Female Assassin
-      - Female Assassin
+      - MILEENA
+      - Mileena Melee
+      - Mileena Melee
       - 
       - 
       Flags: 0000000000
@@ -5043,9 +5023,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Assasin Description
-      - Female Assasin Description
-      - Female Assasin Description
+      - Violent Enforcer
+      - Violent Enforcer
+      - Violent Enforcer
       - 
       - 
       Flags: 0000000000
@@ -5054,9 +5034,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Corpos
-      - Female Corpos
-      - Female Corpos
+      - SONIA
+      - Sonia Shocksmith
+      - Sonia Shocksmith
       - 
       - 
       Flags: 0000000000
@@ -5065,9 +5045,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Corpos Description
-      - Female Corpos Description
-      - Female Corpos Description
+      - Lieutenant Colonel
+      - Lieutenant Colonel
+      - Lieutenant Colonel
       - 
       - 
       Flags: 0000000000
@@ -5076,9 +5056,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Punk
-      - Female Punk
-      - Female Punk
+      - CAT
+      - Cat Carter
+      - Cat Carter
       - 
       - 
       Flags: 0000000000
@@ -5087,9 +5067,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pemale Punk Description
-      - Pemale Punk Description
-      - Pemale Punk Description
+      - Profession Thief
+      - Profession Thief
+      - Profession Thief
       - 
       - 
       Flags: 0000000000
@@ -5098,9 +5078,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Superstar
-      - Female Superstar
-      - Female Superstar
+      - JADA
+      - Jada Green
+      - Jada Green
       - 
       - 
       Flags: 0000000000
@@ -5109,9 +5089,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Female Superstar Description
-      - Female Superstar Description
-      - Female Superstar Description
+      - Sky Pilot
+      - Sky Pilot
+      - Sky Pilot
       - 
       - 
       Flags: 0000000000
@@ -5469,9 +5449,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Beef Chegwin
-      - "\u0413\u043E\u0432\u044F\u0434\u0438\u043D\u0430 \u0427\u0435\u0433\u0432\u0438\u043D"
-      - Carne Chegwin
+      - MAX
+      - Max Power
+      - Max Power
       - 
       - 
       Flags: 0000000000
@@ -5480,9 +5460,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Archeologist Extraordinaire
-      - Archeologist Extraordinaire
-      - Archeologist Extraordinaire
+      - Rebel Rouser
+      - Rebel Rouser
+      - Rebel Rouser
       - 
       - 
       Flags: 0000000000
@@ -5491,9 +5471,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hugo Marks
-      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
-      - Hugo Marks
+      - SID
+      - Jonny Badhair
+      - Jonny Badhair
       - 
       - 
       Flags: 0000000000
@@ -5502,9 +5482,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The Superstar Shooter
-      - The Superstar Shooter
-      - The Superstar Shooter
+      - Wild Anarchist
+      - Wild Anarchist
+      - Wild Anarchist
       - 
       - 
       Flags: 0000000000
@@ -5513,9 +5493,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Male Assassin '
-      - 'Male Assassin '
-      - 'Male Assassin '
+      - AJAY
+      - Ajay Quicksilver
+      - Ajay Quicksilver
       - 
       - 
       Flags: 0000000000
@@ -5524,9 +5504,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Assassin Description
-      - Male Assassin Description
-      - Male Assassin Description
+      - Deadly Assassin
+      - Deadly Assassin
+      - Deadly Assassin
       - 
       - 
       Flags: 0000000000
@@ -5535,9 +5515,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Corpos
-      - Male Corpos
-      - Male Corpos
+      - ZANE
+      - ZANE
+      - ZANE
       - 
       - 
       Flags: 0000000000
@@ -5546,9 +5526,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Corpos Description
-      - Male Corpos Description
-      - Male Corpos Description
+      - Corpos Major General
+      - Major General
+      - Major General
       - 
       - 
       Flags: 0000000000
@@ -5557,9 +5537,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Punk
-      - Male Punk
-      - Male Punk
+      - HUGO
+      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
+      - Hugo Marks
       - 
       - 
       Flags: 0000000000
@@ -5568,9 +5548,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Punk Description
-      - Male Punk Description
-      - Male Punk Description
+      - Superstar Shooter
+      - Superstar Shooter
+      - Superstar Shooter
       - 
       - 
       Flags: 0000000000
@@ -5579,9 +5559,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Superstar
-      - Male Superstar
-      - Male Superstar
+      - JONNY
+      - "\u0413\u043E\u0432\u044F\u0434\u0438\u043D\u0430 \u0427\u0435\u0433\u0432\u0438\u043D"
+      - Carne Chegwin
       - 
       - 
       Flags: 0000000000
@@ -5590,9 +5570,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Male Superstar Description
-      - Male Superstar Description
-      - Male Superstar Description
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
       - 
       - 
       Flags: 0000000000
@@ -7304,6 +7284,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/District
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTERTAINMENT DISTRICT
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattleRoyaleTrios
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: General/ATTDescription
       TermType: 0
       Description: 
@@ -8418,7 +8420,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Select
+      - SELECT
       - "\u0412\u044B\u0431\u0438\u0440\u0430\u0442\u044C"
       - Selecione
       - 
@@ -8641,7 +8643,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'User Id: <color=#948bc4>{0}</color> '
+      - 'User Id: {0}'
       - "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
         \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F:
         {0}"
@@ -8989,7 +8991,7 @@ MonoBehaviour:
       - BEAT CHAPTER {0} LEVEL {1} FIRST!
       - "BEAT \u0413\u041B\u0410\u0412\u0410 {0} \u0423\u0440\u043E\u0432\u0435\u043D\u044C
         {1} \u0421\u043D\u0430\u0447\u0430\u043B\u0430!"
-      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200Bprimeiro!"
+      - "Beat Cap\xEDtulo {0} N\xEDvel {1} \u200B\u200BPrimeiro!"
       - 
       - 
       Flags: 0000000000
@@ -9210,7 +9212,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Create
+      - CREATE
       - "\u0421\u043E\u0437\u0434\u0430\u0432\u0430\u0442\u044C"
       - Criar
       - 
@@ -9325,7 +9327,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom Game
+      - CUSTOM GAME
       - "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F
         \u0438\u0433\u0440\u0430"
       - Jogo personalizado
@@ -9399,7 +9401,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Detail Level
-      - "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+      - "\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
       - "N\xEDvel de detalhe"
       - 
       - 
@@ -9725,7 +9727,7 @@ MonoBehaviour:
       - High Res Mode
       - "\u0420\u0435\u0436\u0438\u043C \u0432\u044B\u0441\u043E\u043A\u043E\u0433\u043E
         \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u0438\u044F"
-      - Modo High Res
+      - Modo de alta res
       - 
       - 
       Flags: 0000000000
@@ -9839,7 +9841,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Join
+      - JOIN
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
       - Juntar
       - 
@@ -9969,7 +9971,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Logged out successfully
-      - "\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+      - "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E
+        \u0443\u0441\u043F\u0435\u0448\u043D\u043E"
       - Registrado com sucesso
       - 
       - 
@@ -10012,7 +10015,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Kick Player
+      - KICK PLAYER
       - "\u0423\u0434\u0430\u0440 \u0438\u0433\u0440\u043E\u043A"
       - Kick jogador
       - 
@@ -10329,6 +10332,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/None
+      TermType: 0
+      Description: 
+      Languages:
+      - None
+      - None
+      - None
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/NotEnoughSpace
       TermType: 0
       Description: 
@@ -10426,6 +10440,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/Playtest
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYTEST
+      - PLAYTEST
+      - PLAYTEST
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/PlayersActiveNumber
       TermType: 0
       Description: 
@@ -10464,7 +10489,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Prepare for action!
+      - PREPARE FOR ACTION!
       - "\u041F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u044C\u0442\u0435\u0441\u044C
         \u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
       - "Prepare -se para a a\xE7\xE3o!"
@@ -10476,7 +10501,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Starting in {0} sec!
+      - STARTING IN {0} SEC!
       - "\u041D\u0430\u0447\u0438\u043D\u0430\u044F \u0441 {0} \u0441\u0435\u043A!"
       - "Come\xE7ando em {0} sec!"
       - 
@@ -10487,7 +10512,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Waiting for players!
+      - WAITING FOR PLAYERS!
       - "\u0416\u0434\u0443 \u0438\u0433\u0440\u043E\u043A\u043E\u0432!"
       - Esperando pelos jogadores!
       - 
@@ -10700,7 +10725,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Join
+      - JOIN
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
       - Juntar
       - 
@@ -10723,7 +10748,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - game mode
+      - GAME MODE
       - "\u0438\u0433\u0440\u043E\u0432\u043E\u0439 \u0440\u0435\u0436\u0438\u043C"
       - modo de jogo
       - 
@@ -10734,7 +10759,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - map
+      - MAP
       - "\u043A\u0430\u0440\u0442\u0430"
       - mapa
       - 
@@ -10745,7 +10770,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - mutator 1
+      - MUTATOR 1
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 1"
       - Mutator 1
       - 
@@ -10756,7 +10781,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - mutator 2
+      - MUTATOR 2
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 2"
       - Mutator 2
       - 
@@ -10767,7 +10792,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom Game
+      - CUSTOM GAME
       - "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F
         \u0438\u0433\u0440\u0430"
       - Jogo personalizado
@@ -10779,7 +10804,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Leave
+      - LEAVE
       - "\u041E\u0441\u0442\u0430\u0432\u043B\u044F\u0442\u044C"
       - Deixar
       - 
@@ -10790,7 +10815,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lock & Play!
+      - LOCK & PLAY
       - "\u0417\u0430\u0431\u043B\u043E\u043A\u0438\u0440\u0443\u0439 \u0438 \u0438\u0433\u0440\u0430\u0439!"
       - Lock & Play!
       - 
@@ -11743,7 +11768,7 @@ MonoBehaviour:
       - "\u041D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C
         \u0434\u043E\u0441\u0442\u0443\u043F \u043A \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0441\u0442\u0438
         Blastbox"
-      - Incapaz de acessar a disponibilidade de blastbox
+      - Incapaz de acessar a disponibilidade de Blastbox
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -12075,7 +12100,7 @@ MonoBehaviour:
       - BlastBox information error.
       - "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u0430\u044F
         \u043E\u0448\u0438\u0431\u043A\u0430 \u0431\u043B\u0430\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430."
-      - "Erro de informa\xE7\xE3o do BlastBox."
+      - "Erro de informa\xE7\xE3o blastbox."
       - 
       - lootbox.ts
       Flags: 0000000000
@@ -12501,7 +12526,7 @@ MonoBehaviour:
       Languages:
       - x5 EXCELLENT CORES
       - "x5 \u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0435 \u044F\u0434\u0440\u0430"
-      - "X5 Excelentes n\xFAcleos"
+      - "x5 Excelentes n\xFAcleos"
       - 
       - 
       Flags: 0000000000
@@ -12631,7 +12656,10 @@ MonoBehaviour:
 
 
         Craft
-        Spice is used on the Blast Hub for upgrading, repairing and replicating equipment.'
+        Spice is used on the Blast Hub for upgrading, repairing
+
+        and replicating
+        equipment.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u0443\u044E
         \u0441\u043F\u0435\u0446\u0438\u044E, \u043F\u043E\u043C\u0435\u0441\u0442\u0438\u0432
         \u0431\u043E\u043B\u0435\u0435 \u0432\u044B\u0441\u043E\u043A\u0438\u0435
@@ -12657,7 +12685,7 @@ MonoBehaviour:
 
 
         Craft
-        Spice is used on the Blast Hub for upgrading, repairing and replicating equipment.'
+        Spice pool refreshes over time.'
       - "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0440\u0435\u043C\u0435\u0441\u043B\u0435\u043D\u043D\u044B\u0435
         \u0441\u043F\u0435\u0446\u0438\u0438 \u0432 \u0440\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445
         \u043C\u0430\u0442\u0447\u0430\u0445 \u0441 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435\u043C
@@ -13354,7 +13382,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - GRADE II
-      - "\u041A\u043B\u0430\u0441\u0441 II"
+      - II
       - Grau II
       - 
       - 
@@ -14063,8 +14091,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - COMPLETED
-      - "\u0417\u0410\u0412\u0415\u0420\u0428\u0415\u041D"
-      - COMPLETADA
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -14234,18 +14262,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITHomeScreen/join_party
-      TermType: 0
-      Description: 
-      Languages:
-      - JOIN SQUAD
-      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
-        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435"
-      - "Junte -se \xE0 equipe"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITHomeScreen/joining
       TermType: 0
       Description: 
@@ -14254,6 +14270,18 @@ MonoBehaviour:
       - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435
         ..."
       - Juntando -se ...
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/join_party
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN SQUAD
+      - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C
+        \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435"
+      - "Junte -se \xE0 equipe"
       - 
       - 
       Flags: 0000000000
@@ -14357,7 +14385,7 @@ MonoBehaviour:
       - Create or Join a squad!
       - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F
         \u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0435!"
-      - "Crie ou junte -se a um esquadr\xE3o!"
+      - "Crie ou participe de um esquadr\xE3o!"
       - 
       - 
       Flags: 0000000000
@@ -14491,6 +14519,7 @@ MonoBehaviour:
       Languages:
       - 'Play matches to earn Trophies and win prizes. Check Discord for current
         competitions.
+
 
         The more Trophies you have the more Craft Spice you
         earn.'
@@ -15090,8 +15119,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - ACCOUNT
-      - ACCOUNT
-      - ACCOUNT
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15101,8 +15130,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Announcer
-      - Announcer
-      - Announcer
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15112,8 +15141,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - ASIA
-      - ASIA
-      - ASIA
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15123,8 +15152,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - BG Music
-      - BG Music
-      - BG Music
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15134,8 +15163,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Camera Panning
-      - Camera Panning
-      - Camera Panning
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15183,8 +15212,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - CONTROLS
-      - CONTROLS
-      - CONTROLS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15224,8 +15253,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Dynamic Joystick
-      - Dynamic Joystick
-      - Dynamic Joystick
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15235,8 +15264,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - EUROPE
-      - EUROPE
-      - EUROPE
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15257,8 +15286,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - FAQ
-      - FAQ
-      - FAQ
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15303,10 +15332,8 @@ MonoBehaviour:
         User ID: <color=#948bc4>{0}</color>'
       - "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u0432\u0435\u0442\u043E\u0432\u043E\u0439
         \u0438\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!\n\n\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440
-        \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F: 
-        <color=#948bc4>{0}</color>"
-      - "Primeira ID da luz conectada!\n\nID do usu\xE1rio: <color=#948bc4>{0}</color>"
+        \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D!"
+      - Primeira ID da luz conectada!
       - 
       - 
       Flags: 0000000000
@@ -15368,8 +15395,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - FPS
-      - FPS
-      - FPS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15379,8 +15406,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Graphics Quality
-      - Graphics Quality
-      - Graphics Quality
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15390,8 +15417,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - GRAPHICS
-      - GRAPHICS
-      - GRAPHICS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15401,8 +15428,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Haptic Feedback
-      - Haptic Feedback
-      - Haptic Feedback
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15412,8 +15439,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - High
-      - High
-      - High
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15472,8 +15499,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Low
-      - Low
-      - Low
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15483,8 +15510,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Medium
-      - Medium
-      - Medium
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15494,8 +15521,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - OFF
-      - OFF
-      - OFF
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15505,8 +15532,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - ON
-      - ON
-      - ON
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15516,8 +15543,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Screen Shake
-      - Screen Shake
-      - Screen Shake
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15527,8 +15554,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - SERVER
-      - SERVER
-      - SERVER
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15538,8 +15565,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - SETTINGS
-      - SETTINGS
-      - SETTINGS
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15549,8 +15576,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - 60
-      - 60
-      - 60
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15560,8 +15587,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Sound Effects
-      - Sound Effects
-      - Sound Effects
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15571,8 +15598,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - SOUND
-      - SOUND
-      - SOUND
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15593,8 +15620,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - 30
-      - 30
-      - 30
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15604,8 +15631,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - USA
-      - USA
-      - USA
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15615,8 +15642,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - Cone Aim
-      - Cone Aim
-      - Mira em Cone
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15759,7 +15786,7 @@ MonoBehaviour:
       Languages:
       - INFO
       - "\u0418\u041D\u0424\u041E\u0420\u041C\u0410\u0426\u0418\u042F"
-      - Info
+      - "Informa\xE7\xF5es"
       - 
       - 
       Flags: 0000000000
@@ -15913,7 +15940,7 @@ MonoBehaviour:
       Languages:
       - SPECTATING
       - "\u0420\u0430\u0437\u0436\u0438\u0433\u0430\u043D\u0438\u0435"
-      - Espetactador
+      - Espetacular
       - 
       - 
       Flags: 0000000000
@@ -15963,8 +15990,8 @@ MonoBehaviour:
         \u0432\u044B \u043F\u044B\u0442\u0430\u0435\u0442\u0435\u0441\u044C \u043F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F,
         \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u0434\u0440\u0443\u0433\u0443\u044E
         \u0432\u0435\u0440\u0441\u0438\u044E \u0438\u0433\u0440\u044B."
-      - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar est\xE1 usando outra
-        vers\xE3o do jogo."
+      - "O esquadr\xE3o que voc\xEA est\xE1 tentando participar \xE9 usar outra vers\xE3o
+        do jogo."
       - 
       - 
       Flags: 0000000000
@@ -16031,10 +16058,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - This squad is using another server region!
-      - "\u042D\u0442\u043E\u0442 \u043E\u0442\u0440\u044F\u0434 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
-        \u0434\u0440\u0443\u0433\u043E\u0439 \u0440\u0435\u0433\u0438\u043E\u043D
-        \u0441\u0435\u0440\u0432\u0435\u0440\u0430!"
-      - "Este esquadr\xE3o est\xE1 utilizando outra regi\xE3o de servidor."
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16058,7 +16083,7 @@ MonoBehaviour:
       Languages:
       - Kick
       - "\u041F\u0438\u043D\u0430\u0442\u044C"
-      - Expulsar
+      - Chute
       - 
       - 
       Flags: 0000000000
@@ -16080,10 +16105,8 @@ MonoBehaviour:
       Description: 
       Languages:
       - You got removed from the squad due to timeout!
-      - "\u0412\u0430\u0441 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u043B\u0438
-        \u0438\u0437 \u0441\u043E\u0441\u0442\u0430\u0432\u0430 \u0438\u0437-\u0437\u0430
-        \u0442\u0430\u0439\u043C-\u0430\u0443\u0442\u0430!"
-      - "Voc\xEA foi removido da equipe devido a problemas de conex\xE3o. "
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16093,7 +16116,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
-
 
         <b>Rarity</b>
 
@@ -16113,23 +16135,8 @@ MonoBehaviour:
         <b>Max durability</b>
 
         1 100%'
-      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
-        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
-        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
-        45%, \u043E\u0431\u0449\u0438\u0435+ 45%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435
-        10%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F </b>\n\u0417\u0430\u043A\u0430\u0437
-        20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
-        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
-        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
-        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 80%, \u0441\u0442\u0430\u043B\u044C
-        20%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
-        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
-        </b>\n1 100%"
-      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
-        </b>\nComum 45%, comum+ 45%, incomum 10%\n<b> Fac\xE7\xE3o </b>\nEncomendar
-        20%, caos 20%, 20%org\xE2nico, 20%escuro, sombra 10%, celestial 10%\n<b>
-        Material </b>\nPl\xE1stico 80%, a\xE7o 20%\n<b> Durabilidade m\xE1xima </b>\n1
-        100%"
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16139,7 +16146,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
-
 
         <b>Rarity</b>
 
@@ -16159,22 +16165,8 @@ MonoBehaviour:
         <b>Max durability</b>
 
         1 50%, 2 50%'
-      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
-        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
-        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435+
-        80%, \u043D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0435 20%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
-        </b>\n\u0417\u0430\u043A\u0430\u0437 20%, \u0445\u0430\u043E\u0441 20%, \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
-        20%, \u0442\u0435\u043C\u043D\u044B\u0439 20%, \u0442\u0435\u043D\u044C 10%,
-        \u043D\u0435\u0431\u0435\u0441\u043D\u044B\u0439 10%,\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
-        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 50%, \u0441\u0442\u0430\u043B\u044C
-        50%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
-        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
-        </b>\n1 50%, 2 50%"
-      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
-        </b>\nComum+ 80%, incomum 20%\n<b> Fac\xE7\xE3o </b>\nEncomendar 20%, caos
-        20%, 20%org\xE2nico, 20%escuro, sombra 10%, Celestial 10%,\n<b> Material
-        </b>\nPl\xE1stico 50%, a\xE7o 50%\n<b> Durabilidade m\xE1xima </b>\n1 50%,
-        2 50%"
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16184,7 +16176,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'Contains <b>1 random non-tradable item</b>
-
 
         <b>Rarity</b>
 
@@ -16204,19 +16195,8 @@ MonoBehaviour:
         durability</b>
 
         1 100%'
-      - "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 <b> 1 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439
-        \u043D\u0435\u0442\u0440\u0430\u0434\u0438\u0440\u0443\u0435\u043C\u044B\u0439
-        \u044D\u043B\u0435\u043C\u0435\u043D\u0442 </b>\n\n<b> Rarity </b>\n\u041E\u0431\u0449\u0438\u0435
-        75%, \u043E\u0431\u0449\u0438\u0435+ 25%\n<b> \u0444\u0440\u0430\u043A\u0446\u0438\u044F
-        </b>\n\u0417\u0430\u043A\u0430\u0437 25% \u0445\u0430\u043E\u0441 25% \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0439
-        25% \u0442\u0435\u043C\u043D\u043E 25%\n<b> \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B
-        </b>\n\u041F\u043B\u0430\u0441\u0442\u0438\u043A 100%\n<b> \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
-        \u0434\u043E\u043B\u0433\u043E\u0432\u0435\u0447\u043D\u043E\u0441\u0442\u044C
-        </b>\n1 100%"
-      - "Cont\xE9m <b> 1 item n\xE3o com\xE9rcio aleat\xF3rio </b>\n\n<b> raridade
-        </b>\nComum 75%, comum+ 25%\n<b> Fac\xE7\xE3o </b>\nEncomendar 25% caos 25%
-        org\xE2nico 25% escuro 25%\n<b> Material </b>\nPl\xE1stico 100%\n<b> Durabilidade
-        m\xE1xima </b>\n1 100%"
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16481,28 +16461,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITTutorial/select_map_position
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT YOUR SPAWN POSITION
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITTutorial/select_weapon
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT THE WEAPON
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITTutorial/shoot_barrier
       TermType: 0
       Description: 
@@ -16587,6 +16545,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITTutorial/select_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT THE WEAPON
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITTutorial/select_map_position
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT YOUR SPAWN POSITION
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITWinners/winner
       TermType: 0
       Description: 
@@ -16633,7 +16613,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbzRk6UiWHONXDFdtVQ4rF8M_VG8Xs9kv7ZEg95Dnc_Zo2lw0mN7UQ4hVJ5Y0yfrgeqk/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1683200323748
+    Google_LastUpdatedVersion: 1685466553207
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

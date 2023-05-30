@@ -411,7 +411,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SPECTATOR
+      - Spectator
       - "\u0417\u0440\u0438\u0442\u0435\u043B\u044C"
       - Espectador
       - 
@@ -10004,7 +10004,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - KICK PLAYER
+      - Kick Player
       - "\u0423\u0434\u0430\u0440 \u0438\u0433\u0440\u043E\u043A"
       - Kick jogador
       - 
@@ -10478,7 +10478,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PREPARE FOR ACTION!
+      - Prepare for action!
       - "\u041F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u044C\u0442\u0435\u0441\u044C
         \u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044E!"
       - "Prepare -se para a a\xE7\xE3o!"
@@ -10490,7 +10490,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - STARTING IN {0} SEC!
+      - Starting in {0} sec!
       - "\u041D\u0430\u0447\u0438\u043D\u0430\u044F \u0441 {0} \u0441\u0435\u043A!"
       - "Come\xE7ando em {0} sec!"
       - 
@@ -10501,7 +10501,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - WAITING FOR PLAYERS!
+      - Waiting for players!
       - "\u0416\u0434\u0443 \u0438\u0433\u0440\u043E\u043A\u043E\u0432!"
       - Esperando pelos jogadores!
       - 
@@ -16176,7 +16176,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1685007790903
+    Google_LastUpdatedVersion: 1684760819090
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

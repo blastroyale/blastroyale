@@ -34,6 +34,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 19661
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
@@ -84,6 +86,8 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -93,13 +97,13 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 786432
       MinAttackAngle: 7
-      MaxAttackAngle: 15
+      MaxAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 360448
       AttackRangeAimBonus:
-        RawValue: 65536
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -134,6 +138,8 @@ MonoBehaviour:
         RawValue: 163840
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 39322
       AttackCooldown:
@@ -142,14 +148,14 @@ MonoBehaviour:
         RawValue: 22938
       AttackHitSpeed:
         RawValue: 1114112
-      MinAttackAngle: 20
-      MaxAttackAngle: 45
+      MinAttackAngle: 30
+      MaxAttackAngle: 30
       NumberOfShots: 8
       NumberOfBursts: 2
       AttackRange:
-        RawValue: 229376
+        RawValue: 262144
       AttackRangeAimBonus:
-        RawValue: 65536
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -184,6 +190,8 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 5243
       AttackCooldown:
@@ -192,8 +200,8 @@ MonoBehaviour:
         RawValue: 36700
       AttackHitSpeed:
         RawValue: 983040
-      MinAttackAngle: 7
-      MaxAttackAngle: 15
+      MinAttackAngle: 11
+      MaxAttackAngle: 11
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -234,6 +242,8 @@ MonoBehaviour:
         RawValue: 114688
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
@@ -242,8 +252,8 @@ MonoBehaviour:
         RawValue: 44564
       AttackHitSpeed:
         RawValue: 983040
-      MinAttackAngle: 3
-      MaxAttackAngle: 15
+      MinAttackAngle: 9
+      MaxAttackAngle: 9
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
@@ -284,6 +294,8 @@ MonoBehaviour:
         RawValue: 65536
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -293,13 +305,13 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 3
-      MaxAttackAngle: 35
+      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 524288
+        RawValue: 589824
       AttackRangeAimBonus:
-        RawValue: 131072
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -334,6 +346,8 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 58982
       AttackCooldown:
@@ -342,8 +356,8 @@ MonoBehaviour:
         RawValue: 52429
       AttackHitSpeed:
         RawValue: 655360
-      MinAttackAngle: 12
-      MaxAttackAngle: 25
+      MinAttackAngle: 18
+      MaxAttackAngle: 18
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
@@ -384,6 +398,8 @@ MonoBehaviour:
         RawValue: 196608
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -392,14 +408,14 @@ MonoBehaviour:
         RawValue: 26214
       AttackHitSpeed:
         RawValue: 1114112
-      MinAttackAngle: 7
-      MaxAttackAngle: 25
+      MinAttackAngle: 16
+      MaxAttackAngle: 16
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 393216
+        RawValue: 507904
       AttackRangeAimBonus:
-        RawValue: 229376
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -434,6 +450,8 @@ MonoBehaviour:
         RawValue: 49152
       AimingMovementSpeed:
         RawValue: 65536
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 15729
       AttackCooldown:
@@ -484,6 +502,8 @@ MonoBehaviour:
         RawValue: 81920
       AimingMovementSpeed:
         RawValue: 32768
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 43647
       AttackCooldown:
@@ -534,6 +554,8 @@ MonoBehaviour:
         RawValue: 43254
       AimingMovementSpeed:
         RawValue: 72090
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
@@ -584,6 +606,8 @@ MonoBehaviour:
         RawValue: 98304
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
@@ -634,6 +658,8 @@ MonoBehaviour:
         RawValue: 176947
       AimingMovementSpeed:
         RawValue: 32768
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
@@ -684,6 +710,8 @@ MonoBehaviour:
         RawValue: 147456
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
@@ -734,6 +762,8 @@ MonoBehaviour:
         RawValue: 229376
       AimingMovementSpeed:
         RawValue: 21627
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
@@ -784,6 +814,8 @@ MonoBehaviour:
         RawValue: 65536
       AimingMovementSpeed:
         RawValue: 65536
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
@@ -834,6 +866,8 @@ MonoBehaviour:
         RawValue: 196608
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 13107
       AttackCooldown:
@@ -842,14 +876,14 @@ MonoBehaviour:
         RawValue: 14418
       AttackHitSpeed:
         RawValue: 1114112
-      MinAttackAngle: 5
-      MaxAttackAngle: 35
+      MinAttackAngle: 15
+      MaxAttackAngle: 15
       NumberOfShots: 7
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 262144
+        RawValue: 360448
       AttackRangeAimBonus:
-        RawValue: 196608
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -884,6 +918,8 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
@@ -892,8 +928,8 @@ MonoBehaviour:
         RawValue: 15073
       AttackHitSpeed:
         RawValue: 983040
-      MinAttackAngle: 3
-      MaxAttackAngle: 30
+      MinAttackAngle: 6
+      MaxAttackAngle: 6
       NumberOfShots: 3
       NumberOfBursts: 1
       AttackRange:
@@ -934,6 +970,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 9830
       AttackCooldown:
@@ -942,14 +980,14 @@ MonoBehaviour:
         RawValue: 18350
       AttackHitSpeed:
         RawValue: 1114112
-      MinAttackAngle: 5
-      MaxAttackAngle: 1
+      MinAttackAngle: 3
+      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 491520
+        RawValue: 540672
       AttackRangeAimBonus:
-        RawValue: 98304
+        RawValue: 0
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -984,6 +1022,8 @@ MonoBehaviour:
         RawValue: 52429
       AimingMovementSpeed:
         RawValue: 32768
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
@@ -1034,6 +1074,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 58982
       AttackCooldown:
@@ -1084,6 +1126,8 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
+      AimDelay:
+        RawValue: 0
       TapCooldown:
         RawValue: 3277
       AttackCooldown:

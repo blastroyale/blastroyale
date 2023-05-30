@@ -598,8 +598,17 @@ namespace Quantum
 					specials[1] = GameId.TutorialGrenade;
 				}
 			}
-
 			return specials;
+		}
+
+		/// <summary>
+		/// Checks if two entities have a player character, a team, and if their teams are the same
+		/// </summary>
+		public static bool HasSameTeam(Frame f, EntityRef one, EntityRef two)
+		{
+			return f.TryGet<PlayerCharacter>(one, out var viewerPlayer)
+				&& f.TryGet<PlayerCharacter>(two, out var targetPlayer)
+				&& viewerPlayer.TeamId > 0 && viewerPlayer.TeamId == targetPlayer.TeamId;
 		}
 	}
 }

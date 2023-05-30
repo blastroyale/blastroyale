@@ -13,8 +13,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _openSpeed = Animator.StringToHash("open_speed");
 
 		[SerializeField, Required] private Animator _animator;
-
-
+		
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnGateStartOpening>(this, OnGateStartOpening);
@@ -29,7 +28,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			StartOpening(callback.OpeningTime.AsFloat);
 		}
-
 
 		private  void StartOpening(float openingTime)
 		{

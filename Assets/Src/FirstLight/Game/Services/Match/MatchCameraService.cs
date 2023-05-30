@@ -94,6 +94,9 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+
+			if (!ev.PlayerEntity.IsAlive(ev.Game.Frames.Predicted)) return;
+			
 			var duration = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_DURATION;
 			var power = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_STRENGTH;
 			StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes.Bump,

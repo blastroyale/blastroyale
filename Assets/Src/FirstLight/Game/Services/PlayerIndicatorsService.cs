@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Input;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -19,13 +18,14 @@ namespace FirstLight.Game.Services
 
 	public class PlayerIndicatorsService : IPlayerIndicatorService, MatchServices.IMatchService
 	{
-		private IGameServices _services;
-		private IMatchServices _matchServices;
+		private readonly IGameServices _services;
+		private readonly IMatchServices _matchServices;
+
+		private readonly LocalPlayerIndicatorContainerView _indicatorContainerView;
+		
 		private LocalInput.GameplayActions _inputs;
 		private bool _shooting;
 		private int _specialPressed = -1;
-
-		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 
 		public PlayerIndicatorsService(IMatchServices matchServices, IGameServices gameServices)
 		{
@@ -60,7 +60,6 @@ namespace FirstLight.Game.Services
 
 		public void RegisterListeners()
 		{
-			FLog.Info("PACO", "RegisterListeners");
 			_inputs.Move.performed += OnMove;
 			_inputs.AimButton.performed += OnShooting;
 			_inputs.AimButton.canceled += OnShooting;
@@ -75,7 +74,6 @@ namespace FirstLight.Game.Services
 
 		public void UnregisterListeners()
 		{
-			FLog.Info("PACO", "UnregisterListeners");
 			_inputs.Move.performed -= OnMove;
 			_inputs.AimButton.performed -= OnShooting;
 			_inputs.AimButton.canceled -= OnShooting;
@@ -93,7 +91,6 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
-			FLog.Info("PACO", "Dispose");
 			_indicatorContainerView?.Dispose();
 		}
 

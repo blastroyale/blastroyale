@@ -55,6 +55,7 @@ MonoBehaviour:
   _idleClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _collectClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _pickupCircle: {fileID: 6051013697671601129}
+  _spawnAnim: 0
 --- !u!114 &3388013072919493097
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -135,10 +135,10 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 8834092866769325628}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 6150384580766949102}
-  _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _collectClip: {fileID: 1827226128182048838, guid: b6332db56c6086d45a70d4371167e94b, type: 3}
   _pickupCircle: {fileID: 4851980554987701278}
+  _spawnAnim: 0
 --- !u!114 &3388013072919493097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,8 +352,7 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 1827226128182048838, guid: b6332db56c6086d45a70d4371167e94b, type: 3}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

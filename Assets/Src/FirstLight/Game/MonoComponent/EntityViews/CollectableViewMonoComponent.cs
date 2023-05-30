@@ -26,6 +26,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private AnimationClip _idleClip;
 		[SerializeField, Required] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
+		[SerializeField] private bool _spawnAnim = true;
 
 		private IMatchServices _matchServices;
 
@@ -92,7 +93,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var originPos = collectable.OriginPosition.ToUnityVector3();
 				var displayPos = frame.Get<Transform3D>(EntityView.EntityRef).Position.ToUnityVector3();
 
-				if (originPos != displayPos)
+				if (originPos != displayPos && _spawnAnim)
 				{
 					StartCoroutine(goToPoint(GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_DURATION, originPos, displayPos));
 				}

@@ -146,7 +146,7 @@ namespace Quantum.Systems
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
-			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
+			var botsDifficulty = (int) FPMath.Floor(baseTrophiesAmount / (FP) botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
 			var weaponsPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
 			weaponsPool.Remove(GameId.Hammer);
@@ -309,7 +309,7 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 				// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
-				var trophies = (uint) (baseTrophiesAmount + f.RNG->Next(-50, 50));
+				var trophies = (uint) Math.Max(0, baseTrophiesAmount + f.RNG->Next(-50, 50));
 
 				// Giving bots random weapon based on loadout rarity provided in bot configs
 				var randomWeapon = new Equipment(weaponsPool[f.RNG->Next(0, weaponsPool.Count)],

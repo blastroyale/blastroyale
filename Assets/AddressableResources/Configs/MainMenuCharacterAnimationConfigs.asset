@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MainMenuCharacterAnimationConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - FlareAnimMinPlaybackTime: 5
-    FlareAnimMaxPlaybackTime: 10
+  - FlareAnimMinPlaybackTime: 10
+    FlareAnimMaxPlaybackTime: 20
     AnimationNames:
     - special
     - spawn

@@ -19,8 +19,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private IGameDataProvider _gameDataProvider;
 		private float _currentIdleTime = 0f;
-		private float _nextFlareTime = 0f;
+		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
+		private bool _playedFirstFlareAnim;
 
 		protected override void Awake()
 		{
@@ -71,19 +72,23 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				return;
 			}
 
-			if (_nextFlareTime == 0f)
+			if (_nextFlareTime < 0)
 			{
-				_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime,
-					_mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime);
+				var minRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime;
+				var maxRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime;
+				_nextFlareTime = Random.Range(minRange / 2, maxRange / 2);
 			}
 
 			if (_currentIdleTime > _nextFlareTime)
 			{
-				Animator.SetTrigger("flair");
+				Debug.LogWarning("triggering flair animation");
 				
+				var minRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime;
+				var maxRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime;
+				
+				Animator.SetTrigger("flair");
+				_nextFlareTime = Random.Range(minRange, maxRange);
 				_currentIdleTime = 0;
-				_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime,
-					_mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime);
 			}
 
 			_currentIdleTime += Time.deltaTime;

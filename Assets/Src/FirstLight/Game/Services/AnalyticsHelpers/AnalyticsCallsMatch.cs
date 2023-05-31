@@ -253,14 +253,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchKillAction(EventOnPlayerKilledPlayer playerKilledEvent)
 		{
-			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
-
 			// We cannot send this event for everyone every time so we only send if we are the killer or its a suicide
 			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
 					playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
 			{
 				return;
 			}
+			
+			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 			
 			// We send fixed name in case of offline Tutorial match
 			var deadName = playerKilledEvent.PlayersMatchData.Count <= 1 ?

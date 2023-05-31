@@ -1,3 +1,4 @@
+using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using Quantum;
 using FirstLight.SDK.Services;
@@ -32,6 +33,19 @@ namespace FirstLight.Game.Messages
 		public bool IsDisconnected;
 		public bool IsPlayerQuit;
 	}
+
+	public struct EntityViewLoaded : IMessage
+	{
+		public EntityView View;
+		public EntityBase Entity;
+	}
+
+	public struct LocalPlayerEntityVisibilityUpdate : IMessage
+	{
+		public EntityRef Entity;
+		public bool CanSee;
+	}
+	
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }
 	public struct StartedFinalPreloadMessage : IMessage { }

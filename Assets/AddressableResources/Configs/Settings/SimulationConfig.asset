@@ -105,7 +105,7 @@ MonoBehaviour:
       - Water
       - UI
       - 
-      - 
+      - Environment Object
       - Non Playable Target
       - Playable Target
       - Default Silhouette
@@ -114,6 +114,8 @@ MonoBehaviour:
       - Indicator
       - Player Only
       - Non Playable Static Target
+      - Mini Map Object
+      - Bush
       - 
       - 
       - 
@@ -128,9 +130,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
-      - 
-      LayerMatrix: cd8fffffc800ffffcd0fffffffffffffc800ffffc800ffffffffffffffffffffcdcfffffcdcfffffcd8fffffcd8fffffc810ffffc800ffffc803ffffc98fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+      LayerMatrix: cd8ffdffc880fdffcd8ffdffffffffffc880fdffc880fdfffffffffffffffdffcdcfffffcdcfffffcd8fffffcd8ffdffc890fdffc880fdffc883fdfffffffdfffffffdff4807fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     Entities:
       CommitCommandsMode: 0
       DefaultEntityCapacity: 1024

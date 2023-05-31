@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -15,6 +16,8 @@ using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
+	
+	
 	/// <inheritdoc/>
 	/// <remarks>
 	/// Responsible to play and act on Player's visual feedback. From animations to triggered VFX
@@ -27,14 +30,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
+
+		/// <summary>
+		/// Deprecated, should be removed.
+		/// This is only used for buildings.
+		/// </summary>
+		[System.Obsolete] public PlayerBuildingVisibility BuildingVisibility;
 		
 		private Vector3 _lastPosition;
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
-
-		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
-
+		
 		/// <summary>
 		/// Indicates if this is the local player
 		/// </summary>
@@ -54,8 +61,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			base.OnAwake();
-
-			CollidingVisibilityVolumes = new HashSet<VisibilityVolumeMonoComponent>();
+			
+			BuildingVisibility= new();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -75,6 +82,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
 
+		
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -151,6 +159,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
+		
+		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
 		protected override void OnInit(QuantumGame game)
 		{
@@ -203,14 +213,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAvatarEliminated(game);
 		}
 
+		public bool IsInInvisibilityArea()
+		{
+			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef) || BuildingVisibility.CollidingVisibilityVolumes.Count > 0;
+		}
+		
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity ||
-				CollidingVisibilityVolumes.Count == 0)
+			if (IsBeingSpectated || !IsInInvisibilityArea())
 			{
 				return;
 			}
-
+			
 			if (_attackHideRendererCoroutine != null)
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
@@ -225,11 +239,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
-			if (CollidingVisibilityVolumes.Count > 0)
+			if (IsInInvisibilityArea())
 			{
-				var visVolumeHasSpectatedPlayer =
-					CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
+				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) && BuildingVisibility.CanSee());
 			}
 		}
 

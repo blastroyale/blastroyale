@@ -52,9 +52,8 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 2115767306961407324}
-  _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  _collectClip: {fileID: 7400000, guid: 946bb0117eb2e4d499c2d481d6ae6066, type: 2}
   _pickupCircle: {fileID: 8704731951290651430}
 --- !u!114 &3388013072919493097
 MonoBehaviour:
@@ -86,11 +85,8 @@ Animation:
   m_GameObject: {fileID: 3587682744574828602}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  - {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  - {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  m_Animation: {fileID: 0}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -218,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7496525629958753993}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -231,6 +227,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7496525629958753994}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ee1a530e4ba3120448a0d722c128f360, type: 3}
@@ -294,6 +291,9 @@ PrefabInstance:
       value: health
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1a530e4ba3120448a0d722c128f360, type: 3}
 --- !u!23 &2041401184283793114 stripped
 MeshRenderer:

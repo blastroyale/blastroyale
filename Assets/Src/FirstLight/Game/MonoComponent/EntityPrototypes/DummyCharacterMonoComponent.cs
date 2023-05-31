@@ -11,7 +11,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			base.OnEntityInstantiated(game);
-			
+
+			if (HasRenderedView()) return;
 			Services.AssetResolverService.RequestAsset<GameId, GameObject>(GameId.DummyCharacter, true, true, OnLoaded);
 		}
 	}

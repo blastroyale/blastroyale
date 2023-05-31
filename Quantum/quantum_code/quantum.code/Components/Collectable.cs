@@ -14,8 +14,9 @@ namespace Quantum
 
 			var configConsumable = f.ConsumableConfigs.GetConfig(gameId);
 			var entityConsumable = f.Create(f.FindAsset<EntityPrototype>(configConsumable.AssetRef.Id));
+
 			f.Unsafe.GetPointer<Consumable>(entityConsumable)->Init(f, entityConsumable, dropPosition,
-			                                                        FPQuaternion.Identity, ref configConsumable, EntityRef.None);
+																	FPQuaternion.Identity, ref configConsumable, EntityRef.None, position);
 		}
 
 		/// <summary>
@@ -33,8 +34,8 @@ namespace Quantum
 			var dropPosition = GetPointOnNavMesh(f, position, angleDropStep, isConsiderNavMesh, dropAngles);
 
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity,
-			                                                        ref equipment, EntityRef.None, owner);
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, dropPosition, FPQuaternion.Identity, position, 
+																	ref equipment, EntityRef.None, owner);
 		}
 
 		/// <summary>
@@ -50,17 +51,17 @@ namespace Quantum
 			var angleLevel = (angleDropStep / dropAngles);
 			var angleGranularity = FP.PiTimes2 / dropAngles;
 			var angleStep = FPVector2.Rotate(FPVector2.Left,
-			                                 (angleGranularity * angleDropStep) +
-			                                 (angleLevel % 2) * angleGranularity / 2);
+											 (angleGranularity * angleDropStep) +
+											 (angleLevel % 2) * angleGranularity / 2);
 			var dropPosition = (angleStep * Constants.DROP_OFFSET_RADIUS * (angleLevel + 1)).XOY + position;
-			
+
 			if (!isConsiderNavMesh || f.NavMesh.Contains(dropPosition, NavMeshRegionMask.Default, true))
 			{
 				return dropPosition;
 			}
-			
+
 			QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS, out var newPosition);
-			
+
 			return newPosition;
 		}
 	}

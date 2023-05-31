@@ -445,8 +445,8 @@ namespace Quantum.Systems
 			// We check enemies one by one until we find a valid enemy in sight
 			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var weaponTargetRangeAgainstBots = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
-			var weaponTargetRange = FPMath.Min(weaponTargetRangeAgainstBots, filter.BotCharacter->MaxAimingRange);
+			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var limitedTargetRange = FPMath.Min(weaponTargetRange, filter.BotCharacter->MaxAimingRange);
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -455,9 +455,8 @@ namespace Quantum.Systems
 
 			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team,
-					    f.Has<BotCharacter>(targetCandidate.Entity) ? weaponTargetRangeAgainstBots : weaponTargetRange,
-					    targetCandidate.Entity, out var targetHit))
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team, limitedTargetRange,
+						targetCandidate.Entity, out var targetHit))
 				{
 					target = targetHit;
 					break;
@@ -1436,7 +1435,7 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 				// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
-				var trophies = (uint) (baseTrophiesAmount + f.RNG->Next(-50, 50));
+				var trophies = (uint) Math.Max(0, baseTrophiesAmount + f.RNG->Next(-50, 50));
 				
 				// Giving bots random weapon based on loadout rarity provided in bot configs
 				var randomWeapon = new Equipment(weaponsPool[f.RNG->Next(0, weaponsPool.Count)],

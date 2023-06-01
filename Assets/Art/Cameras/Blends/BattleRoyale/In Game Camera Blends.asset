@@ -39,7 +39,7 @@ MonoBehaviour:
     m_To: Adventure Camera
     m_Blend:
       m_Style: 2
-      m_Time: 2
+      m_Time: 5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

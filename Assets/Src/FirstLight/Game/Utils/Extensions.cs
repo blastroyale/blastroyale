@@ -637,6 +637,15 @@ namespace FirstLight.Game.Utils
 
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
+		
+		/// <summary>
+		/// Requests the local player entity ref.
+		/// Always gets from Verified frame
+		/// </summary>
+		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game)
+		{
+			return game.GetLocalPlayerData(true, out _).Entity;
+		}
 
 		/// <summary>
 		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>

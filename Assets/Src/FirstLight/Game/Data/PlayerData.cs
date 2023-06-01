@@ -26,7 +26,7 @@ namespace FirstLight.Game.Data
 		public PlayerFlags Flags;
 		public uint Level = 1;
 		public uint Xp = 0;
-		public uint Trophies = 1000;
+		public uint Trophies = 0;
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
 		public bool MigratedGuestData = false;

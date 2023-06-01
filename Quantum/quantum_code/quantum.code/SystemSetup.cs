@@ -31,6 +31,7 @@ namespace Quantum
 				new StatusModifierSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
+				new VisibilityAreaSystem(), 
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),

@@ -16,44 +16,44 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       Guid:
-        Value: 648001274895591165
+        Value: 389436364712682305
     Entries:
-    - Type: 2
-      Key:
-        Key: MagazineSize
-    - Type: 0
-      Key:
-        Key: IsShooting
-    - Type: 3
-      Key:
-        Key: TapCooldown
-    - Type: 2
-      Key:
-        Key: AimAngle
-    - Type: 3
-      Key:
-        Key: BurstShotCount
-    - Type: 3
-      Key:
-        Key: MoveSpeed
-    - Type: 3
-      Key:
-        Key: AimingMovementSpeed
-    - Type: 3
-      Key:
-        Key: RampUpTimeStart
-    - Type: 3
-      Key:
-        Key: StunDuration
-    - Type: 0
-      Key:
-        Key: IsSkydiving
     - Type: 4
       Key:
         Key: AimDirection
     - Type: 3
       Key:
+        Key: AimingMovementSpeed
+    - Type: 2
+      Key:
+        Key: AimAngle
+    - Type: 3
+      Key:
+        Key: TapCooldown
+    - Type: 3
+      Key:
+        Key: MoveSpeed
+    - Type: 3
+      Key:
+        Key: BurstShotCount
+    - Type: 0
+      Key:
+        Key: IsSkydiving
+    - Type: 3
+      Key:
+        Key: StunDuration
+    - Type: 0
+      Key:
+        Key: IsShooting
+    - Type: 3
+      Key:
+        Key: RampUpTimeStart
+    - Type: 3
+      Key:
         Key: ReloadTime
+    - Type: 2
+      Key:
+        Key: MagazineSize
     - Type: 3
       Key:
         Key: NextShotTime

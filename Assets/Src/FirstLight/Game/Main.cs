@@ -27,7 +27,7 @@ namespace FirstLight.Game
 	/// The Main entry point of the game
 	/// </summary>
 	public class Main : MonoBehaviour
-	{
+	{	
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
 

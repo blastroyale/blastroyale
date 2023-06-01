@@ -107,7 +107,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fc05c78bb0518349b009b01f360d673
-    m_Address: Scenes/FtueMiniMap.unity
+    m_Address: Scenes/District.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -118,6 +118,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 322ba97b8db6d4b29a57bbe15ca381c8
     m_Address: Scenes/TestScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63d6b329b3bdf0e4d85a7007440de5eb
+    m_Address: Sprites/Specials/InvisibilityAimAreaStatus.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -8,5 +8,9 @@ Assets/AddressableResources/Configs/ @@ServerNerds
 Assets/Src/FirstLight/Game/Utils/NetworkUtils.cs @@ServerNerds
 Assets/Src/FirstLight/Game/StateMachines/NetworkState.cs @@ServerNerds
 Assets/Libs/Photon/ @@ServerNerds
+Assets/Art/UI/ @"Miha Krajnc"
+Assets/Src/FirstLight/Game/Presenter/ @"Miha Krajnc"
+Assets/Src/FirstLight/Game/Views/UITK/ @"Miha Krajnc"
+Assets/Src/FirstLight/Game/UIElements/ @"Miha Krajnc"
 
-Check(@@ServerNerds >= 1)
+AllGroupsCheck(1)

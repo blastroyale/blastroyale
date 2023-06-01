@@ -413,6 +413,7 @@ namespace FirstLight.Game.Presenters
 			input.SpecialButton1.Disable();
 			input.Aim.Disable();
 			input.AimButton.Disable();
+			input.Move.Disable();
 
 			foreach (var go in _disableWhileParachuting)
 			{
@@ -437,8 +438,11 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
+			input.SpecialButton0.Enable();
+			input.SpecialButton1.Enable();
 			input.Aim.Enable();
 			input.AimButton.Enable();
+			input.Move.Enable();
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

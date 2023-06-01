@@ -80,6 +80,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public void SetColor(Color color)
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.SetRendererColor(color);
+			}
+		}
+
 		/// <inheritdoc />
 		public void SetMaterial(MaterialVfxId materialId, ShadowCastingMode mode, bool keepTexture)
 		{

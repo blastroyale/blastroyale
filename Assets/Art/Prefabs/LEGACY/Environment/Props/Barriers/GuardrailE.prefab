@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 2337889620351937005}
   - component: {fileID: 928595754953482304}
   - component: {fileID: 9222976581326991174}
+  - component: {fileID: 956632046472595569}
   m_Layer: 7
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2337889620351937005
 Transform:
   m_ObjectHideFlags: 0
@@ -84,6 +85,27 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &956632046472595569
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766190786647222096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7057103729803143835
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +117,8 @@ GameObject:
   - component: {fileID: 3542649426632292920}
   - component: {fileID: 3080258160332582098}
   - component: {fileID: 755993054444683946}
+  - component: {fileID: 8945264620552148906}
+  - component: {fileID: 8486006878624863457}
   m_Layer: 7
   m_Name: GuardrailE
   m_TagString: Untagged
@@ -169,3 +193,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8945264620552148906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057103729803143835}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1.6, z: 8}
+  m_Center: {x: -0.08, y: 0, z: 0.21}
+--- !u!114 &8486006878624863457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057103729803143835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8945264620552148906}
+  Size:
+    X:
+      RawValue: 131072
+    Y:
+      RawValue: 104857
+    Z:
+      RawValue: 524288
+  PositionOffset:
+    X:
+      RawValue: -5242
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 13762
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

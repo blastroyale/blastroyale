@@ -11,7 +11,6 @@ namespace Quantum
 		public static readonly FP ACTOR_AS_TARGET_Y_OFFSET = FP._0_50;
 		public static readonly FP SPAWNER_INACTIVE_TIME = FP._1_50;
 		public static readonly FP DROP_OFFSET_RADIUS = FP._1_25;
-		public static readonly int DROP_AMOUNT_ANGLES = 5;
 		public static readonly int OFFHAND_POOLSIZE = 20;
 		public static readonly FP BOT_STUCK_DETECTION_SQR_DISTANCE = FP._2;
 		public static readonly int BURST_INTERVAL_DIVIDER = 3;
@@ -19,6 +18,7 @@ namespace Quantum
 		public static readonly FP PICKUP_SPEED_MINIMUM = FP._0_10;
 		public static readonly int[] APPRX_NORMAL_DISTRIBUTION = {1, 13, 35, 65, 87, 99, 100};
 		public static readonly FP TAP_TO_USE_SPECIAL_AIMING_OFFSET = FP._0_75 + FP._0_10;
+		public static readonly FP LOW_AMMO_THRESHOLD_TO_DROP_MORE = FP._0_50 + FP._0_10;
 
 		public static readonly int TEAM_ID_NEUTRAL = 0;
 		public static readonly int TEAM_ID_START_PLAYERS = 100;

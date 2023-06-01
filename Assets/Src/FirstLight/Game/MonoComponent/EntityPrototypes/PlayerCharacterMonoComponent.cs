@@ -14,6 +14,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class PlayerCharacterMonoComponent : HealthEntityBase
 	{
 		[SerializeField, Required] private Transform _emojiAnchor;
+		[SerializeField] private GameObject _shadowBlob;
 
 		private PlayerCharacterViewMonoComponent _playerView;
 
@@ -29,6 +30,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnAwake()
 		{
+			_shadowBlob.SetActive(false);
+			
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
 		}
@@ -39,6 +42,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 
 			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			_shadowBlob.SetActive(true);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)

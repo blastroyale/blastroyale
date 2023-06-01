@@ -22,7 +22,8 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
 		private bool _playedFirstFlareAnim;
-
+		private readonly int _flairHash = Animator.StringToHash("flair");
+		
 		protected override void Awake()
 		{
 			base.Awake();
@@ -77,7 +78,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			
 			if (_currentIdleTime > _nextFlareTime)
 			{
-				Animator.SetTrigger("flair");
+				Animator.SetTrigger(_flairHash);
 				_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime, _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime);
 				_currentIdleTime = 0;
 			}

@@ -51,8 +51,6 @@ namespace Quantum.Systems
 				playerLimit = (int)maxPlayers;
 			}
 			
-			// playerLimit = 3;
-			
 			for (var i = 0; i < playerLimit; i++)
 			{
 				if (i >= f.PlayerCount || (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) ==
@@ -95,18 +93,9 @@ namespace Quantum.Systems
 
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 
-			// If bot is not grounded the we explicitly call Move to apply gravity
-			// It's because even with Zero velocity any movement of CharacterController,
-			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
+			// If bot is not grounded the we do nothing as Skydiving is handled via animation
 			if (!kcc->Grounded)
 			{
-				kcc->Velocity.Y = -FP._0_50 - FP._0_20;
-				kcc->Move(f, filter.Entity, FPVector3.Zero);
-
-				// TODO Nik: Make a specific branching decision in case we skydive in Battle Royale
-				// instead of just Move to zero direction we need to choose a target to move to, based on bot BotBehaviourType,
-				// then store this target in blackboard (to not search again) and keep moving towards it
-
 				return;
 			}
 			
@@ -1273,7 +1262,7 @@ namespace Quantum.Systems
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
-			var botsDifficulty = (int) FPMath.Floor((baseTrophiesAmount - 1000) / (FP) botsTrophiesStep);
+			var botsDifficulty = (int) FPMath.Floor(baseTrophiesAmount / (FP) botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
 			var weaponsPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
 			weaponsPool.Remove(GameId.Hammer);

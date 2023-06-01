@@ -161,6 +161,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (callback.Game.PlayerIsLocal(callback.Player))
 			{
 				SetActiveCamera(_spawnCamera);
+				_spawnCamera.SnapCamera();
+				_cinemachineBrain.ManualUpdate();
+				
+				SetActiveCamera(_adventureCamera);
 			}
 		}
 

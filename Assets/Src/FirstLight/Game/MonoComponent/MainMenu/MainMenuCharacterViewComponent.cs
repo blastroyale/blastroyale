@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		[SerializeField] private MainMenuCharacterAnimationConfigs _mainMenuCharacterAnimations;
 
 		private IGameDataProvider _gameDataProvider;
-		private float _currentIdleTime = 0f;
+		private float _currentIdleTime;
 		private float _nextFlareTime = -1f;
 		private bool _processFlareAnimation = true;
 		private bool _playedFirstFlareAnim;
@@ -81,8 +81,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			if (_currentIdleTime > _nextFlareTime)
 			{
-				Debug.LogWarning("triggering flair animation");
-				
 				var minRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime;
 				var maxRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime;
 				

@@ -204,12 +204,11 @@
     -unity-text-align: middle-center;
 }
 
-.settings-radio-button-group > .unity-base-field__input {
+.settings-radio-button-group .unity-radio-button-group__container {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 79px;
-    flex-grow: 1;
+    height: 150px;
 }
 
 .settings-radio-button-group .unity-radio-button {

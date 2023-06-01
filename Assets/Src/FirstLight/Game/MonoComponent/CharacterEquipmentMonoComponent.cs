@@ -133,7 +133,8 @@ namespace FirstLight.Game.MonoComponent
 			
 			for (var i = 0; i < anchors.Length; i++)
 			{
-				DestroyImmediate(anchors[i].GetChild(0).gameObject);
+				anchors[i].GetChild(0).gameObject.SetActive(false);
+				Destroy(anchors[i].GetChild(0).gameObject);
 			}
 		}
 
@@ -153,7 +154,8 @@ namespace FirstLight.Game.MonoComponent
 			for (var i = 0; i < items.Count; i++)
 			{
 				_renderersContainerProxy.RemoveRenderersContainer(items[i].GetComponent<RenderersContainerMonoComponent>());
-				DestroyImmediate(items[i]);
+				items[i].SetActive(false);
+				Destroy(items[i]);
 			}
 
 			_equipment.Remove(slotType);

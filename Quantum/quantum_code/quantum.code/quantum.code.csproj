@@ -269,15 +269,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotCollectableBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotPositioningBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotMovementBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotRespawnBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotSafeAreaBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotShootingBehaviour.cs" />
-    <Compile Include="Systems\Bot\Behaviours\BotUnstuckingBehaviour.cs" />
-    <Compile Include="Systems\Bot\BotBehaviour.cs" />
-    <Compile Include="Systems\Bot\BotCharacterSystem.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
@@ -286,6 +277,7 @@
     <Compile Include="Systems\RaycastShotsSystem.cs" />
     <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
+    <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />

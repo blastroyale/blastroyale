@@ -27,6 +27,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			base.Awake();
 			
+			_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime / 2, 
+											_mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime / 2);
+			
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
 			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpenedMessage);
@@ -71,21 +74,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				return;
 			}
-
-			if (_nextFlareTime < 0)
-			{
-				var minRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime;
-				var maxRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime;
-				_nextFlareTime = Random.Range(minRange / 2, maxRange / 2);
-			}
-
+			
 			if (_currentIdleTime > _nextFlareTime)
 			{
-				var minRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime;
-				var maxRange = _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime;
-				
 				Animator.SetTrigger("flair");
-				_nextFlareTime = Random.Range(minRange, maxRange);
+				_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime, _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime);
 				_currentIdleTime = 0;
 			}
 

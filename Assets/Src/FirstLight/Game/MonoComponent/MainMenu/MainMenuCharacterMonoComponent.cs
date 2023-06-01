@@ -67,22 +67,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				{
 					_equipment.Add(_gameDataProvider.EquipmentDataProvider.Inventory[newId]);
 				}
-
-				return;
-			}
-			
-			if (updateType == ObservableUpdateType.Removed)
-			{
-				_characterViewComponent.UnequipItem(key);
-			
-				if (key == GameIdGroup.Weapon)
-				{
-					EquipDefault();
-				}
-			}
-			else if(updateType is ObservableUpdateType.Added or ObservableUpdateType.Updated)
-			{
-				await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[newId]);
 			}
 		}
 

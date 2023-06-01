@@ -12,6 +12,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct MainMenuCharacterAnimationConfig
 	{
+		public int FlareAnimMinPlaybackTime;
+		public int FlareAnimMaxPlaybackTime;
 		public string [] AnimationNames;
 	}
 	

@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
 		
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
-		private IGameServices _services;
+		protected IGameServices _services;
 		
 		private void OnValidate()
 		{
@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent
 			OnEditorValidate();
 		}
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
@@ -133,7 +133,8 @@ namespace FirstLight.Game.MonoComponent
 			
 			for (var i = 0; i < anchors.Length; i++)
 			{
-				DestroyImmediate(anchors[i].GetChild(0).gameObject);
+				anchors[i].GetChild(0).gameObject.SetActive(false);
+				Destroy(anchors[i].GetChild(0).gameObject);
 			}
 		}
 
@@ -153,7 +154,8 @@ namespace FirstLight.Game.MonoComponent
 			for (var i = 0; i < items.Count; i++)
 			{
 				_renderersContainerProxy.RemoveRenderersContainer(items[i].GetComponent<RenderersContainerMonoComponent>());
-				DestroyImmediate(items[i]);
+				items[i].SetActive(false);
+				Destroy(items[i]);
 			}
 
 			_equipment.Remove(slotType);

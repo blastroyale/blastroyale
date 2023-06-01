@@ -42,7 +42,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
 			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpened);
 			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
-			_services.MessageBrokerService.Subscribe<EquipmentSlotOpenedMessage>(OnEquipmentSlotOpened);
 		}
 
 		private void OnDestroy()

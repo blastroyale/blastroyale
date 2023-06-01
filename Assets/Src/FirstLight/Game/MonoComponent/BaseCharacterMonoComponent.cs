@@ -78,17 +78,7 @@ namespace FirstLight.Game.MonoComponent
 			cacheTransform.localRotation = Quaternion.identity;
 
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-
-			if (_equipment != null)
-			{
-				await _characterViewComponent.Init(_equipment);
-			}
 			
-			if (_equipment == null || !_equipment.Exists(equipment => equipment.IsWeapon()))
-			{
-				EquipDefault();
-			}
-
 			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);

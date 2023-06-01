@@ -12,8 +12,6 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		private static readonly FP SKYDIVE_FALL_SPEED = -FP._0_50 - FP._0_20;
-		private static readonly FP SKYDIVE_DIRECTION_MULT = FP._0;
 		
 		public struct PlayerCharacterFilter
 		{
@@ -235,18 +233,23 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var input = f.GetPlayerInput(filter.Player->Player);
-
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			// Do nothing when Skydiving as it handled via animation
+			if (bb->GetBoolean(f, Constants.IsSkydiving))
+			{
+				return;
+			}
+			
+			var input = f.GetPlayerInput(filter.Player->Player);
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-			var skyDiving = bb->GetBoolean(f, Constants.IsSkydiving);
+			
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
 			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
-			if (direction != FPVector2.Zero || skyDiving) 
+			if (direction != FPVector2.Zero) 
 			{
 				movedirection = direction;
 			}
@@ -303,12 +306,7 @@ namespace Quantum.Systems
 				velocity.Z *= moveSpeed;
 			}
 
-			if (skyDiving)
-			{
-				maxSpeed *= SKYDIVE_DIRECTION_MULT;
-				velocity.Y = SKYDIVE_FALL_SPEED;
-			}
-			else if(shooting)
+			if(shooting)
 			{
 				maxSpeed *= weaponConfig.AimingMovementSpeed;
 			}

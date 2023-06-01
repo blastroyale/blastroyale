@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MainMenuCharacterAnimationConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - AnimationNames:
+  - FlareAnimMinPlaybackTime: 10
+    FlareAnimMaxPlaybackTime: 20
+    AnimationNames:
     - special
     - spawn
     - equp_body

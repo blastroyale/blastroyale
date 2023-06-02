@@ -28,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private UnityInputScreenControl _special0PressedInput;
 		[SerializeField] private UnityInputScreenControl _special1PressedInput;
 		[SerializeField] private UnityInputScreenControl _specialAimInput;
+		[SerializeField] private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
 
@@ -76,6 +77,7 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial0Pressed += _special0PressedInput.SendValueToControl;
 			_specialButtonsView.OnSpecial1Pressed += _special1PressedInput.SendValueToControl;
 			_specialButtonsView.OnDrag += _specialAimInput.SendValueToControl;
+			_specialButtonsView.OnCancel += _specialCancelInput.SendValueToControl;
 			
 			HideSkydivingElements(true);
 		}

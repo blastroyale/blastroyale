@@ -55,6 +55,42 @@
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
 
+.special-button__cancel-circle {
+    position: absolute;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-color: rgba(189, 84, 84, 0.57);
+    border-right-color: rgba(189, 84, 84, 0.57);
+    border-top-color: rgba(189, 84, 84, 0.57);
+    border-bottom-color: rgba(189, 84, 84, 0.57);
+    border-left-width: var(--match-button-outline-width);
+    border-right-width: var(--match-button-outline-width);
+    border-top-width: var(--match-button-outline-width);
+    border-bottom-width: var(--match-button-outline-width);
+    width: 140px;
+    height: 140px;
+    opacity: 0;
+    transition-property: width, height, opacity;
+    transition-duration: 0.2s, 0.2s, 0.2s;
+    transition-timing-function: ease-out-cubic, ease-out-cubic, ease-out-cubic;
+}
+
+.special-button--pressed .special-button__cancel-circle {
+    width: 500px;
+    height: 500px;
+    opacity: 1;
+}
+
+.special-button__cancel-icon {
+    position: absolute;
+    visibility: hidden;
+    background-image: var(--sprite-match__icon-x-red);
+    width: 46px;
+    height: 46px;
+}
+
 .special-button__container {
     background-color: var(--match-button-background-color);
     border-left-color: var(--match-button-outline-color);
@@ -989,7 +1025,6 @@
 }
 
 .player-status-bar--friendly {
-    
 }
 
 .player-status-bar__level {
@@ -1045,7 +1080,7 @@
 }
 
 .player-status-bar--friendly .player-status-bar__name {
-    color: #22D3E8;
+    color: rgb(34, 211, 232);
 }
 
 .player-status-bar__ammo-holder {

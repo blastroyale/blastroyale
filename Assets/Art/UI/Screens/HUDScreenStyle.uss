@@ -87,8 +87,8 @@
     position: absolute;
     visibility: hidden;
     background-image: var(--sprite-match__icon-x-red);
-    width: 46px;
-    height: 46px;
+    width: 60px;
+    height: 60px;
 }
 
 .special-button__container {

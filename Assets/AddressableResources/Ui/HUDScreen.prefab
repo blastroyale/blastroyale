@@ -83,6 +83,7 @@ Transform:
   - {fileID: 5600458129209392988}
   - {fileID: 2769263423712730311}
   - {fileID: 4381834408191802946}
+  - {fileID: 2945258866883506457}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -125,6 +126,7 @@ MonoBehaviour:
   _special0PressedInput: {fileID: 5606687549120011007}
   _special1PressedInput: {fileID: 2611357786635388943}
   _specialAimInput: {fileID: 3116711909838201759}
+  _specialCancelInput: {fileID: 700093303692945992}
 --- !u!1 &2734503789140663367
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +307,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlPath: <OnScreenControlsDevice>/LeftJoystickDirection
+--- !u!1 &5016754373752864013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2945258866883506457}
+  - component: {fileID: 700093303692945992}
+  m_Layer: 0
+  m_Name: InputSpecialCancel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2945258866883506457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5016754373752864013}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9107933737851029003}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700093303692945992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5016754373752864013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b88c9d03cb42d385f9310e1c063f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlPath: <OnScreenControlsDevice>/CancelPointerDown
 --- !u!1 &5205206708031878591
 GameObject:
   m_ObjectHideFlags: 0

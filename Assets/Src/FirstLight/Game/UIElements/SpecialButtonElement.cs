@@ -75,7 +75,7 @@ namespace FirstLight.Game.UIElements
 			_stick.Add(_icon = new VisualElement {name = "icon"});
 			_icon.AddToClassList(USS_ICON);
 
-			Add(_cancelIcon = new VisualElement {name = "cancel-icon"});
+			_stick.Add(_cancelIcon = new VisualElement {name = "cancel-icon"});
 			_cancelIcon.AddToClassList(USS_CANCEL_ICON);
 
 			_container.Add(_cooldown = new VisualElement {name = "cooldown"});

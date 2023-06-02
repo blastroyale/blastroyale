@@ -20,15 +20,15 @@ namespace FirstLight.Game.Presenters
 		
 		private const string USS_SKYDIVING = "skydiving";
 
-		[SerializeField] private UnityInputScreenControl _moveDirectionJoystickInput;
-		[SerializeField] private UnityInputScreenControl _moveDownJoystickInput;
-		[SerializeField] private UnityInputScreenControl _aimDirectionJoystickInput;
-		[SerializeField] private UnityInputScreenControl _aimDownJoystickInput;
-		[SerializeField] private UnityInputScreenControl _weaponSwitchInput;
-		[SerializeField] private UnityInputScreenControl _special0PressedInput;
-		[SerializeField] private UnityInputScreenControl _special1PressedInput;
-		[SerializeField] private UnityInputScreenControl _specialAimInput;
-		[SerializeField] private UnityInputScreenControl _specialCancelInput;
+		[SerializeField, Required] private UnityInputScreenControl _moveDirectionJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _moveDownJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _aimDirectionJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _aimDownJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _weaponSwitchInput;
+		[SerializeField, Required] private UnityInputScreenControl _special0PressedInput;
+		[SerializeField, Required] private UnityInputScreenControl _special1PressedInput;
+		[SerializeField, Required] private UnityInputScreenControl _specialAimInput;
+		[SerializeField, Required] private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
 

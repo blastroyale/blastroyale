@@ -76,6 +76,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnInit(game);
 			
+			#if DEBUG_BOTS
+				AddDebugCylinder();
+			#endif
 			var frame = game.Frames.Verified;
 
 			//re enable renderers after the object has been properly placed
@@ -221,6 +224,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
+		}
+		
+		private void AddDebugCylinder()
+		{
+			var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			Destroy(obj.GetComponent<CapsuleCollider>());
+			obj.transform.parent = gameObject.transform;
+			obj.transform.localScale = new Vector3(1, 10, 1);
+			obj.transform.localPosition = new Vector3(0, 10, 0);
+			
+			var rend = obj.GetComponent<Renderer> ();
+			rend.material = new Material(Shader.Find("Unlit/Color"));
+			rend.material.SetColor("_Color", Color.magenta);
 		}
 
 		private struct CollectingData

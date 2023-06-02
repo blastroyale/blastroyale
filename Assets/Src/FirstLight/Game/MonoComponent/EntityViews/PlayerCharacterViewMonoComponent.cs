@@ -16,8 +16,6 @@ using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
-	
-	
 	/// <inheritdoc/>
 	/// <remarks>
 	/// Responsible to play and act on Player's visual feedback. From animations to triggered VFX
@@ -36,12 +34,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// This is only used for buildings.
 		/// </summary>
 		[System.Obsolete] public PlayerBuildingVisibility BuildingVisibility;
-		
+
 		private Vector3 _lastPosition;
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
-		
+
 		/// <summary>
 		/// Indicates if this is the local player
 		/// </summary>
@@ -61,8 +59,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			base.OnAwake();
-			
-			BuildingVisibility= new();
+
+			BuildingVisibility = new();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -165,7 +163,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-
+			#if DEBUG_BOTS
+				AddDebugCylinder();
+			#endif
 			var frame = game.Frames.Verified;
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
@@ -557,6 +557,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetBool(Bools.Flying, false);
 			
 			_characterView.DestroyItem(GameIdGroup.Glider);
+		}
+
+		private void AddDebugCylinder()
+		{
+			var obj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			DestroyImmediate(obj.GetComponent<CapsuleCollider>());
+			obj.transform.parent = gameObject.transform;
+			obj.transform.localScale = new Vector3(2, 30, 2);
+			obj.transform.localPosition = new Vector3(0, 30, 0);
+
+			var rend = obj.GetComponent<Renderer>();
+			rend.material = new Material(Shader.Find("Unlit/Color"));
+			rend.material.SetColor("_Color", Random.ColorHSV(0f, 1, 1, 1, 0.5f, 1));
 		}
 
 		/// <summary>www

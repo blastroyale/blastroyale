@@ -3716,19 +3716,19 @@ namespace Quantum {
     [FieldOffset(0)]
     public QBoolean AboveGroundIllegally;
     [FieldOffset(4)]
-    public QBoolean InCircle;
+    public QBoolean TakingCircleDamage;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 439;
         hash = hash * 31 + AboveGroundIllegally.GetHashCode();
-        hash = hash * 31 + InCircle.GetHashCode();
+        hash = hash * 31 + TakingCircleDamage.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AlivePlayerCharacter*)ptr;
         QBoolean.Serialize(&p->AboveGroundIllegally, serializer);
-        QBoolean.Serialize(&p->InCircle, serializer);
+        QBoolean.Serialize(&p->TakingCircleDamage, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3839,15 +3839,15 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 208;
+    public const Int32 SIZE = 216;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(36)]
-    public UInt32 AccuracySpreadAngle;
-    [FieldOffset(0)]
-    public BotBehaviourType BehaviourType;
     [FieldOffset(48)]
-    public EntityRef BlacklistedMoveTarget;
-    [FieldOffset(20)]
+    public UInt32 AccuracySpreadAngle;
+    [FieldOffset(4)]
+    public BotBehaviourType BehaviourType;
+    [FieldOffset(0)]
+    public Byte BotIndex;
+    [FieldOffset(24)]
     public Int32 BotNameIndex;
     [FieldOffset(80)]
     public FP ChanceToUseSpecial;
@@ -3857,15 +3857,18 @@ namespace Quantum {
     public FP DamageDoneMultiplier;
     [FieldOffset(104)]
     public FP DamageTakenMultiplier;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public GameId DeathMarker;
     [FieldOffset(112)]
     public FP DecisionInterval;
-    [FieldOffset(12)]
+    [FieldOffset(16)]
     public GameId Glider;
-    [FieldOffset(40)]
+    [FieldOffset(44)]
+    [FramePrinter.PtrQHashSetAttribute(typeof(EntityRef))]
+    private Quantum.Ptr InvalidMoveTargetsPtr;
+    [FieldOffset(52)]
     public UInt32 LoadoutGearNumber;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public EquipmentRarity LoadoutRarity;
     [FieldOffset(120)]
     public FP LookForTargetsToShootAtInterval;
@@ -3883,28 +3886,40 @@ namespace Quantum {
     public FP NextLookForTargetsToShootAtTime;
     [FieldOffset(64)]
     public EntityRef RandomTeammate;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     public GameId Skin;
-    [FieldOffset(28)]
+    [FieldOffset(32)]
     public QBoolean SpawnWithPlayer;
     [FieldOffset(168)]
     public FP SpecialAimingDeviation;
-    [FieldOffset(32)]
+    [FieldOffset(36)]
     public QBoolean SpeedResetAfterLanding;
-    [FieldOffset(184)]
+    [FieldOffset(192)]
     public FPVector3 StuckDetectionPosition;
     [FieldOffset(72)]
     public EntityRef Target;
-    [FieldOffset(24)]
+    [FieldOffset(28)]
     public Int32 TeamSize;
     [FieldOffset(176)]
+    public FP TimeStartRunningFromCircle;
+    [FieldOffset(184)]
     public FP VisionRangeSqr;
+    [FieldOffset(40)]
+    public QBoolean WanderDirection;
+    public QHashSetPtr<EntityRef> InvalidMoveTargets {
+      get {
+        return new QHashSetPtr<EntityRef>(InvalidMoveTargetsPtr);
+      }
+      set {
+        InvalidMoveTargetsPtr = value.Ptr;
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 449;
         hash = hash * 31 + AccuracySpreadAngle.GetHashCode();
         hash = hash * 31 + (Int32)BehaviourType;
-        hash = hash * 31 + BlacklistedMoveTarget.GetHashCode();
+        hash = hash * 31 + BotIndex.GetHashCode();
         hash = hash * 31 + BotNameIndex.GetHashCode();
         hash = hash * 31 + ChanceToUseSpecial.GetHashCode();
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
@@ -3913,6 +3928,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
         hash = hash * 31 + (Int32)Glider;
+        hash = hash * 31 + InvalidMoveTargetsPtr.GetHashCode();
         hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + (Int32)LoadoutRarity;
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
@@ -3930,12 +3946,22 @@ namespace Quantum {
         hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
         hash = hash * 31 + TeamSize.GetHashCode();
+        hash = hash * 31 + TimeStartRunningFromCircle.GetHashCode();
         hash = hash * 31 + VisionRangeSqr.GetHashCode();
+        hash = hash * 31 + WanderDirection.GetHashCode();
         return hash;
       }
     }
+    public void ClearPointers(Frame f, EntityRef entity) {
+      InvalidMoveTargetsPtr = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (BotCharacter*)ptr;
+      p->ClearPointers((Frame)frame, entity);
+    }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (BotCharacter*)ptr;
+        serializer.Stream.Serialize(&p->BotIndex);
         serializer.Stream.Serialize((Int32*)&p->BehaviourType);
         serializer.Stream.Serialize((Int32*)&p->LoadoutRarity);
         serializer.Stream.Serialize((Int32*)&p->DeathMarker);
@@ -3945,9 +3971,10 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->TeamSize);
         QBoolean.Serialize(&p->SpawnWithPlayer, serializer);
         QBoolean.Serialize(&p->SpeedResetAfterLanding, serializer);
+        QBoolean.Serialize(&p->WanderDirection, serializer);
+        QHashSet.Serialize(p->InvalidMoveTargets, &p->InvalidMoveTargetsPtr, serializer, StaticDelegates.SerializeEntityRef);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
-        EntityRef.Serialize(&p->BlacklistedMoveTarget, serializer);
         EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->RandomTeammate, serializer);
         EntityRef.Serialize(&p->Target, serializer);
@@ -3963,6 +3990,7 @@ namespace Quantum {
         FP.Serialize(&p->NextDecisionTime, serializer);
         FP.Serialize(&p->NextLookForTargetsToShootAtTime, serializer);
         FP.Serialize(&p->SpecialAimingDeviation, serializer);
+        FP.Serialize(&p->TimeStartRunningFromCircle, serializer);
         FP.Serialize(&p->VisionRangeSqr, serializer);
         FPVector3.Serialize(&p->StuckDetectionPosition, serializer);
     }
@@ -5277,7 +5305,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.AirDropSpawner>(Quantum.AirDropSpawner.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.AlivePlayerCharacter>(Quantum.AlivePlayerCharacter.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.BTAgent>(Quantum.BTAgent.Serialize, null, Quantum.BTAgent.OnRemoved, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.BotCharacter>(Quantum.BotCharacter.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.BotCharacter>(Quantum.BotCharacter.Serialize, null, Quantum.BotCharacter.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Chest>(Quantum.Chest.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.ChestOverride>(Quantum.ChestOverride.Serialize, null, Quantum.ChestOverride.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Collectable>(Quantum.Collectable.Serialize, null, null, ComponentFlags.None);
@@ -9376,6 +9404,7 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeByte;
     public static FrameSerializer.Delegate SerializeFP;
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
+    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeGameId;
     public static FrameSerializer.Delegate SerializeBTAgent;
     public static FrameSerializer.Delegate SerializeEquipment;
@@ -9383,7 +9412,6 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeWeaponSlot;
     public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializeModifier;
-    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeStatData;
     public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeEntityPair;
@@ -9396,6 +9424,7 @@ namespace Quantum {
       SerializeByte = (v, s) => {{ s.Stream.Serialize((Byte*)v); }};
       SerializeFP = FP.Serialize;
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
+      SerializeEntityRef = EntityRef.Serialize;
       SerializeGameId = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeBTAgent = Quantum.BTAgent.Serialize;
       SerializeEquipment = Quantum.Equipment.Serialize;
@@ -9403,7 +9432,6 @@ namespace Quantum {
       SerializeWeaponSlot = Quantum.WeaponSlot.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeModifier = Quantum.Modifier.Serialize;
-      SerializeEntityRef = EntityRef.Serialize;
       SerializeStatData = Quantum.StatData.Serialize;
       SerializeSpecial = Quantum.Special.Serialize;
       SerializeEntityPair = Quantum.EntityPair.Serialize;
@@ -10127,7 +10155,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(AlivePlayerCharacter))]
   public sealed unsafe partial class AlivePlayerCharacter_Prototype : ComponentPrototype<AlivePlayerCharacter> {
-    public QBoolean InCircle;
+    public QBoolean TakingCircleDamage;
     public QBoolean AboveGroundIllegally;
     partial void MaterializeUser(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -10137,7 +10165,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context) {
       result.AboveGroundIllegally = this.AboveGroundIllegally;
-      result.InCircle = this.InCircle;
+      result.TakingCircleDamage = this.TakingCircleDamage;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -10315,6 +10343,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(BotCharacter))]
   public sealed unsafe partial class BotCharacter_Prototype : ComponentPrototype<BotCharacter> {
+    public Byte BotIndex;
     public BotBehaviourType_Prototype BehaviourType;
     public Int32 BotNameIndex;
     public GameId_Prototype Skin;
@@ -10330,7 +10359,6 @@ namespace Quantum.Prototypes {
     public FPVector3 StuckDetectionPosition;
     public Int32 TeamSize;
     public MapEntityId RandomTeammate;
-    public MapEntityId BlacklistedMoveTarget;
     public QBoolean SpeedResetAfterLanding;
     public FP VisionRangeSqr;
     public UInt32 AccuracySpreadAngle;
@@ -10344,6 +10372,10 @@ namespace Quantum.Prototypes {
     public QBoolean SpawnWithPlayer;
     public FP DamageTakenMultiplier;
     public FP DamageDoneMultiplier;
+    public QBoolean WanderDirection;
+    [DynamicCollectionAttribute()]
+    public MapEntityId[] InvalidMoveTargets = {};
+    public FP TimeStartRunningFromCircle;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -10353,7 +10385,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context) {
       result.AccuracySpreadAngle = this.AccuracySpreadAngle;
       result.BehaviourType = this.BehaviourType;
-      PrototypeValidator.FindMapEntity(this.BlacklistedMoveTarget, in context, out result.BlacklistedMoveTarget);
+      result.BotIndex = this.BotIndex;
       result.BotNameIndex = this.BotNameIndex;
       result.ChanceToUseSpecial = this.ChanceToUseSpecial;
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
@@ -10362,6 +10394,17 @@ namespace Quantum.Prototypes {
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
       result.Glider = this.Glider;
+      if (this.InvalidMoveTargets.Length == 0) {
+        result.InvalidMoveTargets = default;
+      } else {
+        var hashSet = frame.AllocateHashSet(result.InvalidMoveTargets, this.InvalidMoveTargets.Length);
+        for (int i = 0; i < this.InvalidMoveTargets.Length; ++i) {
+          EntityRef tmp = default;
+          PrototypeValidator.FindMapEntity(this.InvalidMoveTargets[i], in context, out tmp);
+          hashSet.Add(tmp);
+        }
+        result.InvalidMoveTargets = hashSet;
+      }
       result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LoadoutRarity = this.LoadoutRarity;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
@@ -10379,7 +10422,9 @@ namespace Quantum.Prototypes {
       result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
       result.TeamSize = this.TeamSize;
+      result.TimeStartRunningFromCircle = this.TimeStartRunningFromCircle;
       result.VisionRangeSqr = this.VisionRangeSqr;
+      result.WanderDirection = this.WanderDirection;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

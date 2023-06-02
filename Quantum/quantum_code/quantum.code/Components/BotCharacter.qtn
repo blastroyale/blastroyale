@@ -9,6 +9,7 @@ enum BotBehaviourType
 
 component BotCharacter
 {
+    Byte BotIndex;
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;
@@ -26,7 +27,6 @@ component BotCharacter
 	FPVector3 StuckDetectionPosition;
 	Int32 TeamSize;
 	entity_ref RandomTeammate;
-	entity_ref BlacklistedMoveTarget;
 	bool SpeedResetAfterLanding;
 	
 	// How far the bot can see (square value)
@@ -102,6 +102,15 @@ component BotCharacter
 	
 	FP DamageTakenMultiplier;
 	FP DamageDoneMultiplier;
+	
+	// Direction used in the wander behaviour, it changes if the direction is blocked
+	bool WanderDirection;
+	
+	// Targets we tried to move the bot to, but pathfinding failed
+	hash_set<EntityRef> InvalidMoveTargets;
+	
+	FP TimeStartRunningFromCircle;
+	
 }
 
 synced event OnDummyCharacterKilled

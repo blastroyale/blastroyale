@@ -766,6 +766,7 @@ MonoBehaviour:
   EntityView: {fileID: 9100407106362044459}
   _healthBarAnchor: {fileID: 6195588820050874286}
   _emojiAnchor: {fileID: 8808694194117572932}
+  _shadowBlob: {fileID: 8884971393132718742}
 --- !u!114 &672166898487096628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +844,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+--- !u!1 &8884971393132718742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6650924514108190407, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+  m_PrefabInstance: {fileID: 2810552878819034193}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8884971393132718743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}

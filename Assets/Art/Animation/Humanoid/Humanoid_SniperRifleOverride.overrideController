@@ -8,4 +8,6 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Humanoid_SniperRifleOverride
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 03f56790a6ec245d28d1d82a24d92433, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 695bee6e38b37ea49b0f95d87fe6a3a7, type: 2}

@@ -72,18 +72,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
 		{
-			if (!IsLoaded)
-			{
-				return;
-			}
-			if (msg.SlotsUpdated.Count == 1)
-			{
-				_animator.SetTrigger(msg.SlotsUpdated.Keys.ToArray()[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
-			}
-			else if (msg.SlotsUpdated.Count > 1)
-			{
-				_animator.SetTrigger(_victoryHash);
-			}
 		}
 
 		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)

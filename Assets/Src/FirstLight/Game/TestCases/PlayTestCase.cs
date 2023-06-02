@@ -12,6 +12,8 @@ namespace FirstLight.Game.TestCases
 		protected TestInstaller _installer;
 		protected FLGTestRunner Runner { get; set; }
 
+		// If true doesn't quit game after finished
+		public virtual bool IsAutomation => false;
 
 		public void SetInstaller(TestInstaller installer)
 		{
@@ -27,6 +29,7 @@ namespace FirstLight.Game.TestCases
 		protected EquipmentUIHelper UIEquipment => _installer.Resolve<EquipmentUIHelper>();
 		protected GameUIHelper UIGame => _installer.Resolve<GameUIHelper>();
 		protected HomeUIHelper UIHome => _installer.Resolve<HomeUIHelper>();
+		protected GamemodeUIHelper UIGamemode => _installer.Resolve<GamemodeUIHelper>();
 		protected PlayerConfigsHelper PlayerConfigs => _installer.Resolve<PlayerConfigsHelper>();
 
 

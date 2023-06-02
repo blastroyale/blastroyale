@@ -50,6 +50,11 @@ namespace FirstLight.Game.Utils
 		/// Record quantum input and save on simulation end
 		/// </summary>
 		public bool RecordQuantumInput = false;
+		
+		/// <summary>
+		/// If automatically starts the test game mode after the game boot up
+		/// </summary>
+		public bool StartTestGameAutomatically = false;
 	}
 	
 	

@@ -7,6 +7,7 @@ namespace FirstLight.Editor.EditorTools
 	[InitializeOnLoad]
 	public static class FlagsEditorMenu
 	{
+		private const string LoadTestGame = "FLG/Flags/Start Test Game Automatically";
 		private const string DisableTutorial = "FLG/Flags/Disable Tutorial";
 		private const string ForceHasNfts = "FLG/Flags/Force Has NFTs";
 		private const string RecordInput = "FLG/Flags/Record Input";
@@ -21,6 +22,7 @@ namespace FirstLight.Editor.EditorTools
 				Menu.SetChecked(ForceHasNfts, IsForceHasNfts);
 				Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked);
 				Menu.SetChecked(RecordInput, IsRecordInput);
+				Menu.SetChecked(LoadTestGame, IsLoadTestGame);
 			};
 		}
 
@@ -53,13 +55,23 @@ namespace FirstLight.Editor.EditorTools
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
-		
+
 		public static bool IsRecordInput
 		{
 			get => FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
 			set
 			{
 				FeatureFlags.GetLocalConfiguration().RecordQuantumInput = value;
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+		public static bool IsLoadTestGame
+		{
+			get => FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically = value;
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -85,13 +97,20 @@ namespace FirstLight.Editor.EditorTools
 			IsIgnoreEquipmentRequirementForRanked = !IsIgnoreEquipmentRequirementForRanked;
 			EditorApplication.delayCall += () => { Menu.SetChecked(IgnoreEquipmentRequirementForRanked, IsIgnoreEquipmentRequirementForRanked); };
 		}
-		
-		
+
+
 		[MenuItem(RecordInput)]
 		private static void ToggleRecordInput()
 		{
 			IsRecordInput = !IsRecordInput;
 			EditorApplication.delayCall += () => { Menu.SetChecked(RecordInput, IsRecordInput); };
+		}
+
+		[MenuItem(LoadTestGame)]
+		private static void ToggleStartTestGame()
+		{
+			IsLoadTestGame = !IsLoadTestGame;
+			EditorApplication.delayCall += () => { Menu.SetChecked(LoadTestGame, IsLoadTestGame); };
 		}
 	}
 }

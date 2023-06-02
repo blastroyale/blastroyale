@@ -79,9 +79,9 @@ namespace FirstLight.Game.TestCases
 			MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_result",
 				new Dictionary<string, object>()
 				{
-					{ "test_result", success ? "success" : "error" },
-					{ "test_message", message.Length > 60 ? message.Substring(0, 60) : message },
-					{ "exceptions", _errors.Count },
+					{"test_result", success ? "success" : "error"},
+					{"test_message", message.Length > 60 ? message.Substring(0, 60) : message},
+					{"exceptions", _errors.Count},
 				});
 		}
 
@@ -127,7 +127,7 @@ namespace FirstLight.Game.TestCases
 				MainInstaller.ResolveServices().AnalyticsService.LogEvent("test_started",
 					new Dictionary<string, object>()
 					{
-						{ "name", _runningTest.GetType().Name },
+						{"name", _runningTest.GetType().Name},
 					});
 			};
 			Application.logMessageReceived += OnLogReceived;
@@ -145,9 +145,9 @@ namespace FirstLight.Game.TestCases
 			FLog.Info("Calling " + testCase.GetType().Name + ".Run()");
 
 			yield return testCase.Run();
-			if (onTests)
+			if (onTests || testCase.IsAutomation)
 			{
-				// Tests have to leave by themselfs
+				// Tests have to leave by themselves
 				yield break;
 			}
 
@@ -190,6 +190,7 @@ namespace FirstLight.Game.TestCases
 			testInstaller.Bind(new EquipmentUIHelper(this, uiHelper));
 			testInstaller.Bind(new GameUIHelper(this, uiHelper));
 			testInstaller.Bind(new HomeUIHelper(this, uiHelper));
+			testInstaller.Bind(new GamemodeUIHelper(this, uiHelper));
 			return testInstaller;
 		}
 
@@ -212,6 +213,16 @@ namespace FirstLight.Game.TestCases
 		public string? GetRunningTestName()
 		{
 			return _runningTest?.GetType().Name;
+		}
+
+		public void CheckAutomations()
+		{
+#if UNITY_EDITOR
+			if (FeatureFlags.GetLocalConfiguration().StartTestGameAutomatically)
+			{
+				RunInsideCoroutine(new JoinTestRoom());
+			}
+#endif
 		}
 	}
 }

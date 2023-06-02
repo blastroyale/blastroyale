@@ -13,9 +13,9 @@ namespace FirstLight.Game.TestCases.Helpers
 			_uiHelper = uiHelper;
 		}
 
-		public IEnumerator WaitHomePresenter(float timeout = 30)
+		public IEnumerator WaitHomePresenter(float timeout = 30,float waitAfterCreation = 0.5f)
 		{
-			yield return _uiHelper.WaitForPresenter<HomeScreenPresenter>(0.5f, timeout);
+			yield return _uiHelper.WaitForPresenter<HomeScreenPresenter>(waitAfterCreation, timeout);
 		}
 
 		public IEnumerator ClickBattlePassButton()
@@ -36,5 +36,13 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return WaitHomePresenter();
 			yield return _uiHelper.TouchOnElementByName("PlayButton");
 		}
+		
+		public IEnumerator ClickGameMode()
+		{
+			yield return WaitHomePresenter();
+			yield return _uiHelper.TouchOnElementByName("GameModeButton");
+		}
+		
+		
 	}
 }

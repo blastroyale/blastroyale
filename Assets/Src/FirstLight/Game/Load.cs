@@ -43,6 +43,8 @@ namespace FirstLight.Game
 		{
 			FLog.Init();
 			FLGTestRunner.Instance.CheckFirebaseRun();
+			FLGTestRunner.Instance.CheckAutomations();
+			
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
 			var dataService = new DataService();

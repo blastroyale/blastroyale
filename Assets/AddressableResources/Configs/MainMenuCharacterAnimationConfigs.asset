@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - FlareAnimMinPlaybackTime: 10
-    FlareAnimMaxPlaybackTime: 20
+    FlareAnimMaxPlaybackTime: 25
     AnimationNames:
     - special
     - spawn

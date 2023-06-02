@@ -23,7 +23,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
-			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 			_services.MessageBrokerService.Subscribe<DataReinitializedMessage>(OnDataReinitializedMessage);
 		}
 
@@ -69,11 +68,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				}
 			}
 		}
-
-		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
-		{
-		}
-
+		
 		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;

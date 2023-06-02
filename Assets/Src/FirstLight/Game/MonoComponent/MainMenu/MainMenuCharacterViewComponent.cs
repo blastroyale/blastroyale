@@ -80,6 +80,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			{
 				Animator.SetTrigger(_flairHash);
 				_nextFlareTime = Random.Range(_mainMenuCharacterAnimations.Configs[0].FlareAnimMinPlaybackTime, _mainMenuCharacterAnimations.Configs[0].FlareAnimMaxPlaybackTime);
+				
 				_currentIdleTime = 0;
 			}
 

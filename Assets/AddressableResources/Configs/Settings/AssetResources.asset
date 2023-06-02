@@ -49,6 +49,11 @@ MonoBehaviour:
         Id:
           Value: 187962833955632473
       Address: Maps/BRGenesis_NavMesh_data.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/SmallBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 193719547299099333
+      Address: QuantumAssets/Projectiles/SmallBullet.prefab[SmallBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/Collectables/ConsumablePickup|EntityPrototype
       AssetRef:
         Id:
@@ -104,6 +109,11 @@ MonoBehaviour:
         Id:
           Value: 376634616520152049
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckIntDecision_5]
+    - Path: AddressableResources/QuantumAssets/Projectiles/FireExplosionHit|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 382184530423860433
+      Address: QuantumAssets/Projectiles/FireExplosionHit.prefab[FireExplosionHitEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboard
       AssetRef:
         Id:
@@ -239,6 +249,11 @@ MonoBehaviour:
         Id:
           Value: 735283581775416184
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TrueDecision_48]
+    - Path: AddressableResources/QuantumAssets/Projectiles/FireExplosionHit|EntityView
+      AssetRef:
+        Id:
+          Value: 737112216968780775
+      Address: QuantumAssets/Projectiles/FireExplosionHit.prefab[FireExplosionHitEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
       AssetRef:
         Id:
@@ -459,11 +474,21 @@ MonoBehaviour:
         Id:
           Value: 1683172728059604911
       Address: Maps/SmallWilderness.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/SlimBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1705595393471409306
+      Address: QuantumAssets/Projectiles/SlimBullet.prefab[SlimBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_42
       AssetRef:
         Id:
           Value: 1708266808066318151
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TrueDecision_42]
+    - Path: AddressableResources/QuantumAssets/Projectiles/HammerHit|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1722351953338325886
+      Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityPrototype]
     - Path: AddressableResources/Maps/FloodCity_NavMesh
       AssetRef:
         Id:
@@ -509,6 +534,11 @@ MonoBehaviour:
         Id:
           Value: 1937396995285773716
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFPDecision_9]
+    - Path: AddressableResources/QuantumAssets/Projectiles/BigBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 1946984755645156478
+      Address: QuantumAssets/Projectiles/BigBullet.prefab[BigBulletEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_4
       AssetRef:
         Id:
@@ -599,6 +629,11 @@ MonoBehaviour:
         Id:
           Value: 2194276554936782103
       Address: QuantumAssets/Spawners/PlayerSpawner.prefab[PlayerSpawnerEntityPrototype]
+    - Path: AddressableResources/QuantumAssets/Projectiles/SlimBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 2278935987200466095
+      Address: QuantumAssets/Projectiles/SlimBullet.prefab[SlimBulletEntityView]
     - Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityPrototype
       AssetRef:
         Id:
@@ -706,6 +741,11 @@ MonoBehaviour:
         Id:
           Value: 3005366737582492223
       Address: Maps/District_NavMesh_data.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/SmallBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 3017552994801559584
+      Address: QuantumAssets/Projectiles/SmallBullet.prefab[SmallBulletEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveDrop_2
       AssetRef:
         Id:
@@ -756,6 +796,11 @@ MonoBehaviour:
         Id:
           Value: 3137482318558404872
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TrueDecision_49]
+    - Path: AddressableResources/QuantumAssets/Projectiles/BigBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 3151177946438730648
+      Address: QuantumAssets/Projectiles/BigBullet.prefab[BigBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TryReload_7
       AssetRef:
         Id:
@@ -792,6 +837,11 @@ MonoBehaviour:
         Id:
           Value: 3321959121446098905
       Address: Maps/BRGenesis_NavMesh.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/HammerHit|EntityView
+      AssetRef:
+        Id:
+          Value: 3351158279772585640
+      Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_37
       AssetRef:
         Id:
@@ -1065,4 +1115,9 @@ MonoBehaviour:
   AssetBundlesGroup:
     _resources: []
   ResourcesGroup:
-    _resources: []
+    _resources:
+    - Path: AddressableResources/NestedAssetType|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 145708689832824626
+      ResourcePath: NestedAssetType

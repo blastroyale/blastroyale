@@ -34,7 +34,7 @@ MonoBehaviour:
           Value: 1722351953338325886
       BulletHitPrototype:
         Id:
-          Value: 0
+          Value: 3151177946438730648
       HitType: 0
       MagazineSize: -1
       ReloadTime:

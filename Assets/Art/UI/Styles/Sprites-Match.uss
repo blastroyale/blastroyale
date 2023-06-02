@@ -226,7 +226,7 @@
 
 .sprite-match__icon-players-alive {
     background-image: var(--sprite-match__icon-players-alive);
-    width: 44px;
+    width: 34px;
     height: 48px;
 }
 

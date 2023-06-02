@@ -78,6 +78,14 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/// <summary>
+		/// Sets the home button visible or invisible.
+		/// </summary>
+		public void SetHomeVisible(bool vis)
+		{
+			_home.SetVisibility(vis);
+		}
+
+		/// <summary>
 		/// Sets the title and optional subtitle of the header element (should be already localized).
 		/// </summary>
 		public void SetTitle(string title, string subtitle = "")

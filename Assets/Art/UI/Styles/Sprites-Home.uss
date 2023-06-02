@@ -88,7 +88,7 @@
     --sprite-home__character-femaleassassin: url('/Assets/Art/UI/Sprites/Home/character-femaleassassin.png');
     --sprite-home__character-femalecorpos: url('/Assets/Art/UI/Sprites/Home/character-femalecorpos.png');
     --sprite-home__character-femalepunk: url('/Assets/Art/UI/Sprites/Home/character-femalepunk.png');
-    --sprite-home__character-femalesuperstar.png: url('/Assets/Art/UI/Sprites/Home/character-femalesuperstar.png.png');
+    --sprite-home__character-femalesuperstar: url('/Assets/Art/UI/Sprites/Home/character-femalesuperstar.png');
     --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
     --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
     --sprite-home__character-maleassassin: url('/Assets/Art/UI/Sprites/Home/character-maleassassin.png');
@@ -666,10 +666,10 @@
     height: 256px;
 }
 
-.sprite-home__character-femalesuperstar.png {
-    background-image: var(--sprite-home__character-femalesuperstar.png);
-    width: 324px;
-    height: 324px;
+.sprite-home__character-femalesuperstar {
+    background-image: var(--sprite-home__character-femalesuperstar);
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__character-male01avatar {

@@ -29,7 +29,12 @@ namespace FirstLight.Editor.SheetImporters
 				configs.Add(DeserializeAsset(row, assetConfigs));
 			}
 
-			scriptableObject.Configs = configs;
+			AssignNewConfigs(configs, scriptableObject);
+		}
+
+		public virtual void AssignNewConfigs(List<TConfig> newConfig, TScriptableObject scriptableObject)
+		{
+			scriptableObject.Configs = newConfig;
 		}
 
 		protected sealed override TConfig Deserialize(Dictionary<string, string> data)

@@ -249,6 +249,9 @@ namespace Quantum.Systems
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
 			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
+			
 			if (direction != FPVector2.Zero) 
 			{
 				movedirection = direction;
@@ -260,7 +263,7 @@ namespace Quantum.Systems
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
-			} else if (f.Time < lastShotAt + FP._0_33)
+			} else if (attackCooldown)
 			{
 				rotation = prevRotation;
 			}
@@ -281,11 +284,9 @@ namespace Quantum.Systems
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
 			
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
-			
 			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
 			{
-				bb->Set(f, nameof(Constants.NextTapTime), f.Time + weaponConfig.AimDelay);
+				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : FP._0_33));
 			}
 			
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);

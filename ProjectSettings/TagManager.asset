@@ -9,6 +9,7 @@ TagManager:
   - VisualCollider
   - GroundIndicator
   - GuideUiTarget
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Non Playable Static Target
   - Mini Map Object
   - Area
-  - 
+  - Bullet
   - 
   - 
   - 

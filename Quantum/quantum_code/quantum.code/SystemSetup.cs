@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Quantum.Systems;
 
 namespace Quantum
@@ -6,7 +8,7 @@ namespace Quantum
 	{
 		public static SystemBase[] CreateSystems(RuntimeConfig gameConfig, SimulationConfig simulationConfig)
 		{
-			return new SystemBase[]
+			var systems = new List<SystemBase>()
 			{
 				// Initial pre-defined core systems
 				new Core.CullingSystem3D(),
@@ -16,7 +18,6 @@ namespace Quantum
 				// Initial Systems
 				new SystemInitializer(),
 				new AiPreUpdateSystem(),
-				new PreRaycastShotsSystem(),
 
 				// pre-defined core systems
 				new Core.PhysicsSystem3D(),
@@ -40,7 +41,7 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
-				new RaycastShotsSystem(),
+
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
@@ -53,12 +54,13 @@ namespace Quantum
 				new RoofDamageSystem(),
 
 				// Debugging
-				new BotSDKDebuggerSystem(),
+				// new BotSDKDebuggerSystem(),
 
 				// Finalizer systems
 				new GameSystem(),
 				new EntityLateDestroyerSystem()
 			};
+			return systems.ToArray();
 		}
 	}
 }

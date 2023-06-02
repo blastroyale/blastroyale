@@ -17,52 +17,34 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var isAccuracyMutator = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
-			var player = playerCharacter->Player;
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			
 			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
-			var team = f.Get<Targetable>(e).Team;
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), ref transform->Rotation).Normalized;
-
-			//targetAttackAngle depend on a current character velocity
-			var targetAttackAngle = isAccuracyMutator ?
-				weaponConfig.MinAttackAngle : QuantumHelpers.GetDynamicAimValue(kcc, weaponConfig.MaxAttackAngle, weaponConfig.MinAttackAngle);
-			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
-				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
-				   FP._0;
-			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
-			var attackRange = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + weaponConfig.AttackRangeAimBonus);  
-
-			var projectile = new Projectile
-			{
-				Attacker = e,
-				Direction = newAngleVector,
-				PowerAmount = (uint)power.AsInt,
-				KnockbackAmount = weaponConfig.KnockbackAmount,
-				SourceId = weaponConfig.Id,
-				Range = attackRange,
-				SpawnPosition = position,
-				Speed = weaponConfig.AttackHitSpeed,
-				SplashRadius = weaponConfig.SplashRadius,
-				SplashDamageRatio = weaponConfig.SplashDamageRatio,
-				StunDuration = FP._0,
-				Target = EntityRef.None,
-				TeamSource = team
-			};
-
+			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var attackRange = rangeStat + weaponConfig.AttackRangeAimBonus;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 			bb->Set(f, Constants.LastShotAt, f.Time);
-			
-			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
-			Projectile.Create(f, projectile);
+			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, attackRange);
+			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
+			{
+				Projectile.CreateProjectile(f, e, attackRange, aimingDirection, position, weaponConfig);
+			}
+			else
+			{
+				FP max = weaponConfig.MinAttackAngle;
+				FP angleStep = weaponConfig.MinAttackAngle / weaponConfig.NumberOfShots;
+				FP angle = -max/ FP._2;
+				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
+				{
+					var burstDirection = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).XOY;
+					Projectile.CreateProjectile(f, e, attackRange, burstDirection.XZ, position, weaponConfig);
+					angle += angleStep;
+				}
+			}
 		}
 	}
 }

@@ -183,7 +183,7 @@ namespace Quantum
 				kcc->Velocity += kick;
 			}
 
-			f.Add(f.Create(), *spell);
+			spell->DoHit(f);
 
 			return true;
 		}

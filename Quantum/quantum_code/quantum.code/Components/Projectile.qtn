@@ -3,19 +3,25 @@ component Projectile
 	entity_ref Attacker;
 	entity_ref Target;
 	GameId SourceId;
-	Int32 TeamSource;
+	byte TeamSource;
 	FPVector3 SpawnPosition;
 	FPVector3 Direction;
-	UInt32 PowerAmount;
-	UInt32 KnockbackAmount;
-	FP Speed;
-	FP Range;
-	FP SplashRadius;
-	FP SplashDamageRatio;
-	FP StunDuration;
+	FP DespawnTime;
+	byte KnockbackAmount;
+	byte Speed;
+	short RangeSquared;
+	byte DamagePct;
+	byte StunDuration;
+	byte Iteration;
 }
 
 synced event OnProjectileFired
+{
+	entity_ref Projectile;
+	Projectile ProjectileData;
+}
+
+event OnProjectileFiredPredicted
 {
 	entity_ref Projectile;
 	Projectile ProjectileData;
@@ -36,13 +42,13 @@ synced event OnProjectileTargetableHit
 
 event OnProjectileFailedHit
 {
- 	entity_ref Projectile;
+ 	Projectile Projectile;
  	FPVector3 LastPosition;
 }
 
 event OnProjectileSuccessHit
 {
-	entity_ref Projectile;
+	Projectile Projectile;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
 }

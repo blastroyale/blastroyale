@@ -558,5 +558,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			_characterView.DestroyItem(GameIdGroup.Glider);
 		}
+
+		/// <summary>www
+		/// Updates the color of the given character for the duration
+		/// </summary>
+		public void UpdateColor(Color color, float duration)
+		{
+			RenderersContainerProxy.SetColor(color);
+			StartCoroutine(EndBlink(duration));
+		}
+
+		private IEnumerator EndBlink(float duration)
+		{
+			yield return new WaitForSeconds(duration);
+			RenderersContainerProxy.SetColor(Color.white);
+		}
 	}
 }

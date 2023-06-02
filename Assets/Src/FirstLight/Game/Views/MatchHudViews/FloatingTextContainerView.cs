@@ -140,7 +140,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			EnqueueText(callback.Entity, text, color, MessageType.Info);
 		}
-
+		
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
 			var changeValue = callback.CurrentHealth - callback.PreviousHealth;
@@ -155,10 +155,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
-			var player = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			var spectator = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
 			if (callback.TotalDamage == 0 || callback.Player != PlayerRef.None && 
-				callback.Attacker != player && callback.Entity != player)
+				callback.Attacker != spectator && callback.Entity != spectator)
 			{
 				return;
 			}

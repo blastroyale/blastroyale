@@ -26,6 +26,8 @@ namespace Quantum.Systems
 			}
 		}
 
+	
+
 		/// <inheritdoc />
 		public override void Update(Frame f, ref SpellFilter filter)
 		{
@@ -43,30 +45,7 @@ namespace Quantum.Systems
 				                             ? f.Time + filter.Spell->Cooldown
 				                             : filter.Spell->Cooldown;
 			
-			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
-			{
-				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
-				                           filter.Spell->OriginalHitPosition, filter.Spell->PowerAmount);
-			}
-			
-			HandleHealth(f, filter.Spell, false);
-		}
-
-		private void HandleHealth(Frame f, Spell* spell, bool isHealing)
-		{
-			if (!f.Unsafe.TryGetPointer<Stats>(spell->Victim, out var stats) || spell->PowerAmount == 0)
-			{
-				return;
-			}
-
-			if (isHealing)
-			{
-				stats->GainHealth(f, spell->Victim, spell);
-			}
-			else
-			{
-				stats->ReduceHealth(f, spell->Victim, spell);
-			}
+			filter.Spell->DoHit(f);
 		}
 
 		public void OnAdded(Frame f, EntityRef entity, Spell* component)

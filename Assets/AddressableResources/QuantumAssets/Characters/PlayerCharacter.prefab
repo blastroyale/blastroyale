@@ -163,7 +163,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.786448, y: 1.5045778, z: 0.77845716}
   m_Center: {x: -0.0036246777, y: 0.73887724, z: -0.0018154979}
@@ -271,11 +271,11 @@ MonoBehaviour:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 26214
+          RawValue: 19660
         Y:
           RawValue: 49152
         Z:
-          RawValue: 26214
+          RawValue: 19660
       RotationOffset:
         X:
           RawValue: 0

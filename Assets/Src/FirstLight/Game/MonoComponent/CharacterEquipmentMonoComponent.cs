@@ -82,7 +82,7 @@ namespace FirstLight.Game.MonoComponent
 			var anchors = GetEquipmentAnchors(slot);
 			var instances = new List<GameObject>(anchors.Length);
 			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
-			
+			instance.name = gameId.ToString();
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);

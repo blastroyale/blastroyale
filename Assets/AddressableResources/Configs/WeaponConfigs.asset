@@ -29,6 +29,13 @@ MonoBehaviour:
         Default: -1
         Keys: []
         Values: 
+      BulletPrototype:
+        Id:
+          Value: 1722351953338325886
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -37,7 +44,7 @@ MonoBehaviour:
       AimDelay:
         RawValue: 0
       TapCooldown:
-        RawValue: 21627
+        RawValue: 32768
       AttackCooldown:
         RawValue: 49152
       PowerToDamageRatio:
@@ -49,7 +56,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 163840
+        RawValue: 131072
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 0
@@ -81,6 +88,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 8000000018000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 16
       ReloadTime:
         RawValue: 131072
@@ -91,17 +105,17 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
-        RawValue: 32768
+        RawValue: 52429
       PowerToDamageRatio:
-        RawValue: 30802
+        RawValue: 45875
       AttackHitSpeed:
-        RawValue: 786432
+        RawValue: 1769472
       MinAttackAngle: 7
       MaxAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 360448
+        RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 1
@@ -133,6 +147,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 4000000012000000
+      BulletPrototype:
+        Id:
+          Value: 193719547299099333
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 8
       ReloadTime:
         RawValue: 163840
@@ -143,7 +164,7 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 39322
       AttackCooldown:
-        RawValue: 52429
+        RawValue: 65536
       PowerToDamageRatio:
         RawValue: 22938
       AttackHitSpeed:
@@ -153,7 +174,7 @@ MonoBehaviour:
       NumberOfShots: 8
       NumberOfBursts: 2
       AttackRange:
-        RawValue: 262144
+        RawValue: 327680
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 1
@@ -185,6 +206,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 680100004b000000
+      BulletPrototype:
+        Id:
+          Value: 193719547299099333
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 30
       ReloadTime:
         RawValue: 131072
@@ -195,9 +223,9 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 5243
       AttackCooldown:
-        RawValue: 5243
+        RawValue: 7209
       PowerToDamageRatio:
-        RawValue: 36700
+        RawValue: 45220
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 11
@@ -205,7 +233,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 360448
+        RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 1
@@ -237,6 +265,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: d200000032000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 21
       ReloadTime:
         RawValue: 114688
@@ -247,11 +282,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
-        RawValue: 32768
+        RawValue: 52429
       PowerToDamageRatio:
-        RawValue: 44564
+        RawValue: 46531
       AttackHitSpeed:
-        RawValue: 983040
+        RawValue: 1769472
       MinAttackAngle: 9
       MaxAttackAngle: 9
       NumberOfShots: 1
@@ -289,6 +324,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 240000000c000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 4
       ReloadTime:
         RawValue: 65536
@@ -299,11 +341,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
-        RawValue: 52429
+        RawValue: 65536
       PowerToDamageRatio:
         RawValue: 65536
       AttackHitSpeed:
-        RawValue: 1769472
+        RawValue: 2293760
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
@@ -341,6 +383,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 6000000014000000
+      BulletPrototype:
+        Id:
+          Value: 3151177946438730648
+      BulletHitPrototype:
+        Id:
+          Value: 382184530423860433
+      HitType: 0
       MagazineSize: 12
       ReloadTime:
         RawValue: 131072
@@ -355,7 +404,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 655360
+        RawValue: 1310720
       MinAttackAngle: 18
       MaxAttackAngle: 18
       NumberOfShots: 1
@@ -369,7 +418,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 98304
       SplashDamageRatio:
-        RawValue: 32768
+        RawValue: 3276800
       Specials: 0a0000000a000000
       InitialAttackCooldown:
         RawValue: 0
@@ -393,6 +442,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: f401000064000000
+      BulletPrototype:
+        Id:
+          Value: 1705595393471409306
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 100
       ReloadTime:
         RawValue: 196608
@@ -401,11 +457,11 @@ MonoBehaviour:
       AimDelay:
         RawValue: 0
       TapCooldown:
-        RawValue: 32768
+        RawValue: 3277
       AttackCooldown:
-        RawValue: 655
+        RawValue: 3277
       PowerToDamageRatio:
-        RawValue: 26214
+        RawValue: 32768
       AttackHitSpeed:
         RawValue: 1114112
       MinAttackAngle: 16
@@ -445,6 +501,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: a000000024000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 6
       ReloadTime:
         RawValue: 49152
@@ -455,11 +518,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 15729
       AttackCooldown:
-        RawValue: 15729
+        RawValue: 22938
       PowerToDamageRatio:
-        RawValue: 39322
+        RawValue: 45875
       AttackHitSpeed:
-        RawValue: 851968
+        RawValue: 1638400
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -497,6 +560,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 400000000c000000
+      BulletPrototype:
+        Id:
+          Value: 193719547299099333
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 1
       ReloadTime:
         RawValue: 81920
@@ -507,11 +577,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 43647
       AttackCooldown:
-        RawValue: 43647
+        RawValue: 65536
       PowerToDamageRatio:
         RawValue: 17695
       AttackHitSpeed:
-        RawValue: 1114112
+        RawValue: 1769472
       MinAttackAngle: 33
       MaxAttackAngle: 33
       NumberOfShots: 10
@@ -549,6 +619,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 9001000046000000
+      BulletPrototype:
+        Id:
+          Value: 1705595393471409306
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 20
       ReloadTime:
         RawValue: 43254
@@ -559,9 +636,9 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
-        RawValue: 3277
+        RawValue: 9830
       PowerToDamageRatio:
-        RawValue: 11141
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 15
@@ -601,6 +678,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: d200000032000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 30
       ReloadTime:
         RawValue: 98304
@@ -611,11 +695,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
-        RawValue: 7864
-      PowerToDamageRatio:
         RawValue: 14418
+      PowerToDamageRatio:
+        RawValue: 20972
       AttackHitSpeed:
-        RawValue: 983040
+        RawValue: 2293760
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -653,6 +737,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 230000000c000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 7
       ReloadTime:
         RawValue: 176947
@@ -663,11 +754,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
-        RawValue: 65536
+        RawValue: 78643
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 1769472
+        RawValue: 2293760
       MinAttackAngle: 2
       MaxAttackAngle: 2
       NumberOfShots: 1
@@ -705,6 +796,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 400000000f000000
+      BulletPrototype:
+        Id:
+          Value: 3151177946438730648
+      BulletHitPrototype:
+        Id:
+          Value: 382184530423860433
+      HitType: 0
       MagazineSize: 4
       ReloadTime:
         RawValue: 147456
@@ -715,11 +813,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
-        RawValue: 45875
+        RawValue: 65536
       PowerToDamageRatio:
-        RawValue: 22938
+        RawValue: 29491
       AttackHitSpeed:
-        RawValue: 458752
+        RawValue: 1310720
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -733,7 +831,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 131072
       SplashDamageRatio:
-        RawValue: 98304
+        RawValue: 9830400
       Specials: 6600000066000000
       InitialAttackCooldown:
         RawValue: 0
@@ -757,6 +855,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 680100004b000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 90
       ReloadTime:
         RawValue: 229376
@@ -767,11 +872,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
-        RawValue: 36045
+        RawValue: 55706
       PowerToDamageRatio:
-        RawValue: 6554
+        RawValue: 19661
       AttackHitSpeed:
-        RawValue: 983040
+        RawValue: 1769472
       MinAttackAngle: 7
       MaxAttackAngle: 7
       NumberOfShots: 1
@@ -809,6 +914,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 3000000018000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 6
       ReloadTime:
         RawValue: 65536
@@ -819,9 +931,9 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
-        RawValue: 65536
+        RawValue: 78643
       PowerToDamageRatio:
-        RawValue: 36045
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 7
@@ -861,6 +973,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 5a0000000c000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 15
       ReloadTime:
         RawValue: 196608
@@ -871,11 +990,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 13107
       AttackCooldown:
-        RawValue: 13107
+        RawValue: 22938
       PowerToDamageRatio:
-        RawValue: 14418
+        RawValue: 24248
       AttackHitSpeed:
-        RawValue: 1114112
+        RawValue: 1638400
       MinAttackAngle: 15
       MaxAttackAngle: 15
       NumberOfShots: 7
@@ -913,6 +1032,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 290100004b000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 33
       ReloadTime:
         RawValue: 131072
@@ -923,11 +1049,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
-        RawValue: 7864
+        RawValue: 26214
       PowerToDamageRatio:
-        RawValue: 15073
+        RawValue: 24248
       AttackHitSpeed:
-        RawValue: 983040
+        RawValue: 1638400
       MinAttackAngle: 6
       MaxAttackAngle: 6
       NumberOfShots: 3
@@ -965,6 +1091,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c800000032000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -975,11 +1108,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 9830
       AttackCooldown:
-        RawValue: 9830
+        RawValue: 22938
       PowerToDamageRatio:
-        RawValue: 18350
+        RawValue: 31457
       AttackHitSpeed:
-        RawValue: 1114112
+        RawValue: 2293760
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
@@ -1017,6 +1150,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 4b00000020000000
+      BulletPrototype:
+        Id:
+          Value: 0
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: 2
       ReloadTime:
         RawValue: 52429
@@ -1027,11 +1167,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
-        RawValue: 5243
+        RawValue: 6554
       PowerToDamageRatio:
         RawValue: 58982
       AttackHitSpeed:
-        RawValue: 1769472
+        RawValue: 1638400
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
@@ -1069,6 +1209,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1e0000000a000000
+      BulletPrototype:
+        Id:
+          Value: 3151177946438730648
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -1079,11 +1226,11 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 58982
       AttackCooldown:
-        RawValue: 58982
+        RawValue: 72090
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 327680
+        RawValue: 2293760
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -1097,7 +1244,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 65536
       SplashDamageRatio:
-        RawValue: 58982
+        RawValue: 5898240
       Specials: 6e0000006e000000
       InitialAttackCooldown:
         RawValue: 0
@@ -1121,6 +1268,13 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c80000004b000000
+      BulletPrototype:
+        Id:
+          Value: 1705595393471409306
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      HitType: 0
       MagazineSize: -1
       ReloadTime:
         RawValue: 0
@@ -1131,17 +1285,17 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
-        RawValue: 3277
+        RawValue: 6554
       PowerToDamageRatio:
-        RawValue: 15073
+        RawValue: 21627
       AttackHitSpeed:
-        RawValue: 458752
+        RawValue: 1114112
       MinAttackAngle: 10
       MaxAttackAngle: 10
       NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 0

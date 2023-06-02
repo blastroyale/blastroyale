@@ -5,8 +5,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="Projectile"/> collisions
 	/// </summary>
-	public unsafe class ProjectileSystem : SystemMainThreadFilter<ProjectileSystem.ProjectileFilter>, 
-	                                       ISignalOnTriggerEnter3D
+	public unsafe class ProjectileSystem : SystemMainThreadFilter<ProjectileSystem.ProjectileFilter>, ISignalOnTriggerEnter3D
 	{
 		public struct ProjectileFilter
 		{
@@ -14,77 +13,85 @@ namespace Quantum.Systems
 			public Projectile* Projectile;
 			public Transform3D* Transform;
 		}
-
+		
 		/// <inheritdoc />
 		public override void Update(Frame f, ref ProjectileFilter filter)
 		{
-			var distance = filter.Transform->Position - filter.Projectile->SpawnPosition;
-			var range = filter.Projectile->Range;
-
-			if (distance.SqrMagnitude > range * range)
+			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude > filter.Projectile->RangeSquared)
 			{
-				EndProjectile(f,filter.Entity, filter.Entity, filter.Projectile);
+				f.Destroy(filter.Entity);
+				return;
+			}
+
+			if (filter.Projectile->DespawnTime != FP._0 && f.Time > filter.Projectile->DespawnTime)
+			{
+				f.Destroy(filter.Entity);
 				return;
 			}
 			
-			// Projectile with Target is a Homing projectile. We update the direction based on Target's position
-			if (QuantumHelpers.IsAttackable(f, filter.Projectile->Target, filter.Projectile->TeamSource))
-			{
-				var targetPosition = f.Get<Transform3D>(filter.Projectile->Target).Position;
-				targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-				
-				var directionNormalized = (targetPosition - filter.Transform->Position).Normalized;
-				
-				filter.Projectile->Direction = directionNormalized;
-				filter.Transform->Rotation = FPQuaternion.LookRotation(directionNormalized);
-			}
-
-			filter.Transform->Position += f.DeltaTime * filter.Projectile->Speed * filter.Projectile->Direction;
+			filter.Transform->Position += filter.Projectile->Direction;
 		}
 		
-		/// <inheritdoc />
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			var targetHit = info.Other;
-			var hitSource = info.Entity;
-
-			if (!f.TryGet<Projectile>(hitSource, out var projectile) || targetHit == hitSource || info.StaticData.IsTrigger ||projectile.Attacker == hitSource 
-				|| projectile.Attacker == targetHit || f.Has<EntityDestroyer>(hitSource))
+			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger ||projectile.Attacker == info.Entity 
+				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
-			EndProjectile(f, targetHit, hitSource, &projectile);
+			OnProjectileHit(f, info.Other, info.Entity, projectile);
 		}
-		
-		private void EndProjectile(Frame f, EntityRef targetHit, EntityRef hitSource, Projectile* projectile)
+
+		/// <summary>
+		/// Can be used for sub projectiles (e.g area explosions, fire fields, ricochets etc)
+		/// This creates a sub-projectile based on the parent projectile just changing its entity prototype and
+		/// a couple specific veriables specified per projectile hit type
+		/// </summary>
+		private void CreateSubProjectile(Frame f, Projectile p, FPVector3 hitPosition)
 		{
-			var position = f.Get<Transform3D>(hitSource).Position;
-			var spell = Spell.CreateInstant(f, targetHit, projectile->Attacker, hitSource, projectile->PowerAmount,
-			                                projectile->KnockbackAmount, position, projectile->TeamSource);
-			
-			if(targetHit == hitSource)
-				f.Events.OnProjectileFailedHit(hitSource, position);
-			else
-				f.Events.OnProjectileSuccessHit(hitSource, targetHit, position);
-
-			if (projectile->SplashRadius > FP._0)
+			var cfg = f.WeaponConfigs.GetConfig(p.SourceId);
+			var subProjectile = p;
+			if (cfg.HitType == ProjectileHitType.AreaOfEffect)
 			{
-				var splashSpell = Spell.CreateInstant(f, targetHit, projectile->Attacker, hitSource, 
-					(uint)(projectile->PowerAmount * projectile->SplashDamageRatio), 
-					(uint)(projectile->KnockbackAmount * projectile->SplashDamageRatio), position,
-					projectile->TeamSource);
-				
-				QuantumHelpers.ProcessAreaHit(f, projectile->SplashRadius, &splashSpell, uint.MaxValue, OnHit);
-				
-				f.Events.OnProjectileExplosion(projectile->SourceId, position);
+				subProjectile.Speed = 0;
+				subProjectile.Direction = FPVector3.Zero;
+				subProjectile.SpawnPosition = hitPosition;
+				subProjectile.DespawnTime = f.Time + FP._0_50;
+				subProjectile.DamagePct = (byte)cfg.SplashDamageRatio.AsInt;
 			}
+			
+			subProjectile.Iteration = (byte)(p.Iteration + 1);
+			var entity = f.Create(f.FindAsset<EntityPrototype>(cfg.BulletHitPrototype.Id));
+			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
+			transform->Position = hitPosition;
+			f.Add(entity, subProjectile);
+		}
 
-			if (QuantumHelpers.ProcessHit(f, &spell))
+		private void OnProjectileHit(Frame f, EntityRef targetHit, EntityRef projectileEntity, Projectile projectile)
+		{
+			var power = (uint)projectile.GetPower(f);
+			var position = f.Get<Transform3D>(projectileEntity).Position;
+			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
+			                                projectile.KnockbackAmount, position, projectile.TeamSource);
+			
+			if(targetHit == projectileEntity)
+				f.Events.OnProjectileFailedHit(projectile, position);
+			else
+				f.Events.OnProjectileSuccessHit(projectile, targetHit, position);
+			
+			if (projectile.ShouldPerformSubProjectile(f))
+			{
+				CreateSubProjectile(f, projectile, position);
+			}
+			else if (QuantumHelpers.ProcessHit(f, &spell))
 			{
 				OnHit(f, &spell);
 			}
 
-			f.Destroy(hitSource);
+			if (projectile.Speed > 0)
+			{
+				f.Destroy(projectileEntity);
+			}
 		}
 
 		private void OnHit(Frame f, Spell* spell)

@@ -115,7 +115,8 @@ MonoBehaviour:
       - Player Only
       - Non Playable Static Target
       - Mini Map Object
-      - Bush
+      - Area
+      - Bullet
       - 
       - 
       - 
@@ -129,8 +130,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
-      LayerMatrix: cd8ffdffc880fdffcd8ffdffffffffffc880fdffc880fdfffffffffffffffdffcdcfffffcdcfffffcd8fffffcd8ffdffc890fdffc880fdffc883fdfffffffdfffffffdff4807fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+      LayerMatrix: cd8ff9ffc880f9ffcd8ff9ffffffffffc880f9ffc880f9ffffffffffffffffffcdcffdffcdcfffffcd8ffbffcd8ff9ffc890f9ffc880f9ffc883f9fffffff9fffffff9ffc806f8ffc803f8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     Entities:
       CommitCommandsMode: 0
       DefaultEntityCapacity: 1024

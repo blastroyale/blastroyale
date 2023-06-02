@@ -4,6 +4,17 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public enum ProjectileHitType
+	{
+		/// <summary>
+		/// Lasts for one second
+		/// Can only hit once
+		/// Will spawn a hitbox then de-spawn the hitbox after one second
+		/// Ideal for explosions and quick AOE attacks
+		/// </summary>
+		AreaOfEffect
+	}
+	
 	[Serializable]
 	public struct QuantumWeaponConfig
 	{
@@ -11,6 +22,9 @@ namespace Quantum
 		public FiringMode FiringMode;
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
+		public AssetRefEntityPrototype BulletPrototype;
+		public AssetRefEntityPrototype BulletHitPrototype;
+		public ProjectileHitType HitType;
 		public int MagazineSize;
 		public FP ReloadTime;
 		public FP AimingMovementSpeed;
@@ -61,6 +75,50 @@ namespace Quantum
 		
 		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;
 
+		private IDictionary<GameId, List<int>> BakedAccuracyMods = null;
+
+		/// <summary>
+		/// Randomize a baked accuracy angle. Simply picks a random element from
+		/// the baked accuracy list to minimize calculations.
+		/// </summary>
+		public unsafe FP GetRandomBakedAccuracyAngle(Frame f, GameId weaponId)
+		{
+			if (BakedAccuracyMods == null)
+			{
+				BakeAngles(f);
+			}
+			var mods = BakedAccuracyMods[weaponId];
+			var mod = mods[f.RNG->Next(0, mods.Count)];
+			return f.RNG->Next(0, 2) == 1 ? -mod : mod;
+		}
+
+		/// <summary>
+		/// Pre bakes all accuracy calculations so we dont need to calculate
+		/// everytime a shot is fired
+		/// </summary>
+		private void BakeAngles(Frame f)
+		{
+			BakedAccuracyMods = new Dictionary<GameId, List<int>>();
+			foreach (var config in f.WeaponConfigs.QuantumConfigs)
+			{
+				var accuracies = new List<int>();
+				var maxAttackAngle = config.MinAttackAngle;
+				if (maxAttackAngle == 0)
+				{
+					accuracies.Add(0);
+				}
+				else
+				{
+					foreach (var distribution in Constants.APPRX_NORMAL_DISTRIBUTION)
+					{
+						var mod = (int)Math.Round(maxAttackAngle / 100d * distribution);
+						accuracies.Add(mod /2);
+					}
+				}
+				BakedAccuracyMods[config.Id] = accuracies;
+			}
+		}
+		
 		/// <summary>
 		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>

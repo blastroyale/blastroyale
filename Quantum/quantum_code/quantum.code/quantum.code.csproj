@@ -273,8 +273,6 @@
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
-    <Compile Include="Systems\PreRaycastShotSytem.cs" />
-    <Compile Include="Systems\RaycastShotsSystem.cs" />
     <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
     <Compile Include="Systems\BotCharacterSystem.cs" />

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Quantum;
 using UnityEngine;
 
@@ -44,6 +46,38 @@ namespace FirstLight.Game.Services
 
 		private IGameServices _gameServices;
 
+		private Dictionary<long, List<EntityView>> _inactiveBullets = new ();
+
+		private void PollBullet(EntityView view)
+		{
+			view.gameObject.SetActive(false);
+			if (!_inactiveBullets.TryGetValue(view.AssetGuid.Value, out var list))
+			{
+				list = new List<EntityView>();
+				_inactiveBullets[view.AssetGuid.Value] = list;
+			}
+			list.Add(view);
+		}
+		
+		/// <summary>
+		/// Override to poll bullets so we dont need to re-create the views for every new bullet.
+		/// This saves us some CPU time and makes memory usage more stable.
+		/// </summary>
+		protected override EntityView CreateEntityViewInstance(EntityViewAsset asset, Vector3? position = null,
+															   Quaternion? rotation = null)
+		{
+			if (_inactiveBullets.TryGetValue(asset.AssetObject.Guid.Value, out var inactiveList) && inactiveList.Count > 0)
+			{
+				var bullet = inactiveList[0];
+				if(position.HasValue) bullet.transform.position = position.Value;
+				if (rotation.HasValue) bullet.transform.rotation = rotation.Value;
+				inactiveList.RemoveAt(0);
+				bullet.gameObject.SetActive(true);
+				return bullet;
+			}
+			return base.CreateEntityViewInstance(asset, position, rotation);
+		}
+
 		private new void Awake()
 		{
 			base.Awake();
@@ -81,7 +115,14 @@ namespace FirstLight.Game.Services
 
 				if (view.AssetGuid.IsValid)
 				{
-					DestroyEntityViewInstance(view);
+					if (view.gameObject.CompareTag("Bullet"))
+					{
+						PollBullet(view);
+					}
+					else
+					{
+						DestroyEntityViewInstance(view);
+					}
 				}
 				else
 				{

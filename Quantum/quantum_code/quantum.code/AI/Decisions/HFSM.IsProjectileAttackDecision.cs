@@ -8,15 +8,14 @@ namespace Quantum
 	/// </summary>
 	/// TODO: Remove and save the data in the circuit blackboard
 	[Serializable]
-	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-	public partial class IsProjectileAttackDecision : HFSMDecision
+	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
+		GenerateAssetResetMethod = false)]
+	public class IsProjectileAttackDecision : HFSMDecision
 	{
 		/// <inheritdoc />
-		public override unsafe bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
+		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var weaponId = f.Unsafe.GetPointer<PlayerCharacter>(e)->CurrentWeapon.GameId;
-			
-			return f.WeaponConfigs.GetConfig(weaponId).IsProjectile;
+			return true;
 		}
 	}
 }

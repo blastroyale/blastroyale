@@ -1194,6 +1194,7 @@ namespace I2.Loc
 			public static string adjective_posh 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_posh"); } }
 			public static string adjective_regular 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_regular"); } }
 			public static string adjective_royal 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_royal"); } }
+			public static string ascend 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/ascend"); } }
 			public static string card_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/card_lvl"); } }
 			public static string details_no_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_amulet"); } }
 			public static string details_no_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_armor"); } }
@@ -1239,6 +1240,9 @@ namespace I2.Loc
 			public static string no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_helmet"); } }
 			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
 			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
+			public static string pack 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/pack"); } }
+			public static string packed 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/packed"); } }
+			public static string popup_ascending_item 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_ascending_item"); } }
 			public static string popup_cannot_undo_action 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_cannot_undo_action"); } }
 			public static string popup_go_repair 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_go_repair"); } }
 			public static string popup_items_rusted 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_items_rusted"); } }
@@ -1271,6 +1275,7 @@ namespace I2.Loc
 			public static string selection_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_shield"); } }
 			public static string selection_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_weapon"); } }
 			public static string unequip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/unequip"); } }
+			public static string unpack 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/unpack"); } }
 			public static string upgrade 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/upgrade"); } }
 		}
 
@@ -1367,6 +1372,7 @@ namespace I2.Loc
 			public static string br_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc"); } }
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
 			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
+			public static string entering_game 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/entering_game"); } }
 			public static string loading_fail 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_fail"); } }
 			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
 			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
@@ -2732,6 +2738,7 @@ namespace I2.Loc
 		    public const string adjective_posh = "UITEquipment/adjective_posh";
 		    public const string adjective_regular = "UITEquipment/adjective_regular";
 		    public const string adjective_royal = "UITEquipment/adjective_royal";
+		    public const string ascend = "UITEquipment/ascend";
 		    public const string card_lvl = "UITEquipment/card_lvl";
 		    public const string details_no_amulet = "UITEquipment/details_no_amulet";
 		    public const string details_no_armor = "UITEquipment/details_no_armor";
@@ -2777,6 +2784,9 @@ namespace I2.Loc
 		    public const string no_helmet = "UITEquipment/no_helmet";
 		    public const string no_shield = "UITEquipment/no_shield";
 		    public const string no_weapon = "UITEquipment/no_weapon";
+		    public const string pack = "UITEquipment/pack";
+		    public const string packed = "UITEquipment/packed";
+		    public const string popup_ascending_item = "UITEquipment/popup_ascending_item";
 		    public const string popup_cannot_undo_action = "UITEquipment/popup_cannot_undo_action";
 		    public const string popup_go_repair = "UITEquipment/popup_go_repair";
 		    public const string popup_items_rusted = "UITEquipment/popup_items_rusted";
@@ -2809,6 +2819,7 @@ namespace I2.Loc
 		    public const string selection_shield = "UITEquipment/selection_shield";
 		    public const string selection_weapon = "UITEquipment/selection_weapon";
 		    public const string unequip = "UITEquipment/unequip";
+		    public const string unpack = "UITEquipment/unpack";
 		    public const string upgrade = "UITEquipment/upgrade";
 		}
 
@@ -2905,6 +2916,7 @@ namespace I2.Loc
 		    public const string br_mode_desc = "UITMatchmaking/br_mode_desc";
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
 		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
+		    public const string entering_game = "UITMatchmaking/entering_game";
 		    public const string loading_fail = "UITMatchmaking/loading_fail";
 		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
 		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";

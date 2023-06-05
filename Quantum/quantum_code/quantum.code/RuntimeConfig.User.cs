@@ -15,6 +15,7 @@ namespace Quantum
 		public AssetRefQuantumMapConfigs MapConfigs;
 		public AssetRefQuantumGameModeConfigs GameModeConfigs;
 		public AssetRefQuantumBotConfigs BotConfigs;
+		public AssetRefQuantumBotDifficultyConfigs BotDifficultyConfigs;
 		public AssetRefQuantumWeaponConfigs WeaponConfigs;
 		public AssetRefQuantumConsumableConfigs ConsumableConfigs;
 		public AssetRefQuantumChestConfigs ChestConfigs;
@@ -42,6 +43,7 @@ namespace Quantum
 			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref GameModeConfigs);
 			stream.Serialize(ref BotConfigs);
+			stream.Serialize(ref BotDifficultyConfigs);
 			stream.Serialize(ref WeaponConfigs);
 			stream.Serialize(ref ConsumableConfigs);
 			stream.Serialize(ref ChestConfigs);

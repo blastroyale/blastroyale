@@ -58,6 +58,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			OnImport(scriptableObject, data);
 
 			EditorUtility.SetDirty(scriptableObject);
+			AssetDatabase.SaveAssetIfDirty(scriptableObject);
 			OnImportComplete(scriptableObject);
 		}
 		

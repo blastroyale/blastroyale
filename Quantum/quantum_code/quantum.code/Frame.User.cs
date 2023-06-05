@@ -62,6 +62,9 @@ namespace Quantum
 
 		internal QuantumAssetConfigs AssetConfigs => FindAsset<QuantumAssetConfigs>(RuntimeConfig.AssetConfigs.Id);
 		internal QuantumBotConfigs BotConfigs => FindAsset<QuantumBotConfigs>(RuntimeConfig.BotConfigs.Id);
+		
+		internal QuantumBotDifficultyConfigs BotDifficultyConfigs => FindAsset<QuantumBotDifficultyConfigs>(RuntimeConfig.BotDifficultyConfigs.Id);
+
 
 		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);

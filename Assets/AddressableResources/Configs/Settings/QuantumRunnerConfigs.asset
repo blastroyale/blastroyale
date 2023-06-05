@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: QuantumRunnerConfigs
   m_EditorClassIdentifier: 
   _runtimeConfig:
-    Seed: 371201108
+    Seed: 1250947138
     Map:
       Id:
-        Value: 581929196288820183
+        Value: 4344381221028547365
     SimulationConfig:
       Id:
         Value: 1565542650131154954
@@ -32,6 +32,9 @@ MonoBehaviour:
     BotConfigs:
       Id:
         Value: 1550297457877710414
+    BotDifficultyConfigs:
+      Id:
+        Value: 676307946006492234
     WeaponConfigs:
       Id:
         Value: 2174339006334179964

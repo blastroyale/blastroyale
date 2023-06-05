@@ -97,6 +97,7 @@
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
     <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
+    <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
@@ -269,13 +270,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
+    <Compile Include="Systems\Bots\BotCharacterSystem.cs" />
+    <Compile Include="Systems\Bots\BotSetup.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
-    <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />

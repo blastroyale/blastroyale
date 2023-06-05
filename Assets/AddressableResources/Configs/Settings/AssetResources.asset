@@ -219,6 +219,11 @@ MonoBehaviour:
         Id:
           Value: 654199445895457431
       Address: Configs/StatConfigs.asset
+    - Path: AddressableResources/Configs/BotDifficultyConfigs
+      AssetRef:
+        Id:
+          Value: 676307946006492234
+      Address: Configs/BotDifficultyConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardInt_45
       AssetRef:
         Id:

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
+using Quantum.Systems.Bots;
 
 namespace Quantum.Systems
 {

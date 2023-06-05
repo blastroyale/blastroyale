@@ -17,6 +17,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssHome = UssBlock + "__home";
 		private const string UssBack = UssBlock + "__back";
 		private const string UssSeparator = UssBlock + "__separator";
+		private const string UssBackIcon = UssBlock + "__back-icon";
 
 		/// <summary>
 		/// Triggered when the home button is clicked.
@@ -54,6 +55,11 @@ namespace FirstLight.Game.UIElements
 			_back.AddToClassList(UssBack);
 			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
 			_back.clicked += () => backClicked?.Invoke();
+			{
+				var backIcon = new VisualElement { name = "icon" };
+				_back.Add(backIcon);
+				backIcon.AddToClassList(UssBackIcon);
+			}
 
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
@@ -69,6 +75,14 @@ namespace FirstLight.Game.UIElements
 			_home.AddToClassList(UssHome);
 			_home.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
 			_home.clicked += () => homeClicked?.Invoke();
+		}
+
+		/// <summary>
+		/// Sets the home button visible or invisible.
+		/// </summary>
+		public void SetHomeVisible(bool vis)
+		{
+			_home.SetVisibility(vis);
 		}
 
 		/// <summary>

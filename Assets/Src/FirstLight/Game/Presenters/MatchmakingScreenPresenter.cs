@@ -39,7 +39,6 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField] private int _planeFlyDurationMs = 4500;
 
-		private ImageButton _closeButton;
 		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
@@ -54,8 +53,7 @@ namespace FirstLight.Game.Presenters
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
-		private Label _headerTitleLabel;
-		private Label _headerSubtitleLabel;
+		private ScreenHeaderElement _header;
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
@@ -86,7 +84,6 @@ namespace FirstLight.Game.Presenters
 		{
 			base.QueryElements(root);
 
-			_closeButton = root.Q<ImageButton>("CloseButton").Required();
 			_dropzone = root.Q("DropZone").Required();
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
@@ -97,8 +94,7 @@ namespace FirstLight.Game.Presenters
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
-			_headerTitleLabel = root.Q<Label>("title").Required();
-			_headerSubtitleLabel = root.Q<Label>("subtitle").Required();
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
@@ -111,7 +107,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.makeItem = CreateSquadListEntry;
 			_squadMembersList.bindItem = BindSquadListEntry;
 
-			_closeButton.clicked += OnCloseClicked;
+			_header.homeClicked += OnCloseClicked;
 		}
 
 		protected override void SubscribeToEvents()
@@ -289,13 +285,11 @@ namespace FirstLight.Game.Presenters
 			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_headerTitleLabel.text = gameMode.GetTranslationGameIdString()?.ToUpper();
-			_headerSubtitleLabel.text = matchType.GetLocalization().ToUpper();
+			_header.SetTitle(gameMode.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
-
-			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
+			_header.SetHomeVisible(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
@@ -385,7 +379,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
 
-			_closeButton.SetDisplay(false);
+			_header.SetHomeVisible(false);
 
 			if (RejoiningRoom)
 			{

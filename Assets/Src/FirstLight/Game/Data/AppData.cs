@@ -62,8 +62,8 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		
 		public bool DialogueEnabled = true;
-		public FpsTarget FpsTarget = FpsTarget.Normal;
-		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
+		public FpsTarget FpsTarget = FpsTarget.High;
+		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Low;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();

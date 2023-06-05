@@ -86,7 +86,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			if (f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
 			{
 				UpdateCurrentMight(playerCharacter);
@@ -95,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
 		{
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 
 			if (!f.TryGet<PlayerCharacter>(current.Entity, out var playerCharacter))

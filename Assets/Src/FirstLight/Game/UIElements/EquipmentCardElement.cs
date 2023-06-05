@@ -126,7 +126,7 @@ namespace FirstLight.Game.UIElements
 				_loanedBadge.AddToClassList(UssBadgeLoaned);
 
 				badgeHolder.Add(
-					_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
+					_equippedBadge = new Label(ScriptLocalization.UITEquipment.packed) {name = "badge-equipped"});
 				_equippedBadge.AddToClassList(UssBadgeEquipped);
 			}
 

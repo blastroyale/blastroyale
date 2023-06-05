@@ -7575,7 +7575,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You only have one weapon left, so can't unequip it.
+      - You only have one weapon left, so can't unpack it.
       - "\u0423 \u0432\u0430\u0441 \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C
         \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0434\u043D\u043E \u043E\u0440\u0443\u0436\u0438\u0435,
         \u0442\u0430\u043A \u0447\u0442\u043E \u043D\u0435 \u0443\u0434\u0430\u0435\u0442\u0441\u044F
@@ -8396,7 +8396,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You must have a weapon equipped in order to play a game!
+      - You must have a weapon packed in order to play a game!
       - "\u0423 \u0432\u0430\u0441 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C
         \u043E\u0440\u0443\u0436\u0438\u0435, \u0447\u0442\u043E\u0431\u044B \u0441\u044B\u0433\u0440\u0430\u0442\u044C
         \u0432 \u0438\u0433\u0440\u0443!"
@@ -10310,7 +10310,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You must have at least 3 items equipped to play Ranked.
+      - You must have at least 3 items packed to play Ranked.
       - "\u0423 \u0432\u0430\u0441 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C
         \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C 3 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430,
         \u043E\u0441\u043D\u0430\u0449\u0435\u043D\u043D\u044B\u0445 \u0434\u043B\u044F
@@ -13612,7 +13612,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT EQUIPPED
+      - NOT PACKED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13623,7 +13623,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT EQUIPPED
+      - NOT PACKED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13634,7 +13634,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT EQUIPPED
+      - NOT PACKED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13645,7 +13645,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT EQUIPPED
+      - NOT PACKED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13656,7 +13656,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT EQUIPPED
+      - NOT PACKED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13701,9 +13701,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'ITEMS WERE UNEQUIPPED
+      - 'ITEMS WERE UNPACKED
 
-        REPAIR ITEMS TO BE ABLE TO EQUIP THEM AGAIN'
+        REPAIR ITEMS TO BE ABLE TO PACK THEM AGAIN'
       - "\u041F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0431\u044B\u043B\u0438
         \u043D\u0435 \u044D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u044B\n\u0420\u0435\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
         \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B, \u0447\u0442\u043E\u0431\u044B
@@ -14036,6 +14036,61 @@ MonoBehaviour:
       - UPGRADE
       - "\u041E\u0411\u041D\u041E\u0412\u041B\u0415\u041D\u0418\u0415"
       - ATUALIZAR
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/ascend
+      TermType: 0
+      Description: 
+      Languages:
+      - ASCEND
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_ascending_item
+      TermType: 0
+      Description: 
+      Languages:
+      - ASCENDING ITEM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/pack
+      TermType: 0
+      Description: 
+      Languages:
+      - PACK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/unpack
+      TermType: 0
+      Description: 
+      Languages:
+      - UNPACK
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITEquipment/packed
+      TermType: 0
+      Description: 
+      Languages:
+      - PACKED
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -15038,6 +15093,17 @@ MonoBehaviour:
       - WINS THE MATCH
       - "\u0412\u044B\u0438\u0433\u0440\u044B\u0432\u0430\u0435\u0442 \u043C\u0430\u0442\u0447"
       - Vence a partida
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/entering_game
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTERING GAME
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -16334,7 +16400,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOW EQUIP IT
+      - NOW PACK IT
       - 
       - 
       - 
@@ -16356,7 +16422,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'LET''S EQUIP YOUR
+      - 'LET''S PACK YOUR
 
         NEW WEAPON'
       - 
@@ -16612,7 +16678,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1685478330545
+    Google_LastUpdatedVersion: 1685974828980
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

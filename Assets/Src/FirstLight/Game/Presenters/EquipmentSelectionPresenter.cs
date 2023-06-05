@@ -384,8 +384,8 @@ namespace FirstLight.Game.Presenters
 		private void UpdateEquipButtonText()
 		{
 			_equipButton.text = _equippedItem == SelectedItem
-				? ScriptLocalization.UITEquipment.unequip
-				: ScriptLocalization.UITEquipment.equip;
+				? ScriptLocalization.UITEquipment.unpack
+				: ScriptLocalization.UITEquipment.pack;
 		}
 
 		private void UpdateMight(bool animate = true)

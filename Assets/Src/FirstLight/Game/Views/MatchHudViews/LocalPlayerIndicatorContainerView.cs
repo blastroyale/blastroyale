@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{ 
-			SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			SetupWeaponInfo(callback.Game.Frames.Predicted, callback.WeaponSlot.Weapon.GameId);
 			SetupWeaponSpecials(callback.WeaponSlot);
 		}
 

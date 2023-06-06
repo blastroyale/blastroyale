@@ -26,17 +26,25 @@ MonoBehaviour:
   NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 1}
   GizmoIconScale:
     RawValue: 65536
+  GizmoSelectedBrightness: 1.1
+  DrawColliderGizmos: 7
+  ColliderGizmosStyle:
+    DisableFill: 0
+  StaticColliderGizmoStyle:
+    DisableFill: 0
   DrawStaticMeshTriangles: 1
   DrawStaticMeshNormals: 1
   DrawSceneMeshCells: 1
   DrawSceneMeshTriangles: 1
   StaticColliderColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
   DynamicColliderColor: {r: 0.6, g: 0.8509804, b: 0.91764706, a: 1}
-  KinematicColliderColor: {r: 1, g: 1, b: 1, a: 1}
+  KinematicColliderColor: {r: 1, g: 0, b: 0.74678516, a: 1}
   CharacterControllerColor: {r: 1, g: 1, b: 0, a: 1}
   AsleepColliderColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
   DisabledColliderColor: {r: 1, g: 0, b: 0, a: 1}
   DrawJointGizmos: 6
+  JointGizmosStyle:
+    DisableFill: 0
   JointGizmosPrimaryColor: {r: 0, g: 1, b: 0, a: 1}
   JointGizmosSecondaryColor: {r: 0, g: 1, b: 1, a: 1}
   JointGizmosWarningColor: {r: 1, g: 0, b: 0, a: 1}

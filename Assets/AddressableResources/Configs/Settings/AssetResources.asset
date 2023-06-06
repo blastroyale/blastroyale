@@ -679,6 +679,11 @@ MonoBehaviour:
         Id:
           Value: 2575471535425279547
       Address: Maps/District_NavMesh.asset
+    - Path: AddressableResources/AdventureAssets/MapObjects/Bush Small|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2647440195271570113
+      Address: AdventureAssets/MapObjects/Bush Small.prefab[Bush SmallEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
       AssetRef:
         Id:
@@ -776,6 +781,11 @@ MonoBehaviour:
         Id:
           Value: 3077347310472761641
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_11]
+    - Path: AddressableResources/AdventureAssets/MapObjects/Bush Small|EntityView
+      AssetRef:
+        Id:
+          Value: 3078609414033823315
+      Address: AdventureAssets/MapObjects/Bush Small.prefab[Bush SmallEntityView]
     - Path: AddressableResources/Configs/ShrinkingCircleConfigs
       AssetRef:
         Id:

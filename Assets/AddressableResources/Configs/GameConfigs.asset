@@ -54,12 +54,12 @@ MonoBehaviour:
         Values: fa00000064000000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 196608
+          RawValue: 190054
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 196608
+        - RawValue: 190054
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 600
@@ -75,12 +75,12 @@ MonoBehaviour:
         Values: 5802000090010000
       CollectableCollectTime:
         Default:
-          RawValue: 117965
+          RawValue: 131072
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 117965
+        - RawValue: 131072
         - RawValue: 39322
       PlayerAliveShieldDuration:
         Default:
@@ -116,7 +116,7 @@ MonoBehaviour:
       EarningsAugmentationStrengthSteepnessMod:
         RawValue: 196608
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 0
+      NftRequiredEquippedForPlay: 3
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
@@ -151,4 +151,4 @@ MonoBehaviour:
         RawValue: 98304
       HardAngleAim: 0
       CollectableEquipmentPickupRadius:
-        RawValue: 65536
+        RawValue: 0

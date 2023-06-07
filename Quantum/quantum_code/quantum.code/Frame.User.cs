@@ -13,15 +13,21 @@ namespace Quantum
 		{
 			return session;
 		}
-		
+
 		public static bool NextBool(this ref RNGSession session)
 		{
-			return session.Next(0,1) == 0;
+			return session.Next(0, 1) == 0;
 		}
-		
+
 		public static FP Sign(this ref RNGSession session)
 		{
 			return session.NextBool() ? FP.Minus_1 : FP._1;
+		}
+
+		public static T RandomElement<T>(this ref RNGSession session, IList<T> list)
+		{
+			var index = session.Next(0, list.Count);
+			return list[index];
 		}
 		
 	}

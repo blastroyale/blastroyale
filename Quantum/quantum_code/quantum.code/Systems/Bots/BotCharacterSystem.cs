@@ -14,9 +14,8 @@ namespace Quantum.Systems.Bots
 	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
 											 ISignalAllPlayersSpawned, ISignalOnNavMeshWaypointReached, ISignalOnNavMeshSearchFailed, ISignalOnComponentRemoved<BotCharacter>
 	{
-
 		private BotSetup _botSetup = new BotSetup();
-		
+
 		public struct BotCharacterFilter
 		{
 			public EntityRef Entity;
@@ -42,7 +41,6 @@ namespace Quantum.Systems.Bots
 						.Average(p => p.PlayerTrophies)));
 			_botSetup.InitializeBots(f, averagePlayerTrophies);
 		}
-
 
 
 		/// <inheritdoc />
@@ -72,12 +70,6 @@ namespace Quantum.Systems.Bots
 
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
 
-			// If bot is not grounded the we do nothing as Skydiving is handled via animation
-			if (!kcc->Grounded)
-			{
-				return;
-			}
-
 			if (!filter.BotCharacter->SpeedResetAfterLanding)
 			{
 				filter.BotCharacter->SpeedResetAfterLanding = true;
@@ -91,6 +83,14 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
+
+
+			if (!kcc->Grounded)
+			{
+				kcc->Move(f, filter.Entity, FPVector3.Zero);
+				return;
+			}
+
 
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;
@@ -168,7 +168,8 @@ namespace Quantum.Systems.Bots
 			}
 
 			// Static bots don't move so no need to process anything else
-			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Static)
+			if (filter.BotCharacter->BehaviourType == BotBehaviourType.Dumb ||
+				filter.BotCharacter->BehaviourType == BotBehaviourType.Static)
 			{
 				return;
 			}
@@ -282,7 +283,7 @@ namespace Quantum.Systems.Bots
 
 			LogAction(ref filter, "no action");
 		}
-		
+
 
 		public void GoToCenterOfCircle(Frame f, ref BotCharacterFilter filter, FPVector2 circleCenter)
 		{
@@ -665,7 +666,7 @@ namespace Quantum.Systems.Bots
 			return distanceSqr <= (circleRadius * circleRadius) * (FP._0_75);
 		}
 
-	
+
 		/// <summary>
 		/// It goes around a invisible circle to wonder in the borders
 		/// </summary>

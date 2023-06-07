@@ -39,6 +39,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedDropDown _gameModeDropDown;
 		private LocalizedDropDown _mapDropDown;
 		private LocalizedDropDown[] _mutatorModeDropDown;
+		private LocalizedDropDown _botDifficultyDropDown;
 		private Button _joinRoomButton;
 		private Button _playtestButton;
 		private Button _createRoomButton;
@@ -74,10 +75,12 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
+			_botDifficultyDropDown = root.Q<LocalizedDropDown>("BotDifficulty").Required();
 
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
 			FillMutatorsSelectionList();
+			FillBotDifficultySelectionList();
 			SetPreviouslyUsedValues();
 		}
 
@@ -100,6 +103,7 @@ namespace FirstLight.Game.Presenters
 				if (_quantumGameModeConfigs.Count > lastUsedOptions.GameModeIndex)
 				{
 					_gameModeDropDown.SetValueWithoutNotify(_gameModeDropDown.choices[lastUsedOptions.GameModeIndex]);
+					FillMapSelectionList(_gameModeDropDown.index);
 				}
 
 				if (lastUsedOptions.Mutators?.Count > 0)
@@ -111,6 +115,8 @@ namespace FirstLight.Game.Presenters
 				{
 					_mapDropDown.index = lastUsedOptions.MapIndex;
 				}
+
+				_botDifficultyDropDown.index = lastUsedOptions.BotDifficulty;
 			}
 		}
 
@@ -150,6 +156,7 @@ namespace FirstLight.Game.Presenters
 				GameModeIndex = _gameModeDropDown.index,
 				Mutators = GetMutatorsList(),
 				MapIndex = _mapDropDown.index,
+				BotDifficulty = _botDifficultyDropDown.index,
 			};
 		}
 
@@ -298,6 +305,19 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_gameModeDropDown.choices = menuChoices;
+		}
+
+		private void FillBotDifficultySelectionList()
+		{
+			var menuChoices = new List<string>();
+			// It feels like a waste to load a config to get numbers for difficulties, so better to just hardcode them 
+			for (var difficulty = 0; difficulty < 10; difficulty++)
+			{
+				menuChoices.Add(difficulty.ToString());
+			}
+
+			_botDifficultyDropDown.choices = menuChoices;
+			_botDifficultyDropDown.value = menuChoices[0];
 		}
 	}
 }

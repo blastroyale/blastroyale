@@ -8,6 +8,7 @@
                 <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMapSelect" name="Map" class="room-dropdown" />
                 <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorOneSelect" name="Mutator1" class="room-dropdown" />
                 <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateMutatorTwoSelect" name="Mutator2" class="room-dropdown" />
+                <FirstLight.Game.UIElements.LocalizedDropDown index="-1" localization-key="MainMenu/RoomJoinCreateBotDifficulty" name="BotDifficulty" class="room-dropdown" />
             </ui:VisualElement>
             <ui:VisualElement name="CreateJoinHolder" focusable="true" class="roomjoin-button-holder">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="MainMenu/Playtest" name="PlaytestButton" class="button-long button-long--yellow info-holder__equip-button" />

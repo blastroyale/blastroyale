@@ -371,7 +371,7 @@ namespace FirstLight.UiService
 		{
 			if (!_visibleUiList.Contains(type))
 			{
-				FLog.Warn($"Is trying to close the {type.Name} ui but is not open");
+				FLog.Verbose($"Is trying to close the {type.Name} ui but is not open");
 				return;
 			}
 

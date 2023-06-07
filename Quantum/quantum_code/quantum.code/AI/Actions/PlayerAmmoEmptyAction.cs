@@ -12,10 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var player = f.Get<PlayerCharacter>(e).Player;
-			
-			f.Events.OnLocalPlayerAmmoEmpty(player, e);
-			f.Events.OnPlayerAmmoEmpty(player, e);
+			// We should remove this from the circuit and just delete this in general
 		}
 	}
 }

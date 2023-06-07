@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -9,8 +8,13 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles displaying the squad members on the screen, if there are any.
+	/// </summary>
 	public class SquadMembersView : UIView
 	{
+		private const int MAX_SQUAD_MEMBERS = 2;
+	
 		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new();
@@ -97,6 +101,8 @@ namespace FirstLight.Game.Views.UITK
 			var index = 0;
 			foreach (var (e, pc) in f.GetComponentIterator<PlayerCharacter>())
 			{
+				if(_squadMembers.Count >= MAX_SQUAD_MEMBERS) break;
+				
 				if (pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != e)
 				{
 					SquadMemberElement squadMember;

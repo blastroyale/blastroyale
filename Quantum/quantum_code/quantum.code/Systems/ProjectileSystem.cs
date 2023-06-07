@@ -35,7 +35,7 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger ||projectile.Attacker == info.Entity 
-				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity))
+				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity) || PlayerCharacter.HasSameTeam(f, projectile.Attacker, info.Other))
 			{
 				return;
 			}

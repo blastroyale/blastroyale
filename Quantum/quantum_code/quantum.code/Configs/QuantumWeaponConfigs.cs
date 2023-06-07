@@ -24,6 +24,7 @@ namespace Quantum
 		public QuantumGameModePair<int> MaxAmmo;
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
+		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
 		public ProjectileHitType HitType;
 		public int MagazineSize;
 		public FP ReloadTime;

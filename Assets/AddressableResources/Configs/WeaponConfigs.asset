@@ -34,7 +34,10 @@ MonoBehaviour:
           Value: 1722351953338325886
       BulletHitPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: -1
       ReloadTime:
@@ -90,8 +93,11 @@ MonoBehaviour:
         Values: 8000000018000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 193719547299099333
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -153,6 +159,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: 8
       ReloadTime:
@@ -212,6 +221,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: 30
       ReloadTime:
@@ -267,8 +279,11 @@ MonoBehaviour:
         Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 193719547299099333
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -326,8 +341,11 @@ MonoBehaviour:
         Values: 240000000c000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -345,7 +363,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 65536
       AttackHitSpeed:
-        RawValue: 2293760
+        RawValue: 1638400
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
@@ -387,6 +405,9 @@ MonoBehaviour:
         Id:
           Value: 3151177946438730648
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 382184530423860433
       HitType: 0
@@ -448,6 +469,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: 100
       ReloadTime:
@@ -503,8 +527,11 @@ MonoBehaviour:
         Values: a000000024000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 193719547299099333
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -566,6 +593,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: 1
       ReloadTime:
@@ -625,6 +655,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
       HitType: 0
       MagazineSize: 20
       ReloadTime:
@@ -680,8 +713,11 @@ MonoBehaviour:
         Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 193719547299099333
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -739,8 +775,11 @@ MonoBehaviour:
         Values: 230000000c000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -801,6 +840,9 @@ MonoBehaviour:
           Value: 3151177946438730648
       BulletHitPrototype:
         Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
           Value: 382184530423860433
       HitType: 0
       MagazineSize: 4
@@ -857,8 +899,11 @@ MonoBehaviour:
         Values: 680100004b000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 193719547299099333
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -916,8 +961,11 @@ MonoBehaviour:
         Values: 3000000018000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -975,8 +1023,11 @@ MonoBehaviour:
         Values: 5a0000000c000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -1034,8 +1085,11 @@ MonoBehaviour:
         Values: 290100004b000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -1093,8 +1147,11 @@ MonoBehaviour:
         Values: c800000032000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -1152,8 +1209,11 @@ MonoBehaviour:
         Values: 4b00000020000000
       BulletPrototype:
         Id:
-          Value: 0
+          Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0
@@ -1215,6 +1275,9 @@ MonoBehaviour:
       BulletHitPrototype:
         Id:
           Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 382184530423860433
       HitType: 0
       MagazineSize: -1
       ReloadTime:
@@ -1272,6 +1335,9 @@ MonoBehaviour:
         Id:
           Value: 1705595393471409306
       BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
         Id:
           Value: 0
       HitType: 0

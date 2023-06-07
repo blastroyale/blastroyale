@@ -7,6 +7,10 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles currency display on the screen. Because of legacy reasons all the logic
+	/// is still handled in the CurrencyDisplayElement.
+	/// </summary>
 	public class CurrencyDisplayView : UIView
 	{
 		private CurrencyDisplayElement _currency;

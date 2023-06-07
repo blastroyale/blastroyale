@@ -89,7 +89,7 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			startSimulation.OnExit(CloseSwipeTransition);
 	
-			modeCheck.OnEnter(OpenAdventureWorldHud);
+			//modeCheck.OnEnter(OpenAdventureWorldHud);
 			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
@@ -399,10 +399,10 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		private void OpenAdventureWorldHud()
-		{
-			_uiService.OpenUi<MatchWorldHudPresenter>();
-		}
+		// private void OpenAdventureWorldHud()
+		// {
+		// 	_uiService.OpenUi<MatchWorldHudPresenter>();
+		// }
 
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{

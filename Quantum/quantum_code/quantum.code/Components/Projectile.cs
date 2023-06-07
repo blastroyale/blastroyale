@@ -22,9 +22,14 @@ namespace Quantum
 
 		public QuantumWeaponConfig WeaponConfig(Frame f) => f.WeaponConfigs.GetConfig(SourceId); 
 
-		public bool ShouldPerformSubProjectile(Frame f)
+		public bool ShouldPerformSubProjectileOnHit(Frame f)
 		{
 			return WeaponConfig(f).BulletHitPrototype != null && Iteration == 0;
+		}
+		
+		public bool ShouldPerformSubProjectileOnEndOfLifetime(Frame f)
+		{
+			return WeaponConfig(f).BulletEndOfLifetimePrototype != null && Iteration == 0;
 		}
 		
 		public static void CreateProjectile(Frame f, EntityRef shooter, FP range, FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)

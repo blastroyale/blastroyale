@@ -319,7 +319,6 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -388,7 +387,8 @@ namespace Quantum
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
 			{
 				slot->MagazineShotCount -= 1;
-				f.Events.OnPlayerMagazineChanged(Player, e, slot->MagazineSize, slot->MagazineShotCount);
+				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
+					stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, slot->MagazineShotCount, slot->MagazineSize);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{
@@ -580,8 +580,13 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+
+			var stats = f.Unsafe.GetPointer<Stats>(e); 
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+			f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
+				stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}
@@ -606,9 +611,9 @@ namespace Quantum
 		/// </summary>
 		public static bool HasSameTeam(Frame f, EntityRef one, EntityRef two)
 		{
-			return f.TryGet<PlayerCharacter>(one, out var viewerPlayer)
-				&& f.TryGet<PlayerCharacter>(two, out var targetPlayer)
-				&& viewerPlayer.TeamId > 0 && viewerPlayer.TeamId == targetPlayer.TeamId;
+			return f.TryGet<Targetable>(one, out var viewerPlayer)
+				&& f.TryGet<Targetable>(two, out var targetPlayer)
+				&& viewerPlayer.Team > 0 && viewerPlayer.Team == targetPlayer.Team;
 		}
 	}
 }

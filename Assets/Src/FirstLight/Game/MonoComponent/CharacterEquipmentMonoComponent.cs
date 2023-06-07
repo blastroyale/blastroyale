@@ -133,8 +133,11 @@ namespace FirstLight.Game.MonoComponent
 			
 			for (var i = 0; i < anchors.Length; i++)
 			{
-				anchors[i].GetChild(0).gameObject.SetActive(false);
-				Destroy(anchors[i].GetChild(0).gameObject);
+				if (i >= anchors.Length) continue;
+				var anchor = anchors[i];
+				if (anchor.childCount == 0) continue;
+				anchor.GetChild(0).gameObject.SetActive(false);
+				Destroy(anchor.GetChild(0).gameObject);
 			}
 		}
 

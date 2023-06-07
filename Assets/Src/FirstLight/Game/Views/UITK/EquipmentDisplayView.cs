@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles displaying the equipment the player has acquired.
+	/// </summary>
 	public class EquipmentDisplayView : UIView
 	{
 		private const string USS_GEAR_ACQUIRED = "equipment-display__gear-item--acquired";

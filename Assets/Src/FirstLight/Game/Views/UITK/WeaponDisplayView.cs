@@ -88,7 +88,17 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
-			_ammoLabel.text = (callback.CurrentAmmo + callback.CurrentMag).ToString();
+			UpdateAmmo(callback.Game.Frames.Verified, callback.Entity);
+		}
+
+		private unsafe void UpdateAmmo(Frame f, EntityRef entity)
+		{
+			var pc = f.Unsafe.GetPointer<PlayerCharacter>(entity);
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
+			var weapon = pc->WeaponSlots[1];
+			var currentAmmoModified = Mathf.CeilToInt((float) stats->CurrentAmmo / weapon.AmmoCostPerShot);
+
+			_ammoLabel.text = (currentAmmoModified + weapon.MagazineShotCount).ToString();
 		}
 
 		private void SetSlot(int slot)

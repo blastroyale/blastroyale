@@ -107,6 +107,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
 			_weaponAim = aim.GetComponent<WeaponAim>();
 			_weaponAim.SetView(playerView);
+			_weaponAim.gameObject.SetActive(false);
 
 			for (int i = 0; i < _specialIndicators.Length; i++)
 			{
@@ -262,12 +263,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_localPlayerEntity.IsAlive(f)) return;
 			
 			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
+			_weaponAim.gameObject.SetActive(shooting);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);
 			}
 			else
 			{
+				
 				_weaponAim.UpdateAimAngle(f, _localPlayerEntity, aim);
 			}
 		}

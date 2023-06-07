@@ -606,9 +606,9 @@ namespace Quantum
 		/// </summary>
 		public static bool HasSameTeam(Frame f, EntityRef one, EntityRef two)
 		{
-			return f.TryGet<PlayerCharacter>(one, out var viewerPlayer)
-				&& f.TryGet<PlayerCharacter>(two, out var targetPlayer)
-				&& viewerPlayer.TeamId > 0 && viewerPlayer.TeamId == targetPlayer.TeamId;
+			return f.TryGet<Targetable>(one, out var viewerPlayer)
+				&& f.TryGet<Targetable>(two, out var targetPlayer)
+				&& viewerPlayer.Team > 0 && viewerPlayer.Team == targetPlayer.Team;
 		}
 	}
 }

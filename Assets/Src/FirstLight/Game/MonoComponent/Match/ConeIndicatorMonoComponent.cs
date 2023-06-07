@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)
 		{
+			if (_indicator.IsDestroyed()) return;
 			_indicator.enabled = isVisible;
 			_indicator.material.SetColor(_color, isEmphasized ? _reloadColor : Color.white);
 		}

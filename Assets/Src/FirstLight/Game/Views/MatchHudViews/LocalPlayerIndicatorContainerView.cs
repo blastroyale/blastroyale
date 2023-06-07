@@ -162,9 +162,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			ShootIndicator.SetVisualState(false);
+			_weaponAim.gameObject.SetActive(false);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
-				ShootIndicator.SetVisualState(false);
 				if (_weaponConfig.MaxAttackAngle == 0)
 				{
 					_shootIndicatorId = IndicatorVfxId.Line;
@@ -181,6 +182,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else
 			{
+				_weaponAim.gameObject.SetActive(true);
 				_weaponAim.UpdateWeapon(f, _localPlayerEntity, _weaponConfig);
 			}
 		}

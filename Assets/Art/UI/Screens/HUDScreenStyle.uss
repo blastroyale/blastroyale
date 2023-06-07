@@ -1144,3 +1144,19 @@
     left: 20px;
     height: 44px;
 }
+
+.health-status-bar {
+    flex-direction: row;
+    background-image: var(--sprite-match__background-healthbar);
+    height: 22px;
+    width: 177px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.health-status-bar__bar {
+    background-image: var(--sprite-match__progress-health);
+    flex-grow: 0.5;
+}

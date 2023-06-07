@@ -174,7 +174,7 @@ namespace Quantum.Systems.Bots
 				TimeStartRunningFromCircle = f.RNG->NextInclusive(FP._2, FP._10 * FP._3)
 			};
 
-			ctx.BotNamesIndices.RemoveAt(listNamesIndex);
+			ctx.BotNamesIndices.Remove(listNamesIndex);
 
 			// Remove a spawner from list when we took a new one for another team; update stored teamId
 			if (ctx.PlayerSpawners.Count > 1)

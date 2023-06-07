@@ -34,7 +34,7 @@ MonoBehaviour:
           Value: 1722351953338325886
       BulletHitPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 0
       HitType: 0
       MagazineSize: -1
       ReloadTime:
@@ -345,7 +345,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 65536
       AttackHitSpeed:
-        RawValue: 2293760
+        RawValue: 1638400
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
+			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
@@ -277,8 +277,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnPlayerAmmoChanged callback)
 		{
+			if (callback.CurrentMag != 0)
+				return;
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}
 		

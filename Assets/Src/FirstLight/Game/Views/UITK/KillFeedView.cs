@@ -1,13 +1,14 @@
-using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
-using UnityEngine.Pool;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Shows players that have been killed and by whom.
+	/// </summary>
 	public class KillFeedView : UIView
 	{
 		private const long SHOWN_DURATION = 5000;

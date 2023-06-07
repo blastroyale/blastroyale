@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_entity = entity;
 			SetSliderValue(player);
 			
-			QuantumEvent.Subscribe<EventOnPlayerMagazineChanged>(this, HandleOnPlayerMagazineChanged);
+			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerMagazineChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerReloadStart>(this, HandleOnPlayerStartReload);
 			QuantumEvent.Subscribe<EventOnPlayerMagazineReloaded>(this, HandleOnPlayerFinishReload);
@@ -59,7 +59,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void HandleOnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
+		private void HandleOnPlayerMagazineChanged(EventOnPlayerAmmoChanged callback)
 		{
 			var f = callback.Game.Frames.Verified;
 

@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles displaying the special buttons and their state.
+	/// </summary>
 	public class SpecialButtonsView : UIView
 	{
 		private SpecialButtonElement _special0Button;
@@ -27,6 +30,11 @@ namespace FirstLight.Game.Views.UITK
 		/// Called with the aiming direction of the special currently being aimed. Not called on non-draggable specials.
 		/// </summary>
 		public event Action<Vector2> OnDrag;
+		
+		/// <summary>
+		/// Called when the special is canceled.
+		/// </summary>
+		public event Action<float> OnCancel;
 
 		public override void Attached(VisualElement element)
 		{
@@ -38,6 +46,8 @@ namespace FirstLight.Game.Views.UITK
 			_special1Button.OnPress += val => OnSpecial1Pressed?.Invoke(val);
 			_special0Button.OnDrag += val => OnDrag?.Invoke(val);
 			_special1Button.OnDrag += val => OnDrag?.Invoke(val);
+			_special0Button.OnCancel += val => OnCancel?.Invoke(val);
+			_special1Button.OnCancel += val => OnCancel?.Invoke(val);
 		}
 
 		public override void SubscribeToEvents()

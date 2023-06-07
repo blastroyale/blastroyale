@@ -4,6 +4,7 @@
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
+    --sprite-match__background-playerbar: url('/Assets/Art/UI/Sprites/Match/background-playerbar.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
     --sprite-match__background-squadmember: url('/Assets/Art/UI/Sprites/Match/background-squadmember.png');
@@ -40,8 +41,8 @@
     --sprite-match__icon-wifi-noconnection: url('/Assets/Art/UI/Sprites/Match/icon-wifi-noconnection.png');
     --sprite-match__icon-x-red: url('/Assets/Art/UI/Sprites/Match/icon-x-red.png');
     --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
+    --sprite-match__progress-damage: url('/Assets/Art/UI/Sprites/Match/progress-damage.png');
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
-    --sprite-match__progress-health-red: url('/Assets/Art/UI/Sprites/Match/progress-health-red.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
     --sprite-match__text-busted: url('/Assets/Art/UI/Sprites/Match/text-busted.png');
@@ -74,6 +75,12 @@
     background-image: var(--sprite-match__background-gradient-yellow);
     width: 274px;
     height: 126px;
+}
+
+.sprite-match__background-playerbar {
+    background-image: var(--sprite-match__background-playerbar);
+    width: 62px;
+    height: 44px;
 }
 
 .sprite-match__background-reward-bpp {
@@ -290,22 +297,22 @@
     height: 1080px;
 }
 
-.sprite-match__progress-health {
-    background-image: var(--sprite-match__progress-health);
-    width: 16px;
-    height: 16px;
+.sprite-match__progress-damage {
+    background-image: var(--sprite-match__progress-damage);
+    width: 12px;
+    height: 17px;
 }
 
-.sprite-match__progress-health-red {
-    background-image: var(--sprite-match__progress-health-red);
-    width: 16px;
-    height: 16px;
+.sprite-match__progress-health {
+    background-image: var(--sprite-match__progress-health);
+    width: 12px;
+    height: 18px;
 }
 
 .sprite-match__progress-shield {
     background-image: var(--sprite-match__progress-shield);
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 11px;
 }
 
 .sprite-match__text-blasted {

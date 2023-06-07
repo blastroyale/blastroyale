@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
+			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
@@ -107,6 +107,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var aim = _services.VfxService.Spawn(VfxId.WeaponAim);
 			_weaponAim = aim.GetComponent<WeaponAim>();
 			_weaponAim.SetView(playerView);
+			_weaponAim.gameObject.SetActive(false);
 
 			for (int i = 0; i < _specialIndicators.Length; i++)
 			{
@@ -161,9 +162,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			ShootIndicator.SetVisualState(false);
+			_weaponAim.gameObject.SetActive(false);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
-				ShootIndicator.SetVisualState(false);
 				if (_weaponConfig.MaxAttackAngle == 0)
 				{
 					_shootIndicatorId = IndicatorVfxId.Line;
@@ -180,6 +182,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else
 			{
+				_weaponAim.gameObject.SetActive(true);
 				_weaponAim.UpdateWeapon(f, _localPlayerEntity, _weaponConfig);
 			}
 		}
@@ -262,18 +265,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_localPlayerEntity.IsAlive(f)) return;
 			
 			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
+			_weaponAim.gameObject.SetActive(shooting);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);
 			}
 			else
 			{
+				
 				_weaponAim.UpdateAimAngle(f, _localPlayerEntity, aim);
 			}
 		}
 
-		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)
+		private void HandleOnLocalPlayerAmmoEmpty(EventOnPlayerAmmoChanged callback)
 		{
+			if (callback.CurrentMag != 0)
+				return;
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}
 		

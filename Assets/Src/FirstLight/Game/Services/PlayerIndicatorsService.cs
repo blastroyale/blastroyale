@@ -22,7 +22,7 @@ namespace FirstLight.Game.Services
 		private readonly IMatchServices _matchServices;
 
 		private readonly LocalPlayerIndicatorContainerView _indicatorContainerView;
-		
+
 		private LocalInput.GameplayActions _inputs;
 		private bool _shooting;
 		private int _specialPressed = -1;
@@ -40,7 +40,7 @@ namespace FirstLight.Game.Services
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
-			
+
 			RegisterListeners();
 			if (isReconnect)
 			{
@@ -58,7 +58,7 @@ namespace FirstLight.Game.Services
 			UnregisterListeners();
 		}
 
-		public void RegisterListeners()
+		private void RegisterListeners()
 		{
 			_inputs.Move.performed += OnMove;
 			_inputs.AimButton.performed += OnShooting;
@@ -70,9 +70,10 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.performed += OnSpecial1;
 			_inputs.SpecialButton1.canceled += OnSpecial1;
 			_inputs.SpecialAim.performed += OnSpecialAim;
+			_inputs.CancelButton.performed += OnCancel;
 		}
 
-		public void UnregisterListeners()
+		private void UnregisterListeners()
 		{
 			_inputs.Move.performed -= OnMove;
 			_inputs.AimButton.performed -= OnShooting;
@@ -130,6 +131,13 @@ namespace FirstLight.Game.Services
 				_indicatorContainerView.GetSpecialIndicator(_specialPressed)
 					.SetTransformState(_inputs.SpecialAim.ReadValue<Vector2>());
 			}
+		}
+
+		private void OnCancel(InputAction.CallbackContext c)
+		{
+			if (!CanListen()) return;
+
+			OnSpecialSetupIndicator(c, _specialPressed);
 		}
 
 		private void OnShooting(InputAction.CallbackContext c)

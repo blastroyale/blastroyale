@@ -115,7 +115,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			line.SetPosition(0, originUnity);
 			if (hits.Count > 0)
 			{
-				var hit = hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(hit, entity));
+				var hit = hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, hit, entity));
 				if (hit.Point != FPVector3.Zero)
 				{
 					lineEnd = hit.Point.ToUnityVector3();
@@ -124,9 +124,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			line.SetPosition(1, lineEnd);
 		}
 
-		private bool IsValidRaycastHit(Hit3D hit, EntityRef shooter)
+		private bool IsValidRaycastHit(Frame f, Hit3D hit, EntityRef shooter)
 		{
-			return hit.Point != FPVector3.Zero && (hit.Entity.IsValid && hit.Entity != shooter || !hit.IsDynamic);
+			return hit.Point != FPVector3.Zero && (hit.Entity.IsValid && hit.Entity != shooter || !hit.IsDynamic) && !PlayerCharacter.HasSameTeam(f, shooter, hit.Entity);
 		}
 	}
 }

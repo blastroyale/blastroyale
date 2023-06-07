@@ -20,14 +20,15 @@ namespace FirstLight.Game.Presenters
 		
 		private const string USS_SKYDIVING = "skydiving";
 
-		[SerializeField] private UnityInputScreenControl _moveDirectionJoystickInput;
-		[SerializeField] private UnityInputScreenControl _moveDownJoystickInput;
-		[SerializeField] private UnityInputScreenControl _aimDirectionJoystickInput;
-		[SerializeField] private UnityInputScreenControl _aimDownJoystickInput;
-		[SerializeField] private UnityInputScreenControl _weaponSwitchInput;
-		[SerializeField] private UnityInputScreenControl _special0PressedInput;
-		[SerializeField] private UnityInputScreenControl _special1PressedInput;
-		[SerializeField] private UnityInputScreenControl _specialAimInput;
+		[SerializeField, Required] private UnityInputScreenControl _moveDirectionJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _moveDownJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _aimDirectionJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _aimDownJoystickInput;
+		[SerializeField, Required] private UnityInputScreenControl _weaponSwitchInput;
+		[SerializeField, Required] private UnityInputScreenControl _special0PressedInput;
+		[SerializeField, Required] private UnityInputScreenControl _special1PressedInput;
+		[SerializeField, Required] private UnityInputScreenControl _specialAimInput;
+		[SerializeField, Required] private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
 
@@ -38,6 +39,7 @@ namespace FirstLight.Game.Presenters
 		private DeviceStatusView _deviceStatusView;
 		private SquadMembersView _squadMembersView;
 		private EquipmentDisplayView _equipmentDisplayView;
+		private PlayerStatusBarsView _playerStatusBarsView;
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
@@ -58,6 +60,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
 			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
+			root.Q("PlayerBars").Required().AttachView(this, out _playerStatusBarsView);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
@@ -74,6 +77,7 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial0Pressed += _special0PressedInput.SendValueToControl;
 			_specialButtonsView.OnSpecial1Pressed += _special1PressedInput.SendValueToControl;
 			_specialButtonsView.OnDrag += _specialAimInput.SendValueToControl;
+			_specialButtonsView.OnCancel += _specialCancelInput.SendValueToControl;
 			
 			HideSkydivingElements(true);
 		}

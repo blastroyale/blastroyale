@@ -55,6 +55,42 @@
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
 }
 
+.special-button__cancel-circle {
+    position: absolute;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-color: rgba(189, 84, 84, 0.57);
+    border-right-color: rgba(189, 84, 84, 0.57);
+    border-top-color: rgba(189, 84, 84, 0.57);
+    border-bottom-color: rgba(189, 84, 84, 0.57);
+    border-left-width: var(--match-button-outline-width);
+    border-right-width: var(--match-button-outline-width);
+    border-top-width: var(--match-button-outline-width);
+    border-bottom-width: var(--match-button-outline-width);
+    width: 140px;
+    height: 140px;
+    opacity: 0;
+    transition-property: width, height, opacity;
+    transition-duration: 0.2s, 0.2s, 0.2s;
+    transition-timing-function: ease-out-cubic, ease-out-cubic, ease-out-cubic;
+}
+
+.special-button--pressed .special-button__cancel-circle {
+    width: 500px;
+    height: 500px;
+    opacity: 1;
+}
+
+.special-button__cancel-icon {
+    position: absolute;
+    visibility: hidden;
+    background-image: var(--sprite-match__icon-x-red);
+    width: 60px;
+    height: 60px;
+}
+
 .special-button__container {
     background-color: var(--match-button-background-color);
     border-left-color: var(--match-button-outline-color);
@@ -532,7 +568,7 @@
     width: 457px;
     overflow: hidden;
     transition-property: height, opacity;
-    transition-duration: 0.5s, 0.5s;
+    transition-duration: 0.3s, 0.3s;
     transition-timing-function: ease-in, ease-in;
 }
 
@@ -977,4 +1013,134 @@
     -unity-text-align: upper-right;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 1px;
+}
+
+.player-status-bar {
+    background-color: rgba(0, 0, 0, 0);
+    width: 225px;
+    height: 75px;
+    position: absolute;
+    left: -112px;
+    top: -50px;
+}
+
+.player-status-bar--friendly {
+}
+
+.player-status-bar__level {
+    background-color: rgb(54, 46, 76);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 46px;
+    height: 46px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left-color: rgb(24, 18, 54);
+    border-right-color: rgb(24, 18, 54);
+    border-top-color: rgb(24, 18, 54);
+    border-bottom-color: rgb(24, 18, 54);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 2px;
+    padding-bottom: 0;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(24, 18, 54);
+    font-size: 32px;
+}
+
+.player-status-bar__name {
+    color: rgb(255, 255, 255);
+    font-size: 28px;
+    -unity-text-align: upper-center;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 18px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-overflow: ellipsis;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
+.player-status-bar--friendly .player-status-bar__name {
+    color: rgb(34, 211, 232);
+}
+
+.player-status-bar__ammo-holder {
+    bottom: 2px;
+    right: 11px;
+    position: absolute;
+    left: 32px;
+    height: 6px;
+    flex-direction: row;
+}
+
+.player-status-bar--friendly .player-status-bar__ammo-holder {
+    display: none;
+}
+
+.player-status-bar__ammo-segment {
+    background-color: rgb(242, 178, 51);
+    flex-grow: 1;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.player-status-bar__health-holder {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    left: 42px;
+    bottom: 12px;
+    right: 9px;
+    height: 15px;
+    flex-direction: row;
+}
+
+.player-status-bar__health-bar {
+    flex-grow: 1;
+    background-image: var(--sprite-match__progress-health);
+}
+
+.player-status-bar__shield-holder {
+    height: 10px;
+    position: absolute;
+    right: 5px;
+    left: 32px;
+    bottom: 32px;
+    flex-direction: row;
+}
+
+.player-status-bar__shield-bar {
+    flex-grow: 1;
+    background-image: var(--sprite-match__progress-shield);
+}
+
+.player-status-bar__background {
+    background-image: var(--sprite-match__background-playerbar);
+    position: absolute;
+    bottom: 1px;
+    right: 0;
+    left: 20px;
+    height: 44px;
 }

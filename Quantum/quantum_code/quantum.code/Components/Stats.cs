@@ -161,12 +161,13 @@ namespace Quantum
 			var previousAmmo = CurrentAmmo;
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
+			var currentMag = player->WeaponSlot->MagazineShotCount;
 
 			CurrentAmmo = FPMath.Clamp(value, 0, maxAmmo);
 
 			if (CurrentAmmo != previousAmmo)
 			{
-				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, magSize);
+				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, currentMag, magSize);
 			}
 		}
 

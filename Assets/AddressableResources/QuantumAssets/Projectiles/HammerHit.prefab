@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1969717073681190072}
   - component: {fileID: 5006176107355488481}
   - component: {fileID: 4527445493281042505}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: HammerHit
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 17
+    Layer: 18
     CallbackFlags:
       Value: 1152
   PhysicsBody:
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8883133987582274920}
   - component: {fileID: 7602491864726668213}
   - component: {fileID: 5736516953269354197}
-  m_Layer: 10
+  m_Layer: 18
   m_Name: SmokeCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5121,7 +5121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6359618255217022893}
   - component: {fileID: 1468534787518560161}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: T_Circle01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

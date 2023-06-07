@@ -21,5 +21,10 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			RunWhenAuthenticated(() => { DataProviders.AppDataProvider.FpsTarget = target; });
 		}
+		
+		public void SetTargetServer(string server)
+		{
+			RunWhenAuthenticated(() => { DataProviders.AppDataProvider.ConnectionRegion.Value = server; });
+		}
 	}
 }

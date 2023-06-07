@@ -1,8 +1,10 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
@@ -16,6 +18,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BG_CIRCLE = USS_BLOCK + "__bg-circle";
 		private const string USS_ICON = USS_BLOCK + "__icon";
 		private const string USS_COOLDOWN = USS_BLOCK + "__cooldown";
+		private const string USS_CANCEL_CIRCLE = USS_BLOCK + "__cancel-circle";
+		private const string USS_CANCEL_ICON = USS_BLOCK + "__cancel-icon";
 
 		private const string USS_SPRITE_SPECIAL = "sprite-shared__icon-special-{0}";
 
@@ -24,11 +28,14 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _icon;
 		private readonly VisualElement _cooldown;
 		private readonly Label _cooldownLabel;
+		private readonly VisualElement _cancelCircle;
+		private readonly VisualElement _cancelIcon;
 
 		private Vector2 _startingPosition;
 
 		private bool _draggable;
 		private bool _onCooldown;
+		private bool _inCancel;
 
 		private IVisualElementScheduledItem _disableScheduledItem;
 
@@ -36,6 +43,11 @@ namespace FirstLight.Game.UIElements
 		/// Triggered with 0f when button is pressed and with 1f when button is released.
 		/// </summary>
 		public event Action<float> OnPress;
+		
+		/// <summary>
+		/// Triggered with 0f when button is pressed and with 1f when button is released.
+		/// </summary>
+		public event Action<float> OnCancel;
 
 		/// <summary>
 		/// Triggered when the joystick is being dragged (always triggered between OnPress callbacks).
@@ -46,6 +58,9 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(USS_BLOCK);
 			pickingMode = PickingMode.Ignore;
+
+			Add(_cancelCircle = new VisualElement {name = "cancel-circle"});
+			_cancelCircle.AddToClassList(USS_CANCEL_CIRCLE);
 
 			Add(_container = new VisualElement {name = "container"});
 			_container.AddToClassList(USS_CONTAINER);
@@ -59,6 +74,9 @@ namespace FirstLight.Game.UIElements
 
 			_stick.Add(_icon = new VisualElement {name = "icon"});
 			_icon.AddToClassList(USS_ICON);
+
+			_stick.Add(_cancelIcon = new VisualElement {name = "cancel-icon"});
+			_cancelIcon.AddToClassList(USS_CANCEL_ICON);
 
 			_container.Add(_cooldown = new VisualElement {name = "cooldown"});
 			_cooldown.AddToClassList(USS_COOLDOWN);
@@ -185,6 +203,19 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = stickPositionClamped;
 
+			var inCancelArea = !_cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position));
+
+			if (inCancelArea != _inCancel)
+			{
+				_inCancel = inCancelArea;
+				_cancelIcon.SetVisibility(_inCancel);
+				if (_inCancel)
+				{
+					// TODO: Maybe cancel the previous animation if it looks weird when quickly cycling
+					_cancelIcon.AnimatePing(1.2f);
+				}
+			}
+
 			stickPositionClampedNormalized.y = -stickPositionClampedNormalized.y;
 
 			OnDrag?.Invoke(stickPositionClampedNormalized);
@@ -200,7 +231,15 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = Vector3.zero;
 
-			OnPress?.Invoke(0f);
+			if (_inCancel)
+			{
+				_cancelIcon.SetVisibility(false);
+				OnCancel?.Invoke(0f);
+			}
+			else
+			{
+				OnPress?.Invoke(0f);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>

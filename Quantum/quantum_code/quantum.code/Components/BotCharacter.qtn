@@ -9,7 +9,6 @@ enum BotBehaviourType
 
 component BotCharacter
 {
-    Byte BotIndex;
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;

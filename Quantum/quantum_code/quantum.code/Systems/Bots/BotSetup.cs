@@ -147,7 +147,7 @@ namespace Quantum.Systems.Bots
 				Skin = f.RNG->RandomElement(ctx.SkinOptions),
 				DeathMarker = f.RNG->RandomElement(ctx.DeathMakers),
 				Glider = f.RNG->RandomElement(ctx.Gliders),
-				BotNameIndex = ctx.BotNamesIndices[listNamesIndex],
+				BotNameIndex = listNamesIndex,
 				BehaviourType = config.BehaviourType,
 				// We modify intervals to make them more unique to avoid performance spikes
 				DecisionInterval = config.DecisionInterval,

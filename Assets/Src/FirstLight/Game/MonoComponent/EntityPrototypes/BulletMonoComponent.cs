@@ -14,7 +14,10 @@ public class BulletMonoComponent : MonoBehaviour
 	
 	void Awake()
 	{
-		View.OnEntityInstantiated.AddListener(SetupBulletColor);
+		if (FeatureFlags.BULLET_COLORS)
+		{
+			View.OnEntityInstantiated.AddListener(SetupBulletColor);
+		}
 	}
 	
 	public void SetupBulletColor(QuantumGame game)

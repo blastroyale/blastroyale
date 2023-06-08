@@ -181,6 +181,11 @@ namespace FirstLight.Game.Utils
 		/// This is mainly useful when you don't have a quantum server - but we cant afford to maintain this feature.
 		/// </summary>
 		public static bool RESTORE_SNAPSHOT_GAMES = false;
+		
+		/// <summary>
+		/// Should bullets change colors if they come from enemies/allies ?
+		/// </summary>
+		public static bool BULLET_COLORS = true;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -247,6 +252,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
 			{
 				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
+			}
+			
+			if (TrySetFlag("BULLET_COLORS", overrideData, out var bulletCollors))
+			{
+				BULLET_COLORS = bulletCollors;
 			}
 		}
 

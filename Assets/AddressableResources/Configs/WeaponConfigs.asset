@@ -775,7 +775,7 @@ MonoBehaviour:
         Values: 230000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0

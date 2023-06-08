@@ -39,6 +39,11 @@ MonoBehaviour:
         Id:
           Value: 134085775617983364
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerChangeDefaultWeapon_20]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 148021496798672150
+      Address: QuantumAssets/Projectiles/MainBullet.prefab[MainBulletEntityPrototype]
     - Path: AddressableResources/Maps/SmallWilderness_NavMesh_data
       AssetRef:
         Id:
@@ -902,6 +907,11 @@ MonoBehaviour:
         Id:
           Value: 3533206314671626963
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_20]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 3566144576847955563
+      Address: QuantumAssets/Projectiles/MainBullet.prefab[MainBulletEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_29
       AssetRef:
         Id:

@@ -29,7 +29,11 @@ namespace Quantum
 			var index = session.Next(0, list.Count);
 			return list[index];
 		}
-		
+
+		public static FP NextInclusive(this ref RNGSession session, FPVector2 range)
+		{
+			return session.NextInclusive(range.X, range.Y);
+		}
 	}
 
 	unsafe partial class Frame

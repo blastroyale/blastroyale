@@ -44,6 +44,14 @@ MonoBehaviour:
         RawValue: 32768
       DamageTakenMultiplier:
         RawValue: 131072
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 1
@@ -70,6 +78,14 @@ MonoBehaviour:
         RawValue: 39322
       DamageTakenMultiplier:
         RawValue: 111411
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 2
@@ -96,6 +112,14 @@ MonoBehaviour:
         RawValue: 45875
       DamageTakenMultiplier:
         RawValue: 91750
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 3
@@ -122,6 +146,14 @@ MonoBehaviour:
         RawValue: 49152
       DamageTakenMultiplier:
         RawValue: 78643
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 4
@@ -148,6 +180,14 @@ MonoBehaviour:
         RawValue: 52429
       DamageTakenMultiplier:
         RawValue: 72090
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 5
@@ -174,6 +214,14 @@ MonoBehaviour:
         RawValue: 55706
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 6
@@ -200,6 +248,14 @@ MonoBehaviour:
         RawValue: 58982
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 7
@@ -226,6 +282,14 @@ MonoBehaviour:
         RawValue: 62259
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 8
@@ -252,6 +316,14 @@ MonoBehaviour:
         RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 9
@@ -278,6 +350,14 @@ MonoBehaviour:
         RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 3
       GameMode: Deathmatch
       Difficulty: 0
@@ -304,6 +384,14 @@ MonoBehaviour:
         RawValue: 65536
       DamageTakenMultiplier:
         RawValue: 65536
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 4
       GameMode: Tutorial
       Difficulty: 0
@@ -330,6 +418,14 @@ MonoBehaviour:
         RawValue: 49152
       DamageTakenMultiplier:
         RawValue: 26214
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 1
       GameMode: Tutorial
       Difficulty: 0
@@ -356,6 +452,14 @@ MonoBehaviour:
         RawValue: 26214
       DamageTakenMultiplier:
         RawValue: 196608
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080
     - BehaviourType: 4
       GameMode: BattleRoyale First Game
       Difficulty: 0
@@ -382,3 +486,11 @@ MonoBehaviour:
         RawValue: 32768
       DamageTakenMultiplier:
         RawValue: 131072
+      MinSpecialCooldown:
+        RawValue: 1966080
+      MaxSpecialCooldown:
+        RawValue: 3932160
+      MinRunFromZoneTime:
+        RawValue: 327680
+      MaxRunFromZoneTime:
+        RawValue: 1966080

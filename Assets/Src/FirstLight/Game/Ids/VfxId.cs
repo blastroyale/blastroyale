@@ -36,6 +36,7 @@ namespace FirstLight.Game.Ids
 		LocationPointer,
 		WeaponAim,
 		CollectableIndicatorLarge,
+		ProjectileFailedSmoke,
 		TOTAL,            // Used to know the total amount of this type without the need of reflection
 	}
 	

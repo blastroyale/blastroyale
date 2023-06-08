@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
@@ -47,9 +48,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
+
+		private bool IsInitialized() => _playerView != null;
 		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
-		{ 
+		{
+			if (!IsInitialized()) return;
 			SetupWeaponInfo(callback.Game.Frames.Predicted, callback.WeaponSlot.Weapon.GameId);
 			SetupWeaponSpecials(callback.WeaponSlot);
 		}
@@ -162,7 +166,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
-			ShootIndicator.SetVisualState(false);
+			ShootIndicator?.SetVisualState(false);
 			_weaponAim.gameObject.SetActive(false);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
@@ -182,7 +186,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else
 			{
-				_weaponAim.gameObject.SetActive(true);
 				_weaponAim.UpdateWeapon(f, _localPlayerEntity, _weaponConfig);
 			}
 		}
@@ -265,21 +268,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!_localPlayerEntity.IsAlive(f)) return;
 			
 			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
-			_weaponAim.gameObject.SetActive(shooting);
+		
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);
 			}
 			else
 			{
-				
-				_weaponAim.UpdateAimAngle(f, _localPlayerEntity, aim);
+				_weaponAim.gameObject.SetActive(shooting);
+				if (shooting)
+				{
+					_weaponAim.UpdateAimAngle(f, _localPlayerEntity, aim);
+				}
 			}
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnPlayerAmmoChanged callback)
 		{
-			if (callback.CurrentMag != 0)
+			if (callback.CurrentMag != 0 || !IsInitialized())
 				return;
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}

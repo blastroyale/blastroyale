@@ -388,7 +388,7 @@ namespace Quantum
 			{
 				slot->MagazineShotCount -= 1;
 				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
-					stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, slot->MagazineShotCount, slot->MagazineSize);
+					f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f), slot->MagazineShotCount, slot->MagazineSize);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{
@@ -586,7 +586,7 @@ namespace Quantum
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
-				stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
+				weaponConfig.MaxAmmo.Get(f), WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}

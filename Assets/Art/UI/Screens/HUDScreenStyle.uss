@@ -1090,10 +1090,11 @@
     left: 32px;
     height: 6px;
     flex-direction: row;
+    display: none;
 }
 
 .player-status-bar--friendly .player-status-bar__ammo-holder {
-    display: none;
+    display: flex;
 }
 
 .player-status-bar__ammo-segment {

@@ -165,7 +165,7 @@ namespace FirstLight.Game.Views.UITK
 			InitBar(f, callback.Entity);
 		}
 
-		private void InitBar(Frame f, EntityRef entity)
+		private unsafe void InitBar(Frame f, EntityRef entity)
 		{
 			var bar = _playerBarPool.Get();
 			_visiblePlayers.Add(entity, bar);
@@ -184,6 +184,7 @@ namespace FirstLight.Game.Views.UITK
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
+			bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)

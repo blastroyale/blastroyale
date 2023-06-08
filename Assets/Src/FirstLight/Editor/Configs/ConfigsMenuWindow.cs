@@ -29,7 +29,7 @@ namespace FirstLight.Editor.Configs
 
 		private Dictionary<Type, IGoogleSheetConfigsImporter> _importers = new();
 
-		[MenuItem("FLG/Configs")]
+		[MenuItem("FLG/Configs/Open Menu")]
 		private static void OpenWindow()
 		{
 			GetWindow<ConfigsMenuWindow>("Configs").Show();

@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public partial class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const float CURRENCY_ANIM_DELAY = 2f;
+		private const float CURRENCY_ANIM_DELAY = 0.25f;
 
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";

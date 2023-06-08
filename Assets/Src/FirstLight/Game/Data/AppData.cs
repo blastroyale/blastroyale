@@ -18,6 +18,7 @@ namespace FirstLight.Game.Data
 		public List<string> Mutators = new();
 		public int GameModeIndex;
 		public int MapIndex;
+		public int BotDifficulty;
 	}
 	
 	/// <summary>

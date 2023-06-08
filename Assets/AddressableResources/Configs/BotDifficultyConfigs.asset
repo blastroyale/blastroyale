@@ -19,26 +19,32 @@ MonoBehaviour:
         Value: 676307946006492234
     BotDifficulties:
     - MinTrophies: 0
+      MaxTrophies: 25
+      BotDifficulty: 0
+    - MinTrophies: 26
+      MaxTrophies: 50
+      BotDifficulty: 1
+    - MinTrophies: 51
+      MaxTrophies: 75
+      BotDifficulty: 2
+    - MinTrophies: 76
+      MaxTrophies: 100
+      BotDifficulty: 3
+    - MinTrophies: 101
+      MaxTrophies: 125
+      BotDifficulty: 4
+    - MinTrophies: 126
+      MaxTrophies: 200
+      BotDifficulty: 5
+    - MinTrophies: 201
+      MaxTrophies: 500
+      BotDifficulty: 6
+    - MinTrophies: 501
       MaxTrophies: 1000
-      BotDifficulty: 0
-    - MinTrophies: 1000
-      MaxTrophies: 1300
-      BotDifficulty: 0
-    - MinTrophies: 1300
-      MaxTrophies: 1500
-      BotDifficulty: 0
-    - MinTrophies: 1500
-      MaxTrophies: 1800
-      BotDifficulty: 0
-    - MinTrophies: 1800
+      BotDifficulty: 7
+    - MinTrophies: 1001
       MaxTrophies: 2000
-      BotDifficulty: 0
-    - MinTrophies: 2000
-      MaxTrophies: 2500
-      BotDifficulty: 0
-    - MinTrophies: 2000
-      MaxTrophies: 3000
-      BotDifficulty: 0
-    - MinTrophies: 3000
-      MaxTrophies: 999999999
-      BotDifficulty: 0
+      BotDifficulty: 8
+    - MinTrophies: 2001
+      MaxTrophies: 999999
+      BotDifficulty: 9

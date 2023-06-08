@@ -73,7 +73,7 @@ namespace Quantum.Systems
 			var result = new VisibilityCheckResult();
 			result.CanSee = true;
 			if (!f.TryGet(target, out result.TargetArea)) return result;
-			if(PlayerCharacter.HasSameTeam(f, viewer, target)) return result;
+			if(TeamHelpers.HasSameTeam(f, viewer, target)) return result;
 			if (!f.TryGet(viewer, out result.ViewerArea))
 			{
 				result.CanSee = false;

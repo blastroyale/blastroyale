@@ -1,4 +1,5 @@
 using FirstLight.Game.Utils;
+using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
@@ -12,6 +13,7 @@ namespace FirstLight.Game.UIElements
 		// TODO: Add dividers to the health and shield bars.
 		private const int SHIELD_DIVIDER_AMOUNT = 100;
 		private const int HEALTH_DIVIDER_AMOUNT = 100;
+		private const int MAX_BARS = 20;
 
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
@@ -90,7 +92,7 @@ namespace FirstLight.Game.UIElements
 		public void SetIsFriendly(bool isFriendly)
 		{
 			_isFriendly = isFriendly;
-			
+
 			EnableInClassList(USS_FRIENDLY, isFriendly);
 
 			style.opacity = isFriendly ? 1f : 0f;
@@ -123,23 +125,23 @@ namespace FirstLight.Game.UIElements
 		{
 			if (!_isFriendly) return;
 
-			if (maxMagazine <= 0)
-			{
-				_ammoHolder.Clear();
-				return;
-			}
+			var infiniteMagazine = maxMagazine <= 0;
+			var totalBars = infiniteMagazine ? 1 : Mathf.Min(maxMagazine, MAX_BARS);
+			var visibleBars = infiniteMagazine
+				? 1
+				: Mathf.FloorToInt(currentMagazine * Mathf.Min((float) MAX_BARS / maxMagazine, 1f));
 
 			// Max ammo
-			if (_ammoHolder.childCount > maxMagazine)
+			if (_ammoHolder.childCount > totalBars)
 			{
-				for (var i = _ammoHolder.childCount - 1; i >= maxMagazine; i--)
+				for (var i = _ammoHolder.childCount - 1; i >= totalBars; i--)
 				{
 					_ammoHolder.RemoveAt(i);
 				}
 			}
-			else if (_ammoHolder.childCount < maxMagazine)
+			else if (_ammoHolder.childCount < totalBars)
 			{
-				for (var i = _ammoHolder.childCount; i < maxMagazine; i++)
+				for (var i = _ammoHolder.childCount; i < totalBars; i++)
 				{
 					var segment = new VisualElement {name = "ammo-segment"};
 					_ammoHolder.Add(segment);
@@ -151,7 +153,7 @@ namespace FirstLight.Game.UIElements
 			int index = 0;
 			foreach (var segment in _ammoHolder.Children())
 			{
-				segment.SetVisibility(index++ < currentMagazine);
+				segment.SetVisibility(index++ < visibleBars);
 			}
 		}
 

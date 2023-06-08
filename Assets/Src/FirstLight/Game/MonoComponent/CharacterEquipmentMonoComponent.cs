@@ -80,7 +80,8 @@ namespace FirstLight.Game.MonoComponent
 			var slot = gameId.GetSlot();
 			
 			var anchors = GetEquipmentAnchors(slot);
-			var instances = new List<GameObject>(anchors.Length);
+			var instances = new List<GameObject>();
+			
 			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
 			instance.name = gameId.ToString();
 			if (this.IsDestroyed())
@@ -96,6 +97,8 @@ namespace FirstLight.Game.MonoComponent
 			
 			var childCount = instance.transform.childCount;
 			
+			/// We detach the first child of the equipment and copy it to the anchor
+			/// Not sure why
 			for(var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
@@ -114,6 +117,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 			}
 
+			/// If we detached the child of a parent, we destroy the parent
 			if (childCount > 0)
 			{
 				Destroy(instance);
@@ -130,14 +134,17 @@ namespace FirstLight.Game.MonoComponent
 		public void DestroyItem(GameIdGroup slotType)
 		{
 			var anchors = GetEquipmentAnchors(slotType);
-			
 			for (var i = 0; i < anchors.Length; i++)
 			{
 				if (i >= anchors.Length) continue;
 				var anchor = anchors[i];
 				if (anchor.childCount == 0) continue;
-				anchor.GetChild(0).gameObject.SetActive(false);
-				Destroy(anchor.GetChild(0).gameObject);
+				for (var c = 0; c < anchor.childCount; c++)
+				{
+					var child = anchor.GetChild(c).gameObject;
+					child.SetActive(false);
+					Destroy(child);
+				}
 			}
 		}
 

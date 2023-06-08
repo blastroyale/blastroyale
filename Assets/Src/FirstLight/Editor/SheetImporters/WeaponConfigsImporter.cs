@@ -29,6 +29,7 @@ namespace FirstLight.Editor.SheetImporters
 				{
 					newCfg.BulletPrototype = old.BulletPrototype;
 					newCfg.BulletHitPrototype = old.BulletHitPrototype;
+					newCfg.BulletEndOfLifetimePrototype = old.BulletEndOfLifetimePrototype;
 					newCfg.HitType = old.HitType;
 				}
 				configs.Add(newCfg);

@@ -4,6 +4,7 @@
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
+    --sprite-match__background-healthbar: url('/Assets/Art/UI/Sprites/Match/background-healthbar.png');
     --sprite-match__background-playerbar: url('/Assets/Art/UI/Sprites/Match/background-playerbar.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
@@ -75,6 +76,12 @@
     background-image: var(--sprite-match__background-gradient-yellow);
     width: 274px;
     height: 126px;
+}
+
+.sprite-match__background-healthbar {
+    background-image: var(--sprite-match__background-healthbar);
+    width: 18px;
+    height: 22px;
 }
 
 .sprite-match__background-playerbar {

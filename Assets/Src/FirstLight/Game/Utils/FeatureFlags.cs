@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
@@ -10,7 +11,6 @@ using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {
-	
 	/// <summary>
 	/// Class that represents feature flags that can be configured locally for testing purposes
 	/// </summary>
@@ -19,26 +19,29 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Requests will be routed to local backend. To run, run "StandaloneServer" on backend project.
 		/// </summary>
-		public bool UseLocalServer = false;
+		[Description("Use local server")]
+		public bool UseLocalServer { set; get; }
 
 		/// <summary>
 		/// To use local configurations as opposed to remote configurations.
 		/// </summary>
-		public bool UseLocalConfigs = false;
+		[Description("Use local configs")] public bool UseLocalConfigs = false;
 
 		/// <summary>
 		/// If the tutorial should be skipped
 		/// </summary>
-		public bool DisableTutorial = false;	
-		
+		[Description("Disable Tutorial")] public bool DisableTutorial = false;
+
 		/// <summary>
 		/// If we should consider if the player has NFTs even if he doens't
 		/// </summary>
+		[Description("Unblock NFTs only content")]
 		public bool ForceHasNfts = false;
-		
+
 		/// <summary>
 		/// If we ignore equipment requirement to play ranked games
 		/// </summary>
+		[Description("Unblock Equipment requirements")]
 		public bool IgnoreEquipmentRequirementForRanked = false;
 
 		/// <summary>
@@ -49,15 +52,16 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Record quantum input and save on simulation end
 		/// </summary>
-		public bool RecordQuantumInput = false;
-		
+		[Description("Record quantum input")] public bool RecordQuantumInput = false;
+
 		/// <summary>
 		/// If automatically starts the test game mode after the game boot up
 		/// </summary>
+		[Description("Start Test Game automatically")]
 		public bool StartTestGameAutomatically = false;
 	}
-	
-	
+
+
 	/// <summary>
 	/// Simple class to represent feature flags in the game.
 	/// Not configurable in editor atm.
@@ -88,7 +92,7 @@ namespace FirstLight.Game.Utils
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
 		public static bool ITEM_DURABILITY_NON_NFTS = true;
-		
+
 		/// <summary>
 		/// Enables / disables item durability checks for NFTs
 		/// </summary>
@@ -103,27 +107,27 @@ namespace FirstLight.Game.Utils
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
-		
+
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
-		
+
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool SQUAD_PINGS = true;
-		
+
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool TUTORIAL = true;
-		
+
 		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool ALLOW_SKIP_TUTORIAL = true;
-		
+
 		/// <summary>
 		/// If should have specific tutorial battle pass for newbies
 		/// </summary>
@@ -144,7 +148,7 @@ namespace FirstLight.Game.Utils
 		/// If false it will be more accurate visually but not necessarily shoot where you aim
 		/// </summary>
 		public static bool QUANTUM_PREDICTED_AIM = false;
-		
+
 		/// <summary>
 		/// If true limits special radius and moves special handle to have reference point
 		/// </summary>
@@ -154,12 +158,12 @@ namespace FirstLight.Game.Utils
 		/// Should specials use new input system
 		/// </summary>
 		public static bool SPECIAL_NEW_INPUT = true;
-		
+
 		/// <summary>
 		/// Camera shake when player receives damage
 		/// </summary>
 		public static bool DAMAGED_CAMERA_SHAKE = false;
-		
+
 		/// <summary>
 		/// Should game fetch remote web3 collections
 		/// </summary>
@@ -170,14 +174,14 @@ namespace FirstLight.Game.Utils
 		/// Causes loading slowdown.
 		/// </summary>
 		public static bool PRELOAD_QUANTUM_ASSETS = false;
-	
+
 		/// <summary>
 		/// Can the client record frame snapshots to be restored when server do not know the game anymore ?
 		/// Default disabled as this is not good practice for the live game as we have a server
 		/// This is mainly useful when you don't have a quantum server - but we cant afford to maintain this feature.
 		/// </summary>
 		public static bool RESTORE_SNAPSHOT_GAMES = false;
-		
+
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
@@ -194,32 +198,32 @@ namespace FirstLight.Game.Utils
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
-			
+
 			if (TrySetFlag("REMOTE_CONFIGURATION", overrideData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
 			}
-			
+
 			if (TrySetFlag("FORCE_RANKED", overrideData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
 			}
-			
+
 			if (TrySetFlag("ITEM_DURABILITY_NON_NFTS", overrideData, out var itemDurabilityNonNFTs))
 			{
 				ITEM_DURABILITY_NON_NFTS = itemDurabilityNonNFTs;
 			}
-			
+
 			if (TrySetFlag("ITEM_DURABILITY_NFTS", overrideData, out var itemDurabilityNFTs))
 			{
 				ITEM_DURABILITY_NFTS = itemDurabilityNFTs;
 			}
-			
+
 			if (TrySetFlag("STORE_ENABLED", overrideData, out var storeEnabled))
 			{
 				STORE_ENABLED = storeEnabled;
 			}
-			
+
 			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
@@ -229,7 +233,7 @@ namespace FirstLight.Game.Utils
 			{
 				SQUAD_PINGS = squadPings;
 			}
-			
+
 			if (TrySetFlag("TUTORIAL", overrideData, out var tutorial))
 			{
 				TUTORIAL = tutorial;
@@ -239,7 +243,7 @@ namespace FirstLight.Game.Utils
 			{
 				DISPLAY_SQUADS_BUTTON = displaySquadsButton;
 			}
-			
+
 			if (TrySetFlag("PRELOAD_QUANTUM_ASSETS", overrideData, out var preloadQuantumAssets))
 			{
 				PRELOAD_QUANTUM_ASSETS = preloadQuantumAssets;
@@ -256,6 +260,7 @@ namespace FirstLight.Game.Utils
 			{
 				REMOTE_CONFIGURATION = false;
 			}
+
 			if (_localConfig.UseLocalServer)
 			{
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
@@ -282,6 +287,7 @@ namespace FirstLight.Game.Utils
 			{
 				LoadLocalConfig();
 			}
+
 			return _localConfig;
 		}
 

@@ -78,8 +78,8 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 500px;
-    height: 500px;
+    width: 800px;
+    height: 800px;
     opacity: 1;
 }
 
@@ -1090,10 +1090,11 @@
     left: 32px;
     height: 6px;
     flex-direction: row;
+    display: none;
 }
 
 .player-status-bar--friendly .player-status-bar__ammo-holder {
-    display: none;
+    display: flex;
 }
 
 .player-status-bar__ammo-segment {
@@ -1143,4 +1144,20 @@
     right: 0;
     left: 20px;
     height: 44px;
+}
+
+.health-status-bar {
+    flex-direction: row;
+    background-image: var(--sprite-match__background-healthbar);
+    height: 22px;
+    width: 177px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.health-status-bar__bar {
+    background-image: var(--sprite-match__progress-health);
+    flex-grow: 0.5;
 }

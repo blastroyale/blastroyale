@@ -964,6 +964,7 @@ namespace I2.Loc
 			public static string RoomError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomError"); } }
 			public static string RoomJoinButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinButton"); } }
 			public static string RoomJoinCode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCode"); } }
+			public static string RoomJoinCreateBotDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateBotDifficulty"); } }
 			public static string RoomJoinCreateGameModeSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateGameModeSelect"); } }
 			public static string RoomJoinCreateMapSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMapSelect"); } }
 			public static string RoomJoinCreateMutatorOneSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorOneSelect"); } }
@@ -2508,6 +2509,7 @@ namespace I2.Loc
 		    public const string RoomError = "MainMenu/RoomError";
 		    public const string RoomJoinButton = "MainMenu/RoomJoinButton";
 		    public const string RoomJoinCode = "MainMenu/RoomJoinCode";
+		    public const string RoomJoinCreateBotDifficulty = "MainMenu/RoomJoinCreateBotDifficulty";
 		    public const string RoomJoinCreateGameModeSelect = "MainMenu/RoomJoinCreateGameModeSelect";
 		    public const string RoomJoinCreateMapSelect = "MainMenu/RoomJoinCreateMapSelect";
 		    public const string RoomJoinCreateMutatorOneSelect = "MainMenu/RoomJoinCreateMutatorOneSelect";

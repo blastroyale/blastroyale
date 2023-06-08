@@ -9,7 +9,6 @@ enum BotBehaviourType
 
 component BotCharacter
 {
-    Byte BotIndex;
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
 	GameId Skin;
@@ -97,8 +96,6 @@ component BotCharacter
 	// If teammate is further than this distance then I'll try to get closer
 	FP MaxDistanceToTeammateSquared;
 	
-	// Spawn with player
-	bool SpawnWithPlayer;
 	
 	FP DamageTakenMultiplier;
 	FP DamageDoneMultiplier;

@@ -19,6 +19,10 @@ namespace Quantum.Systems
 		{
 			if ((filter.Transform->Position - filter.Projectile->SpawnPosition).SqrMagnitude > filter.Projectile->RangeSquared)
 			{
+				if (filter.Projectile->ShouldPerformSubProjectileOnEndOfLifetime(f))
+				{
+					CreateSubProjectile(f, *filter.Projectile, filter.Transform->Position, false);
+				}
 				f.Destroy(filter.Entity);
 				return;
 			}
@@ -35,7 +39,7 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger ||projectile.Attacker == info.Entity 
-				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity) || PlayerCharacter.HasSameTeam(f, projectile.Attacker, info.Other))
+				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity) || TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other))
 			{
 				return;
 			}
@@ -47,7 +51,7 @@ namespace Quantum.Systems
 		/// This creates a sub-projectile based on the parent projectile just changing its entity prototype and
 		/// a couple specific veriables specified per projectile hit type
 		/// </summary>
-		private void CreateSubProjectile(Frame f, Projectile p, FPVector3 hitPosition)
+		private void CreateSubProjectile(Frame f, Projectile p, FPVector3 hitPosition, bool onHit)
 		{
 			var cfg = f.WeaponConfigs.GetConfig(p.SourceId);
 			var subProjectile = p;
@@ -61,7 +65,8 @@ namespace Quantum.Systems
 			}
 			
 			subProjectile.Iteration = (byte)(p.Iteration + 1);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(cfg.BulletHitPrototype.Id));
+			var subId = onHit ? cfg.BulletHitPrototype.Id : cfg.BulletEndOfLifetimePrototype.Id;
+			var entity = f.Create(f.FindAsset<EntityPrototype>(subId));
 			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
 			transform->Position = hitPosition;
 			f.Add(entity, subProjectile);
@@ -79,9 +84,9 @@ namespace Quantum.Systems
 			else
 				f.Events.OnProjectileSuccessHit(projectile, targetHit, position);
 			
-			if (projectile.ShouldPerformSubProjectile(f))
+			if (projectile.ShouldPerformSubProjectileOnHit(f))
 			{
-				CreateSubProjectile(f, projectile, position);
+				CreateSubProjectile(f, projectile, position, true);
 			}
 			else if (QuantumHelpers.ProcessHit(f, &spell))
 			{
@@ -90,6 +95,10 @@ namespace Quantum.Systems
 
 			if (projectile.Speed > 0)
 			{
+				if (projectile.ShouldPerformSubProjectileOnEndOfLifetime(f))
+				{
+					CreateSubProjectile(f, projectile, position, false);
+				}
 				f.Destroy(projectileEntity);
 			}
 		}

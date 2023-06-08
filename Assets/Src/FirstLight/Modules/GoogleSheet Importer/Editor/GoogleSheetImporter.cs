@@ -13,7 +13,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 	{
 		public string ReplaceSpreadsheetId;
 		
-		[MenuItem("Tools/GoogleSheet Importer/Select GoogleSheetImporter.asset")]
+		[MenuItem("FLG/Configs/GoogleSheet Importer/Select GoogleSheetImporter.asset")]
 		private static void SelectSheetImporter()
 		{
 			var assets = AssetDatabase.FindAssets($"t:{nameof(GoogleSheetImporter)}");

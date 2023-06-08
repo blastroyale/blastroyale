@@ -194,7 +194,9 @@ namespace FirstLight.Game.StateMachines
 
 			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
 			{
-				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
+				var reference = vfxAsset.GetComponent<Vfx<VfxId>>();
+				if (reference == null) return;
+				_vfxService.AddPool(reference);
 			}
 		}
 

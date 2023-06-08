@@ -156,14 +156,15 @@ namespace Quantum
 		/// <summary>
 		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
 		/// </summary>
-		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
+		private void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
 		{
 			var previousAmmo = CurrentAmmo;
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var maxAmmo = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId).MaxAmmo.Get(f);
+			var ammoCapacity = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
 			var currentMag = player->WeaponSlot->MagazineShotCount;
 
-			CurrentAmmo = FPMath.Clamp(value, 0, maxAmmo);
+			CurrentAmmo = FPMath.Clamp(value, 0, ammoCapacity);
 
 			if (CurrentAmmo != previousAmmo)
 			{

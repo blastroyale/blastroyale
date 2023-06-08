@@ -20,7 +20,7 @@ namespace FirstLightEditor.AddressablesExtensions
 		private const string _namespace = "FirstLight.Game.Ids";
 		private const string _generateLabel = "GenerateIds";
 		
-		[MenuItem("Tools/Generate AddressableIds")]
+		[MenuItem("FLG/Generators/Generate AddressableIds")]
 		private static void GenerateAddressableIds()
 		{
 			var assetList = GetAssetList();

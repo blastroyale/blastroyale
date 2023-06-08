@@ -23,6 +23,7 @@ namespace FirstLight.Game.TestCases
 		public override void OnGameAwaken()
 		{
 			FeatureFlags.SetTutorial(true);
+			PlayerConfigs.SetTargetServer("us");
 			PlayerConfigs.SetFpsTarget(FpsTarget.Unlimited);
 			Account.FreshGameInstallation();
 		}

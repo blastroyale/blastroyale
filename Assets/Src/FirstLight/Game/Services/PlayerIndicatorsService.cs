@@ -40,12 +40,13 @@ namespace FirstLight.Game.Services
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
 			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
-
+			_indicatorContainerView.InstantiateAllIndicators();
 			RegisterListeners();
-			if (isReconnect)
+			if (!isReconnect || _services.NetworkService.LocalPlayer.IsSpectator())
 			{
-				InitializeLocalPlayer(game);
+				return;
 			}
+			InitializeLocalPlayer(game);
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
@@ -71,6 +72,7 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.canceled += OnSpecial1;
 			_inputs.SpecialAim.performed += OnSpecialAim;
 			_inputs.CancelButton.performed += OnCancel;
+			_services.TickService.SubscribeOnUpdate(OnUpdate);
 		}
 
 		private void UnregisterListeners()
@@ -108,6 +110,10 @@ namespace FirstLight.Game.Services
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
+			if (callback.HasRespawned)
+			{
+				return;
+			}
 			InitializeLocalPlayer(callback.Game);
 		}
 
@@ -194,11 +200,9 @@ namespace FirstLight.Game.Services
 			}
 
 			var playerCharacter = f.Get<PlayerCharacter>(localPlayer.Entity);
-			_indicatorContainerView.InstantiateAllIndicators();
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 			_indicatorContainerView.SetupWeaponSpecials(*playerCharacter.WeaponSlot);
-			_services.TickService.SubscribeOnUpdate(OnUpdate);
 		}
 	}
 }

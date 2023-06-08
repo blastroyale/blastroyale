@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Views.UITK
 	/// <summary>
 	/// Handles displaying the player bars on the screen.
 	/// </summary>
-	public class PlayerStatusBarsView : UIView
+	public class StatusBarsView : UIView
 	{
 		private Camera _camera;
 
@@ -26,7 +27,11 @@ namespace FirstLight.Game.Views.UITK
 		private readonly HashSet<EntityRef> _culledPlayers = new();
 		private readonly List<EntityRef> _entityCache = new(5);
 
-		private ObjectPool<PlayerStatusBarElement> _barPool;
+		// TODO: Only returned to pool when it's destroyed, and they're not culled
+		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new();
+
+		private ObjectPool<HealthStatusBarElement> _healthBarPool;
+		private ObjectPool<PlayerStatusBarElement> _playerBarPool;
 
 		public override void Attached(VisualElement element)
 		{
@@ -37,10 +42,23 @@ namespace FirstLight.Game.Views.UITK
 
 			element.Clear();
 
-			_barPool = new ObjectPool<PlayerStatusBarElement>(
+			_playerBarPool = new ObjectPool<PlayerStatusBarElement>(
 				() =>
 				{
 					var bar = new PlayerStatusBarElement();
+					bar.SetDisplay(false);
+					Element.Add(bar);
+					return bar;
+				},
+				pbe => pbe.SetDisplay(true),
+				pbe => pbe.SetDisplay(false),
+				pbe => pbe.RemoveFromHierarchy(),
+				true, 3);
+
+			_healthBarPool = new ObjectPool<HealthStatusBarElement>(
+				() =>
+				{
+					var bar = new HealthStatusBarElement();
 					bar.SetDisplay(false);
 					Element.Add(bar);
 					return bar;
@@ -95,7 +113,7 @@ namespace FirstLight.Game.Views.UITK
 				if (!f.IsCulled(player)) continue;
 
 				_culledPlayers.Add(player);
-				_barPool.Release(value);
+				_playerBarPool.Release(value);
 
 				_entityCache.Add(player);
 			}
@@ -105,10 +123,21 @@ namespace FirstLight.Game.Views.UITK
 				_visiblePlayers.Remove(entity);
 			}
 
-			Assert.AreEqual(_visiblePlayers.Count, _barPool.CountActive, "Player bar pool mismatch!");
+			Assert.AreEqual(_visiblePlayers.Count, _playerBarPool.CountActive, "Player bar pool mismatch!");
 
 			// Update all position of UI elements of all the un-culled players.
 			foreach (var (entity, bar) in _visiblePlayers)
+			{
+				var anchor = _anchors[entity];
+				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
+				screenPoint.y = _camera.pixelHeight - screenPoint.y;
+
+				var panelPos = RuntimePanelUtils.ScreenToPanel(Element.panel, screenPoint);
+				bar.transform.position = panelPos;
+			}
+
+			// Duplicates above ^
+			foreach (var (entity, bar) in _healthBars)
 			{
 				var anchor = _anchors[entity];
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
@@ -138,7 +167,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void InitBar(Frame f, EntityRef entity)
 		{
-			var bar = _barPool.Get();
+			var bar = _playerBarPool.Get();
 			_visiblePlayers.Add(entity, bar);
 
 			var pc = f.Get<PlayerCharacter>(entity);
@@ -164,7 +193,7 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			_visiblePlayers.Remove(callback.Entity);
-			_barPool.Release(bar);
+			_playerBarPool.Release(bar);
 		}
 
 		private void OnPlayerLevelUp(EventOnPlayerLevelUp callback)
@@ -195,13 +224,40 @@ namespace FirstLight.Game.Views.UITK
 			bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
 		}
 
-		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
+		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
+			var f = callback.Game.Frames.Verified;
+
+			if (f.Has<Destructible>(callback.HitEntity) &&
+				f.Unsafe.TryGetPointer<Stats>(callback.HitEntity, out var stats))
+			{
+				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
+				{
+					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
+
+					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
+						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
+				}
+
+				bar.SetHealth((float) stats->CurrentHealth / stats->Values[(int) StatType.Health].StatValue.AsInt);
+
+				return;
+			}
+			else if (_healthBars.TryGetValue(callback.HitEntity, out var bar))
+			{
+				// Destructible destroyed
+				bar.SetHealth(0f);
+				bar.schedule.Execute(() => _healthBarPool.Release(bar)).ExecuteLater(
+					GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION +
+					HealthStatusBarElement.DAMAGE_ANIMATION_DURATION + 1000);
+			}
+
 			if (callback.PlayerTeamId != _matchServices.SpectateService.SpectatedPlayer.Value.Team) return;
 
-			if (!_visiblePlayers.TryGetValue(callback.HitEntity, out var bar)) return;
-
-			bar.PingDamage();
+			if (_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			{
+				playerBar.PingDamage();
+			}
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 		private DeviceStatusView _deviceStatusView;
 		private SquadMembersView _squadMembersView;
 		private EquipmentDisplayView _equipmentDisplayView;
-		private PlayerStatusBarsView _playerStatusBarsView;
+		private StatusBarsView _statusBarsView;
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("DeviceStatus").Required().AttachView(this, out _deviceStatusView);
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
 			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
-			root.Q("PlayerBars").Required().AttachView(this, out _playerStatusBarsView);
+			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

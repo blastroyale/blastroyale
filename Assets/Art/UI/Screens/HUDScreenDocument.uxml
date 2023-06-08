@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="PlayerBars" usage-hints="GroupTransform" class="fill-parent">
+            <FirstLight.Game.UIElements.HealthStatusBarElement style="position: absolute; left: 1107px; top: 246px;" />
             <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">

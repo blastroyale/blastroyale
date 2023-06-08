@@ -1,10 +1,9 @@
-using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.UIElements
 {
@@ -188,7 +187,8 @@ namespace FirstLight.Game.UIElements
 					_equipmentShield.AnimatePing();
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					FLog.Verbose($"Equipment piece already acquired: {equipment.GameId}");
+					break;
 			}
 		}
 

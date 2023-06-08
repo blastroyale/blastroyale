@@ -187,8 +187,10 @@
 }
 
 .joystick--move {
-    left: 228px;
-    bottom: 145px;
+    left: 100px;
+    bottom: 80px;
+    width: 220px;
+    height: 220px;
 }
 
 .skydiving .joystick--move {
@@ -196,10 +198,10 @@
 }
 
 .joystick--aim {
-    right: 206px;
-    bottom: 100px;
-    width: 250px;
-    height: 250px;
+    right: 100px;
+    bottom: 80px;
+    width: 300px;
+    height: 300px;
 }
 
 .skydiving .joystick--aim {
@@ -942,7 +944,7 @@
 
 .equipment-display {
     position: absolute;
-    left: 597px;
+    left: 430px;
     bottom: 64px;
     flex-direction: row;
     align-items: center;

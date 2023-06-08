@@ -80,7 +80,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
 
-		
+
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -109,7 +109,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					col.enabled = true;
 				}
 			}
-			
+
 			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
 			{
 				_footstepVfxSpawners[i].CanSpawnVfx = !culled;
@@ -137,7 +137,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footstepVfxSpawners[i].CanSpawnVfx = active;
 			}
 		}
-		
+
 
 		public void SetPlayerSilhouetteVisible(bool visible)
 		{
@@ -157,15 +157,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
-		
+
 		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-			#if DEBUG_BOTS
-				AddDebugCylinder();
-			#endif
 			var frame = game.Frames.Verified;
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
@@ -175,7 +172,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_moveSpeedControl = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.MovespeedControl;
 			}
-			
+
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
 				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef)
@@ -217,14 +214,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef) || BuildingVisibility.CollidingVisibilityVolumes.Count > 0;
 		}
-		
+
 		private void TryStartAttackWithinVisVolume()
 		{
 			if (IsBeingSpectated || !IsInInvisibilityArea())
 			{
 				return;
 			}
-			
+
 			if (_attackHideRendererCoroutine != null)
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
@@ -236,7 +233,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
 			SetRenderContainerVisible(true);
-			
+
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
 			if (IsInInvisibilityArea())
@@ -258,7 +255,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -278,7 +275,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -295,13 +292,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
+			var parabolic = (ParabolicVfxMonoComponent)Services.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
 
 			parabolic.StartParabolic(targetPosition, flyTime);
 
-			await Task.Delay((int) (flyTime * 1000));
+			await Task.Delay((int)(flyTime * 1000));
 
 			if (parabolic.IsDestroyed())
 			{
@@ -332,6 +329,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
+#if DEBUG_BOTS
+			AddDebugCylinder(callback.Game.Frames.Verified);
+#endif
 
 			AnimatorWrapper.Enabled = true;
 
@@ -433,7 +433,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
@@ -447,7 +447,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
 		{
-			await Task.Delay((int) (delayTime * 1000));
+			await Task.Delay((int)(delayTime * 1000));
 
 			Services.VfxService.Spawn(explosionVfxId).transform.position = targetPosition;
 		}
@@ -459,7 +459,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (MutableTimeVfxMonoComponent) Services.VfxService.Spawn(VfxId.EnergyShield);
+			var vfx = (MutableTimeVfxMonoComponent)Services.VfxService.Spawn(VfxId.EnergyShield);
 			var vfxTransform = vfx.transform;
 			vfxTransform.SetParent(transform);
 			vfxTransform.localPosition = Vector3.zero;
@@ -476,7 +476,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
@@ -555,12 +555,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetBool(Bools.Flying, false);
-			
+
 			_characterView.DestroyItem(GameIdGroup.Glider);
 		}
 
-		private void AddDebugCylinder()
+		private void AddDebugCylinder(Frame frame)
 		{
+			var playerCharacter = frame.Get<PlayerCharacter>(EntityRef);
 			var obj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 			DestroyImmediate(obj.GetComponent<CapsuleCollider>());
 			obj.transform.parent = gameObject.transform;
@@ -569,6 +570,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var rend = obj.GetComponent<Renderer>();
 			rend.material = new Material(Shader.Find("Unlit/Color"));
+			if (playerCharacter.TeamId > 0)
+			{
+				var playersByTeam = TeamHelpers.GetPlayersByTeam(frame);
+				float teams = playersByTeam.Count;
+				float myTeam = 0;
+				foreach (var entityRefs in playersByTeam.Values)
+				{
+					if (entityRefs.Contains(EntityRef))
+					{
+						break;
+					}
+
+					myTeam++;
+				}
+
+				var h = Mathf.Lerp(0, 0.92f, myTeam / teams);
+				rend.material.SetColor("_Color", Color.HSVToRGB(h, 0.75f, Random.Range(0.60f, 1f)));
+				return;
+			}
+			
+
 			rend.material.SetColor("_Color", Random.ColorHSV(0f, 1, 1, 1, 0.5f, 1));
 		}
 

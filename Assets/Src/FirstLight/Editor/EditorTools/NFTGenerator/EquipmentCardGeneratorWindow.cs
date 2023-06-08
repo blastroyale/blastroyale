@@ -45,7 +45,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 		[UsedImplicitly] private bool _processing;
 #pragma warning restore CS0414
 
-		[MenuItem("FLG/Equipment Card Generator")]
+		[MenuItem("FLG/Generators/Equipment Card Generator")]
 		private static void OpenWindow()
 		{
 			GetWindow<EquipmentCardGeneratorWindow>("Equipment Card Generator").Show();

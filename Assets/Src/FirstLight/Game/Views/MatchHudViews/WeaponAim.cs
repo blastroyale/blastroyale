@@ -126,7 +126,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool IsValidRaycastHit(Frame f, Hit3D hit, EntityRef shooter)
 		{
-			return hit.Point != FPVector3.Zero && (hit.Entity.IsValid && hit.Entity != shooter || !hit.IsDynamic) && !PlayerCharacter.HasSameTeam(f, shooter, hit.Entity);
+			return hit.Point != FPVector3.Zero && (hit.Entity.IsValid && hit.Entity != shooter || !hit.IsDynamic) && !TeamHelpers.HasSameTeam(f, shooter, hit.Entity);
 		}
 	}
 }

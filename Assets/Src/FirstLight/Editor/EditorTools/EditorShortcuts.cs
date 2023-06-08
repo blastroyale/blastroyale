@@ -104,7 +104,7 @@ namespace FirstLight.Editor.EditorTools
 		{
 			SROptions.Current.SkipTutorialSection();
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Simulate Disconnection")]
 		private static void SimulateDisconnection()
 		{
@@ -113,7 +113,7 @@ namespace FirstLight.Editor.EditorTools
 			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 100;
 			client.LoadBalancingPeer.IsSimulationEnabled = true;
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Simulate Lag")]
 		private static void SimulateLag()
 		{
@@ -122,7 +122,7 @@ namespace FirstLight.Editor.EditorTools
 			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 25;
 			client.LoadBalancingPeer.IsSimulationEnabled = true;
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Normal Internet")]
 		private static void Normal()
 		{
@@ -330,7 +330,7 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 
-		[MenuItem("FLG/Generate Sprite USS")]
+		[MenuItem("FLG/Generators/Generate Sprite USS")]
 		private static void GenerateSpriteUss()
 		{
 			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
@@ -413,7 +413,7 @@ namespace FirstLight.Editor.EditorTools
 					{
 						throw new NotSupportedException($"Found a file that isn't a sprite: {path}");
 					}
-					
+
 					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine($"    width: {sprite.texture.width}px;");

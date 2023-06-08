@@ -76,7 +76,7 @@ namespace Quantum.Systems.Bots
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
-				PlayersByTeam = GetPlayersByTeam(f),
+				PlayersByTeam = TeamHelpers.GetPlayersByTeam(f),
 				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers / (f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
 			};
 			AddBotTeams(ctx);
@@ -126,8 +126,10 @@ namespace Quantum.Systems.Bots
 		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config)
 		{
 			var teamId = GetBotTeamId(f, id, ctx.PlayersByTeam);
-			var rngSpawnIndex = GetSpawnPointIndexByTypeOfBot(f, ctx.PlayerSpawners, config.BehaviourType);
+
+			var rngSpawnIndex = GetSpawnPointForBot(f, ctx, config, teamId);
 			var spawnerTransform = f.Get<Transform3D>(ctx.PlayerSpawners[rngSpawnIndex].Entity);
+
 			var botEntity = f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 			var navMeshAgent = new NavMeshSteeringAgent();
@@ -245,26 +247,6 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		private Dictionary<int, List<EntityRef>> GetPlayersByTeam(Frame f)
-		{
-			var playersByTeam = new Dictionary<int, List<EntityRef>>();
-			foreach (var player in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
-			{
-				var teamId = player.Component->TeamId;
-				if (teamId > 0)
-				{
-					if (!playersByTeam.TryGetValue(teamId, out var entities))
-					{
-						entities = new List<EntityRef>();
-						playersByTeam[teamId] = entities;
-					}
-
-					entities.Add(player.Entity);
-				}
-			}
-
-			return playersByTeam;
-		}
 
 		private int GetBotTeamId(Frame frame, PlayerRef bot, Dictionary<int, List<EntityRef>> playerByTeam)
 		{
@@ -318,13 +300,25 @@ namespace Quantum.Systems.Bots
 			return list;
 		}
 
-		private int GetSpawnPointIndexByTypeOfBot(Frame f, List<EntityComponentPointerPair<PlayerSpawner>> spawnPoints, BotBehaviourType botType)
+		private int GetSpawnPointForBot(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, int teamId)
+		{
+			if (GetSpecificSpawn(f, ctx, botConfig, out var specificSpawnPoint)) return specificSpawnPoint;
+
+			if (GetSpawnClosestToTeam(f, ctx, teamId, out var spawnPointForBot)) return spawnPointForBot;
+
+			// Otherwise try to put bot at random
+			return f.RNG->Next(0, ctx.PlayerSpawners.Count);
+		}
+
+
+		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, out int specificSpawnPoint)
 		{
 			// Try to find spawners that are specific to the type of bot
+			var botType = botConfig.BehaviourType;
 			var specificSpawnPoints = new List<int>();
-			for (int i = 0; i < spawnPoints.Count; i++)
+			for (var i = 0; i < ctx.PlayerSpawners.Count; i++)
 			{
-				var playerSpawner = spawnPoints[i].Component;
+				var playerSpawner = ctx.PlayerSpawners[i].Component;
 				if (playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
 				{
 					specificSpawnPoints.Add(i);
@@ -333,11 +327,54 @@ namespace Quantum.Systems.Bots
 
 			if (specificSpawnPoints.Count > 0)
 			{
-				return specificSpawnPoints[f.RNG->Next(0, specificSpawnPoints.Count)];
+				{
+					specificSpawnPoint = specificSpawnPoints[f.RNG->Next(0, specificSpawnPoints.Count)];
+					return true;
+				}
 			}
 
-			return f.RNG->Next(0, spawnPoints.Count);
+			specificSpawnPoint = -1;
+			return false;
 		}
+
+		private bool GetSpawnClosestToTeam(Frame f, BotSetupContext ctx, int teamId, out int spawnPointForBot)
+		{
+			// Get players in bot team and this point the bot is not in this list
+			if (ctx.PlayersByTeam.TryGetValue(teamId, out var players) && players.Count > 0)
+			{
+				var randomPlayer = f.RNG->RandomElement(players);
+				if (f.TryGet<Transform3D>(randomPlayer, out var transform))
+				{
+					var position = transform.Position.XZ;
+
+					// Get closest
+					var closestIndex = -1;
+					var closestDistance = FP.MaxValue;
+
+					for (var i = 0; i < ctx.PlayerSpawners.Count; i++)
+					{
+						var spawnerPosition = f.Get<Transform3D>(ctx.PlayerSpawners[i].Entity).Position.XZ;
+
+						var distance = FPVector2.DistanceSquared(position, spawnerPosition);
+						if (distance < closestDistance)
+						{
+							closestIndex = i;
+							closestDistance = distance;
+						}
+					}
+
+					if (closestIndex != -1)
+					{
+						spawnPointForBot = closestIndex;
+						return true;
+					}
+				}
+			}
+
+			spawnPointForBot = -1;
+			return false;
+		}
+
 
 		private List<QuantumBotConfig> GetBotConfigsList(Frame f, uint baseTrophiesAmount)
 		{

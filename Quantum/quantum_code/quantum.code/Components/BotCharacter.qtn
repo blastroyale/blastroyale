@@ -96,8 +96,6 @@ component BotCharacter
 	// If teammate is further than this distance then I'll try to get closer
 	FP MaxDistanceToTeammateSquared;
 	
-	// Spawn with player
-	bool SpawnWithPlayer;
 	
 	FP DamageTakenMultiplier;
 	FP DamageDoneMultiplier;

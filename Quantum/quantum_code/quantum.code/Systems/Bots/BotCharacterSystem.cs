@@ -510,6 +510,7 @@ namespace Quantum.Systems.Bots
 			var needShields = stats.CurrentShield < maxShields;
 			var needHealth = stats.CurrentHealth < maxHealth;
 
+			var teamMembers = TeamHelpers.GetTeamMembers(f, filter.Entity);
 			var invalidTargets = f.ResolveHashSet(filter.BotCharacter->InvalidMoveTargets);
 			foreach (var collectableCandidate in iterator)
 			{
@@ -522,6 +523,32 @@ namespace Quantum.Systems.Bots
 				{
 					continue;
 				}
+
+				// If team mate is collecting ignore it!
+				var teamMemberCollecting =
+					teamMembers.Any(member =>
+					{
+						if (collectableCandidate.Component->IsCollecting(member.Component->Player))
+						{
+							return true;
+						}
+
+						if (f.TryGet<BotCharacter>(member.Entity, out var otherBot))
+						{
+							if (otherBot.MoveTarget == collectableCandidate.Entity)
+							{
+								return true;
+							}
+						}
+
+						return false;
+					});
+
+				if (teamMemberCollecting)
+				{
+					continue;
+				}
+
 
 				if (f.TryGet<Consumable>(collectableCandidate.Entity, out var consumable))
 				{

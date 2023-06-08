@@ -25,7 +25,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			_importers = GetAllImporters();
 		}
 		
-		[MenuItem("Tools/GoogleSheet Importer/Import Google Sheet Data")]
+		[MenuItem("FLG/Configs/GoogleSheet Importer/Import Google Sheet Data")]
 		private static void ImportAllGoogleSheetData()
 		{
 			_importers = GetAllImporters();

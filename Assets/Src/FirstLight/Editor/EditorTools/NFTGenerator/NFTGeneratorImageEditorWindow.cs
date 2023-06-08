@@ -40,7 +40,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			Png
 		}
 
-		[MenuItem("FLG/NFT Generator ImageEditorWindow")]
+		[MenuItem("FLG/Generators/NFT Generator ImageEditorWindow")]
 		private static void OpenWindow()
 		{
 			GetWindow<NFTGeneratorImageEditorWindow>("NFT Generator ImageEditorWindow").Show();

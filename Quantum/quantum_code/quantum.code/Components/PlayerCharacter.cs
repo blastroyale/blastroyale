@@ -605,15 +605,5 @@ namespace Quantum
 			}
 			return specials;
 		}
-
-		/// <summary>
-		/// Checks if two entities have a player character, a team, and if their teams are the same
-		/// </summary>
-		public static bool HasSameTeam(Frame f, EntityRef one, EntityRef two)
-		{
-			return f.TryGet<Targetable>(one, out var viewerPlayer)
-				&& f.TryGet<Targetable>(two, out var targetPlayer)
-				&& viewerPlayer.Team > 0 && viewerPlayer.Team == targetPlayer.Team;
-		}
 	}
 }

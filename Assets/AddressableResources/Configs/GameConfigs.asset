@@ -116,7 +116,7 @@ MonoBehaviour:
       EarningsAugmentationStrengthSteepnessMod:
         RawValue: 196608
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 3
+      NftRequiredEquippedForPlay: 0
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
@@ -151,4 +151,4 @@ MonoBehaviour:
         RawValue: 98304
       HardAngleAim: 0
       CollectableEquipmentPickupRadius:
-        RawValue: 0
+        RawValue: 65536

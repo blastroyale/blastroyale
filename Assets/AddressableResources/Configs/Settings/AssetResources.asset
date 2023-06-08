@@ -464,6 +464,11 @@ MonoBehaviour:
         Id:
           Value: 1601773346252770156
       Address: Maps/NewBRMap.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1613285068775141220
+      Address: QuantumAssets/Projectiles/RocketBullet.prefab[RocketBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_13
       AssetRef:
         Id:
@@ -842,6 +847,11 @@ MonoBehaviour:
         Id:
           Value: 3321959121446098905
       Address: Maps/BRGenesis_NavMesh.asset
+    - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 3325644595429681825
+      Address: QuantumAssets/Projectiles/RocketBullet.prefab[RocketBulletEntityView]
     - Path: AddressableResources/QuantumAssets/Projectiles/HammerHit|EntityView
       AssetRef:
         Id:

@@ -93,7 +93,7 @@ MonoBehaviour:
         Values: 8000000018000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 1705595393471409306
       BulletHitPrototype:
         Id:
           Value: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
         Values: 6000000014000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 1310720
+        RawValue: 655360
       MinAttackAngle: 18
       MaxAttackAngle: 18
       NumberOfShots: 1
@@ -837,7 +837,7 @@ MonoBehaviour:
         Values: 400000000f000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 29491
       AttackHitSpeed:
-        RawValue: 1310720
+        RawValue: 458752
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -899,7 +899,7 @@ MonoBehaviour:
         Values: 680100004b000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 1705595393471409306
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1293,7 +1293,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 2293760
+        RawValue: 327680
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1

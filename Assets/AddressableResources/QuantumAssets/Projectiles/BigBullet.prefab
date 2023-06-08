@@ -311,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyBullet: {fileID: 2100000, guid: 6d2531ed6303143f3a98e5330e4df9b0, type: 2}
   EnemyBullet: {fileID: 2100000, guid: 72ba44630bcbe4c5b8e5826fbcb2f884, type: 2}
-  Trail: {fileID: 0}
+  Trail: {fileID: 2026702048754998478}
 --- !u!1 &2026702048754998478
 GameObject:
   m_ObjectHideFlags: 0

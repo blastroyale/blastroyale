@@ -784,7 +784,8 @@ namespace FirstLight.Game.StateMachines
 				MapId = (int) msg.MapConfig.Map,
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,
-				RoomIdentifier = msg.RoomName
+				RoomIdentifier = msg.RoomName,
+				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

@@ -471,6 +471,8 @@ namespace FirstLight.Game.StateMachines
 				var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 				var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 				var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
+				var botDifficultyOverwrite = _services.NetworkService.CurrentRoom.GetMatchSetup().BotDifficultyOverwrite;
+
 				var map = config.Map.ToString();
 				var entityService = new GameObject(nameof(EntityViewUpdaterService))
 					.AddComponent<EntityViewUpdaterService>();
@@ -483,7 +485,7 @@ namespace FirstLight.Game.StateMachines
 					_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
 				_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-				runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
+				runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds, botDifficultyOverwrite);
 
 				tasks.Add(sceneTask);
 				tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());

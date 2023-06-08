@@ -384,7 +384,20 @@ namespace Quantum.Systems.Bots
 				botGamemodeKey = f.Context.GameModeConfig.Id;
 			}
 
-			return GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
+			if (f.RuntimeConfig.BotOverwriteDifficulty != -1)
+			{
+				var configs = f.BotConfigs.QuantumConfigs;
+				return configs.Where(config => config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty && config.GameMode == botGamemodeKey).ToList();
+			}
+
+			var trophiesConfigs = GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
+			if (trophiesConfigs.Count == 0)
+			{
+				return trophiesConfigs;
+			}
+
+			// Uses configs from gamemode without difficulty
+			return f.BotConfigs.QuantumConfigs.Where(config => config.GameMode == botGamemodeKey).ToList();
 		}
 
 

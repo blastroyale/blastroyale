@@ -20,34 +20,34 @@ namespace Quantum
 	{
 		public GameId Id;
 		public FiringMode FiringMode;
-		public QuantumGameModePair<FP> InitialAmmoFilled;
+		//public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
 		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
 		public ProjectileHitType HitType;
+		//public bool IsProjectile;
 		public int MagazineSize;
 		public FP ReloadTime;
 		public FP AimingMovementSpeed;
-		public FP AimDelay;
+		//public FP AimDelay;
 		public FP TapCooldown;
 		public FP AttackCooldown;
 		public FP PowerToDamageRatio;
 		public FP AttackHitSpeed;
 		public uint MinAttackAngle;
-		public uint MaxAttackAngle;
+		//public uint MaxAttackAngle;
 		public uint NumberOfShots;
 		public uint NumberOfBursts;
 		public FP AttackRange;
-		public FP AttackRangeAimBonus;
+		//public FP AttackRangeAimBonus;
 		public bool CanHitSameTarget;
-		public bool IsProjectile;
 		public FP SplashRadius;
 		public FP SplashDamageRatio;
 		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
-		public uint KnockbackAmount;
+		//public uint KnockbackAmount;
 		
 		
 		/// <summary>

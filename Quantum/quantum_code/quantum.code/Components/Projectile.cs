@@ -52,7 +52,6 @@ namespace Quantum
 			{
 				Attacker = shooter,
 				Direction = directionPerTick,
-				KnockbackAmount = (byte)weaponConfig.KnockbackAmount,
 				SourceId = weaponConfig.Id,
 				RangeSquared = (range * range).AsShort,
 				SpawnPosition = projectileStartPosition,

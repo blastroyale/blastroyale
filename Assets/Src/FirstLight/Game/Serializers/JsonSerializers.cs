@@ -104,7 +104,7 @@ namespace FirstLight.Game.Serializers
 	{
 		public override void WriteJson(JsonWriter writer, FP v, JsonSerializer serializer)
 		{
-			serializer.Serialize(writer, (object) SerializableFP.From(v));
+			serializer.Serialize(writer, (object)SerializableFP.From(v));
 		}
 
 		public override FP ReadJson(
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Serializers
 
 		public override bool CanConvert(Type objectType) => objectType == typeof(Dictionary<TKey, TValue>);
 
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => serializer.Serialize(writer, ((Dictionary<TKey, TValue>) value).ToList());
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => serializer.Serialize(writer, ((Dictionary<TKey, TValue>)value).ToList());
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => serializer.Deserialize<KeyValuePair<TKey, TValue>[]>(reader).ToDictionary(kv => kv.Key, kv => kv.Value);
 	}
@@ -146,13 +146,6 @@ namespace FirstLight.Game.Serializers
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			ModelSerializer.RegisterConverter(new FPConverter());
 			ModelSerializer.RegisterConverter(new EquipmentSerializer());
-		}
-
-
-		public static void RegisterAOT()
-		{
-			// TODO Move this to AOTCode and reformat this file
-			Newtonsoft.Json.Utilities.AotHelper.EnsureList<CollectionMeta>();
 		}
 	}
 }

@@ -324,11 +324,21 @@ MonoBehaviour:
         Id:
           Value: 921026657203260951
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TransformPositionFunction_0]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainEnergyBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 922341753785179332
+      Address: QuantumAssets/Projectiles/MainEnergyBullet.prefab[MainEnergyBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveStartAction_4
       AssetRef:
         Id:
           Value: 939365328679155702
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveStartAction_4]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainSmallBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 951672781246580630
+      Address: QuantumAssets/Projectiles/MainSmallBullet.prefab[MainSmallBulletEntityView]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_0
       AssetRef:
         Id:
@@ -786,6 +796,11 @@ MonoBehaviour:
         Id:
           Value: 3077347310472761641
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_11]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainEnergyBullet|EntityView
+      AssetRef:
+        Id:
+          Value: 3081187151567220172
+      Address: QuantumAssets/Projectiles/MainEnergyBullet.prefab[MainEnergyBulletEntityView]
     - Path: AddressableResources/Configs/ShrinkingCircleConfigs
       AssetRef:
         Id:
@@ -912,6 +927,11 @@ MonoBehaviour:
         Id:
           Value: 3566144576847955563
       Address: QuantumAssets/Projectiles/MainBullet.prefab[MainBulletEntityView]
+    - Path: AddressableResources/QuantumAssets/Projectiles/MainSmallBullet|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 3582668498530828953
+      Address: QuantumAssets/Projectiles/MainSmallBullet.prefab[MainSmallBulletEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_29
       AssetRef:
         Id:

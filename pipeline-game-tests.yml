@@ -23,7 +23,7 @@ resources:
 variables:
 - group: Secrets
 - group: Non-secrets
-pool: macos
+pool: macos-tests-pool
 
 stages:
 - stage: EditorTests
@@ -35,6 +35,15 @@ stages:
       - checkout: self
         lfs: true
         submodules: true
+        
+      # Run tests and copy dlls
       - template: pipelines/unity-tests.yml@templates
-        parameters:
-          testPlatform: EditMode
+          
+      # Game logic build
+      - script: dotnet build
+        workingDirectory: Backend
+        displayName: 'Dotnet Build'
+  
+      - script: dotnet test TestUnit/TestUnit.csproj
+        workingDirectory: Backend
+        displayName: 'Dotnet Test'

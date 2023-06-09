@@ -312,8 +312,8 @@
     color: rgb(139, 192, 83);
     font-size: 28px;
     -unity-text-align: middle-left;
-    text-shadow: 3px 3px 0 rgb(6, 0, 51);
-    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(6, 0, 51);
+    -unity-text-outline-width: 0.5px;
     -unity-text-outline-color: rgb(6, 0, 51);
     display: flex;
     padding-left: 0;
@@ -525,8 +525,8 @@
 .weapon-display__ammo {
     color: rgb(242, 176, 53);
     font-size: 36px;
-    -unity-text-outline-width: 1px;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
     top: 50px;
     -unity-text-align: upper-right;
@@ -541,6 +541,7 @@
     padding-bottom: 0;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
+    -unity-text-outline-color: rgb(16, 9, 51);
 }
 
 .weapon-display--melee .weapon-display__ammo {
@@ -573,7 +574,7 @@
 
 .death-notification {
     height: 63px;
-    width: 457px;
+    width: 520px;
     overflow: hidden;
     transition-property: height, opacity;
     transition-duration: 0.3s, 0.3s;
@@ -594,7 +595,7 @@
     right: 0;
     bottom: 0;
     height: 46px;
-    background-color: rgb(137, 133, 133);
+    background-color: rgba(42, 40, 61, 0.71);
     flex-direction: row;
     justify-content: space-between;
 }
@@ -604,7 +605,7 @@
 }
 
 .death-notification__bar--killer {
-    background-color: rgb(90, 182, 189);
+    background-color: rgb(34, 211, 232);
 }
 
 .death-notification__bar--victim {
@@ -625,7 +626,9 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    -unity-text-outline-color: rgb(23, 18, 53);
+    -unity-text-outline-width: 0.5px;
 }
 
 .death-notification__name--killer {
@@ -647,6 +650,7 @@
 
 .death-notification__pfp--killer {
     background-image: var(--sprite-match__icon-deathnotification-killer);
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .death-notification__pfp--victim {
@@ -761,6 +765,9 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 2px 2px 0 rgb(49, 46, 72);
 }
 
 .squad-member {
@@ -896,7 +903,7 @@
     left: 139px;
     font-size: 30px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 2px 2px 0 rgb(24, 18, 54);
 }
@@ -950,7 +957,7 @@
 
 .equipment-display {
     position: absolute;
-    left: 430px;
+    left: 384px;
     bottom: 64px;
     flex-direction: row;
     align-items: center;
@@ -962,8 +969,8 @@
 
 .equipment-display__character {
     background-image: var(--sprite-match__background-equipmentcharacter);
-    width: 192px;
-    height: 186px;
+    width: 156px;
+    height: 151px;
 }
 
 .equipment-display__gear-item {
@@ -1064,9 +1071,10 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(24, 18, 54);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(3, 0, 26);
     font-size: 32px;
+    text-shadow: 2px 2px 0 rgb(3, 0, 26);
 }
 
 .player-status-bar__name {
@@ -1082,13 +1090,13 @@
     padding-top: 0;
     padding-bottom: 0;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(23, 18, 53);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
 }
 
 .player-status-bar--friendly .player-status-bar__name {
-    color: rgb(34, 211, 232);
+    color: rgb(68, 174, 255);
 }
 
 .player-status-bar__ammo-holder {
@@ -1168,4 +1176,19 @@
 .health-status-bar__bar {
     background-image: var(--sprite-match__progress-health);
     flex-grow: 0.5;
+}
+
+.status-areashrinking {
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    -unity-text-outline-color: rgb(47, 44, 63);
+    position: absolute;
+    top: 158px;
+    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
+    background-image: var(--sprite-match__background-whitegradient);
+    width: 498px;
+    height: 40px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.58);
 }

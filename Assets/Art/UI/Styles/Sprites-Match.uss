@@ -9,6 +9,7 @@
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
     --sprite-match__background-squadmember: url('/Assets/Art/UI/Sprites/Match/background-squadmember.png');
+    --sprite-match__background-whitegradient: url('/Assets/Art/UI/Sprites/Match/background-whitegradient.png');
     --sprite-match__banner-rainbow: url('/Assets/Art/UI/Sprites/Match/banner-rainbow.png');
     --sprite-match__banner-red: url('/Assets/Art/UI/Sprites/Match/banner-red.png');
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
@@ -106,6 +107,12 @@
     background-image: var(--sprite-match__background-squadmember);
     width: 324px;
     height: 78px;
+}
+
+.sprite-match__background-whitegradient {
+    background-image: var(--sprite-match__background-whitegradient);
+    width: 498px;
+    height: 40px;
 }
 
 .sprite-match__banner-rainbow {

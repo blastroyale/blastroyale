@@ -73,14 +73,17 @@
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="equipment-display">
-                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
+                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character" style="width: 173px; height: 165px;">
                     <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
                     <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
                     <ui:VisualElement name="Helmet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
                     <ui:VisualElement name="Shield" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--shield" />
                 </ui:VisualElement>
-                <ui:Label text="0/4" name="Count" picking-mode="Ignore" class="equipment-display__count" />
+                <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); align-items: center;">
+            <ui:Label text="AREA SHRINKING" name="AreaShrinkingNotification" class="status-areashrinking" style="display: none;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

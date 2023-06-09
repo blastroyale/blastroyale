@@ -16,11 +16,11 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/Blackboard_Assets/PlayerBlackboardInitializer
       Guid:
-        Value: 2698469065823855534
+        Value: 1797316582330333553
     ReportMissingEntries: 1
     AIBlackboard:
       Id:
-        Value: 389436364712682305
+        Value: 2204164627415752385
     InitialValues:
     - Key: IsShooting
       Value:

@@ -56,8 +56,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void UpdateWeapon(Frame f, EntityRef entity, QuantumWeaponConfig newWeapon)
 		{
-			var rangeStat = f.Get<Stats>(entity).GetStatData(StatType.AttackRange).StatValue;
-			_range = newWeapon.AttackRangeAimBonus + rangeStat;
+			_range = f.Get<Stats>(entity).GetStatData(StatType.AttackRange).StatValue;
 			_angleVariation = newWeapon.MinAttackAngle;
 			AdjustDottedLine(_centerLineRenderer);
 			

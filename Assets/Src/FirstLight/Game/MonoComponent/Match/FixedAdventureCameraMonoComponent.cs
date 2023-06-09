@@ -73,8 +73,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var inputDir = _gameDataProvider.AppDataProvider.UseDynamicCamera ? playerInput->AimingDirection : FPVector2.Zero;
 
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)player->CurrentWeapon.GameId);
-			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(spectatedEntity),
-				config.AttackRange, config.AttackRange + config.AttackRangeAimBonus).AsFloat / 10;
+			var rangeModifer = config.AttackRange.AsFloat;
 			//rounds the range modifier to the nearst 0.5 to keep things as consistent as possible
 			var roundedValue = MathF.Round(rangeModifer * 2) / 2 * GameConstants.Camera.DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT;
 

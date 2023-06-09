@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &336821473907911557
 TrailRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -75,6 +75,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 10
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -120,17 +121,21 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01
+  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &3788266890394118905
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +170,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &3811253159969044873
 TrailRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -206,6 +211,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 10
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -251,17 +257,21 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.01
+  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &5206954608539712971
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +421,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12f278efa5231934da04b57b78111e58, type: 2}
+  - {fileID: 2100000, guid: dd6dfc3648fcd43f589e5dd9cbeabee1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

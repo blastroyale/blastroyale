@@ -48,7 +48,7 @@ namespace FirstLight.Game.Configs
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
 		public void SetRuntimeConfig(QuantumGameModeConfig gameModeConfig, QuantumMapConfig config,
-									 List<string> mutators)
+									 List<string> mutators, int botOverwriteDifficulty)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			_runtimeConfig.Seed = FixedSeed != 0 ? FixedSeed : Random.Range(0, int.MaxValue);
@@ -57,6 +57,7 @@ namespace FirstLight.Game.Configs
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.GameModeId = gameModeConfig.Id;
 			_runtimeConfig.Mutators = mutators.ToArray();
+			_runtimeConfig.BotOverwriteDifficulty = botOverwriteDifficulty;
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>

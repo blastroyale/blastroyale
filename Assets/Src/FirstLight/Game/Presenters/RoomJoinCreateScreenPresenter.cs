@@ -39,7 +39,7 @@ namespace FirstLight.Game.Presenters
 		private LocalizedDropDown _gameModeDropDown;
 		private LocalizedDropDown _mapDropDown;
 		private LocalizedDropDown[] _mutatorModeDropDown;
-		private LocalizedDropDown _botDifficultyDropDown;
+		private LocalizedSliderInt _botDifficultyDropDown;
 		private Button _joinRoomButton;
 		private Button _playtestButton;
 		private Button _createRoomButton;
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown[1] = root.Q<LocalizedDropDown>("Mutator2").Required();
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
-			_botDifficultyDropDown = root.Q<LocalizedDropDown>("BotDifficulty").Required();
+			_botDifficultyDropDown = root.Q<LocalizedSliderInt>("BotDifficulty").Required();
 
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
@@ -116,9 +116,10 @@ namespace FirstLight.Game.Presenters
 					_mapDropDown.index = lastUsedOptions.MapIndex;
 				}
 
-				_botDifficultyDropDown.index = lastUsedOptions.BotDifficulty;
+				_botDifficultyDropDown.value = DifficultyToSlide(lastUsedOptions.BotDifficulty);
 			}
 		}
+
 
 		private void CloseRequested()
 		{
@@ -145,7 +146,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage {RoomName = roomNameInput});
+			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage { RoomName = roomNameInput });
 			Data.PlayClicked();
 		}
 
@@ -156,7 +157,7 @@ namespace FirstLight.Game.Presenters
 				GameModeIndex = _gameModeDropDown.index,
 				Mutators = GetMutatorsList(),
 				MapIndex = _mapDropDown.index,
-				BotDifficulty = _botDifficultyDropDown.index,
+				BotDifficulty = SlideToDifficulty(_botDifficultyDropDown.value),
 			};
 		}
 
@@ -277,7 +278,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
-				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int)mapId);
 				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
 					_quantumMapConfigs.Add(mapConfig);
@@ -309,15 +310,49 @@ namespace FirstLight.Game.Presenters
 
 		private void FillBotDifficultySelectionList()
 		{
-			var menuChoices = new List<string>();
-			// It feels like a waste to load a config to get numbers for difficulties, so better to just hardcode them 
-			for (var difficulty = 0; difficulty < 10; difficulty++)
+			var difficulties = _services.ConfigsProvider.GetConfig<BotDifficultyConfigs>();
+			// Plus 1 because the first value is the default one (not changing difficulty)
+			_botDifficultyDropDown.highValue = difficulties.Configs.Count-1;
+			_botDifficultyDropDown.lowValue = -1;
+			_botDifficultyDropDown.value = 0;
+		}
+
+		private int SlideToDifficulty(int slideValue)
+		{
+			// Default value: do not change difficulty
+			if (slideValue == -1)
 			{
-				menuChoices.Add(difficulty.ToString());
+				return -1;
+
+			}
+			var difficulties = _services.ConfigsProvider.GetConfig<BotDifficultyConfigs>();
+
+			for (var i = 0; i < difficulties.Configs.Count; i++)
+			{
+				if (slideValue == i)
+				{
+					return (int)difficulties.Configs[i].BotDifficulty;
+				}
 			}
 
-			_botDifficultyDropDown.choices = menuChoices;
-			_botDifficultyDropDown.value = menuChoices[0];
+			return 0;
+		}
+
+		private int DifficultyToSlide(int difficulty)
+		{
+			// Default value: do not change difficulty
+			if (difficulty == -1) return -1;
+			var difficulties = _services.ConfigsProvider.GetConfig<BotDifficultyConfigs>();
+
+			for (var i = 0; i < difficulties.Configs.Count; i++)
+			{
+				if (difficulties.Configs[i].BotDifficulty == difficulty)
+				{
+					return i;
+				}
+			}
+
+			return 0;
 		}
 	}
 }

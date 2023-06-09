@@ -218,13 +218,11 @@ namespace Quantum.Systems.Bots
 			{
 				LogAction(ref filter, "is collecting item");
 				filter.BotCharacter->NextDecisionTime = collectable.CollectorsEndTime[filter.PlayerCharacter->Player] + FP._0_50;
-				filter.BotCharacter->StuckDetectionPosition = FPVector3.Zero;
 				return;
 			}
 
 
 			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
-			filter.BotCharacter->StuckDetectionPosition = filter.Transform->Position;
 
 			// We stop aiming after the use of special because real players can't shoot and use specials at the same time
 			// So we don't allow bots to do it as well
@@ -456,21 +454,24 @@ namespace Quantum.Systems.Bots
 		// We check specials and try to use them depending on their type if possible
 		private bool TryUseSpecials(Frame f, ref BotCharacterFilter filter)
 		{
+			if (f.Time < filter.BotCharacter->NextAllowedSpecialUseTime)
+			{
+				return false;
+			}
 			if (!(f.RNG->Next() < filter.BotCharacter->ChanceToUseSpecial))
 			{
 				return false;
 			}
 
-			if (TryUseSpecial(f, filter.PlayerCharacter, 0, filter.Entity, filter.BotCharacter->Target))
+			for (var i = 0; i <= 1; i++)
 			{
-				return true;
-			}
+				if (TryUseSpecial(f, filter.PlayerCharacter, i, filter.Entity, filter.BotCharacter->Target))
+				{
+					filter.BotCharacter->NextAllowedSpecialUseTime = f.Time + f.RNG->NextInclusive(filter.BotCharacter->SpecialCooldown);
+					return true;
+				}
 
-			if (TryUseSpecial(f, filter.PlayerCharacter, 1, filter.Entity, filter.BotCharacter->Target))
-			{
-				return true;
 			}
-
 			return false;
 		}
 

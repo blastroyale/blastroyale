@@ -151,17 +151,12 @@ namespace Quantum.Systems.Bots
 				Glider = f.RNG->RandomElement(ctx.Gliders),
 				BotNameIndex = listNamesIndex,
 				BehaviourType = config.BehaviourType,
-				// We modify intervals to make them more unique to avoid performance spikes
 				DecisionInterval = config.DecisionInterval,
 				LookForTargetsToShootAtInterval = config.LookForTargetsToShootAtInterval,
 				VisionRangeSqr = config.VisionRangeSqr,
 				AccuracySpreadAngle = config.AccuracySpreadAngle,
 				ChanceToUseSpecial = config.ChanceToUseSpecial,
 				SpecialAimingDeviation = config.SpecialAimingDeviation,
-				NextDecisionTime = FP._0,
-				NextLookForTargetsToShootAtTime = FP._0,
-				CurrentEvasionStepEndTime = FP._0,
-				StuckDetectionPosition = FPVector3.Zero,
 				LoadoutGearNumber = config.LoadoutGearNumber,
 				LoadoutRarity = config.LoadoutRarity,
 				MaxAimingRange = config.MaxAimingRange,
@@ -171,9 +166,15 @@ namespace Quantum.Systems.Bots
 				DamageTakenMultiplier = config.DamageTakenMultiplier,
 				DamageDoneMultiplier = config.DamageDoneMultiplier,
 				SpeedResetAfterLanding = false,
+				TimeStartRunningFromCircle = f.RNG->NextInclusive(config.MinRunFromZoneTime, config.MaxRunFromZoneTime),
+				SpecialCooldown = new FPVector2(config.MinSpecialCooldown, config.MaxSpecialCooldown),
+
+				// state
 				WanderDirection = f.RNG->NextBool(),
 				InvalidMoveTargets = f.AllocateHashSet<EntityRef>(),
-				TimeStartRunningFromCircle = f.RNG->NextInclusive(FP._2, FP._10 * FP._3)
+				NextDecisionTime = FP._0,
+				NextLookForTargetsToShootAtTime = FP._0,
+				NextAllowedSpecialUseTime = FP._0,
 			};
 
 			ctx.BotNamesIndices.Remove(listNamesIndex);
@@ -384,7 +385,20 @@ namespace Quantum.Systems.Bots
 				botGamemodeKey = f.Context.GameModeConfig.Id;
 			}
 
-			return GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
+			if (f.RuntimeConfig.BotOverwriteDifficulty != -1)
+			{
+				var configs = f.BotConfigs.QuantumConfigs;
+				return configs.Where(config => config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty && config.GameMode == botGamemodeKey).ToList();
+			}
+
+			var trophiesConfigs = GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
+			if (trophiesConfigs.Count == 0)
+			{
+				return trophiesConfigs;
+			}
+
+			// Uses configs from gamemode without difficulty
+			return f.BotConfigs.QuantumConfigs.Where(config => config.GameMode == botGamemodeKey).ToList();
 		}
 
 

@@ -24,7 +24,7 @@ MonoBehaviour:
       WarningTime:
         RawValue: 983040
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 29491
       MaxHealthDamage:
@@ -45,9 +45,9 @@ MonoBehaviour:
       WarningTime:
         RawValue: 655360
       ShrinkingTime:
-        RawValue: 2621440
+        RawValue: 1966080
       ShrinkingSizeK:
-        RawValue: 18022
+        RawValue: 19661
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
@@ -64,9 +64,9 @@ MonoBehaviour:
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 327680
+        RawValue: 655360
       ShrinkingTime:
-        RawValue: 2949120
+        RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 66
       MaxHealthDamage:

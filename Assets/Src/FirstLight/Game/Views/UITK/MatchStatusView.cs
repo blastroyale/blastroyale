@@ -3,6 +3,7 @@ using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
 using Quantum.Core;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using Assert = UnityEngine.Assertions.Assert;
@@ -17,6 +18,8 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _pingElement;
 
 		private IMatchServices _matchServices;
+
+		private PlayableDirector _areaShrinkingDirector;
 
 		private IVisualElementScheduledItem _timerUpdate;
 		private ValueAnimation<float> _pingAnimation;
@@ -36,6 +39,11 @@ namespace FirstLight.Game.Views.UITK
 
 			_pingAnimation = _pingElement.experimental.animation.Scale(0.6f, 1000).KeepAlive();
 			_pingAnimation.from = 1f;
+		}
+		
+		public void SetAreaShrinkingDirector(PlayableDirector director)
+		{
+			_areaShrinkingDirector = director;
 		}
 
 		public override void SubscribeToEvents()
@@ -112,6 +120,7 @@ namespace FirstLight.Game.Views.UITK
 
 			var warningSeconds = (int) (warningTimeMs / 1000);
 			var shrinkingSeconds = (int) (shrinkingTimeMs / 1000);
+			var shrinkingStarted = false;
 
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
@@ -123,6 +132,12 @@ namespace FirstLight.Game.Views.UITK
 					}
 					else if (shrinkingSeconds > 0)
 					{
+						if (!shrinkingStarted)
+						{
+							_areaShrinkingDirector.Play();
+							shrinkingStarted = true;
+						}
+						
 						_timerLabel.text = shrinkingSeconds.ToString();
 						shrinkingSeconds--;
 						_pingAnimation.Start();

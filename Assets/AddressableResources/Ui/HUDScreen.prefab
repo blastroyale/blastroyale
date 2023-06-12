@@ -119,7 +119,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 7cd3ffcbfd590bf4b9b73021230f64a3, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   _document: {fileID: 1992658982101314426}
   _background: {fileID: 0}
   _millisecondsToClose: 0
+  _areaShrinkingDirector: {fileID: 4236891687392369458}
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}

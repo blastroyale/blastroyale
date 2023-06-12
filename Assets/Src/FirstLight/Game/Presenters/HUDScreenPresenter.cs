@@ -9,6 +9,8 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Playables;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -21,15 +23,17 @@ namespace FirstLight.Game.Presenters
 		
 		private const string USS_SKYDIVING = "skydiving";
 
-		[SerializeField, Required] private UnityInputScreenControl _moveDirectionJoystickInput;
-		[SerializeField, Required] private UnityInputScreenControl _moveDownJoystickInput;
-		[SerializeField, Required] private UnityInputScreenControl _aimDirectionJoystickInput;
-		[SerializeField, Required] private UnityInputScreenControl _aimDownJoystickInput;
-		[SerializeField, Required] private UnityInputScreenControl _weaponSwitchInput;
-		[SerializeField, Required] private UnityInputScreenControl _special0PressedInput;
-		[SerializeField, Required] private UnityInputScreenControl _special1PressedInput;
-		[SerializeField, Required] private UnityInputScreenControl _specialAimInput;
-		[SerializeField, Required] private UnityInputScreenControl _specialCancelInput;
+		[FormerlySerializedAs("_areaShrinkingDirectors")] [SerializeField, Required, TabGroup("Animation")] private PlayableDirector _areaShrinkingDirector;
+		
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDirectionJoystickInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDownJoystickInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _aimDirectionJoystickInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _aimDownJoystickInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _weaponSwitchInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _special0PressedInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _special1PressedInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _specialAimInput;
+		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
 
@@ -63,6 +67,8 @@ namespace FirstLight.Game.Presenters
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
 			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
+			
+			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

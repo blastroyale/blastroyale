@@ -22,13 +22,13 @@ MonoBehaviour:
       DelayTime:
         RawValue: 983040
       WarningTime:
-        RawValue: 1966080
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 1966080
+        RawValue: 2621440
       ShrinkingSizeK:
-        RawValue: 26214
+        RawValue: 29491
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1966
       AirdropChance:
         RawValue: 39322
       AirdropStartTimeRange:
@@ -41,13 +41,13 @@ MonoBehaviour:
       AirdropChest: 19
     - Step: 2
       DelayTime:
-        RawValue: 983040
+        RawValue: 327680
       WarningTime:
-        RawValue: 983040
+        RawValue: 655360
       ShrinkingTime:
-        RawValue: 1310720
+        RawValue: 2621440
       ShrinkingSizeK:
-        RawValue: 19661
+        RawValue: 18022
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
@@ -64,9 +64,9 @@ MonoBehaviour:
       DelayTime:
         RawValue: 327680
       WarningTime:
-        RawValue: 1310720
+        RawValue: 327680
       ShrinkingTime:
-        RawValue: 1966080
+        RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 66
       MaxHealthDamage:

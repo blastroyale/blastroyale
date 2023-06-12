@@ -38,10 +38,16 @@ namespace FirstLight.Game.MonoComponent.Match
 			_gameServices = gameServices;
 			_hitEffects = new();
 			QuantumEvent.SubscribeManual<EventOnProjectileSuccessHit>(this, OnProjectileHit);
+			QuantumEvent.SubscribeManual<EventOnProjectileFailedHit>(this, OnProjectileFailedHit);
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnGameDestroyed);
 		}
 		
 		private void OnGameDestroyed(CallbackGameDestroyed c) => _hitEffects.Clear();
+		
+		private void OnProjectileFailedHit(EventOnProjectileFailedHit ev)
+		{
+			_gameServices.VfxService.Spawn(VfxId.ProjectileFailedSmoke).transform.position = ev.LastPosition.ToUnityVector3();
+		}
 
 		private void OnProjectileHit(EventOnProjectileSuccessHit ev)
 		{

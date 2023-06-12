@@ -8,7 +8,7 @@ public class BulletMonoComponent : MonoBehaviour
 {
 	[SerializeField, Required] public Material MyBullet;
 	[SerializeField, Required] public Material EnemyBullet;
-	[SerializeField, Required] public GameObject Trail;
+	[SerializeField] public GameObject Trail;
 	
 	private EntityView View => GetComponent<EntityView>() ?? GetComponentInParent<EntityView>();
 	

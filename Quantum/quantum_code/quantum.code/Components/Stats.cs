@@ -21,7 +21,7 @@ namespace Quantum
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
-			CurrentAmmo = 0;
+			CurrentAmmoPercent = 0;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -57,6 +57,7 @@ namespace Quantum
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
 			CurrentShield = 0;
+			//CurrentAmmoPercent = 0;
 			IsImmune = false;
 
 			var modifiersList = f.ResolveList(Modifiers);
@@ -120,55 +121,54 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// adds an <paramref name="amount"/>  to your ammo pool
+		/// Returns the current amount of ammo in whole display numbers rather than a percentage
 		/// </summary>
-		internal void GainAmmoAmount(Frame f, EntityRef e, int amount)
+		public int GetCurrentAmmo()
 		{
-			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			SetCurrentAmmo(f, player, e, CurrentAmmo + amount);
+			return FPMath.CeilToInt(CurrentAmmoPercent * GetStatData(StatType.AmmoCapacity).StatValue.AsInt);
 		}
 
 		/// <summary>
-		/// Adds ammo to your pool where <paramref name="amount"/> is a % of your total ammo
+		/// Adds ammo to your pool where <paramref name="amount"/> is the % gain
 		/// </summary>
 		internal void GainAmmoPercent(Frame f, EntityRef e, FP amount)
 		{
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			SetCurrentAmmo(f, player, e, CurrentAmmo + (amount * maxAmmo).AsInt);
+			SetCurrentAmmo(f, player, e, CurrentAmmoPercent + amount);
 		}
 
 		/// <summary>
-		/// Reduces the given ammo count by <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// Reduces the amount of ammo you have by <paramref name="numShots"/>
 		/// </summary>
-		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
+		internal void ReduceAmmo(Frame f, EntityRef e, int numShots)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue;
 
 			// Do not do reduce for melee weapons or if your weapon does not consume ammo
-			if (weapon.MaxAmmo.Get(f) != -1)
+			if (weapon.MaxAmmo != -1)
 			{
-				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
+				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / maxAmmo);
 			}
 		}
 
 		/// <summary>
-		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
+		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and 1
 		/// </summary>
-		private void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
+		private void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
 		{
-			var previousAmmo = CurrentAmmo;
-			var maxAmmo = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId).MaxAmmo.Get(f);
-			var ammoCapacity = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var previousAmmo = CurrentAmmoPercent;
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
 			var currentMag = player->WeaponSlot->MagazineShotCount;
 
-			CurrentAmmo = FPMath.Clamp(value, 0, ammoCapacity);
+			CurrentAmmoPercent = FPMath.Clamp(value, 0, 1);
+			Log.Warn(CurrentAmmoPercent);
 
-			if (CurrentAmmo != previousAmmo)
+			if (CurrentAmmoPercent != previousAmmo)
 			{
-				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, currentMag, magSize);
+				f.Events.OnPlayerAmmoChanged(player->Player, e, GetCurrentAmmo(), maxAmmo, currentMag, magSize);
 			}
 		}
 
@@ -339,14 +339,14 @@ namespace Quantum
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-			ammoCapacity = f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) * (ammoCapacity / FP._100 + FP._1);
-			
+
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			
-			// Melee weapons ignore Attack Range bonuses, sticking to base weapon value
+			// Melee weapons ignore Attack Range & ammo capacity bonuses, sticking to base weapon value
 			attackRange = weaponConfig.IsMeleeWeapon ? weaponConfig.AttackRange : attackRange + weaponConfig.AttackRange;
-			
+			ammoCapacity = weaponConfig.IsMeleeWeapon ? weaponConfig.MaxAmmo : ammoCapacity + weaponConfig.MaxAmmo;
+
 			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);

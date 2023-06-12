@@ -96,9 +96,12 @@ namespace FirstLight.Game.Views.UITK
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var weapon = pc->WeaponSlots[1];
-			var currentAmmoModified = Mathf.CeilToInt((float) stats->CurrentAmmo / weapon.AmmoCostPerShot);
+			var currentAmmoModified = (Mathf.CeilToInt(stats->GetCurrentAmmo()) - weapon.MagazineSize) + weapon.MagazineShotCount;
+			var maxAmmo = stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 
-			_ammoLabel.text = (currentAmmoModified + weapon.MagazineShotCount).ToString();
+			//TODO: change this to be the infinity symbol or something idk
+			_ammoLabel.text = maxAmmo == -1 ? "Infinite" :
+				currentAmmoModified.ToString() + " / " + maxAmmo;
 		}
 
 		private void SetSlot(int slot)

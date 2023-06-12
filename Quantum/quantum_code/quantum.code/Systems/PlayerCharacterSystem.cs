@@ -150,7 +150,7 @@ namespace Quantum.Systems
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
 				
 				// Because max ammo is deliberately practically unreachable, we use half of ammo to compare
-				var ammoFilled = stats->CurrentAmmo / (stats->GetStatData(StatType.Health).StatValue * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE);
+				var ammoFilled = stats->CurrentAmmoPercent / (stats->GetStatData(StatType.Health).StatValue * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE);
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
 				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)

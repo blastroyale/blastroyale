@@ -221,7 +221,6 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-
 			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 
 			// We stop aiming after the use of special because real players can't shoot and use specials at the same time
@@ -233,7 +232,7 @@ namespace Quantum.Systems.Bots
 
 			// In case a bot has a gun and ammo but switched to a hammer - we switch back to a gun
 			if (filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) &&
-				filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity) > FP._0)
+				f.TryGet<Stats>(filter.BotCharacter->MoveTarget, out var stats) && stats.CurrentAmmoPercent > FP._0)
 			{
 				for (var slotIndex = 1; slotIndex < filter.PlayerCharacter->WeaponSlots.Length; slotIndex++)
 				{
@@ -503,7 +502,7 @@ namespace Quantum.Systems.Bots
 			var botPosition = filter.Transform->Position;
 			var stats = f.Get<Stats>(filter.Entity);
 			var maxShields = stats.Values[(int)StatType.Shield].StatValue;
-			var currentAmmo = filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity);
+			var currentAmmo = stats.CurrentAmmoPercent;
 			var maxHealth = stats.Values[(int)StatType.Health].StatValue;
 
 			var needWeapon = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) || currentAmmo < FP.SmallestNonZero;

@@ -33,7 +33,7 @@ struct WeaponSlot
 	int MagazineShotCount;
 	int MagazineSize;
 	FP ReloadTime;
-	int AmmoCostPerShot;
+	//int AmmoCostPerShot;
 }
 
 component PlayerCharacter

@@ -14,7 +14,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public unsafe override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo;
+			return f.Unsafe.GetPointer<Stats>(e)->GetCurrentAmmo();
 		}
 	}
 }

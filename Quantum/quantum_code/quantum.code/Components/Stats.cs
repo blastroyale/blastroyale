@@ -57,7 +57,6 @@ namespace Quantum
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
 			CurrentShield = 0;
-			CurrentAmmoPercent = 0;
 			IsImmune = false;
 
 			var modifiersList = f.ResolveList(Modifiers);
@@ -72,6 +71,7 @@ namespace Quantum
 			RefreshStats(f, weapon, gear, e);
 
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
+			CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;
 		}
 
 		/// <summary>

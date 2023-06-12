@@ -255,7 +255,6 @@ namespace Quantum
 			Assert.Check(weapon.IsWeapon(), weapon);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var initialAmmo = Constants.INITIAL_AMMO_FILLED;
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
@@ -274,20 +273,12 @@ namespace Quantum
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
-			
-			// Add big bulk of initial ammo only when player picks up the first gun
-			var giveInitialAmmo = !WeaponSlots[slot].Weapon.IsValid();
 
 			var targetSlot = WeaponSlots.GetPointer(slot);
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
 			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
-
-			if (giveInitialAmmo)
-			{
-				stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - stats->CurrentAmmoPercent));
-			}
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			

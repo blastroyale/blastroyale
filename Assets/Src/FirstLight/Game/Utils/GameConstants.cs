@@ -232,7 +232,6 @@ namespace FirstLight.Game.Utils
 			public const int REWARD_POPUP_CLOSE_MS = 300;
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
 
-			public const float CHEST_CONSUMABLE_POPOUT_DURATION = 0.6f;
 			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
 		}
 

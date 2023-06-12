@@ -20,7 +20,10 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 31
       FiringMode: 0
-      MaxAmmo: -1
+      MaxAmmo:
+        Default: -1
+        Keys: []
+        Values: 
       BulletPrototype:
         Id:
           Value: 1722351953338325886
@@ -61,10 +64,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 60
       FiringMode: 0
-      MaxAmmo: 128
+      MaxAmmo:
+        Default: 128
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 8000000018000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -84,7 +92,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 45875
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1769472
       MinAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -102,10 +110,15 @@ MonoBehaviour:
         RawValue: 196608
     - Id: 71
       FiringMode: 0
-      MaxAmmo: 64
+      MaxAmmo:
+        Default: 64
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 4000000012000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -125,7 +138,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 22938
       AttackHitSpeed:
-        RawValue: 983040
+        RawValue: 1114112
       MinAttackAngle: 30
       NumberOfShots: 8
       NumberOfBursts: 2
@@ -143,10 +156,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 78
       FiringMode: 0
-      MaxAmmo: 360
+      MaxAmmo:
+        Default: 360
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 680100004b000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -162,7 +180,7 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 5243
       AttackCooldown:
-        RawValue: 7209
+        RawValue: 10813
       PowerToDamageRatio:
         RawValue: 45220
       AttackHitSpeed:
@@ -184,10 +202,15 @@ MonoBehaviour:
         RawValue: 52429
     - Id: 79
       FiringMode: 0
-      MaxAmmo: 210
+      MaxAmmo:
+        Default: 210
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -207,7 +230,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 46531
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1769472
       MinAttackAngle: 9
       NumberOfShots: 1
       NumberOfBursts: 3
@@ -225,10 +248,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 84
       FiringMode: 0
-      MaxAmmo: 36
+      MaxAmmo:
+        Default: 36
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 240000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -266,10 +294,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 86
       FiringMode: 0
-      MaxAmmo: 96
+      MaxAmmo:
+        Default: 96
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 6000000014000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -289,7 +322,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 1179648
+        RawValue: 655360
       MinAttackAngle: 18
       NumberOfShots: 1
       NumberOfBursts: 3
@@ -307,10 +340,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 87
       FiringMode: 0
-      MaxAmmo: 500
+      MaxAmmo:
+        Default: 500
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: f401000064000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -348,10 +386,15 @@ MonoBehaviour:
         RawValue: 81920
     - Id: 88
       FiringMode: 0
-      MaxAmmo: 160
+      MaxAmmo:
+        Default: 160
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: a000000024000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -371,7 +414,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 45875
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1638400
       MinAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -389,10 +432,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 90
       FiringMode: 0
-      MaxAmmo: 64
+      MaxAmmo:
+        Default: 64
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 400000000c000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -412,7 +460,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 17695
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1769472
       MinAttackAngle: 33
       NumberOfShots: 10
       NumberOfBursts: 1
@@ -430,10 +478,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 91
       FiringMode: 0
-      MaxAmmo: 400
+      MaxAmmo:
+        Default: 400
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 9001000046000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -471,10 +524,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 92
       FiringMode: 0
-      MaxAmmo: 210
+      MaxAmmo:
+        Default: 210
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -494,7 +552,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 20972
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 2293760
       MinAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -512,10 +570,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 93
       FiringMode: 0
-      MaxAmmo: 35
+      MaxAmmo:
+        Default: 35
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 230000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -535,7 +598,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
-        RawValue: 1638400
+        RawValue: 2293760
       MinAttackAngle: 2
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -553,10 +616,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 94
       FiringMode: 0
-      MaxAmmo: 64
+      MaxAmmo:
+        Default: 64
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 400000000f000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -574,9 +642,9 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
-        RawValue: 55706
+        RawValue: 29491
       AttackHitSpeed:
-        RawValue: 1310720
+        RawValue: 458752
       MinAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -594,10 +662,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 95
       FiringMode: 0
-      MaxAmmo: 360
+      MaxAmmo:
+        Default: 360
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 680100004b000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -617,7 +690,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 19661
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1769472
       MinAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 6
@@ -635,10 +708,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 96
       FiringMode: 0
-      MaxAmmo: 48
+      MaxAmmo:
+        Default: 48
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 3000000018000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -658,7 +736,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 45875
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1769472
       MinAttackAngle: 7
       NumberOfShots: 2
       NumberOfBursts: 1
@@ -676,10 +754,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 97
       FiringMode: 0
-      MaxAmmo: 90
+      MaxAmmo:
+        Default: 90
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 5a0000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -699,7 +782,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 24248
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1638400
       MinAttackAngle: 15
       NumberOfShots: 7
       NumberOfBursts: 1
@@ -717,10 +800,15 @@ MonoBehaviour:
         RawValue: 114688
     - Id: 98
       FiringMode: 0
-      MaxAmmo: 297
+      MaxAmmo:
+        Default: 297
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 290100004b000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -740,7 +828,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 24248
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1638400
       MinAttackAngle: 6
       NumberOfShots: 3
       NumberOfBursts: 1
@@ -758,10 +846,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 99
       FiringMode: 0
-      MaxAmmo: 200
+      MaxAmmo:
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000032000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -781,7 +874,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 31457
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 2293760
       MinAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -799,10 +892,15 @@ MonoBehaviour:
         RawValue: 65536
     - Id: 100
       FiringMode: 0
-      MaxAmmo: 75
+      MaxAmmo:
+        Default: 75
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 4b00000020000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -822,7 +920,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 58982
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 1638400
       MinAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -840,10 +938,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 101
       FiringMode: 0
-      MaxAmmo: 30
+      MaxAmmo:
+        Default: 30
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 1e0000000a000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -861,9 +964,9 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 72090
       PowerToDamageRatio:
-        RawValue: 58982
+        RawValue: 52429
       AttackHitSpeed:
-        RawValue: 1441792
+        RawValue: 327680
       MinAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -881,10 +984,15 @@ MonoBehaviour:
         RawValue: 0
     - Id: 103
       FiringMode: 0
-      MaxAmmo: 200
+      MaxAmmo:
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c80000004b000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0

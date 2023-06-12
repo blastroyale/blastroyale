@@ -23,6 +23,12 @@ namespace Quantum.Systems
 				{
 					CreateSubProjectile(f, *filter.Projectile, filter.Transform->Position, false);
 				}
+				// Projectile that performs Sub Projectile at end of lifetime is not considered as failed
+				else
+				{
+					f.Events.OnProjectileFailedHit(*filter.Projectile, filter.Transform->Position);
+				}
+				
 				f.Destroy(filter.Entity);
 				return;
 			}

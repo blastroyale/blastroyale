@@ -145,9 +145,4 @@ Assets/InitTestScene*.unity.meta
 Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll
 Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll
 Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll
-Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll.meta
-Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll.meta
-Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll.meta
-# Generated quantum stuff
-Assets/Libs/Photon/Quantum/Generated/
 Quantum/quantum_code/quantum.code/Core/CodeGen.cs

@@ -386,21 +386,6 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Calculates a value based on your current movement value
-		/// </ summary>
-		public static FP GetDynamicAimValue(CharacterController3D* kcc, FP movingValue, FP stationaryValue)
-		{
-			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
-			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-
-			if (maxSpeedSqr == 0)
-			{
-				return stationaryValue;
-			}
-			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
-		}
-
-		/// <summary>
 		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
 		/// </summary>
 		public static FPVector2 GetAimDirection(FPVector2 attackDirection, ref FPQuaternion rotation)

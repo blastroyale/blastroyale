@@ -121,7 +121,6 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.GetDefault());
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
-				stats.Add(EquipmentStatType.MaxAttackAngle, weaponConfig.MaxAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
 				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
@@ -223,7 +222,6 @@ namespace FirstLight.Game.Utils
 			{EquipmentStatType.MaxCapacity, 120},
 			{EquipmentStatType.ReloadTime, 4f},
 			{EquipmentStatType.MinAttackAngle, 60},
-			{EquipmentStatType.MaxAttackAngle, 60},
 			{EquipmentStatType.SplashDamageRadius, 4f},
 			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.NumberOfShots, 10},
@@ -236,7 +234,6 @@ namespace FirstLight.Game.Utils
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()
 		{
 			EquipmentStatType.AttackCooldown,
-			EquipmentStatType.MaxAttackAngle,
 			EquipmentStatType.MinAttackAngle,
 			EquipmentStatType.ReloadTime
 		};

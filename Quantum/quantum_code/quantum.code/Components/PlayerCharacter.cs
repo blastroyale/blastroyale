@@ -258,7 +258,7 @@ namespace Quantum
 			Assert.Check(weapon.IsWeapon(), weapon);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
+			var initialAmmo = Constants.INITIAL_AMMO_FILLED;
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			var stats = f.Unsafe.GetPointer<Stats>(e);

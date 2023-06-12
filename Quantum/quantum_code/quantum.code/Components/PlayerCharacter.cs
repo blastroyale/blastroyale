@@ -73,7 +73,6 @@ namespace Quantum
 			}
 			
 			stats->MinimumHealth = (int)minimumHealth;
-			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			f.Add<HFSMAgent>(e);
 			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));

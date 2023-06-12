@@ -60,10 +60,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_mapImage.enabled = true;
 			_mapImage.rectTransform.localScale = Vector3.one / _dropSelectionSize;
 			SelectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
+			var selectionPattern = gameModeConfig.SpawnPattern;
 
 			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
 			_selectedPoint.gameObject.SetActive(SelectionEnabled);
-			_dropzoneLayout.gameObject.SetActive(SelectionEnabled);
+			_dropzoneLayout.gameObject.SetActive(selectionPattern);
 			
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 

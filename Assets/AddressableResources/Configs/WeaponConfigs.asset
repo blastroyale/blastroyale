@@ -20,11 +20,6 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 31
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 32768
-        Keys: []
-        Values: []
       MaxAmmo:
         Default: -1
         Keys: []
@@ -44,8 +39,6 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 19661
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -55,15 +48,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 0
       MinAttackAngle: 60
-      MaxAttackAngle: 60
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
         RawValue: 131072
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 0
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -73,18 +62,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 20
     - Id: 60
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 128
         Keys:
@@ -93,7 +72,7 @@ MonoBehaviour:
         Values: 8000000018000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -106,8 +85,6 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -117,15 +94,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 7
-      MaxAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -135,18 +108,8 @@ MonoBehaviour:
         RawValue: 3277
       InitialAttackRampUpTime:
         RawValue: 196608
-      KnockbackAmount: 0
     - Id: 71
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 64
         Keys:
@@ -155,7 +118,7 @@ MonoBehaviour:
         Values: 4000000012000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -168,8 +131,6 @@ MonoBehaviour:
         RawValue: 163840
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 39322
       AttackCooldown:
@@ -179,15 +140,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1114112
       MinAttackAngle: 30
-      MaxAttackAngle: 30
       NumberOfShots: 8
       NumberOfBursts: 2
       AttackRange:
         RawValue: 327680
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -197,18 +154,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 78
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 360
         Keys:
@@ -230,8 +177,6 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 5243
       AttackCooldown:
@@ -241,15 +186,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 11
-      MaxAttackAngle: 11
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -259,18 +200,8 @@ MonoBehaviour:
         RawValue: 13107
       InitialAttackRampUpTime:
         RawValue: 52429
-      KnockbackAmount: 0
     - Id: 79
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 210
         Keys:
@@ -279,7 +210,7 @@ MonoBehaviour:
         Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -292,8 +223,6 @@ MonoBehaviour:
         RawValue: 114688
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
@@ -303,15 +232,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 9
-      MaxAttackAngle: 9
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
         RawValue: 491520
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -321,18 +246,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 84
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 36
         Keys:
@@ -341,7 +256,7 @@ MonoBehaviour:
         Values: 240000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -354,8 +269,6 @@ MonoBehaviour:
         RawValue: 65536
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 32768
       AttackCooldown:
@@ -365,15 +278,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 3
-      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 589824
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -383,18 +292,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 86
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 96
         Keys:
@@ -416,8 +315,6 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 58982
       AttackCooldown:
@@ -427,15 +324,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 655360
       MinAttackAngle: 18
-      MaxAttackAngle: 18
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
         RawValue: 458752
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 1
       SplashRadius:
         RawValue: 98304
       SplashDamageRatio:
@@ -445,18 +338,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 87
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 500
         Keys:
@@ -465,7 +348,7 @@ MonoBehaviour:
         Values: f401000064000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -478,8 +361,6 @@ MonoBehaviour:
         RawValue: 196608
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
@@ -489,15 +370,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1114112
       MinAttackAngle: 16
-      MaxAttackAngle: 16
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 507904
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -507,18 +384,8 @@ MonoBehaviour:
         RawValue: 32768
       InitialAttackRampUpTime:
         RawValue: 81920
-      KnockbackAmount: 0
     - Id: 88
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 160
         Keys:
@@ -527,7 +394,7 @@ MonoBehaviour:
         Values: a000000024000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -540,8 +407,6 @@ MonoBehaviour:
         RawValue: 49152
       AimingMovementSpeed:
         RawValue: 65536
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 15729
       AttackCooldown:
@@ -551,15 +416,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 0
-      MaxAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -569,18 +430,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 90
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 64
         Keys:
@@ -589,7 +440,7 @@ MonoBehaviour:
         Values: 400000000c000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -602,8 +453,6 @@ MonoBehaviour:
         RawValue: 81920
       AimingMovementSpeed:
         RawValue: 32768
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 43647
       AttackCooldown:
@@ -613,15 +462,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 33
-      MaxAttackAngle: 33
       NumberOfShots: 10
       NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -631,18 +476,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 91
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 400
         Keys:
@@ -651,7 +486,7 @@ MonoBehaviour:
         Values: 9001000046000000
       BulletPrototype:
         Id:
-          Value: 148021496798672150
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -664,8 +499,6 @@ MonoBehaviour:
         RawValue: 43254
       AimingMovementSpeed:
         RawValue: 72090
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
@@ -675,15 +508,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 15
-      MaxAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -693,18 +522,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 92
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 210
         Keys:
@@ -713,7 +532,7 @@ MonoBehaviour:
         Values: d200000032000000
       BulletPrototype:
         Id:
-          Value: 193719547299099333
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -726,8 +545,6 @@ MonoBehaviour:
         RawValue: 98304
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
@@ -737,15 +554,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2293760
       MinAttackAngle: 0
-      MaxAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -755,18 +568,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 93
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 35
         Keys:
@@ -788,8 +591,6 @@ MonoBehaviour:
         RawValue: 176947
       AimingMovementSpeed:
         RawValue: 32768
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
@@ -799,15 +600,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2293760
       MinAttackAngle: 2
-      MaxAttackAngle: 2
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 720896
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -817,18 +614,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 20
     - Id: 94
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 64
         Keys:
@@ -850,8 +637,6 @@ MonoBehaviour:
         RawValue: 147456
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
@@ -861,15 +646,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 458752
       MinAttackAngle: 0
-      MaxAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 393216
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 1
       SplashRadius:
         RawValue: 131072
       SplashDamageRatio:
@@ -879,18 +660,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 95
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 360
         Keys:
@@ -899,7 +670,7 @@ MonoBehaviour:
         Values: 680100004b000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -912,8 +683,6 @@ MonoBehaviour:
         RawValue: 229376
       AimingMovementSpeed:
         RawValue: 21627
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 49152
       AttackCooldown:
@@ -923,15 +692,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 7
-      MaxAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
         RawValue: 589824
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -941,18 +706,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 96
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 48
         Keys:
@@ -961,7 +716,7 @@ MonoBehaviour:
         Values: 3000000018000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -974,8 +729,6 @@ MonoBehaviour:
         RawValue: 65536
       AimingMovementSpeed:
         RawValue: 65536
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
@@ -985,15 +738,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1769472
       MinAttackAngle: 7
-      MaxAttackAngle: 7
       NumberOfShots: 2
       NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1003,18 +752,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 97
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 90
         Keys:
@@ -1023,7 +762,7 @@ MonoBehaviour:
         Values: 5a0000000c000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1036,8 +775,6 @@ MonoBehaviour:
         RawValue: 196608
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 13107
       AttackCooldown:
@@ -1047,15 +784,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 15
-      MaxAttackAngle: 15
       NumberOfShots: 7
       NumberOfBursts: 1
       AttackRange:
         RawValue: 360448
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1065,18 +798,8 @@ MonoBehaviour:
         RawValue: 49152
       InitialAttackRampUpTime:
         RawValue: 114688
-      KnockbackAmount: 0
     - Id: 98
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 297
         Keys:
@@ -1085,7 +808,7 @@ MonoBehaviour:
         Values: 290100004b000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1098,8 +821,6 @@ MonoBehaviour:
         RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
@@ -1109,15 +830,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 6
-      MaxAttackAngle: 6
       NumberOfShots: 3
       NumberOfBursts: 1
       AttackRange:
         RawValue: 360448
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1127,18 +844,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 99
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 200
         Keys:
@@ -1147,7 +854,7 @@ MonoBehaviour:
         Values: c800000032000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1160,8 +867,6 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 9830
       AttackCooldown:
@@ -1171,15 +876,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2293760
       MinAttackAngle: 3
-      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 540672
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1189,18 +890,8 @@ MonoBehaviour:
         RawValue: 21627
       InitialAttackRampUpTime:
         RawValue: 65536
-      KnockbackAmount: 0
     - Id: 100
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 75
         Keys:
@@ -1222,8 +913,6 @@ MonoBehaviour:
         RawValue: 52429
       AimingMovementSpeed:
         RawValue: 32768
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
@@ -1233,15 +922,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 3
-      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 655360
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1251,18 +936,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 101
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 30
         Keys:
@@ -1271,7 +946,7 @@ MonoBehaviour:
         Values: 1e0000000a000000
       BulletPrototype:
         Id:
-          Value: 3151177946438730648
+          Value: 1613285068775141220
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1284,8 +959,6 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 58982
       AttackCooldown:
@@ -1295,15 +968,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 327680
       MinAttackAngle: 0
-      MaxAttackAngle: 0
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
         RawValue: 524288
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 1
-      IsProjectile: 1
       SplashRadius:
         RawValue: 65536
       SplashDamageRatio:
@@ -1313,18 +982,8 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0
     - Id: 103
       FiringMode: 0
-      InitialAmmoFilled:
-        Default:
-          RawValue: 39322
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 39322
-        - RawValue: 65536
       MaxAmmo:
         Default: 200
         Keys:
@@ -1333,7 +992,7 @@ MonoBehaviour:
         Values: c80000004b000000
       BulletPrototype:
         Id:
-          Value: 1705595393471409306
+          Value: 922341753785179332
       BulletHitPrototype:
         Id:
           Value: 0
@@ -1346,8 +1005,6 @@ MonoBehaviour:
         RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
-      AimDelay:
-        RawValue: 0
       TapCooldown:
         RawValue: 3277
       AttackCooldown:
@@ -1357,15 +1014,11 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1114112
       MinAttackAngle: 10
-      MaxAttackAngle: 10
       NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
         RawValue: 458752
-      AttackRangeAimBonus:
-        RawValue: 0
       CanHitSameTarget: 0
-      IsProjectile: 0
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
@@ -1375,4 +1028,3 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-      KnockbackAmount: 0

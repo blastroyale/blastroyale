@@ -24,14 +24,13 @@ namespace Quantum
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), ref transform->Rotation).Normalized;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
-			var attackRange = rangeStat + weaponConfig.AttackRangeAimBonus;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 			bb->Set(f, Constants.LastShotAt, f.Time);
-			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, attackRange);
+			f.Events.OnPlayerAttack(playerCharacter->Player, e, playerCharacter->CurrentWeapon, weaponConfig, aimingDirection, rangeStat);
 			if (weaponConfig.NumberOfShots == 1 || weaponConfig.IsMeleeWeapon)
 			{
-				Projectile.CreateProjectile(f, e, attackRange, aimingDirection, position, weaponConfig);
+				Projectile.CreateProjectile(f, e, rangeStat, aimingDirection, position, weaponConfig);
 			}
 			else
 			{
@@ -41,7 +40,7 @@ namespace Quantum
 				for (var x = 0; x < weaponConfig.NumberOfShots; x++)
 				{
 					var burstDirection = FPVector2.Rotate(aimingDirection, angle * FP.Deg2Rad).XOY;
-					Projectile.CreateProjectile(f, e, attackRange, burstDirection.XZ, position, weaponConfig);
+					Projectile.CreateProjectile(f, e, rangeStat, burstDirection.XZ, position, weaponConfig);
 					angle += angleStep;
 				}
 			}

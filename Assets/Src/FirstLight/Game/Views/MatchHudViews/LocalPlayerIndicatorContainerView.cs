@@ -170,7 +170,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_weaponAim.gameObject.SetActive(false);
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
-				if (_weaponConfig.MaxAttackAngle == 0)
+				if (_weaponConfig.MinAttackAngle == 0)
 				{
 					_shootIndicatorId = IndicatorVfxId.Line;
 				}
@@ -238,21 +238,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(aim, ref transform->Rotation).Normalized.ToUnityVector2();
-			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
-			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
-			var minAttackAngle = _weaponConfig.MaxAttackAngle == 0 ? 0 : _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = _weaponConfig.MaxAttackAngle == 0 ? 0 :_weaponConfig.MaxAttackAngle;
-			var lerp = QuantumHelpers.GetDynamicAimValue(kcc,maxAttackAngle, minAttackAngle).AsFloat;
-			var angleInRad = maxAttackAngle == minAttackAngle || f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) 
-				? minAttackAngle : lerp;
+			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 
 			// We use a formula to calculate the scale of a shooting indicator
-			float size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
+			float size = Mathf.Max(0.5f, Mathf.Tan(_weaponConfig.MinAttackAngle * 0.5f * Mathf.Deg2Rad) * rangeStat * 2f);
 
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
 			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
 			{
-				range += _weaponConfig.SplashRadius.AsFloat;
+				rangeStat += _weaponConfig.SplashRadius.AsFloat;
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
@@ -260,7 +254,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			ShootIndicator.SetTransformState(aimDirection);
 			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
-			ShootIndicator.SetVisualProperties(size, 0, range);
+			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
 
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)

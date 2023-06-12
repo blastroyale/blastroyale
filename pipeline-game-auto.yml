@@ -78,10 +78,10 @@ variables:
   value: $(UNITY-EMAIL)
 - name: branchName
   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
-- name: webhookUrl
-  value: $(SLACK-WEBHOOK-URL)
-- name: cuttlyApiKey
-  value: $(PROD-COMMON-CUTTLY-KEY)
+- name: slackToken
+  value: $(SLACK-BOT-TOKEN)
+- name: kuttKey
+  value: $(KUTT-KEY)
 - name: isQuantumPluginBumpVersion
   value: ${{ or(eq(variables['Build.Reason'], 'BatchedCI'), eq(parameters['param_deploy_quantum_plugin'], 'True')) }}
   # Auto setup
@@ -186,6 +186,13 @@ stages:
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'parameters'
+
+        - template: tasks/send-slack-template.yml@templates
+          parameters:
+            messageIdArtifact: slackbuildmessage                    
+            slackToken: $(slackToken)
+            templateUrl: https://prodflgbuildstorage.blob.core.windows.net/public/slack-base.json          
+
           
       - job: EditorTests
         displayName: Run Editor Test Suite
@@ -197,7 +204,7 @@ stages:
         - template: pipelines/unity-tests.yml@templates
           parameters:
             testPlatform: EditMode 
-              
+        dependsOn: DisplayAndTagBuild  
           
       - job: AndroidBuild
         timeoutInMinutes: 90
@@ -229,6 +236,15 @@ stages:
               artifactName: 'GameDlls'
               targetPath: '$(Pipeline.Workspace)/GameDlls'
         - ${{ else }}:
+          - template:  tasks/update-slack-message.yml@templates
+            parameters:
+              slackToken: $(slackToken)
+              messageIdArtifact: slackbuildmessage  
+              update:
+                - blockId: android
+                  path: text.text
+                  value: '*:android: Android :android:*#n*Status:* Dowloading code :downloading:'
+                  operation: replace
           - checkout: self
             lfs: true
             fetchTags: false
@@ -243,8 +259,8 @@ stages:
               branchName: $(branchName)
               build_type: ${{ variables.build_type }}
               server_environment: ${{ variables.server_environment }}
-              webhookUrl: $(webhookUrl)
-              cuttlyApiKey: $(cuttlyApiKey)
+              slackToken: $(slackToken)
+              kuttKey: $(kuttKey)
               androidFileType: $(androidFileType)
               useUnityAccelerator: ${{ variables.useAccelerator }}
               runTestLab: ${{ variables.runTestLab }}
@@ -263,6 +279,16 @@ stages:
             in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
           )
         steps:
+        - template: tasks/update-slack-message.yml@templates
+          parameters:
+            slackToken: $(slackToken)
+            messageIdArtifact: slackbuildmessage  
+            update:
+              - blockId: ios
+                path: text.text
+                value: '*:ios: iOS :ios:*#n*Status:* Dowloading code :downloading:'
+                operation: replace
+                
         - checkout: self
           lfs: true
           fetchTags: false
@@ -277,8 +303,8 @@ stages:
             branchName: $(branchName)
             build_type: ${{ variables.build_type }}
             server_environment: ${{ variables.server_environment }}
-            webhookUrl: $(webhookUrl)
-            cuttlyApiKey: $(cuttlyApiKey)
+            slackToken: $(slackToken)
+            kuttKey: $(kuttKey)
             developmentiOSCertPwd: $(developmentiOSCertPwd)
             distributioniOSCertPwd: $(distributioniOSCertPwd)
             useUnityAccelerator: ${{ variables.useAccelerator }}

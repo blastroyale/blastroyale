@@ -283,7 +283,6 @@ namespace Quantum
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
 			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
-			//targetSlot->AmmoCostPerShot = FPMath.Max(1, (FP)f.GameConfig.PlayerDefaultAmmoCapacity / weaponConfig.MaxAmmo).AsInt;
 			WeaponSlots[slot].Weapon = weapon;
 
 			if (giveInitialAmmo)

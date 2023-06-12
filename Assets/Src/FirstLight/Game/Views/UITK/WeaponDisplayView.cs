@@ -100,6 +100,7 @@ namespace FirstLight.Game.Views.UITK
 			var maxAmmo = stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 
 			//TODO: change this to be the infinity symbol or something idk
+			// also this callback does not apply when you first spawn in for some reason, even though it should
 			_ammoLabel.text = maxAmmo == -1 ? "Infinite" :
 				currentAmmoModified.ToString() + " / " + maxAmmo;
 		}

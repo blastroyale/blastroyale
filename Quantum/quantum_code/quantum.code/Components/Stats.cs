@@ -57,7 +57,7 @@ namespace Quantum
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
 			CurrentShield = 0;
-			//CurrentAmmoPercent = 0;
+			CurrentAmmoPercent = 0;
 			IsImmune = false;
 
 			var modifiersList = f.ResolveList(Modifiers);
@@ -144,12 +144,11 @@ namespace Quantum
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue;
 
-			// Do not do reduce for melee weapons or if your weapon does not consume ammo
+			// Do not do reduce if your weapon does not consume ammo
 			if (weapon.MaxAmmo != -1)
 			{
-				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / maxAmmo);
+				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
 			}
 		}
 
@@ -164,7 +163,6 @@ namespace Quantum
 			var currentMag = player->WeaponSlot->MagazineShotCount;
 
 			CurrentAmmoPercent = FPMath.Clamp(value, 0, 1);
-			Log.Warn(CurrentAmmoPercent);
 
 			if (CurrentAmmoPercent != previousAmmo)
 			{

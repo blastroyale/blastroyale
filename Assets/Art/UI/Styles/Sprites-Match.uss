@@ -5,6 +5,7 @@
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
     --sprite-match__background-healthbar: url('/Assets/Art/UI/Sprites/Match/background-healthbar.png');
+    --sprite-match__background-killstreak: url('/Assets/Art/UI/Sprites/Match/background-killstreak.png');
     --sprite-match__background-playerbar: url('/Assets/Art/UI/Sprites/Match/background-playerbar.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
@@ -35,6 +36,10 @@
     --sprite-match__icon-players-alive: url('/Assets/Art/UI/Sprites/Match/icon-players-alive.png');
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
+    --sprite-match__icon-skull-1: url('/Assets/Art/UI/Sprites/Match/icon-skull-1.png');
+    --sprite-match__icon-skull-full: url('/Assets/Art/UI/Sprites/Match/icon-skull-full.png');
+    --sprite-match__icon-skull-impact: url('/Assets/Art/UI/Sprites/Match/icon-skull-impact.png');
+    --sprite-match__icon-star: url('/Assets/Art/UI/Sprites/Match/icon-star.png');
     --sprite-match__icon-switch: url('/Assets/Art/UI/Sprites/Match/icon-switch.png');
     --sprite-match__icon-weaponswitch: url('/Assets/Art/UI/Sprites/Match/icon-weaponswitch.png');
     --sprite-match__icon-wifi-high: url('/Assets/Art/UI/Sprites/Match/icon-wifi-high.png');
@@ -53,6 +58,8 @@
     --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites/Match/text-youwon.png');
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
+    --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
+    --sprite-match__vfx-killstreak-skullpart2: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart2.png');
 }
 
 .sprite-match__background-equipmentcharacter {
@@ -83,6 +90,12 @@
     background-image: var(--sprite-match__background-healthbar);
     width: 18px;
     height: 22px;
+}
+
+.sprite-match__background-killstreak {
+    background-image: var(--sprite-match__background-killstreak);
+    width: 531px;
+    height: 178px;
 }
 
 .sprite-match__background-playerbar {
@@ -263,6 +276,30 @@
     height: 42px;
 }
 
+.sprite-match__icon-skull-1 {
+    background-image: var(--sprite-match__icon-skull-1);
+    width: 68px;
+    height: 72px;
+}
+
+.sprite-match__icon-skull-full {
+    background-image: var(--sprite-match__icon-skull-full);
+    width: 68px;
+    height: 72px;
+}
+
+.sprite-match__icon-skull-impact {
+    background-image: var(--sprite-match__icon-skull-impact);
+    width: 103px;
+    height: 115px;
+}
+
+.sprite-match__icon-star {
+    background-image: var(--sprite-match__icon-star);
+    width: 50px;
+    height: 50px;
+}
+
 .sprite-match__icon-switch {
     background-image: var(--sprite-match__icon-switch);
     width: 50px;
@@ -369,5 +406,17 @@
     background-image: var(--sprite-match__vfx-joystick-direction);
     width: 414px;
     height: 182px;
+}
+
+.sprite-match__vfx-killstreak-skullpart1 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart1);
+    width: 13px;
+    height: 20px;
+}
+
+.sprite-match__vfx-killstreak-skullpart2 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart2);
+    width: 29px;
+    height: 22px;
 }
 

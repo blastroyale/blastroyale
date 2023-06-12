@@ -72,6 +72,7 @@ namespace FirstLight.Game.Views.UITK
 			SetWeapon(pc.WeaponSlots[BOOMSTICK_INDEX].Weapon);
 			SetSlot(MELEE_INDEX);
 			_ammoLabel.text = "0";
+			UpdateAmmo(callback.Game.Frames.Verified, callback.Entity);
 		}
 
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)

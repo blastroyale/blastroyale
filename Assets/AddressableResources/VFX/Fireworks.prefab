@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7887054753608424684}
-  - component: {fileID: -1891869093385300265}
   m_Layer: 7
   m_Name: Fireworks
   m_TagString: Untagged
@@ -33,25 +32,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1891869093385300265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7887054753608424681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdebd6b5a3534e18a3084e3adfb73b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id:
-    _selection: Fireworks
 --- !u!1001 &5562056206967271835
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7887054753608424684}
     m_Modifications:
     - target: {fileID: 1010054905564554967, guid: 446e2a729b4989646ba0da1831f2a5c7, type: 3}
@@ -147,6 +133,9 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446e2a729b4989646ba0da1831f2a5c7, type: 3}
 --- !u!4 &6205935977768205125 stripped
 Transform:

@@ -29,8 +29,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class MatchCameraService : IMatchCameraService, MatchServices.IMatchService
 	{
-		private System.DateTime _lastScreenShake;
-		private readonly System.TimeSpan _screenShakeCooldown = System.TimeSpan.FromMilliseconds(300);
+		private Cooldown _screenShakeCooldown = new(System.TimeSpan.FromMilliseconds(300));
 
 		private IGameDataProvider _gameDataProvider;
 		private IMatchServices _matchServices;
@@ -87,17 +86,7 @@ namespace FirstLight.Game.Services
 			
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 		}
-
-		private bool CanShootScreenShake()
-		{
-			if (System.DateTime.UtcNow < _lastScreenShake + _screenShakeCooldown)
-			{
-				return false;
-			}
-			_lastScreenShake = System.DateTime.UtcNow;
-			return true;
-		}
-
+		
 
 		private void OnPlayerAttack(EventOnPlayerAttack ev)
 		{
@@ -109,7 +98,7 @@ namespace FirstLight.Game.Services
 
 			if (!ev.PlayerEntity.IsAlive(ev.Game.Frames.Predicted)) return;
 
-			if (!CanShootScreenShake()) return;
+			if (!_screenShakeCooldown.CheckTrigger()) return;
 
 			var duration = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_DURATION;
 			var power = GameConstants.Screenshake.SCREENSHAKE_SMALL_SHOT_STRENGTH;

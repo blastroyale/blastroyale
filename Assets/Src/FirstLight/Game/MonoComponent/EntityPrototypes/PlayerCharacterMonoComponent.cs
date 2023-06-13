@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
@@ -92,11 +93,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
-			var playerData = frame.GetSingleton<GameContainer>().PlayersData[player];
+			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
 			
-			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
-
-			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, OnLoaded);
+			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(loadout.Skin, true, true, OnLoaded);
 			
 			if (this.IsDestroyed())
 			{
@@ -104,9 +103,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
-
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
-			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear, playerData.Glider);
+			await matchCharacterViewMonoComponent.Init(EntityView, loadout);
 
 			if (this.IsDestroyed())
 			{
@@ -127,32 +125,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 		}
 
-		private void GetPlayerEquipmentSet(Frame f, PlayerRef player, out GameId skin,
-		                                   out Equipment weapon, out Equipment[] gear)
-		{
-			var playerCharacter = f.Get<PlayerCharacter>(EntityView.EntityRef);
-			
-			// Weapon
-			weapon = playerCharacter.CurrentWeapon;
-			
-			// Gear
-			var gearList = new List<Equipment>();
-
-			for (int i = 0; i < playerCharacter.Gear.Length; i++)
-			{
-				var item = playerCharacter.Gear[i];
-				if (item.IsValid())
-				{
-					gearList.Add(item);
-				}
-			}
-
-			gear = gearList.ToArray();
-
-			// Skin
-			skin = f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter)
-				       ? botCharacter.Skin
-				       : f.GetPlayerData(player).Skin;
-		}
+	
 	}
 }

@@ -254,6 +254,11 @@ namespace FirstLight.Game.Utils
 			return data.PlayerName;
 		}
 
+		public static bool IsBot(this EntityRef entity, Frame f)
+		{
+			return f.Has<BotCharacter>(entity);
+		}
+
 		/// <summary>
 		/// Requests the bot name for the given bot. In debug build this would
 		/// display "BOT-e(entity_index)-b(behaviour_index).

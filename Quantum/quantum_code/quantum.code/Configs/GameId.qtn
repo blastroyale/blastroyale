@@ -12,7 +12,6 @@ enum GameId
 	FloodCity = 137,
 	MainDeck = 143,
 	FtueDeck = 5,
-    FtueMiniMap = 133,
 	SmallWilderness = 144,
 	FloodCitySimple = 7,
 	BlimpDeck = 8,
@@ -20,6 +19,7 @@ enum GameId
 	MapTestScene = 63,
 	TestScene = 11,
 	NewBRMap = 65,
+	FtueMiniMap = 133,
 	District = 108,
 	MausHelmet = 24,
 	SoldierHelmet = 49,
@@ -98,9 +98,9 @@ enum GameId
 	ChestUncommon = 1,
 	ChestRare = 16,
 	ChestEpic = 2,
+	ChestConsumable = 131,
+	ChestEquipment = 130,
 	ChestLegendary = 19,
-    ChestEquipment = 130,
-    ChestConsumable = 131,
 	SpecialAimingAirstrike = 10,
 	SpecialAimingStunGrenade = 85,
 	SpecialShieldSelf = 89,
@@ -125,6 +125,7 @@ enum GameId
 	CoreEpic = 48,
 	CoreLegendary = 59,
 	Corpo = 105,
+	FootprintDot = 111,
 }
 
 enum GameIdGroup
@@ -144,7 +145,11 @@ enum GameIdGroup
 	Armor = 17,
 	Shield = 15,
 	PlayerSkin = 18,
+	Superstar = 29,
 	BotItem = 4,
+	Punk = 30,
+	Assassin = 31,
+	Corpo = 32,
 	Glider = 28,
 	Consumable = 19,
 	Collectable = 27,
@@ -159,4 +164,5 @@ enum GameIdGroup
 	Core = 22,
 	IAP = 23,
 	ProfilePicture = 9,
+	Footprint = 33,
 }

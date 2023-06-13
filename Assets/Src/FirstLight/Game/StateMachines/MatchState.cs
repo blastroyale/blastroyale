@@ -785,7 +785,7 @@ namespace FirstLight.Game.StateMachines
 				multiClient.RuntimePlayer[i] = new RuntimePlayer
 				{
 					PlayerName = $"Test Name {i}",
-					Skin = GameId.Male01Avatar,
+					Skin = GameId.MalePunk,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Loadout = new[]

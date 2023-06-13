@@ -179,7 +179,7 @@ namespace FirstLight.Game.Data
 		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
 		public readonly Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
-			{ CollectionCategories.PLAYER_SKINS, new(GameId.Male01Avatar) },
+			{ CollectionCategories.PLAYER_SKINS, new(GameId.MalePunk) },
 		};
 		
 		[JsonProperty]

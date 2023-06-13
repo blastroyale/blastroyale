@@ -4968,9 +4968,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ISIS
-      - Isis Fox
-      - Isis Fox
+      - JADA
+      - Jada Green
+      - Jada Green
       - 
       - 
       Flags: 0000000000
@@ -4979,9 +4979,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Maverick Reporter
-      - Maverick Reporter
-      - Maverick Reporter
+      - Sky Pilot
+      - Sky Pilot
+      - Sky Pilot
       - 
       - 
       Flags: 0000000000
@@ -4990,9 +4990,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELECTRA
-      - Electra Deckard
-      - Electra Deckard
+      - CAT
+      - Cat Carter
+      - Cat Carter
       - 
       - 
       Flags: 0000000000
@@ -5001,9 +5001,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
-      - Punk Rock Thrasher
+      - Profession Thief
+      - Profession Thief
+      - Profession Thief
       - 
       - 
       Flags: 0000000000
@@ -5056,9 +5056,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CAT
-      - Cat Carter
-      - Cat Carter
+      - ELECTRA
+      - Electra Deckard
+      - Electra Deckard
       - 
       - 
       Flags: 0000000000
@@ -5067,9 +5067,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profession Thief
-      - Profession Thief
-      - Profession Thief
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
+      - Punk Rock Thrasher
       - 
       - 
       Flags: 0000000000
@@ -5078,9 +5078,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JADA
-      - Jada Green
-      - Jada Green
+      - ISIS
+      - Isis Fox
+      - Isis Fox
       - 
       - 
       Flags: 0000000000
@@ -5089,9 +5089,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Pilot
-      - Sky Pilot
-      - Sky Pilot
+      - Maverick Reporter
+      - Maverick Reporter
+      - Maverick Reporter
       - 
       - 
       Flags: 0000000000
@@ -5449,9 +5449,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MAX
-      - Max Power
-      - Max Power
+      - JONNY
+      - "\u0413\u043E\u0432\u044F\u0434\u0438\u043D\u0430 \u0427\u0435\u0433\u0432\u0438\u043D"
+      - Carne Chegwin
       - 
       - 
       Flags: 0000000000
@@ -5460,9 +5460,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rebel Rouser
-      - Rebel Rouser
-      - Rebel Rouser
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
+      - Archeologist Extraordinaire
       - 
       - 
       Flags: 0000000000
@@ -5471,9 +5471,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SID
-      - Jonny Badhair
-      - Jonny Badhair
+      - HUGO
+      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
+      - Hugo Marks
       - 
       - 
       Flags: 0000000000
@@ -5482,9 +5482,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Wild Anarchist
-      - Wild Anarchist
-      - Wild Anarchist
+      - Superstar Shooter
+      - Superstar Shooter
+      - Superstar Shooter
       - 
       - 
       Flags: 0000000000
@@ -5537,9 +5537,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HUGO
-      - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
-      - Hugo Marks
+      - SID
+      - Jonny Badhair
+      - Jonny Badhair
       - 
       - 
       Flags: 0000000000
@@ -5548,9 +5548,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Superstar Shooter
-      - Superstar Shooter
-      - Superstar Shooter
+      - Wild Anarchist
+      - Wild Anarchist
+      - Wild Anarchist
       - 
       - 
       Flags: 0000000000
@@ -5559,9 +5559,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JONNY
-      - "\u0413\u043E\u0432\u044F\u0434\u0438\u043D\u0430 \u0427\u0435\u0433\u0432\u0438\u043D"
-      - Carne Chegwin
+      - MAX
+      - Max Power
+      - Max Power
       - 
       - 
       Flags: 0000000000
@@ -5570,9 +5570,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Archeologist Extraordinaire
-      - Archeologist Extraordinaire
-      - Archeologist Extraordinaire
+      - Rebel Rouser
+      - Rebel Rouser
+      - Rebel Rouser
       - 
       - 
       Flags: 0000000000
@@ -6998,7 +6998,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/SuperStar
+    - Term: GameIds/Superstar
       TermType: 0
       Description: 
       Languages:
@@ -7009,7 +7009,7 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/SuperStarDescription
+    - Term: GameIds/SuperstarDescription
       TermType: 0
       Description: 
       Languages:
@@ -16689,7 +16689,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1686151319625
+    Google_LastUpdatedVersion: 1686671142049
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

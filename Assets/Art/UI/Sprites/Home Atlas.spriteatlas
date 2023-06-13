@@ -190,7 +190,6 @@ SpriteAtlas:
     - cc30456d4474c45668c8f53a40a41b2e: 21300000
     - 26bd1f6dac1b444f68c0a46d22f135a0: 21300000
     - 697b107d934da4f26acc987beb719208: 21300000
-    - 12f3d47d9677d4f8c871db9d3d638174: 21300000
     - f8f36b8ddbc99493d8cef7036713fba5: 21300000
     - 11f52dad3a6ee374d8df2426f8d31025: 21300000
     - 55356cbdba04d48d9b5a996b1db941ca: 21300000
@@ -372,7 +371,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cc30456d4474c45668c8f53a40a41b2e, type: 3}
   - {fileID: 21300000, guid: 26bd1f6dac1b444f68c0a46d22f135a0, type: 3}
   - {fileID: 21300000, guid: 697b107d934da4f26acc987beb719208, type: 3}
-  - {fileID: 21300000, guid: 12f3d47d9677d4f8c871db9d3d638174, type: 3}
   - {fileID: 21300000, guid: f8f36b8ddbc99493d8cef7036713fba5, type: 3}
   - {fileID: 21300000, guid: 11f52dad3a6ee374d8df2426f8d31025, type: 3}
   - {fileID: 21300000, guid: 55356cbdba04d48d9b5a996b1db941ca, type: 3}
@@ -429,7 +427,7 @@ SpriteAtlas:
   - button-equipmentslot-legendary
   - progress-battlepassbtn-bg
   - button-battlepass-pressed
-  - character-malepunk
+  - character-male02avatar
   - button-long-yellow-pressed
   - button-equipmentslot-rare
   - background-textbubble-yellow
@@ -438,7 +436,7 @@ SpriteAtlas:
   - icon-mutator-quickspecials
   - icon-customgame
   - icon-hide-purple
-  - character-malesuperstar
+  - character-male01avatar
   - button-long-purple-pressed
   - header-popup-equipment
   - icon-durability
@@ -455,7 +453,7 @@ SpriteAtlas:
   - character-femaleassassin
   - header-back
   - pattern-dots-gradient
-  - character-female01avatar
+  - character-femalesuperstar
   - flag-demon
   - button-equipmentslot-empty-pressed
   - background-tooltip-bottomleft
@@ -475,7 +473,7 @@ SpriteAtlas:
   - progress-stats
   - background-gamemode-battleroyale
   - progress-battlepass-bg
-  - character-male02avatar
+  - character-malepunk
   - button-main-disabled
   - icon-marketplace
   - background-inputfield
@@ -499,7 +497,7 @@ SpriteAtlas:
   - pattern-rewardglow-rainbow
   - icon-characters
   - icon-core-legendary
-  - character-femalesuperstar
+  - character-female01avatar
   - button-settings-toggle
   - button-info
   - icon-close-white
@@ -550,10 +548,9 @@ SpriteAtlas:
   - header-profile-pressed
   - progress-durability-bg
   - icon-battlepass-crown
-  - character-female02avatar
+  - character-femalepunk
   - background-popup-equipment
   - button-equipmentslot-common-pressed
-  - flag-punk
   - progress-stat-bg
   - text-blast
   - flag-unicorn
@@ -574,10 +571,10 @@ SpriteAtlas:
   - glider-falcon
   - icon-close
   - button-long-darkblue
-  - character-male01avatar
+  - character-malesuperstar
   - pattern-rewardglow-common
   - pattern-glow-chosengamemode
-  - character-femalepunk
+  - character-female02avatar
   - button-long-yellow
   - background-modetag-casual
   m_RenderDataMap: {}

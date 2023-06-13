@@ -157,15 +157,14 @@ namespace FirstLight.Game.Data
 			{
 				CollectionCategories.PLAYER_SKINS, new List<CollectionItem>()
 				{
-					new(GameId.Male01Avatar), new(GameId.Female01Avatar),
-					new(GameId.Male02Avatar), new(GameId.Female02Avatar),
+					new(GameId.MalePunk), new(GameId.FemalePunk),
+					new(GameId.MaleSuperstar), new(GameId.FemaleSuperstar),
 				}
 			},
 			{
 				new (GameIdGroup.Glider), new List<CollectionItem>()
 				{
 					new(GameId.Falcon),
-					new(GameId.Divinci),
 				}
 			},
 			{

@@ -36,9 +36,12 @@ namespace FirstLight.Game.Services
 	{
 		/// <summary>
 		/// Connects Photon to the master server, using settings in <see cref="IAppDataProvider"/>
+		/// This will connect to nameserver if no region is specified in photon settings (photon default behaviour)
+		/// After connecting to nameserver and pinging regions it will connect to master straight away
+		/// If a region is specified, it will connect directly to master
 		/// </summary>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool ConnectPhotonToMaster();
+		bool ConnectPhotonServer();
 
 		/// <summary>
 		/// Connects Photon to a specific region master server
@@ -517,9 +520,19 @@ namespace FirstLight.Game.Services
 			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
-		public bool ConnectPhotonToMaster()
+		public bool ConnectPhotonServer()
 		{
-			FLog.Info("ConnectPhotonToMaster");
+			FLog.Info("Connecting Photon Server");
+
+			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connected && QuantumClient.Server == ServerConnection.NameServer)
+			{
+				if (!string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+				{
+					FLog.Info("Server already in nameserver, connecting to master");
+					ConnectPhotonToRegionMaster(_dataProvider.AppDataProvider.ConnectionRegion.Value);
+				}
+			}
+			
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
 				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
@@ -529,7 +542,13 @@ namespace FirstLight.Game.Services
 			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
 			if (!string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
+				FLog.Info("Connecting directly to master using region "+_dataProvider.AppDataProvider.ConnectionRegion.Value);
 				settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
+			}
+			else
+			{
+				FLog.Info("Connecting to nameserver without region to detect best region");
+				settings.FixedRegion = null;
 			}
 			ResetQuantumProperties();
 

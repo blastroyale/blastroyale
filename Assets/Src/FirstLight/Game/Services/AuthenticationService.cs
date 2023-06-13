@@ -494,7 +494,7 @@ namespace FirstLight.Game.Services
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-				_services.NetworkService.ConnectPhotonToMaster();
+				_services.NetworkService.ConnectPhotonServer();
 				onSuccess?.Invoke(loginData);
 			}
 		}

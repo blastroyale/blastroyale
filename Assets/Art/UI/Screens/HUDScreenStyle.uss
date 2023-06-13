@@ -193,7 +193,7 @@
 }
 
 .joystick--move {
-    left: 100px;
+    left: 32px;
     bottom: 80px;
     width: 220px;
     height: 220px;
@@ -1290,4 +1290,82 @@
     background-image: var(--sprite-match__icon-skull-impact);
     left: -72px;
     top: -97px;
+}
+
+.max-hp-shield-ammo__container {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    left: 54px;
+    top: -49px;
+    display: flex;
+    align-items: stretch;
+}
+
+.max-hp__label {
+    position: absolute;
+    font-size: 30px;
+    color: rgb(170, 217, 97);
+    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    -unity-text-outline-color: rgb(23, 18, 53);
+    align-self: flex-start;
+}
+
+.max-hp__icon {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: var(--sprite-match__icon-max-health);
+    align-self: flex-end;
+    margin-top: 2px;
+}
+
+.max-ammo__label {
+    color: rgb(241, 180, 50);
+    font-size: 30px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(23, 18, 53);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    position: absolute;
+}
+
+.max-ammo__icon {
+    align-self: flex-end;
+    width: 38px;
+    height: 38px;
+    background-image: var(--sprite-match__icon-max-ammo);
+    position: absolute;
+    margin-top: 4px;
+}
+
+.max-shield__label {
+    position: absolute;
+    font-size: 30px;
+    color: rgb(80, 199, 242);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(23, 18, 53);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    align-self: flex-start;
+}
+
+.max-shield__icon {
+    position: absolute;
+    align-self: flex-end;
+    width: 38px;
+    height: 38px;
+    margin-top: 2px;
+    background-image: var(--sprite-match__icon-max-shield);
+}
+
+.plus-level__label {
+    font-size: 30px;
+    color: rgb(242, 178, 51);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(38, 31, 69);
+    text-shadow: 2px 2px 0 rgb(38, 31, 69);
+    align-self: center;
+    position: absolute;
 }

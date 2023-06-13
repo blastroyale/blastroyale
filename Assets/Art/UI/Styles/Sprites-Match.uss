@@ -32,6 +32,9 @@
     --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
     --sprite-match__icon-joystick-move: url('/Assets/Art/UI/Sprites/Match/icon-joystick-move.png');
     --sprite-match__icon-joystick-shoot: url('/Assets/Art/UI/Sprites/Match/icon-joystick-shoot.png');
+    --sprite-match__icon-max-ammo: url('/Assets/Art/UI/Sprites/Match/icon-max-ammo.png');
+    --sprite-match__icon-max-health: url('/Assets/Art/UI/Sprites/Match/icon-max-health.png');
+    --sprite-match__icon-max-shield: url('/Assets/Art/UI/Sprites/Match/icon-max-shield.png');
     --sprite-match__icon-menu: url('/Assets/Art/UI/Sprites/Match/icon-menu.png');
     --sprite-match__icon-players-alive: url('/Assets/Art/UI/Sprites/Match/icon-players-alive.png');
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
@@ -251,6 +254,24 @@
     background-image: var(--sprite-match__icon-joystick-shoot);
     width: 130px;
     height: 132px;
+}
+
+.sprite-match__icon-max-ammo {
+    background-image: var(--sprite-match__icon-max-ammo);
+    width: 44px;
+    height: 44px;
+}
+
+.sprite-match__icon-max-health {
+    background-image: var(--sprite-match__icon-max-health);
+    width: 44px;
+    height: 44px;
+}
+
+.sprite-match__icon-max-shield {
+    background-image: var(--sprite-match__icon-max-shield);
+    width: 44px;
+    height: 44px;
 }
 
 .sprite-match__icon-menu {

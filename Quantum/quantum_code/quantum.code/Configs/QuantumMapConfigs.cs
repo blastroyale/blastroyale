@@ -9,6 +9,7 @@ namespace Quantum
 		public GameId Map;
 		public int MaxPlayers;
 		public bool IsTestMap;
+		public bool IsCustomOnly;
 		public float DropSelectionSize;
 	}
 	

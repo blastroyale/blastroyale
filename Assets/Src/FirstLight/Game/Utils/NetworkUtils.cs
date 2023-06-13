@@ -132,7 +132,7 @@ namespace FirstLight.Game.Utils
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
 				var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
-				if (!mapConfig.IsTestMap)
+				if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
 				{
 					compatibleMaps.Add(mapConfig);
 				}

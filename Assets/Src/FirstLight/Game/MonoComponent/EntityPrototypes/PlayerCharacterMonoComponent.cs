@@ -106,7 +106,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
-			await matchCharacterViewMonoComponent.Init(EntityView, loadout, isSkydiving);
+			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
 
 			if (this.IsDestroyed())
 			{

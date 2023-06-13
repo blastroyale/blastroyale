@@ -22,7 +22,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
-		public async Task Init(EntityView entityView, PlayerLoadout loadout, bool isSkydiving)
+		public async Task Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
 		{
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
 			_footsteps.Init(entityView, loadout);
@@ -40,6 +40,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				list.Add(EquipItem(item.GameId));
 			}
 
+			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			
 			if (isSkydiving)
 			{
 				list.Add(InstantiateItem(loadout.Glider, GameIdGroup.Glider));

@@ -17,7 +17,7 @@ namespace FirstLight.Game.Configs
 		}
 		public enum DetailLevel
 		{
-			High, Medium, Low
+			Low, Medium, High
 		}
 
 		public List<DetailLevelConf> DetailLevels;

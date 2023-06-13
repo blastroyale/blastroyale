@@ -8,15 +8,29 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// <inheritdoc />
 	public class MatchCharacterViewMonoComponent : CharacterEquipmentMonoComponent
 	{
+		private FootprinterMonoComponent _footsteps;
+
+		public bool PrintFootsteps
+		{
+			set
+			{
+				if (_footsteps == null) return;
+				_footsteps.SpawnFootprints = value;
+			}
+		}
+
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
-		public async Task Init(EntityView entityView, Equipment weapon, Equipment[] gear, GameId glider)
+		public async Task Init(EntityView entityView, PlayerLoadout loadout)
 		{
-			var weaponTask = EquipWeapon(weapon.GameId);
+			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
+			_footsteps.Init(entityView, loadout);
+
+			var weaponTask = EquipWeapon(loadout.Weapon.GameId);
 			var list = new List<Task> {weaponTask};
 
-			foreach (var item in gear)
+			foreach (var item in loadout.Equipment)
 			{
 				if (!item.IsValid())
 				{
@@ -26,7 +40,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				list.Add(EquipItem(item.GameId));
 			}
 			
-			list.Add(InstantiateItem(glider, GameIdGroup.Glider));
+			list.Add(InstantiateItem(loadout.Glider, GameIdGroup.Glider));
 
 			await Task.WhenAll(list);
 
@@ -42,7 +56,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			for (var i = 0; i < weapons.Count; i++)
 			{
 				if (weapons[i] == null) continue;
-
+				
 				var components = weapons[i].GetComponents<EntityViewBase>();
 
 				foreach (var entityViewBase in components)
@@ -50,6 +64,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					entityViewBase.SetEntityView(runner.Game, entityView);
 				}
 			}
+			
+		
 		}
 	}
 }

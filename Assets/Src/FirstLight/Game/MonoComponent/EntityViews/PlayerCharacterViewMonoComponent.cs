@@ -23,7 +23,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
-		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 
 		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 		private bool _moveSpeedControl = false;
@@ -78,9 +77,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
+
+			
 		}
-
-
+		
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -110,10 +110,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				}
 			}
 
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = !culled;
-			}
+			_characterView.PrintFootsteps = !culled;
 
 			base.SetCulled(culled);
 		}
@@ -132,10 +129,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			base.SetRenderContainerVisible(active);
 
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = active;
-			}
+			_characterView.PrintFootsteps = active;
 		}
 
 
@@ -144,10 +138,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RenderersContainerProxy.SetRenderersLayer(
 				LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
 
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = visible;
-			}
+			_characterView.PrintFootsteps = visible;
 		}
 
 		/// <summary>
@@ -517,7 +508,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-
+			_characterView.PrintFootsteps = isMoving;
 			if (isMoving)
 			{
 				deltaPosition.Normalize();

@@ -61,13 +61,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			public static readonly AnimatorWrapper.State Dissolve = new("dissolve");
 			public static readonly AnimatorWrapper.State Aim = new("aim_gun");
 		}
-
-		public UnityEvent FootprintRightEvent;
-		public UnityEvent FootprintLeftEvent;
 		
-
 		[SerializeField, Required] private Animator _animator;
-		[SerializeField] private EnumSelector<VfxId> _projectileHitVfx;
 		[SerializeField] private Vector3 _vfxLocalScale = Vector3.one;
 
 		private AnimatorWrapper _animatorWrapper;
@@ -259,23 +254,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				FinishStar();
 			}
 		}
-
-		/// <summary>
-		/// This method is invoked by this avatar <see cref="Animation"/> event
-		/// </summary>
-		private void FootprintR()
-		{
-			FootprintRightEvent?.Invoke();
-		}
-
-		/// <summary>
-		/// This method is invoked by this avatar <see cref="Animation"/> event
-		/// </summary>
-		private void FootprintL()
-		{
-			FootprintLeftEvent?.Invoke();
-		}
-
+		
 		private void FinishStun()
 		{
 			_stunCoroutine = null;

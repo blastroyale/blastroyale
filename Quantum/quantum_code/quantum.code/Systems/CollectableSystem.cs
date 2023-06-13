@@ -101,7 +101,7 @@ namespace Quantum.Systems
 						       stats.GetStatData(StatType.Shield).StatValue &&
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
-						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
+						return stats.CurrentAmmoPercent == 1;
 					case ConsumableType.Energy:
 						return playerCharacter.GetEnergyLevel(f) == f.GameConfig.PlayerMaxEnergyLevel;
 				}
@@ -178,10 +178,11 @@ namespace Quantum.Systems
 				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
+					var stats = f.Get<Stats>(playerEntity);
 					var ammoSmallConfig = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall);
 					var initialAmmo = ammoSmallConfig.Amount.Get(f);
 					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
-					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
+					var ammoWasEmpty = stats.CurrentAmmoPercent < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
 					f.Add(entity, consumable);

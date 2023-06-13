@@ -550,39 +550,45 @@ namespace Quantum
 				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Superstar
 					}.AsReadOnly()
 				},
 				{
 					GameId.Male02Avatar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Superstar
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female02Avatar, new List<GameIdGroup>
 					{
 						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk
 					}.AsReadOnly()
 				},
 				{
 					GameId.MaleAssassin, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Assassin
 					}.AsReadOnly()
 				},
 				{
 					GameId.MaleCorpos, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Corpo
 					}.AsReadOnly()
 				},
 				{
@@ -600,13 +606,15 @@ namespace Quantum
 				{
 					GameId.FemaleAssassin, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Assassin
 					}.AsReadOnly()
 				},
 				{
 					GameId.FemaleCorpos, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.Corpo
 					}.AsReadOnly()
 				},
 				{
@@ -749,13 +757,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.ChestLegendary, new List<GameIdGroup>
-					{
-						GameIdGroup.Chest,
-						GameIdGroup.Collectable
-					}.AsReadOnly()
-				},
-				{
 					GameId.ChestConsumable, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
@@ -764,6 +765,13 @@ namespace Quantum
 				},
 				{
 					GameId.ChestEquipment, new List<GameIdGroup>
+					{
+						GameIdGroup.Chest,
+						GameIdGroup.Collectable
+					}.AsReadOnly()
+				},
+				{
+					GameId.ChestLegendary, new List<GameIdGroup>
 					{
 						GameIdGroup.Chest,
 						GameIdGroup.Collectable
@@ -861,6 +869,24 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Demon, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Superstar, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
+					GameId.Unicorn, new List<GameIdGroup>
+					{
+						GameIdGroup.DeathMarker
+					}.AsReadOnly()
+				},
+				{
 					GameId.CoreCommon, new List<GameIdGroup>
 					{
 						GameIdGroup.Core
@@ -891,6 +917,18 @@ namespace Quantum
 					{
 						GameIdGroup.Core,
 						GameIdGroup.IAP
+					}.AsReadOnly()
+				},
+				{
+					GameId.Corpo, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture
+					}.AsReadOnly()
+				},
+				{
+					GameId.FootprintDot, new List<GameIdGroup>
+					{
+						GameIdGroup.Footprint
 					}.AsReadOnly()
 				},
 			};
@@ -1143,11 +1181,40 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameIdGroup.Superstar, new List<GameId>
+					{
+						GameId.Male01Avatar,
+						GameId.Female01Avatar
+					}.AsReadOnly()
+				},
+				{
 					GameIdGroup.BotItem, new List<GameId>
 					{
 						GameId.Male02Avatar,
 						GameId.Female02Avatar,
+						GameId.Divinci,
 						GameId.Tombstone
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Punk, new List<GameId>
+					{
+						GameId.Male02Avatar,
+						GameId.Female02Avatar
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Assassin, new List<GameId>
+					{
+						GameId.MaleAssassin,
+						GameId.FemaleAssassin
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Corpo, new List<GameId>
+					{
+						GameId.MaleCorpos,
+						GameId.FemaleCorpos
 					}.AsReadOnly()
 				},
 				{
@@ -1191,9 +1258,9 @@ namespace Quantum
 						GameId.ChestUncommon,
 						GameId.ChestRare,
 						GameId.ChestEpic,
-						GameId.ChestLegendary,
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
 				{
@@ -1217,9 +1284,9 @@ namespace Quantum
 						GameId.ChestUncommon,
 						GameId.ChestRare,
 						GameId.ChestEpic,
-						GameId.ChestLegendary,
 						GameId.ChestConsumable,
 						GameId.ChestEquipment,
+						GameId.ChestLegendary
 					}.AsReadOnly()
 				},
 				{
@@ -1259,7 +1326,10 @@ namespace Quantum
 				{
 					GameIdGroup.DeathMarker, new List<GameId>
 					{
-						GameId.Tombstone
+						GameId.Tombstone,
+						GameId.Demon,
+						GameId.Superstar,
+						GameId.Unicorn
 					}.AsReadOnly()
 				},
 				{
@@ -1278,6 +1348,18 @@ namespace Quantum
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.ProfilePicture, new List<GameId>
+					{
+						GameId.Corpo
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Footprint, new List<GameId>
+					{
+						GameId.FootprintDot
 					}.AsReadOnly()
 				},
 			};

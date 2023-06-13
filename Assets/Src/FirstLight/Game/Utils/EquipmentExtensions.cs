@@ -118,7 +118,7 @@ namespace FirstLight.Game.Utils
 						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Shield],
 							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.GetDefault());
+				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);

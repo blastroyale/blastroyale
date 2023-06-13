@@ -20,7 +20,6 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
 		public QuantumGameModePair<int> PlayerDefaultHealth;
-		public QuantumGameModePair<int> PlayerDefaultAmmoCapacity;
 		public QuantumGameModePair<FP> PlayerDefaultSpeed;
 		public QuantumGameModePair<int> PlayerMaxShieldCapacity;
 		public QuantumGameModePair<int> PlayerStartingShieldCapacity;

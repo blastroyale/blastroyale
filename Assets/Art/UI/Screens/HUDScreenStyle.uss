@@ -566,6 +566,7 @@
     height: 144px;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
+    -unity-background-image-tint-color: rgb(11, 0, 51);
 }
 
 .weapon-display--melee .weapon-display__ammo-gradient {
@@ -872,11 +873,11 @@
     top: 46px;
     width: 244px;
     height: 29px;
-    background-color: rgb(24, 18, 54);
-    padding-left: 2px;
+    padding-left: 4px;
     padding-right: 2px;
     padding-top: 2px;
     padding-bottom: 2px;
+    background-image: var(--sprite-match__background-healthbar);
 }
 
 .squad-member__shield-health-bg {
@@ -885,6 +886,13 @@
     align-items: stretch;
     flex-shrink: 0;
     margin-bottom: 1px;
+    margin-top: 1px;
+    margin-right: 1px;
+    margin-left: 1px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .squad-member__shield-bar {
@@ -894,7 +902,8 @@
 
 .squad-member__health-bar {
     flex-grow: 1;
-    background-image: var(--sprite-match__progress-health);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/progress-health-squads.png?fileID=21300000&guid=fe3d255759da2154cbff8c350ca23a75&type=3#progress-health-squads');
+    left: -2px;
 }
 
 .squad-member__name {
@@ -1200,6 +1209,7 @@
     left: 1292px;
     top: 202px;
     background-image: var(--sprite-match__background-killstreak);
+    display: flex;
 }
 
 .status-kill-label {

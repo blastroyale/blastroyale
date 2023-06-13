@@ -1,16 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
-    <ui:VisualElement name="Blasted" class="status-kill-1">
-        <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill-label" />
-        <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayernameLabel" class="status-kill__playername" />
-        <ui:VisualElement name="SkullIcon" class="status-kill__skull">
-            <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
-            <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
-            <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart" />
-            <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
-            <ui:VisualElement name="StarIcon" class="status-kill_star" style="display: none;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent">
             <FirstLight.Game.UIElements.HealthStatusBarElement style="position: absolute; left: 1107px; top: 246px;" />
@@ -96,5 +85,16 @@
     </ui:VisualElement>
     <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); align-items: center;">
         <ui:Label text="AREA SHRINKING" name="AreaShrinkingNotification" class="status-areashrinking" style="display: none;" />
+        <ui:VisualElement name="Blasted" class="status-kill-1">
+            <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill-label" />
+            <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayernameLabel" class="status-kill__playername" />
+            <ui:VisualElement name="SkullIcon" class="status-kill__skull">
+                <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
+                <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
+                <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart" />
+                <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
+                <ui:VisualElement name="StarIcon" class="status-kill_star" style="display: none;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

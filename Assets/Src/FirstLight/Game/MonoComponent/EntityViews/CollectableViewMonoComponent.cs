@@ -100,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				if (originPos != displayPos && _spawnAnim)
 				{
-					StartCoroutine(goToPoint(GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_DURATION, originPos, displayPos));
+					StartCoroutine(goToPoint(Constants.CONSUMABLE_POPOUT_DURATION.AsFloat, originPos, displayPos));
 				}
 			}
 

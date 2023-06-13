@@ -34,7 +34,7 @@ namespace Quantum
 		/// </summary>
 		internal void MakeCollectable(Frame f, EntityRef e, FP collectableChestPickupRadius)
 		{
-			f.Add(e, new Collectable { GameId = Id, PickupRadius = collectableChestPickupRadius });
+			f.Add(e, new Collectable { GameId = Id, PickupRadius = collectableChestPickupRadius, AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION });
 
 			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			collider->Shape.Sphere.Radius = collectableChestPickupRadius;

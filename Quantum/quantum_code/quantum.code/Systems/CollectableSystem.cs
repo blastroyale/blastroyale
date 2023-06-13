@@ -12,20 +12,7 @@ namespace Quantum.Systems
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
-			    f.Has<EntityDestroyer>(info.Entity))
-			{
-				return;
-			}
-
-			if (IsCollectableFilled(f, info.Entity, info.Other))
-			{
-				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
-				return;
-			}
-
-			StartCollecting(f, player.Player, info.Other, collectable, info.Entity);
+			TryStartCollecting(f, info);
 		}
 
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
@@ -36,7 +23,17 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
+			// We try to start collecting here because collectable may be allowed to
+			// become collected after it already triggered with a player
+			if (!collectable->IsCollecting(player.Player) && f.Time >= collectable->AllowedToPickupTime)
+			{
+				if (!TryStartCollecting(f, info))
+				{
+					return;
+				}
+			}
+			
 			var endTime = collectable->CollectorsEndTime[player.Player];
 			if (endTime == FP._0 || f.Time < endTime)
 			{
@@ -65,6 +62,25 @@ namespace Quantum.Systems
 			}
 
 			StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
+		}
+
+		private bool TryStartCollecting(Frame f, TriggerInfo3D info)
+		{
+			
+			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
+				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity))
+			{
+				return false;
+			}
+			
+			if (IsCollectableFilled(f, info.Entity, info.Other))
+			{
+				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				return false;
+			}
+
+			return StartCollecting(f, player.Player, info.Other, collectable, info.Entity);
 		}
 
 		private bool IsCollectableFilled(Frame f, EntityRef entity, EntityRef player)
@@ -102,13 +118,15 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
+		private bool StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
 		                             EntityRef collectableEntity)
 		{
-			if (collectable->IsCollecting(player)) return;
+			if (collectable->IsCollecting(player)) return false;
 
 			collectable->CollectorsEndTime[player] = GetEndTime(f, collectableEntity, playerEntity);
 			f.Events.OnStartedCollecting(collectableEntity, *collectable, player, playerEntity);
+
+			return true;
 		}
 
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,

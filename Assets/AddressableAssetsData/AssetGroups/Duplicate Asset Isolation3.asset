@@ -22,16 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 20fc1a40907004c4aaac0d7aa19f035c
     m_Address: Assets/Art/Models/Pickups/M_CoinsBasic.mat
     m_ReadOnly: 0
@@ -64,11 +54,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 405bd30f6aa36a8419d676e89e5b6e3b
     m_Address: Assets/Art/Materials/Particles/M_FW_Rocket.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -114,11 +99,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba2966107d34c6e4f8cb75f0aa350aee
     m_Address: Assets/Art/Shaders/SG_Lightning.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -439,11 +419,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 718c5ad99ec2645dfb2e5fa1fc76f5c3
     m_Address: Assets/Art/Textures/Ui/SharedUI/DefaultCircle.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 650dd9526735d5b46b79224bc6e94025
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

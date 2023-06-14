@@ -100,11 +100,8 @@ namespace FirstLight.Game.Presenters
 			var lastUsedOptions = _gameDataProvider.AppDataProvider.LastCustomGameOptions;
 			if (lastUsedOptions != null)
 			{
-				if (_quantumGameModeConfigs.Count > lastUsedOptions.GameModeIndex)
-				{
-					_gameModeDropDown.SetValueWithoutNotify(_gameModeDropDown.choices[lastUsedOptions.GameModeIndex]);
-					FillMapSelectionList(_gameModeDropDown.index);
-				}
+				_gameModeDropDown.SetValueWithoutNotify(_gameModeDropDown.choices[lastUsedOptions.GameModeIndex]);
+				FillMapSelectionList(_gameModeDropDown.index);
 
 				if (lastUsedOptions.Mutators?.Count > 0)
 				{

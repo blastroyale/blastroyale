@@ -24,7 +24,8 @@ namespace FirstLight.Editor.EditorTools.Generated
 		{
 				EditorApplication.delayCall += () =>
 			{
-				Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
+				Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer);
+Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
 Menu.SetChecked("FLG/Local Flags/Disable Tutorial", IsDisableTutorial);
 Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
 Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
@@ -39,6 +40,18 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		}
 
 		
+		private static bool IsUseLocalServer
+		{
+			get => FeatureFlags.GetLocalConfiguration().UseLocalServer;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().UseLocalServer = value;
+				Debug.Log("Setting UseLocalServer to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
+
 		private static bool IsUseLocalConfigs
 		{
 			get => FeatureFlags.GetLocalConfiguration().UseLocalConfigs;
@@ -119,6 +132,14 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 
 
 		
+		[MenuItem("FLG/Local Flags/Use local server", false, 5)]
+		private static void ToggleUseLocalServer()
+		{
+			IsUseLocalServer = !IsUseLocalServer;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer); };
+		}
+
+
 		[MenuItem("FLG/Local Flags/Use local configs", false, 5)]
 		private static void ToggleUseLocalConfigs()
 		{

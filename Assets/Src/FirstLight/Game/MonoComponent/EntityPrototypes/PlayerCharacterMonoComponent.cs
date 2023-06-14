@@ -102,16 +102,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 			
+			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
-			await matchCharacterViewMonoComponent.Init(EntityView, loadout);
+			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
 
 			if (this.IsDestroyed())
 			{
 				return;
 			}
-
-			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+			
 			if (isSkydiving)
 			{
 				matchCharacterViewMonoComponent.HideAllEquipment();

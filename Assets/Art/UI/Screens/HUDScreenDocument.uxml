@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="PlayerBars" usage-hints="GroupTransform" class="fill-parent">
+        <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent">
             <FirstLight.Game.UIElements.HealthStatusBarElement style="position: absolute; left: 1107px; top: 246px;" />
             <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
@@ -30,7 +30,7 @@
                     <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="DeviceStatus" class="device-status-bar">
+            <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="device-status-bar">
                 <ui:VisualElement name="BatteryIcon" class="icon-battery sprite-match__icon-battery-medium" />
                 <ui:VisualElement name="WifiIcon" class="icon-wifi sprite-match__icon-wifi-medium" />
                 <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
@@ -64,22 +64,22 @@
                     <ui:VisualElement name="Icon" class="sprite-match__icon-ammo weapon-display__ammo-icon" />
                 </ui:Label>
             </FirstLight.Game.UIElements.ImageButton>
-            <ui:VisualElement name="KillFeed" class="kill-feed">
+            <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="kill-feed">
                 <FirstLight.Game.UIElements.DeathNotificationElement />
                 <FirstLight.Game.UIElements.DeathNotificationElement />
             </ui:VisualElement>
-            <ui:VisualElement name="SquadMembers" class="squad-members-container">
+            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="squad-members-container">
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
-            <ui:VisualElement name="EquipmentDisplay" class="equipment-display">
-                <ui:VisualElement name="Character" class="equipment-display__character">
-                    <ui:VisualElement name="Armor" class="equipment-display__gear-item equipment-display__gear-item--armor" />
-                    <ui:VisualElement name="Amulet" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
-                    <ui:VisualElement name="Helmet" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
-                    <ui:VisualElement name="Shield" class="equipment-display__gear-item equipment-display__gear-item--shield" />
+            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="equipment-display">
+                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
+                    <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
+                    <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
+                    <ui:VisualElement name="Helmet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
+                    <ui:VisualElement name="Shield" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--shield" />
                 </ui:VisualElement>
-                <ui:Label text="0/4" name="Count" class="equipment-display__count" />
+                <ui:Label text="0/4" name="Count" picking-mode="Ignore" class="equipment-display__count" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

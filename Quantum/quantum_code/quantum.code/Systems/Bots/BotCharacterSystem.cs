@@ -84,8 +84,8 @@ namespace Quantum.Systems.Bots
 				return;
 			}
 
-
-			if (!kcc->Grounded)
+			// Grounding is handled by skydiving if it exists; otherwise we need to call "Move" so gravity does its job
+			if (!kcc->Grounded && !f.Context.GameModeConfig.SkydiveSpawn)
 			{
 				kcc->Move(f, filter.Entity, FPVector3.Zero);
 				return;

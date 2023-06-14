@@ -69,7 +69,7 @@ public class TestDataService
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 		var modelBefore = initialState.DeserializeModel<CollectionData>();
 		
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
@@ -101,7 +101,7 @@ public class TestDataService
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 		var modelBefore = initialState.DeserializeModel<PlayerData>();
 		
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 
@@ -120,7 +120,7 @@ public class TestDataService
 	{
 		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
 
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
+		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
 		
 		var result = _server.SendTestCommand(cmd).Data;
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);

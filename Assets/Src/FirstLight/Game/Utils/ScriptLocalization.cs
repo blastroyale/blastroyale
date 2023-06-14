@@ -633,8 +633,8 @@ namespace I2.Loc
 			public static string StadiumTraining 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTraining"); } }
 			public static string StadiumTrainingDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTrainingDescription"); } }
 			public static string Star 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Star"); } }
-			public static string SuperStar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperStar"); } }
-			public static string SuperStarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperStarDescription"); } }
+			public static string Superstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Superstar"); } }
+			public static string SuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperstarDescription"); } }
 			public static string TestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TestScene"); } }
 			public static string TikTokAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmulet"); } }
 			public static string TikTokAmuletDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmuletDescription"); } }
@@ -2178,8 +2178,8 @@ namespace I2.Loc
 		    public const string StadiumTraining = "GameIds/StadiumTraining";
 		    public const string StadiumTrainingDescription = "GameIds/StadiumTrainingDescription";
 		    public const string Star = "GameIds/Star";
-		    public const string SuperStar = "GameIds/SuperStar";
-		    public const string SuperStarDescription = "GameIds/SuperStarDescription";
+		    public const string Superstar = "GameIds/Superstar";
+		    public const string SuperstarDescription = "GameIds/SuperstarDescription";
 		    public const string TestScene = "GameIds/TestScene";
 		    public const string TikTokAmulet = "GameIds/TikTokAmulet";
 		    public const string TikTokAmuletDescription = "GameIds/TikTokAmuletDescription";

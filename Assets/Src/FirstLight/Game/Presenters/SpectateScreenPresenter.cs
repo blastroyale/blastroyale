@@ -49,9 +49,6 @@ namespace FirstLight.Game.Presenters
 			_playerName = root.Q<Label>("PlayerName").Required();
 			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
 
-			root.Q<LocalizedButton>("Camera1").clicked += OnCamera1Clicked;
-			root.Q<LocalizedButton>("Camera2").clicked += OnCamera2Clicked;
-			root.Q<LocalizedButton>("Camera3").clicked += OnCamera3Clicked;
 			root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
 			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;
 			root.Q<ImageButton>("ArrowRight").clicked += OnNextPlayerClicked;
@@ -150,21 +147,6 @@ namespace FirstLight.Game.Presenters
 		private void OnPreviousPlayerClicked()
 		{
 			_matchServices.SpectateService.SwipeLeft();
-		}
-
-		private void OnCamera1Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 0});
-		}
-
-		private void OnCamera2Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 1});
-		}
-
-		private void OnCamera3Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 2});
 		}
 	}
 }

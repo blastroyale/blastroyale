@@ -16,13 +16,13 @@ namespace Quantum
 			// Do the reload here
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			
 			var slot = pc->WeaponSlot;
-			var diff = FPMath.Min(FPMath.CeilToInt((FP) stats->CurrentAmmo / slot->AmmoCostPerShot), slot->MagazineSize - slot->MagazineShotCount).AsInt;
+			var diff = FPMath.Min(stats->GetCurrentAmmo(), slot->MagazineSize - slot->MagazineShotCount).AsInt;
+
 			if(diff > 0)
 			{
 				slot->MagazineShotCount += diff;
-				stats->ReduceAmmo(f, e, diff * slot->AmmoCostPerShot);
+				stats->ReduceAmmo(f, e, diff);
 				f.Events.OnPlayerMagazineReloaded(pc->Player, e, slot->Weapon);
 			}
 		}

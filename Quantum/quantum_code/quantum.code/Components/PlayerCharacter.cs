@@ -118,9 +118,6 @@ namespace Quantum
 					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
 			}
-			
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
@@ -258,7 +255,6 @@ namespace Quantum
 			Assert.Check(weapon.IsWeapon(), weapon);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var initialAmmo = Constants.INITIAL_AMMO_FILLED;
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
@@ -277,21 +273,12 @@ namespace Quantum
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
-			
-			// Add big bulk of initial ammo only when player picks up the first gun
-			var giveInitialAmmo = !WeaponSlots[slot].Weapon.IsValid();
 
 			var targetSlot = WeaponSlots.GetPointer(slot);
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
 			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
-			targetSlot->AmmoCostPerShot = FPMath.Max(1, ((FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / weaponConfig.MaxAmmo.Get(f))).AsInt;
 			WeaponSlots[slot].Weapon = weapon;
-
-			if (giveInitialAmmo)
-			{
-				stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - GetAmmoAmountFilled(f, e)));
-			}
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
@@ -355,21 +342,13 @@ namespace Quantum
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
-		/// <summary>
-		/// Requests the total amount of ammo the <paramref name="e"/> player has
-		/// </summary>
-		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
-		{
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			return stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue;
-		}
 
 		/// <summary>
 		/// Requests if entity <paramref name="e"/> has ammo left or not
 		/// </summary>
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
-			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo == 0
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmoPercent == 0
 				   && !HasMeleeWeapon(f, e)
 				   && (!includeMag || WeaponSlot->MagazineShotCount == 0);
 		}
@@ -381,18 +360,17 @@ namespace Quantum
 		{
 			var slot = WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var ammoCost = slot->AmmoCostPerShot;
 
 			// reduce magazine count if your weapon uses a magazine
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
 			{
 				slot->MagazineShotCount -= 1;
-				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
-					f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f), slot->MagazineShotCount, slot->MagazineSize);
+				f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
+					f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo, slot->MagazineShotCount, slot->MagazineSize);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{
-				stats->ReduceAmmo(f, e, ammoCost);
+				stats->ReduceAmmo(f, e, 1);
 			}
 		}
 
@@ -585,8 +563,8 @@ namespace Quantum
 			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
-			f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo,
-				weaponConfig.MaxAmmo.Get(f), WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
+			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
+				weaponConfig.MaxAmmo, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}

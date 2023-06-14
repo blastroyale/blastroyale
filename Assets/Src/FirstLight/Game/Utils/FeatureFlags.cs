@@ -184,7 +184,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Should bullets change colors if they come from enemies/allies ?
 		/// </summary>
-		public static bool BULLET_COLORS = true;
+		public static bool BULLET_COLORS = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

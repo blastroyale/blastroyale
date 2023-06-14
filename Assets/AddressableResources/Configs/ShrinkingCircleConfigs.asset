@@ -26,7 +26,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 2949120
       ShrinkingSizeK:
-        RawValue: 29491
+        RawValue: 32768
       MaxHealthDamage:
         RawValue: 1966
       AirdropChance:
@@ -41,9 +41,9 @@ MonoBehaviour:
       AirdropChest: 19
     - Step: 2
       DelayTime:
-        RawValue: 327680
+        RawValue: 524288
       WarningTime:
-        RawValue: 655360
+        RawValue: 786432
       ShrinkingTime:
         RawValue: 1966080
       ShrinkingSizeK:

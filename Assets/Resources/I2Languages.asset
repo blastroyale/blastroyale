@@ -11596,6 +11596,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MapDropPoints/Camp
+      TermType: 0
+      Description: 
+      Languages:
+      - Camp
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MapDropPoints/Stores
+      TermType: 0
+      Description: 
+      Languages:
+      - Stores
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: Marketplace/AccountRegisterError
       TermType: 0
       Description: 
@@ -16689,7 +16711,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1686671142049
+    Google_LastUpdatedVersion: 1686739180020
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

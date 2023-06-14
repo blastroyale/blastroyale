@@ -76,6 +76,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         GameObject o;
         if (_pool.Count > 0) o = _pool.Dequeue();
         else  o = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
+        if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
         if (_stepScale == Vector3.zero) _stepScale = o.transform.localScale;
         _stepVariation *= -1;
         _stepScale = new(-_stepScale.x, _stepScale.y, _stepScale.z);

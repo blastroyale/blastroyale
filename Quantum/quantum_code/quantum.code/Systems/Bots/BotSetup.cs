@@ -31,11 +31,17 @@ namespace Quantum.Systems.Bots
 
 		internal void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
-			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
+			if ( f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}
 
+			AddBotBehaviourToPlayers(f, baseTrophiesAmount);
+			
+			if (!f.Context.GameModeConfig.AllowBots)
+			{
+				return;
+			}
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
@@ -53,12 +59,13 @@ namespace Quantum.Systems.Bots
 					botIds.Add(i);
 				}
 			}
-
+			
 			if (botIds.Count != playerLimit)
 			{
 				AddBots(f, botIds, baseTrophiesAmount);
 			}
 		}
+
 
 		private BotSetupContext GetBotContext(Frame f, uint baseTrophies)
 		{
@@ -82,6 +89,34 @@ namespace Quantum.Systems.Bots
 			AddBotTeams(ctx);
 			return ctx;
 		}
+
+		private void AddBotBehaviourToPlayers(Frame f, uint baseTrophies)
+
+		{
+			var playersUsingBotBehaviour = Enumerable.Range(0, f.PlayerCount)
+				.Where(i => (f.GetPlayerInputFlags(i) & DeterministicInputFlags.PlayerNotPresent) == 0)
+				.Select(i => (playerRef: i, data: f.GetPlayerData(i)))
+				.Where(player => player.data != null && player.data.UseBotBehaviour)
+				.Select(player => player.playerRef).ToList();
+
+			if (playersUsingBotBehaviour.Count == 0)
+			{
+				return;
+			}
+			var ctx = GetBotContext(f, baseTrophies);
+			if (ctx.BotConfigs.Count == 0)
+			{
+				throw new Exception("Bot configs not found for this game!");
+			}
+
+			foreach (var playerRef in playersUsingBotBehaviour)
+			{
+				var botConfig = f.RNG->RandomElement(ctx.BotConfigs);
+
+				AddBot(f, ctx, playerRef, botConfig, true);
+			}
+		}
+
 
 		private void AddBots(Frame f, List<PlayerRef> playerRefs, uint baseTrophies)
 
@@ -123,14 +158,11 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config)
+		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config, bool realPlayer = false)
 		{
 			var teamId = GetBotTeamId(f, id, ctx.PlayersByTeam);
 
-			var rngSpawnIndex = GetSpawnPointForBot(f, ctx, config, teamId);
-			var spawnerTransform = f.Get<Transform3D>(ctx.PlayerSpawners[rngSpawnIndex].Entity);
-
-			var botEntity = f.Create(ctx.PlayerPrototype);
+			var botEntity = realPlayer ? f.GetSingleton<GameContainer>().PlayersData[id].Entity : f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 			var navMeshAgent = new NavMeshSteeringAgent();
 			var pathfinder = NavMeshPathfinder.Create(f, botEntity, ctx.NavMeshAgentConfig);
@@ -179,15 +211,14 @@ namespace Quantum.Systems.Bots
 
 			ctx.BotNamesIndices.Remove(listNamesIndex);
 
-			// Remove a spawner from list when we took a new one for another team; update stored teamId
-			if (ctx.PlayerSpawners.Count > 1)
-			{
-				ctx.PlayerSpawners.RemoveAt(rngSpawnIndex);
-			}
 
 			f.Add(botEntity, pathfinder); // Must be defined before the steering agent
 			f.Add(botEntity, navMeshAgent);
 			f.Add(botEntity, botCharacter);
+
+
+			if (realPlayer) return;
+
 
 			// Calculate bot trophies
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
@@ -232,6 +263,14 @@ namespace Quantum.Systems.Bots
 				}
 			}
 
+
+			var rngSpawnIndex = GetSpawnPointForBot(f, ctx, config, teamId);
+			var spawnerTransform = f.Get<Transform3D>(ctx.PlayerSpawners[rngSpawnIndex].Entity);
+			// Remove a spawner from list when we took a new one for another team; update stored teamId
+			if (ctx.PlayerSpawners.Count > 1)
+			{
+				ctx.PlayerSpawners.RemoveAt(rngSpawnIndex);
+			}
 
 			playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
 				botCharacter.DeathMarker, botCharacter.Glider, teamId, Array.Empty<Equipment>(), randomWeapon, modifiers);
@@ -340,6 +379,12 @@ namespace Quantum.Systems.Bots
 
 		private bool GetSpawnClosestToTeam(Frame f, BotSetupContext ctx, int teamId, out int spawnPointForBot)
 		{
+			if (ctx.TeamSize <= 1)
+			{
+				spawnPointForBot = 0;
+				return false;
+			}
+
 			// Get players in bot team and this point the bot is not in this list
 			if (ctx.PlayersByTeam.TryGetValue(teamId, out var players) && players.Count > 0)
 			{
@@ -372,7 +417,7 @@ namespace Quantum.Systems.Bots
 				}
 			}
 
-			spawnPointForBot = -1;
+			spawnPointForBot = 0;
 			return false;
 		}
 

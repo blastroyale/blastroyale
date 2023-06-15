@@ -18,6 +18,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -468,7 +469,8 @@ namespace FirstLight.Game.StateMachines
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
 				PartyId = GetTeamId(),
-				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl
+				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
+				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour
 			});
 		}
 		

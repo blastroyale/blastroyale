@@ -45,6 +45,7 @@ namespace FirstLight.Game.TestCases
 		private BenchmarkCollector _benchmarkCollector;
 		private TestRunnerBehaviour _testRunnerBehaviour;
 		private GameObject _runnerGameObject;
+		public bool UseBotBehaviour = false;
 		public Func<string, IEnumerator>? FailInstruction { private get; set; }
 		private FirebaseLab.TestLabManager _testLabManager = FirebaseLab.TestLabManager.Instantiate();
 
@@ -200,8 +201,12 @@ namespace FirstLight.Game.TestCases
 			if (_testLabManager.IsTestingScenario)
 			{
 				FLog.Info("Detected case scenario: " + _testLabManager.ScenarioNumber);
-
-				RunInsideCoroutine(new TutorialTestCase());
+				PlayTestCase testCase = _testLabManager.ScenarioNumber switch
+				{
+					1 => new TenMatchesInARow(),
+					_ => new TutorialTestCase()
+				};
+				RunInsideCoroutine(testCase);
 			}
 		}
 

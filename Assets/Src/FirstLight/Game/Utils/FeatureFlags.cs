@@ -1,16 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
-using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using UnityEngine;
+using Environment = FirstLight.Game.Services.Environment;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
 namespace FirstLight.Game.Utils
 {
+
+	public enum FlagOverwrite
+	{
+		None,
+		True,
+		False
+
+	}
+
+	public static class FlagOverwriteExt
+	{
+
+		public static bool Bool(this FlagOverwrite flag)
+		{
+			return flag switch
+			{
+				FlagOverwrite.True  => true,
+				FlagOverwrite.False => false,
+				_                   => false
+			};
+		}
+	}
+
 	/// <summary>
 	/// Class that represents feature flags that can be configured locally for testing purposes
 	/// </summary>
@@ -29,7 +53,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If the tutorial should be skipped
 		/// </summary>
-		[Description("Disable Tutorial")] public bool DisableTutorial = false;
+		[Description("Tutorial")] public FlagOverwrite Tutorial = FlagOverwrite.None;
 
 		/// <summary>
 		/// If we should consider if the player has NFTs even if he doens't
@@ -184,7 +208,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Should bullets change colors if they come from enemies/allies ?
 		/// </summary>
-		public static bool BULLET_COLORS = true;
+		public static bool BULLET_COLORS = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -275,9 +299,9 @@ namespace FirstLight.Game.Utils
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 
-			if (_localConfig.DisableTutorial)
+			if (_localConfig.Tutorial!=FlagOverwrite.None)
 			{
-				TUTORIAL = false;
+				TUTORIAL = _localConfig.Tutorial.Bool();
 			}
 
 			if (_localConfig.RecordQuantumInput)

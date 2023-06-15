@@ -39,10 +39,10 @@ namespace FirstLight.Game.Presenters
 				AddTextBar(y, "Local Server");
 			}
 
-			if (config.DisableTutorial)
+			if (config.Tutorial!=FlagOverwrite.None)
 			{
 				y += 3;
-				AddTextBar(y, "No Tuto");
+				AddTextBar(y, "Tuto: "+config.Tutorial.Bool());
 			}
 
 			if (config.ForceHasNfts)

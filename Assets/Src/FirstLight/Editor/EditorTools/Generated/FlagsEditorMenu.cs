@@ -26,7 +26,6 @@ namespace FirstLight.Editor.EditorTools.Generated
 			{
 				Menu.SetChecked("FLG/Local Flags/Use local server", IsUseLocalServer);
 Menu.SetChecked("FLG/Local Flags/Use local configs", IsUseLocalConfigs);
-Menu.SetChecked("FLG/Local Flags/Disable Tutorial", IsDisableTutorial);
 Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
 Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
 Menu.SetChecked("FLG/Local Flags/Record quantum input", IsRecordQuantumInput);
@@ -34,7 +33,8 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
-				UpdateSelectionEnvironmentOverride();
+				UpdateSelectionTutorial();
+UpdateSelectionEnvironmentOverride();
 			};
 
 		}
@@ -59,18 +59,6 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 			{
 				FeatureFlags.GetLocalConfiguration().UseLocalConfigs = value;
 				Debug.Log("Setting UseLocalConfigs to "+value);
-				FeatureFlags.SaveLocalConfig();
-			}
-		}
-
-
-		private static bool IsDisableTutorial
-		{
-			get => FeatureFlags.GetLocalConfiguration().DisableTutorial;
-			set
-			{
-				FeatureFlags.GetLocalConfiguration().DisableTutorial = value;
-				Debug.Log("Setting DisableTutorial to "+value);
 				FeatureFlags.SaveLocalConfig();
 			}
 		}
@@ -148,14 +136,6 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		}
 
 
-		[MenuItem("FLG/Local Flags/Disable Tutorial", false, 5)]
-		private static void ToggleDisableTutorial()
-		{
-			IsDisableTutorial = !IsDisableTutorial;
-			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Disable Tutorial", IsDisableTutorial); };
-		}
-
-
 		[MenuItem("FLG/Local Flags/Unblock NFTs only content", false, 5)]
 		private static void ToggleForceHasNfts()
 		{
@@ -197,6 +177,68 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 
 
 					
+			private static void UpdateSelectionTutorial()
+		{
+			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
+
+			foreach (var name in Enum.GetNames(typeof(FirstLight.Game.Utils.FlagOverwrite)))
+			{
+				var menuPath = $"FLG/Local Flags/Tutorial/{name}";
+				Menu.SetChecked(menuPath, currentValue.ToString() == name);
+			}
+		}
+		[MenuItem("FLG/Local Flags/Tutorial/None",false, 18)]
+		private static void ToggleTutorialNone()
+		{
+			
+			FeatureFlags.GetLocalConfiguration().Tutorial = FirstLight.Game.Utils.FlagOverwrite.None;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Setting Tutorial to FirstLight.Game.Utils.FlagOverwrite.None");
+			EditorApplication.delayCall += UpdateSelectionTutorial; ;
+		}
+
+	[MenuItem("FLG/Local Flags/Tutorial/None",true,18)]
+		private static bool ValidateTutorialNone()
+		{
+			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
+			return currentValue.ToString() != "None";
+		}
+
+		[MenuItem("FLG/Local Flags/Tutorial/True",false, 18)]
+		private static void ToggleTutorialTrue()
+		{
+			
+			FeatureFlags.GetLocalConfiguration().Tutorial = FirstLight.Game.Utils.FlagOverwrite.True;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Setting Tutorial to FirstLight.Game.Utils.FlagOverwrite.True");
+			EditorApplication.delayCall += UpdateSelectionTutorial; ;
+		}
+
+	[MenuItem("FLG/Local Flags/Tutorial/True",true,18)]
+		private static bool ValidateTutorialTrue()
+		{
+			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
+			return currentValue.ToString() != "True";
+		}
+
+		[MenuItem("FLG/Local Flags/Tutorial/False",false, 18)]
+		private static void ToggleTutorialFalse()
+		{
+			
+			FeatureFlags.GetLocalConfiguration().Tutorial = FirstLight.Game.Utils.FlagOverwrite.False;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Setting Tutorial to FirstLight.Game.Utils.FlagOverwrite.False");
+			EditorApplication.delayCall += UpdateSelectionTutorial; ;
+		}
+
+	[MenuItem("FLG/Local Flags/Tutorial/False",true,18)]
+		private static bool ValidateTutorialFalse()
+		{
+			var currentValue = FeatureFlags.GetLocalConfiguration().Tutorial;
+			return currentValue.ToString() != "False";
+		}
+
+			
 			private static void UpdateSelectionEnvironmentOverride()
 		{
 			var currentValue = FeatureFlags.GetLocalConfiguration().EnvironmentOverride;
@@ -212,6 +254,7 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		{
 			
 			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.DEV;
+			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.DEV");
 			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
 		}
@@ -228,6 +271,7 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		{
 			
 			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.STAGING;
+			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.STAGING");
 			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
 		}
@@ -244,6 +288,7 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		{
 			
 			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.TESTNET;
+			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.TESTNET");
 			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
 		}
@@ -260,6 +305,7 @@ Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGame
 		{
 			
 			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = FirstLight.Game.Services.Environment.PROD;
+			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Setting EnvironmentOverride to FirstLight.Game.Services.Environment.PROD");
 			EditorApplication.delayCall += UpdateSelectionEnvironmentOverride; ;
 		}

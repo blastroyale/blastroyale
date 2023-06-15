@@ -117,10 +117,8 @@ namespace FirstLight.Game.Views.UITK
 
 					_squadMembers.Add(e, squadMember);
 
-					var isBot = f.TryGet<BotCharacter>(e, out var botCharacter);
-					var playerName = isBot
-						? Extensions.GetBotName(botCharacter.BotNameIndex, e)
-						: f.GetPlayerData(pc.Player).PlayerName;
+					var isBot = f.Has<BotCharacter>(e);
+					var playerName = Extensions.GetPlayerName(f, e, pc);
 
 					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
 						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl);

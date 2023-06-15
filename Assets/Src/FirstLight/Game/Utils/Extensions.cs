@@ -253,6 +253,16 @@ namespace FirstLight.Game.Utils
 
 			return data.PlayerName;
 		}
+		
+		/// <summary>
+		/// Requests the player name for the given player's match <paramref name="data"/>
+		/// </summary>
+		public static string GetPlayerName(Frame f, EntityRef entity, PlayerCharacter playerCharacter)
+		{
+			return !playerCharacter.RealPlayer && f.TryGet<BotCharacter>(entity, out var botCharacter)
+				? GetBotName(botCharacter.BotNameIndex, entity)
+				: f.GetPlayerData(playerCharacter.Player).PlayerName;
+		}
 
 		public static bool IsBot(this EntityRef entity, Frame f)
 		{

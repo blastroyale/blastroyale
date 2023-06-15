@@ -211,6 +211,7 @@ namespace Quantum.Systems
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			playerCharacter->RealPlayer = true;
 			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),

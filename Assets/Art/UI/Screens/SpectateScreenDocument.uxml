@@ -3,11 +3,6 @@
     <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement name="MainSafeArea" picking-mode="Ignore" class="fill-parent">
-            <ui:VisualElement name="CameraButtons" class="camera-button-holder">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_3" name="Camera3" class="button-long button-camera sfx-click-forwards anim-delay-3 anim-translate anim-translate--left-m" />
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_2" name="Camera2" class="button-long button-camera sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-m" />
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_1" name="Camera1" class="button-long button-camera sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-m" />
-            </ui:VisualElement>
             <ui:VisualElement name="ShowHide" class="show-hide-toggle sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s">
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/hide" name="Hide" class="show-hide-toggle__label show-hide-toggle__label--hide" />
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/show" name="Show" class="show-hide-toggle__label show-hide-toggle__label--show" />

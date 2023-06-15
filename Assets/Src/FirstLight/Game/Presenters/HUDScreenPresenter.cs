@@ -8,6 +8,7 @@ using FirstLight.UiService;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -52,7 +53,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
-
+			var matchServices = MainInstaller.Resolve<IMatchServices>();
+			
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
@@ -66,18 +68,18 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
 
 			root.Q<ImageButton>("MenuButton").Required().clicked += OnMenuClicked;
+			
+			_movementJoystick.OnMove += e => InputState.Change(_moveDirectionJoystickInput.control, e);
+			_movementJoystick.OnClick += e => InputState.Change(_moveDownJoystickInput.control, e);
+			_shootingJoystick.OnMove += e => InputState.Change(_aimDirectionJoystickInput.control, e);
+			_shootingJoystick.OnClick += e => InputState.Change(_aimDownJoystickInput.control, e);
 
-			_movementJoystick.OnMove += _moveDirectionJoystickInput.SendValueToControl;
-			_movementJoystick.OnClick += _moveDownJoystickInput.SendValueToControl;
-			_shootingJoystick.OnMove += _aimDirectionJoystickInput.SendValueToControl;
-			_shootingJoystick.OnClick += _aimDownJoystickInput.SendValueToControl;
+			_weaponDisplayView.OnClick += e => InputState.Change(_weaponSwitchInput.control, e);
 
-			_weaponDisplayView.OnClick += _weaponSwitchInput.SendValueToControl;
-
-			_specialButtonsView.OnSpecial0Pressed += _special0PressedInput.SendValueToControl;
-			_specialButtonsView.OnSpecial1Pressed += _special1PressedInput.SendValueToControl;
-			_specialButtonsView.OnDrag += _specialAimInput.SendValueToControl;
-			_specialButtonsView.OnCancel += _specialCancelInput.SendValueToControl;
+			_specialButtonsView.OnSpecial0Pressed += e => InputState.Change(_special0PressedInput.control, e);
+			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
+			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);
+			_specialButtonsView.OnCancel += e => InputState.Change(_specialCancelInput.control, e); 
 			
 			HideSkydivingElements(true);
 		}

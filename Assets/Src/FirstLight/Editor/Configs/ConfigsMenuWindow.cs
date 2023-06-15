@@ -150,7 +150,7 @@ namespace FirstLight.Editor.Configs
 		{
 			private readonly TAsset _asset;
 
-			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
+			[ShowInInspector, HideLabel, OnValueChanged("@UnityEditor.EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
 			public TConfig Config
 			{
 				get => _asset.Config;
@@ -168,7 +168,7 @@ namespace FirstLight.Editor.Configs
 		{
 			private readonly TAsset _asset;
 
-			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
+			[ShowInInspector, HideLabel, OnValueChanged("@UnityEditor.EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
 			public List<TConfig> Configs
 			{
 				get => _asset.Configs;

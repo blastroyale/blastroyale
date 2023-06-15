@@ -62,6 +62,11 @@ namespace FirstLight.Game.Services
 		private void RegisterListeners()
 		{
 			_inputs.Move.performed += OnMove;
+			_inputs.Move.started += OnMove;
+			_inputs.Move.canceled += OnMove;
+			_inputs.Aim.started += OnAim;
+			_inputs.Aim.performed += OnAim;
+			_inputs.Aim.canceled += OnAim;
 			_inputs.AimButton.performed += OnShooting;
 			_inputs.AimButton.canceled += OnShooting;
 			_inputs.SpecialButton0.started += OnSpecial0;
@@ -72,12 +77,16 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.canceled += OnSpecial1;
 			_inputs.SpecialAim.performed += OnSpecialAim;
 			_inputs.CancelButton.performed += OnCancel;
-			_services.TickService.SubscribeOnUpdate(OnUpdate);
 		}
 
 		private void UnregisterListeners()
 		{
+			_inputs.Move.started -= OnMove;
 			_inputs.Move.performed -= OnMove;
+			_inputs.Move.canceled -= OnMove;
+			_inputs.Aim.started -= OnAim;
+			_inputs.Aim.performed -= OnAim;
+			_inputs.Aim.canceled -= OnAim;
 			_inputs.AimButton.performed -= OnShooting;
 			_inputs.AimButton.canceled -= OnShooting;
 			_inputs.SpecialButton0.started -= OnSpecial0;
@@ -87,8 +96,7 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.performed -= OnSpecial1;
 			_inputs.SpecialButton1.canceled -= OnSpecial1;
 			_inputs.SpecialAim.performed -= OnSpecialAim;
-
-			_services?.TickService.Unsubscribe(OnUpdate);
+			
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
@@ -99,12 +107,12 @@ namespace FirstLight.Game.Services
 
 		private bool CanListen() => QuantumRunner.Default.IsDefinedAndRunning();
 
-		private void OnUpdate(float timeDelta)
+		private void OnAim(InputAction.CallbackContext c)
 		{
 			if (!CanListen()) return;
 			_indicatorContainerView?.OnUpdateAim(
 				QuantumRunner.Default.Game.Frames.Predicted,
-				_inputs.Aim.ReadValue<Vector2>().ToFPVector2(),
+				c.ReadValue<Vector2>().ToFPVector2(),
 				_shooting);
 		}
 

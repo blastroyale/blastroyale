@@ -91,6 +91,9 @@ namespace FirstLight.Game.Presenters
 			SetupRadioButtonGroup(root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").Required(),
 				() => _gameDataProvider.AppDataProvider.CurrentDetailLevel,
 				val => _gameDataProvider.AppDataProvider.CurrentDetailLevel = val);
+			
+			// TODO: Enable it back when graphics settings actually mean/do something
+			root.Q<LocalizedRadioButtonGroup>("GraphicsRBG").SetEnabled(false);
 
 			// Account
 			_logoutButton = root.Q<Button>("LogoutButton");

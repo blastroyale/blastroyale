@@ -60,17 +60,6 @@ namespace FirstLight.Game
 
 		private void OnApplicationPause(bool isPaused)
 		{
-			if (isPaused)
-			{
-				_pauseCoroutine = StartCoroutine(EndAppCoroutine());
-			}
-			else if (_pauseCoroutine != null)
-			{
-				StopCoroutine(_pauseCoroutine);
-
-				_pauseCoroutine = null;
-			}
-
 			_services?.MessageBrokerService?.Publish(new ApplicationPausedMessage { IsPaused = isPaused });
 		}
 
@@ -86,14 +75,6 @@ namespace FirstLight.Game
 			FeatureFlags.ParseLocalFeatureFlags();
 			Debug.Log("Using local server? -" + FeatureFlags.GetLocalConfiguration().UseLocalServer);
 #endif
-		}
-
-		private IEnumerator EndAppCoroutine()
-		{
-			// The app is closed after 30 sec of being unused
-			yield return new WaitForSeconds(30);
-
-			_services?.QuitGame("App closed after 30 sec of being unused");
 		}
 
 		private IEnumerator HeartbeatCoroutine()

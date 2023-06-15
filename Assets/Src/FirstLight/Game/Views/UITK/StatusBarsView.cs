@@ -173,10 +173,7 @@ namespace FirstLight.Game.Views.UITK
 			var pc = f.Get<PlayerCharacter>(entity);
 			var stats = f.Get<Stats>(entity);
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
-
-			var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
-				? Extensions.GetBotName(botCharacter.BotNameIndex, entity)
-				: f.GetPlayerData(pc.Player).PlayerName;
+			var playerName = Extensions.GetPlayerName(f, entity, pc);
 
 			bar.SetName(playerName);
 			bar.SetIsFriendly(spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);

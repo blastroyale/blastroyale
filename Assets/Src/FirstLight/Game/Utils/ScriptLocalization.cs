@@ -633,8 +633,8 @@ namespace I2.Loc
 			public static string StadiumTraining 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTraining"); } }
 			public static string StadiumTrainingDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/StadiumTrainingDescription"); } }
 			public static string Star 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Star"); } }
-			public static string SuperStar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperStar"); } }
-			public static string SuperStarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperStarDescription"); } }
+			public static string Superstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Superstar"); } }
+			public static string SuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperstarDescription"); } }
 			public static string TestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TestScene"); } }
 			public static string TikTokAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmulet"); } }
 			public static string TikTokAmuletDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmuletDescription"); } }
@@ -1021,6 +1021,7 @@ namespace I2.Loc
 		{
 			public static string Aircraft 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Aircraft"); } }
 			public static string Cafe 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Cafe"); } }
+			public static string Camp 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Camp"); } }
 			public static string Church 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Church"); } }
 			public static string Cinema 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Cinema"); } }
 			public static string Court 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Court"); } }
@@ -1040,6 +1041,7 @@ namespace I2.Loc
 			public static string Ship 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Ship"); } }
 			public static string Slum 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Slum"); } }
 			public static string Store 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Store"); } }
+			public static string Stores 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Stores"); } }
 			public static string TheCore 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/TheCore"); } }
 			public static string TheIsle 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/TheIsle"); } }
 			public static string Tower 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Tower"); } }
@@ -2178,8 +2180,8 @@ namespace I2.Loc
 		    public const string StadiumTraining = "GameIds/StadiumTraining";
 		    public const string StadiumTrainingDescription = "GameIds/StadiumTrainingDescription";
 		    public const string Star = "GameIds/Star";
-		    public const string SuperStar = "GameIds/SuperStar";
-		    public const string SuperStarDescription = "GameIds/SuperStarDescription";
+		    public const string Superstar = "GameIds/Superstar";
+		    public const string SuperstarDescription = "GameIds/SuperstarDescription";
 		    public const string TestScene = "GameIds/TestScene";
 		    public const string TikTokAmulet = "GameIds/TikTokAmulet";
 		    public const string TikTokAmuletDescription = "GameIds/TikTokAmuletDescription";
@@ -2566,6 +2568,7 @@ namespace I2.Loc
 		{
 		    public const string Aircraft = "MapDropPoints/Aircraft";
 		    public const string Cafe = "MapDropPoints/Cafe";
+		    public const string Camp = "MapDropPoints/Camp";
 		    public const string Church = "MapDropPoints/Church";
 		    public const string Cinema = "MapDropPoints/Cinema";
 		    public const string Court = "MapDropPoints/Court";
@@ -2585,6 +2588,7 @@ namespace I2.Loc
 		    public const string Ship = "MapDropPoints/Ship";
 		    public const string Slum = "MapDropPoints/Slum";
 		    public const string Store = "MapDropPoints/Store";
+		    public const string Stores = "MapDropPoints/Stores";
 		    public const string TheCore = "MapDropPoints/TheCore";
 		    public const string TheIsle = "MapDropPoints/TheIsle";
 		    public const string Tower = "MapDropPoints/Tower";

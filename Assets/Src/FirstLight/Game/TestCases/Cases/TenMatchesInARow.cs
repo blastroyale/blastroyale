@@ -12,7 +12,7 @@ using Application = UnityEngine.Device.Application;
 namespace FirstLight.Game.TestCases
 
 {
-	public class SingleMatchWithoutTutorial : PlayTestCase
+	public class TenMatchesInARow : PlayTestCase
 	{
 		public override void OnGameAwaken()
 		{
@@ -24,15 +24,20 @@ namespace FirstLight.Game.TestCases
 		{
 			
 			yield return UIHome.WaitHomePresenter(60);
-
 			yield return UIGeneric.WaitForGenericInputDialogAndInput("Chupacabra", ScriptLocalization.UITHomeScreen.enter_your_name);
 
-			yield return Quantum.UseBotBehaviourForNextMatch();
-			yield return UIHome.ClickPlayButton();
-			yield return UIGame.WaitDropZoneSelectScreen();
-			yield return UIGame.SelectPosition(0.6f, 0.6f);
-			yield return Quantum.WaitForSimulationToStart();
-			yield return UIGame.WaitForGameToEndAndGoToMenu(6 * 60);
+
+			for (int i = 0; i < 10; i++)
+			{
+				yield return UIHome.WaitHomePresenter(10);
+				yield return Quantum.UseBotBehaviourForNextMatch();
+				yield return UIHome.ClickPlayButton();
+				yield return UIGame.WaitDropZoneSelectScreen();
+				yield return UIGame.SelectPosition(0.6f, 0.6f);
+				yield return Quantum.WaitForSimulationToStart();
+				yield return UIGame.WaitForGameToEndAndGoToMenu(6 * 60);
+
+			}
 		}
 	}
 }

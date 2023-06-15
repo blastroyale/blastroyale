@@ -48,6 +48,7 @@ component PlayerCharacter
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] Int32 DroppedLoadoutFlags;
     [HideInInspector] Int16 CurrentEnergy;
+    bool RealPlayer;
 }
 
 component PlayerCharging

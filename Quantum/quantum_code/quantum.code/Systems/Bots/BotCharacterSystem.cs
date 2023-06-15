@@ -69,6 +69,18 @@ namespace Quantum.Systems.Bots
 			}
 
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			
+			// Don't do anything until grounded
+			if (!kcc->Grounded)
+			{
+				// Grounding is handled by skydiving if it exists; otherwise we need to call "Move" so gravity does its job
+				if (!f.Context.GameModeConfig.SkydiveSpawn)
+				{
+					kcc->Move(f, filter.Entity, FPVector3.Zero);
+				}
+				
+				return;
+			}
 
 			if (!filter.BotCharacter->SpeedResetAfterLanding)
 			{
@@ -83,14 +95,6 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
-
-			// Grounding is handled by skydiving if it exists; otherwise we need to call "Move" so gravity does its job
-			if (!kcc->Grounded && !f.Context.GameModeConfig.SkydiveSpawn)
-			{
-				kcc->Move(f, filter.Entity, FPVector3.Zero);
-				return;
-			}
-
 
 			var circleCenter = FPVector2.Zero;
 			var circleRadius = FP._0;

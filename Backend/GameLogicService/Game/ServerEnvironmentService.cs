@@ -9,22 +9,24 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using EnvironmentList = FirstLight.Game.Services.Environment;
 
-namespace GameLogicService.Game;
-
-public class ServerEnvironmentService : IEnvironmentService
+namespace GameLogicService.Game
 {
-	public ServerEnvironmentService(IBaseServiceConfiguration configuration)
+	public class ServerEnvironmentService : IEnvironmentService
 	{
-		var mapping = new Dictionary<string, EnvironmentList>() { { "dev", EnvironmentList.DEV }, { "staging", EnvironmentList.STAGING }, { "testnet-prod", EnvironmentList.TESTNET }, { "mainnet-prod", EnvironmentList.PROD } };
-
-		if (!mapping.TryGetValue(configuration.ApplicationEnvironment, out var environment))
+		public ServerEnvironmentService(IBaseServiceConfiguration configuration)
 		{
-			throw new Exception("Not found environment " + configuration.ApplicationEnvironment);
+			var mapping = new Dictionary<string, EnvironmentList>() { { "dev", EnvironmentList.DEV }, { "staging", EnvironmentList.STAGING }, { "testnet-prod", EnvironmentList.TESTNET }, { "mainnet-prod", EnvironmentList.PROD } };
+
+			if (!mapping.TryGetValue(configuration.ApplicationEnvironment, out var environment))
+			{
+				throw new Exception("Not found environment " + configuration.ApplicationEnvironment);
+			}
+
+			Environment = environment;
 		}
 
-		Environment = environment;
+
+		public EnvironmentList? Environment { get; }
 	}
-
-
-	public EnvironmentList? Environment { get; }
 }
+

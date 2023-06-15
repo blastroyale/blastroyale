@@ -550,31 +550,25 @@ namespace Quantum
 				{
 					GameId.Male01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Superstar
+						GameIdGroup.PlayerSkin
 					}.AsReadOnly()
 				},
 				{
 					GameId.Male02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Punk
+						GameIdGroup.PlayerSkin
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female01Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.Superstar
+						GameIdGroup.PlayerSkin
 					}.AsReadOnly()
 				},
 				{
 					GameId.Female02Avatar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin,
-						GameIdGroup.BotItem,
-						GameIdGroup.Punk
+						GameIdGroup.PlayerSkin
 					}.AsReadOnly()
 				},
 				{
@@ -594,13 +588,17 @@ namespace Quantum
 				{
 					GameId.MalePunk, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk
 					}.AsReadOnly()
 				},
 				{
 					GameId.MaleSuperstar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Superstar
 					}.AsReadOnly()
 				},
 				{
@@ -620,13 +618,17 @@ namespace Quantum
 				{
 					GameId.FemalePunk, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Punk
 					}.AsReadOnly()
 				},
 				{
 					GameId.FemaleSuperstar, new List<GameIdGroup>
 					{
-						GameIdGroup.PlayerSkin
+						GameIdGroup.PlayerSkin,
+						GameIdGroup.BotItem,
+						GameIdGroup.Superstar
 					}.AsReadOnly()
 				},
 				{
@@ -639,7 +641,8 @@ namespace Quantum
 				{
 					GameId.Falcon, new List<GameIdGroup>
 					{
-						GameIdGroup.Glider
+						GameIdGroup.Glider,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -871,7 +874,8 @@ namespace Quantum
 				{
 					GameId.Demon, new List<GameIdGroup>
 					{
-						GameIdGroup.DeathMarker
+						GameIdGroup.DeathMarker,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1181,29 +1185,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Superstar, new List<GameId>
-					{
-						GameId.Male01Avatar,
-						GameId.Female01Avatar
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.BotItem, new List<GameId>
-					{
-						GameId.Male02Avatar,
-						GameId.Female02Avatar,
-						GameId.Divinci,
-						GameId.Tombstone
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Punk, new List<GameId>
-					{
-						GameId.Male02Avatar,
-						GameId.Female02Avatar
-					}.AsReadOnly()
-				},
-				{
 					GameIdGroup.Assassin, new List<GameId>
 					{
 						GameId.MaleAssassin,
@@ -1215,6 +1196,33 @@ namespace Quantum
 					{
 						GameId.MaleCorpos,
 						GameId.FemaleCorpos
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.BotItem, new List<GameId>
+					{
+						GameId.MalePunk,
+						GameId.MaleSuperstar,
+						GameId.FemalePunk,
+						GameId.FemaleSuperstar,
+						GameId.Divinci,
+						GameId.Falcon,
+						GameId.Tombstone,
+						GameId.Demon
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Punk, new List<GameId>
+					{
+						GameId.MalePunk,
+						GameId.FemalePunk
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Superstar, new List<GameId>
+					{
+						GameId.MaleSuperstar,
+						GameId.FemaleSuperstar
 					}.AsReadOnly()
 				},
 				{

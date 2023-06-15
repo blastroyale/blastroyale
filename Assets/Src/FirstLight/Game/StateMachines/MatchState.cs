@@ -709,7 +709,11 @@ namespace FirstLight.Game.StateMachines
 			// Preload bot items
 			foreach (var id in GameIdGroup.BotItem.GetIds())
 			{
-				tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
+				// TODO: Uncomment this
+				// Somehow preloading this assets make the state machine brake, it just doesn't transition
+				// properly in the tutorial, and i was unable to find the root cause of this, and is not the scope of this task
+				// the break change was introduced in commit: 8ade107ed588de250f783402cf8762b1e9ec3438
+				//tasks.Add(_services.AssetResolverService.RequestAsset<GameId, GameObject>(id, true, false));
 			}
 			
 			// Preload material VFX
@@ -785,7 +789,7 @@ namespace FirstLight.Game.StateMachines
 				multiClient.RuntimePlayer[i] = new RuntimePlayer
 				{
 					PlayerName = $"Test Name {i}",
-					Skin = GameId.Male01Avatar,
+					Skin = GameId.MalePunk,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Loadout = new[]

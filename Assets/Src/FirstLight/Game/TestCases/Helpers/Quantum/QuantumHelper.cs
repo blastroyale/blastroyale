@@ -31,6 +31,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, callback =>
 			{
+				FLGTestRunner.Instance.UseBotBehaviour = false;
 				_gameEnded = true;
 				_inputManipulator?.Stop();
 			});
@@ -82,6 +83,12 @@ namespace FirstLight.Game.TestCases.Helpers
 				MatchServices.PlayerInputService.OverwriteCallbackInput = _inputManipulator.ChangeInput;
 			});
 		}
+		public IEnumerator UseBotBehaviourForNextMatch()
+		{
+			FLGTestRunner.Instance.UseBotBehaviour = true;
+			yield break;
+		}
+
 
 		public IEnumerator WaitForLocalPlayerToDie()
 		{

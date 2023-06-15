@@ -7,6 +7,6 @@ namespace FirstLight.Editor.SheetImporters
 	public class ShrinkingCircleConfigsImporter : GoogleSheetQuantumConfigsImporter<QuantumShrinkingCircleConfig, ShrinkingCircleConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1238613754";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=2003786401";
 	}
 }

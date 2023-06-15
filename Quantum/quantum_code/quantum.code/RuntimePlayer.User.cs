@@ -19,6 +19,7 @@ namespace Quantum
 		public Equipment[] Loadout;
 		public EquipmentSimulationMetadata[] LoadoutMetadata;
 		public string AvatarUrl;
+		public bool UseBotBehaviour;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -37,6 +38,7 @@ namespace Quantum
 			stream.Serialize(ref NormalizedSpawnPosition);
 			stream.Serialize(ref PartyId);
 			stream.Serialize(ref AvatarUrl);
+			stream.Serialize(ref UseBotBehaviour);
 			stream.SerializeArrayLength(ref Loadout);
 
 			for (var i = 0; i < Loadout.Length; i++)

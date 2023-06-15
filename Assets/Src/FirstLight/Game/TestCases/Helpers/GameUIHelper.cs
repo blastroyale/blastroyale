@@ -13,29 +13,31 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			_uiHelper = uiHelper;
 		}
-		
+
 
 		public IEnumerator WaitDropZoneSelectScreen()
 		{
 			yield return _uiHelper.WaitForPresenter<MatchmakingScreenPresenter>();
 		}
-		
+
 
 		public IEnumerator SelectWater()
 		{
 			var presenter = _uiHelper.GetPresenter<MatchmakingScreenPresenter>();
-			presenter.SelectDropZone(0.9f,0.5f);
+			presenter.SelectDropZone(0.9f, 0.5f);
 			yield break;
 		}
+
 		public IEnumerator SelectPosition(float x, float y)
 		{
 			var presenter = _uiHelper.GetPresenter<MatchmakingScreenPresenter>();
-			presenter.SelectDropZone(x,y);
+			presenter.SelectDropZone(x, y);
 			yield break;
 		}
+
 		public IEnumerator SelectRandomPosition()
 		{
-			yield return SelectPosition(Random.Range(0.1f,0.9f),Random.Range(0.1f,0.9f));
+			yield return SelectPosition(Random.Range(0.2f, 0.8f), Random.Range(0.2f, 0.8f));
 		}
 
 
@@ -43,6 +45,7 @@ namespace FirstLight.Game.TestCases.Helpers
 		{
 			yield return _uiHelper.WaitForPresenter<SpectateScreenPresenter>();
 		}
+
 
 		public IEnumerator WaitForWinnersScreen()
 		{
@@ -54,20 +57,40 @@ namespace FirstLight.Game.TestCases.Helpers
 			yield return _uiHelper.WaitForPresenter<LeaderboardAndRewardsScreenPresenter>();
 		}
 
-		public IEnumerator EndOfGameFlow(bool earlyExit = true)
+
+		public IEnumerator WaitForGameToEndAndGoToMenu(float gameTimeout = 60 * 5)
 		{
 			var oneSec = new WaitForSeconds(1);
+			yield return WaitForEndGameScreen(gameTimeout);
+			var possibleScreens = new[] { typeof(SpectateScreenPresenter), typeof(WinnerScreenPresenter) };
 
-			if (!earlyExit)
+			yield return _uiHelper.WaitForAny(possibleScreens);
+			var screen = _uiHelper.GetFirstOpenScreen(possibleScreens);
+
+			if (screen is SpectateScreenPresenter)
 			{
-				yield return WaitForWinnersScreen();
+				yield return new WaitForSeconds(4);
+				yield return LeaveSpectator();
+			}
+			else
+			{
 				yield return oneSec;
 				yield return _uiHelper.ClickNextButton();
 			}
 
-	
-			yield return WaitForLeaderboardAndRewards();
+			possibleScreens = new[] { typeof(WinnersScreenPresenter), typeof(LeaderboardAndRewardsScreenPresenter) };
+
+			yield return _uiHelper.WaitForAny(possibleScreens);
+			screen = _uiHelper.GetFirstOpenScreen(possibleScreens);
 			yield return oneSec;
+			if (screen is WinnerScreenPresenter)
+			{
+				yield return _uiHelper.ClickNextButton();
+
+				yield return WaitForLeaderboardAndRewards();
+				yield return oneSec;
+			}
+
 			yield return _uiHelper.ClickNextButton();
 			yield return new WaitForSeconds(2);
 			yield return _uiHelper.ClickNextButton();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -22,6 +23,33 @@ namespace FirstLight.Game.TestCases.Helpers
 			Log("Detected " + typeof(T).Name + " screen! Continuing!");
 
 			yield return new WaitForSeconds(waitAfterCreation);
+		}
+
+		public UiPresenter GetFirstOpenScreen(Type[] types)
+		{
+			foreach (var type in types)
+			{
+				var screen = Object.FindObjectOfType(type) as UiPresenter;
+				if (screen != null && screen.gameObject.activeSelf)
+				{
+					return screen;
+				}
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Types must implement UiScreen
+		/// </summary>
+		/// <param name="types"></param>
+		/// <param name="timeout"></param>
+		/// <returns></returns>
+		public IEnumerator WaitForAny(Type[] types, float timeout = 30)
+		{
+			yield return TestTools.Until(() => GetFirstOpenScreen(types) != null, timeout, "Cannot find screen presenters " + types.ToString());
+			// Wait a little bit more to make sure the screen had time to open
+			Log("Detected one of the " + types + " screen! Continuing!");
 		}
 
 		public T GetPresenter<T>() where T : UiPresenter

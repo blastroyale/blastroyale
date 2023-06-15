@@ -194,6 +194,7 @@ namespace FirstLight.Editor.EditorTools
 		{{
 			
 			FeatureFlags.GetLocalConfiguration().{flag.Name} = {fullPathValue};
+			FeatureFlags.SaveLocalConfig();
 			Debug.Log(""Setting {flag.Name} to {fullPathValue}"");
 			EditorApplication.delayCall += UpdateSelection{flag.Name}; ;
 		}}

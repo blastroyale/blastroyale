@@ -205,11 +205,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
-				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
-					? Extensions.GetBotName(botCharacter.BotNameIndex, entity)
-					: f.GetPlayerData(playerCharacter.Player).PlayerName;
+			
 
-				healthBar.HealthBarNameView.NameText.text = playerName;
+				healthBar.HealthBarNameView.NameText.text = Extensions.GetPlayerName(f, entity ,playerCharacter);
 			}
 
 			healthBar.OverlayView.gameObject.SetActive(true);

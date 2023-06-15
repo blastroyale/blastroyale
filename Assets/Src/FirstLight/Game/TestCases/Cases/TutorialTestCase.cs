@@ -96,18 +96,11 @@ namespace FirstLight.Game.TestCases
 		{
 			yield return UIHome.ClickPlayButton();
 			yield return _tutorialTransitionWait;
-			yield return Quantum.SetInputManipulator(new FixedManipulator(FPVector2.Right, 100));
+			yield return Quantum.UseBotBehaviourForNextMatch();
 			yield return UIGame.WaitDropZoneSelectScreen();
-			yield return UIGame.SelectPosition(0.6f, 0.6f);
-
-
-			yield return UIGame.WaitForEndGameScreen(60 * 8);
-			yield return UIGame.WaitForSpectateScreen();
-			yield return _oneSec;
-			yield return UIGame.LeaveSpectator();
-			yield return Quantum.WaitForGameToFinish();
-			yield return _oneSec;
-			yield return UIGame.EndOfGameFlow();
+			yield return UIGame.SelectRandomPosition();
+			yield return UIGame.WaitForGameToEndAndGoToMenu(60 * 8);
+		
 		}
 	}
 }

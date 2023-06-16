@@ -947,6 +947,11 @@
 
 .squad-member__equipment--acquired {
     -unity-background-image-tint-color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
 
 .squad-members-container {

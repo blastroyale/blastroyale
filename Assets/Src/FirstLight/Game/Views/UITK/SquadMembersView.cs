@@ -14,7 +14,7 @@ namespace FirstLight.Game.Views.UITK
 	public class SquadMembersView : UIView
 	{
 		private const int MAX_SQUAD_MEMBERS = 2;
-	
+
 		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, SquadMemberElement> _squadMembers = new();
@@ -36,6 +36,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.SubscribeManual<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
+			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -76,11 +77,11 @@ namespace FirstLight.Game.Views.UITK
 
 			squadMember.UpdateHealth((float) callback.CurrentHealth / callback.MaxHealth);
 		}
-		
+
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
-			
+
 			squadMember.UpdateShield((float) callback.CurrentShield / callback.CurrentShieldCapacity);
 		}
 
@@ -89,6 +90,13 @@ namespace FirstLight.Game.Views.UITK
 			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
 
 			squadMember.UpdateLevel(callback.CurrentLevel);
+		}
+
+		private void OnEntityDamaged(EventOnEntityDamaged callback)
+		{
+			if (!_squadMembers.TryGetValue(callback.Entity, out var squadMember)) return;
+
+			squadMember.PingDamage();
 		}
 
 		private void RecheckSquadMembers(Frame f)
@@ -101,8 +109,8 @@ namespace FirstLight.Game.Views.UITK
 			var index = 0;
 			foreach (var (e, pc) in f.GetComponentIterator<PlayerCharacter>())
 			{
-				if(_squadMembers.Count >= MAX_SQUAD_MEMBERS) break;
-				
+				if (_squadMembers.Count >= MAX_SQUAD_MEMBERS) break;
+
 				if (pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != e)
 				{
 					SquadMemberElement squadMember;

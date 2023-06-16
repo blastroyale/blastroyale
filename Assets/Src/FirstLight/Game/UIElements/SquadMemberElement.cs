@@ -4,11 +4,17 @@ using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.UIElements
 {
 	public class SquadMemberElement : VisualElement
 	{
+		private const int DAMAGE_ANIMATION_DURATION = 500;
+
+		private readonly Color DAMAGE_BG = new(142f / 255f, 22f / 255f, 20f / 255f, 1f);
+		private readonly Color NORMAL_BG = new(49f / 255f, 45f / 255f, 71f / 255f, 0.5f);
+
 		private const string USS_BLOCK = "squad-member";
 		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_DEAD = USS_BLOCK + "--dead";
@@ -45,13 +51,16 @@ namespace FirstLight.Game.UIElements
 		private PlayerRef _player;
 		private int _pfpRequestHandle;
 
+		private readonly ValueAnimation<float> _damageAnimation;
+		private readonly IVisualElementScheduledItem _damageAnimationHandle;
+
 		public SquadMemberElement()
 		{
 			AddToClassList(USS_BLOCK);
-			
+
 			Add(_container = new VisualElement {name = "container"});
 			_container.AddToClassList(USS_CONTAINER);
-			
+
 			var deadCross = new VisualElement {name = "dead-cross"};
 			Add(deadCross);
 			deadCross.AddToClassList(USS_DEAD_CROSS);
@@ -113,6 +122,13 @@ namespace FirstLight.Game.UIElements
 				_equipmentArmor.AddToClassList(USS_EQUIPMENT);
 				_equipmentArmor.AddToClassList(string.Format(USS_SPRITE_EQUIPMENTCATEGORY, "armor"));
 			}
+
+			_damageAnimation = _bg.experimental.animation.Start(0f, 1f, DAMAGE_ANIMATION_DURATION,
+				(e, o) => e.style.unityBackgroundImageTintColor = Color.Lerp(DAMAGE_BG, NORMAL_BG, o)).KeepAlive();
+			_damageAnimation.Stop();
+
+			_damageAnimationHandle = _bg.schedule.Execute(_damageAnimation.Start);
+			_damageAnimationHandle.Pause();
 		}
 
 		public void SetPlayer(PlayerRef player, string name, int level, string pfpUrl)
@@ -195,6 +211,13 @@ namespace FirstLight.Game.UIElements
 		public void SetDead()
 		{
 			AddToClassList(USS_DEAD);
+		}
+
+		public void PingDamage()
+		{
+			_damageAnimation.Stop();
+			_bg.style.unityBackgroundImageTintColor = DAMAGE_BG;
+			_damageAnimationHandle.ExecuteLater(1000);
 		}
 
 		public new class UxmlFactory : UxmlFactory<SquadMemberElement, UxmlTraits>

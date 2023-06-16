@@ -203,6 +203,7 @@ MonoBehaviour:
   _background: {fileID: 0}
   _millisecondsToClose: 0
   _areaShrinkingDirector: {fileID: 4236891687392369458}
+  _blastedDirector: {fileID: 2252114041857710641}
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}
@@ -374,9 +375,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8661513622637539326}
   - component: {fileID: 2252114041857710641}
-  - component: {fileID: 377759626020879112}
   m_Layer: 0
-  m_Name: Multikill1
+  m_Name: Blasted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,18 +414,6 @@ PlayableDirector:
   m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
---- !u!114 &377759626020879112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4237124172837124487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b70f5de3afb146aaa3619b2751db448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4408347539968955061
 GameObject:
   m_ObjectHideFlags: 0

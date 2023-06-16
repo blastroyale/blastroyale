@@ -23,7 +23,8 @@ namespace FirstLight.Game.Presenters
 		
 		private const string USS_SKYDIVING = "skydiving";
 
-		[FormerlySerializedAs("_areaShrinkingDirectors")] [SerializeField, Required, TabGroup("Animation")] private PlayableDirector _areaShrinkingDirector;
+		[SerializeField, Required, TabGroup("Animation")] private PlayableDirector _areaShrinkingDirector;
+		[SerializeField, Required, TabGroup("Animation")] private PlayableDirector _blastedDirector;
 		
 		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDirectionJoystickInput;
 		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDownJoystickInput;
@@ -45,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private SquadMembersView _squadMembersView;
 		private EquipmentDisplayView _equipmentDisplayView;
 		private StatusBarsView _statusBarsView;
+		private StatusNotificationsView _statusNotificationsView;
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
@@ -67,8 +69,10 @@ namespace FirstLight.Game.Presenters
 			root.Q("SquadMembers").Required().AttachView(this, out _squadMembersView);
 			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
+			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 			
 			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
+			_statusNotificationsView.SetDirectors(_blastedDirector);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

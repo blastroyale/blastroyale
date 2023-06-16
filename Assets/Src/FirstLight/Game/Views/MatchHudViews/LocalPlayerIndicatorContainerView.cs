@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private bool IsInitialized() => _playerView != null;
+		public bool IsInitialized() => _playerView != null;
 		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{

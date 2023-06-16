@@ -29,13 +29,6 @@ public partial class SROptions
 	}
 	
 	[Category("Controls")]
-	public bool NewSpecialRadius
-	{
-		get => FeatureFlags.SPECIAL_RADIUS;
-		set => FeatureFlags.SPECIAL_RADIUS = !FeatureFlags.SPECIAL_RADIUS;
-	}
-	
-	[Category("Controls")]
 	public bool SpecialsUseEnhancedTouch
 	{
 		get => FeatureFlags.SPECIAL_NEW_INPUT;

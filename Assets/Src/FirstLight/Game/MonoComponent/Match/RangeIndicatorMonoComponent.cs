@@ -12,6 +12,8 @@ namespace FirstLight.Game.MonoComponent.Match
 	{
 		[SerializeField] private float _localHeight = 0.25f;
 		[SerializeField, Required] private MeshRenderer _indicator;
+		private Color _originalColor;
+		private static readonly int _color = Shader.PropertyToID("_Color");
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
@@ -21,6 +23,20 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_indicator.enabled = false;
+			_originalColor = _indicator.material.GetColor(_color);
+		}
+
+		public void SetColor(Color c)
+		{
+			_indicator.material.SetColor(_color, c);
+		}
+
+		public void ResetColor()
+		{
+			if (_indicator.material.color != _originalColor)
+			{
+				_indicator.material.SetColor(_color, _originalColor);
+			}
 		}
 
 		/// <inheritdoc />

@@ -10,6 +10,7 @@ using Quantum;
 using Quantum.Commands;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 namespace FirstLight.Game.Services
 {
@@ -53,6 +54,7 @@ namespace FirstLight.Game.Services
 		private Vector2 _direction;
 		private Vector2 _aim;
 		private bool _shooting;
+		private bool _specialCancel;
 
 		public PlayerInputService(IGameServices gameServices, IMatchServices matchServices,
 								  IGameDataProvider dataProvider)
@@ -105,6 +107,7 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Disable();
 				Input.Gameplay.SpecialButton1.Disable();
 				Input.Gameplay.SwitchWeaponButton.Disable();
+				Input.Gameplay.CancelButton.Disable();
 				Input.Gameplay.Move.Disable();
 			}
 			else
@@ -114,6 +117,7 @@ namespace FirstLight.Game.Services
 				Input.Gameplay.SpecialButton0.Enable();
 				Input.Gameplay.SpecialButton1.Enable();
 				Input.Gameplay.SwitchWeaponButton.Enable();
+				Input.Gameplay.CancelButton.Enable();
 				Input.Gameplay.Move.Enable();
 			}
 		}
@@ -135,21 +139,29 @@ namespace FirstLight.Game.Services
 
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
-			// Do nothing here
+			// do nothing
 		}
 
 		public void OnSpecialButton0(InputAction.CallbackContext context)
 		{
-			OnSpecialButtonUsed(context, 0);
+			if (!_specialCancel)
+			{
+				OnSpecialButtonUsed(context, 0);
+			} else _specialCancel = false;
 		}
 
 		public void OnSpecialButton1(InputAction.CallbackContext context)
 		{
-			OnSpecialButtonUsed(context, 1);
+			if (!_specialCancel)
+			{
+				OnSpecialButtonUsed(context, 1);
+			}
+			else _specialCancel = false;
 		}
 
 		public void OnCancelButton(InputAction.CallbackContext context)
 		{
+			_specialCancel = context.ReadValueAsButton();
 		}
 
 		public void OnSwitchWeaponButton(InputAction.CallbackContext context)

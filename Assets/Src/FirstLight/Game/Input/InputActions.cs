@@ -477,6 +477,17 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0b05c3a6-8e73-4258-a6e0-cae21f888a4e"",
+                    ""path"": ""<OnScreenControlsDevice>/CancelPointerDown"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9308ede6-6c33-4c0c-b0cf-a863cd428f34"",
                     ""path"": ""<OnScreenControlsDevice>/SwitchWeaponButton"",
                     ""interactions"": """",

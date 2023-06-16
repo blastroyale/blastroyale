@@ -13,12 +13,14 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BLOCK = "special-button";
 		private const string USS_DRAGGABLE = USS_BLOCK + "--draggable";
 		private const string USS_PRESSED = USS_BLOCK + "--pressed";
+		private const string USS_DRAGGING = USS_BLOCK + "--dragging";
 		private const string USS_CONTAINER = USS_BLOCK + "__container";
 		private const string USS_STICK = USS_BLOCK + "__stick";
 		private const string USS_BG_CIRCLE = USS_BLOCK + "__bg-circle";
 		private const string USS_ICON = USS_BLOCK + "__icon";
 		private const string USS_COOLDOWN = USS_BLOCK + "__cooldown";
 		private const string USS_CANCEL_CIRCLE = USS_BLOCK + "__cancel-circle";
+		private const string USS_CANCEL_CIRCLE_SMALL = USS_CANCEL_CIRCLE + "__small";
 		private const string USS_CANCEL_ICON = USS_BLOCK + "__cancel-icon";
 
 		private const string USS_SPRITE_SPECIAL = "sprite-shared__icon-special-{0}";
@@ -33,7 +35,7 @@ namespace FirstLight.Game.UIElements
 
 		private Vector2 _startingPosition;
 
-		private bool _draggable;
+		private bool _needsAim;
 		private bool _onCooldown;
 		private bool _inCancel;
 
@@ -81,6 +83,8 @@ namespace FirstLight.Game.UIElements
 			_container.Add(_cooldown = new VisualElement {name = "cooldown"});
 			_cooldown.AddToClassList(USS_COOLDOWN);
 			_cooldown.SetVisibility(false);
+			
+			EnableInClassList(USS_DRAGGABLE, true);
 
 			_cooldown.Add(_cooldownLabel = new Label("14") {name = "cooldown-label"});
 
@@ -96,20 +100,18 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the current special visuals and behaviour (if it's draggable or not).
 		/// </summary>
-		public void SetSpecial(GameId special, bool draggable, long availableIn)
+		public void SetSpecial(GameId special, bool needsAim, long availableIn)
 		{
 			if (special == GameId.TutorialGrenade)
 			{
 				special = GameId.SpecialAimingGrenade;
 			}
 
-			_draggable = draggable;
+			_needsAim = needsAim;
 			_icon.RemoveSpriteClasses();
 			_icon.AddToClassList(string.Format(USS_SPRITE_SPECIAL,
 				special.ToString().ToLowerInvariant().Replace("special", "")));
-
-			EnableInClassList(USS_DRAGGABLE, draggable);
-
+			
 			_disableScheduledItem?.Pause();
 			if (availableIn > 0)
 			{
@@ -182,7 +184,16 @@ namespace FirstLight.Game.UIElements
 
 			_container.CapturePointer(evt.pointerId);
 
-			AddToClassList(USS_PRESSED);
+			if (_needsAim)
+			{
+				_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
+				AddToClassList(USS_PRESSED);
+			}
+			else
+			{
+				_cancelCircle.AddToClassList(USS_CANCEL_CIRCLE_SMALL);
+			}
+			AddToClassList(USS_DRAGGING);
 
 			var parentPosition = parent.WorldToLocal(evt.position);
 			_startingPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
@@ -192,14 +203,15 @@ namespace FirstLight.Game.UIElements
 
 		private void OnPointerMove(PointerMoveEvent evt)
 		{
-			if (_onCooldown || !_draggable || !_container.HasPointerCapture(evt.pointerId)) return;
+			if (_onCooldown || !_container.HasPointerCapture(evt.pointerId)) return;
 
+			var maxRange = worldBound.width / (_inCancel ? 1 : 2f);
 			var parentPosition = parent.WorldToLocal(evt.position);
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
 			var stickPosition = offsetPosition - _startingPosition;
-			var stickPositionClamped = Vector2.ClampMagnitude(stickPosition, worldBound.width / 2f);
-			var stickPositionClampedNormalized = stickPositionClamped / (worldBound.width / 2f);
+			var stickPositionClamped = Vector2.ClampMagnitude(stickPosition, maxRange);
+			var stickPositionClampedNormalized = stickPositionClamped / (worldBound.width / 2);
 
 			_stick.transform.position = stickPositionClamped;
 
@@ -214,6 +226,7 @@ namespace FirstLight.Game.UIElements
 					// TODO: Maybe cancel the previous animation if it looks weird when quickly cycling
 					_cancelIcon.AnimatePing(1.2f);
 				}
+				OnCancel?.Invoke(_inCancel ? 0.1f : 0f);
 			}
 
 			stickPositionClampedNormalized.y = -stickPositionClampedNormalized.y;
@@ -228,18 +241,22 @@ namespace FirstLight.Game.UIElements
 			_container.ReleasePointer(evt.pointerId);
 
 			RemoveFromClassList(USS_PRESSED);
-
+			RemoveFromClassList(USS_DRAGGING);
+			_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
+			
 			_stick.transform.position = Vector3.zero;
 
 			if (_inCancel)
 			{
 				_cancelIcon.SetVisibility(false);
-				OnCancel?.Invoke(0f);
+				OnCancel?.Invoke(1f);
 			}
 			else
 			{
 				OnPress?.Invoke(0f);
 			}
+			OnPress?.Invoke(0f);
+			_inCancel = false;
 		}
 
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>

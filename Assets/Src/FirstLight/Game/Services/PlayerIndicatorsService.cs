@@ -26,6 +26,7 @@ namespace FirstLight.Game.Services
 		private LocalInput.GameplayActions _inputs;
 		private bool _shooting;
 		private int _specialPressed = -1;
+		private bool _inCancel = false;
 
 		public PlayerIndicatorsService(IMatchServices matchServices, IGameServices gameServices)
 		{
@@ -67,7 +68,7 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton0.AddListener(OnSpecial0);
 			_inputs.SpecialButton1.AddListener(OnSpecial1);
 			_inputs.SpecialAim.AddListener(OnSpecialAim);
-			_inputs.CancelButton.AddListener(OnCancel);
+			_inputs.CancelButton.AddListener(OnSpecialCancel);
 		}
 
 		private void UnregisterListeners()
@@ -78,8 +79,7 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton0.RemoveListener(OnSpecial0);
 			_inputs.SpecialButton1.RemoveListener(OnSpecial1);
 			_inputs.SpecialAim.RemoveListener(OnSpecialAim);
-			_inputs.CancelButton.RemoveListener(OnCancel);
-			
+			_inputs.CancelButton.RemoveListener(OnSpecialCancel);
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
@@ -131,11 +131,25 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnCancel(InputAction.CallbackContext c)
+		private void OnSpecialCancel(InputAction.CallbackContext c)
 		{
 			if (!CanListen()) return;
+			if (_specialPressed == -1) return;
+			
+			var buttonValue = c.ReadValue<float>();
+			var cancelPressed = c.ReadValueAsButton();
+			var radius = _indicatorContainerView.GetSpecialRadiusIndicator(_specialPressed);
 
-			OnSpecialSetupIndicator(c, _specialPressed);
+			if (cancelPressed)
+			{
+				RemoveSpecialIndicators(_specialPressed);
+			}
+			else
+			{
+				_inCancel = buttonValue > 0 && buttonValue < 1;
+				if (_inCancel) radius.SetColor(Color.red);
+				else radius.ResetColor();
+			}
 		}
 
 		private void OnShooting(InputAction.CallbackContext c)
@@ -154,29 +168,30 @@ namespace FirstLight.Game.Services
 
 		private void OnSpecialSetupIndicator(InputAction.CallbackContext context, int specialIndex)
 		{
+			if (!context.canceled) AddSpecialIndicator(specialIndex);
+			else RemoveSpecialIndicators(specialIndex);
+		}
+
+		private void AddSpecialIndicator(int specialIndex)
+		{
 			var indicator = _indicatorContainerView.GetSpecialIndicator(specialIndex);
-			if (!context.canceled)
-			{
-				_specialPressed = specialIndex;
-				indicator.SetVisualState(true);
-				indicator.SetTransformState(Vector2.zero);
-				if (FeatureFlags.SPECIAL_RADIUS)
-				{
-					var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
-					radiusIndicator.SetVisualState(true);
-					radiusIndicator.SetTransformState(Vector2.zero);
-				}
+			_specialPressed = specialIndex;
+			_inCancel = false;
+			indicator.SetVisualState(true);
+			indicator.SetTransformState(Vector2.zero);
+			var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+			radiusIndicator.SetVisualState(true);
+			radiusIndicator.SetTransformState(Vector2.zero);
+		}
 
-				return;
-			}
-
+		private void RemoveSpecialIndicators(int specialIndex)
+		{
 			_specialPressed = -1;
-			indicator.SetVisualState(false);
-			if (FeatureFlags.SPECIAL_RADIUS)
-			{
-				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
-				radiusIndicator.SetVisualState(false);
-			}
+			_inCancel = false;
+			_indicatorContainerView.GetSpecialIndicator(specialIndex).SetVisualState(false);
+			var radius = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+			radius.SetVisualState(false);
+			radius.ResetColor();
 		}
 
 		private void OnMove(InputAction.CallbackContext context)

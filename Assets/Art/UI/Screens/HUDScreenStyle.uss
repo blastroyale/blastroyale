@@ -604,11 +604,11 @@
     width: 10px;
 }
 
-.death-notification__bar--killer {
+.death-notification__bar--friendly {
     background-color: rgb(34, 211, 232);
 }
 
-.death-notification__bar--victim {
+.death-notification__bar--enemy {
     background-color: rgb(212, 82, 80);
 }
 
@@ -633,14 +633,20 @@
 
 .death-notification__name--killer {
     -unity-text-align: middle-left;
-    color: rgb(212, 83, 80);
     padding-left: 9px;
 }
 
 .death-notification__name--victim {
     -unity-text-align: middle-right;
-    color: rgb(35, 210, 233);
     padding-right: 9px;
+}
+
+.death-notification__name--friendly {
+    color: rgb(35, 210, 233);
+}
+
+.death-notification__name--enemy {
+    color: rgb(212, 83, 80);
 }
 
 .death-notification__pfp {

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -10,7 +11,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Playables;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -20,21 +20,43 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 		}
-		
+
 		private const string USS_SKYDIVING = "skydiving";
 
-		[SerializeField, Required, TabGroup("Animation")] private PlayableDirector _areaShrinkingDirector;
-		[SerializeField, Required, TabGroup("Animation")] private PlayableDirector _blastedDirector;
-		
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDirectionJoystickInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _moveDownJoystickInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _aimDirectionJoystickInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _aimDownJoystickInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _weaponSwitchInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _special0PressedInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _special1PressedInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _specialAimInput;
-		[SerializeField, Required, TabGroup("Input")] private UnityInputScreenControl _specialCancelInput;
+		[SerializeField, Required] private GameObject _legacyMinimap;
+
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _areaShrinkingDirector;
+
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _blastedDirector;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _moveDirectionJoystickInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _moveDownJoystickInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _aimDirectionJoystickInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _aimDownJoystickInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _weaponSwitchInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _special0PressedInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _special1PressedInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _specialAimInput;
+
+		[SerializeField, Required, TabGroup("Input")]
+		private UnityInputScreenControl _specialCancelInput;
 
 		private IGameServices _gameServices;
 
@@ -60,7 +82,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 			var matchServices = MainInstaller.Resolve<IMatchServices>();
-			
+
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);
@@ -70,7 +92,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("EquipmentDisplay").Required().AttachView(this, out _equipmentDisplayView);
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
-			
+
 			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
 			_statusNotificationsView.SetDirectors(_blastedDirector);
 
@@ -78,7 +100,7 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
 
 			root.Q<ImageButton>("MenuButton").Required().clicked += OnMenuClicked;
-			
+
 			_movementJoystick.OnMove += e => InputState.Change(_moveDirectionJoystickInput.control, e);
 			_movementJoystick.OnClick += e => InputState.Change(_moveDownJoystickInput.control, e);
 			_shootingJoystick.OnMove += e => InputState.Change(_aimDirectionJoystickInput.control, e);
@@ -89,8 +111,8 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial0Pressed += e => InputState.Change(_special0PressedInput.control, e);
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
 			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);
-			_specialButtonsView.OnCancel += e => InputState.Change(_specialCancelInput.control, e); 
-			
+			_specialButtonsView.OnCancel += e => InputState.Change(_specialCancelInput.control, e);
+
 			HideSkydivingElements(true);
 		}
 
@@ -104,6 +126,18 @@ namespace FirstLight.Game.Presenters
 		{
 			base.UnsubscribeFromEvents();
 			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			_legacyMinimap.SetActive(true);
+		}
+
+		protected override Task OnClosed()
+		{
+			_legacyMinimap.SetActive(false);
+			return base.OnClosed();
 		}
 
 		private void OnMenuClicked()

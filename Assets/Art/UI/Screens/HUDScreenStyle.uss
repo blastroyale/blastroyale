@@ -1204,7 +1204,7 @@
     -unity-text-align: middle-center;
     -unity-text-outline-color: rgb(47, 44, 63);
     position: absolute;
-    top: 158px;
+    top: 148px;
     -unity-text-outline-width: 1px;
     text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
     background-image: var(--sprite-match__background-whitegradient);

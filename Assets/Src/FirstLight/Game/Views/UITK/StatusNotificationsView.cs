@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -66,7 +65,7 @@ namespace FirstLight.Game.Views.UITK
 			_killedPlayersQueue.Enqueue(_blastedPlayerName.text = callback.PlayersMatchData.Count <= 1
 				? "Dummy"
 				: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName());
-			
+
 			TryShowBlastedNotification(null);
 		}
 
@@ -75,8 +74,6 @@ namespace FirstLight.Game.Views.UITK
 			if (_blastedDirector.state == PlayState.Playing || _killedPlayersQueue.Count == 0) return;
 
 			_blastedPlayerName.text = _killedPlayersQueue.Dequeue();
-
-			FLog.Info("PACO", "Showing blasted notification");
 			_blastedDirector.Play();
 		}
 	}

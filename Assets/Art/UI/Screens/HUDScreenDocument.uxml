@@ -41,6 +41,7 @@
                     </ui:VisualElement>
                     <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
                     <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
+                    <ui:Label text="AREA SHRINKING" name="NotificationText" class="status-areashrinking" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="device-status-bar">
@@ -96,7 +97,6 @@
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); align-items: center;">
-            <ui:Label text="AREA SHRINKING" name="AreaShrinkingNotification" class="status-areashrinking" style="display: none;" />
             <ui:VisualElement name="BlastedNotification" class="status-kill">
                 <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
                 <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />

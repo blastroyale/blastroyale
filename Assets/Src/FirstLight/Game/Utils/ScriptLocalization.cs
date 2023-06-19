@@ -1331,6 +1331,15 @@ namespace I2.Loc
 			public static string youre_ready 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/youre_ready"); } }
 		}
 
+		public static class UITInbox
+		{
+			public static string inbox_community 		{ get{ return LocalizationManager.GetTranslation ("UITInbox/inbox_community"); } }
+			public static string inbox_news 		{ get{ return LocalizationManager.GetTranslation ("UITInbox/inbox_news"); } }
+			public static string inbox_personal 		{ get{ return LocalizationManager.GetTranslation ("UITInbox/inbox_personal"); } }
+			public static string inbox_title 		{ get{ return LocalizationManager.GetTranslation ("UITInbox/inbox_title"); } }
+			public static string inbox_videos 		{ get{ return LocalizationManager.GetTranslation ("UITInbox/inbox_videos"); } }
+		}
+
 		public static class UITLeaderboards
 		{
 			public static string battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/battleroyale"); } }
@@ -1368,6 +1377,13 @@ namespace I2.Loc
 			public static string secure_progress 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/secure_progress"); } }
 			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
 			public static string username 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/username"); } }
+		}
+
+		public static class UITMatch
+		{
+			public static string airdrop_landing 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/airdrop_landing"); } }
+			public static string area_shrinking 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/area_shrinking"); } }
+			public static string go_to_safe_area 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/go_to_safe_area"); } }
 		}
 
 		public static class UITMatchmaking
@@ -2878,6 +2894,15 @@ namespace I2.Loc
 		    public const string youre_ready = "UITHomeScreen/youre_ready";
 		}
 
+		public static class UITInbox
+		{
+		    public const string inbox_community = "UITInbox/inbox_community";
+		    public const string inbox_news = "UITInbox/inbox_news";
+		    public const string inbox_personal = "UITInbox/inbox_personal";
+		    public const string inbox_title = "UITInbox/inbox_title";
+		    public const string inbox_videos = "UITInbox/inbox_videos";
+		}
+
 		public static class UITLeaderboards
 		{
 		    public const string battleroyale = "UITLeaderboards/battleroyale";
@@ -2915,6 +2940,13 @@ namespace I2.Loc
 		    public const string secure_progress = "UITLoginRegister/secure_progress";
 		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";
 		    public const string username = "UITLoginRegister/username";
+		}
+
+		public static class UITMatch
+		{
+		    public const string airdrop_landing = "UITMatch/airdrop_landing";
+		    public const string area_shrinking = "UITMatch/area_shrinking";
+		    public const string go_to_safe_area = "UITMatch/go_to_safe_area";
 		}
 
 		public static class UITMatchmaking

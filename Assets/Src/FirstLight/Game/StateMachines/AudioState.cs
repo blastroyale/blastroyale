@@ -10,6 +10,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -491,22 +492,31 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-			var config =
-				_services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
-
+			var shrinkingConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
+			var step = 0;
+			var warningTime = FP._0;
 			var circle = f.GetSingleton<ShrinkingCircle>();
+			
+			foreach (var cfg in shrinkingConfigs)
+			{
+				if (cfg.Map == _services.NetworkService.CurrentRoomMapConfig.Value.Map && cfg.Step == circle.Step)
+				{
+					step = cfg.Step;
+					warningTime = cfg.WarningTime;
+					break;
+				}
+			}
 
 			// We don't play on the last step, so we get the previous one as the max
-			var maxStepForCircleClosing = allConfigs[^3].Step;
-			var stepForFinalCountdown = allConfigs[^2].Step;
+			var maxStepForCircleClosing = shrinkingConfigs[^3].Step;
+			var stepForFinalCountdown = shrinkingConfigs[^2].Step;
 
-			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
+			var time = (circle.ShrinkingStartTime - f.Time - warningTime).AsFloat;
 
 			yield return new WaitForSeconds(time);
 			if (!_gameRunning) yield break;
 
-			if (config.Step == stepForFinalCountdown)
+			if (step == stepForFinalCountdown)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown,
 					GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
@@ -517,9 +527,9 @@ namespace FirstLight.Game.StateMachines
 			yield return new WaitForSeconds(time);
 			if (!_gameRunning) yield break;
 
-			if (config.Step <= maxStepForCircleClosing)
+			if (step <= maxStepForCircleClosing)
 			{
-				_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
+				_services.AudioFxService.PlayClipQueued2D(step == maxStepForCircleClosing
 					? AudioId.Vo_CircleLastClose
 					: AudioId.Vo_CircleClose, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}

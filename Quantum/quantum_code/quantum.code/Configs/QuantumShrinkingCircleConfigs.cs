@@ -7,7 +7,9 @@ namespace Quantum
 	[Serializable]
 	public struct QuantumShrinkingCircleConfig
 	{
+		public int Key;
 		public int Step;
+		public GameId Map;
 
 		public FP DelayTime;
 		public FP WarningTime;

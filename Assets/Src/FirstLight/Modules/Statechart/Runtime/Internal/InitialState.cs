@@ -76,5 +76,14 @@ namespace FirstLight.Statechart.Internal
 		{
 			return _transition;
 		}
+		public override Dictionary<string, object> CurrentState
+		{
+			get
+			{
+				var state = base.CurrentState;
+				state.Add("TransitionTo", _transition.TargetState.Name);
+				return state;
+			}
+		}
 	}
 }

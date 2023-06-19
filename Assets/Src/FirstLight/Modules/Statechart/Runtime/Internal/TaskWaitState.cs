@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Server.SDK.Modules;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -16,9 +18,8 @@ namespace FirstLight.Statechart.Internal
 		private bool _triggered;
 		private bool _completed;
 		private uint _executionCount;
-
-		private readonly IList<Action> _onEnter = new List<Action>();
-		private readonly IList<Action> _onExit = new List<Action>();
+		
+		private readonly EnterExitDefaultHandler _enterExitHandler;
 		private readonly Dictionary<IStatechartEvent, ITransitionInternal> _events = new Dictionary<IStatechartEvent, ITransitionInternal>();
 
 		public TaskWaitState(string name, IStateFactoryInternal factory) : base(name, factory)
@@ -26,6 +27,8 @@ namespace FirstLight.Statechart.Internal
 			_triggered = false;
 			_completed = false;
 			_executionCount = 0;
+			_enterExitHandler = new EnterExitDefaultHandler(this);
+
 		}
 
 		/// <inheritdoc />
@@ -34,10 +37,7 @@ namespace FirstLight.Statechart.Internal
 			_triggered = false;
 			_completed = false;
 			
-			for(int i = 0; i < _onEnter.Count; i++)
-			{
-				_onEnter[i]?.Invoke();
-			}
+			_enterExitHandler.Enter();
 		}
 
 		/// <inheritdoc />
@@ -45,10 +45,7 @@ namespace FirstLight.Statechart.Internal
 		{
 			_completed = true;
 			
-			for(int i = 0; i < _onExit.Count; i++)
-			{
-				_onExit[i]?.Invoke();
-			}
+			_enterExitHandler.Exit();
 		}
 
 		/// <inheritdoc />
@@ -70,23 +67,18 @@ namespace FirstLight.Statechart.Internal
 		/// <inheritdoc />
 		public void OnEnter(Action action)
 		{
-			if (action == null)
-			{
-				throw new NullReferenceException($"The state {Name} cannot have a null OnEnter action");
-			}
+			_enterExitHandler.OnEnter(action);
+		}
 
-			_onEnter.Add(action);
+		public void OnEnterAsync(Func<Task> task)
+		{
+			_enterExitHandler.OnEnterAsync(task);
 		}
 
 		/// <inheritdoc />
 		public void OnExit(Action action)
 		{
-			if (action == null)
-			{
-				throw new NullReferenceException($"The state {Name} cannot have a null OnExit action");
-			}
-
-			_onExit.Add(action);
+			_enterExitHandler.OnExit(action);
 		}
 
 		/// <inheritdoc />
@@ -154,9 +146,22 @@ namespace FirstLight.Statechart.Internal
 			if (!_completed && _executionCount - 1 == currentExecution)
 			{
 				_completed = true;
-				
+				FLog.Verbose("Statechart",Name+"State on move next call "+ModelSerializer.PrettySerialize(_stateFactory.Data.Statechart.CurrentStateDebug()));
 				_stateFactory.Data.StateChartMoveNextCall(null);
 			}
 		}
+		public override Dictionary<string, object> CurrentState
+		{
+			get
+			{
+				var state = base.CurrentState;
+				state.Add("TriggerEvents", _events.ToDictionary(kv => kv.Key.Name, kv => kv.Value.TargetState?.Name));
+				state.Add("Completed", _completed);
+				state.Add("ExecutionCount", _executionCount);
+				state.Add("Triggered", _triggered);
+				return state;
+			}
+		}
+		
 	}
 }

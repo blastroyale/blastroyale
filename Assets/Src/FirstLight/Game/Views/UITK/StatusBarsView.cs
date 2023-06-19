@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -78,6 +79,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -220,6 +222,30 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
+		}
+
+		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.PlayerEntity) return;
+			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable))
+				return;
+			if (!_visiblePlayers.TryGetValue(callback.PlayerEntity, out var bar)) return;
+
+			switch (consumable.ConsumableType)
+			{
+				case ConsumableType.Health:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxHealth);
+					break;
+				case ConsumableType.Shield:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxShields);
+					break;
+				case ConsumableType.Ammo:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxAmmo);
+					break;
+				default:
+					FLog.Error("PACO", $"Unknown collectable: {callback.CollectableId}");
+					break;
+			}
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

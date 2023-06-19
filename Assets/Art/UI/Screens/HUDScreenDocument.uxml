@@ -4,17 +4,17 @@
         <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent">
             <FirstLight.Game.UIElements.HealthStatusBarElement name="HealthStatusBarElement" style="position: absolute; left: 1107px; top: 246px;" />
             <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;">
-                <ui:VisualElement name="AbovePlayerNotifications" class="max-hp-shield-ammo__container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxShieldLabel" class="max-shield__label" style="width: 94px; height: 37px;">
+                <ui:VisualElement name="AbovePlayerNotifications" class="max-hp-shield-ammo__container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxShieldLabel" class="max-shield__label" style="width: 94px; height: 37px; display: flex;">
                         <ui:VisualElement name="MaxShieldIcon" class="max-shield__icon" />
                     </ui:Label>
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxHPLabel" class="max-hp__label">
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxHPLabel" class="max-hp__label" style="display: none;">
                         <ui:VisualElement name="MaxHPIcon" class="max-hp__icon" />
                     </ui:Label>
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxAmmoLabel" class="max-ammo__label">
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxAmmoLabel" class="max-ammo__label" style="display: none;">
                         <ui:VisualElement name="MaxAmmoIcon" class="max-ammo__icon" />
                     </ui:Label>
-                    <ui:Label tabindex="-1" text="+1 Level" display-tooltip-when-elided="true" name="PlusLevelLabel" class="plus-level__label" />
+                    <ui:Label tabindex="-1" text="+1 Level" display-tooltip-when-elided="true" name="PlusLevelLabel" class="plus-level__label" style="display: none;" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.PlayerStatusBarElement>
         </ui:VisualElement>

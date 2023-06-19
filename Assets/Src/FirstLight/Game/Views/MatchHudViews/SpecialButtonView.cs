@@ -21,6 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// This class handles the Special Move button. As long as the player has special charges and the special is not in
 	/// cooldown mode, they can use their special move during gameplay.
 	/// </summary>
+	[Obsolete("Please use SpecialButtonElement instead")]
 	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
 	{
 		public UnityEvent OnCancelEnter;
@@ -98,7 +99,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			var center = FeatureFlags.SPECIAL_RADIUS ? _defaultHandlePosition : (Vector2)_targetingCenterAnchor.position;
+			var center = _defaultHandlePosition;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, center,
 				eventData.pressEventCamera, out var buttonPosition);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
@@ -142,12 +143,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_canTriggerCancelEnter = false;
 			_canTriggerCancelExit = false;
 			_firstCancelExit = true;
-
-			if (FeatureFlags.SPECIAL_RADIUS)
-			{
-				SetAlpha(_backgroundRadius, 1);
-			}
 			
+			SetAlpha(_backgroundRadius, 1);
+
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
 			
@@ -163,7 +161,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			var center = FeatureFlags.SPECIAL_RADIUS ? _defaultHandlePosition : (Vector2)_targetingCenterAnchor.position;
+			var center = _defaultHandlePosition;
 			OnDrag(f.currentTouch.touchId, f.currentTouch.screenPosition, center);
 		}
 
@@ -196,14 +194,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_firstCancelExit = false;
 				_canTriggerCancelEnter = true;
 				
-				if (!FeatureFlags.SPECIAL_RADIUS)
-				{
-					_specialAnchor.SetActive(false);
-				}
-				else
-				{
-					SetAlpha(_specialIconImage, 0.2f);
-				}
+				SetAlpha(_specialIconImage, 0.2f);
+				
 				_cancelAnchor.SetActive(true);
 			}
 			// Exit cancel radius
@@ -211,14 +203,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_canTriggerCancelExit = false;
 				_canTriggerCancelEnter = true;
-				if (!FeatureFlags.SPECIAL_RADIUS)
-				{
-					_specialAnchor.SetActive(false);
-				}
-				else
-				{
-					SetAlpha(_specialIconImage, 0.2f);
-				}
+			
+				SetAlpha(_specialIconImage, 0.2f);
+				
 				_cancelAnchor.SetActive(true);
 				OnCancelExit?.Invoke();
 			}
@@ -232,11 +219,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else
 			{
-				if (FeatureFlags.SPECIAL_RADIUS)
-				{
+
 					var closestPosition = _defaultHandlePosition + Vector2.ClampMagnitude(delta, _specialRadius);
 					_specialAnchor.transform.position = closestPosition;
-				}
+				
 				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
 			}
 			_lastDragDeltaMagSqr = deltaMag;
@@ -249,15 +235,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			if (!FeatureFlags.SPECIAL_RADIUS)
-			{
-				_specialAnchor.SetActive(true);
-			}
-			else
-			{
-				SetAlpha(_backgroundRadius, 0);
-				SetAlpha(_specialIconImage, 1);
-			}
+			SetAlpha(_backgroundRadius, 0);
+			SetAlpha(_specialIconImage, 1);
+			
 			
 			_currentTouch = null;
 

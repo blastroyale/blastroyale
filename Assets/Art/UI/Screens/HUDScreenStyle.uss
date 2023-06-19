@@ -78,8 +78,14 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 800px;
-    height: 800px;
+    width: 400px;
+    height: 400px;
+    opacity: 1;
+}
+
+.special-button__cancel-circle__small {
+    width: 170px;
+    height: 170px;
     opacity: 1;
 }
 
@@ -119,7 +125,7 @@
     height: 260px;
 }
 
-.special-button--pressed > .special-button__container {
+.special-button--dragging > .special-button__container {
     background-color: rgba(233, 226, 225, 0.05);
     border-left-color: rgba(233, 226, 225, 0.2);
     border-right-color: rgba(233, 226, 225, 0.2);
@@ -154,7 +160,7 @@
     background-color: var(--match-button-background-color);
 }
 
-.special-button--pressed .special-button__stick {
+.special-button--dragging .special-button__stick {
     border-left-color: var(--match-button-outline-color);
     border-right-color: var(--match-button-outline-color);
     border-top-color: var(--match-button-outline-color);

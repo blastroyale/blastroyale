@@ -171,12 +171,7 @@ namespace FirstLight.Game.Utils
 		/// If false it will be more accurate visually but not necessarily shoot where you aim
 		/// </summary>
 		public static bool QUANTUM_PREDICTED_AIM = false;
-
-		/// <summary>
-		/// If true limits special radius and moves special handle to have reference point
-		/// </summary>
-		public static bool SPECIAL_RADIUS = true;
-
+		
 		/// <summary>
 		/// Should specials use new input system
 		/// </summary>

@@ -60,6 +60,9 @@ namespace FirstLight.Statechart.Internal
       /// It requires the <see cref="IStatechart"/> to run at runtime.
       /// </summary>
       void Validate();
+      
+      public Dictionary<string,object>  CurrentState { get; }
+
    }
 
    /// <inheritdoc />
@@ -84,7 +87,14 @@ namespace FirstLight.Statechart.Internal
       public string Creator { get; private set; }
 
       public bool RunningAsync { get; private set; }
-      
+
+      public virtual Dictionary<string,object> CurrentState => new()
+      {
+         {"Name",Name},
+         {"Creator",Creator},
+         {"Type",GetType().Name}
+      };
+
       protected StateInternal(string name, IStateFactoryInternal stateFactory)
       {
          Id = ++_idRef;
@@ -157,7 +167,7 @@ namespace FirstLight.Statechart.Internal
 
             return null;
          }
-
+         
          TriggerExit();
          TriggerTransition(transition, statechartEvent?.Name);
          TriggerEnter(nextState);
@@ -206,7 +216,7 @@ namespace FirstLight.Statechart.Internal
          {
 
             LogEnter(state);
-
+         
             state.Enter();
          }
          catch (Exception e)

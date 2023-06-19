@@ -42,6 +42,11 @@ namespace FirstLight.Game.Logic
 		/// Does the player own a specific item?
 		/// </summary>
 		bool IsItemOwned(CollectionItem item);
+
+		/// <summary>
+		/// Unlocks the collection item for the player
+		/// </summary>
+		void UnlockCollectionItem(CollectionItem item);
 	}
 
 	/// <summary>
@@ -83,6 +88,17 @@ namespace FirstLight.Game.Logic
 
 			Data.DefaultEquipped.TryGetValue(group, out var defaultEquipped);
 			return defaultEquipped;
+		}
+
+		public void UnlockCollectionItem(CollectionItem item)
+		{
+			var category = GetCollectionType(item);
+			if (!Data.OwnedCollectibles.TryGetValue(category, out var collection))
+			{
+				collection = new();
+				Data.OwnedCollectibles[category] = collection;
+			}
+			collection.Add(item);
 		}
 
 		public CollectionCategory GetCollectionType(CollectionItem item)

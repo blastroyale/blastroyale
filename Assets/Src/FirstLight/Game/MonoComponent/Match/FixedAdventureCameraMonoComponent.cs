@@ -23,6 +23,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _winnerCamera;
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
 		//this object is locked to the player and used for more intriacate camera control
 		[SerializeField, Required] private GameObject _followObject;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			_services.MessageBrokerService.Subscribe<WinnerSetCameraMessage>(OnWinnerSetCamera);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
@@ -155,6 +157,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
+		private void OnWinnerSetCamera(WinnerSetCameraMessage obj)
+		{
+			_winnerCamera.Follow = obj.WinnerTrasform;
+			_winnerCamera.LookAt = obj.WinnerTrasform;
+			
+			SetActiveCamera(_winnerCamera);
+		}
+		
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
 			if (callback.Game.PlayerIsLocal(callback.Player))

@@ -529,6 +529,12 @@ namespace FirstLight.Game.StateMachines
 		private void LoadingComplete()
 		{
 			CloseTransitions();
+			
+			// Giving new skins to old players
+			if(!_gameDataProvider.CollectionDataProvider.IsItemOwned(new (GameId.MalePunk)))
+			{
+				_services.CommandService.ExecuteCommand(new GetNewSkinsCommand());
+			}
 		}
 
 		private void CloseTransitions()

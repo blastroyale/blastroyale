@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IndicatorVfxId _shootIndicatorId;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
-		private readonly IIndicator[] _specialRadiusIndicators = new IIndicator[Constants.MAX_SPECIALS];
+		private readonly RangeIndicatorMonoComponent[] _specialRadiusIndicators = new RangeIndicatorMonoComponent[Constants.MAX_SPECIALS];
 		private WeaponAim _weaponAim;
 		
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private bool IsInitialized() => _playerView != null;
+		public bool IsInitialized() => _playerView != null;
 		
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
@@ -96,7 +96,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Gets the special radius which is responsible to demonstrate the max range of the given special
 		/// </summary>
-		public IIndicator GetSpecialRadiusIndicator(int specialIdx)
+		public RangeIndicatorMonoComponent GetSpecialRadiusIndicator(int specialIdx)
 		{
 			return _specialRadiusIndicators[specialIdx];
 		}
@@ -204,19 +204,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
 			                                  .GetComponent<IIndicator>();
 			
-			if (FeatureFlags.SPECIAL_RADIUS)
+			if (_specialRadiusIndicators[index] == null)
 			{
-				if (_specialRadiusIndicators[index] == null)
-				{
-					_specialRadiusIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int)IndicatorVfxId.Range])
-						.GetComponent<IIndicator>();
-				}
-			
-				_specialRadiusIndicators[index].Init(playerView);
-				_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat, 
-					config.MaxRange.AsFloat, config.MaxRange.AsFloat);
-				_specialIndicators[index].Init(playerView);
+				_specialRadiusIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int)IndicatorVfxId.Range])
+					.GetComponent<RangeIndicatorMonoComponent>();
 			}
+		
+			_specialRadiusIndicators[index].Init(playerView);
+			_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat, 
+				config.MaxRange.AsFloat, config.MaxRange.AsFloat);
+			_specialIndicators[index].Init(playerView);
+			
 			_specialIndicators[index].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}

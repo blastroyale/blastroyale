@@ -25,6 +25,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for match controls.
 	/// </summary>
+	[Obsolete("Please use HUDScreenPresenter instead")]
 	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		public unsafe delegate void SetQuantumInput(CallbackPollInput callback, ref Quantum.Input input);
@@ -264,23 +265,21 @@ namespace FirstLight.Game.Presenters
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 
-				if (FeatureFlags.SPECIAL_RADIUS)
-				{
-					var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
-					radiusIndicator.SetVisualState(true);
-					radiusIndicator.SetTransformState(Vector2.zero);
-				}
+			
+				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+				radiusIndicator.SetVisualState(true);
+				radiusIndicator.SetTransformState(Vector2.zero);
+				
 
 				return;
 			}
 
 			indicator.SetVisualState(false);
 
-			if (FeatureFlags.SPECIAL_RADIUS)
-			{
-				var radiusIndicator = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
-				radiusIndicator.SetVisualState(false);
-			}
+		
+			var radius = _indicatorContainerView.GetSpecialRadiusIndicator(specialIndex);
+			radius.SetVisualState(false);
+		
 
 			if (context.control.device is OnScreenControlsDevice && !specialButton.DraggingValidPosition())
 			{

@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using Quantum;
 using FirstLight.SDK.Services;
 using Photon.Realtime;
+using UnityEngine;
 
 namespace FirstLight.Game.Messages
 {
@@ -52,6 +53,12 @@ namespace FirstLight.Game.Messages
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+
+	public struct WinnerSetCameraMessage : IMessage
+	{
+		public Transform WinnerTrasform;
+	}
+	
 	public struct LeftBeforeMatchFinishedMessage : IMessage { }
 	public struct MatchCountdownStartedMessage : IMessage { }
 

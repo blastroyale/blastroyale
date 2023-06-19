@@ -2,6 +2,7 @@ using System;
 using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.UIElements;
@@ -26,9 +27,6 @@ namespace FirstLight.Game.Presenters
 			public Action ContinueClicked;
 		}
 
-		[SerializeField, Required] private CinemachineVirtualCamera _playerProxyCamera;
-		[SerializeField, Required] protected PlayableDirector _director;
-
 		private EntityRef _playerWinnerEntity;
 		private IMatchServices _matchService;
 		private IGameServices _services;
@@ -40,6 +38,7 @@ namespace FirstLight.Game.Presenters
 		private QuantumGame _game;
 		private QuantumGame _frame;
 		private GameContainer _container;
+		private Transform _entityViewTransform;
 
 		private bool _isSpectator;
 
@@ -57,21 +56,9 @@ namespace FirstLight.Game.Presenters
 			root.Q<LocalizedButton>("NextButton").clicked += OnNextClicked;
 		}
 
-		protected override void SubscribeToEvents()
-		{
-			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
-		}
-
-		protected override void UnsubscribeFromEvents()
-		{
-			QuantumEvent.UnsubscribeListener<EventOnPlayerLeft>(this);
-		}
-
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
-			SetupCamera();
 
 			var game = QuantumRunner.Default.Game;
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
@@ -88,61 +75,27 @@ namespace FirstLight.Game.Presenters
 			}
 			_winnerBanner.SetDisplay(_services.TutorialService.CurrentRunningTutorial.Value != TutorialSection.FIRST_GUIDE_MATCH);
 
-			PlayTimeline();
+			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
+			{
+				_entityViewTransform = entityView.transform;
+				
+				_services.MessageBrokerService.Publish(new WinnerSetCameraMessage {WinnerTrasform = _entityViewTransform});
+			}
 		}
 
 		public void OnNotify(Playable origin, INotification notification, object context)
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
 
-			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
+			if (playVfxMarker != null && !_entityViewTransform.IsDestroyed())
 			{
-				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
+				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _entityViewTransform.position;
 			}
 		}
-
-		private void PlayTimeline()
-		{
-			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
-			{
-				var entityViewTransform = entityView.transform;
-
-				_playerProxyCamera.Follow = entityViewTransform;
-				_playerProxyCamera.LookAt = entityViewTransform;
-				_director.time = 0;
-
-				_director.Play();
-			}
-		}
-
-		private void SetupCamera()
-		{
-			var cinemachineBrain = Camera.main.gameObject.GetComponent<CinemachineBrain>();
-
-			foreach (var output in _director.playableAsset.outputs)
-			{
-				if (output.outputTargetType == typeof(CinemachineBrain))
-				{
-					_director.SetGenericBinding(output.sourceObject, cinemachineBrain);
-				}
-			}
-		}
-
+		
 		private void OnNextClicked()
 		{
 			Data.ContinueClicked.Invoke();
-			_director.Stop();
-		}
-
-		private void OnEventOnPlayerLeft(EventOnPlayerLeft callback)
-		{
-			if (_playerWinnerEntity == EntityRef.None || callback.Entity != _playerWinnerEntity)
-			{
-				return;
-			}
-
-			_director.Stop();
-			_playerProxyCamera.gameObject.SetActive(false);
 		}
 	}
 }

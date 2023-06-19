@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using I2.Loc;
 using UnityEngine;
@@ -30,6 +29,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_HEALTH_HOLDER = USS_BLOCK + "__health-holder";
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
 		private const string USS_AMMO_HOLDER = USS_BLOCK + "__ammo-holder";
+		private const string USS_AMMO_RELOAD_BAR = USS_BLOCK + "__ammo-reload-bar";
 		private const string USS_AMMO_SEGMENT = USS_BLOCK + "__ammo-segment";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
 		private const string USS_NOTIFICATION_ICON = USS_BLOCK + "__notification-icon";
@@ -43,6 +43,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _shieldBar;
 		private readonly VisualElement _healthBar;
 		private readonly VisualElement _ammoHolder;
+		private readonly VisualElement _ammoReloadBar;
 		private readonly Label _notificationLabel;
 
 		private bool _isFriendly;
@@ -50,7 +51,7 @@ namespace FirstLight.Game.UIElements
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
-
+		private ValueAnimation<Vector3> _reloadAnimation;
 
 		public PlayerStatusBarElement()
 		{
@@ -83,6 +84,9 @@ namespace FirstLight.Game.UIElements
 
 			Add(_ammoHolder = new VisualElement {name = "ammo-holder"});
 			_ammoHolder.AddToClassList(USS_AMMO_HOLDER);
+
+			Add(_ammoReloadBar = new VisualElement {name = "reload-bar"});
+			_ammoReloadBar.AddToClassList(USS_AMMO_RELOAD_BAR);
 
 			Add(_level = new Label("10") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
@@ -179,6 +183,10 @@ namespace FirstLight.Game.UIElements
 			{
 				segment.SetVisibility(index++ < visibleBars);
 			}
+			
+			// Cancel reload
+			_reloadAnimation?.Stop();
+			_ammoReloadBar.SetDisplay(false);
 		}
 
 		/// <summary>
@@ -236,6 +244,24 @@ namespace FirstLight.Game.UIElements
 			_notificationLabel.SetDisplay(true);
 			_notificationHandle.ExecuteLater(1000);
 			_notificationLabel.AnimatePing();
+		}
+
+		public void ShowReload(int reloadTime)
+		{
+			if (!_isFriendly) return;
+
+			_ammoReloadBar.SetDisplay(true);
+
+			_ammoReloadBar.transform.position = Vector3.zero;
+			
+			_reloadAnimation?.Stop();
+			_reloadAnimation = _ammoReloadBar.experimental.animation.Position(new Vector3(130, 0, 0), reloadTime)
+				.OnCompleted(() =>
+				{
+					_ammoReloadBar.SetDisplay(false);
+					_reloadAnimation = null;
+				}).Ease(Easing.Linear);
+			_reloadAnimation.Start();
 		}
 
 		public enum NotificationType

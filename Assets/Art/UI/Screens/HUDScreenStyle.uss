@@ -1129,6 +1129,16 @@
     display: none;
 }
 
+.player-status-bar__ammo-reload-bar {
+    position: absolute;
+    display: none;
+    bottom: 2px;
+    left: 32px;
+    width: 10px;
+    background-color: rgb(255, 255, 255);
+    height: 6px;
+}
+
 .player-status-bar--friendly .player-status-bar__ammo-holder {
     display: flex;
 }

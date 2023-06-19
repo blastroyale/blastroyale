@@ -80,6 +80,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
+			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -246,6 +247,14 @@ namespace FirstLight.Game.Views.UITK
 					FLog.Error("PACO", $"Unknown collectable: {callback.CollectableId}");
 					break;
 			}
+		}
+
+		private unsafe void OnPlayerReloadStart(EventOnPlayerReloadStart callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.Entity, out var pc)) return;
+
+			bar.ShowReload((int) (pc.WeaponSlot->ReloadTime.AsFloat * 1000));
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

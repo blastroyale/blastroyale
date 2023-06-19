@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // ReSharper disable CheckNamespace
 
@@ -8,30 +9,24 @@ namespace FirstLight.Statechart.Internal
 	/// <inheritdoc cref="IChoiceState"/>
 	internal class ChoiceState : StateInternal, IChoiceState
 	{
-		private readonly IList<Action> _onEnter = new List<Action>();
-		private readonly IList<Action> _onExit = new List<Action>();
 		private readonly IList<ITransitionInternal> _transitions = new List<ITransitionInternal>();
-
+		private readonly EnterExitDefaultHandler _enterExitHandler;
+		
 		public ChoiceState(string name, IStateFactoryInternal factory) : base(name, factory)
 		{
+			_enterExitHandler = new EnterExitDefaultHandler(this);
 		}
 
 		/// <inheritdoc />
 		public override void Enter()
 		{
-			for(var i = 0; i < _onEnter.Count; i++)
-			{
-				_onEnter[i]?.Invoke();
-			}
+			_enterExitHandler.Enter();
 		}
 
 		/// <inheritdoc />
 		public override void Exit()
 		{
-			for(var i = 0; i < _onExit.Count; i++)
-			{
-				_onExit[i]?.Invoke();
-			}
+			_enterExitHandler.Exit();
 		}
 
 		/// <inheritdoc />
@@ -74,23 +69,18 @@ namespace FirstLight.Statechart.Internal
 		/// <inheritdoc />
 		public void OnEnter(Action action)
 		{
-			if (action == null)
-			{
-				throw new NullReferenceException($"The state {Name} cannot have a null OnEnter action");
-			}
+			_enterExitHandler.OnEnter(action);
+		}
 
-			_onEnter.Add(action);
+		public void OnEnterAsync(Func<Task> task)
+		{
+			_enterExitHandler.OnEnterAsync(task);
 		}
 
 		/// <inheritdoc />
 		public void OnExit(Action action)
 		{
-			if (action == null)
-			{
-				throw new NullReferenceException($"The state {Name} cannot have a null OnExit action");
-			}
-
-			_onExit.Add(action);
+			_enterExitHandler.OnExit(action);
 		}
 
 		/// <inheritdoc />

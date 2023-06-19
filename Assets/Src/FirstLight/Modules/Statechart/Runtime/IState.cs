@@ -35,6 +35,13 @@ namespace FirstLight.Statechart
 		/// Adds the <paramref name="action"/> to be invoked when the state is activated
 		/// </summary>
 		void OnEnter(Action action);
+		
+		/// <summary>
+		/// Adds an async action to be executed on enter. This is not blocking, it behaves the same way as OnEnter,
+		/// but it accepts Func<Task>, so we can have better stack traces
+		/// </summary>
+		/// <param name="task"></param>
+		void OnEnterAsync(Func<Task> task);
 	}
 
 	/// <summary>

@@ -24,6 +24,15 @@ namespace FirstLight.Server.SDK.Modules
         }
 
         /// <summary>
+        /// Serializes a given object to a indented json string
+        /// </summary>
+        public static string PrettySerialize(object model)
+        {
+            var value = JsonConvert.SerializeObject(model, Formatting.Indented, _settings);
+            return value;
+        }
+        
+        /// <summary>
         /// Serializes a given object to a key value pair.
         /// Key is the model type name, value is a string representation of the model.
         /// </summary>

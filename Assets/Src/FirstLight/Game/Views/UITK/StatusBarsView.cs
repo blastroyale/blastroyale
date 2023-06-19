@@ -202,6 +202,7 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			bar.SetLevel(callback.CurrentLevel);
+			bar.ShowNotification(PlayerStatusBarElement.NotificationType.LevelUp);
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)

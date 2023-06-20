@@ -24,13 +24,13 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 267px;
+    right: 90px;
     bottom: 377px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 454px;
+    right: 312px;
     bottom: 254px;
 }
 
@@ -193,7 +193,7 @@
 }
 
 .joystick--move {
-    left: 32px;
+    left: 80px;
     bottom: 80px;
     width: 220px;
     height: 220px;
@@ -204,7 +204,7 @@
 }
 
 .joystick--aim {
-    right: 100px;
+    right: 16px;
     bottom: 80px;
     width: 300px;
     height: 300px;
@@ -281,7 +281,7 @@
 .menu-button {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -20px;
     width: 129px;
     height: 91px;
     align-items: center;
@@ -332,8 +332,8 @@
 
 .device-status-bar {
     position: absolute;
-    right: 366px;
-    top: 38px;
+    right: 112px;
+    top: 34px;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
@@ -342,7 +342,7 @@
 
 .weapon-display {
     position: absolute;
-    right: 505px;
+    right: 410px;
     width: 216px;
     height: 193px;
     bottom: 51px;
@@ -524,13 +524,13 @@
 
 .weapon-display__ammo {
     color: rgb(242, 176, 53);
-    font-size: 36px;
+    font-size: 50px;
     -unity-text-outline-width: 1.2px;
     text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
-    top: 50px;
+    top: 41px;
     -unity-text-align: upper-right;
-    right: 265px;
+    right: 281px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -551,9 +551,10 @@
 
 .weapon-display__ammo-icon {
     position: relative;
-    right: -37px;
+    right: -44px;
     rotate: -64deg;
-    top: 8px;
+    top: 13px;
+    scale: 1.2 1.2;
 }
 
 .weapon-display__ammo-gradient {
@@ -567,6 +568,7 @@
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
     -unity-background-image-tint-color: rgb(11, 0, 51);
+    display: none;
 }
 
 .weapon-display--melee .weapon-display__ammo-gradient {
@@ -977,8 +979,8 @@
 
 .equipment-display {
     position: absolute;
-    left: 384px;
-    bottom: 64px;
+    left: 362px;
+    bottom: 44px;
     flex-direction: row;
     align-items: center;
 }
@@ -989,8 +991,8 @@
 
 .equipment-display__character {
     background-image: var(--sprite-match__background-equipmentcharacter);
-    width: 156px;
-    height: 151px;
+    width: 173px;
+    height: 165px;
 }
 
 .equipment-display__gear-item {
@@ -1004,34 +1006,36 @@
 
 .equipment-display__gear-item--shield {
     background-image: var(--sprite-match__icon-equipmentcharacter-shield);
-    width: 95px;
-    height: 122px;
-    top: 12px;
-    left: 1px;
+    width: 89px;
+    height: 113px;
+    top: 11px;
+    left: -2px;
 }
 
 .equipment-display__gear-item--armor {
     background-image: var(--sprite-match__icon-equipmentcharacter-armor);
-    width: 72px;
-    height: 68px;
-    top: 74px;
-    left: 92px;
+    width: 64px;
+    height: 63px;
+    top: 65px;
+    left: 87px;
 }
 
 .equipment-display__gear-item--amulet {
     background-image: var(--sprite-match__icon-equipmentcharacter-amulet);
     width: 42px;
     height: 46px;
-    top: 82px;
-    left: 113px;
+    top: 72px;
+    left: 101px;
+    scale: 0.9 0.9;
 }
 
 .equipment-display__gear-item--helmet {
     background-image: var(--sprite-match__icon-equipmentcharacter-helmet);
     width: 94px;
     height: 98px;
-    top: -2px;
-    left: 92px;
+    top: -6px;
+    left: 77px;
+    scale: 0.9 0.9;
 }
 
 .equipment-display__count {
@@ -1194,6 +1198,7 @@
 
 .player-status-bar__notification {
     position: absolute;
+    display: none;
     left: 54px;
     top: -49px;
     align-items: stretch;

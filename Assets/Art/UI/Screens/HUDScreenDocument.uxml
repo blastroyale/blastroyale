@@ -87,7 +87,7 @@
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="equipment-display">
-                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character" style="width: 173px; height: 165px;">
+                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
                     <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
                     <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
                     <ui:VisualElement name="Helmet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--helmet" />

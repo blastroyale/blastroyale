@@ -12,7 +12,7 @@ namespace FirstLight.Game.UIElements
 	{
 		private const int DAMAGE_ANIMATION_DURATION = 500;
 
-		private readonly Color DAMAGE_BG = new(142f / 255f, 22f / 255f, 20f / 255f, 1f);
+		private readonly Color DAMAGE_BG = new(212f / 255f, 29f / 255f, 27f / 255f, 0.5f);
 		private readonly Color NORMAL_BG = new(49f / 255f, 45f / 255f, 71f / 255f, 0.5f);
 
 		private const string USS_BLOCK = "squad-member";

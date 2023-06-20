@@ -107,10 +107,10 @@
 }
 
 .load-status-holder__location-label {
-    font-size: 58px;
+    font-size: 50px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 5px 5px 0 rgb(16, 10, 63);
+    text-shadow: 3px 3px 0 rgb(16, 10, 63);
     color: rgb(214, 76, 123);
     -unity-font-style: bold;
     margin-top: -20px;
@@ -121,7 +121,7 @@
     font-size: 68px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(16, 10, 63);
-    text-shadow: 4px 4px 0 rgb(16, 10, 63);
+    text-shadow: 3px 3px 0 rgb(16, 10, 63);
     letter-spacing: -3px;
 }
 

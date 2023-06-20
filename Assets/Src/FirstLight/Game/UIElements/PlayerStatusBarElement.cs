@@ -203,6 +203,7 @@ namespace FirstLight.Game.UIElements
 		public void SetLevel(int level)
 		{
 			_level.text = level.ToString();
+			_level.AnimatePing();
 		}
 
 		/// <summary>

@@ -122,6 +122,15 @@ namespace FirstLight.Game.Presenters
 			{
 				_direction = context.ReadValue<Vector2>();
 				_indicatorContainerView.OnMoveUpdate(_direction, _direction != Vector2.zero);
+				
+				// Update aiming indicator so it follows moving character even if angle of aiming stays the same
+				if (_shooting)
+				{
+					_indicatorContainerView?.OnUpdateAim(
+					                                     QuantumRunner.Default.Game.Frames.Predicted,
+					                                     _aim.ToFPVector2(),
+					                                     _shooting);
+				}
 			}
 		}
 

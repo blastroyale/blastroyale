@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,8 +7,11 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Game;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
@@ -32,16 +36,16 @@ namespace GameLogicService.Services
 	public class ShopService
 	{
 		private ILogger _log;
-		private IServerStateService _state;
 		private IErrorService<PlayFabError> _errorHandler;
-		private IServerMutex _mutex;
+		private IBaseServiceConfiguration _cfg;
+		private IEventManager _events;
 
-		public ShopService(ILogger log, IServerStateService state, IErrorService<PlayFabError> errorHandler, IServerMutex mutex)
+		public ShopService(ILogger log, IErrorService<PlayFabError> errorHandler, IBaseServiceConfiguration cfg, IEventManager events)
 		{
 			_log = log;
-			_state = state;
 			_errorHandler = errorHandler;
-			_mutex = mutex;
+			_cfg = cfg;
+			_events = events;
 		}
 
 		/// <summary>
@@ -55,25 +59,24 @@ namespace GameLogicService.Services
 			_log.Log(LogLevel.Information, $"{playerId} is executing - ConsumeValidatedPurchaseCommand");
 
 			var item = await FindCatalogItem(catalogItemId);
-			var rewardData = JsonConvert.DeserializeObject<RewardData>(item.CustomData);
-				
-			_log.Log(LogLevel.Information, $"Consuming the Purchase for  {playerId} - " +
-										   $"item id: {catalogItemId} - rewarding: {item.CustomData}");
 			
-			await ConvertInventoryItemToUserReadonlyDataItem(playerId, rewardData);
-			if (!fakeStore)
+			if (fakeStore && _cfg.DevelopmentMode)
 			{
-				await ConsumeItem(playerId, item);
-			}
-			var result = new PlayFabResult<BackendLogicResult>
-			{
-				Result = new BackendLogicResult
+				var res = await PlayFabServerAPI.GrantItemsToUserAsync(new()
 				{
-					PlayFabId = playerId,
-					Data = new Dictionary<string, string>()
-				}
-			};
-			ModelSerializer.SerializeToData(result.Result.Data, rewardData);
+					CatalogVersion = "Store",
+					ItemIds = new () {catalogItemId},
+					PlayFabId = playerId
+				});
+				if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());
+				_log.LogInformation($"Given store test free item {catalogItemId} to player {playerId}");
+			}
+			
+			await _events.CallEvent(new IAPPurchasedEvent(playerId));
+			await _events.CallEvent(new InventoryUpdatedEvent(playerId));
+
+			var result = Playfab.Result(playerId);
+			ModelSerializer.SerializeToData(result.Result.Data, JsonConvert.DeserializeObject<RewardData>(item.CustomData));
 			return result;
 		}
 	
@@ -88,46 +91,6 @@ namespace GameLogicService.Services
 				return catalogItem;
 			}
 			throw new LogicException($"no catalog item with the given item id: {item}");
-		}
-
-		private async Task ConsumeItem(string playerId, CatalogItem item)
-		{
-			var inventoryRequest = new GetUserInventoryRequest { PlayFabId = playerId };
-			var consumeRequest = new ConsumeItemRequest { ConsumeCount = 1, PlayFabId = playerId };
-			var inventoryResult = await PlayFabServerAPI.GetUserInventoryAsync(inventoryRequest);
-			_errorHandler.CheckErrors(inventoryResult);
-			var itemInstance = inventoryResult.Result.Inventory.FirstOrDefault(i => i.ItemId == item.ItemId);
-			if (itemInstance == null)
-			{
-				throw new LogicException($"ConsumeValidatedPurchaseCommand error: - " +
-										 $"Null item {item.ItemId}");
-			}
-			consumeRequest.ItemInstanceId = itemInstance.ItemInstanceId;
-			var consumeResult = await PlayFabServerAPI.ConsumeItemAsync(consumeRequest);
-			_errorHandler.CheckErrors(consumeResult);
-		}
-
-		/// <summary>
-		/// Function responsible for converting an item added to the user inventory to user readonly data.
-		/// THe data provided to this function is the model that the game uses as the custom json data in catalog
-		/// items.
-		/// </summary>
-		private async Task ConvertInventoryItemToUserReadonlyDataItem(string playerId, RewardData rewardData)
-		{
-			try
-			{
-				await _mutex.Lock(playerId);
-				var serverState = await _state.GetPlayerState(playerId);
-				var playerData = serverState.DeserializeModel<PlayerData>();
-				playerData.UncollectedRewards.Add(rewardData);
-				serverState.UpdateModel(playerData);
-				await _state.UpdatePlayerState(playerId, serverState);
-			}
-			finally
-			{
-				_mutex.Unlock(playerId);
-			}
-		
 		}
 	}
 }

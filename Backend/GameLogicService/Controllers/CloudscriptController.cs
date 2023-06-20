@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Backend;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
+using GameLogicService.Game;
 using GameLogicService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +30,13 @@ namespace ServerCommon.Cloudscript
 	{
 		private ILogicWebService _logicServer;
 		private ShopService _shop;
+		private IEventManager _events;
 
-		public CloudscriptController(ILogicWebService logicServer, ShopService shop)
+		public CloudscriptController(ILogicWebService logicServer, ShopService shop, IEventManager events)
 		{
 			_logicServer = logicServer;
 			_shop = shop;
+			_events = events;
 		}
 		
 		[HttpPost]
@@ -50,6 +55,17 @@ namespace ServerCommon.Cloudscript
 		public async Task<dynamic> ExecuteCommand([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.RunLogic(request.PlayfabId, request.FunctionArgument)));
+		}
+		
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("ExecuteEvent")]
+		public async Task<dynamic> ExecuteEvent([FromBody] CloudscriptRequest<LogicRequest> request)
+		{
+			var eventType = typeof(GameServerEvent).GetAssembly().GetType(request.FunctionArgument.Data["event"]);
+			var eventClass = Activator.CreateInstance(eventType, request.PlayfabId) as GameServerEvent;
+			_events.CallEvent(eventClass);
+			return Ok(new CloudscriptResponse(Playfab.Result(request.PlayfabId)));
 		}
 	
 		[HttpPost]

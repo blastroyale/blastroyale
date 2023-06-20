@@ -11,13 +11,11 @@ namespace FirstLight.Server.SDK.Models
 	/// </summary>
 	public class GameLogicMessageEvent<TMsg> : GameServerEvent where TMsg : IMessage
 	{
-		public string UserId { get; }
 		public TMsg Message { get; }
-		
-		public GameLogicMessageEvent(string user, TMsg message)
+
+		public GameLogicMessageEvent(string user, TMsg message) : base(user)
 		{
 			Message = message;
-			UserId = user;
 		}
 	}
 }

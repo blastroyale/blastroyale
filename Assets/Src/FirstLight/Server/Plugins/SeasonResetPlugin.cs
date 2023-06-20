@@ -21,9 +21,9 @@ namespace Src.FirstLight.Server
 		}
 
 
-		private void OnPlayerLoad(PlayerDataLoadEvent ev)
+		private async Task OnPlayerLoad(PlayerDataLoadEvent ev)
 		{
-			CheckForSeasonUpdate(ev.PlayerId).Wait();
+			await CheckForSeasonUpdate(ev.PlayerId);
 		}
 
 		private async Task CheckForSeasonUpdate(string playfabId)

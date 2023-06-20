@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Threading.Tasks;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
@@ -9,6 +9,12 @@ namespace FirstLight.Server.SDK
 {
 	public class GameServerEvent
 	{
+		public string PlayerId;
+		
+		public GameServerEvent(string player)
+		{
+			PlayerId = player;
+		}
 	}
 
 	/// <summary>
@@ -19,12 +25,12 @@ namespace FirstLight.Server.SDK
 		/// <summary>
 		/// Registers a given function to be called back when TEventType fires
 		/// </summary>
-		void RegisterEventListener<TEventType>(Action<TEventType> listener) where TEventType : GameServerEvent;
+		void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent;
 
 		/// <summary>
 		/// Calls a given event. All callbacks will be notified.
 		/// </summary>
-		void CallEvent<TEventType>(TEventType ev);
+		Task CallEvent<TEventType>(TEventType ev);
 
 		void RegisterCommandListener<TCommand>(Action<string, TCommand, ServerState> action)
 			where TCommand : IGameCommand;
@@ -56,7 +62,7 @@ namespace FirstLight.Server.SDK
 			_log = log;
 		}
 
-		public void RegisterEventListener<TEventType>(Action<TEventType> listener) where TEventType : GameServerEvent
+		public void RegisterEventListener<TEventType>(Func<TEventType, Task> listener) where TEventType : GameServerEvent
 		{
 			GetSubscribers(typeof(TEventType)).Listeners.Add(new Listener()
 			{
@@ -89,14 +95,14 @@ namespace FirstLight.Server.SDK
 			}
 		}
 
-		public void CallEvent<TEventType>(TEventType ev)
+		public async Task CallEvent<TEventType>(TEventType ev)
 		{
 			_log.LogDebug($"Calling event {ev.GetType().Name}");
-			var subs = GetSubscribers(typeof(TEventType));
+			var subs = GetSubscribers(ev.GetType());
 			foreach (var listener in subs.Listeners)
 			{
-				var action = listener.Action as Action<TEventType>;
-				action?.Invoke(ev);
+				var action = listener.Action as Func<TEventType, Task>;
+				await action?.Invoke(ev);
 			}
 		}
 

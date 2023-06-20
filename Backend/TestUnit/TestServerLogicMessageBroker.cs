@@ -31,7 +31,7 @@ namespace Tests
 		{
 			GameLogicMessageEvent<CollectionItemEquippedMessage> receivedMessage = null;
 			
-			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<CollectionItemEquippedMessage>>(msg =>
+			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<CollectionItemEquippedMessage>>(async msg =>
 			{
 				receivedMessage = msg;
 			});
@@ -41,7 +41,7 @@ namespace Tests
 			_server.SendTestCommand(cmd);
 			
 			Assert.NotNull(receivedMessage);
-			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.UserId);
+			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.PlayerId);
 			Assert.AreEqual(GameId.FemalePunk, receivedMessage.Message.EquippedItem.Id);
 		}
 		

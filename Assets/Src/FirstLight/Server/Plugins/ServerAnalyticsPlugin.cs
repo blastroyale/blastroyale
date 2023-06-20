@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
@@ -61,7 +62,7 @@ namespace Src.FirstLight.Server
 			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
 		}
 
-		private void OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
+		private async Task OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -73,10 +74,10 @@ namespace Src.FirstLight.Server
 			// Event name is coin_earning, coin_spending, cs_earning etc...
 			var eventName = ev.Message.Id.ToString().ToLowerInvariant() + "_" +
 				(ev.Message.Change > 0 ? "earning" : "spending");
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, eventName, data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, eventName, data);
 		}
 
-		private void OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
+		private async Task OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -88,10 +89,10 @@ namespace Src.FirstLight.Server
 				{"coin_spending", ev.Message.Price.Value}
 			};
 
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_repair", data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_repair", data);
 		}
 
-		private void OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
+		private async Task OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -103,10 +104,10 @@ namespace Src.FirstLight.Server
 				{"coin_spending", ev.Message.Price.Value}
 			};
 
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_upgrade", data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_upgrade", data);
 		}
 
-		private void OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)
+		private async Task OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -117,10 +118,10 @@ namespace Src.FirstLight.Server
 				{"coin_earning", ev.Message.Reward.Value}
 			};
 
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_scrap", data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "item_scrap", data);
 		}
 
-		private void OnGameCompleted(GameLogicMessageEvent<GameCompletedRewardsMessage> ev)
+		private async Task OnGameCompleted(GameLogicMessageEvent<GameCompletedRewardsMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -132,10 +133,10 @@ namespace Src.FirstLight.Server
 				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards);
 			}
 
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "game_completed_rewards", data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "game_completed_rewards", data);
 		}
 
-		private void OnBattlePassRewards(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
+		private async Task OnBattlePassRewards(GameLogicMessageEvent<BattlePassLevelUpMessage> ev)
 		{
 			var data = new AnalyticsData
 			{
@@ -147,7 +148,7 @@ namespace Src.FirstLight.Server
 					ev.Message.Rewards.Select(e => e.Value.GetAnalyticsData(e.Key)));
 			}
 
-			_ctx.Analytics!.EmitUserEvent(ev.UserId, "battle_pass_rewards", data);
+			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "battle_pass_rewards", data);
 		}
 	}
 }

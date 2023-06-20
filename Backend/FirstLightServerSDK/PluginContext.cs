@@ -3,6 +3,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 
@@ -24,6 +25,7 @@ namespace FirstLight.Server.SDK
 		public readonly IBaseServiceConfiguration? ServerConfig;
 		public readonly IConfigsProvider? GameConfig;
 		public readonly IStatisticsService? Statistics;
+		public readonly IDataSynchronizer? DataSyncs;
 
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
@@ -36,6 +38,7 @@ namespace FirstLight.Server.SDK
 			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
 			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
 			Statistics = services.GetService(typeof(IStatisticsService)) as IStatisticsService;
+			DataSyncs = services.GetService(typeof(IDataSynchronizer)) as IDataSynchronizer;
 		}
 	}
 }

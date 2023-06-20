@@ -20,16 +20,7 @@ namespace Quantum.Systems
 			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target", "Non Playable Static Target",
 			                                                     "Prop", "World", "Environment No Silhouette", "Environment Object");
-			
-			// The order is crucial as we will access shrinking steps by index, not by looping through the list
-			f.Context.MapShrinkingCircleConfigs = new List<QuantumShrinkingCircleConfig>();
-			foreach (var shrinkingStep in f.ShrinkingCircleConfigs.QuantumConfigs)
-			{
-				if (shrinkingStep.Map == f.Context.MapConfig.Map)
-				{
-					f.Context.MapShrinkingCircleConfigs.Add(shrinkingStep);
-				}
-			}
+			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MapId);
 			
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{

@@ -502,8 +502,8 @@ namespace FirstLight.Game.StateMachines
 			var circle = f.GetSingleton<ShrinkingCircle>();
 
 			// We don't play on the last step, so we get the previous one as the max
-			var maxStepForCircleClosing = f.Context.MapShrinkingCircleConfigs[^3].Step;
-			var stepForFinalCountdown = f.Context.MapShrinkingCircleConfigs[^2].Step;
+			var maxStepForCircleClosing = Math.Max(1, f.Context.MapShrinkingCircleConfigs.Count - 2);
+			var stepForFinalCountdown = Math.Max(1, f.Context.MapShrinkingCircleConfigs.Count - 1);
 
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 

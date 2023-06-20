@@ -30,7 +30,7 @@ namespace FirstLight.Game.Views.UITK
 		/// Called with the aiming direction of the special currently being aimed. Not called on non-draggable specials.
 		/// </summary>
 		public event Action<Vector2> OnDrag;
-		
+
 		/// <summary>
 		/// Called when the special is canceled.
 		/// </summary>
@@ -80,33 +80,35 @@ namespace FirstLight.Game.Views.UITK
 			{
 				case 0:
 					// TODO: Callback to enable input
-					_special0Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					_special0Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
 				case 1:
 					// TODO: Callback to enable input
-					_special1Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
+					_special1Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
+			}
+		}
+
+		private void UpdateSpecial(Frame f, WeaponSlot currentSlot, int slot, SpecialButtonElement button)
+		{
+			var special = currentSlot.Specials[slot];
+			if (special.IsValid)
+			{
+				button.SetVisibility(true);
+				button.SetSpecial(special.SpecialId, special.IsAimable,
+					Math.Max(0L, (long)(special.AvailableTime - f.Time).AsFloat * 1000L));
+			}
+			else
+			{
+				button.SetSpecial(GameId.Random, false, 0L);
+				button.SetVisibility(false);
 			}
 		}
 
 		private void UpdateSpecials(Frame f, WeaponSlot currentSlot)
 		{
-			var special0 = currentSlot.Specials[0];
-			_special0Button.SetSpecial(special0.SpecialId, special0.IsAimable,
-				Math.Max(0L, (long) (special0.AvailableTime - f.Time).AsFloat * 1000L));
-
-			var special1 = currentSlot.Specials[1];
-			if (special1.IsValid)
-			{
-				_special1Button.SetVisibility(true);
-				_special1Button.SetSpecial(special1.SpecialId, special1.IsAimable,
-					Math.Max(0L, (long) (special1.AvailableTime - f.Time).AsFloat * 1000L));
-			}
-			else
-			{
-				_special1Button.SetSpecial(GameId.Random, false, 0L);
-				_special1Button.SetVisibility(false);
-			}
+			UpdateSpecial(f, currentSlot, 0, _special0Button);
+			UpdateSpecial(f, currentSlot, 1, _special1Button);
 		}
 	}
 }

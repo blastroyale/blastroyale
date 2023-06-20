@@ -117,11 +117,12 @@ namespace FirstLight.Game.Services
 		public void CreateJoinSecondTutorialRoom()
 		{
 			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
-				MapId = GameId.BRGenesis.GetHashCode(),
+				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
 				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
 				Mutators = Array.Empty<string>()
 			};

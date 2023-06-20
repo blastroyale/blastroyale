@@ -48,17 +48,18 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void Init(EntityView playerEntityView)
 		{
 			_playerTransform = playerEntityView.transform;
-			
-			transform.SetParent(_playerTransform);
 		}
 
 		/// <inheritdoc />
 		public void SetTransformState(Vector2 position)
 		{
 			var move = position * _playerDistance;
-			
 			_position = new Vector3(move.x, _localHeight, move.y);
-			transform.position = _playerTransform.position + _position;
+			var playerPos = _playerTransform.position;
+			var localTransform = transform;
+			localTransform.position = playerPos + _position;
+			var myPos = localTransform.position;
+			localTransform.rotation = Quaternion.LookRotation(myPos - playerPos);
 		}
 	}
 }

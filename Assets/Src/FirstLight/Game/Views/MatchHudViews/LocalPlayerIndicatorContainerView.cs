@@ -258,9 +258,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!_localPlayerEntity.IsAlive(f)) return;
-			
-			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
-		
+
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);

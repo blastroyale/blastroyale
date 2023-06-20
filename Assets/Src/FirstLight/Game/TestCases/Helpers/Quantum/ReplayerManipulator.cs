@@ -62,7 +62,6 @@ namespace FirstLight.Game.TestCases.Helpers
 			{
 				//ReplayMenu.ExportDialogReplayAndDB(QuantumRunner.Default.Game, new QuantumUnityJsonSerializer(), ".json");
 				_replayFile = null;
-				MatchControlsHudPresenter.OverwriteCallbackInput = null;
 				return;
 			}
 
@@ -112,7 +111,6 @@ namespace FirstLight.Game.TestCases.Helpers
 		void IInputManipulator.Stop()
 		{
 			_replayFile = null;
-			MatchControlsHudPresenter.OverwriteCallbackInput = null;
 		}
 	}
 }

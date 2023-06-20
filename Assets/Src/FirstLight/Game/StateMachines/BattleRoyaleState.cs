@@ -77,7 +77,6 @@ namespace FirstLight.Game.StateMachines
 			deadCheck.Transition().Target(dead);
 			
 			dead.OnEnter(MatchEndAnalytics);
-			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
@@ -86,7 +85,6 @@ namespace FirstLight.Game.StateMachines
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 
-			// TODO mihak: final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -164,13 +162,7 @@ namespace FirstLight.Game.StateMachines
 		private void OpenMatchHud()
 		{
 			//_uiService.OpenUi<MatchHudPresenter>();
-			_uiService.OpenUi<HUDScreenPresenter>();
-		}
-		
-		private void CloseMatchHud()
-		{
-			_uiService.CloseUi<HUDScreenPresenter>();
-			//_uiService.CloseUi<MatchHudPresenter>();
+			_uiService.OpenScreen<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchEndScreen()

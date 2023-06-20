@@ -109,6 +109,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_playerNumAttacks = 0;
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var setup = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchSetup();
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			var totalPlayers = room.PlayerCount;
@@ -129,7 +130,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level.ToString()},
 				{"total_players", totalPlayers.ToString()},
-				{"total_bots", (NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers).ToString()},
+				{"total_bots", (NetworkUtils.GetMaxPlayers(setup,false) - totalPlayers).ToString()},
 				{"map_id", _gameIdsLookup[config.Map]},
 				{"team_size", gameModeConfig.MaxPlayersInTeam },
 				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},

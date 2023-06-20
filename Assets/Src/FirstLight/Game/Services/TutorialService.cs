@@ -108,7 +108,8 @@ namespace FirstLight.Game.Services
 				GameModeId = gameModeId,
 				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
-				Mutators = Array.Empty<string>()
+				Mutators = Array.Empty<string>(),
+				JoinType = JoinType.ForcedGame,
 			};
 
 			_services.NetworkService.CreateRoom(roomSetup, true);
@@ -124,7 +125,8 @@ namespace FirstLight.Game.Services
 				GameModeId = gameModeId,
 				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
 				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
-				Mutators = Array.Empty<string>()
+				Mutators = Array.Empty<string>(),
+				JoinType = JoinType.ForcedGame,
 			};
 
 			_services.NetworkService.JoinOrCreateRandomRoom(setup);

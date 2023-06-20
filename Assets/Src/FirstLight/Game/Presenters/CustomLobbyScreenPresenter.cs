@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 			_rootObject.SetActive(true);
 
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var setup = _services.NetworkService.CurrentRoom.GetMatchSetup();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
 			// This whole script will be culled when custom games are introduced.
@@ -132,8 +132,8 @@ namespace FirstLight.Game.Presenters
 
 			if (RejoiningRoom)
 			{
-				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig), RequestKickPlayer);
-				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
+				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(setup,false), RequestKickPlayer);
+				_spectatorListHolder.Init(NetworkUtils.GetMaxSpectators(setup), RequestKickPlayer);
 
 				_kickButton.gameObject.SetActive(false);
 				_spectateToggleObjectRoot.SetActive(false);
@@ -199,8 +199,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig), RequestKickPlayer);
-				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
+				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(setup,false), RequestKickPlayer);
+				_spectatorListHolder.Init(NetworkUtils.GetMaxSpectators(setup), RequestKickPlayer);
 
 				_playerListHolder.gameObject.SetActive(true);
 				_spectatorListHolder.gameObject.SetActive(true);

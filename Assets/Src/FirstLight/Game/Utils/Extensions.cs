@@ -524,7 +524,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetSpectatorCapacity(this Room room)
 		{
-			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return NetworkUtils.GetMaxSpectators(room.GetMatchSetup());
 		}
 
 		/// <summary>

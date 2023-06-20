@@ -1,4 +1,3 @@
-using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -30,9 +29,10 @@ namespace Quantum.Systems
 			{
 				var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
+
 				if (circle->Step < 0)
 				{
-					var config = GetShrinkingCircleConfig(f, 0);
+					var config = f.Context.MapShrinkingCircleConfigs[0];
 					SetShrinkingCircleData(f, circle, ref config);
 				}
 
@@ -69,10 +69,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var configs = f.ShrinkingCircleConfigs.
-							QuantumConfigs.Where(item => item.Map == f.Context.MapConfig.Map);
-
-			if (circle->Step >= configs.Count())
+			if (circle->Step >= f.Context.MapShrinkingCircleConfigs.Count)
 			{
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
@@ -85,7 +82,7 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
-			var config = GetShrinkingCircleConfig(f, circle->Step);
+			var config = f.Context.MapShrinkingCircleConfigs[circle->Step];
 			SetShrinkingCircleData(f, circle, ref config);
 		}
 
@@ -198,7 +195,6 @@ namespace Quantum.Systems
 
 			return false;
 		}
-		
 		private void SetShrinkingCircleCenteredOnLocalPlayer(ShrinkingCircle* circle, Frame f)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
@@ -211,19 +207,6 @@ namespace Quantum.Systems
 			{
 				circle->TargetCircleCenter = new FPVector2(trans.Position.X, trans.Position.Z);
 			}
-		}
-		
-		private QuantumShrinkingCircleConfig GetShrinkingCircleConfig(Frame f, int step)
-		{
-			foreach (var config in f.ShrinkingCircleConfigs.QuantumConfigs)
-			{
-				if (config.Map == f.Context.MapConfig.Map && (config.Step - 1) == step)
-				{
-					return config;
-				}
-			}
-			
-			return f.ShrinkingCircleConfigs.QuantumConfigs[0];
 		}
 	}
 	

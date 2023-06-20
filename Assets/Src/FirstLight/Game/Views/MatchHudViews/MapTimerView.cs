@@ -115,18 +115,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				yield break;
 			}
-
-			var time = 0f;
-			var shrinkingConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
 			
-			foreach (var cfg in shrinkingConfigs)
-			{
-				if (cfg.Map == _services.NetworkService.CurrentRoomMapConfig.Value.Map && cfg.Step == circle.Step)
-				{
-					time = (circle.ShrinkingStartTime - f.Time - cfg.WarningTime).AsFloat;
-					break;
-				}
-			}
+			var time = (circle.ShrinkingStartTime - f.Time - f.Context.MapShrinkingCircleConfigs[circle.Step].WarningTime).AsFloat;
 
 			_mapStatusText.gameObject.SetActive(true);
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;

@@ -227,16 +227,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (_config.Step != circle.Step)
 			{
-				var shrinkingConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-				
-				foreach (var config in shrinkingConfigs)
-				{
-					if (config.Map == _services.NetworkService.CurrentRoomMapConfig.Value.Map && config.Step == circle.Step)
-					{
-						_config = config;
-						break;
-					}
-				}
+				_config = f.Context.MapShrinkingCircleConfigs[circle.Step];
 			}
 
 			// Check to only draw safe area after the warning / announcement

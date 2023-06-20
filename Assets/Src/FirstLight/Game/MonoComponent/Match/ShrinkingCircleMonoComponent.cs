@@ -53,16 +53,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (_config.Step != circle.Step)
 			{
-				var shrinkingConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-				
-				foreach (var config in shrinkingConfigs)
-				{
-					if (config.Map == _services.NetworkService.CurrentRoomMapConfig.Value.Map && config.Step == _config.Step)
-					{
-						_config = config;
-						break;
-					}
-				}
+				_config = frame.Context.MapShrinkingCircleConfigs[circle.Step];
 			}
 			
 			cachedShrinkingCircleLineTransform.position = position;

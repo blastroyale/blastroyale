@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -78,6 +79,8 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
+			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
 		}
 
@@ -199,6 +202,11 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			bar.SetLevel(callback.CurrentLevel);
+
+			if (_matchServices.IsSpectatingPlayer(callback.Entity))
+			{
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.LevelUp);
+			}
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
@@ -220,6 +228,38 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
+		}
+
+		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
+		{
+			if (!_matchServices.IsSpectatingPlayer(callback.PlayerEntity)) return;
+			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable))
+				return;
+			if (!_visiblePlayers.TryGetValue(callback.PlayerEntity, out var bar)) return;
+
+			switch (consumable.ConsumableType)
+			{
+				case ConsumableType.Health:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxHealth);
+					break;
+				case ConsumableType.Shield:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxShields);
+					break;
+				case ConsumableType.Ammo:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxAmmo);
+					break;
+				default:
+					FLog.Error($"Unknown collectable: {callback.CollectableId}");
+					break;
+			}
+		}
+
+		private unsafe void OnPlayerReloadStart(EventOnPlayerReloadStart callback)
+		{
+			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
+			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.Entity, out var pc)) return;
+
+			bar.ShowReload((int) (pc.WeaponSlot->ReloadTime.AsFloat * 1000));
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

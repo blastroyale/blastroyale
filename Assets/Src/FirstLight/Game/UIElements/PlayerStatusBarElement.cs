@@ -1,4 +1,6 @@
+using System;
 using FirstLight.Game.Utils;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -27,18 +29,29 @@ namespace FirstLight.Game.UIElements
 		private const string USS_HEALTH_HOLDER = USS_BLOCK + "__health-holder";
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
 		private const string USS_AMMO_HOLDER = USS_BLOCK + "__ammo-holder";
+		private const string USS_AMMO_RELOAD_BAR = USS_BLOCK + "__ammo-reload-bar";
 		private const string USS_AMMO_SEGMENT = USS_BLOCK + "__ammo-segment";
+		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
+		private const string USS_NOTIFICATION_ICON = USS_BLOCK + "__notification-icon";
+		private const string USS_NOTIFICATION_SHIELDS = USS_NOTIFICATION + "--shields";
+		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
+		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
+		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
 
 		private readonly Label _name;
 		private readonly Label _level;
 		private readonly VisualElement _shieldBar;
 		private readonly VisualElement _healthBar;
 		private readonly VisualElement _ammoHolder;
+		private readonly VisualElement _ammoReloadBar;
+		private readonly Label _notificationLabel;
 
 		private bool _isFriendly;
 
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
+		private readonly IVisualElementScheduledItem _notificationHandle;
+		private ValueAnimation<Vector3> _reloadAnimation;
 
 		public PlayerStatusBarElement()
 		{
@@ -72,8 +85,20 @@ namespace FirstLight.Game.UIElements
 			Add(_ammoHolder = new VisualElement {name = "ammo-holder"});
 			_ammoHolder.AddToClassList(USS_AMMO_HOLDER);
 
+			Add(_ammoReloadBar = new VisualElement {name = "reload-bar"});
+			_ammoReloadBar.AddToClassList(USS_AMMO_RELOAD_BAR);
+
 			Add(_level = new Label("10") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
+
+			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
+			_notificationLabel.AddToClassList(USS_NOTIFICATION);
+			_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
+			{
+				var notificationIcon = new VisualElement {name = "notification-icon"};
+				_notificationLabel.Add(notificationIcon);
+				notificationIcon.AddToClassList(USS_NOTIFICATION_ICON);
+			}
 
 			_opacityAnimation = experimental.animation.Start(1f, 0f, DAMAGE_ANIMATION_DURATION,
 				(e, o) => e.style.opacity = o).KeepAlive();
@@ -81,6 +106,9 @@ namespace FirstLight.Game.UIElements
 
 			_opacityAnimationHandle = schedule.Execute(_opacityAnimation.Start);
 			_opacityAnimationHandle.Pause();
+
+			_notificationHandle = schedule.Execute(() => { _notificationLabel.SetDisplay(false); });
+			_notificationHandle.Pause();
 
 			SetIsFriendly(true);
 			SetMagazine(4, 6);
@@ -155,6 +183,10 @@ namespace FirstLight.Game.UIElements
 			{
 				segment.SetVisibility(index++ < visibleBars);
 			}
+			
+			// Cancel reload
+			_reloadAnimation?.Stop();
+			_ammoReloadBar.SetDisplay(false);
 		}
 
 		/// <summary>
@@ -171,6 +203,7 @@ namespace FirstLight.Game.UIElements
 		public void SetLevel(int level)
 		{
 			_level.text = level.ToString();
+			_level.AnimatePing();
 		}
 
 		/// <summary>
@@ -180,6 +213,63 @@ namespace FirstLight.Game.UIElements
 		{
 			// TODO: Handle red bar when damaged (i.e. previous < current)
 			_healthBar.style.flexGrow = (float) current / max;
+		}
+
+		public void ShowNotification(NotificationType type)
+		{
+			_notificationLabel.RemoveModifiers();
+
+			switch (type)
+			{
+				case NotificationType.MaxShields:
+					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_SHIELDS);
+					break;
+				case NotificationType.MaxAmmo:
+					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_AMMO);
+					break;
+				case NotificationType.LevelUp:
+					_notificationLabel.text = ScriptLocalization.UITMatch.lvl_up;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_LVLUP);
+					break;
+				case NotificationType.MaxHealth:
+					_notificationLabel.text = ScriptLocalization.UITMatch.max;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(type), type, null);
+			}
+
+			_notificationLabel.SetDisplay(true);
+			_notificationHandle.ExecuteLater(1000);
+			_notificationLabel.AnimatePing();
+		}
+
+		public void ShowReload(int reloadTime)
+		{
+			if (!_isFriendly) return;
+
+			_ammoReloadBar.SetDisplay(true);
+
+			_ammoReloadBar.transform.position = Vector3.zero;
+			
+			_reloadAnimation?.Stop();
+			_reloadAnimation = _ammoReloadBar.experimental.animation.Position(new Vector3(130, 0, 0), reloadTime)
+				.OnCompleted(() =>
+				{
+					_ammoReloadBar.SetDisplay(false);
+					_reloadAnimation = null;
+				}).Ease(Easing.Linear);
+			_reloadAnimation.Start();
+		}
+
+		public enum NotificationType
+		{
+			MaxShields,
+			MaxHealth,
+			MaxAmmo,
+			LevelUp
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

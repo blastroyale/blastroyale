@@ -202,7 +202,11 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
 			bar.SetLevel(callback.CurrentLevel);
-			bar.ShowNotification(PlayerStatusBarElement.NotificationType.LevelUp);
+
+			if (_matchServices.IsSpectatingPlayer(callback.Entity))
+			{
+				bar.ShowNotification(PlayerStatusBarElement.NotificationType.LevelUp);
+			}
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
@@ -228,7 +232,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.PlayerEntity) return;
+			if (!_matchServices.IsSpectatingPlayer(callback.PlayerEntity)) return;
 			if (!callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable))
 				return;
 			if (!_visiblePlayers.TryGetValue(callback.PlayerEntity, out var bar)) return;
@@ -245,7 +249,7 @@ namespace FirstLight.Game.Views.UITK
 					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxAmmo);
 					break;
 				default:
-					FLog.Error("PACO", $"Unknown collectable: {callback.CollectableId}");
+					FLog.Error($"Unknown collectable: {callback.CollectableId}");
 					break;
 			}
 		}

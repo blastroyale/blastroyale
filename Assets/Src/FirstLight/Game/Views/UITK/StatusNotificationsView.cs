@@ -63,8 +63,8 @@ namespace FirstLight.Game.Views.UITK
 			if (callback.EntityKiller != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			_killedPlayersQueue.Enqueue(_blastedPlayerName.text = callback.PlayersMatchData.Count <= 1
-				? "Dummy"
-				: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName());
+				? "DUMMY"
+				: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName().ToUpper());
 
 			TryShowBlastedNotification(null);
 		}

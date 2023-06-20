@@ -32,6 +32,8 @@
     --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
     --sprite-match__icon-joystick-move: url('/Assets/Art/UI/Sprites/Match/icon-joystick-move.png');
     --sprite-match__icon-joystick-shoot: url('/Assets/Art/UI/Sprites/Match/icon-joystick-shoot.png');
+    --sprite-match__icon-killfeed-normal: url('/Assets/Art/UI/Sprites/Match/icon-killfeed-normal.png');
+    --sprite-match__icon-killfeed-suicide: url('/Assets/Art/UI/Sprites/Match/icon-killfeed-suicide.png');
     --sprite-match__icon-max-ammo: url('/Assets/Art/UI/Sprites/Match/icon-max-ammo.png');
     --sprite-match__icon-max-health: url('/Assets/Art/UI/Sprites/Match/icon-max-health.png');
     --sprite-match__icon-max-shield: url('/Assets/Art/UI/Sprites/Match/icon-max-shield.png');
@@ -122,8 +124,8 @@
 
 .sprite-match__background-squadmember {
     background-image: var(--sprite-match__background-squadmember);
-    width: 324px;
-    height: 78px;
+    width: 127px;
+    height: 97px;
 }
 
 .sprite-match__background-whitegradient {
@@ -254,6 +256,18 @@
     background-image: var(--sprite-match__icon-joystick-shoot);
     width: 130px;
     height: 132px;
+}
+
+.sprite-match__icon-killfeed-normal {
+    background-image: var(--sprite-match__icon-killfeed-normal);
+    width: 60px;
+    height: 30px;
+}
+
+.sprite-match__icon-killfeed-suicide {
+    background-image: var(--sprite-match__icon-killfeed-suicide);
+    width: 60px;
+    height: 30px;
 }
 
 .sprite-match__icon-max-ammo {

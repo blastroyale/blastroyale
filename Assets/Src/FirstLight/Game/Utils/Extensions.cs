@@ -775,5 +775,13 @@ namespace FirstLight.Game.Utils
 					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
 			}
 		}
+
+		/// <summary>
+		/// Checks if the entity is the player we are currently spectating.
+		/// </summary>
+		public static bool IsSpectatingPlayer(this IMatchServices matchServices, EntityRef entityRef)
+		{
+			return entityRef == matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+		}
 	}
 }

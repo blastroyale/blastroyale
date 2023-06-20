@@ -51,14 +51,14 @@ namespace FirstLight.Game.Views.UITK
 			var victimFriendly = victimData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
 
 			SpawnDeathNotification(killerData.GetPlayerName(), killerFriendly, victimData.GetPlayerName(),
-				victimFriendly);
+				victimFriendly, killerData.Data.Player == victimData.Data.Player);
 		}
 
 		private void SpawnDeathNotification(string killerName, bool killerFriendly, string victimName,
-											bool victimFriendly)
+											bool victimFriendly, bool suicide)
 		{
 			// TODO: Add a pool for this
-			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, victimName, victimFriendly);
+			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, victimName, victimFriendly, suicide);
 			deathNotification.Hide(false);
 
 			deathNotification.schedule.Execute(() => deathNotification.Show())

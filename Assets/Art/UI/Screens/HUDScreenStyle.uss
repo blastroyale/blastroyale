@@ -614,6 +614,10 @@
     background-color: rgb(212, 82, 80);
 }
 
+.death-notification--suicide .death-notification__bar--killer {
+    visibility: hidden;
+}
+
 .death-notification__name {
     font-size: 26px;
     margin-left: 0;
@@ -636,6 +640,10 @@
 .death-notification__name--killer {
     -unity-text-align: middle-left;
     padding-left: 9px;
+}
+
+.death-notification--suicide .death-notification__name--killer {
+    visibility: hidden;
 }
 
 .death-notification__name--victim {
@@ -661,6 +669,10 @@
     -unity-background-scale-mode: scale-and-crop;
 }
 
+.death-notification--suicide .death-notification__pfp--killer {
+    visibility: hidden;
+}
+
 .death-notification__pfp--victim {
     background-image: var(--sprite-match__icon-deathnotification-victim);
 }
@@ -680,11 +692,31 @@
     --gradient-to: rgb(42, 40, 61);
 }
 
+.death-notification--suicide .death-notification__gradient--killer {
+    visibility: hidden;
+}
+
 .death-notification__gradient--victim {
     position: absolute;
     right: 0;
     --gradient-from: rgb(42, 40, 61);
     --gradient-to: rgb(39, 71, 91);
+}
+
+.death-notification--suicide .death-notification__gradient--victim {
+    width: 295px;
+}
+
+.death-notification__kill-icon {
+    background-image: var(--sprite-match__icon-killfeed-normal);
+    width: 60px;
+    height: 30px;
+    position: relative;
+    align-self: center;
+}
+
+.death-notification--suicide .death-notification__kill-icon {
+    background-image: var(--sprite-match__icon-killfeed-suicide);
 }
 
 .kill-feed {

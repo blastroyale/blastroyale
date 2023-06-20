@@ -79,7 +79,7 @@
                 </ui:Label>
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="kill-feed">
-                <FirstLight.Game.UIElements.DeathNotificationElement />
+                <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />
                 <FirstLight.Game.UIElements.DeathNotificationElement />
             </ui:VisualElement>
             <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="squad-members-container">

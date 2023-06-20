@@ -1,4 +1,3 @@
-using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -18,6 +17,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BAR = USS_BLOCK + "__bar";
 		private const string USS_BAR_FRIENDLY = USS_BAR + "--friendly";
 		private const string USS_BAR_ENEMY = USS_BAR + "--enemy";
+		private const string USS_BAR_KILLER = USS_BAR + "--killer";
+		private const string USS_BAR_VICTIM = USS_BAR + "--victim";
 		private const string USS_PFP = USS_BLOCK + "__pfp";
 		private const string USS_PFP_KILLER = USS_PFP + "--killer";
 		private const string USS_PFP_VICTIM = USS_PFP + "--victim";
@@ -26,6 +27,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NAME_VICTIM = USS_NAME + "--victim";
 		private const string USS_NAME_FRIENDLY = USS_NAME + "--friendly";
 		private const string USS_NAME_ENEMY = USS_NAME + "--enemy";
+		private const string USS_KILL_ICON = USS_BLOCK + "__kill-icon";
 
 		private readonly VisualElement _container;
 
@@ -37,11 +39,11 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _victimName;
 		private readonly VisualElement _victimBar;
 
-		public DeathNotificationElement() : this("FRIENDLY", true, "ENEMY", false)
+		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, "ENEMYLONGNAMEHI", false, false)
 		{
 		}
 
-		public DeathNotificationElement(string killerName, bool killerFriendly, string victimName, bool victimFriendly)
+		public DeathNotificationElement(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide)
 		{
 			AddToClassList(USS_BLOCK);
 
@@ -55,6 +57,7 @@ namespace FirstLight.Game.UIElements
 
 			_container.Add(_killerBar = new VisualElement {name = "killer-bar"});
 			_killerBar.AddToClassList(USS_BAR);
+			_killerBar.AddToClassList(USS_BAR_KILLER);
 			_killerBar.AddToClassList(USS_BAR_FRIENDLY);
 
 			_container.Add(_killerPfp = new VisualElement {name = "killer-pfp"});
@@ -65,15 +68,14 @@ namespace FirstLight.Game.UIElements
 			_killerName.AddToClassList(USS_NAME);
 			_killerName.AddToClassList(USS_NAME_KILLER);
 
-			// TODO: TEMP
-			var divider = new VisualElement {name = "divider"};
-			_container.Add(divider);
-			divider.style.flexGrow = 1;
-
 			var victimGradient = new GradientElement {name = "victim-gradient"};
 			_container.Add(victimGradient);
 			victimGradient.AddToClassList(USS_GRADIENT);
 			victimGradient.AddToClassList(USS_GRADIENT_VICTIM);
+
+			var killIcon = new VisualElement {name = "kill-icon"};
+			_container.Add(killIcon);
+			killIcon.AddToClassList(USS_KILL_ICON);
 
 			_container.Add(_victimName = new Label(victimName) {name = "victim-name"});
 			_victimName.AddToClassList(USS_NAME);
@@ -85,23 +87,26 @@ namespace FirstLight.Game.UIElements
 
 			_container.Add(_victimBar = new VisualElement {name = "victim-bar"});
 			_victimBar.AddToClassList(USS_BAR);
+			_victimBar.AddToClassList(USS_BAR_VICTIM);
 			_victimBar.AddToClassList(USS_BAR_ENEMY);
 
-			SetData(killerName, killerFriendly, victimName, victimFriendly);
+			SetData(killerName, killerFriendly, victimName, victimFriendly, suicide);
 		}
 
-		public void SetData(string killerName, bool killerFriendly, string victimName, bool victimFriendly)
+		public void SetData(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide)
 		{
 			_killerName.text = killerName;
 			_victimName.text = victimName;
 
-			_killerBar.RemoveModifiers();
+			_killerBar.RemoveFromClassList(USS_BAR_FRIENDLY);
+			_killerBar.RemoveFromClassList(USS_BAR_ENEMY);
 			_killerBar.AddToClassList(killerFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
 			_killerName.RemoveFromClassList(USS_NAME_FRIENDLY);
 			_killerName.RemoveFromClassList(USS_NAME_ENEMY);
 			_killerName.AddToClassList(killerFriendly ? USS_NAME_FRIENDLY : USS_NAME_ENEMY);
 
-			_victimBar.RemoveModifiers();
+			_victimBar.RemoveFromClassList(USS_BAR_FRIENDLY);
+			_victimBar.RemoveFromClassList(USS_BAR_ENEMY);
 			_victimBar.AddToClassList(victimFriendly ? USS_BAR_FRIENDLY : USS_BAR_ENEMY);
 			_victimName.RemoveFromClassList(USS_NAME_FRIENDLY);
 			_victimName.RemoveFromClassList(USS_NAME_ENEMY);

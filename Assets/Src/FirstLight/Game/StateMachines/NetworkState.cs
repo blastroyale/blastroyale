@@ -751,7 +751,8 @@ namespace FirstLight.Game.StateMachines
 				MapId = (int) mapConfig.Map,
 				GameModeId = gameModeId,
 				Mutators = mutators,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
+				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
+				JoinType = JoinType.Matchmaking,
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);
@@ -771,7 +772,8 @@ namespace FirstLight.Game.StateMachines
 				GameModeId = gameModeId,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
 				Mutators = selectedGameMode.Entry.Mutators,
-				MapId = msg.MapId
+				MapId = msg.MapId,
+				JoinType = JoinType.Matchmaking,
 			};
 			StartRandomMatchmaking(setup);
 		}
@@ -789,7 +791,8 @@ namespace FirstLight.Game.StateMachines
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName,
-				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty
+				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
+				JoinType = JoinType.Custom,
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

@@ -24,13 +24,13 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 267px;
+    right: 90px;
     bottom: 377px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 454px;
+    right: 312px;
     bottom: 254px;
 }
 
@@ -193,7 +193,7 @@
 }
 
 .joystick--move {
-    left: 100px;
+    left: 80px;
     bottom: 80px;
     width: 220px;
     height: 220px;
@@ -204,7 +204,7 @@
 }
 
 .joystick--aim {
-    right: 100px;
+    right: 16px;
     bottom: 80px;
     width: 300px;
     height: 300px;
@@ -281,7 +281,7 @@
 .menu-button {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -20px;
     width: 129px;
     height: 91px;
     align-items: center;
@@ -312,8 +312,8 @@
     color: rgb(139, 192, 83);
     font-size: 28px;
     -unity-text-align: middle-left;
-    text-shadow: 3px 3px 0 rgb(6, 0, 51);
-    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgb(6, 0, 51);
+    -unity-text-outline-width: 0.5px;
     -unity-text-outline-color: rgb(6, 0, 51);
     display: flex;
     padding-left: 0;
@@ -332,8 +332,8 @@
 
 .device-status-bar {
     position: absolute;
-    right: 366px;
-    top: 38px;
+    right: 112px;
+    top: 34px;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
@@ -342,7 +342,7 @@
 
 .weapon-display {
     position: absolute;
-    right: 505px;
+    right: 410px;
     width: 216px;
     height: 193px;
     bottom: 51px;
@@ -524,13 +524,13 @@
 
 .weapon-display__ammo {
     color: rgb(242, 176, 53);
-    font-size: 36px;
-    -unity-text-outline-width: 1px;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    font-size: 50px;
+    -unity-text-outline-width: 1.2px;
+    text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
-    top: 50px;
+    top: 41px;
     -unity-text-align: upper-right;
-    right: 265px;
+    right: 281px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -541,6 +541,7 @@
     padding-bottom: 0;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
+    -unity-text-outline-color: rgb(16, 9, 51);
 }
 
 .weapon-display--melee .weapon-display__ammo {
@@ -550,9 +551,10 @@
 
 .weapon-display__ammo-icon {
     position: relative;
-    right: -37px;
+    right: -44px;
     rotate: -64deg;
-    top: 8px;
+    top: 13px;
+    scale: 1.2 1.2;
 }
 
 .weapon-display__ammo-gradient {
@@ -565,6 +567,8 @@
     height: 144px;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
+    -unity-background-image-tint-color: rgb(11, 0, 51);
+    display: none;
 }
 
 .weapon-display--melee .weapon-display__ammo-gradient {
@@ -573,7 +577,7 @@
 
 .death-notification {
     height: 63px;
-    width: 457px;
+    width: 520px;
     overflow: hidden;
     transition-property: height, opacity;
     transition-duration: 0.3s, 0.3s;
@@ -594,7 +598,6 @@
     right: 0;
     bottom: 0;
     height: 46px;
-    background-color: rgb(137, 133, 133);
     flex-direction: row;
     justify-content: space-between;
 }
@@ -603,12 +606,16 @@
     width: 10px;
 }
 
-.death-notification__bar--killer {
-    background-color: rgb(90, 182, 189);
+.death-notification__bar--friendly {
+    background-color: rgb(34, 211, 232);
 }
 
-.death-notification__bar--victim {
+.death-notification__bar--enemy {
     background-color: rgb(212, 82, 80);
+}
+
+.death-notification--suicide .death-notification__bar--killer {
+    visibility: hidden;
 }
 
 .death-notification__name {
@@ -625,19 +632,31 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    -unity-text-outline-color: rgb(23, 18, 53);
+    -unity-text-outline-width: 0.5px;
 }
 
 .death-notification__name--killer {
     -unity-text-align: middle-left;
-    color: rgb(212, 83, 80);
     padding-left: 9px;
+}
+
+.death-notification--suicide .death-notification__name--killer {
+    visibility: hidden;
 }
 
 .death-notification__name--victim {
     -unity-text-align: middle-right;
-    color: rgb(35, 210, 233);
     padding-right: 9px;
+}
+
+.death-notification__name--friendly {
+    color: rgb(35, 210, 233);
+}
+
+.death-notification__name--enemy {
+    color: rgb(212, 83, 80);
 }
 
 .death-notification__pfp {
@@ -647,6 +666,11 @@
 
 .death-notification__pfp--killer {
     background-image: var(--sprite-match__icon-deathnotification-killer);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.death-notification--suicide .death-notification__pfp--killer {
+    visibility: hidden;
 }
 
 .death-notification__pfp--victim {
@@ -657,7 +681,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 229px;
+    width: 260px;
+    opacity: 0.58;
 }
 
 .death-notification__gradient--killer {
@@ -667,11 +692,31 @@
     --gradient-to: rgb(42, 40, 61);
 }
 
+.death-notification--suicide .death-notification__gradient--killer {
+    visibility: hidden;
+}
+
 .death-notification__gradient--victim {
     position: absolute;
     right: 0;
     --gradient-from: rgb(42, 40, 61);
     --gradient-to: rgb(39, 71, 91);
+}
+
+.death-notification--suicide .death-notification__gradient--victim {
+    width: 295px;
+}
+
+.death-notification__kill-icon {
+    background-image: var(--sprite-match__icon-killfeed-normal);
+    width: 60px;
+    height: 30px;
+    position: relative;
+    align-self: center;
+}
+
+.death-notification--suicide .death-notification__kill-icon {
+    background-image: var(--sprite-match__icon-killfeed-suicide);
 }
 
 .kill-feed {
@@ -761,6 +806,9 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 2px 2px 0 rgb(49, 46, 72);
 }
 
 .squad-member {
@@ -865,11 +913,11 @@
     top: 46px;
     width: 244px;
     height: 29px;
-    background-color: rgb(24, 18, 54);
-    padding-left: 2px;
+    padding-left: 4px;
     padding-right: 2px;
     padding-top: 2px;
     padding-bottom: 2px;
+    background-image: var(--sprite-match__background-healthbar);
 }
 
 .squad-member__shield-health-bg {
@@ -878,6 +926,13 @@
     align-items: stretch;
     flex-shrink: 0;
     margin-bottom: 1px;
+    margin-top: 1px;
+    margin-right: 1px;
+    margin-left: 1px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .squad-member__shield-bar {
@@ -887,7 +942,8 @@
 
 .squad-member__health-bar {
     flex-grow: 1;
-    background-image: var(--sprite-match__progress-health);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/progress-health-squads.png?fileID=21300000&guid=fe3d255759da2154cbff8c350ca23a75&type=3#progress-health-squads');
+    left: -2px;
 }
 
 .squad-member__name {
@@ -896,7 +952,7 @@
     left: 139px;
     font-size: 30px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 2px 2px 0 rgb(24, 18, 54);
 }
@@ -931,6 +987,11 @@
 
 .squad-member__equipment--acquired {
     -unity-background-image-tint-color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
 
 .squad-members-container {
@@ -950,8 +1011,8 @@
 
 .equipment-display {
     position: absolute;
-    left: 430px;
-    bottom: 64px;
+    left: 362px;
+    bottom: 44px;
     flex-direction: row;
     align-items: center;
 }
@@ -962,8 +1023,8 @@
 
 .equipment-display__character {
     background-image: var(--sprite-match__background-equipmentcharacter);
-    width: 192px;
-    height: 186px;
+    width: 173px;
+    height: 165px;
 }
 
 .equipment-display__gear-item {
@@ -977,34 +1038,36 @@
 
 .equipment-display__gear-item--shield {
     background-image: var(--sprite-match__icon-equipmentcharacter-shield);
-    width: 95px;
-    height: 122px;
-    top: 12px;
-    left: 1px;
+    width: 89px;
+    height: 113px;
+    top: 11px;
+    left: -2px;
 }
 
 .equipment-display__gear-item--armor {
     background-image: var(--sprite-match__icon-equipmentcharacter-armor);
-    width: 72px;
-    height: 68px;
-    top: 74px;
-    left: 92px;
+    width: 64px;
+    height: 63px;
+    top: 65px;
+    left: 87px;
 }
 
 .equipment-display__gear-item--amulet {
     background-image: var(--sprite-match__icon-equipmentcharacter-amulet);
     width: 42px;
     height: 46px;
-    top: 82px;
-    left: 113px;
+    top: 72px;
+    left: 101px;
+    scale: 0.9 0.9;
 }
 
 .equipment-display__gear-item--helmet {
     background-image: var(--sprite-match__icon-equipmentcharacter-helmet);
     width: 94px;
     height: 98px;
-    top: -2px;
-    left: 92px;
+    top: -6px;
+    left: 77px;
+    scale: 0.9 0.9;
 }
 
 .equipment-display__count {
@@ -1025,8 +1088,8 @@
 
 .player-status-bar {
     background-color: rgba(0, 0, 0, 0);
-    width: 225px;
-    height: 75px;
+    width: 180px;
+    height: 76px;
     position: absolute;
     left: -112px;
     top: -50px;
@@ -1064,9 +1127,10 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(24, 18, 54);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(3, 0, 26);
     font-size: 32px;
+    text-shadow: 2px 2px 0 rgb(3, 0, 26);
 }
 
 .player-status-bar__name {
@@ -1077,18 +1141,18 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 18px;
+    padding-left: 10px;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
     text-overflow: ellipsis;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(23, 18, 53);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
 }
 
 .player-status-bar--friendly .player-status-bar__name {
-    color: rgb(34, 211, 232);
+    color: rgb(68, 174, 255);
 }
 
 .player-status-bar__ammo-holder {
@@ -1099,6 +1163,16 @@
     height: 6px;
     flex-direction: row;
     display: none;
+}
+
+.player-status-bar__ammo-reload-bar {
+    position: absolute;
+    display: none;
+    bottom: 2px;
+    left: 32px;
+    width: 10px;
+    background-color: rgb(255, 255, 255);
+    height: 6px;
 }
 
 .player-status-bar--friendly .player-status-bar__ammo-holder {
@@ -1154,6 +1228,60 @@
     height: 44px;
 }
 
+.player-status-bar__notification {
+    position: absolute;
+    display: none;
+    left: 54px;
+    top: -49px;
+    align-items: stretch;
+    font-size: 30px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(23, 18, 53);
+    text-shadow: 2px 2px 0 rgb(23, 18, 53);
+    width: 93px;
+    height: 91px;
+}
+
+.player-status-bar__notification-icon {
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    left: 58px;
+    top: -1px;
+}
+
+.player-status-bar__notification--shields {
+    color: rgb(80, 199, 242);
+}
+
+.player-status-bar__notification--shields > .player-status-bar__notification-icon {
+    background-image: var(--sprite-match__icon-max-shield);
+}
+
+.player-status-bar__notification--ammo {
+    color: rgb(241, 180, 50);
+}
+
+.player-status-bar__notification--ammo > .player-status-bar__notification-icon {
+    background-image: var(--sprite-match__icon-max-ammo);
+}
+
+.player-status-bar__notification--health {
+    color: rgb(170, 217, 97);
+}
+
+.player-status-bar__notification--health > .player-status-bar__notification-icon {
+    background-image: var(--sprite-match__icon-max-health);
+}
+
+.player-status-bar__notification--lvlup {
+    color: rgb(242, 178, 51);
+}
+
+.player-status-bar__notification--lvlup > .player-status-bar__notification-icon {
+    display: none;
+}
+
 .health-status-bar {
     flex-direction: row;
     background-image: var(--sprite-match__background-healthbar);
@@ -1168,4 +1296,109 @@
 .health-status-bar__bar {
     background-image: var(--sprite-match__progress-health);
     flex-grow: 0.5;
+}
+
+.status-areashrinking {
+    color: rgb(255, 255, 255);
+    font-size: 36px;
+    -unity-text-align: middle-center;
+    -unity-text-outline-color: rgb(47, 44, 63);
+    position: absolute;
+    top: 148px;
+    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
+    background-image: var(--sprite-match__background-whitegradient);
+    width: 498px;
+    height: 40px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.58);
+}
+
+.status-kill {
+    width: 531px;
+    height: 178px;
+    position: absolute;
+    left: 1292px;
+    top: 202px;
+    background-image: var(--sprite-match__background-killstreak);
+    display: flex;
+}
+
+.status-kill__label {
+    position: absolute;
+    color: rgb(250, 218, 64);
+    font-size: 44px;
+    left: 98px;
+    top: 22px;
+    rotate: -8deg;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 4px 4px 0 rgb(49, 46, 72);
+}
+
+.status-kill__playername {
+    position: absolute;
+    font-size: 60px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 5px 5px 0 rgb(49, 46, 72);
+    -unity-text-outline-width: 1.2px;
+    color: rgb(255, 255, 255);
+    rotate: -8deg;
+    top: 52px;
+    left: 137px;
+}
+
+.status-kill__skull {
+    width: 68px;
+    height: 72px;
+    position: absolute;
+    background-image: var(--sprite-match__icon-skull-1);
+    left: 347px;
+    top: -21px;
+}
+
+.status-kill__skull-smallpart {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 13px;
+    height: 20px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart1);
+    left: 18px;
+    top: -26px;
+}
+
+.status-kill__skull-middlepart {
+    width: 29px;
+    height: 22px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart2);
+    left: -13px;
+    top: -26px;
+}
+
+.status-kill__skull-full {
+    position: absolute;
+    width: 68px;
+    height: 72px;
+    background-image: var(--sprite-match__icon-skull-full);
+}
+
+.status-kill__star {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: var(--sprite-match__icon-star);
+    left: 0;
+    top: -20px;
+    rotate: 34deg;
+}
+
+.status-killer__skull-impact {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 103px;
+    height: 115px;
+    background-image: var(--sprite-match__icon-skull-impact);
+    left: -72px;
+    top: -97px;
 }

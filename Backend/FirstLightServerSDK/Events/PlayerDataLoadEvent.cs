@@ -8,12 +8,10 @@ namespace FirstLight.Server.SDK.Events
 	/// </summary>
 	public class PlayerDataLoadEvent : GameServerEvent
 	{
-		public readonly string PlayerId;
 		public readonly ServerState PlayerState;
 
-		public PlayerDataLoadEvent(string playerId, ServerState currentState)
+		public PlayerDataLoadEvent(string playerId, ServerState currentState) : base(playerId)
 		{
-			PlayerId = playerId;
 			PlayerState = currentState;
 		}
 		

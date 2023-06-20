@@ -13,6 +13,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Game;
 
 namespace Backend
 {
@@ -69,7 +70,8 @@ namespace Backend
 		{
 			try
 			{
-				return new PlayFabResult<BackendLogicResult> {Result = await _server.RunLogic(playerId, request)};
+				return
+					Playfab.Result(playerId, await _server.RunLogic(playerId, request)); 
 			}
 			catch (Exception e)
 			{
@@ -98,21 +100,13 @@ namespace Backend
 					}
 				}
 
-				_eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
-				return new PlayFabResult<BackendLogicResult>
+				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
+
+				return Playfab.Result(playerId, new Dictionary<string, string>()
 				{
-					Result = new BackendLogicResult()
-					{
-						PlayFabId = playerId,
-						// TODO: Review data structures, response exceeded max playfab limit
-						// https://firstlightgames.atlassian.net/browse/BRG-1134
-						Data = new()
-						{
-							{"BuildNumber", _serviceConfiguration.BuildNumber},
-							{"BuildCommit", _serviceConfiguration.BuildCommit}
-						} // await _stateService.GetPlayerState(playerId) 
-					}
-				};
+					{"BuildNumber", _serviceConfiguration.BuildNumber},
+					{"BuildCommit", _serviceConfiguration.BuildCommit}
+				});
 			}
 			catch (Exception e)
 			{
@@ -126,13 +120,7 @@ namespace Backend
 			try
 			{
 				await _stateService.DeletePlayerState(playerId);
-				return new PlayFabResult<BackendLogicResult>
-				{
-					Result = new BackendLogicResult
-					{
-						PlayFabId = playerId
-					}
-				};
+				return Playfab.Result(playerId);
 			}
 			catch (Exception e)
 			{
@@ -145,10 +133,7 @@ namespace Backend
 		{
 			var serverData = _setupService.GetInitialState(playerId);
 			await _stateService.UpdatePlayerState(playerId, serverData);
-			return new PlayFabResult<BackendLogicResult>
-			{
-				Result = new BackendLogicResult {PlayFabId = playerId, Data = serverData}
-			};
+			return Playfab.Result(playerId, serverData);
 		}
 
 		/// <summary>

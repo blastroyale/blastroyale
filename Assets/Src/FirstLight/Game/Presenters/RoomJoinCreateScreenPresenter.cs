@@ -6,6 +6,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -57,7 +58,7 @@ namespace FirstLight.Game.Presenters
 			header.homeClicked += Data.CloseClicked;
 			_playtestButton = root.Q<Button>("PlaytestButton");
 			_playtestButton.clicked += PlaytestClicked;
-			_playtestButton.SetEnabled(Debug.isDebugBuild);
+			_playtestButton.SetEnabled(_services.GameBackendService.IsDev());
 
 			_joinRoomButton = root.Q<Button>("JoinButton");
 			_joinRoomButton.clicked += JoinRoomClicked;

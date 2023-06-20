@@ -199,6 +199,15 @@ namespace FirstLight.Game.Services
 			if (!CanListen()) return;
 			var direction = context.ReadValue<Vector2>();
 			_indicatorContainerView.OnMoveUpdate(direction, direction != Vector2.zero);
+			
+			// Update aiming indicator so it follows moving character even if angle of aiming stays the same
+			if (_shooting)
+			{
+				_indicatorContainerView?.OnUpdateAim(
+				                                     QuantumRunner.Default.Game.Frames.Predicted,
+				                                     _inputs.Aim.ReadValue<Vector2>().ToFPVector2(),
+				                                     _shooting);
+			}
 		}
 
 		private unsafe void InitializeLocalPlayer(QuantumGame game)

@@ -12970,6 +12970,61 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITMatch/area_shrinking
+      TermType: 0
+      Description: 
+      Languages:
+      - AREA SHRINKING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatch/airdrop_landing
+      TermType: 0
+      Description: 
+      Languages:
+      - AIRDROP LANDING
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatch/go_to_safe_area
+      TermType: 0
+      Description: 
+      Languages:
+      - GO TO SAFE AREA
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatch/max
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITMatch/lvl_up
+      TermType: 0
+      Description: 
+      Languages:
+      - +1 Level
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITCollectionScreen/banners
       TermType: 0
       Description: 
@@ -15746,6 +15801,61 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITInbox/inbox_title
+      TermType: 0
+      Description: 
+      Languages:
+      - INBOX
+      - INBOX
+      - INBOX
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITInbox/inbox_news
+      TermType: 0
+      Description: 
+      Languages:
+      - NEWS
+      - NEWS
+      - NEWS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITInbox/inbox_community
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMUNITY
+      - COMMUNITY
+      - COMMUNITY
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITInbox/inbox_personal
+      TermType: 0
+      Description: 
+      Languages:
+      - PERSONAL
+      - PERSONAL
+      - PERSONAL
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITInbox/inbox_videos
+      TermType: 0
+      Description: 
+      Languages:
+      - VIDEOS
+      - VIDEOS
+      - VIDEOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITShared/back_to
       TermType: 0
       Description: 
@@ -16711,7 +16821,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1686739180020
+    Google_LastUpdatedVersion: 1687189956108
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

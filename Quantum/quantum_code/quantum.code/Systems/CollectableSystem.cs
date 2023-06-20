@@ -12,7 +12,7 @@ namespace Quantum.Systems
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			TryStartCollecting(f, info);
+			TryStartCollecting(f, info, true);
 		}
 
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
@@ -28,7 +28,7 @@ namespace Quantum.Systems
 			// become collected after it already triggered with a player
 			if (!collectable->IsCollecting(player.Player) && f.Time >= collectable->AllowedToPickupTime)
 			{
-				if (!TryStartCollecting(f, info))
+				if (!TryStartCollecting(f, info, false))
 				{
 					return;
 				}
@@ -42,7 +42,7 @@ namespace Quantum.Systems
 
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
-				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
 				return;
 			}
@@ -64,7 +64,7 @@ namespace Quantum.Systems
 			StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
 		}
 
-		private bool TryStartCollecting(Frame f, TriggerInfo3D info)
+		private bool TryStartCollecting(Frame f, TriggerInfo3D info, bool sendEvent)
 		{
 			
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
@@ -76,7 +76,10 @@ namespace Quantum.Systems
 			
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
-				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				if (sendEvent)
+				{
+					f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				}
 				return false;
 			}
 

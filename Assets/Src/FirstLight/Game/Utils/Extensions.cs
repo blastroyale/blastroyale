@@ -524,7 +524,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetSpectatorCapacity(this Room room)
 		{
-			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return NetworkUtils.GetMaxSpectators(room.GetMatchSetup());
 		}
 
 		/// <summary>
@@ -774,6 +774,14 @@ namespace FirstLight.Game.Utils
 				default:
 					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
 			}
+		}
+
+		/// <summary>
+		/// Checks if the entity is the player we are currently spectating.
+		/// </summary>
+		public static bool IsSpectatingPlayer(this IMatchServices matchServices, EntityRef entityRef)
+		{
+			return entityRef == matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
 	}
 }

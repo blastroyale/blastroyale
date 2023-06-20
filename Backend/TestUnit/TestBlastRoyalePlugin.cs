@@ -34,8 +34,8 @@ public class TestNftSyncPlugin
 		var pluginCtx = new PluginContext(_events, _app.Services);
 		_nftSync = new StubbedNftSync(pluginCtx);
 		_plugin = new BlastRoyalePlugin();
+		pluginCtx.DataSyncs?.RegisterSync(_nftSync);
 		_plugin.OnEnable(pluginCtx);
-		_plugin.NftSync = _nftSync;
 		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
 		{
@@ -77,7 +77,7 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestInventorySync()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 
 		var nftData = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		var equip = nftData.Inventory.Values.First();
@@ -88,8 +88,8 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestAlreadyInSync()
 	{
-		Assert.IsTrue(await _nftSync.SyncAllNfts("yolo"));
-		Assert.IsFalse(await _nftSync.SyncAllNfts("yolo"));
+		Assert.IsTrue(await _nftSync.SyncData("yolo"));
+		Assert.IsFalse(await _nftSync.SyncData("yolo"));
 	}
 
 	[Test]
@@ -101,7 +101,7 @@ public class TestNftSyncPlugin
 		state.UpdateModel(equips);
 		_app.ServerState.UpdatePlayerState("yolo", state).Wait();
 
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 
 		var nftData = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
@@ -112,7 +112,7 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestNotDuplicatingAlreadyOwned()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		var firstStateUniqueId = firstState.Inventory.Keys.First();
 
@@ -124,7 +124,7 @@ public class TestNftSyncPlugin
 		});
 		_nftSync.LastUpdate++;
 
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
@@ -138,7 +138,7 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestUpgradingTriggersSync()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var newLevel = 10;
@@ -146,7 +146,7 @@ public class TestNftSyncPlugin
 		nftMetadata.level = newLevel;
 		_nftSync.LastUpdate++;
 		
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var itemBefore = firstState.Inventory.Values.First();
@@ -159,7 +159,7 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestRepairingTriggersSync()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var newRepairTime = 100;
@@ -167,7 +167,7 @@ public class TestNftSyncPlugin
 		nftMetadata.lastRepairTime = newRepairTime;
 		_nftSync.LastUpdate++;
 	
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var nftDataBefore = firstState.Inventory.Values.First();
@@ -180,13 +180,13 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestRemovingFromGameWhenRemovedFromBlockchain()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		_nftSync.Indexed.Clear();
 		_nftSync.LastUpdate++;
 		
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		Assert.AreEqual(1, firstState.Inventory.Keys.Count);
@@ -211,13 +211,13 @@ public class TestNftSyncPlugin
 	[Test]
 	public async Task TestNftSyncTriggeringRemoveNftAnalytics()
 	{
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		_nftSync.Indexed.Clear();
 		_nftSync.LastUpdate++;
 
-		await _nftSync.SyncAllNfts("yolo");
+		await _nftSync.SyncData("yolo");
 		_app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
 		var nftRemovedEvents = _analytics.FiredEvents.Where(e => e.Name == "nft_remove").ToList();

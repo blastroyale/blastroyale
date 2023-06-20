@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
@@ -61,7 +62,7 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 
-		public void OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
+		public async Task OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)
 		{
 			if (!playerLoadEvent.PlayerState.Has<EquipmentData>())
 			{

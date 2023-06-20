@@ -108,7 +108,8 @@ namespace FirstLight.Game.Services
 				GameModeId = gameModeId,
 				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
-				Mutators = Array.Empty<string>()
+				Mutators = Array.Empty<string>(),
+				JoinType = JoinType.ForcedGame,
 			};
 
 			_services.NetworkService.CreateRoom(roomSetup, true);
@@ -117,13 +118,15 @@ namespace FirstLight.Game.Services
 		public void CreateJoinSecondTutorialRoom()
 		{
 			var gameModeId = GameConstants.Tutorial.SECOND_BOT_MODE_ID;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
 
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
-				MapId = GameId.BRGenesis.GetHashCode(),
+				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
 				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
-				Mutators = Array.Empty<string>()
+				Mutators = Array.Empty<string>(),
+				JoinType = JoinType.ForcedGame,
 			};
 
 			_services.NetworkService.JoinOrCreateRandomRoom(setup);

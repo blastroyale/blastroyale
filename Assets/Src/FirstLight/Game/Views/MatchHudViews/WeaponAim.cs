@@ -42,8 +42,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		void OnEnable()
 		{
-			_upperLineRenderer.gameObject.SetActive(true);
-			_lowerLineRenderer.gameObject.SetActive(true);
+			_upperLineRenderer.gameObject.SetActive(_angleVariation > _minAngleVariation);
+			_lowerLineRenderer.gameObject.SetActive(_angleVariation > _minAngleVariation);
 		}
 
 		private void AdjustDottedLine(LineRenderer lineRenderer)
@@ -78,7 +78,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// It will use the simulation physics, transforms and colliders as opposed to Unity to detect if the aim line
 		/// should collide with something this means it will use predicted frame data.
 		/// Will not calculate weapon angle variations and range to save resources.
-		/// Will also not update if the aim does not change to save resources.
 		/// </summary>
 		public void UpdateAimAngle(Frame f, EntityRef entity, FPVector2 aimDirection)
 		{

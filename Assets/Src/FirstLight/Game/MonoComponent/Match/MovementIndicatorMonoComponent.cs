@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void LateUpdate()
 		{
+			if (_playerTransform.IsDestroyed()) return;
 			transform.position = _playerTransform.position + _position;
 		}
 
@@ -53,6 +55,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetTransformState(Vector2 position)
 		{
+			if (_playerTransform.IsDestroyed()) return;
 			var move = position * _playerDistance;
 			_position = new Vector3(move.x, _localHeight, move.y);
 			var playerPos = _playerTransform.position;

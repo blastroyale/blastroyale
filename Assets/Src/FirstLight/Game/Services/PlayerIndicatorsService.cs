@@ -58,6 +58,7 @@ namespace FirstLight.Game.Services
 		private void OnLocalPlayerDied(EventOnLocalPlayerDead ev)
 		{
 			UnregisterListeners();
+			_indicatorContainerView?.Dispose();
 		}
 
 		private void RegisterListeners()

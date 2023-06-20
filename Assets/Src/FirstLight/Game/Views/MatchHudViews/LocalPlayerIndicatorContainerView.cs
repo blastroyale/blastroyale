@@ -29,8 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private WeaponAim _weaponAim;
 		
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
-		private IIndicator MovementIndicator => _indicators[(int) IndicatorVfxId.Movement];
-		
+
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -47,6 +46,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Dispose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			foreach (var i in _indicators) DestroyIndicator(i);
+			foreach (var i in _specialIndicators) DestroyIndicator(i);
+			foreach (var i in _specialRadiusIndicators) DestroyIndicator(i);
+			GameObject.Destroy(_weaponAim);
 		}
 
 		public bool IsInitialized() => _playerView != null;
@@ -188,6 +191,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_weaponAim.UpdateWeapon(f, _localPlayerEntity, _weaponConfig);
 			}
+		}
+
+		private void DestroyIndicator(IIndicator i)
+		{
+			Object.Destroy(((MonoBehaviour)i).gameObject);
 		}
 
 		/// <summary>

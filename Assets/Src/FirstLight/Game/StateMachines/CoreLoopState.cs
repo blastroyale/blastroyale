@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task WaitForPhotonConnection()
 		{
-			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady)
+			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady || _services.NetworkService.QuantumClient.Server == ServerConnection.NameServer)
 			{
 				await Task.Yield();
 			}

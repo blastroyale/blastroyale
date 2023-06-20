@@ -12,7 +12,7 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		
+		public static readonly FP AIM_DELAY = FP._0_33;
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
@@ -287,7 +287,7 @@ namespace Quantum.Systems
 			
 			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
 			{
-				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : FP._0_33));
+				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : AIM_DELAY));
 			}
 			
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);

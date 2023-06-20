@@ -270,8 +270,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
+    <Compile Include="Systems\Bots\BotState.cs" />
     <Compile Include="Systems\Bots\BotCharacterSystem.cs" />
     <Compile Include="Systems\Bots\BotSetup.cs" />
+    <Compile Include="Systems\Bots\BotShooting.cs" />
     <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />

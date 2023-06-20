@@ -17,6 +17,7 @@ namespace FirstLight.Game.Views.UITK
 		private Label _killsCountLabel;
 		private Label _timerLabel;
 		private VisualElement _pingElement;
+		private VisualElement _counterElement;
 		private Label _notificationLabel;
 
 		private IMatchServices _matchServices;
@@ -38,6 +39,8 @@ namespace FirstLight.Game.Views.UITK
 			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
 			_pingElement = element.Q<VisualElement>("PingBG").Required();
 			_timerLabel = element.Q<Label>("TimerText").Required();
+			_counterElement = element.Q<VisualElement>("Counter");
+
 			_notificationLabel = element.Q<Label>("NotificationText").Required();
 			
 			_notificationLabel.SetDisplay(false);
@@ -50,6 +53,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_notificationDirector = director;
 		}
+
 
 		public override void SubscribeToEvents()
 		{
@@ -73,6 +77,11 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
+			{
+				return;
+			}
+
 			var countdown = ((callback.ShrinkingCircle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000)
 				.AsLong;
 
@@ -81,6 +90,13 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
+			{
+				_counterElement.SetVisibility(false);
+				return;
+			}
+
+			_counterElement.SetVisibility(true);
 			if (_timerUpdate == null && callback.Game.Frames.Predicted.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
 				var countdown = ((circle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000).AsLong;

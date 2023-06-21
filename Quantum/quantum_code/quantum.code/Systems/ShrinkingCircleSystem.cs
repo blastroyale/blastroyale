@@ -32,7 +32,7 @@ namespace Quantum.Systems
 
 				if (circle->Step < 0)
 				{
-					var config = f.ShrinkingCircleConfigs.QuantumConfigs[0];
+					var config = f.Context.MapShrinkingCircleConfigs[0];
 					SetShrinkingCircleData(f, circle, ref config);
 				}
 
@@ -69,9 +69,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
-
-			if (circle->Step >= configs.Count)
+			if (circle->Step >= f.Context.MapShrinkingCircleConfigs.Count)
 			{
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
@@ -84,7 +82,7 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
-			var config = configs[circle->Step];
+			var config = f.Context.MapShrinkingCircleConfigs[circle->Step];
 			SetShrinkingCircleData(f, circle, ref config);
 		}
 

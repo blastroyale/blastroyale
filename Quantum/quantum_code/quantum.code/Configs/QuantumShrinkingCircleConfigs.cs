@@ -7,7 +7,9 @@ namespace Quantum
 	[Serializable]
 	public struct QuantumShrinkingCircleConfig
 	{
+		public int Key;
 		public int Step;
+		public GameId Map;
 
 		public FP DelayTime;
 		public FP WarningTime;
@@ -27,5 +29,31 @@ namespace Quantum
 	public partial class QuantumShrinkingCircleConfigs
 	{
 		public List<QuantumShrinkingCircleConfig> QuantumConfigs = new List<QuantumShrinkingCircleConfig>();
+		
+		private IDictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>> _dictionary;
+
+		/// <summary>
+		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
+		/// </summary>
+		public IDictionary<int, QuantumShrinkingCircleConfig> GetConfigs(int mapId)
+		{
+			if (_dictionary == null)
+			{
+				_dictionary = new Dictionary<int, IDictionary<int, QuantumShrinkingCircleConfig>>();
+				
+				foreach (var config in QuantumConfigs)
+				{
+					if (!_dictionary.ContainsKey((int)config.Map))
+					{
+						_dictionary.Add((int)config.Map, new Dictionary<int, QuantumShrinkingCircleConfig>());
+					}
+
+					// We do -1 here so dictionary keys can acts as indexes, starting from 0 (as steps in configs start with 1)
+					_dictionary[(int)config.Map].Add(config.Step - 1, config);
+				}
+			}
+			
+			return _dictionary[mapId];
+		}
 	}
 }

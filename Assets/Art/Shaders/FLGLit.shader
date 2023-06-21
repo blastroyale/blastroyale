@@ -23,26 +23,27 @@ Shader "FLG/FastLit"
 
             struct Attributes
             {
-                float4 position : POSITION;
-                float2 uv : TEXCOORD0;
-                float3 normal : NORMAL;
+                half4 position : POSITION;
+                half2 uv : TEXCOORD0;
+                half3 normal : NORMAL;
             };
 
             struct Varyings
             {
-                float4 position : SV_POSITION;
-                float2 uv : TEXCOORD0;
-                float3 normal : TEXCOORD1;
+                half4 position : SV_POSITION;
+                half2 uv : TEXCOORD0;
+                half3 normal : TEXCOORD1;
+                half3 lambert : TEXCOORD2;
             };
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
             CBUFFER_START(UnityPerMaterial)
-            float4 _MainTex_ST;
+            half4 _MainTex_ST;
             CBUFFER_END
 
-            float3 lambert(float3 lightColor, float3 lightDir, float3 normal)
+            half3 lambert(half3 lightColor, half3 lightDir, half3 normal)
             {
                 return lightColor * saturate(dot(normal, lightDir));
             }
@@ -53,6 +54,7 @@ Shader "FLG/FastLit"
                 OUT.position = TransformObjectToHClip(IN.position.xyz);
                 OUT.normal = TransformObjectToWorldNormal(IN.normal);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+                OUT.lambert = lambert(_MainLightColor * unity_LightData.z, _MainLightPosition.xyz, OUT.normal);
                 return OUT;
             }
 
@@ -60,7 +62,7 @@ Shader "FLG/FastLit"
             {
                 half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
                 color.rgb *= 0.8;
-                color.rgb += lambert(_MainLightColor * unity_LightData.z, _MainLightPosition.xyz, IN.normal);
+                color.rgb += IN.lambert; 
                 return color;
             }
             ENDHLSL

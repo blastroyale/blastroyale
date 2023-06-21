@@ -66,16 +66,15 @@ namespace FirstLight.Game.StateMachines
 
 			spawning.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
-
-			alive.OnEnter(OpenControlsHud);
+			
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
-			alive.OnExit(CloseControlsHud);
 
 			deadCheck.Transition().Condition(IsNotOnline).Target(final);
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 			
+			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(MatchEndAnalytics);
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
@@ -149,20 +148,16 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
-		private void OpenControlsHud()
-		{
-			//_uiService.OpenUi<HUDScreenPresenter>();
-		}
+
 		
-		private void CloseControlsHud()
+		private void CloseMatchHud()
 		{
-			//_uiService.CloseUi<HUDScreenPresenter>();
+			_uiService.CloseUi<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchHud()
 		{
-			//_uiService.OpenUi<MatchHudPresenter>();
-			_uiService.OpenScreen<HUDScreenPresenter>();
+			_uiService.OpenUi<HUDScreenPresenter>();
 		}
 		
 		private void OpenMatchEndScreen()

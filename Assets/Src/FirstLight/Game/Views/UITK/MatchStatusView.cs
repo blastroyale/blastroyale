@@ -1,8 +1,10 @@
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using Quantum.Core;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using Assert = UnityEngine.Assertions.Assert;
@@ -15,8 +17,12 @@ namespace FirstLight.Game.Views.UITK
 		private Label _killsCountLabel;
 		private Label _timerLabel;
 		private VisualElement _pingElement;
+		private VisualElement _counterElement;
+		private Label _notificationLabel;
 
 		private IMatchServices _matchServices;
+
+		private PlayableDirector _notificationDirector;
 
 		private IVisualElementScheduledItem _timerUpdate;
 		private ValueAnimation<float> _pingAnimation;
@@ -29,21 +35,38 @@ namespace FirstLight.Game.Views.UITK
 			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_aliveCountLabel = element.Q<Label>("AliveCountText");
-			_killsCountLabel = element.Q<Label>("KilledCountText");
-			_pingElement = element.Q<VisualElement>("PingBG");
-			_timerLabel = element.Q<Label>("TimerText");
+			_aliveCountLabel = element.Q<Label>("AliveCountText").Required();
+			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
+			_pingElement = element.Q<VisualElement>("PingBG").Required();
+			_timerLabel = element.Q<Label>("TimerText").Required();
+			_counterElement = element.Q<VisualElement>("Counter");
+
+			_notificationLabel = element.Q<Label>("NotificationText").Required();
+			
+			_notificationLabel.SetDisplay(false);
 
 			_pingAnimation = _pingElement.experimental.animation.Scale(0.6f, 1000).KeepAlive();
 			_pingAnimation.from = 1f;
 		}
+		
+		public void SetAreaShrinkingDirector(PlayableDirector director)
+		{
+			_notificationDirector = director;
+		}
+
 
 		public override void SubscribeToEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirDropDropped);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+		}
+
+		private void OnAirDropDropped(EventOnAirDropDropped callback)
+		{
+			ShowNotification(ScriptLocalization.UITMatch.airdrop_landing);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -54,6 +77,11 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
+			{
+				return;
+			}
+
 			var countdown = ((callback.ShrinkingCircle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000)
 				.AsLong;
 
@@ -62,6 +90,13 @@ namespace FirstLight.Game.Views.UITK
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowUITimer)
+			{
+				_counterElement.SetVisibility(false);
+				return;
+			}
+
+			_counterElement.SetVisibility(true);
 			if (_timerUpdate == null && callback.Game.Frames.Predicted.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
 				var countdown = ((circle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000).AsLong;
@@ -104,7 +139,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		public void StartCountdown(long warningTimeMs, long shrinkingTimeMs)
+		private void StartCountdown(long warningTimeMs, long shrinkingTimeMs)
 		{
 			Assert.IsTrue(shrinkingTimeMs % 1000 == 0, "Shrinking time must be rounded to seconds!");
 
@@ -112,6 +147,9 @@ namespace FirstLight.Game.Views.UITK
 
 			var warningSeconds = (int) (warningTimeMs / 1000);
 			var shrinkingSeconds = (int) (shrinkingTimeMs / 1000);
+			var shrinkingNotified = false;
+			
+			ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
@@ -123,6 +161,12 @@ namespace FirstLight.Game.Views.UITK
 					}
 					else if (shrinkingSeconds > 0)
 					{
+						if (!shrinkingNotified)
+						{
+							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
+							shrinkingNotified = true;
+						}
+						
 						_timerLabel.text = shrinkingSeconds.ToString();
 						shrinkingSeconds--;
 						_pingAnimation.Start();
@@ -136,6 +180,12 @@ namespace FirstLight.Game.Views.UITK
 				.Until(() =>
 					warningSeconds == 0 &&
 					shrinkingSeconds == -1); // -1 because we want to show empty string after the countdown
+		}
+
+		private void ShowNotification(string message)
+		{
+			_notificationLabel.text = message;
+			_notificationDirector.Play();
 		}
 	}
 }

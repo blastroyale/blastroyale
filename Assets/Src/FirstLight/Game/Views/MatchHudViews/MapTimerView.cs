@@ -116,8 +116,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				yield break;
 			}
 			
-			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
-			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
+			var time = (circle.ShrinkingStartTime - f.Time - f.Context.MapShrinkingCircleConfigs[circle.Step].WarningTime).AsFloat;
 
 			_mapStatusText.gameObject.SetActive(true);
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GetReady;

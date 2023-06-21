@@ -87,7 +87,7 @@ namespace Quantum.Systems.Bots
 				filter.BotCharacter->SpeedResetAfterLanding = true;
 
 				// We call stop aiming once here to set the movement speed to a proper stat value
-				StopAiming(f, ref filter);
+				filter.StopAiming(f);
 			}
 
 			// Distribute bot processing in 15 frames
@@ -112,60 +112,22 @@ namespace Quantum.Systems.Bots
 			}
 
 			bool isTakingCircleDamage = filter.AlivePlayerCharacter->TakingCircleDamage;
-
-
-			// If a bot has a valid target then we correct the bot's speed according
-			// to the weapon they carry and turn the bot towards the target
-			// otherwise we return speed to normal and let automatic navigation turn the bot
-			var target = filter.BotCharacter->Target;
-			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
-
-			if (target != EntityRef.None)
+			
+			if (filter.BotCharacter->Target.IsValid && isTakingCircleDamage)
 			{
-				// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
-				if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target) || isTakingCircleDamage)
-				{
-					ClearTarget(f, ref filter);
-				}
-				// Aim at target
-				else
-				{
-					var weaponTargetRange =
-						FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue,
-							filter.BotCharacter->MaxAimingRange);
-					var botPosition = filter.Transform->Position;
-					var team = f.Get<Targetable>(filter.Entity).Team;
-					var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-
-					botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-					if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, target, out var targetHit))
-					{
-						var speedUpMutatorExists =
-							f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-						var speed = f.Get<Stats>(filter.Entity).Values[(int)StatType.Speed].StatValue;
-						speed *= filter.BotCharacter->MovementSpeedMultiplier;
-						speed *= weaponConfig.AimingMovementSpeed;
-
-						kcc->MaxSpeed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
-
-						filter.BotCharacter->Target = targetHit;
-						QuantumHelpers.LookAt2d(f, filter.Entity, targetHit, FP._0);
-						bb->Set(f, Constants.IsAimPressedKey, true);
-						target = targetHit;
-					}
-					// Clear target if can't aim at it
-					else
-					{
-						ClearTarget(f, ref filter);
-					}
-				}
+				filter.ClearTarget(f);
 			}
+			else
+			{
+				filter.UpdateAimTarget(f);
+			}
+		
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 
 			// Bots look for others to shoot at not on every frame
 			if (f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
 			{
-				CheckEnemiesToShooAt(f, ref filter, ref weaponConfig);
+				filter.CheckEnemiesToShooAt(f, ref weaponConfig);
 
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
 					f.Time + filter.BotCharacter->LookForTargetsToShootAtInterval;
@@ -231,7 +193,7 @@ namespace Quantum.Systems.Bots
 			// So we don't allow bots to do it as well
 			if (TryUseSpecials(f, ref filter))
 			{
-				StopAiming(f, ref filter);
+				filter.StopAiming(f);
 			}
 
 			// In case a bot has a gun and ammo but switched to a hammer - we switch back to a gun
@@ -297,36 +259,6 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		private void StopAiming(Frame f, ref BotCharacterFilter filter)
-		{
-			var speed = f.Get<Stats>(filter.Entity).Values[(int)StatType.Speed].StatValue;
-			speed *= filter.BotCharacter->MovementSpeedMultiplier;
-
-			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-			speed = speedUpMutatorExists ? speed * speedUpMutatorConfig.Param1 : speed;
-
-			// When we clear the target we also return speed to normal
-			// because without a target bots don't shoot
-			f.Unsafe.GetPointer<CharacterController3D>(filter.Entity)->MaxSpeed = speed;
-
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-			bb->Set(f, Constants.IsAimPressedKey, false);
-		}
-
-		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
-		{
-			StopAiming(f, ref filter);
-
-			// If the bot was moving towards this enemy then we clear move target and force a bot to make a decision
-			// if (filter.BotCharacter->MoveTarget == filter.BotCharacter->Target)
-			// {
-			// 	filter.BotCharacter->MoveTarget = EntityRef.None;
-			// 	filter.NavMeshAgent->Stop(f, filter.Entity, true);
-			// }
-
-			filter.BotCharacter->Target = EntityRef.None;
-		}
-
 		// We loop through players to find a reference for alive teammate in case current is dead
 		private void CheckOnTeammates(Frame f, ref BotCharacterFilter filter)
 		{
@@ -356,104 +288,7 @@ namespace Quantum.Systems.Bots
 			filter.BotCharacter->RandomTeammate = randomTeammate;
 		}
 
-		// We loop through targetable entities trying to find if any is eligible to shoot at
-		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, ref QuantumWeaponConfig weaponConfig)
-		{
-			var target = EntityRef.None;
-
-			// We do line/shapecasts for enemies in sight
-			// If there is a target in Sight then store this Target into the blackboard variable
-			// We check enemies one by one until we find a valid enemy in sight
-			// Note: Bots against bots use the full weapon range
-			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
-			var limitedTargetRange = FPMath.Min(weaponTargetRange, filter.BotCharacter->MaxAimingRange);
-			var botPosition = filter.Transform->Position;
-			var team = f.Get<Targetable>(filter.Entity).Team;
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-
-			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
-			{
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team, limitedTargetRange,
-						targetCandidate.Entity, out var targetHit))
-				{
-					target = targetHit;
-					break;
-				}
-			}
-
-			filter.BotCharacter->Target = target;
-
-			bb->Set(f, Constants.IsAimPressedKey, target != EntityRef.None);
-		}
-
-		// We check specific entity if a bot can hit it or not, to make a decision to aim or not to aim
-		// Note that as a result we can get another entity that is being hit, for instance if it appears between the bot and a target that we are checking
-		private bool TryToAimAtEnemy(Frame f, ref BotCharacterFilter filter, FPVector3 botPosition, int team,
-									 FP targetRange, EntityRef targetToCheck, out EntityRef targetHit)
-		{
-			targetHit = EntityRef.None;
-
-			if (!VisibilityAreaSystem.CanEntityViewEntity(f, filter.Entity, targetToCheck).CanSee)
-			{
-				return false;
-			}
-
-			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team) ||
-				!QuantumHelpers.IsEntityInRange(f, filter.Entity, targetToCheck, FP._0, targetRange))
-			{
-				return false;
-			}
-
-			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
-			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-
-			// Are bots inside eachother
-			if (FPVector3.DistanceSquared(botPosition, targetPosition) < FP._0_20)
-			{
-				var random = FPVector3.Normalize(botPosition - targetPosition) * f.RNG->NextInclusive(FP._1, FP._3);
-				var randomPosition = botPosition + random;
-				if (QuantumHelpers.SetClosestTarget(f, filter.Entity, randomPosition))
-				{
-					targetHit = targetToCheck;
-					return true;
-				}
-			}
-
-			var hit = f.Physics3D.Linecast(botPosition,
-				targetPosition,
-				f.Context.TargetAllLayerMask,
-				QueryOptions.HitDynamics | QueryOptions.HitStatics |
-				QueryOptions.HitKinematics);
-
-
-			// TODO: Ideally we shouldn't check "hit.Value.Entity != EntityRef.None" because layers should solve it,
-			// however sometimes we have a hit.HasValue but hit.Value.Entity is EntityRef.None which means we hit something that is not an Entity
-			if (hit.HasValue && hit.Value.Entity != EntityRef.None)
-			{
-				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
-
-				targetHit = hit.Value.Entity;
-
-				// Apply bots inaccuracy
-				var aimDirection = (targetPosition - botPosition).XZ;
-				if (filter.BotCharacter->AccuracySpreadAngle > 0)
-				{
-					var angleHalfInRad = (filter.BotCharacter->AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
-					aimDirection = FPVector2.Rotate(aimDirection, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
-				}
-
-				bb->Set(f, Constants.AimDirectionKey, aimDirection);
-
-				return true;
-			}
-
-			return false;
-		}
-
+	
 		// We check specials and try to use them depending on their type if possible
 		private bool TryUseSpecials(Frame f, ref BotCharacterFilter filter)
 		{

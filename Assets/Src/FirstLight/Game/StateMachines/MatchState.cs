@@ -132,6 +132,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(MatchQuitEvent).OnTransition(() => HandleSimulationEnd(true)).Target(transitionToMenu);
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnCriticalDisconnectDuringSimulation).Target(disconnected);
 			
+			gameEndedChoice.OnEnter(CloseMatchHud);
 			gameEndedChoice.Transition().Condition(IsSimulationStopped).Target(final);
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
@@ -189,7 +190,10 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
-
+		private void CloseMatchHud()
+		{
+			_uiService.CloseUi<HUDScreenPresenter>();
+		}
 		private bool IsMatchOver()
 		{
 			if (QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed())

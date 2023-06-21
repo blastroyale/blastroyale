@@ -96,7 +96,6 @@
     --sprite-home__character-malepunk: url('/Assets/Art/UI/Sprites/Home/character-malepunk.png');
     --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
-    --sprite-home__flag-punk: url('/Assets/Art/UI/Sprites/Home/flag-punk.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
     --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
     --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
@@ -680,8 +679,8 @@
 
 .sprite-home__character-male02avatar {
     background-image: var(--sprite-home__character-male02avatar);
-    width: 256px;
-    height: 256px;
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-home__character-maleassassin {
@@ -698,8 +697,8 @@
 
 .sprite-home__character-malepunk {
     background-image: var(--sprite-home__character-malepunk);
-    width: 128px;
-    height: 128px;
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__character-malesuperstar {
@@ -710,12 +709,6 @@
 
 .sprite-home__flag-demon {
     background-image: var(--sprite-home__flag-demon);
-    width: 324px;
-    height: 324px;
-}
-
-.sprite-home__flag-punk {
-    background-image: var(--sprite-home__flag-punk);
     width: 324px;
     height: 324px;
 }

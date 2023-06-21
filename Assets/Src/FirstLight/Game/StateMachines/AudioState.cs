@@ -491,15 +491,19 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-			var config =
-				_services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
+			
+			if (callback.ShrinkingCircle.Step >= f.Context.MapShrinkingCircleConfigs.Count())
+			{
+				yield break;
+			}
+			
+			var config = f.Context.MapShrinkingCircleConfigs[callback.ShrinkingCircle.Step];
 
 			var circle = f.GetSingleton<ShrinkingCircle>();
 
 			// We don't play on the last step, so we get the previous one as the max
-			var maxStepForCircleClosing = allConfigs[^3].Step;
-			var stepForFinalCountdown = allConfigs[^2].Step;
+			var maxStepForCircleClosing = Math.Max(1, f.Context.MapShrinkingCircleConfigs.Count - 2);
+			var stepForFinalCountdown = Math.Max(1, f.Context.MapShrinkingCircleConfigs.Count - 1);
 
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 

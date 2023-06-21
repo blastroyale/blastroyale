@@ -293,7 +293,10 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			if (isBot)
 			{
+				// Bots have to spawn in the specific spawner position, because they differ (ex one spawner has equipment and the other don't)
 				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
+				positionToCompare = f.Unsafe.GetPointer<Transform3D>(playerEntity)->Position;
+				sortByDistance = true;
 			}
 
 			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter, sortByDistance, positionToCompare));

@@ -1,11 +1,15 @@
 enum BotBehaviourType
 {
     Static,
-    Dumb,
-	Balanced,
-	Cautious,
-	Aggressive,
+    WanderAndShoot,
+	BattleRoyale,
 }
+
+component GearOverwrite {
+    list<EquipmentMinified> Gear;
+    FP AmmoPercentage;
+}
+
 
 component BotCharacter
 {

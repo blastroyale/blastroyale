@@ -71,7 +71,10 @@ namespace Quantum
 			RefreshStats(f, weapon, gear, e);
 
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;
+			if (CurrentAmmoPercent == 0)
+			{
+				CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;	
+			}
 		}
 
 		/// <summary>
@@ -155,14 +158,14 @@ namespace Quantum
 		/// <summary>
 		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and 1
 		/// </summary>
-		private void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
 		{
 			var previousAmmo = CurrentAmmoPercent;
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
 			var currentMag = player->WeaponSlot->MagazineShotCount;
 
-			CurrentAmmoPercent = FPMath.Clamp(value, 0, 1);
+			CurrentAmmoPercent = FPMath.Clamp(value, FP._0, FP._1);
 
 			if (CurrentAmmoPercent != previousAmmo)
 			{

@@ -1,0 +1,242 @@
+fileFormatVersion: 2
+guid: a1bf24992630bed49853287954d9badd
+timeCreated: 1605883894
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: acid
+    100002: cornellElevator
+    100004: cornellLightMesh
+    100006: door
+    100008: door001
+    100010: lava
+    100012: lightMesh
+    100014: lightMesh001
+    100016: lightMesh002
+    100018: lightMesh003
+    100020: lightMesh004
+    100022: roomAcid
+    100024: roomGlobal
+    100026: roomLava
+    100028: roomLocal
+    100030: roomLocal001
+    100032: roomLocal002
+    100034: //RootNode
+    100036: main001
+    100038: secondFloor
+    400000: acid
+    400002: cornellElevator
+    400004: cornellLightMesh
+    400006: door
+    400008: door001
+    400010: lava
+    400012: lightMesh
+    400014: lightMesh001
+    400016: lightMesh002
+    400018: lightMesh003
+    400020: lightMesh004
+    400022: roomAcid
+    400024: roomGlobal
+    400026: roomLava
+    400028: roomLocal
+    400030: roomLocal001
+    400032: roomLocal002
+    400034: //RootNode
+    400036: main001
+    400038: secondFloor
+    2300000: acid
+    2300002: cornellElevator
+    2300004: cornellLightMesh
+    2300006: door
+    2300008: door001
+    2300010: lava
+    2300012: lightMesh
+    2300014: lightMesh001
+    2300016: lightMesh002
+    2300018: lightMesh003
+    2300020: lightMesh004
+    2300022: roomAcid
+    2300024: roomGlobal
+    2300026: roomLava
+    2300028: roomLocal
+    2300030: roomLocal001
+    2300032: roomLocal002
+    2300034: main001
+    3300000: acid
+    3300002: cornellElevator
+    3300004: cornellLightMesh
+    3300006: door
+    3300008: door001
+    3300010: lava
+    3300012: lightMesh
+    3300014: lightMesh001
+    3300016: lightMesh002
+    3300018: lightMesh003
+    3300020: lightMesh004
+    3300022: roomAcid
+    3300024: roomGlobal
+    3300026: roomLava
+    3300028: roomLocal
+    3300030: roomLocal001
+    3300032: roomLocal002
+    3300034: main001
+    4300000: roomGlobal
+    4300002: roomLocal
+    4300004: lightMesh
+    4300006: cornellElevator
+    4300008: cornellLightMesh
+    4300010: door
+    4300012: door001
+    4300014: roomLocal001
+    4300016: lightMesh001
+    4300018: roomAcid
+    4300020: acid
+    4300022: lightMesh002
+    4300024: roomLava
+    4300026: lightMesh003
+    4300028: lava
+    4300030: roomLocal002
+    4300032: lightMesh004
+    4300034: main001
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 1000
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: cornellElevator
+        weight: 1
+      - path: cornellElevator/cornellLightMesh
+        weight: 1
+      - path: door
+        weight: 1
+      - path: door001
+        weight: 1
+      - path: main001
+        weight: 1
+      - path: roomGlobal
+        weight: 1
+      - path: roomLocal
+        weight: 1
+      - path: roomLocal/lightMesh
+        weight: 1
+      - path: secondFloor
+        weight: 1
+      - path: secondFloor/roomAcid
+        weight: 1
+      - path: secondFloor/roomAcid/acid
+        weight: 1
+      - path: secondFloor/roomAcid/lightMesh002
+        weight: 1
+      - path: secondFloor/roomLava
+        weight: 1
+      - path: secondFloor/roomLava/lava
+        weight: 1
+      - path: secondFloor/roomLava/lightMesh003
+        weight: 1
+      - path: secondFloor/roomLocal001
+        weight: 1
+      - path: secondFloor/roomLocal001/lightMesh001
+        weight: 1
+      - path: secondFloor/roomLocal002
+        weight: 1
+      - path: secondFloor/roomLocal002/lightMesh004
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.2
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

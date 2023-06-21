@@ -53,7 +53,12 @@ namespace Quantum
 				}
 			}
 			
-			return _dictionary[mapId];
+			if (_dictionary.TryGetValue(mapId,out var configs))
+			{
+				return configs;
+			}
+
+			return new Dictionary<int, QuantumShrinkingCircleConfig>();
 		}
 	}
 }

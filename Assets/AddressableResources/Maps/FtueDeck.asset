@@ -2709,6 +2709,252 @@ MonoBehaviour:
         ColliderIndex: 64
         MutableMode: 0
       MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 11029
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -64601
+      Position:
+        X:
+          RawValue: 1133172
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 567571
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 65
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 11029
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -64601
+      Position:
+        X:
+          RawValue: 1179277
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 436330
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB (1)
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 66
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 43134
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -49339
+      Position:
+        X:
+          RawValue: 872633
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 189594
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB (2)
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 67
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 43134
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -49339
+      Position:
+        X:
+          RawValue: 1010489
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 171410
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB (3)
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 68
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 18711
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62807
+      Position:
+        X:
+          RawValue: 807647
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 646214
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB (4)
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 69
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 18711
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62807
+      Position:
+        X:
+          RawValue: 732248
+        Y:
+          RawValue: 71937
+        Z:
+          RawValue: 529728
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 20902
+        Y:
+          RawValue: 58830
+        Z:
+          RawValue: 68157
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Barricade_Concrete_High_PRFB (5)
+        Tag: Untagged
+        Layer: 7
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 70
+        MutableMode: 0
+      MutableMode: 0
     MapEntities: []
   Prototypes:
   - AIBlackboardComponent: []
@@ -3263,11 +3509,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -844771
+          RawValue: -814881
         Y:
-          RawValue: 218234
+          RawValue: 235929
         Z:
-          RawValue: -536027
+          RawValue: -521361
       Rotation:
         X:
           RawValue: 0
@@ -3348,7 +3594,7 @@ MonoBehaviour:
         X:
           RawValue: -449404
         Y:
-          RawValue: 215810
+          RawValue: 235929
         Z:
           RawValue: -716246
       Rotation:
@@ -3431,7 +3677,7 @@ MonoBehaviour:
         X:
           RawValue: -519526
         Y:
-          RawValue: 215810
+          RawValue: 235929
         Z:
           RawValue: -616502
       Rotation:
@@ -4145,14 +4391,14 @@ MonoBehaviour:
           RawValue: 0
         PositionOffset:
           X:
-            RawValue: 0
+            RawValue: 65536
           Y:
             RawValue: 0
           Z:
-            RawValue: 0
+            RawValue: 32112
         BoxExtents:
           X:
-            RawValue: 136970
+            RawValue: 111411
           Y:
             RawValue: 65536
           Z:
@@ -4182,11 +4428,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -741389
+          RawValue: -798056
         Y:
           RawValue: 296943
         Z:
-          RawValue: -467866
+          RawValue: -417048
       Rotation:
         X:
           RawValue: 0

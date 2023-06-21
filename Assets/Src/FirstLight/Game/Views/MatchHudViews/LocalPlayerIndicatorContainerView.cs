@@ -195,7 +195,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void DestroyIndicator(IIndicator i)
 		{
-			Object.Destroy(((MonoBehaviour)i).gameObject);
+			if (i != null)
+			{
+				Object.Destroy(((MonoBehaviour)i).gameObject);
+			}
 		}
 
 		/// <summary>

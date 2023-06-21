@@ -49,12 +49,6 @@ namespace FirstLight.Game.TestCases
 			completeButton.onClick.Invoke();
 		}
 
-		public static void SelectWaterPosition()
-		{
-			var map = Object.FindObjectOfType<MapSelectionView>();
-			map.SelectWaterPosition();
-		}
-
 		public static void ClickGameModeSelectionButton()
 		{
 			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "GameModeButton");

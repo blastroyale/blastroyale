@@ -131,12 +131,15 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			_legacyMinimap.SetActive(true);
+			_legacyMinimap.SetActive(_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap);
 		}
 
 		protected override Task OnClosed()
 		{
-			_legacyMinimap.SetActive(false);
+			if (_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap)
+			{
+				_legacyMinimap.SetActive(false);
+			}
 			return base.OnClosed();
 		}
 

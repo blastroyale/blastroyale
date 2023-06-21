@@ -200,12 +200,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenControlsHud()
 		{
-			_uiService.OpenUi<MatchControlsHudPresenter>();
+			throw new NotImplementedException("Needs to implement new match hud");
 		}
 
 		private void CloseControlsHud()
 		{
-			_uiService.CloseUi<MatchControlsHudPresenter>();
+			throw new NotImplementedException("Needs to implement new match hud");
 		}
 
 		private void OpenMatchHud()

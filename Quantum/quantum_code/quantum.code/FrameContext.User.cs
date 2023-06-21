@@ -12,6 +12,8 @@ namespace Quantum
 
 		public List<QuantumMutatorConfig> MutatorConfigs { get; internal set; }
 		
+		public IDictionary<int, QuantumShrinkingCircleConfig> MapShrinkingCircleConfigs { get; internal set; }
+		
 		public int TargetAllLayerMask { get; internal set; }
 
 		/// <summary>

@@ -79,3 +79,6 @@
 .safe-area {
     align-items: center;
 }
+
+.screen-header--no-back {
+}

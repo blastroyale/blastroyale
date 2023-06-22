@@ -36,6 +36,6 @@
                 </FirstLight.Game.UIElements.SafeAreaElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" picking-mode="Ignore" name="Header" class="screen-header--simple" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" class="screen-header--no-back" />
     </ui:VisualElement>
 </ui:UXML>

@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			foreach (var i in _indicators) DestroyIndicator(i);
 			foreach (var i in _specialIndicators) DestroyIndicator(i);
 			foreach (var i in _specialRadiusIndicators) DestroyIndicator(i);
-			GameObject.Destroy(_weaponAim);
+			if(!_weaponAim.IsDestroyed()) GameObject.Destroy(_weaponAim);
 		}
 
 		public bool IsInitialized() => _playerView != null;
@@ -195,9 +195,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void DestroyIndicator(IIndicator i)
 		{
-			if (i != null)
+			if (i != null && i is MonoBehaviour component && component != null && !component.IsDestroyed())
 			{
-				Object.Destroy(((MonoBehaviour)i).gameObject);
+				Object.Destroy(component);
 			}
 		}
 
@@ -265,9 +265,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
-
+		
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
+			
 			if (!_localPlayerEntity.IsAlive(f)) return;
 
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)

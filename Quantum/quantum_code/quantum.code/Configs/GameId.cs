@@ -172,7 +172,25 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.TestMap0, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.District, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.BattlelandsMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.IslandsMap, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
@@ -984,7 +1002,10 @@ namespace Quantum
 						GameId.TestScene,
 						GameId.NewBRMap,
 						GameId.FtueMiniMap,
-						GameId.District
+						GameId.TestMap0,
+						GameId.District,
+						GameId.BattlelandsMap,
+						GameId.IslandsMap
 					}.AsReadOnly()
 				},
 				{

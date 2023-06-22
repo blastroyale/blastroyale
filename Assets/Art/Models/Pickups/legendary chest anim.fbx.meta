@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 9c1dc3ea01f7cfe4aa1c0d8034c721cb
 ModelImporter:
   serializedVersion: 22200
@@ -8,7 +8,10 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
+    second:
+      fileID: 2100000
+      guid: 8ff40c23389a5e74191cc748616c84ca
+      type: 2
   materials:
     materialImportMode: 2
     materialName: 0
@@ -64,9 +67,10 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 100
@@ -129,7 +133,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 1
   humanoidOversampling: 1

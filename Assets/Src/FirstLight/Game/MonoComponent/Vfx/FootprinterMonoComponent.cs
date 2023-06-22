@@ -12,16 +12,25 @@ using UnityEngine;
 /// </summary>
 public class FootprinterMonoComponent : MonoBehaviour
 {
+    private static Queue<GameObject> _globalPool = new(); 
+    private static readonly Vector3 _rightStepVariation = new(-0.1f, 0, 0);
+    private static readonly Vector3 _leftStepVariation = new(0.1f, 0, 0);
+    
     private GameId _id;
     private WaitForSeconds _duration = new (4);
     private Cooldown _cooldown = new (TimeSpan.FromMilliseconds(300));
-    private Queue<GameObject> _pool = new();
+    
     private Vector3 _localPositionOffset = new (0, 0.1f, 0);
     private IGameServices _services;
-    private Vector3 _stepVariation = new(-0.1f, 0, 0);
-    private Vector3 _stepScale;
-    private Vector3 _stepInverseScale;
+    private Vector3 _rightStepScale;
+    private Vector3 _leftStepScale;
     private EntityView _view;
+    private bool _right;
+    
+    // Local variables to avoid GC
+    private GameObject _pooledFootprint;
+    private Transform _localTransform;
+    private Quaternion _localRotation;
 
     public bool SpawnFootprints;
     
@@ -35,20 +44,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         _view = view;
         _id = loadout.Footstep;
     }
-    
-    /// <summary>
-    /// Sets the sprite of the footprint that shall be used
-    /// </summary>
-    public GameId FootprintId
-    {
-        get => _id;
-        set
-        {
-            _id = value;
-            _pool.Clear();
-        }
-    }
-    
+
     private void Update()
     {
         if (_view != null && SpawnFootprints && _id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
@@ -73,20 +69,23 @@ public class FootprinterMonoComponent : MonoBehaviour
     /// </summary>
     private async void Spawn()
     {
-        GameObject o;
-        if (_pool.Count > 0) o = _pool.Dequeue();
-        else  o = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
+        
+        if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
+        else  _pooledFootprint = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
-        if (_stepScale == Vector3.zero) _stepScale = o.transform.localScale;
-        _stepVariation *= -1;
-        _stepScale = new(-_stepScale.x, _stepScale.y, _stepScale.z);
-        var localTransform = _view.transform;
-        var footRotation = GetFootRotation();
-        o.transform.position = localTransform.position + _localPositionOffset + (footRotation * _stepVariation);
-        o.transform.localScale = _stepScale;
-        o.transform.rotation = Quaternion.Euler(90, footRotation.eulerAngles.y, 0);
-        o.SetActive(true);
-        StartCoroutine(Despawn(o));
+        if (_rightStepScale == Vector3.zero)
+        {
+            _rightStepScale = _pooledFootprint.transform.localScale;
+            _leftStepScale = new(-_rightStepScale.x, _rightStepScale.y, _rightStepScale.z);
+        }
+        _right = !_right;
+        _localTransform = _view.transform;
+        _localRotation = GetFootRotation();
+        _pooledFootprint.transform.position = _localTransform.position + _localPositionOffset + (_localRotation * (_right ? _rightStepVariation : _leftStepVariation));
+        _pooledFootprint.transform.localScale = _right ? _rightStepScale : _leftStepScale;
+        _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
+        _pooledFootprint.SetActive(true);
+        StartCoroutine(Despawn(_pooledFootprint));
     }
 
     private IEnumerator Despawn(GameObject o)
@@ -94,6 +93,6 @@ public class FootprinterMonoComponent : MonoBehaviour
         yield return _duration;
         if (!o.activeSelf) yield break;
         o.SetActive(false);
-        _pool.Enqueue(o);
+        _globalPool.Enqueue(o);
     }
 }

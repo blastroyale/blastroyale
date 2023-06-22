@@ -102,7 +102,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 			
-			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 			
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
@@ -111,11 +110,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			if (this.IsDestroyed())
 			{
 				return;
-			}
-			
-			if (isSkydiving)
-			{
-				matchCharacterViewMonoComponent.HideAllEquipment();
 			}
 			
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)

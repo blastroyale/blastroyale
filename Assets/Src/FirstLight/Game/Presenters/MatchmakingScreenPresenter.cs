@@ -236,25 +236,7 @@ namespace FirstLight.Game.Presenters
 			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
 			_services.NetworkService.SetDropPosition(quantumSelectPos);
 
-			// Get normalized position for the whole map, 0-1 range, used for grid configs
-			var mapNormX = Mathf.InverseLerp(-mapWidthHalf, mapWidthHalf, localPos.x);
-			var mapNormY = Mathf.InverseLerp(-mapHeightHalf, mapHeightHalf, localPos.y);
-			var mapSelectNorm = new Vector2(mapNormX, mapNormY);
-
-			// Set map grid config related data
-			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * mapSelectNorm.x);
-			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * mapSelectNorm.y);
-			var selectedGrid = mapGridConfigs.GetConfig(gridX, gridY);
-
-			if (selectedGrid.IsValidNamedArea)
-			{
-				_mapMarkerTitle.SetDisplay(true);
-				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointLocalization().ToUpper();
-			}
-			else
-			{
-				_mapMarkerTitle.SetDisplay(false);
-			}
+			_mapMarkerTitle.SetDisplay(false);
 		}
 
 		private bool IsWithinMapRadius(Vector3 dropPos)

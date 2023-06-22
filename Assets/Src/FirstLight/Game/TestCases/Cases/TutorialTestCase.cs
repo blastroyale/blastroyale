@@ -44,13 +44,13 @@ namespace FirstLight.Game.TestCases
 			yield return WaitForTutorialState(TutorialFirstMatchStates.EnterKill2Bots, 30);
 			yield return new WaitForSeconds(5f);
 
-			yield return Quantum.SendCommand(new CheatKillAllTutorialBots() { BehaviourType = BotBehaviourType.Dumb });
+			yield return Quantum.SendCommand(new CheatKillAllTutorialBots() { BehaviourType = BotBehaviourType.Static });
 
 			yield return WaitForTutorialState(TutorialFirstMatchStates.EnterKillFinalBot, 30);
 			// Let the player fall
 			yield return new WaitForSeconds(12f);
 			yield return Quantum.StopInputManipulator();
-			yield return Quantum.SendCommand(new CheatKillAllTutorialBots() { BehaviourType = BotBehaviourType.Aggressive });
+			yield return Quantum.SendCommand(new CheatKillAllTutorialBots() { BehaviourType = BotBehaviourType.WanderAndShoot });
 			yield return Quantum.WaitForGameToFinish();
 			yield return UIGame.WaitForEndGameScreen();
 			yield return UIGame.WaitForWinnerScreen();

@@ -358,7 +358,7 @@ MonoBehaviour:
         RawValue: 327680
       MaxRunFromZoneTime:
         RawValue: 1966080
-    - BehaviourType: 3
+    - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 0
       DecisionInterval:
@@ -392,7 +392,7 @@ MonoBehaviour:
         RawValue: 327680
       MaxRunFromZoneTime:
         RawValue: 1966080
-    - BehaviourType: 4
+    - BehaviourType: 0
       GameMode: Tutorial
       Difficulty: 0
       DecisionInterval:
@@ -401,7 +401,7 @@ MonoBehaviour:
         RawValue: 26214
       VisionRangeSqr:
         RawValue: 40960000
-      AccuracySpreadAngle: 90
+      AccuracySpreadAngle: 45
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -415,9 +415,9 @@ MonoBehaviour:
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
-        RawValue: 49152
-      DamageTakenMultiplier:
         RawValue: 26214
+      DamageTakenMultiplier:
+        RawValue: 131072
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -435,7 +435,7 @@ MonoBehaviour:
         RawValue: 26214
       VisionRangeSqr:
         RawValue: 40960000
-      AccuracySpreadAngle: 0
+      AccuracySpreadAngle: 70
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
@@ -445,13 +445,13 @@ MonoBehaviour:
       MaxAimingRange:
         RawValue: 458752
       MovementSpeedMultiplier:
-        RawValue: 0
+        RawValue: 45875
       MaxDistanceToTeammateSquared:
         RawValue: 2359296
       DamageDoneMultiplier:
         RawValue: 26214
       DamageTakenMultiplier:
-        RawValue: 196608
+        RawValue: 131072
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -460,7 +460,7 @@ MonoBehaviour:
         RawValue: 327680
       MaxRunFromZoneTime:
         RawValue: 1966080
-    - BehaviourType: 4
+    - BehaviourType: 2
       GameMode: BattleRoyale First Game
       Difficulty: 0
       DecisionInterval:

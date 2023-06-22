@@ -55,6 +55,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 
 		private int _selectedIndex;
+		private int _equippedIndex;
 		private CollectionCategory _selectedCategory;
 		private GameObject _collectionObject;
 		private GameObject _anchorObject;
@@ -205,18 +206,21 @@ namespace FirstLight.Game.Presenters
 		{
 			var collection = GetCollectionAll();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-			var previousIndex = _selectedIndex;
+			var equippedIndex = _equippedIndex;
+			
 			if (equipped.IsValid())
 			{
 				_selectedIndex = collection.IndexOf(equipped);
+				_equippedIndex = _selectedIndex;
 			}
 
 			var row = _selectedIndex / PAGE_SIZE;
-			var previousRow = previousIndex / PAGE_SIZE;
+			var previousEquippedRow = equippedIndex / PAGE_SIZE;
 			_collectionList.RefreshItem(row);
-			if (previousRow != row)
+
+			if (previousEquippedRow != row)
 			{
-				_collectionList.RefreshItem(previousRow);
+				_collectionList.RefreshItem(previousEquippedRow);
 			}
 		}
 

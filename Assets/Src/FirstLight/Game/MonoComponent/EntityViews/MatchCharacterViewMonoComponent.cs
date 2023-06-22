@@ -70,7 +70,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				}
 			}
 			
-		
+			if (isSkydiving)
+			{
+				HideAllEquipment();
+			}
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -220,9 +221,14 @@ namespace Quantum.Systems
 
 			spawnTransform.Position = spawnPosition.XOY;
 
+			var equipment = Array.Empty<Equipment>();
+			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+			{
+				equipment = playerData.Loadout;
+			}
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
 				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Glider, teamId,
-				playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
+				equipment, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

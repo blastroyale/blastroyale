@@ -400,31 +400,18 @@
     scale: 1 1;
 }
 
-.weapon-display__selected-bg {
+.weapon-display__ammo-progress {
     position: absolute;
-    left: 5px;
-    top: 5px;
-    right: 5px;
+    left: 7px;
+    top: 7px;
+    right: 7px;
     bottom: 5px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
     transition-property: background-color;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
-}
-
-.weapon-display__selected-bg-weapon {
-    background-color: rgb(247, 206, 49);
-}
-
-.weapon-display--melee .weapon-display__selected-bg-weapon {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.weapon-display--melee .weapon-display__selected-bg-melee {
-    background-color: rgb(247, 206, 49);
+    --track-color: rgb(35, 32, 46);
+    --track-width: 7;
+    --progress-color: rgb(242, 176, 53);
 }
 
 .weapon-display__rarity-bg {
@@ -573,6 +560,15 @@
 
 .weapon-display--melee .weapon-display__ammo-gradient {
     scale: 0.7 0.7;
+}
+
+.weapon-display__switch-icon {
+    background-image: var(--sprite-match__icon-switch);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 39px;
+    top: -6px;
 }
 
 .death-notification {
@@ -998,15 +994,6 @@
     position: absolute;
     top: 252px;
     left: 29px;
-}
-
-.weapon-display__switch-icon {
-    background-image: var(--sprite-match__icon-switch);
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: 39px;
-    top: -6px;
 }
 
 .equipment-display {

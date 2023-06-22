@@ -23,6 +23,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _weaponShadow;
 		private VisualElement _factionIcon;
 		private VisualElement _switchIcon;
+		private RadialProgressElement _ammoProgress;
 		private Label _ammoLabel;
 
 		private IGameServices _services;
@@ -44,6 +45,7 @@ namespace FirstLight.Game.Views.UITK
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
 			_factionIcon = _weapon.Q("FactionIcon").Required();
 			_ammoLabel = element.Q<Label>("Ammo").Required();
+			_ammoProgress = element.Q<RadialProgressElement>("AmmoProgress").Required();
 
 			((ImageButton) element).clicked += () =>
 			{
@@ -107,6 +109,8 @@ namespace FirstLight.Game.Views.UITK
 			//TODO: change this to be the infinity symbol or something idk
 			// also this callback does not apply when you first spawn in for some reason, even though it should
 			_ammoLabel.text = currentAmmo + " / " + maxAmmo;
+
+			_ammoProgress.Progress = stats->CurrentAmmoPercent.AsFloat;
 		}
 
 		private void SetSlot(int slot)

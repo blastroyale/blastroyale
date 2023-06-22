@@ -69,7 +69,7 @@
 }
 
 .screen-header__back {
-    background-image: var(--sprite-home__header-back);
+    background-image: var(--sprite-home__header-background);
     width: 742px;
     height: 178px;
     margin-left: -424px;

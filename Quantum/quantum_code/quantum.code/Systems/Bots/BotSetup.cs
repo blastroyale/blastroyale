@@ -477,7 +477,7 @@ namespace Quantum.Systems.Bots
 			}
 
 			var trophiesConfigs = GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
-			if (trophiesConfigs.Count == 0)
+			if (trophiesConfigs.Count > 0)
 			{
 				return trophiesConfigs;
 			}

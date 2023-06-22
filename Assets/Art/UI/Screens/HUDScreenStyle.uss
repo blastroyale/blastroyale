@@ -1156,7 +1156,7 @@
 }
 
 .player-status-bar__ammo-holder {
-    bottom: 2px;
+    bottom: 4px;
     right: 11px;
     position: absolute;
     left: 32px;
@@ -1194,8 +1194,8 @@
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
     left: 42px;
-    bottom: 12px;
-    right: 9px;
+    bottom: 14px;
+    right: 7px;
     height: 15px;
     flex-direction: row;
 }

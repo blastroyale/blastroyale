@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Decoupled component to handle objects that produces footprints.
@@ -37,6 +39,13 @@ public class FootprinterMonoComponent : MonoBehaviour
     private void Start()
     {
         _services = MainInstaller.Resolve<IGameServices>();
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene newScene, Scene oldScene)
+    {
+        _globalPool.Clear();
+        SceneManager.activeSceneChanged -= OnSceneChanged;
     }
 
     public void Init(EntityView view, PlayerLoadout loadout)
@@ -61,7 +70,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         {
             return Quaternion.LookRotation(bb.GetVector2(f, Constants.MoveDirectionKey).ToUnityVector3());
         }
-        return _view.transform.rotation;
+        return _view.transform.rotation; 
     }
 
     /// <summary>
@@ -69,7 +78,6 @@ public class FootprinterMonoComponent : MonoBehaviour
     /// </summary>
     private async void Spawn()
     {
-        
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
         else  _pooledFootprint = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;

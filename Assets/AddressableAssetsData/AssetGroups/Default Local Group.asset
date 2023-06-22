@@ -141,6 +141,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e637bcb30c7f0a44b8c7ab15d9e3cda
+    m_Address: Scenes/BattlelandsMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 540f3d4d7c97bf74aa43ed1ecdfc1ab0
+    m_Address: Scenes/IslandsMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

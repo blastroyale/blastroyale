@@ -86,7 +86,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			get => _visible;
 		}
 		
-		protected  bool Culled
+		public bool Culled
 		{
 			get => _culled; 
 		}

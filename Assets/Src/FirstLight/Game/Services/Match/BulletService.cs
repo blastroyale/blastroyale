@@ -46,6 +46,10 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnProjectileFailedHit(EventOnProjectileFailedHit ev)
 		{
+			if (ev.Game.Frames.Predicted.IsCulled(ev.ProjectileEntity))
+			{
+				return;
+			}
 			_gameServices.VfxService.Spawn(VfxId.ProjectileFailedSmoke).transform.position = ev.LastPosition.ToUnityVector3();
 		}
 

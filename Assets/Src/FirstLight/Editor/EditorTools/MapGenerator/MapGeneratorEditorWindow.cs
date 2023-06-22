@@ -10,6 +10,7 @@ using FirstLight.Game.Ids;
 using FirstLightEditor.AssetImporter;
 using FirstLightEditor.GoogleSheetImporter;
 using Quantum;
+using Quantum.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -17,7 +18,6 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 
@@ -36,14 +36,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 		private const string _exportFolderPath = "Assets/AddressableResources/Scenes";
 		public GameId _mapGameId;
 		public List<AllowedMapStruct> _allowedMaps = new List<AllowedMapStruct>()
-		{
-			new(){ Id = "BattleRoyale", AllowedMap = true},
-			new(){ Id = "BattleRoyaleTrios", AllowedMap = true},
-			new(){ Id = "Testing", AllowedMap = true},
-			new(){ Id = "BattleRoyale First Game", AllowedMap = true},
-			new(){ Id = "Tutorial", AllowedMap = true},
-			new(){ Id = "DeathMatch", AllowedMap = true},
-		};
+		{ };
 		
 		public int _maxPlayers = 20;
 		public bool _isTestMap = true;
@@ -52,12 +45,37 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 		private const string _sceneIdScriptPath = "Src/FirstLight/Game/Ids/SceneId.cs";
 		private AssetReference _assetReference;
 
+		protected override void Initialize()
+		{
+			if (_allowedMaps.Count > 0)
+			{
+				return;
+			}
+
+			var gameModeConfigs = AssetDatabase.LoadAssetAtPath<GameModeConfigs>("Assets/AddressableResources/Configs/GameModeConfigs.asset");
+			if (gameModeConfigs == null)
+			{
+				Debug.LogError("Game Mode Configs reference invalid");
+				
+				return;
+			}
+
+			for (int i = 0; i < gameModeConfigs.Configs.Count; i++)
+			{
+				_allowedMaps.Add(new AllowedMapStruct()
+				{
+					Id = gameModeConfigs.Configs[i].Id,
+					AllowedMap = false
+				});
+			}
+		}
 		
 		[MenuItem("FLG/Generators/Map Generator EditorWindow")]
 		private static void OpenWindow()
 		{
 			GetWindow<MapGeneratorEditorWindow>("Map Generator EditorWindow").Show();
 		}
+		
 		
 		[Button("Import GameIds")]
 		private void ImportGameIds()
@@ -68,6 +86,8 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			GoogleSheetToolImporter.ImportSheetAsync(importData, "");
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
+			
+			Debug.Log("Finished importing GameIds");
 		}
 		
 		
@@ -92,25 +112,9 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 
 			
 			var scenePath = Path.Combine(sceneDirectoryPath, _mapGameId.ToString() + ".unity");
-
 			var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-
-			SceneManager.SetActiveScene(scene);
-
-			var quantumMap = AssetDatabase.LoadAssetAtPath<GameObject>("");
 			
-			//TODO: create quantum map asset and setup references, then bake 
-			
-			Instantiate(quantumMap, Vector3.zero, Quaternion.identity);
-			
-			//var rootObjects = scene.GetRootGameObjects();
-			
-			//spawnedPrefab.transform.SetParent(rootObjects[0].transform);
-			
-			EditorSceneManager.SaveScene(scene, scenePath);
-			EditorSceneManager.CloseScene(scene, true);
-			
-			
+			var quantumMap = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/Prefabs/Environment/Root/QuantumMap.prefab");
 			var sceneIdPath = Path.Combine(Application.dataPath, _sceneIdScriptPath);
 
 			if (sceneIdPath == "" || !File.Exists(sceneIdPath))
@@ -134,14 +138,39 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			
 			_assetReference = new AssetReference(guid.ToString());
 			
+			var go = Instantiate(quantumMap, Vector3.zero, Quaternion.identity);
+			
+			MapAsset asset = ScriptableObject.CreateInstance<MapAsset>();
+			
+			
+			// Create a path for the new asset
+			string path = $"Assets/AddressableResources/Maps/{_mapGameId}.asset";
+			
+			// Save the asset at the specified path
+			AssetDatabase.CreateAsset(asset, path);
+			
+			var mapData = go.GetComponent<MapData>();
+			mapData.Asset = asset;
+			
+			QuantumAutoBaker.BakeMap(mapData, mapData.BakeAllMode);
+			
+			asset.Settings.UserAsset = asset.AssetObject;
+			asset.Settings.Scene = _mapGameId.ToString();
+			asset.Settings.ScenePath = Path.Combine(_exportFolderPath, $"{_mapGameId}.unity");
+			asset.Settings.SceneGuid = guid.ToString();
+			
+			EditorUtility.SetDirty(asset);
+			
+			EditorSceneManager.SaveScene(scene, scenePath);
+			EditorSceneManager.CloseScene(scene, true);
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
 			
 			Debug.Log("Finished scene export");
 		}
 
-		[Button("Generate Scene Asset Configs")]
-		private void GenerateSceneAssetConfigs()
+		[Button("Generate Asset Configs")]
+		private void GenerateAssetConfigs()
 		{
 			var sceneAssetConfigs = AssetDatabase.LoadAssetAtPath<SceneAssetConfigs>("Assets/AddressableResources/Configs/SceneAssetConfigs.asset");
 			if (sceneAssetConfigs == null)
@@ -169,6 +198,10 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 				var importData = importers.FirstOrDefault(e => e.Type == typeof(SceneAssetConfigsImporter));
 				
 				importData.Importer.Import();
+
+
+				GenerateMapAssetConfigs();
+				
 				AssetDatabase.SaveAssets();
 				AssetDatabase.Refresh();
 				
@@ -179,8 +212,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 				Debug.LogError($"Cannot parse SceneId {_mapGameId}");
 			}
 		}
-
-		[Button("Generate Map Asset Configs")]
+		
 		private void GenerateMapAssetConfigs()
 		{
 			var mapConfigs = AssetDatabase.LoadAssetAtPath<MapConfigs>("Assets/AddressableResources/Configs/MapConfigs.asset");

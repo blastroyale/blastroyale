@@ -5791,7 +5791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - New BR Map
+      - TIDY TOWN
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -7310,7 +7310,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LANDS OF BATTLE
+      - LANDS OF BATTLES
       - 
       - 
       - 
@@ -16843,7 +16843,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1687525816809
+    Google_LastUpdatedVersion: 1687528233356
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

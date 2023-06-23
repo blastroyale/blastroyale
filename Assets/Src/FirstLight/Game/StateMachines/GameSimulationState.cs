@@ -39,7 +39,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
 		public static readonly IStatechartEvent SimulationDestroyedEvent = new StatechartEvent("Simulation Destroyed Event");
 
-		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
@@ -58,7 +57,6 @@ namespace FirstLight.Game.StateMachines
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
 			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
 		}
 
@@ -70,7 +68,6 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 
-			var deathmatch = stateFactory.Nest("Deathmatch Mode");
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
@@ -92,14 +89,9 @@ namespace FirstLight.Game.StateMachines
 	
 			//modeCheck.OnEnter(OpenAdventureWorldHud);
 			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
-			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
-
-			deathmatch.Nest(_deathmatchState.Setup).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
-			deathmatch.OnExit(CleanUpMatch);
-
+			
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			battleRoyale.OnExit(CleanUpMatch);

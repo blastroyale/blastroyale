@@ -1287,7 +1287,7 @@
 
 .status-areashrinking {
     color: rgb(255, 255, 255);
-    font-size: 36px;
+    font-size: 44px;
     -unity-text-align: middle-center;
     -unity-text-outline-color: rgb(47, 44, 63);
     position: absolute;
@@ -1295,9 +1295,9 @@
     -unity-text-outline-width: 1px;
     text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
     background-image: var(--sprite-match__background-whitegradient);
-    width: 498px;
-    height: 40px;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0.58);
+    width: 511px;
+    height: 54px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.46);
 }
 
 .status-kill {

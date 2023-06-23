@@ -13,7 +13,7 @@
     flex-direction: row;
     padding: 28px 84px;
     top: 0;
-    right: 0;
+    right: 100;
 }
 
 .show-hide-toggle__label--show {

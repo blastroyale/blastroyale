@@ -7,8 +7,10 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Tutorial;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using FirstLight.Game.Services.Tutorial;
 using I2.Loc;
 using NUnit.Framework;
 using Quantum;
@@ -16,11 +18,8 @@ using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
-	public class MetaAndMatchTutorialState : ITutorialSequence
+	public class MetaAndMatchTutorialState 
 	{
-		// CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED
-		public static readonly int TOTAL_STEPS = 14;
-		
 		private static readonly IStatechartEvent _bpLevelUpEvent = new StatechartEvent("TUTORIAL - Battle pass level up event");
 		private static readonly IStatechartEvent _finishedClaimingRewardsEvent = new StatechartEvent("TUTORIAL - Finished claiming event");
 		private static readonly IStatechartEvent _openedEquipmentScreenEvent = new StatechartEvent("TUTORIAL - Opened equipment screen event");
@@ -38,14 +37,7 @@ namespace FirstLight.Game.StateMachines
 		private TutorialUtilsScreenPresenter _tutorialUtilsUi;
 		private CharacterDialogScreenPresenter _dialogUi;
 		private List<string> _sentAnalyticSteps = new();
-		
-		public string SectionName { get; set; }
-		public int SectionVersion { get; set; }
-		public int CurrentStep { get; set; }
-		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
-		public string CurrentStepName { get; set; }
-		public int TotalStepsBeforeThisSection => FirstGameTutorialState.TOTAL_STEPS;
-
+		private MetaTutorialSequence _sequence;
 
 		public MetaAndMatchTutorialState(IGameDataProvider logic, IGameServices services,
 										 IInternalTutorialService tutorialService,
@@ -55,15 +47,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
-		}
-
-		public void InitSequenceData()
-		{
-			SectionName = TutorialSection.META_GUIDE_AND_MATCH.ToString();
-			SectionVersion = 1;
-			CurrentStep = 1;
-			CurrentStepName = "TutorialStart";
-			_services.GameModeService.SelectDefaultRankedMode();
+			_sequence = new MetaTutorialSequence(_services, TutorialSection.META_GUIDE_AND_MATCH);
 		}
 
 		/// <summary> 
@@ -90,81 +74,81 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(enterName);
 			initial.OnExit(SubscribeMessages);
-			initial.OnExit(InitSequenceData);
+			initial.OnExit(_services.GameModeService.SelectDefaultRankedMode);
 			initial.OnExit(GetTutorialScreenRefs);
 			
-			enterName.OnEnter(() => { SendAnalyticsIncrementStep("EnterName"); });
+			enterName.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.EnterName); });
 			enterName.OnEnter(OnEnterNameEnter);
 			enterName.Event(EnterNameState.NameSetEvent).Target(completionCheck);
 			enterName.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			enterName.OnExit(OnEnterNameExit);
 			
-			completionCheck.OnEnter(SendStepAnalytics);
+			completionCheck.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			completionCheck.Transition().Condition(HasNotLeveledBattlePass).Target(battlePass);
-			completionCheck.Transition().Condition(HasNotEquippedWeapon).OnTransition(()=>SetCurrentStep(5)).Target(goToEquipement);
-			completionCheck.Transition().OnTransition(()=>SetCurrentStep(9)).Target(playGame);
+			completionCheck.Transition().Condition(HasNotEquippedWeapon).Target(goToEquipement);
+			completionCheck.Transition().Target(playGame);
 			
-			battlePass.OnEnter(() => { SendAnalyticsIncrementStep("BattlePassClick"); });
+			battlePass.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.BattlePassClick); });
 			battlePass.OnEnter(OnBattlePassEnter);
 			battlePass.Event(MainMenuState.BattlePassClickedEvent).Target(clickReward);
 			battlePass.OnExit(OnBattlePassExit);
 			
-			clickReward.OnEnter(() => { SendAnalyticsIncrementStep("ClickReward"); });
+			clickReward.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.ClickReward); });
 			clickReward.OnEnter(OnClickRewardEnter);
 			clickReward.Event(_bpLevelUpEvent).Target(claimreward);
 			clickReward.OnExit(OnClickRewardExit);
 			
-			claimreward.OnEnter(() => { SendAnalyticsIncrementStep("ClaimReward"); });
+			claimreward.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.ClaimReward); });
 			claimreward.OnEnter(OnClaimRewardEnter);
 			claimreward.Event(_finishedClaimingRewardsEvent).Target(goToEquipement);
 			claimreward.OnExit(OnClaimRewardExit);
 
-			goToEquipement.OnEnter(() => { SendAnalyticsIncrementStep("GoToEquipment"); });
+			goToEquipement.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.GoToEquipment); });
 			goToEquipement.OnEnter(OnGoToEquipmentEnter);
 			goToEquipement.Event(_openedEquipmentScreenEvent).Target(clickWeaponCategory);
 			goToEquipement.OnExit(OnGoToEquipmentExit);
 			
-			clickWeaponCategory.OnEnter(() => { SendAnalyticsIncrementStep("ClickWeaponCategory"); });
+			clickWeaponCategory.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.ClickWeaponCategory); });
 			clickWeaponCategory.OnEnter(OnClickWeaponCategoryEnter);
 			clickWeaponCategory.Event(_openedEquipmentCategoryEvent).Target(selectWeapon);
 			clickWeaponCategory.OnExit(OnClickWeaponCategoryExit);
 			
-			selectWeapon.OnEnter(() => { SendAnalyticsIncrementStep("SelectWeapon"); });
+			selectWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.SelectWeapon); });
 			selectWeapon.OnEnter(OnSelectWeaponEnter);
 			selectWeapon.Event(_selectedWeaponEvent).Target(equipWeapon);
 			selectWeapon.OnExit(OnSelectWeaponExit);
 			
-			equipWeapon.OnEnter(() => { SendAnalyticsIncrementStep("EquipWeapon"); });
+			equipWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.EquipWeapon); });
 			equipWeapon.OnEnter(OnEquipWeaponEnter);
 			equipWeapon.Event(_equippedWeaponEvent).Target(playGame);
 			equipWeapon.OnExit(OnEquipWeaponExit);
 			
-			playGame.OnEnter(() => { SendAnalyticsIncrementStep("PlayGameClick"); });
+			playGame.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PlayGameClick); });
 			playGame.OnEnter(OnPlayGameEnter);
 			playGame.Event(MainMenuState.PlayClickedEvent).Target(createTutorialRoom);
 			playGame.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			playGame.OnExit(OnPlayGameExit);
 			
-			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
+			createTutorialRoom.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.CreateTutorialMatchRoom); });
 			createTutorialRoom.OnEnter(StartSecondTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(mapSelect);
 			createTutorialRoom.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 
-			mapSelect.OnEnter(() => { SendAnalyticsIncrementStep("SelectMapPoint"); });
+			mapSelect.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.SelectMapPoint); });
 			mapSelect.OnEnter(OnMapSelectEnter);
 			mapSelect.Event(_selectedMapPointEvent).Target(waitSimulationStart);
-			mapSelect.Event(GameSimulationState.SimulationStartedEvent).OnTransition(()=>SendAnalyticsIncrementStep("TutorialFinish")).Target(final);
+			mapSelect.Event(GameSimulationState.SimulationStartedEvent).OnTransition(()=>_sequence.EnterStep(TutorialClientStep.TutorialFinish)).Target(final);
 			mapSelect.OnExit(OnMapSelectExit);
 
 			disconnected.OnEnter(CloseTutorialUi);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(enterName);
-			disconnected.OnExit(InitSequenceData);
+			disconnected.OnExit(_sequence.Reset);
 			
-			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
+			waitSimulationStart.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.WaitTutorialMatchStart); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(final);
-			waitSimulationStart.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+			waitSimulationStart.OnExit(() => { _sequence.EnterStep(TutorialClientStep.TutorialFinish); });
 			
-			final.OnEnter(SendStepAnalytics);
+			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
@@ -245,29 +229,7 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeMessages()
 		{
 		}
-
-		private void SetCurrentStep(int step)
-		{
-			CurrentStep = step;
-		}
-
-		public void SendAnalyticsIncrementStep(string newStepName)
-		{
-			SendStepAnalytics();
-
-			CurrentStep += 1;
-			CurrentStepName = newStepName;
-		}
-
-		public void SendStepAnalytics()
-		{
-			if (_sentAnalyticSteps.Contains(CurrentStepName)) return;
-			
-			_sentAnalyticSteps.Add(CurrentStepName);
-			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
-				CurrentTotalStep, CurrentStepName);
-		}
-
+		
 		private void OnEnterNameEnter()
 		{
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.enter_your_name, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
@@ -325,18 +287,14 @@ namespace FirstLight.Game.StateMachines
 		private async void OnClaimRewardExit()
 		{
 			_tutorialUtilsUi.BlockFullScreen();
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_250MS);
-			
 			_services.GameUiService.GetUi<BattlePassScreenPresenter>().CloseManual();
 		}
 		
 		private async void OnGoToEquipmentEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
-			
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.lets_equip_new_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopRight);
-
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<HomeScreenPresenter>("button-with-icon--equipment");
 			_tutorialUtilsUi.Highlight<HomeScreenPresenter>("button-with-icon--equipment",null, 1.5f);
@@ -351,9 +309,7 @@ namespace FirstLight.Game.StateMachines
 		private async void OnClickWeaponCategoryEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.click_on_category, CharacterType.Female, CharacterDialogMoodType.Happy);
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_750MS);
-			
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentPresenter>(null,"WeaponCategory");
 			_tutorialUtilsUi.Highlight<EquipmentPresenter>(null,"WeaponCategory", 0.75f);
@@ -368,9 +324,7 @@ namespace FirstLight.Game.StateMachines
 		private async void OnSelectWeaponEnter()
 		{
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.select_weapon, CharacterType.Female, CharacterDialogMoodType.Happy);
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
-			
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>("equipment-card");
 			_tutorialUtilsUi.Highlight<EquipmentSelectionPresenter>("equipment-card",null, 1.5f);
@@ -386,9 +340,7 @@ namespace FirstLight.Game.StateMachines
 		private async void OnEquipWeaponEnter()
 		{
 			await Task.Delay(GameConstants.Tutorial.TIME_500MS);
-			
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.equip_weapon, CharacterType.Female, CharacterDialogMoodType.Neutral, CharacterDialogPosition.TopLeft);
-
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<EquipmentSelectionPresenter>(null,"EquipButton");
 			_tutorialUtilsUi.Highlight<EquipmentSelectionPresenter>(null,"EquipButton");
@@ -399,7 +351,6 @@ namespace FirstLight.Game.StateMachines
 			CloseTutorialUi();
 			_tutorialUtilsUi.BlockFullScreen();
 			_dialogUi.HideDialog(CharacterType.Female);
-			
 			_statechartTrigger(EquipmentMenuState.CloseButtonClickedEvent);
 		}
 		
@@ -423,11 +374,8 @@ namespace FirstLight.Game.StateMachines
 		private async void OnMapSelectEnter()
 		{
 			_tutorialUtilsUi.BlockFullScreen();
-			
 			await Task.Delay(GameConstants.Tutorial.TIME_4000MS);
-			
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
-
 			_tutorialUtilsUi.Unblock();
 			_tutorialUtilsUi.BlockAround<MatchmakingScreenPresenter>("tutorial-drop-pos");
 			_tutorialUtilsUi.Highlight<MatchmakingScreenPresenter>("tutorial-drop-pos");

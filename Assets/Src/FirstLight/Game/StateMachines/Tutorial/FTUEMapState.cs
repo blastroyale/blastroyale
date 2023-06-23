@@ -10,16 +10,18 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Tutorial;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
 using NUnit.Framework;
 using Quantum;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.StateMachines
 {
-	public class FirstGameTutorialState : ITutorialSequence
+	public class FirstGameTutorialState
 	{
 		struct GameplayProceedEventData
 		{
@@ -27,9 +29,7 @@ namespace FirstLight.Game.StateMachines
 			public string EventMetaId;
 			public short EventMetaAmount;
 		}
-
-		// !!! CRITICAL - UPDATE THIS WHEN STEPS ARE CHANGED !!!
-		public static readonly int TOTAL_STEPS = 17;
+		
 		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
 
 		private readonly IGameServices _services;
@@ -40,17 +40,12 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private CharacterDialogScreenPresenter _dialogUi;
 		private GuideHandPresenter _guideHandUi;
+		private HUDScreenPresenter _hud;
 		private Dictionary<string, GameObject> _tutorialObjectRefs = new();
 		private List<LocationPointerVfxMonoComponent> _activeLocationPointers = new();
 		private EntityView _localPlayerEntityView;
-		
-		public string SectionName { get; set; }
-		public int SectionVersion { get; set; }
-		public int CurrentStep { get; set; }
-		public int CurrentTotalStep => CurrentStep + TotalStepsBeforeThisSection;
-		public string CurrentStepName { get; set; }
-		public int TotalStepsBeforeThisSection => 0;
 
+		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
 		private short _currentKillProceedProgress;
 
@@ -62,14 +57,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
-		}
-
-		public void InitSequenceData()
-		{
-			SectionName = TutorialSection.FIRST_GUIDE_MATCH.ToString();
-			SectionVersion = 1;
-			CurrentStep = 1;
-			CurrentStepName = "TutorialStart";
+			_sequence = new MetaTutorialSequence(services, TutorialSection.FIRST_GUIDE_MATCH);
 		}
 
 		/// <summary>
@@ -97,74 +85,72 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
-			initial.OnExit(InitSequenceData);
 			initial.OnExit(GetTutorialUiRefs);
-
-			createTutorialRoom.OnEnter(() => { SendAnalyticsIncrementStep("CreateTutorialRoom"); });
+			
+			createTutorialRoom.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.CreateTutorialRoom); });
 			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitSimulationStart);
 
-			waitSimulationStart.OnEnter(() => { SendAnalyticsIncrementStep("WaitSimulationStart"); });
+			waitSimulationStart.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.WaitSimulationStart); });
 			waitSimulationStart.Event(GameSimulationState.SimulationStartedEvent).Target(startedSimulation);
 			waitSimulationStart.OnExit(BindMatchServices);
 
-			startedSimulation.OnEnter(() => { SendAnalyticsIncrementStep("Spawn"); });
+			startedSimulation.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Spawn); });
 			startedSimulation.OnEnter(GetGroundIndicatorRefs);
 			startedSimulation.OnEnter(OnEnterStartedSimulation);
 			startedSimulation.Event(ProceedTutorialEvent).Target(moveJoystick);
-			
-			moveJoystick.OnEnter(() => { SendAnalyticsIncrementStep("MoveJoystick"); });
-			moveJoystick.OnEnter(GetGuideUiRefs);
+
+			moveJoystick.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveJoystick); });
 			moveJoystick.OnEnter(OnEnterMoveJoystick);
 			moveJoystick.Event(ProceedTutorialEvent).Target(firstMove);
 
-			firstMove.OnEnter(() => { SendAnalyticsIncrementStep("FirstMove"); });
+			firstMove.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.FirstMove); });
 			firstMove.OnEnter(OnEnterFirstMove);
 			firstMove.Event(ProceedTutorialEvent).Target(destroyBarrier);
 			
-			destroyBarrier.OnEnter(() => { SendAnalyticsIncrementStep("DestroyBarrier"); });
+			destroyBarrier.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.DestroyBarrier); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
 			destroyBarrier.Event(ProceedTutorialEvent).Target(pickupWeapon);
 
-			pickupWeapon.OnEnter(() => { SendAnalyticsIncrementStep("PickUpWeapon"); });
+			pickupWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickUpWeapon); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
 			pickupWeapon.Event(ProceedTutorialEvent).Target(moveToDummyArea);
 			
-			moveToDummyArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToDummyArea"); });
+			moveToDummyArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToDummyArea); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
 			moveToDummyArea.Event(ProceedTutorialEvent).Target(kill2Bots);
 
-			kill2Bots.OnEnter(() => { SendAnalyticsIncrementStep("Kill2Bots"); });
+			kill2Bots.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill2Bots); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
 			kill2Bots.Event(ProceedTutorialEvent).Target(kill1BotSpecial);
 
-			kill1BotSpecial.OnEnter(() => { SendAnalyticsIncrementStep("Kill1BotSpecial"); });
+			kill1BotSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill1BotSpecial); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
 			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
 
-			moveToGateArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToGateArea"); });
+			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
 			moveToGateArea.Event(ProceedTutorialEvent).Target(moveToChestArea);
 			
-			moveToChestArea.OnEnter(() => { SendAnalyticsIncrementStep("MoveToChestArea"); });
+			moveToChestArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToChestArea); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
 			moveToChestArea.Event(ProceedTutorialEvent).Target(openBox);
 
-			openBox.OnEnter(() => { SendAnalyticsIncrementStep("OpenBox"); });
+			openBox.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.OpenBox); });
 			openBox.OnEnter(OnEnterOpenBox);
 			openBox.Event(ProceedTutorialEvent).Target(killFinalBot);
 
-			killFinalBot.OnEnter(() => { SendAnalyticsIncrementStep("KillFinalBot"); });
+			killFinalBot.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.KillFinalBot); });
 			killFinalBot.OnEnter(OnEnterKillFinalBot);
 			killFinalBot.Event(ProceedTutorialEvent).Target(waitMatchFinish);
 
-			waitMatchFinish.OnEnter(() => { SendAnalyticsIncrementStep("MatchEnded"); });
+			waitMatchFinish.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MatchEnded); });
 			waitMatchFinish.OnEnter(OnEnterWaitMatchFinish);
 			waitMatchFinish.Event(MatchState.MatchUnloadedEvent).Target(final);
-			waitMatchFinish.OnExit(() => { SendAnalyticsIncrementStep("TutorialFinish"); });
+			waitMatchFinish.OnExit(() => { _sequence.EnterStep(TutorialClientStep.TutorialFinish); });
 
 			final.OnEnter(CloseTutorialUi);
-			final.OnEnter(SendStepAnalytics);
+			final.OnEnter(_sequence.SendCurrentStepCompletedAnalytics);
 			final.OnEnter(UnsubscribeMessages);
 		}
 
@@ -176,21 +162,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void GetGroundIndicatorRefs()
 		{
-			var indicatorObjects = GameObject.FindGameObjectsWithTag(GameConstants.Tutorial.TAG_INDICATORS);
-			
-			foreach (var indicator in indicatorObjects)
+			foreach (var indicator in _tutorialService.FindTutorialObjects(GameConstants.Tutorial.TAG_INDICATORS))
 			{
 				_tutorialObjectRefs.Add(indicator.name, indicator);
-			}
-		}
-
-		private void GetGuideUiRefs()
-		{
-			var guideUiObjects = GameObject.FindGameObjectsWithTag(GameConstants.Tutorial.TAG_GUIDE_UI);
-			
-			foreach (var guideUid in guideUiObjects)
-			{
-				_tutorialObjectRefs.Add(guideUid.name, guideUid);
 			}
 		}
 
@@ -308,20 +282,6 @@ namespace FirstLight.Game.StateMachines
 			_tutorialService.CreateJoinFirstTutorialRoom();
 		}
 
-		public void SendAnalyticsIncrementStep(string newStepName)
-		{
-			SendStepAnalytics();
-
-			CurrentStep += 1;
-			CurrentStepName = newStepName;
-		}
-
-		public void SendStepAnalytics()
-		{
-			_services.AnalyticsService.TutorialCalls.CompleteTutorialStep(SectionName, SectionVersion, CurrentStep,
-																		  CurrentTotalStep, CurrentStepName);
-		}
-
 		private void CheckGameplayProceedConditions(Type eventType, string metaId = "", short metaAmount = 0)
 		{
 			if (_currentGameplayProceedData.EventType != eventType) return;
@@ -345,16 +305,29 @@ namespace FirstLight.Game.StateMachines
 			};
 		}
 
-		private void OnEnterMoveJoystick()
+		private void SetFingerPosition(VisualElement element)
+		{
+			var root = _hud.Document.rootVisualElement;
+			var elementPosition = element.GetPositionOnScreen(root);
+			_guideHandUi.SetScreenPosition(elementPosition);
+		}
+		
+		private async Task WaitMovementAsync()
 		{
 			_services.TutorialService.ListenForSentMovement();
-			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral);
-			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_MOVEMENT_JOYSTICK].transform.position);
-			
+			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral); 
+			_hud = _services.GameUiService.GetUi<HUDScreenPresenter>();
+			await _hud.EnsureOpen();
+			SetFingerPosition(_hud.MovementJoystick);
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(PlayerUsedMovementJoystick)
 			};
+		}
+
+		private void OnEnterMoveJoystick()
+		{
+			WaitMovementAsync();
 		}
 		
 		private void OnEnterFirstMove()
@@ -376,8 +349,8 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
-			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SHOOTING_JOYSTICK].transform.position);
-			
+			SetFingerPosition(_hud.ShootingJoystick);
+
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
 				EventType = typeof(EventOnHazardLand),
@@ -435,8 +408,9 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_grenade, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, _localPlayerEntityView.transform);
-			// TODO: _guideHandUi.SetPositionAndShow(_tutorialObjectRefs[GameConstants.Tutorial.GUIDE_UI_SPECIAL_BUTTON].transform.position);
 			
+			SetFingerPosition(_hud.Special1);
+
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{

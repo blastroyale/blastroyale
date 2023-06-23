@@ -117,6 +117,11 @@ namespace FirstLight.Game.Presenters
 
 			HideSkydivingElements(true);
 		}
+		
+		public JoystickElement MovementJoystick => _movementJoystick;
+		public JoystickElement ShootingJoystick => _shootingJoystick;
+		public SpecialButtonElement Special0 => _specialButtonsView._special0Button;
+		public SpecialButtonElement Special1 => _specialButtonsView._special1Button;
 
 		protected override void SubscribeToEvents()
 		{

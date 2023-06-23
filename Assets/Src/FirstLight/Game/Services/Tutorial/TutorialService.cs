@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.Services
 {
@@ -59,6 +60,11 @@ namespace FirstLight.Game.Services
 		/// Creates second match tutorial room and joins it
 		/// </summary>
 		void CreateJoinSecondTutorialRoom();
+
+		/// <summary>
+		/// Attempts to find a tutorial game object.
+		/// </summary>
+		GameObject[] FindTutorialObjects(string reference);
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -130,6 +136,18 @@ namespace FirstLight.Game.Services
 			};
 
 			_services.NetworkService.JoinOrCreateRandomRoom(setup);
+		}
+
+		public GameObject[] FindTutorialObjects(string referenceTag)
+		{
+			var objects = GameObject.FindGameObjectsWithTag(referenceTag);
+#if DEVELOPMENT_BUILD
+			if (objects == null || objects.Length == 0)
+			{
+				throw new Exception($"Tutorial could not find game object {referenceTag} - was reference changed ?");
+			}
+#endif
+			return objects;
 		}
 
 		public bool HasCompletedTutorialSection(TutorialSection section)

@@ -13,6 +13,7 @@ using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
+	
 	public class TutorialState
 	{
 		private static readonly IStatechartEvent _startFirstGameTutorialEvent = new StatechartEvent("TUTORIAL - Start First Game Tutorial");
@@ -100,54 +101,5 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(_startEquipmentBpTutorialEvent);
 		}
-	}
-
-	public interface ITutorialSequence
-	{
-		/// <summary>
-		/// Name of the tutorial section
-		/// </summary>
-		public string SectionName { get; set; }
-		
-		/// <summary>
-		/// Current iteration for the tutorial section (manually set, CRITICAL for analytics)
-		/// </summary>
-		public int SectionVersion { get; set; }
-		
-		/// <summary>
-		/// Current step in the tutorial sequence
-		/// </summary>
-		public int CurrentStep { get; set; }
-		
-		/// <summary>
-		/// Current step in tutorial section, plus all TotalStepsBeforeThisSection
-		/// </summary>
-		public int CurrentTotalStep { get;}
-		
-		/// <summary>
-		/// Name of the current step in the tutorial sequence
-		/// </summary>
-		public string CurrentStepName { get; set; }
-		
-		/// <summary>
-		/// Amount of tutorial steps, from all sections, before this tutorial sequence (manually set, CRITICAL for analytics)
-		/// Set according to flow using GameConstants.Tutorial.TOTAL_STEPS_X
-		/// </summary>
-		public int TotalStepsBeforeThisSection { get;}
-
-		/// <summary>
-		/// Initialised preliminary data values before anything else in the tutorial sequence
-		/// </summary>
-		public void InitSequenceData();
-
-		/// <summary>
-		/// Sends current step analytics, and updates to a new step
-		/// </summary>
-		public void SendAnalyticsIncrementStep(string newStepName);
-		
-		/// <summary>
-		/// Sends current step analytics only
-		/// </summary>
-		public void SendStepAnalytics();
 	}
 }

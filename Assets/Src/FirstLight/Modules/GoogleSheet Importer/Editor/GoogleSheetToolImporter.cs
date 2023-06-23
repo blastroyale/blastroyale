@@ -106,7 +106,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			}
 		}
 
-		private static List<ImportData> GetAllImporters()
+		public static List<ImportData> GetAllImporters()
 		{
 			var importerInterface = typeof(IGoogleSheetConfigsImporter);
 			var importerAttribute = typeof(GoogleSheetImportOrderAttribute);
@@ -149,7 +149,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			return importers;
 		}
 		
-		private static async void ImportSheetAsync(ImportData data, string spreadsheetId)
+		public static async void ImportSheetAsync(ImportData data, string spreadsheetId)
 		{
 			var indexStart = data.Importer.GoogleSheetUrl.IndexOf("/d/", StringComparison.Ordinal) + 3;
 			var indexCount = data.Importer.GoogleSheetUrl.IndexOf("/edit#", StringComparison.Ordinal) - indexStart;
@@ -186,7 +186,7 @@ namespace FirstLightEditor.GoogleSheetImporter
 			}
 		}
 
-		private struct ImportData
+		public struct ImportData
 		{
 			public Type Type;
 			public IGoogleSheetConfigsImporter Importer;

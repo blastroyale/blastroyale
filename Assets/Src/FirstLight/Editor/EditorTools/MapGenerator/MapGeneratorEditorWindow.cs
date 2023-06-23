@@ -126,9 +126,12 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			
 			string fileContents = File.ReadAllText(sceneIdPath);
 			string modifiedContents = AddEnumValue(fileContents, "SceneId", _mapGameId.ToString());
-			
-			File.WriteAllText(sceneIdPath, modifiedContents);
-			
+
+			if (string.IsNullOrEmpty(modifiedContents))
+			{
+				File.WriteAllText(sceneIdPath, modifiedContents);
+			}
+
 			var settings = AddressableAssetSettingsDefaultObject.Settings;
 			var group = settings.DefaultGroup;
 			var guid = AssetDatabase.GUIDFromAssetPath($"Assets/AddressableResources/Scenes/{_mapGameId.ToString()}.unity");
@@ -197,8 +200,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 				var importData = importers.FirstOrDefault(e => e.Type == typeof(SceneAssetConfigsImporter));
 				
 				importData.Importer.Import();
-
-
+				
 				GenerateMapAssetConfigs();
 				
 				AssetDatabase.SaveAssets();
@@ -215,7 +217,6 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 		private void GenerateMapAssetConfigs()
 		{
 			var mapConfigs = AssetDatabase.LoadAssetAtPath<MapConfigs>("Assets/AddressableResources/Configs/MapConfigs.asset");
-			
 			if (mapConfigs == null)
 			{
 				Debug.LogError("Map Configs reference invalid");
@@ -274,14 +275,13 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			Debug.Log("Finished generating map asset configs");
 		}
 
-
-
+		
 		private static string AddEnumValue(string fileContents, string enumName, string enumValue)
 		{
 			int enumEntryStartIndex = fileContents.IndexOf(enumValue);
 			if (enumEntryStartIndex != -1)
 			{
-				return fileContents;
+				return null;
 			}
 			
 			// Find the enum declaration

@@ -32,12 +32,13 @@ namespace Quantum.Systems
 
 		private void OnEntityEnterVisibilityArea(ref Frame f, in EntityRef areaEntity, in EntityRef entering)
 		{
-			if (f.TryGet<InsideVisibilityArea>(entering, out var existingArea))
-			{
-				OnExitVisibilityArea(ref f, existingArea.Area, entering);
-			}
+			
 			if (f.TryGet<VisibilityArea>(areaEntity, out var area))
 			{
+				if (f.TryGet<InsideVisibilityArea>(entering, out var existingArea))
+				{
+					OnExitVisibilityArea(ref f, existingArea.Area, entering);
+				}
 				f.Add(entering, new InsideVisibilityArea() { Area = areaEntity });
 				f.ResolveList(area.EntitiesIn).Add(entering);
 				f.Events.OnEnterVisibilityArea(entering, areaEntity);

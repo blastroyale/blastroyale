@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -27,6 +28,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     private Vector3 _rightStepScale;
     private Vector3 _leftStepScale;
     private EntityView _view;
+    private PlayerCharacterMonoComponent _character;
     private bool _right;
     
     // Local variables to avoid GC
@@ -50,13 +52,14 @@ public class FootprinterMonoComponent : MonoBehaviour
 
     public void Init(EntityView view, PlayerLoadout loadout)
     {
+        _character = view.GetComponent<PlayerCharacterMonoComponent>();
         _view = view;
         _id = loadout.Footstep;
     }
 
     private void Update()
     {
-        if (_view != null && SpawnFootprints && _id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
+        if (_character != null && _view != null && SpawnFootprints && _id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
     }
 
     private Quaternion GetFootRotation()
@@ -78,6 +81,8 @@ public class FootprinterMonoComponent : MonoBehaviour
     /// </summary>
     private async void Spawn()
     {
+        if (_character.PlayerView.Culled) return;
+        
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
         else  _pooledFootprint = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;

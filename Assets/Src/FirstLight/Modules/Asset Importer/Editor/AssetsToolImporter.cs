@@ -104,7 +104,7 @@ namespace FirstLightEditor.AssetImporter
 			}
 		}
 		
-		private static List<ImportData> GetAllImporters()
+		public static List<ImportData> GetAllImporters()
 		{
 			var importerInterface = typeof(IAssetConfigsImporter);
 			var importers = new List<ImportData>();
@@ -145,7 +145,7 @@ namespace FirstLightEditor.AssetImporter
 			return scriptableObject as AssetConfigsScriptableObject;
 		}
 
-		private struct ImportData
+		public struct ImportData
 		{
 			public Type Type;
 			public IAssetConfigsImporter Importer;

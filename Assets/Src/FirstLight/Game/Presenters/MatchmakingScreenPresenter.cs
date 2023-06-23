@@ -211,6 +211,8 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
+			if (_mapImage == null) return;
+			
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
 			if (checkClickWithinRadius)
@@ -241,6 +243,7 @@ namespace FirstLight.Game.Presenters
 
 		private bool IsWithinMapRadius(Vector3 dropPos)
 		{
+			
 			var mapRadius = _mapImage.contentRect.width / 2;
 			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
 				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);

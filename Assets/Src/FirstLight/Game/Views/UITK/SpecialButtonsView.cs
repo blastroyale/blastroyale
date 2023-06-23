@@ -13,8 +13,8 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class SpecialButtonsView : UIView
 	{
-		private SpecialButtonElement _special0Button;
-		private SpecialButtonElement _special1Button;
+		internal SpecialButtonElement _special0Button;
+		internal SpecialButtonElement _special1Button;
 
 		/// <summary>
 		/// Called with 0f when Special0 starts dragging / presses the button and with 1f when Special0 is released.

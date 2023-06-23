@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -72,7 +73,8 @@ namespace FirstLight.Game.Presenters
 
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
-
+		private ImageButton _menuButton;
+		
 		private Vector2 _direction;
 		private Vector2 _aim;
 		private bool _shooting;
@@ -98,9 +100,9 @@ namespace FirstLight.Game.Presenters
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
-
-			root.Q<ImageButton>("MenuButton").Required().clicked += OnMenuClicked;
-
+			_menuButton = root.Q<ImageButton>("MenuButton").Required();
+			
+			_menuButton.clicked += OnMenuClicked;
 			_movementJoystick.OnMove += e => InputState.Change(_moveDirectionJoystickInput.control, e);
 			_movementJoystick.OnClick += e => InputState.Change(_moveDownJoystickInput.control, e);
 			_shootingJoystick.OnMove += e => InputState.Change(_aimDirectionJoystickInput.control, e);
@@ -115,6 +117,11 @@ namespace FirstLight.Game.Presenters
 
 			HideSkydivingElements(true);
 		}
+		
+		public JoystickElement MovementJoystick => _movementJoystick;
+		public JoystickElement ShootingJoystick => _shootingJoystick;
+		public SpecialButtonElement Special0 => _specialButtonsView._special0Button;
+		public SpecialButtonElement Special1 => _specialButtonsView._special1Button;
 
 		protected override void SubscribeToEvents()
 		{
@@ -132,6 +139,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_legacyMinimap.SetActive(_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap);
+			_menuButton.SetVisibility(_gameServices.NetworkService.CurrentRoomMatchType == MatchType.Custom || _gameServices.GameBackendService.IsDev());
 		}
 
 		protected override Task OnClosed()

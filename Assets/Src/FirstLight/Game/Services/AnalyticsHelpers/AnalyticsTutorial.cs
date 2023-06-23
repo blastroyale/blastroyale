@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.StateMachines;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -18,18 +19,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when player completes a tutorial step
 		/// </summary>
-		public void CompleteTutorialStep(string sectionName, int sectionVersion, int sectionStep, int totalStep, string stepName)
+		public void CompleteTutorialStep(ITutorialSequence sequence)
 		{
 			var data = new Dictionary<string, object>
 			{
-				{"section_name", sectionName},
-				{"section_version", sectionVersion},
-				{"section_step", sectionStep},
-				{"total_step", totalStep},
-				{"step_name", stepName},
+				{"section_name", sequence.SectionName},
+				{"section_version", sequence.SectionVersion},
+				{"section_step", (int)sequence.CurrentStep},
+				{"total_step", (int)sequence.CurrentStep},
+				{"step_name", sequence.CurrentStep.ToString()},
 			};
 			
-			FLog.Verbose($"Tutorial step complete analytic sending - {sectionName} v{sectionVersion} | Step:{sectionStep} {stepName} Total:{totalStep}");
+			FLog.Verbose($"Tutorial step complete analytic sending - {sequence.SectionName} v{sequence.SectionVersion} | Step:{sequence.CurrentStep}");
 
 			_analyticsService.LogEvent(AnalyticsEvents.TutorialStepCompleted, data);
 		}

@@ -22,6 +22,12 @@ namespace FirstLight.UiService
 		/// Requests the open status of the <see cref="UiPresenter"/>
 		/// </summary>
 		public bool IsOpen => gameObject.activeSelf;
+
+		public async Task EnsureOpen()
+		{
+			while (!IsOpen) await Task.Yield();
+			await Task.Yield(); // one frame to allow it to render
+		}
 		
 		/// <summary>
 		/// Sets the current presenter hidden or not.

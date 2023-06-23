@@ -42,6 +42,7 @@ synced event OnProjectileTargetableHit
 
 event OnProjectileFailedHit
 {
+    entity_ref ProjectileEntity;
  	Projectile Projectile;
  	FPVector3 LastPosition;
 }

@@ -285,9 +285,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				// Destructible destroyed
 				bar.SetHealth(0f);
-				bar.schedule.Execute(() => _healthBarPool.Release(bar)).ExecuteLater(
-					GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION +
-					HealthStatusBarElement.DAMAGE_ANIMATION_DURATION + 1000);
+				_healthBarPool.Release(bar);
 			}
 
 			if (callback.PlayerTeamId != _matchServices.SpectateService.SpectatedPlayer.Value.Team) return;

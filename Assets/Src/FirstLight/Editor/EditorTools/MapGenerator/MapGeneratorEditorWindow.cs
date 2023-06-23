@@ -33,10 +33,10 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			public string Id;
 			public bool AllowedMap;
 		}
+		
 		private const string _exportFolderPath = "Assets/AddressableResources/Scenes";
 		public GameId _mapGameId;
-		public List<AllowedMapStruct> _allowedMaps = new List<AllowedMapStruct>()
-		{ };
+		public List<AllowedMapStruct> _allowedMaps = new List<AllowedMapStruct>();
 		
 		public int _maxPlayers = 20;
 		public bool _isTestMap = true;
@@ -141,7 +141,6 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 			var go = Instantiate(quantumMap, Vector3.zero, Quaternion.identity);
 			
 			MapAsset asset = ScriptableObject.CreateInstance<MapAsset>();
-			
 			
 			// Create a path for the new asset
 			string path = $"Assets/AddressableResources/Maps/{_mapGameId}.asset";
@@ -277,7 +276,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 
 
 
-		static string AddEnumValue(string fileContents, string enumName, string enumValue)
+		private static string AddEnumValue(string fileContents, string enumName, string enumValue)
 		{
 			int enumEntryStartIndex = fileContents.IndexOf(enumValue);
 			if (enumEntryStartIndex != -1)

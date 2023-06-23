@@ -515,9 +515,9 @@
     -unity-text-outline-width: 1.2px;
     text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
-    top: 41px;
+    top: 32px;
     -unity-text-align: upper-right;
-    right: 281px;
+    right: 239px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -529,19 +529,12 @@
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
     -unity-text-outline-color: rgb(16, 9, 51);
+    -unity-paragraph-spacing: -12px;
 }
 
 .weapon-display--melee .weapon-display__ammo {
     translate: 30px 0;
     scale: 0.8 0.8;
-}
-
-.weapon-display__ammo-icon {
-    position: relative;
-    right: -44px;
-    rotate: -64deg;
-    top: 13px;
-    scale: 1.2 1.2;
 }
 
 .weapon-display__ammo-gradient {

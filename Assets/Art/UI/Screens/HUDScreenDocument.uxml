@@ -72,9 +72,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Label text="67" name="Ammo" class="weapon-display__ammo">
-                    <ui:VisualElement name="Icon" class="sprite-match__icon-ammo weapon-display__ammo-icon" />
-                </ui:Label>
+                <ui:Label text="67 &lt;sprite=&quot;UISpriteAsset&quot; name=&quot;AmmoIcon&quot;&gt;&#10;&lt;size=70%&gt;/ 134" name="Ammo" class="weapon-display__ammo" />
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="kill-feed">
                 <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />

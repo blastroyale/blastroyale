@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
@@ -135,11 +136,17 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		public bool IsMenuVisible()
+		{
+			return !_gameServices.TutorialService.IsTutorialRunning &&
+				_gameServices.NetworkService.CurrentRoomMatchType == MatchType.Custom;
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 			_legacyMinimap.SetActive(_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap);
-			_menuButton.SetVisibility(_gameServices.NetworkService.CurrentRoomMatchType == MatchType.Custom || _gameServices.GameBackendService.IsDev());
+			_menuButton.SetVisibility(IsMenuVisible());
 		}
 
 		protected override Task OnClosed()

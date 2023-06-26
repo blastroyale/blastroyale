@@ -11,8 +11,6 @@ namespace FirstLight.Game.Views.UITK
 {
 	public class WeaponDisplayView : UIView
 	{
-		private const int BOOMSTICK_INDEX = 1;
-		private const int MELEE_INDEX = 0;
 
 		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
 		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
@@ -24,6 +22,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _weaponIcon;
 		private VisualElement _weaponShadow;
 		private VisualElement _factionIcon;
+		private VisualElement _switchIcon;
 		private Label _ammoLabel;
 
 		private IGameServices _services;
@@ -39,6 +38,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_melee = element.Q("Melee").Required();
 			_weapon = element.Q("Boomstick").Required();
+			_switchIcon = element.Q("SwitchIcon").Required();
 			_weaponRarity = _weapon.Q("WeaponRarityIcon").Required();
 			_weaponIcon = _weapon.Q("WeaponIcon").Required();
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
@@ -69,8 +69,8 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var pc = callback.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-			SetWeapon(pc.WeaponSlots[BOOMSTICK_INDEX].Weapon);
-			SetSlot(MELEE_INDEX);
+			SetWeapon(pc.WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon);
+			SetSlot(Constants.WEAPON_INDEX_DEFAULT);
 			_ammoLabel.text = "0";
 			UpdateAmmo(callback.Game.Frames.Verified, callback.Entity);
 		}
@@ -95,20 +95,23 @@ namespace FirstLight.Game.Views.UITK
 		private unsafe void UpdateAmmo(Frame f, EntityRef entity)
 		{
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(entity);
-			var stats = f.Unsafe.GetPointer<Stats>(entity);
-			var weapon = pc->WeaponSlots[1];
-			var currentAmmoModified = (Mathf.CeilToInt(stats->GetCurrentAmmo()) - weapon.MagazineSize) + weapon.MagazineShotCount;
-			var maxAmmo = stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var weapon = pc->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
+			if (!weapon.Weapon.IsValid())
+			{
+				return;
+			}
 
+			var maxAmmo = AmmoUtils.GetMaxAmmo(f, weapon.Weapon.GameId);
+			var currentAmmo = AmmoUtils.GetCurrentAmmoForGivenWeapon(f, entity, weapon);
+			
 			//TODO: change this to be the infinity symbol or something idk
 			// also this callback does not apply when you first spawn in for some reason, even though it should
-			_ammoLabel.text = maxAmmo == -1 ? "Infinite" :
-				currentAmmoModified.ToString() + " / " + maxAmmo;
+			_ammoLabel.text = currentAmmo + " / " + maxAmmo;
 		}
 
 		private void SetSlot(int slot)
 		{
-			if (slot == MELEE_INDEX)
+			if (slot == Constants.WEAPON_INDEX_DEFAULT)
 			{
 				_melee.BringToFront();
 				Element.EnableInClassList(USS_MELEE_WEAPON, true);
@@ -127,6 +130,8 @@ namespace FirstLight.Game.Views.UITK
 			_weaponIcon.style.backgroundImage = null;
 			_weaponShadow.style.backgroundImage = null;
 
+			_ammoLabel.SetVisibility(weapon.IsValid());
+			_switchIcon.SetVisibility(weapon.IsValid());
 			if (!weapon.IsValid())
 			{
 				_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
@@ -134,7 +139,6 @@ namespace FirstLight.Game.Views.UITK
 
 				return;
 			}
-
 			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
 

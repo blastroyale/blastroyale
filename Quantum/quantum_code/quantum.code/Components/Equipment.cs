@@ -72,7 +72,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks if this current <see cref="Equipment"/> is a valid possible equipment.
 		/// </summary>
-		public bool IsValid() => GameId != GameId.Random;
+		public readonly bool IsValid() => GameId != GameId.Random;
 
 		/// <summary>
 		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.

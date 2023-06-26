@@ -13722,7 +13722,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT PACKED
+      - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13733,7 +13733,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT PACKED
+      - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13744,7 +13744,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT PACKED
+      - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13755,7 +13755,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT PACKED
+      - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13766,7 +13766,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOT PACKED
+      - NOT EQUIPPED
       - "\u041D\u0435 \u043E\u0431\u043E\u0440\u0443\u0434\u043E\u0432\u0430\u043D"
       - "N\xC3O EQUIPADO"
       - 
@@ -13811,9 +13811,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'ITEMS WERE UNPACKED
+      - 'ITEMS WERE UNEQUIPPED
 
-        REPAIR ITEMS TO BE ABLE TO PACK THEM AGAIN'
+        REPAIR ITEMS TO BE ABLE TO EQUIP THEM AGAIN'
       - "\u041F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0431\u044B\u043B\u0438
         \u043D\u0435 \u044D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u044B\n\u0420\u0435\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
         \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B, \u0447\u0442\u043E\u0431\u044B
@@ -14176,7 +14176,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PACK
+      - EQUIP
       - 
       - 
       - 
@@ -14187,7 +14187,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - UNPACK
+      - UNEQUIP
       - 
       - 
       - 
@@ -14198,7 +14198,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PACKED
+      - EQUIPPED
       - 
       - 
       - 
@@ -16565,7 +16565,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NOW PACK IT
+      - NOW EQUIP IT
       - 
       - 
       - 
@@ -16587,7 +16587,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'LET''S PACK YOUR
+      - 'LET''S EQUIP YOUR
 
         NEW WEAPON'
       - 
@@ -16843,7 +16843,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1687768498722
+    Google_LastUpdatedVersion: 1687771382751
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

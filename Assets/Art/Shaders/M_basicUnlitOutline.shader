@@ -16,6 +16,8 @@ Shader "Unlit/basicOutline"
         Pass
         {
             Name "Normal"
+            
+            Cull Off
 
             Stencil
             {

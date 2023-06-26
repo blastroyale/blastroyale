@@ -45,7 +45,7 @@ Shader "Unlit/basicOutline"
             v2f vert(appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex.xyz + normalize(v.normal) * _Width);
+                o.vertex = UnityObjectToClipPos(v.vertex.xyz + v.normal * _Width);
                 return o;
             }
 

@@ -92,7 +92,7 @@
                 <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent" style="background-color: rgba(0, 0, 0, 0); align-items: center; top: 0; right: 0; left: 0; bottom: 0;">
+        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="BlastedNotification" class="status-kill">
                 <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
                 <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />

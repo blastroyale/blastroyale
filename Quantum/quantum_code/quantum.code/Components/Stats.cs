@@ -48,6 +48,41 @@ namespace Quantum
 			return Values[(int) stat];
 		}
 
+		public static FP GetStat(Frame f, EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return FP._0;
+			}
+
+			return stats[stat].StatValue;
+		}
+		
+		/// <summary>
+		/// Returns a range from 1.0 to 0.0 according to player health ratio
+		/// </summary>
+		public static FP HealthRatio(in EntityRef e, Frame f)
+		{
+			var health = Stats.GetStatData(f, e, StatType.Health);
+			return (health.StatValue / health.BaseValue) * FP._100;
+		}
+		
+		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return default;
+			}
+
+			return stats[stat];
+		}
+
+		public StatData this[StatType stat]
+		{
+			get => GetStatData(stat);
+		}
+	
+
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>

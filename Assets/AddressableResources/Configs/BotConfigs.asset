@@ -333,7 +333,7 @@ MonoBehaviour:
         RawValue: 65536
       VisionRangeSqr:
         RawValue: 104857600
-      AccuracySpreadAngle: 10
+      AccuracySpreadAngle: 0
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:

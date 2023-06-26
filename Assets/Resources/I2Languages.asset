@@ -4831,7 +4831,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Demon Flag Description
+      - Darkness rises
       - Demon Flag Description
       - Demon Flag Description
       - 
@@ -4865,7 +4865,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Divinci Glider Description
+      - Fly in style
       - 
       - 
       - 
@@ -4945,7 +4945,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Falcon Glider Description
+      - Millennium of research
       - 
       - 
       - 
@@ -5791,7 +5791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - New BR Map
+      - TIDY TOWN
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -5837,7 +5837,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Flag Description
+      - Rebel like you mean it
       - Punk Flag Description
       - Punk Flag Description
       - 
@@ -6068,7 +6068,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rocket Glider Description
+      - Skyrocket your entrance
       - 
       - 
       - 
@@ -7013,7 +7013,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Super Star Flag Description
+      - Leave 'em beat
       - Super Star Flag Description
       - Super Star Flag Description
       - 
@@ -7090,7 +7090,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Turbine Glider Description
+      - Turbo charge is on
       - 
       - 
       - 
@@ -7145,7 +7145,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Unicorn Flag Description
+      - See you in a fairy tale
       - Unicorn Flag Description
       - Unicorn Flag Description
       - 
@@ -7300,6 +7300,28 @@ MonoBehaviour:
       Description: 
       Languages:
       - BATTLE ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BattlelandsMap
+      TermType: 0
+      Description: 
+      Languages:
+      - LANDS OF BATTLES
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/IslandsMap
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST ISLANDS
       - 
       - 
       - 
@@ -16821,7 +16843,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1687189956108
+    Google_LastUpdatedVersion: 1687768498722
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

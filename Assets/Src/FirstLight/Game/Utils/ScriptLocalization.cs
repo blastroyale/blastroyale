@@ -425,6 +425,7 @@ namespace I2.Loc
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale"); } }
 			public static string BattleRoyale_First_Game 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale First Game"); } }
 			public static string BattleRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyaleTrios"); } }
+			public static string BattlelandsMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattlelandsMap"); } }
 			public static string BlimpDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlimpDeck"); } }
 			public static string Boots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Boots"); } }
 			public static string BossAngrymanAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossAngrymanAi"); } }
@@ -496,6 +497,7 @@ namespace I2.Loc
 			public static string HockeyHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HockeyHelmet"); } }
 			public static string Invincible 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Invincible"); } }
 			public static string Invisibility 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Invisibility"); } }
+			public static string IslandsMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/IslandsMap"); } }
 			public static string LegendaryBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/LegendaryBox"); } }
 			public static string LegendaryCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/LegendaryCore"); } }
 			public static string Liberty 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Liberty"); } }
@@ -1990,6 +1992,7 @@ namespace I2.Loc
 		    public const string BattleRoyale = "GameIds/BattleRoyale";
 		    public const string BattleRoyale_First_Game = "GameIds/BattleRoyale First Game";
 		    public const string BattleRoyaleTrios = "GameIds/BattleRoyaleTrios";
+		    public const string BattlelandsMap = "GameIds/BattlelandsMap";
 		    public const string BlimpDeck = "GameIds/BlimpDeck";
 		    public const string Boots = "GameIds/Boots";
 		    public const string BossAngrymanAi = "GameIds/BossAngrymanAi";
@@ -2061,6 +2064,7 @@ namespace I2.Loc
 		    public const string HockeyHelmet = "GameIds/HockeyHelmet";
 		    public const string Invincible = "GameIds/Invincible";
 		    public const string Invisibility = "GameIds/Invisibility";
+		    public const string IslandsMap = "GameIds/IslandsMap";
 		    public const string LegendaryBox = "GameIds/LegendaryBox";
 		    public const string LegendaryCore = "GameIds/LegendaryCore";
 		    public const string Liberty = "GameIds/Liberty";

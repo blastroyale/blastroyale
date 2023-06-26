@@ -113,7 +113,7 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 8
+      MagazineSize: 99999
       ReloadTime:
         RawValue: 163840
       AimingMovementSpeed:
@@ -121,7 +121,7 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 39322
       AttackCooldown:
-        RawValue: 65536
+        RawValue: 655
       PowerToDamageRatio:
         RawValue: 22938
       AttackHitSpeed:

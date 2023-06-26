@@ -92,9 +92,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828961381491411250}
-  - component: {fileID: 4116987192741713342}
   - component: {fileID: 828961381491411254}
   - component: {fileID: 4541087291862051908}
+  - component: {fileID: 1139590559039473265}
   m_Layer: 0
   m_Name: VisibilityVolume
   m_TagString: VisibilityVolume
@@ -117,19 +117,6 @@ Transform:
   m_Father: {fileID: 6044199291913569406}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4116987192741713342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828961381491411245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5641a23ebd99e9f4799ff63daf5d37d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _occludeAudio: 1
 --- !u!54 &828961381491411254
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,6 +165,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12.619824, y: 3.2284842, z: 11.836785}
   m_Center: {x: -0.09765005, y: 1.7339687, z: -0.10279894}
+--- !u!114 &1139590559039473265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828961381491411245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03e45923232480c848631106a705e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _occludeAudio: 1
 --- !u!1 &950294690449959807
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +954,7 @@ Transform:
   - {fileID: 1774100759108961282}
   - {fileID: 9069356001654135721}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3776787128425552005
 Animator:

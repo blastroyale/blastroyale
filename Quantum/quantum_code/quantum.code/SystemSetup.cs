@@ -29,7 +29,6 @@ namespace Quantum
 
 				// Signal only systems - only OnInit & Signal order matters
 				new MatchDataSystem(), // Must be the first to guarantee that receives all the events before entities are deleted
-				new NavMeshAgentSystem(),
 				new StatusModifierSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),

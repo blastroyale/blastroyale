@@ -18,9 +18,13 @@ component BotCharacter
     //
 	BotBehaviourType BehaviourType;
 	Int32 BotNameIndex;
+	
+	// TODO: Remove from bot character
+	// centralize in player data
 	GameId Skin;
 	GameId DeathMarker;
 	GameId Glider;
+	
 	FP DecisionInterval;
     FP LookForTargetsToShootAtInterval;
     bool SpeedResetAfterLanding;
@@ -80,6 +84,7 @@ component BotCharacter
 	
 	// Direction used in the wander behaviour, it changes if the direction is blocked
 	bool WanderDirection;
+	bool SharpShootNextShot;
 	
 	// Targets we tried to move the bot to, but pathfinding failed
 	hash_set<EntityRef> InvalidMoveTargets;

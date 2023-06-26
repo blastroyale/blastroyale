@@ -27,6 +27,7 @@ namespace FirstLight.Game.Services
 		private bool _shooting;
 		private int _specialPressed = -1;
 		private bool _inCancel = false;
+		private bool _registered;
 
 		public PlayerIndicatorsService(IMatchServices matchServices, IGameServices gameServices)
 		{
@@ -70,22 +71,27 @@ namespace FirstLight.Game.Services
 			_inputs.SpecialButton1.AddListener(OnSpecial1);
 			_inputs.SpecialAim.AddListener(OnSpecialAim);
 			_inputs.CancelButton.AddListener(OnSpecialCancel);
+			_registered = true;
 		}
 
 		private void UnregisterListeners()
 		{
-			_inputs.Move.RemoveListener(OnMove);
-			_inputs.Aim.RemoveListener(OnAim);
-			_inputs.AimButton.RemoveListener(OnShooting);
-			_inputs.SpecialButton0.RemoveListener(OnSpecial0);
-			_inputs.SpecialButton1.RemoveListener(OnSpecial1);
-			_inputs.SpecialAim.RemoveListener(OnSpecialAim);
-			_inputs.CancelButton.RemoveListener(OnSpecialCancel);
+			if (_registered)
+			{
+				_inputs.Move.RemoveListener(OnMove);
+				_inputs.Aim.RemoveListener(OnAim);
+				_inputs.AimButton.RemoveListener(OnShooting);
+				_inputs.SpecialButton0.RemoveListener(OnSpecial0);
+				_inputs.SpecialButton1.RemoveListener(OnSpecial1);
+				_inputs.SpecialAim.RemoveListener(OnSpecialAim);
+				_inputs.CancelButton.RemoveListener(OnSpecialCancel);
+			}
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		public void Dispose()
 		{
+			UnregisterListeners();
 			_indicatorContainerView?.Dispose();
 		}
 

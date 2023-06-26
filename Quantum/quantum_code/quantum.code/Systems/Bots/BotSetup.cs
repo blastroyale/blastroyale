@@ -132,6 +132,11 @@ namespace Quantum.Systems.Bots
 				throw new Exception("Bot configs not found for this game!");
 			}
 
+			else
+			{
+				BotLogger.LogAction(EntityRef.None, $"Using configs levels {string.Join(",", ctx.BotConfigs.Select(c => c.Difficulty))}");
+			}
+
 			var forcedBotTypes = new List<BotBehaviourType>();
 			foreach (var playerSpawner in f.Unsafe.GetComponentBlockIterator<PlayerSpawner>())
 			{
@@ -169,7 +174,6 @@ namespace Quantum.Systems.Bots
 
 			var botEntity = realPlayer ? f.GetSingleton<GameContainer>().PlayersData[id].Entity : f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
-			var navMeshAgent = new NavMeshSteeringAgent();
 			var pathfinder = NavMeshPathfinder.Create(f, botEntity, ctx.NavMeshAgentConfig);
 			var listNamesIndex = f.RNG->RandomElement(ctx.BotNamesIndices);
 
@@ -218,13 +222,11 @@ namespace Quantum.Systems.Bots
 
 
 			f.Add(botEntity, pathfinder); // Must be defined before the steering agent
-			f.Add(botEntity, navMeshAgent);
+			f.Add(botEntity, new NavMeshSteeringAgent());
 			f.Add(botEntity, botCharacter);
 
-
-			if (realPlayer) return;
-
-
+			if (realPlayer) return; // wtf ?
+			
 			// Calculate bot trophies
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 			// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
@@ -472,6 +474,7 @@ namespace Quantum.Systems.Bots
 
 			if (f.RuntimeConfig.BotOverwriteDifficulty != -1)
 			{
+				BotLogger.LogAction(EntityRef.None,  "Using config difficulty "+f.RuntimeConfig.BotOverwriteDifficulty);
 				var configs = f.BotConfigs.QuantumConfigs;
 				return configs.Where(config => config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty && config.GameMode == botGamemodeKey).ToList();
 			}

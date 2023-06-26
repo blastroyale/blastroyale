@@ -101,8 +101,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
-			
+
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
 			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
@@ -111,7 +110,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
+
+			if (frame.Has<BotCharacter>(EntityView.EntityRef))
+			{
+				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
+				bot.SetEntityView(quantumGame, _playerView.EntityView);
+			}
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;

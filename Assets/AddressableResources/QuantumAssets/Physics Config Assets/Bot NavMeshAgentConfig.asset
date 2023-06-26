@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 1093005050644660195
     UpdateInterval: 2
     PathQuality: 0
-    CachedWaypointCount: 10
+    CachedWaypointCount: 3
     MaxRepathTimeout:
       RawValue: 131072
     LineOfSightFunneling: 0

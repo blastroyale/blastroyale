@@ -46,7 +46,6 @@ namespace Quantum.Systems
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-
 			SetupWeaponPool(f, component);
 		}
 

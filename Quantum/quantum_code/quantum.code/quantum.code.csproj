@@ -273,6 +273,8 @@
     <Compile Include="Systems\Bots\Behaviours\BattleRoyaleBot.cs" />
     <Compile Include="Systems\Bots\Behaviours\WanderAndShootBot.cs" />
     <Compile Include="Systems\Bots\BotLogger.cs" />
+    <Compile Include="Systems\Bots\BotMovement.cs" />
+    <Compile Include="Systems\Bots\BotPickups.cs" />
     <Compile Include="Systems\Bots\BotState.cs" />
     <Compile Include="Systems\Bots\BotCharacterSystem.cs" />
     <Compile Include="Systems\Bots\BotSetup.cs" />
@@ -299,7 +301,6 @@
     <Compile Include="Systems\HazardSystem.cs" />
     <Compile Include="Systems\MatchDataSystem.cs" />
     <Compile Include="Systems\StatSystem.cs" />
-    <Compile Include="Systems\NavMeshAgentSystem.cs" />
     <Compile Include="Systems\PlayerCharacterSystem.cs" />
     <Compile Include="Systems\AiSystem.cs" />
     <Compile Include="Systems\ProjectileSystem.cs" />

@@ -24,14 +24,14 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 90px;
+    right: 281px;
     bottom: 377px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 312px;
-    bottom: 254px;
+    right: 506px;
+    bottom: 267px;
 }
 
 .special-button--draggable {
@@ -61,16 +61,16 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    border-left-color: rgba(189, 84, 84, 0.57);
-    border-right-color: rgba(189, 84, 84, 0.57);
-    border-top-color: rgba(189, 84, 84, 0.57);
-    border-bottom-color: rgba(189, 84, 84, 0.57);
+    border-left-color: rgba(255, 255, 255, 0.38);
+    border-right-color: rgba(255, 255, 255, 0.38);
+    border-top-color: rgba(255, 255, 255, 0.38);
+    border-bottom-color: rgba(255, 255, 255, 0.38);
     border-left-width: var(--match-button-outline-width);
     border-right-width: var(--match-button-outline-width);
     border-top-width: var(--match-button-outline-width);
     border-bottom-width: var(--match-button-outline-width);
-    width: 140px;
-    height: 140px;
+    width: 210px;
+    height: 210px;
     opacity: 0;
     transition-property: width, height, opacity;
     transition-duration: 0.2s, 0.2s, 0.2s;
@@ -78,14 +78,14 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: 800px;
     opacity: 1;
 }
 
 .special-button__cancel-circle__small {
-    width: 170px;
-    height: 170px;
+    width: 210px;
+    height: 210px;
     opacity: 1;
 }
 
@@ -179,11 +179,11 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: rgba(233, 226, 225, 0.25);
-    border-left-color: rgb(233, 226, 225);
-    border-right-color: rgb(233, 226, 225);
-    border-top-color: rgb(233, 226, 225);
-    border-bottom-color: rgb(233, 226, 225);
+    background-color: rgba(233, 226, 225, 0.02);
+    border-left-color: rgba(233, 226, 225, 0.12);
+    border-right-color: rgba(233, 226, 225, 0.12);
+    border-top-color: rgba(233, 226, 225, 0.12);
+    border-bottom-color: rgba(233, 226, 225, 0.12);
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
@@ -193,8 +193,8 @@
 }
 
 .joystick--move {
-    left: 80px;
-    bottom: 80px;
+    left: 176px;
+    bottom: 134px;
     width: 220px;
     height: 220px;
 }
@@ -204,7 +204,7 @@
 }
 
 .joystick--aim {
-    right: 16px;
+    right: 250px;
     bottom: 80px;
     width: 300px;
     height: 300px;
@@ -272,6 +272,7 @@
 .joystick--aim > .joystick__direction-halo {
     scale: 0.8 0.8;
     top: -110px;
+    display: none;
 }
 
 .joystick-container {
@@ -342,10 +343,10 @@
 
 .weapon-display {
     position: absolute;
-    right: 410px;
+    right: 552px;
     width: 216px;
     height: 193px;
-    bottom: 51px;
+    bottom: 45px;
 }
 
 .skydiving .weapon-display {
@@ -991,7 +992,7 @@
 
 .equipment-display {
     position: absolute;
-    left: 362px;
+    left: 405px;
     bottom: 44px;
     flex-direction: row;
     align-items: center;

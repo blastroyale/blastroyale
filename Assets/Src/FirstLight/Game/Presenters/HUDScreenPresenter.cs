@@ -151,10 +151,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override Task OnClosed()
 		{
-			if (_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap)
-			{
-				_legacyMinimap.SetActive(false);
-			}
+			_legacyMinimap.SetActive(false);
+			
 			return base.OnClosed();
 		}
 

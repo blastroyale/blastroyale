@@ -24,14 +24,14 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 90px;
+    right: 281px;
     bottom: 377px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 312px;
-    bottom: 254px;
+    right: 506px;
+    bottom: 267px;
 }
 
 .special-button--draggable {
@@ -61,16 +61,16 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    border-left-color: rgba(189, 84, 84, 0.57);
-    border-right-color: rgba(189, 84, 84, 0.57);
-    border-top-color: rgba(189, 84, 84, 0.57);
-    border-bottom-color: rgba(189, 84, 84, 0.57);
+    border-left-color: rgba(255, 255, 255, 0.38);
+    border-right-color: rgba(255, 255, 255, 0.38);
+    border-top-color: rgba(255, 255, 255, 0.38);
+    border-bottom-color: rgba(255, 255, 255, 0.38);
     border-left-width: var(--match-button-outline-width);
     border-right-width: var(--match-button-outline-width);
     border-top-width: var(--match-button-outline-width);
     border-bottom-width: var(--match-button-outline-width);
-    width: 140px;
-    height: 140px;
+    width: 210px;
+    height: 210px;
     opacity: 0;
     transition-property: width, height, opacity;
     transition-duration: 0.2s, 0.2s, 0.2s;
@@ -78,14 +78,14 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: 800px;
     opacity: 1;
 }
 
 .special-button__cancel-circle__small {
-    width: 170px;
-    height: 170px;
+    width: 210px;
+    height: 210px;
     opacity: 1;
 }
 
@@ -179,11 +179,11 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: rgba(233, 226, 225, 0.25);
-    border-left-color: rgb(233, 226, 225);
-    border-right-color: rgb(233, 226, 225);
-    border-top-color: rgb(233, 226, 225);
-    border-bottom-color: rgb(233, 226, 225);
+    background-color: rgba(233, 226, 225, 0.02);
+    border-left-color: rgba(233, 226, 225, 0.12);
+    border-right-color: rgba(233, 226, 225, 0.12);
+    border-top-color: rgba(233, 226, 225, 0.12);
+    border-bottom-color: rgba(233, 226, 225, 0.12);
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
@@ -193,8 +193,8 @@
 }
 
 .joystick--move {
-    left: 80px;
-    bottom: 80px;
+    left: 176px;
+    bottom: 134px;
     width: 220px;
     height: 220px;
 }
@@ -204,7 +204,7 @@
 }
 
 .joystick--aim {
-    right: 16px;
+    right: 250px;
     bottom: 80px;
     width: 300px;
     height: 300px;
@@ -272,6 +272,7 @@
 .joystick--aim > .joystick__direction-halo {
     scale: 0.8 0.8;
     top: -110px;
+    display: none;
 }
 
 .joystick-container {
@@ -342,10 +343,10 @@
 
 .weapon-display {
     position: absolute;
-    right: 410px;
+    right: 552px;
     width: 216px;
     height: 193px;
-    bottom: 51px;
+    bottom: 45px;
 }
 
 .skydiving .weapon-display {
@@ -400,31 +401,18 @@
     scale: 1 1;
 }
 
-.weapon-display__selected-bg {
+.weapon-display__ammo-progress {
     position: absolute;
-    left: 5px;
-    top: 5px;
-    right: 5px;
+    left: 7px;
+    top: 7px;
+    right: 7px;
     bottom: 5px;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
     transition-property: background-color;
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
-}
-
-.weapon-display__selected-bg-weapon {
-    background-color: rgb(247, 206, 49);
-}
-
-.weapon-display--melee .weapon-display__selected-bg-weapon {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.weapon-display--melee .weapon-display__selected-bg-melee {
-    background-color: rgb(247, 206, 49);
+    --track-color: rgb(35, 32, 46);
+    --track-width: 7;
+    --progress-color: rgb(242, 176, 53);
 }
 
 .weapon-display__rarity-bg {
@@ -528,9 +516,9 @@
     -unity-text-outline-width: 1.2px;
     text-shadow: 3px 3px 0 rgb(16, 9, 51);
     position: absolute;
-    top: 41px;
+    top: 32px;
     -unity-text-align: upper-right;
-    right: 281px;
+    right: 239px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -542,19 +530,12 @@
     transition-duration: var(--weapon-switch-animation-duration);
     transition-timing-function: var(--weapon-switch-animation-ease);
     -unity-text-outline-color: rgb(16, 9, 51);
+    -unity-paragraph-spacing: -12px;
 }
 
 .weapon-display--melee .weapon-display__ammo {
     translate: 30px 0;
     scale: 0.8 0.8;
-}
-
-.weapon-display__ammo-icon {
-    position: relative;
-    right: -44px;
-    rotate: -64deg;
-    top: 13px;
-    scale: 1.2 1.2;
 }
 
 .weapon-display__ammo-gradient {
@@ -573,6 +554,15 @@
 
 .weapon-display--melee .weapon-display__ammo-gradient {
     scale: 0.7 0.7;
+}
+
+.weapon-display__switch-icon {
+    background-image: var(--sprite-match__icon-switch);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 39px;
+    top: -6px;
 }
 
 .death-notification {
@@ -1000,18 +990,9 @@
     left: 29px;
 }
 
-.weapon-display__switch-icon {
-    background-image: var(--sprite-match__icon-switch);
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: 39px;
-    top: -6px;
-}
-
 .equipment-display {
     position: absolute;
-    left: 362px;
+    left: 405px;
     bottom: 44px;
     flex-direction: row;
     align-items: center;
@@ -1156,7 +1137,7 @@
 }
 
 .player-status-bar__ammo-holder {
-    bottom: 2px;
+    bottom: 4px;
     right: 11px;
     position: absolute;
     left: 32px;
@@ -1194,8 +1175,8 @@
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
     left: 42px;
-    bottom: 12px;
-    right: 9px;
+    bottom: 14px;
+    right: 7px;
     height: 15px;
     flex-direction: row;
 }
@@ -1300,7 +1281,7 @@
 
 .status-areashrinking {
     color: rgb(255, 255, 255);
-    font-size: 36px;
+    font-size: 44px;
     -unity-text-align: middle-center;
     -unity-text-outline-color: rgb(47, 44, 63);
     position: absolute;
@@ -1308,9 +1289,9 @@
     -unity-text-outline-width: 1px;
     text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
     background-image: var(--sprite-match__background-whitegradient);
-    width: 498px;
-    height: 40px;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0.58);
+    width: 511px;
+    height: 54px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.46);
 }
 
 .status-kill {

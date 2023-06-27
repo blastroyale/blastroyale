@@ -12,6 +12,8 @@ namespace FirstLight.Game.Views.UITK
 	public class WeaponDisplayView : UIView
 	{
 
+		private const string AMMO_TEXT = "{0} <sprite=\"UISpriteAsset\" name=\"AmmoIcon\">\n<size=70%>/ {1}";
+
 		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
 		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
 		private const string USS_MELEE_WEAPON = "weapon-display--melee";
@@ -23,6 +25,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _weaponShadow;
 		private VisualElement _factionIcon;
 		private VisualElement _switchIcon;
+		private RadialProgressElement _ammoProgress;
 		private Label _ammoLabel;
 
 		private IGameServices _services;
@@ -44,6 +47,9 @@ namespace FirstLight.Game.Views.UITK
 			_weaponShadow = _weapon.Q("WeaponIconShadow").Required();
 			_factionIcon = _weapon.Q("FactionIcon").Required();
 			_ammoLabel = element.Q<Label>("Ammo").Required();
+			_ammoProgress = element.Q<RadialProgressElement>("AmmoProgress").Required();
+
+			_ammoProgress.Progress = 0f;
 
 			((ImageButton) element).clicked += () =>
 			{
@@ -94,6 +100,9 @@ namespace FirstLight.Game.Views.UITK
 
 		private unsafe void UpdateAmmo(Frame f, EntityRef entity)
 		{
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
+			_ammoProgress.Progress = stats->CurrentAmmoPercent.AsFloat;
+			
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 			var weapon = pc->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
 			if (!weapon.Weapon.IsValid())
@@ -106,7 +115,7 @@ namespace FirstLight.Game.Views.UITK
 			
 			//TODO: change this to be the infinity symbol or something idk
 			// also this callback does not apply when you first spawn in for some reason, even though it should
-			_ammoLabel.text = currentAmmo + " / " + maxAmmo;
+			_ammoLabel.text = string.Format(AMMO_TEXT, currentAmmo, maxAmmo);
 		}
 
 		private void SetSlot(int slot)

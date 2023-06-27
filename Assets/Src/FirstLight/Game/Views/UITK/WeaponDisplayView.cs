@@ -110,12 +110,10 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var maxAmmo = AmmoUtils.GetMaxAmmo(f, weapon.Weapon.GameId);
 			var currentAmmo = AmmoUtils.GetCurrentAmmoForGivenWeapon(f, entity, weapon);
 			
-			//TODO: change this to be the infinity symbol or something idk
-			// also this callback does not apply when you first spawn in for some reason, even though it should
-			_ammoLabel.text = string.Format(AMMO_TEXT, currentAmmo, maxAmmo);
+			//TODO: this callback does not apply when you first spawn in for some reason, even though it should
+			_ammoLabel.text = currentAmmo.ToString();
 		}
 
 		private void SetSlot(int slot)

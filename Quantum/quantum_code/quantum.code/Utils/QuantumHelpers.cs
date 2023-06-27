@@ -29,13 +29,13 @@ namespace Quantum
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, EntityRef target, FP lerpTime)
+		public static void LookAt2d(Frame f, in EntityRef e, in EntityRef target, in FP lerpTime)
 		{
 			LookAt2d(f, e, f.Get<Transform3D>(target).Position, lerpTime);
 		}
 
 		/// <inheritdoc cref="LookAt2d(Quantum.Frame,Quantum.EntityRef,Quantum.EntityRef)"/>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target, FP lerpTime)
+		public static void LookAt2d(Frame f, in EntityRef e, in FPVector3 target, in FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var direction = target - transform->Position;
@@ -46,17 +46,39 @@ namespace Quantum
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction, FP lerpTime)
+		public static void LookAt2d(Frame f, in EntityRef e, in FPVector2 direction, in FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			LookAt2d(transform, direction, lerpTime);
 		}
 
+
+		public static FPQuaternion ToRotation(this FPVector2 direction)
+		{
+			return FPQuaternion.AngleAxis(FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg, FPVector3.Up);
+		}
+
+		public static FPVector2 ToDirection(this FPQuaternion rotation)
+		{
+			return (rotation * FPVector3.Forward).XZ.Normalized;
+		}
+
+		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, out EntityRef? firstHit)
+		{
+			var hit = f.Physics3D.Linecast(source,
+				destination,
+				f.Context.TargetAllLayerMask,
+				QueryOptions.HitDynamics | QueryOptions.HitStatics |
+				QueryOptions.HitKinematics);
+			firstHit = hit?.Entity;
+			return !hit.HasValue;
+		}
+
 		/// <summary>
 		/// Makes the given entity <paramref name="transform"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Transform3D* transform, FPVector2 direction, FP lerpAngle)
+		public static void LookAt2d(Transform3D* transform, in FPVector2 direction, in FP lerpAngle)
 		{
 			var targetAngle = FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg;
 			if (lerpAngle == FP._0)
@@ -81,12 +103,18 @@ namespace Quantum
 		/// <summary>
 		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
 		/// </summary>
-		public static bool IsEntityInRange(Frame f, EntityRef e, EntityRef target, FP minRange, FP maxRange)
+		public static bool IsEntityInRange(Frame f, in EntityRef e, in EntityRef target, in FP minRange, in FP maxRange)
 		{
-			var position = f.Get<Transform3D>(target).Position;
-			var sqrDistance = (f.Get<Transform3D>(e).Position - position).SqrMagnitude;
-			
+			var sqrDistance = GetDistance(f, e, target);
 			return sqrDistance >= (minRange * minRange) && sqrDistance <= (maxRange * maxRange);
+		}
+		
+		/// <summary>
+		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
+		/// </summary>
+		public static FP GetDistance(Frame f, in EntityRef e, in EntityRef target)
+		{
+			return FPVector3.DistanceSquared(f.Get<Transform3D>(target).Position, f.Get<Transform3D>(e).Position);
 		}
 		
 		/// <summary>
@@ -94,15 +122,13 @@ namespace Quantum
 		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			var neutral = Constants.TEAM_ID_NEUTRAL;
-			
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
 				return false;
 			}
 			
 			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
-			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
+			       (targetable.Team != attackerTeam || targetable.Team == Constants.TEAM_ID_NEUTRAL || attackerTeam == Constants.TEAM_ID_NEUTRAL);
 		}
 		
 		/// <summary>
@@ -223,49 +249,6 @@ namespace Quantum
 			}
 
 			return sum;
-		}
-		
-		/// <summary>
-		/// Set's the navmesh agent of the given <paramref name="e"/> entity's target position to as closest as possible
-		/// to the given <paramref name="destination"/>.
-		/// If the given <paramref name="destination"/> is invalid then the entity's navmesh agent will not move
-		/// </summary>
-		public static bool SetClosestTarget(Frame f, EntityRef e, FPVector3 destination)
-		{
-			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
-			var config = f.FindAsset<NavMeshAgentConfig>(agent->ConfigId);
-			var navMesh = f.NavMesh;
-			
-			if (navMesh.FindRandomPointOnNavmesh(destination, config.AutomaticTargetCorrectionRadius, f.RNG, 
-			                                     agent->RegionMask, out var closestPosition))
-			{
-				agent->SetTarget(f, closestPosition, navMesh);
-				
-				return true;
-			}
-			
-			return false;
-		}
-		
-		/// <summary>
-		/// Set's the navmesh agent of the given <paramref name="e"/> entity's target position to as close as possible
-		/// to the random position within <paramref name="radius"/> from <paramref name="startPosition"/>.
-		/// If the position is not found then the entity's navmesh agent will not move
-		/// </summary>
-		public static bool SetClosestTarget(Frame f, EntityRef e, FPVector3 startPosition, FP radius)
-		{
-			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
-			var navMesh = f.NavMesh;
-			
-			if (navMesh.FindRandomPointOnNavmesh(startPosition, radius, f.RNG, 
-			                                     agent->RegionMask, out var closestPosition))
-			{
-				agent->SetTarget(f, closestPosition, navMesh);
-				
-				return true;
-			}
-			
-			return false;
 		}
 
 		/// <summary>

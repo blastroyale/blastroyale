@@ -68,6 +68,14 @@ namespace Quantum.Systems
 		{
 			f.FreeList(component->EntitiesIn);
 		}
+
+		public static bool CanEntityViewEntityRaw(in Frame f, in EntityRef viewer, in EntityRef target)
+		{
+			if (!f.TryGet<InsideVisibilityArea>(target, out var targetArea)) return true;
+			if(TeamHelpers.HasSameTeam(f, viewer, target)) return true;
+			if (!f.TryGet<InsideVisibilityArea>(viewer, out var viewerArea)) return false;
+			return targetArea.Area == viewerArea.Area;
+		}
 		
 		public static VisibilityCheckResult CanEntityViewEntity(in Frame f, in EntityRef viewer, in EntityRef target)
 		{

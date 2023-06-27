@@ -83,7 +83,14 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = expectedPlayers,
+				
+				// Expected users commented out. This is used for squads specifically when 
+				// joining only a single squad to the game.
+				// This makes the game auto-start when all players join the game not giving
+				// time to select the drop zone. This is because our matchmaking is the same as our
+				// lobby which is also the same as our drop zone selector. :L
+				
+				// ExpectedUsers = expectedPlayers,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{

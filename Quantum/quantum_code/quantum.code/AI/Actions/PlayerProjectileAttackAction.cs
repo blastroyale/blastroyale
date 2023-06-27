@@ -1,5 +1,6 @@
 using System;
 using Photon.Deterministic;
+using Quantum.Systems.Bots;
 
 namespace Quantum
 {
@@ -20,9 +21,22 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), ref transform->Rotation).Normalized;
+			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			if(f.Unsafe.TryGetPointer<BotCharacter>(e, out var bot) && bot->Target.IsValid && bb->GetBoolean(f, Constants.IsAimPressedKey))
+			{
+				if (bot->SharpShootNextShot)
+				{
+					bot->SharpShootNextShot = false;
+					if (bot->TrySharpShoot(e, f, bot->Target, out var sharpDirection))
+					{
+						aimDirection = sharpDirection;
+					}
+				}
+				QuantumHelpers.LookAt2d(transform, aimDirection, FP._0);
+			}
+			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
+			var aimingDirection = QuantumHelpers.GetAimDirection(aimDirection, ref transform->Rotation).Normalized;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);

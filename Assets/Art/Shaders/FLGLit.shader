@@ -38,7 +38,7 @@ Shader "FLG/FastLit"
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
-
+ 
             CBUFFER_START(UnityPerMaterial)
             half4 _MainTex_ST;
             CBUFFER_END
@@ -61,8 +61,8 @@ Shader "FLG/FastLit"
             half4 frag(const Varyings IN) : SV_Target
             {
                 half4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-                color.rgb *= 0.8;
-                color.rgb += IN.lambert; 
+                color.rgb *= 0.7;
+                color.rgb += IN.lambert;
                 return color;
             }
             ENDHLSL

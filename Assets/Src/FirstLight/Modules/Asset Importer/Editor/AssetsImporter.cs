@@ -12,7 +12,7 @@ namespace FirstLightEditor.AssetImporter
 	public class AssetsImporter : ScriptableObject
 	{
 		[MenuItem("Tools/Assets Importer/Select AssetsImporter.asset")]
-		private static void SelectAssetsImporter()
+		public static void SelectAssetsImporter()
 		{
 			var assets = AssetDatabase.FindAssets($"t:{nameof(AssetsImporter)}");
 			var scriptableObject = assets.Length > 0 ? 

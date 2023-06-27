@@ -4,6 +4,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// TEMPORARY uGUI-based guide hand. Displays a guide hand at a certain position.
@@ -33,14 +34,12 @@ public class GuideHandPresenter : UiPresenter
 		_animRoot.gameObject.SetActive(false);
 	}
 	
-	public void SetPosition(Vector3 pos)
+	public void SetScreenPosition(Vector2 screenPosition)
 	{
-		_animRoot.transform.position = pos;
-	}
-	
-	public void SetPositionAndShow(Vector3 pos)
-	{
-		SetPosition(pos);
+		_animRoot.transform.position = screenPosition;
 		Show();
 	}
+
+
+	
 }

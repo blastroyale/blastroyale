@@ -18,7 +18,9 @@ namespace FirstLight.Game.Ids
 		TestScene,
 		MapTestScene,
 		NewBRMap,
-		District
+		District,
+		BattlelandsMap,
+		IslandsMap,
 	}
 	
 	/// <summary>

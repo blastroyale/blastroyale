@@ -26,6 +26,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 				: _followedTransform.position;
 
 			var followedDirection = (startPosition - transform.position).normalized;
+			startPosition -= followedDirection;
 			// We move the position a bit out of the center of the circle (doesn't look good)
 			var endPosition = transform.position + followedDirection * 1.5f;
 			

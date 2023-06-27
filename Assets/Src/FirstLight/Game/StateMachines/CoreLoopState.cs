@@ -76,6 +76,7 @@ namespace FirstLight.Game.StateMachines
 
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
+			firstMatchCheck.Transition().Condition(CheckSkipTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Condition(InRoom).Target(match);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
@@ -99,6 +100,38 @@ namespace FirstLight.Game.StateMachines
 			{
 				await Task.Yield();
 			}
+		}
+
+		/// <summary>
+		/// If player already have items equipped, he does not need to do tutorial
+		/// This is to allow players to skip tutorial if they are not new as we implement more tutorial steps.
+		///
+		/// The main reason is to easily avoid edge cases e.g a player which item on slot 1 in inventory equipped but
+		/// meta tutorial will ask player to equip while blocking the UI, soft locking the game.
+		/// </summary>
+		private bool CheckSkipTutorial()
+		{
+			if (_dataProvider.EquipmentDataProvider.Loadout.Count >= 1)
+			{
+				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
+				{
+					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
+					{
+						Section = TutorialSection.FIRST_GUIDE_MATCH
+					});
+				}
+
+				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH))
+				{
+					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
+					{
+						Section = TutorialSection.META_GUIDE_AND_MATCH
+					});
+				}
+
+				return true;
+			}
+			return false;
 		}
 
 		private async void AttemptJoinTutorialRoom()

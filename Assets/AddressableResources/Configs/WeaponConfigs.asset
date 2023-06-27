@@ -490,9 +490,9 @@ MonoBehaviour:
       TapCooldown:
         RawValue: 7864
       AttackCooldown:
-        RawValue: 14418
+        RawValue: 19661
       PowerToDamageRatio:
-        RawValue: 20972
+        RawValue: 32768
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 0
@@ -779,7 +779,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 22938
       PowerToDamageRatio:
-        RawValue: 31457
+        RawValue: 37356
       AttackHitSpeed:
         RawValue: 983040
       MinAttackAngle: 3

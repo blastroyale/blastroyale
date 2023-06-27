@@ -1,33 +1,24 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 8ab25cc43a324f749923958b14318774
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ColorGrads
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second:
-      fileID: 2100000
-      guid: bc31393375bdcce478995e048d720af2
-      type: 2
+    second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -54,7 +45,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["barricade_sandbags"],"padding":[50],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:
@@ -64,6 +56,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -91,6 +84,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -117,13 +111,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

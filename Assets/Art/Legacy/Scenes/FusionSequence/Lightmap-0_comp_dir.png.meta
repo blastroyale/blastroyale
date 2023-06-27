@@ -77,7 +77,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -89,7 +89,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -101,7 +101,7 @@ TextureImporter:
     textureFormat: 48
     textureCompression: 3
     compressionQuality: 100
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
     androidETC2FallbackOverride: 0
@@ -113,7 +113,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -139,4 +139,4 @@ TextureImporter:
   assetBundleName: 
   assetBundleVariant: 
   textureCompression: 3
-  crunchedCompression: 1
+  crunchedCompression: 0

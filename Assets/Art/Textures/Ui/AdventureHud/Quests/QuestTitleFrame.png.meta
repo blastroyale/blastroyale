@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 1ffdc9ad31db7a1488f4e5225bb3f750
 TextureImporter:
   internalIDToNameTable: []
@@ -46,9 +46,15 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  spritePivot:
+    x: 0.5
+    y: 0.5
   spritePixelsToUnits: 100
-  spriteBorder: {x: 14, y: 18, z: 14, w: 8}
+  spriteBorder:
+    x: 14
+    y: 18
+    z: 14
+    w: 8
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -132,3 +138,4 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  crunchedCompression: 0

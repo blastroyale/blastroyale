@@ -40,6 +40,8 @@ namespace FirstLight.Game.UIElements
 			{
 				SetValue(_label, value);
 			}
+			
+			_currentMight = value;
 		}
 
 		private static void SetValue(Label label, float value)

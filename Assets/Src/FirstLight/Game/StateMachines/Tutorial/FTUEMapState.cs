@@ -305,11 +305,11 @@ namespace FirstLight.Game.StateMachines
 			};
 		}
 
-		private void SetFingerPosition(VisualElement element)
+		private void SetFingerPosition(VisualElement element, float angle = 45)
 		{
 			var root = _hud.Document.rootVisualElement;
 			var elementPosition = element.GetPositionOnScreen(root);
-			_guideHandUi.SetScreenPosition(elementPosition);
+			_guideHandUi.SetScreenPosition(elementPosition, angle);
 		}
 		
 		private async Task WaitMovementAsync()
@@ -349,7 +349,7 @@ namespace FirstLight.Game.StateMachines
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.shoot_barrier, CharacterType.Female, CharacterDialogMoodType.Neutral);
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_WOODEN_BARRIER].transform.position, _localPlayerEntityView.transform);
-			SetFingerPosition(_hud.ShootingJoystick);
+			SetFingerPosition(_hud.ShootingJoystick, 90);
 
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
@@ -409,7 +409,7 @@ namespace FirstLight.Game.StateMachines
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, _localPlayerEntityView.transform);
 			
-			SetFingerPosition(_hud.Special1);
+			SetFingerPosition(_hud.Special1, 90);
 
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

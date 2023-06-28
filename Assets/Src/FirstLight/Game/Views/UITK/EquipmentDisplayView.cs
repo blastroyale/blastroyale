@@ -72,8 +72,6 @@ namespace FirstLight.Game.Views.UITK
 					_shield.AnimatePing();
 					_currentGear++;
 					break;
-				default:
-					throw new ArgumentOutOfRangeException();
 			}
 
 			_count.text = $"{_currentGear}/4";

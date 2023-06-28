@@ -169,9 +169,6 @@ namespace Quantum
 			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
-
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
-			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>

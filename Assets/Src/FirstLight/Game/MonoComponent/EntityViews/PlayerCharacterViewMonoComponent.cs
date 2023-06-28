@@ -363,7 +363,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Special);
+			//TODO: bespoke animation for each special 
+			//AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 

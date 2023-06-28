@@ -25,6 +25,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			_shrinkingCircleLinerRenderer.gameObject.SetActive(false);
 			_safeAreaCircleLinerRenderer.gameObject.SetActive(false);
+			_damageZoneTransform.gameObject.SetActive(false);
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)
@@ -42,6 +43,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_shrinkingCircleLinerRenderer.gameObject.SetActive(true);
 			_safeAreaCircleLinerRenderer.gameObject.SetActive(true);
+			_damageZoneTransform.gameObject.SetActive(true);
 			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;

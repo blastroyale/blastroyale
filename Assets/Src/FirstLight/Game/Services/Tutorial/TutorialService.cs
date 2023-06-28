@@ -133,7 +133,7 @@ namespace FirstLight.Game.Services
 				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
 				Mutators = Array.Empty<string>(),
 				JoinType = JoinType.ForcedGame,
-				MatchType = MatchType.Casual,
+				MatchType = MatchType.Ranked,
 			};
 
 			_services.NetworkService.JoinOrCreateRandomRoom(setup);

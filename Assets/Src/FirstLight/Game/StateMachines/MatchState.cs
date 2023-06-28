@@ -378,7 +378,12 @@ namespace FirstLight.Game.StateMachines
 		private async void OpenMatchmakingScreen()
 		{
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			
+
+			if (_networkService.CurrentRoom == null)
+			{
+				return;
+			}
+
 			// TODO: Reconnection screen but for now its MM screen
 			var isRejoining =
 				_networkService.QuantumClient.CurrentRoom.HaveStartedGame() || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
@@ -470,6 +475,10 @@ namespace FirstLight.Game.StateMachines
 			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
 			try
 			{
+				if (!_services.NetworkService.InRoom)
+				{
+					return;
+				}
 				var time = Time.realtimeSinceStartup;
 				var tasks = new List<Task>();
 				var config = _services.NetworkService.CurrentRoomMapConfig.Value;
@@ -668,6 +677,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishCoreAssetsLoadedMessage()
 		{
+			if (!_services.NetworkService.InRoom)
+			{
+				return;
+			}
 			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 		}
 		

@@ -69,7 +69,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void MatchInitiate()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
+			if (room == null)
+			{
+				return;
+			}
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
 			_mutators = string.Join(",", room.GetMutatorIds());

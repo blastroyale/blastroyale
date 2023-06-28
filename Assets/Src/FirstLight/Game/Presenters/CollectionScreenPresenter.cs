@@ -243,7 +243,8 @@ namespace FirstLight.Game.Presenters
 		
 		public List<CollectionItem> GetCollectionAll()
 		{
-			return _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
+			var collection = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
+			return collection.OrderBy(c => _gameDataProvider.CollectionDataProvider.IsItemOwned(c)).ToList();
 		}
 
 		private void OnEquipClicked()

@@ -6,9 +6,7 @@ using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -85,7 +83,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_animatorWrapper = new AnimatorWrapper(_animator);
 
-			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleEventOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
@@ -140,23 +137,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
-			var frame = game.Frames.Verified;
-			var oneLife = frame.Context.GameModeConfig.Lives == 1; // TODO: Should be properly handled based on deaths
-			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
 			AnimatorWrapper.SetTrigger(Triggers.Die);
-			
-			
-			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
-			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
-					 {
-						 if (this.IsDestroyed())
-						 {
-							 return;
-						 }
-						 RenderersContainerProxy.SetRendererState(false);
-					 });
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
@@ -171,16 +154,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			OnAvatarEliminated(callback.Game);
 		}
 
-		private void HandleEventOnPlayerAlive(EventOnPlayerAlive evnt)
-		{
-			if (evnt.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-			
-			Dissolve(false, 0,0,0, 0);
-		}
-		
 		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
 			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)

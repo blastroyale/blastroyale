@@ -71,6 +71,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (frame.Time < circle.ShrinkingStartTime - _config.WarningTime)
 			{
+				// We set white circle to be as big as red one at the first step to avoid it sitting small in the center of the map
+				// It's because the safe zone position/scale is not revealed for a few seconds at the beginning of a match
+				if (circle.Step == 1)
+				{
+					cachedSafeAreaCircleLine.localScale = new Vector3(radius, radius, 1f);
+				}
+				
 				return;
 			}
 			

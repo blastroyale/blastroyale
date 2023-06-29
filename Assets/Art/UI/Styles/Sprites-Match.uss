@@ -1,5 +1,9 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-match__animation-shieldbreak-notification__firsthalf-shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__firsthalf-shield.png');
+    --sprite-match__animation-shieldbreak-notification__light: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__light.png');
+    --sprite-match__animation-shieldbreak-notification__secondhalf-shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__secondhalf-shield.png');
+    --sprite-match__animation-shieldbreak-notification__shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__shield.png');
     --sprite-match__background-equipmentcharacter: url('/Assets/Art/UI/Sprites/Match/background-equipmentcharacter.png');
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
@@ -16,6 +20,7 @@
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
     --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
     --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
+    --sprite-match__gradientwhite: url('/Assets/Art/UI/Sprites/Match/gradientwhite.png');
     --sprite-match__icon-ammo: url('/Assets/Art/UI/Sprites/Match/icon-ammo.png');
     --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-left.png');
     --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
@@ -66,6 +71,30 @@
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
     --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
     --sprite-match__vfx-killstreak-skullpart2: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart2.png');
+}
+
+.sprite-match__animation-shieldbreak-notification__firsthalf-shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__firsthalf-shield);
+    width: 41px;
+    height: 46px;
+}
+
+.sprite-match__animation-shieldbreak-notification__light {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__light);
+    width: 86px;
+    height: 99px;
+}
+
+.sprite-match__animation-shieldbreak-notification__secondhalf-shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__secondhalf-shield);
+    width: 39px;
+    height: 44px;
+}
+
+.sprite-match__animation-shieldbreak-notification__shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__shield);
+    width: 46px;
+    height: 51px;
 }
 
 .sprite-match__background-equipmentcharacter {
@@ -160,6 +189,12 @@
 
 .sprite-match__button-next:active {
     background-image: var(--sprite-match__button-next-pressed);
+}
+
+.sprite-match__gradientwhite {
+    background-image: var(--sprite-match__gradientwhite);
+    width: 261px;
+    height: 265px;
 }
 
 .sprite-match__icon-ammo {

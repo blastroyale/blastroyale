@@ -233,8 +233,8 @@ namespace FirstLight.Game.MonoComponent
 			{
 				var sharedMaterialCount = _renderers[i].sharedMaterials.Length;
 				var materialCount =  Math.Min(_renderers[i].materials.Length, 1);
-				
-				var newMaterials = new Material[sharedMaterialCount];
+
+				var newMaterials = new List<Material>(3);
 
 				for (var j = 0; j < materialCount; j++, count++)
 				{
@@ -245,16 +245,15 @@ namespace FirstLight.Game.MonoComponent
 						material.SetTexture(_mainText, _originalMaterials[count].GetTexture(_mainText));
 					}
 
-					newMaterials[j] = material;
+					newMaterials.Add(material);
 				}
 
 				if (sharedMaterialCount > 1)
 				{
-					var lastIndex = sharedMaterialCount - 1;
-					newMaterials[lastIndex] = _renderers[i].sharedMaterials[lastIndex];
+					newMaterials.Add(_renderers[i].sharedMaterials[^1]);
 				}
 
-				_renderers[i].materials = newMaterials;
+				_renderers[i].materials = newMaterials.ToArray();
 				_renderers[i].shadowCastingMode = mode;
 			}
 		}

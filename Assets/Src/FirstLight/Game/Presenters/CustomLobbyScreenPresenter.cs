@@ -307,6 +307,8 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
+			if (!_services.NetworkService.InRoom) return;
+			
 			AddOrUpdatePlayerInList(newMasterClient);
 
 			if (!CurrentRoom.IsMatchmakingRoom() && newMasterClient.IsLocal && _loadedCoreMatchAssets)

@@ -155,9 +155,11 @@ namespace FirstLight.Game.MonoComponent.Match
 				_waitingLoad.Add(towardsEntity);
 				return;
 			}
-
+			
 			var visibility = CheckSpectatorVisibility(towardsEntity);
+			FLog.Verbose($"[EntityVisibility] Setting {view.gameObject.name} render to {visibility.CanSee}");
 			renderer.SetRendererState(visibility.CanSee);
+
 			if (!visibility.CanSee) _clientHidden.Add(renderer);
 			else _clientHidden.Remove(renderer);
 

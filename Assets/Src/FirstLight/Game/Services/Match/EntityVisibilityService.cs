@@ -31,7 +31,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	{
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
-		private IEntityViewUpdaterService _entityViewUpdater;
 		private HashSet<EntityRef> _waitingLoad = new();
 		private HashSet<RenderersContainerProxyMonoComponent> _clientHidden = new();
 		private readonly Color _inBushColor = new Color(110/255f, 150/255f, 110/255f, 1);
@@ -157,7 +156,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			
 			var visibility = CheckSpectatorVisibility(towardsEntity);
-			FLog.Verbose($"[EntityVisibility] Setting {view.gameObject.name} render to {visibility.CanSee}");
+			FLog.Verbose($"[EntityVisibility] Setting {view.EntityRef} render to {visibility.CanSee}");
 			renderer.SetRendererState(visibility.CanSee);
 
 			if (!visibility.CanSee) _clientHidden.Add(renderer);

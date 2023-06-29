@@ -35,11 +35,19 @@ namespace Quantum
 		/// </summary>
 		public void SetInput(FPVector2 aim, FPVector2 movement, bool isShooting, FP movementRangePercentage)
 		{
+			// There is some weeeeeird magic thing happening here with bit shifts.
+			// In debug builds the shift values were not working as expected, they were all done in one line without casts.
+			// To fix this issue i casted everything to uint (>> is arithmetic in C# and >>> only exists in C# 11)
+			// and breaking the code in variables (this somehow prevented casting the values to byte idk whatfuck happend at IL2CPP)
 			var encodedMovement = (byte)Math.Floor(movementRangePercentage.AsDouble / 4d);
-			var compressedInput = (encodedMovement << 19 | EncodeVector(aim, 1) << 10 | EncodeVector(movement, 1) << 1 | (isShooting ? 1 : 0));
+			var movementMagnitudeShifted = (uint)encodedMovement << 19;
+			var aimShifted = (uint)EncodeVector(aim, 1) << 10;
+			var movementShifted = (uint)EncodeVector(movement, 1) << 1;
+			var shootingShifted = isShooting ? (uint)1 : 0;
+			var compressedInput = movementMagnitudeShifted | aimShifted | movementShifted | shootingShifted;
 			B1 = (byte)(compressedInput >> 16);
-			B2 = (byte) (compressedInput >> 8);
-			B3 = (byte) compressedInput;
+			B2 = (byte)(compressedInput >> 8);
+			B3 = (byte)compressedInput;
 		}
 
 		private static int EncodeVector(FPVector2 dir, int divisor)

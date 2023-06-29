@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -22,6 +22,7 @@ namespace FirstLight.Game.Views.UITK
 		private Camera _camera;
 
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 
 		private readonly Dictionary<EntityRef, Transform> _anchors = new();
 		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
@@ -39,7 +40,8 @@ namespace FirstLight.Game.Views.UITK
 			base.Attached(element);
 
 			_camera = Camera.main;
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_matchServices = MainInstaller.ResolveMatchServices();
+			_gameServices = MainInstaller.ResolveServices();
 
 			element.Clear();
 
@@ -82,12 +84,16 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
+
+			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 		}
 
 		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 			QuantumCallback.UnsubscribeListener(this);
+
+			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)
@@ -132,6 +138,7 @@ namespace FirstLight.Game.Views.UITK
 			foreach (var (entity, bar) in _visiblePlayers)
 			{
 				var anchor = _anchors[entity];
+				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
 
@@ -143,6 +150,7 @@ namespace FirstLight.Game.Views.UITK
 			foreach (var (entity, bar) in _healthBars)
 			{
 				var anchor = _anchors[entity];
+				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
 
@@ -151,21 +159,53 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
+		private void OnMatchStarted(MatchStartedMessage message)
+		{
+			if (!message.IsResync) return;
+
+			_anchors.Clear();
+			_culledPlayers.Clear();
+			foreach (var (_, bar) in _visiblePlayers)
+			{
+				_playerBarPool.Release(bar);
+			}
+
+			_visiblePlayers.Clear();
+			foreach (var (_, bar) in _healthBars)
+			{
+				_healthBarPool.Release(bar);
+			}
+
+			_healthBarPool.Clear();
+
+			var f = message.Game.Frames.Verified;
+			
+			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
+
+			for (int i = 0; i < f.PlayerCount; i++)
+			{
+				InitPlayer(f, dataArray[i].Entity);
+			}
+		}
+
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var view)) return;
+			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);
+		}
 
-			var f = callback.Game.Frames.Predicted;
+		private void InitPlayer(Frame f, EntityRef entity)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
 
-			_anchors.Add(callback.Entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
+			_anchors.Add(entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
-			if (f.IsCulled(callback.Entity))
+			if (f.IsCulled(entity))
 			{
-				_culledPlayers.Add(callback.Entity);
+				_culledPlayers.Add(entity);
 				return;
 			}
 
-			InitBar(f, callback.Entity);
+			InitBar(f, entity);
 		}
 
 		private unsafe void InitBar(Frame f, EntityRef entity)

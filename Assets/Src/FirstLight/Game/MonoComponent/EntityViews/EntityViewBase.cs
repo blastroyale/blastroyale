@@ -1,16 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using FirstLight.FLogger;
-using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
-using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -132,75 +124,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		public virtual void SetRenderContainerVisible(bool active)
 		{
 			RenderersContainerProxy.SetRendererState(active);
-		}
-		
-		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration, Action onComplete = null)
-		{
-			Services.CoroutineService.StartCoroutine(DissolveCoroutine(onComplete, destroyGameObject, startValue,
-				endValue, delay, duration));
-		}
-
-		private IEnumerator DissolveCoroutine(Action onComplete, bool destroyGameObject, float startValue, float endValue, float delay, float duration)
-		{
-			var task = Services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(MaterialVfxId.Dissolve, true, false);
-			
-			if (delay > 0)
-			{
-				yield return new WaitForSeconds(delay);
-			}
-			
-			if (this.IsDestroyed())
-			{
-				onComplete?.Invoke();
-				yield break;
-			}
-
-			while (!task.IsCompleted)
-			{
-				yield return null;
-			}
-
-			if (this.IsDestroyed())
-			{
-				onComplete?.Invoke();
-				yield break;
-			}
-			
-			RenderersContainerProxy.SetMaterial(SetMaterial, ShadowCastingMode.On, true);
-			RenderersContainerProxy.DisableParticles();
-			
-			yield return new WaitForSeconds(duration);
-			
-			if (this.IsDestroyed())
-			{
-				onComplete?.Invoke();
-				yield break;
-			}
-
-			onComplete?.Invoke();
-			
-			if (destroyGameObject)
-			{
-				Destroy(gameObject);
-			}
-
-			Material SetMaterial(int index)
-			{
-				var newMat = new Material(task.Result);
-				
-				newMat.SetFloat(_dissolveProperty, startValue);
-				
-				if (duration > 0f)
-				{
-					newMat.DOFloat(endValue, _dissolveProperty, duration).SetAutoKill(true);
-				}
-				else
-				{
-					newMat.SetFloat(_dissolveProperty, endValue);
-				}
-				
-				return newMat;
-			}
 		}
 	}
 }

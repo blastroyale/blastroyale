@@ -117,11 +117,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 060bc7058ab345446a1949a9dc9f677d
-    m_Address: Assets/Art/Models/Weapons/Melee/M_Melee_APC.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6521feba275d9a142af8aa5b670f9f88
     m_Address: Assets/Art/Models/Weapons/Melee/MW_WakHammer.fbx
     m_ReadOnly: 0

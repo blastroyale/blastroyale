@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using Quantum;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -9,6 +11,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class MatchCharacterViewMonoComponent : CharacterEquipmentMonoComponent
 	{
 		private FootprinterMonoComponent _footsteps;
+		private bool _flgOfficer;
 
 		public bool PrintFootsteps
 		{
@@ -19,11 +22,41 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
+		protected override async Task<GameObject> InstantiateEquipment(GameId gameId)
+		{
+			// There is a lot of hacks in this project, it is time for I to do some bullshit I WANT BIG SAUSAGE and
+			// this assetresolver gameid is pain the arse to add new stuff into the game SAUSAGE
+			if (gameId == GameId.Hammer && _flgOfficer)
+			{
+				var opHandle = Addressables.LoadAssetAsync<GameObject>("AdventureAssets/Items/SausageBeater.prefab");
+
+				await opHandle.Task;
+				if (opHandle.IsDone)
+				{
+					var asset = opHandle.Result;
+					return  Instantiate(asset);
+				}
+			}
+
+			return await base.InstantiateEquipment(gameId);
+
+		}
+
+		private bool IsFlgOfficer(Frame frame, EntityRef entity)
+		{
+			var playerCharacter = frame.Get<PlayerCharacter>(entity);
+			var playerName = Extensions.GetPlayerName(frame, entity, playerCharacter);
+			// With this i don't need to share more stuff in runtimedate this works :D I'm very proud of it 
+			return playerName != null && playerName.Contains("<sprite name=\"FLGBadge\">");
+		}
+		
+
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>
 		public async Task Init(EntityView entityView, PlayerLoadout loadout, Frame frame)
 		{
+			_flgOfficer = IsFlgOfficer(frame, entityView.EntityRef);
 			_footsteps = gameObject.AddComponent<FootprinterMonoComponent>();
 			_footsteps.Init(entityView, loadout);
 
@@ -41,7 +74,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var isSkydiving = frame.Get<AIBlackboardComponent>(entityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
-			
+
 			if (isSkydiving)
 			{
 				list.Add(InstantiateItem(loadout.Glider, GameIdGroup.Glider));
@@ -61,7 +94,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			for (var i = 0; i < weapons.Count; i++)
 			{
 				if (weapons[i] == null) continue;
-				
+
 				var components = weapons[i].GetComponents<EntityViewBase>();
 
 				foreach (var entityViewBase in components)
@@ -69,7 +102,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					entityViewBase.SetEntityView(runner.Game, entityView);
 				}
 			}
-			
+
 			if (isSkydiving)
 			{
 				HideAllEquipment();

@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Car_PickUp_Red_GEO","Car_PickUp_Blue_GEO"],"padding":[17,17],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["Car_PickUp_Red_GEO","Car_PickUp_Blue_GEO"],"padding":[69,69],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -24,7 +24,26 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Props_NEW/Cars/Car_TowTruck.fbx
   - Assets/Art/Models/Environment/Props_OLD/Building_LowFSTL.fbx
   - Assets/Art/Models/Environment/Props_OLD/Building_2StoryCnr01.fbx
-  modifiedAssetPaddingHash: d6a958ff8e1778b998f23a06fee270bddd3dc6a8b4c2a693a824872540fde11480c5d89069847fdd9174515b
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/Wall_Base_Set.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Grey.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/Prop_ShipBollard.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Green.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Statue.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/Prop_TrafficConeLine.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_TrashCan_Fallen.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_TrashCan.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/Prop_TrafficCone.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/side_walk_Curb.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/pure_side_walk.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/rounded_side_walk.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/Full_Corners.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/rounded_corners_raised_platform_large.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Red.fbx
+  - Assets/Art/Models/Environment/single bush.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Yellow.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Blue.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/TownHall.fbx
+  modifiedAssetPaddingHash: d6a958fff5c0a1ffecc12491fe2f8bde207e8ad3ecc124917eac8839b3369d5812a3ddde94e7f7c8ac86eff51f17a71b0ba3dddeecc124910ba3ddde0b38ed04ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491cedb894becc12491cedb894bcedb894bf560976f
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -412,33 +431,33 @@ MonoBehaviour:
     - GuardrailD
     - GuardrailB
     - GuardrailC
-    padding: 17000000210000001d00000023000000
+    padding: 4d00000087000000760000008f000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - barricade_sandbags
-    padding: 32000000
+    padding: c9000000
     unwrapper: 00000000
   - meshName:
     - Car_Chevvy_Yellow_GEO
     - Car_Chevvy_Purple_GEO
     - Car_Chevvy_Red_GEO
     - Car_Chevvy_Blue_GEO
-    padding: 16000000160000001600000016000000
+    padding: 5a0000005a0000005a0000005a000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - Car_Convertable_Green_GEO
     - Car_Convertable_Orange_GEO
     - Car_Convertable_Blue_GEO
-    padding: 140000001400000014000000
+    padding: 530000005300000053000000
     unwrapper: 000000000000000000000000
   - meshName:
     - Barrier_Wild_Logs01
-    padding: 1d000000
+    padding: 74000000
     unwrapper: 00000000
   - meshName:
     - Car_PickUp_Red_GEO
     - Car_PickUp_Blue_GEO
-    padding: 1100000011000000
+    padding: 4500000045000000
     unwrapper: 0000000000000000
   - meshName:
     - SatDish
@@ -447,11 +466,11 @@ MonoBehaviour:
     - Airial
     - ACduct
     - AC
-    padding: 2f0000001100000005000000590000001600000026000000
+    padding: be0000004700000016000000000100005a0000009b000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - Car_TowTruck_GEO
-    padding: 0e000000
+    padding: 3b000000
     unwrapper: 00000000
   - meshName:
     - SatDish1
@@ -460,7 +479,7 @@ MonoBehaviour:
     - ACduct1
     - AC2
     - AC1
-    padding: 2f0000000e00000003000000160000002600000026000000
+    padding: be000000380000000e0000005a0000009b0000009b000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - VentPot2
@@ -468,17 +487,107 @@ MonoBehaviour:
     - Vent
     - Main
     - AC
-    padding: 73000000730000003f0000000400000026000000
+    padding: 0001000000010000fe000000130000009b000000
     unwrapper: 0000000000000000000000000000000000000000
+  - meshName:
+    - Wall_Base_Straight_GEO
+    - Wall_Base_Corner_Long_GEO
+    - Wall_Base_Corner_Short_GEO
+    padding: 540000004b0000004d000000
+    unwrapper: 000000000000000000000000
+  - meshName:
+    - DC_Grey
+    padding: 38000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_ShipBollard_GEO
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Green
+    padding: 38000000
+    unwrapper: 00000000
+  - meshName:
+    - Statue_GEO
+    padding: 59000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_TrafficConeLine_GEO
+    padding: eb000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_TrashCan_Fallen_GEO
+    padding: b1000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_TrashCan_GEO
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_TrafficCone_GEO
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - side_walk_Curb
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - pure_side_walk
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - rounded_side_walk
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - full_corners
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - rounded_corners_raised_platform_large
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Red
+    padding: 38000000
+    unwrapper: 00000000
+  - meshName:
+    - Bush
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Yellow
+    padding: 38000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Blue
+    padding: 38000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - TownHall_Base_GEO
+    padding: 0f0000000e000000
+    unwrapper: 0000000000000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
   - Assets/Bakery/examples/content/floor_lamp.FBX
-  uvOverlapAssetList: 00000000ffffffff
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Blue.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Green.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Yelllow.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Green.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Blue.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Yellow.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Red.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Red.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Grey.fbx
+  - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Grey.fbx
+  - Assets/Container_White.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000001010000010100000101000001010000010100000101000001010000010100000101000000000000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
-  gpuName: NVIDIA GeForce RTX 2080 Ti
-  runsNonRTX: 1
-  runsOptix5: 1
+  gpuName: NVIDIA GeForce RTX 3060 Laptop GPU
+  runsNonRTX: 0
+  runsOptix5: 0
   runsOptix6: 1
   runsOptix7: 1
   runsOIDN: 1
@@ -563,7 +672,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 0e000000
-  modifiedMeshUnwrapperArray: 00000000
+  modifiedMeshPaddingArray: 0f0000000e000000
+  modifiedMeshUnwrapperArray: 0000000000000000
   texSettingsKey: []
   texSettingsVal: []

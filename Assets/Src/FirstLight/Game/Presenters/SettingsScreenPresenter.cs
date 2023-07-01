@@ -65,10 +65,12 @@ namespace FirstLight.Game.Presenters
 				() => _gameDataProvider.AppDataProvider.IsBgmEnabled,
 				val => _gameDataProvider.AppDataProvider.IsBgmEnabled = val);
 
+			//TODO: enable when hooked up to floating joystick logic
+			root.Q<LocalizedToggle>("DynamicJoystick").visible = false;
 			// Controls
-			SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
-				() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
-				val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
+			//SetupToggle(root.Q<LocalizedToggle>("DynamicJoystick").Required(),
+			//	() => _gameDataProvider.AppDataProvider.UseDynamicJoystick,
+			//	val => _gameDataProvider.AppDataProvider.UseDynamicJoystick = val);
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);

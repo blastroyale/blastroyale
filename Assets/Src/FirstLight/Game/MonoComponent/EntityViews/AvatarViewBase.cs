@@ -82,8 +82,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			_animatorWrapper = new AnimatorWrapper(_animator);
-
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
+			
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
@@ -154,20 +153,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			OnAvatarEliminated(callback.Game);
 		}
 
-		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		
+		/// <summary>www
+		/// Updates the color of the given character for the duration
+		/// </summary>
+		public void UpdateColor(Color color, float duration)
 		{
-			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
-			{
-				return;
-			}
-
-			// On hit VFX (green splats) are disabled. We can enable them back if we make a good, clean, subtle VFX
-			// var cacheTransform = transform;
-			// Services.VfxService.Spawn(_projectileHitVfx).transform.SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
-			
-			_animatorWrapper.SetTrigger(Triggers.Hit);
-
-			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.Visuals.HIT_DURATION);
+			RenderersContainerProxy.SetColor(color);
+			StartCoroutine(EndBlink(duration));
+		}
+		
+		private IEnumerator EndBlink(float duration)
+		{
+			yield return new WaitForSeconds(duration);
+			RenderersContainerProxy.SetColor(Color.white);
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)

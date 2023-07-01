@@ -43,7 +43,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEndedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
@@ -52,16 +52,27 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-		private void OnMatchEnded(MatchEndedMessage callback)
+		
+		private void OnMatchEndedMessage(MatchEndedMessage msg)
 		{
+			var game = QuantumRunner.Default.Game;
+			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
+
+			if (playerWinner.Data.IsValid)
+			{
+				CheckUpdateAllVisiblePlayers(playerWinner.Data.Entity);
+			}
+			
 			_currentlyCollidingPlayers.Clear();
 		}
+	
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
 			{
 				_currentlyCollidingPlayers.Remove(callback.Entity);
-				CheckUpdateAllVisiblePlayers();
+				CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			}
 		}
 		/// <summary>
@@ -78,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			player.BuildingVisibility.CollidingVisibilityVolumes.Add(this);
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
-				CheckUpdateAllVisiblePlayers();
+				CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			}
 			else if (player.BuildingVisibility.CollidingVisibilityVolumes.Count == 1)
 			{
@@ -102,7 +113,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
-				CheckUpdateAllVisiblePlayers();
+				CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			}
 			else if (player.BuildingVisibility.CollidingVisibilityVolumes.Count == 0)
 			{
@@ -117,17 +128,19 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			CheckUpdateAllVisiblePlayers();
+			if (next.Player == PlayerRef.None) return;
+			CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 		}
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
-			CheckUpdateAllVisiblePlayers();
+			CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 		}
-		private void CheckUpdateAllVisiblePlayers()
+		
+		private void CheckUpdateAllVisiblePlayers(EntityRef entityRef)
 		{
 			var spectatedPlayerWithinVolume =
-				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+				_currentlyCollidingPlayers.ContainsKey(entityRef);
 			// Needed because players can get killed while being disconnected
 			var destroyedPlayers = new List<EntityRef>();
 			foreach (var player in _currentlyCollidingPlayers)

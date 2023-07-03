@@ -1,28 +1,42 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchEndScreenStyle.uss?fileID=7433441132597879392&amp;guid=0e992515145204a899dbc38c1bead55e&amp;type=3#MatchEndScreenStyle" />
-    <FirstLight.Game.UIElements.SafeAreaElement name="root" apply-top="true" apply-bottom="false" apply-left="false" apply-right="false" class="fill-parent">
+    <FirstLight.Game.UIElements.SafeAreaElement name="root" apply-top="true" apply-bottom="false" apply-left="false" apply-right="false" class="fill-parent dimmed-background">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent banner-holder">
-            <ui:VisualElement name="MatchEndedTitle" class="match-ended-title" />
-            <ui:VisualElement name="YouChoseDeathTitle" class="blasted-title blasted-title--suicide">
+            <ui:VisualElement name="MatchEndedTitle" class="match-ended-title" style="display: none;" />
+            <ui:VisualElement name="YouChoseDeathTitle" class="blasted-title blasted-title--suicide" style="display: none;">
                 <ui:VisualElement name="Bg" class="blasted-title__bg" />
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />
                 <ui:VisualElement name="Text" class="blasted-title__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="BustedTitle" class="blasted-title blasted-title--busted">
+            <ui:VisualElement name="BustedTitle" class="blasted-title blasted-title--busted" style="display: none;">
                 <ui:VisualElement name="Bg" class="blasted-title__bg" />
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />
                 <ui:VisualElement name="Text" class="blasted-title__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="BlastedTitle" class="blasted-title">
-                <ui:VisualElement name="Bg" class="blasted-title__bg" />
+            <ui:VisualElement name="BlastedTitle" class="blasted-title" style="display: none;">
+                <ui:VisualElement name="GradientBlasted" class="blasted-title__backgradient" />
+                <ui:VisualElement name="BgBlasted" class="blasted-title__bg" />
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />
-                <ui:VisualElement name="Text" class="blasted-title__text" />
+                <ui:VisualElement name="TextBlastedEffect" class="blasted-title__text-effect" />
+                <ui:VisualElement name="TextBlasted" class="blasted-title__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="YouWinTitle" class="you-win-title">
-                <ui:VisualElement name="Bg" class="you-win-title__bg" />
-                <ui:VisualElement name="Crown" class="you-win-title__crown" />
-                <ui:VisualElement name="Text" class="you-win-title__text" />
+            <ui:VisualElement name="YouWinTitle" class="you-win-title" style="display: none;">
+                <ui:VisualElement name="BackWingradient" class="you-win-title__backgradient" />
+                <ui:VisualElement name="BgWin" class="you-win-title__bg" />
+                <ui:VisualElement name="Crown" class="you-win-title__crown">
+                    <ui:VisualElement name="Star" class="you-win-title__star" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TextWinEffect2" class="you-win-title__effect2" style="position: absolute;" />
+                <ui:VisualElement name="TextWinEffect1" class="you-win-title__effect1" />
+                <ui:VisualElement name="TextWin" class="you-win-title__text" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ProjectorLight" class="you-win-title__projectorlight" style="bottom: -38px; left: 0; display: none;">
+                <ui:VisualElement name="GradientProjector" class="you-won-title__projectorgradient" style="width: 1400px; height: 1400px; position: absolute; align-self: center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ProjectorLight2" class="you-win-title__projectorlight" style="right: 0; bottom: -38px; display: none;">
+                <ui:VisualElement name="GradientProjector" class="you-won-title__projectorgradient" style="width: 1400px; height: 1400px; position: absolute; align-self: center;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement name="LowHPGradient" class="lowhp-gradient" style="display: none;" />
     </FirstLight.Game.UIElements.SafeAreaElement>
 </ui:UXML>

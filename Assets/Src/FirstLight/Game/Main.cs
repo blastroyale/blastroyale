@@ -75,7 +75,7 @@ namespace FirstLight.Game
 			{
 				if (c.targetTexture != null)
 				{
-					Debug.Log("foo");
+					Debug.LogWarning($"targetTexture != null {c.gameObject.FullGameObjectPath()}");
 				}
 			}
 		}

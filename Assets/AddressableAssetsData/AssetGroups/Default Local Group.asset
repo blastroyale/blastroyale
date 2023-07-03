@@ -157,12 +157,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dca1e785bfe8c79a38c4e195a6438880
-    m_Address: AdventureAssets/Items/SausageBeater.prefab
+    m_Address: AdventureAssets/Items/Skins/Hammer/SausageBeater.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05f5942bf5b24b447b45aa1717ece053
     m_Address: Assets/Art/Models/Weapons/Melee/MW_Super_Dog.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4cb27021e3ce0f6cf8a06cbe42283b90
+    m_Address: AdventureAssets/Items/Skins/Hammer/SpickyBoy.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

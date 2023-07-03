@@ -1,4 +1,4 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: a8ab3985bd248420b8f28f5bc1f408f3
 TextureImporter:
   internalIDToNameTable: []
@@ -47,15 +47,9 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot:
-    x: 0.5
-    y: 0.5
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder:
-    x: 0
-    y: 0
-    z: 0
-    w: 0
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -150,14 +144,8 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot:
-        x: 0.5
-        y: 0.5
-      border:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -177,14 +165,8 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot:
-        x: 0.5
-        y: 0.5
-      border:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -204,14 +186,8 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot:
-        x: 0.5
-        y: 0.5
-      border:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -369,6 +345,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModBadge
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6af5268fd557f4f58ac0d7a23f4f4b80
+      internalID: -1783419712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -389,6 +386,7 @@ TextureImporter:
       FLGBadge: 1659913812
       HPicon: -1040599977
       MATICicon: 978627458
+      ModBadge: -1783419712
       Shieldicon: -1896410702
       TextSpriteSheet_1: -531448559
       TextSpriteSheet_2: 99473630
@@ -398,4 +396,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-  crunchedCompression: 0

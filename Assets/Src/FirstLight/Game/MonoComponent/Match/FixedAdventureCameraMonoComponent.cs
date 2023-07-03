@@ -106,12 +106,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			gameObject.SetActive(true);
 			
-			var mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
-			if (mainOverlayCamera != null)
-			{
-				mainOverlayCamera.gameObject.SetActive(false);
-			}
-			
 			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);

@@ -102,7 +102,13 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			SetSpectatedEntity(null, EntityRef.None, PlayerRef.None, true);
+			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
+
+			if (playerWinner.Data.IsValid)
+			{
+				SetSpectatedEntity(game.Frames.Verified, playerWinner.Data.Entity, playerWinner.Data.Player, isDisconnected);
+			}
 		}
 
 		public void OnMatchSimulationEnded(SimulationEndedMessage message)

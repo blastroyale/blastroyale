@@ -125,6 +125,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			_winnerCamera.LookAt = obj.WinnerTrasform;
 			
 			SetActiveCamera(_winnerCamera);
+			
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)

@@ -262,6 +262,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			rend.material.SetColor("_Color", color);
 		}
 
+		public override void SetCulled(bool culled)
+		{
+			_animation.enabled = !culled;
+			base.SetCulled(culled);
+		}
+
 		private struct CollectingData
 		{
 			public float StartTime;

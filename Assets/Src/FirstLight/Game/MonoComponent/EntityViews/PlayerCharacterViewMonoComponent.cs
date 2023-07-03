@@ -38,6 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
+		private IMatchServices _matchServices;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -48,7 +49,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// Requests the <see cref="PlayerRef"/> of this player
 		/// </summary>
 		public PlayerRef PlayerRef { get; private set; }
-
+		
 		private static class PlayerFloats
 		{
 			public static readonly AnimatorWrapper.Float DirX = new("DirX");
@@ -59,7 +60,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			BuildingVisibility = new();
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -131,6 +134,34 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_characterView.PrintFootsteps = active;
 		}
+		
+		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		{
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			{
+				return;
+			}
+
+			AnimatorWrapper.SetTrigger(Triggers.Hit);
+			
+			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
+			{
+				return;
+			}
+			
+			var localPlayer = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			if (evnt.Entity != localPlayer)
+			{
+				return;
+			}
+			
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(evnt.Entity, out var attackerView))
+			{
+				return;
+			}
+			
+			UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
+		}
 
 
 		public void SetPlayerSilhouetteVisible(bool visible)
@@ -140,7 +171,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_characterView.PrintFootsteps = visible;
 		}
-
+		
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
 		/// </summary>
@@ -584,21 +615,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 
 			rend.material.SetColor("_Color", Random.ColorHSV(0f, 1, 1, 1, 0.5f, 1));
-		}
-
-		/// <summary>www
-		/// Updates the color of the given character for the duration
-		/// </summary>
-		public void UpdateColor(Color color, float duration)
-		{
-			RenderersContainerProxy.SetColor(color);
-			StartCoroutine(EndBlink(duration));
-		}
-
-		private IEnumerator EndBlink(float duration)
-		{
-			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.SetColor(Color.white);
 		}
 	}
 }

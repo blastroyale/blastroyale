@@ -302,7 +302,7 @@ MonoBehaviour:
       m_HorizontalBearingY: 87
       m_HorizontalAdvance: 96
     m_GlyphRect:
-      m_X: 200
+      m_X: 300
       m_Y: 724
       m_Width: 100
       m_Height: 100

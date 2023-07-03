@@ -43,7 +43,8 @@ public enum PlayfabEnvironment
 {
 	DEV,
 	STAGING,
-	PROD
+	PROD,
+	TESTNET,
 }
 
 /// <summary>
@@ -68,6 +69,14 @@ public abstract class PlayfabScript : IScript
 				TitleId = "***REMOVED***",
 				SecretKey = "***REMOVED***",
 				AllPlayersSegmentId = "1ECB17662366E940"
+			}
+		},
+		{
+			PlayfabEnvironment.TESTNET, new PlayfabConfiguration()
+			{
+				TitleId = "***REMOVED***",
+				SecretKey = "***REMOVED***",
+				AllPlayersSegmentId = "	4F3220F8011EE630"
 			}
 		},
 

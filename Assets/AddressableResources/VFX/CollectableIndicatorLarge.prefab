@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: c2d4e494f55124f85abd85183cd48a97, type: 2}
-  m_Color: {r: 0.015686275, g: 1, b: 0.011764706, a: 1}
+  m_Color: {r: 0.33134568, g: 0.9622642, b: 0.33134568, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

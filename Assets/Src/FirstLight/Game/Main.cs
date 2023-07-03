@@ -69,6 +69,17 @@ namespace FirstLight.Game
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 
+		private void Update()
+		{
+			foreach (var c in Camera.allCameras)
+			{
+				if (c.targetTexture != null)
+				{
+					Debug.Log("foo");
+				}
+			}
+		}
+
 		private void TrySetLocalServer()
 		{
 #if UNITY_EDITOR

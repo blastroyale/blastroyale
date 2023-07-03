@@ -42,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
@@ -52,21 +52,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
-		
-		private void OnMatchEnded(MatchEndedMessage msg)
+		private void OnMatchEnded(MatchEndedMessage callback)
 		{
-			var game = QuantumRunner.Default.Game;
-			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
-			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
-
-			if (playerWinner.Data.IsValid)
-			{
-				CheckUpdateAllVisiblePlayers(playerWinner.Data.Entity);
-			}
-			
 			_currentlyCollidingPlayers.Clear();
 		}
-	
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
@@ -113,7 +102,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
-				CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+				CheckUpdateAllVisiblePlayers();
 			}
 			else if (player.BuildingVisibility.CollidingVisibilityVolumes.Count == 0)
 			{
@@ -128,22 +117,17 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (next.Player == PlayerRef.None) return;
 			CheckUpdateAllVisiblePlayers();
 		}
-		private void OnMatchStarted(MatchStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
 			CheckUpdateAllVisiblePlayers();
 		}
 		private void CheckUpdateAllVisiblePlayers()
 		{
-			CheckUpdateAllVisiblePlayers(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
-		}
-		private void CheckUpdateAllVisiblePlayers(EntityRef entityRef)
-		{
 			var spectatedPlayerWithinVolume =
-				_currentlyCollidingPlayers.ContainsKey(entityRef);
+				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			// Needed because players can get killed while being disconnected
 			var destroyedPlayers = new List<EntityRef>();
 			foreach (var player in _currentlyCollidingPlayers)

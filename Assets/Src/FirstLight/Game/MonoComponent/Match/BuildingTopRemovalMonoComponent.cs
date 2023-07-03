@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_currentlyCollidingEntities = new List<EntityRef>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEndedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
@@ -39,41 +39,30 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
+		
+		private void OnMatchEnded(MatchEndedMessage msg)
+		{
+			_currentlyCollidingEntities.Clear();
+		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (next.Player == PlayerRef.None) return;
-			
-			CheckUpdateBuildingTop(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			CheckUpdateBuildingTop();
 		}
 		
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
 
-			CheckUpdateBuildingTop(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			CheckUpdateBuildingTop();
 		}
-
-		private void OnMatchEndedMessage(MatchEndedMessage msg)
-		{
-			var game = QuantumRunner.Default.Game;
-			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
-			var playerWinner = localWinner ? playerData[game.GetLocalPlayerRef()] : playerData[leader];
-
-			if (playerWinner.Data.IsValid)
-			{
-				CheckUpdateBuildingTop(playerWinner.Data.Entity);
-			}
-			
-			_currentlyCollidingEntities.Clear();
-		}
-
+		
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_currentlyCollidingEntities.Contains(callback.Entity))
 			{
 				_currentlyCollidingEntities.RemoveAll(entityRef => entityRef == callback.Entity);
-				CheckUpdateBuildingTop(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+				CheckUpdateBuildingTop();
 			}
 		}
 
@@ -102,11 +91,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
-		private void CheckUpdateBuildingTop(EntityRef entityRef)
+		private void CheckUpdateBuildingTop()
 		{
 			foreach (var entity in _currentlyCollidingEntities)
 			{
-				if (entity == entityRef)
+				if (entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					UpdateBuildingTop(true);
 					return;

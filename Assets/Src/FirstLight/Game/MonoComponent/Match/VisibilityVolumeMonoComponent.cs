@@ -42,8 +42,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEndedMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
@@ -53,7 +53,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 		
-		private void OnMatchEndedMessage(MatchEndedMessage msg)
+		private void OnMatchEnded(MatchEndedMessage msg)
 		{
 			var game = QuantumRunner.Default.Game;
 			var playerData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
@@ -131,7 +131,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (next.Player == PlayerRef.None) return;
 			CheckUpdateAllVisiblePlayers();
 		}
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchStarted(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
 			CheckUpdateAllVisiblePlayers();

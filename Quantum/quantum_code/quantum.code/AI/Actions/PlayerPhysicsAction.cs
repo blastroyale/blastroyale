@@ -5,8 +5,7 @@ namespace Quantum
 {
 	/// <summary>
 	/// Calls Move on the <see cref="CharacterController3D"/>, to force
-	/// physics calculations. Either this or <see cref="PlayerMoveAction"/>
-	/// has to be running for physics (e.g. gravity) to work.
+	/// physics calculations. THis has to be running for physics (e.g. gravity) to work.
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,

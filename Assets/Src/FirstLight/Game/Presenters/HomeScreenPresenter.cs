@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public partial class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const float CURRENCY_ANIM_DELAY = 2f;
+		private const float TROPHIES_COUNT_DELAY = 0.8f;
 
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
@@ -71,7 +71,6 @@ namespace FirstLight.Game.Presenters
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
-		private Label _gameTypeLabel;
 
 		private Label _csAmountLabel;
 		private Label _blstAmountLabel;
@@ -115,7 +114,6 @@ namespace FirstLight.Game.Presenters
 			_avatarPfp = root.Q("AvatarPFP").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
-			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
@@ -141,8 +139,12 @@ namespace FirstLight.Game.Presenters
 			_playButton = root.Q<LocalizedButton>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
 
-			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("CSCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("CoinCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);
 
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 
@@ -177,7 +179,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
-#if !STORE_BUILD
+#if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
@@ -288,22 +290,25 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
+			yield return new WaitForSeconds(0.1f);
+			
 			label.text = previous.ToString();
 
-			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
-
-			for (int i = 0; i < Mathf.Clamp(current - previous, 1, 20); i++)
+			for (int i = 0; i < Mathf.Clamp((current - previous)/5, 3, 10); i++)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
-					i * 0.1f,
+					i * 0.05f,
 					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
 					label.GetPositionOnScreen(Root),
 					() =>
 					{
-						DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); });
 						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 					});
 			}
+			
+			yield return new WaitForSeconds(TROPHIES_COUNT_DELAY);
+			
+			DOVirtual.Float(previous, current, 0.5f, val => { label.text = val.ToString("F0"); });
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
@@ -366,10 +371,12 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator AnimateBPP(GameId id, ulong previous, ulong current)
 		{
-			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
-
+			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
+			// I guess it depends on how long the transition to home screen take; so these errors still may appear
+			yield return new WaitForSeconds(0.1f);
+			
 			var pointsDiff = (int) current - (int) previous;
-			var pointsToAnimate = Mathf.Clamp(current - previous, 3, 10);
+			var pointsToAnimate = Mathf.Clamp((current - previous)/10, 3, 10);
 			var pointSegment = Mathf.RoundToInt(pointsDiff / pointsToAnimate);
 
 			var pointSegments = new List<int>();
@@ -401,7 +408,7 @@ namespace FirstLight.Game.Presenters
 				var wasRedeemable = _dataProvider.BattlePassDataProvider.IsRedeemable((int) previous);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
-					segmentIndex * 0.1f,
+					segmentIndex * 0.05f,
 					_playButton.GetPositionOnScreen(Root),
 					_battlePassProgressElement.GetPositionOnScreen(Root),
 					() =>
@@ -413,13 +420,14 @@ namespace FirstLight.Game.Presenters
 						UpdateBattlePassPoints(points);
 					});
 			}
+			
+			yield break;
 		}
 
 		private void UpdateGameModeButton()
 		{
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
-			_gameTypeLabel.text = current.MatchType.ToString().ToUpper();
 
 			var hasPool = current.MatchType == MatchType.Ranked;
 			_csPoolContainer.SetDisplay(hasPool);
@@ -427,7 +435,6 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel.EnableInClassList("game-mode-button__mode--multiple-line",
 				_gameModeLabel.text.Contains("\\n"));
-			_gameTypeLabel.EnableInClassList("game-mode-button__type--ranked", current.MatchType == MatchType.Ranked);
 
 			_gameModeButton.SetEnabled(!_partyService.HasParty.Value && !_partyService.OperationInProgress.Value);
 		}

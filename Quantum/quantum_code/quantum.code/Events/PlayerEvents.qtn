@@ -90,26 +90,14 @@ synced event OnPlayerEnergyChanged
     Int32 CurrentLevel;
 }
 
-synced event OnPlayerAmmoEmpty
-{
-	player_ref Player;
-	entity_ref Entity;
-}
-
 synced event OnPlayerAmmoChanged
 {
 	player_ref Player;
 	entity_ref Entity;
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
-	Int32 MagSize;
-}
-
-synced event OnPlayerMagazineChanged
-{
-	player_ref Player;
-	entity_ref Entity;
-	Int32 MagSize;
+	Int32 CurrentMag;
+	Int32 MaxMag;
 }
 
 synced event OnPlayerReloadStart
@@ -126,7 +114,6 @@ synced event OnPlayerMagazineReloaded
 	Equipment Weapon;
 }
 
-
 synced event OnPlayerWeaponChanged
 {
 	player_ref Player;
@@ -135,7 +122,7 @@ synced event OnPlayerWeaponChanged
 	Int32 Slot;
 }
 
-synced event OnPlayerGearChanged
+event OnPlayerGearChanged
 {
 	player_ref Player;
 	entity_ref Entity;
@@ -143,18 +130,17 @@ synced event OnPlayerGearChanged
 	Int32 Slot;
 }
 
-synced event OnPlayerAttack
+event OnPlayerAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
 	Equipment Weapon;
 	QuantumWeaponConfig WeaponConfig;
-	FP ShotDir;
-	UInt32 AttackAngle;
+	FPVector2 Direction;
 	FP AttackRange;
 }
 
-synced event OnEntityDamaged
+event OnEntityDamaged
 {
 	player_ref Player;
 	Spell Spell;
@@ -167,22 +153,23 @@ synced event OnEntityDamaged
 	Int32 MaxHealth;
 }
 
-synced event OnPlayerAttackHit
+event OnPlayerAttackHit
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
+	Int32 PlayerTeamId;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
 	UInt32 TotalDamage;
 }
 
-synced event OnPlayerStopAttack
+event OnPlayerStopAttack
 {
 	player_ref Player;
 	entity_ref PlayerEntity;
 }
 
-synced event OnPlayerEquipmentStatsChanged
+event OnPlayerEquipmentStatsChanged
 {
 	player_ref Player;
 	entity_ref Entity;
@@ -191,7 +178,7 @@ synced event OnPlayerEquipmentStatsChanged
 	Int32 CurrentMight;
 }
 
-synced event OnPlayerSpecialUsed
+event OnPlayerSpecialUsed
 {
 	player_ref Player;
 	entity_ref Entity;
@@ -244,11 +231,6 @@ synced event OnLocalPlayerDead
 	bool FromRoofDamage;
 }
 
-synced event OnLocalPlayerAmmoEmpty
-{
-	local player_ref Player;
-	entity_ref Entity;
-}
 
 synced event OnLocalPlayerWeaponAdded
 {
@@ -258,7 +240,7 @@ synced event OnLocalPlayerWeaponAdded
 	Int32 WeaponSlotNumber;
 }
 
-synced event OnLocalPlayerWeaponChanged
+event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;
 	entity_ref Entity;
@@ -266,7 +248,7 @@ synced event OnLocalPlayerWeaponChanged
 	Int32 Slot;
 }
 
-synced event OnLocalPlayerSpecialUsed
+event OnLocalPlayerSpecialUsed
 {
 	local player_ref Player;
 	entity_ref Entity;

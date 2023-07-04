@@ -2,13 +2,12 @@ component Chest
 {
 	[HideInInspector] GameId Id;
 	[HideInInspector] ChestType ChestType;
+	[HideInInspector] FP CollectTime;
 }
 
 enum ChestType
 {
-	Common,
-	Uncommon,
-	Rare,
-	Epic,
-	Legendary,
+	Consumable,
+    Equipment,
+    Legendary,
 }

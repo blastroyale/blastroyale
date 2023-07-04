@@ -7,7 +7,7 @@ namespace Quantum
 	public partial class QuantumAssetConfigs
 	{
 		public AssetRefEntityPrototype PlayerCharacterPrototype;
-		public AssetRefEntityPrototype PlayerBulletPrototype;
+		public AssetRefEntityPrototype DefaultBulletPrototype;
 		public AssetRefEntityPrototype DummyCharacterPrototype;
 		public AssetRefEntityPrototype WeaponPlatformPrototype;
 		public AssetRefEntityPrototype ConsumablePlatformPrototype;

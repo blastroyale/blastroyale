@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--simple" />
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
@@ -17,7 +16,6 @@
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
                 <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
             <ui:VisualElement name="MapHolder" class="map-holder">
                 <ui:VisualElement name="Map" class="map">
                     <ui:VisualElement name="Mask" class="map__mask">
@@ -50,7 +48,8 @@
                 </ui:VisualElement>
                 <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
-            <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client"/>
+            <ui:Label name="DebugMasterClient" text="MASTER" class="debug-master-client" />
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITMatchmaking/entering_game" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--no-back" />
     </ui:VisualElement>
 </ui:UXML>

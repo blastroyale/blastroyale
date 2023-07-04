@@ -40,6 +40,12 @@ namespace FirstLight.Statechart
 		/// mode for an event or paused, it will require a call <see cref="Run"/> to resume it.
 		/// </summary>
 		void Reset();
+
+		/// <summary>
+		/// Gets an Dictionary containing the current state, this value is serializable 
+		/// </summary>
+		/// <returns></returns>
+		Dictionary<string, object> CurrentStateDebug();
 	}
 
 	/// <inheritdoc cref="IStatechart"/>
@@ -81,6 +87,11 @@ namespace FirstLight.Statechart
 				_stateFactory.States[i].Validate();
 			}
 #endif
+		}
+
+		Dictionary<string,object> IStatechart.CurrentStateDebug()
+		{
+			return _currentState.CurrentState;
 		}
 
 		[Conditional("DEBUG")]

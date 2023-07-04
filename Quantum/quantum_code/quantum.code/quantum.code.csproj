@@ -74,7 +74,6 @@
     <Compile Include="AI\Actions\AIAction.cs" />
     <Compile Include="AI\Actions\PlayerRaycastAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerChangeDefaultWeaponAction.cs" />
-    <Compile Include="AI\Actions\PlayerMoveAction.cs" />
     <Compile Include="AI\Actions\PlayerProjectileAttackAction.cs" />
     <Compile Include="AI\Actions\PlayerStopAttackAction.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckFiringMode.cs" />
@@ -97,6 +96,8 @@
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />
     <Compile Include="AI\Functions\HFSM.CurrentFrameTimeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.TransformPositionFunction.cs" />
+    <Compile Include="Commands\Cheats\Tutorial\CheatKillAllTutorialBots.cs" />
+    <Compile Include="Configs\QuantumBotDifficultyConfigs.cs" />
     <Compile Include="QuantumFeatureFlags.cs" />
     <Compile Include="AI\HFSM.State.cs" />
     <Compile Include="BotSDK\AI\BT\BehaviourTree.Manager.cs" />
@@ -269,14 +270,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
+    <Compile Include="Systems\Bots\Behaviours\BattleRoyaleBot.cs" />
+    <Compile Include="Systems\Bots\Behaviours\WanderAndShootBot.cs" />
+    <Compile Include="Systems\Bots\BotLogger.cs" />
+    <Compile Include="Systems\Bots\BotMovement.cs" />
+    <Compile Include="Systems\Bots\BotPickups.cs" />
+    <Compile Include="Systems\Bots\BotState.cs" />
+    <Compile Include="Systems\Bots\BotCharacterSystem.cs" />
+    <Compile Include="Systems\Bots\BotSetup.cs" />
+    <Compile Include="Systems\Bots\BotShooting.cs" />
+    <Compile Include="Systems\Bots\BotUpdateContext.cs" />
+    <Compile Include="Systems\VisibilityAreaSystem.cs" />
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
-    <Compile Include="Systems\PreRaycastShotSytem.cs" />
-    <Compile Include="Systems\RaycastShotsSystem.cs" />
     <Compile Include="Systems\RoofDamageSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />
-    <Compile Include="Systems\BotCharacterSystem.cs" />
     <Compile Include="Systems\CollectablePlatformSpawnerSystem.cs" />
     <Compile Include="Systems\CollectableSystem.cs" />
     <Compile Include="Systems\DestructibleSystem.cs" />
@@ -292,20 +301,23 @@
     <Compile Include="Systems\HazardSystem.cs" />
     <Compile Include="Systems\MatchDataSystem.cs" />
     <Compile Include="Systems\StatSystem.cs" />
-    <Compile Include="Systems\NavMeshAgentSystem.cs" />
     <Compile Include="Systems\PlayerCharacterSystem.cs" />
     <Compile Include="Systems\AiSystem.cs" />
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
+    <Compile Include="Utils\AmmoUtils.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\DebugExtensions.cs" />
+    <Compile Include="Utils\FPMathHelpers.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
+    <Compile Include="Utils\PlayerLoadout.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />
+    <Compile Include="Utils\TeamHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BotSDK\AI\BT\bt.qtn" />
@@ -319,6 +331,7 @@
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
     <Content Include="Components\AirDrop.qtn" />
+    <Content Include="Components\VisibilityArea.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
     <Content Include="Components\Gates.qtn" />

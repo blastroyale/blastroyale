@@ -20,7 +20,6 @@ namespace Quantum
 		public FP GoToNextMatchForceTime;
 		public FP ShrinkingDamageCooldown;
 		public QuantumGameModePair<int> PlayerDefaultHealth;
-		public QuantumGameModePair<int> PlayerDefaultAmmoCapacity;
 		public QuantumGameModePair<FP> PlayerDefaultSpeed;
 		public QuantumGameModePair<int> PlayerMaxShieldCapacity;
 		public QuantumGameModePair<int> PlayerStartingShieldCapacity;
@@ -59,6 +58,8 @@ namespace Quantum
 		public FP RoofDamageDelay;
 		public FP RoofDamageAmount;
 		public FP RoofDamageCooldown;
+		public bool HardAngleAim;
+		public FP CollectableEquipmentPickupRadius;
 	}
 
 	/// <summary>

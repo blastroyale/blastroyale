@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;
@@ -21,16 +23,22 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
-		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 
+		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
+		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
+
+		/// <summary>
+		/// Deprecated, should be removed.
+		/// This is only used for buildings.
+		/// </summary>
+		[System.Obsolete] public PlayerBuildingVisibility BuildingVisibility;
 
 		private Vector3 _lastPosition;
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
-
-		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
+		private IMatchServices _matchServices;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -41,7 +49,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// Requests the <see cref="PlayerRef"/> of this player
 		/// </summary>
 		public PlayerRef PlayerRef { get; private set; }
-
+		
 		private static class PlayerFloats
 		{
 			public static readonly AnimatorWrapper.Float DirX = new("DirX");
@@ -52,7 +60,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
-			CollidingVisibilityVolumes = new HashSet<VisibilityVolumeMonoComponent>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			BuildingVisibility = new();
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -70,8 +80,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
-		}
 
+			
+		}
+		
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -86,6 +98,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (culled)
 			{
+				AnimatorWrapper.Enabled = false;
 				foreach (var col in _colliders)
 				{
 					col.enabled = false;
@@ -93,16 +106,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else
 			{
+				AnimatorWrapper.Enabled = true;
 				foreach (var col in _colliders)
 				{
 					col.enabled = true;
 				}
 			}
-			
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = !culled;
-			}
+
+			_characterView.PrintFootsteps = !culled;
 
 			base.SetCulled(culled);
 		}
@@ -121,24 +132,46 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			base.SetRenderContainerVisible(active);
 
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = active;
-			}
+			_characterView.PrintFootsteps = active;
 		}
 		
+		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		{
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			{
+				return;
+			}
+
+			AnimatorWrapper.SetTrigger(Triggers.Hit);
+			
+			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
+			{
+				return;
+			}
+			
+			var localPlayer = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			if (evnt.Entity != localPlayer)
+			{
+				return;
+			}
+			
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(evnt.Entity, out var attackerView))
+			{
+				return;
+			}
+			
+			UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
+		}
+
 
 		public void SetPlayerSilhouetteVisible(bool visible)
 		{
 			RenderersContainerProxy.SetRenderersLayer(
 				LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
 
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = visible;
-			}
+			_characterView.PrintFootsteps = visible;
 		}
-
+		
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
 		/// </summary>
@@ -147,15 +180,21 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
+		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
+
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
-
 			var frame = game.Frames.Verified;
 
 			PlayerRef = frame.Get<PlayerCharacter>(EntityRef).Player;
 			IsLocalPlayer = game.PlayerIsLocal(PlayerRef);
-			
+
+			if (IsLocalPlayer)
+			{
+				_moveSpeedControl = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.MovespeedControl;
+			}
+
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
 				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef)
@@ -193,10 +232,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAvatarEliminated(game);
 		}
 
+		public bool IsInInvisibilityArea()
+		{
+			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef) || BuildingVisibility.CollidingVisibilityVolumes.Count > 0;
+		}
+
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity ||
-				CollidingVisibilityVolumes.Count == 0)
+			if (IsBeingSpectated || !IsInInvisibilityArea())
 			{
 				return;
 			}
@@ -211,15 +254,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
-			SetPlayerSilhouetteVisible(true);
+			SetRenderContainerVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
-			if (CollidingVisibilityVolumes.Count > 0)
+			if (IsInInvisibilityArea())
 			{
-				var visVolumeHasSpectatedPlayer =
-					CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
+				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) && BuildingVisibility.CanSee());
 			}
 		}
 
@@ -236,7 +277,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -256,7 +297,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleParabolicUsed(callback.HazardData.EndTime,
 				time, targetPosition, VfxId.GrenadeParabolic, VfxId.ImpactGrenade);
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 
 			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
@@ -273,13 +314,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var parabolic = (ParabolicVfxMonoComponent) Services.VfxService.Spawn(parabolicVfxId);
+			var parabolic = (ParabolicVfxMonoComponent)Services.VfxService.Spawn(parabolicVfxId);
 
 			parabolic.transform.position = transform.position;
 
 			parabolic.StartParabolic(targetPosition, flyTime);
 
-			await Task.Delay((int) (flyTime * 1000));
+			await Task.Delay((int)(flyTime * 1000));
 
 			if (parabolic.IsDestroyed())
 			{
@@ -310,6 +351,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
+#if DEBUG_BOTS
+			AddDebugCylinder(callback.Game.Frames.Verified);
+#endif
 
 			AnimatorWrapper.Enabled = true;
 
@@ -350,7 +394,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Special);
+			//TODO: bespoke animation for each special 
+			//AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 
@@ -411,7 +456,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
@@ -425,7 +470,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private async void HandleDelayedFX(FP delayTime, Vector3 targetPosition, VfxId explosionVfxId)
 		{
-			await Task.Delay((int) (delayTime * 1000));
+			await Task.Delay((int)(delayTime * 1000));
 
 			Services.VfxService.Spawn(explosionVfxId).transform.position = targetPosition;
 		}
@@ -437,7 +482,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (MutableTimeVfxMonoComponent) Services.VfxService.Spawn(VfxId.EnergyShield);
+			var vfx = (MutableTimeVfxMonoComponent)Services.VfxService.Spawn(VfxId.EnergyShield);
 			var vfxTransform = vfx.transform;
 			vfxTransform.SetParent(transform);
 			vfxTransform.localPosition = Vector3.zero;
@@ -454,7 +499,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			var vfx = (SpecialReticuleVfxMonoComponent) Services.VfxService.Spawn(VfxId.SpecialReticule);
+			var vfx = (SpecialReticuleVfxMonoComponent)Services.VfxService.Spawn(VfxId.SpecialReticule);
 			var time = callback.Game.Frames.Verified.Time;
 			var targetPosition = callback.TargetPosition.ToUnityVector3();
 
@@ -476,7 +521,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
-			const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 			var f = callback.Game.Frames.Predicted;
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
 			{
@@ -490,21 +534,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
+
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-
+			_characterView.PrintFootsteps = isMoving;
 			if (isMoving)
 			{
 				deltaPosition.Normalize();
 				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
+				if (_moveSpeedControl) AnimatorWrapper.Speed = isAiming ? 1 : sqrSpeed / 3.5f;
 			}
 			else
 			{
+				if (_moveSpeedControl) AnimatorWrapper.Speed = 1;
 				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
 				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
 			}
@@ -531,6 +578,43 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetBool(Bools.Flying, false);
+
+			_characterView.DestroyItem(GameIdGroup.Glider);
+		}
+
+		private void AddDebugCylinder(Frame frame)
+		{
+			var playerCharacter = frame.Get<PlayerCharacter>(EntityRef);
+			var obj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			DestroyImmediate(obj.GetComponent<CapsuleCollider>());
+			obj.transform.parent = gameObject.transform;
+			obj.transform.localScale = new Vector3(2, 30, 2);
+			obj.transform.localPosition = new Vector3(0, 30, 0);
+
+			var rend = obj.GetComponent<Renderer>();
+			rend.material = new Material(Shader.Find("Unlit/Color"));
+			if (playerCharacter.TeamId > 0)
+			{
+				var playersByTeam = TeamHelpers.GetPlayersByTeam(frame);
+				float teams = playersByTeam.Count;
+				float myTeam = 0;
+				foreach (var entityRefs in playersByTeam.Values)
+				{
+					if (entityRefs.Contains(EntityRef))
+					{
+						break;
+					}
+
+					myTeam++;
+				}
+
+				var h = Mathf.Lerp(0, 0.92f, myTeam / teams);
+				rend.material.SetColor("_Color", Color.HSVToRGB(h, 0.75f, Random.Range(0.60f, 1f)));
+				return;
+			}
+			
+
+			rend.material.SetColor("_Color", Random.ColorHSV(0f, 1, 1, 1, 0.5f, 1));
 		}
 	}
 }

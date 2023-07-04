@@ -9,6 +9,7 @@ using FirstLight.Server.SDK.Modules;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using Environment = FirstLight.Game.Services.Environment;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
@@ -20,6 +21,39 @@ namespace FirstLight.Game.Utils
 	{
 		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
 
+
+		public static byte GetMaxPlayers(MatchRoomSetup setup, bool spectators = true)
+		{
+			var maxPlayers =  Math.Min((int) setup.GameMode().MaxPlayers, setup.Map().MaxPlayers);
+			if (spectators)
+			{
+				maxPlayers += GetMaxSpectators(setup);
+			}
+			// Quantum development servers only allow 20 players :(
+			if (MainInstaller.Resolve<IGameServices>().GameBackendService.IsDev())
+			{
+				maxPlayers = Math.Min(20, maxPlayers);
+			}
+			return (byte)maxPlayers;
+		}
+
+		public static byte GetMaxSpectators(MatchRoomSetup setup)
+		{
+			if (setup.JoinType != JoinType.Custom )
+			{
+				return 0;
+			}
+			
+			if (MainInstaller.Resolve<IGameServices>().GameBackendService.IsDev())
+			{
+				// Limit spectators in development environment, so we have slots to real players
+				return 5;
+			}
+			
+			return GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+
+		}
+		
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -35,7 +69,6 @@ namespace FirstLight.Game.Utils
 				setup.GameModeId == GameConstants.Tutorial.SECOND_BOT_MODE_ID;
 			var roomNameFinal = setup.RoomIdentifier;
 			var emptyTtl = 0;
-			var maxPlayers = GetMaxPlayers(setup.GameMode(), setup.Map());
 
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
@@ -50,7 +83,14 @@ namespace FirstLight.Game.Utils
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = expectedPlayers,
+				
+				// Expected users commented out. This is used for squads specifically when 
+				// joining only a single squad to the game.
+				// This makes the game auto-start when all players join the game not giving
+				// time to select the drop zone. This is because our matchmaking is the same as our
+				// lobby which is also the same as our drop zone selector. :L
+				
+				// ExpectedUsers = expectedPlayers,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -66,9 +106,7 @@ namespace FirstLight.Game.Utils
 					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking && !isTutorialMode,
-					MaxPlayers = isRandomMatchmaking
-						? (byte) maxPlayers
-						: (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+					MaxPlayers =  GetMaxPlayers(setup),
 					PlayerTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
 				},
 			};
@@ -110,7 +148,7 @@ namespace FirstLight.Game.Utils
 			return new OpJoinRandomRoomParams
 			{
 				ExpectedCustomRoomProperties = GetJoinRoomProperties(setup),
-				ExpectedMaxPlayers = (byte) GetMaxPlayers(setup.GameMode(), setup.Map()),
+				ExpectedMaxPlayers = GetMaxPlayers(setup),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -132,7 +170,7 @@ namespace FirstLight.Game.Utils
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
 				var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
-				if (!mapConfig.IsTestMap)
+				if (!mapConfig.IsTestMap && !mapConfig.IsCustomOnly)
 				{
 					compatibleMaps.Add(mapConfig);
 				}
@@ -198,14 +236,7 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", setup.Mutators)}
 			};
 		}
-
-		/// <summary>
-		/// Calculates the maximum number of players based on game mode and map.
-		/// </summary>
-		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
-		{
-			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
-		}
+		
 
 		/// <summary>
 		/// Requests to check if the device is online

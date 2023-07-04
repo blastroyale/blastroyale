@@ -18,6 +18,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -38,7 +39,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
 		public static readonly IStatechartEvent SimulationDestroyedEvent = new StatechartEvent("Simulation Destroyed Event");
 
-		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
@@ -57,7 +57,6 @@ namespace FirstLight.Game.StateMachines
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
 			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
 		}
 
@@ -69,7 +68,6 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 
-			var deathmatch = stateFactory.Nest("Deathmatch Mode");
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
@@ -89,16 +87,11 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			startSimulation.OnExit(CloseSwipeTransition);
 	
-			modeCheck.OnEnter(OpenAdventureWorldHud);
-			modeCheck.OnEnter(OpenLowConnectionScreen);
-			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
+			//modeCheck.OnEnter(OpenAdventureWorldHud);
+			// TODO: modeCheck.OnEnter(OpenLowConnectionScreen);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
-
-			deathmatch.Nest(_deathmatchState.Setup).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
-			deathmatch.OnExit(CleanUpMatch);
-
+			
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(stopSimulationForDisconnection);
 			battleRoyale.OnExit(CleanUpMatch);
@@ -399,10 +392,10 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		private void OpenAdventureWorldHud()
-		{
-			_uiService.OpenUi<MatchWorldHudPresenter>();
-		}
+		// private void OpenAdventureWorldHud()
+		// {
+		// 	_uiService.OpenUi<MatchWorldHudPresenter>();
+		// }
 
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
@@ -449,7 +442,7 @@ namespace FirstLight.Game.StateMachines
 			var loadoutArray = spawnWithloadout
 				? finalLoadOut.ToArray()
 				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
-
+			
 			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
 			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
 			{
@@ -460,14 +453,16 @@ namespace FirstLight.Game.StateMachines
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id,
-				DeathMarker = info.DeathMarker,
+				DeathMarker = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.DeathMarker)).Id,
+				Glider = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.Glider)).Id,
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
 				PartyId = GetTeamId(),
-				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl
+				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
+				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour
 			});
 		}
 		

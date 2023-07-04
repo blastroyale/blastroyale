@@ -15,7 +15,7 @@
 
 component AlivePlayerCharacter
 {
-    bool InCircle;
+    bool TakingCircleDamage;
     bool AboveGroundIllegally;
 }
 
@@ -33,7 +33,6 @@ struct WeaponSlot
 	int MagazineShotCount;
 	int MagazineSize;
 	FP ReloadTime;
-	int AmmoCostPerShot;
 }
 
 component PlayerCharacter
@@ -49,6 +48,7 @@ component PlayerCharacter
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] Int32 DroppedLoadoutFlags;
     [HideInInspector] Int16 CurrentEnergy;
+    bool RealPlayer;
 }
 
 component PlayerCharging

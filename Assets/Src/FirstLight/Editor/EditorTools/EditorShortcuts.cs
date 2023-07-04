@@ -104,7 +104,7 @@ namespace FirstLight.Editor.EditorTools
 		{
 			SROptions.Current.SkipTutorialSection();
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Simulate Disconnection")]
 		private static void SimulateDisconnection()
 		{
@@ -113,7 +113,7 @@ namespace FirstLight.Editor.EditorTools
 			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 100;
 			client.LoadBalancingPeer.IsSimulationEnabled = true;
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Simulate Lag")]
 		private static void SimulateLag()
 		{
@@ -122,7 +122,7 @@ namespace FirstLight.Editor.EditorTools
 			client.LoadBalancingPeer.NetworkSimulationSettings.OutgoingLossPercentage = 25;
 			client.LoadBalancingPeer.IsSimulationEnabled = true;
 		}
-		
+
 		[MenuItem("FLG/Backend/Netcode/Normal Internet")]
 		private static void Normal()
 		{
@@ -141,8 +141,41 @@ namespace FirstLight.Editor.EditorTools
 		{
 			return AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets($"t:scene {scene}")[0]);
 		}
-		
-		
+
+		[MenuItem("FLG/Art/Copy to box Colliders %#m")]
+		private static void CopyToBoxColliders()
+		{
+			var go = Selection.activeGameObject;
+			if (go == null)
+			{
+				Debug.LogError("Select a Game Object first!");
+				return;
+			}
+
+			BoxCollider[] childColliders = go.GetComponentsInChildren<BoxCollider>();
+
+			foreach (BoxCollider childCollider in childColliders)
+			{
+				// Skip if the child collider is a trigger
+				if (childCollider.isTrigger)
+					continue;
+
+				// Get the position, rotation, and scale of the child collider
+				Vector3 position = childCollider.transform.position;
+				Vector3 scale = childCollider.transform.localScale;
+
+				// Create a new BoxCollider on the target object
+				BoxCollider newCollider = go.AddComponent<BoxCollider>();
+
+				// Set the position, rotation, and scale of the new collider
+				newCollider.center = position;
+				newCollider.size = scale;
+
+				// Adds a Quantum Box collider to the object 
+				QuantumStaticBoxCollider3D newQuantumCollider = go.AddComponent<QuantumStaticBoxCollider3D>();
+				newQuantumCollider.SourceCollider = newCollider;
+			}
+		}
 
 		[MenuItem("FLG/Art/Merge Colliders %#m")]
 		private static void MergeColliders()
@@ -297,7 +330,7 @@ namespace FirstLight.Editor.EditorTools
 			}
 		}
 
-		[MenuItem("FLG/Generate Sprite USS")]
+		[MenuItem("FLG/Generators/Generate Sprite USS")]
 		private static void GenerateSpriteUss()
 		{
 			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
@@ -380,7 +413,7 @@ namespace FirstLight.Editor.EditorTools
 					{
 						throw new NotSupportedException($"Found a file that isn't a sprite: {path}");
 					}
-					
+
 					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine($"    width: {sprite.texture.width}px;");

@@ -23,7 +23,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_services.MessageBrokerService.Subscribe<CollectionItemEquippedMessage>(OnCharacterSkinUpdatedMessage);
-			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 			_services.MessageBrokerService.Subscribe<DataReinitializedMessage>(OnDataReinitializedMessage);
 		}
 
@@ -67,41 +66,9 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 				{
 					_equipment.Add(_gameDataProvider.EquipmentDataProvider.Inventory[newId]);
 				}
-
-				return;
-			}
-			
-			if (updateType == ObservableUpdateType.Removed)
-			{
-				_characterViewComponent.UnequipItem(key);
-			
-				if (key == GameIdGroup.Weapon)
-				{
-					EquipDefault();
-				}
-			}
-			else if(updateType is ObservableUpdateType.Added or ObservableUpdateType.Updated)
-			{
-				await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[newId]);
 			}
 		}
-
-		private void OnUpdatedLoadoutMessage(UpdatedLoadoutMessage msg)
-		{
-			if (!IsLoaded)
-			{
-				return;
-			}
-			if (msg.SlotsUpdated.Count == 1)
-			{
-				_animator.SetTrigger(msg.SlotsUpdated.Keys.ToArray()[0] == GameIdGroup.Weapon ? _equipRightHandHash : _equipBodyHash);
-			}
-			else if (msg.SlotsUpdated.Count > 1)
-			{
-				_animator.SetTrigger(_victoryHash);
-			}
-		}
-
+		
 		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;

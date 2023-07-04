@@ -27,9 +27,9 @@ MonoBehaviour:
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
-        RawValue: 3932160
+        RawValue: 1966080
       PlayfabMatchmakingTime:
-        RawValue: 3932160
+        RawValue: 983040
       RankedMatchmakingMinPlayers: 1
       BotsNameCount: 300
       PlayerRespawnTime:
@@ -46,20 +46,14 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 580200002c010000
-      PlayerDefaultAmmoCapacity:
-        Default: 250
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: fa00000064000000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 154010
+          RawValue: 190054
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 154010
+        - RawValue: 190054
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 600
@@ -75,12 +69,12 @@ MonoBehaviour:
         Values: 5802000090010000
       CollectableCollectTime:
         Default:
-          RawValue: 117965
+          RawValue: 131072
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 117965
+        - RawValue: 131072
         - RawValue: 39322
       PlayerAliveShieldDuration:
         Default:
@@ -91,7 +85,7 @@ MonoBehaviour:
         Values:
         - RawValue: 0
         - RawValue: 196608
-      PlayerMaxEnergyLevel: 10
+      PlayerMaxEnergyLevel: 99
       MinMaxEnergyLevelRequirement:
         Value1: 100
         Value2: 100
@@ -116,7 +110,7 @@ MonoBehaviour:
       EarningsAugmentationStrengthSteepnessMod:
         RawValue: 196608
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 3
+      NftRequiredEquippedForPlay: 0
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:
@@ -127,7 +121,7 @@ MonoBehaviour:
         RawValue: 1310720
       MultiKillResetTime:
         RawValue: 262144
-      BotsMaxDifficulty: 7
+      BotsMaxDifficulty: 0
       NftDurabilityDropDays:
         RawValue: 458752
       NonNftDurabilityDropDays:
@@ -149,3 +143,6 @@ MonoBehaviour:
         RawValue: 13107
       RoofDamageCooldown:
         RawValue: 98304
+      HardAngleAim: 0
+      CollectableEquipmentPickupRadius:
+        RawValue: 65536

@@ -7,6 +7,7 @@ using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
@@ -154,23 +155,37 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetBPRarityStyle(GameId id)
 		{
-			const string UssSpriteRarityModifier = "sprite-home__pattern-rewardglow-";
-			const string UssSpriteRarityCommon = UssSpriteRarityModifier + "common";
-			const string UssSpriteRarityUncommon = UssSpriteRarityModifier + "uncommon";
-			const string UssSpriteRarityRare = UssSpriteRarityModifier + "rare";
-			const string UssSpriteRarityEpic = UssSpriteRarityModifier + "epic";
-			const string UssSpriteRarityLegendary = UssSpriteRarityModifier + "legendary";
-			const string UssSpriteRarityRainbow = UssSpriteRarityModifier + "rainbow";
+			const string USS_SPRITE_RARITY_MODIFIER = "sprite-home__pattern-rewardglow-";
+			const string USS_SPRITE_RARITY_COMMON = USS_SPRITE_RARITY_MODIFIER + "common";
+			const string USS_SPRITE_RARITY_UNCOMMON = USS_SPRITE_RARITY_MODIFIER + "uncommon";
+			const string USS_SPRITE_RARITY_RARE = USS_SPRITE_RARITY_MODIFIER + "rare";
+			const string USS_SPRITE_RARITY_EPIC = USS_SPRITE_RARITY_MODIFIER + "epic";
+			const string USS_SPRITE_RARITY_LEGENDARY = USS_SPRITE_RARITY_MODIFIER + "legendary";
+			const string USS_SPRITE_RARITY_RAINBOW = USS_SPRITE_RARITY_MODIFIER + "rainbow";
 
 			return id switch
 			{
-				GameId.CoreCommon    => UssSpriteRarityCommon,
-				GameId.CoreUncommon  => UssSpriteRarityUncommon,
-				GameId.CoreRare      => UssSpriteRarityRare,
-				GameId.CoreEpic      => UssSpriteRarityEpic,
-				GameId.CoreLegendary => UssSpriteRarityLegendary,
-				_                    => UssSpriteRarityRainbow
+				GameId.CoreCommon    => USS_SPRITE_RARITY_COMMON,
+				GameId.CoreUncommon  => USS_SPRITE_RARITY_UNCOMMON,
+				GameId.CoreRare      => USS_SPRITE_RARITY_RARE,
+				GameId.CoreEpic      => USS_SPRITE_RARITY_EPIC,
+				GameId.CoreLegendary => USS_SPRITE_RARITY_LEGENDARY,
+				_                    => USS_SPRITE_RARITY_RAINBOW
 			};
+		}
+
+		/// <summary>
+		/// Animates the scale up and than back down to 1
+		/// </summary>
+		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f)
+		{
+			var anim =
+				element.experimental.animation.Scale(amount, 150).OnCompleted(() =>
+				{
+					element.experimental.animation.Scale(1f, 150).Start();
+				});
+			anim.Start();
+			return anim;
 		}
 	}
 }

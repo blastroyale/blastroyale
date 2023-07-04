@@ -100,6 +100,8 @@ namespace FirstLight.Game.Services
 		public MatchType MatchType;
 		public IReadOnlyList<string> Mutators;
 		public string RoomIdentifier = "";
+		public int BotDifficultyOverwrite = -1;
+		public JoinType JoinType;
 
 		public override string ToString() => ModelSerializer.Serialize(this).Value;
 	}

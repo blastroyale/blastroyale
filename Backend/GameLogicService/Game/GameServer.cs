@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK;
@@ -14,11 +14,9 @@ using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
-using Newtonsoft.Json;
 
 namespace Backend.Game
 {
@@ -29,6 +27,7 @@ namespace Backend.Game
 	public class GameServer
 	{
 		private IServerCommahdHandler _cmdHandler;
+		private IEnvironmentService _environmentService;
 		private ILogger _log;
 		private IServerStateService _state;
 		private IServerMutex _mutex;
@@ -37,7 +36,7 @@ namespace Backend.Game
 		private IBaseServiceConfiguration _baseServiceConfig;
 		private IConfigsProvider _gameConfigs;
 
-		public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
+		public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics, IEnvironmentService environmentService)
 		{
 			_cmdHandler = cmdHandler;
 			_log = log;
@@ -45,6 +44,7 @@ namespace Backend.Game
 			_mutex = mutex;
 			_eventManager = eventManager;
 			_metrics = metrics;
+			_environmentService = environmentService;
 			_baseServiceConfig = baseServiceConfig;
 			_gameConfigs = gameConfigs;
 		}
@@ -88,12 +88,12 @@ namespace Backend.Game
 				}
 
 				ModelSerializer.SerializeToData(response, newState.GetDeltas());
-				return new BackendLogicResult()
-				{
-					Command = cmdType,
-					Data = response,
-					PlayFabId = playerId
-				};
+				return new BackendLogicResult() {Command = cmdType, Data = response, PlayFabId = playerId};
+			}
+			catch (Exception ex)
+			{
+				_log.LogError(ex, "Error on run logic");
+				throw;
 			}
 			finally
 			{
@@ -154,15 +154,7 @@ namespace Backend.Game
 		{
 			_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
 			_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
-			return new BackendErrorResult()
-			{
-				Error = exp,
-				Command = request?.Command,
-				Data = new Dictionary<string, string>()
-				{
-					{ "LogicException", exp.Message }
-				}
-			};
+			return new BackendErrorResult() {Error = exp, Command = request?.Command, Data = new Dictionary<string, string>() {{"LogicException", exp.Message}}};
 		}
 
 		/// <summary>
@@ -170,11 +162,18 @@ namespace Backend.Game
 		/// </summary>s
 		private bool HasAccess(ServerState playerState, IGameCommand cmd, Dictionary<string, string> cmdData)
 		{
+			if (cmd is IEnvironmentLock env)
+			{
+				if (!env.AllowedEnvironments().Contains(_environmentService.Environment))
+				{
+					return false;
+				}
+			}
+
 			if (_baseServiceConfig.DevelopmentMode)
 			{
 				return true;
 			}
-
 
 			if (cmd.AccessLevel() == CommandAccessLevel.Admin)
 			{

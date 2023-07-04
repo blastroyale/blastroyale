@@ -44,14 +44,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header = root.Q<ScreenHeaderElement>("Header").Required(); 
 			_playerMight = root.Q<MightElement>("PlayerMight").Required();
 			_playerName = root.Q<Label>("PlayerName").Required();
 			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
 
-			root.Q<LocalizedButton>("Camera1").clicked += OnCamera1Clicked;
-			root.Q<LocalizedButton>("Camera2").clicked += OnCamera2Clicked;
-			root.Q<LocalizedButton>("Camera3").clicked += OnCamera3Clicked;
+			_header.homeClicked += Data.OnLeaveClicked;
+
 			root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
 			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;
 			root.Q<ImageButton>("ArrowRight").clicked += OnNextPlayerClicked;
@@ -86,7 +85,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			if (f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
 			{
 				UpdateCurrentMight(playerCharacter);
@@ -95,7 +94,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
 		{
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 
 			if (!f.TryGet<PlayerCharacter>(current.Entity, out var playerCharacter))
@@ -150,21 +149,6 @@ namespace FirstLight.Game.Presenters
 		private void OnPreviousPlayerClicked()
 		{
 			_matchServices.SpectateService.SwipeLeft();
-		}
-
-		private void OnCamera1Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 0});
-		}
-
-		private void OnCamera2Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 1});
-		}
-
-		private void OnCamera3Clicked()
-		{
-			_services.MessageBrokerService.Publish(new SpectateSetCameraMessage {CameraId = 2});
 		}
 	}
 }

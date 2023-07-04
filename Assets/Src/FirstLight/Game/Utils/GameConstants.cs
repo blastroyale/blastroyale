@@ -88,6 +88,12 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 15;
 
+			public const float SCREENSHAKE_SMALL_SHOT_STRENGTH = 0.08f;
+			public const float SCREENSHAKE_SMALL_SHOT_DURATION = 0.06f;
+
+			public const float SCREENSHAKE_SHOT_STRENGTH = 0.12f;
+			public const float SCREENSHAKE_SHOT_DURATION = 0.08f;
+			
 			public const float SCREENSHAKE_SMALL_STRENGTH = 0.25f;
 			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;
 
@@ -195,6 +201,7 @@ namespace FirstLight.Game.Utils
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
 			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
+			public static readonly Color HIT_COLOR = new Color(1, 0.5f, 0.5f);
 
 			public const int LOW_FPS_MODE_TARGET = 30;
 			public const int HIGH_FPS_MODE_TARGET = 60;
@@ -219,12 +226,14 @@ namespace FirstLight.Game.Utils
 			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
 			
-			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
+			public const long GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2000;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 			
 			public const int REWARD_POPUP_CLOSE_MS = 300;
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
+
+			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
 		}
 
 		public static class Camera
@@ -241,7 +250,7 @@ namespace FirstLight.Game.Utils
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
 			
-			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
+			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
 			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
 		}

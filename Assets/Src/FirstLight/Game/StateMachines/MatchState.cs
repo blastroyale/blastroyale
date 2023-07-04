@@ -132,6 +132,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(MatchQuitEvent).OnTransition(() => HandleSimulationEnd(true)).Target(transitionToMenu);
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnCriticalDisconnectDuringSimulation).Target(disconnected);
 			
+			gameEndedChoice.OnEnter(CloseMatchHud);
 			gameEndedChoice.Transition().Condition(IsSimulationStopped).Target(final);
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
@@ -189,7 +190,10 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
-
+		private void CloseMatchHud()
+		{
+			_uiService.CloseUi<HUDScreenPresenter>();
+		}
 		private bool IsMatchOver()
 		{
 			if (QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed())
@@ -374,7 +378,12 @@ namespace FirstLight.Game.StateMachines
 		private async void OpenMatchmakingScreen()
 		{
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			
+
+			if (_networkService.CurrentRoom == null)
+			{
+				return;
+			}
+
 			// TODO: Reconnection screen but for now its MM screen
 			var isRejoining =
 				_networkService.QuantumClient.CurrentRoom.HaveStartedGame() || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
@@ -466,11 +475,17 @@ namespace FirstLight.Game.StateMachines
 			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
 			try
 			{
+				if (!_services.NetworkService.InRoom)
+				{
+					return;
+				}
 				var time = Time.realtimeSinceStartup;
 				var tasks = new List<Task>();
 				var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 				var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 				var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
+				var botDifficultyOverwrite = _services.NetworkService.CurrentRoom.GetMatchSetup().BotDifficultyOverwrite;
+
 				var map = config.Map.ToString();
 				var entityService = new GameObject(nameof(EntityViewUpdaterService))
 					.AddComponent<EntityViewUpdaterService>();
@@ -483,17 +498,15 @@ namespace FirstLight.Game.StateMachines
 					_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 
 				_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-				runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
+				runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds, botDifficultyOverwrite);
 
 				tasks.Add(sceneTask);
 				tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 				tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
-
 				if (FeatureFlags.PRELOAD_QUANTUM_ASSETS)
 				{
 					tasks.AddRange(LoadQuantumAssets(map));
 				}
-				
 				tasks.AddRange(PreloadGameAssets());
 				tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 
@@ -640,6 +653,12 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new SimulationEndedMessage {Game = QuantumRunner.Default?.Game});
 			if (QuantumRunner.Default != null && QuantumRunner.Default.IsRunning)
 			{
+				#if UNITY_EDITOR
+				if (FeatureFlags.GetLocalConfiguration().RecordQuantumInput)
+				{
+					Quantum.Editor.ReplayMenu.ExportDialogReplayAndDB(QuantumRunner.Default.Game, new QuantumUnityJsonSerializer(), ".json");
+				}				
+				#endif
 				_matchServices.MatchEndDataService.Reload();
 				QuantumRunner.ShutdownAll(true);
 			}
@@ -658,6 +677,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishCoreAssetsLoadedMessage()
 		{
+			if (!_services.NetworkService.InRoom)
+			{
+				return;
+			}
 			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 		}
 		
@@ -756,6 +779,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			await Task.WhenAll(tasks);
+			await Task.Yield();
 
 			_arePlayerAssetsLoaded = true;
 			_services.MessageBrokerService.Publish(new AllMatchAssetsLoadedMessage());
@@ -779,7 +803,7 @@ namespace FirstLight.Game.StateMachines
 				multiClient.RuntimePlayer[i] = new RuntimePlayer
 				{
 					PlayerName = $"Test Name {i}",
-					Skin = GameId.Male01Avatar,
+					Skin = GameId.MalePunk,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Loadout = new[]

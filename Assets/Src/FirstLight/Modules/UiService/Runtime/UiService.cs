@@ -348,7 +348,7 @@ namespace FirstLight.UiService
 			}
 			
 			uiPresenterData.InternalSetData(initialData);
-
+			FLog.Verbose($"OpeningUI<{type.Name},{typeof(TData).Name}>");
 			return OpenUi(type);
 		}
 		
@@ -371,7 +371,7 @@ namespace FirstLight.UiService
 		{
 			if (!_visibleUiList.Contains(type))
 			{
-				FLog.Warn($"Is trying to close the {type.Name} ui but is not open");
+				FLog.Verbose($"Is trying to close the {type.Name} ui but is not open");
 				return;
 			}
 
@@ -384,7 +384,7 @@ namespace FirstLight.UiService
 
 			// ReSharper disable once MethodHasAsyncOverload
 			var ui = GetUi(type); 
-
+			FLog.Verbose($"ClosingUI<{type.Name}>");
 			await ui.InternalClose(destroy);
 		}
 
@@ -586,10 +586,10 @@ namespace FirstLight.UiService
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;
-
+				FLog.Verbose($"ClosingPreviousScreen<{_lastScreen.GetType().Name}>");
 				await CloseUi(_lastScreen.GetType(), true);
 			}
-
+			FLog.Verbose($"OpeningScreen<{typeof(T).Name}>");
 			var ui = await OpenUiAsync(typeof(T));
 			_lastScreen = ui;
 
@@ -605,15 +605,16 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
+			
 			ScreenStartOpening?.Invoke(typeof(T).ToString());
 			
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;
-				
+				FLog.Verbose($"ClosingPreviousScreen<{_lastScreen.GetType().Name}>");
 				await CloseUi(_lastScreen.GetType(), true);
 			}
-
+			FLog.Verbose($"OpeningScreen<{typeof(T).Name},{typeof(TData).Name}>");
 			var ui = await OpenUiAsync<T, TData>(initialData);
 			_lastScreen = ui;
 
@@ -624,6 +625,7 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
+				FLog.Verbose($"ClosingScreen<{_lastScreen.GetType().Name}>");
 				await CloseUi(_lastScreen.GetType(), true);
 			}
 		}

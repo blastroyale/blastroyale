@@ -29,49 +29,92 @@ namespace Quantum
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis to the given <paramref name="target"/> position
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, EntityRef target)
+		public static void LookAt2d(Frame f, in EntityRef e, in EntityRef target, in FP lerpTime)
 		{
-			LookAt2d(f, e, f.Get<Transform3D>(target).Position);
+			LookAt2d(f, e, f.Get<Transform3D>(target).Position, lerpTime);
 		}
 
 		/// <inheritdoc cref="LookAt2d(Quantum.Frame,Quantum.EntityRef,Quantum.EntityRef)"/>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector3 target)
+		public static void LookAt2d(Frame f, in EntityRef e, in FPVector3 target, in FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var direction = target - transform->Position;
 
-			LookAt2d(transform, direction.XZ);
+			LookAt2d(transform, direction.XZ, lerpTime);
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="e"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Frame f, EntityRef e, FPVector2 direction)
+		public static void LookAt2d(Frame f, in EntityRef e, in FPVector2 direction, in FP lerpTime)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
-			LookAt2d(transform, direction);
+			LookAt2d(transform, direction, lerpTime);
+		}
+
+
+		public static FPQuaternion ToRotation(this FPVector2 direction)
+		{
+			return FPQuaternion.AngleAxis(FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg, FPVector3.Up);
+		}
+
+		public static FPVector2 ToDirection(this FPQuaternion rotation)
+		{
+			return (rotation * FPVector3.Forward).XZ.Normalized;
+		}
+
+		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, out EntityRef? firstHit)
+		{
+			var hit = f.Physics3D.Linecast(source,
+				destination,
+				f.Context.TargetAllLayerMask,
+				QueryOptions.HitDynamics | QueryOptions.HitStatics |
+				QueryOptions.HitKinematics);
+			firstHit = hit?.Entity;
+			return !hit.HasValue;
 		}
 
 		/// <summary>
 		/// Makes the given entity <paramref name="transform"/> rotate in the XZ axis in the given <paramref name="direction"/>
 		/// </summary>
-		public static void LookAt2d(Transform3D* transform, FPVector2 direction)
+		public static void LookAt2d(Transform3D* transform, in FPVector2 direction, in FP lerpAngle)
 		{
-			var angle = FPMath.Atan2(direction.X, direction.Y);
-			
-			transform->Rotation = FPQuaternion.AngleAxis(angle * FP.Rad2Deg, FPVector3.Up);
+			var targetAngle = FPMath.Atan2(direction.X, direction.Y) * FP.Rad2Deg;
+			if (lerpAngle == FP._0)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+			}
+
+			var currentAngle = transform->Rotation.AsEuler.Y;
+			var deltaAngle = FPMath.AngleBetweenDegrees(targetAngle, currentAngle);
+			if (FPMath.Abs(deltaAngle) < FP._2)
+			{
+				transform->Rotation = FPQuaternion.AngleAxis(targetAngle, FPVector3.Up);
+				return;
+			}
+			var diff = FPMath.Abs(deltaAngle);
+			var complementDiff = 360 - diff;
+			var maxAngleDelta = lerpAngle * (diff < complementDiff ? diff : complementDiff);
+			var clampedDeltaAngle = FPMath.Clamp(deltaAngle, -maxAngleDelta, maxAngleDelta);
+			transform->Rotation = FPQuaternion.AngleAxis(currentAngle - clampedDeltaAngle, FPVector3.Up);
 		}
 		
 		/// <summary>
 		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
 		/// </summary>
-		public static bool IsEntityInRange(Frame f, EntityRef e, EntityRef target, FP minRange, FP maxRange)
+		public static bool IsEntityInRange(Frame f, in EntityRef e, in EntityRef target, in FP minRange, in FP maxRange)
 		{
-			var position = f.Get<Transform3D>(target).Position;
-			var sqrDistance = (f.Get<Transform3D>(e).Position - position).SqrMagnitude;
-			
+			var sqrDistance = GetDistance(f, e, target);
 			return sqrDistance >= (minRange * minRange) && sqrDistance <= (maxRange * maxRange);
+		}
+		
+		/// <summary>
+		/// Determines if <paramref name="target"/> entity is between <paramref name="minRange"/> and <paramref name="maxRange"/> of another entity
+		/// </summary>
+		public static FP GetDistance(Frame f, in EntityRef e, in EntityRef target)
+		{
+			return FPVector3.DistanceSquared(f.Get<Transform3D>(target).Position, f.Get<Transform3D>(e).Position);
 		}
 		
 		/// <summary>
@@ -79,15 +122,13 @@ namespace Quantum
 		/// </summary>
 		public static bool IsAttackable(Frame f, EntityRef e, int attackerTeam)
 		{
-			var neutral = Constants.TEAM_ID_NEUTRAL;
-			
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
 				return false;
 			}
 			
 			return !IsDestroyed(f, e) && f.TryGet<Targetable>(e, out var targetable) &&
-			       (targetable.Team != attackerTeam || targetable.Team == neutral || attackerTeam == neutral);
+			       (targetable.Team != attackerTeam || targetable.Team == Constants.TEAM_ID_NEUTRAL || attackerTeam == Constants.TEAM_ID_NEUTRAL);
 		}
 		
 		/// <summary>
@@ -168,7 +209,7 @@ namespace Quantum
 				kcc->Velocity += kick;
 			}
 
-			f.Add(f.Create(), *spell);
+			spell->DoHit(f);
 
 			return true;
 		}
@@ -209,49 +250,6 @@ namespace Quantum
 
 			return sum;
 		}
-		
-		/// <summary>
-		/// Set's the navmesh agent of the given <paramref name="e"/> entity's target position to as closest as possible
-		/// to the given <paramref name="destination"/>.
-		/// If the given <paramref name="destination"/> is invalid then the entity's navmesh agent will not move
-		/// </summary>
-		public static bool SetClosestTarget(Frame f, EntityRef e, FPVector3 destination)
-		{
-			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
-			var config = f.FindAsset<NavMeshAgentConfig>(agent->ConfigId);
-			var navMesh = f.NavMesh;
-			
-			if (navMesh.FindRandomPointOnNavmesh(destination, config.AutomaticTargetCorrectionRadius, f.RNG, 
-			                                     agent->RegionMask, out var closestPosition))
-			{
-				agent->SetTarget(f, closestPosition, navMesh);
-				
-				return true;
-			}
-			
-			return false;
-		}
-		
-		/// <summary>
-		/// Set's the navmesh agent of the given <paramref name="e"/> entity's target position to as close as possible
-		/// to the random position within <paramref name="radius"/> from <paramref name="startPosition"/>.
-		/// If the position is not found then the entity's navmesh agent will not move
-		/// </summary>
-		public static bool SetClosestTarget(Frame f, EntityRef e, FPVector3 startPosition, FP radius)
-		{
-			var agent = f.Unsafe.GetPointer<NavMeshPathfinder>(e);
-			var navMesh = f.NavMesh;
-			
-			if (navMesh.FindRandomPointOnNavmesh(startPosition, radius, f.RNG, 
-			                                     agent->RegionMask, out var closestPosition))
-			{
-				agent->SetTarget(f, closestPosition, navMesh);
-				
-				return true;
-			}
-			
-			return false;
-		}
 
 		/// <summary>
 		/// Requests a valid <see cref="Transform3D"/> from one of the <see cref="PlayerSpawner"/> points present in the world.
@@ -260,7 +258,7 @@ namespace Quantum
 		/// It also activates the return spawn point
 		/// It also changes the bot's Behaviour type if the spawn point has ForceStatic
 		/// </summary>
-		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity )
+		public static EntityComponentPair<Transform3D> GetPlayerSpawnTransform(Frame f, EntityRef playerEntity, bool sortByDistance, FPVector3 positionToCompare)
 		{
 			var spawners = new List<EntityComponentPointerPair<PlayerSpawner>>();
 
@@ -278,10 +276,13 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			if (isBot)
 			{
+				// Bots have to spawn in the specific spawner position, because they differ (ex one spawner has equipment and the other don't)
 				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
+				positionToCompare = f.Unsafe.GetPointer<Transform3D>(playerEntity)->Position;
+				sortByDistance = true;
 			}
 
-			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter));
+			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter, sortByDistance, positionToCompare));
 
 			if (spawners.Count == 0)
 			{
@@ -371,33 +372,17 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Calculates a value based on your current movement value
-		/// </ summary>
-		public static FP GetDynamicAimValue(CharacterController3D* kcc, FP movingValue, FP stationaryValue)
-		{
-			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
-			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-
-			if (maxSpeedSqr == 0)
-			{
-				return stationaryValue;
-			}
-			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
-		}
-
-		/// <summary>
 		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
 		/// </summary>
-		public static FPVector2 GetAimDirection(FPVector2 attackDirection, FPQuaternion rotation)
+		public static FPVector2 GetAimDirection(FPVector2 attackDirection, ref FPQuaternion rotation)
 		{
-			var lookDirection = (rotation * FPVector3.Forward).XZ;
-			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
+			return attackDirection == FPVector2.Zero ? (rotation * FPVector3.Forward).XZ : attackDirection;
 		}
 		
 		/// <summary>
 		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
 		/// </summary>
-		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter)
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter, bool sortByDistance, FPVector3 positionToCompare)
 		{
 			return (pair, pointerPair) =>
 			{
@@ -405,6 +390,17 @@ namespace Quantum
 				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
 					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
 				{
+					if (sortByDistance)
+					{
+						var pos1 = f.Get<Transform3D>(pair.Entity).Position;
+						var pos2 = f.Get<Transform3D>(pointerPair.Entity).Position;
+
+						return FPVector3.DistanceSquared(pos1, positionToCompare) <
+							   FPVector3.DistanceSquared(pos2, positionToCompare)
+								   ? -1
+								   : 1;
+					}
+					
 					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
 					return f.RNG->Next(-1, 2);
 				}

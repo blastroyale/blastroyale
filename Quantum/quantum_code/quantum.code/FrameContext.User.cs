@@ -12,7 +12,11 @@ namespace Quantum
 
 		public List<QuantumMutatorConfig> MutatorConfigs { get; internal set; }
 		
+		public IDictionary<int, QuantumShrinkingCircleConfig> MapShrinkingCircleConfigs { get; internal set; }
+		
 		public int TargetAllLayerMask { get; internal set; }
+		
+		public int TargetPlayersMask { get; internal set; }
 
 		/// <summary>
 		/// Requests the current game's mutator by type

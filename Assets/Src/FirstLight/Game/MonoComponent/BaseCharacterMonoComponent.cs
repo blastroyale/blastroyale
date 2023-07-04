@@ -19,7 +19,7 @@ namespace FirstLight.Game.MonoComponent
 	{
 		protected readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
 		protected readonly int _equipBodyHash = Animator.StringToHash("equip_body");
-		protected readonly int _victoryHash = Animator.StringToHash("victory");
+		protected readonly int _flairHash = Animator.StringToHash("flair");
 		protected bool IsLoaded = false;
 		
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
@@ -56,9 +56,9 @@ namespace FirstLight.Game.MonoComponent
 			await SkinLoaded(skin, instance);
 		}
 
-		public void AnimateVictory()
+		public void AnimateFlair()
 		{
-			_animator.SetTrigger(_victoryHash);
+			_animator.SetTrigger(_flairHash);
 		}
 
 		protected async void EquipDefault()
@@ -78,17 +78,7 @@ namespace FirstLight.Game.MonoComponent
 			cacheTransform.localRotation = Quaternion.identity;
 
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-
-			if (_equipment != null)
-			{
-				await _characterViewComponent.Init(_equipment);
-			}
 			
-			if (_equipment == null || !_equipment.Exists(equipment => equipment.IsWeapon()))
-			{
-				EquipDefault();
-			}
-
 			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);

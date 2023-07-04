@@ -40,6 +40,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent ConnectToRegionMasterEvent = new StatechartEvent("NETWORK - Connect To Region Master");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
+		public static readonly IStatechartEvent RegionListPinged = new StatechartEvent("NETWORK - Regions List Pinged");
 
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedPlayfabMatchmaking = new StatechartEvent("NETWORK - Joined Matchmaking Event");
@@ -98,6 +99,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			initialConnection.OnEnter(ConnectPhoton);
+			initialConnection.Event(RegionListPinged).Target(connectToRegionMaster);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
@@ -266,7 +268,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ConnectPhoton()
 		{
-			_networkService.ConnectPhotonToMaster();
+			_networkService.ConnectPhotonServer();
 		}
 
 		private void ReconnectPhoton()
@@ -281,6 +283,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void ConnectPhotonToRegionMaster()
 		{
+			
 			_networkService.ConnectPhotonToRegionMaster(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
 		}
 
@@ -618,6 +621,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					RegionHandler = regionHandler
 				});
+				_statechartTrigger(RegionListPinged);
 			});
 		}
 
@@ -747,7 +751,8 @@ namespace FirstLight.Game.StateMachines
 				MapId = (int) mapConfig.Map,
 				GameModeId = gameModeId,
 				Mutators = mutators,
-				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType
+				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
+				JoinType = JoinType.Matchmaking,
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);
@@ -767,7 +772,8 @@ namespace FirstLight.Game.StateMachines
 				GameModeId = gameModeId,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
 				Mutators = selectedGameMode.Entry.Mutators,
-				MapId = msg.MapId
+				MapId = msg.MapId,
+				JoinType = JoinType.Matchmaking,
 			};
 			StartRandomMatchmaking(setup);
 		}
@@ -784,7 +790,9 @@ namespace FirstLight.Game.StateMachines
 				MapId = (int) msg.MapConfig.Map,
 				Mutators = msg.CustomGameOptions.Mutators,
 				MatchType = MatchType.Custom,
-				RoomIdentifier = msg.RoomName
+				RoomIdentifier = msg.RoomName,
+				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,
+				JoinType = JoinType.Custom,
 			};
 			var offlineMatch = msg.MapConfig.IsTestMap;
 			if (msg.JoinIfExists)

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d507dad1323a44dcaf43b455932dc374, type: 3}
+  m_Name: BotDifficultyConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/BotDifficultyConfigs
+      Guid:
+        Value: 676307946006492234
+    BotDifficulties:
+    - MinTrophies: 0
+      MaxTrophies: 25
+      BotDifficulty: 0
+    - MinTrophies: 26
+      MaxTrophies: 50
+      BotDifficulty: 1
+    - MinTrophies: 51
+      MaxTrophies: 75
+      BotDifficulty: 2
+    - MinTrophies: 76
+      MaxTrophies: 100
+      BotDifficulty: 3
+    - MinTrophies: 101
+      MaxTrophies: 125
+      BotDifficulty: 4
+    - MinTrophies: 126
+      MaxTrophies: 200
+      BotDifficulty: 5
+    - MinTrophies: 201
+      MaxTrophies: 500
+      BotDifficulty: 6
+    - MinTrophies: 501
+      MaxTrophies: 1000
+      BotDifficulty: 7
+    - MinTrophies: 1001
+      MaxTrophies: 2000
+      BotDifficulty: 8
+    - MinTrophies: 2001
+      MaxTrophies: 999999
+      BotDifficulty: 9

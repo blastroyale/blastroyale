@@ -20,7 +20,7 @@ MonoBehaviour:
     PlayerCharacterPrototype:
       Id:
         Value: 1494014866598569848
-    PlayerBulletPrototype:
+    DefaultBulletPrototype:
       Id:
         Value: 727426939994474453
     DummyCharacterPrototype:

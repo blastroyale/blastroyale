@@ -10,6 +10,7 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 /[Uu]ser[Ss]ettings/
+SerializedBuildInfo/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -138,3 +139,11 @@ Assets/Plugins/Android/org.*
 Assets/Plugins/Android/FirebaseCrashlytics.*
 blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
 blast_royale_BurstDebugInformation_DoNotShip
+Assets/InitTestScene*.unity
+Assets/InitTestScene*.unity.meta
+
+# DLLs
+Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll
+Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll
+Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll
+Quantum/quantum_code/quantum.code/Core/CodeGen.cs

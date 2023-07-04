@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Char_FemalePunkHeadHQ
-  m_Shader: {fileID: -6465566751694194690, guid: 54226dad6a35e0b4990fe57845222f7a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7b49d2fe5bf084ac1ac401639f1da0c3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -66,12 +66,12 @@ Material:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
-    - Vector1_A3CA1DE4: 1
+    - Vector1_A3CA1DE4: 0
     - Vector1_FA9A29A7: 1
     - _Death: 0
     - _EmissTexAmount: 0
-    - _Fresnel_Power: 6
-    - _Hit: 0.4
+    - _Fresnel_Power: 0
+    - _Hit: 0
     - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -82,9 +82,9 @@ Material:
     - Color_F2EE02DC: {r: 31.99933, g: 53.261086, b: 70.01689, a: 1}
     - Vector2_A8F95C61: {r: 1, g: 2, b: 0, a: 0}
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.5287747, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
-    - _TintColor: {r: 2, g: 2, b: 2, a: 0}
+    - _TintColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5338150153496553913
 MonoBehaviour:

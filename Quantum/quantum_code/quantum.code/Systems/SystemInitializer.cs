@@ -18,8 +18,10 @@ namespace Quantum.Systems
 			f.Context.MutatorConfigs = f.RuntimeConfig.Mutators
 			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target", "Non Playable Static Target",
-			                                                     "Prop", "World", "Environment No Silhouette");
-
+			                                                     "Prop", "World", "Environment No Silhouette", "Environment Object");
+			f.Context.TargetPlayersMask = f.Layers.GetLayerMask("Playable Target", "Non Playable Target");
+			f.Context.MapShrinkingCircleConfigs = f.ShrinkingCircleConfigs.GetConfigs(f.RuntimeConfig.MapId);
+			
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
 				var systemType = Type.GetType(systemName);

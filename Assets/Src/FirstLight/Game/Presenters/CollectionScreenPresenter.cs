@@ -6,9 +6,12 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -25,6 +28,8 @@ namespace FirstLight.Game.Presenters
 	public class CollectionScreenPresenter : UiToolkitPresenterData<CollectionScreenPresenter.StateData>
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;
+		[SerializeField] private Vector3 _gliderSpawnPosition;
+		[SerializeField] private Vector3 _gliderSpawnRotation;
 
 		private static readonly int PAGE_SIZE = 3;
 
@@ -40,7 +45,9 @@ namespace FirstLight.Game.Presenters
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
 		private Button _equipButton;
+		private Button _changeAnimButton;
 		private PriceButton _buyButton;
+		private VisualElement _nameLockedIcon;
 		private VisualElement _renderTexture;
 		private VisualElement _categoriesRoot;
 
@@ -48,9 +55,11 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 
 		private int _selectedIndex;
+		private int _equippedIndex;
 		private CollectionCategory _selectedCategory;
 		private GameObject _collectionObject;
-
+		private GameObject _anchorObject;
+		private readonly List<UniqueId> _seenItems = new();
 
 		private void Awake()
 		{
@@ -66,6 +75,9 @@ namespace FirstLight.Game.Presenters
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
 			header.backClicked += Data.OnBackClicked;
 			header.homeClicked += Data.OnHomeClicked;
+			
+			root.Q<CurrencyDisplayElement>("CSCurrency").AttachView(this, out CurrencyDisplayView _);
+			root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_collectionList.selectionType = SelectionType.Single;
 			_collectionList.makeItem = MakeCollectionListItem;
@@ -79,9 +91,16 @@ namespace FirstLight.Game.Presenters
 
 			_selectedItemLabel = root.Q<Label>("ItemName").Required();
 			_selectedItemDescription = root.Q<Label>("ItemDescription").Required();
+			_nameLockedIcon = root.Q<VisualElement>("ItemNameLocked").Required();
 
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_equipButton.clicked += OnEquipClicked;
+
+			// This is a debug button for internal builds to allow us to fast check animations on characters.
+			_changeAnimButton = root.Q<Button>("ChangeButton").Required();
+			_changeAnimButton.clicked += OnChangeAnimClicked;
+			_changeAnimButton.text = "PLAY ANIM";
+			_changeAnimButton.visible = false;
 
 			_buyButton = root.Q<PriceButton>("BuyButton").Required();
 			_buyButton.clicked += OnBuyClicked;
@@ -89,7 +108,6 @@ namespace FirstLight.Game.Presenters
 
 			_categoriesRoot = root.Q<VisualElement>("CategoryHolder").Required();
 			_categoriesRoot.Clear();
-			_collectionObject = null;
 			SetupCategories();
 			root.SetupClicks(_services);
 		}
@@ -107,16 +125,28 @@ namespace FirstLight.Game.Presenters
 
 		protected override async Task OnClosed()
 		{
-			await base.OnClosed();
+			base.OnClosed();
+			
+			if (_seenItems.Count > 0)
+			{
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
+				_seenItems.Clear();
+			}
 
 			if (_collectionObject != null)
 			{
 				Destroy(_collectionObject);
 				_collectionObject = null;
 			}
+
+			if (_anchorObject != null)
+			{
+				Destroy(_anchorObject);
+				_anchorObject = null;
+			}
 		}
 
-		private void SetupCategories(bool firstOpen = false)
+		private void SetupCategories()
 		{
 			var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
 			foreach (var category in categories)
@@ -133,18 +163,23 @@ namespace FirstLight.Game.Presenters
 		private void OnCategoryClicked(CollectionCategory group)
 		{
 			if (_selectedCategory == group) return;
-
+			
+			_collectionList.ScrollToItem(0);
 			_selectedCategory = group;
+			
+			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
 
+			if (!equipped.IsValid())
+			{
+				_selectedIndex = 0;
+			}
+			
 			foreach (var category in _categoriesRoot.Children().Cast<CollectionCategoryElement>())
 			{
 				category.SetSelected(category.Category == group);
 			}
 
-			if (_collectionObject)
-				_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
-			
-			var hasItems = GetViewCollection().Any();
+			var hasItems = GetCollectionAll().Any();
 			if (hasItems)
 			{
 				_comingSoonLabel.visible = false;
@@ -169,14 +204,24 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectEquipped(CollectionCategory category)
 		{
-			var collection = GetViewCollection();
+			var collection = GetCollectionAll();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
+			var equippedIndex = _equippedIndex;
+			
 			if (equipped.IsValid())
 			{
 				_selectedIndex = collection.IndexOf(equipped);
+				_equippedIndex = _selectedIndex;
 			}
+
 			var row = _selectedIndex / PAGE_SIZE;
+			var previousEquippedRow = equippedIndex / PAGE_SIZE;
 			_collectionList.RefreshItem(row);
+
+			if (previousEquippedRow != row)
+			{
+				_collectionList.RefreshItem(previousEquippedRow);
+			}
 		}
 
 		/// <summary>
@@ -184,32 +229,39 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void ViewOwnedItemsFromCategory(CollectionCategory category)
 		{
-			var collection = GetViewCollection();
+			var collection = GetCollectionAll();
 			_selectedCategory = category;
 			_collectionList.itemsSource = collection.ChunksOf(PAGE_SIZE).ToList();
+			_collectionList.Clear();
 			_collectionList.RefreshItems();
 		}
 
 		private CollectionItem GetSelectedItem()
 		{
-			return GetViewCollection()[_selectedIndex];
+			return GetCollectionAll()[_selectedIndex];
 		}
-
-		public List<CollectionItem> GetViewCollection()
+		
+		public List<CollectionItem> GetCollectionAll()
 		{
-			return _gameDataProvider.CollectionDataProvider.GetOwnedCollection(_selectedCategory);
+			var collection = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
+			return collection.OrderBy(c => !_gameDataProvider.CollectionDataProvider.IsItemOwned(c)).ToList();
 		}
 
 		private void OnEquipClicked()
 		{
-			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
-			var equippedIndex = GetViewCollection().IndexOf(equipped);
 			_services.CommandService.ExecuteCommand(new EquipCollectionItemCommand() {Item = GetSelectedItem()});
 			UpdateCollectionDetails(_selectedCategory);
 			SelectEquipped(_selectedCategory);
-			_collectionList.RefreshItem(equippedIndex / PAGE_SIZE);
-			_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 		}
+
+		private void OnChangeAnimClicked()
+		{
+			if (_selectedCategory.Id == GameIdGroup.PlayerSkin)
+			{
+				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
+			}
+		}
+		
 
 		/// <summary>
 		/// TODO: Enable players to buy new items here.
@@ -235,8 +287,43 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionObject =
-				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id);
-			_collectionObject.transform.SetPositionAndRotation(_collectionSpawnPosition, new Quaternion(0, 0, 0, 0));
+				await _services.AssetResolverService.RequestAsset<GameId, GameObject>(selectedItem.Id, true,
+					true);
+
+			if (_anchorObject != null)
+			{
+				Destroy(_anchorObject);
+				_anchorObject = null;
+			}
+
+			_anchorObject= new GameObject();
+			_anchorObject.transform.position = _collectionSpawnPosition;
+
+			if (_selectedCategory.Id == GameIdGroup.Glider)
+			{
+				_collectionObject.transform.SetPositionAndRotation(_gliderSpawnPosition, Quaternion.Euler(_gliderSpawnRotation));
+				_collectionObject.GetComponent<MainMenuGliderViewComponent>().ActivateParticleEffects(false);
+			}
+			else
+			{
+				_collectionObject.transform.parent = _anchorObject.transform;
+				_collectionObject.transform.SetLocalPositionAndRotation(Vector3.zero, new Quaternion(0, 0, 0, 0));
+			}
+		}
+		
+		void Update()
+		{
+			if (_collectionObject)
+			{
+				if (_selectedCategory.Id == GameIdGroup.Glider)
+				{
+					_collectionObject.transform.Rotate(1, 0, 0, Space.Self);
+				}
+				else
+				{
+					_collectionObject.transform.Rotate(0, 1, 0, Space.Self);
+				}
+			}
 		}
 
 		/// Updated cost of Collection items / has it been equipped, etc. 
@@ -251,6 +338,8 @@ namespace FirstLight.Game.Presenters
 
 			_selectedItemLabel.text = selectedId.GetLocalization();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
+			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
+			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 		}
 
 		private VisualElement MakeCollectionListItem()
@@ -281,25 +370,26 @@ namespace FirstLight.Game.Presenters
 
 		private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
 		{
-			if (rowNumber < 0 || rowNumber >= _collectionList.itemsSource.Count) return;
-			
 			var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
-			var rowItems = (IList<CollectionItem>) _collectionList.itemsSource[rowNumber];
+			var rowItems = _collectionList.itemsSource[rowNumber] as IList<CollectionItem>;
 			for (var x = 0; x < PAGE_SIZE; x++)
 			{
 				var card = rowCards[x];
-				card.SetDisplay(true);
+				
 				if (x >= rowItems.Count)
 				{
 					card.SetDisplay(false);
 					continue;
 				}
-
+				
+				card.SetDisplay(true);
 				var selectedItem = rowItems[x];
 				var itemIndex = rowNumber * PAGE_SIZE + x;
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-				card.SetCollectionElement(selectedItem.Id, itemIndex,
+				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
+
+				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id, owned,
 					equipped.IsValid() && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
 			}
@@ -320,8 +410,11 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_collectionList.RefreshItem(newRow);
-
-			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+		}
+		
+		private bool IsItemSeen(UniqueId item)
+		{
+			return _seenItems.Contains(item) || !_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(item);
 		}
 	}
 }

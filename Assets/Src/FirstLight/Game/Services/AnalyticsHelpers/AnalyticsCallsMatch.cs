@@ -69,7 +69,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void MatchInitiate()
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			
+			if (room == null)
+			{
+				return;
+			}
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
 			_mutators = string.Join(",", room.GetMutatorIds());
@@ -109,6 +112,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_playerNumAttacks = 0;
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var setup = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchSetup();
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
 			var totalPlayers = room.PlayerCount;
@@ -129,7 +133,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level.ToString()},
 				{"total_players", totalPlayers.ToString()},
-				{"total_bots", (NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers).ToString()},
+				{"total_bots", (NetworkUtils.GetMaxPlayers(setup,false) - totalPlayers).ToString()},
 				{"map_id", _gameIdsLookup[config.Map]},
 				{"team_size", gameModeConfig.MaxPlayersInTeam },
 				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
@@ -253,14 +257,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchKillAction(EventOnPlayerKilledPlayer playerKilledEvent)
 		{
-			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
-
 			// We cannot send this event for everyone every time so we only send if we are the killer or its a suicide
 			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
 					playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
 			{
 				return;
 			}
+			
+			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 			
 			// We send fixed name in case of offline Tutorial match
 			var deadName = playerKilledEvent.PlayersMatchData.Count <= 1 ?

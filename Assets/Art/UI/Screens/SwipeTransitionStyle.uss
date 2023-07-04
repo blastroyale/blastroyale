@@ -15,9 +15,9 @@
 }
 
 .red-element {
-    width: 200%;
-    height: 100%;
-    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
+    width: 160%;
+    height: 110%;
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
     position: absolute;
     -unity-background-image-tint-color: rgb(216, 75, 121);
 }
@@ -25,7 +25,7 @@
 .yellow-element {
     width: 300%;
     height: 150%;
-    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
     position: absolute;
     -unity-background-image-tint-color: rgb(248, 199, 46);
 }
@@ -33,7 +33,7 @@
 .blue-element {
     width: 600%;
     height: 300%;
-    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
+    background-image: url('project://database/Assets/Art/UI/Vectors/SwipeAnimation.svg?fileID=7388822144124034973&guid=673c12c48bbd04ac29382b53acd8c5bb&type=3#SwipeAnimation');
     position: absolute;
     -unity-background-image-tint-color: rgb(75, 216, 214);
     opacity: 1;

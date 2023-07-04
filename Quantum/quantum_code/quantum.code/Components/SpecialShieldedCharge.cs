@@ -7,7 +7,7 @@ namespace Quantum
 	/// </summary>
 	public static class SpecialShieldedCharge
 	{
-		public static unsafe bool Use(Frame f, EntityRef e, Special special, FPVector2 aimInput, FP maxRange)
+		public static unsafe bool Use(Frame f, EntityRef e, ref Special special, FPVector2 aimInput, FP maxRange)
 		{
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
@@ -83,7 +83,7 @@ namespace Quantum
 				PowerAmount = special.SpecialPower,
 			};
 			
-			QuantumHelpers.LookAt2d(f, e, targetPosition);
+			QuantumHelpers.LookAt2d(f, e, targetPosition, FP._0);
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, chargeDuration, true);
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->IsTrigger = true;

@@ -5,8 +5,10 @@ using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
@@ -34,9 +36,12 @@ namespace FirstLight.Game.Services
 	{
 		/// <summary>
 		/// Connects Photon to the master server, using settings in <see cref="IAppDataProvider"/>
+		/// This will connect to nameserver if no region is specified in photon settings (photon default behaviour)
+		/// After connecting to nameserver and pinging regions it will connect to master straight away
+		/// If a region is specified, it will connect directly to master
 		/// </summary>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool ConnectPhotonToMaster();
+		bool ConnectPhotonServer();
 
 		/// <summary>
 		/// Connects Photon to a specific region master server
@@ -243,6 +248,7 @@ namespace FirstLight.Game.Services
 		/// Set last connected room
 		/// </summary>
 		void SetLastRoom();
+		
 	}
 
 	public enum JoinRoomSource
@@ -305,7 +311,6 @@ namespace FirstLight.Game.Services
 		private int CurrentRttTotal;
 		private Coroutine _tickUpdateCoroutine;
 		private Coroutine _tickPingCheckCoroutine;
-
 
 		public IObservableField<string> UserId { get; }
 		public IObservableField<JoinRoomSource> JoinSource { get; }
@@ -391,6 +396,7 @@ namespace FirstLight.Game.Services
 		}
 
 		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
+		
 
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
@@ -415,6 +421,18 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_dataProvider = dataProvider;
+			
+			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingRegions);
+		}
+
+		private void OnPingRegions(PingedRegionsMessage msg)
+		{
+			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+			{
+				_dataProvider.AppDataProvider.ConnectionRegion.Value = msg.RegionHandler.BestRegion.Code;
+				_services.DataSaver.SaveData<AppData>();
+				FLog.Info("Setting player default region to " + msg.RegionHandler.BestRegion.Code);
+			}
 		}
 
 		public void EnableQuantumPingCheck(bool enabled)
@@ -501,23 +519,38 @@ namespace FirstLight.Game.Services
 			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
-		public bool ConnectPhotonToMaster()
+		public bool ConnectPhotonServer()
 		{
-			FLog.Info("ConnectPhotonToMaster");
+			FLog.Info("Connecting Photon Server");
+			
+			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
+			if (QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connected && QuantumClient.Server == ServerConnection.NameServer)
+			{
+				if (settings.FixedRegion == null && !string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+				{
+					FLog.Info("Server already in nameserver, connecting to master");
+					ConnectPhotonToRegionMaster(_dataProvider.AppDataProvider.ConnectionRegion.Value);
+					return true;
+				}
+			}
+			
 			if (QuantumClient.LoadBalancingPeer.PeerState != PeerStateValue.Disconnected)
 			{
 				FLog.Info("Not connecting photon due to status " + QuantumClient.LoadBalancingPeer.PeerState);
 				return false;
 			}
 
-			if (string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
+			
+			if (!string.IsNullOrEmpty(_dataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
-				_dataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
+				FLog.Info("Connecting directly to master using region "+_dataProvider.AppDataProvider.ConnectionRegion.Value);
+				settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
 			}
-
-			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
-			settings.FixedRegion = _dataProvider.AppDataProvider.ConnectionRegion.Value;
-
+			else
+			{
+				FLog.Info("Connecting to nameserver without region to detect best region");
+				settings.FixedRegion = null;
+			}
 			ResetQuantumProperties();
 
 			return QuantumClient.ConnectUsingSettings(settings, _dataProvider.AppDataProvider.DisplayNameTrimmed);
@@ -525,6 +558,7 @@ namespace FirstLight.Game.Services
 
 		public bool ConnectPhotonToRegionMaster(string region)
 		{
+			FLog.Verbose("Connected to Region " + region);
 			return QuantumClient.ConnectToRegionMaster(region);
 		}
 

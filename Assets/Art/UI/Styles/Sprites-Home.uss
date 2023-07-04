@@ -1,6 +1,5 @@
 /* AUTO GENERATED */
 :root {
-    --sprite-home__avatar-default: url('/Assets/Art/UI/Sprites/Home/avatar-default.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
@@ -84,28 +83,27 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
-    --sprite-home__character-assasins-female: url('/Assets/Art/UI/Sprites/Home/character-assasins-female.png');
-    --sprite-home__character-assasins-male: url('/Assets/Art/UI/Sprites/Home/character-assasins-male.png');
-    --sprite-home__character-corpo-female: url('/Assets/Art/UI/Sprites/Home/character-corpo-female.png');
-    --sprite-home__character-corpo-male: url('/Assets/Art/UI/Sprites/Home/character-corpo-male.png');
     --sprite-home__character-female01avatar: url('/Assets/Art/UI/Sprites/Home/character-female01avatar.png');
     --sprite-home__character-female02avatar: url('/Assets/Art/UI/Sprites/Home/character-female02avatar.png');
+    --sprite-home__character-femaleassassin: url('/Assets/Art/UI/Sprites/Home/character-femaleassassin.png');
+    --sprite-home__character-femalecorpos: url('/Assets/Art/UI/Sprites/Home/character-femalecorpos.png');
+    --sprite-home__character-femalepunk: url('/Assets/Art/UI/Sprites/Home/character-femalepunk.png');
+    --sprite-home__character-femalesuperstar: url('/Assets/Art/UI/Sprites/Home/character-femalesuperstar.png');
     --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
     --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
-    --sprite-home__character-male-superstar: url('/Assets/Art/UI/Sprites/Home/character-male-superstar.png');
-    --sprite-home__character-punk-female: url('/Assets/Art/UI/Sprites/Home/character-punk-female.png');
-    --sprite-home__character-punk-male: url('/Assets/Art/UI/Sprites/Home/character-punk-male.png');
-    --sprite-home__character-superstar-female: url('/Assets/Art/UI/Sprites/Home/character-superstar-female.png');
+    --sprite-home__character-maleassassin: url('/Assets/Art/UI/Sprites/Home/character-maleassassin.png');
+    --sprite-home__character-malecorpos: url('/Assets/Art/UI/Sprites/Home/character-malecorpos.png');
+    --sprite-home__character-malepunk: url('/Assets/Art/UI/Sprites/Home/character-malepunk.png');
+    --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
-    --sprite-home__flag-punk: url('/Assets/Art/UI/Sprites/Home/flag-punk.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
+    --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
     --sprite-home__flag-unicorn: url('/Assets/Art/UI/Sprites/Home/flag-unicorn.png');
     --sprite-home__glider-divinci: url('/Assets/Art/UI/Sprites/Home/glider-divinci.png');
     --sprite-home__glider-falcon: url('/Assets/Art/UI/Sprites/Home/glider-falcon.png');
     --sprite-home__glider-rocket: url('/Assets/Art/UI/Sprites/Home/glider-rocket.png');
-    --sprite-home__glider-shark: url('/Assets/Art/UI/Sprites/Home/glider-shark.png');
+    --sprite-home__glider-turbine: url('/Assets/Art/UI/Sprites/Home/glider-turbine.png');
     --sprite-home__header-back: url('/Assets/Art/UI/Sprites/Home/header-back.png');
-    --sprite-home__header-background: url('/Assets/Art/UI/Sprites/Home/header-background.png');
     --sprite-home__header-back-pressed: url('/Assets/Art/UI/Sprites/Home/header-back-pressed.png');
     --sprite-home__header-home: url('/Assets/Art/UI/Sprites/Home/header-home.png');
     --sprite-home__header-home-pressed: url('/Assets/Art/UI/Sprites/Home/header-home-pressed.png');
@@ -132,11 +130,6 @@
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
     --sprite-home__icon-equipment: url('/Assets/Art/UI/Sprites/Home/icon-equipment.png');
-    --sprite-home__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-amulet.png');
-    --sprite-home__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-armor.png');
-    --sprite-home__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-helmet.png');
-    --sprite-home__icon-equipmentcategory-shield: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-shield.png');
-    --sprite-home__icon-equipmentcategory-weapon: url('/Assets/Art/UI/Sprites/Home/icon-equipmentcategory-weapon.png');
     --sprite-home__icon-gamemode-battleroyale: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale.png');
     --sprite-home__icon-gamemode-battleroyale-shadow: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-battleroyale-shadow.png');
     --sprite-home__icon-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-custom.png');
@@ -156,14 +149,6 @@
     --sprite-home__icon-settings: url('/Assets/Art/UI/Sprites/Home/icon-settings.png');
     --sprite-home__icon-shop: url('/Assets/Art/UI/Sprites/Home/icon-shop.png');
     --sprite-home__icon-show-purple: url('/Assets/Art/UI/Sprites/Home/icon-show-purple.png');
-    --sprite-home__icon-special-aimingairstrike: url('/Assets/Art/UI/Sprites/Home/icon-special-aimingairstrike.png');
-    --sprite-home__icon-special-aiminggrenade: url('/Assets/Art/UI/Sprites/Home/icon-special-aiminggrenade.png');
-    --sprite-home__icon-special-aimingstungrenade: url('/Assets/Art/UI/Sprites/Home/icon-special-aimingstungrenade.png');
-    --sprite-home__icon-special-defaultdash: url('/Assets/Art/UI/Sprites/Home/icon-special-defaultdash.png');
-    --sprite-home__icon-special-radar: url('/Assets/Art/UI/Sprites/Home/icon-special-radar.png');
-    --sprite-home__icon-special-shieldedcharge: url('/Assets/Art/UI/Sprites/Home/icon-special-shieldedcharge.png');
-    --sprite-home__icon-special-shieldself: url('/Assets/Art/UI/Sprites/Home/icon-special-shieldself.png');
-    --sprite-home__icon-special-skylaserbeam: url('/Assets/Art/UI/Sprites/Home/icon-special-skylaserbeam.png');
     --sprite-home__icon-spinner-thick: url('/Assets/Art/UI/Sprites/Home/icon-spinner-thick.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
@@ -193,12 +178,6 @@
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
-}
-
-.sprite-home__avatar-default {
-    background-image: var(--sprite-home__avatar-default);
-    width: 108px;
-    height: 108px;
 }
 
 .sprite-home__background-avatar-nft {
@@ -655,46 +634,46 @@
     height: 304px;
 }
 
-.sprite-home__character-assasins-female {
-    background-image: var(--sprite-home__character-assasins-female);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-assasins-male {
-    background-image: var(--sprite-home__character-assasins-male);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-corpo-female {
-    background-image: var(--sprite-home__character-corpo-female);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-corpo-male {
-    background-image: var(--sprite-home__character-corpo-male);
-    width: 128px;
-    height: 128px;
-}
-
 .sprite-home__character-female01avatar {
     background-image: var(--sprite-home__character-female01avatar);
-    width: 128px;
-    height: 128px;
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__character-female02avatar {
     background-image: var(--sprite-home__character-female02avatar);
-    width: 128px;
-    height: 128px;
+    width: 256px;
+    height: 256px;
+}
+
+.sprite-home__character-femaleassassin {
+    background-image: var(--sprite-home__character-femaleassassin);
+    width: 256px;
+    height: 256px;
+}
+
+.sprite-home__character-femalecorpos {
+    background-image: var(--sprite-home__character-femalecorpos);
+    width: 256px;
+    height: 256px;
+}
+
+.sprite-home__character-femalepunk {
+    background-image: var(--sprite-home__character-femalepunk);
+    width: 256px;
+    height: 256px;
+}
+
+.sprite-home__character-femalesuperstar {
+    background-image: var(--sprite-home__character-femalesuperstar);
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__character-male01avatar {
     background-image: var(--sprite-home__character-male01avatar);
-    width: 128px;
-    height: 128px;
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__character-male02avatar {
@@ -703,28 +682,28 @@
     height: 128px;
 }
 
-.sprite-home__character-male-superstar {
-    background-image: var(--sprite-home__character-male-superstar);
-    width: 128px;
-    height: 128px;
+.sprite-home__character-maleassassin {
+    background-image: var(--sprite-home__character-maleassassin);
+    width: 256px;
+    height: 256px;
 }
 
-.sprite-home__character-punk-female {
-    background-image: var(--sprite-home__character-punk-female);
-    width: 128px;
-    height: 128px;
+.sprite-home__character-malecorpos {
+    background-image: var(--sprite-home__character-malecorpos);
+    width: 256px;
+    height: 256px;
 }
 
-.sprite-home__character-punk-male {
-    background-image: var(--sprite-home__character-punk-male);
-    width: 128px;
-    height: 128px;
+.sprite-home__character-malepunk {
+    background-image: var(--sprite-home__character-malepunk);
+    width: 256px;
+    height: 256px;
 }
 
-.sprite-home__character-superstar-female {
-    background-image: var(--sprite-home__character-superstar-female);
-    width: 128px;
-    height: 128px;
+.sprite-home__character-malesuperstar {
+    background-image: var(--sprite-home__character-malesuperstar);
+    width: 256px;
+    height: 256px;
 }
 
 .sprite-home__flag-demon {
@@ -733,14 +712,14 @@
     height: 324px;
 }
 
-.sprite-home__flag-punk {
-    background-image: var(--sprite-home__flag-punk);
+.sprite-home__flag-superstar {
+    background-image: var(--sprite-home__flag-superstar);
     width: 324px;
     height: 324px;
 }
 
-.sprite-home__flag-superstar {
-    background-image: var(--sprite-home__flag-superstar);
+.sprite-home__flag-tombstone {
+    background-image: var(--sprite-home__flag-tombstone);
     width: 324px;
     height: 324px;
 }
@@ -769,8 +748,8 @@
     height: 324px;
 }
 
-.sprite-home__glider-shark {
-    background-image: var(--sprite-home__glider-shark);
+.sprite-home__glider-turbine {
+    background-image: var(--sprite-home__glider-turbine);
     width: 324px;
     height: 324px;
 }
@@ -779,12 +758,6 @@
     background-image: var(--sprite-home__header-back);
     width: 742px;
     height: 178px;
-}
-
-.sprite-home__header-background {
-    background-image: var(--sprite-home__header-background);
-    width: 1110px;
-    height: 192px;
 }
 
 .sprite-home__header-back:active {
@@ -937,36 +910,6 @@
     height: 85px;
 }
 
-.sprite-home__icon-equipmentcategory-amulet {
-    background-image: var(--sprite-home__icon-equipmentcategory-amulet);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-armor {
-    background-image: var(--sprite-home__icon-equipmentcategory-armor);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-helmet {
-    background-image: var(--sprite-home__icon-equipmentcategory-helmet);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-shield {
-    background-image: var(--sprite-home__icon-equipmentcategory-shield);
-    width: 54px;
-    height: 54px;
-}
-
-.sprite-home__icon-equipmentcategory-weapon {
-    background-image: var(--sprite-home__icon-equipmentcategory-weapon);
-    width: 54px;
-    height: 54px;
-}
-
 .sprite-home__icon-gamemode-battleroyale {
     background-image: var(--sprite-home__icon-gamemode-battleroyale);
     width: 46px;
@@ -1079,54 +1022,6 @@
     background-image: var(--sprite-home__icon-show-purple);
     width: 38px;
     height: 38px;
-}
-
-.sprite-home__icon-special-aimingairstrike {
-    background-image: var(--sprite-home__icon-special-aimingairstrike);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-aiminggrenade {
-    background-image: var(--sprite-home__icon-special-aiminggrenade);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-aimingstungrenade {
-    background-image: var(--sprite-home__icon-special-aimingstungrenade);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-defaultdash {
-    background-image: var(--sprite-home__icon-special-defaultdash);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-radar {
-    background-image: var(--sprite-home__icon-special-radar);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-shieldedcharge {
-    background-image: var(--sprite-home__icon-special-shieldedcharge);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-shieldself {
-    background-image: var(--sprite-home__icon-special-shieldself);
-    width: 84px;
-    height: 84px;
-}
-
-.sprite-home__icon-special-skylaserbeam {
-    background-image: var(--sprite-home__icon-special-skylaserbeam);
-    width: 84px;
-    height: 84px;
 }
 
 .sprite-home__icon-spinner-thick {

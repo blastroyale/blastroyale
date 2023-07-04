@@ -172,65 +172,6 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Force Update Sent to Server");
 		}
 
-		[MenuItem("FLG/Backend/Use Local Server")]
-		private static void UseLocalServer()
-		{
-			FeatureFlags.GetLocalConfiguration().UseLocalServer = true;
-			FeatureFlags.SaveLocalConfig();
-			PlayFabSettings.LocalApiServer = "http://localhost:7274";
-			Debug.Log("Requests will go to LOCAL server now");
-		}
-
-
-		[MenuItem("FLG/Backend/Environments/Use DEV")]
-		private static void DevServer()
-		{
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.DEV;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
-		}
-
-		[MenuItem("FLG/Backend/Environments/Use STAGING")]
-		private static void StagingServer()
-		{
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.STAGING;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
-		}
-
-		[MenuItem("FLG/Backend/Environments/PROD")]
-		private static void ProdServer()
-		{
-			FeatureFlags.GetLocalConfiguration().EnvironmentOverride = Environment.PROD;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Environment Set: " + FeatureFlags.GetLocalConfiguration().EnvironmentOverride);
-		}
-
-		[MenuItem("FLG/Backend/Use Remote Server")]
-		private static void UseRemoteServer()
-		{
-			FeatureFlags.GetLocalConfiguration().UseLocalServer = false;
-			FeatureFlags.SaveLocalConfig();
-			PlayFabSettings.LocalApiServer = null;
-			Debug.Log("Requests will go to REMOTE server now");
-		}
-
-		[MenuItem("FLG/Backend/Use Remote Configs")]
-		private static void UseRemoteConfigs()
-		{
-			FeatureFlags.GetLocalConfiguration().UseLocalConfigs = false;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Using Remote Configurations from Playfab");
-		}
-
-		[MenuItem("FLG/Backend/Use Local Configs")]
-		private static void UseLocalConfigs()
-		{
-			FeatureFlags.GetLocalConfiguration().UseLocalConfigs = true;
-			FeatureFlags.SaveLocalConfig();
-			Debug.Log("Using Remote Configurations from Playfab");
-		}
-
 #if ENABLE_PLAYFABADMIN_API
 		[MenuItem("FLG/Backend/Update IAP Catalog")]
 		private static void UpdateIAPCatalog()

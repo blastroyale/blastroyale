@@ -12,20 +12,7 @@ namespace Quantum.Systems
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
-			    f.Has<EntityDestroyer>(info.Entity))
-			{
-				return;
-			}
-
-			if (IsCollectableFilled(f, info.Entity, info.Other))
-			{
-				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
-				return;
-			}
-
-			StartCollecting(f, player.Player, info.Other, collectable, info.Entity);
+			TryStartCollecting(f, info, true);
 		}
 
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
@@ -36,7 +23,17 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-
+			
+			// We try to start collecting here because collectable may be allowed to
+			// become collected after it already triggered with a player
+			if (!collectable->IsCollecting(player.Player) && f.Time >= collectable->AllowedToPickupTime)
+			{
+				if (!TryStartCollecting(f, info, false))
+				{
+					return;
+				}
+			}
+			
 			var endTime = collectable->CollectorsEndTime[player.Player];
 			if (endTime == FP._0 || f.Time < endTime)
 			{
@@ -45,7 +42,7 @@ namespace Quantum.Systems
 
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
-				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				//f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
 				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
 				return;
 			}
@@ -67,6 +64,28 @@ namespace Quantum.Systems
 			StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
 		}
 
+		private bool TryStartCollecting(Frame f, TriggerInfo3D info, bool sendEvent)
+		{
+			
+			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
+				f.Time < collectable->AllowedToPickupTime || !f.Has<AlivePlayerCharacter>(info.Other) ||
+				!f.TryGet<PlayerCharacter>(info.Other, out var player) || f.Has<EntityDestroyer>(info.Entity))
+			{
+				return false;
+			}
+			
+			if (IsCollectableFilled(f, info.Entity, info.Other))
+			{
+				if (sendEvent)
+				{
+					f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				}
+				return false;
+			}
+
+			return StartCollecting(f, player.Player, info.Other, collectable, info.Entity);
+		}
+
 		private bool IsCollectableFilled(Frame f, EntityRef entity, EntityRef player)
 		{
 			if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
@@ -85,7 +104,7 @@ namespace Quantum.Systems
 						       stats.GetStatData(StatType.Shield).StatValue &&
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
-						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
+						return stats.CurrentAmmoPercent == 1;
 					case ConsumableType.Energy:
 						return playerCharacter.GetEnergyLevel(f) == f.GameConfig.PlayerMaxEnergyLevel;
 				}
@@ -102,13 +121,15 @@ namespace Quantum.Systems
 			}
 		}
 
-		private void StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
+		private bool StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
 		                             EntityRef collectableEntity)
 		{
-			if (collectable->IsCollecting(player)) return;
+			if (collectable->IsCollecting(player)) return false;
 
 			collectable->CollectorsEndTime[player] = GetEndTime(f, collectableEntity, playerEntity);
 			f.Events.OnStartedCollecting(collectableEntity, *collectable, player, playerEntity);
+
+			return true;
 		}
 
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
@@ -131,7 +152,7 @@ namespace Quantum.Systems
 
 				if (!f.Has<BotCharacter>(playerEntity))
 				{
-					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, &equipment->Item);
 					
 					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
 					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
@@ -141,7 +162,7 @@ namespace Quantum.Systems
 						
 						var slotIsBusy = equipment->Item.IsWeapon() ?
 											 playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid() :
-											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].IsValid();
+											 playerCharacter->Gear[PlayerCharacter.GetGearSlot(&equipment->Item)].IsValid();
 						
 						if (!slotIsBusy)
 						{
@@ -157,13 +178,14 @@ namespace Quantum.Systems
 					}
 				}
 			
-				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
+				if (playerCharacter->HasBetterWeaponEquipped(&equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
-					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);
-					var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
+					var stats = f.Get<Stats>(playerEntity);
+					var ammoSmallConfig = f.ConsumableConfigs.GetConfig(GameId.AmmoSmall);
+					var initialAmmo = ammoSmallConfig.Amount.Get(f);
 					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
-					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
+					var ammoWasEmpty = stats.CurrentAmmoPercent < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
 					f.Add(entity, consumable);
@@ -208,8 +230,12 @@ namespace Quantum.Systems
 			// We default to global collect time
 			var endTime = f.GameConfig.CollectableCollectTime.Get(f);
 
-			// Unless it's a consumable in which case we use it's collect time
-			if (f.TryGet<Consumable>(consumableEntity, out var consumable))
+			// Unless it's a chest or non-equipment consumable in which case we use its collect time
+			if (f.TryGet<Chest>(consumableEntity, out var chest))
+			{
+				endTime = chest.CollectTime;
+			}
+			else if (f.TryGet<Consumable>(consumableEntity, out var consumable))
 			{
 				endTime = consumable.CollectTime;
 			}

@@ -236,7 +236,7 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.AlreadyInParty);
 				}
 
-				string code = GenerateCode();
+				var code = JoinCodeUtils.GenerateCode(CodeDigits);
 				// TODO Check if lobby doesn't exist with the generated code
 				var server = _appDataProvider.ConnectionRegion.Value;
 
@@ -293,9 +293,9 @@ namespace FirstLight.Game.Services.Party
 					throw new PartyException(PartyErrors.AlreadyInParty);
 				}
 
-				var normalizedCode = NormalizeCode(code);
+				var normalizedCode = JoinCodeUtils.NormalizeCode(code);
 
-				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => !JoinCodeAllowedCharacters.Contains(c)))
+				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => !JoinCodeUtils.AllowedCharacters.Contains(c)))
 				{
 					throw new PartyException(PartyErrors.PartyNotFound);
 				}

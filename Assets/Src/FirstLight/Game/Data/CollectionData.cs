@@ -157,8 +157,20 @@ namespace FirstLight.Game.Data
 			{
 				CollectionCategories.PLAYER_SKINS, new List<CollectionItem>()
 				{
-					new(GameId.Male01Avatar), new(GameId.Female01Avatar),
-					new(GameId.Male02Avatar), new(GameId.Female02Avatar),
+					new(GameId.MalePunk), new(GameId.FemalePunk),
+					new(GameId.MaleSuperstar), new(GameId.FemaleSuperstar),
+				}
+			},
+			{
+				new (GameIdGroup.Glider), new List<CollectionItem>()
+				{
+					new(GameId.Falcon),
+				}
+			},
+			{
+				new (GameIdGroup.DeathMarker), new List<CollectionItem>()
+				{
+					new(GameId.Tombstone),
 				}
 			}
 		};
@@ -167,7 +179,15 @@ namespace FirstLight.Game.Data
 		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
 		public readonly Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
-			{ CollectionCategories.PLAYER_SKINS, new(GameId.Male01Avatar) }
+			{ CollectionCategories.PLAYER_SKINS, new(GameId.MalePunk) },
+		};
+		
+		[JsonProperty]
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
+		public readonly Dictionary<CollectionCategory, CollectionItem> DefaultEquipped = new()
+		{
+			{ CollectionCategories.GLIDERS, new(GameId.Falcon) },
+			{ CollectionCategories.GRAVE, new(GameId.Tombstone) }
 		};
 
 		public override int GetHashCode()

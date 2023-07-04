@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c7b65fea44e964aabbede6a2e3d752, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d64c06a038c6740a7775222e678c6f, type: 3}
   m_Name: SimulationConfig
   m_EditorClassIdentifier: 
   Settings:
@@ -45,8 +45,8 @@ MonoBehaviour:
       SolverType: 1
       SolverIterations: 3
       PositionSolverIterations: 2
-      UseJoints: 1
-      UseAngularVelocity: 1
+      UseJoints: 0
+      UseAngularVelocity: 0
       UseVerticalTransform: 1
       PenetrationAllowance:
         RawValue: 655
@@ -105,7 +105,7 @@ MonoBehaviour:
       - Water
       - UI
       - 
-      - 
+      - Environment Object
       - Non Playable Target
       - Playable Target
       - Default Silhouette
@@ -114,6 +114,9 @@ MonoBehaviour:
       - Indicator
       - Player Only
       - Non Playable Static Target
+      - Mini Map Object
+      - Area
+      - Bullet
       - 
       - 
       - 
@@ -127,10 +130,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
-      - 
-      - 
-      LayerMatrix: cd8fffffc800ffffcd0fffffffffffffc800ffffc800ffffffffffffffffffffcdcfffffcdcfffffcd8fffffcd8fffffc810ffffc800ffffc803ffffc98fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+      LayerMatrix: cd8ff9ffc880f9ffcd8ff9ffffffffffc880f9ffc880f9ffffffffffffffffffcdcffdffcdcfffffcd8ffbffcd8ff9ffc890f9ffc880f9ffc883f9fffffffdfffffff9ffc806f8ffc883f8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     Entities:
       CommitCommandsMode: 0
       DefaultEntityCapacity: 1024

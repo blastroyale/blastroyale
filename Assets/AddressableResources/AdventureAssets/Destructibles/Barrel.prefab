@@ -130,6 +130,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[4]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5432411554146330902, guid: 8a8a06b3aafea184dbc2d0e3ed7fda27, type: 3}
+      propertyPath: emitterVelocityMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432411554146330902, guid: 8a8a06b3aafea184dbc2d0e3ed7fda27, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5950038485378983020, guid: 8a8a06b3aafea184dbc2d0e3ed7fda27, type: 3}
       propertyPath: m_Name
       value: ExplodingBarrel

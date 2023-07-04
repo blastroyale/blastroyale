@@ -381,11 +381,15 @@ namespace FirstLight.Game.Services
 
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();
+			_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+
 
 			_services.LiveopsService.FetchSegments(_ =>
 			{
 				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
 				FeatureFlags.ParseFlags(liveopsFeatureFlags);
+				_services.MessageBrokerService.Publish(new FeatureFlagsChanged());
+
 			});
 
 			_networkService.UserId.Value = result.PlayFabId;
@@ -461,7 +465,7 @@ namespace FirstLight.Game.Services
 					var dataInstance = ModelSerializer.DeserializeFromData(type, state);
 					if (dataInstance is CollectionItemEnrichmentData enrichmentData)
 					{
-						// _services.CollectionEnrichnmentService.Enrich(enrichmentData);
+						_services.CollectionEnrichnmentService.Enrich(enrichmentData);
 					}
 					_dataService.AddData(type, dataInstance);
 				}
@@ -490,7 +494,7 @@ namespace FirstLight.Game.Services
 			void OnAuthSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-				_services.NetworkService.ConnectPhotonToMaster();
+				_services.NetworkService.ConnectPhotonServer();
 				onSuccess?.Invoke(loginData);
 			}
 		}

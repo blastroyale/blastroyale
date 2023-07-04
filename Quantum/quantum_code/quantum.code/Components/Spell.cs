@@ -37,6 +37,27 @@ namespace Quantum
 		}
 		
 		/// <summary>
+		/// Sometimes we just simply want to deal damage.
+		/// To avoid having to create a new spell everytime we deal damage, we can use SingleHit
+		/// function to speed things up a bit.
+		/// </summary>
+		public unsafe void DoHit(Frame f)
+		{
+			if (f.TryGet<PlayerCharacter>(Attacker, out var attacker))
+			{
+				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, attacker.TeamId, Victim, 
+					OriginalHitPosition, PowerAmount);
+			}
+			if (!f.Unsafe.TryGetPointer<Stats>(Victim, out var stats) || PowerAmount == 0)
+			{
+				return;
+			}
+
+			var s = this;
+			stats->ReduceHealth(f, Victim, &s);
+		}
+
+		/// <summary>
 		/// Creates an instant hit <see cref="Spell"/> based on the given data
 		/// </summary>
 		public static Spell CreateInstant(Frame f, EntityRef victim, EntityRef attacker, EntityRef spellSource, 

@@ -31,18 +31,18 @@ namespace Tests
 		{
 			GameLogicMessageEvent<CollectionItemEquippedMessage> receivedMessage = null;
 			
-			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<CollectionItemEquippedMessage>>(msg =>
+			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<CollectionItemEquippedMessage>>(async msg =>
 			{
 				receivedMessage = msg;
 			});
 			
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male02Avatar) };
+			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
 			
 			_server.SendTestCommand(cmd);
 			
 			Assert.NotNull(receivedMessage);
-			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.UserId);
-			Assert.AreEqual(GameId.Male02Avatar, receivedMessage.Message.EquippedItem.Id);
+			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.PlayerId);
+			Assert.AreEqual(GameId.FemalePunk, receivedMessage.Message.EquippedItem.Id);
 		}
 		
 	}

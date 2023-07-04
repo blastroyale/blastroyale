@@ -8,10 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_LootBoxUnCommonGlow
-  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
-  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,6 +21,7 @@ Material:
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -103,6 +106,7 @@ Material:
     - Vector1_DFFAD0D3: 0.4
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -122,6 +126,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SampleGI: 0
     - _Shininess: 0
     - _Smoothness: 0.6
     - _SmoothnessSource: 0
@@ -138,7 +143,7 @@ Material:
     - Color_DEABE623: {r: 1, g: 1, b: 1, a: 1}
     - Color_F2EE02DC: {r: 0.34509805, g: 3.4352942, b: 0.34509805, a: 1}
     - _BaseColor: {r: 0.18879786, g: 0.8113208, b: 0.2956564, a: 1}
-    - _Color: {r: 0.18879783, g: 0.8113207, b: 0.29565638, a: 1}
+    - _Color: {r: 0.18879786, g: 0.8113208, b: 0.2956564, a: 1}
     - _EmissionColor: {r: 1.331852, g: 76.81773, b: 0.38805252, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
@@ -154,4 +159,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7

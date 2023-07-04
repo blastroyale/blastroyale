@@ -17,12 +17,6 @@ namespace FirstLight.Game.Services.Party
 		private const int MaxMembers = 3;
 		private const string JoinCodeAllowedCharacters = "23456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-		private static readonly Dictionary<char, char> CharCodeReplaces = new()
-		{
-			{'1', 'I'},
-			{'0', 'O'}
-		};
-		
 		private static readonly List<string> _memberRemovedReasons = new()
 		{
 			"MemberRemoved",

@@ -6,7 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// Has all necessary data and methods to work with Special
 	/// </summary>
-	public partial struct Special
+	public unsafe partial struct Special
 	{
 		public bool IsAimable => MaxRange > FP._0;
 		public bool IsValid => SpecialId != GameId.Random;
@@ -54,33 +54,33 @@ namespace Quantum
 
 			AvailableTime = f.Time + Cooldown;
 			
-			f.Signals.SpecialUsed(playerEntity, this, specialIndex);
+			f.Signals.SpecialUsed(playerEntity, specialIndex);
 			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
-
+			
 			return true;
 		}
 		
 		private bool TryUse(Frame f, EntityRef entity, PlayerRef playerRef, FPVector2 aimInput)
 		{
 			switch (SpecialType)
-			{
-				case SpecialType.Airstrike:
-					return SpecialAirstrike.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.ShieldSelfStatus:
-					return SpecialSelfStatusModifier.Use(f, entity, this);
-				case SpecialType.StunGrenade:
-					return SpecialStunGrenade.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.HazardAimSpawn:
-					return SpecialHazardAimSpawn.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.ShieldedCharge:
-					return SpecialShieldedCharge.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.Grenade:
-					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
-				case SpecialType.Radar:
-					return SpecialRadar.Use(f, entity, playerRef, this);
-				default:
-					return false;
-			}
+				{
+					case SpecialType.Airstrike:
+						return SpecialAirstrike.Use(f, entity, ref this, aimInput, MaxRange);
+					case SpecialType.ShieldSelfStatus:
+						return SpecialSelfStatusModifier.Use(f, entity, ref this );
+					case SpecialType.StunGrenade:
+						return SpecialStunGrenade.Use(f, entity, ref this , aimInput, MaxRange);
+					case SpecialType.HazardAimSpawn:
+						return SpecialHazardAimSpawn.Use(f, entity, ref this, aimInput, MaxRange);
+					case SpecialType.ShieldedCharge:
+						return SpecialShieldedCharge.Use(f, entity, ref this, aimInput, MaxRange);
+					case SpecialType.Grenade:
+						return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
+					case SpecialType.Radar:
+						return SpecialRadar.Use(f, entity, playerRef, ref this);
+					default:
+						return false;
+				}
 		}
 	}
 }

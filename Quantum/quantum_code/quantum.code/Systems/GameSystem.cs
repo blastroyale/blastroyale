@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
+using Quantum.Systems.Bots;
 
 namespace Quantum.Systems
 {
@@ -34,6 +35,7 @@ namespace Quantum.Systems
 			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
 				case GameCompletionStrategy.Never:
+					component->TargetProgress = uint.MaxValue;
 					break;
 				case GameCompletionStrategy.EveryoneDead:
 					// Set after AllPlayersJoined
@@ -44,7 +46,6 @@ namespace Quantum.Systems
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-
 			SetupWeaponPool(f, component);
 		}
 

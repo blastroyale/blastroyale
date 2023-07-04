@@ -13,27 +13,20 @@ namespace Quantum
 		public FP DecisionInterval;
 		public FP LookForTargetsToShootAtInterval;
 		public FP VisionRangeSqr;
-		public FP LowArmourSensitivity;
-		public FP LowHealthSensitivity;
-		public FP LowAmmoSensitivity;
-		public FP ChanceToSeekWeapons;
-		public FP ChanceToSeekEnemies;
-		public FP ChanceToSeekReplenishSpecials;
-		public FP ChanceToSeekRage;
-		public FP ChanceToAbandonTarget;
-		public FP CloseFightIntolerance;
-		public FP WanderRadius;
 		public uint AccuracySpreadAngle;
 		public FP ChanceToUseSpecial;
 		public FP SpecialAimingDeviation;
-		public FP ShrinkingCircleRiskTolerance;
-		public FP ChanceToSeekChests;
 		public uint LoadoutGearNumber;
+		public EquipmentRarity LoadoutRarity;
 		public FP MaxAimingRange;
 		public FP MovementSpeedMultiplier;
 		public FP MaxDistanceToTeammateSquared;
 		public FP DamageDoneMultiplier;
 		public FP DamageTakenMultiplier;
+		public FP MinSpecialCooldown;
+		public FP MaxSpecialCooldown;
+		public FP MinRunFromZoneTime;
+		public FP MaxRunFromZoneTime;
 	}
 	
 	/// <summary>

@@ -33,6 +33,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssName = UssBlock + "__name";
 
+		private const string UssLockedIcon = UssBlock + "__locked-icon";
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
@@ -46,6 +47,7 @@ namespace FirstLight.Game.UIElements
 		public GameId MenuGameId { get; private set; }
 		public int CollectionIndex { get; private set; }
 
+		private readonly VisualElement _backgroundImage;
 		private readonly VisualElement _image;
 		private readonly Label _name;
 
@@ -56,6 +58,8 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _notification;
 		
 		private const string UssSpriteCharacter = "sprite-home__character-{0}";
+		private const string UssSpriteGlider = "sprite-home__glider-{0}";
+		private const string UssSpriteBanner = "sprite-home__flag-{0}";
 		
 		/// <summary>
 		/// Triggered when the card is clicked
@@ -65,7 +69,7 @@ namespace FirstLight.Game.UIElements
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-
+			
 			var selectedBg = new VisualElement {name = "selected-bg"};
 			Add(selectedBg);
 			selectedBg.AddToClassList(UssSelected);
@@ -74,9 +78,9 @@ namespace FirstLight.Game.UIElements
 			Add(highlight);
 			highlight.AddToClassList(UssHighlight);
 
-			var background = new VisualElement {name = "background"};
-			Add(background);
-			background.AddToClassList(UssBackground);
+			_backgroundImage = new VisualElement {name = "background"};
+			Add(_backgroundImage);
+			_backgroundImage.AddToClassList(UssBackground);
 
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
@@ -84,7 +88,10 @@ namespace FirstLight.Game.UIElements
 			
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
-			_image.AddToClassList("sprite-home__Male01Avatar");
+			
+			_locked = new VisualElement {name = "locked-icon"};
+			Add(_locked);
+			_locked.AddToClassList((UssLockedIcon));
 
 			var badgeHolder = new VisualElement {name = "badge-holder"};
 			cardHolder.Add(badgeHolder);
@@ -124,11 +131,18 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		private void SetLocked(bool locked)
+		{
+			_locked.visible = !locked;
+			_image.style.opacity = locked ? 1f : 0.2f;
+			_backgroundImage.style.color = new Color(0.1f, 0.1f, 0.1f, 1f);
+		}
+
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, int index, bool equipped = false, bool highlighted = false, bool isNft = false,
-										 bool loaned = false, bool notification = false)
+		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool owned = false, bool equipped = false, 
+								bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
 			
@@ -140,14 +154,39 @@ namespace FirstLight.Game.UIElements
 			_notification.SetDisplay(notification);
 			_loanedBadge.SetDisplay(loaned);
 			_nftBadge.SetDisplay(isNft);
+			SetLocked(owned);
 			
 			MenuGameId = gameId;
 			CollectionIndex = index;
+			Category = category;
 			
 			_name.text = gameId.GetLocalization();
-
 			_image.RemoveSpriteClasses();
-			_image.AddToClassList(string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant()));
+
+			string item = "";
+
+			switch (Category)
+			{
+				case GameIdGroup.PlayerSkin:
+
+					item = string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+				
+				case GameIdGroup.Glider:
+
+					item = string.Format(UssSpriteGlider, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+
+				case GameIdGroup.DeathMarker:
+
+					item = string.Format(UssSpriteBanner, MenuGameId.ToString().ToLowerInvariant());
+					
+					break;
+			}
+			
+			_image.AddToClassList(item);
 		}
 		
 

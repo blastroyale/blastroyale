@@ -60,10 +60,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_mapImage.enabled = true;
 			_mapImage.rectTransform.localScale = Vector3.one / _dropSelectionSize;
 			SelectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
+			var selectionPattern = gameModeConfig.SpawnPattern;
 
 			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
 			_selectedPoint.gameObject.SetActive(SelectionEnabled);
-			_dropzoneLayout.gameObject.SetActive(SelectionEnabled);
+			_dropzoneLayout.gameObject.SetActive(selectionPattern);
 			
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
@@ -91,25 +92,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (!SelectionEnabled) return;
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
-
-		/// <summary>
-		/// Force-ly selects the water position on the map
-		/// </summary>
-		public void SelectWaterPosition()
-		{
-			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-
-			for (int y = 0; y < mapGridConfigs.GetSize().y; y++)
-			{
-				var pos = new Vector2Int(0, y);
-				if (IsValidPosition(pos, true))
-				{
-					SetGridPosition(pos, true);
-					return;
-				}
-			}
-		}
-
+		
 		private void SetGridPosition(Vector2Int pos, bool includeWater)
 		{
 			if (!IsValidPosition(pos, includeWater))
@@ -128,7 +111,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var dropPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) *
 				_dropSelectionSize;
 			_services.NetworkService.SetDropPosition(dropPosition);
-			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
+			_selectedDropAreaRoot.SetActive(false);
 		}
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)

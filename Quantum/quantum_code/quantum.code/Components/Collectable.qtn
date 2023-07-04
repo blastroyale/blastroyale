@@ -3,6 +3,9 @@ component Collectable
 	[HideInInspector] GameId GameId;
 	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
 	[HideInInspector] EntityRef Spawner;
+	[HideInInspector] FP PickupRadius;  
+	[HideInInspector] FPVector3 OriginPosition;
+	[HideInInspector] FP AllowedToPickupTime;
 }
 
 synced event OnStartedCollecting

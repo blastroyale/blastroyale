@@ -1,7 +1,7 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: b0d8a22ad3c4819458adb78a038f0e88
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -5252816984213320552
@@ -68,7 +68,10 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Char_Male01
-    second: {fileID: 2100000, guid: ead153470ca8afb4580dcebce1c36003, type: 2}
+    second:
+      fileID: 2100000
+      guid: ead153470ca8afb4580dcebce1c36003
+      type: 2
   materials:
     materialImportMode: 1
     materialName: 0
@@ -89,7 +92,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -124,7 +127,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: run
@@ -154,20 +158,23 @@ ModelImporter:
       - time: 0.57220304
         functionName: FootprintR
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter:
+          instanceID: 0
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.9972902
         functionName: FootprintL
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter:
+          instanceID: 0
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 90
     - serializedVersion: 16
       name: fire_gun
@@ -196,7 +203,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 110
     - serializedVersion: 16
       name: fire_hammer
@@ -225,7 +233,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 130
     - serializedVersion: 16
       name: summon
@@ -254,7 +263,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 170
     - serializedVersion: 16
       name: fire_grenade
@@ -283,7 +293,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 210
     - serializedVersion: 16
       name: melee
@@ -312,7 +323,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: get_hit
@@ -341,7 +353,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: stun_intro
@@ -370,7 +383,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: stun_loop
@@ -399,7 +413,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 349
     - serializedVersion: 16
       name: stun_outro
@@ -428,7 +443,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: death
@@ -457,7 +473,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: emote_dance
@@ -486,7 +503,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: aim_gun
@@ -515,7 +533,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 700
     - serializedVersion: 16
       name: aim_hammer
@@ -544,7 +563,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 800
     - serializedVersion: 16
       name: walk_fwd
@@ -573,7 +593,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 900
     - serializedVersion: 16
       name: walk_bck
@@ -602,7 +623,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 940
     - serializedVersion: 16
       name: dodge_left
@@ -631,7 +653,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 980
     - serializedVersion: 16
       name: dodge_right
@@ -660,7 +683,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 1000
     - serializedVersion: 16
       name: dodge_centre
@@ -689,7 +713,8 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource:
+        instanceID: 0
       additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
@@ -752,12 +777,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

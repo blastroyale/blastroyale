@@ -27,8 +27,9 @@ namespace Quantum.Commands
 			var config = f.WeaponConfigs.GetConfig(Weapon);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
 
-			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity,
-				Equipment.Create(f, config.Id, EquipmentRarity.Common, 1), EntityRef.None);
+			var equipment = Equipment.Create(f, config.Id, EquipmentRarity.Common, 1);
+			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, Position, FPQuaternion.Identity, Position,
+				ref equipment, EntityRef.None);
 		}
 	}
 }

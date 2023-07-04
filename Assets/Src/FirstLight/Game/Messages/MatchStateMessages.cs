@@ -1,7 +1,9 @@
+using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using Quantum;
 using FirstLight.SDK.Services;
 using Photon.Realtime;
+using UnityEngine;
 
 namespace FirstLight.Game.Messages
 {
@@ -32,12 +34,31 @@ namespace FirstLight.Game.Messages
 		public bool IsDisconnected;
 		public bool IsPlayerQuit;
 	}
+
+	public struct EntityViewLoaded : IMessage
+	{
+		public EntityView View;
+		public EntityBase Entity;
+	}
+
+	public struct LocalPlayerEntityVisibilityUpdate : IMessage
+	{
+		public EntityRef Entity;
+		public bool CanSee;
+	}
+	
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }
 	public struct StartedFinalPreloadMessage : IMessage { }
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+
+	public struct WinnerSetCameraMessage : IMessage
+	{
+		public Transform WinnerTrasform;
+	}
+	
 	public struct LeftBeforeMatchFinishedMessage : IMessage { }
 	public struct MatchCountdownStartedMessage : IMessage { }
 

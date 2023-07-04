@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -14,6 +12,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class PlayerCharacterMonoComponent : HealthEntityBase
 	{
 		[SerializeField, Required] private Transform _emojiAnchor;
+		[SerializeField] private GameObject _shadowBlob;
 
 		private PlayerCharacterViewMonoComponent _playerView;
 
@@ -29,6 +28,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnAwake()
 		{
+			_shadowBlob.SetActive(false);
+
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
 		}
@@ -39,24 +40,27 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 
 			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			_shadowBlob.SetActive(true);
 		}
 
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
+			if (HasRenderedView()) return;
+
 			var frame = game.Frames.Verified;
-			
+
 			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
 		}
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
 			var f = game?.Frames?.Verified;
-			
-			if(f == null || _playerView == null) return;
-			
+
+			if (f == null || _playerView == null) return;
+
 			var playerData = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef];
 			var marker = playerData.PlayerDeathMarker;
-			
+
 			SpawnDeathMarker(marker);
 		}
 
@@ -64,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var position = transform.position;
 			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
-			
+
 			obj.transform.position = position;
 		}
 
@@ -75,43 +79,40 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
-			var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
+			// Disabled VXF on player spawn
+			//var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
+			//var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
 
-			aliveVfx.transform.position = position;
+			//aliveVfx.transform.position = position;
 		}
 
 		private async void InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
-
-			GetPlayerEquipmentSet(frame, player, out var skin, out var weapon, out var gear);
-
-			var instance =
-				await Services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, OnLoaded);
+			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
+			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(loadout.Skin, true, true, OnLoaded);
 
 			if (this.IsDestroyed())
 			{
 				return;
 			}
-			
+
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
-
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
-			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear);
+			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
 
 			if (this.IsDestroyed())
 			{
 				return;
 			}
 
-			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
-			if (isSkydiving)
+			if (frame.Has<BotCharacter>(EntityView.EntityRef))
 			{
-				matchCharacterViewMonoComponent.HideAllEquipment();
+				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
+				bot.SetEntityView(quantumGame, _playerView.EntityView);
 			}
-			
+
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;
@@ -120,32 +121,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 		}
 
-		private void GetPlayerEquipmentSet(Frame f, PlayerRef player, out GameId skin,
-		                                   out Equipment weapon, out Equipment[] gear)
+		protected override string GetName(QuantumGame game)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(EntityView.EntityRef);
+			var pc = GetComponentData<PlayerCharacter>(game);
+			return (pc.RealPlayer ? "[Player]" : "[Bot]")
+				+ " - " + Extensions.GetPlayerName(GetFrame(game), EntityView.EntityRef, pc)
+				+ " - " + EntityView.EntityRef;
+		}
 
-			// Weapon
-			weapon = playerCharacter.CurrentWeapon;
-
-			// Gear
-			var gearList = new List<Equipment>();
-
-			for (int i = 0; i < playerCharacter.Gear.Length; i++)
-			{
-				var item = playerCharacter.Gear[i];
-				if (item.IsValid())
-				{
-					gearList.Add(item);
-				}
-			}
-
-			gear = gearList.ToArray();
-
-			// Skin
-			skin = f.TryGet<BotCharacter>(EntityView.EntityRef, out var botCharacter)
-				       ? botCharacter.Skin
-				       : f.GetPlayerData(player).Skin;
+		protected override string GetGroup(QuantumGame game)
+		{
+			return "Players";
 		}
 	}
 }

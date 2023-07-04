@@ -32,7 +32,7 @@ namespace Quantum.Systems
 
 				if (circle->Step < 0)
 				{
-					var config = f.ShrinkingCircleConfigs.QuantumConfigs[0];
+					var config = f.Context.MapShrinkingCircleConfigs[0];
 					SetShrinkingCircleData(f, circle, ref config);
 				}
 
@@ -50,11 +50,11 @@ namespace Quantum.Systems
 					var position = transform.Position;
 					var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
-					if (pair.Component->InCircle && isInside)
+					if (pair.Component->TakingCircleDamage && isInside)
 					{
 						RemoveShrinkingDamage(f, pair.Entity);
 					}
-					else if (!pair.Component->InCircle && !isInside)
+					else if (!pair.Component->TakingCircleDamage && !isInside)
 					{
 						AddShrinkingDamage(f, pair.Entity, position);
 					}
@@ -69,9 +69,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
-
-			if (circle->Step >= configs.Count)
+			if (circle->Step >= f.Context.MapShrinkingCircleConfigs.Count)
 			{
 				circle->ShrinkingStartTime = FP.MaxValue;
 				circle->ShrinkingDurationTime = FP.MaxValue;
@@ -84,7 +82,7 @@ namespace Quantum.Systems
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
-			var config = configs[circle->Step];
+			var config = f.Context.MapShrinkingCircleConfigs[circle->Step];
 			SetShrinkingCircleData(f, circle, ref config);
 		}
 
@@ -119,7 +117,7 @@ namespace Quantum.Systems
 			// Air drop
 			if (config.AirdropChance > 0 && f.RNG->Next() <= config.AirdropChance + circle->AirDropChance)
 			{
-				AirDrop.Create(f, config);
+				AirDrop.Create(f, ref config);
 			}
 			else
 			{
@@ -153,7 +151,7 @@ namespace Quantum.Systems
 				Victim = playerEntity
 			};
 			f.Add(newSpell, spell);
-			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = true;
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->TakingCircleDamage = true;
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)
@@ -162,7 +160,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(spellEntity);
 			}
-			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = false;
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->TakingCircleDamage = false;
 		}
 
 		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)

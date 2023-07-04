@@ -9,8 +9,7 @@ namespace BlastRoyaleNFTPlugin
 	/// </summary>
 	public class BlastRoyalePlugin : ServerPlugin
 	{
-		public NftSynchronizer NftSync = null!;
-	
+		
 		/// <summary>
 		/// Server override called whenever the plugin is loaded.
 		/// </summary>
@@ -19,22 +18,13 @@ namespace BlastRoyaleNFTPlugin
 			var baseUrl = ReadPluginConfig("API_URL");
 			var apiSecret = ReadPluginConfig("API_KEY");
 			var fullUrl = $"{baseUrl}/blast-royale-equipment";
-			context.Log.LogInformation($"Using blockchain URL at {fullUrl}");
-			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
+			context.Log?.LogInformation($"Using blockchain URL at {fullUrl}");
 			if (context.ServerConfig.NftSync)
 			{
-				context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnGetPlayerData);
+				context.DataSyncs?.RegisterSync(new NftSynchronizer(fullUrl, apiSecret, context));
 			}
-		}
-
-		/// <summary>
-		/// Event delegate to be called before server loading player's data.
-		/// </summary>
-		private void OnGetPlayerData(PlayerDataLoadEvent ev)
-		{
-			NftSync.SyncAllNfts(ev.PlayerId).Wait();
+			context.DataSyncs?.RegisterSync(new PlayfabInventorySync(context));
 		}
 	}
-
 }
 

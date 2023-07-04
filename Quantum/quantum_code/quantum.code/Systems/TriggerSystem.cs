@@ -50,7 +50,7 @@ namespace Quantum.Systems
 		private void SendTriggerActivated(Frame f, EntityRef target, TriggerData data)
 		{
 			f.Signals.TriggerActivated(target, data);
-			f.Events.OnTriggerActivated(target, data);
+			f.Events.OnTriggerActivated(target);
 		}
 
 		private int AlivePlayerCount(Frame f)

@@ -21,7 +21,7 @@ namespace Quantum
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
-			CurrentAmmo = 0;
+			CurrentAmmoPercent = 0;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -48,6 +48,41 @@ namespace Quantum
 			return Values[(int) stat];
 		}
 
+		public static FP GetStat(Frame f, EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return FP._0;
+			}
+
+			return stats[stat].StatValue;
+		}
+		
+		/// <summary>
+		/// Returns a range from 1.0 to 0.0 according to player health ratio
+		/// </summary>
+		public static FP HealthRatio(in EntityRef e, Frame f)
+		{
+			var health = Stats.GetStatData(f, e, StatType.Health);
+			return (health.StatValue / health.BaseValue) * FP._100;
+		}
+		
+		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return default;
+			}
+
+			return stats[stat];
+		}
+
+		public StatData this[StatType stat]
+		{
+			get => GetStatData(stat);
+		}
+	
+
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>
@@ -71,6 +106,10 @@ namespace Quantum
 			RefreshStats(f, weapon, gear, e);
 
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
+			if (CurrentAmmoPercent == 0)
+			{
+				CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;	
+			}
 		}
 
 		/// <summary>
@@ -98,10 +137,10 @@ namespace Quantum
 		/// </summary>
 		internal void AddModifier(Frame f, EntityRef entity, Modifier modifier)
 		{
-			ApplyModifierUpdate(modifier, false);
+			ApplyModifierUpdate(&modifier, false);
 			f.ResolveList(Modifiers).Add(modifier);
 
-			f.Events.OnStatModifierAdded(entity, modifier);
+			f.Events.OnStatModifierAdded(entity);
 		}
 
 		/// <summary>
@@ -112,61 +151,60 @@ namespace Quantum
 			var list = f.ResolveList(Modifiers);
 			var modifier = list[index];
 
-			ApplyModifierUpdate(modifier, true);
+			ApplyModifierUpdate(&modifier, true);
 
 			list.RemoveAt(index);
 
-			f.Events.OnStatModifierRemoved(entity, modifier);
+			f.Events.OnStatModifierRemoved(entity);
 		}
 
 		/// <summary>
-		/// adds an <paramref name="amount"/>  to your ammo pool
+		/// Returns the current amount of ammo in whole display numbers rather than a percentage
 		/// </summary>
-		internal void GainAmmoAmount(Frame f, EntityRef e, int amount)
+		public int GetCurrentAmmo()
 		{
-			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			SetCurrentAmmo(f, player, e, CurrentAmmo + amount);
+			return FPMath.CeilToInt(CurrentAmmoPercent * GetStatData(StatType.AmmoCapacity).StatValue.AsInt);
 		}
 
 		/// <summary>
-		/// Adds ammo to your pool where <paramref name="amount"/> is a % of your total ammo
+		/// Adds ammo to your pool where <paramref name="amount"/> is the % gain
 		/// </summary>
 		internal void GainAmmoPercent(Frame f, EntityRef e, FP amount)
 		{
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			SetCurrentAmmo(f, player, e, CurrentAmmo + (amount * maxAmmo).AsInt);
+			SetCurrentAmmo(f, player, e, CurrentAmmoPercent + amount);
 		}
 
 		/// <summary>
-		/// Reduces the given ammo count by <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// Reduces the amount of ammo you have by <paramref name="numShots"/>
 		/// </summary>
-		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
+		internal void ReduceAmmo(Frame f, EntityRef e, int numShots)
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weapon = f.WeaponConfigs.GetConfig(player->CurrentWeapon.GameId);
 
-			// Do not do reduce for melee weapons or if your weapon does not consume ammo
-			if (weapon.MaxAmmo.Get(f) != -1)
+			// Do not do reduce if your weapon does not consume ammo
+			if (weapon.MaxAmmo != -1)
 			{
-				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
+				SetCurrentAmmo(f, player, e, (GetCurrentAmmo() - numShots) / GetStatData(StatType.AmmoCapacity).StatValue);
 			}
 		}
 
 		/// <summary>
-		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
+		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and 1
 		/// </summary>
-		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
 		{
-			var previousAmmo = CurrentAmmo;
+			var previousAmmo = CurrentAmmoPercent;
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
+			var currentMag = player->WeaponSlot->MagazineShotCount;
 
-			CurrentAmmo = FPMath.Clamp(value, 0, maxAmmo);
+			CurrentAmmoPercent = FPMath.Clamp(value, FP._0, FP._1);
 
-			if (CurrentAmmo != previousAmmo)
+			if (CurrentAmmoPercent != previousAmmo)
 			{
-				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, magSize);
+				f.Events.OnPlayerAmmoChanged(player->Player, e, GetCurrentAmmo(), maxAmmo, currentMag, magSize);
 			}
 		}
 
@@ -337,14 +375,14 @@ namespace Quantum
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-			ammoCapacity = f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) * (ammoCapacity / FP._100 + FP._1);
-			
+
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			
-			// Melee weapons ignore Attack Range bonuses, sticking to base weapon value
+			// Melee weapons ignore Attack Range & ammo capacity bonuses, sticking to base weapon value
 			attackRange = weaponConfig.IsMeleeWeapon ? weaponConfig.AttackRange : attackRange + weaponConfig.AttackRange;
-			
+			ammoCapacity = weaponConfig.IsMeleeWeapon ? weaponConfig.MaxAmmo : ammoCapacity + weaponConfig.MaxAmmo;
+
 			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
@@ -356,7 +394,7 @@ namespace Quantum
 
 			foreach (var modifier in modifiers)
 			{
-				ApplyModifierUpdate(modifier, false);
+				ApplyModifierUpdate(&modifier, false);
 			}
 			
 			return might;
@@ -393,26 +431,26 @@ namespace Quantum
 			}
 		}
 
-		private void ApplyModifierUpdate(Modifier modifier, bool toRemove)
+		private void ApplyModifierUpdate(Modifier* modifier, bool toRemove)
 		{
-			var statData = Values[(int) modifier.Type];
-			var multiplier = modifier.IsNegative ? -1 : 1;
+			var statData = Values[(int) modifier->Type];
+			var multiplier = modifier->IsNegative ? -1 : 1;
 
-			var additiveValue = modifier.OpType switch
+			var additiveValue = modifier->OpType switch
 			{
-				OperationType.Add      => modifier.Power * multiplier,
-				OperationType.Multiply => statData.BaseValue * modifier.Power * multiplier,
-				_                      => statData.BaseValue * modifier.Power * multiplier
+				OperationType.Add      => modifier->Power * multiplier,
+				OperationType.Multiply => statData.BaseValue * modifier->Power * multiplier,
+				_                      => statData.BaseValue * modifier->Power * multiplier
 			};
 			
-			if (modifier.Type != StatType.Speed)
+			if (modifier->Type != StatType.Speed)
 			{
 				additiveValue = FPMath.CeilToInt(additiveValue);
 			}
 			
 			statData.StatValue += toRemove ? additiveValue * -FP._1 : additiveValue;
 
-			Values[(int) modifier.Type] = statData;
+			Values[(int) modifier->Type] = statData;
 
 		}
 	}

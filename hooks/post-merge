@@ -1,0 +1,6 @@
+#!/bin/sh
+msbuild \
+./Quantum/quantum_code/quantum_code.sln \
+-restore \
+-p:Configuration=Debug \
+-p:RestorePackagesConfig=true

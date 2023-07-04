@@ -14,7 +14,8 @@ namespace FirstLight.Game.Data
 		QA = 1 << 1,
 		Admin = 1 << 2,
 		Deleted = 1 << 3,
-		FLGOfficial = 1 << 4
+		FLGOfficial = 1 << 4,
+		DiscordMod = 1 << 5
 	}
 	
 	/// <summary>
@@ -26,11 +27,10 @@ namespace FirstLight.Game.Data
 		public PlayerFlags Flags;
 		public uint Level = 1;
 		public uint Xp = 0;
-		public uint Trophies = 1000;
+		public uint Trophies = 0;
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
 		public bool MigratedGuestData = false;
-		public GameId DeathMarker = GameId.Tombstone;
 		public readonly List<RewardData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer())
@@ -54,8 +54,7 @@ namespace FirstLight.Game.Data
 			hash = hash * 23 + Trophies.GetHashCode();
 			hash = hash * 23 + BPLevel.GetHashCode();
 			hash = hash * 23 + BPPoints.GetHashCode();
-			hash = hash * 23 + DeathMarker.GetHashCode();
-
+			
 			foreach (var e in UncollectedRewards)
 				hash = hash * 23 + (int)e.RewardId + e.Value.GetHashCode();
 			

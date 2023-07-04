@@ -1,4 +1,6 @@
 component DummyCharacter
 {
 	FP Health;
+	FP Shields;
+	Int32 PlayerReference;
 }

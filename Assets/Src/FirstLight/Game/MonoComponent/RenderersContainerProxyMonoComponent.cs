@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -74,9 +75,18 @@ namespace FirstLight.Game.MonoComponent
 		/// <inheritdoc />
 		public void SetRendererState(bool visible)
 		{
+			FLog.Verbose($"Setting {gameObject.name} visibility to {visible}");
 			foreach (var renderersContainer in _renderersContainers)
 			{
 				renderersContainer.SetRendererState(visible);
+			}
+		}
+
+		public void SetColor(Color color)
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.SetRendererColor(color);
 			}
 		}
 

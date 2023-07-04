@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2932217785213525423}
   - component: {fileID: 3818809833343755871}
-  - component: {fileID: 173992203549782001}
   - component: {fileID: -5153030661723911475}
+  - component: {fileID: 3469098408368501556}
   m_Layer: 0
   m_Name: PlayerSpawner
   m_TagString: Untagged
@@ -182,27 +182,6 @@ MonoBehaviour:
   View:
     Id:
       Value: 0
---- !u!114 &173992203549782001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2180985777303813592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88306539e307a864080fec661fef7f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    ActivationTime:
-      RawValue: 0
-    SpawnerType:
-      Value: 0
-    BehaviourType:
-      Value: 0
-    ForceStatic:
-      Value: 0
 --- !u!114 &-5153030661723911475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +212,25 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3469098408368501556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180985777303813592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88306539e307a864080fec661fef7f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    ActivationTime:
+      RawValue: 0
+    SpawnerType:
+      Value: 0
+    BehaviourType:
+      Value: 0
 --- !u!114 &-5335015958420445853
 MonoBehaviour:
   m_ObjectHideFlags: 0

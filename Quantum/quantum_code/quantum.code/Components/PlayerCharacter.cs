@@ -20,7 +20,7 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, 
+		                   uint trophies, GameId skin, GameId deathMarker, GameId glider, int teamId, Equipment[] startingEquipment, 
 						   Equipment loadoutWeapon, List<Modifier> modifiers = null, uint minimumHealth = 0)
 		{
 			var blackboard = new AIBlackboardComponent();
@@ -43,21 +43,25 @@ namespace Quantum
 
 			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
 			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
-
-			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+			
+			foreach (var item in startingEquipment)
 			{
-				foreach (var item in startingEquipment)
+				var slot = GetGearSlot(&item);
+				Gear[slot] = item;
+				if (slot == Constants.GEAR_INDEX_WEAPON)
 				{
-					Gear[GetGearSlot(item)] = item;
+					var weaponConfig = f.WeaponConfigs.GetConfig(item.GameId);
+					WeaponSlots.GetPointer(Constants.WEAPON_INDEX_PRIMARY)->MagazineShotCount = weaponConfig.MagazineSize;
+					WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon = item;
 				}
 			}
-
+			
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
 			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
-			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies, TeamId);
+			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, glider, trophies, TeamId);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);
@@ -88,6 +92,10 @@ namespace Quantum
 			// Replenish weapon slots
 			for (var i = Constants.WEAPON_INDEX_DEFAULT + 1; i < WeaponSlots.Length; i++)
 			{
+				if (WeaponSlots[i].Weapon.IsValid())
+				{
+					continue;
+				}
 				WeaponSlots[i] = default;
 			}
 			
@@ -108,9 +116,10 @@ namespace Quantum
 			}
 			else
 			{
-				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
-				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
-				var specials = GetSpecials(f, weaponConfig);
+				var slot = GetDefaultWeaponSlot();
+				var weaponConfig = SetSlotWeapon(f, e, slot);
+				var defaultSlot = WeaponSlots.GetPointer(slot);
+				var specials = GetSpecials(f, ref weaponConfig);
 				for (var i = 0; i < defaultSlot->Specials.Length; i++)
 				{
 					var id = specials[i];
@@ -118,14 +127,26 @@ namespace Quantum
 					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
 			}
-			
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			stats->ResetStats(f, CurrentWeapon, Gear, e);
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
+		}
+
+		private int GetDefaultWeaponSlot()
+		{
+			var slot = Constants.WEAPON_INDEX_DEFAULT;
+			for (var i = 0; i < Gear.Length; i++)
+			{
+				if (Gear[i].IsValid() && Gear[i].IsWeapon())
+				{
+					slot = Constants.WEAPON_INDEX_PRIMARY;
+					break;
+				}
+			}
+
+			return slot;
 		}
 
 		/// <summary>
@@ -148,9 +169,6 @@ namespace Quantum
 			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
-
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
-			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>
@@ -197,8 +215,10 @@ namespace Quantum
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker, fromRoofDamage);
 			f.Signals.PlayerDead(Player, e);
 
-			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
-			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+			if (f.Unsafe.TryGetPointer<HFSMAgent>(e, out var agent))
+			{
+				HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+			}
 
 			if (!f.Has<BotCharacter>(e))
 			{
@@ -251,12 +271,11 @@ namespace Quantum
 		/// <summary>
 		/// Adds a <paramref name="weapon"/> to the player's weapon slots
 		/// </summary>
-		internal void AddWeapon(Frame f, EntityRef e, Equipment weapon, bool primary)
+		internal void AddWeapon(Frame f, EntityRef e, ref Equipment weapon, bool primary)
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
@@ -273,21 +292,18 @@ namespace Quantum
 			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
-				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
+				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0, true, 1);
 			}
 
 			var targetSlot = WeaponSlots.GetPointer(slot);
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
 			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
-			targetSlot->AmmoCostPerShot = FPMath.Max(1, ((FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / weaponConfig.MaxAmmo.Get(f))).AsInt;
 			WeaponSlots[slot].Weapon = weapon;
-
-			stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - GetAmmoAmountFilled(f, e)));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
-			var specials = GetSpecials(f, weaponConfig);
+			var specials = GetSpecials(f, ref weaponConfig);
 			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
 			{
 				var id = specials[i];
@@ -311,7 +327,6 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -339,7 +354,7 @@ namespace Quantum
 		{
 			Assert.Check(!gear.IsWeapon(), gear);
 
-			var gearSlot = GetGearSlot(gear);
+			var gearSlot = GetGearSlot(&gear);
 			
 			Gear[gearSlot] = gear;
 			
@@ -348,21 +363,13 @@ namespace Quantum
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
-		/// <summary>
-		/// Requests the total amount of ammo the <paramref name="e"/> player has
-		/// </summary>
-		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
-		{
-			var stats = f.Unsafe.GetPointer<Stats>(e);
-			return stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue;
-		}
 
 		/// <summary>
 		/// Requests if entity <paramref name="e"/> has ammo left or not
 		/// </summary>
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
-			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo == 0
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmoPercent == 0
 				   && !HasMeleeWeapon(f, e)
 				   && (!includeMag || WeaponSlot->MagazineShotCount == 0);
 		}
@@ -374,17 +381,17 @@ namespace Quantum
 		{
 			var slot = WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var ammoCost = slot->AmmoCostPerShot;
 
 			// reduce magazine count if your weapon uses a magazine
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
 			{
 				slot->MagazineShotCount -= 1;
-				f.Events.OnPlayerMagazineChanged(Player, e, slot->MagazineSize);
+				f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
+					f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo, slot->MagazineShotCount, slot->MagazineSize);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{
-				stats->ReduceAmmo(f, e, ammoCost);
+				stats->ReduceAmmo(f, e, 1);
 			}
 		}
 
@@ -409,7 +416,7 @@ namespace Quantum
 		///
 		/// This does not check if this item is actually in the loadout.
 		/// </summary>
-		public bool HasDroppedLoadoutItem(Equipment equipment)
+		public bool HasDroppedLoadoutItem(Equipment* equipment)
 		{
 			var shift = GetGearSlot(equipment) + 1;
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
@@ -429,16 +436,16 @@ namespace Quantum
 		/// <summary>
 		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
 		/// </summary>
-		public static int GetGearSlot(Equipment equipment)
+		public static int GetGearSlot(Equipment* equipment)
 		{
-			return equipment.GetEquipmentGroup() switch
+			return equipment->GetEquipmentGroup() switch
 			{
 				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
 				GameIdGroup.Shield => Constants.GEAR_INDEX_SHIELD,
-				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment.GameId})")
+				_ => throw new NotSupportedException($"Could not find Gear index for GameId({equipment->GameId})")
 			};
 		}
 
@@ -462,12 +469,12 @@ namespace Quantum
 		/// Gets specific metadata around a specific loadout item.
 		/// Can return null if the equipment is not part of the loadout.
 		/// </summary>
-		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment e)
+		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment* e)
 		{
 			var loadout = GetLoadout(f);
 			for (var i = 0; i < loadout.Length; i++)
 			{
-				if (loadout[i].GameId == e.GameId) // only compare game id for speed
+				if (loadout[i].GameId == e->GameId) // only compare game id for speed
 				{
 					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
 				}
@@ -509,7 +516,7 @@ namespace Quantum
 		///
 		/// This does not check if this item is actually in the loadout.
 		/// </summary>
-		internal void SetDroppedLoadoutItem(Equipment equipment)
+		internal void SetDroppedLoadoutItem(Equipment* equipment)
 		{
 			var shift = GetGearSlot(equipment) + 1;
 			DroppedLoadoutFlags |= 1 << shift;
@@ -520,12 +527,12 @@ namespace Quantum
 		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
 		/// GameId and Rarity (rarity of equipped item has to be higher).
 		/// </summary>
-		internal bool HasBetterWeaponEquipped(Equipment equipment)
+		internal bool HasBetterWeaponEquipped(Equipment* equipment)
 		{
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
 				var weapon = WeaponSlots[i].Weapon;
-				if (weapon.GameId == equipment.GameId && weapon.Rarity >= equipment.Rarity)
+				if (weapon.GameId == equipment->GameId && weapon.Rarity >= equipment->Rarity)
 				{
 					return true;
 				}
@@ -572,13 +579,18 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+
+			var stats = f.Unsafe.GetPointer<Stats>(e); 
+			stats->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+			f.Events.OnPlayerAmmoChanged(Player, e, stats->GetCurrentAmmo(),
+				weaponConfig.MaxAmmo, WeaponSlot->MagazineShotCount, WeaponSlot->MagazineSize);
 
 			return weaponConfig;
 		}
 
-		private GameId[] GetSpecials(Frame f, QuantumWeaponConfig weaponConfig)
+		private GameId[] GetSpecials(Frame f, ref QuantumWeaponConfig weaponConfig)
 		{
 			var specials = weaponConfig.Specials.ToArray();
 			
@@ -590,7 +602,6 @@ namespace Quantum
 					specials[1] = GameId.TutorialGrenade;
 				}
 			}
-
 			return specials;
 		}
 	}

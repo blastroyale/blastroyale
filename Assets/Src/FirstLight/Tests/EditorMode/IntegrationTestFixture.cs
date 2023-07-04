@@ -62,12 +62,10 @@ namespace FirstLight.Tests.EditorMode
 			TestUI = new GameUiService(new UiAssetLoader());
 			TestNetwork = new GameNetworkService(TestConfigs);
 			TestTutorial = new TutorialService(TestUI);
-			TestNetwork.BindServicesAndData(TestLogic, TestServices);
 			TestNetwork.EnableClientUpdate(true);
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
-			var playerInputService = new PlayerInputService();
 			
 			TestVfx = new VfxService<VfxId>();
 
@@ -76,8 +74,8 @@ namespace FirstLight.Tests.EditorMode
 			                          audioFxService);
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, playerInputService, TestUI);
-			
+			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, TestUI);
+			TestNetwork.BindServicesAndData(TestLogic, TestServices);
 			TestLogic.Init();
 
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,

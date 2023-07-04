@@ -22,6 +22,8 @@ namespace FirstLight.Game.Configs
 	[CreateAssetMenu(fileName = "QuantumRunner Configs", menuName = "ScriptableObjects/QuantumRunner Configs")]
 	public class QuantumRunnerConfigs : ScriptableObject
 	{
+		public static int FixedSeed = 0;
+		
 		[SerializeField] private RuntimeConfig _runtimeConfig;
 		[SerializeField] private DeterministicSessionConfigAsset _deterministicConfigAsset;
 		[SerializeField] private PhotonServerSettings _serverSettings;
@@ -46,15 +48,16 @@ namespace FirstLight.Game.Configs
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
 		public void SetRuntimeConfig(QuantumGameModeConfig gameModeConfig, QuantumMapConfig config,
-									 List<string> mutators)
+									 List<string> mutators, int botOverwriteDifficulty)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
+			_runtimeConfig.Seed = FixedSeed != 0 ? FixedSeed : Random.Range(0, int.MaxValue);
 
-			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 			_runtimeConfig.MapId = (int) config.Map;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.GameModeId = gameModeConfig.Id;
 			_runtimeConfig.Mutators = mutators.ToArray();
+			_runtimeConfig.BotOverwriteDifficulty = botOverwriteDifficulty;
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>
@@ -81,6 +84,8 @@ namespace FirstLight.Game.Configs
 				gameMode = DeterministicGameMode.Local;
 			}
 
+			var recordInput = FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
+
 			return new QuantumRunner.StartParameters
 			{
 				RuntimeConfig = _runtimeConfig,
@@ -90,7 +95,7 @@ namespace FirstLight.Game.Configs
 				RunnerId = "DEFAULT",
 				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive,
 				LocalPlayerCount = 1,
-				RecordingFlags = RecordingFlags.None,
+				RecordingFlags = recordInput ? RecordingFlags.Input : RecordingFlags.None,
 				ResourceManagerOverride = null,
 				InstantReplayConfig = default,
 				HeapExtraCount = 0,

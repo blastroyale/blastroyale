@@ -21,9 +21,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, HandleGameEnded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
+			_shrinkingCircleLinerRenderer.gameObject.SetActive(false);
+			_safeAreaCircleLinerRenderer.gameObject.SetActive(false);
+			_damageZoneTransform.gameObject.SetActive(false);
 		}
 
 		private void HandleGameEnded(EventOnGameEnded callback)
@@ -39,6 +41,10 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			
+			_shrinkingCircleLinerRenderer.gameObject.SetActive(true);
+			_safeAreaCircleLinerRenderer.gameObject.SetActive(true);
+			_damageZoneTransform.gameObject.SetActive(true);
+			
 			var targetCircleCenter = circle.TargetCircleCenter.ToUnityVector2();
 			var targetRadius = circle.TargetRadius.AsFloat;
 			
@@ -53,7 +59,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (_config.Step != circle.Step)
 			{
-				_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
+				_config = frame.Context.MapShrinkingCircleConfigs[circle.Step];
 			}
 			
 			cachedShrinkingCircleLineTransform.position = position;
@@ -65,6 +71,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			if (frame.Time < circle.ShrinkingStartTime - _config.WarningTime)
 			{
+				// We set white circle to be as big as red one at the first step to avoid it sitting small in the center of the map
+				// It's because the safe zone position/scale is not revealed for a few seconds at the beginning of a match
+				if (circle.Step == 1)
+				{
+					cachedSafeAreaCircleLine.localScale = new Vector3(radius, radius, 1f);
+					_safeAreaCircleLinerRenderer.WidthMultiplier = 0f;
+				}
+				
 				return;
 			}
 			

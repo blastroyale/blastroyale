@@ -123,7 +123,6 @@ namespace FirstLight.Game.Logic
 					TotalCollectedXp = totalXp,
 					MaxLevel = maxLevel,
 					Config = config,
-					DeathMarker = Data.DeathMarker,
 					TotalTrophies = _trophies.Value,
 					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
 				};

@@ -3,9 +3,9 @@ namespace Quantum
 	/// <summary>
 	/// This class handles behaviour for the <see cref="SpecialRadar"/>
 	/// </summary>
-	public static class SpecialRadar
+	public static unsafe class SpecialRadar
 	{
-		public static bool Use(Frame f, EntityRef e, PlayerRef player, Special special)
+		public static bool Use(Frame f, EntityRef e, PlayerRef player, ref Special special)
 		{
 			if (!f.Exists(e) || f.Has<DeadPlayerCharacter>(e))
 			{

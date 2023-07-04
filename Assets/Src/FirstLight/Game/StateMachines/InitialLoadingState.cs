@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -187,18 +188,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoadVfx()
 		{
-			for (var i = 0; i < (int) VfxId.TOTAL; i++)
+			foreach (var vfx in Enum.GetValues(typeof(VfxId)).Cast<VfxId>())
 			{
-				_assetService.RequestAsset<VfxId, GameObject>((VfxId) i, true, false, VfxLoaded);
+				_assetService.RequestAsset<VfxId, GameObject>(vfx, true, false, VfxLoaded);
 			}
 
 			void VfxLoaded(VfxId id, GameObject vfxAsset, bool instantiate)
 			{
-				if (vfxAsset.name == "LocationPointerVFX")
-				{
-					Debug.LogError("LOADED");
-				}
-				_vfxService.AddPool(vfxAsset.GetComponent<Vfx<VfxId>>());
+				var reference = vfxAsset.GetComponent<Vfx<VfxId>>();
+				if (reference == null) return;
+				_vfxService.AddPool(reference);
 			}
 		}
 

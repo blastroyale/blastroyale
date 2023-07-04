@@ -154,11 +154,19 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7615750333956288689}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.35, y: 0.75, z: 0.35}
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.786448, y: 1.5045778, z: 0.77845716}
+  m_Center: {x: -0.0036246777, y: 0.73887724, z: -0.0018154979}
 --- !u!1 &9100407106362044460
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +203,7 @@ Transform:
   - {fileID: 6195588820050874286}
   - {fileID: 8808694194117572932}
   - {fileID: 5133050652012814332}
+  - {fileID: 8884971393132718743}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,11 +271,11 @@ MonoBehaviour:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 26214
+          RawValue: 19660
         Y:
           RawValue: 49152
         Z:
-          RawValue: 26214
+          RawValue: 19660
       RotationOffset:
         X:
           RawValue: 0
@@ -391,10 +400,10 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 1135129281261946644
+        Value: 4254173332751555565
     BlackboardRef:
       Id:
-        Value: 648001274895591165
+        Value: 2204164627415752385
     KccConfigRef:
       Id:
         Value: 2480520579551617486
@@ -407,6 +416,7 @@ MonoBehaviour:
         RawValue: 25362
     Player:
       _index: 0
+    TeamId: 0
     CurrentWeaponSlot: 0
     WeaponSlots:
     - Weapon:
@@ -424,8 +434,6 @@ MonoBehaviour:
           Value: 0
         Material:
           Value: 0
-        Manufacturer:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
@@ -483,7 +491,6 @@ MonoBehaviour:
       MagazineSize: 0
       ReloadTime:
         RawValue: 0
-      AmmoCostPerShot: 0
     - Weapon:
         GameId:
           Value: 0
@@ -499,8 +506,6 @@ MonoBehaviour:
           Value: 0
         Material:
           Value: 0
-        Manufacturer:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
@@ -558,7 +563,6 @@ MonoBehaviour:
       MagazineSize: 0
       ReloadTime:
         RawValue: 0
-      AmmoCostPerShot: 0
     - Weapon:
         GameId:
           Value: 0
@@ -574,8 +578,6 @@ MonoBehaviour:
           Value: 0
         Material:
           Value: 0
-        Manufacturer:
-          Value: 0
         MaxDurability: 0
         InitialReplicationCounter: 0
         Tuning: 0
@@ -633,7 +635,6 @@ MonoBehaviour:
       MagazineSize: 0
       ReloadTime:
         RawValue: 0
-      AmmoCostPerShot: 0
     Gear:
     - GameId:
         Value: 0
@@ -649,7 +650,27 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
+      MaxDurability: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
         Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
@@ -673,8 +694,6 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
-        Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
       Tuning: 0
@@ -697,8 +716,6 @@ MonoBehaviour:
         Value: 0
       Material:
         Value: 0
-      Manufacturer:
-        Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
       Tuning: 0
@@ -720,32 +737,6 @@ MonoBehaviour:
       Adjective:
         Value: 0
       Material:
-        Value: 0
-      Manufacturer:
-        Value: 0
-      MaxDurability: 0
-      InitialReplicationCounter: 0
-      Tuning: 0
-      Level: 0
-      Generation: 0
-      ReplicationCounter: 0
-      TotalRestoredDurability: 0
-      LastRepairTimestamp: 0
-    - GameId:
-        Value: 0
-      Edition:
-        Value: 0
-      Rarity:
-        Value: 0
-      Grade:
-        Value: 0
-      Faction:
-        Value: 0
-      Adjective:
-        Value: 0
-      Material:
-        Value: 0
-      Manufacturer:
         Value: 0
       MaxDurability: 0
       InitialReplicationCounter: 0
@@ -756,6 +747,9 @@ MonoBehaviour:
       TotalRestoredDurability: 0
       LastRepairTimestamp: 0
     DroppedLoadoutFlags: 0
+    CurrentEnergy: 0
+    RealPlayer:
+      Value: 0
 --- !u!114 &8755646374635016916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,6 +765,7 @@ MonoBehaviour:
   EntityView: {fileID: 9100407106362044459}
   _healthBarAnchor: {fileID: 6195588820050874286}
   _emojiAnchor: {fileID: 8808694194117572932}
+  _shadowBlob: {fileID: 8884971393132718742}
 --- !u!114 &672166898487096628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,6 +782,97 @@ MonoBehaviour:
     _selection: PlayerCharacter
   _elements:
   - {fileID: 9100407106362044460}
+--- !u!1001 &2810552878819034193
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9100407106362044455}
+    m_Modifications:
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924514108190407, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_Name
+      value: ShadowIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924515104287630, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a49be92fdecf54e4ebae741388eb08a5, type: 3}
+    - target: {fileID: 6650924515104287630, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_Color.a
+      value: 0.44705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924515104287631, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.50503
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924515104287631, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.50503
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650924515104287631, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50503
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+--- !u!1 &8884971393132718742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6650924514108190407, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+  m_PrefabInstance: {fileID: 2810552878819034193}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8884971393132718743 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6650924514108190406, guid: 78a738c4908cf3445a727ff241a55d5b, type: 3}
+  m_PrefabInstance: {fileID: 2810552878819034193}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &-6204203526727587837
 MonoBehaviour:
   m_ObjectHideFlags: 0

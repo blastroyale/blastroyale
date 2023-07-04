@@ -5,6 +5,12 @@ struct EquipmentSimulationMetadata {
     bool IsNft;
 }
 
+struct EquipmentMinified {
+    GameId Id;
+    EquipmentRarity Rarity;
+    uint Level;
+}
+
 struct Equipment
 {
 	GameId GameId;

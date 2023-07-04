@@ -123,34 +123,10 @@ namespace FirstLight.Game.Services.Party
 			return FromData(m.MemberEntity.Id, m.MemberData, m.MemberEntity.Id == l.Owner.Id);
 		}
 
-		private String GenerateCode()
-		{
-			var code = new StringBuilder();
-			for (int i = 0; i < CodeDigits; i++)
-			{
-				int rndIndex = Random.Range(0, JoinCodeAllowedCharacters.Length);
-				code.Append(JoinCodeAllowedCharacters[rndIndex]);
-			}
-
-			return code.ToString();
-		}
-
 		private string MembersAsString()
 		{
 			if (Members == null || Members.Count == 0) return "";
 			return string.Join(",", Members.ReadOnlyList.Select(m => m.PlayfabID));
-		}
-
-
-		private String NormalizeCode(string code)
-		{
-			string temp = code.ToUpper();
-			foreach (var (from, to) in CharCodeReplaces)
-			{
-				temp = temp.Replace(from, to);
-			}
-
-			return temp;
 		}
 
 

@@ -14,5 +14,16 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId, true, true, OnLoaded);
 		}
+
+		protected override string GetName(QuantumGame game)
+		{
+			var collectable = GetComponentData<Collectable>(game);
+			return $"{collectable.GameId} - {EntityView.EntityRef}";
+		}
+
+		protected override string GetGroup(QuantumGame game)
+		{
+			return "Chests";
+		}
 	}
 }

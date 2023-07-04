@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
-using Quantum.Commands;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-												ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
+		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
+		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
+		public static readonly FP AIM_DELAY = FP._0_33;
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
@@ -84,7 +86,6 @@ namespace Quantum.Systems
 				}
 			}
 
-
 			int partyIndex = Constants.TEAM_ID_START_PARTIES;
 			var teamByPlayer = new Dictionary<int, int>();
 			foreach (var kv in membersByTeam)
@@ -99,8 +100,7 @@ namespace Quantum.Systems
 
 			return teamByPlayer;
 		}
-
-
+		
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
@@ -110,18 +110,16 @@ namespace Quantum.Systems
 			}
 
 			var deathPosition = f.Get<Transform3D>(entity).Position;
-			var step = 0;
 			var gameModeConfig = f.Context.GameModeConfig;
+			var equipmentToDrop = new List<Equipment>();
+			var consumablesToDrop = new List<GameId>();
 
 			playerDead->Dead(f, entity, attacker, fromRoofDamage);
 
 			// Try to drop player weapon
-			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly ||
-				    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) &&
-			    !playerDead->HasMeleeWeapon(f, entity))
+			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly && !playerDead->HasMeleeWeapon(f, entity))
 			{
-				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
-				step++;
+				equipmentToDrop.Add(playerDead->CurrentWeapon);
 			}
 
 			var itemCount = 0;
@@ -141,25 +139,6 @@ namespace Quantum.Systems
 				}
 			}
 
-			//drop a chest based on how many items the player has collected
-			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box ||
-			    gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
-			{
-				//drop a box based on the number of items the player has collected
-				var dropBox = GameId.ChestCommon;
-
-				// Calculate offset position to drop a box so it tries not to cover the death marker
-				var dropOffset = FPVector2.Rotate(FPVector2.Left * Constants.DROP_OFFSET_RADIUS,
-					f.RNG->Next(0, FP.Rad_180 * 2)).XOY;
-				var dropPosition = deathPosition + dropOffset;
-
-				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS * FP._0_50,
-					out dropPosition);
-
-				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
-				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition, entity);
-			}
-
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
 				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
@@ -167,15 +146,17 @@ namespace Quantum.Systems
 				{
 					return;
 				}
-
-				var ammoFilled = FP.MaxValue;
+				
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
+				
+				// Because max ammo is deliberately practically unreachable, we use half of ammo to compare
+				var ammoFilled = stats->CurrentAmmoPercent * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0; i < (FPMath.RoundToInt(itemCount / 2) + 1); i++)
+				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)
 				{
-					var consumable = GameId.Health;
+					var consumable = GameId.AmmoSmall;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						consumable = GameId.Health;
@@ -193,30 +174,37 @@ namespace Quantum.Systems
 						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) /
 							stats->GetStatData(StatType.Shield).StatValue;
 					}
-
-					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
-					step++;
+					
+					consumablesToDrop.Add(consumable);
 				}
 
-				if(QuantumFeatureFlags.DropEnergyCubes)
+				if (QuantumFeatureFlags.DropEnergyCubes)
 				{
-					for (uint i = 0; i < playerDead->GetEnergyLevel(f) + 1; i++)
-					{
-						Collectable.DropConsumable(f, GameId.EnergyCubeLarge, deathPosition, step, false);
-						step++;
-					}
+					consumablesToDrop.Add(GameId.EnergyCubeLarge);
 				}
 				
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
 				{
-					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
-					step++;
+					equipmentToDrop.Add(playerDead->CurrentWeapon);
 				}
 			}
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
+				consumablesToDrop.Add(GameId.Health);
+			}
+
+			var anglesToDrop = equipmentToDrop.Count + consumablesToDrop.Count;
+			var step = 0;
+			foreach (var drop in equipmentToDrop)
+			{
+				Collectable.DropEquipment(f, drop, deathPosition, step, true, anglesToDrop);
+				step++;
+			}
+			foreach (var drop in consumablesToDrop)
+			{
+				Collectable.DropConsumable(f, drop, deathPosition, step, true, anglesToDrop);
+				step++;
 			}
 		}
 
@@ -224,6 +212,7 @@ namespace Quantum.Systems
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			playerCharacter->RealPlayer = true;
 			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
@@ -232,9 +221,14 @@ namespace Quantum.Systems
 
 			spawnTransform.Position = spawnPosition.XOY;
 
+			var equipment = Array.Empty<Equipment>();
+			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+			{
+				equipment = playerData.Loadout;
+			}
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, teamId,
-				playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
+				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Glider, teamId,
+				equipment, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
@@ -246,17 +240,25 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var input = f.GetPlayerInput(filter.Player->Player);
-
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			// Do nothing when Skydiving as it handled via animation
+			if (bb->GetBoolean(f, Constants.IsSkydiving))
+			{
+				return;
+			}
+			
+			var input = f.GetPlayerInput(filter.Player->Player);
 			var rotation = FPVector2.Zero;
 			var movedirection = FPVector2.Zero;
 			var prevRotation = bb->GetVector2(f, Constants.AimDirectionKey);
-
+			
 			var direction = input->Direction;
 			var aim = input->AimingDirection;
 			var shooting = input->IsShooting;
-
+			var lastShotAt = bb->GetFP(f, Constants.LastShotAt);
+			var weaponConfig = f.WeaponConfigs.GetConfig(filter.Player->CurrentWeapon.GameId);
+			var attackCooldown = f.Time < lastShotAt + (weaponConfig.IsMeleeWeapon ? FP._0_33 : FP._0_20);
+			
 			if (direction != FPVector2.Zero) 
 			{
 				movedirection = direction;
@@ -268,16 +270,61 @@ namespace Quantum.Systems
 			if (aim.SqrMagnitude > FP._0)
 			{
 				rotation = aim;
+			} else if (attackCooldown)
+			{
+				rotation = prevRotation;
 			}
+			
 			//this way you save your previous attack angle when flicking and only return your movement angle when your shot is finished
 			if (rotation == FPVector2.Zero && bb->GetBoolean(f, Constants.IsShootingKey)) 
 			{
 				rotation = prevRotation;
 			}
 
+			var moveSpeed = input->MovementMagnitude;
+			if (moveSpeed >= MOVE_SPEED_UP_CAP) moveSpeed = 1;
+
+			var wasShooting = bb->GetBoolean(f, Constants.IsAimPressedKey);
+			
 			bb->Set(f, Constants.IsAimPressedKey, shooting);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
+			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
+			
+			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
+			{
+				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : AIM_DELAY));
+			}
+			
+			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			if (aimDirection.SqrMagnitude > FP._0)
+			{
+				QuantumHelpers.LookAt2d(f, filter.Entity, aimDirection, f.GameConfig.HardAngleAim ? FP._0 : TURN_RATE );
+			}
+			
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
+			var maxSpeed = f.GameConfig.PlayerDefaultSpeed.Get(f);
+			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
+			var velocity = kcc->Velocity;
+
+			if (moveSpeed != FP._1)
+			{
+				maxSpeed *= moveSpeed;
+				velocity.X *= moveSpeed;
+				velocity.Z *= moveSpeed;
+			}
+
+			if(shooting)
+			{
+				maxSpeed *= weaponConfig.AimingMovementSpeed;
+			}
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			kcc->MaxSpeed = speedUpMutatorExists?maxSpeed * speedUpMutatorConfig.Param1:maxSpeed;
+
+			kcc->Velocity = velocity;
+			
+			kcc->Move(f, filter.Entity, moveDirection);
 		}
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)

@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -37,7 +39,6 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField] private int _planeFlyDurationMs = 4500;
 
-		private ImageButton _closeButton;
 		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
@@ -52,8 +53,7 @@ namespace FirstLight.Game.Presenters
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
-		private Label _headerTitleLabel;
-		private Label _headerSubtitleLabel;
+		private ScreenHeaderElement _header;
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
@@ -84,7 +84,6 @@ namespace FirstLight.Game.Presenters
 		{
 			base.QueryElements(root);
 
-			_closeButton = root.Q<ImageButton>("CloseButton").Required();
 			_dropzone = root.Q("DropZone").Required();
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
@@ -95,8 +94,7 @@ namespace FirstLight.Game.Presenters
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
-			_headerTitleLabel = root.Q<Label>("title").Required();
-			_headerSubtitleLabel = root.Q<Label>("subtitle").Required();
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
@@ -109,7 +107,7 @@ namespace FirstLight.Game.Presenters
 			_squadMembersList.makeItem = CreateSquadListEntry;
 			_squadMembersList.bindItem = BindSquadListEntry;
 
-			_closeButton.clicked += OnCloseClicked;
+			_header.homeClicked += OnCloseClicked;
 		}
 
 		protected override void SubscribeToEvents()
@@ -163,7 +161,7 @@ namespace FirstLight.Game.Presenters
 				if (squadMember.IsLocal) continue;
 
 				var memberDropPosition = squadMember.GetDropPosition();
-				var marker = new VisualElement {name = "marker"};
+				var marker = new VisualElement { name = "marker" };
 				marker.AddToClassList("map-marker-party");
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
@@ -176,8 +174,8 @@ namespace FirstLight.Game.Presenters
 		private void BindSquadListEntry(VisualElement element, int index)
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
-			
-			((Label) element).text = _squadMembers[index].NickName;
+
+			((Label)element).text = _squadMembers[index].NickName;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -204,15 +202,24 @@ namespace FirstLight.Game.Presenters
 			SelectMapPosition(evt.localPosition, true, true);
 		}
 
+		public void SelectDropZone(float x, float y)
+		{
+			var mapWidth = _mapImage.contentRect.width;
+
+			SelectMapPosition(new Vector2(x * mapWidth, y * mapWidth), true, false);
+		}
+
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
+			if (_mapImage == null) return;
+			
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
 			if (checkClickWithinRadius)
 			{
 				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
 			}
-			
+
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
@@ -231,29 +238,12 @@ namespace FirstLight.Game.Presenters
 			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
 			_services.NetworkService.SetDropPosition(quantumSelectPos);
 
-			// Get normalized position for the whole map, 0-1 range, used for grid configs
-			var mapNormX = Mathf.InverseLerp(-mapWidthHalf, mapWidthHalf, localPos.x);
-			var mapNormY = Mathf.InverseLerp(-mapHeightHalf, mapHeightHalf, localPos.y);
-			var mapSelectNorm = new Vector2(mapNormX, mapNormY);
-
-			// Set map grid config related data
-			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * mapSelectNorm.x);
-			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * mapSelectNorm.y);
-			var selectedGrid = mapGridConfigs.GetConfig(gridX, gridY);
-
-			if (selectedGrid.IsValidNamedArea)
-			{
-				_mapMarkerTitle.SetDisplay(true);
-				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointLocalization().ToUpper();
-			}
-			else
-			{
-				_mapMarkerTitle.SetDisplay(false);
-			}
+			_mapMarkerTitle.SetDisplay(false);
 		}
 
 		private bool IsWithinMapRadius(Vector3 dropPos)
 		{
+			
 			var mapRadius = _mapImage.contentRect.width / 2;
 			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
 				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
@@ -280,13 +270,11 @@ namespace FirstLight.Game.Presenters
 			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_headerTitleLabel.text = gameMode.GetTranslationGameIdString()?.ToUpper();
-			_headerSubtitleLabel.text = matchType.GetLocalization().ToUpper();
+			_header.SetTitle(gameMode.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
-
-			_closeButton.SetDisplay(!_services.TutorialService.IsTutorialRunning);
+			_header.SetHomeVisible(!_services.TutorialService.IsTutorialRunning);
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
@@ -296,7 +284,7 @@ namespace FirstLight.Game.Presenters
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				if(_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
+				if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
 				{
 					var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 					_mapImage.style.backgroundImage = new StyleBackground(sprite);
@@ -305,9 +293,10 @@ namespace FirstLight.Game.Presenters
 				{
 					FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
 				}
+
 				return;
 			}
-			
+
 			_dropSelectionAllowed = !RejoiningRoom;
 
 			if (RejoiningRoom)
@@ -322,12 +311,15 @@ namespace FirstLight.Game.Presenters
 			}
 
 			InitSkydiveSpawnMapData();
+
+			var image = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false, true);
+			_mapImage.style.backgroundImage = new StyleBackground(image);
 		}
 
 		private void InitSkydiveSpawnMapData()
 		{
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			
+
 			// Init DZ position/rotation
 			var mapWidth = _mapHolder.contentRect.width;
 			var mapHeight = _mapHolder.contentRect.height;
@@ -372,7 +364,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
 
-			_closeButton.SetDisplay(false);
+			_header.SetHomeVisible(false);
 
 			if (RejoiningRoom)
 			{
@@ -382,7 +374,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			}
-		
+
 			_dropSelectionAllowed = false;
 		}
 
@@ -401,10 +393,11 @@ namespace FirstLight.Game.Presenters
 				_debugMasterClient.SetDisplay(false);
 				return;
 			}
+
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
 		}
 
-		
+
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
@@ -418,7 +411,7 @@ namespace FirstLight.Game.Presenters
 					? ScriptLocalization.UITMatchmaking.loading_status_waiting_timer
 					: ScriptLocalization.UITMatchmaking.loading_status_timer;
 				_loadStatusLabel.text = string.Format(translation, timeLeft.TotalSeconds.ToString("F0"));
-				
+
 				yield return new WaitForSeconds(.2f);
 			}
 

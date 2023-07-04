@@ -5,6 +5,7 @@ using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
+using FirstLight.Game.Services;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,7 +16,9 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
 using FirstLightServerSDK.Services;
+using GameLogicService.Game;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
@@ -54,11 +57,12 @@ namespace Backend
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
-
+			services.AddSingleton<IDataSynchronizer, PlayerDataSynchronizer>();
 			services.AddSingleton<IStatisticsService, PlayfabStatisticsService>();
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
+			services.AddSingleton<IEnvironmentService, ServerEnvironmentService>();
 
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();

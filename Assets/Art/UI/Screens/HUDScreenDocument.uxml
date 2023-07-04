@@ -1,0 +1,109 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent">
+            <FirstLight.Game.UIElements.HealthStatusBarElement name="HealthStatusBarElement" style="position: absolute; left: 1107px; top: 246px;" />
+            <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;">
+                <ui:VisualElement name="AbovePlayerNotifications" class="max-hp-shield-ammo__container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxShieldLabel" class="max-shield__label" style="width: 94px; height: 37px; display: flex;">
+                        <ui:VisualElement name="MaxShieldIcon" class="max-shield__icon" />
+                    </ui:Label>
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxHPLabel" class="max-hp__label" style="display: none;">
+                        <ui:VisualElement name="MaxHPIcon" class="max-hp__icon" />
+                    </ui:Label>
+                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxAmmoLabel" class="max-ammo__label" style="display: none;">
+                        <ui:VisualElement name="MaxAmmoIcon" class="max-ammo__icon" />
+                    </ui:Label>
+                    <ui:Label tabindex="-1" text="+1 Level" display-tooltip-when-elided="true" name="PlusLevelLabel" class="plus-level__label" style="display: none;" />
+                </ui:VisualElement>
+            </FirstLight.Game.UIElements.PlayerStatusBarElement>
+        </ui:VisualElement>
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+            <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement name="MovementJoystick" class="joystick--move" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AimJoystickArea" class="joystick-container">
+                <FirstLight.Game.UIElements.JoystickElement name="ShootingJoystick" class="joystick--aim" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button">
+                <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />
+            </FirstLight.Game.UIElements.ImageButton>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0" />
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
+            <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
+                <ui:VisualElement name="MatchStatus" class="match-status">
+                    <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
+                    <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
+                    <ui:VisualElement name="Counter" class="match-status__counter">
+                        <ui:VisualElement name="PingBG" usage-hints="DynamicTransform" class="match-status__ping-bg" />
+                        <ui:VisualElement name="BG" class="match-status__bg" />
+                        <ui:Label text="30" name="TimerText" class="match-status__counter-text" />
+                    </ui:VisualElement>
+                    <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
+                    <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
+                    <ui:Label text="AREA SHRINKING" name="NotificationText" class="status-areashrinking" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="device-status-bar">
+                <ui:VisualElement name="BatteryIcon" class="icon-battery sprite-match__icon-battery-medium" />
+                <ui:VisualElement name="WifiIcon" class="icon-wifi sprite-match__icon-wifi-medium" />
+                <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display">
+                <ui:VisualElement name="Melee" class="weapon-display__melee">
+                    <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
+                        <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MeleeIconShadow" class="weapon-display__melee-icon weapon-display__melee-icon--shadow">
+                        <ui:VisualElement name="MeleeIcon" class="weapon-display__melee-icon" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
+                <ui:VisualElement name="SwitchIcon" class="weapon-display__switch-icon" />
+                <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
+                    <FirstLight.Game.UIElements.RadialProgressElement name="AmmoProgress" progress="0.69" class="weapon-display__ammo-progress">
+                        <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
+                            <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
+                        </ui:VisualElement>
+                    </FirstLight.Game.UIElements.RadialProgressElement>
+                    <ui:VisualElement name="WeaponIconShadow" class="weapon-display__weapon-icon weapon-display__weapon-icon--shadow">
+                        <ui:VisualElement name="WeaponIcon" class="weapon-display__weapon-icon">
+                            <ui:VisualElement name="FactionIcon" class="weapon-display__weapon-faction-icon sprite-equipmentcard__card-faction-dimensional" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label text="67 &lt;sprite=&quot;UISpriteAsset&quot; name=&quot;AmmoIcon&quot;&gt;&#10;&lt;size=70%&gt;/ 134" name="Ammo" class="weapon-display__ammo" />
+            </FirstLight.Game.UIElements.ImageButton>
+            <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="kill-feed">
+                <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />
+                <FirstLight.Game.UIElements.DeathNotificationElement />
+            </ui:VisualElement>
+            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="squad-members-container">
+                <FirstLight.Game.UIElements.SquadMemberElement />
+                <FirstLight.Game.UIElements.SquadMemberElement />
+            </ui:VisualElement>
+            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="equipment-display">
+                <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
+                    <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
+                    <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
+                    <ui:VisualElement name="Helmet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--helmet" />
+                    <ui:VisualElement name="Shield" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--shield" />
+                </ui:VisualElement>
+                <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent">
+            <ui:VisualElement name="BlastedNotification" class="status-kill">
+                <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <ui:VisualElement name="SkullIcon" class="status-kill__skull">
+                    <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
+                    <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
+                    <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart" />
+                    <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
+                    <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

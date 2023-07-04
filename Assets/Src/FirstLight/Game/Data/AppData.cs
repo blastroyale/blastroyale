@@ -18,6 +18,7 @@ namespace FirstLight.Game.Data
 		public List<string> Mutators = new();
 		public int GameModeIndex;
 		public int MapIndex;
+		public int BotDifficulty;
 	}
 	
 	/// <summary>
@@ -26,7 +27,8 @@ namespace FirstLight.Game.Data
 	public enum FpsTarget
 	{
 		Normal = 30,
-		High = 60
+		High = 60,
+		Unlimited = 0,
 	}
 	
 	/// <summary>
@@ -43,7 +45,7 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
-		public bool UseDynamicJoystick = true;
+		public bool UseDynamicJoystick = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
 
@@ -51,7 +53,7 @@ namespace FirstLight.Game.Data
 		public string DeviceId;
 		public string LastLoginEmail;
 		public string ConnectionRegion;
-		
+
 		public DateTime GameReviewDate;
 		
 		public FrameSnapshot LastCapturedFrameSnapshot;
@@ -61,11 +63,20 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		
 		public bool DialogueEnabled = true;
-		public FpsTarget FpsTarget = FpsTarget.Normal;
-		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
+		public FpsTarget FpsTarget = FpsTarget.High;
+
+		public GraphicsConfig.DetailLevel CurrentDetailLevel
+		{
+			get => GraphicsConfig.DetailLevel.Low;
+			set { }
+		}
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
+		public bool ConeAim;
+		public bool MovespeedControl;
+		public bool AngleTapShoot;
+		public bool StopShootingShake;
 		
 		[NonSerialized] public Dictionary<string, string> TitleData;
 		

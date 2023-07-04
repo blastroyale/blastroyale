@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnBackClicked;
 		}
 
-		private const int DefaultTrophies = 1000;
+		private const int DefaultTrophies = 0;
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";

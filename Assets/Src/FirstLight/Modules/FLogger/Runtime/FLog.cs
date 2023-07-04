@@ -28,6 +28,7 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_ERROR")]
 		public static void Init()
 		{
+			if (_formatter != null) return;
 			_formatter = new FLogFormatter();
 			_formatter.SetMainThreadID();
 
@@ -48,8 +49,7 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_INFO")]
 		[Conditional("LOG_LEVEL_WARN")]
 		[Conditional("LOG_LEVEL_ERROR")]
-		public static void Error(string tag, string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Error, _formatter.FormatLog(FLogLevel.Error, tag, message, e));
+		public static void Error(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Error, _formatter.FormatLog(FLogLevel.Error, tag, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Error"/>
@@ -60,8 +60,7 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_INFO")]
 		[Conditional("LOG_LEVEL_WARN")]
 		[Conditional("LOG_LEVEL_ERROR")]
-		public static void Error(string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Error, _formatter.FormatLog(FLogLevel.Error, null, message, e));
+		public static void Error(string message, Exception e = null) => WriteToAll(FLogLevel.Error, _formatter.FormatLog(FLogLevel.Error, null, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Warn"/>
@@ -72,8 +71,7 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
 		[Conditional("LOG_LEVEL_WARN")]
-		public static void Warn(string tag, string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Warn, _formatter.FormatLog(FLogLevel.Warn, tag, message, e));
+		public static void Warn(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Warn, _formatter.FormatLog(FLogLevel.Warn, tag, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Warn"/>
@@ -83,8 +81,7 @@ namespace FirstLight.FLogger
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
 		[Conditional("LOG_LEVEL_WARN")]
-		public static void Warn(string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Warn, _formatter.FormatLog(FLogLevel.Warn, null, message, e));
+		public static void Warn(string message, Exception e = null) => WriteToAll(FLogLevel.Warn, _formatter.FormatLog(FLogLevel.Warn, null, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Info"/>
@@ -94,8 +91,7 @@ namespace FirstLight.FLogger
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
-		public static void Info(string tag, string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, tag, message, e));
+		public static void Info(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, tag, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Info"/>
@@ -104,8 +100,7 @@ namespace FirstLight.FLogger
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		[Conditional("LOG_LEVEL_INFO")]
-		public static void Info(string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, null, message, e));
+		public static void Info(string message, Exception e = null) => WriteToAll(FLogLevel.Info, _formatter.FormatLog(FLogLevel.Info, null, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Verbose"/>
@@ -114,8 +109,7 @@ namespace FirstLight.FLogger
 		/// <param name="message">The message of the log.</param>
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
-		public static void Verbose(string tag, string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, tag, message, e));
+		public static void Verbose(string tag, string message, Exception e = null) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, tag, message, e));
 
 		/// <summary>
 		/// <inheritdoc cref="FLogLevel.Verbose"/>
@@ -123,28 +117,25 @@ namespace FirstLight.FLogger
 		/// <param name="message">The message of the log.</param>
 		/// <param name="e">An optional exception that will be added to the log</param>
 		[Conditional("LOG_LEVEL_VERBOSE")]
-		public static void Verbose(string message, Exception e = null) =>
-			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, null, message, e));
+		public static void Verbose(string message, Exception e = null) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, null, message, e));
 
-		
+
 		/// <summary>
 		/// Verbose log that will only de-serialize the object if the log level is verbose.
 		/// Will serialize via .ToString() method
 		/// </summary>
 		[Conditional("LOG_LEVEL_VERBOSE")]
-		public static void Verbose(object o) =>
-			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, o.ToString()));
+		public static void Verbose(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, o.ToString()));
 
-		
+
 		/// <summary>
 		/// Verbose log that will only de-serialize the object if the log level is verbose.
 		/// Will Serialize via JSON
 		/// </summary>
 		[Conditional("LOG_LEVEL_VERBOSE")]
-		public static void VerboseToJson(object o) =>
-			WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
+		public static void VerboseToJson(object o) => WriteToAll(FLogLevel.Verbose, _formatter.FormatLog(FLogLevel.Verbose, o.GetType().Name, JsonUtility.ToJson(o, true)));
 
-		
+
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		[Conditional("LOG_LEVEL_VERBOSE")]
 		public static void Spank() => WriteToAll(FLogLevel.Verbose, "Slap!!!");

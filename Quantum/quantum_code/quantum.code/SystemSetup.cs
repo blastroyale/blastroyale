@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using Quantum.Systems;
+using Quantum.Systems.Bots;
 
 namespace Quantum
 {
@@ -6,7 +9,7 @@ namespace Quantum
 	{
 		public static SystemBase[] CreateSystems(RuntimeConfig gameConfig, SimulationConfig simulationConfig)
 		{
-			return new SystemBase[]
+			var systems = new List<SystemBase>()
 			{
 				// Initial pre-defined core systems
 				new Core.CullingSystem3D(),
@@ -16,7 +19,6 @@ namespace Quantum
 				// Initial Systems
 				new SystemInitializer(),
 				new AiPreUpdateSystem(),
-				new PreRaycastShotsSystem(),
 
 				// pre-defined core systems
 				new Core.PhysicsSystem3D(),
@@ -27,10 +29,10 @@ namespace Quantum
 
 				// Signal only systems - only OnInit & Signal order matters
 				new MatchDataSystem(), // Must be the first to guarantee that receives all the events before entities are deleted
-				new NavMeshAgentSystem(),
 				new StatusModifierSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
+				new VisibilityAreaSystem(), 
 				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
@@ -39,7 +41,7 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
-				new RaycastShotsSystem(),
+
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
@@ -52,12 +54,13 @@ namespace Quantum
 				new RoofDamageSystem(),
 
 				// Debugging
-				new BotSDKDebuggerSystem(),
+				// new BotSDKDebuggerSystem(),
 
 				// Finalizer systems
 				new GameSystem(),
 				new EntityLateDestroyerSystem()
 			};
+			return systems.ToArray();
 		}
 	}
 }

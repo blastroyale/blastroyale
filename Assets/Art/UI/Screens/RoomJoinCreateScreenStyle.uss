@@ -1,0 +1,77 @@
+.category-holder {
+    align-items: flex-start;
+    border-top-width: 0;
+    position: absolute;
+    top: 228px;
+    left: -226px;
+    justify-content: center;
+}
+
+.screen-header {
+}
+
+.info-holder {
+    width: 600px;
+    align-items: stretch;
+    right: 20px;
+    top: 188px;
+    position: absolute;
+    justify-content: space-between;
+    bottom: 12px;
+}
+
+.category-holder {
+}
+
+.safe-area {
+}
+
+.button-holder {
+    height: 300px;
+}
+
+.roomjoin-options {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    left: 50px;
+    top: 200px;
+    bottom: 0;
+    right: 1672px;
+}
+.roomjoin-button-holder {
+    width: 359px;
+    right: auto; 
+    left: 1800px; 
+    bottom: -260px;
+}
+
+.room-slider {
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    flex-direction: column;
+}
+.room-slider .unity-base-field__label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    align-self: center;
+}
+
+.room-slider .unity-base-popup-field__text {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: black;
+    font-size: 50px;
+    align-self: center;
+}
+
+.room-slider .unity-base-slider__dragger  {
+    width: 20px;
+    height: 40px;
+    margin-top: -20px
+}

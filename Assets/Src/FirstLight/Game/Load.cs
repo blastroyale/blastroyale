@@ -9,6 +9,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
+using FirstLight.Game.TestCases;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -26,13 +27,24 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Load : MonoBehaviour
 	{
-
 		private NotificationStateMachine _notificationState;
 		private GameStateMachine _gameState;
+
+		public delegate void OnGameLoadAwakeEvent();
+
+		/// <summary>
+		/// Event handler that notifies when the game is loaded
+		/// </summary>
+		public static event OnGameLoadAwakeEvent OnGameLoadAwake;
+
 		
+
 		private void Awake()
 		{
 			FLog.Init();
+			FLGTestRunner.Instance.CheckFirebaseRun();
+			FLGTestRunner.Instance.CheckAutomations();
+			
 			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
@@ -57,13 +69,14 @@ namespace FirstLight.Game
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
-			
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 
 			_notificationState = new NotificationStateMachine(gameLogic, gameServices);
 			_gameState = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
 				tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
+
+			OnGameLoadAwake?.Invoke();
 		}
 
 		private void Start()
@@ -73,7 +86,7 @@ namespace FirstLight.Game
 			FlgCustomSerializers.RegisterSerializers();
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();
-			
+
 			_notificationState.Run();
 			_gameState.Run();
 		}

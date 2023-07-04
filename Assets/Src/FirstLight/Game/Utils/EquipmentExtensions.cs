@@ -93,35 +93,34 @@ namespace FirstLight.Game.Utils
 				var weaponConfig = configs.GetConfig<QuantumWeaponConfig>((int) equipment.GameId);
 
 				stats.Add(EquipmentStatType.Hp,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Health],
-																	baseStatsConfig, statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Health],
+																	ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Speed,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Speed],
-																	baseStatsConfig, statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Speed],
+																	ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Armour],
-																	baseStatsConfig, statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Armour],
+							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.Power,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Power],
-																	baseStatsConfig, statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Power],
+							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
-						  (QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.AttackRange],
-																	baseStatsConfig, statsConfig, equipment)
+						  (QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.AttackRange],
+								  ref baseStatsConfig, ref statsConfig, equipment)
 						   + weaponConfig.AttackRange).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.PickupSpeed],
-																	baseStatsConfig, statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.PickupSpeed],
+							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.AmmoCapacityBonus,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.AmmoCapacity],
-																	baseStatsConfig, statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.AmmoCapacity],
+							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.ShieldCapacity,
-						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Shield],
-																	baseStatsConfig, statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateWeaponStat(ref weaponConfig, statConfigs[(int) StatType.Shield],
+							  ref baseStatsConfig, ref statsConfig, equipment).AsFloat);
 
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.GetDefault());
+				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
-				stats.Add(EquipmentStatType.MaxAttackAngle, weaponConfig.MaxAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
 				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
@@ -133,29 +132,29 @@ namespace FirstLight.Game.Utils
 			else
 			{
 				stats.Add(EquipmentStatType.Hp,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Health], baseStatsConfig,
-																  statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Health], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Speed,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Speed], baseStatsConfig,
-																  statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Speed], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], baseStatsConfig,
-																  statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.Power,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], baseStatsConfig,
-																  statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AttackRange], baseStatsConfig,
-																  statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AttackRange], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.PickupSpeed], baseStatsConfig,
-																  statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.PickupSpeed], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.AmmoCapacityBonus,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AmmoCapacity], baseStatsConfig,
-																  statsConfig, equipment).AsFloat / 100f);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AmmoCapacity], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.ShieldCapacity,
-						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Shield], baseStatsConfig,
-																  statsConfig, equipment).AsFloat);
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Shield], ref baseStatsConfig,
+																  ref statsConfig, equipment).AsFloat);
 			}
 
 			return stats;
@@ -223,7 +222,6 @@ namespace FirstLight.Game.Utils
 			{EquipmentStatType.MaxCapacity, 120},
 			{EquipmentStatType.ReloadTime, 4f},
 			{EquipmentStatType.MinAttackAngle, 60},
-			{EquipmentStatType.MaxAttackAngle, 60},
 			{EquipmentStatType.SplashDamageRadius, 4f},
 			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.NumberOfShots, 10},
@@ -236,7 +234,6 @@ namespace FirstLight.Game.Utils
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()
 		{
 			EquipmentStatType.AttackCooldown,
-			EquipmentStatType.MaxAttackAngle,
 			EquipmentStatType.MinAttackAngle,
 			EquipmentStatType.ReloadTime
 		};

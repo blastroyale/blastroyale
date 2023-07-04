@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quantum;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 
 namespace BlastRoyaleNFTPlugin
@@ -20,7 +21,7 @@ namespace BlastRoyaleNFTPlugin
 	/// <summary>
 	/// Class that encapsulates external models and functionality needed to synchronize NFT's
 	/// </summary>
-	public class NftSynchronizer
+	public class NftSynchronizer : BaseEventDataSync<PlayerDataLoadEvent>
 	{
 		private PluginContext _ctx;
 		private HttpClient _client;
@@ -28,7 +29,7 @@ namespace BlastRoyaleNFTPlugin
 		private string _apiKey;
 		private static readonly IEnumerable<PolygonNFTMetadata> _EMPTY_LIST = new List<PolygonNFTMetadata>();
 
-		public NftSynchronizer(string nftsIndexUrl, string apiKey, PluginContext ctx)
+		public NftSynchronizer(string nftsIndexUrl, string apiKey, PluginContext ctx): base(ctx)
 		{
 			_client = new HttpClient();
 			_externalUrl = nftsIndexUrl;
@@ -40,7 +41,7 @@ namespace BlastRoyaleNFTPlugin
 		/// Function that syncrhonizes blockchain data to game data.
 		/// Will add missing NFT's and remove NFT's that are not owned anymore by the user.
 		/// </summary>
-		public async Task<bool> SyncAllNfts(string playfabId)
+		public override async Task<bool> SyncData(string playfabId)
 		{
 			try
 			{

@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -16,9 +17,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public abstract class EntityBase : MonoBehaviour
 	{
 		public EntityView EntityView;
-		
+
 		private IGameServices _services;
-		
+
 		public GameObject Instance { get; private set; }
 
 		public bool HasRenderedView()
@@ -35,11 +36,12 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void Awake()
 		{
-			EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiated);
+			EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiatedInternal);
 			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 
 			OnAwake();
 		}
+
 
 		protected void RemoveListeners()
 		{
@@ -56,8 +58,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected T GetComponentData<T>(QuantumGame game) where T : unmanaged, IComponent
 		{
 			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
-				       ? GetComponentVerifiedData<T>(game)
-				       : GetComponentPredictedData<T>(game);
+				? GetComponentVerifiedData<T>(game)
+				: GetComponentPredictedData<T>(game);
 		}
 
 		protected T GetComponentPredictedData<T>(QuantumGame game) where T : unmanaged, IComponent
@@ -70,11 +72,18 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return game.Frames.Verified.Get<T>(EntityView.EntityRef);
 		}
 
+		protected Frame GetFrame(QuantumGame game)
+		{
+			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
+				? game.Frames.Verified
+				: game.Frames.Predicted;
+		}
+
 		protected bool TryGetComponentData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
 		{
 			return EntityView.BindBehaviour == EntityViewBindBehaviour.Verified
-				       ? TryGetComponentVerifiedData(game, out component)
-				       : TryGetComponentPredictedData(game, out component);
+				? TryGetComponentVerifiedData(game, out component)
+				: TryGetComponentPredictedData(game, out component);
 		}
 
 		protected bool TryGetComponentPredictedData<T>(QuantumGame game, out T component) where T : unmanaged, IComponent
@@ -86,19 +95,20 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			return game.Frames.Verified.TryGet(EntityView.EntityRef, out component);
 		}
-		
+
 		protected void OnLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			var runner = QuantumRunner.Default;
-			
+
 			if (this.IsDestroyed() || runner == null)
 			{
 				Destroy(instance);
 				return;
 			}
+
 			var cacheTransform = instance.transform;
 			Instance = instance;
-			if(instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
+			if (instance.TryGetComponent<EntityMainViewBase>(out var mainViewBase))
 			{
 				mainViewBase.SetEntityView(QuantumRunner.Default.Game, EntityView);
 			}
@@ -107,10 +117,48 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
+
+			_services.MessageBrokerService.Publish(new EntityViewLoaded()
+			{
+				Entity = this, View = EntityView
+			});
+		}
+		
+		/// <summary>
+		/// Get the name of the game object for the entity
+		/// </summary>
+		protected virtual string GetName(QuantumGame game)
+		{
+			return EntityView.EntityRef.ToString();
 		}
 
-		protected virtual void OnAwake() {}
-		protected virtual void OnEntityInstantiated(QuantumGame game) {}
-		protected virtual void OnEntityDestroyed(QuantumGame game) {}
+		/// <summary>
+		/// Get the group name in the game object hierarchy
+		/// </summary>
+		protected virtual string GetGroup(QuantumGame game)
+		{
+			return GetType().Name.Replace("MonoComponent", "");
+		}
+
+		private void OnEntityInstantiatedInternal(QuantumGame game)
+		{
+			OnEntityInstantiated(game);
+#if UNITY_EDITOR
+			gameObject.name = GetName(game);
+			MainInstaller.ResolveMatchServices().EntityViewUpdaterService.SetParents(EntityView, GetGroup(game));
+#endif
+		}
+
+		protected virtual void OnAwake()
+		{
+		}
+
+		protected virtual void OnEntityInstantiated(QuantumGame game)
+		{
+		}
+
+		protected virtual void OnEntityDestroyed(QuantumGame game)
+		{
+		}
 	}
 }

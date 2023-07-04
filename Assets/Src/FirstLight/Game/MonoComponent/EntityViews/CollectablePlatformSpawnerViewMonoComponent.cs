@@ -16,7 +16,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Image _progressIndicator;
 
 		private Canvas _canvas;
-		
+
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
@@ -26,16 +26,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
+		public override void SetCulled(bool culled)
+		{
+			if (culled)
+			{
+				_canvas?.gameObject?.SetActive(false);
+			}
+
+			base.SetCulled(culled);
+		}
+
 		private new void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;
-			
+
 			if (Culled)
 			{
-				_canvas?.gameObject?.SetActive(false);
 				return;
 			}
-			
+
 			var spawner = frame.Get<CollectablePlatformSpawner>(EntityRef);
 			var remaining = spawner.NextSpawnTime.AsFloat - frame.Time.AsFloat;
 
@@ -45,8 +54,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var intervalTime = spawner.IntervalTime.AsFloat;
 				var normalizedValue = remaining / intervalTime;
 				var sec = intervalTime * normalizedValue;
-				
-				_text.text = ((int)sec).ToString();	
+
+				_text.text = ((int) sec).ToString();
 				_progressIndicator.fillAmount = normalizedValue;
 			}
 			else

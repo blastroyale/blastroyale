@@ -13,7 +13,7 @@
     flex-direction: row;
     padding: 28px 84px;
     top: 0;
-    right: 0;
+    right: 100;
 }
 
 .show-hide-toggle__label--show {
@@ -138,7 +138,7 @@
 }
 
 .player-holder__player-rt {
-    background-image: url('/Assets/Art/UI/RenderTextures/rt-spectate-player.renderTexture');
+    background-image: url('project://database/Assets/Art/UI/RenderTextures/rt-spectate-player.renderTexture?fileID=8400000&guid=e747c79543c0f40b5a6c5680db4c6407&type=2#rt-spectate-player');
     width: 400px;
     height: 600px;
     right: 55px;
@@ -166,4 +166,7 @@
 
 .hide-controls .button-next {
     display: none;
+}
+
+.screen-header--no-back {
 }

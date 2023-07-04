@@ -17,7 +17,6 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref AiFilter filter)
 		{
 			var data = &filter.Agent->Data;
-
 			HFSMManager.Update(f, f.DeltaTime, data, filter.Entity);
 		}
 

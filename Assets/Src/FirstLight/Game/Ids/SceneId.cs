@@ -17,7 +17,10 @@ namespace FirstLight.Game.Ids
 		BRGenesis,
 		TestScene,
 		MapTestScene,
-		NewBRMap
+		NewBRMap,
+		District,
+		BattlelandsMap,
+		IslandsMap,
 	}
 	
 	/// <summary>

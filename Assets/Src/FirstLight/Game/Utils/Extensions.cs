@@ -225,12 +225,6 @@ namespace FirstLight.Game.Utils
 		{
 			var groups = item.GetGroups();
 
-			if (!groups.Contains(GameIdGroup.Equipment))
-			{
-				throw new
-					ArgumentException($"The item {item} is not a {nameof(GameIdGroup.Equipment)} type to put in a slot");
-			}
-
 			return groups[0];
 		}
 
@@ -258,6 +252,21 @@ namespace FirstLight.Game.Utils
 			}
 
 			return data.PlayerName;
+		}
+		
+		/// <summary>
+		/// Requests the player name for the given player's match <paramref name="data"/>
+		/// </summary>
+		public static string GetPlayerName(Frame f, EntityRef entity, PlayerCharacter playerCharacter)
+		{
+			return !playerCharacter.RealPlayer && f.TryGet<BotCharacter>(entity, out var botCharacter)
+				? GetBotName(botCharacter.BotNameIndex, entity)
+				: f.GetPlayerData(playerCharacter.Player).PlayerName;
+		}
+
+		public static bool IsBot(this EntityRef entity, Frame f)
+		{
+			return f.Has<BotCharacter>(entity);
 		}
 
 		/// <summary>
@@ -426,7 +435,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
 		}
 
 		/// <summary>
@@ -439,7 +448,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
 		}
 
 		public static void SetProperty(this Room room, string prop, object value)
@@ -515,7 +524,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetSpectatorCapacity(this Room room)
 		{
-			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
+			return NetworkUtils.GetMaxSpectators(room.GetMatchSetup());
 		}
 
 		/// <summary>
@@ -643,6 +652,15 @@ namespace FirstLight.Game.Utils
 
 			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
+		
+		/// <summary>
+		/// Requests the local player entity ref.
+		/// Always gets from Verified frame
+		/// </summary>
+		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game)
+		{
+			return game.GetLocalPlayerData(true, out _).Entity;
+		}
 
 		/// <summary>
 		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>
@@ -722,9 +740,9 @@ namespace FirstLight.Game.Utils
 		}
 
 
-		public static void SelectDefaultCasualMode(this IGameModeService service)
+		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
 			service.SelectedGameMode.Value = gameMode;
 		}
 
@@ -756,6 +774,14 @@ namespace FirstLight.Game.Utils
 				default:
 					throw new ArgumentOutOfRangeException(nameof(ambience), ambience, null);
 			}
+		}
+
+		/// <summary>
+		/// Checks if the entity is the player we are currently spectating.
+		/// </summary>
+		public static bool IsSpectatingPlayer(this IMatchServices matchServices, EntityRef entityRef)
+		{
+			return entityRef == matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
 	}
 }

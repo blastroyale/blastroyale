@@ -1,0 +1,22 @@
+
+component VisibilityArea 
+{ 
+    list<entity_ref> EntitiesIn;
+}
+
+component InsideVisibilityArea
+{
+	entity_ref Area;
+}
+
+synced event OnEnterVisibilityArea
+{
+	entity_ref Entity;
+	entity_ref Area;
+}
+
+synced event OnLeaveVisibilityArea
+{
+	entity_ref Entity;
+	entity_ref Area;
+}

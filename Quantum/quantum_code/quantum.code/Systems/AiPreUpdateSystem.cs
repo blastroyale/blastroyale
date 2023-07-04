@@ -9,6 +9,7 @@ namespace Quantum.Systems
 		{
 			public EntityRef Entity;
 			public HFSMAgent* Agent;
+			public AlivePlayerCharacter* Alive;
 		}
 
 		/// <inheritdoc />

@@ -34,6 +34,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private const int PLACEMENT2_Trophies = 15;
 		private const int PLACEMENT3_Trophies = 13;
 
+		private const int BRACKET_Trophies = 500;
+
 		private RewardLogic _rewardLogic;
 		private List<QuantumPlayerMatchData> _matchData;
 		private int _executingPlayer;
@@ -269,8 +271,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
 					{
-						{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP},
-						{GameId.Trophies, PLACEMENT1_Trophies}
+						{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}
 					}
 				},
 				new MatchRewardConfig
@@ -279,8 +280,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
 					{
-						{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP},
-						{GameId.Trophies, PLACEMENT2_Trophies}
+						{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP}
 					}
 				},
 				new MatchRewardConfig
@@ -289,10 +289,37 @@ namespace FirstLight.Tests.EditorMode.Logic
 					TeamSize = 1,
 					Rewards = new SerializedDictionary<GameId, int>
 					{
-						{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP},
-						{GameId.Trophies, PLACEMENT3_Trophies}
+						{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP}
 					}
 				});
+			InitConfigData(config => config.Placement,
+			               new TrophyRewardConfig
+			               {
+				               Placement = 1,
+				               TeamSize = 1,
+				               BracketReward = new SerializedDictionary<int, int>
+				               {
+					               {BRACKET_Trophies, PLACEMENT1_Trophies}
+				               }
+			               },
+			               new TrophyRewardConfig
+			               {
+				               Placement = 2,
+				               TeamSize = 1,
+				               BracketReward = new SerializedDictionary<int, int>
+				               {
+					               {BRACKET_Trophies, PLACEMENT2_Trophies}
+				               }
+			               },
+			               new TrophyRewardConfig
+			               {
+				               Placement = 3,
+				               TeamSize = 1,
+				               BracketReward = new SerializedDictionary<int, int>
+				               {
+					               {BRACKET_Trophies, PLACEMENT3_Trophies}
+				               }
+			               });
 		}
 
 		private void SetupZeroResources()

@@ -39,7 +39,7 @@ MonoBehaviour:
     m_To: Adventure Camera
     m_Blend:
       m_Style: 2
-      m_Time: 2
+      m_Time: 5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -150,6 +150,17 @@ MonoBehaviour:
     m_Blend:
       m_Style: 0
       m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: '**ANY CAMERA**'
+    m_To: Winner Camera
+    m_Blend:
+      m_Style: 2
+      m_Time: 1
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

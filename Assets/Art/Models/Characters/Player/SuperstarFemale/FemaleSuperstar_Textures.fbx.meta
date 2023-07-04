@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 1395a28c6a326ac4784f8e6ebc514e08
 ModelImporter:
   serializedVersion: 21300
@@ -8,12 +8,18 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FemaleStarBody
-    second: {fileID: 2100000, guid: 9bee284b93744514a8dc9233a98d4bea, type: 2}
+    second:
+      fileID: 2100000
+      guid: 9bee284b93744514a8dc9233a98d4bea
+      type: 2
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FemaleStarHead
-    second: {fileID: 2100000, guid: 281318302e89af5459f9dd5de411c385, type: 2}
+    second:
+      fileID: 2100000
+      guid: 281318302e89af5459f9dd5de411c385
+      type: 2
   materials:
     materialImportMode: 2
     materialName: 0
@@ -34,7 +40,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -42,7 +48,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -103,7 +109,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

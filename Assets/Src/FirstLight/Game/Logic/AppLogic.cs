@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
@@ -89,12 +90,12 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
-		
+
 		/// <summary>
 		/// Determines if the player is a guest
 		/// </summary>
 		bool IsGuest { get; }
-		
+
 		/// <summary>
 		/// The URL of the player's avatar.
 		/// </summary>
@@ -158,17 +159,37 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
-		
+
 		/// <summary>
 		/// Last time player snapshotted a frame
 		/// </summary>
 		IObservableField<FrameSnapshot> LastFrameSnapshot { get; }
-		
+
 		/// <summary>
 		/// Checks if player has logged in in this or other session
 		/// This ensures his app data is enriched with his player data
 		/// </summary>
 		bool IsPlayerLoggedIn { get; }
+
+		/// <summary>
+		/// Displays cone aim instead of line aim
+		/// </summary>
+		bool ConeAim { get; set; }
+
+		/// <summary>
+		/// Allows players to control movement using analogs
+		/// </summary>
+		bool MovespeedControl { get; }
+
+		/// <summary>
+		/// Allows players to tap an angle fo the analog to shoot
+		/// </summary>
+		bool AngleTapShoot { get; }
+
+		/// <summary>
+		/// Prevents screen shaking when shooting
+		/// </summary>
+		bool StopShootingShake { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -183,7 +204,10 @@ namespace FirstLight.Game.Logic
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
 		public bool IsPlayerLoggedIn => !string.IsNullOrEmpty(Data.PlayerId);
-		
+		public bool MovespeedControl { get; set; }
+		public bool AngleTapShoot { get; set; }
+		public bool StopShootingShake { get; set; }
+
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -304,7 +328,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
-		
+
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
 
 		/// <inheritdoc />
@@ -312,6 +336,12 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
+
+		public bool ConeAim
+		{
+			get => Data.ConeAim;
+			set => Data.ConeAim = value;
+		}
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -363,7 +393,7 @@ namespace FirstLight.Game.Logic
 				LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
 				LastLoginEmail.AddObservers(listeners);
 			}
-			
+
 			DisplayName.InvokeUpdate();
 			ConnectionRegion.InvokeUpdate();
 			DeviceID.InvokeUpdate();
@@ -391,12 +421,15 @@ namespace FirstLight.Game.Logic
 			var name = DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) ||
 				DisplayName.Value.Length < 5
 					? ""
-					: trimmed ? DisplayName.Value.Substring(0, DisplayName.Value.Length - 5) : DisplayName.Value;
+					: trimmed
+						? DisplayName.Value.Substring(0, DisplayName.Value.Length - 5)
+						: DisplayName.Value;
 
 			if (tagged)
 			{
 				var playerData = DataProvider.GetData<PlayerData>();
-				return playerData.Flags.HasFlag(PlayerFlags.FLGOfficial) ? $"<sprite name=\"FLGBadge\"> {name}" : name;
+				var skin = TemporarySkin.GetSkinBasedOnFlags(playerData.Flags);
+				return skin != null ? $"{skin.GetSpriteText()} {name}" : name;
 			}
 
 			return name;
@@ -408,13 +441,25 @@ namespace FirstLight.Game.Logic
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
 				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
 
+			FLog.Verbose("Setting detail level to " + detailLevelConf.DetailLevelIndex);
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 		}
 
 		/// <inheritdoc />
 		public void SetFpsTarget()
 		{
-			Application.targetFrameRate = FpsTarget == FpsTarget.High ? 60 : 30;
+			// Disable Vsync for unlimited fps, otherwise will be fixed at screen refresh rate
+			if (FpsTarget == FpsTarget.Unlimited)
+			{
+				QualitySettings.vSyncCount = 0;
+			}
+
+			Application.targetFrameRate = FpsTarget switch
+			{
+				FpsTarget.Unlimited => 500,
+				FpsTarget.High      => 60,
+				_                   => 30
+			};
 		}
 	}
 }

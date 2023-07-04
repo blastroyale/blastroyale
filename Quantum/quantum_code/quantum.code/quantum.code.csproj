@@ -67,6 +67,7 @@
     <Compile Include="AI\Actions\PlayerStartReloadAction.cs" />
     <Compile Include="AI\Actions\PlayerTeleportSpawnAction.cs" />
     <Compile Include="AI\Actions\SetBlackboardBool.cs" />
+    <Compile Include="AI\Actions\SkydiveFullyGroundedAction.cs" />
     <Compile Include="AI\Actions\SkydivePLFAction.cs" />
     <Compile Include="AI\Actions\SkydiveStartAction.cs" />
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />

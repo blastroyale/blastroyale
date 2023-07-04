@@ -146,11 +146,12 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
+			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Disabled;
 
 			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
-			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.Mono2x);
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);

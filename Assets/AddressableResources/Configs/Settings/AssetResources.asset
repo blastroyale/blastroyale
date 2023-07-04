@@ -239,6 +239,11 @@ MonoBehaviour:
         Id:
           Value: 701952959705295376
       Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityView]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveFullyGroundedAction_23
+      AssetRef:
+        Id:
+          Value: 725308320563937207
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveFullyGroundedAction_23]
     - Path: AddressableResources/QuantumAssets/Projectiles/PlayerBullet|EntityPrototype
       AssetRef:
         Id:
@@ -796,11 +801,11 @@ MonoBehaviour:
         Id:
           Value: 3022734410312452063
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveDrop_2]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_23
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_24
       AssetRef:
         Id:
           Value: 3054022343341149241
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerStopAttackAction_23]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerStopAttackAction_24]
     - Path: AddressableResources/QuantumAssets/Destructibles/Barrel|EntityView
       AssetRef:
         Id:

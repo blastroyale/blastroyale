@@ -128,8 +128,8 @@ GameObject:
   - component: {fileID: 1084319562573405473}
   - component: {fileID: 86904818744948499}
   - component: {fileID: 1142153753951052486}
-  - component: {fileID: 813470540720266800}
   - component: {fileID: 6092690606354082326}
+  - component: {fileID: 2162769581397649368}
   m_Layer: 0
   m_Name: 'visibilty volume '
   m_TagString: VisibilityVolume
@@ -200,19 +200,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20.565777, y: 6.256026, z: 9.706954}
   m_Center: {x: -0.111087814, y: 2.723376, z: -0.023545736}
---- !u!114 &813470540720266800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3008630235317598301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7256d248df7e4d01aca91871a6209cd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _topRemovalAnimator: {fileID: 0}
 --- !u!65 &6092690606354082326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -234,6 +221,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.646948, y: 6.256026, z: 14.113829}
   m_Center: {x: -0.0133694, y: 2.723376, z: 1.443578}
+--- !u!114 &2162769581397649368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008630235317598301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03e45923232480c848631106a705e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _occludeAudio: 1
 --- !u!1001 &2303040947198516627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_LocalPosition.x

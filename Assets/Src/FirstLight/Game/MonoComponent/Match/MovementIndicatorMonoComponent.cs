@@ -64,5 +64,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			var myPos = localTransform.position;
 			localTransform.rotation = Quaternion.LookRotation(myPos - playerPos);
 		}
+		
+		/// <inheritdoc />
+		public void SetColor(Color c)
+		{
+			// Not implemented
+		}
+		
+		/// <inheritdoc />
+		public void ResetColor()
+		{
+			// Not implemented
+		}
 	}
 }

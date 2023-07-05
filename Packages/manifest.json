@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
-    "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-11.0.0.tgz",
-    "com.google.firebase.app": "file:../Google/com.google.firebase.app-11.0.0.tgz",
-    "com.google.firebase.crashlytics": "file:../Google/com.google.firebase.crashlytics-11.0.0.tgz",
+    "com.google.external-dependency-manager": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
+    "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
+    "com.google.firebase.app": "file:../Google/com.google.firebase.app-11.2.0.tgz",
+    "com.google.firebase.crashlytics": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
     "com.jetbrains.riderflow": "2023.1.0-25",
     "com.unity.2d.animation": "9.0.3",
     "com.unity.2d.sprite": "1.0.0",

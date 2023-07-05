@@ -39,6 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		private IMatchServices _matchServices;
+		private bool _cullingEnabled;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -78,10 +79,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
-
-			
 		}
 		
 		private void OnDestroy()
@@ -96,6 +96,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public override void SetCulled(bool culled)
 		{
+			if (!_cullingEnabled)
+			{
+				return;
+			}
+
 			if (culled)
 			{
 				AnimatorWrapper.Enabled = false;
@@ -202,6 +207,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				if (isSkydiving)
 				{
+					_cullingEnabled = false;
 					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
 				}
 				else
@@ -568,6 +574,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetTrigger(Triggers.PLF);
+		}
+
+		private void HandlePlayerSkydiveFullyGrounded (EventOnPlayerSkydiveFullyGrounded callback)
+		{
+			if (EntityView.EntityRef != callback.Entity)
+			{
+				return;
+			}
+			
+			_cullingEnabled = true;
 		}
 
 		private void HandlePlayerSkydiveLand(EventOnPlayerSkydiveLand callback)

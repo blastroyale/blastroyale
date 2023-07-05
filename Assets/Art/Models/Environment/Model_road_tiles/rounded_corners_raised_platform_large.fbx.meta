@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["rounded_corners_raised_platform_large"],"padding":[256],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["rounded_corners_raised_platform_large"],"padding":[147],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

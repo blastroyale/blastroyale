@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-guid: 19d7fc865b7634b40ab8e478d5188356
+guid: 6d1d5aa86195cb44cb956bf1fa158303
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BR_atlas
-    second: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
+  externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -53,7 +48,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

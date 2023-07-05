@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-guid: 7e90452985d1d2f4aae9f155827b6b48
+guid: cf21b73a47f9c25469d1864c0db3e5a5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BR_atlas
-    second: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
+  externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -35,8 +30,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties:
-    - '#BAKERY{"meshName":["DC_Blue"],"padding":[56],"unwrapper":[0]}'
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 0
   meshes:
@@ -54,7 +48,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

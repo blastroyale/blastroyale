@@ -43,7 +43,48 @@ MonoBehaviour:
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Yellow.fbx
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Blue.fbx
   - Assets/Art/Models/Environment/Old_Model_Buildings/TownHall.fbx
-  modifiedAssetPaddingHash: d6a958fff5c0a1ffecc12491fe2f8bde207e8ad3ecc124917eac8839b3369d5812a3ddde94e7f7c8ac86eff51f17a71b0ba3dddeecc124910ba3ddde0b38ed04ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491cedb894becc12491cedb894bcedb894bf560976f
+  - Assets/Art/Models/Environment/Props_NEW/Prop_Rubble.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_Sign_Motel.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/MoviePalace.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Clapperboard_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_SidewalkTree_Oak.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Clapperboard_2_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/RadioShack.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Nature/Tree_Palm.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_BenchPark.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Skull_R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Red.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Yellow.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_long_pannels.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_fence_Long_no_pannel.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Bus.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Teal_canopy.fbx
+  - Assets/Art/Models/Environment/flowers/Flower group.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Brownstone_4.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Diner.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Grey.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Red.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Green.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Yellow.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Blue.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Brownstone_3_GRP_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Brownstone_2_Grp_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Broken buildings v2/Broken_building_3.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Broken buildings v2/Brownstone_Broken_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowClean.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_sandbags.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowDamage.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/traffic
+    cone.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_High.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowCorner.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Motel_GRP_NS_Y0.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse_Small.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
+  modifiedAssetPaddingHash: d6a958ff37b95672e937ed0448b5617d5a94b869c04dfff00e3911b0059613dfb4c2a69380ae03f892d09f6e8406a119d9398033db5634b7d939803395c2a693ba4608c8534ffff00ba3ddde1528c115cec12491d1c1249106a3ddde06a3ddde09a3ddded9398033f437ed04d9398033d9398033fe901ac285a6c8f7f8398033b0026bda1b3a8033da7d93631b3a803314f33a063367e2a8d1c124919f398033567e9363567e9363cdc12491b4c2a693377e93638c67e2a80cf43a06ecb4d8acde09ecc014f33a0608dc894b194efff0194efff0194efff0194efff080c5d89080c5d890e55031ee80c5d890f827c115f727c115f927c115feb209cebb4608c8f827c11514f33a06f1f23a06f160976f343fd3d97ac2a693
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -431,33 +472,33 @@ MonoBehaviour:
     - GuardrailD
     - GuardrailB
     - GuardrailC
-    padding: 4d00000087000000760000008f000000
+    padding: 4d00000043000000310000004a000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - barricade_sandbags
-    padding: c9000000
+    padding: 7d000000
     unwrapper: 00000000
   - meshName:
     - Car_Chevvy_Yellow_GEO
     - Car_Chevvy_Purple_GEO
     - Car_Chevvy_Red_GEO
     - Car_Chevvy_Blue_GEO
-    padding: 5a0000005a0000005a0000005a000000
+    padding: 2d0000005a0000002d0000002d000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - Car_Convertable_Green_GEO
     - Car_Convertable_Orange_GEO
     - Car_Convertable_Blue_GEO
-    padding: 530000005300000053000000
+    padding: 290000002900000029000000
     unwrapper: 000000000000000000000000
   - meshName:
     - Barrier_Wild_Logs01
-    padding: 74000000
+    padding: 3a000000
     unwrapper: 00000000
   - meshName:
     - Car_PickUp_Red_GEO
     - Car_PickUp_Blue_GEO
-    padding: 4500000045000000
+    padding: 2200000022000000
     unwrapper: 0000000000000000
   - meshName:
     - SatDish
@@ -466,11 +507,11 @@ MonoBehaviour:
     - Airial
     - ACduct
     - AC
-    padding: be0000004700000016000000000100005a0000009b000000
+    padding: 5f000000230000000b000000b20000002d0000004d000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - Car_TowTruck_GEO
-    padding: 3b000000
+    padding: 1d000000
     unwrapper: 00000000
   - meshName:
     - SatDish1
@@ -479,7 +520,7 @@ MonoBehaviour:
     - ACduct1
     - AC2
     - AC1
-    padding: be000000380000000e0000005a0000009b0000009b000000
+    padding: 5f0000001c000000070000002d0000004d0000004d000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - VentPot2
@@ -487,87 +528,252 @@ MonoBehaviour:
     - Vent
     - Main
     - AC
-    padding: 0001000000010000fe000000130000009b000000
+    padding: e6000000e60000007f000000090000004d000000
     unwrapper: 0000000000000000000000000000000000000000
   - meshName:
     - Wall_Base_Straight_GEO
     - Wall_Base_Corner_Long_GEO
     - Wall_Base_Corner_Short_GEO
-    padding: 540000004b0000004d000000
+    padding: 2a0000002500000026000000
     unwrapper: 000000000000000000000000
   - meshName:
     - DC_Grey
-    padding: 38000000
+    padding: 23000000
     unwrapper: 00000000
   - meshName:
     - Prop_ShipBollard_GEO
-    padding: 00010000
+    padding: ef000000
     unwrapper: 00000000
   - meshName:
     - DC_Green
-    padding: 38000000
+    padding: 23000000
     unwrapper: 00000000
   - meshName:
     - Statue_GEO
-    padding: 59000000
+    padding: 27000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficConeLine_GEO
-    padding: eb000000
+    padding: 75000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_Fallen_GEO
-    padding: b1000000
+    padding: 58000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_GEO
-    padding: 00010000
+    padding: 8d000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficCone_GEO
-    padding: 00010000
+    padding: cc000000
     unwrapper: 00000000
   - meshName:
     - side_walk_Curb
-    padding: 00010000
+    padding: 9d000000
     unwrapper: 00000000
   - meshName:
     - pure_side_walk
-    padding: 00010000
+    padding: 98000000
     unwrapper: 00000000
   - meshName:
     - rounded_side_walk
-    padding: 00010000
+    padding: 90000000
     unwrapper: 00000000
   - meshName:
     - full_corners
-    padding: 00010000
+    padding: 90000000
     unwrapper: 00000000
   - meshName:
     - rounded_corners_raised_platform_large
-    padding: 00010000
+    padding: 93000000
     unwrapper: 00000000
   - meshName:
     - DC_Red
-    padding: 38000000
+    padding: 23000000
     unwrapper: 00000000
   - meshName:
     - Bush
-    padding: 00010000
+    padding: 80000000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
-    padding: 38000000
+    padding: 23000000
     unwrapper: 00000000
   - meshName:
     - DC_Blue
-    padding: 38000000
+    padding: 23000000
     unwrapper: 00000000
   - meshName:
     - Top
     - TownHall_Base_GEO
-    padding: 0f0000000e000000
+    padding: 0900000009000000
     unwrapper: 0000000000000000
+  - meshName:
+    - Prop_Rubble_2_GEO
+    - Prop_Rubble_1_GEO
+    padding: 3600000033000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Prop_Sign_Motel_GEO
+    padding: 19000000
+    unwrapper: 00000000
+  - meshName:
+    - MoviePalace_Base_GEO
+    - Top
+    padding: 0a00000009000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Clapperboard_1_GEO
+    padding: 0f000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_SidewalkTree_Oak_GEO
+    padding: 3f000000
+    unwrapper: 00000000
+  - meshName:
+    - Clapperboard_2_Grp_Base
+    padding: 0f000000
+    unwrapper: 00000000
+  - meshName:
+    - RadioShack_GEO
+    padding: 0a000000
+    unwrapper: 00000000
+  - meshName:
+    - Tree_Palm_GEO
+    padding: 33000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_BenchPark_GEO
+    padding: 98000000
+    unwrapper: 00000000
+  - meshName:
+    - Skull_R_Fence_pole
+    padding: 37000000
+    unwrapper: 00000000
+  - meshName:
+    - Mobile_Home_Red
+    padding: 17000000
+    unwrapper: 00000000
+  - meshName:
+    - Mobile_Home_Yellow
+    padding: 17000000
+    unwrapper: 00000000
+  - meshName:
+    - R_Fence_pole
+    padding: 9c000000
+    unwrapper: 00000000
+  - meshName:
+    - R_Fence_long_pannels
+    padding: 1d000000
+    unwrapper: 00000000
+  - meshName:
+    - R_fence_Long_no_pannel
+    padding: 21000000
+    unwrapper: 00000000
+  - meshName:
+    - R_Bus
+    padding: 15000000
+    unwrapper: 00000000
+  - meshName:
+    - Teal_canopy
+    padding: 5a000000
+    unwrapper: 00000000
+  - meshName:
+    - yellow_flower
+    - Red_flower
+    - pink_flower
+    padding: 000100000001000000010000
+    unwrapper: 000000000000000000000000
+  - meshName:
+    - Brownstone_4_GEO
+    padding: 0c000000
+    unwrapper: 00000000
+  - meshName:
+    - Base
+    padding: 0a000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Grey
+    padding: 24000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Red
+    padding: 1c000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Green
+    padding: 1c000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Yellow
+    padding: 1c000000
+    unwrapper: 00000000
+  - meshName:
+    - DC_Blue
+    padding: 1c000000
+    unwrapper: 00000000
+  - meshName:
+    - Brownstone_Geo_Base
+    padding: 0e000000
+    unwrapper: 00000000
+  - meshName:
+    - Brownstone_2_Base_Geo
+    padding: 0e000000
+    unwrapper: 00000000
+  - meshName:
+    - broken_building_3
+    padding: 11000000
+    unwrapper: 00000000
+  - meshName:
+    - Brownstone_Broken_1
+    padding: 0e000000
+    unwrapper: 00000000
+  - meshName:
+    - barricade_concrete_LowClean
+    padding: 66000000
+    unwrapper: 00000000
+  - meshName:
+    - barricade_sandbags
+    padding: 65000000
+    unwrapper: 00000000
+  - meshName:
+    - barricade_concrete_LowDamage
+    padding: 67000000
+    unwrapper: 00000000
+  - meshName:
+    - TrafficCone02
+    padding: a6000000
+    unwrapper: 00000000
+  - meshName:
+    - barricade_concrete_High
+    padding: 6e000000
+    unwrapper: 00000000
+  - meshName:
+    - barricade_concrete_LowCorner
+    padding: 66000000
+    unwrapper: 00000000
+  - meshName:
+    - Motel_base_Geo
+    padding: 0a000000
+    unwrapper: 00000000
+  - meshName:
+    - Base
+    padding: 14000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - Base
+    padding: 0f0000000a000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Base_Geo
+    padding: 07000000
+    unwrapper: 00000000
+  - meshName:
+    - Orange_canopy
+    padding: 31000000
+    unwrapper: 00000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
   - Assets/Bakery/examples/content/floor_lamp.FBX
@@ -582,12 +788,40 @@ MonoBehaviour:
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/CC_Grey.fbx
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Grey.fbx
   - Assets/Container_White.fbx
-  uvOverlapAssetList: 00000000ffffffff0101000001010000010100000101000001010000010100000101000001010000010100000101000000000000
+  - Assets/Art/Models/Environment/Props_NEW/Prop_Water_Fountain.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_fence_medium.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Bus.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_fence_Long_no_pannel.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Red_canopy.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Skull_R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Green_canopy.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Teal_canopy.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_long_pannels.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/skull_iso.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Yellow.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Red.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_sandbags.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowDamage.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_High.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowCorner.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/traffic
+    cone.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowClean.fbx
+  - Assets/Art/Models/Environment/flowers/Flower group.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Industrial_Small.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Shops_GRP_SS_Y0_Split_roof.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Motel_GRP_NS_Y0.fbx
+  - Assets/Art/Prefabs/Enviroment/Buildings/motel vis volume.obj
+  - Assets/Art/Prefabs/Enviroment/Buildings/motel vis volume.fbx
+  uvOverlapAssetList: 00000000ffffffff0101000001010000010100000101000001010000010100000101000001010000010100000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000010100000101000001010000010100000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
-  gpuName: NVIDIA GeForce RTX 3060 Laptop GPU
-  runsNonRTX: 0
-  runsOptix5: 0
+  gpuName: NVIDIA GeForce RTX 2080 Ti
+  runsNonRTX: 1
+  runsOptix5: 1
   runsOptix6: 1
   runsOptix7: 1
   runsOIDN: 1
@@ -672,7 +906,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 0f0000000e000000
-  modifiedMeshUnwrapperArray: 0000000000000000
+  modifiedMeshPaddingArray: 21000000
+  modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

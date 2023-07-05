@@ -43,4 +43,45 @@ MonoBehaviour:
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Yellow.fbx
   - Assets/Art/Prefabs/Enviroment/Barriers/New Containers/DC_Blue.fbx
   - Assets/Art/Models/Environment/Old_Model_Buildings/TownHall.fbx
-  modifiedAssetPaddingHash: d6a958fff5c0a1ffecc12491fe2f8bde207e8ad3ecc124917eac8839b3369d5812a3ddde94e7f7c8ac86eff51f17a71b0ba3dddeecc124910ba3ddde0b38ed04ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491cedb894becc12491cedb894bcedb894bf560976f
+  - Assets/Art/Models/Environment/Props_NEW/Prop_Rubble.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_Sign_Motel.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/MoviePalace.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Clapperboard_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_SidewalkTree_Oak.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Clapperboard_2_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/RadioShack.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Nature/Tree_Palm.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_BenchPark.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Skull_R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Red.fbx
+  - Assets/Art/Models/Environment/Props_NEW/mobile homes/Mobile_Home_Yellow.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_pole.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Fence_long_pannels.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_fence_Long_no_pannel.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/R_Bus.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Teal_canopy.fbx
+  - Assets/Art/Models/Environment/flowers/Flower group.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Brownstone_4.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/Diner.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Grey.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Red.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Green.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Yellow.fbx
+  - Assets/Art/Models/Environment/Props_NEW/New Containers/DC_Blue.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Brownstone_3_GRP_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Brownstone_2_Grp_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Broken buildings v2/Broken_building_3.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Broken buildings v2/Brownstone_Broken_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowClean.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_sandbags.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowDamage.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/traffic
+    cone.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_High.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_LowCorner.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Motel_GRP_NS_Y0.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse_Small.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
+  modifiedAssetPaddingHash: d6a958ff37b95672e937ed0448b5617d5a94b869c04dfff00e3911b0059613dfb4c2a69380ae03f892d09f6e8406a119d9398033db5634b7d939803395c2a693ba4608c8534ffff00ba3ddde1528c115cec12491d1c1249106a3ddde06a3ddde09a3ddded9398033f437ed04d9398033d9398033fe901ac285a6c8f7f8398033b0026bda1b3a8033da7d93631b3a803314f33a063367e2a8d1c124919f398033567e9363567e9363cdc12491b4c2a693377e93638c67e2a80cf43a06ecb4d8acde09ecc014f33a0608dc894b194efff0194efff0194efff0194efff080c5d89080c5d890e55031ee80c5d890f827c115f727c115f927c115feb209cebb4608c8f827c11514f33a06f1f23a06f160976f343fd3d97ac2a693

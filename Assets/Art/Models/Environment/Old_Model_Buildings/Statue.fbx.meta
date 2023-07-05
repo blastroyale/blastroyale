@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Statue_GEO"],"padding":[89],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Statue_GEO"],"padding":[39],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

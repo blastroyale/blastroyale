@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
@@ -151,8 +152,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
-			player.SetRenderContainerVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
-				(spectatedPlayerWithinVolume));
+			var canSee = (spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
+				(spectatedPlayerWithinVolume);
+			FLog.Verbose($"[Visibility Volume] Setting {player.gameObject.name} visibility to {canSee}");
+			player.SetRenderContainerVisible(canSee);
 		}
 	}
 }

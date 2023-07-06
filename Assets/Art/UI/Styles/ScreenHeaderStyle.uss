@@ -90,7 +90,7 @@
 }
 
 .screen-header--simple .screen-header__back {
-    background-image: var(--sprite-home__header-background);
+    background-image: var(--sprite-home__header-back);
     width: 1110px;
     height: 192px;
     margin-left: -487px;

@@ -113,9 +113,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator goToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
 		{
+			if (Culled)
+			{
+				transform.position = endPos;
+				yield break;
+			}
 			var startTime = Time.time;
 			var startScale = transform.localScale;
-
 			while (Time.time <= startTime + moveTime)
 			{
 				var progress = (Time.time - startTime) / moveTime;
@@ -256,6 +260,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			rend.material.SetColor("_Color", color);
+		}
+
+		public override void SetCulled(bool culled)
+		{
+			_animation.enabled = !culled;
+			base.SetCulled(culled);
 		}
 
 		private struct CollectingData

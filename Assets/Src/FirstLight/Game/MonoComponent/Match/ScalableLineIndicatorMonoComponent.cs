@@ -20,6 +20,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private Quaternion _rotation;
 		private float _maxRange;
 		private float _minRange;
+		private Color _originalColor;
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Awake()
 		{
 			_indicator.enabled = false;
+			_originalColor = _indicator.material.GetColor(_color);
 		}
 
 		private void LateUpdate()
@@ -76,6 +78,21 @@ namespace FirstLight.Game.MonoComponent.Match
 			_rotation = Quaternion.LookRotation(new Vector3(position.x, 0f, position.y), Vector3.up);
 			cacheTransform.rotation = _rotation;
 			cacheTransform.localScale = new Vector3(cacheTransform.localScale.x, 1f, magnitude * _maxRange);
+		}
+		
+		/// <inheritdoc />
+		public void SetColor(Color c)
+		{
+			_indicator.material.SetColor(_color, c);
+		}
+		
+		/// <inheritdoc />
+		public void ResetColor()
+		{
+			if (_indicator.material.color != _originalColor)
+			{
+				_indicator.material.SetColor(_color, _originalColor);
+			}
 		}
 	}
 }

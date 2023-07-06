@@ -8,21 +8,21 @@
       "url": "https://packages.unity.com"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.0.0"
+        "com.google.firebase.app": "11.2.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -30,11 +30,11 @@
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.0.0"
+        "com.google.firebase.app": "11.2.0"
       }
     },
     "com.heurekagames.assethunterpro": {
@@ -48,6 +48,13 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "com.jetbrains.riderflow": {
+      "version": "2023.1.0-25",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://npm.pkg.jetbrains.space/public/p/jetbrains-gamedev/jetbrains-gamedev"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",
@@ -174,7 +181,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.22",
+      "version": "3.0.24",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -420,7 +420,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void RenderMinimap()
 		{
 			var ct = _minimapCamera.transform;
-			ct.SetParent(null);
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}

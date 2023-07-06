@@ -460,31 +460,6 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Marketing")]
-	public void ToggleControllerGameUI()
-	{
-		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
-
-		if (uiService.GetUi<MatchHudPresenter>().IsOpen)
-		{
-			uiService.CloseUi<MatchHudPresenter>();
-
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
-			{
-				renderer.enabled = false;
-			}
-		}
-		else
-		{
-			uiService.OpenUi<MatchHudPresenter>();
-
-			foreach (var renderer in uiService.GetUi<MatchControlsHudPresenter>().GetComponentsInChildren<Image>(true))
-			{
-				renderer.enabled = true;
-			}
-		}
-	}
-
 	[Category("Progression")]
 	private void AddXp(uint amount)
 	{

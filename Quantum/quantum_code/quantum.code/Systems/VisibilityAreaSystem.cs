@@ -32,12 +32,13 @@ namespace Quantum.Systems
 
 		private void OnEntityEnterVisibilityArea(ref Frame f, in EntityRef areaEntity, in EntityRef entering)
 		{
-			if (f.TryGet<InsideVisibilityArea>(entering, out var existingArea))
-			{
-				OnExitVisibilityArea(ref f, existingArea.Area, entering);
-			}
+			
 			if (f.TryGet<VisibilityArea>(areaEntity, out var area))
 			{
+				if (f.TryGet<InsideVisibilityArea>(entering, out var existingArea))
+				{
+					OnExitVisibilityArea(ref f, existingArea.Area, entering);
+				}
 				f.Add(entering, new InsideVisibilityArea() { Area = areaEntity });
 				f.ResolveList(area.EntitiesIn).Add(entering);
 				f.Events.OnEnterVisibilityArea(entering, areaEntity);
@@ -66,6 +67,14 @@ namespace Quantum.Systems
 		public unsafe void OnRemoved(Frame f, EntityRef entity, VisibilityArea* component)
 		{
 			f.FreeList(component->EntitiesIn);
+		}
+
+		public static bool CanEntityViewEntityRaw(in Frame f, in EntityRef viewer, in EntityRef target)
+		{
+			if (!f.TryGet<InsideVisibilityArea>(target, out var targetArea)) return true;
+			if(TeamHelpers.HasSameTeam(f, viewer, target)) return true;
+			if (!f.TryGet<InsideVisibilityArea>(viewer, out var viewerArea)) return false;
+			return targetArea.Area == viewerArea.Area;
 		}
 		
 		public static VisibilityCheckResult CanEntityViewEntity(in Frame f, in EntityRef viewer, in EntityRef target)

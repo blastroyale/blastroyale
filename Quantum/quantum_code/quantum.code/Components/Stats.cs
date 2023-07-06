@@ -48,6 +48,41 @@ namespace Quantum
 			return Values[(int) stat];
 		}
 
+		public static FP GetStat(Frame f, EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return FP._0;
+			}
+
+			return stats[stat].StatValue;
+		}
+		
+		/// <summary>
+		/// Returns a range from 1.0 to 0.0 according to player health ratio
+		/// </summary>
+		public static FP HealthRatio(in EntityRef e, Frame f)
+		{
+			var health = Stats.GetStatData(f, e, StatType.Health);
+			return (health.StatValue / health.BaseValue) * FP._100;
+		}
+		
+		public static StatData GetStatData(Frame f, in EntityRef entity, StatType stat)
+		{
+			if (!f.TryGet<Stats>(entity, out var stats))
+			{
+				return default;
+			}
+
+			return stats[stat];
+		}
+
+		public StatData this[StatType stat]
+		{
+			get => GetStatData(stat);
+		}
+	
+
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>
@@ -71,7 +106,10 @@ namespace Quantum
 			RefreshStats(f, weapon, gear, e);
 
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;
+			if (CurrentAmmoPercent == 0)
+			{
+				CurrentAmmoPercent = Constants.INITIAL_AMMO_FILLED;	
+			}
 		}
 
 		/// <summary>
@@ -155,14 +193,14 @@ namespace Quantum
 		/// <summary>
 		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and 1
 		/// </summary>
-		private void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, FP value)
 		{
 			var previousAmmo = CurrentAmmoPercent;
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = player->WeaponSlot->MagazineSize;
 			var currentMag = player->WeaponSlot->MagazineShotCount;
 
-			CurrentAmmoPercent = FPMath.Clamp(value, 0, 1);
+			CurrentAmmoPercent = FPMath.Clamp(value, FP._0, FP._1);
 
 			if (CurrentAmmoPercent != previousAmmo)
 			{

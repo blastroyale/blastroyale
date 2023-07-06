@@ -78,12 +78,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_animator.SetTrigger(_dieHash);
-			
-			this.LateCall(_dissolveDelay, () =>
-			{
-				Dissolve(false, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
-				         GameConstants.Visuals.DISSOLVE_DURATION);
-			});
 		}
 	}
 }

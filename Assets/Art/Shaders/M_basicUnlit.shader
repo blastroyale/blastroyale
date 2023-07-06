@@ -11,6 +11,14 @@ Shader "Unlit/basic"
 
         Pass {
             Name "Normal"
+            
+            // Here for Unlit/basicOutlinesd
+            Stencil
+             {
+                 Ref 69
+                 Comp Always
+                 Pass Replace
+             }  
 
             CGPROGRAM
             #pragma vertex vert

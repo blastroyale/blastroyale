@@ -39,5 +39,17 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			transform.localPosition = new Vector3(direction.x, 10f, direction.y);
 		}
+		
+		/// <inheritdoc />
+		public void SetColor(Color c)
+		{
+			// Not implemented
+		}
+		
+		/// <inheritdoc />
+		public void ResetColor()
+		{
+			// Not implemented
+		}
 	}
 }

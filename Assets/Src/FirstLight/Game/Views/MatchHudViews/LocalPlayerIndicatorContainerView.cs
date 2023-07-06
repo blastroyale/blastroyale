@@ -29,8 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private WeaponAim _weaponAim;
 		
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
-		private IIndicator MovementIndicator => _indicators[(int) IndicatorVfxId.Movement];
-		
+
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -47,6 +46,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Dispose()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			foreach (var i in _indicators) DestroyIndicator(i);
+			foreach (var i in _specialIndicators) DestroyIndicator(i);
+			foreach (var i in _specialRadiusIndicators) DestroyIndicator(i);
+			if(!_weaponAim.IsDestroyed()) GameObject.Destroy(_weaponAim);
 		}
 
 		public bool IsInitialized() => _playerView != null;
@@ -190,6 +193,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
+		private void DestroyIndicator(IIndicator i)
+		{
+			if (i != null && i is MonoBehaviour component && component != null && !component.IsDestroyed())
+			{
+				Object.Destroy(component);
+			}
+		}
+
 		/// <summary>
 		/// Setups the indicator configs for the specials
 		/// </summary>
@@ -254,13 +265,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
-
+		
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
-			if (!_localPlayerEntity.IsAlive(f)) return;
 			
-			MovementIndicator?.SetVisualState(!shooting && aim == FPVector2.Zero);
-		
+			if (!_localPlayerEntity.IsAlive(f)) return;
+
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
 			{
 				LegacyConeAim(f, aim, shooting);

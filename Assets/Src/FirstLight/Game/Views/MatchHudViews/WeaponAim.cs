@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Numerics;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
@@ -33,7 +35,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private FP _range;
 		private FP _angleVariation = 0;
 		private EntityView _view;
-		
+		private FPVector2 _aim;
+		private FPVector2 _lastAim;
+		private int _lastFrameUpdate;
+
 		public void SetView(EntityView view)
 		{
 			_view = view;
@@ -81,28 +86,56 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void UpdateAimAngle(Frame f, EntityRef entity, FPVector2 aimDirection)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerCharacter))
+			_lastAim = _aim;
+			_aim = aimDirection;
+
+			if(ShouldReRenderLines()) ReRenderLines();
+		}
+
+		/// <summary>
+		// We attempt to render the line update on the begining of the frame it was changed
+		// to avoid rendering the update on the next frame if the update was done after rendering was already done
+		private bool ShouldReRenderLines()
+		{
+			return (_lastFrameUpdate != Time.frameCount || _lastAim != _aim);
+		}
+
+		private void Update()
+		{
+			if(ShouldReRenderLines()) ReRenderLines();
+		}
+
+		private void ReRenderLines()
+		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+			
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(_view.EntityRef, out var playerCharacter))
 			{
 				return;
 			}
+			
+			FLog.Verbose("Updating aim in frame "+Time.frameCount);
 
-			aimDirection = aimDirection.Normalized;
+			_aim = _aim.Normalized;
 			
 			var origin = _view.transform.position.ToFPVector3();
-			var end = (aimDirection * _range).XOY;
+			var end = (_aim * _range).XOY;
 
 			var offset = transform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
 			origin += offset.ToFPVector3();
 			
-			DrawAimLine(f, _centerLineRenderer, entity, origin, end);
+			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);
 			if (_angleVariation > _minAngleVariation)
 			{
-				end = FPVector2.Rotate(aimDirection, -_angleVariation * FP.Deg2Rad).XOY * _variationRange;
-				DrawAimLine(f, _lowerLineRenderer, entity, origin, end);
+				end = FPVector2.Rotate(_aim, -_angleVariation * FP.Deg2Rad).XOY * _variationRange;
+				DrawAimLine(f, _lowerLineRenderer, _view.EntityRef, origin, end);
 				
-				end = FPVector2.Rotate(aimDirection, _angleVariation * FP.Deg2Rad).XOY * _variationRange;
-				DrawAimLine(f, _upperLineRenderer, entity, origin, end);
+				end = FPVector2.Rotate(_aim, _angleVariation * FP.Deg2Rad).XOY * _variationRange;
+				DrawAimLine(f, _upperLineRenderer, _view.EntityRef, origin, end);
 			}
+
+			_lastFrameUpdate = Time.frameCount;
 		}
 
 		private void DrawAimLine(Frame f, LineRenderer line, EntityRef entity, FPVector3 origin, FPVector3 end)

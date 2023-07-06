@@ -52,7 +52,7 @@ namespace Quantum
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
 
-			// We use half of ammo to calculate whether to drop ammo or not
+			// As max ammo is a very high value, we treat fraction of ammo as full ammo, but drop ammo as a fallback as well
 			var ammoFilled = stats.CurrentAmmoPercent * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
 
 			var shieldFilled = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue;
@@ -161,7 +161,8 @@ namespace Quantum
 					}
 					else
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
+						// Ammo is a fallback drop
+						drop = GameId.AmmoSmall;
 					}
 					
 					consumablesToDrop.Add(drop);

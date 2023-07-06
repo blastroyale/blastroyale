@@ -145,6 +145,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		// 	var secondaryWeaponSlot = playerCharacter.WeaponSlots[Constants.WEAPON_INDEX_SECONDARY];
 		// 	_higherRarityArrow.SetActive(secondaryWeaponSlot.Weapon.Rarity < collectable.Item.Rarity);
 		// }
+
+		protected override string GetName(QuantumGame game)
+		{
+			var collectable = GetComponentData<EquipmentCollectable>(game);
+			return collectable.Item.GameId + " - " + EntityView.EntityRef;
+		}
+
+		protected override string GetGroup(QuantumGame game)
+		{
+			return "Equipment Collectables";
+		}
 	}
 
 	[Serializable]

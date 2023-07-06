@@ -14,7 +14,8 @@ namespace FirstLight.Game.Data
 		QA = 1 << 1,
 		Admin = 1 << 2,
 		Deleted = 1 << 3,
-		FLGOfficial = 1 << 4
+		FLGOfficial = 1 << 4,
+		DiscordMod = 1 << 5
 	}
 	
 	/// <summary>

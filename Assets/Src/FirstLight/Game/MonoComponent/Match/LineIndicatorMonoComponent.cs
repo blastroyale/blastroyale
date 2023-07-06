@@ -70,5 +70,17 @@ namespace FirstLight.Game.MonoComponent.Match
 			_rotation = Quaternion.LookRotation(new Vector3(position.x, 0f, position.y), Vector3.up);
 			transform.rotation = _rotation;
 		}
+		
+		/// <inheritdoc />
+		public void SetColor(Color c)
+		{
+			// Not implemented
+		}
+		
+		/// <inheritdoc />
+		public void ResetColor()
+		{
+			// Not implemented
+		}
 	}
 }

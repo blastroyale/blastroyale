@@ -27,7 +27,7 @@ MonoBehaviour:
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
-        RawValue: 983040
+        RawValue: 1966080
       PlayfabMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingMinPlayers: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
         Values:
         - RawValue: 0
         - RawValue: 196608
-      PlayerMaxEnergyLevel: 10
+      PlayerMaxEnergyLevel: 99
       MinMaxEnergyLevelRequirement:
         Value1: 100
         Value2: 100

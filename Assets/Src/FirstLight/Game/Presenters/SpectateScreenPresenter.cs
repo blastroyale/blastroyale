@@ -44,10 +44,12 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header = root.Q<ScreenHeaderElement>("Header").Required(); 
 			_playerMight = root.Q<MightElement>("PlayerMight").Required();
 			_playerName = root.Q<Label>("PlayerName").Required();
 			_defeatedYou = root.Q<VisualElement>("DefeatedYou").Required();
+
+			_header.homeClicked += Data.OnLeaveClicked;
 
 			root.Q<LocalizedButton>("LeaveButton").clicked += Data.OnLeaveClicked;
 			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;

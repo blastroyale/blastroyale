@@ -43,15 +43,19 @@ namespace Quantum
 
 			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
 			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
-
-			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+			
+			foreach (var item in startingEquipment)
 			{
-				foreach (var item in startingEquipment)
+				var slot = GetGearSlot(&item);
+				Gear[slot] = item;
+				if (slot == Constants.GEAR_INDEX_WEAPON)
 				{
-					Gear[GetGearSlot(&item)] = item;
+					var weaponConfig = f.WeaponConfigs.GetConfig(item.GameId);
+					WeaponSlots.GetPointer(Constants.WEAPON_INDEX_PRIMARY)->MagazineShotCount = weaponConfig.MagazineSize;
+					WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon = item;
 				}
 			}
-
+			
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
 			//BotSDKDebuggerSystem.AddToDebugger(e);
@@ -88,6 +92,10 @@ namespace Quantum
 			// Replenish weapon slots
 			for (var i = Constants.WEAPON_INDEX_DEFAULT + 1; i < WeaponSlots.Length; i++)
 			{
+				if (WeaponSlots[i].Weapon.IsValid())
+				{
+					continue;
+				}
 				WeaponSlots[i] = default;
 			}
 			
@@ -108,8 +116,9 @@ namespace Quantum
 			}
 			else
 			{
-				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
-				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+				var slot = GetDefaultWeaponSlot();
+				var weaponConfig = SetSlotWeapon(f, e, slot);
+				var defaultSlot = WeaponSlots.GetPointer(slot);
 				var specials = GetSpecials(f, ref weaponConfig);
 				for (var i = 0; i < defaultSlot->Specials.Length; i++)
 				{
@@ -123,6 +132,21 @@ namespace Quantum
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);
 
 			f.Remove<DeadPlayerCharacter>(e);
+		}
+
+		private int GetDefaultWeaponSlot()
+		{
+			var slot = Constants.WEAPON_INDEX_DEFAULT;
+			for (var i = 0; i < Gear.Length; i++)
+			{
+				if (Gear[i].IsValid() && Gear[i].IsWeapon())
+				{
+					slot = Constants.WEAPON_INDEX_PRIMARY;
+					break;
+				}
+			}
+
+			return slot;
 		}
 
 		/// <summary>
@@ -145,9 +169,6 @@ namespace Quantum
 			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
-
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
-			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
 		/// <summary>

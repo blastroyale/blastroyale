@@ -1,4 +1,4 @@
-fileFormatVersion: 2
+﻿fileFormatVersion: 2
 guid: 31fecccc7573541ec90182bd6e8e5253
 ModelImporter:
   serializedVersion: 22200
@@ -38,7 +38,7 @@ ModelImporter:
     extraUserProperties:
     - '#BAKERY{"meshName":["Bush"],"padding":[128],"unwrapper":[0]}'
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 100
@@ -101,7 +101,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource:
+    instanceID: 0
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

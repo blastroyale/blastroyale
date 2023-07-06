@@ -7,7 +7,17 @@ namespace Quantum.Systems.Bots
 	/// </summary>
 	public static unsafe class BotShooting
 	{
+		/// <summary>
+		/// This determines how fast innacurate bots will move the aim line towards their randomized angle
+		/// to create the effect of smoothly aiming
+		/// </summary>
+		private static FP ACCURACY_LERP_TICK = FP._0_05;
 
+		public static FP GetMaxWeaponRange(this ref BotCharacter bot, in EntityRef entity, Frame f)
+		{
+			return FPMath.Min(Stats.GetStat(f, entity, StatType.AttackRange), bot.MaxAimingRange);
+		}
+		
 		/// <summary>
 		/// Updates to keep aiming at the current target
 		/// </summary>
@@ -26,15 +36,9 @@ namespace Quantum.Systems.Bots
 				// Aim at target
 				else
 				{
-					var weaponTargetRange =
-						FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue,
-							filter.BotCharacter->MaxAimingRange);
-					var botPosition = filter.Transform->Position;
+					var maxRange = filter.BotCharacter->GetMaxWeaponRange(filter.Entity, f);
 					var team = f.Get<Targetable>(filter.Entity).Team;
-	
-					botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-					if (filter.TryToAimAtEnemy(f, botPosition, team, weaponTargetRange, target, out var targetHit))
+					if (filter.TryToAimAtEnemy(f, team, maxRange, target, out var targetHit))
 					{
 						var speedUpMutatorExists =
 							f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
@@ -55,11 +59,17 @@ namespace Quantum.Systems.Bots
 			}
 			return target;
 		}
+
+		public struct BotTargetFilter
+		{
+			public EntityRef Entity;
+			public Targetable* Transform;
+		}
+
 		// We loop through targetable entities trying to find if any is eligible to shoot at
-		public static void CheckEnemiesToShooAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f, ref QuantumWeaponConfig weaponConfig)
+		public static void FindEnemiesToShootAt(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
 			var target = EntityRef.None;
-
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
@@ -67,30 +77,25 @@ namespace Quantum.Systems.Bots
 			// TODO: Select not a random, but the closest possible enemy to shoot at
 			var weaponTargetRange = f.Get<Stats>(botFilter.Entity).GetStatData(StatType.AttackRange).StatValue;
 			var limitedTargetRange = FPMath.Min(weaponTargetRange, botFilter.BotCharacter->MaxAimingRange);
-			var botPosition = botFilter.Transform->Position;
 			var team = f.Get<Targetable>(botFilter.Entity).Team;
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 
-			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
+			var it = f.Unsafe.FilterStruct<BotTargetFilter>();
+			it.UseCulling = true;
+			var filter = default(BotTargetFilter);
+			
+			while (it.Next(&filter))
 			{
-				if (botFilter.TryToAimAtEnemy(f, botPosition, team, limitedTargetRange,
-						targetCandidate.Entity, out var targetHit))
+				if (botFilter.TryToAimAtEnemy(f, team, limitedTargetRange, filter.Entity, out var targetHit))
 				{
 					target = targetHit;
 					break;
 				}
 			}
-
 			if (target.IsValid && botFilter.BotCharacter->Target != target)
 			{
 				botFilter.SetAttackTarget(f, target);
 			}
-			else if(!target.IsValid)
-			{
-				botFilter.ClearTarget(f);
-			}
+			botFilter.SetSearchForEnemyDelay(f);
 		}
 		
 		public static void ClearTarget(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
@@ -103,7 +108,17 @@ namespace Quantum.Systems.Bots
 			// 	filter.BotCharacter->MoveTarget = EntityRef.None;
 			// 	filter.NavMeshAgent->Stop(f, filter.Entity, true);
 			// }
-
+			
+			// if i did had a target but combat is over
+			if (botFilter.BotCharacter->Target.IsValid)
+			{
+				// if im not going towards a valid collectible ill re-think my life
+				if (!botFilter.IsGoingTowardsValidCollectible(f, out _))
+				{
+					botFilter.BotCharacter->ResetTargetWaypoint(f);
+					botFilter.NavMeshAgent->Stop(f, botFilter.Entity, true);
+				}
+			}
 			botFilter.BotCharacter->Target = EntityRef.None;
 		}
 		
@@ -121,71 +136,292 @@ namespace Quantum.Systems.Bots
 
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
 			bb->Set(f, Constants.IsAimPressedKey, false);
+			
+			BotLogger.LogAction(ref botFilter, "[Aim] Cleared Aim");
 		}
 
-		// We check specific entity if a bot can hit it or not, to make a decision to aim or not to aim
-		// Note that as a result we can get another entity that is being hit, for instance if it appears between the bot and a target that we are checking
-		public static bool TryToAimAtEnemy(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f, FPVector3 botPosition, int team,
-																																	FP targetRange, EntityRef targetToCheck, out EntityRef targetHit)
+		/// <summary>
+		/// Tries basic combat movement.
+		/// Will attempt not to get close to the enemy and stay in a decent range while moving randomly.
+		/// </summary>
+		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector3 botPosition, in EntityRef target, in FPVector3 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
-			targetHit = EntityRef.None;
-
-			if (!VisibilityAreaSystem.CanEntityViewEntity(f, botFilter.Entity, targetToCheck).CanSee)
+			if (bot.IsLowLife(e, f) || bot.BehaviourType == BotBehaviourType.Static) return false;
+			if (!bot.Target.IsValid && bot.HasWaypoint()) return false; // if im not combating and moving ill ignore
+			if (!bot.GetCanTakeDecision(f)) return false;
+			
+			// If bot is too close he will walk randomly around the bot itself 
+			var minCombatDistance = rangeSquared * FP._0_33;
+			
+			if (distanceSquared < minCombatDistance)
 			{
-				return false;
-			}
-
-			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team) ||
-				!QuantumHelpers.IsEntityInRange(f, botFilter.Entity, targetToCheck, FP._0, targetRange))
-			{
-				return false;
-			}
-
-			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
-			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-
-			// Are bots inside eachother
-			if (FPVector3.DistanceSquared(botPosition, targetPosition) < FP._0_20)
-			{
-				var random = FPVector3.Normalize(botPosition - targetPosition) * f.RNG->NextInclusive(FP._1, FP._3);
-				var randomPosition = botPosition + random;
-				if (QuantumHelpers.SetClosestTarget(f, botFilter.Entity, randomPosition))
+				if (bot.WanderInsideCircle(e, f, botPosition.XZ, minCombatDistance))
 				{
-					targetHit = targetToCheck;
+					BotLogger.LogAction(e, "Moving away from target, too close to him");
+					bot.SetHasWaypoint(e, f);
+					bot.SetNextDecisionDelay(f, FP._1);
+					bot.SetSearchForEnemyDelay(f);
+					return true;
+				}
+			}
+			
+			// If im engaging already and im inside weapon range
+			if (distanceSquared <= rangeSquared && bot.Target == target)
+			{
+				// If im getting my ass kicked i wont try to do combat movement ill god damn run
+				if (Stats.HealthRatio(e, f) + FP._0_50 < Stats.HealthRatio(bot.Target, f))
+				{
+					return false;
+				}
+
+				if (bot.WanderInsideCircle(e, f, targetPosition.XZ, rangeSquared))
+				{
+					BotLogger.LogAction(e, "Moving away from target, too close to him");
+					bot.SetHasWaypoint(e, f);
+					bot.SetNextDecisionDelay(f, FP._1);
+					bot.SetSearchForEnemyDelay(f);
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		/// <summary>
+		/// Will attempt to predict where the target will be given his movement speed
+		/// and will attempt to shoot where the target will be and not where the target is now
+		/// this means this should be a super precise shot that the player will needs to react to
+		///
+		/// THe idea is simple:
+		/// - Check how many bot weapon moves per frame
+		/// - Check how much the target moves per frame in current direction
+		/// - Given distance between target and the bot, measure how many frames it will take the bullet to hit
+		/// - Calculate a predicted offset where the target will be, given current velocity, after those frames
+		/// - Fire at that place
+		///
+		/// Maybe theres some fancy trigonometry that could solve this better, but i suck at it so made it dummy way.
+		/// </summary>
+		public static bool TrySharpShoot(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target, out FPVector2 direction)
+		{
+			direction = default;
+			if (!f.Has<AlivePlayerCharacter>(target)) return false;
+			var character = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
+			var weaponConfig = f.WeaponConfigs.GetConfig(character->CurrentWeapon.GameId);
+			var weaponTraversePerFrame = weaponConfig.AttackHitSpeed.AsInt * f.DeltaTime;
+			if (weaponTraversePerFrame == FP._0) return false;
+			var kcc = f.Unsafe.GetPointer<CharacterController3D>(target);
+			var targetPosition = target.GetPosition(f);
+			var botPosition = botEntity.GetPosition(f);
+			var currentDistance = FPVector3.Distance(botPosition, targetPosition);
+			var estimationFramesToHit = currentDistance / weaponTraversePerFrame;
+			var moveSpeed = kcc->Velocity;
+			moveSpeed = moveSpeed.Normalized * kcc->MaxSpeed;
+			var estimatedPositionOffset = moveSpeed * f.DeltaTime * estimationFramesToHit;
+			targetPosition += estimatedPositionOffset;
+			direction = (targetPosition - botPosition).XZ;
+			return true;
+		}
+		
+		// We check specials and try to use them depending on their type if possible
+		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerCharacter* player, EntityRef botEntity, Frame f)
+		{
+			if (f.Time < bot.NextAllowedSpecialUseTime)
+			{
+				return false;
+			}
+
+			if (!(f.RNG->Next() < bot.ChanceToUseSpecial))
+			{
+				return false;
+			}
+
+			for (var i = 0; i <= 1; i++)
+			{
+				if (TryUseSpecial(f, player, i, botEntity, bot.Target))
+				{
+					bot.NextAllowedSpecialUseTime = f.Time + f.RNG->NextInclusive(bot.SpecialCooldown);
 					return true;
 				}
 			}
 
-			var hit = f.Physics3D.Linecast(botPosition,
-				targetPosition,
-				f.Context.TargetAllLayerMask,
-				QueryOptions.HitDynamics | QueryOptions.HitStatics |
-				QueryOptions.HitKinematics);
+			return false;
+		}
 
+		public static bool TryUseSpecial(Frame f, PlayerCharacter* playerCharacter, int specialIndex, EntityRef entity,
+								   EntityRef target)
+		{
+			var special = playerCharacter->WeaponSlot->Specials[specialIndex];
 
-			// TODO: Ideally we shouldn't check "hit.Value.Entity != EntityRef.None" because layers should solve it,
-			// however sometimes we have a hit.HasValue but hit.Value.Entity is EntityRef.None which means we hit something that is not an Entity
-			if (hit.HasValue && hit.Value.Entity != EntityRef.None)
+			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+				special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
-				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botFilter.Entity);
-
-				targetHit = hit.Value.Entity;
-
-				// Apply bots inaccuracy
-				var aimDirection = (targetPosition - botPosition).XZ;
-				if (botFilter.BotCharacter->AccuracySpreadAngle > 0)
-				{
-					var angleHalfInRad = (botFilter.BotCharacter->AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
-					aimDirection = FPVector2.Rotate(aimDirection, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
-				}
-
-				bb->Set(f, Constants.AimDirectionKey, aimDirection);
-
+				playerCharacter->WeaponSlot->Specials[specialIndex] = special;
 				return true;
 			}
 
 			return false;
+		}
+
+		public static bool TryToAimAtEnemy(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f, int team,
+										   in FP targetRange, in EntityRef targetToCheck, out EntityRef targetHit)
+		{
+			return botFilter.BotCharacter->TryToAimAtEnemy(botFilter.Entity, f, team, targetRange, targetToCheck,
+				out targetHit);
+		}
+
+		public static bool TryToAimAtEnemy(this ref BotCharacter bot, EntityRef botEntity, Frame f, in EntityRef targetToCheck, out EntityRef targetHit, out FP botRange)
+		{
+			var team = f.Get<Targetable>(botEntity).Team;
+			botRange = bot.GetMaxWeaponRange(botEntity, f);
+			return bot.TryToAimAtEnemy(botEntity, f, team, botRange, targetToCheck, out targetHit);
+		}
+
+		// We check specific entity if a bot can hit it or not, to make a decision to aim or not to aim
+		// Note that as a result we can get another entity that is being hit, for instance if it appears between the bot and a target that we are checking
+		public static bool TryToAimAtEnemy(this ref BotCharacter bot, EntityRef botEntity, Frame f, int team, in FP targetRange, in EntityRef targetToCheck, out EntityRef targetHit)
+		{
+			targetHit = EntityRef.None;
+			if (botEntity == targetToCheck) return false;
+
+			if (!VisibilityAreaSystem.CanEntityViewEntityRaw(f, botEntity, targetToCheck))
+			{
+				//BotLogger.LogAction(botEntity, "Cant view "+targetToCheck);
+				return false;
+			}
+			
+			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team))
+			{
+				//BotLogger.LogAction(botEntity, "Not attackable "+targetToCheck);
+				return false;
+			}
+
+			var distanceSquared = QuantumHelpers.GetDistance(f, botEntity, targetToCheck);
+			var maxRangeSquared = targetRange * targetRange;
+			if (distanceSquared > maxRangeSquared)
+			{
+				//BotLogger.LogAction(botEntity, "Not in range "+targetToCheck);
+				return false;
+			}
+
+			var botPosition = botEntity.GetPosition(f);
+			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+			
+			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
+			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+
+			if (bot.TryCombatMovement(botEntity, f, botPosition, targetToCheck, targetPosition, maxRangeSquared, distanceSquared))
+			{
+				targetHit = targetToCheck;
+			}
+			else 
+			{
+				var hit = f.Physics3D.Linecast(botPosition,
+					targetPosition,
+					f.Context.TargetAllLayerMask,
+					QueryOptions.HitDynamics | QueryOptions.HitStatics |
+					QueryOptions.HitKinematics);
+
+				// We check if hit is an entity because this will check for obstacles so we dont aim 
+				// versus targets behind walls
+				if (hit.HasValue && hit.Value.Entity != EntityRef.None)
+				{
+					targetHit = hit.Value.Entity;
+				}
+			}
+			
+			if (targetHit.IsValid)
+			{
+				bot.SetAimWithAccuracyLerp(botEntity, f, targetHit, targetPosition);
+				return true;
+			}
+			return false;
+		}
+		
+		/// <summary>
+		/// Performs an accuracy lerp so bot rotates while pretending to be innacurate
+		/// This means players can see the bot innacuracy rotation and react to it.
+		///
+		/// We reusing player character blackboard components here to save space. Those blackboard
+		/// attributes are only being used by real players.
+		/// </summary>
+		private static void SetAimWithAccuracyLerp(this ref BotCharacter bot, in EntityRef botEntity, Frame f, in EntityRef target, in FPVector3 targetPosition)
+		{
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(botEntity);
+			var botPosition = botEntity.GetPosition(f);
+			
+			// if bot is marked to sharpshoot next shot we just aim at the enemy
+			// when the shot is fired bot will make sure it gets prediction
+			if (bot.SharpShootNextShot)
+			{
+				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				return;
+			}
+			
+			if (bot.AccuracySpreadAngle > 0)
+			{
+				var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+				var targetAimDirection = bb->GetVector2(f, Constants.TargetAim);
+				
+				if (aimDirection == FPVector2.Zero)
+				{
+					aimDirection = (targetPosition - botPosition).XZ;
+				}
+
+				// Target aim is the direction the bot is going to lerp to to aim
+				// This will set an innacurate target aim direction
+				if (targetAimDirection == FPVector2.Zero)
+				{
+					var targetHealthRatio = Stats.HealthRatio(target, f);
+					var botHealthRatio = Stats.HealthRatio(botEntity, f);
+
+					// If bot has at least 90% of the player life, 50% chance he will aim innacurately
+					if (targetHealthRatio <= botHealthRatio + FP._0_10 || f.RNG->NextBool()) 
+					{
+						var angleHalfInRad = (bot.AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
+						targetAimDirection = FPVector2.Rotate((targetPosition - botPosition).XZ, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
+						bb->Set(f, Constants.TargetAim, targetAimDirection);
+					}
+					else
+					{
+						// If bot is almost dying, target is not dying, 50% chance he will sharp shoot to catchup
+						if (botHealthRatio < FP._0_25 && targetHealthRatio > FP._0_25 && f.RNG->NextBool())
+						{
+							bot.SharpShootNextShot = true;
+						}
+						
+						// if he is just lower life than enemy he will just shoot better
+						// but wont sharp shoot
+						targetAimDirection = (targetPosition - botPosition).XZ;
+						bb->Set(f, Constants.AimDirectionKey, targetAimDirection);
+						bb->Set(f, Constants.TargetAim, targetAimDirection);
+						return;
+					}
+				}
+				
+				// Do the lerp towards the direction he wants to aim to
+				var lerpSpeed = bb->GetFP(f, Constants.AccuracyLerp);
+				lerpSpeed += ACCURACY_LERP_TICK;
+
+				// reached my aim rotation target, so ill reset and look for another innacurate lerped angle
+				if (lerpSpeed >= FP._1)
+				{
+					aimDirection = targetAimDirection;
+					bb->Set(f, Constants.AccuracyLerp, FP._0);
+					bb->Set(f, Constants.TargetAim, FPVector2.Zero);
+				}
+				else
+				{
+					bb->Set(f, Constants.AccuracyLerp, lerpSpeed);
+					aimDirection = FPQuaternion.Lerp(aimDirection.ToRotation(), targetAimDirection.ToRotation(), lerpSpeed).ToDirection();
+				}
+				bb->Set(f, Constants.AimDirectionKey, aimDirection);
+			}
+			else
+			{
+				// Sharp Shooter
+				BotLogger.LogAction(bot, "Setting sharp shooter");
+				bot.SharpShootNextShot = true;
+				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+			}
 		}
 
 	}

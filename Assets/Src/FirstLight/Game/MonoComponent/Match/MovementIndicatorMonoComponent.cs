@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void LateUpdate()
 		{
+			if (_playerTransform.IsDestroyed()) return;
 			transform.position = _playerTransform.position + _position;
 		}
 
@@ -48,17 +50,31 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void Init(EntityView playerEntityView)
 		{
 			_playerTransform = playerEntityView.transform;
-			
-			transform.SetParent(_playerTransform);
 		}
 
 		/// <inheritdoc />
 		public void SetTransformState(Vector2 position)
 		{
+			if (_playerTransform.IsDestroyed()) return;
 			var move = position * _playerDistance;
-			
 			_position = new Vector3(move.x, _localHeight, move.y);
-			transform.position = _playerTransform.position + _position;
+			var playerPos = _playerTransform.position;
+			var localTransform = transform;
+			localTransform.position = playerPos + _position;
+			var myPos = localTransform.position;
+			localTransform.rotation = Quaternion.LookRotation(myPos - playerPos);
+		}
+		
+		/// <inheritdoc />
+		public void SetColor(Color c)
+		{
+			// Not implemented
+		}
+		
+		/// <inheritdoc />
+		public void ResetColor()
+		{
+			// Not implemented
 		}
 	}
 }

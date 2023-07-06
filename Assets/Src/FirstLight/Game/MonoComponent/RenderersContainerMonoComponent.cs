@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
@@ -73,9 +74,12 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField] private List<Renderer> _particleRenderers = new List<Renderer>();
 		[SerializeField] private List<GameObject> _rendererRoots = new List<GameObject>();
 		[SerializeField] private Renderer _mainRenderer;
+		
+		private readonly List<List<Material>> _originalMaterialsPerRenderer = new();
 
 		private IGameServices _services;
 		private MaterialPropertyBlock _propBlock;
+
 
 		/// <summary>
 		/// A readonly list of all the original <see cref="Material"/> when this object was created
@@ -107,6 +111,7 @@ namespace FirstLight.Game.MonoComponent
 			_particleRenderers.Clear();
 			_renderers.Clear();
 			_originalMaterials.Clear();
+			_originalMaterialsPerRenderer.Clear();
 
 			foreach (var render in renderers)
 			{
@@ -118,7 +123,7 @@ namespace FirstLight.Game.MonoComponent
 
 				_renderers.Add(render);
 
-				for (var i = 0; i<render.sharedMaterials.Length; i++)
+				for (var i = 0; i < render.sharedMaterials.Length; i++)
 				{
 					if (i == 0)
 					{
@@ -132,8 +137,13 @@ namespace FirstLight.Game.MonoComponent
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_propBlock = new MaterialPropertyBlock();
+
+			foreach (var r in _renderers)
+			{
+				_originalMaterialsPerRenderer.Add(r.sharedMaterials.ToList());
+			}
 		}
-		
+
 		public void SetMaterialPropertyValue(int propertyId, float value)
 		{
 			foreach (var rendererItem in _renderers)
@@ -157,7 +167,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 			}
 		}
-		
+
 		public void SetMaterialPropertyValue(int propertyId, float startValue, float endValue, float duration)
 		{
 			foreach (var rendererItem in _renderers)
@@ -181,7 +191,7 @@ namespace FirstLight.Game.MonoComponent
 				}
 			}
 		}
-		
+
 		public void SetRendererState(bool visible)
 		{
 			foreach (var render in _renderers)
@@ -221,7 +231,7 @@ namespace FirstLight.Game.MonoComponent
 				Destroy(mat);
 				return;
 			}
-			
+
 			SetMaterial(i => mat, mode, keepTexture);
 		}
 
@@ -232,9 +242,9 @@ namespace FirstLight.Game.MonoComponent
 			for (int i = 0, count = 0; i < _renderers.Count; i++)
 			{
 				var sharedMaterialCount = _renderers[i].sharedMaterials.Length;
-				var materialCount =  Math.Min(_renderers[i].materials.Length, 1);
-				
-				var newMaterials = new Material[sharedMaterialCount];
+				var materialCount = Math.Min(_renderers[i].materials.Length, 1);
+
+				var newMaterials = new List<Material>(3);
 
 				for (var j = 0; j < materialCount; j++, count++)
 				{
@@ -245,16 +255,15 @@ namespace FirstLight.Game.MonoComponent
 						material.SetTexture(_mainText, _originalMaterials[count].GetTexture(_mainText));
 					}
 
-					newMaterials[j] = material;
+					newMaterials.Add(material);
 				}
 
 				if (sharedMaterialCount > 1)
 				{
-					var lastIndex = sharedMaterialCount - 1;
-					newMaterials[lastIndex] = _renderers[i].sharedMaterials[lastIndex];
+					newMaterials.Add(_renderers[i].sharedMaterials[^1]);
 				}
 
-				_renderers[i].materials = newMaterials;
+				_renderers[i].materials = newMaterials.ToArray();
 				_renderers[i].shadowCastingMode = mode;
 			}
 		}
@@ -279,7 +288,17 @@ namespace FirstLight.Game.MonoComponent
 		/// <inheritdoc />
 		public void ResetToOriginalMaterials()
 		{
-			SetMaterial(i => _originalMaterials[i], ShadowCastingMode.On, false);
+			if (_originalMaterialsPerRenderer is {Count: > 0})
+			{
+				for (var i = 0; i < _renderers.Count; i++)
+				{
+					_renderers[i].sharedMaterials = _originalMaterialsPerRenderer[i].ToArray();
+				}
+			}
+			else
+			{
+				SetMaterial(i => _originalMaterials[i], ShadowCastingMode.On, false);
+			}
 		}
 	}
 }

@@ -147,5 +147,12 @@ namespace FirstLight.Game.Serializers
 			ModelSerializer.RegisterConverter(new FPConverter());
 			ModelSerializer.RegisterConverter(new EquipmentSerializer());
 		}
+
+
+		public static void RegisterAOT()
+		{
+			// TODO Move this to AOTCode and reformat this file
+			Newtonsoft.Json.Utilities.AotHelper.EnsureList<CollectionMeta>();
+		}
 	}
 }

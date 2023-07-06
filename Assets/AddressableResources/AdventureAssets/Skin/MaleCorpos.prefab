@@ -1083,6 +1083,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 54f4034bcbca2214880f69e4c39beb45, type: 2}
+  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
   - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1669,6 +1670,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4bb6fa38b48cbdf469693646578a6c7c, type: 2}
+  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
   - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2125,6 +2127,8 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4bb6fa38b48cbdf469693646578a6c7c, type: 2}
+  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
+  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2513,13 +2517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RenderersContainerProxy: {fileID: 8479027828082328512}
   _animator: {fileID: 3702408559955903924}
-  _projectileHitVfx:
-    _selection: FootprintL
   _vfxLocalScale: {x: 1, y: 1, z: 1}
   _characterView: {fileID: 303139264701745336}
-  _footstepVfxSpawners:
-  - {fileID: 0}
-  - {fileID: 0}
   RootTransform: {fileID: 344184554193199035}
 --- !u!1 &8063228822173036706
 GameObject:

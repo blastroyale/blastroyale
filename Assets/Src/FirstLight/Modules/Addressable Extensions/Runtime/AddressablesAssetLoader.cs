@@ -79,7 +79,7 @@ namespace FirstLight.AddressablesExtensions
 
 		private async Task AsyncOperation(AsyncOperation operation)
 		{
-			while (!operation.isDone)
+			while (operation != null && !operation.isDone)
 			{
 				await Task.Yield();
 			}

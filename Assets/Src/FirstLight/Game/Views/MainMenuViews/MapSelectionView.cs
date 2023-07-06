@@ -92,25 +92,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (!SelectionEnabled) return;
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
-
-		/// <summary>
-		/// Force-ly selects the water position on the map
-		/// </summary>
-		public void SelectWaterPosition()
-		{
-			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-
-			for (int y = 0; y < mapGridConfigs.GetSize().y; y++)
-			{
-				var pos = new Vector2Int(0, y);
-				if (IsValidPosition(pos, true))
-				{
-					SetGridPosition(pos, true);
-					return;
-				}
-			}
-		}
-
+		
 		private void SetGridPosition(Vector2Int pos, bool includeWater)
 		{
 			if (!IsValidPosition(pos, includeWater))
@@ -129,7 +111,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var dropPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) *
 				_dropSelectionSize;
 			_services.NetworkService.SetDropPosition(dropPosition);
-			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
+			_selectedDropAreaRoot.SetActive(false);
 		}
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)

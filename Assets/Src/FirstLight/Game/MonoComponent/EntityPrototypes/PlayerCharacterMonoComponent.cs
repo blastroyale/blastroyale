@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -32,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnAwake()
 		{
 			_shadowBlob.SetActive(false);
-			
+
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLanded);
 		}
@@ -49,21 +46,21 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
 			if (HasRenderedView()) return;
-			
+
 			var frame = game.Frames.Verified;
-			
+
 			InstantiateAvatar(game, frame.Get<PlayerCharacter>(EntityView.EntityRef).Player);
 		}
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
 			var f = game?.Frames?.Verified;
-			
-			if(f == null || _playerView == null) return;
-			
+
+			if (f == null || _playerView == null) return;
+
 			var playerData = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef];
 			var marker = playerData.PlayerDeathMarker;
-			
+
 			SpawnDeathMarker(marker);
 		}
 
@@ -71,7 +68,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var position = transform.position;
 			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
-			
+
 			obj.transform.position = position;
 		}
 
@@ -81,7 +78,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
+
 			// Disabled VXF on player spawn
 			//var position = GetComponentData<Transform3D>(callback.Game).Position.ToUnityVector3();
 			//var aliveVfx = Services.VfxService.Spawn(VfxId.SpawnPlayer);
@@ -94,16 +91,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
-			
 			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(loadout.Skin, true, true, OnLoaded);
-			
+
 			if (this.IsDestroyed())
 			{
 				return;
 			}
-			
-			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
-			
+
 			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
 			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
@@ -112,12 +106,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
-			
-			if (isSkydiving)
+
+			if (frame.Has<BotCharacter>(EntityView.EntityRef))
 			{
-				matchCharacterViewMonoComponent.HideAllEquipment();
+				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
+				bot.SetEntityView(quantumGame, _playerView.EntityView);
 			}
-			
+
 			if (stats.CurrentStatusModifierType != StatusModifierType.None)
 			{
 				var time = stats.CurrentStatusModifierEndTime - frame.Time;
@@ -126,6 +121,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 		}
 
-	
+		protected override string GetName(QuantumGame game)
+		{
+			var pc = GetComponentData<PlayerCharacter>(game);
+			return (pc.RealPlayer ? "[Player]" : "[Bot]")
+				+ " - " + Extensions.GetPlayerName(GetFrame(game), EntityView.EntityRef, pc)
+				+ " - " + EntityView.EntityRef;
+		}
+
+		protected override string GetGroup(QuantumGame game)
+		{
+			return "Players";
+		}
 	}
 }

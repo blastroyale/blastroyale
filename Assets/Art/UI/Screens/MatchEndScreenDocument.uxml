@@ -30,10 +30,10 @@
                 <ui:VisualElement name="TextWinEffect1" class="you-win-title__effect1" />
                 <ui:VisualElement name="TextWin" class="you-win-title__text" />
             </ui:VisualElement>
-            <ui:VisualElement name="ProjectorLight" class="you-win-title__projectorlight" style="bottom: -38px; left: 0; display: none;">
+            <ui:VisualElement name="ProjectorLight" class="you-win-title__projectorlight you-win-title__projectorlight--left" style="display: none;">
                 <ui:VisualElement name="GradientProjector" class="you-won-title__projectorgradient" style="width: 1400px; height: 1400px; position: absolute; align-self: center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="ProjectorLight2" class="you-win-title__projectorlight" style="right: 0; bottom: -38px; display: none;">
+            <ui:VisualElement name="ProjectorLight2" class="you-win-title__projectorlight you-win-title__projectorlight--right" style="display: none;">
                 <ui:VisualElement name="GradientProjector" class="you-won-title__projectorgradient" style="width: 1400px; height: 1400px; position: absolute; align-self: center;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

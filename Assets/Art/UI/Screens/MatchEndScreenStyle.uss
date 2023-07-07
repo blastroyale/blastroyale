@@ -184,3 +184,13 @@
     background-image: var(--sprite-match__gradient-lowhp);
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.45);
 }
+
+.you-win-title__projectorlight--left {
+    bottom: -38px;
+    left: 0;
+}
+
+.you-win-title__projectorlight--right {
+    right: 0;
+    bottom: -38px;
+}

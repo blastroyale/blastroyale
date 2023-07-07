@@ -175,14 +175,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Animates the scale up and than back down to 1
+		/// Animates the scale up and then back down to 1
 		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f)
+		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
 		{
 			var anim =
-				element.experimental.animation.Scale(amount, 150).OnCompleted(() =>
+				element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
 				{
-					element.experimental.animation.Scale(1f, 150).Start();
+					element.experimental.animation.Scale(1f, duration).Start();
 				});
 			anim.Start();
 			return anim;

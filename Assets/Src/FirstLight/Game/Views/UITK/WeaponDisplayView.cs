@@ -6,6 +6,7 @@ using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Views.UITK
 {
@@ -27,6 +28,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _switchIcon;
 		private RadialProgressElement _ammoProgress;
 		private Label _ammoLabel;
+		private IValueAnimation _ammoLabelAnimation;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -114,7 +116,11 @@ namespace FirstLight.Game.Views.UITK
 			
 			//TODO: this callback does not apply when you first spawn in for some reason, even though it should
 			_ammoLabel.text = currentAmmo.ToString();
-			_ammoLabel.AnimatePing(4f, 15);
+
+			if (_ammoLabelAnimation == null || !_ammoLabelAnimation.isRunning)
+			{
+				_ammoLabelAnimation = _ammoLabel.AnimatePing(2f, 10);
+			}
 		}
 
 		private void SetSlot(int slot)

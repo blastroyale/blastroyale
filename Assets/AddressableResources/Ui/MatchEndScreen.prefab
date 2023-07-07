@@ -49,6 +49,8 @@ MonoBehaviour:
   _document: {fileID: 3899147125832370509}
   _background: {fileID: 0}
   _millisecondsToClose: 0
+  _winDirector: {fileID: 1513839724942953626}
+  _blastedDirector: {fileID: 2981311800900885238}
 --- !u!114 &3899147125832370509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +109,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: f2a193c373165db42aaebf2bbeb2e5fa, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -189,7 +191,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 96fae9c95ddeea841bedf3d096d1503d, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0

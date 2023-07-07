@@ -114,6 +114,7 @@ namespace FirstLight.Game.Views.UITK
 			
 			//TODO: this callback does not apply when you first spawn in for some reason, even though it should
 			_ammoLabel.text = currentAmmo.ToString();
+			_ammoLabel.AnimatePing(4f, 15);
 		}
 
 		private void SetSlot(int slot)

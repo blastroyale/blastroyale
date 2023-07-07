@@ -1,4 +1,5 @@
-Shader "UI/Default"
+// For use with uGUI (default ui sprite shader), will draw this element without ZTest
+Shader "FLG/UI/Overlay"
 {
     Properties
     {
@@ -20,7 +21,7 @@ Shader "UI/Default"
     {
         Tags
         {
-            "Queue"="Transparent"
+            "Queue"="Overlay"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
             "PreviewType"="Plane"

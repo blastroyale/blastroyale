@@ -1,28 +1,37 @@
-Shader "Unlit/basicOutline"
+// For use with dynamic objects on the map (collectables / pickups / equipment / characters).
+Shader "FLG/Unlit/Dynamic Object"
 {
     Properties
     {
+        _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
-        _Width ("Color", float) = 0.01
+        _OutlineColor ("Outline Color", Color) = (.3,.3,1,1)
+        _Width ("Width", float) = 0.01
+
     }
     SubShader
     {
         Tags
         {
-            "RenderType"="Opaque" "Queue"="Geometry+2"
+            "RenderType"="Opaque" "Queue"="Geometry+1"
         }
         LOD 100
 
         Pass
         {
             Name "Normal"
-            
-            Cull Off
 
+            Tags
+            {
+                "LightMode" = "SRPDefaultUnlit"
+            }
+
+            // Here for FLG/Unlit/Dynamic Outline
             Stencil
             {
                 Ref 69
-                Comp NotEqual
+                Comp Always
+                Pass Replace
             }
 
             CGPROGRAM
@@ -33,29 +42,33 @@ Shader "Unlit/basicOutline"
             struct appdata
             {
                 float4 vertex : POSITION;
-                float3 normal : NORMAL;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
+                float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
             };
 
+            sampler2D _MainTex;
             float4 _Color;
-            float _Width;
 
             v2f vert(appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex.xyz + v.normal * _Width);
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                return _Color;
+                fixed4 tex = tex2D(_MainTex, i.uv) * _Color;
+                return tex;
             }
             ENDCG
         }
+
     }
 }

@@ -1,4 +1,5 @@
-Shader "FLG/FastLit"
+// A barebones shader with Lambert lighting
+Shader "FLG/Legacy/FastLit"
 {
     Properties
     {

@@ -1,5 +1,5 @@
-// Simple indicator shader that draws unlit with transparency above everything else
-Shader "FLG/Indicator"
+// Simple shader that draws unlit with transparency above everything else
+Shader "FLG/Unlit/Overlay"
 {
     Properties
     {
@@ -12,7 +12,6 @@ Shader "FLG/Indicator"
         Tags
         {
             "Queue" = "Overlay"
-            "IgnoreProjector"="True"
             "RenderType"="Opaque"
         }
 
@@ -21,7 +20,6 @@ Shader "FLG/Indicator"
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
         ZTest Always
-            
 
         Pass
         {
@@ -32,20 +30,20 @@ Shader "FLG/Indicator"
             #pragma target 2.0
 
             #include "UnityCG.cginc"
-        
+
             struct appdata_t
             {
-                float4 vertex   : POSITION;
-                float4 color    : COLOR;
+                float4 vertex : POSITION;
+                float4 color : COLOR;
                 float2 texcoord : TEXCOORD0;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
             {
-                half4 vertex   : SV_POSITION;
-                fixed4 color    : COLOR;
-                half2 texcoord  : TEXCOORD0;
+                half4 vertex : SV_POSITION;
+                fixed4 color : COLOR;
+                half2 texcoord : TEXCOORD0;
                 half4 worldPosition : TEXCOORD1;
             };
 
@@ -68,7 +66,7 @@ Shader "FLG/Indicator"
                 half4 color = tex2D(_MainTex, IN.texcoord) * IN.color;
                 return color;
             }
-        ENDCG
+            ENDCG
         }
     }
 }

@@ -1,4 +1,5 @@
-Shader "Custom/UI/Minimap"
+// Draws the minimap
+Shader "FLG/UI/Minimap"
 {
     Properties
     {
@@ -73,7 +74,6 @@ Shader "Custom/UI/Minimap"
             #pragma target 2.0
 
             #include "UnityCG.cginc"
-            #include "UIShaderShared.cginc"
 
             struct appdata_t
             {
@@ -131,6 +131,11 @@ Shader "Custom/UI/Minimap"
             float _PingWidth;
             float4 _PingPosition;
             float _PingProgress;
+
+            inline float circle(in float2 st, in float radius)
+            {
+                return step(distance(st, float2(0.5, 0.5)), radius / 2.0);
+            }
 
             v2f vert(appdata_t v)
             {
@@ -207,7 +212,8 @@ Shader "Custom/UI/Minimap"
 
                 // Draw Ping ring
                 const float2 pingPos = stMod - _PingPosition;
-                const float progressCubic = _PingProgress * _PingProgress; // This is the easeOutCubic of _PingProgress, for the size
+                const float progressCubic = _PingProgress * _PingProgress;
+                // This is the easeOutCubic of _PingProgress, for the size
                 const float progressQuint = progressCubic * _PingProgress * _PingProgress *
                     _PingProgress; // This is the easeOutQuint of _PingProgress, for the "alpha"
                 const float pingRing = circle(pingPos, _PingSize * progressCubic) - circle(

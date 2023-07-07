@@ -24,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
+		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
@@ -558,6 +559,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 			_lastPosition = currentPosition;
+
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == EntityRef)
+			{
+				Shader.SetGlobalVector(_playerPos, transform.position);
+			}
 		}
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)

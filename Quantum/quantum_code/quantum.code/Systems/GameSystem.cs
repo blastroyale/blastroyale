@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Deterministic;
 using Quantum.Systems.Bots;
 
@@ -105,7 +106,7 @@ namespace Quantum.Systems
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
 			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
-			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
+			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds().Where(item => !item.IsInGroup(GameIdGroup.Deprecated)));
 			var count = isHammerTimeMutator ? 0 : component->DropPool.WeaponPool.Length;
 			var rarity = 0;
 

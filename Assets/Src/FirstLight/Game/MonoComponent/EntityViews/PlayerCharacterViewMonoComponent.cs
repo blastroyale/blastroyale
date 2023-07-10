@@ -96,14 +96,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public override void SetCulled(bool culled)
 		{
-			if (!_playerFullyGrounded)
-			{
-				return;
-			}
-
 			if (culled)
 			{
-				AnimatorWrapper.Enabled = false;
+				if (_playerFullyGrounded)
+				{
+					AnimatorWrapper.Enabled = false;
+				}
+
 				foreach (var col in _colliders)
 				{
 					col.enabled = false;

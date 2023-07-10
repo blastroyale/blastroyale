@@ -17,17 +17,20 @@ Shader "FLG/Baked/Static Object"
             "IgnoreProjector" = "True"
             "RenderPipeline" = "UniversalPipeline"
         }
-        LOD 100
+
         Blend One Zero
         ZWrite On
         Cull Back
+
         Pass
         {
-            Name "FastBaked"
+            Name "Normal"
+
             Tags
             {
                 "LightMode" = "UniversalForwardOnly"
             }
+
             HLSLPROGRAM
             #pragma target 2.0
             #pragma vertex vert
@@ -38,6 +41,7 @@ Shader "FLG/Baked/Static Object"
             #pragma multi_compile _ DEBUG_DISPLAY
             #include "Packages/com.unity.render-pipelines.universal/Shaders/BakedLitInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
             struct Attributes
             {
                 float4 positionOS : POSITION;
@@ -46,6 +50,7 @@ Shader "FLG/Baked/Static Object"
                 float3 normalOS : NORMAL;
                 float4 tangentOS : TANGENT;
             };
+
             struct Varyings
             {
                 float4 positionCS : SV_POSITION;
@@ -57,6 +62,7 @@ Shader "FLG/Baked/Static Object"
                 float3 viewDirWS : TEXCOORD5;
                 #endif
             };
+
             void InitializeSurfaceData(half3 color, half alpha, half3 normalTS, out SurfaceData surfaceData)
             {
                 surfaceData = (SurfaceData)0;
@@ -71,6 +77,7 @@ Shader "FLG/Baked/Static Object"
                 surfaceData.clearCoatSmoothness = 1;
                 surfaceData.normalTS = normalTS;
             }
+
             void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData)
             {
                 inputData = (InputData)0;
@@ -103,6 +110,7 @@ Shader "FLG/Baked/Static Object"
                 #endif
                 #endif
             }
+
             Varyings vert(Attributes input)
             {
                 Varyings output;
@@ -134,10 +142,12 @@ Shader "FLG/Baked/Static Object"
                 #endif
                 return output;
             }
+
             inline float circle(in float2 st, in float radius)
             {
                 return step(distance(st, float2(0.5, 0.5)), radius / 2.0);
             }
+
             half4 frag(Varyings input) : SV_Target0
             {
                 half2 uv = input.uv0AndFogCoord.xy;

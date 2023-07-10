@@ -26,17 +26,20 @@ Shader "FLG/Baked/Bush"
             "IgnoreProjector" = "True"
             "RenderPipeline" = "UniversalPipeline"
         }
-        LOD 100
+
         Blend One Zero
         ZWrite On
         Cull Back
+
         Pass
         {
-            Name "FastBaked"
+            Name "Normal"
+
             Tags
             {
                 "LightMode" = "UniversalForwardOnly"
             }
+
             HLSLPROGRAM
             #pragma target 2.0
             #pragma vertex vert

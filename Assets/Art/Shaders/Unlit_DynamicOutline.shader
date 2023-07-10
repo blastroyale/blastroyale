@@ -12,7 +12,6 @@ Shader "FLG/Unlit/Dynamic Outline"
         {
             "RenderType"="Opaque" "Queue"="Geometry+2"
         }
-        LOD 100
 
         Pass
         {

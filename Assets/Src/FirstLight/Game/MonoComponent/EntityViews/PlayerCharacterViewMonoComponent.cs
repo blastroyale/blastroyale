@@ -39,7 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		private IMatchServices _matchServices;
-		private bool _cullingEnabled;
+		private bool _playerFullyGrounded;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -96,7 +96,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public override void SetCulled(bool culled)
 		{
-			if (!_cullingEnabled)
+			if (!_playerFullyGrounded)
 			{
 				return;
 			}
@@ -207,7 +207,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				if (isSkydiving)
 				{
-					_cullingEnabled = false;
+					_playerFullyGrounded = false;
 					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
 				}
 				else
@@ -583,7 +583,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			
-			_cullingEnabled = true;
+			_playerFullyGrounded = true;
 		}
 
 		private void HandlePlayerSkydiveLand(EventOnPlayerSkydiveLand callback)

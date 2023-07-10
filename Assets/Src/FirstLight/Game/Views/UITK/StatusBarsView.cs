@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			base.Attached(element);
 
-			_camera = Camera.main;
+			_camera = Main.Instance.Camera;//Camera.main;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
 

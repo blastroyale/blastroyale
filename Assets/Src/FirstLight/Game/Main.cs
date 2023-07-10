@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -27,10 +28,29 @@ namespace FirstLight.Game
 	/// The Main entry point of the game
 	/// </summary>
 	public class Main : MonoBehaviour
-	{	
+	{
+		[SerializeField] private Camera _camera;
+		[SerializeField] private CinemachineBrain _cinemachineBrain;
+		
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
 
+		public Camera Camera => _camera;
+
+		public CinemachineBrain CinemachineBrain => _cinemachineBrain;
+		
+		static Main s_instance;
+
+		public static Main Instance
+		{
+			get
+			{
+				if (s_instance == null)
+					s_instance = FindObjectOfType<Main>();
+				return s_instance;
+			}
+		}
+		
 		private void Awake()
 		{
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskExceptionLogging;

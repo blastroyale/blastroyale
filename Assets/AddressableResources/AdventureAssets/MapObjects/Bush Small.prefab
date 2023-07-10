@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 339260322351961184}
   - component: {fileID: 4709506171948086438}
   - component: {fileID: 6969778839080433614}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1166111229956868600}
   - component: {fileID: 9042346362104130501}
   - component: {fileID: 5131463388588778195}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 2994528407130736380}
   - component: {fileID: 8857968609941191585}
   - component: {fileID: 2982387074926561504}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Bush Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 1
-    Layer: 17
+    Layer: 0
     CallbackFlags:
       Value: 455
   PhysicsBody:

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BR_GradientAtlas
+  m_Name: M_Baked_GradientAtlas
   m_Shader: {fileID: 4800000, guid: b6e721c850e845908724637f718a62a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: bf339a49994a44e4c8ca7f52a2b41f65, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8a6f9a4383ead428196a808761d3d495, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:

@@ -10,20 +10,13 @@ Shader "FLG/Unlit/Dynamic Outline"
     {
         Tags
         {
-            "RenderType"="Opaque" "Queue"="Geometry+2"
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
         }
 
         Pass
         {
             Name "Normal"
-
-            Cull Off
-
-            Stencil
-            {
-                Ref 69
-                Comp NotEqual
-            }
 
             CGPROGRAM
             #pragma vertex vert

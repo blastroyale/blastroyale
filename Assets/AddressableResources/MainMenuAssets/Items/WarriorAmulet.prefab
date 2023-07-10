@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2720757528771660484}
   - component: {fileID: 2559789008821612943}
   - component: {fileID: 4549150451266373809}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: warrior_amulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646631708811683048}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: WarriorAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

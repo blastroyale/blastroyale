@@ -51,9 +51,10 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 3121645564521645946}
-  _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
   _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  _pickupCircle: {fileID: 0}
+  _spawnAnim: 1
 --- !u!114 &5825346893658110353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,14 +67,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 5ad2a0c78a1153a408d104d025685fce, type: 2}
   _renderers:
   - {fileID: 5033077570471258439}
   _particleRenderers:
   - {fileID: 4773252145154919667}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 5ad2a0c78a1153a408d104d025685fce, type: 2}
 --- !u!111 &3121645564521645946
 Animation:
   m_ObjectHideFlags: 0
@@ -104,9 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainRenderersContainer: {fileID: 5825346893658110353}
-  _renderersContainers:
-  - {fileID: 5825346893658110353}
 --- !u!1 &7273039971299085642
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +140,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7273039971299085641}
     m_Modifications:
     - target: {fileID: 2219724607372360283, guid: 86b2efb162ce708489a897a491d4456e, type: 3}
@@ -211,6 +208,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: ea810a033027ee141960c675a9aa114b, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86b2efb162ce708489a897a491d4456e, type: 3}
 --- !u!4 &4549868916542385781 stripped
 Transform:

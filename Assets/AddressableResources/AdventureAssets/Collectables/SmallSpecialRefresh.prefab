@@ -152,16 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 5ad2a0c78a1153a408d104d025685fce, type: 2}
-  - {fileID: 2100000, guid: 0d1c2c519323a4f7aaf985fa0d7330ba, type: 2}
   _renderers:
   - {fileID: 8714969814136652946}
   - {fileID: 7071029050947782720}
   _particleRenderers:
   - {fileID: 9157260825883730214}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 5ad2a0c78a1153a408d104d025685fce, type: 2}
+  - {fileID: 2100000, guid: 0d1c2c519323a4f7aaf985fa0d7330ba, type: 2}
 --- !u!111 &3121645564521645946
 Animation:
   m_ObjectHideFlags: 0
@@ -192,9 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainRenderersContainer: {fileID: 5825346893658110353}
-  _renderersContainers:
-  - {fileID: 5825346893658110353}
 --- !u!1 &7273039971299085642
 GameObject:
   m_ObjectHideFlags: 0

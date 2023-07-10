@@ -110,7 +110,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (statusType.TryGetVfx(out MaterialVfxId materialVfx))
 			{
-				RenderersContainerProxy.SetMaterial(materialVfx, ShadowCastingMode.On, true);
+				RenderersContainerProxy.SetMaterial(materialVfx, true);
 				_materialsCoroutine = StartCoroutine(ResetMaterials(duration));
 			}
 			else if (statusType.TryGetVfx(out VfxId vfx))
@@ -210,7 +210,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (_materialsCoroutine != null)
 			{
 				StopCoroutine(_materialsCoroutine);
-				RenderersContainerProxy.ResetToOriginalMaterials();
+				RenderersContainerProxy.ResetMaterials();
 				_materialsCoroutine = null;
 			}
 
@@ -251,7 +251,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			// and this script can become null.
 			if (!this.IsDestroyed())
 			{
-				RenderersContainerProxy.ResetToOriginalMaterials();
+				RenderersContainerProxy.ResetMaterials();
 			}
 		}
 

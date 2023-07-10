@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5485943766048394491}
   - component: {fileID: 7232729678942428916}
   - component: {fileID: 5065886761935985549}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MausHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1339524711046446255}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MausHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

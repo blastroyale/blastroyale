@@ -164,15 +164,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
 		}
 
-
-		public void SetPlayerSilhouetteVisible(bool visible)
-		{
-			RenderersContainerProxy.SetRenderersLayer(
-				LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
-
-			_characterView.PrintFootsteps = visible;
-		}
-		
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
 		/// </summary>
@@ -359,7 +350,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.Enabled = true;
 
 			AnimatorWrapper.SetTrigger(Triggers.Revive);
-			RenderersContainerProxy.SetRendererState(true);
+			RenderersContainerProxy.SetEnabled(true);
 		}
 
 		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -374,7 +365,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
 
-			RenderersContainerProxy.SetRendererState(false);
+			RenderersContainerProxy.SetEnabled(false);
 		}
 
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3277134315259030443}
   - component: {fileID: 5103655026207663509}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Shotgun_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3369595100084150468}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ModShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +84,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3277134315259030443}
     m_Modifications:
     - target: {fileID: -8722221509191209553, guid: a1261087fc443264e93ce442dde875e4, type: 3}
@@ -152,17 +153,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7974254394494865994, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8707290714799103029, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: faf1122e1e7d8b044b862c6ba3cde612, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1261087fc443264e93ce442dde875e4, type: 3}
 --- !u!4 &445539402493822666 stripped
 Transform:
@@ -174,11 +178,24 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3277134315259030443}
     m_Modifications:
+    - target: {fileID: 86582458637490507, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767006435273613295, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3558831512705607698, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
       propertyPath: m_Name
       value: MajorMarkdowns_BrandingTag_Rig
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558831512705607698, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4190690486592795304, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
       propertyPath: m_RootOrder
@@ -224,7 +241,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4441371350352074796, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441371350386859794, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441371351327890710, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931078064224666863, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf5a0f83418e9604ca5584f6c6113cf9, type: 3}
 --- !u!4 &7152930128720064037 stripped
 Transform:

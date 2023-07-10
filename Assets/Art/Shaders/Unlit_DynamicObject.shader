@@ -5,39 +5,22 @@ Shader "FLG/Unlit/Dynamic Object"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
-        _OutlineColor ("Outline Color", Color) = (.3,.3,1,1)
-        _Width ("Width", float) = 0.01
-
     }
     SubShader
     {
         Tags
         {
-            "RenderType"="Opaque" "Queue"="Geometry+1"
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
         }
-        LOD 100
 
         Pass
         {
-            Name "Normal"
-
-            Tags
-            {
-                "LightMode" = "SRPDefaultUnlit"
-            }
-
-            // Here for FLG/Unlit/Dynamic Outline
-            Stencil
-            {
-                Ref 69
-                Comp Always
-                Pass Replace
-            }
+            Name "Albedo"
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
 
             struct appdata
             {

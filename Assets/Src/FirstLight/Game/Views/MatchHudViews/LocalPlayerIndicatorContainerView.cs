@@ -288,8 +288,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!IsInitialized() || _localPlayerEntity != callback.Entity)
 				return;
-			
-			_weaponAim.SetColor(callback.CurrentMag == 0 ? Color.red : Color.white);
+
+			if (callback.CurrentMag == 0)
+			{
+				_weaponAim.SetColor(Color.red);
+			}
+			else
+			{
+				_weaponAim.ResetColor();
+			}
 			
 			if (callback.CurrentMag != 0)
 				return;

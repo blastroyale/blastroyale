@@ -22,9 +22,9 @@ MonoBehaviour:
       BaseValue:
         RawValue: 655360
       RarityMultiplier:
-        RawValue: 78512
+        RawValue: 72090
       LevelStepMultiplier:
-        RawValue: 12124
+        RawValue: 3277
       CeilToInt: 1
     - StatType: 1
       BaseValue:
@@ -76,9 +76,9 @@ MonoBehaviour:
       CeilToInt: 0
     - StatType: 4
       BaseValue:
-        RawValue: 458752
+        RawValue: 655360
       RarityMultiplier:
-        RawValue: 78512
+        RawValue: 72090
       LevelStepMultiplier:
-        RawValue: 12124
+        RawValue: 3277
       CeilToInt: 1

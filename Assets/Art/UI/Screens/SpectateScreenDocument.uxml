@@ -8,7 +8,7 @@
                     <ui:VisualElement class="player-holder__background-filler" />
                     <ui:VisualElement class="player-holder__background-jagged" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" apply-bottom="true" apply-left="false" apply-right="false">
+                <FirstLight.Game.UIElements.SafeAreaElement apply-top="true" apply-bottom="true" apply-left="false" apply-right="false" style="bottom: 0; position: absolute;">
                     <ui:VisualElement name="Switcher" class="player-holder__switcher">
                         <FirstLight.Game.UIElements.ImageButton name="ArrowLeft" class="player-holder__arrow sfx-click-backwards">
                             <ui:VisualElement name="Icon" class="player-holder__arrow-icon" />

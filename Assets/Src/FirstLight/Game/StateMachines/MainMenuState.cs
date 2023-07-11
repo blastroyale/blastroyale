@@ -583,11 +583,13 @@ namespace FirstLight.Game.StateMachines
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 
+			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
+			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
 
-			await _uiService.LoadGameUiSet(UiSetId.MainMenuUi, 0.9f);
+	
 
 			uiVfxService.Init(_uiService);
 

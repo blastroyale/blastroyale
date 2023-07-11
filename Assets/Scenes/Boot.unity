@@ -204,8 +204,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592232275}
-  m_LocalRotation: {x: -0, y: 0.99965733, z: -0.026176924, w: 0}
-  m_LocalPosition: {x: 0, y: 1827.27, z: 191.14105}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -3.1278226, y: 0.25, z: -2.9576907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -322,8 +322,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  far clip plane: 4
+  field of view: 28.35
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -351,8 +351,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1737685255}
   - component: {fileID: 1737685249}
-  - component: {fileID: 1737685250}
   - component: {fileID: 1737685258}
+  - component: {fileID: 1737685250}
   m_Layer: 0
   m_Name: Boot
   m_TagString: Untagged

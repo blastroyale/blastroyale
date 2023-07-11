@@ -1,5 +1,5 @@
 // The default sprite shader but with ZTest turned off (so drawn on top of everything else).
-Shader "FLG/Sprites/Overlay"
+Shader "FLG/Legacy/Sprites/Overlay"
 {
     Properties
     {

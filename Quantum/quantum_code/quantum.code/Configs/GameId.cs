@@ -172,12 +172,6 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.TestMap0, new List<GameIdGroup>
-					{
-						GameIdGroup.Map
-					}.AsReadOnly()
-				},
-				{
 					GameId.District, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -273,14 +267,16 @@ namespace Quantum
 					GameId.ApoCrossbow, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ApoShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -302,7 +298,8 @@ namespace Quantum
 					GameId.ApoSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -310,21 +307,24 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ApoMinigun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModPistol, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -339,14 +339,16 @@ namespace Quantum
 					GameId.ModMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -384,14 +386,16 @@ namespace Quantum
 					GameId.SciBlaster, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.SciNeedleGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -399,28 +403,32 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.SciSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.SciCannon, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.SciMelter, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -1002,7 +1010,6 @@ namespace Quantum
 						GameId.TestScene,
 						GameId.NewBRMap,
 						GameId.FtueMiniMap,
-						GameId.TestMap0,
 						GameId.District,
 						GameId.BattlelandsMap,
 						GameId.IslandsMap
@@ -1154,6 +1161,25 @@ namespace Quantum
 					GameIdGroup.Melee, new List<GameId>
 					{
 						GameId.Hammer
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Deprecated, new List<GameId>
+					{
+						GameId.ApoCrossbow,
+						GameId.ApoShotgun,
+						GameId.ApoSniper,
+						GameId.ApoRPG,
+						GameId.ApoMinigun,
+						GameId.ModPistol,
+						GameId.ModMachineGun,
+						GameId.ModRifle,
+						GameId.SciBlaster,
+						GameId.SciNeedleGun,
+						GameId.SciRifle,
+						GameId.SciSniper,
+						GameId.SciCannon,
+						GameId.SciMelter
 					}.AsReadOnly()
 				},
 				{

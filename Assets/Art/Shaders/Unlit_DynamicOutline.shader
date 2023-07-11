@@ -18,37 +18,40 @@ Shader "FLG/Unlit/Dynamic Outline"
         {
             Name "Normal"
 
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+
+            struct Attributes
             {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
             };
 
-            struct v2f
+            struct Varyings
             {
                 float4 vertex : SV_POSITION;
             };
 
+            CBUFFER_START(UnityPerMaterial)
             float4 _Color;
             float _Width;
+            CBUFFER_END
 
-            v2f vert(appdata v)
+            Varyings vert(Attributes v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex.xyz + v.normal * _Width);
+                Varyings o;
+                o.vertex = TransformObjectToHClip(v.vertex.xyz + v.normal * _Width);
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            half4 frag() : SV_Target
             {
                 return _Color;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

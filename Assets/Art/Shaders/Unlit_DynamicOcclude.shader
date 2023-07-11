@@ -20,34 +20,38 @@ Shader "FLG/Unlit/Dynamic Occlusion"
             ZWrite Off
             ZTest Greater
 
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+
+            struct Attributes
             {
                 float4 vertex : POSITION;
             };
 
-            struct v2f
+            struct Varyings
             {
                 float4 vertex : SV_POSITION;
             };
 
+            CBUFFER_START(UnityPerMaterial)
             float4 _Color;
+            CBUFFER_END
 
-            v2f vert(appdata v)
+            Varyings vert(Attributes v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                Varyings o;
+                o.vertex = TransformObjectToHClip(v.vertex.xyz);
                 return o;
             }
 
-            fixed4 frag() : SV_Target
+            half4 frag() : SV_Target
             {
                 return _Color;
             }
-            ENDCG
+            ENDHLSL
         }
 
     }

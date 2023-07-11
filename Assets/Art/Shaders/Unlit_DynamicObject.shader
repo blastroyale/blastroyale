@@ -18,9 +18,10 @@ Shader "FLG/Unlit/Dynamic Object"
         {
             Name "Albedo"
 
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct appdata
             {
@@ -35,22 +36,25 @@ Shader "FLG/Unlit/Dynamic Object"
             };
 
             sampler2D _MainTex;
+
+            CBUFFER_START(UnityPerMaterial)
             float4 _Color;
+            CBUFFER_END
 
             v2f vert(appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.vertex = TransformObjectToHClip(v.vertex.xyz);
                 o.uv = v.uv;
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            half4 frag(v2f i) : SV_Target
             {
-                fixed4 tex = tex2D(_MainTex, i.uv) * _Color;
+                half4 tex = tex2D(_MainTex, i.uv) * _Color;
                 return tex;
             }
-            ENDCG
+            ENDHLSL
         }
 
     }

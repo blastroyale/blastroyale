@@ -29,27 +29,8 @@ namespace FirstLight.Game
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		[SerializeField] private Camera _camera;
-		[SerializeField] private CinemachineBrain _cinemachineBrain;
-		
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
-
-		public Camera Camera => _camera;
-
-		public CinemachineBrain CinemachineBrain => _cinemachineBrain;
-		
-		static Main s_instance;
-
-		public static Main Instance
-		{
-			get
-			{
-				if (s_instance == null)
-					s_instance = FindObjectOfType<Main>();
-				return s_instance;
-			}
-		}
 		
 		private void Awake()
 		{

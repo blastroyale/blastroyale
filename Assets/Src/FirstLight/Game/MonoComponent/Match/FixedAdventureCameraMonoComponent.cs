@@ -75,7 +75,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
-			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(Main.Instance.CinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera, _spawnCamera))
 			{
 				SetActiveCamera(_adventureCamera);
 			}
@@ -89,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			QuantumCallback.UnsubscribeListener(this);
-			Main.Instance.CinemachineBrain.ActiveVirtualCamera?.SnapCamera();
+			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.SnapCamera();
 		}
 
 		private void SetActiveCamera(InputAction.CallbackContext context)
@@ -129,7 +129,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				SetActiveCamera(_spawnCamera);
 				_spawnCamera.SnapCamera();
-				Main.Instance.CinemachineBrain.ManualUpdate();
+				FLGCamera.Instance.CinemachineBrain.ManualUpdate();
 				
 				SetActiveCamera(_adventureCamera);
 			}
@@ -157,13 +157,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (Main.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
-				 virtualCamera.gameObject == Main.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+			if (FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
+				 virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;
 			}
 
-			Main.Instance.CinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 
 			virtualCamera.gameObject.SetActive(true);
 		}

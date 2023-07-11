@@ -1,4 +1,4 @@
-Shader "Universal Render Pipeline/Baked Lit"
+Shader "FLG/Baked/Static Object"
 {
     Properties
     {

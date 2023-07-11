@@ -73,7 +73,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			
 			var cacheTransform = transform;
-			var magnitude = Mathf.Clamp(position.magnitude, _minRange / _maxRange, 1f);
+			var magnitude = Mathf.Clamp(position.magnitude, _minRange / (_maxRange * 1.5f), 1.5f);
 
 			_rotation = Quaternion.LookRotation(new Vector3(position.x, 0f, position.y), Vector3.up);
 			cacheTransform.rotation = _rotation;

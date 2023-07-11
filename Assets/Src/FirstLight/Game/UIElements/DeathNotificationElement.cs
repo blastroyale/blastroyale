@@ -95,8 +95,8 @@ namespace FirstLight.Game.UIElements
 
 		public void SetData(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide)
 		{
-			_killerName.text = killerName;
-			_victimName.text = victimName;
+			_killerName.text = killerName.ToUpper();
+			_victimName.text = victimName.ToUpper();
 
 			_killerBar.RemoveFromClassList(USS_BAR_FRIENDLY);
 			_killerBar.RemoveFromClassList(USS_BAR_ENEMY);

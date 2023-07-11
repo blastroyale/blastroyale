@@ -1383,3 +1383,6 @@
     left: -72px;
     top: -97px;
 }
+
+.plus-level__label {
+}

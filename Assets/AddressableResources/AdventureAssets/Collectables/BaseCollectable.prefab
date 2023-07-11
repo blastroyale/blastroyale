@@ -205,7 +205,7 @@ Transform:
   - {fileID: 2340746027687664198}
   - {fileID: 7972609098695308985}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8394961782085835017
 MonoBehaviour:
@@ -223,7 +223,7 @@ MonoBehaviour:
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 4159690803613263917}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  _collectClip: {fileID: 0}
   _pickupCircle: {fileID: 7972609098695308985}
   _spawnAnim: 1
 --- !u!114 &7154763326806129797

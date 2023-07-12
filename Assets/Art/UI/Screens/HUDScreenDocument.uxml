@@ -94,7 +94,7 @@
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="BackgroundCyanTint" class="status-kill__background-cyan" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
-            <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: flex; background-image: var(--sprite-match__text-beast);">
+            <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: flex;">
                 <ui:VisualElement name="BlastGradient" class="status-kill__gradient" />
                 <ui:VisualElement name="BeastLabel" class="status-kill__beast-label" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
                 <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />

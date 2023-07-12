@@ -1369,8 +1369,6 @@
     width: 50px;
     height: 50px;
     background-image: var(--sprite-match__icon-star);
-    left: 0;
-    top: -20px;
     rotate: 34deg;
 }
 
@@ -1511,4 +1509,45 @@
     height: 75px;
     position: absolute;
     background-image: var(--sprite-match__text-beast);
+    left: 121px;
+    top: 6px;
+}
+
+.status-kill__beast-gradient {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    background-image: var(--sprite-home__pattern-circle-gradient);
+    left: 192px;
+    top: -184px;
+    -unity-background-image-tint-color: rgb(80, 222, 186);
+}
+
+.status-kill__skull-beast-spark {
+    position: absolute;
+    width: 136px;
+    height: 136px;
+    background-image: var(--sprite-match__vfx-blast-spark);
+    left: -46px;
+    top: -67px;
+    rotate: 33deg;
+}
+
+.status-kill__skull-beast-explosion {
+    width: 228px;
+    height: 206px;
+    position: absolute;
+    background-image: var(--sprite-match__vfx-explosion);
+    left: -46px;
+    top: -36px;
+    rotate: -45deg;
+}
+
+.status-kill__skull-beast-explosion--gradient {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background-image: var(--sprite-home__pattern-circle-gradient);
+    left: -233px;
+    top: -217px;
 }

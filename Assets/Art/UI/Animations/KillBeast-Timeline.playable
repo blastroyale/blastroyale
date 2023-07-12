@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9154718351221250845
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa0453509f1a04d22ab32566f2dabfff, type: 3}
-  m_Name: UITRotationClip
-  m_EditorClassIdentifier: 
-  _template:
-    Rotation: -8
 --- !u!114 &-9029972461439421821
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27,7 +13,7 @@ MonoBehaviour:
   m_Name: UITScaleClip(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Scale: {x: 0.5, y: 0.5}
+    Scale: {x: 0, y: 0}
 --- !u!114 &-9014047227056440981
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +38,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon #SkullImpact'
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullImpact'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -190,8 +176,8 @@ MonoBehaviour:
     m_Start: 0.8166666666666667
     m_ClipIn: 1.6805937851840267
     m_Asset: {fileID: 47680324827354072}
-    m_Duration: 0.9166666666666667
-    m_TimeScale: 1.656664191309568
+    m_Duration: 2.183333333333337
+    m_TimeScale: 0.6955460345192834
     m_ParentTrack: {fileID: -8908894555607006378}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -548,6 +534,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Opacity: -1
+--- !u!114 &-8647907797573349073
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0711fd2f2a50a4e80a194230787b64a8, type: 3}
+  m_Name: UITDisplayClip
+  m_EditorClassIdentifier: 
+  _template:
+    Display: 1
 --- !u!114 &-8517877934327336128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -562,6 +562,238 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Opacity: -0.415
+--- !u!114 &-8002934509848470321
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: '#BeastExplosionGradient'
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 3519593866094862922}
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0.5833333333333334
+    m_ClipIn: 0.5833333333333334
+    m_Asset: {fileID: 7189048886347676737}
+    m_Duration: 2.41666666666667
+    m_TimeScale: 1.8275862068965498
+    m_ParentTrack: {fileID: -8002934509848470321}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -3692444568472672436}
+    m_Duration: 0.5333333333333333
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -8002934509848470321}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0.5333333333333333
+    m_ClipIn: 0.5333333333333333
+    m_Asset: {fileID: 1357244558052116911}
+    m_Duration: 0.050000000000000044
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -8002934509848470321}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &-7961896300871228918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -572,7 +804,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon #SkullShardTriple'
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullShardTriple'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -589,8 +821,8 @@ MonoBehaviour:
     m_Start: 0.39999999999999863
     m_ClipIn: 0
     m_Asset: {fileID: 4818497087410269000}
-    m_Duration: 1.3333333333333348
-    m_TimeScale: 3.749999999999998
+    m_Duration: 2.6000000000000014
+    m_TimeScale: 1.9230769230769222
     m_ParentTrack: {fileID: -7961896300871228918}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -681,8 +913,8 @@ MonoBehaviour:
     m_Start: 0.5166666666666667
     m_ClipIn: 1.9800101214574828
     m_Asset: {fileID: 8261717323088346342}
-    m_Duration: 1.2166666666666663
-    m_TimeScale: 2.4821834618157723
+    m_Duration: 2.4833333333333334
+    m_TimeScale: 1.216103306795646
     m_ParentTrack: {fileID: -7831143498447143036}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -1017,6 +1249,221 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Opacity: -0.513
+--- !u!114 &-7037154562978832450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 6840105503160482105}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 6122412551175623030}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -7037154562978832450}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITDisplayClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
+--- !u!114 &-7034804707732065883
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: '#BeastBlastNotification #BeastGradient'
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 1071164271187650551}
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 7257964335052815763}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1.6666666666666663
+    m_ParentTrack: {fileID: -7034804707732065883}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
+--- !u!114 &-6915880490583148811
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
+--- !u!114 &-6894802033124316683
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0453509f1a04d22ab32566f2dabfff, type: 3}
+  m_Name: UITRotationClip
+  m_EditorClassIdentifier: 
+  _template:
+    Rotation: 22.7
 --- !u!114 &-5941077517545847404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1298,8 +1745,8 @@ MonoBehaviour:
     m_Start: 0.8166666666666667
     m_ClipIn: 1.7082651078216347
     m_Asset: {fileID: 8365318863529660515}
-    m_Duration: 0.9166666666666665
-    m_TimeScale: 1.683941508257923
+    m_Duration: 2.1833333333333336
+    m_TimeScale: 0.7069983431617232
     m_ParentTrack: {fileID: -4049036526332507876}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -1622,79 +2069,24 @@ MonoBehaviour:
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 2768601336474830607}
   m_Children: []
-  m_Clips:
-  - m_Version: 1
-    m_Start: 0
-    m_ClipIn: 0
-    m_Asset: {fileID: -9154718351221250845}
-    m_Duration: 1.7333333333333334
-    m_TimeScale: 2.884615384615387
-    m_ParentTrack: {fileID: -4036241146819265791}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 0
-    m_DisplayName: UITRotationClip
+  m_Clips: []
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &-3692444568472672436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &-3660410878727583720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1734,8 +2126,8 @@ MonoBehaviour:
     m_Start: 0.48333333333333334
     m_ClipIn: 0.55
     m_Asset: {fileID: 4500367631089250186}
-    m_Duration: 1.2500000000000002
-    m_TimeScale: 0.9466666666666665
+    m_Duration: 2.51666666666667
+    m_TimeScale: 0.47019867549668776
     m_ParentTrack: {fileID: -3504504470889931934}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2030,8 +2422,8 @@ MonoBehaviour:
     m_Start: 0.5666666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 7196986025845265798}
-    m_Duration: 1.1666666666666667
-    m_TimeScale: 4.285714285714283
+    m_Duration: 2.4333333333333336
+    m_TimeScale: 2.054794520547943
     m_ParentTrack: {fileID: -2740046472461113835}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2090,7 +2482,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #PlayerNameLabel'
+  m_Name: '#BeastBlastNotification #PlayerNameLabel'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -2107,8 +2499,8 @@ MonoBehaviour:
     m_Start: 0.30000000000000004
     m_ClipIn: 0.8125000000000006
     m_Asset: {fileID: -2534677755376502422}
-    m_Duration: 1.4333333333333333
-    m_TimeScale: 2.921511627906976
+    m_Duration: 2.7
+    m_TimeScale: 1.5509259259259252
     m_ParentTrack: {fileID: -2691589807430721479}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2269,8 +2661,8 @@ MonoBehaviour:
     m_Start: 0.21666666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 2733705477629499727}
-    m_Duration: 1.5166666666666666
-    m_TimeScale: 3.2967032967032974
+    m_Duration: 2.783333333333333
+    m_TimeScale: 1.7964071856287427
     m_ParentTrack: {fileID: -2594503567911819640}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2423,8 +2815,8 @@ MonoBehaviour:
     m_Start: 0.8166666666666667
     m_ClipIn: 2.395833333333334
     m_Asset: {fileID: -4441662766062328338}
-    m_Duration: 0.9166666666666667
-    m_TimeScale: 2.8409090909090917
+    m_Duration: 2.1833333333333336
+    m_TimeScale: 1.1927480916030533
     m_ParentTrack: {fileID: -2323925827832526878}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2650,8 +3042,8 @@ MonoBehaviour:
     m_Start: 0.8166666666666667
     m_ClipIn: 2.3557692307692304
     m_Asset: {fileID: 3428741351131062741}
-    m_Duration: 0.9166666666666667
-    m_TimeScale: 2.884615384615384
+    m_Duration: 2.1833333333333336
+    m_TimeScale: 1.2110980622431002
     m_ParentTrack: {fileID: -2214240471996490887}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -2884,6 +3276,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Display: 1
+--- !u!114 &-1935309297196885899
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &-1753362564230214033
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2909,7 +3315,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -2058697781147259718}
-    m_Duration: 1.7333333333333334
+    m_Duration: 3
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1753362564230214033}
     m_EaseInDuration: 0
@@ -3002,8 +3408,8 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 4381846949117353581}
-    m_Duration: 1.7333333333333334
-    m_TimeScale: 2.8846153846153846
+    m_Duration: 3
+    m_TimeScale: 1.6666666666666672
     m_ParentTrack: {fileID: -1529345925792574744}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -3062,7 +3468,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #BlastGradient'
+  m_Name: '#BeastBlastNotification #BeastUnderSkullGradient'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -3074,75 +3480,6 @@ MonoBehaviour:
   m_Children:
   - {fileID: 7777678773193532685}
   m_Clips:
-  - m_Version: 1
-    m_Start: 0.4166666666666667
-    m_ClipIn: 1.2019230769230778
-    m_Asset: {fileID: -1281401122492324343}
-    m_Duration: 1.3166666666666667
-    m_TimeScale: 2.8846153846153864
-    m_ParentTrack: {fileID: -1305295611753436319}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 0
-    m_DisplayName: UITOpacityClip
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
@@ -3212,23 +3549,78 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0.4166666666666667
+    m_ClipIn: 1.2019230769230778
+    m_Asset: {fileID: 978125164234598244}
+    m_Duration: 2.5833333333333335
+    m_TimeScale: 0.30352997678700055
+    m_ParentTrack: {fileID: -1305295611753436319}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
---- !u!114 &-1281401122492324343
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
-  m_Name: UITOpacityClip
-  m_EditorClassIdentifier: 
-  _template:
-    Opacity: 0
 --- !u!114 &-1171175110304198971
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3362,10 +3754,15 @@ MonoBehaviour:
   - {fileID: 6431536508659469879}
   - {fileID: 3823474307977621119}
   - {fileID: 7383100022765610909}
+  - {fileID: 4447373317555578514}
   - {fileID: -8908894555607006378}
   - {fileID: -7961896300871228918}
   - {fileID: -1305295611753436319}
   - {fileID: -7831143498447143036}
+  - {fileID: 4158779865138890050}
+  - {fileID: 6840105503160482105}
+  - {fileID: -8002934509848470321}
+  - {fileID: -7034804707732065883}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -3428,6 +3825,127 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Scale: {x: 0.1, y: 0.1}
+--- !u!114 &978125164234598244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -0.79
+--- !u!114 &1023709262008767964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0711fd2f2a50a4e80a194230787b64a8, type: 3}
+  m_Name: UITDisplayClip
+  m_EditorClassIdentifier: 
+  _template:
+    Display: 1
+--- !u!114 &1071164271187650551
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: -7034804707732065883}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 5151763240922720893}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 1071164271187650551}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITDisplayClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &1122139733375669008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3439,6 +3957,34 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
   m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: 0
+--- !u!114 &1345935881078849633
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: 0
+--- !u!114 &1357244558052116911
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
   m_EditorClassIdentifier: 
   _template:
     Opacity: 0
@@ -3511,7 +4057,21 @@ MonoBehaviour:
   m_Name: UITPositionClip(Clone)(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Position: {x: 0.6, y: 7.71}
+    Position: {x: 0.6, y: -40.61}
+--- !u!114 &1883436167248278805
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &1949294855423311961
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3551,13 +4111,13 @@ MonoBehaviour:
     m_Start: 0.16666666666666669
     m_ClipIn: 0
     m_Asset: {fileID: 1122139733375669008}
-    m_Duration: 1.5666666666666667
-    m_TimeScale: 3.191489361702128
+    m_Duration: 2.8333333333333335
+    m_TimeScale: 1.7647058823529396
     m_ParentTrack: {fileID: 2015006052403255169}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.13333333333333336
-    m_BlendOutDuration: 0.1488932337922355
+    m_BlendOutDuration: 0.1499999999999999
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -3668,15 +4228,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: UITOpacityClip
   - m_Version: 1
-    m_Start: 1.5844400995410979
+    m_Start: 2.85
     m_ClipIn: 0
     m_Asset: {fileID: -4526367503225827495}
-    m_Duration: 0.1488932337922355
-    m_TimeScale: 33.581109582030855
+    m_Duration: 0.1499999999999999
+    m_TimeScale: 33.33333333333338
     m_ParentTrack: {fileID: 2015006052403255169}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.1488932337922355
+    m_BlendInDuration: 0.1499999999999999
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -3801,7 +4361,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #BlastedLabel'
+  m_Name: '#BeastBlastNotification #BeastLabel'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -3833,25 +4393,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -3866,15 +4408,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: UITPositionClip
   - m_Version: 1
-    m_Start: 0.46666666666667045
+    m_Start: 0.6666666666666705
     m_ClipIn: 0
     m_Asset: {fileID: 4198819007606918428}
-    m_Duration: 1.266666666666663
-    m_TimeScale: 2.0765806147802968
+    m_Duration: 2.3333333333333295
+    m_TimeScale: 1.127286619452161
     m_ParentTrack: {fileID: 2768601336474830607}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.266666666666663
+    m_BlendInDuration: 2.3333333333333295
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -3938,13 +4480,13 @@ MonoBehaviour:
     m_Start: 0.21666666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 5146479041122900505}
-    m_Duration: 1.5166666666666666
-    m_TimeScale: 1.8812520389955865
+    m_Duration: 2.783333333333333
+    m_TimeScale: 1.0251133865185533
     m_ParentTrack: {fileID: 2768601336474830607}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.08333333333333337
-    m_BlendOutDuration: 1.266666666666663
+    m_BlendOutDuration: 2.3333333333333295
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -4052,15 +4594,15 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.38333333333333336
+    m_Start: 0.55
     m_ClipIn: 0
     m_Asset: {fileID: 2460357005271660506}
-    m_Duration: 1.35
-    m_TimeScale: 3.703703703703703
+    m_Duration: 2.4500000000000033
+    m_TimeScale: 2.0408163265306123
     m_ParentTrack: {fileID: 2979832194182227574}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.3166666666666722
+    m_BlendInDuration: 2.45
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -4124,13 +4666,13 @@ MonoBehaviour:
     m_Start: 0.3500000000000054
     m_ClipIn: 0
     m_Asset: {fileID: -574284246469614382}
-    m_Duration: 1.35
-    m_TimeScale: 3.703703703703703
+    m_Duration: 2.6499999999999946
+    m_TimeScale: 1.8867924528301914
     m_ParentTrack: {fileID: 2979832194182227574}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 1.3166666666666722
+    m_BlendOutDuration: 2.45
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -4234,6 +4776,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Position: {x: -9.13, y: 30.81}
+--- !u!114 &3248500112181440094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3678c8e5d8241d8a144107daae27f3, type: 3}
+  m_Name: UITPositionClip
+  m_EditorClassIdentifier: 
+  _template:
+    Position: {x: -29, y: 10.7}
 --- !u!114 &3302977669357058537
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4262,6 +4818,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Rotation: 27.1
+--- !u!114 &3519593866094862922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: -8002934509848470321}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -8647907797573349073}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 3519593866094862922}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITDisplayClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &3608859886645802696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4356,13 +5005,13 @@ MonoBehaviour:
     m_Start: 0.21666666666666667
     m_ClipIn: 0
     m_Asset: {fileID: -2271991408558923404}
-    m_Duration: 1.5166666666666666
-    m_TimeScale: 1.8812520389955878
+    m_Duration: 2.783333333333333
+    m_TimeScale: 1.0251133865185542
     m_ParentTrack: {fileID: 3608859886645802696}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.2500000000000038
-    m_BlendOutDuration: 1.2166666666666663
+    m_BlendOutDuration: 2.3333333333333295
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -4418,19 +5067,19 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
+    m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: UITPositionClip
   - m_Version: 1
-    m_Start: 0.5166666666666669
+    m_Start: 0.6666666666666705
     m_ClipIn: 0
     m_Asset: {fileID: 6425238211034457734}
-    m_Duration: 1.2166666666666663
-    m_TimeScale: 2.1206169349655366
+    m_Duration: 2.33333333333333
+    m_TimeScale: 1.105750258946318
     m_ParentTrack: {fileID: 3608859886645802696}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.2166666666666663
+    m_BlendInDuration: 2.3333333333333295
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -4531,7 +5180,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon #SkullShardSmall'
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullShardSmall'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -4598,8 +5247,8 @@ MonoBehaviour:
     m_Start: 0.4
     m_ClipIn: 1
     m_Asset: {fileID: 5434699247343576753}
-    m_Duration: 1.3333333333333335
-    m_TimeScale: 1.9438193178032273
+    m_Duration: 2.6
+    m_TimeScale: 0.9968304193862704
     m_ParentTrack: {fileID: 3823474307977621119}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -4648,6 +5297,20 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &3826522004573925680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &3846214861393824645
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4662,6 +5325,203 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Opacity: -1
+--- !u!114 &4158779865138890050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: '#BeastBlastNotification #SkullIcon #BeastSpark'
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 4992540936594846108}
+  - {fileID: 9024420485413367869}
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0.48333333333333334
+    m_ClipIn: 0.8888888888888876
+    m_Asset: {fileID: 1883436167248278805}
+    m_Duration: 2.5166666666666666
+    m_TimeScale: 1.6335540838852098
+    m_ParentTrack: {fileID: 4158779865138890050}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -6915880490583148811}
+    m_Duration: 0.40000000000000396
+    m_TimeScale: 2.0138888888888657
+    m_ParentTrack: {fileID: 4158779865138890050}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0.39999999999999863
+    m_ClipIn: 0.8055555555555545
+    m_Asset: {fileID: 7337393069509239968}
+    m_Duration: 0.0833333333333347
+    m_TimeScale: 0.999999999999982
+    m_ParentTrack: {fileID: 4158779865138890050}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &4198819007606918428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4690,6 +5550,331 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Rotation: -8
+--- !u!114 &4447373317555578514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullShardBeast'
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 4497452003917924926}
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0.4
+    m_ClipIn: 0.3846153846153844
+    m_Asset: {fileID: 4980483433934449446}
+    m_Duration: 2.6000000000000036
+    m_TimeScale: 1.7751479289940817
+    m_ParentTrack: {fileID: 4447373317555578514}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0.18333333333333332
+    m_ClipIn: 0
+    m_Asset: {fileID: -1935309297196885899}
+    m_Duration: 0.2166666666666667
+    m_TimeScale: 1.7751479289940817
+    m_ParentTrack: {fileID: 4447373317555578514}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0.18333333333333332
+    m_DisplayName: UITOpacityClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
+--- !u!114 &4497452003917924926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 4447373317555578514}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0.666666666666674
+    m_ClipIn: 4.333333333333333
+    m_Asset: {fileID: 3248500112181440094}
+    m_Duration: 2.3333333333333295
+    m_TimeScale: 0.2857142857142859
+    m_ParentTrack: {fileID: 4497452003917924926}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 2.333333333333326
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITPositionClip
+  - m_Version: 1
+    m_Start: 0.39999999999999863
+    m_ClipIn: 0
+    m_Asset: {fileID: 8411310805605382915}
+    m_Duration: 2.6000000000000014
+    m_TimeScale: 1.6666666666666656
+    m_ParentTrack: {fileID: 4497452003917924926}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 2.333333333333326
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0.39999999999999863
+    m_DisplayName: UITPositionClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &4500367631089250186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4731,7 +5916,7 @@ MonoBehaviour:
   m_Name: UITScaleClip(Clone)
   m_EditorClassIdentifier: 
   _template:
-    Scale: {x: 1.4, y: 1.4}
+    Scale: {x: 0.7, y: 0.7}
 --- !u!114 &4818497087410269000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4760,6 +5945,113 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Opacity: -1
+--- !u!114 &4980483433934449446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: 0
+--- !u!114 &4992540936594846108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 4158779865138890050}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 1023709262008767964}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 4992540936594846108}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITDisplayClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &5146348948576544234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4788,6 +6080,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Position: {x: 0, y: 0}
+--- !u!114 &5151763240922720893
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0711fd2f2a50a4e80a194230787b64a8, type: 3}
+  m_Name: UITDisplayClip
+  m_EditorClassIdentifier: 
+  _template:
+    Display: 1
 --- !u!114 &5262739216963331458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4813,8 +6119,8 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -4344886900208054949}
-    m_Duration: 1.7333333333333334
-    m_TimeScale: 1.6351601671176335
+    m_Duration: 3
+    m_TimeScale: 0.944759207667966
     m_ParentTrack: {fileID: 5262739216963331458}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -4863,6 +6169,20 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &5376306247950696841
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &5385425297360458378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4929,7 +6249,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification'
+  m_Name: '#BeastBlastNotification'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -4980,25 +6300,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5016,13 +6318,13 @@ MonoBehaviour:
     m_Start: 0.16666666666666669
     m_ClipIn: 0
     m_Asset: {fileID: 8910569240139385887}
-    m_Duration: 1.5666666666666667
-    m_TimeScale: 1.765957446808724
+    m_Duration: 2.8333333333333335
+    m_TimeScale: 0.976470588235412
     m_ParentTrack: {fileID: 5947456361654976155}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.13333333333333336
-    m_BlendOutDuration: 0.1488932337922355
+    m_BlendOutDuration: 0.1499999999999999
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -5082,37 +6384,19 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: UITPositionClip
   - m_Version: 1
-    m_Start: 1.5844400995410979
+    m_Start: 2.85
     m_ClipIn: 0
     m_Asset: {fileID: 9173194590240279698}
-    m_Duration: 0.1488932337922355
-    m_TimeScale: 18.581547302059306
+    m_Duration: 0.1499999999999999
+    m_TimeScale: 18.444444444446685
     m_ParentTrack: {fileID: 5947456361654976155}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.1488932337922355
+    m_BlendInDuration: 0.1499999999999999
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5243,13 +6527,13 @@ MonoBehaviour:
     m_Start: 0.40000000000000396
     m_ClipIn: 0
     m_Asset: {fileID: -692291149443721997}
-    m_Duration: 1.3333333333333295
-    m_TimeScale: 2.33520705186877
+    m_Duration: 2.599999999999997
+    m_TimeScale: 1.1975420778814185
     m_ParentTrack: {fileID: 6043307560445215864}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.06666666666666649
-    m_BlendOutDuration: 1.216666666666665
+    m_BlendOutDuration: 2.3333333333333304
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -5305,19 +6589,19 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
+    m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: UITRotationClip
   - m_Version: 1
-    m_Start: 0.5166666666666685
+    m_Start: 0.6666666666666705
     m_ClipIn: 0
     m_Asset: {fileID: 133680878380690747}
-    m_Duration: 1.216666666666665
-    m_TimeScale: 2.4697808787782853
+    m_Duration: 2.3333333333333313
+    m_TimeScale: 1.2878143153629626
     m_ParentTrack: {fileID: 6043307560445215864}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.216666666666665
+    m_BlendInDuration: 2.3333333333333304
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -5362,6 +6646,20 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &6122412551175623030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0711fd2f2a50a4e80a194230787b64a8, type: 3}
+  m_Name: UITDisplayClip
+  m_EditorClassIdentifier: 
+  _template:
+    Display: 1
 --- !u!114 &6425238211034457734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5386,7 +6684,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon'
+  m_Name: '#BeastBlastNotification #SkullIcon'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -5438,25 +6736,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5483,25 +6763,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5525,13 +6787,13 @@ MonoBehaviour:
     m_Start: 0.38333333333333336
     m_ClipIn: 1.271186440677966
     m_Asset: {fileID: 7658063055579870897}
-    m_Duration: 1.35
-    m_TimeScale: 1.8120349572741936
+    m_Duration: 2.6166666666666667
+    m_TimeScale: 0.9348715384663042
     m_ParentTrack: {fileID: 6431536508659469879}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 1.266666666666663
+    m_BlendOutDuration: 1.95
     m_MixInCurve:
       serializedVersion: 2
       m_Curve: []
@@ -5573,37 +6835,19 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: UITPositionClip
   - m_Version: 1
-    m_Start: 0.46666666666667045
+    m_Start: 1.05
     m_ClipIn: 1.271186440677966
     m_Asset: {fileID: -5266753971474325492}
-    m_Duration: 1.266666666666663
-    m_TimeScale: 1.5486363906836078
+    m_Duration: 1.95
+    m_TimeScale: 1.0059518435209742
     m_ParentTrack: {fileID: 6431536508659469879}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.266666666666663
+    m_BlendInDuration: 1.95
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5648,16 +6892,16 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.41666666666667196
+    m_Start: 0.39999999999999863
     m_ClipIn: 0
     m_Asset: {fileID: 8099649098359532879}
-    m_Duration: 1.3166666666666615
-    m_TimeScale: 2.4297741472540353
+    m_Duration: 2.600000000000003
+    m_TimeScale: 1.2304625489299217
     m_ParentTrack: {fileID: 6716652435606672048}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 1.3166666666666615
+    m_BlendOutDuration: 2.3333333333333313
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -5713,19 +6957,19 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 0.41666666666667196
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0.39999999999999863
     m_DisplayName: UITPositionClip
   - m_Version: 1
-    m_Start: 0.41666666666667196
+    m_Start: 0.6666666666666705
     m_ClipIn: 0
     m_Asset: {fileID: 2988341242256121627}
-    m_Duration: 1.3166666666666615
-    m_TimeScale: 2.4297741472540357
+    m_Duration: 2.333333333333332
+    m_TimeScale: 1.3710868402362009
     m_ParentTrack: {fileID: 6716652435606672048}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.3166666666666615
+    m_BlendInDuration: 2.3333333333333313
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -5788,6 +7032,252 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &6840105503160482105
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: '#BeastExplosion'
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: -7037154562978832450}
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0.55
+    m_ClipIn: 0.5833333333333334
+    m_Asset: {fileID: 5376306247950696841}
+    m_Duration: 2.4500000000000033
+    m_TimeScale: 1.8027210884353726
+    m_ParentTrack: {fileID: 6840105503160482105}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 3826522004573925680}
+    m_Duration: 0.48333333333333334
+    m_TimeScale: 1.1034482758620692
+    m_ParentTrack: {fileID: 6840105503160482105}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  - m_Version: 1
+    m_Start: 0.48333333333333334
+    m_ClipIn: 0.5333333333333333
+    m_Asset: {fileID: 1345935881078849633}
+    m_Duration: 0.06666666666666671
+    m_TimeScale: 0.7500000000000002
+    m_ParentTrack: {fileID: 6840105503160482105}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITOpacityClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
+--- !u!114 &7189048886347676737
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: -1
 --- !u!114 &7196986025845265798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5965,8 +7455,8 @@ MonoBehaviour:
     m_Start: 0.40000000000000396
     m_ClipIn: 0
     m_Asset: {fileID: 2342347652054788926}
-    m_Duration: 1.3333333333333295
-    m_TimeScale: 2.410252913197928
+    m_Duration: 2.599999999999996
+    m_TimeScale: 1.2360271349732945
     m_ParentTrack: {fileID: 7212129111008296828}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -6033,6 +7523,34 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   automaticUsageHints: 1
+--- !u!114 &7257964335052815763
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: 0
+--- !u!114 &7337393069509239968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc53655b7c6ad47fe82d3435fd9e98c9, type: 3}
+  m_Name: UITOpacityClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Opacity: 0
 --- !u!114 &7356590052632367979
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6058,7 +7576,7 @@ MonoBehaviour:
     m_Start: 0.40000000000000396
     m_ClipIn: 0
     m_Asset: {fileID: -5941077517545847404}
-    m_Duration: 1.3333333333333295
+    m_Duration: 2.599999999999996
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7356590052632367979}
     m_EaseInDuration: 0
@@ -6136,7 +7654,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon #SkullShardMiddle'
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullShardMiddle'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -6221,8 +7739,8 @@ MonoBehaviour:
     m_Start: 0.40000000000000396
     m_ClipIn: 1.250000000000001
     m_Asset: {fileID: 6007527530075983306}
-    m_Duration: 1.3333333333333295
-    m_TimeScale: 1.5904627012241503
+    m_Duration: 2.599999999999998
+    m_TimeScale: 0.8156218980636651
     m_ParentTrack: {fileID: 7383100022765610909}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -6314,7 +7832,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -4860279227007375145}
-    m_Duration: 1.7333333333333334
+    m_Duration: 3
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7484498877053359822}
     m_EaseInDuration: 0
@@ -6541,8 +8059,8 @@ MonoBehaviour:
     m_Start: 0.55
     m_ClipIn: 0
     m_Asset: {fileID: -9029972461439421821}
-    m_Duration: 1.1833333333333333
-    m_TimeScale: 1.1126760563380282
+    m_Duration: 2.45
+    m_TimeScale: 0.5374149659863947
     m_ParentTrack: {fileID: 7777678773193532685}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -6655,84 +8173,15 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.39999999999999863
+    m_Start: 0.6666666666666705
     m_ClipIn: 0
     m_Asset: {fileID: 1616864846608273520}
-    m_Duration: 1.3333333333333348
-    m_TimeScale: 2.4297741472540326
+    m_Duration: 2.333333333333333
+    m_TimeScale: 1.3884423698594508
     m_ParentTrack: {fileID: 8191706044831868813}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: 1.2833333333333337
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 0.39999999999999863
-    m_DisplayName: UITPositionClip
-  - m_Version: 1
-    m_Start: 0.44999999999999984
-    m_ClipIn: 0
-    m_Asset: {fileID: 3302977669357058537}
-    m_Duration: 1.2833333333333337
-    m_TimeScale: 2.490282384834359
-    m_ParentTrack: {fileID: 8191706044831868813}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 1.2833333333333337
+    m_BlendInDuration: 2.3333333333333295
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -6760,6 +8209,39 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITPositionClip
+  - m_Version: 1
+    m_Start: 0.18333333333333332
+    m_ClipIn: 0
+    m_Asset: {fileID: 3302977669357058537}
+    m_Duration: 2.816666666666667
+    m_TimeScale: 1.1346257019659514
+    m_ParentTrack: {fileID: 8191706044831868813}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: 2.3333333333333295
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
@@ -6789,8 +8271,8 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0.18333333333333332
     m_DisplayName: UITPositionClip
   m_Markers:
     m_Objects: []
@@ -6819,7 +8301,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
-  m_Name: '#TripleBlastNotification #SkullIcon #SkullIconFull'
+  m_Name: '#BeastBlastNotification #SkullIcon #SkullIconFull'
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -6886,8 +8368,8 @@ MonoBehaviour:
     m_Start: 0.40000000000000396
     m_ClipIn: 0
     m_Asset: {fileID: 1604698971938478999}
-    m_Duration: 1.3333333333333295
-    m_TimeScale: 2.469780878778286
+    m_Duration: 2.599999999999996
+    m_TimeScale: 1.266554296809376
     m_ParentTrack: {fileID: 8306095886786167601}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -6968,6 +8450,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Scale: {x: -0.3, y: -0.3}
+--- !u!114 &8411310805605382915
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3678c8e5d8241d8a144107daae27f3, type: 3}
+  m_Name: UITPositionClip(Clone)
+  m_EditorClassIdentifier: 
+  _template:
+    Position: {x: 0, y: 0}
 --- !u!114 &8910569240139385887
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6982,6 +8478,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _template:
     Position: {x: 0, y: 0}
+--- !u!114 &9024420485413367869
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597970daea4104996808b5e9505d5b58, type: 3}
+  m_Name: Layer 2
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 4158779865138890050}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: -6894802033124316683}
+    m_Duration: 3.0000000000000036
+    m_TimeScale: 1.6666666666666643
+    m_ParentTrack: {fileID: 9024420485413367869}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: UITRotationClip
+  m_Markers:
+    m_Objects: []
+  automaticUsageHints: 1
 --- !u!114 &9136962942048046886
 MonoBehaviour:
   m_ObjectHideFlags: 1

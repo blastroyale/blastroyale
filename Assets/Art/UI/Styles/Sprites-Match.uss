@@ -66,7 +66,9 @@
     --sprite-match__text-matchended: url('/Assets/Art/UI/Sprites/Match/text-matchended.png');
     --sprite-match__text-youchosedeath: url('/Assets/Art/UI/Sprites/Match/text-youchosedeath.png');
     --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites/Match/text-youwon.png');
+    --sprite-match__vfx-blast-spark: url('/Assets/Art/UI/Sprites/Match/vfx-blast-spark.png');
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
+    --sprite-match__vfx-explosion: url('/Assets/Art/UI/Sprites/Match/vfx-explosion.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
     --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
     --sprite-match__vfx-killstreak-skullpart10: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart10.png');
@@ -474,10 +476,22 @@
     height: 107px;
 }
 
+.sprite-match__vfx-blast-spark {
+    background-image: var(--sprite-match__vfx-blast-spark);
+    width: 136px;
+    height: 136px;
+}
+
 .sprite-match__vfx-crack-red {
     background-image: var(--sprite-match__vfx-crack-red);
     width: 274px;
     height: 260px;
+}
+
+.sprite-match__vfx-explosion {
+    background-image: var(--sprite-match__vfx-explosion);
+    width: 228px;
+    height: 206px;
 }
 
 .sprite-match__vfx-joystick-direction {

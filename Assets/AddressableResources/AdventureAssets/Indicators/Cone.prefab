@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reloadColor: {r: 1, g: 0.2509804, b: 0.4627451, a: 1}
   _indicator: {fileID: 8921230505373304169}
-  _localHeight: 0.25
+  _offset: {x: 0.16, y: 0.25, z: 0.386}
 --- !u!1 &8921230505373304171
 GameObject:
   m_ObjectHideFlags: 0

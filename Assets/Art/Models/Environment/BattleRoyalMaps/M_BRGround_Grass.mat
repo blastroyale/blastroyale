@@ -57,10 +57,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -108,7 +104,6 @@ Material:
     - _Mode: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SampleGI: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
@@ -121,10 +116,10 @@ Material:
     - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_FD0C58A4: {r: 0.2, g: 0.2, b: 1, a: 1}
     - Vector4_F799D26D: {r: 1, g: 1, b: 0, a: 90}
-    - _BaseColor: {r: 0.52967244, g: 0.735849, b: 0.4685831, a: 1}
+    - _BaseColor: {r: 0.3618725, g: 0.5377358, b: 0.30776072, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.52967244, g: 0.735849, b: 0.4685831, a: 1}
+    - _Color: {r: 0.60928327, g: 0.8207547, b: 0.5458793, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6889344616798855706}
   - component: {fileID: 927804822018752782}
   - component: {fileID: 7222440643422238352}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AmericanFootballShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2071159788013896901}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AmericanFootballShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

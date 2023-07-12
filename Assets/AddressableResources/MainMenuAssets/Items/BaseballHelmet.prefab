@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4133687278317485658}
   - component: {fileID: 1996906561951407550}
   - component: {fileID: 8483963581993889774}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AF_Helmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9198399443893792582}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: BaseballHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

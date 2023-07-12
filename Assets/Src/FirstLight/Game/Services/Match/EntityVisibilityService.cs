@@ -157,7 +157,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			var visibility = CheckSpectatorVisibility(towardsEntity);
 			FLog.Verbose($"[EntityVisibility] Setting {view.EntityRef} render to {visibility.CanSee}");
-			renderer.SetRendererState(visibility.CanSee);
+			renderer.SetEnabled(visibility.CanSee);
 
 			if (!visibility.CanSee) _clientHidden.Add(renderer);
 			else _clientHidden.Remove(renderer);
@@ -187,7 +187,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void Reset(RenderersContainerProxyMonoComponent renderer)
 		{
 			renderer.SetColor(Color.white);
-			renderer.SetRendererState(true);
+			renderer.SetEnabled(true);
 		}
 		
 		public InsideVisibilityArea? GetInvisibilityArea(EntityRef entity)

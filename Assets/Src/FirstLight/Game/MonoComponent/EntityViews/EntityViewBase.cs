@@ -123,7 +123,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// </summary>
 		public virtual void SetRenderContainerVisible(bool active)
 		{
-			RenderersContainerProxy.SetRendererState(active);
+			RenderersContainerProxy.SetEnabled(active);
 		}
 	}
 }

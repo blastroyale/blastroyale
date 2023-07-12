@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6108982069384507113}
   - component: {fileID: 1537383302994196225}
   - component: {fileID: 1516437015933436032}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AF_Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9122491841141002444}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: BaseballArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 6598093721682742266}
   - component: {fileID: 7038053311263441261}
   - component: {fileID: 6541329225104082364}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AF_ShoulderL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 5230355459624845343}
   - component: {fileID: 2624851992897209365}
   - component: {fileID: 7443079945095017224}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: AF_ShoulderR
   m_TagString: Untagged
   m_Icon: {fileID: 0}

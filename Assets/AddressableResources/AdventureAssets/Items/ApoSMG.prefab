@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 319093947679984669}
   - component: {fileID: 4081470569330484408}
   - component: {fileID: 6850330808670219720}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4897,7 +4897,7 @@ GameObject:
   - component: {fileID: 6373772693456712691}
   - component: {fileID: 7328350937302549901}
   - component: {fileID: 6836436583180737306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9784,7 +9784,7 @@ GameObject:
   - component: {fileID: 2078790366103353805}
   - component: {fileID: 7536146061613676131}
   - component: {fileID: 7949010425366878165}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_SubMGun_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9847,8 +9847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   _renderers:
   - {fileID: 2357183855269266739}
   _particleRenderers:
@@ -9858,8 +9856,8 @@ MonoBehaviour:
   - {fileID: 2511222648497802897}
   - {fileID: 6608228970921030014}
   - {fileID: 7033825177155544019}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
 --- !u!1 &4973489381728662138
 GameObject:
   m_ObjectHideFlags: 0
@@ -9871,7 +9869,7 @@ GameObject:
   - component: {fileID: 1952001920300037778}
   - component: {fileID: 7685314348594813282}
   - component: {fileID: 6608228970921030014}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14767,7 +14765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ApoSMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14801,7 +14799,7 @@ GameObject:
   - component: {fileID: 7849545602769985508}
   - component: {fileID: 4924228050321039932}
   - component: {fileID: 7033825177155544019}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19687,7 +19685,7 @@ GameObject:
   - component: {fileID: 6450780494620806675}
   - component: {fileID: 4914083836874484840}
   - component: {fileID: 4765790118264190557}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24598,7 +24596,7 @@ GameObject:
   - component: {fileID: 2882911739289820566}
   - component: {fileID: 3593279711719281030}
   - component: {fileID: 2511222648497802897}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29527,7 +29525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3077761817407941570, guid: e146a3b89ea9d7b4abf2598dd589504c, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e146a3b89ea9d7b4abf2598dd589504c, type: 3}
       propertyPath: m_Name
@@ -29535,11 +29533,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e146a3b89ea9d7b4abf2598dd589504c, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8814072037351682799, guid: e146a3b89ea9d7b4abf2598dd589504c, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8814072037351682799, guid: e146a3b89ea9d7b4abf2598dd589504c, type: 3}
       propertyPath: m_Materials.Array.data[1]

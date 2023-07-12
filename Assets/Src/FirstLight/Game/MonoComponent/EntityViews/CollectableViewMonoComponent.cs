@@ -26,7 +26,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		//[SerializeField, Required] private AnimationClip _spawnClip;
 		[SerializeField, Required] private AnimationClip _idleClip;
-		[SerializeField, Required] private AnimationClip _collectClip;
+		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
 
@@ -60,7 +60,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
 			_animation.AddClip(_idleClip, CLIP_IDLE);
-			_animation.AddClip(_collectClip, CLIP_COLLECT);
+			if (_collectClip != null)
+			{
+				_animation.AddClip(_collectClip, CLIP_COLLECT);
+			}
 
 			QuantumEvent.Subscribe<EventOnStartedCollecting>(this, OnStartedCollecting);
 			QuantumEvent.Subscribe<EventOnStoppedCollecting>(this, OnStoppedCollecting);
@@ -89,10 +92,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				ren.enabled = true;
 			}
 
-			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) && collectable.PickupRadius > FP._0)
+			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) &&
+				collectable.PickupRadius > FP._0)
 			{
-				_pickupCircle.localScale = new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
-				_pickupCircle.position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+				_pickupCircle.localScale =
+					new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
+				_pickupCircle.position = _collectableIndicatorAnchor.position +
+					new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
 				//animates between the spawning position to the display position if they are different
 				var originPos = collectable.OriginPosition.ToUnityVector3();
@@ -118,12 +124,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				transform.position = endPos;
 				yield break;
 			}
+
 			var startTime = Time.time;
 			var startScale = transform.localScale;
 			while (Time.time <= startTime + moveTime)
 			{
 				var progress = (Time.time - startTime) / moveTime;
-				var scale = Vector3.Lerp(Vector3.zero, startScale, progress * 2); // scale should finish twice as fast as position
+				var scale = Vector3.Lerp(Vector3.zero, startScale,
+					progress * 2); // scale should finish twice as fast as position
 				var pos = Vector3.Lerp(startPos, endPos, progress);
 				pos.y += Mathf.Sin(Mathf.PI * progress) * GameConstants.Visuals.CHEST_CONSUMABLE_POPOUT_HEIGHT;
 
@@ -190,11 +198,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			// Animation of a collected collectable is disabled. We can enable it again if we need it
 			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.
-			_animation.enabled = true;
-			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
-			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
-
-			//Destroy(gameObject);
+			if (_collectClip != null)
+			{
+				_animation.enabled = true;
+				_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
+				this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)
@@ -218,11 +231,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var vfxId = collectingData.IsLargeCollectable
 					? VfxId.CollectableIndicatorLarge
 					: VfxId.CollectableIndicator;
-				_collectingVfx = (CollectableIndicatorVfxMonoComponent)Services.VfxService.Spawn(vfxId);
-				var position = _collectableIndicatorAnchor.position + new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+				_collectingVfx = (CollectableIndicatorVfxMonoComponent) Services.VfxService.Spawn(vfxId);
+				var position = _collectableIndicatorAnchor.position +
+					new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
 				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
-				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f, _pickupCircle.localScale.y * 2.5f);
+				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f,
+					_pickupCircle.localScale.y * 2.5f);
 				_collectingVfx.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
 
@@ -251,7 +266,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				}
 				else if (collectable.GameId == GameId.Health)
 				{
-					color =new Color(0.42f, 0.02f, 0.02f);
+					color = new Color(0.42f, 0.02f, 0.02f);
 				}
 				else if (collectable.GameId.IsInGroup(GameIdGroup.Ammo))
 				{

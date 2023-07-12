@@ -3,6 +3,7 @@
     --sprite-match__background-equipmentcharacter: url('/Assets/Art/UI/Sprites/Match/background-equipmentcharacter.png');
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
+    --sprite-match__background-gradient-pink: url('/Assets/Art/UI/Sprites/Match/background-gradient-pink.png');
     --sprite-match__background-gradient-yellow: url('/Assets/Art/UI/Sprites/Match/background-gradient-yellow.png');
     --sprite-match__background-healthbar: url('/Assets/Art/UI/Sprites/Match/background-healthbar.png');
     --sprite-match__background-killstreak: url('/Assets/Art/UI/Sprites/Match/background-killstreak.png');
@@ -42,6 +43,8 @@
     --sprite-match__icon-players-killed: url('/Assets/Art/UI/Sprites/Match/icon-players-killed.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
     --sprite-match__icon-skull-1: url('/Assets/Art/UI/Sprites/Match/icon-skull-1.png');
+    --sprite-match__icon-skull-2: url('/Assets/Art/UI/Sprites/Match/icon-skull-2.png');
+    --sprite-match__icon-skull-3: url('/Assets/Art/UI/Sprites/Match/icon-skull-3.png');
     --sprite-match__icon-skull-full: url('/Assets/Art/UI/Sprites/Match/icon-skull-full.png');
     --sprite-match__icon-skull-impact: url('/Assets/Art/UI/Sprites/Match/icon-skull-impact.png');
     --sprite-match__icon-star: url('/Assets/Art/UI/Sprites/Match/icon-star.png');
@@ -57,6 +60,7 @@
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
     --sprite-match__progress-health-squads: url('/Assets/Art/UI/Sprites/Match/progress-health-squads.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
+    --sprite-match__text-beast: url('/Assets/Art/UI/Sprites/Match/text-beast.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
     --sprite-match__text-busted: url('/Assets/Art/UI/Sprites/Match/text-busted.png');
     --sprite-match__text-matchended: url('/Assets/Art/UI/Sprites/Match/text-matchended.png');
@@ -65,7 +69,15 @@
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
     --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
+    --sprite-match__vfx-killstreak-skullpart10: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart10.png');
     --sprite-match__vfx-killstreak-skullpart2: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart2.png');
+    --sprite-match__vfx-killstreak-skullpart3: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart3.png');
+    --sprite-match__vfx-killstreak-skullpart4: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart4.png');
+    --sprite-match__vfx-killstreak-skullpart5: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart5.png');
+    --sprite-match__vfx-killstreak-skullpart6: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart6.png');
+    --sprite-match__vfx-killstreak-skullpart7: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart7.png');
+    --sprite-match__vfx-killstreak-skullpart8: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart8.png');
+    --sprite-match__vfx-killstreak-skullpart9: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart9.png');
 }
 
 .sprite-match__background-equipmentcharacter {
@@ -84,6 +96,12 @@
     background-image: var(--sprite-match__background-gradient-blue);
     width: 466px;
     height: 92px;
+}
+
+.sprite-match__background-gradient-pink {
+    background-image: var(--sprite-match__background-gradient-pink);
+    width: 132px;
+    height: 132px;
 }
 
 .sprite-match__background-gradient-yellow {
@@ -318,6 +336,18 @@
     height: 72px;
 }
 
+.sprite-match__icon-skull-2 {
+    background-image: var(--sprite-match__icon-skull-2);
+    width: 68px;
+    height: 72px;
+}
+
+.sprite-match__icon-skull-3 {
+    background-image: var(--sprite-match__icon-skull-3);
+    width: 72px;
+    height: 81px;
+}
+
 .sprite-match__icon-skull-full {
     background-image: var(--sprite-match__icon-skull-full);
     width: 68px;
@@ -408,6 +438,12 @@
     height: 11px;
 }
 
+.sprite-match__text-beast {
+    background-image: var(--sprite-match__text-beast);
+    width: 160px;
+    height: 75px;
+}
+
 .sprite-match__text-blasted {
     background-image: var(--sprite-match__text-blasted);
     width: 302px;
@@ -456,9 +492,57 @@
     height: 20px;
 }
 
+.sprite-match__vfx-killstreak-skullpart10 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart10);
+    width: 48px;
+    height: 16px;
+}
+
 .sprite-match__vfx-killstreak-skullpart2 {
     background-image: var(--sprite-match__vfx-killstreak-skullpart2);
     width: 29px;
     height: 22px;
+}
+
+.sprite-match__vfx-killstreak-skullpart3 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart3);
+    width: 27px;
+    height: 48px;
+}
+
+.sprite-match__vfx-killstreak-skullpart4 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart4);
+    width: 47px;
+    height: 58px;
+}
+
+.sprite-match__vfx-killstreak-skullpart5 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart5);
+    width: 69px;
+    height: 90px;
+}
+
+.sprite-match__vfx-killstreak-skullpart6 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart6);
+    width: 40px;
+    height: 32px;
+}
+
+.sprite-match__vfx-killstreak-skullpart7 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart7);
+    width: 110px;
+    height: 123px;
+}
+
+.sprite-match__vfx-killstreak-skullpart8 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart8);
+    width: 81px;
+    height: 51px;
+}
+
+.sprite-match__vfx-killstreak-skullpart9 {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart9);
+    width: 18px;
+    height: 39px;
 }
 

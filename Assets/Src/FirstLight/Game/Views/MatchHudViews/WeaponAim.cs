@@ -30,6 +30,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Required, SerializeField] private LineRenderer _lowerLineRenderer;
 
 		private const int _minAngleVariation = 15;
+		private readonly Color _sideLineStartColor = new Color(0.13f, 0.13f, 0.13f);
+		private readonly Color _sideLineEndColor = new Color(0.02f, 0.02f, 0.02f);
+		private readonly Color _mainLineColor = Color.white;
 		
 		private FP _variationRange;
 		private FP _range;
@@ -103,6 +106,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_lowerLineRenderer.endColor = c;
 			_upperLineRenderer.startColor = c;
 			_upperLineRenderer.endColor = c;
+		}
+
+		/// <summary>
+		/// Resets the color of line renderers back to original color
+		/// </summary>
+		public void ResetColor()
+		{
+			_centerLineRenderer.startColor = _mainLineColor;
+			_centerLineRenderer.endColor = _mainLineColor;
+			_lowerLineRenderer.startColor = _sideLineStartColor;
+			_lowerLineRenderer.endColor = _sideLineEndColor;
+			_upperLineRenderer.startColor = _sideLineStartColor;
+			_upperLineRenderer.endColor = _sideLineEndColor;
 		}
 		
 		/// <summary>

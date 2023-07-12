@@ -374,7 +374,9 @@ namespace FirstLight.Game.Logic
 				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
 				var matchingEquipment = equipmentConfigs
-					.Where(x => x.Id.IsInGroup(equipmentCategory) && x.Id != GameId.Hammer).ToList();
+					.Where(x => x.Id.IsInGroup(equipmentCategory)
+					            && x.Id != GameId.Hammer
+					            && !x.Id.IsInGroup(GameIdGroup.Deprecated)).ToList();
 
 				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count)].Id;
 			}

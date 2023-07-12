@@ -275,8 +275,7 @@ namespace Quantum
 					GameId.ApoShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -291,15 +290,15 @@ namespace Quantum
 					GameId.ApoRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ApoSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -307,7 +306,6 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple,
 						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
@@ -332,7 +330,7 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -348,7 +346,7 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Deprecated
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -370,8 +368,7 @@ namespace Quantum
 					GameId.ModHeavyMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -403,7 +400,6 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple,
 						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
@@ -1116,12 +1112,9 @@ namespace Quantum
 						GameId.MausHelmet,
 						GameId.RoadHelmet,
 						GameId.ApoSMG,
-						GameId.ApoRPG,
-						GameId.ModShotgun,
+						GameId.ModRifle,
 						GameId.ModSniper,
-						GameId.ModHeavyMachineGun,
 						GameId.SciPistol,
-						GameId.SciRifle,
 						GameId.MouseAmulet,
 						GameId.TikTokAmulet,
 						GameId.MouseArmor,
@@ -1167,13 +1160,12 @@ namespace Quantum
 					GameIdGroup.Deprecated, new List<GameId>
 					{
 						GameId.ApoCrossbow,
-						GameId.ApoShotgun,
-						GameId.ApoSniper,
+						GameId.ApoRifle,
 						GameId.ApoRPG,
 						GameId.ApoMinigun,
 						GameId.ModPistol,
+						GameId.ModShotgun,
 						GameId.ModMachineGun,
-						GameId.ModRifle,
 						GameId.SciBlaster,
 						GameId.SciNeedleGun,
 						GameId.SciRifle,

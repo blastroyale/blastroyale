@@ -642,7 +642,10 @@ namespace FirstLight.Game.Services
 
 			FLog.Info($"JoinOrCreateRandomRoom: {setup}");
 
-			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot());
+			// On random room we always send vector zero as spawn position
+			// this is to ensure all rooms are created with same properties for all players so
+			// quantum can matchmake em safely when concurrency happens
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, Vector3.zero);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;

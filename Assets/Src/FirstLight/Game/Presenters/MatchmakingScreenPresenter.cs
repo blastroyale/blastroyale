@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.FLogger;
@@ -128,6 +129,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyList()
 		{
+			if (!_services.NetworkService.CurrentRoomGameModeConfig.HasValue) return;
 			var isSquadGame = _services.NetworkService.CurrentRoomGameModeConfig!.Value!.Teams;
 
 			if (isSquadGame)
@@ -251,7 +253,37 @@ namespace FirstLight.Game.Presenters
 			return Vector3.Distance(mapCenter, dropPos) < mapRadius;
 		}
 
-		private async void InitMap(GeometryChangedEvent evt)
+		private async Task LoadMapAsset(QuantumMapConfig mapConfig)
+		{
+			if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
+			{
+				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
+				_mapImage.style.backgroundImage = new StyleBackground(sprite);
+			}
+			else
+			{
+				FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
+			}
+		}
+
+		// TODO: Should not be here, should only have a listener to timer events
+		private void UpdateMatchmakingTimer()
+		{
+			var matchType = CurrentRoom.GetMatchType();
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
+			FLog.Verbose("Matchmaking Min Players: "+minPlayers);
+			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
+			if (_matchmakingTimerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
+			}
+			_matchmakingTimerCoroutine =
+				_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
+		}
+
+		private void InitMap(GeometryChangedEvent evt)
 		{
 			if (CurrentRoom == null) return;
 
@@ -263,11 +295,7 @@ namespace FirstLight.Game.Presenters
 			var gameMode = CurrentRoom.GetGameModeId();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
-
-			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_header.SetTitle(gameMode.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
@@ -278,21 +306,14 @@ namespace FirstLight.Game.Presenters
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
-
+			UpdateMatchmakingTimer();
+			
 			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
 				_mapMarker.SetDisplay(false);
 				_mapTitleBg.SetDisplay(false);
-				if (_services.AssetResolverService.TryGetAssetReference<GameId, Sprite>(mapConfig.Map, out _))
-				{
-					var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
-					_mapImage.style.backgroundImage = new StyleBackground(sprite);
-				}
-				else
-				{
-					FLog.Warn("Map sprite for map " + mapConfig.Map + " not found");
-				}
+				_ = LoadMapAsset(mapConfig);
 
 				return;
 			}
@@ -305,15 +326,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_matchmakingTimerCoroutine =
-					_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 				StartPlaneFlyAnimLoop();
 			}
 
 			InitSkydiveSpawnMapData();
-
-			var image = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false, true);
-			_mapImage.style.backgroundImage = new StyleBackground(image);
+			_ = LoadMapAsset(mapConfig);
 		}
 
 		private void InitSkydiveSpawnMapData()
@@ -402,8 +419,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
 			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
-
-
+			
 			while (DateTime.UtcNow < matchmakingEndTime && !CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
@@ -452,6 +468,10 @@ namespace FirstLight.Game.Presenters
 
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
+			if (propertiesThatChanged.ContainsKey(GameConstants.Network.ROOM_PROPS_CREATION_TICKS))
+			{
+				UpdateMatchmakingTimer();
+			}
 		}
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

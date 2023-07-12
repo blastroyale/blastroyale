@@ -541,7 +541,8 @@ namespace FirstLight.Game.Utils
 				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
 				return everyBodyJoined && everybodyLoadedCoreAssets;
 			}
-
+			
+			FLog.Verbose($"Is room full capacity ? {room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity()}");
 			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
 		}
 
@@ -593,7 +594,8 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool LoadedCoreMatchAssets(this Player player)
 		{
-			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
+			return player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
+				out var propertyValue) && (bool)propertyValue;
 		}
 
 		/// <summary>
@@ -604,11 +606,16 @@ namespace FirstLight.Game.Utils
 		{
 			foreach (var playerKvp in room.Players)
 			{
-				if (playerKvp.Value.IsInactive)
+				// We check userid null because that means player is joining first time
+				// if userid is not null means he entered the room then left, in this case room should start without him
+				// with the player being inactive so he can join later
+				if (playerKvp.Value.IsInactive && playerKvp.Value.UserId == null)
+				{
+					FLog.Verbose("Inactive player" + playerKvp.Value.LoadedCoreMatchAssets());
 					continue;
-
-				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
-					    out var propertyValue) || !(bool) propertyValue)
+				}
+				
+				if (!playerKvp.Value.LoadedCoreMatchAssets())
 				{
 					return false;
 				}

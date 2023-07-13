@@ -208,7 +208,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.94549, y: 0.75817, z: 1.9813166}
-  m_Center: {x: 22.582733, y: 0.38540965, z: -13.1471615}
+  m_Center: {x: 0, y: 0.38540965, z: 0}
 --- !u!114 &6669322685622535331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,16 +224,16 @@ MonoBehaviour:
   SourceCollider: {fileID: 8901211261597819439}
   Size:
     X:
-      RawValue: 0
+      RawValue: 61963
     Y:
-      RawValue: 0
+      RawValue: 49687
     Z:
-      RawValue: 0
+      RawValue: 129847
   PositionOffset:
     X:
       RawValue: 0
     Y:
-      RawValue: 0
+      RawValue: 25258
     Z:
       RawValue: 0
   RotationOffset:

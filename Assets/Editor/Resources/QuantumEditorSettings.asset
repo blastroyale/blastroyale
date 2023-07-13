@@ -22,8 +22,8 @@ MonoBehaviour:
   SearchEditorAssemblies:
   - Assembly-CSharp-Editor
   - Assembly-CSharp-Editor-firstpass
-  PhysicsGridColor: {r: 0, g: 0.7, b: 1, a: 1}
-  NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 1}
+  PhysicsGridColor: {r: 0, g: 0.7, b: 1, a: 0.09803922}
+  NavMeshGridColor: {r: 0.4, g: 1, b: 0.7, a: 0.2509804}
   GizmoIconScale:
     RawValue: 65536
   GizmoSelectedBrightness: 1.1
@@ -36,9 +36,9 @@ MonoBehaviour:
   DrawStaticMeshNormals: 1
   DrawSceneMeshCells: 1
   DrawSceneMeshTriangles: 1
-  StaticColliderColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
+  StaticColliderColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 0.49411765}
   DynamicColliderColor: {r: 0.6, g: 0.8509804, b: 0.91764706, a: 1}
-  KinematicColliderColor: {r: 1, g: 0, b: 0.74678516, a: 1}
+  KinematicColliderColor: {r: 1, g: 0, b: 0.74678516, a: 0.49411765}
   CharacterControllerColor: {r: 1, g: 1, b: 0, a: 1}
   AsleepColliderColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
   DisabledColliderColor: {r: 1, g: 0, b: 0, a: 1}

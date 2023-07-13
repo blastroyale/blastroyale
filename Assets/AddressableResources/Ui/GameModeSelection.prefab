@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6488198283104277478}
   - component: {fileID: 6770707704174963488}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Game Mode Selection Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

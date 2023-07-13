@@ -15,7 +15,6 @@ Shader "FLG/Unlit/Shadow"
         }
         
         Blend One OneMinusSrcAlpha
-        Offset -1, -1 // Draw this closer to the camera to avoid z-fighting with the ground.
 
         Pass
         {

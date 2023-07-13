@@ -1,5 +1,9 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-match__animation-shieldbreak-notification__firsthalf-shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__firsthalf-shield.png');
+    --sprite-match__animation-shieldbreak-notification__light: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__light.png');
+    --sprite-match__animation-shieldbreak-notification__secondhalf-shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__secondhalf-shield.png');
+    --sprite-match__animation-shieldbreak-notification__shield: url('/Assets/Art/UI/Sprites/Match/animation-shieldbreak-notification__shield.png');
     --sprite-match__background-equipmentcharacter: url('/Assets/Art/UI/Sprites/Match/background-equipmentcharacter.png');
     --sprite-match__background-equippedweapons: url('/Assets/Art/UI/Sprites/Match/background-equippedweapons.png');
     --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
@@ -16,6 +20,8 @@
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
     --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
     --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
+    --sprite-match__gradient-lowhp: url('/Assets/Art/UI/Sprites/Match/gradient-lowhp.png');
+    --sprite-match__gradientwhite: url('/Assets/Art/UI/Sprites/Match/gradientwhite.png');
     --sprite-match__icon-ammo: url('/Assets/Art/UI/Sprites/Match/icon-ammo.png');
     --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-left.png');
     --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
@@ -45,6 +51,7 @@
     --sprite-match__icon-skull-full: url('/Assets/Art/UI/Sprites/Match/icon-skull-full.png');
     --sprite-match__icon-skull-impact: url('/Assets/Art/UI/Sprites/Match/icon-skull-impact.png');
     --sprite-match__icon-star: url('/Assets/Art/UI/Sprites/Match/icon-star.png');
+    --sprite-match__icon-star-yellow: url('/Assets/Art/UI/Sprites/Match/icon-star-yellow.png');
     --sprite-match__icon-switch: url('/Assets/Art/UI/Sprites/Match/icon-switch.png');
     --sprite-match__icon-weaponswitch: url('/Assets/Art/UI/Sprites/Match/icon-weaponswitch.png');
     --sprite-match__icon-wifi-high: url('/Assets/Art/UI/Sprites/Match/icon-wifi-high.png');
@@ -58,14 +65,42 @@
     --sprite-match__progress-health-squads: url('/Assets/Art/UI/Sprites/Match/progress-health-squads.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
+    --sprite-match__text-blasted-white: url('/Assets/Art/UI/Sprites/Match/text-blasted-white.png');
     --sprite-match__text-busted: url('/Assets/Art/UI/Sprites/Match/text-busted.png');
     --sprite-match__text-matchended: url('/Assets/Art/UI/Sprites/Match/text-matchended.png');
     --sprite-match__text-youchosedeath: url('/Assets/Art/UI/Sprites/Match/text-youchosedeath.png');
     --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites/Match/text-youwon.png');
+    --sprite-match__text-youwon-white: url('/Assets/Art/UI/Sprites/Match/text-youwon-white.png');
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
     --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
     --sprite-match__vfx-killstreak-skullpart2: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart2.png');
+    --sprite-match__win-gradient: url('/Assets/Art/UI/Sprites/Match/win-gradient.png');
+    --sprite-match__winLight: url('/Assets/Art/UI/Sprites/Match/winLight.png');
+}
+
+.sprite-match__animation-shieldbreak-notification__firsthalf-shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__firsthalf-shield);
+    width: 41px;
+    height: 46px;
+}
+
+.sprite-match__animation-shieldbreak-notification__light {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__light);
+    width: 86px;
+    height: 99px;
+}
+
+.sprite-match__animation-shieldbreak-notification__secondhalf-shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__secondhalf-shield);
+    width: 39px;
+    height: 44px;
+}
+
+.sprite-match__animation-shieldbreak-notification__shield {
+    background-image: var(--sprite-match__animation-shieldbreak-notification__shield);
+    width: 46px;
+    height: 51px;
 }
 
 .sprite-match__background-equipmentcharacter {
@@ -160,6 +195,18 @@
 
 .sprite-match__button-next:active {
     background-image: var(--sprite-match__button-next-pressed);
+}
+
+.sprite-match__gradient-lowhp {
+    background-image: var(--sprite-match__gradient-lowhp);
+    width: 180px;
+    height: 180px;
+}
+
+.sprite-match__gradientwhite {
+    background-image: var(--sprite-match__gradientwhite);
+    width: 261px;
+    height: 265px;
 }
 
 .sprite-match__icon-ammo {
@@ -336,6 +383,12 @@
     height: 50px;
 }
 
+.sprite-match__icon-star-yellow {
+    background-image: var(--sprite-match__icon-star-yellow);
+    width: 144px;
+    height: 144px;
+}
+
 .sprite-match__icon-switch {
     background-image: var(--sprite-match__icon-switch);
     width: 50px;
@@ -414,6 +467,12 @@
     height: 101px;
 }
 
+.sprite-match__text-blasted-white {
+    background-image: var(--sprite-match__text-blasted-white);
+    width: 291px;
+    height: 88px;
+}
+
 .sprite-match__text-busted {
     background-image: var(--sprite-match__text-busted);
     width: 230px;
@@ -438,6 +497,12 @@
     height: 107px;
 }
 
+.sprite-match__text-youwon-white {
+    background-image: var(--sprite-match__text-youwon-white);
+    width: 441px;
+    height: 124px;
+}
+
 .sprite-match__vfx-crack-red {
     background-image: var(--sprite-match__vfx-crack-red);
     width: 274px;
@@ -460,5 +525,17 @@
     background-image: var(--sprite-match__vfx-killstreak-skullpart2);
     width: 29px;
     height: 22px;
+}
+
+.sprite-match__win-gradient {
+    background-image: var(--sprite-match__win-gradient);
+    width: 172px;
+    height: 172px;
+}
+
+.sprite-match__winLight {
+    background-image: var(--sprite-match__winLight);
+    width: 444px;
+    height: 112px;
 }
 

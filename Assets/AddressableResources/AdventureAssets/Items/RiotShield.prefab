@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6165000970535338875}
   - component: {fileID: 5294039822546108936}
   - component: {fileID: 398181099066565768}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RiotShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,10 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
   _renderers:
   - {fileID: 5294039822546108936}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 5294039822546108936}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}

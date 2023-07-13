@@ -131,12 +131,12 @@ namespace FirstLight.Game.UIElements
 			_damageAnimationHandle.Pause();
 		}
 
-		public void SetPlayer(PlayerRef player, string name, int level, string pfpUrl)
+		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl)
 		{
 			if (_player == player) return;
 			_player = player;
 
-			_name.text = name;
+			_name.text = playerName.ToUpper();
 			_level.text = level.ToString();
 
 			if (Application.isPlaying)

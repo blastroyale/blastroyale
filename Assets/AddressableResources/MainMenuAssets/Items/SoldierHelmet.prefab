@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1631566633854018960}
   - component: {fileID: 4744983638304937775}
   - component: {fileID: 1714846203912679365}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Helmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6468292854153842787}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

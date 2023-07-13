@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7391827949159892831}
   - component: {fileID: 5236469018077052587}
   - component: {fileID: 4658867075539426568}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1589760110319979480}
   - component: {fileID: 2422987112564016253}
   - component: {fileID: 451726351044096183}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Divinci
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6957506393303968756}
   - component: {fileID: 2847002801827844828}
   - component: {fileID: 3106041098597360108}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

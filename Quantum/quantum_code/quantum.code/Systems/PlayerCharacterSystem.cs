@@ -303,7 +303,7 @@ namespace Quantum.Systems
 			}
 			
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			var maxSpeed = f.GameConfig.PlayerDefaultSpeed.Get(f);
+			var maxSpeed = f.Get<Stats>(filter.Entity).GetStatData(StatType.Speed).StatValue;
 			var moveDirection = bb->GetVector2(f, Constants.MoveDirectionKey).XOY;
 			var velocity = kcc->Velocity;
 

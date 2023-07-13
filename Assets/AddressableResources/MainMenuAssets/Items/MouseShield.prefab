@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 232874083075264995}
   - component: {fileID: 5065349080981245462}
   - component: {fileID: 176245573765445710}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MouseShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2620559800792323889}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MouseShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -34,11 +34,6 @@ MonoBehaviour:
         Id:
           Value: 128173641673653426
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetAmmoCountFunction_13]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerChangeDefaultWeapon_20
-      AssetRef:
-        Id:
-          Value: 134085775617983364
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerChangeDefaultWeapon_20]
     - Path: AddressableResources/QuantumAssets/Projectiles/MainBullet|EntityPrototype
       AssetRef:
         Id:
@@ -84,11 +79,11 @@ MonoBehaviour:
         Id:
           Value: 290408045908008783
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_2]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_22
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_21
       AssetRef:
         Id:
           Value: 293828422263463376
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_22]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_21]
     - Path: AddressableResources/QuantumAssets/Default Config Assets/Default CharacterController2DConfigAsset
       AssetRef:
         Id:
@@ -239,6 +234,11 @@ MonoBehaviour:
         Id:
           Value: 701952959705295376
       Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityView]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveFullyGroundedAction_22
+      AssetRef:
+        Id:
+          Value: 725308320563937207
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveFullyGroundedAction_22]
     - Path: AddressableResources/QuantumAssets/Projectiles/PlayerBullet|EntityPrototype
       AssetRef:
         Id:
@@ -774,13 +774,12 @@ MonoBehaviour:
         Id:
           Value: 2987106604845511688
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardBool_7]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Change
-        Weapon Default_13
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Out
+        Of Ammo_13
       AssetRef:
         Id:
           Value: 3001958099177705209
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Change Weapon
-        Default_13]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Out Of Ammo_13]
     - Path: AddressableResources/Maps/District_NavMesh_data
       AssetRef:
         Id:
@@ -831,11 +830,11 @@ MonoBehaviour:
         Id:
           Value: 3083889286552435639
       Address: Configs/ShrinkingCircleConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_21
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_20
       AssetRef:
         Id:
           Value: 3090339244532597528
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerPhysicsAction_21]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerPhysicsAction_20]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Reload_3
       AssetRef:
         Id:

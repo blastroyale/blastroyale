@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4811000459136974491}
   - component: {fileID: 9198853872018853322}
   - component: {fileID: 4320916801225539498}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,13 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 0ad60b320c0a5005b813ac6e7a846c8b, type: 2}
   _renderers:
   - {fileID: 3681299107808719975}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 060bc7058ab345446a1949a9dc9f677d, type: 2}
 --- !u!1 &5376693513331232626
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5376693513331232629}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SpickyBoy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,22 +164,6 @@ PrefabInstance:
       propertyPath: m_StaticShadowCaster
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0ad60b320c0a5005b813ac6e7a846c8b, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: -5754084199372789682, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -192,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 05f5942bf5b24b447b45aa1717ece053, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

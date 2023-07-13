@@ -22,17 +22,17 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 4109
+        RawValue: 5839
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 22938
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
-        RawValue: 13930
+        RawValue: 0
       ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Faction: 1
@@ -41,18 +41,86 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 19661
+        RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 11548
+        RawValue: 0
       AmmoCapacityRatioToBaseK:
-        RawValue: 13501
+        RawValue: 0
       ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Faction: 2
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 16456
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Faction: 3
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 14775
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Faction: 4
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 12780
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Faction: 5
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 7137
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Faction: 6
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
@@ -62,78 +130,10 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 32768
-      PickupSpeedRatioToBaseK:
-        RawValue: 12927
-      AmmoCapacityRatioToBaseK:
-        RawValue: 0
-      ShieldCapacityRatioToBaseK:
-        RawValue: 0
-    - Faction: 3
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 3287
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 17695
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-      AmmoCapacityRatioToBaseK:
-        RawValue: 21430
-      ShieldCapacityRatioToBaseK:
-        RawValue: 0
-    - Faction: 4
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 12583
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 21627
-      PickupSpeedRatioToBaseK:
-        RawValue: 17236
-      AmmoCapacityRatioToBaseK:
-        RawValue: 0
-      ShieldCapacityRatioToBaseK:
-        RawValue: 0
-    - Faction: 5
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 4325
-      SpeedRatioToBaseK:
-        RawValue: 12190
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
-        RawValue: 14573
-      ShieldCapacityRatioToBaseK:
         RawValue: 0
-    - Faction: 6
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 3201
-      SpeedRatioToBaseK:
-        RawValue: 15729
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-      AmmoCapacityRatioToBaseK:
-        RawValue: 16287
       ShieldCapacityRatioToBaseK:
         RawValue: 0

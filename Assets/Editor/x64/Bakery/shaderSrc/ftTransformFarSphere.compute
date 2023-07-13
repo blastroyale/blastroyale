@@ -1,0 +1,64 @@
+﻿#pragma kernel CSMain
+
+RWStructuredBuffer<float3> verts;
+Texture2D<float> _DepthTex;
+SamplerState sampler_DepthTex;
+float3 objectCenter;
+float4 _InvProj0, _InvProj1, _InvProj2, _InvProj3;
+float3 wnormal;
+uint vertWidth;
+
+float4 ComputeClipSpacePosition(float2 positionNDC, float deviceDepth)
+{
+    float4 positionCS = float4(positionNDC * 2.0 - 1.0, deviceDepth, 1.0);
+    positionCS.y = -positionCS.y;
+    return positionCS;
+}
+
+float3 ComputeViewSpacePosition(float2 positionNDC, float deviceDepth, float4x4 invProjMatrix)
+{
+    float4 positionCS  = ComputeClipSpacePosition(positionNDC, deviceDepth);
+    float4 hpositionVS = mul(invProjMatrix, positionCS);
+    return hpositionVS.xyz / hpositionVS.w;
+}
+
+float planeIntersect(float3 ro, float3 rd, float4 p)
+{
+    return -(dot(ro,p.xyz)+p.w)/dot(rd,p.xyz);
+}
+
+[numthreads(16,16,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= vertWidth) return;
+    if (id.y >= vertWidth) return;
+
+    int vertID = id.y * vertWidth + id.x;
+    float3 lpos = verts[vertID];
+
+    float4x4 invProjMatrix = float4x4(_InvProj0, _InvProj1, _InvProj2, _InvProj3);
+
+    float2 uv = (id.xy) / (float)(vertWidth-1);
+    uv.y = 1 - uv.y;
+
+    float texelSize = 1.0f / vertWidth;
+
+    uv = lerp(uv-texelSize*0.5, uv+texelSize*0.5, uv);
+
+    float2 centerUV = uv;//floor(uv * (vertWidth-1)) / (vertWidth-1);
+
+    float2 leftUV = centerUV - float2(texelSize, 0);
+    float2 rightUV = centerUV + float2(texelSize, 0);
+    float2 bottomUV = centerUV - float2(0, texelSize);
+    float2 topUV = centerUV + float2(0, texelSize);
+
+    float depth = _DepthTex.SampleLevel(sampler_DepthTex, centerUV, 0).r;
+
+    //depth = -ComputeViewSpacePosition(uv * 2 - 1, depth, invProjMatrix).z;
+    //float3 dir = normalize(lpos);
+    //float3 worldPos = dir * planeIntersect(0, dir, float4(-wnormal.xyz, depth));
+
+    float3 worldPos = ComputeViewSpacePosition(uv, depth, invProjMatrix) - objectCenter;
+
+    verts[vertID] = worldPos;
+}

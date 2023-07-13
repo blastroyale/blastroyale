@@ -78,8 +78,8 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 800px;
-    height: 800px;
+    width: 1000px;
+    height: 1000px;
     opacity: 1;
 }
 
@@ -1382,4 +1382,7 @@
     background-image: var(--sprite-match__icon-skull-impact);
     left: -72px;
     top: -97px;
+}
+
+.plus-level__label {
 }

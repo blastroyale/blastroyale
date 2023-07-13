@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6025386868260110323}
   - component: {fileID: 3195541657606193346}
   - component: {fileID: 6224469976513979055}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,7 +4895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ApoSniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4930,7 +4930,7 @@ GameObject:
   - component: {fileID: 4947872304868891502}
   - component: {fileID: 7479142060398350577}
   - component: {fileID: 1924506580031129484}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_SniperRifle_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4992,16 +4992,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   _renderers:
   - {fileID: 8241827276250447615}
   - {fileID: 2723715858473581645}
   _particleRenderers:
   - {fileID: 6224469976513979055}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
 --- !u!1001 &4442279004394859349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5056,7 +5054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1438053515359790370, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Name
@@ -5064,11 +5062,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1759412202630797080, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1759412202630797080, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -5080,7 +5078,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: 1784666113194708747, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1784666113194708747, guid: 6075bb9010669da41a0e5264d7fbe378, type: 3}
       propertyPath: m_IsActive

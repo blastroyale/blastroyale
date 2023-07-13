@@ -19,20 +19,20 @@ namespace FirstLight.Editor.Build
 		/// Uses development SKU
 		/// </summary>
 		public const string LocalSymbol = "LOCAL_BUILD";
-		
+
 		/// <summary>
 		/// Scripting define that enables dev builds
 		/// Uses development SKU
 		/// </summary>
 		public const string DevelopmentSymbol = "DEVELOPMENT_BUILD";
-		
+
 		/// <summary>
 		/// Scripting define the build to publish to the NON-stores distribution channels.
 		/// This build is signed and is possible to download and run from anywhere the link is available.
 		/// Uses development SKU
 		/// </summary>
 		public const string ReleaseSymbol = "RELEASE_BUILD";
-		
+
 		/// <summary>
 		/// Scripting define the build to publish to the stores distribution channels.
 		/// This build is signed and is only possible to run the client after downloading from the store.
@@ -50,23 +50,26 @@ namespace FirstLight.Editor.Build
 		private const string _aabExtension = ".aab";
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
 
-		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO"; 
-		private static readonly string[] CommonSymbols = new []
+		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO";
+
+		private static readonly string[] CommonSymbols = new[]
 		{
 			"QUANTUM_ADDRESSABLES",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
 		};
-		private static readonly string[] DebugSymbols = new []
+
+		private static readonly string[] DebugSymbols = new[]
 		{
 			"QUANTUM_REMOTE_PROFILER",
 			InfoLogLevelSymbol
 		};
-		private static readonly string[] StoreSymbols = new []
+
+		private static readonly string[] StoreReleaseSymbols = new[]
 		{
 			"DISABLE_SRDEBUGGER",
 		};
-		
+
 
 		/// <summary>
 		/// <inheritdoc cref="DevelopmentSymbol"/>
@@ -86,7 +89,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = true;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			
+
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
@@ -94,7 +97,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForDevelopment();
 			SetAndroidKeystore();
 			PrepareFirebase(DevelopmentSymbol);
-
 		}
 
 		/// <summary>
@@ -115,8 +117,8 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			
-			
+
+
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
@@ -124,7 +126,6 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(ReleaseSymbol);
-
 		}
 
 		/// <summary>
@@ -145,7 +146,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			
+
 			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appIdentifier);
@@ -153,9 +154,8 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForRelease();
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
-
 		}
-		
+
 		/// <summary>
 		/// Set the correct keystore and key to sign android builds with.
 		/// </summary>
@@ -168,7 +168,7 @@ namespace FirstLight.Editor.Build
 			PlayerSettings.Android.keyaliasName = "blastroyale";
 			PlayerSettings.Android.keyaliasPass = "***REMOVED***";
 		}
-		
+
 		/// <summary>
 		/// Setups the Firebase config files to the current system build config
 		/// </summary>
@@ -190,18 +190,13 @@ namespace FirstLight.Editor.Build
 				symbols.AddRange(DebugSymbols);
 			}
 
-			if (buildSymbols.Contains(ReleaseSymbol) && !buildSymbols.Contains(StoreSymbol))
+			if (buildSymbols.Contains(StoreSymbol) || buildSymbols.Contains(StoreSymbol))
 			{
-				symbols.Add(InfoLogLevelSymbol);
+				symbols.AddRange(StoreReleaseSymbols);
 			}
 
-			if (buildSymbols.Contains(StoreSymbol))
-			{
-				symbols.AddRange(StoreSymbols);
-			}
-			
 			symbols.AddRange(buildSymbols);
-			
+
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, symbols.ToArray());
 		}
 
@@ -212,7 +207,7 @@ namespace FirstLight.Editor.Build
 		{
 			var isLocalBuild = symbol == LocalSymbol;
 			var isStoreBuild = !isLocalBuild && symbol == StoreSymbol;
-			
+
 			if (target == BuildTarget.Android)
 			{
 				outputPath = Path.ChangeExtension(outputPath, isStoreBuild ? _aabExtension : _apkExtension);
@@ -248,8 +243,8 @@ namespace FirstLight.Editor.Build
 
 		private static void SetScenesFromEditor(ref BuildPlayerOptions buildPlayerOptions)
 		{
-			var  scenesToInclude = new List<string>();
-			
+			var scenesToInclude = new List<string>();
+
 			foreach (var editorScene in EditorBuildSettings.scenes)
 			{
 				if (!editorScene.enabled)
@@ -274,31 +269,31 @@ namespace FirstLight.Editor.Build
 			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
-			
+
 			deterministicConfig.Config.ChecksumInterval = 60;
 			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = true;
-			
+
 			EditorUtility.SetDirty(deterministicConfig);
 			AssetDatabase.SaveAssets();
 		}
-		
+
 		private static void ConfigureQuantumForRelease()
 		{
 			var guids = AssetDatabase.FindAssets($"t:{nameof(DeterministicSessionConfigAsset)}");
 			var path = AssetDatabase.GUIDToAssetPath(guids[0]);
 			var deterministicConfig = AssetDatabase.LoadAssetAtPath<DeterministicSessionConfigAsset>(path);
-			
+
 			deterministicConfig.Config.ChecksumInterval = 0;
 			deterministicConfig.Config.ChecksumCrossPlatformDeterminism = false;
-			
+
 			EditorUtility.SetDirty(deterministicConfig);
 			AssetDatabase.SaveAssets();
 		}
-		
+
 		private static void PrepareFirebase(string symbol)
 		{
 			Debug.Log($"FirstLightBuildConfig.PrepareFirebase Executing {symbol}");
-			
+
 			var environment = symbol == StoreSymbol ? "-prod" : "-dev";
 			var origPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Configs");
 			var destPath = Application.streamingAssetsPath;
@@ -311,7 +306,7 @@ namespace FirstLight.Editor.Build
 			{
 				Directory.CreateDirectory(destPath);
 			}
-			
+
 			File.Copy(iosOrig, iosDest, true);
 			File.Copy(androidOrig, androidDest, true);
 		}

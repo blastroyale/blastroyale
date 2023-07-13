@@ -104,8 +104,8 @@ namespace FirstLight.Game.MonoComponent
 
 			var childCount = instance.transform.childCount;
 
-			/// We detach the first child of the equipment and copy it to the anchor
-			/// Not sure why
+			// We detach the first child of the equipment and copy it to the anchor
+			// Not sure why
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;
@@ -119,12 +119,12 @@ namespace FirstLight.Game.MonoComponent
 
 				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{
-					renderContainer.SetRenderersLayer(_renderersContainerProxy.MainRenderersContainer.Renderers.First().gameObject.layer);
+					renderContainer.SetLayer(gameObject.layer);
 					_renderersContainerProxy.AddRenderersContainer(renderContainer);
 				}
 			}
 
-			/// If we detached the child of a parent, we destroy the parent
+			// If we detached the child of a parent, we destroy the parent
 			if (childCount > 0)
 			{
 				Destroy(instance);

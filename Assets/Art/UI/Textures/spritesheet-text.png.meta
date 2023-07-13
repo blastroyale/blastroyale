@@ -346,10 +346,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModBadge
+      name: EnergylevelIcon
       rect:
         serializedVersion: 2
-        x: 300
+        x: 200
         y: 724
         width: 100
         height: 100
@@ -360,8 +360,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6af5268fd557f4f58ac0d7a23f4f4b80
-      internalID: -1783419712
+      spriteID: ffb6e18487a32df41bbd7a7e81b95706
+      internalID: 1684124606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModBadge
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 724
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab8e4bc03dbb19438cfd4e164f1a99a
+      internalID: 1138685718
       vertices: []
       indices: 
       edges: []
@@ -383,10 +404,11 @@ TextureImporter:
       Coinicon: -163695951
       CraftSpiceicon: 1236277509
       Crown: 1226512841
+      EnergylevelIcon: 1684124606
       FLGBadge: 1659913812
       HPicon: -1040599977
       MATICicon: 978627458
-      ModBadge: -1783419712
+      ModBadge: 1138685718
       Shieldicon: -1896410702
       TextSpriteSheet_1: -531448559
       TextSpriteSheet_2: 99473630

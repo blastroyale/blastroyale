@@ -136,8 +136,7 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
-
-
+			
 			void AddGoToMatchmakingHook(params IStateEvent[] states)
 			{
 				foreach (var state in states)

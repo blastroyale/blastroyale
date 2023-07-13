@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2512071123379210681}
   - component: {fileID: 175417416060933805}
   - component: {fileID: 9161760457725035115}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: FootprintDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

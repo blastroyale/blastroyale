@@ -209,26 +209,21 @@ namespace FirstLight.Game.Utils
 				_ => "N0"
 			};
 		}
-
+		
+		// Max values below are PER ITEM
 		public static readonly Dictionary<EquipmentStatType, float> MAX_VALUES = new()
 		{
-			{EquipmentStatType.Power, 1400},
-			{EquipmentStatType.Hp, 1000},
-			{EquipmentStatType.Speed, 45f},
-			{EquipmentStatType.AttackCooldown, 2f},
-			{EquipmentStatType.Armor, 0.10f},
-			{EquipmentStatType.ProjectileSpeed, 20},
-			{EquipmentStatType.TargetRange, 15f},
-			{EquipmentStatType.MaxCapacity, 120},
+			{EquipmentStatType.Power, 150},
+			{EquipmentStatType.Hp, 120},
+			{EquipmentStatType.Speed, 0.09f},
+			{EquipmentStatType.Armor, 0.065f},
+			{EquipmentStatType.TargetRange, 11.5f},
 			{EquipmentStatType.ReloadTime, 4f},
-			{EquipmentStatType.MinAttackAngle, 60},
-			{EquipmentStatType.SplashDamageRadius, 4f},
+			{EquipmentStatType.SplashDamageRadius, 2f},
 			{EquipmentStatType.PowerToDamageRatio, 2f},
-			{EquipmentStatType.NumberOfShots, 10},
-			{EquipmentStatType.PickupSpeed, 0.25f},
-			{EquipmentStatType.ShieldCapacity, 800},
-			{EquipmentStatType.MagazineSize, 30},
-			{EquipmentStatType.AmmoCapacityBonus, 0.25f},
+			{EquipmentStatType.PickupSpeed, 0.12f},
+			{EquipmentStatType.ShieldCapacity, 120},
+			{EquipmentStatType.AmmoCapacityBonus, 0.13f},
 		};
 
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()

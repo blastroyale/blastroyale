@@ -155,7 +155,7 @@ public partial class SROptions
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Celestial,
+			faction: EquipmentFaction.Order,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -163,7 +163,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Celestial,
+			faction: EquipmentFaction.Order,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -171,7 +171,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Celestial,
+			faction: EquipmentFaction.Order,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -179,7 +179,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierAmulet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Celestial,
+			faction: EquipmentFaction.Order,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -203,7 +203,7 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Organic,
 			adjective: EquipmentAdjective.Divine,
@@ -211,7 +211,7 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseShield,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Organic,
 			adjective: EquipmentAdjective.Divine,
@@ -237,7 +237,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MausHelmet,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
@@ -261,7 +261,7 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.WarriorAmulet,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierAmulet,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
@@ -281,7 +281,7 @@ public partial class SROptions
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.FootballHelmet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Chaos,
+			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -289,7 +289,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.FootballArmor,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Chaos,
+			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -297,7 +297,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Chaos,
+			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -305,7 +305,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Chaos,
+			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -321,7 +321,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotHelmet,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
@@ -329,7 +329,7 @@ public partial class SROptions
 			level: 35,
 			grade: EquipmentGrade.GradeI,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotArmor,
 			material: EquipmentMaterial.Golden,
 			faction: EquipmentFaction.Dimensional,
 			adjective: EquipmentAdjective.Divine,
@@ -365,7 +365,7 @@ public partial class SROptions
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Shadow,
+			faction: EquipmentFaction.Organic,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -381,7 +381,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseShield,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Shadow,
+			faction: EquipmentFaction.Organic,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -389,7 +389,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.WarriorAmulet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Shadow,
+			faction: EquipmentFaction.Organic,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -407,7 +407,7 @@ public partial class SROptions
 
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadHelmet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Dimensional,
+			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -415,7 +415,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Chaos,
+			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -423,7 +423,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Dimensional,
+			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -431,7 +431,7 @@ public partial class SROptions
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
 			material: EquipmentMaterial.Golden,
-			faction: EquipmentFaction.Dimensional,
+			faction: EquipmentFaction.Shadow,
 			adjective: EquipmentAdjective.Divine,
 			rarity: EquipmentRarity.LegendaryPlus,
 			level: 35,
@@ -440,7 +440,49 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
+	
+	[Category("Equipment")]
+	public void GiveMaxAmmoCapacityBuildEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadHelmet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dark,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI,
+		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dark,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI,
+		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dark,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI,
+		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dark,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI,
+		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{

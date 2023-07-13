@@ -442,48 +442,6 @@ public partial class SROptions
 	}
 	
 	[Category("Equipment")]
-	public void GiveMaxAmmoCapacityBuildEquipment()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadHelmet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dark,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI,
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dark,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI,
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dark,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI,
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
-		                                                       material: EquipmentMaterial.Golden,
-		                                                       faction: EquipmentFaction.Dark,
-		                                                       adjective: EquipmentAdjective.Divine,
-		                                                       rarity: EquipmentRarity.LegendaryPlus,
-		                                                       level: 35,
-		                                                       grade: EquipmentGrade.GradeI,
-		                                                       lastRepairTimestamp: DateTime.UtcNow.Ticks));
-
-		((GameCommandService) services.CommandService).ForceServerDataUpdate();
-	}
-	
-	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();

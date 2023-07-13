@@ -1513,41 +1513,22 @@
     top: 6px;
 }
 
-.status-kill__beast-gradient {
-    width: 400px;
-    height: 400px;
-    position: absolute;
-    background-image: var(--sprite-home__pattern-circle-gradient);
-    left: 192px;
-    top: -184px;
-    -unity-background-image-tint-color: rgb(80, 222, 186);
-}
-
 .status-kill__skull-beast-spark {
     position: absolute;
     width: 136px;
     height: 136px;
     background-image: var(--sprite-match__vfx-blast-spark);
-    left: -46px;
-    top: -67px;
+    left: -41px;
+    top: -51px;
     rotate: 33deg;
 }
 
 .status-kill__skull-beast-explosion {
-    width: 228px;
-    height: 206px;
+    width: 300px;
+    height: 271px;
     position: absolute;
-    background-image: var(--sprite-match__vfx-explosion);
-    left: -46px;
-    top: -36px;
-    rotate: -45deg;
-}
-
-.status-kill__skull-beast-explosion--gradient {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background-image: var(--sprite-home__pattern-circle-gradient);
-    left: -233px;
-    top: -217px;
+    background-image: var(--sprite-match__vfx-blast-spark);
+    left: -82px;
+    top: -66px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
 }

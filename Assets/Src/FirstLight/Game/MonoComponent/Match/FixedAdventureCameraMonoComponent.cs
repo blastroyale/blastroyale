@@ -20,7 +20,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class FixedAdventureCameraMonoComponent : MonoBehaviour
 	{
-		//[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
 		[SerializeField, Required] private CinemachineVirtualCamera _spawnCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;

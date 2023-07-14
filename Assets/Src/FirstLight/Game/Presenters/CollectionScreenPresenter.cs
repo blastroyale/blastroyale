@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 		private Button _changeAnimButton;
 		private PriceButton _buyButton;
 		private VisualElement _nameLockedIcon;
+		private VisualElement _renderTexture;
 		private VisualElement _categoriesRoot;
 
 		private IGameServices _services;
@@ -82,7 +83,8 @@ namespace FirstLight.Game.Presenters
 			_collectionList.makeItem = MakeCollectionListItem;
 			_collectionList.bindItem = BindCollectionListItem;
 			_collectionList.ClearSelection();
-			
+
+			_renderTexture = root.Q<VisualElement>("RenderTexture");
 
 			_comingSoonLabel = root.Q<LocalizedLabel>("ComingSoon").Required();
 			_comingSoonLabel.visible = false;
@@ -193,7 +195,8 @@ namespace FirstLight.Game.Presenters
 				_comingSoonLabel.visible = true;
 				_collectionList.visible = false;
 			}
-			
+
+			//_renderTexture.visible = hasItems;
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;

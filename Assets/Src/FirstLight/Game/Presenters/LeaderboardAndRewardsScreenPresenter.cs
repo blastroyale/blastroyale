@@ -31,7 +31,6 @@ namespace FirstLight.Game.Presenters
 		private const string UssSpectator = "spectator";
 
 		[SerializeField] private BaseCharacterMonoComponent _character;
-		//[SerializeField] private Camera _camera;
 		[SerializeField] private CinemachineVirtualCamera _camera;
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
@@ -296,11 +295,8 @@ namespace FirstLight.Game.Presenters
 
 		private void SetupCamera()
 		{
-			_camera.m_Lens.FieldOfView =  Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
-			//_camera.gameObject.SetActive(true);
-
 			// A very magic number that makes the character look good enough in any aspect ratio
-			//_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.aspect);
+			_camera.m_Lens.FieldOfView =  Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
 		}
 
 		private async void UpdateCharacter()

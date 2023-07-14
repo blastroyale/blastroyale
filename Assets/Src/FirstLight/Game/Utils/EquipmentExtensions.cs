@@ -223,7 +223,6 @@ namespace FirstLight.Game.Utils
 			{EquipmentStatType.PowerToDamageRatio, 2f},
 			{EquipmentStatType.PickupSpeed, 0.12f},
 			{EquipmentStatType.ShieldCapacity, 120},
-			{EquipmentStatType.AmmoCapacityBonus, 0.13f},
 		};
 
 		public static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()

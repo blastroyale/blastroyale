@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -28,10 +27,10 @@ namespace FirstLight.Game
 	/// The Main entry point of the game
 	/// </summary>
 	public class Main : MonoBehaviour
-	{
+	{	
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
-		
+
 		private void Awake()
 		{
 			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskExceptionLogging;
@@ -68,17 +67,6 @@ namespace FirstLight.Game
 		{
 			_services?.MessageBrokerService?.Publish(new ApplicationQuitMessage());
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
-		}
-
-		private void Update()
-		{
-			foreach (var c in Camera.allCameras)
-			{
-				if (c.targetTexture != null)
-				{
-					Debug.LogWarning($"targetTexture != null {c.gameObject.FullGameObjectPath()}");
-				}
-			}
 		}
 
 		private void TrySetLocalServer()

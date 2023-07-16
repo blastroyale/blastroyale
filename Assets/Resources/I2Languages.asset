@@ -13040,7 +13040,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - +1 Level
+      - +1  <sprite="UISpriteAsset" name=EnergylevelIcon>
       - 
       - 
       - 

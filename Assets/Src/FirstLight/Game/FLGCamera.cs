@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using FirstLight.Game.Core;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game
@@ -9,8 +10,8 @@ namespace FirstLight.Game
 	/// </summary>
 	public class FLGCamera : MonoSingleton<FLGCamera>
 	{
-		[SerializeField] private Camera _camera;
-		[SerializeField] private CinemachineBrain _cinemachineBrain;
+		[SerializeField, Required] private Camera _camera;
+		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
 		
 		public Camera MainCamera => _camera;
 

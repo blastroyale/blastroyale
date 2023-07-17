@@ -3,18 +3,20 @@ Shader "FLG/Unlit/Shadow"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
+        _ShadowStart ("Shadow Start", Range(0, 1)) = 1
+        _ShadowEnd ("Shadow End", Range(0, 1)) = 0
     }
     SubShader
     {
         Tags
         {
-            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
             "RenderPipeline" = "UniversalPipeline"
         }
-        
-        Blend One OneMinusSrcAlpha
+
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
 
         Pass
         {
@@ -37,10 +39,10 @@ Shader "FLG/Unlit/Shadow"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
-
             CBUFFER_START(UnityPerMaterial)
             float4 _Color;
+            half _ShadowStart;
+            half _ShadowEnd;
             CBUFFER_END
 
             v2f vert(appdata v)
@@ -53,9 +55,7 @@ Shader "FLG/Unlit/Shadow"
 
             half4 frag(v2f i) : SV_Target
             {
-                half4 tex = tex2D(_MainTex, i.uv) * _Color;
-                tex.rgb *= tex.a;
-                return tex;
+                return ((1 - distance(i.uv, 0.5) * 2) - _ShadowEnd) / (_ShadowStart - _ShadowEnd) * _Color;
             }
             ENDHLSL
         }

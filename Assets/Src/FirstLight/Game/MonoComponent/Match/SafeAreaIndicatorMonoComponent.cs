@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.SafeArea;
 
-		private Vector2 _safeAreaCenter;
+		private Vector3 _safeAreaCenter;
 		private float _safeAreaRadius = -1f;
 
 		public void Init(EntityView playerEntityView)
@@ -22,6 +22,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			ct.SetParent(playerEntityView.transform, false);
 			ct.localPosition = Vector3.zero;
+			
+			_indicator.SetActive(false);
 		}
 
 		private void Update()
@@ -31,12 +33,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			var t = transform;
 			var pos = t.position;
 
-			var dist = Vector2.Distance(pos, _safeAreaCenter);
+			var dist = Vector3.Distance(pos, _safeAreaCenter);
 			if (dist > _safeAreaRadius)
 			{
 				// Outside safe area
 				_indicator.SetActive(true);
-				t.rotation = Quaternion.LookRotation((_safeAreaCenter - new Vector2(pos.x, pos.z)).normalized);
+				t.rotation = Quaternion.LookRotation((_safeAreaCenter - pos).normalized);
 			}
 			else
 			{
@@ -47,9 +49,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		public void SetSafeArea(Vector2 center, float radius)
 		{
-			_safeAreaCenter = center;
+			_safeAreaCenter = new Vector3(center.x, 0, center.y);
 			_safeAreaRadius = radius;
-			FLog.Info("PACO", $"Set safe area: {center} - {radius}");
 		}
 
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)

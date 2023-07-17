@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5696840969292756931}
   - component: {fileID: 8972651251690973030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SafeArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6431200527450600138}
   - component: {fileID: 336786230328308993}
   - component: {fileID: 2044886740381594664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

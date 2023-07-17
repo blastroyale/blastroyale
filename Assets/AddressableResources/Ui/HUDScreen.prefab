@@ -743,7 +743,10 @@ MonoBehaviour:
   _millisecondsToClose: 0
   _legacyMinimap: {fileID: 5686076111702010275}
   _areaShrinkingDirector: {fileID: 4236891687392369458}
-  _blastedDirector: {fileID: 2252114041857710641}
+  _blasted1Director: {fileID: 2252114041857710641}
+  _blasted2Director: {fileID: 7274774479718869702}
+  _blasted3Director: {fileID: 7643966329918233967}
+  _blastedBeastDirector: {fileID: 2472244969864592795}
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}

@@ -15,12 +15,17 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private IMatchServices _matchServices;
 
-		private VisualElement _blastedNotification;
-		private Label _blastedPlayerName;
+		private Label _blasted1PlayerName;
+		private Label _blasted2PlayerName;
+		private Label _blasted3PlayerName;
+		private Label _blastedBeastPlayerName;
 
-		private PlayableDirector _blastedDirector;
+		private PlayableDirector _blasted1Director;
+		private PlayableDirector _blasted2Director;
+		private PlayableDirector _blasted3Director;
+		private PlayableDirector _blastedBeastDirector;
 
-		private readonly Queue<string> _killedPlayersQueue = new();
+		private readonly Queue<(string, uint)> _killedPlayersQueue = new();
 
 		public override void Attached(VisualElement element)
 		{
@@ -28,20 +33,39 @@ namespace FirstLight.Game.Views.UITK
 
 			_matchServices = MainInstaller.ResolveMatchServices();
 
-			_blastedNotification = element.Q("BlastedNotification").Required();
-			_blastedPlayerName = _blastedNotification.Q<Label>("PlayerNameLabel").Required();
+			var blasted1Notification = element.Q("BlastedNotification").Required();
+			_blasted1PlayerName = blasted1Notification.Q<Label>("PlayerNameLabel").Required();
 
-			_blastedNotification.SetDisplay(false);
+			var blasted2Notification = element.Q("DoubleBlastNotification").Required();
+			_blasted2PlayerName = blasted2Notification.Q<Label>("PlayerNameLabel").Required();
+
+			var blasted3Notification = element.Q("TripleBlastNotification").Required();
+			_blasted3PlayerName = blasted3Notification.Q<Label>("PlayerNameLabel").Required();
+
+			var blastedBeastNotification = element.Q("BeastBlastNotification").Required();
+			_blastedBeastPlayerName = blastedBeastNotification.Q<Label>("PlayerNameLabel").Required();
+			
+			blasted1Notification.SetDisplay(false);
+			blasted2Notification.SetDisplay(false);
+			blasted3Notification.SetDisplay(false);
+			blastedBeastNotification.SetDisplay(false);
 		}
 
 		/// <summary>
 		/// Sets the directors / animations needed for status notifications.
 		/// </summary>
-		public void SetDirectors(PlayableDirector blastedDirector)
+		public void SetDirectors(PlayableDirector blasted1Director, PlayableDirector blasted2Director,
+								 PlayableDirector blasted3Director, PlayableDirector blastedBeastDirector)
 		{
-			_blastedDirector = blastedDirector;
+			_blasted1Director = blasted1Director;
+			_blasted2Director = blasted2Director;
+			_blasted3Director = blasted3Director;
+			_blastedBeastDirector = blastedBeastDirector;
 
-			_blastedDirector.stopped += TryShowBlastedNotification;
+			_blasted1Director.stopped += TryShowBlastedNotification;
+			_blasted2Director.stopped += TryShowBlastedNotification;
+			_blasted3Director.stopped += TryShowBlastedNotification;
+			_blastedBeastDirector.stopped += TryShowBlastedNotification;
 		}
 
 		public override void SubscribeToEvents()
@@ -62,19 +86,41 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (callback.EntityKiller != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
-			_killedPlayersQueue.Enqueue(_blastedPlayerName.text = callback.PlayersMatchData.Count <= 1
-				? "DUMMY"
-				: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName().ToUpper());
+			_killedPlayersQueue.Enqueue((_blasted1PlayerName.text = callback.PlayersMatchData.Count <= 1
+					? "DUMMY"
+					: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName().ToUpper(),
+				callback.CurrentKillStreak));
 
 			TryShowBlastedNotification(null);
 		}
 
 		private void TryShowBlastedNotification(PlayableDirector _)
 		{
-			if (_blastedDirector.state == PlayState.Playing || _killedPlayersQueue.Count == 0) return;
+			if (_blasted1Director.state == PlayState.Playing || _killedPlayersQueue.Count == 0) return;
 
-			_blastedPlayerName.text = _killedPlayersQueue.Dequeue();
-			_blastedDirector.Play();
+			var notification = _killedPlayersQueue.Dequeue();
+			var killstreak = notification.Item2;
+
+			if (killstreak == 2)
+			{
+				_blasted2PlayerName.text = notification.Item1;
+				_blasted2Director.Play();
+			}
+			else if (killstreak == 3)
+			{
+				_blasted3PlayerName.text = notification.Item1;
+				_blasted3Director.Play();
+			}
+			else if (killstreak > 3)
+			{
+				_blastedBeastPlayerName.text = notification.Item1;
+				_blastedBeastDirector.Play();
+			}
+			else
+			{
+				_blasted1PlayerName.text = notification.Item1;
+				_blasted1Director.Play();
+			}
 		}
 	}
 }

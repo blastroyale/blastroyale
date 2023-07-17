@@ -31,7 +31,16 @@ namespace FirstLight.Game.Presenters
 		private PlayableDirector _areaShrinkingDirector;
 
 		[SerializeField, Required, TabGroup("Animation")]
-		private PlayableDirector _blastedDirector;
+		private PlayableDirector _blasted1Director;
+		
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _blasted2Director;
+		
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _blasted3Director;
+		
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _blastedBeastDirector;
 
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _moveDirectionJoystickInput;
@@ -97,7 +106,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 
 			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
-			_statusNotificationsView.SetDirectors(_blastedDirector);
+			_statusNotificationsView.SetDirectors(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();

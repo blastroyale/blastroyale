@@ -27,7 +27,7 @@ MonoBehaviour:
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
-        RawValue: 1966080
+        RawValue: 983040
       PlayfabMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingMinPlayers: 1

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5833300412547849104}
   - component: {fileID: 4537342863007190261}
   - component: {fileID: 6366055297040223731}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Electron_Thrower_Scifi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,14 +74,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 824b3738f29b32b40aa56bf9198b119b, type: 2}
   _renderers:
   - {fileID: 4641877731027858991}
   _particleRenderers:
   - {fileID: 8312007156065090126}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 824b3738f29b32b40aa56bf9198b119b, type: 2}
 --- !u!1 &6348189754933789881
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348189754933789880}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SciMelter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +123,7 @@ GameObject:
   - component: {fileID: 4607395762396308366}
   - component: {fileID: 718909674698786226}
   - component: {fileID: 8312007156065090126}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,25 +5059,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 5567f96c963dc8b498553551d5e481bf, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 5567f96c963dc8b498553551d5e481bf, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 5567f96c963dc8b498553551d5e481bf, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: 919132149155446097, guid: 5567f96c963dc8b498553551d5e481bf, type: 3}
       propertyPath: m_Name
       value: SorenSol_BFG
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5567f96c963dc8b498553551d5e481bf, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

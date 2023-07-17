@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2228932138845084722}
   - component: {fileID: 6609297592621284676}
   - component: {fileID: 6671044932016379133}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Minigun_02_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,16 +74,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   _renderers:
   - {fileID: 6753976186142920787}
   - {fileID: 4887193899766271808}
   _particleRenderers:
   - {fileID: 3160236617975337312}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
 --- !u!1 &581295853275894919
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581295853275894912}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ApoMinigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +125,7 @@ GameObject:
   - component: {fileID: 7635004193974511670}
   - component: {fileID: 43016845808060165}
   - component: {fileID: 3160236617975337312}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5056,7 +5054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -6208502038820993046, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive
@@ -5068,11 +5066,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2508648685871570079, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_IsActive
@@ -5080,7 +5078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9096536407364513840, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9096536407364513840, guid: be72bcfe3a76a034b8d91f3ff3a8f9e2, type: 3}
       propertyPath: m_Materials.Array.data[1]

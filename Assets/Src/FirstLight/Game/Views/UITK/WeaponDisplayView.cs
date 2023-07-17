@@ -102,6 +102,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private unsafe void UpdateAmmo(Frame f, EntityRef entity)
 		{
+			if (!f.Exists(entity)) return;
 			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			_ammoProgress.Progress = stats->CurrentAmmoPercent.AsFloat;
 			

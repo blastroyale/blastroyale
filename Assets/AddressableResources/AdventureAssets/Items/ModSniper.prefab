@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 294654661}
   - component: {fileID: 294654663}
   - component: {fileID: 294654662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4909,7 +4909,7 @@ GameObject:
   - component: {fileID: 1190803036}
   - component: {fileID: 1190803038}
   - component: {fileID: 1190803037}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9797,7 +9797,7 @@ GameObject:
   - component: {fileID: 1426478182}
   - component: {fileID: 1426478184}
   - component: {fileID: 1426478183}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14684,7 +14684,7 @@ GameObject:
   - component: {fileID: 2778260649981942752}
   - component: {fileID: 8325843034290980875}
   - component: {fileID: 8523367150488316}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Sniper_Heavy_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14746,16 +14746,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
   _renderers:
   - {fileID: 4560688070230891346}
   _particleRenderers:
   - {fileID: 1190803037}
   - {fileID: 294654662}
   - {fileID: 1426478183}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
 --- !u!1 &6841709957393611347
 GameObject:
   m_ObjectHideFlags: 0
@@ -14765,7 +14763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6841709957393611348}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ModSniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14852,29 +14850,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -5037671624141540517, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -5037671624141540517, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-    - target: {fileID: -5037671624141540517, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: 919132149155446097, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
       propertyPath: m_Name
       value: MajorMarkdowns_SNP
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7212155679293263725, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

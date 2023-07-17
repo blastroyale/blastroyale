@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2540742254782248766}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RiotAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2785817702949029510}
   - component: {fileID: 138397569049919635}
   - component: {fileID: 1299074926530370599}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RiotAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,10 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}
   _renderers:
   - {fileID: 138397569049919635}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 138397569049919635}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 5c22feb3ddb9ccb40b6aa50c44647192, type: 2}

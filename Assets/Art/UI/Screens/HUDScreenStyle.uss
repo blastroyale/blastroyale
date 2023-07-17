@@ -78,8 +78,8 @@
 }
 
 .special-button--pressed .special-button__cancel-circle {
-    width: 800px;
-    height: 800px;
+    width: 1000px;
+    height: 1000px;
     opacity: 1;
 }
 

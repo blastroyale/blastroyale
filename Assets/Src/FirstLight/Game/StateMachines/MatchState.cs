@@ -315,9 +315,12 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSkipMatchmakingScreen()
 		{
-			return IsMatchmakingTimerComplete() || !_networkService.QuantumClient.CurrentRoom.IsOpen ||
+			var skip = IsMatchmakingTimerComplete() || !_networkService.QuantumClient.CurrentRoom.IsOpen ||
 				_networkService.JoinSource.Value.IsSnapshotAutoConnect() ||
 				_networkService.QuantumClient.CurrentRoom.HaveStartedGame();
+			
+			if(skip) FLog.Verbose($"Skipping matchmaking screen TimerComplete={IsMatchmakingTimerComplete()} Room Closed={!_networkService.QuantumClient.CurrentRoom.IsOpen} Started={_networkService.QuantumClient.CurrentRoom.HaveStartedGame()}");
+			return skip;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)

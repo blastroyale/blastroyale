@@ -76,8 +76,8 @@ namespace FirstLight.Game.StateMachines
 
 			reconnection.Nest(_reconnection.Setup).Target(firstMatchCheck);
 
-			firstMatchCheck.Transition().Condition(CheckSkipTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Condition(InRoom).Target(match);
+			firstMatchCheck.Transition().Condition(CheckSkipTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
 			firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
@@ -92,7 +92,11 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private bool InRoom() => _networkService.InRoom;
+		private bool InRoom()
+		{
+			FLog.Info("InRoom: "+_networkService.QuantumClient.InRoom+" Status: "+_networkService.QuantumClient.State);
+			return _networkService.InRoom;
+		}
 
 		private async Task WaitForPhotonConnection()
 		{

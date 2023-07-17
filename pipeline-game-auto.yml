@@ -113,7 +113,7 @@ variables:
     - name: useAccelerator
       value: true
     - name: runTestLab
-      value: true
+      value: false
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:

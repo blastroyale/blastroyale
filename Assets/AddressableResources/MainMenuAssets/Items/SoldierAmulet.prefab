@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1973072048055214024}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 195001848610314087}
   - component: {fileID: 4947149114418915704}
   - component: {fileID: 3101542286808961839}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Amulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

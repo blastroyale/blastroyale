@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6502441732747214625}
   - component: {fileID: 5096657018972779377}
   - component: {fileID: 5645073651114804963}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadR_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,8 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,13 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
   _renderers:
   - {fileID: 5096657018972779377}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 5096657018972779377}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
 --- !u!1 &8717542887536995827
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +113,7 @@ GameObject:
   - component: {fileID: 4020506742366439723}
   - component: {fileID: 4200031330577833914}
   - component: {fileID: 5599965867620430140}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorChest_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,8 +164,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,13 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
   _renderers:
   - {fileID: 4200031330577833914}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 4200031330577833914}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
 --- !u!1 &8833581044518709376
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +214,7 @@ GameObject:
   - component: {fileID: 3066731784238807286}
   - component: {fileID: 3290286350616932557}
   - component: {fileID: 8149040269288490835}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadL_Riot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,8 +265,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -308,13 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
   _renderers:
   - {fileID: 3290286350616932557}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 3290286350616932557}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 30248b4a7abae44819e7a36daed3da81, type: 2}
 --- !u!1 &8920166520363581721
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4263966835548450922}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RiotArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

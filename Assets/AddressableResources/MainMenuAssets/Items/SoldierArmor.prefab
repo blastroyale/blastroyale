@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3216415756169386053}
   - component: {fileID: 5092011625378278942}
   - component: {fileID: 1030185097588863583}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_chest_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8526267834197534927}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 216274524018899773}
   - component: {fileID: 817667953673257961}
   - component: {fileID: 8327055793795857791}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Shoulder_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 6116987599862795446}
   - component: {fileID: 1381200751927049394}
   - component: {fileID: 6740627253512215805}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Shoulder_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

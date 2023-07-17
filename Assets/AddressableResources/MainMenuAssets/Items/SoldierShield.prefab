@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7775577397485116273}
   - component: {fileID: 7114223117643144513}
   - component: {fileID: 742426399633222300}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,13 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 8a0a5a23cfb996941aad5c6ceae30f5f, type: 2}
   _renderers:
   - {fileID: 7114223117643144513}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 7114223117643144513}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 8a0a5a23cfb996941aad5c6ceae30f5f, type: 2}
 --- !u!1 &6926379086536542568
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9094750996135161256}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

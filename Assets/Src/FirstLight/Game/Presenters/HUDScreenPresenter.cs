@@ -32,7 +32,10 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _blastedDirector;
-
+		
+		[SerializeField, Required, TabGroup("Animation")]
+		private Gradient _outOfAmmoGradient;
+		
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _moveDirectionJoystickInput;
 
@@ -96,6 +99,7 @@ namespace FirstLight.Game.Presenters
 			root.Q("PlayerBars").Required().AttachView(this, out _statusBarsView);
 			root.Q("StatusNotifications").Required().AttachView(this, out _statusNotificationsView);
 
+			_weaponDisplayView.OutOfAmmoColors = _outOfAmmoGradient;
 			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
 			_statusNotificationsView.SetDirectors(_blastedDirector);
 
@@ -110,7 +114,7 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick.OnClick += e => InputState.Change(_aimDownJoystickInput.control, e);
 
 			_weaponDisplayView.OnClick += e => InputState.Change(_weaponSwitchInput.control, e);
-
+			
 			_specialButtonsView.OnSpecial0Pressed += e => InputState.Change(_special0PressedInput.control, e);
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
 			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);

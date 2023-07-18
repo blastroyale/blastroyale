@@ -52,6 +52,19 @@
     bottom: 12px;
 }
 
+.info-holder__rt-holder {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-holder__rt {
+    position: absolute;
+    width: 400px;
+    height: 600px;
+    display: none;
+}
+
 .info-holder__item-name {
     color: rgb(255, 255, 255);
     font-size: 48px;

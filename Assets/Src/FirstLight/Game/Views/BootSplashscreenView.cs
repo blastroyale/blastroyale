@@ -123,7 +123,7 @@ namespace FirstLight.Game.Views
 			}
 
 			await WaitForInstaller();
-
+			
 			SceneManager.MergeScenes(SceneManager.GetSceneByName(_bootSceneName),
 				SceneManager.GetSceneByName(_mainSceneName));
 			Destroy(gameObject);

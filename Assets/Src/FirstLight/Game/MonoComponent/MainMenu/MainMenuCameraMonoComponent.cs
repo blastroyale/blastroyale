@@ -23,19 +23,13 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		[SerializeField, Required] private CinemachineVirtualCamera _amuletCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _weaponCamera;
 		
-		[HideInInspector]
-		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
-		
+		private CinemachineBrain _cinemachineBrain;
 		private IGameServices _services;
-		
-		private void OnValidate()
-		{
-			_cinemachineBrain = _cinemachineBrain ? _cinemachineBrain : GetComponent<CinemachineBrain>();
-		}
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_cinemachineBrain = FLGCamera.Instance.CinemachineBrain;
 			
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpened);
 			_services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(OnShopScreenOpened);

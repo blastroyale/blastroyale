@@ -415,6 +415,28 @@
     --progress-color: rgb(242, 176, 53);
 }
 
+.weapon-display__out-of-ammo-bg {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 280px;
+    height: 280px;
+    position: absolute;
+    background-image: var(--sprite-match__gradientwhite);
+    -unity-background-image-tint-color: rgba(255, 0, 0, 1);
+}
+
+.weapon-display__out-of-ammo-bg-block {
+    background-color: rgba(27, 27, 27, 1);
+    flex-grow: 1;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+}
+
 .weapon-display__rarity-bg {
     position: absolute;
     left: 5px;

@@ -20,7 +20,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class FixedAdventureCameraMonoComponent : MonoBehaviour
 	{
-		[SerializeField, Required] private CinemachineBrain _cinemachineBrain;
 		[SerializeField, Required] private CinemachineVirtualCamera _spawnCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
@@ -75,7 +74,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
-			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera, _spawnCamera))
 			{
 				SetActiveCamera(_adventureCamera);
 			}
@@ -89,7 +88,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			QuantumCallback.UnsubscribeListener(this);
-			_cinemachineBrain.ActiveVirtualCamera?.SnapCamera();
+			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.SnapCamera();
 		}
 
 		private void SetActiveCamera(InputAction.CallbackContext context)
@@ -105,12 +104,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-			
-			var mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
-			if (mainOverlayCamera != null)
-			{
-				mainOverlayCamera.gameObject.SetActive(false);
-			}
 			
 			if (obj.IsResync)
 			{
@@ -135,7 +128,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				SetActiveCamera(_spawnCamera);
 				_spawnCamera.SnapCamera();
-				_cinemachineBrain.ManualUpdate();
+				FLGCamera.Instance.CinemachineBrain.ManualUpdate();
 				
 				SetActiveCamera(_adventureCamera);
 			}
@@ -163,13 +156,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (_cinemachineBrain.ActiveVirtualCamera != null &&
-				 virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+			if (FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
+				 virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;
 			}
 
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 
 			virtualCamera.gameObject.SetActive(true);
 		}

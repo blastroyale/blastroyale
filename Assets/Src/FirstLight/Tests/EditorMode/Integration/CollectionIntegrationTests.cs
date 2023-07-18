@@ -18,12 +18,12 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestEquipSkinCommand()
 		{
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
+			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
 			
 			TestServices.CommandService.ExecuteCommand(cmd);
 			
-			Assert.IsTrue(TestData.GetData<CollectionData>().Equipped[CollectionCategories.PLAYER_SKINS].Id == GameId.FemalePunk);
-			Assert.IsTrue(TestLogic.CollectionLogic.GetEquipped(CollectionCategories.PLAYER_SKINS).Id == GameId.FemalePunk);
+			Assert.IsTrue(TestData.GetData<CollectionData>().Equipped[CollectionCategories.PLAYER_SKINS].Id == GameId.FemaleAssassin);
+			Assert.IsTrue(TestLogic.CollectionLogic.GetEquipped(CollectionCategories.PLAYER_SKINS).Id == GameId.FemaleAssassin);
 		}
 	}
 }

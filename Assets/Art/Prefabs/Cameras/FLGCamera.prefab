@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2720163322646296028}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3760204672673046685
 MonoBehaviour:
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 4941015840127702297}
   _cinemachineBrain: {fileID: 2598660566160059677}
+  _physicsRaycaster: {fileID: 664501624154716667}
 --- !u!1 &6681160064199856959
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +60,7 @@ GameObject:
   - component: {fileID: 4941015840127702297}
   - component: {fileID: 2008160363856579531}
   - component: {fileID: 2598660566160059677}
+  - component: {fileID: 664501624154716667}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -210,3 +212,19 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &664501624154716667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681160064199856959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_MaxRayIntersections: 0

@@ -10,6 +10,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -457,6 +458,47 @@ public partial class SROptions
 			level: 3,
 			lastRepairTimestamp: DateTime.UtcNow.Ticks));
 
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Cosmetics")]
+	public void UnlockAllSkins()
+	{
+		var skins = new List<GameId>
+		{
+			GameId.Male01Avatar,
+			GameId.Male02Avatar,
+			GameId.MaleAssassin,
+			GameId.MaleCorpos,
+			GameId.MalePunk,
+			GameId.MaleSuperstar,
+			GameId.Female01Avatar,
+			GameId.Female02Avatar,
+			GameId.FemaleAssassin,
+			GameId.FemaleCorpos,
+			GameId.FemalePunk,
+			GameId.FemaleSuperstar,
+		};
+
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		foreach (var skin in skins)
+		{
+			var newCollectionItem = new CollectionItem(skin);
+			
+			if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
+			{
+				gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
+				
+				services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
+				{
+					Source = CollectionUnlockSource.ServerGift,
+					EquippedItem = newCollectionItem
+				});
+			}
+		}
+		
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 

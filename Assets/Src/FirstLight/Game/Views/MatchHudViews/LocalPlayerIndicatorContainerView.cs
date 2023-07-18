@@ -25,23 +25,39 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IndicatorVfxId _shootIndicatorId;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
-		private readonly RangeIndicatorMonoComponent[] _specialRadiusIndicators = new RangeIndicatorMonoComponent[Constants.MAX_SPECIALS];
+
+		private readonly RangeIndicatorMonoComponent[] _specialRadiusIndicators =
+			new RangeIndicatorMonoComponent[Constants.MAX_SPECIALS];
+
 		private WeaponAim _weaponAim;
-		
-		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
+
+		private IIndicator ShootIndicator => _indicators[(int) _shootIndicatorId];
+
+		private float _shrinkingCircleRadius = -1;
+		private Vector2 _shrinkCircleCenter;
 
 		public LocalPlayerIndicatorContainerView()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_data = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, HandleOnLocalPlayerAmmoEmpty);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
+			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 		}
-		
+
+		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
+		{
+			_shrinkingCircleRadius = callback.ShrinkingCircle.TargetRadius.AsFloat;
+			_shrinkCircleCenter = callback.ShrinkingCircle.TargetCircleCenter.ToUnityVector2();
+
+			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(
+				_shrinkCircleCenter, _shrinkingCircleRadius);
+		}
+
 		/// <inheritdoc />
 		public void Dispose()
 		{
@@ -49,11 +65,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			foreach (var i in _indicators) DestroyIndicator(i);
 			foreach (var i in _specialIndicators) DestroyIndicator(i);
 			foreach (var i in _specialRadiusIndicators) DestroyIndicator(i);
-			if(!_weaponAim.IsDestroyed()) GameObject.Destroy(_weaponAim);
+			if (!_weaponAim.IsDestroyed()) GameObject.Destroy(_weaponAim);
 		}
 
 		public bool IsInitialized() => _playerView != null;
-		
+
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			if (!IsInitialized()) return;
@@ -71,12 +87,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
 		{
-			GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
+			GetIndicator((int) IndicatorVfxId.Movement).SetVisualProperties(1, -1, -1);
 		}
-		
+
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-			GetIndicator((int)IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
+			GetIndicator((int) IndicatorVfxId.Movement).SetVisualProperties(0, -1, -1);
 		}
 
 		/// <summary>
@@ -87,7 +103,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			return _indicators[idx];
 		}
-		
+
 		/// <summary>
 		/// Requests the <see cref="IIndicator"/> representing the given <paramref name="specialIdx"/>
 		/// </summary>
@@ -95,7 +111,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			return _specialIndicators[specialIdx];
 		}
-		
+
 		/// <summary>
 		/// Gets the special radius which is responsible to demonstrate the max range of the given special
 		/// </summary>
@@ -103,7 +119,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			return _specialRadiusIndicators[specialIdx];
 		}
-		
+
 		/// <summary>
 		/// Initializes this container with the player's <paramref name="playerView"/> to follow
 		/// </summary>
@@ -126,6 +142,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				indicator?.Init(playerView);
 			}
+
+			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(
+				_shrinkCircleCenter, _shrinkingCircleRadius);
 		}
 
 		/// <summary>
@@ -139,10 +158,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 				moveIndicatorPosition = direction.normalized;
 				moveIndicatorPosition /= 2;
 			}
+
 			_indicators[(int) IndicatorVfxId.Movement]?.SetTransformState(moveIndicatorPosition);
 			_indicators[(int) IndicatorVfxId.Movement]?.SetVisualState(isPressed);
 		}
-		
+
 		/// <summary>
 		///  Instantiates all possible indicators
 		/// </summary>
@@ -152,13 +172,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
 			{
-				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
+				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId) i, out var indicator))
 				{
 					_indicators[i] = null;
 					continue;
 				}
-				
-				var obj =  _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId)i, false, true).Result;
+
+				var obj = _services.AssetResolverService
+					.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId) i, false, true).Result;
 				_indicators[i] = obj.GetComponent<IIndicator>();
 			}
 		}
@@ -181,10 +202,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					_shootIndicatorId = IndicatorVfxId.Cone;
 				}
+
 				if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
 				{
 					_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 				}
+
 				ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 			}
 			else
@@ -206,28 +229,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
 		{
-			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int)specialId, out var config);
+			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
 			if (_specialIndicators[index] != null)
 			{
-				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
+				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
 
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
-			                                  .GetComponent<IIndicator>();
-			
+				.GetComponent<IIndicator>();
+
 			if (_specialRadiusIndicators[index] == null)
 			{
-				_specialRadiusIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int)IndicatorVfxId.Range])
+				_specialRadiusIndicators[index] = Object
+					.Instantiate((MonoBehaviour) _indicators[(int) IndicatorVfxId.Range])
 					.GetComponent<RangeIndicatorMonoComponent>();
 			}
-		
+
 			_specialRadiusIndicators[index].Init(playerView);
-			_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat, 
+			_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat,
 				config.MaxRange.AsFloat, config.MaxRange.AsFloat);
 			_specialIndicators[index].Init(playerView);
-			
-			_specialIndicators[index].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,
-			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
+
+			_specialIndicators[index].SetVisualProperties(
+				config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,
+				config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 
 		private void LegacyConeAim(Frame f, FPVector2 aim, bool shooting)
@@ -250,7 +275,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 
 			// We use a formula to calculate the scale of a shooting indicator
-			float size = Mathf.Max(0.5f, Mathf.Tan(_weaponConfig.MinAttackAngle * 0.5f * Mathf.Deg2Rad) * rangeStat * 2f);
+			float size = Mathf.Max(0.5f,
+				Mathf.Tan(_weaponConfig.MinAttackAngle * 0.5f * Mathf.Deg2Rad) * rangeStat * 2f);
 
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
 			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
@@ -260,12 +286,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var isAiming = shooting || aim != FPVector2.Zero;
-			
+
 			ShootIndicator.SetTransformState(aimDirection);
 			ShootIndicator.SetVisualState(isAiming, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, rangeStat);
 		}
-		
+
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
 			if (!_localPlayerEntity.IsAlive(f)) return;
@@ -297,13 +323,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_weaponAim.ResetColor();
 			}
-			
+
 			if (callback.CurrentMag != 0)
 				return;
-			
+
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}
-		
+
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
 			ShootIndicator?.SetVisualState(false);

@@ -790,5 +790,13 @@ namespace FirstLight.Game.Utils
 		{
 			return entityRef == matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
+
+		/// <summary>
+		/// Returns the player we are currently spectating.
+		/// </summary>
+		public static SpectatedPlayer GetSpectatedPlayer(this IMatchServices matchServices)
+		{
+			return matchServices.SpectateService.SpectatedPlayer.Value;
+		}
 	}
 }

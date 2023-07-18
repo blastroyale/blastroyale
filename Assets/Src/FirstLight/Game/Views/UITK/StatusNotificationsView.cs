@@ -89,7 +89,7 @@ namespace FirstLight.Game.Views.UITK
 			_killedPlayersQueue.Enqueue((_blasted1PlayerName.text = callback.PlayersMatchData.Count <= 1
 					? "DUMMY"
 					: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName().ToUpper(),
-				callback.CurrentKillStreak));
+				callback.CurrentMultiKill));
 
 			TryShowBlastedNotification(null);
 		}

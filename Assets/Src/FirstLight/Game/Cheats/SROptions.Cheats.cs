@@ -498,6 +498,8 @@ public partial class SROptions
 				});
 			}
 		}
+		
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Progression")]

@@ -78,7 +78,7 @@ namespace FirstLight.Game.Views
 			_target = target;
 			_isTargetFollow = true;
 			_screenOffset = offset;
-			_camera = Camera.main;
+			_camera = FLGCamera.Instance.MainCamera;
 		}
 
 		/// <summary>
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Views
 			_position = target;
 			_isTargetFollow = false;
 			_screenOffset = offset;
-			_camera = Camera.main;
+			_camera = FLGCamera.Instance.MainCamera;
 		}
 	}
 }

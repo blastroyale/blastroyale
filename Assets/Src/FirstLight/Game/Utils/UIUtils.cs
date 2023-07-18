@@ -75,7 +75,7 @@ namespace FirstLight.Game.Utils
 				viewportPoint.y = 1f - viewportPoint.y;
 			}
 
-			var screenPoint = Camera.main.ViewportToScreenPoint(viewportPoint);
+			var screenPoint = FLGCamera.Instance.MainCamera.ViewportToScreenPoint(viewportPoint);
 
 			// if viewportPoint.x = 1f ViewportToScreenPoint will return width as x, which should be width-1
 			screenPoint.x = Math.Max(screenPoint.x, 0);

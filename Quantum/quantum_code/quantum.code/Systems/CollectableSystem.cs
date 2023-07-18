@@ -90,24 +90,8 @@ namespace Quantum.Systems
 		{
 			if (f.Unsafe.TryGetPointer<Consumable>(entity, out var consumable))
 			{
-				var playerCharacter = f.Get<PlayerCharacter>(player);
 				var stats = f.Get<Stats>(player);
-
-				switch (consumable->ConsumableType)
-				{
-					case ConsumableType.Health:
-						return stats.CurrentHealth == stats.GetStatData(StatType.Health).StatValue;
-					case ConsumableType.Shield:
-						return stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
-					case ConsumableType.ShieldCapacity:
-						return stats.GetStatData(StatType.Shield).BaseValue ==
-						       stats.GetStatData(StatType.Shield).StatValue &&
-						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
-					case ConsumableType.Ammo:
-						return stats.CurrentAmmoPercent == 1;
-					case ConsumableType.Energy:
-						return playerCharacter.GetEnergyLevel(f) == f.GameConfig.PlayerMaxEnergyLevel;
-				}
+				return stats.IsConsumableStatFilled(consumable->ConsumableType);
 			}
 
 			return false;

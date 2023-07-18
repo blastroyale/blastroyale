@@ -25,8 +25,6 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// </summary>
 	public class BulletService : IBulletService, MatchServices.IMatchService
 	{
-		private readonly static Color HIT_COLOR = new Color(1, 0.5f, 0.5f);
-		
 		private IGameServices _gameServices;
 		private IMatchServices _matchServices;
 		private IEntityViewUpdaterService _entityViewUpdater;
@@ -95,7 +93,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 
 			var character = attackerView.GetComponent<PlayerCharacterMonoComponent>();
-			character?.PlayerView?.UpdateColor(HIT_COLOR, 0.2f);
+			character?.PlayerView?.UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
 		}
 		
 		public void Dispose()

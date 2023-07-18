@@ -39,7 +39,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _storeClickedEvent = new StatechartEvent("Store Clicked Event");
-		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
+		private readonly IStatechartEvent _roomJoinCreateBackClickedEvent = new StatechartEvent("Room Join Create Back Button Clicked Event");
+		private readonly IStatechartEvent _closeClickedEvent = new StatechartEvent("Close Button Clicked Event");
 
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
@@ -135,8 +136,7 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
-
-
+			
 			void AddGoToMatchmakingHook(params IStateEvent[] states)
 			{
 				foreach (var state in states)
@@ -211,7 +211,8 @@ namespace FirstLight.Game.StateMachines
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(OpenHomeScreen).Target(waitMatchmaking);
-			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
+			roomJoinCreateMenu.Event(_roomJoinCreateBackClickedEvent).Target(chooseGameMode);
+			roomJoinCreateMenu.Event(_closeClickedEvent).Target(homeCheck);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
@@ -488,7 +489,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
-				CloseClicked = RoomJoinCreateCloseClicked,
+				CloseClicked = () => _statechartTrigger(_closeClickedEvent),
+				BackClicked = () => _statechartTrigger(_roomJoinCreateBackClickedEvent),
 				PlayClicked = PlayButtonClicked
 			};
 
@@ -562,11 +564,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(PlayClickedEvent);
 		}
 
-		private void RoomJoinCreateCloseClicked()
-		{
-			_statechartTrigger(_roomJoinCreateCloseClickedEvent);
-		}
-		
 		private void RequestStartMetaMatchTutorial()
 		{
 			if (FeatureFlags.TUTORIAL)
@@ -585,6 +582,7 @@ namespace FirstLight.Game.StateMachines
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 
+			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2100514850694742862}
   - component: {fileID: 983242226573021174}
   - component: {fileID: 8544327991182236433}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadR_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,13 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
   _renderers:
   - {fileID: 983242226573021174}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 983242226573021174}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
 --- !u!1 &1450743743916982958
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +113,7 @@ GameObject:
   - component: {fileID: 4228944780628181141}
   - component: {fileID: 6255344514994245643}
   - component: {fileID: 7536626989615544135}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorChest_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +164,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,13 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
   _renderers:
   - {fileID: 6255344514994245643}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 6255344514994245643}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
 --- !u!1 &4180440777399539181
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772095483247031561}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MouseArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +248,7 @@ GameObject:
   - component: {fileID: 7223826394109969322}
   - component: {fileID: 2962823409669157281}
   - component: {fileID: 2182371902464378072}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadL_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +299,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -339,10 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}
   _renderers:
   - {fileID: 2962823409669157281}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 2962823409669157281}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 92225191073cb497c86906c92b2e0738, type: 2}

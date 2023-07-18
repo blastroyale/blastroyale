@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action CloseClicked;
+			public Action BackClicked;
 			public Action PlayClicked;
 		}
 
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			var header = root.Q<ScreenHeaderElement>("Header").Required();
-			header.backClicked += Data.CloseClicked;
+			header.backClicked += Data.BackClicked;
 			header.homeClicked += Data.CloseClicked;
 			_playtestButton = root.Q<Button>("PlaytestButton");
 			_playtestButton.clicked += PlaytestClicked;
@@ -119,17 +120,6 @@ namespace FirstLight.Game.Presenters
 
 				_botDifficultyDropDown.value = DifficultyToSlide(lastUsedOptions.BotDifficulty);
 			}
-		}
-
-
-		private void CloseRequested()
-		{
-			Close(true);
-		}
-
-		protected override void Close(bool destroy)
-		{
-			Data.CloseClicked.Invoke();
 		}
 
 		private void JoinRoomClicked()

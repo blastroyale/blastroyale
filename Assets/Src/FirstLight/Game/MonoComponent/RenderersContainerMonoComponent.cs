@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.VFX;
+using ReadOnlyOdin = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 namespace FirstLight.Game.MonoComponent
 {
@@ -16,202 +14,104 @@ namespace FirstLight.Game.MonoComponent
 	public interface IRendersContainer
 	{
 		/// <summary>
-		/// Set a material property float value using property id 
-		/// </summary>
-		void SetMaterialPropertyValue(int propertyId, float value);
-
-		/// <summary>
-		/// Set a material property float value over duration time to an end value and back to start value
-		/// </summary>
-		void SetMaterialPropertyValue(int propertyId, float startValue, float endValue, float duration);
-
-		/// <summary>
 		/// Set enabled flag of all renderers in the container
 		/// </summary>
-		void SetRendererState(bool visible);
+		void SetEnabled(bool enabled);
 
 		/// <summary>
 		/// Set's the given <paramref name="materialId"/> to all <see cref="Renderer"/> in this game object and his children.
 		/// If the given <paramref name="keepTexture"/> is true, then will keep original texture from the rendered.
 		/// </summary>
-		void SetMaterial(MaterialVfxId materialId, ShadowCastingMode mode, bool keepTexture);
+		void SetMaterial(MaterialVfxId materialId, bool keepTexture);
 
 		/// <summary>
-		/// Set's the material using the given <paramref name="materialResolver"/> to all <see cref="Renderer"/> in this
+		/// Set's the material using the given <paramref name="material"/> to all <see cref="Renderer"/> in this
 		/// game object and his children.
 		/// If the given <paramref name="keepTexture"/> is true, then will keep original texture from the rendered.
 		/// </summary>
-		void SetMaterial(Func<int, Material> materialResolver, ShadowCastingMode mode, bool keepTexture);
+		void SetMaterial(Material material, bool keepTexture);
+
+		/// <summary>
+		/// Sets the color of the renderers.
+		/// </summary>
+		void SetColor(Color color);
 
 		/// <summary>
 		/// Sets the layer of the renderers.
 		/// </summary>
-		void SetRenderersLayer(int layer);
-
-		/// <summary>
-		/// Disables all particle systems
-		/// </summary>
-		public void DisableParticles();
+		void SetLayer(int layer);
 
 		/// <summary>
 		/// Resets all this game object and his children <see cref="Renderer"/> to their original materials
 		/// </summary>
-		void ResetToOriginalMaterials();
+		void ResetMaterials();
 	}
 
 	/// <summary>
 	/// This MonoComponent acts as a container of all <see cref="Renderer"/> inside of this GameObject, inclusive the
 	/// <see cref="Renderer"/> that this game object might contain.
-	/// It keeps track of the original <see cref="Material"/> state of the objects and allows to reset it via <seealso cref="ResetToOriginalMaterials"/>.
+	/// It keeps track of the original <see cref="Material"/> state of the objects and allows to reset it via <seealso cref="ResetMaterials"/>.
 	/// </summary>
 	public class RenderersContainerMonoComponent : MonoBehaviour, IRendersContainer
 	{
-		private static readonly int _mainText = Shader.PropertyToID("_MainTex");
+		private static readonly int _mainTex = Shader.PropertyToID("_MainTex");
 
-		[SerializeField] private List<Material> _originalMaterials = new List<Material>();
-		[SerializeField] private List<Renderer> _renderers = new List<Renderer>();
-		[SerializeField] private List<Renderer> _particleRenderers = new List<Renderer>();
-		[SerializeField] private List<GameObject> _rendererRoots = new List<GameObject>();
-		[SerializeField] private Renderer _mainRenderer;
+		[SerializeField, ReadOnlyOdin] private List<Renderer> _renderers = new();
+		[SerializeField, ReadOnlyOdin] private List<Renderer> _particleRenderers = new();
+		[SerializeField, ReadOnlyOdin] private List<Material> _originalMaterials = new();
 
 		private IGameServices _services;
-		private MaterialPropertyBlock _propBlock;
-
-		/// <summary>
-		/// A readonly list of all the original <see cref="Material"/> when this object was created
-		/// </summary>
-		public IReadOnlyList<Material> OriginalMaterials => _originalMaterials;
-
-		/// <summary>
-		/// A readonly list of all the <see cref="Renderer"/> inside of this game object (this game object and all it's children)
-		/// </summary>
-		public IReadOnlyList<Renderer> Renderers => _renderers;
-
-		/// <summary>
-		/// A readonly list of all the <see cref="Renderer"/> of particles inside of this game object (this game object and all it's children)
-		/// </summary>
-		public IReadOnlyList<Renderer> ParticleRenderers => _particleRenderers;
-
-		/// <summary>
-		/// The <see cref="Renderer"/> that the game object containing this script might contain.
-		/// If this game object does not contain a <see cref="Renderer"/> then it will return null.
-		/// </summary>
-		public Renderer MainRenderer => _mainRenderer;
 
 		private void OnValidate()
 		{
-			_mainRenderer = _mainRenderer ? _mainRenderer : GetComponent<Renderer>();
-
 			var renderers = GetComponentsInChildren<Renderer>(true);
 
 			_particleRenderers.Clear();
 			_renderers.Clear();
 			_originalMaterials.Clear();
 
-			foreach (var render in renderers)
+			foreach (var r in renderers)
 			{
-				if (render is ParticleSystemRenderer || render.TryGetComponent(typeof(VisualEffect), out _))
+				if (r is ParticleSystemRenderer || r.TryGetComponent(typeof(VisualEffect), out _))
 				{
-					_particleRenderers.Add(render);
+					_particleRenderers.Add(r);
 					continue;
 				}
 
-				_renderers.Add(render);
-
-				for (var i = 0; i<render.sharedMaterials.Length; i++)
-				{
-					if (i == 0)
-					{
-						_originalMaterials.Add(render.sharedMaterials[i]);
-					}
-				}
+				_renderers.Add(r);
+				_originalMaterials.Add(r.sharedMaterial);
 			}
 		}
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_propBlock = new MaterialPropertyBlock();
 		}
-		
-		public void SetMaterialPropertyValue(int propertyId, float value)
-		{
-			foreach (var rendererItem in _renderers)
-			{
-				_propBlock.Clear();
-				rendererItem.GetPropertyBlock(_propBlock);
-				_propBlock.SetFloat(propertyId, value);
 
-				var materialCount = Math.Min(rendererItem.materials.Length, 1);
-
-				for (var j = 0; j < materialCount; j++)
-				{
-					var material = rendererItem.materials[j];
-
-					if (!material.HasProperty(propertyId))
-					{
-						continue;
-					}
-
-					rendererItem.SetPropertyBlock(_propBlock, j);
-				}
-			}
-		}
-		
-		public void SetMaterialPropertyValue(int propertyId, float startValue, float endValue, float duration)
-		{
-			foreach (var rendererItem in _renderers)
-			{
-				var materialCount = Math.Min(rendererItem.materials.Length, 1);
-
-				for (var j = 0; j < materialCount; j++)
-				{
-					var material = rendererItem.materials[j];
-
-					if (!material.HasProperty(propertyId))
-					{
-						continue;
-					}
-
-					material.DOKill();
-					material.DOFloat(endValue, propertyId, duration).OnComplete(() =>
-					{
-						material.DOFloat(startValue, propertyId, duration).SetAutoKill(true);
-					}).SetAutoKill(true);
-				}
-			}
-		}
-		
-		public void SetRendererState(bool visible)
+		public void SetEnabled(bool rEnabled)
 		{
 			foreach (var render in _renderers)
 			{
-				render.enabled = visible;
+				render.enabled = rEnabled;
 			}
 
 			foreach (var render in _particleRenderers)
 			{
-				render.enabled = visible;
-			}
-
-			foreach (var render in _rendererRoots)
-			{
-				render.SetActive(visible);
+				render.enabled = rEnabled;
 			}
 		}
 
-		// TODO: Avoid duplicating the material
-		// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
-		public void SetRendererColor(Color c)
+		public void SetColor(Color c)
 		{
+			// TODO: Avoid duplicating the material
+			// https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/task/334
 			foreach (var render in _renderers)
 			{
 				render.material.color = c;
 			}
 		}
 
-		/// <inheritdoc />
-		public async void SetMaterial(MaterialVfxId materialId, ShadowCastingMode mode, bool keepTexture)
+		public async void SetMaterial(MaterialVfxId materialId, bool keepTexture)
 		{
 			var mat = await _services.AssetResolverService.RequestAsset<MaterialVfxId, Material>(materialId);
 
@@ -221,45 +121,31 @@ namespace FirstLight.Game.MonoComponent
 				Destroy(mat);
 				return;
 			}
-			
-			SetMaterial(i => mat, mode, keepTexture);
+
+			SetMaterial(mat, keepTexture);
 		}
 
-		/// <inheritdoc />
-		public void SetMaterial(Func<int, Material> materialResolver, ShadowCastingMode mode, bool keepTexture)
+		public void SetMaterial(Material material, bool keepTexture)
 		{
-			// Original Materials have all the materials in order of the renderers
-			for (int i = 0, count = 0; i < _renderers.Count; i++)
+			foreach (var r in _renderers)
 			{
-				var sharedMaterialCount = _renderers[i].sharedMaterials.Length;
-				var materialCount =  Math.Min(_renderers[i].materials.Length, 1);
-				
-				var newMaterials = new Material[sharedMaterialCount];
+				var sm = r.sharedMaterial;
 
-				for (var j = 0; j < materialCount; j++, count++)
+				r.sharedMaterial = material;
+
+				if (keepTexture)
 				{
-					var material = materialResolver(count);
+					r.material.SetTexture(_mainTex, sm.GetTexture(_mainTex));
 
-					if (keepTexture && _originalMaterials[count].HasProperty(_mainText))
-					{
-						material.SetTexture(_mainText, _originalMaterials[count].GetTexture(_mainText));
-					}
-
-					newMaterials[j] = material;
+					// TODO: Check performance
+					// var mp = new MaterialPropertyBlock();
+					// mp.SetTexture(_mainTex, sm.GetTexture(_mainTex));
+					// r.SetPropertyBlock(mp);
 				}
-
-				if (sharedMaterialCount > 1)
-				{
-					var lastIndex = sharedMaterialCount - 1;
-					newMaterials[lastIndex] = _renderers[i].sharedMaterials[lastIndex];
-				}
-
-				_renderers[i].materials = newMaterials;
-				_renderers[i].shadowCastingMode = mode;
 			}
 		}
 
-		public void SetRenderersLayer(int layer)
+		public void SetLayer(int layer)
 		{
 			foreach (var r in _renderers)
 			{
@@ -267,19 +153,12 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
-		/// <inheritdoc />
-		public void DisableParticles()
+		public void ResetMaterials()
 		{
-			foreach (var render in _particleRenderers)
+			for (var i = 0; i < _renderers.Count; i++)
 			{
-				render.enabled = false;
+				_renderers[i].sharedMaterial = _originalMaterials[i];
 			}
-		}
-
-		/// <inheritdoc />
-		public void ResetToOriginalMaterials()
-		{
-			SetMaterial(i => _originalMaterials[i], ShadowCastingMode.On, false);
 		}
 	}
 }

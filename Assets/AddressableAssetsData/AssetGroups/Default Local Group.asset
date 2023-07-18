@@ -136,6 +136,41 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1fa3edd1744989741a15528d1769deb2
+    m_Address: Scenes/NewBRMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e637bcb30c7f0a44b8c7ab15d9e3cda
+    m_Address: Scenes/BattlelandsMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 540f3d4d7c97bf74aa43ed1ecdfc1ab0
+    m_Address: Scenes/IslandsMap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 060bc7058ab345446a1949a9dc9f677d
+    m_Address: Assets/Art/Models/Weapons/Melee/M_Melee_APC.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dca1e785bfe8c79a38c4e195a6438880
+    m_Address: AdventureAssets/Items/Skins/Hammer/SausageBeater.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05f5942bf5b24b447b45aa1717ece053
+    m_Address: Assets/Art/Models/Weapons/Melee/MW_Super_Dog.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4cb27021e3ce0f6cf8a06cbe42283b90
+    m_Address: AdventureAssets/Items/Skins/Hammer/SpickyBoy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

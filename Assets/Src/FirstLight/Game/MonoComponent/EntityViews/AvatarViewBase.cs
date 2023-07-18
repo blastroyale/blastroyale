@@ -6,9 +6,7 @@ using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -84,9 +82,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			_animatorWrapper = new AnimatorWrapper(_animator);
-
-			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleEventOnPlayerAlive);
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
+			
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
@@ -114,7 +110,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (statusType.TryGetVfx(out MaterialVfxId materialVfx))
 			{
-				RenderersContainerProxy.SetMaterial(materialVfx, ShadowCastingMode.On, true);
+				RenderersContainerProxy.SetMaterial(materialVfx, true);
 				_materialsCoroutine = StartCoroutine(ResetMaterials(duration));
 			}
 			else if (statusType.TryGetVfx(out VfxId vfx))
@@ -140,23 +136,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
-			var frame = game.Frames.Verified;
-			var oneLife = frame.Context.GameModeConfig.Lives == 1; // TODO: Should be properly handled based on deaths
-			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
 			AnimatorWrapper.SetTrigger(Triggers.Die);
-			
-			
-			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
-			         GameConstants.Visuals.DISSOLVE_DURATION, () => 
-					 {
-						 if (this.IsDestroyed())
-						 {
-							 return;
-						 }
-						 RenderersContainerProxy.SetRendererState(false);
-					 });
 		}
 
 		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
@@ -171,30 +153,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			OnAvatarEliminated(callback.Game);
 		}
 
-		private void HandleEventOnPlayerAlive(EventOnPlayerAlive evnt)
+		
+		/// <summary>www
+		/// Updates the color of the given character for the duration
+		/// </summary>
+		public void UpdateColor(Color color, float duration)
 		{
-			if (evnt.Entity != EntityView.EntityRef)
-			{
-				return;
-			}
-			
-			Dissolve(false, 0,0,0, 0);
+			RenderersContainerProxy.SetColor(color);
+			StartCoroutine(EndBlink(duration));
 		}
 		
-		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
+		private IEnumerator EndBlink(float duration)
 		{
-			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
-			{
-				return;
-			}
-
-			// On hit VFX (green splats) are disabled. We can enable them back if we make a good, clean, subtle VFX
-			// var cacheTransform = transform;
-			// Services.VfxService.Spawn(_projectileHitVfx).transform.SetPositionAndRotation(cacheTransform.position, cacheTransform.rotation);
-			
-			_animatorWrapper.SetTrigger(Triggers.Hit);
-
-			RenderersContainerProxy.SetMaterialPropertyValue(_hitProperty, 0, 1, GameConstants.Visuals.HIT_DURATION);
+			yield return new WaitForSeconds(duration);
+			RenderersContainerProxy.SetColor(Color.white);
 		}
 
 		private void HandleOnStatusModifierSet(EventOnStatusModifierSet evnt)
@@ -238,7 +210,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (_materialsCoroutine != null)
 			{
 				StopCoroutine(_materialsCoroutine);
-				RenderersContainerProxy.ResetToOriginalMaterials();
+				RenderersContainerProxy.ResetMaterials();
 				_materialsCoroutine = null;
 			}
 
@@ -279,7 +251,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			// and this script can become null.
 			if (!this.IsDestroyed())
 			{
-				RenderersContainerProxy.ResetToOriginalMaterials();
+				RenderersContainerProxy.ResetMaterials();
 			}
 		}
 

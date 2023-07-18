@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8496600487993510757}
   - component: {fileID: 2009314884417337653}
   - component: {fileID: 97539316271937529}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: BaseballHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 676dbfe15d14141969daef815a07e101, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,10 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 676dbfe15d14141969daef815a07e101, type: 2}
   _renderers:
   - {fileID: 2009314884417337653}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 2009314884417337653}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 676dbfe15d14141969daef815a07e101, type: 2}

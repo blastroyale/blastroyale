@@ -1,0 +1,79 @@
+﻿#pragma kernel CSMain
+
+StructuredBuffer<float3> verts;
+StructuredBuffer<uint3> indices;
+StructuredBuffer<float2> uvs;
+AppendStructuredBuffer<uint3> newIndices;
+Texture2D alphaTex;
+float cubeSize;
+uint triCount;
+//float3 localCamPos;
+
+float3 trinormal(float3 v0, float3 v1, float3 v2)
+{
+    float3 p = v0-v1;
+    float3 q = v1-v2;
+    float3 norm = cross(p,q);
+    return normalize(norm);
+}
+
+[numthreads(256,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= triCount) return;
+
+    uint3 ind = indices[id.x];
+    float3 a = verts[ind.x];
+    float3 b = verts[ind.y];
+    float3 c = verts[ind.z];
+
+    float ab = distance(a,b);
+    float bc = distance(b,c);
+    float ca = distance(c,a);
+
+    //if (max(max(ab, bc), ca) > 0.9) return;
+
+    float3 n = trinormal(a,b,c);
+
+    float3 dir = normalize(a);// - localCamPos);
+    //if (dot(-dir, n) > 0.2f)
+    float elimit = 10;
+    float dlimit = 900;
+    //if (distance(localCamPos, a) < dlimit && distance(localCamPos, b) < dlimit && distance(localCamPos, c) < dlimit)
+    if (length(a) < dlimit && length(b) < dlimit && length(c) < dlimit)
+    {
+        if (dot(-dir, n) > 0.0f)
+        {
+
+            float degenerateThreshold = 0.1f;
+            bool deg = false;
+            if (((bc  + ca) - ab) / ab < degenerateThreshold)
+            {
+                deg = true;
+            }
+            else if (((ab  + ca) - bc) / bc < degenerateThreshold)
+            {
+                deg = true;
+            }
+            else if (((ab  + bc) - ca) / ca < degenerateThreshold)
+            {
+                deg = true;
+            }
+            if (!deg)
+            {
+                float2 uv0 = uvs[ind.x] * cubeSize;
+                float2 uv1 = uvs[ind.y] * cubeSize;
+                float2 uv2 = uvs[ind.z] * cubeSize;
+                float a0 = alphaTex.Load(int3(uv0.x, uv0.y, 0)).a;
+                float a1 = alphaTex.Load(int3(uv1.x, uv1.y, 0)).a;
+                float a2 = alphaTex.Load(int3(uv2.x, uv2.y, 0)).a;
+                //float a = a0 + a1 + a2;
+                float a = a0 * a1 * a2;
+                if (a > 1.0f / 255)
+                {
+                    newIndices.Append(ind);
+                }
+            }
+        }
+    }
+}

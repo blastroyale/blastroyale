@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
-
 
 namespace FirstLight.Game.MonoComponent
 {
@@ -15,18 +11,11 @@ namespace FirstLight.Game.MonoComponent
 	[RequireComponent(typeof(RenderersContainerMonoComponent))]
 	public class RenderersContainerProxyMonoComponent : MonoBehaviour, IRendersContainer
 	{
-		[SerializeField, Required] private RenderersContainerMonoComponent _mainRenderersContainer;
-		[SerializeField] private List<RenderersContainerMonoComponent> _renderersContainers = new List<RenderersContainerMonoComponent>();
+		private readonly List<RenderersContainerMonoComponent> _renderersContainers = new();
 
-		public RenderersContainerMonoComponent MainRenderersContainer => _mainRenderersContainer;
-		
-		private void OnValidate()
+		private void Awake()
 		{
-			_mainRenderersContainer = _mainRenderersContainer ? _mainRenderersContainer : GetComponent<RenderersContainerMonoComponent>();
-			
-			_renderersContainers.Clear();	
-			
-			_renderersContainers.Add(_mainRenderersContainer);
+			AddRenderersContainer(GetComponent<RenderersContainerMonoComponent>());
 		}
 
 		/// <summary>
@@ -45,38 +34,27 @@ namespace FirstLight.Game.MonoComponent
 			_renderersContainers.Remove(renderersContainer);
 		}
 
-		/// <inheritdoc />
-		public void SetMaterial(Func<int, Material> materialResolver, ShadowCastingMode mode, bool keepTexture)
+		public void SetMaterial(Material material, bool keepTexture)
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetMaterial(materialResolver, mode, keepTexture);
+				renderersContainer.SetMaterial(material, keepTexture);
 			}
 		}
 
-		public void SetRenderersLayer(int layer)
+		public void SetLayer(int layer)
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetRenderersLayer(layer);
+				renderersContainer.SetLayer(layer);
 			}
 		}
 
-		/// <inheritdoc />
-		public void SetMaterialPropertyValue(int propertyId, float value)
+		public void SetEnabled(bool rEnabled)
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetMaterialPropertyValue(propertyId, value);
-			}
-		}
-		
-		/// <inheritdoc />
-		public void SetRendererState(bool visible)
-		{
-			foreach (var renderersContainer in _renderersContainers)
-			{
-				renderersContainer.SetRendererState(visible);
+				renderersContainer.SetEnabled(rEnabled);
 			}
 		}
 
@@ -84,43 +62,23 @@ namespace FirstLight.Game.MonoComponent
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetRendererColor(color);
+				renderersContainer.SetColor(color);
 			}
 		}
 
-		/// <inheritdoc />
-		public void SetMaterial(MaterialVfxId materialId, ShadowCastingMode mode, bool keepTexture)
+		public void SetMaterial(MaterialVfxId materialId, bool keepTexture)
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetMaterial(materialId, mode, keepTexture);
+				renderersContainer.SetMaterial(materialId, keepTexture);
 			}
 		}
 
-		/// <inheritdoc />
-		public void SetMaterialPropertyValue(int propertyId, float startValue, float endValue, float duration)
+		public void ResetMaterials()
 		{
 			foreach (var renderersContainer in _renderersContainers)
 			{
-				renderersContainer.SetMaterialPropertyValue(propertyId, startValue, endValue, duration);
-			}
-		}
-
-		/// <inheritdoc />
-		public void DisableParticles()
-		{
-			foreach (var renderersContainer in _renderersContainers)
-			{
-				renderersContainer.DisableParticles();
-			}
-		}
-
-		/// <inheritdoc />
-		public void ResetToOriginalMaterials()
-		{
-			foreach (var renderersContainer in _renderersContainers)
-			{
-				renderersContainer.ResetToOriginalMaterials();
+				renderersContainer.ResetMaterials();
 			}
 		}
 	}

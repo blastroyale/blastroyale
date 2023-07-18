@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6340830140128761359}
   - component: {fileID: 4400692600656108246}
   - component: {fileID: 8481500251394264564}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Shotgun_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,14 +74,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
   _renderers:
   - {fileID: 8241100816902175778}
   _particleRenderers:
   - {fileID: 3877015307792283966}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 131409319b68ac944b348112d1efa06e, type: 2}
 --- !u!1 &2877098512790745424
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +91,7 @@ GameObject:
   - component: {fileID: 7897026447227848617}
   - component: {fileID: 7190313732461094374}
   - component: {fileID: 3877015307792283966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4977,7 +4975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516585669790791155}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ModShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5070,20 +5068,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7974254394494865994, guid: a1261087fc443264e93ce442dde875e4, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 8707290714799103029, guid: a1261087fc443264e93ce442dde875e4, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707290714799103029, guid: a1261087fc443264e93ce442dde875e4, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

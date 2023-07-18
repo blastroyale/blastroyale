@@ -190,7 +190,7 @@ namespace FirstLight.Game.Services
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService = new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService, networkService, gameLogic, configsProvider);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic, configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService, GenericDialogService, MessageBrokerService);
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService, gameLogic.EquipmentLogic, PartyService, gameLogic.AppDataProvider);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
@@ -218,7 +218,7 @@ namespace FirstLight.Game.Services
 							.NOTIFICATION_IDLE_BOXES_CHANNEL));
 
 			var environmentService = new EnvironmentService(MessageBrokerService);
-			CheatsService = new CheatsService(CommandService, messageBrokerService, GenericDialogService, environmentService);
+			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic, tutorialService);
 		}
 
 		/// <inheritdoc />

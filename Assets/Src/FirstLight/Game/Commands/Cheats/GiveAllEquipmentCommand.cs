@@ -40,7 +40,7 @@ namespace FirstLight.Game.Commands.Cheats
 				{
 					// Let this players test upgrades for us as well
 					var max = ctx.Logic.EquipmentLogic().GetMaxLevel(e);
-					e.Level = (uint)ctx.Logic.RngLogic().Range(1, max);
+					e.Level = (uint) ctx.Logic.RngLogic().Range(1, max);
 					return e;
 				});
 

@@ -93,7 +93,7 @@ variables:
         value: "Release"
     - name: build_type
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/develop')  }}:
-        value: "RELEASE_BUILD" # TODO: Revert when we find the bug that is broken input in development builds
+        value: "DEVELOPMENT_BUILD"
       ${{  if startsWith(variables['Build.SourceBranch'], 'refs/heads/release')  }}:
         value: "RELEASE_BUILD"
       ${{  if eq(variables['Build.SourceBranch'], 'refs/heads/master')  }}:
@@ -113,7 +113,7 @@ variables:
     - name: useAccelerator
       value: true
     - name: runTestLab
-      value: true
+      value: false
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:

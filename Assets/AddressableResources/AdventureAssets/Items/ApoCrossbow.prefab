@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1640824217119769764}
   - component: {fileID: 8847877434210179762}
   - component: {fileID: 3940281006029581541}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_CrossBow_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,16 +74,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   _renderers:
   - {fileID: 3930205962474102617}
   - {fileID: 5516731444788885203}
   _particleRenderers:
   - {fileID: 1260319946145194224}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
 --- !u!1 &6141187416942925851
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ApoCrossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +125,7 @@ GameObject:
   - component: {fileID: 5375198801806214920}
   - component: {fileID: 6674148592459807065}
   - component: {fileID: 1260319946145194224}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5056,7 +5054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6840612833681671006, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -6840612833681671006, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_IsActive
@@ -5064,7 +5062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2511208314892079831, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Name
@@ -5072,14 +5070,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6979276666735944220, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6979276666735944220, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
       propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
+    - target: {fileID: 6979276666735944220, guid: bcfa53303780f39419cc7a8ef6924b34, type: 3}
+      propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     m_RemovedComponents: []

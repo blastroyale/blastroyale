@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5588375649881430555}
   - component: {fileID: 6157078887481138888}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_Plasma_Cannon_Scifi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3369595100084150468}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SciCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +84,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5588375649881430555}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 14e5d1ad687562847864049a98d6a556, type: 3}
@@ -140,9 +141,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 14e5d1ad687562847864049a98d6a556, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14e5d1ad687562847864049a98d6a556, type: 3}
 --- !u!4 &7152896815320582143 stripped
 Transform:
@@ -154,11 +158,24 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5588375649881430555}
     m_Modifications:
+    - target: {fileID: 86582458637490507, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767006435273613295, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3558831512705607698, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
       propertyPath: m_Name
       value: SerenSol_BrandingTag_Rig
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558831512705607698, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4190690486592795304, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
       propertyPath: m_RootOrder
@@ -204,7 +221,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4441371350352074796, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441371350386859794, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441371351327890710, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931078064224666863, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c69b8e3ba5f66bc458c42739160ed3c4, type: 3}
 --- !u!4 &5861445889646082103 stripped
 Transform:

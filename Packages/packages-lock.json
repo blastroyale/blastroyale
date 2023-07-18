@@ -1,21 +1,28 @@
 {
   "dependencies": {
+    "com.autodesk.fbx": {
+      "version": "4.2.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.176.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.0.0"
+        "com.google.firebase.app": "11.2.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -23,11 +30,11 @@
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-11.0.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-11.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.0.0"
+        "com.google.firebase.app": "11.2.0"
       }
     },
     "com.heurekagames.assethunterpro": {
@@ -161,6 +168,16 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.formats.fbx": {
+      "version": "4.2.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.7.1",
+        "com.autodesk.fbx": "4.2.1"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {

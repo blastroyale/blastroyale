@@ -162,7 +162,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_seenItems.Count > 0)
 			{
-				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand { Ids = _seenItems });
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand { Ids = _seenItems.ToList() });
 				_seenItems.Clear();
 			}
 

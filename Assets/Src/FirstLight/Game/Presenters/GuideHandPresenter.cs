@@ -14,6 +14,23 @@ public class GuideHandPresenter : UiPresenter
 {
 	[SerializeField] private GameObject _animRoot;
 	[SerializeField] private Animator _animator;
+
+	private float _artRotation = 45; // rotation that already is from the art image
+	private float _rotationDegreeDegreesOffset;
+	
+	/// <summary>
+	/// Controls the animation rotation so we can
+	/// make the hand drag into any direction we think fit
+	/// </summary>
+	public float RotationDegreeOffset
+	{
+		get => _rotationDegreeDegreesOffset;
+		set
+		{
+			_rotationDegreeDegreesOffset = value;
+			_animRoot.transform.rotation = Quaternion.Euler(0, 0, _rotationDegreeDegreesOffset - _artRotation);
+		}
+	}
 	
 	protected override void OnOpened()
 	{
@@ -34,9 +51,10 @@ public class GuideHandPresenter : UiPresenter
 		_animRoot.gameObject.SetActive(false);
 	}
 	
-	public void SetScreenPosition(Vector2 screenPosition)
+	public void SetScreenPosition(Vector2 screenPosition, float fingerRotation = 45)
 	{
 		_animRoot.transform.position = screenPosition;
+		RotationDegreeOffset = fingerRotation;
 		Show();
 	}
 

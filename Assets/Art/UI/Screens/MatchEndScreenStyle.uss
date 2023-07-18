@@ -30,14 +30,6 @@
     width: 824px;
     height: 198px;
     position: absolute;
-    transition-property: opacity, scale;
-    transition-delay: 0.1s, 0.1s;
-    transition-duration: 0.3s, 0.3s;
-}
-
-.hidden .blasted-title__bg {
-    scale: 1.3 1.3;
-    opacity: 0;
 }
 
 .blasted-title__stain {
@@ -47,8 +39,6 @@
     height: 260px;
     right: 10px;
     top: -30px;
-    transition-property: opacity, scale;
-    transition-duration: 0.1s, 0.1s;
 }
 
 .blasted-title--suicide .blasted-title__stain {
@@ -56,21 +46,12 @@
     top: -12px;
 }
 
-.hidden .blasted-title__stain {
-    scale: 1.3 1.3;
-    opacity: 0;
-}
-
 .blasted-title__text {
     position: absolute;
     background-image: var(--sprite-match__text-blasted);
     width: 302px;
     height: 101px;
-    top: 50px;
-    transition-property: opacity, scale;
-    transition-delay: 0.4s, 0.4s;
-    transition-duration: 0.2s, 0.5s;
-    transition-timing-function: ease-in, ease-in-out-elastic;
+    top: 49px;
 }
 
 .blasted-title--suicide .blasted-title__text {
@@ -87,11 +68,6 @@
     top: 61px;
 }
 
-.hidden .blasted-title__text {
-    scale: 1.3 1.3;
-    opacity: 0;
-}
-
 .you-win-title {
     position: absolute;
     top: 15%;
@@ -103,13 +79,6 @@
     background-image: var(--sprite-match__banner-rainbow);
     width: 1027px;
     height: 255px;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-}
-
-.hidden .you-win-title__bg {
-    opacity: 0;
-    scale: 1.3 1.3;
 }
 
 .you-win-title__crown {
@@ -118,14 +87,6 @@
     width: 90px;
     height: 64px;
     top: -20px;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    transition-delay: 0.3s, 0s;
-}
-
-.hidden .you-win-title__crown {
-    opacity: 0;
-    scale: 1.3 1.3;
 }
 
 .you-win-title__text {
@@ -134,16 +95,110 @@
     width: 345px;
     height: 107px;
     top: 70px;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    transition-delay: 0.2s, 0.2s;
-}
-
-.hidden .you-win-title__text {
-    opacity: 0;
-    scale: 1.3 1.3;
 }
 
 .banner-holder {
     align-items: center;
+}
+
+.you-win-title__effect1 {
+    position: absolute;
+    width: 345px;
+    height: 102px;
+    background-image: var(--sprite-match__text-youwon-white);
+    left: -183px;
+    top: 61px;
+    -unity-background-image-tint-color: rgb(255, 233, 85);
+}
+
+.you-win-title__backgradient {
+    flex-grow: 1;
+    position: absolute;
+    background-image: var(--sprite-match__win-gradient);
+    width: 800px;
+    height: 800px;
+    left: -384px;
+    top: -263px;
+}
+
+.you-win-title__effect2 {
+    left: -164px;
+    top: 86px;
+    width: 345px;
+    height: 102px;
+    background-image: var(--sprite-match__text-youwon-white);
+    position: absolute;
+    -unity-background-image-tint-color: rgb(100, 255, 239);
+}
+
+.you-win-title__star {
+    position: absolute;
+    background-image: var(--sprite-match__icon-star-yellow);
+    width: 114px;
+    height: 114px;
+    left: 28px;
+    top: -49px;
+}
+
+.fill-parent {
+}
+
+.dimmed-background {
+    background-color: rgba(22, 17, 34, 0.62);
+}
+
+.you-win-title__projectorlight {
+    position: absolute;
+    background-image: var(--sprite-match__winLight);
+    width: 377px;
+    height: 766px;
+    transform-origin: bottom;
+}
+
+.you-won-title__projectorgradient {
+    flex-grow: 1;
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    background-image: var(--sprite-match__gradientwhite);
+    -unity-background-image-tint-color: rgba(255, 162, 88, 0.36);
+}
+
+.blasted-title__text-effect {
+    flex-grow: 1;
+    position: absolute;
+    width: 290px;
+    height: 88px;
+    left: -133px;
+    top: 66px;
+    background-image: var(--sprite-match__text-blasted-white);
+    -unity-background-image-tint-color: rgb(255, 202, 100);
+}
+
+.blasted-title__backgradient {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 800px;
+    height: 800px;
+    position: absolute;
+    top: -287px;
+    background-image: var(--sprite-match__gradientwhite);
+    -unity-background-image-tint-color: rgba(221, 29, 42, 0.47);
+}
+
+.lowhp-gradient {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: var(--sprite-match__gradient-lowhp);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.45);
+}
+
+.you-win-title__projectorlight--left {
+    bottom: -38px;
+    left: 0;
+}
+
+.you-win-title__projectorlight--right {
+    right: 0;
+    bottom: -38px;
 }

@@ -20,10 +20,10 @@ public class FootprinterMonoComponent : MonoBehaviour
     private static readonly Vector3 _leftStepVariation = new(0.1f, 0, 0);
     
     private GameId _id;
-    private WaitForSeconds _duration = new (4);
+    private WaitForSeconds _duration = new (2.4f);
     private Cooldown _cooldown = new (TimeSpan.FromMilliseconds(300));
     
-    private Vector3 _localPositionOffset = new (0, 0.1f, 0);
+    private Vector3 _localPositionOffset = new (0, 0.17f, 0);
     private IGameServices _services;
     private Vector3 _rightStepScale;
     private Vector3 _leftStepScale;

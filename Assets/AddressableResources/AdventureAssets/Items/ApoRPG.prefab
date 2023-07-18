@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5616465046686096493}
   - component: {fileID: 302597496796615378}
   - component: {fileID: 3622122837560755094}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,7 +4895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6141187416942925850}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ApoRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4930,7 +4930,7 @@ GameObject:
   - component: {fileID: 8052921851367430625}
   - component: {fileID: 5705901102830947251}
   - component: {fileID: 1963231067215179569}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Wep_RocketLauncher_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4992,14 +4992,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   _renderers:
   - {fileID: 6021757222284895551}
   _particleRenderers:
   - {fileID: 3622122837560755094}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
 --- !u!1001 &2191900838939103087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5054,10 +5052,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3604385505179358640, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3604385505179358640, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
       propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
+    - target: {fileID: -3604385505179358640, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
+      propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
     - target: {fileID: 919132149155446097, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
@@ -5066,11 +5068,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9055875760106242118, guid: 9874cdcc576755a4988738ea360c46c0, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

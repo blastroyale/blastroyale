@@ -34,11 +34,6 @@ MonoBehaviour:
         Id:
           Value: 128173641673653426
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetAmmoCountFunction_13]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerChangeDefaultWeapon_20
-      AssetRef:
-        Id:
-          Value: 134085775617983364
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerChangeDefaultWeapon_20]
     - Path: AddressableResources/QuantumAssets/Projectiles/MainBullet|EntityPrototype
       AssetRef:
         Id:
@@ -84,11 +79,11 @@ MonoBehaviour:
         Id:
           Value: 290408045908008783
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_2]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_22
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_21
       AssetRef:
         Id:
           Value: 293828422263463376
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_22]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydivePLFAction_21]
     - Path: AddressableResources/QuantumAssets/Default Config Assets/Default CharacterController2DConfigAsset
       AssetRef:
         Id:
@@ -239,6 +234,11 @@ MonoBehaviour:
         Id:
           Value: 701952959705295376
       Address: QuantumAssets/Collectables/ChestPickup.prefab[ChestPickupEntityView]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveFullyGroundedAction_22
+      AssetRef:
+        Id:
+          Value: 725308320563937207
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveFullyGroundedAction_22]
     - Path: AddressableResources/QuantumAssets/Projectiles/PlayerBullet|EntityPrototype
       AssetRef:
         Id:
@@ -294,6 +294,11 @@ MonoBehaviour:
         Id:
           Value: 855484753883037958
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerProjectileAttackAction_0]
+    - Path: AddressableResources/Maps/IslandsMap_NavMesh
+      AssetRef:
+        Id:
+          Value: 855809909992764249
+      Address: Maps/IslandsMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_38
       AssetRef:
         Id:
@@ -359,6 +364,11 @@ MonoBehaviour:
         Id:
           Value: 1093005050644660195
       Address: QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig.asset
+    - Path: AddressableResources/Maps/BattlelandsMap_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 1167231962424191134
+      Address: Maps/BattlelandsMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_8
       AssetRef:
         Id:
@@ -374,6 +384,11 @@ MonoBehaviour:
         Id:
           Value: 1242416935241100476
       Address: Maps/BlimpDeck_NavMesh_data.asset
+    - Path: AddressableResources/Maps/IslandsMap
+      AssetRef:
+        Id:
+          Value: 1255118517591299658
+      Address: Maps/IslandsMap.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_7
       AssetRef:
         Id:
@@ -479,6 +494,11 @@ MonoBehaviour:
         Id:
           Value: 1628267810515087164
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardFP_13]
+    - Path: AddressableResources/Maps/BattlelandsMap
+      AssetRef:
+        Id:
+          Value: 1656225088092065763
+      Address: Maps/BattlelandsMap.asset
     - Path: AddressableResources/Maps/NewBRMap_NavMesh
       AssetRef:
         Id:
@@ -754,13 +774,12 @@ MonoBehaviour:
         Id:
           Value: 2987106604845511688
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardBool_7]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Change
-        Weapon Default_13
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Out
+        Of Ammo_13
       AssetRef:
         Id:
           Value: 3001958099177705209
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Change Weapon
-        Default_13]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Out Of Ammo_13]
     - Path: AddressableResources/Maps/District_NavMesh_data
       AssetRef:
         Id:
@@ -811,11 +830,11 @@ MonoBehaviour:
         Id:
           Value: 3083889286552435639
       Address: Configs/ShrinkingCircleConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_21
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_20
       AssetRef:
         Id:
           Value: 3090339244532597528
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerPhysicsAction_21]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerPhysicsAction_20]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Reload_3
       AssetRef:
         Id:
@@ -836,6 +855,11 @@ MonoBehaviour:
         Id:
           Value: 3151177946438730648
       Address: QuantumAssets/Projectiles/BigBullet.prefab[BigBulletEntityPrototype]
+    - Path: AddressableResources/Maps/BattlelandsMap_mesh
+      AssetRef:
+        Id:
+          Value: 3151734064632607498
+      Address: Maps/BattlelandsMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TryReload_7
       AssetRef:
         Id:
@@ -882,6 +906,11 @@ MonoBehaviour:
         Id:
           Value: 3351158279772585640
       Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityView]
+    - Path: AddressableResources/Maps/IslandsMap_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 3359083247742784915
+      Address: Maps/IslandsMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_37
       AssetRef:
         Id:
@@ -987,6 +1016,11 @@ MonoBehaviour:
         Id:
           Value: 3890296069019039883
       Address: Maps/FloodCitySimple_mesh.asset
+    - Path: AddressableResources/Maps/BattlelandsMap_NavMesh
+      AssetRef:
+        Id:
+          Value: 3912986414844588615
+      Address: Maps/BattlelandsMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_10
       AssetRef:
         Id:
@@ -1117,6 +1151,11 @@ MonoBehaviour:
         Id:
           Value: 4376691450385126578
       Address: Maps/MapTestScene_NavMesh.asset
+    - Path: AddressableResources/Maps/IslandsMap_mesh
+      AssetRef:
+        Id:
+          Value: 4377612866467515236
+      Address: Maps/IslandsMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|AttackShape_12
       AssetRef:
         Id:

@@ -295,7 +295,7 @@ namespace FirstLight.Game.Services.Party
 
 				var normalizedCode = JoinCodeUtils.NormalizeCode(code);
 
-				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => JoinCodeUtils.AllowedCharacters.Contains(c)))
+				if (normalizedCode.Length != CodeDigits || normalizedCode.Any(c => !JoinCodeUtils.AllowedCharacters.Contains(c)))
 				{
 					throw new PartyException(PartyErrors.PartyNotFound);
 				}

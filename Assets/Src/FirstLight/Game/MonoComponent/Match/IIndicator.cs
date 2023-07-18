@@ -38,5 +38,15 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// Initializes this indicator view with the given data
 		/// </summary>
 		void Init(EntityView playerEntityView);
+
+		/// <summary>
+		/// Sets the color of material of this indicator to <paramref name="c"/> color
+		/// </summary>
+		void SetColor(Color c);
+
+		/// <summary>
+		/// Resets the color of material of this indicator back to original color
+		/// </summary>
+		void ResetColor();
 	}
 }

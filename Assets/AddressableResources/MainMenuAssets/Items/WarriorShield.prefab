@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3627147274267584088}
   - component: {fileID: 5856985662631651234}
   - component: {fileID: 3520470247656035692}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: warrior_sheild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4739589880821716409}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: WarriorShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

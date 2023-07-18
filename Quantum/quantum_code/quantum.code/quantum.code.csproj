@@ -67,6 +67,7 @@
     <Compile Include="AI\Actions\PlayerStartReloadAction.cs" />
     <Compile Include="AI\Actions\PlayerTeleportSpawnAction.cs" />
     <Compile Include="AI\Actions\SetBlackboardBool.cs" />
+    <Compile Include="AI\Actions\SkydiveFullyGroundedAction.cs" />
     <Compile Include="AI\Actions\SkydivePLFAction.cs" />
     <Compile Include="AI\Actions\SkydiveStartAction.cs" />
     <Compile Include="AI\Actions\SkydiveStopAction.cs" />
@@ -306,6 +307,7 @@
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Systems\TriggerSystem.cs" />
+    <Compile Include="Utils\AmmoUtils.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\DebugExtensions.cs" />
     <Compile Include="Utils\FPMathHelpers.cs" />

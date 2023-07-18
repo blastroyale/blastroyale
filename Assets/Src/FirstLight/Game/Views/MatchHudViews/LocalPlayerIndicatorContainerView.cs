@@ -268,7 +268,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		public void OnUpdateAim(Frame f, FPVector2 aim, bool shooting)
 		{
-			
 			if (!_localPlayerEntity.IsAlive(f)) return;
 
 			if (_data.AppDataProvider.ConeAim || _weaponConfig.IsMeleeWeapon)
@@ -287,8 +286,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnPlayerAmmoChanged callback)
 		{
-			if (callback.CurrentMag != 0 || !IsInitialized())
+			if (!IsInitialized() || _localPlayerEntity != callback.Entity)
 				return;
+
+			if (callback.CurrentMag == 0)
+			{
+				_weaponAim.SetColor(Color.red);
+			}
+			else
+			{
+				_weaponAim.ResetColor();
+			}
+			
+			if (callback.CurrentMag != 0)
+				return;
+			
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}
 		

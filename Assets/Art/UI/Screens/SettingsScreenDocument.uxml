@@ -25,8 +25,8 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/camera_panning" name="CameraPanning" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/cone_aim" name="AimBackground" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">
                             <ui:Label text="First Light ID Connected!&#10;&#10;User ID: Penus48212" name="AccountStatusLabel" class="account-status-label" />

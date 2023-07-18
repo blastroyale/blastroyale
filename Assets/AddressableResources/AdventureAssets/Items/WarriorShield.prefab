@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6329809694576663488}
   - component: {fileID: 3912229520739494158}
   - component: {fileID: 1248724510598333742}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: WarriorShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b9eff9cff480a4bcd9bd34dcf32f8f6d, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,10 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: b9eff9cff480a4bcd9bd34dcf32f8f6d, type: 2}
   _renderers:
   - {fileID: 3912229520739494158}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 3912229520739494158}
+  _originalMaterials:
+  - {fileID: 2100000, guid: b9eff9cff480a4bcd9bd34dcf32f8f6d, type: 2}

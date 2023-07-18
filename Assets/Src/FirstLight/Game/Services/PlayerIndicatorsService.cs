@@ -146,16 +146,26 @@ namespace FirstLight.Game.Services
 			var buttonValue = c.ReadValue<float>();
 			var cancelPressed = c.ReadValueAsButton();
 			var radius = _indicatorContainerView.GetSpecialRadiusIndicator(_specialPressed);
+			var specialIndicator = _indicatorContainerView.GetSpecialIndicator(_specialPressed);
 
 			if (cancelPressed)
 			{
+				specialIndicator.ResetColor();
 				RemoveSpecialIndicators(_specialPressed);
 			}
 			else
 			{
 				_inCancel = buttonValue > 0 && buttonValue < 1;
-				if (_inCancel) radius.SetColor(Color.red);
-				else radius.ResetColor();
+				if (_inCancel)
+				{
+					radius.SetColor(Color.red);
+					specialIndicator.SetColor(Color.red);
+				}
+				else
+				{
+					radius.ResetColor();
+					specialIndicator.ResetColor();
+				}
 			}
 		}
 		

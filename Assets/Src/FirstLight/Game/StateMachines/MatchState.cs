@@ -315,9 +315,12 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSkipMatchmakingScreen()
 		{
-			return IsMatchmakingTimerComplete() || !_networkService.QuantumClient.CurrentRoom.IsOpen ||
+			var skip = IsMatchmakingTimerComplete() || !_networkService.QuantumClient.CurrentRoom.IsOpen ||
 				_networkService.JoinSource.Value.IsSnapshotAutoConnect() ||
 				_networkService.QuantumClient.CurrentRoom.HaveStartedGame();
+			
+			if(skip) FLog.Verbose($"Skipping matchmaking screen TimerComplete={IsMatchmakingTimerComplete()} Room Closed={!_networkService.QuantumClient.CurrentRoom.IsOpen} Started={_networkService.QuantumClient.CurrentRoom.HaveStartedGame()}");
+			return skip;
 		}
 
 		private void OnGameEnded(EventOnGameEnded callback)
@@ -378,7 +381,12 @@ namespace FirstLight.Game.StateMachines
 		private async void OpenMatchmakingScreen()
 		{
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			
+
+			if (_networkService.CurrentRoom == null)
+			{
+				return;
+			}
+
 			// TODO: Reconnection screen but for now its MM screen
 			var isRejoining =
 				_networkService.QuantumClient.CurrentRoom.HaveStartedGame() || _networkService.JoinSource.Value.IsSnapshotAutoConnect();
@@ -470,6 +478,10 @@ namespace FirstLight.Game.StateMachines
 			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
 			try
 			{
+				if (!_services.NetworkService.InRoom)
+				{
+					return;
+				}
 				var time = Time.realtimeSinceStartup;
 				var tasks = new List<Task>();
 				var config = _services.NetworkService.CurrentRoomMapConfig.Value;
@@ -547,8 +559,6 @@ namespace FirstLight.Game.StateMachines
 			
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
-			
-			Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"))?.gameObject.SetActive(true);
 			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
@@ -668,6 +678,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishCoreAssetsLoadedMessage()
 		{
+			if (!_services.NetworkService.InRoom)
+			{
+				return;
+			}
 			_services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
 		}
 		

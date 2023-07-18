@@ -74,16 +74,19 @@ namespace FirstLight.Game.Utils
 			{
 				roomNameFinal += RoomCommitLockData;
 			}
-			
-			emptyTtl = roomNameFinal.IsPlayTestRoom()
-				? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-				: GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
-			
+
 			var roomParams = new EnterRoomParams
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = expectedPlayers,
+				
+				// Expected users commented out. This is used for squads specifically when 
+				// joining only a single squad to the game.
+				// This makes the game auto-start when all players join the game not giving
+				// time to select the drop zone. This is because our matchmaking is the same as our
+				// lobby which is also the same as our drop zone selector. :L
+				
+				// ExpectedUsers = expectedPlayers,
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -128,7 +131,7 @@ namespace FirstLight.Game.Utils
 				RoomOptions = new RoomOptions
 				{
 					PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS
+					EmptyRoomTtl = 0
 				}
 			};
 		}
@@ -193,6 +196,8 @@ namespace FirstLight.Game.Utils
 		{
 			var properties = GetJoinRoomProperties(setup);
 
+			// TODO: Setting the time here prevents from 2 players joining the same room if they click concurrently
+			// this is because their initial room properties will not match
 			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, setup.GameMode().AllowBots);
 			properties.Add(GameConstants.Network.ROOM_PROPS_SETUP, ModelSerializer.Serialize(setup).Value);

@@ -3,7 +3,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
 namespace FirstLight.Editor.Build
 {
 	/// <summary>

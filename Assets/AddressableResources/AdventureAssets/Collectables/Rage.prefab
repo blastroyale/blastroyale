@@ -52,10 +52,10 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 1384128413185055080}
   _animation: {fileID: 4534731145222255033}
-  _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
   _collectClip: {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
   _pickupCircle: {fileID: 2924095095738950602}
+  _spawnAnim: 1
 --- !u!114 &3696723151283434160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,10 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 35fd5f4b89c460f40be4bbe161dd5b65, type: 2}
-  - {fileID: 2100000, guid: 35fd5f4b89c460f40be4bbe161dd5b65, type: 2}
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   _renderers:
   - {fileID: 8390148241902125867}
   - {fileID: 6354816739578939905}
@@ -79,8 +75,10 @@ MonoBehaviour:
   _particleRenderers:
   - {fileID: 9154276639893643951}
   - {fileID: 8241386230034854927}
-  _rendererRoots: []
-  _mainRenderer: {fileID: 0}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 35fd5f4b89c460f40be4bbe161dd5b65, type: 2}
+  - {fileID: 2100000, guid: 35fd5f4b89c460f40be4bbe161dd5b65, type: 2}
+  - {fileID: 2100000, guid: 0d1c2c519323a4f7aaf985fa0d7330ba, type: 2}
 --- !u!111 &4534731145222255033
 Animation:
   m_ObjectHideFlags: 0
@@ -111,9 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8f0f7a3f7faaf4ea32fa2ad42c8f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainRenderersContainer: {fileID: 3696723151283434160}
-  _renderersContainers:
-  - {fileID: 3696723151283434160}
 --- !u!1 &3652637762500063128
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +161,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0d1c2c519323a4f7aaf985fa0d7330ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -235,6 +230,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7273039971299085641}
     m_Modifications:
     - target: {fileID: 1564267555197094653, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
@@ -330,6 +326,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c59554c915c11449862cc8a9e60e2e, type: 3}
 --- !u!23 &6354816739578939905 stripped
 MeshRenderer:

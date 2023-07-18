@@ -1,25 +1,19 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 108e64e74a012d6429d7f04850f7a827
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Punk_male_Body
-    second:
-      fileID: 2100000
-      guid: 4f9be9f7136f9c94c8fb0ed722602e7e
-      type: 2
+    second: {fileID: 2100000, guid: 4f9be9f7136f9c94c8fb0ed722602e7e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Punk_male_Head
-    second:
-      fileID: 2100000
-      guid: ac6e87449d2a0a242a253327cb68adc3
-      type: 2
+    second: {fileID: 2100000, guid: ac6e87449d2a0a242a253327cb68adc3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,6 +50,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -83,9 +78,10 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
@@ -109,13 +105,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

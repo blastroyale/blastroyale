@@ -6,6 +6,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FirstLight.Game.Services
 {
@@ -34,6 +35,11 @@ namespace FirstLight.Game.Services
 		/// marked to be manual destroyed
 		/// </remarks>
 		EntityView GetManualView(EntityRef entityRef);
+
+		/// <summary>
+		/// Set the parents of the view in the scene, only used to organize objects in runtime
+		/// </summary>
+		void SetParents(EntityView view, string group = null);
 	}
 
 	/// <inheritdoc cref="IEntityViewUpdaterService" />
@@ -46,7 +52,11 @@ namespace FirstLight.Game.Services
 
 		private IGameServices _gameServices;
 
-		private Dictionary<long, List<EntityView>> _inactiveBullets = new ();
+		private Dictionary<long, List<EntityView>> _inactiveBullets = new();
+
+		private Dictionary<string, GameObject> _entityViewGroups = new();
+
+		private GameObject _viewParent;
 
 		private void PollBullet(EntityView view)
 		{
@@ -56,9 +66,10 @@ namespace FirstLight.Game.Services
 				list = new List<EntityView>();
 				_inactiveBullets[view.AssetGuid.Value] = list;
 			}
+
 			list.Add(view);
 		}
-		
+
 		/// <summary>
 		/// Override to poll bullets so we dont need to re-create the views for every new bullet.
 		/// This saves us some CPU time and makes memory usage more stable.
@@ -69,19 +80,40 @@ namespace FirstLight.Game.Services
 			if (_inactiveBullets.TryGetValue(asset.AssetObject.Guid.Value, out var inactiveList) && inactiveList.Count > 0)
 			{
 				var bullet = inactiveList[0];
-				if(position.HasValue) bullet.transform.position = position.Value;
+				if (position.HasValue) bullet.transform.position = position.Value;
 				if (rotation.HasValue) bullet.transform.rotation = rotation.Value;
 				inactiveList.RemoveAt(0);
 				bullet.gameObject.SetActive(true);
 				return bullet;
 			}
+
 			return base.CreateEntityViewInstance(asset, position, rotation);
+		}
+
+		public void SetParents(EntityView view, string group = null)
+		{
+			GameObject parent;
+			// Need to move to the parent, because when creating it will use the same scene as the current MonoBehaviour.
+			// And this is a service running on the main scene, with this line it will move to the same scene as the view
+			SceneManager.MoveGameObjectToScene(_viewParent, view.gameObject.scene);
+			if (group == null)
+			{
+				parent = _viewParent;
+			}
+			else if (!_entityViewGroups.TryGetValue(group, out parent))
+			{
+				parent = new GameObject($"{group}");
+				parent.transform.SetParent(_viewParent.transform);
+				_entityViewGroups[group] = parent;
+			}
+			view.transform.SetParent(parent.transform);
 		}
 
 		private new void Awake()
 		{
 			base.Awake();
-			
+
+			_viewParent = new GameObject("Views");
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
 			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
@@ -90,7 +122,7 @@ namespace FirstLight.Game.Services
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
-			
+
 			var f = msg.Game.Frames.Verified;
 
 			if (!f.Context.GameModeConfig.DeathMarker) return;
@@ -106,6 +138,7 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
+
 
 		private void LateUpdate()
 		{

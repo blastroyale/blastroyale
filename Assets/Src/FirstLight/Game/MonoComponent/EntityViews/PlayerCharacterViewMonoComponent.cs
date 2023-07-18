@@ -24,6 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
+		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
 		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
@@ -38,6 +39,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
+		private IMatchServices _matchServices;
+		private bool _playerFullyGrounded;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -48,7 +51,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// Requests the <see cref="PlayerRef"/> of this player
 		/// </summary>
 		public PlayerRef PlayerRef { get; private set; }
-
+		
 		private static class PlayerFloats
 		{
 			public static readonly AnimatorWrapper.Float DirX = new("DirX");
@@ -59,7 +62,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			BuildingVisibility = new();
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -75,10 +80,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerGearChanged>(this, HandlePlayerGearChanged);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, HandlePlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerSkydivePLF>(this, HandlePlayerSkydivePLF);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveFullyGrounded>(this, HandlePlayerSkydiveFullyGrounded);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
-
-			
 		}
 		
 		private void OnDestroy()
@@ -95,7 +99,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (culled)
 			{
-				AnimatorWrapper.Enabled = false;
+				if (_playerFullyGrounded)
+				{
+					AnimatorWrapper.Enabled = false;
+				}
+
 				foreach (var col in _colliders)
 				{
 					col.enabled = false;
@@ -131,14 +139,33 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_characterView.PrintFootsteps = active;
 		}
-
-
-		public void SetPlayerSilhouetteVisible(bool visible)
+		
+		private void HandleOnHealthChanged(EventOnHealthChanged evnt)
 		{
-			RenderersContainerProxy.SetRenderersLayer(
-				LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
+			if (Culled || evnt.Entity != EntityView.EntityRef || evnt.PreviousHealth <= evnt.CurrentHealth)
+			{
+				return;
+			}
 
-			_characterView.PrintFootsteps = visible;
+			AnimatorWrapper.SetTrigger(Triggers.Hit);
+			
+			if (_matchServices.SpectateService.SpectatedPlayer?.Value == null)
+			{
+				return;
+			}
+			
+			var localPlayer = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			if (evnt.Entity != localPlayer)
+			{
+				return;
+			}
+			
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(evnt.Entity, out var attackerView))
+			{
+				return;
+			}
+			
+			UpdateColor(GameConstants.Visuals.HIT_COLOR, 0.2f);
 		}
 
 		/// <summary>
@@ -171,6 +198,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				if (isSkydiving)
 				{
+					_playerFullyGrounded = false;
 					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
 				}
 				else
@@ -327,7 +355,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			AnimatorWrapper.Enabled = true;
 
 			AnimatorWrapper.SetTrigger(Triggers.Revive);
-			RenderersContainerProxy.SetRendererState(true);
+			RenderersContainerProxy.SetEnabled(true);
 		}
 
 		private void HandleOnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -342,7 +370,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				AnimatorWrapper.SetTrigger(Triggers.Revive);
 			}
 
-			RenderersContainerProxy.SetRendererState(false);
+			RenderersContainerProxy.SetEnabled(false);
 		}
 
 		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
@@ -363,7 +391,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			AnimatorWrapper.SetTrigger(Triggers.Special);
+			//TODO: bespoke animation for each special 
+			//AnimatorWrapper.SetTrigger(Triggers.Special);
 			TryStartAttackWithinVisVolume();
 		}
 
@@ -526,6 +555,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 			_lastPosition = currentPosition;
+
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == EntityRef)
+			{
+				Shader.SetGlobalVector(_playerPos, transform.position);
+			}
 		}
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)
@@ -536,6 +570,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			AnimatorWrapper.SetTrigger(Triggers.PLF);
+		}
+
+		private void HandlePlayerSkydiveFullyGrounded (EventOnPlayerSkydiveFullyGrounded callback)
+		{
+			if (EntityView.EntityRef != callback.Entity)
+			{
+				return;
+			}
+			
+			_playerFullyGrounded = true;
 		}
 
 		private void HandlePlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
@@ -583,21 +627,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 
 			rend.material.SetColor("_Color", Random.ColorHSV(0f, 1, 1, 1, 0.5f, 1));
-		}
-
-		/// <summary>www
-		/// Updates the color of the given character for the duration
-		/// </summary>
-		public void UpdateColor(Color color, float duration)
-		{
-			RenderersContainerProxy.SetColor(color);
-			StartCoroutine(EndBlink(duration));
-		}
-
-		private IEnumerator EndBlink(float duration)
-		{
-			yield return new WaitForSeconds(duration);
-			RenderersContainerProxy.SetColor(Color.white);
 		}
 	}
 }

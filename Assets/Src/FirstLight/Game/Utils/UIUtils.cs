@@ -75,7 +75,7 @@ namespace FirstLight.Game.Utils
 				viewportPoint.y = 1f - viewportPoint.y;
 			}
 
-			var screenPoint = Camera.main.ViewportToScreenPoint(viewportPoint);
+			var screenPoint = FLGCamera.Instance.MainCamera.ViewportToScreenPoint(viewportPoint);
 
 			// if viewportPoint.x = 1f ViewportToScreenPoint will return width as x, which should be width-1
 			screenPoint.x = Math.Max(screenPoint.x, 0);
@@ -175,14 +175,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Animates the scale up and than back down to 1
+		/// Animates the scale up and then back down to 1
 		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f)
+		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
 		{
 			var anim =
-				element.experimental.animation.Scale(amount, 150).OnCompleted(() =>
+				element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
 				{
-					element.experimental.animation.Scale(1f, 150).Start();
+					element.experimental.animation.Scale(1f, duration).Start();
 				});
 			anim.Start();
 			return anim;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5092011625378278942}
   - component: {fileID: 1030185097588863583}
   - component: {fileID: 1809153017118198891}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_chest_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,13 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
   _renderers:
   - {fileID: 1030185097588863583}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 1030185097588863583}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
 --- !u!1 &1052447930075331618
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8526267834197534927}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: SoldierArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +147,7 @@ GameObject:
   - component: {fileID: 817667953673257961}
   - component: {fileID: 8327055793795857791}
   - component: {fileID: 4712679073529432011}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Shoulder_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +198,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -235,13 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
   _renderers:
   - {fileID: 8327055793795857791}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 8327055793795857791}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
 --- !u!1 &8799486928355061532
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +248,7 @@ GameObject:
   - component: {fileID: 1381200751927049394}
   - component: {fileID: 6740627253512215805}
   - component: {fileID: 8014592885101991406}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MM_Shoulder_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +299,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -339,10 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}
   _renderers:
   - {fileID: 6740627253512215805}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 6740627253512215805}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 0577ac4a579f745759d97e7194c4f903, type: 2}

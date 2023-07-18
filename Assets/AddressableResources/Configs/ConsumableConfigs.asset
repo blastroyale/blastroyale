@@ -63,7 +63,7 @@ MonoBehaviour:
         - RawValue: 98304
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 127
       AssetRef:
         Id:
@@ -84,7 +84,7 @@ MonoBehaviour:
         - RawValue: 78643
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 128
       AssetRef:
         Id:
@@ -105,7 +105,7 @@ MonoBehaviour:
         - RawValue: 131072
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 20
       AssetRef:
         Id:
@@ -113,7 +113,7 @@ MonoBehaviour:
       ConsumableType: 3
       Amount:
         Default:
-          RawValue: 13107200
+          RawValue: 7864320
         Keys: []
         Values: []
       ConsumableCollectTime:
@@ -126,7 +126,7 @@ MonoBehaviour:
         - RawValue: 78643
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 21
       AssetRef:
         Id:
@@ -134,7 +134,7 @@ MonoBehaviour:
       ConsumableType: 3
       Amount:
         Default:
-          RawValue: 39321600
+          RawValue: 19660800
         Keys: []
         Values: []
       ConsumableCollectTime:
@@ -147,7 +147,7 @@ MonoBehaviour:
         - RawValue: 131072
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 17
       AssetRef:
         Id:
@@ -168,7 +168,7 @@ MonoBehaviour:
         - RawValue: 117965
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 18
       AssetRef:
         Id:
@@ -189,7 +189,7 @@ MonoBehaviour:
         - RawValue: 117965
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 106
       AssetRef:
         Id:
@@ -210,7 +210,7 @@ MonoBehaviour:
         - RawValue: 78643
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152
     - Id: 107
       AssetRef:
         Id:
@@ -231,4 +231,4 @@ MonoBehaviour:
         - RawValue: 131072
         - RawValue: 13107
       CollectableConsumablePickupRadius:
-        RawValue: 65536
+        RawValue: 49152

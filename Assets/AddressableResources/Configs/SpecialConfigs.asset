@@ -100,7 +100,7 @@ MonoBehaviour:
       Radius:
         RawValue: 0
       SpecialPower:
-        RawValue: 13107
+        RawValue: 0
       Speed:
         RawValue: 1048576
       MinRange:
@@ -136,7 +136,7 @@ MonoBehaviour:
       Radius:
         RawValue: 0
       SpecialPower:
-        RawValue: 13107
+        RawValue: 0
       Speed:
         RawValue: 1048576
       MinRange:
@@ -172,7 +172,7 @@ MonoBehaviour:
       Radius:
         RawValue: 180224
       SpecialPower:
-        RawValue: 52429
+        RawValue: 19660
       Speed:
         RawValue: 65536
       MinRange:

@@ -31,14 +31,14 @@ namespace FirstLight.Editor.Build
 			// Include graphics apis so device can pick best case
 			PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, true);
 			PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.iOS, true);
-			
+
 			// Always build using master IL2CPP for best performance
 			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, Il2CppCompilerConfiguration.Master);
 			PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Master);
 
 			// Smaller GC sweeps to avoid lag spikes
 			PlayerSettings.gcIncremental = true;
-			
+
 			// Faster
 			PlayerSettings.colorSpace = ColorSpace.Gamma;
 		}
@@ -46,10 +46,8 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Sets the symbols for the Unity build
 		/// </summary>
-		public static void ConfigureBuild()
+		public static void ConfigureBuild(string[] arguments)
 		{
-			var arguments = Environment.GetCommandLineArgs();
-
 			if (!FirstLightBuildUtil.TryGetBuildSymbolFromCommandLineArgs(out var buildSymbol, arguments))
 			{
 				Debug.LogError("Could not get build symbol from command line args.");
@@ -65,7 +63,7 @@ namespace FirstLight.Editor.Build
 			VersionEditorUtils.TrySetBuildNumberFromCommandLineArgs(arguments);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, buildSymbol, serverSymbol);
 			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, buildSymbol, serverSymbol);
-		
+
 			switch (buildSymbol)
 			{
 				case FirstLightBuildConfig.DevelopmentSymbol:
@@ -97,18 +95,27 @@ namespace FirstLight.Editor.Build
 		/// </summary>
 		public static async void AzureBuild()
 		{
-			ConfigureBuild();
-			await JenkinsBuild();
+			var args = Environment.GetCommandLineArgs();
+			ConfigureBuild(args);
+			await JenkinsBuild(args);
+		}
+
+
+		[MenuItem("FLG/Build/Store Azure Build")]
+		public static async void EditorBuild()
+		{
+			var args = "-flBuildSymbol STORE_BUILD -flBuildServer TESTNET_SERVER -flBuildNumber 3000 -flBuildFileName app".Split(" ");
+			ConfigureBuild(args);
+			await JenkinsBuild(args, false);
 		}
 
 
 		/// <summary>
 		/// Execute method for Jenkins builds
 		/// </summary>
-		public static async Task JenkinsBuild()
+		public static async Task JenkinsBuild(string[] arguments, bool quit = true)
 		{
 			var buildTarget = BuildTarget.NoTarget;
-			var arguments = Environment.GetCommandLineArgs();
 
 #if UNITY_ANDROID
 			buildTarget = BuildTarget.Android;
@@ -137,18 +144,18 @@ namespace FirstLight.Editor.Build
 
 			// Search all generic implementations to pre-compile them with IL2CPP
 			PlayerSettings.SetAdditionalIl2CppArgs("--generic-virtual-method-iterations=10");
-			
+
 			AddressableAssetSettings.BuildPlayerContent();
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(buildTarget, fileName, buildSymbol);
 			var buildReport = BuildPipeline.BuildPlayer(options);
-		
+
 			// Copy Dlls to a folder that will be publish as a pipeline artifact
 			await ArtifactCopier.Copy($"{Application.dataPath}/../BuildArtifacts/", ArtifactCopier.All);
-			
+
 			LogBuildReport(buildReport);
 
-			if (buildReport.summary.result != BuildResult.Succeeded)
+			if (buildReport.summary.result != BuildResult.Succeeded && quit)
 			{
 				EditorApplication.Exit(1);
 			}

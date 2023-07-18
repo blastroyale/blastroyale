@@ -61,6 +61,8 @@
                 <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
                 <ui:VisualElement name="SwitchIcon" class="weapon-display__switch-icon" />
                 <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
+                    <ui:VisualElement name="AmmoProgressBg" class="weapon-display__out-of-ammo-bg" />
+                    <ui:VisualElement name="GlowBlockCircle" class="weapon-display__out-of-ammo-bg-block" />
                     <FirstLight.Game.UIElements.RadialProgressElement name="AmmoProgress" progress="0.69" class="weapon-display__ammo-progress">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
                             <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />

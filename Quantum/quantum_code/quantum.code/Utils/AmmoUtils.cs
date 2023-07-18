@@ -35,5 +35,20 @@ namespace Quantum
 
 			return ammo;
 		}
+
+		/// <summary>
+		/// Returns the current ammo percentage for the player
+		/// If the player doesn't have a weapon it returns 0
+		/// </summary>
+		public static unsafe FP GetCurrentAmmoPercentage(Frame f, EntityRef player)
+		{
+			var pc = f.Unsafe.GetPointer<PlayerCharacter>(player);
+			var weapon = pc->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
+			if (!weapon.Weapon.IsValid())
+			{
+				return FP._0;
+			}
+			return !f.Unsafe.TryGetPointer<Stats>(player, out var stats) ? FP._0 : stats->CurrentAmmoPercent;
+		}
 	}
 }

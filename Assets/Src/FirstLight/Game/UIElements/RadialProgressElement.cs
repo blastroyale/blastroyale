@@ -29,6 +29,15 @@ namespace FirstLight.Game.UIElements
 				MarkDirtyRepaint();
 			}
 		}
+		public Color TrackColor
+		{
+			get => _trackColor;
+			set
+			{
+				_trackColor = value; 
+				MarkDirtyRepaint();
+			}
+		}
 
 		public RadialProgressElement()
 		{
@@ -43,6 +52,14 @@ namespace FirstLight.Game.UIElements
 			element.UpdateCustomStyles();
 		}
 
+		/// <summary>
+		/// Parse the variables from the style, this is useful for resetting to the original state
+		/// </summary>
+		public void ParseStyles()
+		{
+			UpdateCustomStyles();
+		}
+		
 		[SuppressMessage("ReSharper", "ConvertIfToOrExpression")]
 		[SuppressMessage("ReSharper", "ReplaceWithSingleAssignment.False")]
 		private void UpdateCustomStyles()

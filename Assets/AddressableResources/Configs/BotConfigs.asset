@@ -417,7 +417,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 26214
       DamageTakenMultiplier:
-        RawValue: 131072
+        RawValue: 262144
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:
@@ -451,7 +451,7 @@ MonoBehaviour:
       DamageDoneMultiplier:
         RawValue: 26214
       DamageTakenMultiplier:
-        RawValue: 131072
+        RawValue: 101580
       MinSpecialCooldown:
         RawValue: 1966080
       MaxSpecialCooldown:

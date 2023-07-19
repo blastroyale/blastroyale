@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		private RewardPanelView _trophiesView;
 		private RewardBPPanelView _bppView;
 
-		private bool _showingLeaderboards;
+		private bool _showRewards = true;
 
 		protected override void OnInitialized()
 		{
@@ -71,6 +71,9 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
+			
+			_nextButton.text = ScriptLocalization.UITShared.next;
+			
 			UpdateCharacter();
 			UpdatePlayerName();
 			UpdateLeaderboard();
@@ -105,7 +108,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextButtonClicked()
 		{
-			if (_showingLeaderboards)
+			if (_showRewards)
 			{
 				ShowRewards();
 			}
@@ -117,8 +120,6 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowLeaderboards()
 		{
-			_showingLeaderboards = true;
-			_nextButton.text = ScriptLocalization.UITShared.next;
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 			_rewardsPanel.style.display = DisplayStyle.None;
 		}
@@ -128,7 +129,7 @@ namespace FirstLight.Game.Presenters
 			_rewardsPanel.style.display = DisplayStyle.Flex;
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
-			_showingLeaderboards = false;
+			_showRewards = false;
 			_nextButton.text = ScriptLocalization.UITShared.leave;
 
 			AnimatePanels();
@@ -145,6 +146,14 @@ namespace FirstLight.Game.Presenters
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
+
+			if (rewards.Count == 0)
+			{
+				_showRewards = false;
+				_nextButton.text = ScriptLocalization.UITShared.leave;
+				
+				return;
+			}
 
 			// craft spice
 			var csReward = 0;
@@ -216,7 +225,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerName()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
+			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
+				? _matchServices.MatchEndDataService.Leader
+				: _matchServices.MatchEndDataService.LocalPlayer;
+			
+			if (playerRef == PlayerRef.None)
 			{
 				_playerNameText.text = "";
 				return;
@@ -226,7 +239,7 @@ namespace FirstLight.Game.Presenters
 			_playerName.RemoveModifiers();
 
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
-			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];
+			var localPlayerData = playerData[playerRef];
 
 			_playerNameText.text = "";
 
@@ -247,17 +260,18 @@ namespace FirstLight.Game.Presenters
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
 
-			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.PlayerName;
+			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.GetPlayerName();
 		}
 
 		private void UpdateLeaderboard()
 		{
 			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
 			{
-				Root.AddToClassList(UssSpectator);
+				//Root.AddToClassList(UssSpectator);
 			}
 
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
+			
 
 			entries.SortByPlayerRank(false);
 
@@ -301,20 +315,22 @@ namespace FirstLight.Game.Presenters
 
 		private async void UpdateCharacter()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
+			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
+				? _matchServices.MatchEndDataService.Leader
+				: _matchServices.MatchEndDataService.LocalPlayer;
+			
+			if (playerRef == PlayerRef.None)
 			{
 				_character.gameObject.SetActive(false);
 				return;
 			}
 
-			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(_matchServices.MatchEndDataService
-					.LocalPlayer))
+			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerRef))
 			{
 				return;
 			}
 
-			var playerData =
-				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
+			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
 			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
 

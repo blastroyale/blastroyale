@@ -56,8 +56,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0260127, y: 0.92046046, z: 5.286021}
-  m_Center: {x: -0.15257132, y: 0.43700022, z: 0.014272213}
+  m_Size: {x: 1.0260127, y: 1, z: 6.3}
+  m_Center: {x: -0.15257132, y: 0.5, z: -0.3}
 --- !u!114 &6889284691138984169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,16 +75,16 @@ MonoBehaviour:
     X:
       RawValue: 67240
     Y:
-      RawValue: 60323
+      RawValue: 65536
     Z:
-      RawValue: 346424
+      RawValue: 412876
   PositionOffset:
     X:
       RawValue: -9998
     Y:
-      RawValue: 28639
+      RawValue: 32768
     Z:
-      RawValue: 935
+      RawValue: -19660
   RotationOffset:
     X:
       RawValue: 0

@@ -265,11 +265,6 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateLeaderboard()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
-			{
-				//Root.AddToClassList(UssSpectator);
-			}
-
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 			
 

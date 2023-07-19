@@ -4086,7 +4086,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 138150
         Z:
@@ -4127,7 +4127,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 138150
         Z:
@@ -4168,7 +4168,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -356635
+          RawValue: 356634
         Y:
           RawValue: 138150
         Z:
@@ -4196,11 +4196,11 @@ MonoBehaviour:
           RawValue: 57605
       Position:
         X:
-          RawValue: -1635807
+          RawValue: -1850824
         Y:
           RawValue: 140083
         Z:
-          RawValue: -2344784
+          RawValue: -2013687
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4209,7 +4209,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -145096
+          RawValue: 145096
         Y:
           RawValue: 138150
         Z:
@@ -4237,11 +4237,11 @@ MonoBehaviour:
           RawValue: 57605
       Position:
         X:
-          RawValue: -1850824
+          RawValue: -1635807
         Y:
           RawValue: 140083
         Z:
-          RawValue: -2013687
+          RawValue: -2344784
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4250,7 +4250,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -145096
+          RawValue: 145096
         Y:
           RawValue: 138150
         Z:
@@ -4291,7 +4291,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 138150
         Z:
@@ -4852,11 +4852,11 @@ MonoBehaviour:
           RawValue: 18671
       Position:
         X:
-          RawValue: 2565894
+          RawValue: 2203671
         Y:
           RawValue: 80749
         Z:
-          RawValue: 2666393
+          RawValue: 2431162
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4865,7 +4865,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -150739
+          RawValue: 150739
         Y:
           RawValue: 78643
         Z:
@@ -4893,11 +4893,11 @@ MonoBehaviour:
           RawValue: 18671
       Position:
         X:
-          RawValue: 2231636
+          RawValue: 2537929
         Y:
           RawValue: 80749
         Z:
-          RawValue: 2449322
+          RawValue: 2648232
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4906,7 +4906,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -150739
+          RawValue: 150739
         Y:
           RawValue: 78643
         Z:
@@ -4934,11 +4934,11 @@ MonoBehaviour:
           RawValue: 18671
       Position:
         X:
-          RawValue: 2207574
+          RawValue: 2175512
         Y:
           RawValue: 80749
         Z:
-          RawValue: 2856750
+          RawValue: 2835929
       PhysicsMaterial:
         Id:
           Value: 0
@@ -4947,7 +4947,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -347575
+          RawValue: 347574
         Y:
           RawValue: 78643
         Z:
@@ -4988,7 +4988,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 78643
         Z:
@@ -5029,7 +5029,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 78643
         Z:
@@ -5070,7 +5070,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 78643
         Z:
@@ -5316,7 +5316,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 90612
         Z:
@@ -5357,7 +5357,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 90612
         Z:
@@ -5385,11 +5385,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: -2631872
+          RawValue: -2646412
         Y:
           RawValue: 91095
         Z:
-          RawValue: -1541104
+          RawValue: -1550546
       PhysicsMaterial:
         Id:
           Value: 0
@@ -5398,7 +5398,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -141587
+          RawValue: 141587
         Y:
           RawValue: 90612
         Z:
@@ -5426,11 +5426,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: -3091130
+          RawValue: -2934919
         Y:
           RawValue: 91342
         Z:
-          RawValue: -1020819
+          RawValue: -919375
       PhysicsMaterial:
         Id:
           Value: 0
@@ -5439,7 +5439,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -40406
+          RawValue: 40405
         Y:
           RawValue: 90612
         Z:
@@ -5467,11 +5467,11 @@ MonoBehaviour:
           RawValue: -62798
       Position:
         X:
-          RawValue: -2934918
+          RawValue: -3091131
         Y:
           RawValue: 91342
         Z:
-          RawValue: -919375
+          RawValue: -1020820
       PhysicsMaterial:
         Id:
           Value: 0
@@ -5480,7 +5480,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -40406
+          RawValue: 40405
         Y:
           RawValue: 90612
         Z:
@@ -5521,7 +5521,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -11796
+          RawValue: 11796
         Y:
           RawValue: 90612
         Z:
@@ -23746,34 +23746,34 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: -18613
+          RawValue: 18742
         Z:
           RawValue: 0
         W:
-          RawValue: 62837
+          RawValue: -62798
       Position:
         X:
-          RawValue: 1041693
+          RawValue: -2715877
         Y:
-          RawValue: 0
+          RawValue: 74371
         Z:
-          RawValue: 3620736
+          RawValue: 2086605
       PhysicsMaterial:
         Id:
           Value: 0
-      ShapeType: 4
+      ShapeType: 2
       SphereRadius:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 0
+          RawValue: 317430
         Y:
-          RawValue: 0
+          RawValue: 74371
         Z:
-          RawValue: 0
+          RawValue: 15354
       SmoothSphereMeshCollisions: 0
       StaticData:
-        Name: Buidling_Industrial_Large_CLLSN
+        Name: Wall_Base_Straight_CLLSN
         Tag: Untagged
         Layer: 0
         Asset:
@@ -23781,6 +23781,88 @@ MonoBehaviour:
             Value: 0
         IsTrigger: 0
         ColliderIndex: 578
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 18742
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -62798
+      Position:
+        X:
+          RawValue: -3114360
+        Y:
+          RawValue: 74371
+        Z:
+          RawValue: 1827827
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 74371
+        Z:
+          RawValue: 15354
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 579
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 18742
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -62798
+      Position:
+        X:
+          RawValue: -3636510
+        Y:
+          RawValue: 74371
+        Z:
+          RawValue: 1488740
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 317430
+        Y:
+          RawValue: 74371
+        Z:
+          RawValue: 15354
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Wall_Base_Straight_CLLSN
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 580
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -23821,7 +23903,48 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 579
+        ColliderIndex: 581
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: -18613
+        Z:
+          RawValue: 0
+        W:
+          RawValue: 62837
+      Position:
+        X:
+          RawValue: 1041693
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 3620736
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 4
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Buidling_Industrial_Large_CLLSN
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 582
         MutableMode: 0
       MutableMode: 0
     MapEntities: []

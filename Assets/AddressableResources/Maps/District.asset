@@ -8022,7 +8022,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -14975
+          RawValue: 14975
         Y:
           RawValue: 81412
         Z:
@@ -8063,7 +8063,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: -84523
+          RawValue: 84523
         Y:
           RawValue: 81412
         Z:
@@ -8719,7 +8719,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 12161
+          RawValue: 23592
         Y:
           RawValue: 62849
         Z:
@@ -15799,11 +15799,11 @@ MonoBehaviour:
           RawValue: 64672
       Position:
         X:
-          RawValue: -1454407
+          RawValue: -1455455
         Y:
           RawValue: 32768
         Z:
-          RawValue: 1420275
+          RawValue: 1417169
       PhysicsMaterial:
         Id:
           Value: 0
@@ -15816,7 +15816,7 @@ MonoBehaviour:
         Y:
           RawValue: 32768
         Z:
-          RawValue: -101253
+          RawValue: 101253
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Barricade_Concrete_LongCorner_PRFB (1)

@@ -638,7 +638,7 @@ MonoBehaviour:
       MaxAmmo: 48
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -679,7 +679,7 @@ MonoBehaviour:
       MaxAmmo: 90
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
       MaxAmmo: 297
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
       MaxAmmo: 200
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -802,7 +802,7 @@ MonoBehaviour:
       MaxAmmo: 75
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -884,7 +884,7 @@ MonoBehaviour:
       MaxAmmo: 200
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0

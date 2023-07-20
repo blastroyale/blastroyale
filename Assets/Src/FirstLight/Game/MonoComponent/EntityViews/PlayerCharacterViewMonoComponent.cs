@@ -398,8 +398,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)
 		{
+			var localPlayerRef = callback.Game.GetLocalPlayerRef();
+			
 			if (EntityView.EntityRef == callback.EntityLeader ||
-				callback.PlayersMatchData[callback.Game.GetLocalPlayerRef()].TeamId == callback.LeaderTeam)
+				(localPlayerRef != PlayerRef.None && callback.PlayersMatchData[localPlayerRef].TeamId == callback.LeaderTeam))
 			{
 				AnimatorWrapper.SetBool(Bools.Aim, false);
 				AnimatorWrapper.SetTrigger(Triggers.Victory);

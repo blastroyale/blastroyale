@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		private RewardPanelView _trophiesView;
 		private RewardBPPanelView _bppView;
 
-		private bool _showRewards = true;
+		private bool _showingLeaderboards;
 
 		protected override void OnInitialized()
 		{
@@ -71,8 +71,6 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			
-			_nextButton.text = ScriptLocalization.UITShared.next;
 			
 			UpdateCharacter();
 			UpdatePlayerName();
@@ -108,7 +106,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextButtonClicked()
 		{
-			if (_showRewards)
+			if (_showingLeaderboards)
 			{
 				ShowRewards();
 			}
@@ -120,6 +118,8 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowLeaderboards()
 		{
+			_showingLeaderboards = true;
+			_nextButton.text = ScriptLocalization.UITShared.next;
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 			_rewardsPanel.style.display = DisplayStyle.None;
 		}
@@ -129,7 +129,7 @@ namespace FirstLight.Game.Presenters
 			_rewardsPanel.style.display = DisplayStyle.Flex;
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
-			_showRewards = false;
+			_showingLeaderboards = false;
 			_nextButton.text = ScriptLocalization.UITShared.leave;
 
 			AnimatePanels();
@@ -146,15 +146,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-
-			if (rewards.Count == 0)
-			{
-				_showRewards = false;
-				_nextButton.text = ScriptLocalization.UITShared.leave;
-				
-				return;
-			}
-
+			
 			// craft spice
 			var csReward = 0;
 			if (rewards.ContainsKey(GameId.CS))
@@ -267,7 +259,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 			
-
 			entries.SortByPlayerRank(false);
 
 			foreach (var entry in entries)

@@ -120,7 +120,7 @@ MonoBehaviour:
       AirdropHeight:
         RawValue: 1310720
       MultiKillResetTime:
-        RawValue: 262144
+        RawValue: 983040
       BotsMaxDifficulty: 0
       NftDurabilityDropDays:
         RawValue: 458752

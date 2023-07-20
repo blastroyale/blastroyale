@@ -21,7 +21,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private const string CLIP_COLLECT = "collect";
 
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
-
 		[SerializeField, Required] private Animation _animation;
 
 		//[SerializeField, Required] private AnimationClip _spawnClip;
@@ -29,8 +28,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
-
-		private IMatchServices _matchServices;
 
 		private readonly Dictionary<EntityRef, CollectingData> _collectors = new();
 		private EntityRef _displayedCollector;
@@ -51,12 +48,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnDestroy()
 		{
-			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			MatchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		protected override void OnAwake()
 		{
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			MatchServices = MainInstaller.Resolve<IMatchServices>();
 
 			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
 			_animation.AddClip(_idleClip, CLIP_IDLE);
@@ -69,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnStoppedCollecting>(this, OnStoppedCollecting);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			MatchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			//disable mesh renderers before the object has been properly placed
 			foreach (var ren in GetComponentsInChildren<MeshRenderer>())
 			{
@@ -106,7 +103,27 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				if (originPos != displayPos && _spawnAnim)
 				{
-					StartCoroutine(goToPoint(Constants.CONSUMABLE_POPOUT_DURATION.AsFloat, originPos, displayPos));
+					StartCoroutine(GoToPoint(Constants.CONSUMABLE_POPOUT_DURATION.AsFloat, originPos, displayPos));
+				}
+			}
+
+			if (frame.TryGet<Consumable>(EntityView.EntityRef, out var consumable))
+			{
+				RefreshIndicator(frame, MatchServices.GetSpectatedPlayer().Entity, consumable.ConsumableType);
+				switch (consumable.ConsumableType)
+				{
+					case ConsumableType.Health:
+						QuantumEvent.Subscribe<EventOnHealthChanged>(this,
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Health));
+						break;
+					case ConsumableType.Ammo:
+						QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this,
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Ammo));
+						break;
+					case ConsumableType.Shield:
+						QuantumEvent.Subscribe<EventOnShieldChanged>(this,
+							c => RefreshIndicator(c.Game.Frames.Verified, c.Entity, ConsumableType.Shield));
+						break;
 				}
 			}
 
@@ -117,7 +134,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animation.Play(CLIP_IDLE);
 		}
 
-		private IEnumerator goToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
+		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)
+		{
+			if (!entity.IsValid || !f.Exists(entity) || !MatchServices.IsSpectatingPlayer(entity)) return;
+
+			var stats = f.Get<Stats>(entity);
+			_pickupCircle.gameObject.SetActive(!stats.IsConsumableStatFilled(type));
+		}
+
+		private IEnumerator GoToPoint(float moveTime, Vector3 startPos, Vector3 endPos)
 		{
 			if (Culled)
 			{
@@ -147,6 +172,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			RefreshVfx(next);
+
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			if (f.TryGet<Consumable>(EntityView.EntityRef, out var consumable))
+			{
+				RefreshIndicator(f, next.Entity, consumable.ConsumableType);
+			}
 		}
 
 		private void OnStartedCollecting(EventOnStartedCollecting callback)
@@ -164,7 +195,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_collectors[callback.PlayerEntity] = new CollectingData(startTime, endTime, isLargeCollectable);
 
-			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
+			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
 
 		private void OnStoppedCollecting(EventOnStoppedCollecting callback)
@@ -177,7 +208,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			_collectors.Remove(callback.PlayerEntity);
-			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
+			RefreshVfx(MatchServices.SpectateService.SpectatedPlayer.Value);
 		}
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
@@ -194,7 +225,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			transform.parent = null;
 
 			QuantumEvent.UnsubscribeListener(this);
-			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
+			MatchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 
 			// Animation of a collected collectable is disabled. We can enable it again if we need it
 			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.

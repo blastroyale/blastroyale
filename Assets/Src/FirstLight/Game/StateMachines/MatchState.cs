@@ -560,8 +560,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 			
-			Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"))?.gameObject.SetActive(true);
-			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
 			_services.VfxService.DespawnAll();
@@ -806,7 +804,7 @@ namespace FirstLight.Game.StateMachines
 				multiClient.RuntimePlayer[i] = new RuntimePlayer
 				{
 					PlayerName = $"Test Name {i}",
-					Skin = GameId.MalePunk,
+					Skin = GameId.MaleAssassin,
 					PlayerLevel = (uint) i,
 					NormalizedSpawnPosition = new FPVector2(i * FP._0_50),
 					Loadout = new[]

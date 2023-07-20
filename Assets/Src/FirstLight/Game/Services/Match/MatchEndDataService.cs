@@ -32,6 +32,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		PlayerRef LocalPlayer { get; }
 
+		PlayerRef Leader { get; }
+		
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
@@ -115,6 +117,9 @@ namespace FirstLight.Game.Services
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
+
+		public PlayerRef Leader { get; private set; }
+		
 		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		public PlayerRef LocalPlayer { get; private set; }
@@ -190,7 +195,9 @@ namespace FirstLight.Game.Services
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			LocalPlayer = game.GetLocalPlayerRef();
 
-			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out _, out _);
+			QuantumPlayerMatchData = gameContainer.GeneratePlayersMatchData(frame, out var leader, out _);
+
+			Leader = leader;
 
 			PlayerMatchData.Clear();
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)
@@ -262,6 +269,10 @@ namespace FirstLight.Game.Services
 
 		private void GetRewards(Frame frame, GameContainer gameContainer)
 		{
+			var playerRef = LocalPlayer == PlayerRef.None
+				? Leader
+				: LocalPlayer;
+			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var matchType = room?.GetMatchType() ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 
@@ -278,7 +289,7 @@ namespace FirstLight.Game.Services
 			var rewardSource = new RewardSource()
 			{
 				MatchData = QuantumPlayerMatchData,
-				ExecutingPlayer = LocalPlayer,
+				ExecutingPlayer = playerRef,
 				MatchType = matchType,
 				DidPlayerQuit = false,
 				GamePlayerCount = QuantumPlayerMatchData.Count()

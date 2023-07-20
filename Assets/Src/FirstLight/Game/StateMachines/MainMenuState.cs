@@ -149,13 +149,14 @@ namespace FirstLight.Game.StateMachines
 
 			initial.Transition().Target(homeCheck);
 			initial.OnExit(OpenUiVfxPresenter);
+			initial.OnExit(() => FLGCamera.Instance.PhysicsRaycaster.enabled = true);
 
 			homeCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			homeCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
-
+			
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
@@ -169,7 +170,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
 			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
-
+			
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
 			equipmentMenu.Nest(_equipmentMenuState.Setup).Target(homeCheck);
 			collectionMenu.Nest(_collectionMenuState.Setup).Target(homeCheck);
@@ -533,7 +534,7 @@ namespace FirstLight.Game.StateMachines
 			CloseTransitions();
 			
 			// Giving new skins to old players
-			if(!_gameDataProvider.CollectionDataProvider.IsItemOwned(new (GameId.MalePunk)))
+			if(!_gameDataProvider.CollectionDataProvider.IsItemOwned(new (GameId.MaleAssassin)))
 			{
 				_services.CommandService.ExecuteCommand(new GetNewSkinsCommand());
 			}
@@ -582,6 +583,7 @@ namespace FirstLight.Game.StateMachines
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 
+			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
@@ -597,6 +599,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 
+			FLGCamera.Instance.PhysicsRaycaster.enabled = false;
+			
 			// Delay to let the swipe animation finish its intro without being choppy
 			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
 

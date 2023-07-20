@@ -1,0 +1,23 @@
+schedules:
+  - cron: '0 3 * * *'
+    displayName: Daily store build
+    branches:
+      include:
+        - develop
+
+steps:
+  - checkout: none
+    persistCredentials: true
+  - task: TriggerBuild@4
+    inputs:
+      definitionIsInCurrentTeamProject: true
+      useSameSourceVersion: true
+      useSameBranch: true
+      waitForQueuedBuildsToFinish: false
+      cancelBuildsIfAnyFails: false
+      treatPartiallySucceededBuildAsSuccessful: false
+      downloadBuildArtifacts: false
+      buildDefinition: 'Game-Builds'
+      templateParameters: 'param_build_type: STORE_BUILD, param_server_environment: LIVE_TESTNET_SERVER, param_deploy_game_logic: false, param_run_testlab: false, param_run_unity_tests: false'
+      authenticationMethod: 'OAuth Token'
+      password: '$(System.AccessToken)'

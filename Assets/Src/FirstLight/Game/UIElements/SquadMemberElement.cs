@@ -129,6 +129,8 @@ namespace FirstLight.Game.UIElements
 
 			_damageAnimationHandle = _bg.schedule.Execute(_damageAnimation.Start);
 			_damageAnimationHandle.Pause();
+
+			this.Query().Build().ForEach(e => e.pickingMode = PickingMode.Ignore);
 		}
 
 		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl)

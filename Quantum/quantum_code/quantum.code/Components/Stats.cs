@@ -81,7 +81,29 @@ namespace Quantum
 		{
 			get => GetStatData(stat);
 		}
-	
+
+		public bool  IsConsumableStatFilled(ConsumableType type)
+		{
+			switch (type)
+			{
+				case ConsumableType.Health:
+					return CurrentHealth == GetStatData(StatType.Health).StatValue;
+				case ConsumableType.Shield:
+					return CurrentShield == GetStatData(StatType.Shield).StatValue;
+				case ConsumableType.ShieldCapacity:
+					return GetStatData(StatType.Shield).BaseValue ==
+						GetStatData(StatType.Shield).StatValue &&
+						CurrentShield == GetStatData(StatType.Shield).StatValue;
+				case ConsumableType.Ammo:
+					return CurrentAmmoPercent == 1;
+				case ConsumableType.Energy:
+					// I don't wanna deal with frames and players and energy is never filled anyway
+					// return playerCharacter.GetEnergyLevel(f) == f.GameConfig.PlayerMaxEnergyLevel;
+					return false;
+			}
+
+			return false;
+		}
 
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
@@ -283,7 +305,7 @@ namespace Quantum
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 			
 			var totalDamage = Math.Max(0, ((FP._1 - (armour / FP._100)) * spell->PowerAmount).AsInt);
-
+			
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
 

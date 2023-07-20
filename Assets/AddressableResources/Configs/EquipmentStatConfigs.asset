@@ -81,9 +81,9 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 11502
       AmmoCapacityRatioToBaseK:
-        RawValue: 14775
+        RawValue: 0
       ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Faction: 4

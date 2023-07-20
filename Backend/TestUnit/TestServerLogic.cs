@@ -45,7 +45,7 @@ public class TestServerLogic
 		var playerId = _server.GetTestPlayerID();
 		var oldState = _stateService.GetPlayerState(playerId).Result;
 		var oldPlayerData = oldState.DeserializeModel<CollectionData>();
-		var newSkin = GameId.FemalePunk;
+		var newSkin = GameId.FemaleAssassin;
 		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(newSkin) };
 		var newState = _cmdHandler.ExecuteCommand(playerId, cmd, oldState).Result;
 		var newPlayerData = newState.DeserializeModel<CollectionData>();

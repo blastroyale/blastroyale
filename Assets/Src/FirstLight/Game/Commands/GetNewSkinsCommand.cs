@@ -37,9 +37,9 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			TryGiveUpdatedItem(ctx, GameId.Male01Avatar, GameId.MalePunk);
+			TryGiveUpdatedItem(ctx, GameId.Male01Avatar, GameId.MaleAssassin);
 			TryGiveUpdatedItem(ctx, GameId.Male02Avatar, GameId.MaleSuperstar);
-			TryGiveUpdatedItem(ctx, GameId.Female01Avatar, GameId.FemalePunk);
+			TryGiveUpdatedItem(ctx, GameId.Female01Avatar, GameId.FemaleAssassin);
 			TryGiveUpdatedItem(ctx, GameId.Female02Avatar, GameId.FemaleSuperstar);
 		}
 	}

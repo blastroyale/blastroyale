@@ -22,7 +22,7 @@ namespace FirstLight.Game.Views
 		{
 			if (_mainCamera == null)
 			{
-				_mainCamera = Camera.main;
+				_mainCamera = FLGCamera.Instance.MainCamera;
 			}
 
 			_mainCameraTransform = _mainCamera.transform;

@@ -61,6 +61,8 @@
                 <ui:VisualElement name="AmmoGradient" class="weapon-display__ammo-gradient" />
                 <ui:VisualElement name="SwitchIcon" class="weapon-display__switch-icon" />
                 <ui:VisualElement name="Boomstick" class="weapon-display__weapon">
+                    <ui:VisualElement name="AmmoProgressBg" class="weapon-display__out-of-ammo-bg" />
+                    <ui:VisualElement name="GlowBlockCircle" class="weapon-display__out-of-ammo-bg-block" />
                     <FirstLight.Game.UIElements.RadialProgressElement name="AmmoProgress" progress="0.69" class="weapon-display__ammo-progress">
                         <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-weapon">
                             <ui:VisualElement name="WeaponRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-uncommon" />
@@ -93,7 +95,53 @@
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent">
-            <ui:VisualElement name="BlastedNotification" class="status-kill">
+            <ui:VisualElement name="BackgroundCyanTint" class="status-kill__background-cyan" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
+            <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: flex;">
+                <ui:VisualElement name="BlastGradient" class="status-kill__gradient" style="width: 1256px; left: -389px; rotate: -8deg; top: -241px; height: 611px;" />
+                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <ui:VisualElement name="BeastLabel" class="status-kill__beast-label" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                    <ui:VisualElement name="StarIcon" class="status-kill__star" style="left: -51px; top: -14px; width: 46px; height: 46px;" />
+                    <ui:VisualElement name="StarIcon2" class="status-kill__star" style="left: 114px; top: -52px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SkullIcon" class="status-kill__skull-beast">
+                    <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" style="width: 200px; height: 235px; left: -149px; top: -191px; display: none;" />
+                    <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart--beast" />
+                    <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart--beast" />
+                    <ui:VisualElement name="SkullShardBeast" class="status-kill__skull-beastpart" />
+                    <ui:VisualElement name="SkullShardTriple" class="status-kill__skull-bigpart--beast" />
+                    <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" style="rotate: 14deg; left: 2px; top: 7px;" />
+                    <ui:VisualElement name="BeastSpark" class="status-kill__skull-beast-spark" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+                        <ui:VisualElement name="BeastExplosion" class="status-kill__skull-beast-explosion" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="TripleBlastNotification" class="status-kill" style="display: none;">
+                <ui:VisualElement name="BlastGradient" class="status-kill__gradient" />
+                <ui:Label tabindex="-1" text="TRIPLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <ui:VisualElement name="SkullIcon" class="status-killl__skull-quadra">
+                    <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
+                    <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
+                    <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart--quadra" />
+                    <ui:VisualElement name="SkullShardTriple" class="status-kill__skull-quadra" />
+                    <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
+                    <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="DoubleBlastNotification" class="status-kill" style="display: none;">
+                <ui:VisualElement name="BlastGradient" class="status-kill__gradient" />
+                <ui:Label tabindex="-1" text="DOUBLE BLAST" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
+                <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
+                <ui:VisualElement name="SkullIcon" class="status-kill__skull">
+                    <ui:VisualElement name="SkullImpact" class="status-killer__skull-impact" />
+                    <ui:VisualElement name="SkullShardSmall" class="status-kill__skull-smallpart" />
+                    <ui:VisualElement name="SkullShardMiddle" class="status-kill__skull-middlepart" />
+                    <ui:VisualElement name="SkullShardDouble" class="status-kill__skull-double" />
+                    <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
+                    <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="BlastedNotification" class="status-kill" style="display: none;">
                 <ui:Label tabindex="-1" text="YOU BLASTED" display-tooltip-when-elided="true" name="BlastedLabel" class="status-kill__label" />
                 <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="status-kill__playername" />
                 <ui:VisualElement name="SkullIcon" class="status-kill__skull">

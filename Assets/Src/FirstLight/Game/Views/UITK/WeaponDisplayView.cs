@@ -12,12 +12,13 @@ namespace FirstLight.Game.Views.UITK
 {
 	public class WeaponDisplayView : UIView
 	{
-
-		private const string AMMO_TEXT = "{0} <sprite=\"UISpriteAsset\" name=\"AmmoIcon\">\n<size=70%>/ {1}";
-
 		private const string USS_SPRITE_RARITY = "sprite-equipmentcard__card-rarity-{0}";
 		private const string USS_SPRITE_FACTION = "sprite-equipmentcard__card-faction-{0}";
 		private const string USS_MELEE_WEAPON = "weapon-display--melee";
+		private const float LOW_AMMO_PERCENTAGE = 0.1f;
+		private const float DESATURATION_PERCENTAGE_AMMO_RADIAL_TRACK_ON_BACKGROUND = 0.5f;
+
+		public Gradient OutOfAmmoColors { get; set; }
 
 		private VisualElement _melee;
 		private VisualElement _weapon;
@@ -27,8 +28,11 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _factionIcon;
 		private VisualElement _switchIcon;
 		private RadialProgressElement _ammoProgress;
+		private VisualElement _outOfAmmoGlow;
 		private Label _ammoLabel;
 		private IValueAnimation _ammoLabelAnimation;
+		private IValueAnimation _outOfAmmoProgressAnimation;
+
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -50,7 +54,7 @@ namespace FirstLight.Game.Views.UITK
 			_factionIcon = _weapon.Q("FactionIcon").Required();
 			_ammoLabel = element.Q<Label>("Ammo").Required();
 			_ammoProgress = element.Q<RadialProgressElement>("AmmoProgress").Required();
-
+			_outOfAmmoGlow = element.Q<VisualElement>("AmmoProgressBg").Required();
 			_ammoProgress.Progress = 0f;
 
 			((ImageButton) element).clicked += () =>
@@ -91,6 +95,8 @@ namespace FirstLight.Game.Views.UITK
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			SetSlot(callback.Slot);
+			// need to update ammo because there is changes of the no ammo effect
+			UpdateAmmo(callback.Game.Frames.Verified, callback.Entity);
 		}
 
 		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
@@ -103,18 +109,31 @@ namespace FirstLight.Game.Views.UITK
 		private unsafe void UpdateAmmo(Frame f, EntityRef entity)
 		{
 			if (!f.Exists(entity)) return;
-			var stats = f.Unsafe.GetPointer<Stats>(entity);
-			_ammoProgress.Progress = stats->CurrentAmmoPercent.AsFloat;
-			
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 			var weapon = pc->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY];
+			var isPrimarySelected = pc->CurrentWeaponSlot == Constants.WEAPON_INDEX_PRIMARY;
 			if (!weapon.Weapon.IsValid())
 			{
+				StopOutOfAmmoAnimation(true);
+				SetLowAmmo(false);
 				return;
 			}
 
+			var ammoPct = AmmoUtils.GetCurrentAmmoPercentage(f, entity).AsFloat;
 			var currentAmmo = AmmoUtils.GetCurrentAmmoForGivenWeapon(f, entity, weapon);
-			
+			_ammoProgress.Progress = ammoPct;
+			if (currentAmmo == 0)
+			{
+				OutOfAmmo(isPrimarySelected);
+			}
+			else
+			{
+				StopOutOfAmmoAnimation(true);
+			}
+
+			// Low ammo glow effect 
+			SetLowAmmo(IsLowAmmo(ammoPct));
+
 			//TODO: this callback does not apply when you first spawn in for some reason, even though it should
 			_ammoLabel.text = currentAmmo.ToString();
 
@@ -122,6 +141,65 @@ namespace FirstLight.Game.Views.UITK
 			{
 				_ammoLabelAnimation = _ammoLabel.AnimatePing(2f, 10);
 			}
+		}
+
+		private bool IsLowAmmo(float percentage)
+		{
+			return percentage <= LOW_AMMO_PERCENTAGE;
+		}
+
+
+		public void SetLowAmmo(bool value)
+		{
+			_outOfAmmoGlow.SetVisibility(value);
+		}
+
+
+		private void StopOutOfAmmoAnimation(bool resetColor = false)
+		{
+			if (_outOfAmmoProgressAnimation != null)
+			{
+				_outOfAmmoProgressAnimation.Stop();
+				_outOfAmmoProgressAnimation = null;
+			}
+
+			if (resetColor)
+			{
+				_ammoProgress.ParseStyles();
+			}
+		}
+
+		private void OutOfAmmo(bool isPrimarySelected)
+		{
+			StopOutOfAmmoAnimation();
+			_ammoProgress.Progress = 0f;
+			var animation = _ammoProgress.experimental.animation.Start(0, 1, 3000, (element, f) =>
+			{
+				if (_outOfAmmoProgressAnimation == null)
+				{
+					return;
+				}
+
+				var color = OutOfAmmoColors.Evaluate(f);
+				if (!isPrimarySelected)
+				{
+					var multiplier = DESATURATION_PERCENTAGE_AMMO_RADIAL_TRACK_ON_BACKGROUND;
+					color = new Color(color.r * multiplier, color.g * multiplier, color.b * multiplier, color.a);
+				}
+
+				((RadialProgressElement) element).TrackColor = color;
+			});
+			animation.OnCompleted(() =>
+			{
+				// if there is another animation running stop the loop 
+				if (_outOfAmmoProgressAnimation != animation)
+				{
+					return;
+				}
+
+				OutOfAmmo(isPrimarySelected);
+			});
+			_outOfAmmoProgressAnimation = animation;
 		}
 
 		private void SetSlot(int slot)
@@ -154,6 +232,7 @@ namespace FirstLight.Game.Views.UITK
 
 				return;
 			}
+
 			_weaponRarity.AddToClassList(string.Format(USS_SPRITE_RARITY,
 				weapon.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
 

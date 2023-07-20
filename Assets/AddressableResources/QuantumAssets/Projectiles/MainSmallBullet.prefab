@@ -280,9 +280,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.868
       objectReference: {fileID: 0}
+    - target: {fileID: 1183240853461610061, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3170868912721614041, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
       propertyPath: m_Name
       value: Bullet03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215915580495562257, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5235275344944510885, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
       propertyPath: EmissionModule.enabled

@@ -480,9 +480,8 @@ namespace FirstLight.Game.Utils
 
 			foreach (var kvp in room.Players)
 			{
-				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-
-				if (!isSpectator)
+				kvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_SPECTATOR, out var isSpectator);
+				if (isSpectator is null or false)
 				{
 					playerAmount++;
 				}

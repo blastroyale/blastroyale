@@ -56,9 +56,11 @@ namespace FirstLight.Game.Presenters
 
 			var game = QuantumRunner.Default.Game;
 			var gameOver = game.IsGameOver();
-			var f = game.Frames.Verified;
-			var playersData = game.GeneratePlayersMatchDataLocal(out _, out var localWinner);
-			var localPlayer = playersData[game.GetLocalPlayerRef()];
+			var playersData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+
+
+			var localPlayerRef = game.GetLocalPlayerRef();
+			var localPlayer = localPlayerRef == PlayerRef.None ? playersData[leader] : playersData[localPlayerRef];
 
 			_matchEndTitle.SetDisplay(false);
 			_youChoseDeathTitle.SetDisplay(false);

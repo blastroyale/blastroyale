@@ -71,6 +71,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
+			
 			UpdateCharacter();
 			UpdatePlayerName();
 			UpdateLeaderboard();
@@ -145,7 +146,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-
+			
 			// craft spice
 			var csReward = 0;
 			if (rewards.ContainsKey(GameId.CS))
@@ -216,7 +217,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerName()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
+			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
+				? _matchServices.MatchEndDataService.Leader
+				: _matchServices.MatchEndDataService.LocalPlayer;
+			
+			if (playerRef == PlayerRef.None)
 			{
 				_playerNameText.text = "";
 				return;
@@ -226,7 +231,7 @@ namespace FirstLight.Game.Presenters
 			_playerName.RemoveModifiers();
 
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
-			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];
+			var localPlayerData = playerData[playerRef];
 
 			_playerNameText.text = "";
 
@@ -247,18 +252,13 @@ namespace FirstLight.Game.Presenters
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
 
-			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.PlayerName;
+			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.GetPlayerName();
 		}
 
 		private void UpdateLeaderboard()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
-			{
-				Root.AddToClassList(UssSpectator);
-			}
-
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-
+			
 			entries.SortByPlayerRank(false);
 
 			foreach (var entry in entries)
@@ -301,20 +301,22 @@ namespace FirstLight.Game.Presenters
 
 		private async void UpdateCharacter()
 		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
+			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
+				? _matchServices.MatchEndDataService.Leader
+				: _matchServices.MatchEndDataService.LocalPlayer;
+			
+			if (playerRef == PlayerRef.None)
 			{
 				_character.gameObject.SetActive(false);
 				return;
 			}
 
-			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(_matchServices.MatchEndDataService
-					.LocalPlayer))
+			if (!_matchServices.MatchEndDataService.PlayerMatchData.ContainsKey(playerRef))
 			{
 				return;
 			}
 
-			var playerData =
-				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
+			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
 			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
 

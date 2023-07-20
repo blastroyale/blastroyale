@@ -16,9 +16,13 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 #if DEBUG
-		var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+		var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+		var playerInt = (int) playerRef;
+		
+		var characterEntity = container->PlayersData[playerInt].Entity;
+			
 		var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
-		var spell = new Spell {Attacker = characterEntity, PowerAmount = uint.MaxValue};
+		var spell = new Spell {Attacker = characterEntity, PowerAmount = int.MaxValue};
 		stats->ReduceHealth(f, characterEntity, &spell);
 #else
 		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");

@@ -30,9 +30,9 @@ MonoBehaviour:
       BaseValue:
         RawValue: 3276800
       RarityMultiplier:
-        RawValue: 66191
+        RawValue: 65536
       LevelStepMultiplier:
-        RawValue: 852
+        RawValue: 1310
       CeilToInt: 1
     - StatType: 2
       BaseValue:

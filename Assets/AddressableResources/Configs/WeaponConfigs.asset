@@ -95,14 +95,14 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 5500000066000000
+      Specials: 5900000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
     - Id: 79
       FiringMode: 0
-      MaxAmmo: 300
+      MaxAmmo: 360
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -113,30 +113,30 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 30
+      MagazineSize: 60
       ReloadTime:
-        RawValue: 131072
+        RawValue: 216269
       AimingMovementSpeed:
-        RawValue: 65536
+        RawValue: 32768
       TapCooldown:
-        RawValue: 7864
+        RawValue: 49152
       AttackCooldown:
-        RawValue: 7864
+        RawValue: 62259
       PowerToDamageRatio:
-        RawValue: 16384
+        RawValue: 21627
       AttackHitSpeed:
         RawValue: 983040
-      MinAttackAngle: 17
+      MinAttackAngle: 5
       NumberOfShots: 1
-      NumberOfBursts: 1
+      NumberOfBursts: 6
       AttackRange:
-        RawValue: 458752
+        RawValue: 589824
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000066000000
+      Specials: 0a00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -177,7 +177,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 5900000055000000
+      Specials: 3e0000000a000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -201,7 +201,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 65536
+        RawValue: 52429
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
@@ -300,7 +300,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000066000000
+      Specials: 5500000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -324,7 +324,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 19661
+        RawValue: 13107
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
@@ -341,7 +341,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000055000000
+      Specials: 3e00000059000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -406,7 +406,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 65536
+        RawValue: 52429
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
@@ -464,7 +464,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 5500000066000000
+      Specials: 5900000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -488,7 +488,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 19661
+        RawValue: 13107
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
@@ -505,7 +505,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000055000000
+      Specials: 3e00000059000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -546,7 +546,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000066000000
+      Specials: 5500000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -628,7 +628,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 5900000055000000
+      Specials: 3e0000000a000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -710,6 +710,47 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
+      Specials: 5900000066000000
+      InitialAttackCooldown:
+        RawValue: 0
+      InitialAttackRampUpTime:
+        RawValue: 0
+    - Id: 78
+      FiringMode: 0
+      MaxAmmo: 300
+      BulletPrototype:
+        Id:
+          Value: 3582668498530828953
+      BulletHitPrototype:
+        Id:
+          Value: 0
+      BulletEndOfLifetimePrototype:
+        Id:
+          Value: 0
+      HitType: 0
+      MagazineSize: 30
+      ReloadTime:
+        RawValue: 131072
+      AimingMovementSpeed:
+        RawValue: 65536
+      TapCooldown:
+        RawValue: 7864
+      AttackCooldown:
+        RawValue: 7864
+      PowerToDamageRatio:
+        RawValue: 16384
+      AttackHitSpeed:
+        RawValue: 983040
+      MinAttackAngle: 17
+      NumberOfShots: 1
+      NumberOfBursts: 1
+      AttackRange:
+        RawValue: 458752
+      CanHitSameTarget: 1
+      SplashRadius:
+        RawValue: 0
+      SplashDamageRatio:
+        RawValue: 0
       Specials: 5500000066000000
       InitialAttackCooldown:
         RawValue: 0
@@ -756,9 +797,9 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
-    - Id: 78
+    - Id: 71
       FiringMode: 0
-      MaxAmmo: 300
+      MaxAmmo: 32
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -769,30 +810,30 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 30
+      MagazineSize: 2
       ReloadTime:
-        RawValue: 131072
+        RawValue: 81920
       AimingMovementSpeed:
-        RawValue: 65536
+        RawValue: 52429
       TapCooldown:
-        RawValue: 7864
+        RawValue: 13107
       AttackCooldown:
-        RawValue: 7864
+        RawValue: 19661
       PowerToDamageRatio:
-        RawValue: 16384
+        RawValue: 22938
       AttackHitSpeed:
         RawValue: 983040
-      MinAttackAngle: 17
-      NumberOfShots: 1
+      MinAttackAngle: 15
+      NumberOfShots: 5
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 327680
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e00000066000000
+      Specials: 3e00000059000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -833,48 +874,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 5900000055000000
-      InitialAttackCooldown:
-        RawValue: 0
-      InitialAttackRampUpTime:
-        RawValue: 0
-    - Id: 71
-      FiringMode: 0
-      MaxAmmo: 32
-      BulletPrototype:
-        Id:
-          Value: 3582668498530828953
-      BulletHitPrototype:
-        Id:
-          Value: 0
-      BulletEndOfLifetimePrototype:
-        Id:
-          Value: 0
-      HitType: 0
-      MagazineSize: 2
-      ReloadTime:
-        RawValue: 81920
-      AimingMovementSpeed:
-        RawValue: 52429
-      TapCooldown:
-        RawValue: 19661
-      AttackCooldown:
-        RawValue: 19661
-      PowerToDamageRatio:
-        RawValue: 22938
-      AttackHitSpeed:
-        RawValue: 983040
-      MinAttackAngle: 15
-      NumberOfShots: 5
-      NumberOfBursts: 1
-      AttackRange:
-        RawValue: 327680
-      CanHitSameTarget: 1
-      SplashRadius:
-        RawValue: 0
-      SplashDamageRatio:
-        RawValue: 0
-      Specials: 3e00000055000000
+      Specials: 3e0000000a000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -898,7 +898,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 65536
+        RawValue: 52429
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:

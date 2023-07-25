@@ -13,7 +13,7 @@ namespace FirstLight.Editor.SheetImporters
 	public class WeaponConfigsImporter : GoogleSheetConfigsAssetImporterBase<QuantumWeaponConfig, WeaponConfigs, CustomAssetConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=591888439";
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=130698866";
 
 		/// <summary>
 		/// Keeps bullet prototype field from maually being set without modifying it

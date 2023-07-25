@@ -824,7 +824,57 @@ MonoBehaviour:
   - Assets/Art/Models/Pickups/Might_pick_up.fbx
   - Assets/Art/Models/Pickups/Sheild_pick_up.fbx
   - Assets/Art/Models/Weapons/Melee/MW_WakHammer.fbx
-  uvOverlapAssetList: 00000000ffffffff01010000010100000101000001010000010100000101000001010000010100000101000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000101000001010000010100000101000001010000010100000000000001010000010100000000000001010000000000000101000000000000
+  - Assets/Art/Models/Environment/Outer Map assets/Shark_Tank_Geo.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/hazard_plane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/gate.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Ammo_box.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Cement_bollard.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Missile.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Mine.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Missile_Battery.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Bunny_Tank.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Crane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Main_construction_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Spare_tank_body.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/spare_tank_head.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Lamp_post.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank_Trap.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Barrel.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/gate_small_section.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Cement_barrier_broken_no_reinforcement.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Curved_Floor_Track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Spare_tank_track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Turret_head_loose.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Gun Construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank_under_construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Cement_barrier_broken.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Turret_head_loose.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_under_construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_Trap.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/spare_tank_head.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_body.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Shark_Tank_Geo.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile_Battery.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Mine.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Main_construction_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Lamp_post.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/hazard_plane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Gun Construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate_small_section.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Curved_Floor_Track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Crane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_bollard.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken_no_reinforcement.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
+  uvOverlapAssetList: 00000000ffffffff010100000101000001010000010100000101000001010000010100000101000001010000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000001010000010100000101000001010000010100000101000000000000010100000101000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 3070 Laptop GPU

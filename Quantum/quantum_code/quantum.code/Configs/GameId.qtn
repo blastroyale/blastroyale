@@ -157,7 +157,6 @@ enum GameIdGroup
 	Consumable = 19,
 	Collectable = 27,
 	Ammo = 7,
-	ShieldCapacity = 14,
 	Chest = 2,
 	Special = 21,
 	Destructible = 26,

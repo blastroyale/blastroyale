@@ -85,27 +85,6 @@ MonoBehaviour:
         - RawValue: 13107
       CollectableConsumablePickupRadius:
         RawValue: 49152
-    - Id: 128
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 2
-      Amount:
-        Default:
-          RawValue: 9830
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 131072
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 131072
-        - RawValue: 13107
-      CollectableConsumablePickupRadius:
-        RawValue: 49152
     - Id: 20
       AssetRef:
         Id:
@@ -114,90 +93,6 @@ MonoBehaviour:
       Amount:
         Default:
           RawValue: 7864320
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 78643
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 78643
-        - RawValue: 13107
-      CollectableConsumablePickupRadius:
-        RawValue: 49152
-    - Id: 21
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 3
-      Amount:
-        Default:
-          RawValue: 19660800
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 131072
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 131072
-        - RawValue: 13107
-      CollectableConsumablePickupRadius:
-        RawValue: 49152
-    - Id: 17
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 4
-      Amount:
-        Default:
-          RawValue: 6553600
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 117965
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 117965
-        - RawValue: 13107
-      CollectableConsumablePickupRadius:
-        RawValue: 49152
-    - Id: 18
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 4
-      Amount:
-        Default:
-          RawValue: 13107200
-        Keys: []
-        Values: []
-      ConsumableCollectTime:
-        Default:
-          RawValue: 117965
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 117965
-        - RawValue: 13107
-      CollectableConsumablePickupRadius:
-        RawValue: 49152
-    - Id: 106
-      AssetRef:
-        Id:
-          Value: 240296495379453662
-      ConsumableType: 5
-      Amount:
-        Default:
-          RawValue: 3276800
         Keys: []
         Values: []
       ConsumableCollectTime:

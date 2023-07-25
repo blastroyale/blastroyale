@@ -841,23 +841,11 @@ namespace FirstLight.Game.StateMachines
 
 			switch (collectableId)
 			{
-				case GameId.AmmoLarge:
-					audio = AudioId.LargeAmmoPickup;
-					break;
 				case GameId.AmmoSmall:
 					audio = AudioId.AmmoPickup;
 					break;
 				case GameId.Health:
 					audio = AudioId.HealthPickup;
-					break;
-				case GameId.ShieldCapacityLarge:
-					audio = AudioId.GearPickup;
-					break;
-				case GameId.ShieldCapacitySmall:
-					audio = AudioId.GearPickup;
-					break;
-				case GameId.ShieldLarge:
-					audio = AudioId.LargeShieldPickup;
 					break;
 				case GameId.ShieldSmall:
 					audio = AudioId.ShieldPickup;

@@ -32,7 +32,7 @@ MonoBehaviour:
       RarityMultiplier:
         RawValue: 65536
       LevelStepMultiplier:
-        RawValue: 1638
+        RawValue: 655
       CeilToInt: 1
     - StatType: 2
       BaseValue:

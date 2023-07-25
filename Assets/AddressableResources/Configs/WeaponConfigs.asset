@@ -136,7 +136,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -164,7 +164,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 85197
       PowerToDamageRatio:
-        RawValue: 163840
+        RawValue: 117965
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e0000000a000000
+      Specials: 3e00000055000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -259,7 +259,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -382,7 +382,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -587,7 +587,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -615,7 +615,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 85197
       PowerToDamageRatio:
-        RawValue: 163840
+        RawValue: 117965
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e0000000a000000
+      Specials: 3e00000055000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -669,7 +669,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -792,7 +792,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 0a00000066000000
+      Specials: 6e00000066000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:
@@ -861,7 +861,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 85197
       PowerToDamageRatio:
-        RawValue: 163840
+        RawValue: 117965
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 0
@@ -874,7 +874,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 3e0000000a000000
+      Specials: 3e00000055000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:

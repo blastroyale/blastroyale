@@ -841,7 +841,7 @@ MonoBehaviour:
   runsOptix6: 1
   runsOptix7: 1
   runsOIDN: 1
-  alwaysEnableRTX: 0
+  alwaysEnableRTX: 1
   checkerPreviewOn: 0
   rtSceneViewPreviewOn: 0
   renderSettingsBounces: 5

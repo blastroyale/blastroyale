@@ -679,6 +679,16 @@ MonoBehaviour:
         Id:
           Value: 2278935987200466095
       Address: QuantumAssets/Projectiles/SlimBullet.prefab[SlimBulletEntityView]
+    - Path: AddressableResources/AdventureAssets/MapObjects/VisVolume|EntityView
+      AssetRef:
+        Id:
+          Value: 2283147842969910057
+      Address: AdventureAssets/MapObjects/VisVolume.prefab[VisVolumeEntityView]
+    - Path: AddressableResources/AdventureAssets/MapObjects/VisVolume|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2338948153490005447
+      Address: AdventureAssets/MapObjects/VisVolume.prefab[VisVolumeEntityPrototype]
     - Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityPrototype
       AssetRef:
         Id:

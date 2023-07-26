@@ -77,7 +77,7 @@ MonoBehaviour:
       StaticData:
         Name: Coll_01 (3)
         Tag: Untagged
-        Layer: 7
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -435,6 +435,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -480,11 +481,11 @@ MonoBehaviour:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 147291
+            RawValue: 163840
           Y:
-            RawValue: 8695
+            RawValue: 32768
           Z:
-            RawValue: 142362
+            RawValue: 163840
         RotationOffset:
           X:
             RawValue: 0
@@ -496,7 +497,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 1
-      Layer: 17
+      Layer: 0
       IsTrigger: 1
       PhysicsMaterial:
         Id:
@@ -545,6 +546,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -590,11 +592,11 @@ MonoBehaviour:
             RawValue: 0
         BoxExtents:
           X:
-            RawValue: 147291
+            RawValue: 163840
           Y:
-            RawValue: 8695
+            RawValue: 32768
           Z:
-            RawValue: 142362
+            RawValue: 163840
         RotationOffset:
           X:
             RawValue: 0
@@ -606,7 +608,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 1
-      Layer: 17
+      Layer: 0
       IsTrigger: 1
       PhysicsMaterial:
         Id:
@@ -661,6 +663,7 @@ MonoBehaviour:
         RawValue: 0
       OpeningTime:
         RawValue: 131072
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -798,6 +801,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -924,6 +928,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1050,6 +1055,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1176,6 +1182,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1302,6 +1309,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1428,6 +1436,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1554,6 +1563,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1680,6 +1690,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1806,6 +1817,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -1932,6 +1944,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2058,6 +2071,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2184,6 +2198,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2310,6 +2325,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2436,6 +2452,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2562,6 +2579,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2688,6 +2706,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2814,6 +2833,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -2940,6 +2960,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3066,6 +3087,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3192,6 +3214,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3318,6 +3341,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3444,6 +3468,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3570,6 +3595,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3696,6 +3722,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3822,6 +3849,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -3948,6 +3976,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4074,6 +4103,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4200,6 +4230,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4326,6 +4357,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4452,6 +4484,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4578,6 +4611,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4704,6 +4738,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4830,6 +4865,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -4956,6 +4992,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5082,6 +5119,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5208,6 +5246,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5334,6 +5373,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5460,6 +5500,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5586,6 +5627,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5712,6 +5754,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5838,6 +5881,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -5952,6 +5996,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6066,6 +6111,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6180,6 +6226,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6294,6 +6341,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6408,6 +6456,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6522,6 +6571,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6631,6 +6681,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6710,6 +6761,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6789,6 +6841,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6868,6 +6921,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -6963,6 +7017,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7046,6 +7101,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7129,6 +7185,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7197,338 +7254,6 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1524236
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 381157
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1524236
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 299237
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1425932
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 299237
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1425932
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 381157
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
       RespawnTimeInSec: 1
       InitialSpawnDelayInSec: 0
       GameId:
@@ -7544,6 +7269,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7627,6 +7353,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7710,6 +7437,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -7781,338 +7509,6 @@ MonoBehaviour:
       RespawnTimeInSec: 5
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1327628
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 381157
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1327628
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 299237
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1229324
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 299237
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 128
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 1229324
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 381157
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
         Value: 107
       RarityModifier: 0
     CompoundBTAgent: []
@@ -8125,6 +7521,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8208,6 +7605,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8247,172 +7645,6 @@ MonoBehaviour:
     - Position:
         X:
           RawValue: 524
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: -306970
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 106
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 98828
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: -421658
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 106
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 98828
         Y:
           RawValue: 0
         Z:
@@ -8457,6 +7689,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8540,6 +7773,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8623,6 +7857,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8706,6 +7941,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8789,6 +8025,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8872,6 +8109,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -8955,6 +8193,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9038,6 +8277,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9121,6 +8361,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9204,6 +8445,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9287,6 +8529,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9370,6 +8613,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9453,6 +8697,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9536,6 +8781,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9619,6 +8865,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9702,6 +8949,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9785,6 +9033,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9868,6 +9117,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -9951,6 +9201,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10034,6 +9285,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10117,6 +9369,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10200,6 +9453,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10283,6 +9537,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10366,6 +9621,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10449,6 +9705,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10532,6 +9789,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -10603,338 +9861,6 @@ MonoBehaviour:
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 21
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -978452
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 494141
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 21
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -880148
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 494141
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 21
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -880148
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 395837
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 21
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -978452
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 395837
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 10
-      InitialSpawnDelayInSec: 0
-      GameId:
         Value: 20
       RarityModifier: 0
     CompoundBTAgent: []
@@ -10947,6 +9873,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11030,6 +9957,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11113,6 +10041,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11181,172 +10110,6 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 17
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -294387
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 151781
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
-      RespawnTimeInSec: 5
-      InitialSpawnDelayInSec: 0
-      GameId:
-        Value: 18
-      RarityModifier: 0
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    Gate: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    InsideVisibilityArea: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    Trigger: []
-    UTAgent: []
-    VisibilityArea: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: -294387
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: -192282
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner: []
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    ChestOverride: []
-    Collectable: []
-    CollectablePlatformSpawner:
-    - Collectable:
-        SceneIndexPlusOne: 0
-      NextSpawnTime:
-        RawValue: 0
-      SpawnCount: 0
       RespawnTimeInSec: 10
       InitialSpawnDelayInSec: 0
       GameId:
@@ -11362,6 +10125,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11445,6 +10209,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11528,6 +10293,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11611,6 +10377,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11694,6 +10461,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11777,6 +10545,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11860,6 +10629,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -11943,6 +10713,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12026,6 +10797,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12109,6 +10881,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12192,6 +10965,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12275,6 +11049,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12358,6 +11133,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12441,6 +11217,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12524,6 +11301,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12607,6 +11385,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12690,6 +11469,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12773,6 +11553,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12856,6 +11637,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -12939,6 +11721,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13022,6 +11805,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13105,6 +11889,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13188,6 +11973,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13271,6 +12057,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13354,6 +12141,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13437,6 +12225,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13520,6 +12309,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13603,6 +12393,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13686,6 +12477,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13769,6 +12561,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13852,6 +12645,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -13935,6 +12729,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14018,6 +12813,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14101,6 +12897,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14184,6 +12981,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14267,6 +13065,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14350,6 +13149,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14433,6 +13233,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14516,6 +13317,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14599,6 +13401,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14682,6 +13485,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14765,6 +13569,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14848,6 +13653,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -14931,6 +13737,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15014,6 +13821,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15097,6 +13905,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15180,6 +13989,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []
@@ -15263,6 +14073,7 @@ MonoBehaviour:
     GOAPAgent: []
     GameContainer: []
     Gate: []
+    GearOverwrite: []
     HFSMAgent: []
     Hazard: []
     Immunity: []

@@ -5087,3 +5087,343 @@ Symbol file LoadedFromMemory is not a mono symbol file
 Symbol file data-000001E7D8C4F280 doesn't match image C:\Users\user\Documents\blast-royale\Assets\Src\FirstLight\Server\Plugin\net48\FirstLightServerSDK.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 Symbol file LoadedFromMemory is not a mono symbol file
+WARNING: Database URL not set in the Firebase config.
+WARNING: Database URL not set in the Firebase config.
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for NewBRMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA40.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA50.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA20.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA10.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA30.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM00.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA41.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA51.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA21.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA11.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA31.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM01.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA42.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA52.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA22.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA12.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA32.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM02.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA43.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA53.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA23.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA13.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA33.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM03.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_final" 4 16 4 "gi_NewBRMap_LMA44.bin" "NewBRMap_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_final" 4 16 5 "gi_NewBRMap_LMA54.bin" "NewBRMap_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_final" 4 16 2 "gi_NewBRMap_LMA24.bin" "NewBRMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_final" 4 16 1 "gi_NewBRMap_LMA14.bin" "NewBRMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_final" 4 16 3 "gi_NewBRMap_LMA34.bin" "NewBRMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_final" 4 16 0 "gi_NewBRMap_LM04.bin" "NewBRMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "NewBRMap_LMA4_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" 1024 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "NewBRMap_LMA5_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "NewBRMap_LMA2_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "NewBRMap_LMA1_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "NewBRMap_LMA3_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "NewBRMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for NewBRMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA40.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA50.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA20.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA10.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA30.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM00.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA41.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA51.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA21.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA11.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA31.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM01.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA42.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA52.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA22.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA12.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA32.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM02.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA43.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA53.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA23.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA13.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA33.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM03.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_final" 4 16 4 "gi_NewBRMap_LMA44.bin" "NewBRMap_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_final" 4 16 5 "gi_NewBRMap_LMA54.bin" "NewBRMap_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_final" 4 16 2 "gi_NewBRMap_LMA24.bin" "NewBRMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_final" 4 16 1 "gi_NewBRMap_LMA14.bin" "NewBRMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_final" 4 16 3 "gi_NewBRMap_LMA34.bin" "NewBRMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_final" 4 16 0 "gi_NewBRMap_LM04.bin" "NewBRMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "NewBRMap_LMA4_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" 1024 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "NewBRMap_LMA5_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "NewBRMap_LMA2_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "NewBRMap_LMA1_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "NewBRMap_LMA3_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "NewBRMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for NewBRMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for NewBRMap_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_NewBRMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA40.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA50.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA20.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA10.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA30.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM00.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA41.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA51.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA21.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA11.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA31.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM01.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA42.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA52.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA22.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA12.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA32.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM02.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_diffuse" 4 16 4 "gi_NewBRMap_LMA43.bin" "NewBRMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_diffuse" 4 16 5 "gi_NewBRMap_LMA53.bin" "NewBRMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_diffuse" 4 16 2 "gi_NewBRMap_LMA23.bin" "NewBRMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_diffuse" 4 16 1 "gi_NewBRMap_LMA13.bin" "NewBRMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_diffuse" 4 16 3 "gi_NewBRMap_LMA33.bin" "NewBRMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_diffuse" 4 16 0 "gi_NewBRMap_LM03.bin" "NewBRMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA4_final" 4 16 4 "gi_NewBRMap_LMA44.bin" "NewBRMap_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA5_final" 4 16 5 "gi_NewBRMap_LMA54.bin" "NewBRMap_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA2_final" 4 16 2 "gi_NewBRMap_LMA24.bin" "NewBRMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA1_final" 4 16 1 "gi_NewBRMap_LMA14.bin" "NewBRMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LMA3_final" 4 16 3 "gi_NewBRMap_LMA34.bin" "NewBRMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "NewBRMap_LM0_final" 4 16 0 "gi_NewBRMap_LM04.bin" "NewBRMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "NewBRMap_LMA4_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" 1024 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "NewBRMap_LMA5_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "NewBRMap_LMA2_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "NewBRMap_LMA1_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "NewBRMap_LMA3_final_HDR.lz4"
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "NewBRMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting

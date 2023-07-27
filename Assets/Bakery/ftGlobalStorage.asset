@@ -84,7 +84,7 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
   - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
-  modifiedAssetPaddingHash: d6a958ff37b95672e937ed0448b5617d5a94b869c04dfff00e3911b0059613dfb4c2a69380ae03f892d09f6e8406a119d9398033db5634b7d939803395c2a693ba4608c8534ffff00ba3ddde1528c115cec12491d1c1249106a3ddde06a3ddde09a3ddded9398033f437ed04d9398033d9398033fe901ac285a6c8f7f8398033b0026bda1b3a8033da7d93631b3a803314f33a063367e2a8d1c124919f398033567e9363567e9363cdc12491b4c2a693377e93638c67e2a80cf43a06ecb4d8acde09ecc014f33a0608dc894b194efff0194efff0194efff0194efff080c5d89080c5d890e55031ee80c5d890f827c115f727c115f927c115feb209cebb4608c8f827c11514f33a06f1f23a06f160976f343fd3d97ac2a693
+  modifiedAssetPaddingHash: d6a958ff91b676c2e937ed04cdc134ccdd3dc6a8b4c2a693a824872540fde11480c5d89069847fdd9174515bad28f21cd9398033c44608c8d9398033d7c2a693c04dfff023c5d89056f23a06f827c1157e4dfff08cdb894b2009ecc02009ecc0bb7d9363d9398033e1c4d890d9398033d9398033fe901ac2787c5c3cde09ecc07d8f1ac2343fd3d96d67e2a8343fd3d9323fd3d9f83980338cdb894bc25031eeaf67e2a8af67e2a8cdc1249180c5d8904adc894b14f33a06be398033db216a04353fd3d9323fd3d93c4efff080c5d89080c5d89080c5d89080c5d890343fd3d9343fd3d93f3fd3d9343fd3d93367e2a898f23a063367e2a8907f93639f3980333367e2a8323fd3d914f33a06c08f1ac2383fd3d95dc5d890
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -472,7 +472,7 @@ MonoBehaviour:
     - GuardrailD
     - GuardrailB
     - GuardrailC
-    padding: 4d00000043000000310000004a000000
+    padding: 4d00000021000000180000004a000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - barricade_sandbags
@@ -483,22 +483,22 @@ MonoBehaviour:
     - Car_Chevvy_Purple_GEO
     - Car_Chevvy_Red_GEO
     - Car_Chevvy_Blue_GEO
-    padding: 2d0000005a0000002d0000002d000000
+    padding: 160000005a0000001600000016000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - Car_Convertable_Green_GEO
     - Car_Convertable_Orange_GEO
     - Car_Convertable_Blue_GEO
-    padding: 290000002900000029000000
+    padding: 140000001400000014000000
     unwrapper: 000000000000000000000000
   - meshName:
     - Barrier_Wild_Logs01
-    padding: 3a000000
+    padding: 1d000000
     unwrapper: 00000000
   - meshName:
     - Car_PickUp_Red_GEO
     - Car_PickUp_Blue_GEO
-    padding: 2200000022000000
+    padding: 1100000011000000
     unwrapper: 0000000000000000
   - meshName:
     - SatDish
@@ -507,11 +507,11 @@ MonoBehaviour:
     - Airial
     - ACduct
     - AC
-    padding: 5f000000230000000b000000b20000002d0000004d000000
+    padding: 2f0000001100000005000000590000001600000026000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - Car_TowTruck_GEO
-    padding: 1d000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - SatDish1
@@ -520,7 +520,7 @@ MonoBehaviour:
     - ACduct1
     - AC2
     - AC1
-    padding: 5f0000001c000000070000002d0000004d0000004d000000
+    padding: 2f0000000e00000003000000160000002600000026000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - VentPot2
@@ -528,13 +528,13 @@ MonoBehaviour:
     - Vent
     - Main
     - AC
-    padding: e6000000e60000007f000000090000004d000000
+    padding: 73000000730000003f0000000400000026000000
     unwrapper: 0000000000000000000000000000000000000000
   - meshName:
     - Wall_Base_Straight_GEO
     - Wall_Base_Corner_Long_GEO
     - Wall_Base_Corner_Short_GEO
-    padding: 2a0000002500000026000000
+    padding: 150000001200000013000000
     unwrapper: 000000000000000000000000
   - meshName:
     - DC_Grey
@@ -542,7 +542,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Prop_ShipBollard_GEO
-    padding: ef000000
+    padding: 77000000
     unwrapper: 00000000
   - meshName:
     - DC_Green
@@ -550,43 +550,43 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Statue_GEO
-    padding: 27000000
+    padding: 13000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficConeLine_GEO
-    padding: 75000000
+    padding: 3a000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_Fallen_GEO
-    padding: 58000000
+    padding: 2c000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_GEO
-    padding: 8d000000
+    padding: 46000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficCone_GEO
-    padding: cc000000
+    padding: 66000000
     unwrapper: 00000000
   - meshName:
     - side_walk_Curb
-    padding: 9d000000
+    padding: 4e000000
     unwrapper: 00000000
   - meshName:
     - pure_side_walk
-    padding: 98000000
+    padding: 4c000000
     unwrapper: 00000000
   - meshName:
     - rounded_side_walk
-    padding: 90000000
+    padding: 48000000
     unwrapper: 00000000
   - meshName:
     - full_corners
-    padding: 90000000
+    padding: 48000000
     unwrapper: 00000000
   - meshName:
     - rounded_corners_raised_platform_large
-    padding: 93000000
+    padding: 49000000
     unwrapper: 00000000
   - meshName:
     - DC_Red
@@ -594,7 +594,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Bush
-    padding: 80000000
+    padding: 40000000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
@@ -612,52 +612,52 @@ MonoBehaviour:
   - meshName:
     - Prop_Rubble_2_GEO
     - Prop_Rubble_1_GEO
-    padding: 3600000033000000
+    padding: 1b00000019000000
     unwrapper: 0000000000000000
   - meshName:
     - Prop_Sign_Motel_GEO
-    padding: 19000000
+    padding: 0c000000
     unwrapper: 00000000
   - meshName:
     - MoviePalace_Base_GEO
     - Top
-    padding: 0a00000009000000
+    padding: 0500000004000000
     unwrapper: 0000000000000000
   - meshName:
     - Clapperboard_1_GEO
-    padding: 0f000000
+    padding: 07000000
     unwrapper: 00000000
   - meshName:
     - Prop_SidewalkTree_Oak_GEO
-    padding: 3f000000
+    padding: 1f000000
     unwrapper: 00000000
   - meshName:
     - Clapperboard_2_Grp_Base
-    padding: 0f000000
+    padding: 07000000
     unwrapper: 00000000
   - meshName:
     - RadioShack_GEO
-    padding: 0a000000
+    padding: 05000000
     unwrapper: 00000000
   - meshName:
     - Tree_Palm_GEO
-    padding: 33000000
+    padding: 19000000
     unwrapper: 00000000
   - meshName:
     - Prop_BenchPark_GEO
-    padding: 98000000
+    padding: 4c000000
     unwrapper: 00000000
   - meshName:
     - Skull_R_Fence_pole
-    padding: 37000000
+    padding: 1b000000
     unwrapper: 00000000
   - meshName:
     - Mobile_Home_Red
-    padding: 17000000
+    padding: 0b000000
     unwrapper: 00000000
   - meshName:
     - Mobile_Home_Yellow
-    padding: 17000000
+    padding: 0b000000
     unwrapper: 00000000
   - meshName:
     - R_Fence_pole
@@ -665,114 +665,114 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - R_Fence_long_pannels
-    padding: 1d000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - R_fence_Long_no_pannel
-    padding: 21000000
+    padding: 10000000
     unwrapper: 00000000
   - meshName:
     - R_Bus
-    padding: 15000000
+    padding: 0a000000
     unwrapper: 00000000
   - meshName:
     - Teal_canopy
-    padding: 5a000000
+    padding: 2d000000
     unwrapper: 00000000
   - meshName:
     - yellow_flower
     - Red_flower
     - pink_flower
-    padding: 000100000001000000010000
+    padding: d50000000001000000010000
     unwrapper: 000000000000000000000000
   - meshName:
     - Brownstone_4_GEO
-    padding: 0c000000
+    padding: 06000000
     unwrapper: 00000000
   - meshName:
     - Base
-    padding: 0a000000
+    padding: 05000000
     unwrapper: 00000000
   - meshName:
     - DC_Grey
-    padding: 24000000
+    padding: 12000000
     unwrapper: 00000000
   - meshName:
     - DC_Red
-    padding: 1c000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - DC_Green
-    padding: 1c000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
-    padding: 1c000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - DC_Blue
-    padding: 1c000000
+    padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - Brownstone_Geo_Base
-    padding: 0e000000
+    padding: 07000000
     unwrapper: 00000000
   - meshName:
     - Brownstone_2_Base_Geo
-    padding: 0e000000
+    padding: 07000000
     unwrapper: 00000000
   - meshName:
     - broken_building_3
-    padding: 11000000
+    padding: 08000000
     unwrapper: 00000000
   - meshName:
     - Brownstone_Broken_1
-    padding: 0e000000
+    padding: 07000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowClean
-    padding: 66000000
+    padding: 33000000
     unwrapper: 00000000
   - meshName:
     - barricade_sandbags
-    padding: 65000000
+    padding: 32000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowDamage
-    padding: 67000000
+    padding: 33000000
     unwrapper: 00000000
   - meshName:
     - TrafficCone02
-    padding: a6000000
+    padding: 53000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_High
-    padding: 6e000000
+    padding: 37000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowCorner
-    padding: 66000000
+    padding: 33000000
     unwrapper: 00000000
   - meshName:
     - Motel_base_Geo
-    padding: 0a000000
+    padding: 05000000
     unwrapper: 00000000
   - meshName:
     - Base
-    padding: 14000000
+    padding: 0a000000
     unwrapper: 00000000
   - meshName:
     - Top
     - Base
-    padding: 0f0000000a000000
+    padding: 0700000005000000
     unwrapper: 0000000000000000
   - meshName:
     - Base_Geo
-    padding: 07000000
+    padding: 03000000
     unwrapper: 00000000
   - meshName:
     - Orange_canopy
-    padding: 31000000
+    padding: 18000000
     unwrapper: 00000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
@@ -922,7 +922,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 80000000
+  modifiedMeshPaddingArray: 10000000
   modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

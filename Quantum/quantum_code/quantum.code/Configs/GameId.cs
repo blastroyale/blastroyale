@@ -322,7 +322,8 @@ namespace Quantum
 					GameId.ModPistol, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -346,15 +347,14 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
 					GameId.ModSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Equipment
 					}.AsReadOnly()
 				},
 				{
@@ -377,7 +377,7 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Deprecated
 					}.AsReadOnly()
 				},
 				{
@@ -416,7 +416,8 @@ namespace Quantum
 					GameId.SciCannon, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -1091,9 +1092,8 @@ namespace Quantum
 						GameId.MausHelmet,
 						GameId.RoadHelmet,
 						GameId.ApoSMG,
-						GameId.ModRifle,
-						GameId.ModSniper,
-						GameId.SciPistol,
+						GameId.ModPistol,
+						GameId.SciCannon,
 						GameId.MouseAmulet,
 						GameId.TikTokAmulet,
 						GameId.MouseArmor,
@@ -1145,7 +1145,9 @@ namespace Quantum
 						GameId.ApoMinigun,
 						GameId.ModShotgun,
 						GameId.ModMachineGun,
+						GameId.ModRifle,
 						GameId.ModLauncher,
+						GameId.SciPistol,
 						GameId.SciBlaster,
 						GameId.SciNeedleGun,
 						GameId.SciRifle,

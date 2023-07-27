@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Car_Chevvy_Yellow_GEO","Car_Chevvy_Purple_GEO","Car_Chevvy_Red_GEO","Car_Chevvy_Blue_GEO"],"padding":[45,90,45,45],"unwrapper":[0,0,0,0]}'
+    - '#BAKERY{"meshName":["Car_Chevvy_Yellow_GEO","Car_Chevvy_Purple_GEO","Car_Chevvy_Red_GEO","Car_Chevvy_Blue_GEO"],"padding":[30,90,30,30],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

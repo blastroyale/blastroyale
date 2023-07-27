@@ -3835,7 +3835,7 @@ MonoBehaviour:
       RespawnTimeInSec: 0
       InitialSpawnDelayInSec: 2
       GameId:
-        Value: 92
+        Value: 88
       RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []

@@ -1,5 +1,123 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1425639489611013412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3969492349041656782}
+    m_Modifications:
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].ShapeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[0].BoxExtents.X.RawValue
+      value: 180224
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[0].BoxExtents.Y.RawValue
+      value: 65536
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[0].BoxExtents.Z.RawValue
+      value: 344064
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].BoxExtents.X.RawValue
+      value: 465305
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].BoxExtents.Y.RawValue
+      value: 65536
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].BoxExtents.Z.RawValue
+      value: 180224
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[0].PositionOffset.X.RawValue
+      value: -22937
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[0].PositionOffset.Z.RawValue
+      value: 45875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].PositionOffset.X.RawValue
+      value: -589824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].PositionOffset.Y.RawValue
+      value: 65536
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].PositionOffset.Z.RawValue
+      value: 209715
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987722, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_Name
+      value: VisVolume
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+--- !u!4 &9220188269070159789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+  m_PrefabInstance: {fileID: 1425639489611013412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2058354405585236776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,6 +283,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 10b0e3f2b5ef0c648842ed43d365a888, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4472595810677386262}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 10b0e3f2b5ef0c648842ed43d365a888, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9220188269070159789}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 10b0e3f2b5ef0c648842ed43d365a888, type: 3}
       insertIndex: -1

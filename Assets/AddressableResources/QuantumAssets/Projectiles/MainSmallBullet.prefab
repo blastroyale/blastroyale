@@ -98,11 +98,11 @@ MonoBehaviour:
           RawValue: 14417
       BoxExtents:
         X:
-          RawValue: 5898
+          RawValue: 7208
         Y:
           RawValue: 4914
         Z:
-          RawValue: 19660
+          RawValue: 37683
       RotationOffset:
         X:
           RawValue: 0
@@ -246,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 75594057579066822, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.169
+      value: 0.436
       objectReference: {fileID: 0}
     - target: {fileID: 75594057579066822, guid: d7148ab27b477064895c991ece43ae3e, type: 3}
       propertyPath: m_LocalRotation.w

@@ -29,7 +29,6 @@ namespace Quantum.Systems
 				
 			if (f.Time > charging->ChargeStartTime + charging->ChargeDuration)
 			{
-				f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->IsTrigger = false;
 				f.Remove<PlayerCharging>(filter.Entity);
 			}
 		}

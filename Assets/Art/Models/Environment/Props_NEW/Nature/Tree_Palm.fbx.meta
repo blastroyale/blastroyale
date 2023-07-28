@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Tree_Palm_GEO"],"padding":[51],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Tree_Palm_GEO"],"padding":[34],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

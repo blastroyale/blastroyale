@@ -84,7 +84,33 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
   - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
-  modifiedAssetPaddingHash: d6a958ff37b95672e937ed0448b5617d5a94b869c04dfff00e3911b0059613dfb4c2a69380ae03f892d09f6e8406a119d9398033db5634b7d939803395c2a693ba4608c8534ffff00ba3ddde1528c115cec12491d1c1249106a3ddde06a3ddde09a3ddded9398033f437ed04d9398033d9398033fe901ac285a6c8f7f8398033b0026bda1b3a8033da7d93631b3a803314f33a063367e2a8d1c124919f398033567e9363567e9363cdc12491b4c2a693377e93638c67e2a80cf43a06ecb4d8acde09ecc014f33a0608dc894b194efff0194efff0194efff0194efff080c5d89080c5d890e55031ee80c5d890f827c115f727c115f927c115feb209cebb4608c8f827c11514f33a06f1f23a06f160976f343fd3d97ac2a693
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_Trap.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken_no_reinforcement.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Turret_head_loose.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Crane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Gun Construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Lamp_post.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Mine.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/hazard_plane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate_small_section.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_bollard.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile_Battery.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/spare_tank_head.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Main_construction_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_body.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_under_construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Shark_Tank_Geo.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Decal 1.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/buildings/Cosmic comics.fbx
+  modifiedAssetPaddingHash: d6a958ff37b95672e937ed0448b5617d5a94b869c04dfff00e3911b00885ca88b4c2a69380ae03f892d09f6e8406a119d9398033db5634b7d939803395c2a693ba4608c8534ffff00ba3ddde1528c115cec12491d1c1249106a3ddde06a3ddde09a3ddded9398033f437ed04d9398033d9398033fe901ac2b697ad34f8398033b0026bda1b3a8033da7d93631b3a803314f33a063367e2a8d1c124919f398033567e9363567e9363cdc12491b4c2a693377e93638c67e2a80cf43a06ecb4d8acde09ecc014f33a0608dc894b194efff0194efff0194efff0194efff080c5d89080c5d890e55031ee80c5d890f827c115f727c115f927c115feb209cebb4608c8f827c11514f33a06f1f23a06f160976f343fd3d97ac2a69378c6d8902009ecc0bc4608c895c2a693abdb894b194efff0b05634b7377e9363e837ed04db5634b71c7e9363fd7d936309a3ddde5d398033377e93633f09ecc008dc894becc12491c668e2a81b3a80339c09ecc0b4c2a693f8398033567e936308a3ddde4adc894b
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -507,7 +533,7 @@ MonoBehaviour:
     - Airial
     - ACduct
     - AC
-    padding: 5f000000230000000b000000b20000002d0000004d000000
+    padding: 63000000250000000b000000b90000002f00000051000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - Car_TowTruck_GEO
@@ -612,7 +638,7 @@ MonoBehaviour:
   - meshName:
     - Prop_Rubble_2_GEO
     - Prop_Rubble_1_GEO
-    padding: 3600000033000000
+    padding: 360000003d000000
     unwrapper: 0000000000000000
   - meshName:
     - Prop_Sign_Motel_GEO
@@ -774,6 +800,110 @@ MonoBehaviour:
     - Orange_canopy
     padding: 31000000
     unwrapper: 00000000
+  - meshName:
+    - Tank_trap
+    padding: 5e000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_barrier_broken_no_reinforcement
+    padding: 48000000
+    unwrapper: 00000000
+  - meshName:
+    - Ammo_box
+    padding: 6f000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_barrier_broken
+    padding: 27000000
+    unwrapper: 00000000
+  - meshName:
+    - Turret_head_loose
+    padding: 42000000
+    unwrapper: 00000000
+  - meshName:
+    - Crane
+    padding: 1c000000
+    unwrapper: 00000000
+  - meshName:
+    - Barrel
+    padding: 89000000
+    unwrapper: 00000000
+  - meshName:
+    - Gun_construction
+    padding: 21000000
+    unwrapper: 00000000
+  - meshName:
+    - Lamp_post
+    padding: 7c000000
+    unwrapper: 00000000
+  - meshName:
+    - Mine
+    padding: ef000000
+    unwrapper: 00000000
+  - meshName:
+    - Spare_tank_track
+    padding: 2b000000
+    unwrapper: 00000000
+  - meshName:
+    - Tank_platform
+    padding: 35000000
+    unwrapper: 00000000
+  - meshName:
+    - hazard_plane
+    padding: 93000000
+    unwrapper: 00000000
+  - meshName:
+    - gate_small_section
+    padding: 4b000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_bollard
+    padding: 21000000
+    unwrapper: 00000000
+  - meshName:
+    - gate
+    padding: 3e000000
+    unwrapper: 00000000
+  - meshName:
+    - Missile_battery
+    padding: 24000000
+    unwrapper: 00000000
+  - meshName:
+    - Missile
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
+    - spare_tank_head
+    padding: 51000000
+    unwrapper: 00000000
+  - meshName:
+    - Main_construction_platform
+    padding: 0f000000
+    unwrapper: 00000000
+  - meshName:
+    - Spare_tank_body
+    padding: 20000000
+    unwrapper: 00000000
+  - meshName:
+    - Tank_under_construction
+    padding: 1d000000
+    unwrapper: 00000000
+  - meshName:
+    - Bunny_Tank
+    padding: 19000000
+    unwrapper: 00000000
+  - meshName:
+    - Shark_Tank
+    padding: 17000000
+    unwrapper: 00000000
+  - meshName:
+    - Curve
+    padding: 92000000
+    unwrapper: 00000000
+  - meshName:
+    - Cosmic_comics
+    padding: 10000000
+    unwrapper: 00000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
   - Assets/Bakery/examples/content/floor_lamp.FBX
@@ -874,12 +1004,16 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
   - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
   - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
-  uvOverlapAssetList: 00000000ffffffff010100000101000001010000010100000101000001010000010100000101000001010000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000001010000010100000101000001010000010100000101000000000000010100000101000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - Assets/Art/Models/Environment/Outer Map assets/buildings/Cosmic comics.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Decal 1.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Props/Hot dog cart.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Props/HDK.fbx
+  uvOverlapAssetList: 00000000ffffffff01010000010100000101000001010000010100000101000001010000010100000101000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000101000001010000010100000101000001010000010100000000000001010000010100000000000001010000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
-  gpuName: NVIDIA GeForce RTX 3070 Laptop GPU
-  runsNonRTX: 0
-  runsOptix5: 0
+  gpuName: NVIDIA GeForce RTX 2080 Ti
+  runsNonRTX: 1
+  runsOptix5: 1
   runsOptix6: 1
   runsOptix7: 1
   runsOIDN: 1
@@ -964,7 +1098,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 80000000
+  modifiedMeshPaddingArray: 42000000
   modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,9 +52,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
     - target: {fileID: 919132149155446097, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
       propertyPath: m_Name
       value: Mine Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03f3cd426d3f3544b855968eecc47a4b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

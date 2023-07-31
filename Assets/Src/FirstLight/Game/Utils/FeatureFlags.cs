@@ -82,6 +82,12 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		[Description("Start Test Game automatically")]
 		public bool StartTestGameAutomatically = false;
+
+		/// <summary>
+		/// Force authentication connection error
+		/// </summary>
+		[Description("Force Authentication Connection Error")]
+		public bool ForceAuthError = false;
 	}
 
 

@@ -23,6 +23,8 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
+		public static readonly int MaxAuthenticationRetries = 3;
+
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
 
@@ -71,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 
 			setupEnvironment.OnEnter(SetupBackendEnvironmentData);
 			setupEnvironment.Transition().Target(autoAuthCheck);
-				
+
 			autoAuthCheck.Transition().Condition(IsAsyncLogin).Target(asyncLoginWait);
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Target(authLoginGuest);
@@ -89,6 +91,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authFailEvent).Target(authFail);
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
+			postAuthCheck.Transition().Condition(() => _services.AuthenticationService.State.LastAttemptFailed).Target(authFail);
 			postAuthCheck.Transition().Condition(IsEnvironmentRedirect).Target(setupEnvironment);
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
@@ -112,8 +115,13 @@ namespace FirstLight.Game.StateMachines
 		private async Task AsyncDeviceLogin()
 		{
 			bool complete = false;
+			_services.AuthenticationService.State.StartedWithAccount = true;
 			_services.AuthenticationService.LoginWithDevice(r => { complete = true; },
-				(error) => { OnAuthFail(error, true); });
+				(error) =>
+				{
+					OnAuthFail(error, true);
+					complete = true;
+				});
 			await WaitFor(() => complete);
 		}
 
@@ -155,15 +163,15 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var title = "Login Timeout"; 
-				var desc = $"Please Retry";
+			var title = "Login Timeout";
+			var desc = $"Please Retry";
 #if UNITY_EDITOR
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-					ButtonOnClick = () => { _services.QuitGame("Close due to login error"); }
-				};
-				_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+				ButtonOnClick = () => { _services.QuitGame("Close due to login error"); }
+			};
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 #else
 				var button = new FirstLight.NativeUi.AlertButton
 				{
@@ -222,22 +230,73 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAuthSuccess(LoginData data)
 		{
+			_services.AuthenticationService.State.LastAttemptFailed = false;
 			_statechartTrigger(_authSuccessEvent);
 		}
 
 		private void OnAuthFail(PlayFabError error, bool automaticLogin)
 		{
-			_services.AuthenticationService.SetLinkedDevice(false);
-			OnPlayFabError(error, automaticLogin);
+			var hasAccount = _services.AuthenticationService.State.StartedWithAccount;
+			_services.AuthenticationService.State.LastAttemptFailed = true;
 
 			// If unauthorized/session ticket expired, try to re-log without moving the state machine
-			if ((HttpStatusCode) error.HttpCode == HttpStatusCode.Unauthorized)
+			var recoverable = IsAuthErrorRecoverable(error);
+			if (recoverable && _services.AuthenticationService.State.Retries < MaxAuthenticationRetries)
 			{
-				LoginWithDevice();
+				_services.AuthenticationService.State.Retries++;
+				if (hasAccount)
+				{
+					LoginWithDevice();
+				}
+				else
+				{
+					SetupLoginGuest();
+				}
+
 				return;
 			}
 
+			// Send error
+			OnPlayFabError(error, automaticLogin);
+
+			// Max retries exceeded, so don't reset the player account and let them try later!
+			if (recoverable && automaticLogin)
+			{
+				_uiService.CloseUi<LoadingScreenPresenter>();
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+					ButtonOnClick = () => _services.QuitGame("auth failed")
+				};
+
+				if (error.ErrorDetails != null)
+				{
+					FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
+				}
+
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, "Authentication failed try again later!",
+					false, confirmButton);
+				return;
+			}
+
+			_services.AuthenticationService.SetLinkedDevice(false);
 			_statechartTrigger(_authFailEvent);
+		}
+
+		public bool IsAuthErrorRecoverable(PlayFabError err)
+		{
+			if (err.Error is PlayFabErrorCode.ConnectionError or PlayFabErrorCode.FailedLoginAttemptRateLimitExceeded)
+			{
+				return true;
+			}
+
+			// If unauthorized/session ticket expired, try to re-log without moving the state machine
+			if ((HttpStatusCode) err.HttpCode == HttpStatusCode.Unauthorized)
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		private void OnPlayFabError(PlayFabError error, bool automaticLogin)

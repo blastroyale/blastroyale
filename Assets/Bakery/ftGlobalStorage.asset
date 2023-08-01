@@ -84,7 +84,7 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
   - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
-  modifiedAssetPaddingHash: d6a958ff6f492a7ce937ed047080d1957a0b8b9afa4dfff0e2033ca8ec3b9f2fd7c2a6935367d43ccd5ab7bda9ed214bd9398033d8c12491d939803327dc894b7e4dfff05bc2a69378c6d890af5634b7f327c115f727c11542dd894b42dd894b344ffff0d9398033323b8033d9398033d9398033fe901ac2d8771d2fe55031eebd8f1ac214f33a068109ecc014f33a06343fd3d93ec5d890f727c115a35031ee1b3a80331b3a8033cdc12491d7c2a693bb09ecc080c5d89075f23a06ecb4d8ac3f3fd3d9353fd3d95dc5d8903c4efff03c4efff03c4efff03c4efff03e3fd3d93e3fd3d9af67e2a83e3fd3d99d4dfff0465031ee38c2a693bc4608c8bb7d93639d4dfff0343fd3d9797e9363be90f534323fd3d99c09ecc0
+  modifiedAssetPaddingHash: d6a958ff6f492a7ce937ed047080d1957a0b8b9afa4dfff0e2033ca8ec3b9f2fd7c2a6935367d43ccd5ab7bda9ed214bd9398033d8c12491d939803327dc894b7e4dfff05bc2a69378c6d890af5634b7f327c115f727c11542dd894b42dd894b344ffff0d9398033e1c4d890d9398033d9398033fe901ac2d8771d2fe55031eebd8f1ac214f33a068109ecc014f33a06343fd3d93ec5d890f727c115a35031ee1b3a80331b3a8033cdc12491d7c2a693bb09ecc080c5d89075f23a06ecb4d8ac3f3fd3d9353fd3d95dc5d8903c4efff03c4efff03c4efff03c4efff03e3fd3d93e3fd3d9af67e2a83e3fd3d99d4dfff0465031ee38c2a693bc4608c8bb7d93639d4dfff0343fd3d9797e9363be90f534323fd3d99c09ecc0
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -594,7 +594,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Bush
-    padding: 55000000
+    padding: 40000000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
@@ -922,7 +922,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 16000000
+  modifiedMeshPaddingArray: 40000000
   modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

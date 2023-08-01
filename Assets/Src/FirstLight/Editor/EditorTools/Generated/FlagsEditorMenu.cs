@@ -30,6 +30,7 @@ Menu.SetChecked("FLG/Local Flags/Unblock NFTs only content", IsForceHasNfts);
 Menu.SetChecked("FLG/Local Flags/Unblock Equipment requirements", IsIgnoreEquipmentRequirementForRanked);
 Menu.SetChecked("FLG/Local Flags/Record quantum input", IsRecordQuantumInput);
 Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically);
+Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError);
 
 				Menu.SetChecked("FLG/Local Flags/Symbols/Enable bot debug visuals", IsBotDebug);
 
@@ -111,6 +112,18 @@ UpdateSelectionEnvironmentOverride();
 			}
 		}
 
+
+		private static bool IsForceAuthError
+		{
+			get => FeatureFlags.GetLocalConfiguration().ForceAuthError;
+			set
+			{
+				FeatureFlags.GetLocalConfiguration().ForceAuthError = value;
+				Debug.Log("Setting ForceAuthError to "+value);
+				FeatureFlags.SaveLocalConfig();
+			}
+		}
+
 		
 				private static bool IsBotDebug
 		{
@@ -165,6 +178,14 @@ UpdateSelectionEnvironmentOverride();
 		{
 			IsStartTestGameAutomatically = !IsStartTestGameAutomatically;
 			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Start Test Game automatically", IsStartTestGameAutomatically); };
+		}
+
+
+		[MenuItem("FLG/Local Flags/Force Authentication Connection Error", false, 5)]
+		private static void ToggleForceAuthError()
+		{
+			IsForceAuthError = !IsForceAuthError;
+			EditorApplication.delayCall += () => { Menu.SetChecked("FLG/Local Flags/Force Authentication Connection Error", IsForceAuthError); };
 		}
 
 		

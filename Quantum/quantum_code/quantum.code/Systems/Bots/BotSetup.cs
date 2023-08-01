@@ -82,7 +82,8 @@ namespace Quantum.Systems.Bots
 				DeathMakers = GameIdGroup.DeathMarker.GetIds(),
 				Gliders = GameIdGroup.Glider.GetIds(),
 				SkinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray(),
-				WeaponsPool = GameIdGroup.Weapon.GetIds().Where(id => id != GameId.Hammer).ToList(),
+				WeaponsPool = GameIdGroup.Weapon.GetIds().Where(id => id != GameId.Hammer
+																	  && !id.IsInGroup(GameIdGroup.Deprecated)).ToList(),
 				BotConfigs = GetBotConfigsList(f, baseTrophies),
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),

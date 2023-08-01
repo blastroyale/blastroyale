@@ -159,7 +159,7 @@ Material:
     - _add_or_blend: 0.071
     - _alpha_power: 2.45
     - _base_back_power: 1
-    - _base_front_power: 0.77
+    - _base_front_power: 0.21
     - _connect_base_alone: 0
     - _displace_power: 1
     - _dissolve: 1
@@ -184,8 +184,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive_color: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _base_back_color: {r: 1, g: 0, b: 0, a: 0}
-    - _base_front_color: {r: 10.985144, g: 2.6076555, b: 0.98451734, a: 0}
+    - _base_back_color: {r: 0.7169812, g: 0.07778571, b: 0.07778571, a: 0}
+    - _base_front_color: {r: 10.985143, g: 4.2708716, b: 1.0927631, a: 0}
     - _base_speed: {r: 1, g: 0, b: 0, a: 0}
     - _base_uv: {r: 1, g: 1, b: 0, a: 0}
     - _color_speed: {r: 1, g: 0, b: 1, a: 0}

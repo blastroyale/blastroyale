@@ -18,6 +18,8 @@
 Assets/Art/Fonts/**/*.asset filter=lfs diff=lfs merge=lfs -text
 Assets/AddressableResources/Scenes/**/*.asset filter=lfs diff=lfs merge=lfs -diff -merge
 Assets/Scenes/**/*.asset filter=lfs diff=lfs merge=lfs -diff -merge
+# Bakery
+*.hdr filter=lfs diff=lfs merge=lfs -text
 #Image
 *.[jJ][pP][gG] filter=lfs diff=lfs merge=lfs -text
 *.[jJ][pP][eE][gG] filter=lfs diff=lfs merge=lfs -text
@@ -54,4 +56,3 @@ Assets/Scenes/**/*.asset filter=lfs diff=lfs merge=lfs -diff -merge
 *.so filter=lfs diff=lfs merge=lfs -text
 *.srcaar filter=lfs diff=lfs merge=lfs -text
 * !text !filter !merge !diff
-*.hdr filter=lfs diff=lfs merge=lfs -text

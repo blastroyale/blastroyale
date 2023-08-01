@@ -36,7 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["SatDish1","Paving","Main","ACduct1","AC2","AC1"],"padding":[95,28,7,45,77,77],"unwrapper":[0,0,0,0,0,0]}'
+    - '#BAKERY{"meshName":["SatDish1","Paving","Main","ACduct1","AC2","AC1"],"padding":[63,18,4,30,51,51],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

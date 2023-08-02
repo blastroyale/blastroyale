@@ -36,7 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["barricade_concrete_LowClean"],"padding":[68],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["barricade_concrete_LowClean"],"padding":[64],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

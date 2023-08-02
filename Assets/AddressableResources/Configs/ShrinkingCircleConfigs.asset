@@ -18,7 +18,7 @@ MonoBehaviour:
       Guid:
         Value: 3083889286552435639
     QuantumConfigs:
-    - Key: 3868184
+    - Key: 3802648
       Step: 1
       Map: 108
       DelayTime:
@@ -29,6 +29,8 @@ MonoBehaviour:
         RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 32768
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -41,7 +43,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1425533
+    - Key: 1359997
       Step: 2
       Map: 108
       DelayTime:
@@ -52,6 +54,8 @@ MonoBehaviour:
         RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 19661
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
@@ -64,7 +68,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1447722
+    - Key: 1513258
       Step: 3
       Map: 108
       DelayTime:
@@ -75,6 +79,8 @@ MonoBehaviour:
         RawValue: 1638400
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 5898
       AirdropChance:
@@ -87,7 +93,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655307540
+    - Key: 655242004
       Step: 4
       Map: 108
       DelayTime:
@@ -98,6 +104,8 @@ MonoBehaviour:
         RawValue: 0
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 13107
       AirdropChance:
@@ -110,7 +118,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 1119018
+    - Key: 1053482
       Step: 1
       Map: 9
       DelayTime:
@@ -121,6 +129,8 @@ MonoBehaviour:
         RawValue: 3932160
       ShrinkingSizeK:
         RawValue: 36045
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -133,7 +143,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 983040
       AirdropChest: 19
-    - Key: 791487
+    - Key: 857023
       Step: 2
       Map: 9
       DelayTime:
@@ -144,6 +154,8 @@ MonoBehaviour:
         RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 32768
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 2621
       AirdropChance:
@@ -156,7 +168,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 983040
       AirdropChest: 19
-    - Key: 1000342
+    - Key: 934806
       Step: 3
       Map: 9
       DelayTime:
@@ -167,6 +179,8 @@ MonoBehaviour:
         RawValue: 983040
       ShrinkingSizeK:
         RawValue: 19661
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 3932
       AirdropChance:
@@ -179,7 +193,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2234840
+    - Key: 2300376
       Step: 4
       Map: 9
       DelayTime:
@@ -190,6 +204,8 @@ MonoBehaviour:
         RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 6554
       AirdropChance:
@@ -202,7 +218,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655307632
+    - Key: 655242096
       Step: 5
       Map: 9
       DelayTime:
@@ -213,6 +229,8 @@ MonoBehaviour:
         RawValue: 0
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 13107
       AirdropChance:
@@ -225,7 +243,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2164277
+    - Key: 2098741
       Step: 1
       Map: 65
       DelayTime:
@@ -236,6 +254,8 @@ MonoBehaviour:
         RawValue: 3932160
       ShrinkingSizeK:
         RawValue: 32768
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -248,7 +268,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 345790
+    - Key: 280254
       Step: 2
       Map: 65
       DelayTime:
@@ -259,6 +279,8 @@ MonoBehaviour:
         RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 19661
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 2621
       AirdropChance:
@@ -271,7 +293,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 642829
+    - Key: 577293
       Step: 3
       Map: 65
       DelayTime:
@@ -282,6 +304,8 @@ MonoBehaviour:
         RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 16384
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 3932
       AirdropChance:
@@ -294,7 +318,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1448336
+    - Key: 1513872
       Step: 4
       Map: 65
       DelayTime:
@@ -305,6 +329,8 @@ MonoBehaviour:
         RawValue: 1638400
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 6554
       AirdropChance:
@@ -317,7 +343,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655307576
+    - Key: 655242040
       Step: 5
       Map: 65
       DelayTime:
@@ -328,6 +354,8 @@ MonoBehaviour:
         RawValue: 0
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 13107
       AirdropChance:
@@ -340,7 +368,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2164229
+    - Key: 2098693
       Step: 1
       Map: 113
       DelayTime:
@@ -351,6 +379,8 @@ MonoBehaviour:
         RawValue: 3932160
       ShrinkingSizeK:
         RawValue: 32768
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -363,7 +393,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 345742
+    - Key: 280206
       Step: 2
       Map: 113
       DelayTime:
@@ -374,6 +404,8 @@ MonoBehaviour:
         RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 19661
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 2621
       AirdropChance:
@@ -386,7 +418,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 642877
+    - Key: 577341
       Step: 3
       Map: 113
       DelayTime:
@@ -397,6 +429,8 @@ MonoBehaviour:
         RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 16384
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 3932
       AirdropChance:
@@ -409,7 +443,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1448352
+    - Key: 1513888
       Step: 4
       Map: 113
       DelayTime:
@@ -420,6 +454,8 @@ MonoBehaviour:
         RawValue: 1638400
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 6554
       AirdropChance:
@@ -432,7 +468,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655307528
+    - Key: 655241992
       Step: 5
       Map: 113
       DelayTime:
@@ -443,6 +479,8 @@ MonoBehaviour:
         RawValue: 0
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 13107
       AirdropChance:
@@ -455,7 +493,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2164230
+    - Key: 2098694
       Step: 1
       Map: 114
       DelayTime:
@@ -466,6 +504,8 @@ MonoBehaviour:
         RawValue: 3932160
       ShrinkingSizeK:
         RawValue: 32768
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -478,7 +518,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 345741
+    - Key: 280205
       Step: 2
       Map: 114
       DelayTime:
@@ -489,6 +529,8 @@ MonoBehaviour:
         RawValue: 1966080
       ShrinkingSizeK:
         RawValue: 19661
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 2621
       AirdropChance:
@@ -501,7 +543,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 642878
+    - Key: 577342
       Step: 3
       Map: 114
       DelayTime:
@@ -512,6 +554,8 @@ MonoBehaviour:
         RawValue: 1310720
       ShrinkingSizeK:
         RawValue: 16384
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 3932
       AirdropChance:
@@ -524,7 +568,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1448355
+    - Key: 1513891
       Step: 4
       Map: 114
       DelayTime:
@@ -535,6 +579,8 @@ MonoBehaviour:
         RawValue: 1638400
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 6554
       AirdropChance:
@@ -547,7 +593,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655307531
+    - Key: 655241995
       Step: 5
       Map: 114
       DelayTime:
@@ -558,6 +604,8 @@ MonoBehaviour:
         RawValue: 0
       ShrinkingSizeK:
         RawValue: 66
+      NewSafeSpaceAreaSizeK:
+        RawValue: 65536
       MaxHealthDamage:
         RawValue: 13107
       AirdropChance:

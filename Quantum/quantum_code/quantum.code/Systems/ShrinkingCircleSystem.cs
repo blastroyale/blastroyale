@@ -100,8 +100,22 @@ namespace Quantum.Systems
 			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
 			circle->Damage = config.MaxHealthDamage;
 
+			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
+			var radiusDiff = circle->CurrentRadius - fitRadius;
+			var radiusToPickNewCenter = FP._0;
+
+			if (config.NewSafeSpaceAreaSizeK > FP._1)
+			{
+				radiusToPickNewCenter = FPMath.Min(circle->CurrentRadius,
+												   fitRadius + radiusDiff * (config.NewSafeSpaceAreaSizeK - FP._1));
+			}
+			else
+			{
+				radiusToPickNewCenter = FPMath.Max(0, fitRadius * config.NewSafeSpaceAreaSizeK);
+			}
+
 			QuantumHelpers.TryFindPosOnNavMesh(f, circle->CurrentCircleCenter.XOY,
-			                                   circle->CurrentRadius - circle->TargetRadius,
+											   radiusToPickNewCenter,
 			                                   out var targetPos);
 			circle->TargetCircleCenter = targetPos.XZ;
 

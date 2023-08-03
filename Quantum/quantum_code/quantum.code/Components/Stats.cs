@@ -291,7 +291,7 @@ namespace Quantum
 		/// <summary>
 		/// Reduces the health of this <paramref name="entity"/> based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell)
+		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell, bool ignoreShields = false)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{

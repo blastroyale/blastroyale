@@ -42,6 +42,7 @@ namespace Quantum
 		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
+		public bool UseRangedCam;
 		
 		/// <summary>
 		/// Requests if this config is from a melee weapon

@@ -98,6 +98,8 @@ namespace FirstLight.Game.Presenters
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 			var matchServices = MainInstaller.Resolve<IMatchServices>();
 
+			_gameServices.ControlsSetup.SetControlPositions(Root);
+			
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
 			root.Q("MatchStatus").Required().AttachView(this, out _matchStatusView);

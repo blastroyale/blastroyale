@@ -422,11 +422,11 @@
     height: 280px;
     position: absolute;
     background-image: var(--sprite-match__gradientwhite);
-    -unity-background-image-tint-color: rgba(255, 0, 0, 1);
+    -unity-background-image-tint-color: rgb(255, 0, 0);
 }
 
 .weapon-display__out-of-ammo-bg-block {
-    background-color: rgba(27, 27, 27, 1);
+    background-color: rgb(27, 27, 27);
     flex-grow: 1;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
@@ -767,6 +767,20 @@
     margin-right: 45px;
     align-items: center;
     justify-content: center;
+}
+
+
+.match-status__kills-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}
+
+
+.match-status__alive-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
 }
 
 .match-status__ping-bg {
@@ -1554,3 +1568,4 @@
     top: -66px;
     -unity-background-image-tint-color: rgb(0, 0, 0);
 }
+

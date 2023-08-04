@@ -104,7 +104,8 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead) ||
+				!f.Unsafe.TryGetPointer<Stats>(entity, out var deadStats))
 			{
 				return;
 			}
@@ -141,10 +142,9 @@ namespace Quantum.Systems
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
-				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
-				    !f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
+				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats))
 				{
-					return;
+					stats = deadStats;
 				}
 				
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;

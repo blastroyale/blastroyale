@@ -28,7 +28,11 @@ namespace Quantum.Systems
 			
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 			playerCharacter->Player = component->PlayerReference;
-			f.GetOrAddSingleton<GameContainer>().AddPlayer(f, playerCharacter->Player, entity, 0, 0, 0, 0, 0, -1);
+			f.GetOrAddSingleton<GameContainer>().AddPlayer(f,new PlayerCharacterSetup()
+			{
+				playerRef = playerCharacter->Player,
+				e = entity
+			});
 
 			f.Add(entity, targetable);
 			f.Add(entity, new Stats(component->Health, 0, 0, 0, component->Shields, component->Shields, 0, 0, 0, 0));

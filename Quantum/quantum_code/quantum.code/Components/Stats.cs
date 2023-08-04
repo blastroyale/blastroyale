@@ -291,7 +291,7 @@ namespace Quantum
 		/// <summary>
 		/// Reduces the health of this <paramref name="entity"/> based on the given <paramref name="spell"/> data
 		/// </summary>
-		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell, bool ignoreShields = false)
+		internal void ReduceHealth(Frame f, EntityRef entity, Spell* spell)
 		{
 			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
@@ -316,7 +316,7 @@ namespace Quantum
 			}
 
 			// If there's shields and we do not ignore shields in damage, then we reduce it first
-			if (previousShield > 0 && !ignoreShields)
+			if (previousShield > 0 && !spell->IgnoreShield)
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
 				

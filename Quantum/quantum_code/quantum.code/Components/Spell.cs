@@ -54,7 +54,7 @@ namespace Quantum
 			}
 
 			var s = this;
-			stats->ReduceHealth(f, Victim, &s, s.IgnoreShield);
+			stats->ReduceHealth(f, Victim, &s);
 		}
 
 		/// <summary>

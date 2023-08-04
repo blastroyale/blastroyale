@@ -162,7 +162,8 @@ namespace Quantum.Systems
 				OriginalHitPosition = position,
 				PowerAmount = (uint) damage,
 				TeamSource = Constants.TEAM_ID_NEUTRAL,
-				Victim = playerEntity
+				Victim = playerEntity,
+				IgnoreShield = true,
 			};
 			f.Add(newSpell, spell);
 			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->TakingCircleDamage = true;

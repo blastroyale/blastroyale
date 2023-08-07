@@ -7339,6 +7339,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/COIN
+      TermType: 0
+      Description: 
+      Languages:
+      - Coin
+      - 
+      - Moeda
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/COIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Coins
+      - 
+      - Moedas
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BPP
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Point
+      - 
+      - Ponto do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BPP_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Points
+      - 
+      - Pontos do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BigRoyaleTrios
       TermType: 0
       Description: 
@@ -13177,6 +13243,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITProfileScreen/profile
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYER PROFILE
+      - PLAYER PROFILE
+      - PLAYER PROFILE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -15348,6 +15425,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITRewards/
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/rewards_remaining
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS REMAINING
+      - 
+      - RECOMPENSAS RESTANTES
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/you_got
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU GOT
+      - 
+      - "VOC\xCA GANHOU"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/new
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/long_range
+      TermType: 0
+      Description: 
+      Languages:
+      - LONG RANGE
+      - 
+      - LONGA DISTANCIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/short_range
+      TermType: 0
+      Description: 
+      Languages:
+      - SHORT RANGE
+      - 
+      - CURTA DISTANCIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/account_deleted_desc
       TermType: 0
       Description: 
@@ -15905,6 +16048,17 @@ MonoBehaviour:
       - Cone Aim
       - 
       - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/hud_customization
+      TermType: 0
+      Description: 
+      Languages:
+      - Customize Hud
+      - Customize Hud
+      - Customizar Hud
       - 
       - 
       Flags: 0000000000
@@ -16929,7 +17083,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1690961757429
+    Google_LastUpdatedVersion: 1691174518363
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

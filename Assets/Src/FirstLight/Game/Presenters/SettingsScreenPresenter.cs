@@ -23,6 +23,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnClose;
 			public Action OnConnectIdClicked;
 			public Action OnServerSelectClicked;
+			public Action OnCustomizeHudClicked;
 			public Action OnDeleteAccountClicked;
 		}
 
@@ -34,6 +35,7 @@ namespace FirstLight.Game.Presenters
 		private Label _buildInfoLabel;
 		private Button _faqButton;
 		private Button _serverButton;
+		private Button _customizeHudButton;
 		private Button _logoutButton;
 		private Button _deleteAccountButton;
 		private Button _connectIdButton;
@@ -110,6 +112,8 @@ namespace FirstLight.Game.Presenters
 			// Footer buttons
 			_faqButton = root.Q<Button>("FAQButton");
 			_faqButton.clicked += _services.HelpdeskService.ShowFaq;
+			_customizeHudButton = root.Q<Button>("CustomizeHud");
+			_customizeHudButton.clicked += OpenCustomizeHud;
 			_serverButton = root.Q<Button>("ServerButton");
 			_serverButton.clicked += OpenServerSelect;
 
@@ -185,7 +189,11 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-
+		private void OpenCustomizeHud()
+		{
+			Data.OnCustomizeHudClicked();
+		}
+		
 		private void OpenServerSelect()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

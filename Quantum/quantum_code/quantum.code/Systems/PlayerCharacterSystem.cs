@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Core;
+using Quantum.Physics3D;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, IKCCCallbacks3D, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
@@ -104,7 +106,8 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker, QBoolean fromRoofDamage)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead) ||
+				!f.Unsafe.TryGetPointer<Stats>(entity, out var deadStats))
 			{
 				return;
 			}
@@ -141,10 +144,9 @@ namespace Quantum.Systems
 
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
-				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
-				    !f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
+				if (!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats))
 				{
-					return;
+					stats = deadStats;
 				}
 				
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
@@ -226,9 +228,25 @@ namespace Quantum.Systems
 			{
 				equipment = playerData.Loadout;
 			}
-			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Glider, teamId,
-				equipment, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()), null, f.Context.GameModeConfig.MinimumHealth);
+			var kccConfig = f.FindAsset<CharacterController3DConfig>(playerCharacter->KccConfigRef.Id);
+			var setup = new PlayerCharacterSetup()
+			{
+				e = playerEntity,
+				playerRef = playerRef,
+				spawnPosition = spawnTransform,
+				playerLevel = playerData.PlayerLevel,
+				trophies = playerData.PlayerTrophies,
+				skin = playerData.Skin,
+				deathMarker = playerData.DeathMarker,
+				glider = playerData.Glider,
+				teamId = teamId,
+				startingEquipment = equipment,
+				loadoutWeapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon()),
+				modifiers = null,
+				minimumHealth = f.Context.GameModeConfig.MinimumHealth,
+				KccConfig = kccConfig
+			};
+			playerCharacter->Init(f, setup);
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
@@ -324,7 +342,7 @@ namespace Quantum.Systems
 
 			kcc->Velocity = velocity;
 			
-			kcc->Move(f, filter.Entity, moveDirection);
+			kcc->Move(f, filter.Entity, moveDirection, this);
 		}
 
 		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
@@ -358,6 +376,16 @@ namespace Quantum.Systems
 					stats->ReduceHealth(f, filter.Entity, & spell);
 				}
 			}
+		}
+
+		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
+		{
+			return !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+		}
+
+		public void OnCharacterTrigger3D(FrameBase f, EntityRef character, Hit3D hit)
+		{
+		
 		}
 	}
 }

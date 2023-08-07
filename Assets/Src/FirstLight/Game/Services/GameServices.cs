@@ -1,3 +1,4 @@
+using BestHTTP.SecureProtocol.Org.BouncyCastle.Crmf;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
@@ -113,6 +114,8 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		
+		public IControlSetupService ControlsSetup { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -160,7 +163,9 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
-
+		
+		public IControlSetupService ControlsSetup { get; }
+		
 		public ICheatsService CheatsService { get; }
 
 		public string QuitReason { get; set; }
@@ -198,6 +203,7 @@ namespace FirstLight.Game.Services
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
+			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService, GameBackendService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);

@@ -27,14 +27,14 @@ MonoBehaviour:
     Radius:
       RawValue: 32768
     MaxPenetration:
-      RawValue: 6553
+      RawValue: 0
     PenetrationCorrection:
       RawValue: 32768
     Extent:
       RawValue: 0
     MaxContacts: 4
     LayerMask:
-      BitMask: 49335
+      BitMask: 49911
     UseManifoldNormal: 1
     AirControl: 1
     Acceleration:

@@ -243,46 +243,121 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2098741
+    - Key: 7502514
       Step: 1
       Map: 65
       DelayTime:
-        RawValue: 983040
+        RawValue: 2293760
       WarningTime:
         RawValue: 1310720
       ShrinkingTime:
-        RawValue: 3932160
+        RawValue: 4259840
       ShrinkingSizeK:
-        RawValue: 32768
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 1638
+        RawValue: 1311
       AirdropChance:
-        RawValue: 32768
+        RawValue: 52429
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 2490368
         Value2:
-          RawValue: 1835008
+          RawValue: 2686976
       AirdropDropDuration:
-        RawValue: 524288
+        RawValue: 655360
       AirdropChest: 19
-    - Key: 280254
+    - Key: 2783232
       Step: 2
       Map: 65
       DelayTime:
-        RawValue: 983040
+        RawValue: 0
       WarningTime:
-        RawValue: 1310720
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 1966080
+        RawValue: 2621440
       ShrinkingSizeK:
-        RawValue: 19661
+        RawValue: 45875
       NewSafeSpaceAreaSizeK:
-        RawValue: 65536
+        RawValue: 131072
       MaxHealthDamage:
-        RawValue: 2621
+        RawValue: 1966
+      AirdropChance:
+        RawValue: 52429
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 131072
+        Value2:
+          RawValue: 327680
+      AirdropDropDuration:
+        RawValue: 524288
+      AirdropChest: 19
+    - Key: 2978658
+      Step: 3
+      Map: 65
+      DelayTime:
+        RawValue: 0
+      WarningTime:
+        RawValue: 983040
+      ShrinkingTime:
+        RawValue: 2293760
+      ShrinkingSizeK:
+        RawValue: 45875
+      NewSafeSpaceAreaSizeK:
+        RawValue: 131072
+      MaxHealthDamage:
+        RawValue: 3277
+      AirdropChance:
+        RawValue: 52429
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 196608
+        Value2:
+          RawValue: 524288
+      AirdropDropDuration:
+        RawValue: 524288
+      AirdropChest: 19
+    - Key: 960050
+      Step: 4
+      Map: 65
+      DelayTime:
+        RawValue: 0
+      WarningTime:
+        RawValue: 983040
+      ShrinkingTime:
+        RawValue: 983040
+      ShrinkingSizeK:
+        RawValue: 45875
+      NewSafeSpaceAreaSizeK:
+        RawValue: 114688
+      MaxHealthDamage:
+        RawValue: 6554
+      AirdropChance:
+        RawValue: 52429
+      AirdropStartTimeRange:
+        Value1:
+          RawValue: 196608
+        Value2:
+          RawValue: 524288
+      AirdropDropDuration:
+        RawValue: 262144
+      AirdropChest: 19
+    - Key: 267548
+      Step: 5
+      Map: 65
+      DelayTime:
+        RawValue: 0
+      WarningTime:
+        RawValue: 983040
+      ShrinkingTime:
+        RawValue: 655360
+      ShrinkingSizeK:
+        RawValue: 42598
+      NewSafeSpaceAreaSizeK:
+        RawValue: 98304
+      MaxHealthDamage:
+        RawValue: 13107
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -293,46 +368,46 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 577293
-      Step: 3
+    - Key: 285136
+      Step: 6
       Map: 65
       DelayTime:
-        RawValue: 983040
+        RawValue: 0
       WarningTime:
-        RawValue: 1310720
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 1310720
+        RawValue: 655360
       ShrinkingSizeK:
-        RawValue: 16384
+        RawValue: 39322
       NewSafeSpaceAreaSizeK:
-        RawValue: 65536
+        RawValue: 81920
       MaxHealthDamage:
-        RawValue: 3932
-      AirdropChance:
         RawValue: 32768
+      AirdropChance:
+        RawValue: 0
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 0
         Value2:
-          RawValue: 1835008
+          RawValue: 0
       AirdropDropDuration:
-        RawValue: 524288
-      AirdropChest: 19
-    - Key: 1513872
-      Step: 4
+        RawValue: 0
+      AirdropChest: 13
+    - Key: 114697
+      Step: 7
       Map: 65
       DelayTime:
-        RawValue: 327680
+        RawValue: 0
       WarningTime:
         RawValue: 655360
       ShrinkingTime:
-        RawValue: 1638400
+        RawValue: 655360
       ShrinkingSizeK:
         RawValue: 66
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 49152
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -343,8 +418,8 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655242040
-      Step: 5
+    - Key: 655294470
+      Step: 8
       Map: 65
       DelayTime:
         RawValue: 655294464
@@ -357,7 +432,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 65536
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -493,15 +568,15 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 2098694
+    - Key: 3802630
       Step: 1
       Map: 114
       DelayTime:
-        RawValue: 983040
+        RawValue: 655360
       WarningTime:
-        RawValue: 1310720
+        RawValue: 983040
       ShrinkingTime:
-        RawValue: 3932160
+        RawValue: 2949120
       ShrinkingSizeK:
         RawValue: 32768
       NewSafeSpaceAreaSizeK:
@@ -512,19 +587,19 @@ MonoBehaviour:
         RawValue: 32768
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 851968
         Value2:
-          RawValue: 1835008
+          RawValue: 1441792
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 280205
+    - Key: 1359971
       Step: 2
       Map: 114
       DelayTime:
-        RawValue: 983040
+        RawValue: 524288
       WarningTime:
-        RawValue: 1310720
+        RawValue: 786432
       ShrinkingTime:
         RawValue: 1966080
       ShrinkingSizeK:
@@ -532,44 +607,19 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 2621
-      AirdropChance:
-        RawValue: 0
-      AirdropStartTimeRange:
-        Value1:
-          RawValue: 0
-        Value2:
-          RawValue: 0
-      AirdropDropDuration:
-        RawValue: 0
-      AirdropChest: 13
-    - Key: 577342
-      Step: 3
-      Map: 114
-      DelayTime:
-        RawValue: 983040
-      WarningTime:
-        RawValue: 1310720
-      ShrinkingTime:
-        RawValue: 1310720
-      ShrinkingSizeK:
-        RawValue: 16384
-      NewSafeSpaceAreaSizeK:
-        RawValue: 65536
-      MaxHealthDamage:
-        RawValue: 3932
+        RawValue: 3277
       AirdropChance:
         RawValue: 32768
       AirdropStartTimeRange:
         Value1:
-          RawValue: 1179648
+          RawValue: 655360
         Value2:
-          RawValue: 1835008
+          RawValue: 851968
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 1513891
-      Step: 4
+    - Key: 1513268
+      Step: 3
       Map: 114
       DelayTime:
         RawValue: 327680
@@ -582,7 +632,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 5898
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -593,8 +643,8 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655241995
-      Step: 5
+    - Key: 655241994
+      Step: 4
       Map: 114
       DelayTime:
         RawValue: 655294464

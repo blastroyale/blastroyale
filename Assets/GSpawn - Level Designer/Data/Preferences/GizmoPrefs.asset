@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9eb21e78e491724bbe54bc90b90b7b0, type: 3}
+  m_Name: GizmoPrefs
+  m_EditorClassIdentifier: 
+  _extrudeWireColor: {r: 1, g: 1, b: 1, a: 1}
+  _extrudeXAxisColor: {r: 0.85882354, g: 0.24313726, b: 0.11372549, a: 0.92941177}
+  _extrudeYAxisColor: {r: 0.6039216, g: 0.9529412, b: 0.28235295, a: 0.92941177}
+  _extrudeZAxisColor: {r: 0.22745098, g: 0.47843137, b: 0.972549, a: 0.92941177}
+  _extrudeSglAxisSize: 0.18
+  _extrudeCellWireColor: {r: 1, g: 1, b: 1, a: 1}
+  _extrudeCellFillColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+  _extrudeDblAxisSize: 0.04
+  _extrudeShowInfoText: 1
+  _extrudeSelectSpawned: 1
+  _mirrorPlaneSize: 2
+  _mirrorXYPlaneColor: {r: 0.22745098, g: 0.47843137, b: 0.972549, a: 0.4}
+  _mirrorYZPlaneColor: {r: 0.85882354, g: 0.24313726, b: 0.11372549, a: 0.4}
+  _mirrorZXPlaneColor: {r: 0.6039216, g: 0.9529412, b: 0.28235295, a: 0.4}
+  _mirrorPlaneBorderColor: {r: 0, g: 0, b: 0, a: 1}
+  _mirrorIndicatorWireColor: {r: 1, g: 1, b: 1, a: 0.3}
+  _mirrorIndicatorFillColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+  _mirrorSymmetricPairHighlightRadius: 80
+  _mirrorShowInfoText: 0

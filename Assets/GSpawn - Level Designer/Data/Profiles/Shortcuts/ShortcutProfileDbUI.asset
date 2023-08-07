@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e27222d292a6e941bf5d19338fcaeb3, type: 3}
+  m_Name: ShortcutProfileDbUI
+  m_EditorClassIdentifier: 
+  _categoryViewState: {fileID: 2701303063011011784, guid: 94351b1ff48034f98abc80b4f2f462bd, type: 2}
+  _shortcutViewState: {fileID: 2578286449503559893, guid: 94351b1ff48034f98abc80b4f2f462bd, type: 2}

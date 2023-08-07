@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8eb84aa7564a314baba325992456a32, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  _profileName: Default
+  _examplePrefab: {fileID: 0}
+  _ep_InnerCorner: {fileID: 0}
+  _ep_OuterCorner: {fileID: 0}
+  _ep_MidStraight: {fileID: 0}
+  _ep_FirstStraight: {fileID: 0}
+  _ep_LastStraight: {fileID: 0}
+  _ep_PillarInnerCornerBegin: {fileID: 0}
+  _ep_PillarInnerCornerEnd: {fileID: 0}
+  _ep_PillarOuterCornerBegin: {fileID: 0}
+  _ep_PillarOuterCornerEnd: {fileID: 0}
+  _ep_PillarInnerCornerMiddle: {fileID: 0}
+  _ep_PillarOuterCornerMiddle: {fileID: 0}
+  _wallProperties:
+    upAxis: 1
+    forwardAxis: 2
+    invertForwardAxis: 0
+    innerAxis: 0
+    invertInnerAxis: 0
+    height: 0
+    forwardSize: 0
+  _truncateForwardSize: 0
+  _spawnPillars: 0
+  _pillarProfileName: Default
+  _innerCornerRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _outerCornerRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _straightRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarMidStraightBeginRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarMidStraightEndRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarInnerCornerBeginRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarInnerCornerEndRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarOuterCornerBeginRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarOuterCornerEndRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarInnerCornerMiddleRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _pillarOuterCornerMiddleRT:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  _straight_ForwardPushDistance_Inner: 0
+  _straight_InnerPushDistance_Inner: 0
+  _straight_ForwardPushDistance_Outer: 0
+  _straight_InnerPushDistance_Outer: 0
+  _straightWallPrefabs: []
+  _innerCornerPrefabs: []
+  _outerCornerPrefabs: []

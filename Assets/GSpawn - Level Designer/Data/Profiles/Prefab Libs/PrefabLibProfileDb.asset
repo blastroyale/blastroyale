@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9211602111993257918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d78f77521bb1424d90dc20b0de9cee3, type: 3}
+  m_Name: PrefabLibProfileDbUI_LibViewState
+  m_EditorClassIdentifier: 
+  selectedItems:
+    _serializedList: []
+  collapsedItems:
+    _serializedList: []
+  selectRangeBeginId:
+    _guidString: 00000000-0000-0000-0000-000000000000
+  selectRangeEndId:
+    _guidString: 00000000-0000-0000-0000-000000000000
+  hasSelectRange: 0
+  scrollOffset: {x: 0, y: 0}
+  vertScrollHighValue: 0
+  vertScrollLowValue: 0
+--- !u!114 &-2283260711530238218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a9940f958e79347881876bc04c02dc, type: 3}
+  m_Name: PluginPrefabManagerUI_PrefabViewState
+  m_EditorClassIdentifier: 
+  selectedItems:
+    _serializedList: []
+  selectRangeBeginId:
+    _guidString: 00000000-0000-0000-0000-000000000000
+  selectRangeEndId:
+    _guidString: 00000000-0000-0000-0000-000000000000
+  hasSelectRange: 0
+  scrollOffset: {x: 0, y: 0}
+  vertScrollHighValue: 0
+  vertScrollLowValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe82a2417215724a9be3166910ed92e, type: 3}
+  m_Name: PrefabLibProfileDb
+  m_EditorClassIdentifier: 
+  _profiles:
+  - {fileID: 11400000, guid: 39f5192944bde44198b9c745bfbc7866, type: 2}
+  _activeProfile: {fileID: 11400000, guid: 39f5192944bde44198b9c745bfbc7866, type: 2}
+  _prefabCreationSettingsUI: {fileID: 0}
+  _objectGroupCreationSettingsUI: {fileID: 0}

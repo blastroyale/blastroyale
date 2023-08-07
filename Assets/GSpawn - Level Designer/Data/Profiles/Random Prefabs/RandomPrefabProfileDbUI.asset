@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011b7e0338e27084f81efeb717fa1eed, type: 3}
+  m_Name: RandomPrefabProfileDbUI
+  m_EditorClassIdentifier: 
+  _prefabPreviewScale: 0.7
+  _prefabViewState: {fileID: 8804432987260949236, guid: 8439b496e1dfe484e9192a28bc27f4f7, type: 2}

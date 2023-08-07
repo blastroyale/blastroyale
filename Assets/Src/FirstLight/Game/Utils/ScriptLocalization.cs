@@ -419,6 +419,8 @@ namespace I2.Loc
 			public static string ApoSniper 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ApoSniper"); } }
 			public static string Armor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Armor"); } }
 			public static string BLSTDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BLSTDescription"); } }
+			public static string BPP 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BPP"); } }
+			public static string BPP_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BPP_Plural"); } }
 			public static string BRGenesis 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BRGenesis"); } }
 			public static string BaseballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballArmor"); } }
 			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
@@ -435,8 +437,12 @@ namespace I2.Loc
 			public static string BossRobopedeAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossRobopedeAi"); } }
 			public static string BossSnakeAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossSnakeAi"); } }
 			public static string BossSpiderAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossSpiderAi"); } }
+			public static string COIN 		{ get{ return LocalizationManager.GetTranslation ("GameIds/COIN"); } }
 			public static string COINDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/COINDescription"); } }
+			public static string COIN_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/COIN_Plural"); } }
+			public static string CS 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CS"); } }
 			public static string CSDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CSDescription"); } }
+			public static string CS_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CS_Plural"); } }
 			public static string Casual 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Casual"); } }
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
@@ -1994,6 +2000,8 @@ namespace I2.Loc
 		    public const string ApoSniper = "GameIds/ApoSniper";
 		    public const string Armor = "GameIds/Armor";
 		    public const string BLSTDescription = "GameIds/BLSTDescription";
+		    public const string BPP = "GameIds/BPP";
+		    public const string BPP_Plural = "GameIds/BPP_Plural";
 		    public const string BRGenesis = "GameIds/BRGenesis";
 		    public const string BaseballArmor = "GameIds/BaseballArmor";
 		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
@@ -2010,8 +2018,12 @@ namespace I2.Loc
 		    public const string BossRobopedeAi = "GameIds/BossRobopedeAi";
 		    public const string BossSnakeAi = "GameIds/BossSnakeAi";
 		    public const string BossSpiderAi = "GameIds/BossSpiderAi";
+		    public const string COIN = "GameIds/COIN";
 		    public const string COINDescription = "GameIds/COINDescription";
+		    public const string COIN_Plural = "GameIds/COIN_Plural";
+		    public const string CS = "GameIds/CS";
 		    public const string CSDescription = "GameIds/CSDescription";
+		    public const string CS_Plural = "GameIds/CS_Plural";
 		    public const string Casual = "GameIds/Casual";
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";

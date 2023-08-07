@@ -354,7 +354,8 @@ namespace Quantum
 					GameId.ModSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.LongRange
 					}.AsReadOnly()
 				},
 				{
@@ -369,7 +370,8 @@ namespace Quantum
 					GameId.ModHeavyMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.LongRange
 					}.AsReadOnly()
 				},
 				{
@@ -417,7 +419,8 @@ namespace Quantum
 					{
 						GameIdGroup.Weapon,
 						GameIdGroup.Equipment,
-						GameIdGroup.Simple
+						GameIdGroup.Simple,
+						GameIdGroup.LongRange
 					}.AsReadOnly()
 				},
 				{
@@ -1153,6 +1156,14 @@ namespace Quantum
 						GameId.SciRifle,
 						GameId.SciSniper,
 						GameId.SciMelter
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.LongRange, new List<GameId>
+					{
+						GameId.ModSniper,
+						GameId.ModHeavyMachineGun,
+						GameId.SciCannon
 					}.AsReadOnly()
 				},
 				{

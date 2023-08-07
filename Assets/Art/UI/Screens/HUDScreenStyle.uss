@@ -1317,7 +1317,7 @@
 
 .status-areashrinking {
     color: rgb(255, 255, 255);
-    font-size: 44px;
+    font-size: 52px;
     -unity-text-align: middle-center;
     -unity-text-outline-color: rgb(47, 44, 63);
     position: absolute;

@@ -144,6 +144,7 @@ enum GameIdGroup
 	Weapon = 11,
 	Melee = 20,
 	Deprecated = 34,
+	LongRange = 14,
 	Amulet = 16,
 	Armor = 17,
 	Shield = 15,

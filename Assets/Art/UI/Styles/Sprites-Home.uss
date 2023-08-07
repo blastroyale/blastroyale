@@ -95,6 +95,7 @@
     --sprite-home__character-malecorpos: url('/Assets/Art/UI/Sprites/Home/character-malecorpos.png');
     --sprite-home__character-malepunk: url('/Assets/Art/UI/Sprites/Home/character-malepunk.png');
     --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
+    --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
     --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
@@ -172,12 +173,17 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
+    --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
+    --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
+    --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
+    --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
+    --sprite-home__weapon-placeholder: url('/Assets/Art/UI/Sprites/Home/weapon-placeholder.png');
 }
 
 .sprite-home__background-avatar-nft {
@@ -706,6 +712,12 @@
     height: 256px;
 }
 
+.sprite-home__dark-pattern-piece {
+    background-image: var(--sprite-home__dark-pattern-piece);
+    width: 43px;
+    height: 483px;
+}
+
 .sprite-home__flag-demon {
     background-image: var(--sprite-home__flag-demon);
     width: 324px;
@@ -1162,6 +1174,24 @@
     height: 14px;
 }
 
+.sprite-home__rewards-gradient-purple {
+    background-image: var(--sprite-home__rewards-gradient-purple);
+    width: 200px;
+    height: 200px;
+}
+
+.sprite-home__reward-slot {
+    background-image: var(--sprite-home__reward-slot);
+    width: 270px;
+    height: 270px;
+}
+
+.sprite-home__tag-body {
+    background-image: var(--sprite-home__tag-body);
+    width: 30px;
+    height: 30px;
+}
+
 .sprite-home__temp-icon-profile-neil {
     background-image: var(--sprite-home__temp-icon-profile-neil);
     width: 110px;
@@ -1196,5 +1226,17 @@
     background-image: var(--sprite-home__vfx-lightrays-reward);
     width: 346px;
     height: 198px;
+}
+
+.sprite-home__vfx-rewards-rays {
+    background-image: var(--sprite-home__vfx-rewards-rays);
+    width: 718px;
+    height: 718px;
+}
+
+.sprite-home__weapon-placeholder {
+    background-image: var(--sprite-home__weapon-placeholder);
+    width: 688px;
+    height: 687px;
 }
 

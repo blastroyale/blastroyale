@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -92,7 +94,7 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.homeClicked += Data.BackClicked;
 			_fullScreenClaimButton.clicked += OnClaimClicked;
 			_claimButton.clicked += OnClaimClicked;
-			
+
 			_fullScreenClaimButton.SetDisplay(false);
 		}
 
@@ -153,7 +155,7 @@ namespace FirstLight.Game.Presenters
 		private void OnClaimClicked()
 		{
 			EnableFullScreenClaim(false);
-			
+
 			if (_dataProvider.BattlePassDataProvider.IsRedeemable())
 			{
 				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
@@ -295,7 +297,7 @@ namespace FirstLight.Game.Presenters
 			ScrollToBpLevel((int) predictedProgress.Item1, 0);
 
 			_pendingRewards.Clear();
-			
+
 			foreach (var config in message.Rewards)
 			{
 				_pendingRewards.Enqueue(config);
@@ -318,34 +320,21 @@ namespace FirstLight.Game.Presenters
 
 		private async void TryShowNextReward()
 		{
-			// Keep showing/dismissing reward dialogs recursively, until all have been shown
-			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
+			var battlePassData = Data;
+			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
-				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>(true);
-				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
-			}
-			
-			if (!_pendingRewards.TryDequeue(out var reward))
-			{
-				if (_finishedTutorialBpThisCycle)
+				Rewards = _pendingRewards.Select(e => new EquipmentReward(e.Value)).ToList<IReward>(),
+				OnFinish = () =>
 				{
-					CompleteTutorialPass();
+					if (_finishedTutorialBpThisCycle)
+					{
+						CompleteTutorialPass();
+					}
+
+					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
+					_uiService.OpenScreen<BattlePassScreenPresenter, StateData>(battlePassData);
 				}
-				
-				_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
-				
-				return;
-			}
-
-			var data = new EquipmentRewardDialogPresenter.StateData()
-			{
-				ConfirmClicked = TryShowNextReward,
-				Equipment = reward.Value,
-				EquipmentId = reward.Key
-			};
-
-			var popup = await Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
-			popup.InitEquipment();
+			});
 		}
 	}
 }

@@ -764,7 +764,7 @@ MonoBehaviour:
   - {fileID: 8415062918650742911}
   - {fileID: 8415062918650742910}
   - {fileID: 8415062918650742909}
-  - {fileID: 8415062918650742908}
+  - {fileID: 0}
   - {fileID: 8415062918650742907}
   _particleRenderers: []
   _originalMaterials:
@@ -788,7 +788,7 @@ MonoBehaviour:
   RenderersContainerProxy: {fileID: 41083024}
   _animator: {fileID: 8415062918650742913}
   _dissolveDelay: 1
---- !u!114 &45183305
+--- !u!114 &72716069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -798,12 +798,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: FtueDeck_LMA4
+  m_Name: FtueDeck_LMA15
   m_EditorClassIdentifier: 
   resolution: 4096
   bitmask: 1
-  id: 4
-  sortingID: 4
+  id: 15
+  sortingID: 15
   isImplicit: 1
   area: 0
   totalVertexCount: 0
@@ -2331,6 +2331,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244750921}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &274286416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA6
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 6
+  sortingID: 6
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1001 &283252536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2587,49 +2630,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289033260}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &311225730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: FtueDeck_LMA3
-  m_EditorClassIdentifier: 
-  resolution: 4096
-  bitmask: 1
-  id: 3
-  sortingID: 3
-  isImplicit: 1
-  area: 0
-  totalVertexCount: 0
-  vertexCounter: 0
-  sceneLodLevel: -1
-  autoResolution: 0
-  sceneName: FtueDeck
-  tag: -1
-  containsTerrains: 0
-  probes: 0
-  mode: 1
-  renderMode: 1000
-  renderDirMode: 1000
-  atlasPacker: 1000
-  computeSSS: 0
-  sssSamples: 16
-  sssDensity: 10
-  sssColor: {r: 1, g: 1, b: 1, a: 1}
-  sssScale: 1
-  fakeShadowBias: 0
-  transparentSelfShadow: 0
-  flipNormal: 0
-  parentName: 
-  overridePath: 
-  fixPos3D: 0
-  voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 0
 --- !u!1 &316655242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,6 +2779,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316655242}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &330474212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA1
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 1
+  sortingID: 1
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &339849420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3623,6 +3666,49 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2497506558876647718, guid: d4bd1bf4e3aa51e42b66717180729cf0, type: 3}
   m_PrefabInstance: {fileID: 407177601}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &415088207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LM0
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 0
+  sortingID: 0
+  isImplicit: 1
+  area: 225492.03
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &440328812
 GameObject:
   m_ObjectHideFlags: 0
@@ -5149,6 +5235,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2388f0b0706fab74d8c30d679f468fc4, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2388f0b0706fab74d8c30d679f468fc4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
@@ -5755,6 +5845,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600887565}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &628796038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA4
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 4
+  sortingID: 4
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1001 &652890837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6896,6 +7029,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774522810}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &809051866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA7
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 7
+  sortingID: 7
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &850469991
 GameObject:
   m_ObjectHideFlags: 0
@@ -7225,6 +7401,135 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859417480}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &861864555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA8
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 8
+  sortingID: 8
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
+--- !u!114 &905716582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA11
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 11
+  sortingID: 11
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
+--- !u!114 &907247585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA10
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 10
+  sortingID: 10
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &907331588
 GameObject:
   m_ObjectHideFlags: 0
@@ -7374,6 +7679,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907331588}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &915167893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA14
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 14
+  sortingID: 14
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
+--- !u!114 &929079940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA12
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 12
+  sortingID: 12
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &934119902
 GameObject:
   m_ObjectHideFlags: 0
@@ -8222,49 +8613,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076878685}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1087673259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: FtueDeck_LM0
-  m_EditorClassIdentifier: 
-  resolution: 4096
-  bitmask: 1
-  id: 0
-  sortingID: 0
-  isImplicit: 1
-  area: 19318.557
-  totalVertexCount: 0
-  vertexCounter: 0
-  sceneLodLevel: -1
-  autoResolution: 0
-  sceneName: FtueDeck
-  tag: -1
-  containsTerrains: 0
-  probes: 0
-  mode: 1
-  renderMode: 1000
-  renderDirMode: 1000
-  atlasPacker: 1000
-  computeSSS: 0
-  sssSamples: 16
-  sssDensity: 10
-  sssColor: {r: 1, g: 1, b: 1, a: 1}
-  sssScale: 1
-  fakeShadowBias: 0
-  transparentSelfShadow: 0
-  flipNormal: 0
-  parentName: 
-  overridePath: 
-  fixPos3D: 0
-  voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 0
 --- !u!1 &1096376140
 GameObject:
   m_ObjectHideFlags: 0
@@ -9028,6 +9376,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193037449}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1203638388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA2
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 2
+  sortingID: 2
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &1209609917
 GameObject:
   m_ObjectHideFlags: 0
@@ -9989,6 +10380,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339533419}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1344829869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA5
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 5
+  sortingID: 5
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1001 &1379377200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11793,7 +12227,7 @@ MonoBehaviour:
   renderSettingsRTPVHDR: 0
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
-  lastBakeTime: 113
+  lastBakeTime: 582
   enlightenWarningShown: 0
   enlightenWarningShown2: 0
   uniqueLights:
@@ -11863,36 +12297,49 @@ MonoBehaviour:
     angle: 30
     UID: 2
   implicitGroups:
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 1990290867}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 45183305}
-  - {fileID: 1990290867}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1990290867}
-  - {fileID: 1981138995}
-  - {fileID: 1990290867}
-  - {fileID: 311225730}
-  - {fileID: 311225730}
-  - {fileID: 1087673259}
-  - {fileID: 1990290867}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 415088207}
+  - {fileID: 905716582}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 861864555}
+  - {fileID: 72716069}
+  - {fileID: 907247585}
+  - {fileID: 330474212}
+  - {fileID: 1203638388}
+  - {fileID: 929079940}
+  - {fileID: 809051866}
+  - {fileID: 905716582}
+  - {fileID: 1834552248}
+  - {fileID: 809051866}
+  - {fileID: 72716069}
+  - {fileID: 929079940}
+  - {fileID: 915167893}
+  - {fileID: 628796038}
+  - {fileID: 809051866}
+  - {fileID: 274286416}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 809051866}
+  - {fileID: 915167893}
+  - {fileID: 1678242085}
+  - {fileID: 809051866}
+  - {fileID: 1344829869}
+  - {fileID: 809051866}
+  - {fileID: 1809566132}
   implicitGroupedObjects:
   - {fileID: 283252540}
   - {fileID: 360100534}
@@ -11908,34 +12355,69 @@ MonoBehaviour:
   - {fileID: 1152609062}
   - {fileID: 1379377204}
   - {fileID: 1461583448}
+  - {fileID: 2028925619}
   - {fileID: 285100620439126727}
   - {fileID: 570621607402809221}
   - {fileID: 1065499375712334205}
+  - {fileID: 1477104104547369991}
   - {fileID: 1631011503996453036}
+  - {fileID: 1845728833282698344}
+  - {fileID: 1903188260248068093}
+  - {fileID: 2020069966709311907}
   - {fileID: 3024891122549304364}
   - {fileID: 3104752785884796477}
+  - {fileID: 3358668116394729114}
+  - {fileID: 3776105436680628875}
   - {fileID: 3882917323648518015}
   - {fileID: 4171774035854379951}
+  - {fileID: 4176857764998367718}
   - {fileID: 4587917057747232795}
+  - {fileID: 4721287405451585397}
   - {fileID: 5282197998546907540}
   - {fileID: 5577023937255770559}
   - {fileID: 5580412609766966157}
   - {fileID: 5754455043776569124}
   - {fileID: 6242127016917428199}
+  - {fileID: 6604438985315886376}
+  - {fileID: 6839595457739840737}
+  - {fileID: 6913612027428284912}
   - {fileID: 7617208636783693498}
   - {fileID: 8146002207242151943}
+  - {fileID: 9163947691592172675}
   bounds:
+  - m_Center: {x: 0, y: -20.1, z: 0}
+    m_Extent: {x: 174.76132, y: 2.7755576e-15, z: 174.76132}
+  - m_Center: {x: 32.799873, y: 0.12145996, z: 60.52557}
+    m_Extent: {x: 18.294289, y: 26.796309, z: 18.291557}
+  - m_Center: {x: 59.568245, y: 1.782753, z: 43.094604}
+    m_Extent: {x: 14.749876, y: 28.477089, z: 13.968159}
+  - m_Center: {x: -29.538288, y: 2.1341457, z: 12.478048}
+    m_Extent: {x: 9.45284, y: 29.249794, z: 9.445113}
+  - m_Center: {x: -9.546916, y: -2.4385033, z: 28.2755}
+    m_Extent: {x: 9.88402, y: 24.236345, z: 9.859192}
   - m_Center: {x: -5.3250475, y: -8.412656, z: -1.5931432}
     m_Extent: {x: 18.15524, y: 17.604277, z: 17.094353}
   - m_Center: {x: 15.784891, y: -8.872369, z: 7.16434}
     m_Extent: {x: 15.183687, y: 18.082207, z: 14.944599}
-  - m_Center: {x: -20.811253, y: 359.89056, z: 297.6785}
-    m_Extent: {x: 39.83152, y: 385.8299, z: 316.26083}
-  - m_Center: {x: 1.7026653, y: 369.8129, z: 316.05338}
-    m_Extent: {x: 28.5515, y: 395.7657, z: 340.11713}
-  - m_Center: {x: -3.234362, y: 4.3228674, z: -3.4842367}
-    m_Extent: {x: 1.7063793, y: 1.036705, z: 1.9885199}
-  hasEmissive: 0101010101
+  - m_Center: {x: -6.029537, y: 369.45187, z: 322.6126}
+    m_Extent: {x: 54.613235, y: 396.1267, z: 333.55792}
+  - m_Center: {x: -6.519476, y: -12.05848, z: -28.16932}
+    m_Extent: {x: 11.971102, y: 14.6163645, z: 11.971102}
+  - m_Center: {x: -34.20372, y: -12.05848, z: -27.642183}
+    m_Extent: {x: 11.971102, y: 14.6163645, z: 11.971102}
+  - m_Center: {x: 41.278812, y: 0.043474197, z: 2.144603}
+    m_Extent: {x: 8.634347, y: 26.718323, z: 8.634347}
+  - m_Center: {x: 7.98585, y: 4.806505, z: 21.184265}
+    m_Extent: {x: 12.926591, y: 29.406506, z: 26.65702}
+  - m_Center: {x: 5.4780903, y: -8.802629, z: -7.50935}
+    m_Extent: {x: 31.455267, y: 17.87222, z: 12.974777}
+  - m_Center: {x: 13.238172, y: -10.466999, z: -19.795067}
+    m_Extent: {x: 9.478817, y: 16.20785, z: 9.478817}
+  - m_Center: {x: -19.894827, y: -4.142145, z: -1.0656843}
+    m_Extent: {x: 29.69206, y: 18.257854, z: 10.363162}
+  - m_Center: {x: -4.889868, y: -9.820059, z: -3.1405506}
+    m_Extent: {x: 23.454824, y: 16.132744, z: 20.92321}
+  hasEmissive: 01010101010101010101010101010101
   uvBuffOffsets: 
   uvBuffLengths: 
   uvSrcBuff: []
@@ -11947,16 +12429,30 @@ MonoBehaviour:
   lmGroupMinLOD: 
   lmGroupLODMatrix: 
   serverGetFileList: []
-  lightmapHasColor: 0101010101
-  lightmapHasMask: 0000000000000000000000000000000000000000
-  lightmapHasDir: 0000000000
-  lightmapHasRNM: 0000000000
+  lightmapHasColor: 01010101010101010101010101010101
+  lightmapHasMask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  lightmapHasDir: 00000000000000000000000000000000
+  lightmapHasRNM: 00000000000000000000000000000000
   modifiedAssetPathList:
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/new barriers/barricade_concrete_High.fbx
+  - Assets/Art/Models/Destructibles/Baricade_Wobble.fbx
+  - Assets/Art/SceneTests/FTUE_LEVELART/ramen sign with glow.fbx
   modifiedAssets:
   - meshName:
     - barricade_concrete_High
     padding: 16000000
+    unwrapper: 00000000
+  - meshName:
+    - P1
+    - P2
+    - P3
+    - P4
+    - P5
+    padding: 1e0000001b0000001c0000001d00000047000000
+    unwrapper: 0000000000000000000000000000000000000000
+  - meshName:
+    - ramen_sign1
+    padding: 0c000000
     unwrapper: 00000000
   maps:
   - {fileID: 2800000, guid: e02e6d10981bc4c449c6cb41c54a0c82, type: 3}
@@ -11964,6 +12460,17 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4a7f17916cb85db4986b894e46d927f7, type: 3}
   - {fileID: 2800000, guid: 326ef5b850a8d2644a5fa8bee591dde2, type: 3}
   - {fileID: 2800000, guid: 1c46c6eece245de4b8935eaa68d59118, type: 3}
+  - {fileID: 2800000, guid: bac49fb7fdc926f46bc8e0e506e2cef1, type: 3}
+  - {fileID: 2800000, guid: 9a22b9057f8ab9b44a70b3f4e9f18cd5, type: 3}
+  - {fileID: 2800000, guid: 3815b288ceba57f4a9a2d8e658848faf, type: 3}
+  - {fileID: 2800000, guid: d50449a8c6374a640a8d8995632e6db1, type: 3}
+  - {fileID: 2800000, guid: b10df18f631728040ab7e54b73cdfc37, type: 3}
+  - {fileID: 2800000, guid: 3025255ebcaf23e428b9d66ebdaa314d, type: 3}
+  - {fileID: 2800000, guid: 80c319ce28979bb42a78271f14331ad5, type: 3}
+  - {fileID: 2800000, guid: 72fbfe06503a49e4b9615c95cf85d671, type: 3}
+  - {fileID: 2800000, guid: ac5aac94968372f4fbe99bafa9dae661, type: 3}
+  - {fileID: 2800000, guid: aae03599cf1c32645a0c88c55d7e5a14, type: 3}
+  - {fileID: 2800000, guid: 8f7808da4a179cc4a807ae9f24295ae4, type: 3}
   masks: []
   dirMaps: []
   rnmMaps0: []
@@ -11977,7 +12484,7 @@ MonoBehaviour:
   - {fileID: 8415062918650742911}
   - {fileID: 8415062918650742910}
   - {fileID: 8415062918650742909}
-  - {fileID: 8415062918650742908}
+  - {fileID: 0}
   - {fileID: 8415062918650742907}
   - {fileID: 546773519}
   - {fileID: 551453524}
@@ -11985,56 +12492,95 @@ MonoBehaviour:
   - {fileID: 1152609061}
   - {fileID: 1379377203}
   - {fileID: 1461583451}
+  - {fileID: 2028925621}
   - {fileID: 5893799135444980169}
   - {fileID: 3373194421575378539}
   - {fileID: 636751211142219453}
+  - {fileID: 2469447987882649377}
   - {fileID: 1709965038271222784}
+  - {fileID: 8173458806234784645}
+  - {fileID: 7958937778881322731}
+  - {fileID: 904195497379358834}
   - {fileID: 515746553685611518}
   - {fileID: 814215094325449694}
+  - {fileID: 2965884953856716626}
+  - {fileID: 1690712125349179245}
   - {fileID: 1454954034293561007}
   - {fileID: 1818889915402496859}
+  - {fileID: 6000707030625690620}
   - {fileID: 8057194912827553058}
+  - {fileID: 3746384063105956674}
   - {fileID: 1431589428250558011}
   - {fileID: 3571516217579817211}
   - {fileID: 7891231065764590477}
   - {fileID: 509021877329192327}
   - {fileID: 7745630480014469732}
+  - {fileID: 2530762674548720697}
+  - {fileID: 2672518661058716519}
+  - {fileID: 7073528507150687383}
   - {fileID: 2497560154828517491}
   - {fileID: 890292811202336209}
-  bakedIDs: 020000000200000003000000030000000200000003000000030000000200000002000000020000000200000002000000020000000200000004000000020000000300000003000000030000000300000003000000020000000200000002000000010000000200000003000000030000000000000002000000
+  - {fileID: 5262263025211153451}
+  bakedIDs: 0700000007000000070000000700000007000000070000000700000007000000070000000700000007000000070000000700000007000000000000000b0000000700000007000000080000000f0000000a00000001000000020000000c000000070000000b0000000d000000070000000f0000000c0000000e0000000400000007000000060000000700000007000000070000000e0000000300000007000000050000000700000009000000
   bakedScaleOffset:
-  - {x: 0.04983903, y: 0.049977012, z: -0.00033833858, w: 0.93453896}
-  - {x: 0.04983903, y: 0.049977005, z: 0.13598926, w: 0.93453896}
-  - {x: 0.77242893, y: 0.7466919, z: 0.48869127, w: -0.6668717}
-  - {x: 0.7338535, y: 0.7064406, z: 0.3591914, w: -0.45218864}
-  - {x: 1.0232714, y: 0.9884682, z: 0.4521461, w: 0.04080985}
-  - {x: 0.68956673, y: 0.6667382, z: 0.42138073, w: -0.56895244}
-  - {x: 0.9673818, y: 0.9321502, z: 0.09201415, w: -0.6581193}
-  - {x: 0.30362603, y: 0.2772673, z: 0.22732978, w: 0.72912127}
-  - {x: 0.04983903, y: 0.049977005, z: 0.090546735, w: 0.93453896}
-  - {x: 1.2997807, y: 1.2991866, z: 0.7470601, w: -0.48632264}
-  - {x: 0.049839016, y: 0.049976986, z: 0.22687434, w: 0.93453896}
-  - {x: 0.04983903, y: 0.049977005, z: 0.0451042, w: 0.93453896}
-  - {x: 0.04983902, y: 0.049976997, z: 0.18143182, w: 0.93453896}
-  - {x: 0.83887607, y: 0.813139, z: 0.23288798, w: 0.20859934}
-  - {x: 19.298191, y: 12.898682, z: -2.6436212, w: -11.625976}
-  - {x: 11.739559, y: 12.187637, z: -0.98997843, w: -10.394943}
-  - {x: 17.459377, y: 17.917955, z: -2.2600725, w: -16.58411}
-  - {x: 43.729244, y: 42.628777, z: -14.954288, w: -41.56131}
-  - {x: 0.19166963, y: 0.19166362, z: 0.23875882, w: -0.00078163424}
-  - {x: 0.73080593, y: 0.7426879, z: 0.1367534, w: -0.64468014}
-  - {x: 0.7308056, y: 0.7426875, z: 0.042926017, w: -0.64467984}
-  - {x: 2.5266442, y: 7.517092, z: -0.054007232, w: -6.7107263}
-  - {x: 1.1927902, y: 1.1860142, z: -0.057010975, w: -0.2512005}
-  - {x: 0.09048067, y: 0.09098879, z: 0.8969904, w: 0.8116622}
-  - {x: 0.55545425, y: 0.5272104, z: 0.436957, w: 0.0010811989}
-  - {x: 17.459383, y: 17.917963, z: -1.9370852, w: -16.235983}
-  - {x: 17.47997, y: 17.928051, z: -2.3104296, w: -16.569786}
-  - {x: 17.393475, y: 17.729282, z: -2.3352437, w: -16.206917}
-  - {x: 0.46198916, y: 0.9999617, z: -0.0030782237, w: 0.000732407}
-  - {x: 0.09048065, y: 0.09098878, z: 0.8969904, w: 0.9031351}
-  bakedVertexOffset: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  - {x: 0.04984145, y: 0.049979437, z: 0.9261406, w: 0.279188}
+  - {x: 0.04984145, y: 0.04997943, z: 0.9261406, w: 0.427881}
+  - {x: 0.039217025, y: 0.03921736, z: 0.9258969, w: 0.66381294}
+  - {x: 0.73388827, y: 0.7064741, z: 0.21182896, w: 0.30828518}
+  - {x: 1.023321, y: 0.9885162, z: -0.0771452, w: 0.02354454}
+  - {x: 0.6896003, y: 0.66677064, z: -0.026522215, w: 0.34686902}
+  - {x: 0.9674287, y: 0.9321954, z: 0.1764026, w: 0.06788337}
+  - {x: 0.30364075, y: 0.27728075, z: 0.8811513, w: 0.45532712}
+  - {x: 0.04984145, y: 0.04997943, z: 0.9261406, w: 0.32875234}
+  - {x: 0.07725677, y: 0.077256866, z: -0.00017289532, w: 0.9174854}
+  - {x: 0.049841434, y: 0.04997941, z: 0.9261406, w: 0.5270096}
+  - {x: 0.04984145, y: 0.04997943, z: 0.9261406, w: 0.37831667}
+  - {x: 0.049841437, y: 0.049979422, z: 0.9261406, w: 0.4774453}
+  - {x: 0.042706896, y: 0.04270723, z: 0.92577994, w: 0.57621616}
+  - {x: 0.99853516, y: 0.99853516, z: 0.0007324219, w: 0.0007324219}
+  - {x: 0.11462458, y: 0.11461997, z: -0.0006162235, w: 0.8856607}
+  - {x: 0.02395512, y: 0.024131877, z: 0.9736398, w: 0.1359716}
+  - {x: 0.034846496, y: 0.03502502, z: 0.96437037, w: 0.66364974}
+  - {x: 1.0005558, y: 1.0005405, z: -0.00062120036, w: -0.0006211788}
+  - {x: 0.24697748, y: 0.24698184, z: 0.7544911, w: -0.0005898335}
+  - {x: 1.3187411, y: 2.1735, z: -0.20368037, w: -0.33617315}
+  - {x: 1.0006195, y: 1.0002493, z: -0.00014808342, w: -0.00014775757}
+  - {x: 1.0002502, y: 1.0000943, z: -0.00029335008, w: -0.00029319018}
+  - {x: 0.19815317, y: 0.19818322, z: 0.80605716, w: -0.00060010824}
+  - {x: 0.073343806, y: 0.07413459, z: 0.9246566, w: 0.20603178}
+  - {x: 0.8868882, y: 0.8868887, z: -0.00060652196, w: -0.0006065227}
+  - {x: 1.000647, y: 1.0006465, z: -0.0007048215, w: -0.00070482073}
+  - {x: 0.0733438, y: 0.074134596, z: 0.9246566, w: 0.1343841}
+  - {x: 0.7555784, y: 0.75557846, z: -0.0005795022, w: -0.00057950226}
+  - {x: 0.8071789, y: 0.80717856, z: -0.00056854956, w: -0.000568549}
+  - {x: 0.20401861, y: 0.20401825, z: 0.79590845, w: -0.0005726178}
+  - {x: 1.001245, y: 1.0018227, z: -0.00045498673, w: -0.0004556719}
+  - {x: 0.06865241, y: 0.06865262, z: 0.92590624, w: -0.0005727253}
+  - {x: 1.0006741, y: 1.0006746, z: -0.00056888006, w: -0.0005688807}
+  - {x: 0.034846514, y: 0.035025034, z: 0.9654219, w: 0.61811525}
+  - {x: 0.0356687, y: 0.03584546, z: 0.96767735, w: 0.57617}
+  - {x: 0.04620324, y: 0.04643093, z: 0.9257037, w: 0.6180779}
+  - {x: 0.7974703, y: 0.7974699, z: -0.00057100004, w: -0.0005709995}
+  - {x: 1.0007031, y: 1.0003104, z: -0.00043446495, w: -0.00043400712}
+  - {x: 0.92699385, y: 0.9269797, z: -0.00057552906, w: -0.00057550916}
+  - {x: 0.9991351, y: 0.99914986, z: 0.0007324219, w: 0.0007324219}
+  - {x: 0.06865239, y: 0.06865261, z: 0.92590624, w: 0.06754426}
+  - {x: 1.0005558, y: 1.0005405, z: -0.0006212003, w: -0.0006211787}
+  bakedVertexOffset: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
   bakedVertexColorMesh:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -12074,7 +12620,7 @@ MonoBehaviour:
   bakedScaleOffsetTerrain: []
   assetList: []
   uvOverlapAssetList: 
-  idremap: 0000000001000000020000000300000004000000
+  idremap: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
   usesRealtimeGI: 0
   emptyDirectionTex: {fileID: 0}
   anyVolumes: 0
@@ -12100,7 +12646,7 @@ MonoBehaviour:
     - {fileID: 8415062918650742911}
     - {fileID: 8415062918650742910}
     - {fileID: 8415062918650742909}
-    - {fileID: 8415062918650742908}
+    - {fileID: 0}
     - {fileID: 8415062918650742907}
     - {fileID: 546773519}
     - {fileID: 551453524}
@@ -12784,6 +13330,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669104311}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1678242085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA3
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 3
+  sortingID: 3
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &1682679942
 GameObject:
   m_ObjectHideFlags: 0
@@ -13626,6 +14215,49 @@ MonoBehaviour:
     ImportRegions: 1
     RegionDetectionMargin: 0.4
     RegionAreaIds: 0000000001000000
+--- !u!114 &1809566132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA9
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 9
+  sortingID: 9
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1001 &1810857154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14107,6 +14739,49 @@ Transform:
   m_Father: {fileID: 96554830}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1834552248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: FtueDeck_LMA13
+  m_EditorClassIdentifier: 
+  resolution: 4096
+  bitmask: 1
+  id: 13
+  sortingID: 13
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  autoResolution: 0
+  sceneName: FtueDeck
+  tag: -1
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  atlasPacker: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  sssScale: 1
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
+  flipNormal: 0
+  parentName: 
+  overridePath: 
+  fixPos3D: 0
+  voxelSize: {x: 1, y: 1, z: 1}
+  passedFilter: 0
 --- !u!1 &1851177200
 GameObject:
   m_ObjectHideFlags: 0
@@ -15155,49 +15830,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -36.34, z: 0}
---- !u!114 &1981138995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: FtueDeck_LMA1
-  m_EditorClassIdentifier: 
-  resolution: 4096
-  bitmask: 1
-  id: 1
-  sortingID: 1
-  isImplicit: 1
-  area: 0
-  totalVertexCount: 0
-  vertexCounter: 0
-  sceneLodLevel: -1
-  autoResolution: 0
-  sceneName: FtueDeck
-  tag: -1
-  containsTerrains: 0
-  probes: 0
-  mode: 1
-  renderMode: 1000
-  renderDirMode: 1000
-  atlasPacker: 1000
-  computeSSS: 0
-  sssSamples: 16
-  sssDensity: 10
-  sssColor: {r: 1, g: 1, b: 1, a: 1}
-  sssScale: 1
-  fakeShadowBias: 0
-  transparentSelfShadow: 0
-  flipNormal: 0
-  parentName: 
-  overridePath: 
-  fixPos3D: 0
-  voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 0
 --- !u!1 &1990123702
 GameObject:
   m_ObjectHideFlags: 0
@@ -15347,49 +15979,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990123702}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1990290867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: FtueDeck_LMA2
-  m_EditorClassIdentifier: 
-  resolution: 4096
-  bitmask: 1
-  id: 2
-  sortingID: 2
-  isImplicit: 1
-  area: 0
-  totalVertexCount: 0
-  vertexCounter: 0
-  sceneLodLevel: -1
-  autoResolution: 0
-  sceneName: FtueDeck
-  tag: -1
-  containsTerrains: 0
-  probes: 0
-  mode: 1
-  renderMode: 1000
-  renderDirMode: 1000
-  atlasPacker: 1000
-  computeSSS: 0
-  sssSamples: 16
-  sssDensity: 10
-  sssColor: {r: 1, g: 1, b: 1, a: 1}
-  sssScale: 1
-  fakeShadowBias: 0
-  transparentSelfShadow: 0
-  flipNormal: 0
-  parentName: 
-  overridePath: 
-  fixPos3D: 0
-  voxelSize: {x: 1, y: 1, z: 1}
-  passedFilter: 0
 --- !u!1 &1994024185
 GameObject:
   m_ObjectHideFlags: 0
@@ -15587,7 +16176,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!64 &2028925620
 MeshCollider:
@@ -16989,7 +17578,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &1533856392462960983
 Transform:
@@ -17494,7 +18083,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!1 &1903188260248068093
 GameObject:
@@ -17512,7 +18101,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!114 &1930756246322229670
 MonoBehaviour:
@@ -17574,7 +18163,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &2065136200712209553
 Transform:
@@ -17985,7 +18574,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!23 &3373194421575378539
 MeshRenderer:
@@ -18173,7 +18762,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &3814689159984064530
 Transform:
@@ -18283,7 +18872,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!114 &4250845700077839386
 MonoBehaviour:
@@ -18357,7 +18946,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!23 &5262263025211153451
 MeshRenderer:
@@ -18775,7 +19364,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!33 &6617006420691621204
 MeshFilter:
@@ -18816,7 +19405,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &6860996687807337314
 Transform:
@@ -18864,7 +19453,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &6965704500003271624
 Transform:
@@ -19636,54 +20225,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 41083023}
     m_Modifications:
-    - target: {fileID: 648888194008261663, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 733385024695690622, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 927357525636518162, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 1552867113214689300, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513785743064954706, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3305704128190022801, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3305704128190022801, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-    - target: {fileID: 3533655388096339223, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002138082360232995, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002138082360232995, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-    - target: {fileID: 4657875980662981562, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4657875980662981562, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
     - target: {fileID: 4753770728473142076, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -19698,7 +20239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4753770728473142076, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4753770728473142076, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19732,50 +20273,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenBarrierModel
       objectReference: {fileID: 0}
-    - target: {fileID: 5382674459112700294, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 5482611273667570780, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6024416576514782642, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6239434659894791248, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6414268850832615530, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-    - target: {fileID: 7021842071908971791, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 7943634526250199143, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19784,11 +20281,6 @@ PrefabInstance:
 --- !u!137 &8415062918650742907 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
-  m_PrefabInstance: {fileID: 8415062918650742906}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &8415062918650742908 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
   m_PrefabInstance: {fileID: 8415062918650742906}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &8415062918650742909 stripped
@@ -19925,5 +20417,5 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 127
   m_IsActive: 1

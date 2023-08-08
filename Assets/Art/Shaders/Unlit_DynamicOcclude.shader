@@ -18,33 +18,43 @@ Shader "FLG/Unlit/Dynamic Occlusion"
             Name "Occlusion"
 
             ZWrite Off
-            ZTest Greater
+            ZTest NotEqual
+
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            Stencil
+            {
+                Ref 1
+                Comp Greater
+                Pass Replace
+                Fail Keep
+            }
 
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct Attributes
             {
-                float4 vertex : POSITION;
+                half4 positionOS : POSITION;
             };
 
             struct Varyings
             {
-                float4 vertex : SV_POSITION;
+                half4 positionHCS : SV_POSITION;
             };
 
             CBUFFER_START(UnityPerMaterial)
-            float4 _Color;
+            half4 _Color;
             CBUFFER_END
 
-            Varyings vert(Attributes v)
+            Varyings vert(Attributes IN)
             {
-                Varyings o;
-                o.vertex = TransformObjectToHClip(v.vertex.xyz);
-                return o;
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                return OUT;
             }
 
             half4 frag() : SV_Target

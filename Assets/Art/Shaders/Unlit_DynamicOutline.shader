@@ -16,7 +16,7 @@ Shader "FLG/Unlit/Dynamic Outline"
 
         Pass
         {
-            Name "Normal"
+            Name "Outline"
 
             ZWrite On // No idea why it doesn't work without this.
             ZTest Always

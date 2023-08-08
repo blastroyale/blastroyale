@@ -28,12 +28,14 @@ Shader "FLG/Unlit/Dynamic Object"
             {
                 half4 positionOS : POSITION;
                 half2 uvOS : TEXCOORD0;
+                half2 normalOS: NORMAL; // Ok so without this (and passing to frag) DynamicOutline shader doesn't work, doesn't receive the correct normals. What the actual fuck.
             };
 
             struct Varyings
             {
                 half4 positionHCS : SV_POSITION;
                 half2 uvOS : TEXCOORD0;
+                half2 normalOS: TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -47,10 +49,11 @@ Shader "FLG/Unlit/Dynamic Object"
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
                 OUT.uvOS = IN.uvOS;
+                OUT.normalOS = IN.normalOS;
                 return OUT;
             }
 
-            half4 frag(Varyings IN) : SV_Target
+            half4 frag(const Varyings IN) : SV_Target
             {
                 half4 tex = tex2D(_MainTex, IN.uvOS) * _Color;
                 return tex;

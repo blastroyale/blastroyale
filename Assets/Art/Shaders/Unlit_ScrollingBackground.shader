@@ -63,7 +63,7 @@ Shader "FLG/Unlit/Scrolling Background"
 
             half4 frag(v2f i) : SV_Target
             {
-                half2 uvAnimated = float2(i.uvTransformed.x + (_Time.x * _SpeedX), i.uvTransformed.y + (_Time.x * _SpeedY));
+                half2 uvAnimated = frac(half2(i.uvTransformed.x + (_Time.x * _SpeedX), i.uvTransformed.y + (_Time.x * _SpeedY)));
                 half tex = saturate(tex2D(_MainTex, uvAnimated).x + 1 - _PatternStrength);
 
                 half gradient = (i.uv.x + i.uv.y) / 2;

@@ -3,6 +3,7 @@ using FirstLight.Game.Commands.Cheats;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
 using I2.Loc;
@@ -57,7 +58,7 @@ namespace FirstLight.Game.Services
 			}
 			
 			// Only give items after the tutorial is finished
-			if(!_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH))
+			if(!_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) && FeatureFlags.TUTORIAL)
 			{
 				return;
 			}

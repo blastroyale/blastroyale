@@ -764,15 +764,15 @@ MonoBehaviour:
   - {fileID: 8415062918650742911}
   - {fileID: 8415062918650742910}
   - {fileID: 8415062918650742909}
-  - {fileID: 0}
+  - {fileID: 8415062918650742908}
   - {fileID: 8415062918650742907}
   _particleRenderers: []
   _originalMaterials:
-  - {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-  - {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-  - {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-  - {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
-  - {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &41083026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20225,6 +20225,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 41083023}
     m_Modifications:
+    - target: {fileID: 3305704128190022801, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+    - target: {fileID: 4002138082360232995, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+    - target: {fileID: 4657875980662981562, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
     - target: {fileID: 4753770728473142076, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -20273,6 +20285,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenBarrierModel
       objectReference: {fileID: 0}
+    - target: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+    - target: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20281,6 +20301,11 @@ PrefabInstance:
 --- !u!137 &8415062918650742907 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+  m_PrefabInstance: {fileID: 8415062918650742906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8415062918650742908 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
   m_PrefabInstance: {fileID: 8415062918650742906}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &8415062918650742909 stripped

@@ -66,11 +66,29 @@ namespace Quantum
 
 		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, out EntityRef? firstHit)
 		{
+			return HasLineOfSight(f, source, destination, f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitStatics |
+				QueryOptions.HitKinematics, out firstHit);
+		}
+		
+		/// <summary>
+		/// Checks for map line of sight. Ignores players and other stuff.
+		/// </summary>
+		public static bool HasMapLineOfSight(Frame f, EntityRef one, EntityRef two)
+		{
+			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
+			{
+				return HasLineOfSight(f, onePosition.Position, twoPosition.Position, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
+			}
+			return false;
+		}
+		
+		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, int layerMask, QueryOptions options, out EntityRef? firstHit)
+		{
 			var hit = f.Physics3D.Linecast(source,
 				destination,
 				f.Context.TargetAllLayerMask,
-				QueryOptions.HitDynamics | QueryOptions.HitStatics |
-				QueryOptions.HitKinematics);
+				options
+				);
 			firstHit = hit?.Entity;
 			return !hit.HasValue;
 		}

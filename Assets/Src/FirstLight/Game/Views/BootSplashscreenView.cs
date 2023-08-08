@@ -45,6 +45,8 @@ namespace FirstLight.Game.Views
 
 			InitializePlugins();
 
+			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"), new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
+
 			await UnityServices.InitializeAsync();
 			await InitAtt();
 			await StartAnalytics();

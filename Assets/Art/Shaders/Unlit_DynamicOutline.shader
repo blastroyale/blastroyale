@@ -5,6 +5,7 @@ Shader "FLG/Unlit/Dynamic Outline"
     {
         _Color ("Color", Color) = (1,1,1,1)
         _Width ("Width", float) = 0.01
+        [MaterialToggle] _UsePhysicalSize ("Use physical screen size", Float) = 0
     }
     SubShader
     {
@@ -45,9 +46,12 @@ Shader "FLG/Unlit/Dynamic Outline"
                 half4 positionHCS : SV_POSITION;
             };
 
+            float4 _PhysicalScreenSize;
+
             CBUFFER_START(UnityPerMaterial)
             half4 _Color;
             half _Width;
+            half _UsePhysicalSize;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -61,7 +65,8 @@ Shader "FLG/Unlit/Dynamic Outline"
                 float3 normalHCS = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, IN.normalOS));
 
                 // Move vertex along normal vector in clip space.
-                OUT.positionHCS.xy += normalize(normalHCS.xy) / _ScreenParams.xy * OUT.positionHCS.w * _Width * 2;
+                OUT.positionHCS.xy += normalize(normalHCS.xy) / _ScreenParams.xy * OUT.positionHCS.w * _Width *
+                    (_UsePhysicalSize ? _PhysicalScreenSize.x : 1);
 
                 return OUT;
             }

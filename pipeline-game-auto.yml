@@ -113,7 +113,7 @@ variables:
     - name: useAccelerator
       value: true
     - name: runTestLab
-      value: true
+      value: false
   # Manual setup
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
     - ${{  if eq(parameters['param_build_type'], 'DEVELOPMENT_BUILD') }}:
@@ -213,7 +213,7 @@ stages:
         workspace:
           clean: all
         condition: |
-            in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
+            and(in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),not(or(failed(), canceled())))
           
       
         steps:
@@ -276,7 +276,8 @@ stages:
           and(
             ne(${{ parameters.param_fake_build }}, true),
             ne(${{ parameters.param_skip_ios }}, true),
-            in(dependencies.EditorTests.result, 'Succeeded', 'Skipped')
+            in(dependencies.EditorTests.result, 'Succeeded', 'Skipped'),
+            not(or(failed(), canceled()))
           )
         steps:
         - template: tasks/update-slack-message.yml@templates

@@ -1,14 +1,11 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using I2.Loc;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 namespace FirstLight.Game.Presenters
 {

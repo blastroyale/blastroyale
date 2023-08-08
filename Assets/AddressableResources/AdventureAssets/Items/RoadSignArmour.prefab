@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8953985300831445819}
   - component: {fileID: 4644099293651602062}
   - component: {fileID: 1856512860864621053}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Nutter_chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,8 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,13 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
   _renderers:
   - {fileID: 4644099293651602062}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 4644099293651602062}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
 --- !u!1 &692709253286077414
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +113,7 @@ GameObject:
   - component: {fileID: 4760019109151786652}
   - component: {fileID: 2565966680048396265}
   - component: {fileID: 3792936922405738781}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Nutter_ShoulderL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,8 +164,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,13 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
   _renderers:
   - {fileID: 2565966680048396265}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 2565966680048396265}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
 --- !u!1 &1952126670735314887
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5175104466260548641}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RoadSignArmour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +248,7 @@ GameObject:
   - component: {fileID: 9103757909696833688}
   - component: {fileID: 1740618216965754537}
   - component: {fileID: 2574623312257698719}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Nutter_sholderR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,8 +299,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
-  - {fileID: 2100000, guid: f5e6a5ab8c0264dca930554776a4bc91, type: 2}
-  - {fileID: 2100000, guid: 9f6d79fdbdfad4bfab2dbe02f6679185, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -342,10 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c7bf57d1493daeb4cad93ccd4e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalMaterials:
-  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}
   _renderers:
   - {fileID: 1740618216965754537}
   _particleRenderers: []
-  _rendererRoots: []
-  _mainRenderer: {fileID: 1740618216965754537}
+  _originalMaterials:
+  - {fileID: 2100000, guid: 9bcae71c72f1748b0a98a4aa2f466889, type: 2}

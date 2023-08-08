@@ -45,8 +45,8 @@ MonoBehaviour:
       DropSelectionSize: 1
     - Map: 9
       MaxPlayers: 30
-      IsTestMap: 0
-      IsCustomOnly: 1
+      IsTestMap: 1
+      IsCustomOnly: 0
       DropSelectionSize: 0.8
     - Map: 11
       MaxPlayers: 1
@@ -64,7 +64,7 @@ MonoBehaviour:
       IsCustomOnly: 1
       DropSelectionSize: 1
     - Map: 108
-      MaxPlayers: 20
+      MaxPlayers: 12
       IsTestMap: 0
       IsCustomOnly: 0
       DropSelectionSize: 1

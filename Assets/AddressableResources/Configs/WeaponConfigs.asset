@@ -59,6 +59,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 60
       FiringMode: 0
       MaxAmmo: 160
@@ -100,12 +101,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 79
       FiringMode: 0
       MaxAmmo: 360
       BulletPrototype:
         Id:
-          Value: 148021496798672150
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -141,6 +143,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 84
       FiringMode: 0
       MaxAmmo: 35
@@ -182,6 +185,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 86
       FiringMode: 0
       MaxAmmo: 45
@@ -223,6 +227,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 87
       FiringMode: 0
       MaxAmmo: 360
@@ -264,6 +269,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 91
       FiringMode: 0
       MaxAmmo: 300
@@ -305,6 +311,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 90
       FiringMode: 0
       MaxAmmo: 32
@@ -346,12 +353,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 92
       FiringMode: 0
       MaxAmmo: 360
       BulletPrototype:
         Id:
-          Value: 148021496798672150
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -387,6 +395,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 94
       FiringMode: 0
       MaxAmmo: 45
@@ -428,12 +437,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 96
       FiringMode: 0
       MaxAmmo: 160
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -469,12 +479,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 97
       FiringMode: 0
       MaxAmmo: 32
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -510,12 +521,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 98
       FiringMode: 0
       MaxAmmo: 300
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -551,12 +563,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 99
       FiringMode: 0
       MaxAmmo: 360
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -592,12 +605,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 100
       FiringMode: 0
       MaxAmmo: 35
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 148021496798672150
       BulletHitPrototype:
         Id:
           Value: 0
@@ -633,12 +647,13 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 103
       FiringMode: 0
       MaxAmmo: 360
       BulletPrototype:
         Id:
-          Value: 922341753785179332
+          Value: 3582668498530828953
       BulletHitPrototype:
         Id:
           Value: 0
@@ -674,6 +689,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 88
       FiringMode: 0
       MaxAmmo: 160
@@ -715,6 +731,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 78
       FiringMode: 0
       MaxAmmo: 300
@@ -756,6 +773,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 95
       FiringMode: 0
       MaxAmmo: 360
@@ -797,6 +815,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 71
       FiringMode: 0
       MaxAmmo: 32
@@ -838,6 +857,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 0
     - Id: 93
       FiringMode: 0
       MaxAmmo: 35
@@ -879,6 +899,7 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1
     - Id: 101
       FiringMode: 0
       MaxAmmo: 45
@@ -920,3 +941,4 @@ MonoBehaviour:
         RawValue: 0
       InitialAttackRampUpTime:
         RawValue: 0
+      UseRangedCam: 1

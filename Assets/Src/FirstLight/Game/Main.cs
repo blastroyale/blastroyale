@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
@@ -27,7 +28,7 @@ namespace FirstLight.Game
 	/// The Main entry point of the game
 	/// </summary>
 	public class Main : MonoBehaviour
-	{	
+	{
 		private Coroutine _pauseCoroutine;
 		private IGameServices _services;
 
@@ -81,7 +82,7 @@ namespace FirstLight.Game
 		{
 			var waitFor30Seconds = new WaitForSeconds(30);
 			var waitFor5Seconds = new WaitForSeconds(5);
-			
+
 
 			while (true)
 			{
@@ -90,19 +91,40 @@ namespace FirstLight.Game
 			}
 		}
 
+		private static async Task<object> Convert(Task task)
+		{
+			await task;
+			var voidTaskType = typeof(Task<>).MakeGenericType(Type.GetType("System.Threading.Tasks.VoidTaskResult"));
+			if (voidTaskType.IsAssignableFrom(task.GetType()))
+				throw new InvalidOperationException("Task does not have a return value (" + task.GetType().ToString() + ")");
+			var property = task.GetType().GetProperty("Result", BindingFlags.Public | BindingFlags.Instance);
+			if (property == null)
+				throw new InvalidOperationException("Task does not have a return value (" + task.GetType().ToString() + ")");
+			return property.GetValue(task);
+		}
+
+
 		// Does not work with "async void" - works with "async Task" only
 		private void TaskExceptionLogging(object sender, UnobservedTaskExceptionEventArgs e)
 		{
-			if (sender.GetType().GetGenericTypeDefinition() == typeof(Task<>))
+			try
 			{
-				var task = sender as Task<object>;
-				var objName = task.Result is UnityEngine.Object ? ((UnityEngine.Object)task.Result).name : task.Result.ToString();
+				if (sender is Task task)
+				{
+					var convert = Convert(task);
+					var objName = convert.Exception?.ToString();
 
-				Debug.LogError($"Task exception sent by the object {objName}");
+					Debug.LogError(" Async task Exception happnened " + objName);
+				}
+				else
+				{
+					Debug.LogError("Try Exception Logging called");
+				}
+
 			}
-			else
+			catch (Exception ex)
 			{
-				Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
+				Debug.LogException(ex);
 			}
 
 			Debug.LogException(e.Exception);

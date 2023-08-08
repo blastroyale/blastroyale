@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5422023900428651686}
   - component: {fileID: 2100514850694742862}
   - component: {fileID: 983242226573021174}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadR_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7025323295390792010}
   - component: {fileID: 4228944780628181141}
   - component: {fileID: 6255344514994245643}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorChest_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772095483247031561}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: MouseArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 8743038669452595387}
   - component: {fileID: 7223826394109969322}
   - component: {fileID: 2962823409669157281}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ArmorPadL_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}

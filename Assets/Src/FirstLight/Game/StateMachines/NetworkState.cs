@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -316,7 +318,8 @@ namespace FirstLight.Game.StateMachines
 		}
 		
 		private void StartRandomMatchmaking(MatchRoomSetup setup)
-		{
+		{			
+			_gameDataProvider.AppDataProvider.LastFrameSnapshot.Value = default;
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			if (setup.GameMode().ShouldUsePlayfabMatchmaking())
 			{
@@ -363,8 +366,11 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
+            FLog.Verbose("Starting Matchmaking client timer");
+            
 			if (_matchmakingCoroutine != null)
 			{
+				FLog.Verbose("Timer was already running, cancelling previous coroutine");
 				_services.CoroutineService.StopCoroutine(_matchmakingCoroutine);
 			}
 		
@@ -449,11 +455,13 @@ namespace FirstLight.Game.StateMachines
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
-			FLog.Verbose("Current Room Debug: \n" + _networkService.CurrentRoom.GetRoomDebugString());
+			
+			FLog.Info($"Current Room Debug:{_networkService.CurrentRoom.Name}{_networkService.CurrentRoom.GetRoomDebugString()} ");
 			
 			_services.PartyService.ForceRefresh(); // TODO: This should be in a "OnReconnected" callback
 
 			_networkService.SetLastRoom();
+
 			_statechartTrigger(JoinedRoomEvent);
 			
 			if (_networkService.JoinSource.Value != JoinRoomSource.FirstJoin)
@@ -728,6 +736,8 @@ namespace FirstLight.Game.StateMachines
 			
 			if (!_networkService.QuantumClient.CurrentRoom.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME))
 			{
+				// We update ttl after game started so if matchmaking room is empty it will disbandle the room instantly
+				_networkService.QuantumClient.CurrentRoom.EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
 				_networkService.QuantumClient.CurrentRoom.SetProperty(GameConstants.Network.ROOM_PROPS_STARTED_GAME, true);
 			}
 		}

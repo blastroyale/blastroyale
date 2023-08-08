@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3164890691903510582}
   - component: {fileID: 420334328454685122}
   - component: {fileID: 997936407826252385}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6589058099751343281}
   - component: {fileID: 7844939577312271124}
   - component: {fileID: 5420686551619809246}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3310418645700048029}
   - component: {fileID: 7709154297427922357}
   - component: {fileID: 7378058270311415429}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

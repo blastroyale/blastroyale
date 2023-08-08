@@ -20,8 +20,22 @@ namespace FirstLight.Game.Utils
 
 			var matchData = container.GeneratePlayersMatchData(f, out leader, out var leaderTeam);
 
-			localWinner = game.PlayerIsLocal(leader) || matchData[game.GetLocalPlayerRef()].TeamId == leaderTeam;
-
+			localWinner = false;
+			
+			if (game.PlayerIsLocal(leader))
+			{
+				localWinner = true;
+			}
+			else
+			{
+				var localPlayerRef = game.GetLocalPlayerRef();
+				
+				if (localPlayerRef != PlayerRef.None)
+				{
+					localWinner = matchData[localPlayerRef].TeamId == leaderTeam;
+				}
+			}
+			
 			return matchData;
 		}
 

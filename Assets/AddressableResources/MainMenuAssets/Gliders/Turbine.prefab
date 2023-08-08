@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5663896683257739494}
   - component: {fileID: 690922950505710030}
   - component: {fileID: 364489039549281022}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8163867469231018566}
   - component: {fileID: 6954071776997811072}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Trail 01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 5224526787409187917}
   - component: {fileID: 7403812124467752377}
   - component: {fileID: 7976910536014630426}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 1131563239558682479}
   - component: {fileID: 2905078549521752997}
   - component: {fileID: 9100130306759784842}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Turbine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 5217128453117822209}
   - component: {fileID: 8276648930422465470}
   - component: {fileID: 8067654741395470584}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Thruster03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2736420399662895651}
   - component: {fileID: 2755359702117387567}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Trail 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -75,7 +76,7 @@ namespace FirstLight.Game.Utils
 				viewportPoint.y = 1f - viewportPoint.y;
 			}
 
-			var screenPoint = Camera.main.ViewportToScreenPoint(viewportPoint);
+			var screenPoint = FLGCamera.Instance.MainCamera.ViewportToScreenPoint(viewportPoint);
 
 			// if viewportPoint.x = 1f ViewportToScreenPoint will return width as x, which should be width-1
 			screenPoint.x = Math.Max(screenPoint.x, 0);
@@ -175,17 +176,39 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Animates the scale up and than back down to 1
+		/// Animates the scale up and then back down to 1
 		/// </summary>
-		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f)
+		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
 		{
-			var anim =
-				element.experimental.animation.Scale(amount, 150).OnCompleted(() =>
-				{
-					element.experimental.animation.Scale(1f, 150).Start();
-				});
+			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
+			{
+				element.experimental.animation.Scale(1f, duration).Start();
+			});
 			anim.Start();
 			return anim;
+		}
+
+
+		public static async Task<Sprite> LoadSprite(GameId id)
+		{
+			// TODO: This should be handled better.
+			var services = MainInstaller.Resolve<IGameServices>();
+			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(id, instantiate: false);
+			return sprite;
+		}
+
+		public static async Task SetSprite(GameId id, params VisualElement[] elements)
+		{
+			foreach (var visualElement in elements)
+			{
+				visualElement.style.backgroundImage = null;
+			}
+
+			var sprite = await LoadSprite(id);
+			foreach (var visualElement in elements)
+			{
+				visualElement.style.backgroundImage = new StyleBackground(sprite);
+			}
 		}
 	}
 }

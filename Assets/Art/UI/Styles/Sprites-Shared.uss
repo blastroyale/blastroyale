@@ -86,8 +86,8 @@
 
 .sprite-shared__icon-currency-coin {
     background-image: var(--sprite-shared__icon-currency-coin);
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-shared__icon-currency-cs {

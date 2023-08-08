@@ -5,7 +5,9 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -19,6 +21,9 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnTimeToLeave;
 		}
+		
+		[SerializeField, Required] private PlayableDirector _winDirector;
+		[SerializeField, Required] private PlayableDirector _blastedDirector;
 
 		private VisualElement _matchEndTitle;
 		private VisualElement _blastedTitle;
@@ -27,6 +32,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _youChoseDeathTitle;
 
 		private IMatchServices _matchServices;
+
+		private float _waitTime = 2f;
 
 		private void Awake()
 		{
@@ -49,19 +56,21 @@ namespace FirstLight.Game.Presenters
 
 			var game = QuantumRunner.Default.Game;
 			var gameOver = game.IsGameOver();
-			var f = game.Frames.Verified;
-			var playersData = game.GeneratePlayersMatchDataLocal(out _, out var localWinner);
-			var localPlayer = playersData[game.GetLocalPlayerRef()];
+			var playersData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
+
+
+			var localPlayerRef = game.GetLocalPlayerRef();
+			var localPlayer = localPlayerRef == PlayerRef.None ? playersData[leader] : playersData[localPlayerRef];
 
 			_matchEndTitle.SetDisplay(false);
-			_blastedTitle.SetDisplay(false);
-			_youWinTitle.SetDisplay(false);
 			_youChoseDeathTitle.SetDisplay(false);
 			_bustedTitle.SetDisplay(false);
+			_waitTime = 2f;
 
 			if (localWinner && gameOver)
 			{
-				_youWinTitle.SetDisplay(true);
+				_winDirector.Play();
+				_waitTime = (float) _winDirector.duration;
 			}
 			else if (gameOver)
 			{
@@ -77,7 +86,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_blastedTitle.SetDisplay(true);
+				_blastedDirector.Play();
+				_waitTime = (float) _blastedDirector.duration;
 			}
 
 			StartCoroutine(WaitToLeave());
@@ -85,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator WaitToLeave()
 		{
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(_waitTime);
 			Data.OnTimeToLeave?.Invoke();
 		}
 	}

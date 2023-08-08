@@ -157,7 +157,7 @@ namespace FirstLight.Game.Data
 			{
 				CollectionCategories.PLAYER_SKINS, new List<CollectionItem>()
 				{
-					new(GameId.MalePunk), new(GameId.FemalePunk),
+					new(GameId.MaleAssassin), new(GameId.FemaleAssassin),
 					new(GameId.MaleSuperstar), new(GameId.FemaleSuperstar),
 				}
 			},
@@ -179,7 +179,7 @@ namespace FirstLight.Game.Data
 		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
 		public readonly Dictionary<CollectionCategory, CollectionItem> Equipped = new()
 		{
-			{ CollectionCategories.PLAYER_SKINS, new(GameId.MalePunk) },
+			{ CollectionCategories.PLAYER_SKINS, new(GameId.MaleAssassin) },
 		};
 		
 		[JsonProperty]

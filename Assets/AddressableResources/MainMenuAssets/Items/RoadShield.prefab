@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6957531039582536326}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RoadShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7332520954058790315}
   - component: {fileID: 1831423856953820250}
   - component: {fileID: 2133153721711531799}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Nutter_Sheild
   m_TagString: Untagged
   m_Icon: {fileID: 0}

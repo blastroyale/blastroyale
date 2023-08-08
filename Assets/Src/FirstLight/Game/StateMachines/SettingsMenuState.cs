@@ -119,11 +119,31 @@ namespace FirstLight.Game.StateMachines
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
+				OnCustomizeHudClicked = CustomizeHud,
 				OnDeleteAccountClicked = () =>
 					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
 			
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+		}
+
+		private void CustomizeHud()
+		{
+			_uiService.CloseUi<SettingsScreenPresenter>();
+			_uiService.OpenScreen<HudCustomizationScreenPresenter, HudCustomizationScreenPresenter.StateData>(new ()
+			{
+				OnClose = () =>
+				{
+					_uiService.CloseUi<SettingsScreenPresenter>(true);
+					_uiService.OpenScreen<SettingsScreenPresenter>();
+				},
+				OnSave = e =>
+				{
+					_services.ControlsSetup.SaveControlsPositions(e);
+					_uiService.CloseUi<SettingsScreenPresenter>(true);
+					_uiService.OpenScreen<SettingsScreenPresenter>();
+				}
+			});
 		}
 
 		private async void OpenServerSelectUI()

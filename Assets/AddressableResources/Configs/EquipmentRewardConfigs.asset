@@ -52,7 +52,7 @@ MonoBehaviour:
     Generation: 0
     Amount: 1
   - Id: 1
-    GameId: 78
+    GameId: 88
     EquipmentCategory:
       _keyData: 
       _valueData: []

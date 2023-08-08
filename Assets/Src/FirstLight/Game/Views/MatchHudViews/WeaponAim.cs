@@ -30,6 +30,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Required, SerializeField] private LineRenderer _lowerLineRenderer;
 
 		private const int _minAngleVariation = 15;
+		private readonly Color _sideLineStartColor = new Color(0.13f, 0.13f, 0.13f);
+		private readonly Color _sideLineEndColor = new Color(0.02f, 0.02f, 0.02f);
+		private readonly Color _mainLineColor = Color.white;
 		
 		private FP _variationRange;
 		private FP _range;
@@ -91,7 +94,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if(ShouldReRenderLines()) ReRenderLines();
 		}
+		
+		/// <summary>
+		/// Sets the color of line renderers.
+		/// </summary>
+		public void SetColor(Color c)
+		{
+			_centerLineRenderer.startColor = c;
+			_centerLineRenderer.endColor = c;
+			_lowerLineRenderer.startColor = c;
+			_lowerLineRenderer.endColor = c;
+			_upperLineRenderer.startColor = c;
+			_upperLineRenderer.endColor = c;
+		}
 
+		/// <summary>
+		/// Resets the color of line renderers back to original color
+		/// </summary>
+		public void ResetColor()
+		{
+			_centerLineRenderer.startColor = _mainLineColor;
+			_centerLineRenderer.endColor = _mainLineColor;
+			_lowerLineRenderer.startColor = _sideLineStartColor;
+			_lowerLineRenderer.endColor = _sideLineEndColor;
+			_upperLineRenderer.startColor = _sideLineStartColor;
+			_upperLineRenderer.endColor = _sideLineEndColor;
+		}
+		
 		/// <summary>
 		// We attempt to render the line update on the begining of the frame it was changed
 		// to avoid rendering the update on the next frame if the update was done after rendering was already done
@@ -126,6 +155,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			origin += offset.ToFPVector3();
 			
 			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);
+			
 			if (_angleVariation > _minAngleVariation)
 			{
 				end = FPVector2.Rotate(_aim, -_angleVariation * FP.Deg2Rad).XOY * _variationRange;

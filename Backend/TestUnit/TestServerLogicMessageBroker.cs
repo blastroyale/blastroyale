@@ -36,13 +36,13 @@ namespace Tests
 				receivedMessage = msg;
 			});
 			
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemalePunk) };
+			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
 			
 			_server.SendTestCommand(cmd);
 			
 			Assert.NotNull(receivedMessage);
 			Assert.AreEqual(_server.GetTestPlayerID(), receivedMessage.PlayerId);
-			Assert.AreEqual(GameId.FemalePunk, receivedMessage.Message.EquippedItem.Id);
+			Assert.AreEqual(GameId.FemaleAssassin, receivedMessage.Message.EquippedItem.Id);
 		}
 		
 	}

@@ -17,7 +17,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class AirDropMonoComponent : EntityBase
 	{
-
+		[SerializeField]
+		private Transform _quadTransform;
+		
 		[SerializeField, Required, Title("Refs")]
 		private Transform _itemRoot;
 
@@ -56,12 +58,22 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var targetPosition = airdropPosition + airplaneDirection * _airplaneTravelDistance +
 			                     Vector3.up * airDropHeight;
 
+			_quadTransform.position = new Vector3(targetPosition.x, 0.1f, targetPosition.z);
+
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;
 			_airplane.DOMove(targetPosition, _airplaneTravelDuration)
 			         .SetDelay(Mathf.Max(0, airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
-			         .OnStart(() => { _airplane.gameObject.SetActive(true); })
-			         .OnComplete(() => { _airplane.gameObject.SetActive(false); });
+			         .OnStart(() =>
+					 {
+						 _quadTransform.gameObject.SetActive(true);
+						 _airplane.gameObject.SetActive(true);
+					 })
+			         .OnComplete(() =>
+					 {
+						 _quadTransform.gameObject.SetActive(false);
+						 _airplane.gameObject.SetActive(false);
+					 });
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)

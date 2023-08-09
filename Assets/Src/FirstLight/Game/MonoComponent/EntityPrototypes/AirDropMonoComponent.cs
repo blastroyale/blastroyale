@@ -18,7 +18,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class AirDropMonoComponent : EntityBase
 	{
 		[SerializeField]
-		private Transform _quadTransform;
+		private Transform _airdropRadialTransform;
 		
 		[SerializeField, Required, Title("Refs")]
 		private Transform _itemRoot;
@@ -57,21 +57,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			                       Vector3.up * airDropHeight;
 			var targetPosition = airdropPosition + airplaneDirection * _airplaneTravelDistance +
 			                     Vector3.up * airDropHeight;
-
-			_quadTransform.position = new Vector3(targetPosition.x, 0.1f, targetPosition.z);
-
+			
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;
 			_airplane.DOMove(targetPosition, _airplaneTravelDuration)
 			         .SetDelay(Mathf.Max(0, airDrop.Delay.AsFloat - _airplaneTravelDuration / 2f))
 			         .OnStart(() =>
 					 {
-						 _quadTransform.gameObject.SetActive(true);
 						 _airplane.gameObject.SetActive(true);
 					 })
 			         .OnComplete(() =>
 					 {
-						 _quadTransform.gameObject.SetActive(false);
 						 _airplane.gameObject.SetActive(false);
 					 });
 		}
@@ -84,7 +80,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			}
 			
 			_itemRoot.gameObject.SetActive(true);
-			
+
+			var position = gameObject.transform.position;
+			_airdropRadialTransform.parent = null;
+			_airdropRadialTransform.position = new Vector3(position.x, 0.1f, position.z);
+
 			var collectable = _itemRoot.GetComponentInChildren<CollectableViewMonoComponent>();
 			collectable.SetPickupCircleVisibility(false);
 		}
@@ -95,6 +95,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
+			
+			_airdropRadialTransform.SetParent(_itemRoot);
+			_airdropRadialTransform.gameObject.SetActive(false);
 			
 			_landingPS.Play();
 			_landingAnim.Play();

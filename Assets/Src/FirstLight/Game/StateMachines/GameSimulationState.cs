@@ -122,6 +122,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}
+			if (_uiService.HasUiPresenter<FastSwipeScreenPresenter>())
+			{
+				_uiService.CloseUi<FastSwipeScreenPresenter>(true);
+			}
 		}
 
 		private void SubscribeEvents()

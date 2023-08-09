@@ -11,7 +11,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for the swipe transition 
 	/// </summary>
-	public class SwipeScreenPresenter : UiToolkitPresenter
+	public class FastSwipeScreenPresenter : UiToolkitPresenter
 	{
 		private VisualElement _swipeParent;
 
@@ -22,8 +22,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override Task OnClosed()
 		{
-			_swipeParent.AddToClassList("hidden-end");
+			CloseAnimation();
 			return base.OnClosed();
+		}
+
+		public void CloseAnimation()
+		{
+			_swipeParent.AddToClassList("hidden-end");
 		}
 
 		protected override void OnTransitionsReady()

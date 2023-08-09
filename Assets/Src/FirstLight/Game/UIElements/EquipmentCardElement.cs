@@ -225,35 +225,25 @@ namespace FirstLight.Game.UIElements
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
 				.LocalizeKey();
 
-			Equipment = equipment;
-
-			if (id == UniqueId) return;
 			UniqueId = id;
-
-			LoadImage(loadEditorSprite);
+			var shouldLoadImage = equipment.IsValid() && equipment.GameId != Equipment.GameId;
+			Equipment = equipment;
+			if (shouldLoadImage) LoadImage(loadEditorSprite);
 		}
 
 		private async void LoadImage(bool loadEditorSprite)
 		{
-			if (!loadEditorSprite)
-			{
-				// TODO: This should be handled better.
-				var services = MainInstaller.Resolve<IGameServices>();
-				_image.style.backgroundImage = null;
-				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(Equipment.GameId,
-					instantiate: false);
-
-				_image.style.backgroundImage = _imageShadow.style.backgroundImage = new StyleBackground(sprite);
-			}
-			else
-			{
 #if UNITY_EDITOR
+			if (loadEditorSprite)
+			{
 				_image.style.backgroundImage =
 					_imageShadow.style.backgroundImage = new StyleBackground(
 						UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(
 							$"Assets/AddressableResources/Sprites/Equipment/{Equipment.GetEquipmentGroup().ToString()}/{Equipment.GameId.ToString()}.png"));
-#endif
+				return;
 			}
+#endif
+			await UIUtils.SetSprite(Equipment.GameId, _image, _imageShadow);
 		}
 
 		public new class UxmlFactory : UxmlFactory<EquipmentCardElement, UxmlTraits>

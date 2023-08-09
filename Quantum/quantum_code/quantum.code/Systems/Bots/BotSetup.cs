@@ -285,14 +285,27 @@ namespace Quantum.Systems.Bots
 				spawner = f.RNG->RandomElement(ctx.AllSpawners);
 			}
 
-
 			var spawnerTransform = f.Get<Transform3D>(spawner.Entity);
 
 			var startingEquipment = GetBotGear(f, ref spawner);
-			Log.Info("Bot "+botEntity+" spawning at "+spawnerTransform.Position+" with equipment "+startingEquipment.Length);
-			playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin,
-				botCharacter.DeathMarker, botCharacter.Glider, teamId, startingEquipment, randomWeapon, modifiers);
-
+			var kccConfig = f.FindAsset<CharacterController3DConfig>(f.AssetConfigs.BotKccConfig.Id);
+			var setup = new PlayerCharacterSetup()
+			{
+				e = botEntity,
+				playerRef = id,
+				spawnPosition = spawnerTransform,
+				playerLevel = 1,
+				trophies = trophies,
+				skin = botCharacter.Skin,
+				deathMarker = botCharacter.DeathMarker,
+				glider = botCharacter.Glider,
+				teamId = teamId,
+				startingEquipment = startingEquipment,
+				loadoutWeapon = randomWeapon,
+				modifiers = modifiers,
+				KccConfig = kccConfig
+			};
+			playerCharacter->Init(f, setup);
 			if (GetAmmoPercentage(f, ref spawner, out var percentage))
 			{
 				f.Unsafe.GetPointer<Stats>(botEntity)->SetCurrentAmmo(f, playerCharacter, botEntity, percentage);

@@ -447,11 +447,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5877e8328720e914c9baf7e22e7a17c0
-    m_Address: Assets/Art/Models/Characters/Player/PunkFemale/T_FemalePunkHead_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c401156c3ed867408172f4c1f039e10
     m_Address: Assets/Art/Models/Characters/Player/SuperstarFemale/Char_PlayerFemaleSuperstar.fbx
     m_ReadOnly: 0

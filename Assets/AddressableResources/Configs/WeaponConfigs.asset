@@ -325,7 +325,7 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 3
+      MagazineSize: 2
       ReloadTime:
         RawValue: 58982
       AimingMovementSpeed:
@@ -339,7 +339,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 10
-      NumberOfShots: 5
+      NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
@@ -493,7 +493,7 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 3
+      MagazineSize: 2
       ReloadTime:
         RawValue: 58982
       AimingMovementSpeed:
@@ -507,7 +507,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 10
-      NumberOfShots: 5
+      NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
         RawValue: 327680
@@ -829,7 +829,7 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 3
+      MagazineSize: 2
       ReloadTime:
         RawValue: 58982
       AimingMovementSpeed:
@@ -843,7 +843,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 10
-      NumberOfShots: 5
+      NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
         RawValue: 327680

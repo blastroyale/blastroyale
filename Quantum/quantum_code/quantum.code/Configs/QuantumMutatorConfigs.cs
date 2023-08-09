@@ -12,6 +12,7 @@ namespace Quantum
 		AbsoluteAccuracy,
 		HammerTime,
 		ForceLevelPlayingField,
+		HidePlayerNames,
 	}
 
 	[Serializable]

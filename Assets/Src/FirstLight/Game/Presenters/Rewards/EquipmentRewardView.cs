@@ -2,8 +2,8 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		private RewardsAnimationController _animationController;
 		private AnimatedBackground _animatedBackground;
 		private PlayableDirector _animationDirector;
+		private IConfigsProvider _configsProvider;
 
 		private EquipmentCardElement _card;
 		private Label _name;
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Presenters
 			_animationController = animationController;
 			_animatedBackground = animatedBackground;
 			_animationDirector = animationDirector;
+			_configsProvider = MainInstaller.ResolveServices().ConfigsProvider;
 		}
 
 		public override void Attached(VisualElement element)
@@ -62,7 +64,8 @@ namespace FirstLight.Game.Presenters
 			_animatedBackground.SetColorByRarity(reward.Equipment.Rarity);
 			_card.SetEquipment(reward.Equipment, new UniqueId());
 
-			_range.Localize(reward.GameId.IsInGroup(GameIdGroup.LongRange) ? "UITRewards/long_range" : "UITRewards/short_range");
+			var isRanged = _configsProvider.GetConfig<QuantumWeaponConfig>((int) reward.GameId).UseRangedCam;
+			_range.Localize(isRanged ? "UITRewards/long_range" : "UITRewards/short_range");
 
 			_rarity.text = reward.Equipment.Rarity.GetLocalization();
 			_name.text = reward.Equipment.GameId.GetLocalization();

@@ -21,37 +21,41 @@ Shader "FLG/Unlit/Dynamic Object"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+            struct Attributes
             {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                half4 positionOS : POSITION;
+                half2 uvOS : TEXCOORD0;
+                half2 normalOS: NORMAL; // Ok so without this (and passing to frag) DynamicOutline shader doesn't work, doesn't receive the correct normals. What the actual fuck.
             };
 
-            struct v2f
+            struct Varyings
             {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
+                half4 positionHCS : SV_POSITION;
+                half2 uvOS : TEXCOORD0;
+                half2 normalOS: TEXCOORD1;
             };
 
             sampler2D _MainTex;
 
             CBUFFER_START(UnityPerMaterial)
-            float4 _Color;
+            half4 _Color;
             CBUFFER_END
 
-            v2f vert(appdata v)
+            Varyings vert(Attributes IN)
             {
-                v2f o;
-                o.vertex = TransformObjectToHClip(v.vertex.xyz);
-                o.uv = v.uv;
-                return o;
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.uvOS = IN.uvOS;
+                OUT.normalOS = IN.normalOS;
+                return OUT;
             }
 
-            half4 frag(v2f i) : SV_Target
+            half4 frag(const Varyings IN) : SV_Target
             {
-                half4 tex = tex2D(_MainTex, i.uv) * _Color;
+                half4 tex = tex2D(_MainTex, IN.uvOS) * _Color;
                 return tex;
             }
             ENDHLSL

@@ -75,6 +75,7 @@ namespace Quantum
 		/// </summary>
 		public static bool HasMapLineOfSight(Frame f, EntityRef one, EntityRef two)
 		{
+			if (f.Has<Destructible>(two)) return true;
 			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
 			{
 				return HasLineOfSight(f, onePosition.Position, twoPosition.Position, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);

@@ -25,18 +25,19 @@ Shader "FLG/Unlit/Shadow"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+            struct Attributes
             {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                float4 positionOS : POSITION;
+                float2 uvOS : TEXCOORD0;
             };
 
-            struct v2f
+            struct Varyings
             {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
+                float4 positionHCS : SV_POSITION;
+                float2 uvOS : TEXCOORD0;
             };
 
             CBUFFER_START(UnityPerMaterial)
@@ -45,17 +46,17 @@ Shader "FLG/Unlit/Shadow"
             half _ShadowEnd;
             CBUFFER_END
 
-            v2f vert(appdata v)
+            Varyings vert(Attributes v)
             {
-                v2f o;
-                o.vertex = TransformObjectToHClip(v.vertex.xyz);
-                o.uv = v.uv;
+                Varyings o;
+                o.positionHCS = TransformObjectToHClip(v.positionOS.xyz);
+                o.uvOS = v.uvOS;
                 return o;
             }
 
-            half4 frag(v2f i) : SV_Target
+            half4 frag(Varyings i) : SV_Target
             {
-                return ((1 - distance(i.uv, 0.5) * 2) - _ShadowEnd) / (_ShadowStart - _ShadowEnd) * _Color;
+                return ((1 - distance(i.uvOS, 0.5) * 2) - _ShadowEnd) / (_ShadowStart - _ShadowEnd) * _Color;
             }
             ENDHLSL
         }

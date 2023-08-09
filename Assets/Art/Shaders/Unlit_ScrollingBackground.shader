@@ -28,46 +28,48 @@ Shader "FLG/Unlit/Scrolling Background"
             #pragma fragment frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+            struct Attributes
             {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                float4 positionOS : POSITION;
+                float2 uvOS : TEXCOORD0;
             };
 
-            struct v2f
+            struct Varyings
             {
-                half2 uv : TEXCOORD0;
-                half2 uvTransformed : TEXCOORD1;
-                half4 vertex : SV_POSITION;
+                float4 positionHCS : SV_POSITION;
+                float2 uvOS : TEXCOORD0;
+                float2 uvTransformed : TEXCOORD1;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
-            half4 _ColorTop;
-            half4 _ColorBottom;
-            half _PatternStrength;
-            half _GradientSize;
-            half _SpeedX;
-            half _SpeedY;
+            float4 _ColorTop;
+            float4 _ColorBottom;
+            float _PatternStrength;
+            float _GradientSize;
+            float _SpeedX;
+            float _SpeedY;
 
-            v2f vert(appdata v)
+            Varyings vert(Attributes IN)
             {
-                v2f o;
-                o.vertex = TransformObjectToHClip(v.vertex.xyz);
-                o.uvTransformed = TRANSFORM_TEX(v.uv, _MainTex);
-                o.uv = v.uv;
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.uvTransformed = TRANSFORM_TEX(IN.uvOS, _MainTex);
+                OUT.uvOS = IN.uvOS;
 
-                return o;
+                return OUT;
             }
 
-            half4 frag(v2f i) : SV_Target
+            float4 frag(Varyings IN) : SV_Target
             {
-                half2 uvAnimated = frac(half2(i.uvTransformed.x + (_Time.x * _SpeedX), i.uvTransformed.y + (_Time.x * _SpeedY)));
-                half tex = saturate(tex2D(_MainTex, uvAnimated).x + 1 - _PatternStrength);
+                const float2 uvAnimated = float2(IN.uvTransformed.x + frac(_Time.x * _SpeedX),
+                                                 IN.uvTransformed.y + frac(_Time.x * _SpeedY));
+                const float tex = saturate(tex2D(_MainTex, uvAnimated).x + 1 - _PatternStrength);
 
-                half gradient = (i.uv.x + i.uv.y) / 2;
-                half gradient_scaled = saturate(lerp(-_GradientSize, 1 + _GradientSize, gradient));
+                const float gradient = (IN.uvOS.x + IN.uvOS.y) / 2;
+                const float gradient_scaled = saturate(lerp(-_GradientSize, 1 + _GradientSize, gradient));
+
                 return lerp(_ColorBottom, _ColorTop, gradient_scaled) * tex;
             }
             ENDHLSL

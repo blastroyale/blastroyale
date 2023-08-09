@@ -71,6 +71,7 @@ namespace FirstLight.Game.Utils
 					return ScriptLocalization.MainMenu.ServerNameUs;
 				case "hk":
 				case "asia":
+				case "in":
 					return ScriptLocalization.MainMenu.ServerNameHk;
 				default:
 					return "";

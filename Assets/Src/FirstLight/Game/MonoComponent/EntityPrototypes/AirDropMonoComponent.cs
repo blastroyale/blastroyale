@@ -18,6 +18,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	public class AirDropMonoComponent : EntityBase
 	{
 		[SerializeField]
+		private Transform _airdropPlaneRadialTransform;
+		
+		[SerializeField]
 		private Transform _airdropRadialTransform;
 		
 		[SerializeField, Required, Title("Refs")]
@@ -57,6 +60,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			                       Vector3.up * airDropHeight;
 			var targetPosition = airdropPosition + airplaneDirection * _airplaneTravelDistance +
 			                     Vector3.up * airDropHeight;
+
+			_airdropPlaneRadialTransform.localPosition = new Vector3(0f, -airDropHeight, 0f);
 			
 			_airplane.rotation = Quaternion.LookRotation(airplaneDirection);
 			_airplane.position = startingPosition;

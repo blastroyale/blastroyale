@@ -161,8 +161,7 @@ namespace FirstLight.Game.Utils
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
 			// are used to signal at which point in the loading flow the player is currently during matchmaking screen.
 			public const string PLAYER_PROPS_CORE_LOADED = "propsCoreLoaded";
-			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
-			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
+			public const string PLAYER_PROPS_LOADOUT = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
@@ -231,6 +230,7 @@ namespace FirstLight.Game.Utils
 			
 			public const int REWARD_POPUP_CLOSE_MS = 300;
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
+			public const int FAST_SCREEN_SWIPE_TRANSITION_MS = SCREEN_SWIPE_TRANSITION_MS / 2;
 
 			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
 		}

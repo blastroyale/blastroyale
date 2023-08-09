@@ -58,6 +58,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 		
 		private static GameObject GetFollowObject(SpectatedPlayer player)
@@ -68,7 +69,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				FLog.Warn("Camera following something that is not a player :L");
 				return player.Transform.gameObject;
 			}
-			return component.Instance.transform.gameObject;
+			return component.transform.gameObject;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -160,7 +161,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
+			if (virtualCamera != null && virtualCamera.gameObject != null && FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
 				 virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;

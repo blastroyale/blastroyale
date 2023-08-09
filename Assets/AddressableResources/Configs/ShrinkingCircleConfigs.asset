@@ -318,7 +318,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 524288
       AirdropChest: 19
-    - Key: 960050
+    - Key: 961691
       Step: 4
       Map: 65
       DelayTime:
@@ -332,7 +332,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 114688
       MaxHealthDamage:
-        RawValue: 6554
+        RawValue: 4915
       AirdropChance:
         RawValue: 52429
       AirdropStartTimeRange:
@@ -343,7 +343,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 262144
       AirdropChest: 19
-    - Key: 267548
+    - Key: 278453
       Step: 5
       Map: 65
       DelayTime:
@@ -357,7 +357,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 98304
       MaxHealthDamage:
-        RawValue: 13107
+        RawValue: 6554
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -368,7 +368,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 285136
+    - Key: 327606
       Step: 6
       Map: 65
       DelayTime:
@@ -382,7 +382,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 81920
       MaxHealthDamage:
-        RawValue: 32768
+        RawValue: 9830
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -393,7 +393,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 114697
+    - Key: 78650
       Step: 7
       Map: 65
       DelayTime:
@@ -407,7 +407,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 49152
+        RawValue: 13107
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:
@@ -418,7 +418,7 @@ MonoBehaviour:
       AirdropDropDuration:
         RawValue: 0
       AirdropChest: 13
-    - Key: 655294470
+    - Key: 655245318
       Step: 8
       Map: 65
       DelayTime:
@@ -432,7 +432,7 @@ MonoBehaviour:
       NewSafeSpaceAreaSizeK:
         RawValue: 65536
       MaxHealthDamage:
-        RawValue: 65536
+        RawValue: 16384
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

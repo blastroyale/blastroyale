@@ -143,8 +143,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
-			FLog.Verbose("Updating aim in frame "+Time.frameCount);
 
 			_aim = _aim.Normalized;
 			

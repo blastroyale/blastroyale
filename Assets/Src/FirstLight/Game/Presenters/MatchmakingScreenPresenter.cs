@@ -117,7 +117,7 @@ namespace FirstLight.Game.Presenters
 
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 
-			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
+			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 		}
 
 		protected override void OnOpened()
@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
 
-			_services.MessageBrokerService.Unsubscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
+			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 		}
 
 		private void OnMapClicked(ClickEvent evt)
@@ -322,7 +322,7 @@ namespace FirstLight.Game.Presenters
 
 			if (RejoiningRoom)
 			{
-				OnStartedFinalPreloadMessage(new StartedFinalPreloadMessage());
+				OnWaitingMandatoryMatchAssets(new WaitingMandatoryMatchAssetsMessage());
 			}
 			else
 			{
@@ -374,7 +374,7 @@ namespace FirstLight.Game.Presenters
 			RefreshPartyList();
 		}
 
-		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
+		private void OnWaitingMandatoryMatchAssets(WaitingMandatoryMatchAssetsMessage obj)
 		{
 			if (_matchmakingTimerCoroutine != null)
 			{

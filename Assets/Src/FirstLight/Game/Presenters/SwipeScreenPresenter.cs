@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -13,10 +14,10 @@ namespace FirstLight.Game.Presenters
 	public class SwipeScreenPresenter : UiToolkitPresenter
 	{
 		private VisualElement _swipeParent;
-		
+
 		protected override void QueryElements(VisualElement root)
 		{
-			_swipeParent = root.Q<VisualElement>("SwipeParent").Required();	
+			_swipeParent = root.Q<VisualElement>("SwipeParent").Required();
 		}
 
 		protected override Task OnClosed()

@@ -731,12 +731,12 @@ namespace FirstLight.Game.Services
 					GameConstants.Network.PLAYER_PROPS_DROP_POSITION, dropPosition
 				}
 			};
-
 			SetPlayerCustomProperties(playerPropsUpdate);
 		}
 
 		public void SetCurrentRoomOpen(bool isOpen)
 		{
+			FLog.Verbose("Setting room open: "+isOpen);
 			CurrentRoom.IsOpen = isOpen;
 		}
 
@@ -786,9 +786,8 @@ namespace FirstLight.Game.Services
 
 			var playerProps = new Hashtable
 			{
-				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
+				{GameConstants.Network.PLAYER_PROPS_LOADOUT, preloadIds.ToArray()},
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
-				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
 				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId}
 			};

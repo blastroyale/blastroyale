@@ -239,6 +239,19 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		private async Task PreloadQuantumSettings()
+		{
+			var assets = UnityDB.CollectAddressableAssets();
+			foreach (var asset in assets)
+			{
+				if (!asset.Item1.StartsWith("Settings"))
+				{
+					continue;
+				}
+				_ = _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
+			}
+		}
+
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed ==
@@ -547,6 +560,11 @@ namespace FirstLight.Game.StateMachines
 			{
 				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}
+			
+			if (_uiService.HasUiPresenter<FastSwipeScreenPresenter>())
+			{
+				_uiService.CloseUi<FastSwipeScreenPresenter>(true);
+			}
 
 			if (_uiService.HasUiPresenter<LoadingScreenPresenter>())
 			{
@@ -583,7 +601,6 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-
 			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
@@ -594,25 +611,27 @@ namespace FirstLight.Game.StateMachines
 			uiVfxService.Init(_uiService);
 
 			_statechartTrigger(MainMenuLoadedEvent);
+
+			_ = PreloadQuantumSettings();
 		}
 
 		private async void UnloadMainMenu()
 		{
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			await _uiService.OpenUiAsync<FastSwipeScreenPresenter>();
 
 			FLGCamera.Instance.PhysicsRaycaster.enabled = false;
 			
 			// Delay to let the swipe animation finish its intro without being choppy
-			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
+			await Task.Delay(GameConstants.Visuals.FAST_SCREEN_SWIPE_TRANSITION_MS);
 
 			var configProvider = _services.ConfigsProvider;
 
 			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 
-			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
+			await Task.Yield();
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-
+	
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
@@ -621,6 +640,7 @@ namespace FirstLight.Game.StateMachines
 			Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();
 
+			await Task.Yield();
 			_statechartTrigger(MainMenuUnloadedEvent);
 		}
 

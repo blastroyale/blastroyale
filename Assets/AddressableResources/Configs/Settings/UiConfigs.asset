@@ -55,10 +55,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.EquipmentSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/FastSwipeTransitionOverlay.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.FastSwipeScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameCountdownScreen.prefab
     Layer: -2
     UiType: FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game,

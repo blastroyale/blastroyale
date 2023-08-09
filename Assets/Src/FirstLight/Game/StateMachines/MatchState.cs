@@ -308,7 +308,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Warn("Disconnected during final preload");
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
-
 			_uiService.CloseUi<CustomLobbyScreenPresenter>();
 			_uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
@@ -404,20 +403,11 @@ namespace FirstLight.Game.StateMachines
 			CloseCurrentScreen();
 			
 			StopSimulation();
-			
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
-			
-			// Delay to let the swipe animation finish its intro without being choppy
-			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
-			
-			// Yield for a frame to give time for Quantum to unload all the memory before all assets are unloaded from Unity
-			await Task.Yield();
+
+			await SwipeScreenPresenter.StartSwipe();
 			await UnloadAllMatchAssets();
 
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
-			
-			// Delay to make sure we can read the swipe transition message even if the rest is too fast
-			await Task.Delay(1000);
 		}
 		
 		private void UnloadMainMenuAssetConfigs()
@@ -452,17 +442,16 @@ namespace FirstLight.Game.StateMachines
 				MainInstaller.Clean<IMatchServices>();
 			}
 		}
-		
-		private void DismissGenericPopups()
-		{
-			_services.GenericDialogService.CloseDialog();
-		}
-		
+
 		//////////////
 		/// UI CODE //
 		//////////////
 		#region UI Handling
 		
+		private void DismissGenericPopups()
+		{
+			_services.GenericDialogService.CloseDialog();
+		}
 		
 		private void OpenWinnersScreen(IWaitActivity activity)
 		{
@@ -485,10 +474,7 @@ namespace FirstLight.Game.StateMachines
 		private async Task OpenSwipeTransition()
 		{
 			_uiService.CloseCurrentScreen();
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
-			
-			// Delay to let the swipe animation finish its intro without being choppy
-			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
+			await SwipeScreenPresenter.StartSwipe();
 		}
 		
 		private async Task OpenMatchmakingScreen()
@@ -527,30 +513,11 @@ namespace FirstLight.Game.StateMachines
 			// This is case for the FIRST_GUIDE_MATCH tutorial only
 			if ((!_services.TutorialService.IsTutorialRunning || _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH))
 			{
-				if (_uiService.HasUiPresenter<FastSwipeScreenPresenter>())
-				{
-					_uiService.CloseUi<FastSwipeScreenPresenter>(true);
-				}
-				if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
-				{
-					_uiService.CloseUi<SwipeScreenPresenter>(true);
-				}
+				 _ = SwipeScreenPresenter.Finish();
 			}
 		}
 		
-		private void CloseSwipeTransition()
-		{
-			// If a tutorial is running (first match tutorial) - the transition will be closed later, in game simulation state
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
-			{
-				_uiService.CloseUi<SwipeScreenPresenter>(true);
-			}
-			
-			if (_uiService.HasUiPresenter<FastSwipeScreenPresenter>())
-			{
-				_uiService.CloseUi<FastSwipeScreenPresenter>(true);
-			}
-		}
+		private void CloseSwipeTransition() => _ = SwipeScreenPresenter.Finish();
 		#endregion
 	}
 }

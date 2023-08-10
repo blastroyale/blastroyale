@@ -7,7 +7,7 @@ singleton component ShrinkingCircle
 	FP ShrinkingStartTime;
 	FP ShrinkingDurationTime;
 	Int32 Step;
-    FP Damage;
+    FP Damage; // TODO: Remove from component since it's a config value
 	FP ShrinkingSizeK;
 	FP AirDropChance;
 }

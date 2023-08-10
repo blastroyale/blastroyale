@@ -769,13 +769,11 @@
     justify-content: center;
 }
 
-
 .match-status__kills-container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: row;
 }
-
 
 .match-status__alive-container {
     flex-grow: 1;
@@ -1299,6 +1297,35 @@
     display: none;
 }
 
+.player-status-bar__damage-holder {
+    position: absolute;
+    top: -32px;
+    left: 55px;
+    right: 0;
+    bottom: 0;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.player-status-bar__damage-number {
+    position: absolute;
+    color: rgb(255, 59, 0);
+    font-size: 32px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+}
+
 .health-status-bar {
     flex-direction: row;
     background-image: var(--sprite-match__background-healthbar);
@@ -1569,3 +1596,29 @@
     -unity-background-image-tint-color: rgb(0, 0, 0);
 }
 
+.low-hp {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: row;
+}
+
+.low-hp__gradient {
+    width: 485px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    --gradient-from: rgba(255, 0, 0, 0.3);
+    --gradient-to: rgba(255, 0, 0, 0);
+}
+
+.low-hp__gradient--left {
+    left: 0;
+}
+
+.low-hp__gradient--right {
+    right: 0;
+    rotate: 180deg;
+}

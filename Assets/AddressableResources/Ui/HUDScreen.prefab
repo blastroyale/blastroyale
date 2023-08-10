@@ -743,7 +743,10 @@ MonoBehaviour:
   _millisecondsToClose: 0
   _legacyMinimap: {fileID: 5686076111702010275}
   _areaShrinkingDirector: {fileID: 4236891687392369458}
-  _blastedDirector: {fileID: 2252114041857710641}
+  _blasted1Director: {fileID: 2252114041857710641}
+  _blasted2Director: {fileID: 7274774479718869702}
+  _blasted3Director: {fileID: 7643966329918233967}
+  _blastedBeastDirector: {fileID: 2472244969864592795}
   _outOfAmmoGradient:
     serializedVersion: 2
     key0: {r: 0.4, g: 0.05882353, b: 0.15294118, a: 1}
@@ -774,10 +777,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  _blasted1Director: {fileID: 2252114041857710641}
-  _blasted2Director: {fileID: 7274774479718869702}
-  _blasted3Director: {fileID: 7643966329918233967}
-  _blastedBeastDirector: {fileID: 2472244969864592795}
+  _lowHPThreshold: 150
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 0

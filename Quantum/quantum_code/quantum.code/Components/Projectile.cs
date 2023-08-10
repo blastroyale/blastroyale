@@ -26,10 +26,20 @@ namespace Quantum
 		{
 			return WeaponConfig(f).BulletHitPrototype != null && Iteration == 0;
 		}
+
+		public bool IsSubProjectile()
+		{
+			return Iteration > 0;
+		}
+
+		public bool ConfigHasSubprojectile(Frame f)
+		{
+			return WeaponConfig(f).BulletEndOfLifetimePrototype != null;
+		}
 		
 		public bool ShouldPerformSubProjectileOnEndOfLifetime(Frame f)
 		{
-			return WeaponConfig(f).BulletEndOfLifetimePrototype != null && Iteration == 0;
+			return ConfigHasSubprojectile(f) && !IsSubProjectile();
 		}
 	}
 }

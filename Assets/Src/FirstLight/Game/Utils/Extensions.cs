@@ -71,6 +71,7 @@ namespace FirstLight.Game.Utils
 					return ScriptLocalization.MainMenu.ServerNameUs;
 				case "hk":
 				case "asia":
+				case "in":
 					return ScriptLocalization.MainMenu.ServerNameHk;
 				default:
 					return "";
@@ -335,6 +336,11 @@ namespace FirstLight.Game.Utils
 		{
 			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
 		}
+		
+		public static List<GameId> GetLoadoutGameIds(this Player player)
+		{
+			return ((int[])player.CustomProperties[GameConstants.Network.PLAYER_PROPS_LOADOUT]).Cast<GameId>().ToList();
+		}
 
 		/// <summary>
 		/// Obtains the current selected game mode id in the given <paramref name="room"/>
@@ -540,8 +546,6 @@ namespace FirstLight.Game.Utils
 				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
 				return everyBodyJoined && everybodyLoadedCoreAssets;
 			}
-			
-			FLog.Verbose($"Is room full capacity ? {room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity()}");
 			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
 		}
 
@@ -593,7 +597,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool LoadedCoreMatchAssets(this Player player)
 		{
-			return player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
+			return player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_CORE_LOADED,
 				out var propertyValue) && (bool)propertyValue;
 		}
 

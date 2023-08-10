@@ -140,10 +140,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async void AttemptJoinTutorialRoom()
 		{
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
-
+			_ = SwipeScreenPresenter.StartSwipe();
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 

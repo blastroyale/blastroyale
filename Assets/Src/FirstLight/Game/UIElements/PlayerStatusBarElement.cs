@@ -48,8 +48,10 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _ammoReloadBar;
 		private readonly Label _notificationLabel;
 
-		private readonly Label[] _damageNumberPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
-		private readonly ValueAnimation<float>[] _damageNumberAnimsPool = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly float[] _damageNumberAnimValues = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private int _damageNumberIndex;
 
 		private bool _isFriendly;
@@ -127,13 +129,14 @@ namespace FirstLight.Game.UIElements
 					var damageNumber = new Label("0") {name = "damage-number"};
 					damageHolder.Add(damageNumber);
 					damageNumber.AddToClassList(USS_DAMAGE_NUMBER);
-					damageNumber.userData = Random.Range(-20f, 20f); // Random value stored in userData for convenience
-					_damageNumberPool[i] = damageNumber;
+					damageNumber.userData = i; // Save index to userData
+					_damageNumberAnimOffsets[i] = Random.Range(-5f, 5f);
+					_damageNumbersPool[i] = damageNumber;
 
 					// Create animation
 					var anim = damageNumber.experimental.animation.Start(0f, 1f, DAMAGE_NUMBER_ANIM_DURATION, AnimateDamageNumber);
 					anim.KeepAlive().Stop();
-					_damageNumberAnimsPool[i] = anim;
+					_damageNumberAnims[i] = anim;
 				}
 			}
 
@@ -159,9 +162,11 @@ namespace FirstLight.Game.UIElements
 		public void PingDamage(uint damage)
 		{
 			_damageNumberIndex = (_damageNumberIndex + 1) % DAMAGE_NUMBER_MAX_POOL_SIZE;
-			var damageNumberLabel = _damageNumberPool[_damageNumberIndex];
-			var damageNumberAnim = _damageNumberAnimsPool[_damageNumberIndex];
+			var damageNumberLabel = _damageNumbersPool[_damageNumberIndex];
+			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
+			_damageNumberAnimValues[_damageNumberIndex] = damage;
 			damageNumberLabel.text = damage.ToString();
+			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
 
@@ -177,7 +182,7 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetName(string playerName)
 		{
-			_name.text = playerName.ToUpper();
+			_name.text = playerName;
 		}
 
 		/// <summary>
@@ -304,23 +309,37 @@ namespace FirstLight.Game.UIElements
 			_reloadAnimation.Start();
 		}
 
-		private void AnimateDamageNumber(VisualElement damageNumber, float d)
+		private void AnimateDamageNumber(VisualElement damageNumber, float t)
 		{
+			var index = (int) damageNumber.userData;
+			var offset = _damageNumberAnimOffsets[index];
+			var damage = _damageNumberAnimValues[index];
+			
 			// Bezier curve
-			var random = (float) damageNumber.userData;
-			var p0 = new Vector2(random / 2f, random / 2f); // Less offset on first point
-			var p1 = new Vector2(100 + random, -50 + random);
-			var p2 = new Vector2(150 + random * 2f, 150 + random * 2f); // More offset on last point
+			var p0 = new Vector2(0, 0) + Vector2.one * offset / 2f; // Less random offset on first point
+			var p1 = new Vector2(50, -10) + Vector2.one * offset;
+			var p2 = new Vector2(75, 50) + Vector2.one * (offset * 2f); // More random offset on last point
 
-			var pd1 = Vector2.Lerp(p0, p1, d);
-			var pd2 = Vector2.Lerp(p1, p2, d);
-			var pf = Vector2.Lerp(pd1, pd2, d);
+			var pd1 = Vector2.Lerp(p0, p1, t);
+			var pd2 = Vector2.Lerp(p1, p2, t);
+			var pf = Vector2.Lerp(pd1, pd2, t);
 
 			// Opacity between 0-0.2 of d
-			var opacity = Mathf.Clamp01(1f / 0.2f * (1f - d));
+			var opacity = Mathf.Clamp01(1f / 0.50f * (1f - t));
+
+			// Scale overshoot (bump)
+			var scaleMagnitude = Mathf.Clamp01(Mathf.InverseLerp(20, 100, damage)) * 1.1f;
+			var scale = t < 0.1 ? Mathf.Lerp(0, 1.5f + scaleMagnitude, t * 10) :
+				t < 0.3 ? Mathf.Lerp(1.5f + scaleMagnitude, 1f, (t - 0.1f) * 10) :
+				1f;
+			
+			// Color
+			// var color = t < 0.3 ? Color.Lerp(Color.red, Color.white, t * 3.33f) : Color.white;
 
 			damageNumber.transform.position = pf;
+			damageNumber.transform.scale = new Vector3(scale, scale, 1);
 			damageNumber.style.opacity = opacity;
+			// damageNumber.style.color = color;
 		}
 
 		public enum NotificationType

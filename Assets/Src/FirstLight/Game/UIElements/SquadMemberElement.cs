@@ -138,7 +138,7 @@ namespace FirstLight.Game.UIElements
 			if (_player == player) return;
 			_player = player;
 
-			_name.text = playerName.ToUpper();
+			_name.text = playerName;
 			_level.text = level.ToString();
 
 			if (Application.isPlaying)

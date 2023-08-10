@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4053899609441553140}
   - component: {fileID: 4810686687521673684}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Unicorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5231062637146798048}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 53bfc932f076bc843baecf10d6092e04, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -93,7 +93,7 @@ namespace UITTimeline
             {
                 if (UsesBehaviour<UITPositionBehaviour>()) e.transform.position = position;
                 if (UsesBehaviour<UITScaleBehaviour>()) e.transform.scale = scale;
-                if (UsesBehaviour<UITPositionBehaviour>()) e.transform.rotation = Quaternion.Euler(0, 0, rotation);
+                if (UsesBehaviour<UITRotationBehaviour>()) e.transform.rotation = Quaternion.Euler(0, 0, rotation);
                 if (UsesBehaviour<UITOpacityBehaviour>()) e.style.opacity = opacity;
                 if (UsesBehaviour<UITBackgroundTintBehaviour>()) e.style.unityBackgroundImageTintColor = backgroundTint;
             }

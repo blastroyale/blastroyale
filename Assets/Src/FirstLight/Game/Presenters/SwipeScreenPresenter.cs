@@ -54,6 +54,7 @@ namespace FirstLight.Game.Presenters
 		public static async Task Finish()
 		{
 			var service = MainInstaller.ResolveServices();
+			if (!service.GameUiService.HasUiPresenter<SwipeScreenPresenter>()) return;
 			var ui = service.GameUiService.GetUi<SwipeScreenPresenter>();
 			if (ui == null) return;
 			ui._swipeParent.AddToClassList("hidden-end");

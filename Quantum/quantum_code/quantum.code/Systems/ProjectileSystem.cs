@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Photon.Deterministic;
 using Quantum.Systems.Bots;
 
@@ -45,12 +46,12 @@ namespace Quantum.Systems
 		
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger ||projectile.Attacker == info.Entity 
-				|| projectile.Attacker == info.Other || f.Has<EntityDestroyer>(info.Entity) || TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other))
+			if (!f.TryGet<Projectile>(info.Entity, out var projectile) || info.Other == info.Entity || info.StaticData.IsTrigger || projectile.Attacker == info.Entity 
+				|| f.Has<EntityDestroyer>(info.Entity) || (projectile.Attacker == info.Other && !projectile.IsSubProjectile()) || (projectile.Attacker != info.Other && TeamHelpers.HasSameTeam(f, projectile.Attacker, info.Other)))
 			{
 				return;
 			}
-
+			
 			if (info.Other.IsValid)
 			{
 				
@@ -62,7 +63,7 @@ namespace Quantum.Systems
 				}
 
 				// For area of effects, we need to have LOS between the projectile and the target
-				if (projectile.Iteration > 0 && cfg.HitType == SubProjectileHitType.AreaOfEffect)
+				if (projectile.IsSubProjectile() && cfg.HitType == SubProjectileHitType.AreaOfEffect)
 				{
 					if (!QuantumHelpers.HasMapLineOfSight(f, info.Entity, info.Other))
 					{
@@ -116,9 +117,12 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				var power = (uint)projectile.GetPower(f);
+
+				var isSelfAOE = projectile.Attacker == targetHit && projectile.IsSubProjectile();
+				var power = (uint)(projectile.GetPower(f) * (isSelfAOE ? Constants.SELF_DAMAGE_MODIFIER : FP._1));
+				
 				var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
-					projectile.KnockbackAmount, position, projectile.TeamSource);
+					projectile.KnockbackAmount, position, isSelfAOE ? 0 : projectile.TeamSource);
 				if (QuantumHelpers.ProcessHit(f, &spell))
 				{
 					OnHit(f, &spell);
@@ -230,6 +234,7 @@ namespace Quantum.Systems
 			var projectileEntity = f.Create(f.FindAsset<EntityPrototype>(weaponConfig.BulletPrototype != null
 				? weaponConfig.BulletPrototype.Id
 				: f.AssetConfigs.DefaultBulletPrototype.Id));
+			
 			var transform = f.Unsafe.GetPointer<Transform3D>(projectileEntity);
 
 			transform->Position = projectile.SpawnPosition;

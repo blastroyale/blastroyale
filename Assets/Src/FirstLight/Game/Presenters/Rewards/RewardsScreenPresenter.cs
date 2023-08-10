@@ -36,7 +36,6 @@ namespace FirstLight.Game.Presenters
 
 		#endregion
 
-
 		#region Elements
 
 		private EquipmentRewardView _equipmentRewardView;
@@ -63,7 +62,6 @@ namespace FirstLight.Game.Presenters
 			_remaining = new Queue<IReward>(Data.Rewards);
 			Move();
 		}
-
 
 		protected override void QueryElements(VisualElement root)
 		{
@@ -115,7 +113,6 @@ namespace FirstLight.Game.Presenters
 			Data.OnFinish?.Invoke();
 		}
 
-
 		private bool ShowNext()
 		{
 			if (!_remaining.TryDequeue(out var current))
@@ -126,7 +123,6 @@ namespace FirstLight.Game.Presenters
 			SetCurrentReward(current);
 			return true;
 		}
-
 
 		private void SetCurrentReward(IReward rewardData)
 		{
@@ -141,7 +137,6 @@ namespace FirstLight.Game.Presenters
 				SetDisplays(_genericRewardView);
 			}
 		}
-
 
 		private bool ShouldShowSummary()
 		{

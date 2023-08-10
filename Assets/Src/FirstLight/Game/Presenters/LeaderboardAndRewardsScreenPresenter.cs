@@ -55,6 +55,7 @@ namespace FirstLight.Game.Presenters
 		private RewardPanelView _craftSpiceView;
 		private RewardPanelView _trophiesView;
 		private RewardBPPanelView _bppView;
+		private RewardPanelView _levelView;
 
 		private bool _showingLeaderboards;
 

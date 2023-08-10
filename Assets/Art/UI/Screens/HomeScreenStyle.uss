@@ -60,6 +60,15 @@
     text-overflow: ellipsis;
 }
 
+.player-header__fame-lvl {
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 0;
+    right: 59px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
 .player-header__profile-button {
     background-image: var(--sprite-home__button-profile);
     width: 342px;
@@ -921,4 +930,12 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.button-with-icon.fame-lock > .fame-lock__holder {
+    top: -25px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

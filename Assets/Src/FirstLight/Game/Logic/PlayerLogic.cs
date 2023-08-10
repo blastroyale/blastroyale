@@ -21,14 +21,19 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> Trophies { get; }
 
 		/// <summary>
+		/// Request the player's current fame level
+		/// </summary>
+		IObservableFieldReader<uint> Level { get; }
+		
+		/// <summary>
+		/// Request the player's current XP (level up consumes XP).
+		/// </summary>
+		IObservableFieldReader<uint> XP { get; }
+
+		/// <summary>
 		/// Requests a list of systems already seen by the player.
 		/// </summary>
 		IObservableList<UnlockSystem> SystemsTagged { get; }
-
-		/// <summary>
-		/// Requests the current <see cref="Infos.PlayerInfo"/>
-		/// </summary>
-		PlayerInfo PlayerInfo { get; }
 
 		/// <summary>
 		/// Requests the unlock level of the given <paramref name="unlockSystem"/>
@@ -39,12 +44,12 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
 		/// </summary>
 		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
-		
+
 		/// <summary>
 		/// Checks if a given player has completed a given tutorial step
 		/// </summary>
 		bool HasTutorialSection(TutorialSection section);
-		
+
 		/// <summary>
 		/// Checks if this account has completed guest data migration
 		/// </summary>
@@ -57,8 +62,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds the given <paramref name="amount"/> of XP to the Player.
 		/// </summary>
-		void AddXp(uint amount);
-		
+		void AddXP(uint amount);
+
 		/// <summary>
 		/// Updates player's trophies (Elo) based on their ranking in the match, and returns the amount of trophies
 		/// added/removed
@@ -75,19 +80,27 @@ namespace FirstLight.Game.Logic
 		/// account upon logging in again
 		/// </summary>
 		void MarkGuestAccountMigrated();
+
+		void ResetLevel();
 	}
-	
+
 	// TODO: Remove all player skin stuff related and move to CollectionLogic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
 		private IObservableField<uint> _trophies;
+		private IObservableField<uint> _level;
+		private IObservableField<uint> _xp;
 
 		private IObservableField<TutorialSection> _tutorialSections;
-		
+
 		public IObservableFieldReader<TutorialSection> TutorialSections => _tutorialSections;
+
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
+
+		public IObservableFieldReader<uint> Level => _level;
+		public IObservableFieldReader<uint> XP => _xp;
 
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
@@ -97,35 +110,7 @@ namespace FirstLight.Game.Logic
 			get
 			{
 				var data = DataProvider.GetData<PlayerData>();
-				return data.MigratedGuestData ;
-			}
-		}
-
-		/// <inheritdoc />
-		public PlayerInfo PlayerInfo
-		{
-			get
-			{
-				var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-				var config = configs[(int) Math.Min(Data.Level, configs.Count)];
-				var maxLevel = configs[configs.Count].Level + 1;
-				var totalXp = Data.Level;
-
-				for (var i = 1; i < Data.Level; i++)
-				{
-					totalXp += configs[i].LevelUpXP;
-				}
-				
-				return new PlayerInfo
-				{
-					Level = Data.Level,
-					Xp = Data.Xp,
-					TotalCollectedXp = totalXp,
-					MaxLevel = maxLevel,
-					Config = config,
-					TotalTrophies = _trophies.Value,
-					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
-				};
+				return data.MigratedGuestData;
 			}
 		}
 
@@ -140,6 +125,8 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
+			_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
+			_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
@@ -151,13 +138,26 @@ namespace FirstLight.Game.Logic
 				_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 				_trophies.AddObservers(listeners);
 			}
+
+			{
+				var listeners = _level.GetObservers();
+				_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
+				_level.AddObservers(listeners);
+			}
 			
+			
+			{
+				var listeners = _xp.GetObservers();
+				_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
+				_xp.AddObservers(listeners);
+			}
+
 			{
 				var listeners = SystemsTagged.GetObservers();
 				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 				SystemsTagged.AddObservers(listeners);
 			}
-			
+
 			{
 				var listeners = _tutorialSections.GetObservers();
 				_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
@@ -165,6 +165,8 @@ namespace FirstLight.Game.Logic
 			}
 
 			_trophies.InvokeUpdate();
+			_level.InvokeUpdate();
+			_xp.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
 			SystemsTagged.InvokeUpdate();
 		}
@@ -197,12 +199,12 @@ namespace FirstLight.Game.Logic
 				{
 					continue;
 				}
-				
+
 				if (configs[i].Level > level)
 				{
 					break;
 				}
-				
+
 				ret.AddRange(configs[i].Systems);
 			}
 
@@ -210,12 +212,12 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void AddXp(uint amount)
+		public void AddXP(uint amount)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-			var xp = Data.Xp + amount;
-			var level = Data.Level;
-			
+			var xp = _xp.Value + amount;
+			var level = _level.Value;
+
 			if (level == configs.Count + 1)
 			{
 				return;
@@ -227,8 +229,8 @@ namespace FirstLight.Game.Logic
 				level++;
 			}
 
-			Data.Level = level;
-			Data.Xp = level >= configs.Count ? 0 : xp;
+			_level.Value = level;
+			_xp.Value = level >= configs.Count ? 0 : xp;
 		}
 
 		/// <inheritdoc />
@@ -256,6 +258,11 @@ namespace FirstLight.Game.Logic
 		{
 			var data = DataProvider.GetData<PlayerData>();
 			data.MigratedGuestData = true;
+		}
+
+		public void ResetLevel()
+		{
+			_level.Value = 1;
 		}
 	}
 }

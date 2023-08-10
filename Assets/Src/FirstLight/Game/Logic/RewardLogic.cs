@@ -387,7 +387,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (reward.RewardId == GameId.XP)
 			{
-				GameLogic.PlayerLogic.AddXp((uint) reward.Value);
+				GameLogic.PlayerLogic.AddXP((uint) reward.Value);
 			}
 			else if (reward.RewardId == GameId.BPP)
 			{

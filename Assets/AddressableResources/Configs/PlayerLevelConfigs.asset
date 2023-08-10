@@ -18,13 +18,13 @@ MonoBehaviour:
     Rewards:
       _keyData: 
       _valueData: 
-    Systems: 000000000100000006000000
+    Systems: 
   - Level: 2
     LevelUpXP: 100
     Rewards:
       _keyData: 3d0000000c000000
       _valueData: 6400000019000000
-    Systems: 
+    Systems: 04000000
   - Level: 3
     LevelUpXP: 150
     Rewards:

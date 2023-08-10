@@ -510,7 +510,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		// TODO: Remove Logic outside command
-		gameLogic.PlayerLogic.AddXp(amount);
+		gameLogic.PlayerLogic.AddXP(amount);
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
@@ -619,6 +619,28 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 
 		gameLogic.PlayerLogic.UpdateTrophies(200);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void Add50XP()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.AddXP(50);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void ResetLevel()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.ResetLevel();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

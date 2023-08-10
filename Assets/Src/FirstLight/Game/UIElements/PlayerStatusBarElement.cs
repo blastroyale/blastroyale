@@ -127,7 +127,7 @@ namespace FirstLight.Game.UIElements
 					var damageNumber = new Label("0") {name = "damage-number"};
 					damageHolder.Add(damageNumber);
 					damageNumber.AddToClassList(USS_DAMAGE_NUMBER);
-					damageNumber.userData = Random.Range(-20f, 20f); // Random value stored in userData for convenience
+					damageNumber.userData = Random.Range(-5f, 5f); // Random value stored in userData for convenience
 					_damageNumberPool[i] = damageNumber;
 
 					// Create animation
@@ -162,6 +162,7 @@ namespace FirstLight.Game.UIElements
 			var damageNumberLabel = _damageNumberPool[_damageNumberIndex];
 			var damageNumberAnim = _damageNumberAnimsPool[_damageNumberIndex];
 			damageNumberLabel.text = damage.ToString();
+			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
 
@@ -308,9 +309,9 @@ namespace FirstLight.Game.UIElements
 		{
 			// Bezier curve
 			var random = (float) damageNumber.userData;
-			var p0 = new Vector2(random / 2f, random / 2f); // Less offset on first point
-			var p1 = new Vector2(100 + random, -50 + random);
-			var p2 = new Vector2(150 + random * 2f, 150 + random * 2f); // More offset on last point
+			var p0 = new Vector2(0 + random / 2f, 0 + random / 2f); // Less random offset on first point
+			var p1 = new Vector2(25 + random, 0 + random);
+			var p2 = new Vector2(50 + random * 2f, 50 + random * 2f); // More random offset on last point
 
 			var pd1 = Vector2.Lerp(p0, p1, d);
 			var pd2 = Vector2.Lerp(p1, p2, d);

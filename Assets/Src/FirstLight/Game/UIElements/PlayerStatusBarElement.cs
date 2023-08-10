@@ -305,22 +305,28 @@ namespace FirstLight.Game.UIElements
 			_reloadAnimation.Start();
 		}
 
-		private void AnimateDamageNumber(VisualElement damageNumber, float d)
+		private void AnimateDamageNumber(VisualElement damageNumber, float t)
 		{
 			// Bezier curve
 			var random = (float) damageNumber.userData;
-			var p0 = new Vector2(0 + random / 2f, 0 + random / 2f); // Less random offset on first point
-			var p1 = new Vector2(25 + random, 0 + random);
-			var p2 = new Vector2(50 + random * 2f, 50 + random * 2f); // More random offset on last point
+			var p0 = new Vector2(0, 0) + Vector2.one * random / 2f; // Less random offset on first point
+			var p1 = new Vector2(50, -10) + Vector2.one * random;
+			var p2 = new Vector2(75, 50) + Vector2.one * (random * 2f); // More random offset on last point
 
-			var pd1 = Vector2.Lerp(p0, p1, d);
-			var pd2 = Vector2.Lerp(p1, p2, d);
-			var pf = Vector2.Lerp(pd1, pd2, d);
+			var pd1 = Vector2.Lerp(p0, p1, t);
+			var pd2 = Vector2.Lerp(p1, p2, t);
+			var pf = Vector2.Lerp(pd1, pd2, t);
 
 			// Opacity between 0-0.2 of d
-			var opacity = Mathf.Clamp01(1f / 0.2f * (1f - d));
+			var opacity = Mathf.Clamp01(1f / 0.50f * (1f - t));
+
+			// Scale overshoot (bump)
+			var scale = t < 0.1 ? Mathf.Lerp(0, 2.5f, t * 10) :
+				t < 0.3 ? Mathf.Lerp(2.5f, 1f, (t - 0.1f) * 10) :
+				1f;
 
 			damageNumber.transform.position = pf;
+			damageNumber.transform.scale = new Vector3(scale, scale, 1);
 			damageNumber.style.opacity = opacity;
 		}
 

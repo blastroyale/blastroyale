@@ -143,6 +143,10 @@
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0;">
+                <FirstLight.Game.UIElements.GradientElement name="Left" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--left" />
+                <FirstLight.Game.UIElements.GradientElement name="Right" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--right" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -179,7 +179,7 @@ namespace FirstLight.Game.Views.UITK
 			_healthBarPool.Clear();
 
 			var f = message.Game.Frames.Verified;
-			
+
 			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
 
 			for (int i = 0; i < f.PlayerCount; i++)
@@ -217,7 +217,7 @@ namespace FirstLight.Game.Views.UITK
 			var stats = f.Get<Stats>(entity);
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
-			var hidePlayerNames =  f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
+			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
 			var playerName = hidePlayerNames ? " BLASTER " : Extensions.GetPlayerName(f, entity, pc);
 
 			bar.SetName(playerName);
@@ -330,11 +330,9 @@ namespace FirstLight.Game.Views.UITK
 				_healthBarPool.Release(bar);
 			}
 
-			if (callback.PlayerTeamId != _matchServices.SpectateService.SpectatedPlayer.Value.Team) return;
-
 			if (_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
-				playerBar.PingDamage();
+				playerBar.PingDamage(callback.TotalDamage);
 			}
 		}
 	}

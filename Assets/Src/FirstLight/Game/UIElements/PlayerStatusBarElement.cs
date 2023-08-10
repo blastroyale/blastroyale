@@ -177,7 +177,7 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetName(string playerName)
 		{
-			_name.text = playerName.ToUpper();
+			_name.text = playerName;
 		}
 
 		/// <summary>

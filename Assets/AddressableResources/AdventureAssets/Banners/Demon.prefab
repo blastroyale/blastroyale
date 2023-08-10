@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 313522829564656924}
   - component: {fileID: 313522829564656923}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Demon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 313522830661989816}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c7965aedffd3e6f4fbb13757cc4ad65b, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

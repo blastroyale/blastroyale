@@ -159,9 +159,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task MatchTransition()
 		{
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 		}
 
 		private void JoinPendingMatch()

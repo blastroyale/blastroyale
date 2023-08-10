@@ -777,6 +777,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  _lowHPThreshold: 150
   _moveDirectionJoystickInput: {fileID: 9012470036974147663}
   _moveDownJoystickInput: {fileID: 3877068891791816140}
   _aimDirectionJoystickInput: {fileID: 901318833764697391}

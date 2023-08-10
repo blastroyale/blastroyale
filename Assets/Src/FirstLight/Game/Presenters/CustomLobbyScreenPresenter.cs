@@ -101,7 +101,7 @@ namespace FirstLight.Game.Presenters
 			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
-			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
+			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnStartedFinalPreloadMessage);
 			_squadIdDownButton.onClick.AddListener(OnSquadIdDown);
 			_squadIdUpButton.onClick.AddListener(OnSquadIdUp);
 		}
@@ -257,7 +257,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
+		private void OnStartedFinalPreloadMessage(WaitingMandatoryMatchAssetsMessage msg)
 		{ 
 			foreach (var playerKvp in CurrentRoom.Players)
 			{
@@ -288,8 +288,8 @@ namespace FirstLight.Game.Presenters
 			{
 				if (!CurrentRoom.IsMatchmakingRoom())
 				{
-					_playerListHolder.SetFinalPreloadPhase(true);
-					_spectatorListHolder.SetFinalPreloadPhase(true);
+					_playerListHolder.UpdatePlayerList(true);
+					_spectatorListHolder.UpdatePlayerList(true);
 				}
 
 				ReadyToPlay();

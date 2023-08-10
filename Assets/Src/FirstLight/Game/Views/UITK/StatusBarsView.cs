@@ -216,10 +216,12 @@ namespace FirstLight.Game.Views.UITK
 			var pc = f.Get<PlayerCharacter>(entity);
 			var stats = f.Get<Stats>(entity);
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
-			var playerName = Extensions.GetPlayerName(f, entity, pc);
+			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
+			var hidePlayerNames =  f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
+			var playerName = hidePlayerNames ? " BLASTER " : Extensions.GetPlayerName(f, entity, pc);
 
 			bar.SetName(playerName);
-			bar.SetIsFriendly(spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
+			bar.SetIsFriendly(isFriendlyPlayer);
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);

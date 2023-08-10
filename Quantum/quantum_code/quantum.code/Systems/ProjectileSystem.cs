@@ -51,20 +51,23 @@ namespace Quantum.Systems
 				return;
 			}
 
-			var cfg = projectile.WeaponConfig(f);
-			
-			// For melee we need to have LOS between attacker and target
-			if (cfg.IsMeleeWeapon && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
+			if (info.Other.IsValid)
 			{
-				return;
-			}
-
-			// For area of effects, we need to have LOS between the projectile and the target
-			if (cfg.HitType == ProjectileHitType.AreaOfEffect && projectile.Direction == FPVector3.Zero)
-			{
-				if (!QuantumHelpers.HasMapLineOfSight(f, info.Entity, info.Other))
+				
+				var cfg = projectile.WeaponConfig(f);
+				// For melee we need to have LOS between attacker and target
+				if (cfg.IsMeleeWeapon && !QuantumHelpers.HasMapLineOfSight(f, projectile.Attacker, info.Other))
 				{
 					return;
+				}
+
+				// For area of effects, we need to have LOS between the projectile and the target
+				if (projectile.Iteration > 0 && cfg.HitType == SubProjectileHitType.AreaOfEffect)
+				{
+					if (!QuantumHelpers.HasMapLineOfSight(f, info.Entity, info.Other))
+					{
+						return;
+					}
 				}
 			}
 
@@ -80,7 +83,7 @@ namespace Quantum.Systems
 		{
 			var cfg = f.WeaponConfigs.GetConfig(p.SourceId);
 			var subProjectile = p;
-			if (cfg.HitType == ProjectileHitType.AreaOfEffect)
+			if (cfg.HitType == SubProjectileHitType.AreaOfEffect)
 			{
 				subProjectile.Speed = 0;
 				subProjectile.Direction = FPVector3.Zero;
@@ -99,13 +102,10 @@ namespace Quantum.Systems
 
 		private void OnProjectileHit(Frame f, EntityRef targetHit, EntityRef projectileEntity, Projectile projectile)
 		{
-
-			var power = (uint)projectile.GetPower(f);
-			var position = f.Get<Transform3D>(projectileEntity).Position;
-			var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
-			                                projectile.KnockbackAmount, position, projectile.TeamSource);
 			
-			if(targetHit == projectileEntity)
+			var position = f.Get<Transform3D>(projectileEntity).Position;
+
+			if(targetHit == projectileEntity || !targetHit.IsValid)
 				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position);
 			else
 				f.Events.OnProjectileSuccessHit(projectile, targetHit, position);
@@ -114,9 +114,15 @@ namespace Quantum.Systems
 			{
 				CreateSubProjectile(f, projectile, position, true);
 			}
-			else if (QuantumHelpers.ProcessHit(f, &spell))
+			else
 			{
-				OnHit(f, &spell);
+				var power = (uint)projectile.GetPower(f);
+				var spell = Spell.CreateInstant(f, targetHit, projectile.Attacker, projectileEntity, power,
+					projectile.KnockbackAmount, position, projectile.TeamSource);
+				if (QuantumHelpers.ProcessHit(f, &spell))
+				{
+					OnHit(f, &spell);
+				}
 			}
 
 			if (projectile.Speed > 0)

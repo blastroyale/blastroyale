@@ -164,7 +164,7 @@ namespace FirstLight.Game.Views.UITK
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
 				{
-					if (!QuantumRunner.Default.IsRunning || QuantumRunner.Default.Game == null) return;
+					if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 
 					var currentTime = QuantumRunner.Default.Game.Frames.Predicted.Time;
 					var currentTimeSeconds = FPMath.FloorToInt(currentTime);
@@ -202,7 +202,7 @@ namespace FirstLight.Game.Views.UITK
 				.StartingIn((FPMath.Fraction(QuantumRunner.Default.Game.Frames.Predicted.Time) * FP._1000).AsLong +
 					100) // 100ms offset so we don't skip numbers because we round down.
 				.Every(1000)
-				.Until(() => !QuantumRunner.Default.IsRunning || QuantumRunner.Default.Game == null ||
+				.Until(() => !QuantumRunner.Default.IsDefinedAndRunning() ||
 					QuantumRunner.Default.Game.Frames.Predicted.Time > shrinkingStartTime + shrinkingDuration);
 		}
 

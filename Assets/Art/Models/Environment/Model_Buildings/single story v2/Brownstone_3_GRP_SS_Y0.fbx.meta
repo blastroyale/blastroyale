@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Brownstone_Geo_Base"],"padding":[9],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Brownstone_Geo_Base","Top"],"padding":[9,14],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

@@ -330,7 +330,9 @@ namespace FirstLight.Game.Views.UITK
 				_healthBarPool.Release(bar);
 			}
 
-			if (_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
+				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
 				playerBar.PingDamage(callback.TotalDamage);
 			}

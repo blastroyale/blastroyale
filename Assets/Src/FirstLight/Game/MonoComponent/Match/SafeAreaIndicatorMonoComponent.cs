@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private Vector3 _safeAreaCenter;
 		private float _safeAreaRadius = -1f;
-		private float _shrinkingStartTime;
+		private int _shrinkingStartTime;
 
 		public void Init(EntityView playerEntityView)
 		{
@@ -48,7 +48,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
-		public void SetSafeArea(Vector2 center, float radius, float shrinkingStartTime)
+		public void SetSafeArea(Vector2 center, float radius, int shrinkingStartTime)
 		{
 			_safeAreaCenter = new Vector3(center.x, 0, center.y);
 			_safeAreaRadius = radius;

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private float _shrinkingCircleRadius = -1;
 		private Vector2 _shrinkCircleCenter;
-		private float _shrinkingCircleStartTime;
+		private int _shrinkingCircleStartTime;
 
 		public LocalPlayerIndicatorContainerView()
 		{
@@ -54,7 +54,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_shrinkingCircleRadius = callback.ShrinkingCircle.TargetRadius.AsFloat;
 			_shrinkCircleCenter = callback.ShrinkingCircle.TargetCircleCenter.ToUnityVector2();
-			_shrinkingCircleStartTime = callback.ShrinkingCircle.ShrinkingStartTime.AsFloat;
+			_shrinkingCircleStartTime = callback.ShrinkingCircle.ShrinkingStartTime;
 
 			((SafeAreaIndicatorMonoComponent) _indicators[(int) IndicatorVfxId.SafeArea])?.SetSafeArea(
 				_shrinkCircleCenter, _shrinkingCircleRadius, _shrinkingCircleStartTime);

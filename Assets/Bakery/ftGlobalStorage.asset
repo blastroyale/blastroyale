@@ -86,7 +86,7 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
   - Assets/Art/Models/Destructibles/Baricade_Wobble.fbx
   - Assets/Art/SceneTests/FTUE_LEVELART/ramen sign with glow.fbx
-  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed0413b35d909bb576f108dc894b16c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d9398033f437ed04d9398033d9398033fe901ac20c3911b04adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031eee55031eee55031ee3e3fd3d93f3fd3d9af67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159f398033da7d9363353fd3d9797e936303911ac2333fd3d9d2f23a060e6d76d99c09ecc0
+  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed0413b35d909bb576f108dc894b16c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac20c3911b04adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031eee55031eee55031ee3e3fd3d93f3fd3d9af67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159f398033da7d9363353fd3d9797e936303911ac2333fd3d9d2f23a060e6d76d99c09ecc0
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -596,7 +596,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Bush
-    padding: 80000000
+    padding: 50000000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
@@ -939,7 +939,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 20000000
+  modifiedMeshPaddingArray: 50000000
   modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

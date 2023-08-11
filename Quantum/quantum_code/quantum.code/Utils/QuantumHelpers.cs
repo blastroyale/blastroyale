@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -11,6 +12,7 @@ namespace Quantum
 	/// </summary>
 	public static unsafe class QuantumHelpers
 	{
+		private static readonly FPVector3 LINE_OF_SIGHT_OFFSET = FPVector3.Up / 2;
 		/// <summary>
 		/// Requests the math <paramref name="power"/> of the given <paramref name="baseValue"/>
 		/// </summary>
@@ -78,16 +80,16 @@ namespace Quantum
 			if (f.Has<Destructible>(two)) return true;
 			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))
 			{
-				return HasLineOfSight(f, onePosition.Position, twoPosition.Position, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
+				return HasLineOfSight(f, onePosition.Position+LINE_OF_SIGHT_OFFSET, twoPosition.Position+LINE_OF_SIGHT_OFFSET, f.Context.TargetAllLayerMask, QueryOptions.HitStatics, out _);
 			}
-			return false;
+			return true;
 		}
 		
 		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, int layerMask, QueryOptions options, out EntityRef? firstHit)
 		{
 			var hit = f.Physics3D.Linecast(source,
 				destination,
-				f.Context.TargetAllLayerMask,
+				layerMask,
 				options
 				);
 			firstHit = hit?.Entity;

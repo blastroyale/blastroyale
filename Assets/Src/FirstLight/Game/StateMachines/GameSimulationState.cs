@@ -118,10 +118,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CloseSwipeTransition()
 		{
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
-			{
-				_uiService.CloseUi<SwipeScreenPresenter>(true);
-			}
+			_ = SwipeScreenPresenter.Finish();
 		}
 
 		private void SubscribeEvents()

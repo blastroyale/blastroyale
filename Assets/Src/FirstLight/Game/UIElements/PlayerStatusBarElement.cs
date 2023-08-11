@@ -4,6 +4,7 @@ using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.UIElements
 {
@@ -12,11 +13,10 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class PlayerStatusBarElement : VisualElement
 	{
-		// TODO: Add dividers to the health and shield bars.
-		private const int SHIELD_DIVIDER_AMOUNT = 100;
-		private const int HEALTH_DIVIDER_AMOUNT = 100;
-		private const int MAX_BARS = 20;
+		private const int MAX_AMMO_BARS = 20;
 
+		private const int DAMAGE_NUMBER_MAX_POOL_SIZE = 5;
+		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
 		private const string USS_BLOCK = "player-status-bar";
@@ -37,6 +37,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
 		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
+		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
+		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
 
 		private readonly Label _name;
 		private readonly Label _level;
@@ -45,6 +47,12 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _ammoHolder;
 		private readonly VisualElement _ammoReloadBar;
 		private readonly Label _notificationLabel;
+
+		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private readonly float[] _damageNumberAnimValues = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
+		private int _damageNumberIndex;
 
 		private bool _isFriendly;
 
@@ -110,6 +118,28 @@ namespace FirstLight.Game.UIElements
 			_notificationHandle = schedule.Execute(() => { _notificationLabel.SetDisplay(false); });
 			_notificationHandle.Pause();
 
+			var damageHolder = new VisualElement {name = "damage-holder"};
+			Add(damageHolder);
+			damageHolder.AddToClassList(USS_DAMAGE_HOLDER);
+			damageHolder.usageHints = UsageHints.GroupTransform;
+			{
+				for (int i = 0; i < DAMAGE_NUMBER_MAX_POOL_SIZE; i++)
+				{
+					// Create damage label
+					var damageNumber = new Label("0") {name = "damage-number"};
+					damageHolder.Add(damageNumber);
+					damageNumber.AddToClassList(USS_DAMAGE_NUMBER);
+					damageNumber.userData = i; // Save index to userData
+					_damageNumberAnimOffsets[i] = Random.Range(-5f, 5f);
+					_damageNumbersPool[i] = damageNumber;
+
+					// Create animation
+					var anim = damageNumber.experimental.animation.Start(0f, 1f, DAMAGE_NUMBER_ANIM_DURATION, AnimateDamageNumber);
+					anim.KeepAlive().Stop();
+					_damageNumberAnims[i] = anim;
+				}
+			}
+
 			SetIsFriendly(true);
 			SetMagazine(4, 6);
 		}
@@ -129,8 +159,17 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// If the bar is not friendly, display it for some amount of time.
 		/// </summary>
-		public void PingDamage()
+		public void PingDamage(uint damage)
 		{
+			_damageNumberIndex = (_damageNumberIndex + 1) % DAMAGE_NUMBER_MAX_POOL_SIZE;
+			var damageNumberLabel = _damageNumbersPool[_damageNumberIndex];
+			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
+			_damageNumberAnimValues[_damageNumberIndex] = damage;
+			damageNumberLabel.text = damage.ToString();
+			damageNumberLabel.BringToFront();
+			damageNumberAnim.Stop();
+			damageNumberAnim.Start();
+
 			if (_isFriendly) return;
 
 			_opacityAnimation.Stop();
@@ -143,21 +182,21 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetName(string playerName)
 		{
-			_name.text = playerName.ToUpper();
+			_name.text = playerName;
 		}
 
 		/// <summary>
-		/// Sets the magazine size and how full it is. Only affects firendly players.
+		/// Sets the magazine size and how full it is. Only affects friendly players.
 		/// </summary>
 		public void SetMagazine(int currentMagazine, int maxMagazine)
 		{
 			if (!_isFriendly) return;
 
 			var infiniteMagazine = maxMagazine <= 0;
-			var totalBars = infiniteMagazine ? 1 : Mathf.Min(maxMagazine, MAX_BARS);
+			var totalBars = infiniteMagazine ? 1 : Mathf.Min(maxMagazine, MAX_AMMO_BARS);
 			var visibleBars = infiniteMagazine
 				? 1
-				: Mathf.FloorToInt(currentMagazine * Mathf.Min((float) MAX_BARS / maxMagazine, 1f));
+				: Mathf.FloorToInt(currentMagazine * Mathf.Min((float) MAX_AMMO_BARS / maxMagazine, 1f));
 
 			// Max ammo
 			if (_ammoHolder.childCount > totalBars)
@@ -183,7 +222,7 @@ namespace FirstLight.Game.UIElements
 			{
 				segment.SetVisibility(index++ < visibleBars);
 			}
-			
+
 			// Cancel reload
 			_reloadAnimation?.Stop();
 			_ammoReloadBar.SetDisplay(false);
@@ -215,6 +254,9 @@ namespace FirstLight.Game.UIElements
 			_healthBar.style.flexGrow = (float) current / max;
 		}
 
+		/// <summary>
+		/// Shows a notification above the player's head.
+		/// </summary>
 		public void ShowNotification(NotificationType type)
 		{
 			_notificationLabel.RemoveModifiers();
@@ -246,6 +288,9 @@ namespace FirstLight.Game.UIElements
 			_notificationLabel.AnimatePing();
 		}
 
+		/// <summary>
+		/// Displays the reload animation.
+		/// </summary>
 		public void ShowReload(int reloadTime)
 		{
 			if (!_isFriendly) return;
@@ -253,7 +298,7 @@ namespace FirstLight.Game.UIElements
 			_ammoReloadBar.SetDisplay(true);
 
 			_ammoReloadBar.transform.position = Vector3.zero;
-			
+
 			_reloadAnimation?.Stop();
 			_reloadAnimation = _ammoReloadBar.experimental.animation.Position(new Vector3(130, 0, 0), reloadTime)
 				.OnCompleted(() =>
@@ -262,6 +307,39 @@ namespace FirstLight.Game.UIElements
 					_reloadAnimation = null;
 				}).Ease(Easing.Linear);
 			_reloadAnimation.Start();
+		}
+
+		private void AnimateDamageNumber(VisualElement damageNumber, float t)
+		{
+			var index = (int) damageNumber.userData;
+			var offset = _damageNumberAnimOffsets[index];
+			var damage = _damageNumberAnimValues[index];
+			
+			// Bezier curve
+			var p0 = new Vector2(0, 0) + Vector2.one * offset / 2f; // Less random offset on first point
+			var p1 = new Vector2(50, -10) + Vector2.one * offset;
+			var p2 = new Vector2(75, 50) + Vector2.one * (offset * 2f); // More random offset on last point
+
+			var pd1 = Vector2.Lerp(p0, p1, t);
+			var pd2 = Vector2.Lerp(p1, p2, t);
+			var pf = Vector2.Lerp(pd1, pd2, t);
+
+			// Opacity between 0-0.2 of d
+			var opacity = Mathf.Clamp01(1f / 0.50f * (1f - t));
+
+			// Scale overshoot (bump)
+			var scaleMagnitude = Mathf.Clamp01(Mathf.InverseLerp(20, 100, damage)) * 1.1f;
+			var scale = t < 0.1 ? Mathf.Lerp(0, 1.5f + scaleMagnitude, t * 10) :
+				t < 0.3 ? Mathf.Lerp(1.5f + scaleMagnitude, 1f, (t - 0.1f) * 10) :
+				1f;
+			
+			// Color
+			// var color = t < 0.3 ? Color.Lerp(Color.red, Color.white, t * 3.33f) : Color.white;
+
+			damageNumber.transform.position = pf;
+			damageNumber.transform.scale = new Vector3(scale, scale, 1);
+			damageNumber.style.opacity = opacity;
+			// damageNumber.style.color = color;
 		}
 
 		public enum NotificationType

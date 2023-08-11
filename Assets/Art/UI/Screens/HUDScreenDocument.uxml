@@ -1,9 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDDeathNotificationStyle.uss?fileID=7433441132597879392&amp;guid=81378c7a28dd4d908def922f1c1005b1&amp;type=3#HUDDeathNotificationStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDSquadMemberStyle.uss?fileID=7433441132597879392&amp;guid=ba1757a6e8524f1db463d85aeaa30f4a&amp;type=3#HUDSquadMemberStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDPlayerStatusBarStyle.uss?fileID=7433441132597879392&amp;guid=751c0e72a1b84d48bdcdb4e2da1076d7&amp;type=3#HUDPlayerStatusBarStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDStatusNotificationsStyle.uss?fileID=7433441132597879392&amp;guid=ddf3c6530da749cb8886772e19e8e25f&amp;type=3#HUDStatusNotificationsStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="non-customizable-hud fill-parent" style="display: flex; visibility: visible;">
-            <FirstLight.Game.UIElements.HealthStatusBarElement name="HealthStatusBarElement" style="position: absolute; left: 1107px; top: 246px;" />
-            <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;" />
+            <FirstLight.Game.UIElements.HealthStatusBarElement name="TempHealthBar" style="position: absolute; left: 1107px; top: 246px;" />
+            <FirstLight.Game.UIElements.PlayerStatusBarElement name="TempStatusBar" style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
@@ -142,6 +146,10 @@
                     <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0;">
+                <FirstLight.Game.UIElements.GradientElement name="Left" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--left" />
+                <FirstLight.Game.UIElements.GradientElement name="Right" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--right" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -4,7 +4,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public enum ProjectileHitType
+	public enum SubProjectileHitType
 	{
 		/// <summary>
 		/// Lasts for one second
@@ -24,7 +24,7 @@ namespace Quantum
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
 		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
-		public ProjectileHitType HitType;
+		public SubProjectileHitType HitType;
 		public int MagazineSize;
 		public FP ReloadTime;
 		public FP AimingMovementSpeed;

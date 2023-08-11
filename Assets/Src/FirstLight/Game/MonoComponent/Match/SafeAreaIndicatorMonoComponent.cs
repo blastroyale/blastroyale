@@ -15,6 +15,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private Vector3 _safeAreaCenter;
 		private float _safeAreaRadius = -1f;
+		private int _shrinkingStartTime;
 
 		public void Init(EntityView playerEntityView)
 		{
@@ -34,7 +35,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var pos = t.position;
 
 			var dist = Vector3.Distance(pos, _safeAreaCenter);
-			if (dist > _safeAreaRadius)
+			if (dist > _safeAreaRadius && (QuantumRunner.Default?.Game?.Frames?.Predicted?.Time.AsFloat ?? 0) > _shrinkingStartTime)
 			{
 				// Outside safe area
 				_indicator.SetActive(true);
@@ -47,10 +48,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 
-		public void SetSafeArea(Vector2 center, float radius)
+		public void SetSafeArea(Vector2 center, float radius, int shrinkingStartTime)
 		{
 			_safeAreaCenter = new Vector3(center.x, 0, center.y);
 			_safeAreaRadius = radius;
+			_shrinkingStartTime = shrinkingStartTime;
 		}
 
 		public void SetVisualState(bool isVisible, bool isEmphasized = false)

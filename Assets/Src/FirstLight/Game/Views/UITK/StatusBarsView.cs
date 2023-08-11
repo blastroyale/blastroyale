@@ -179,7 +179,7 @@ namespace FirstLight.Game.Views.UITK
 			_healthBarPool.Clear();
 
 			var f = message.Game.Frames.Verified;
-			
+
 			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
 
 			for (int i = 0; i < f.PlayerCount; i++)
@@ -216,10 +216,12 @@ namespace FirstLight.Game.Views.UITK
 			var pc = f.Get<PlayerCharacter>(entity);
 			var stats = f.Get<Stats>(entity);
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
-			var playerName = Extensions.GetPlayerName(f, entity, pc);
+			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
+			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
+			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
 
 			bar.SetName(playerName);
-			bar.SetIsFriendly(spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
+			bar.SetIsFriendly(isFriendlyPlayer);
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
@@ -328,11 +330,11 @@ namespace FirstLight.Game.Views.UITK
 				_healthBarPool.Release(bar);
 			}
 
-			if (callback.PlayerTeamId != _matchServices.SpectateService.SpectatedPlayer.Value.Team) return;
-
-			if (_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
+				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
-				playerBar.PingDamage();
+				playerBar.PingDamage(callback.TotalDamage);
 			}
 		}
 	}

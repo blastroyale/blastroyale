@@ -380,7 +380,15 @@ namespace Quantum.Systems
 
 		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
 		{
-			return !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+			var blockMovement = !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) && f.TryGet<CharacterController3D>(character, out var myKcc))
+			{
+				var myTransform = f.Get<Transform3D>(character);
+				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
+				var pushAngle = (myTransform.Position - enemyTransform->Position).Normalized;
+				enemyKcc.Move(f, hit.Entity, pushAngle);
+			}
+			return blockMovement;
 		}
 
 		public void OnCharacterTrigger3D(FrameBase f, EntityRef character, Hit3D hit)

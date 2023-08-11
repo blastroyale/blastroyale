@@ -21,7 +21,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
-		private bool _finalPreload = false;
 		private Action<Player> _kickPlayerCallback;
 		
 		/// <summary>
@@ -29,7 +28,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void Init(uint playerLimit, Action<Player> kickPlayerCallback)
 		{
-			_finalPreload = false;
 			_kickPlayerCallback = kickPlayerCallback;
 
 			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
@@ -51,13 +49,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		}
 
 		/// <summary>
-		/// Forces a refresh of all players, with the new _finalPreload phase value set
+		/// Forces a refresh of all players
 		/// </summary>
 		/// <param name="finalPreload"></param>
-		public void SetFinalPreloadPhase(bool finalPreload)
+		public void UpdatePlayerList(bool finalPreload)
 		{
-			_finalPreload = finalPreload;
-
 			foreach (var playerNameEntryView in _activePlayerEntries)
 			{
 				if (playerNameEntryView.Player != null)
@@ -73,9 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void AddOrUpdatePlayer(Player player, bool sortList = true)
 		{ 
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
-			var isLoaded = _finalPreload
-				               ? (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_ALL_LOADED]
-				               : (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
+			var isLoaded = (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
 
 			if (existingEntry != null)
 			{

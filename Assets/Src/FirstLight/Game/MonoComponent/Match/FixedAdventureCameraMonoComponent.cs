@@ -69,7 +69,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				FLog.Warn("Camera following something that is not a player :L");
 				return player.Transform.gameObject;
 			}
-			return component.Instance.transform.gameObject;
+			return component.transform.gameObject;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

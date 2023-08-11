@@ -25,7 +25,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
-		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
+		private const float SPEED_THRESHOLD_SQUARED = 0.5f * 0.5f; // unity units per second	
 		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
 
@@ -536,8 +536,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
-			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
+			var isMoving = sqrSpeed > SPEED_THRESHOLD_SQUARED;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
+
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
 			_characterView.PrintFootsteps = isMoving;
 			if (isMoving)

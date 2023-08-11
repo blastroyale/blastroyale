@@ -25,7 +25,6 @@ namespace FirstLight.Game.StateMachines
 	public class MainMenuState
 	{
 		public static readonly IStatechartEvent MainMenuLoadedEvent = new StatechartEvent("Main Menu Loaded Event");
-		public static readonly IStatechartEvent MainMenuUnloadedEvent = new StatechartEvent("Main Menu Unloaded Event");
 		public static readonly IStatechartEvent PlayClickedEvent = new StatechartEvent("Play Clicked Event");
 		public static readonly IStatechartEvent BattlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 
@@ -81,7 +80,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var mainMenuLoading = stateFactory.State("Main Menu Loading");
-			var mainMenuUnloading = stateFactory.State("Main Menu Unloading");
+			var mainMenuUnloading = stateFactory.TaskWait("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 			var disconnected = stateFactory.State("Disconnected");
@@ -106,8 +105,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 
-			mainMenuUnloading.OnEnter(UnloadMainMenu);
-			mainMenuUnloading.Event(MainMenuUnloadedEvent).Target(final);
+			mainMenuUnloading.WaitingFor(UnloadMenuTask).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -237,6 +235,19 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private async Task PreloadQuantumSettings()
+		{
+			var assets = UnityDB.CollectAddressableAssets();
+			foreach (var asset in assets)
+			{
+				if (!asset.Item1.StartsWith("Settings"))
+				{
+					continue;
+				}
+				_ = _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
+			}
 		}
 
 		private bool HasDefaultName()
@@ -543,10 +554,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseTransitions()
 		{
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
-			{
-				_uiService.CloseUi<SwipeScreenPresenter>(true);
-			}
+			_ = SwipeScreenPresenter.Finish();
 
 			if (_uiService.HasUiPresenter<LoadingScreenPresenter>())
 			{
@@ -583,7 +591,6 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-
 			
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
@@ -594,34 +601,29 @@ namespace FirstLight.Game.StateMachines
 			uiVfxService.Init(_uiService);
 
 			_statechartTrigger(MainMenuLoadedEvent);
+
+			_ = PreloadQuantumSettings();
 		}
 
-		private async void UnloadMainMenu()
+		private async Task UnloadMenuTask()
 		{
-			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
-
+			await SwipeScreenPresenter.StartSwipe();
 			FLGCamera.Instance.PhysicsRaycaster.enabled = false;
-			
-			// Delay to let the swipe animation finish its intro without being choppy
-			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
 
 			var configProvider = _services.ConfigsProvider;
 
 			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 
-			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
-			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
-
+			
+			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
+			
 			Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();
-
-			_statechartTrigger(MainMenuUnloadedEvent);
 		}
 
 		private void DiscordButtonClicked()

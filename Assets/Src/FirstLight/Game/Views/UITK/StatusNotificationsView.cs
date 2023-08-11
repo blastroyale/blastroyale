@@ -3,6 +3,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -13,12 +14,15 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class StatusNotificationsView : UIView
 	{
+		private const float LOW_HP_BLINK_SPEED = 1f;
+
 		private IMatchServices _matchServices;
 
 		private Label _blasted1PlayerName;
 		private Label _blasted2PlayerName;
 		private Label _blasted3PlayerName;
 		private Label _blastedBeastPlayerName;
+		private VisualElement _lowHP;
 
 		private PlayableDirector _blasted1Director;
 		private PlayableDirector _blasted2Director;
@@ -26,6 +30,10 @@ namespace FirstLight.Game.Views.UITK
 		private PlayableDirector _blastedBeastDirector;
 
 		private readonly Queue<(string, uint)> _killedPlayersQueue = new();
+
+		private int _lowHPThreshold;
+		private IVisualElementScheduledItem _lowHPAnimation;
+		private float _lowHPAnimationStartTime;
 
 		public override void Attached(VisualElement element)
 		{
@@ -44,7 +52,9 @@ namespace FirstLight.Game.Views.UITK
 
 			var blastedBeastNotification = element.Q("BeastBlastNotification").Required();
 			_blastedBeastPlayerName = blastedBeastNotification.Q<Label>("PlayerNameLabel").Required();
-			
+
+			_lowHP = element.Q("LowHP").Required();
+
 			blasted1Notification.SetDisplay(false);
 			blasted2Notification.SetDisplay(false);
 			blasted3Notification.SetDisplay(false);
@@ -54,18 +64,27 @@ namespace FirstLight.Game.Views.UITK
 		/// <summary>
 		/// Sets the directors / animations needed for status notifications.
 		/// </summary>
-		public void SetDirectors(PlayableDirector blasted1Director, PlayableDirector blasted2Director,
-								 PlayableDirector blasted3Director, PlayableDirector blastedBeastDirector)
+		public void Init(PlayableDirector blasted1Director, PlayableDirector blasted2Director,
+						 PlayableDirector blasted3Director, PlayableDirector blastedBeastDirector,
+						 int lowHPThreshold)
 		{
 			_blasted1Director = blasted1Director;
 			_blasted2Director = blasted2Director;
 			_blasted3Director = blasted3Director;
 			_blastedBeastDirector = blastedBeastDirector;
+			_lowHPThreshold = lowHPThreshold;
 
 			_blasted1Director.stopped += TryShowBlastedNotification;
 			_blasted2Director.stopped += TryShowBlastedNotification;
 			_blasted3Director.stopped += TryShowBlastedNotification;
 			_blastedBeastDirector.stopped += TryShowBlastedNotification;
+
+			// Setup LowHP animation
+			_lowHPAnimation = _lowHP.schedule.Execute(() =>
+			{
+				_lowHP.style.opacity = Mathf.Sin((Time.time - _lowHPAnimationStartTime) * LOW_HP_BLINK_SPEED * Mathf.PI) / 2f + 0.5f;
+			}).Every(50);
+			_lowHPAnimation.Pause();
 		}
 
 		public override void SubscribeToEvents()
@@ -73,6 +92,26 @@ namespace FirstLight.Game.Views.UITK
 			base.SubscribeToEvents();
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnHealthChanged>(this, OnHealthChanged);
+		}
+
+		private void OnHealthChanged(EventOnHealthChanged callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+
+			var shouldShowLowHP = callback.CurrentHealth <= _lowHPThreshold;
+			if (shouldShowLowHP == _lowHPAnimation.isActive) return;
+
+			if (shouldShowLowHP)
+			{
+				_lowHPAnimationStartTime = Time.time;
+				_lowHPAnimation.Resume();
+			}
+			else
+			{
+				_lowHPAnimation.Pause();
+				_lowHP.style.opacity = 0;
+			}
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -88,7 +127,7 @@ namespace FirstLight.Game.Views.UITK
 
 			_killedPlayersQueue.Enqueue((_blasted1PlayerName.text = callback.PlayersMatchData.Count <= 1
 					? "DUMMY"
-					: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName().ToUpper(),
+					: callback.PlayersMatchData[callback.PlayerDead].GetPlayerName(),
 				callback.CurrentMultiKill));
 
 			TryShowBlastedNotification(null);

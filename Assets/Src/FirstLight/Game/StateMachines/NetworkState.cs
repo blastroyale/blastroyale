@@ -151,8 +151,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RoomLeaveClickedMessage>(OnRoomLeaveClickedMessage);
 			_services.MessageBrokerService.Subscribe<RoomLockClickedMessage>(OnRoomLockClickedMessage);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoadedMessage);
-			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoadedMessage);
-			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 			_services.MessageBrokerService.Subscribe<ManualTeamIdSetMessage>(OnManualTeamIdSetMessage);
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
@@ -462,6 +460,29 @@ namespace FirstLight.Game.StateMachines
 
 			_networkService.SetLastRoom();
 
+			if (_networkService.JoinSource.Value == JoinRoomSource.FirstJoin)
+			{
+				var isSpectator = (bool) _networkService.LocalPlayer.CustomProperties
+					[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+
+				if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
+					_networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
+				{
+					_networkService.SetSpectatePlayerProperty(true);
+				}
+				else if (isSpectator && _networkService.QuantumClient.CurrentRoom.GetSpectatorAmount() >
+						 _networkService.QuantumClient.CurrentRoom.GetSpectatorCapacity())
+				{
+					_networkService.SetSpectatePlayerProperty(false);
+				}
+				
+				if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
+					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+				{
+					LockRoom();
+				}
+			}
+			
 			_statechartTrigger(JoinedRoomEvent);
 			
 			if (_networkService.JoinSource.Value != JoinRoomSource.FirstJoin)
@@ -472,29 +493,9 @@ namespace FirstLight.Game.StateMachines
 				}
 				return;
 			}
-			
-			// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
-			var isSpectator = (bool) _networkService.LocalPlayer.CustomProperties
-				[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 
-			if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
-			    _networkService.QuantumClient.CurrentRoom.GetRealPlayerCapacity())
-			{
-				_networkService.SetSpectatePlayerProperty(true);
-			}
-			else if (isSpectator && _networkService.QuantumClient.CurrentRoom.GetSpectatorAmount() >
-			         _networkService.QuantumClient.CurrentRoom.GetSpectatorCapacity())
-			{
-				_networkService.SetSpectatePlayerProperty(false);
-			}
-
-			if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
-			    _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
-			{
-				LockRoom();
-			}
-			else if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
-					 _services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
+			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
+				_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
 			{
 				StartMatchmakingLockRoomTimer();
 			}
@@ -559,16 +560,10 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
-
 			var allPlayersReady = _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
-
 			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() && !allPlayersReady)
 			{
 				StartMatchmakingLockRoomTimer();
-			}
-			else if (allPlayersReady)
-			{
-				_statechartTrigger(MatchState.AllPlayersReadyEvent);
 			}
 		}
 
@@ -579,42 +574,36 @@ namespace FirstLight.Game.StateMachines
 	
 			if (changedProps.TryGetValue(GamePropertyKey.IsOpen, out var isOpen) && !(bool) isOpen)
 			{
+				FLog.Verbose("Triggering room ready");
 				_statechartTrigger(RoomReadyEvent);
 			}
 		}
-		
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
-
+			FLog.Verbose("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
 			FLog.Verbose(changedProps);
 			
-			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED, out var loadedMatch) &&
-			    (bool) loadedMatch)
+			if (changedProps.TryGetValue(GameConstants.Network.PLAYER_PROPS_LOADOUT, out var loadout))
 			{
-				_services.MessageBrokerService.Publish(new PlayerLoadedMatchMessage());
-
-				if (_networkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+				_services.MessageBrokerService.Publish(new PlayerUpdateLoadoutMessage()
 				{
-					_statechartTrigger(MatchState.AllPlayersReadyEvent);
-				}
+					Player = targetPlayer,
+					Loadout = ((int[])loadout).Cast<GameId>().ToList()
+				});
 			}
 		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
-			FLog.Info("OnMasterClientSwitched " + newMasterClient.NickName);
+			FLog.Verbose("OnMasterClientSwitched " + newMasterClient.NickName);
 		}
 
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
-			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
-
+			FLog.Verbose("OnRegionListReceived " + regionHandler.GetResults());
 			_services.MessageBrokerService.Publish(new RegionListReceivedMessage() {RegionHandler = regionHandler});
-
 			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
-
 			_statechartTrigger(RegionListReceivedEvent);
 		}
 
@@ -787,6 +776,8 @@ namespace FirstLight.Game.StateMachines
 			};
 			StartRandomMatchmaking(setup);
 		}
+		
+		
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
@@ -831,27 +822,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_networkService.SetPlayerCustomProperties(playerPropsUpdate);
-		}
-
-		private void OnAllMatchAssetsLoadedMessage(AllMatchAssetsLoadedMessage msg)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true}
-			};
-			
-			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
-		}
-
-		private void OnAssetReloadRequiredMessage(AssetReloadRequiredMessage msg)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
-				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false}
-			};
-
-			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		private void OnApplicationQuitMessage(ApplicationQuitMessage data)

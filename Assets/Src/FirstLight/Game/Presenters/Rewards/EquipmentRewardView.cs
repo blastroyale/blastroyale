@@ -64,8 +64,16 @@ namespace FirstLight.Game.Presenters
 			_animatedBackground.SetColorByRarity(reward.Equipment.Rarity);
 			_card.SetEquipment(reward.Equipment, new UniqueId());
 
-			var isRanged = _configsProvider.GetConfig<QuantumWeaponConfig>((int) reward.GameId).UseRangedCam;
-			_range.Localize(isRanged ? "UITRewards/long_range" : "UITRewards/short_range");
+			if (reward.GameId.IsInGroup(GameIdGroup.Weapon))
+			{
+				var isRanged = _configsProvider.GetConfig<QuantumWeaponConfig>((int) reward.GameId).UseRangedCam;
+				_range.Localize(isRanged ? "UITRewards/long_range" : "UITRewards/short_range");
+				_range.SetDisplay(true);
+			}
+			else
+			{
+				_range.SetDisplay(false);
+			}
 
 			_rarity.text = reward.Equipment.Rarity.GetLocalization();
 			_name.text = reward.Equipment.GameId.GetLocalization();

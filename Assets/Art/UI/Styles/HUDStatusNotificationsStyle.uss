@@ -1,0 +1,253 @@
+.status-areashrinking {
+    color: rgb(255, 255, 255);
+    font-size: 52px;
+    -unity-text-align: middle-center;
+    -unity-text-outline-color: rgb(47, 44, 63);
+    position: absolute;
+    top: 148px;
+    -unity-text-outline-width: 1px;
+    text-shadow: 3px 3px -46.4px rgb(47, 44, 63);
+    background-image: var(--sprite-match__background-whitegradient);
+    width: 511px;
+    height: 54px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.46);
+}
+
+.status-kill {
+    width: 531px;
+    height: 178px;
+    position: absolute;
+    left: 1292px;
+    top: 202px;
+    background-image: var(--sprite-match__background-killstreak);
+    display: flex;
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+}
+
+.status-kill__label {
+    position: absolute;
+    color: rgb(250, 218, 64);
+    font-size: 44px;
+    left: 98px;
+    top: 22px;
+    rotate: -8deg;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 4px 4px 0 rgb(49, 46, 72);
+}
+
+.status-kill__playername {
+    position: absolute;
+    font-size: 60px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 5px 5px 0 rgb(49, 46, 72);
+    -unity-text-outline-width: 1.2px;
+    color: rgb(255, 255, 255);
+    rotate: -8deg;
+    top: 52px;
+    left: 137px;
+}
+
+.status-kill__skull {
+    width: 68px;
+    height: 72px;
+    position: absolute;
+    background-image: var(--sprite-match__icon-skull-1);
+    left: 347px;
+    top: -21px;
+}
+
+.status-kill__skull-smallpart {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 13px;
+    height: 20px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart1);
+    left: 18px;
+    top: -26px;
+}
+
+.status-kill__skull-middlepart {
+    width: 29px;
+    height: 22px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart2);
+    left: -13px;
+    top: -26px;
+}
+
+.status-kill__skull-full {
+    position: absolute;
+    width: 68px;
+    height: 72px;
+    background-image: var(--sprite-match__icon-skull-full);
+}
+
+.status-kill__star {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: var(--sprite-match__icon-star);
+    rotate: 34deg;
+}
+
+.status-kill__skull-impact {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 103px;
+    height: 115px;
+    background-image: var(--sprite-match__icon-skull-impact);
+    left: -72px;
+    top: -97px;
+}
+
+.status-kill__skull-double {
+    position: absolute;
+    width: 27px;
+    height: 48px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart3);
+    left: -16px;
+    top: -71px;
+    transform-origin: right bottom;
+}
+
+.status-kill__gradient {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-image: var(--sprite-match__background-gradient-pink);
+    left: 238px;
+    top: -126px;
+}
+
+.status-kill__skull-triple {
+    position: absolute;
+    width: 47px;
+    height: 58px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart4);
+    left: -37px;
+    top: -82px;
+}
+
+.status-killer__skull-impact {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-skull-impact.png?fileID=21300000&guid=ad0147a256638c340a4442f9111f4775&type=3#icon-skull-impact');
+    position: absolute;
+    width: 115px;
+    height: 135px;
+    left: -91px;
+    top: -130px;
+}
+
+.status-killl__skull-quadra {
+    position: absolute;
+    width: 68px;
+    height: 72px;
+    background-image: var(--sprite-match__icon-skull-2);
+    left: 366px;
+    top: -21px;
+}
+
+.status-kill__skull-middlepart--quadra {
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart6);
+    left: -32px;
+    top: -30px;
+}
+
+.status-kill__background-cyan {
+    position: absolute;
+    height: 178px;
+    width: 531px;
+    background-image: var(--sprite-match__background-killstreak);
+    -unity-background-image-tint-color: rgb(63, 219, 179);
+    left: 1335px;
+    top: 205px;
+}
+
+.status-kill__skull-quadra {
+    position: absolute;
+    width: 69px;
+    height: 90px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart5);
+    left: -65px;
+    top: -118px;
+}
+
+.status-kill__skull-beast {
+    position: absolute;
+    width: 72px;
+    height: 81px;
+    background-image: var(--sprite-match__icon-skull-3);
+    left: 373px;
+    top: -34px;
+}
+
+.status-kill__skull-smallpart--beast {
+    position: absolute;
+    width: 18px;
+    height: 39px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart9);
+    left: 41px;
+    top: -41px;
+    rotate: 16deg;
+}
+
+.status-kill__skull-middlepart--beast {
+    width: 81px;
+    height: 51px;
+    position: absolute;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart8);
+    left: -78px;
+    top: -48px;
+    rotate: -1deg;
+}
+
+.status-kill__skull-bigpart--beast {
+    background-image: var(--sprite-match__vfx-killstreak-skullpart7);
+    position: absolute;
+    width: 109px;
+    height: 123px;
+    left: -90px;
+    top: -136px;
+}
+
+.status-kill__skull-beastpart {
+    position: absolute;
+    width: 48px;
+    height: 16px;
+    background-image: var(--sprite-match__vfx-killstreak-skullpart10);
+    left: -48px;
+    top: 15px;
+}
+
+.status-kill__beast-label {
+    width: 160px;
+    height: 75px;
+    position: absolute;
+    background-image: var(--sprite-match__text-beast);
+    left: 121px;
+    top: 6px;
+}
+
+.status-kill__skull-beast-spark {
+    position: absolute;
+    width: 136px;
+    height: 136px;
+    background-image: var(--sprite-match__vfx-blast-spark);
+    left: -41px;
+    top: -51px;
+    rotate: 33deg;
+}
+
+.status-kill__skull-beast-explosion {
+    width: 300px;
+    height: 271px;
+    position: absolute;
+    background-image: var(--sprite-match__vfx-blast-spark);
+    left: -82px;
+    top: -66px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 735160598857096639}
   - component: {fileID: 8120964922164659871}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Superstar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8856890916973420715}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c541332bab4df464aa22e71dc70a1aa6, type: 2}
     - target: {fileID: -1590183171088775094, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1590183171088775094, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
       propertyPath: m_IsActive
@@ -175,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d6a3e9a4d47251b43b9677f79a166f03, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

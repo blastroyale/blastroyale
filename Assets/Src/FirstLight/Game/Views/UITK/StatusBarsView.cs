@@ -218,7 +218,7 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
 			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
-			var playerName = hidePlayerNames ? " BLASTER " : Extensions.GetPlayerName(f, entity, pc);
+			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
 
 			bar.SetName(playerName);
 			bar.SetIsFriendly(isFriendlyPlayer);
@@ -330,7 +330,9 @@ namespace FirstLight.Game.Views.UITK
 				_healthBarPool.Release(bar);
 			}
 
-			if (_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
+				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
 				playerBar.PingDamage(callback.TotalDamage);
 			}

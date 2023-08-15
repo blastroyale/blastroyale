@@ -386,6 +386,7 @@ namespace Quantum.Systems
 				var myTransform = f.Get<Transform3D>(character);
 				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
 				var pushAngle = (myTransform.Position - enemyTransform->Position).Normalized;
+				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}
 			return blockMovement;

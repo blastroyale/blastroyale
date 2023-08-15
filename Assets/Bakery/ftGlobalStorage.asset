@@ -86,7 +86,46 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
   - Assets/Art/Models/Destructibles/Baricade_Wobble.fbx
   - Assets/Art/SceneTests/FTUE_LEVELART/ramen sign with glow.fbx
-  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed0413b35d909bb576f108dc894b16c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac20c3911b04adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031eee55031eee55031ee3e3fd3d93f3fd3d9af67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159f398033da7d9363353fd3d9797e936303911ac2333fd3d9d2f23a060e6d76d99c09ecc0
+  - Assets/Art/Models/Environment/Props_NEW/Prop Dumpster.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Shops_GRP_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Trees/CCT3.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Industrial_Small.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_FireHydrant.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Non enterable v2/non_enterable_cafe.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Posters.fbx
+  - Assets/Art/Models/Environment/Props_NEW/CampingAssets.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/FancyFacade_1.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/FootballPitch.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/RedBrick_2.fbx
+  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Buidling_Industrial_Large.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Main_construction_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/hazard_plane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Lamp_post.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_platform.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_Trap.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Gun Construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/buildings/Cosmic comics.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_bollard.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Mine.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken_no_reinforcement.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile_Battery.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Crane.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate_small_section.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_under_construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_body.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/spare_tank_head.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Shark_Tank_Geo.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Turret_head_loose.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Decal 1.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Props/HDK.fbx
+  modifiedAssetPaddingHash: d6a958ff202439fbe937ed0413b35d909bb576f108dc894b16c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac2023911b04adc894b9e8f1ac23e3fd3d995c2a69318573014353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9a48f1ac2bb09ecc0e55031eee55031eee55031eee55031ee185730142ab126fcaf67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d93639f8f1ac266083ca803911ac25e8f1ac2d2f23a060e6d76d99c09ecc0eddb894be4901ac298f23a06797e9363f427c115ddc783049908e1402a80ecaf3e3fd3d914f33a06343fd3d9a48f1ac23e3fd3d9d60aecc0d15634b7275031ee38c2a693377e9363c25031ee5bc2a6938c67e2a85dc5d89061dd894b14f33a0695c2a6938c67e2a813a3ddde9f398033567e9363e55031ee885031ee3c4efff0f1f23a063367e2a880c5d8905267e2a81b3a8033a768e2a8885031ee
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -474,7 +513,7 @@ MonoBehaviour:
     - GuardrailD
     - GuardrailB
     - GuardrailC
-    padding: 4d0000002a0000001e0000004a000000
+    padding: 4d0000002a000000220000004a000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - barricade_sandbags
@@ -614,7 +653,7 @@ MonoBehaviour:
   - meshName:
     - Prop_Rubble_2_GEO
     - Prop_Rubble_1_GEO
-    padding: 2200000020000000
+    padding: 2200000026000000
     unwrapper: 0000000000000000
   - meshName:
     - Prop_Sign_Motel_GEO
@@ -635,8 +674,9 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Clapperboard_2_Grp_Base
-    padding: 09000000
-    unwrapper: 00000000
+    - Top
+    padding: 090000000e000000
+    unwrapper: 0000000000000000
   - meshName:
     - RadioShack_GEO
     padding: 06000000
@@ -693,8 +733,9 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Base
-    padding: 06000000
-    unwrapper: 00000000
+    - Top
+    padding: 0600000008000000
+    unwrapper: 0000000000000000
   - meshName:
     - DC_Grey
     padding: 16000000
@@ -717,12 +758,14 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Brownstone_Geo_Base
-    padding: 09000000
-    unwrapper: 00000000
+    - Top
+    padding: 090000000e000000
+    unwrapper: 0000000000000000
   - meshName:
     - Brownstone_2_Base_Geo
-    padding: 08000000
-    unwrapper: 00000000
+    - Top
+    padding: 080000000b000000
+    unwrapper: 0000000000000000
   - meshName:
     - broken_building_3
     padding: 0b000000
@@ -749,7 +792,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_High
-    padding: 37000000
+    padding: 44000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowCorner
@@ -757,12 +800,14 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Motel_base_Geo
-    padding: 06000000
-    unwrapper: 00000000
+    - Top
+    padding: 0600000005000000
+    unwrapper: 0000000000000000
   - meshName:
     - Base
-    padding: 0d000000
-    unwrapper: 00000000
+    - Top
+    padding: 0d00000018000000
+    unwrapper: 0000000000000000
   - meshName:
     - Top
     - Base
@@ -770,8 +815,9 @@ MonoBehaviour:
     unwrapper: 0000000000000000
   - meshName:
     - Base_Geo
-    padding: 04000000
-    unwrapper: 00000000
+    - Top
+    padding: 0400000004000000
+    unwrapper: 0000000000000000
   - meshName:
     - Orange_canopy
     padding: 1e000000
@@ -787,6 +833,172 @@ MonoBehaviour:
   - meshName:
     - ramen_sign1
     padding: 20000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_Dumpster_GEO
+    padding: 2e000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - Shop_Base_Geo
+    padding: 0800000006000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - CCT3
+    padding: 32000000
+    unwrapper: 00000000
+  - meshName:
+    - Building_Industrial_Small_GEO
+    padding: 0d000000
+    unwrapper: 00000000
+  - meshName:
+    - Prop_FireHydrant_GEO
+    padding: 6a000000
+    unwrapper: 00000000
+  - meshName:
+    - Cafe_Bottom
+    - Cafe_Top
+    padding: 120000000f000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Poster_CupsAndCakes_GEO
+    - Poster_Rebels_GEO
+    - Poster_Teeth
+    - Poster_WantedFemale_GEO
+    - Poster_WantedMale_GEO
+    padding: 94000000ab000000bf000000c1000000c8000000
+    unwrapper: 0000000000000000000000000000000000000000
+  - meshName:
+    - Prop_Tent_Long_GEO
+    - Prop_Tent_PopUp_GEO
+    - Prop_Caravan_GEO
+    - Prop_Tent_PopUp_Broken_GEO
+    padding: 2e00000029000000150000002a000000
+    unwrapper: 00000000000000000000000000000000
+  - meshName:
+    - FancyFacade_1_GEO
+    padding: 09000000
+    unwrapper: 00000000
+  - meshName:
+    - FootballPitch_GEO
+    padding: 0a000000
+    unwrapper: 00000000
+  - meshName:
+    - RedBrick_2_GEO
+    padding: 07000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - Base
+    padding: 0600000008000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Main_construction_platform
+    padding: 09000000
+    unwrapper: 00000000
+  - meshName:
+    - hazard_plane
+    padding: 5c000000
+    unwrapper: 00000000
+  - meshName:
+    - Missile
+    padding: e9000000
+    unwrapper: 00000000
+  - meshName:
+    - Lamp_post
+    padding: 4d000000
+    unwrapper: 00000000
+  - meshName:
+    - Ammo_box
+    padding: 45000000
+    unwrapper: 00000000
+  - meshName:
+    - Tank_platform
+    padding: 21000000
+    unwrapper: 00000000
+  - meshName:
+    - Spare_tank_track
+    padding: 1b000000
+    unwrapper: 00000000
+  - meshName:
+    - Tank_trap
+    padding: 3b000000
+    unwrapper: 00000000
+  - meshName:
+    - Gun_construction
+    padding: 15000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_barrier_broken
+    padding: 18000000
+    unwrapper: 00000000
+  - meshName:
+    - Barrel
+    padding: 56000000
+    unwrapper: 00000000
+  - meshName:
+    - Cosmic_comics
+    padding: 0a000000
+    unwrapper: 00000000
+  - meshName:
+    - gate
+    padding: 27000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_bollard
+    padding: 15000000
+    unwrapper: 00000000
+  - meshName:
+    - Mine
+    padding: 95000000
+    unwrapper: 00000000
+  - meshName:
+    - Cement_barrier_broken_no_reinforcement
+    padding: 37000000
+    unwrapper: 00000000
+  - meshName:
+    - Missile_battery
+    padding: 17000000
+    unwrapper: 00000000
+  - meshName:
+    - Crane
+    padding: 11000000
+    unwrapper: 00000000
+  - meshName:
+    - gate_small_section
+    padding: 2f000000
+    unwrapper: 00000000
+  - meshName:
+    - Tank_under_construction
+    padding: 12000000
+    unwrapper: 00000000
+  - meshName:
+    - Spare_tank_body
+    padding: 14000000
+    unwrapper: 00000000
+  - meshName:
+    - spare_tank_head
+    padding: 33000000
+    unwrapper: 00000000
+  - meshName:
+    - Shark_Tank
+    padding: 0e000000
+    unwrapper: 00000000
+  - meshName:
+    - Turret_head_loose
+    padding: 29000000
+    unwrapper: 00000000
+  - meshName:
+    - Bunny_Tank
+    padding: 0f000000
+    unwrapper: 00000000
+  - meshName:
+    - Curve
+    padding: 5b000000
+    unwrapper: 00000000
+  - meshName:
+    - Hot_dog_kart
+    padding: 2f000000
     unwrapper: 00000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
@@ -939,7 +1151,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 50000000
-  modifiedMeshUnwrapperArray: 00000000
+  modifiedMeshPaddingArray: 0600000005000000
+  modifiedMeshUnwrapperArray: 0000000000000000
   texSettingsKey: []
   texSettingsVal: []

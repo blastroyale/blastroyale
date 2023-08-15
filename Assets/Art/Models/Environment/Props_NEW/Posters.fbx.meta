@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Poster_CupsAndCakes_GEO","Poster_Rebels_GEO","Poster_Teeth","Poster_WantedFemale_GEO","Poster_WantedMale_GEO"],"padding":[148,171,191,193,200],"unwrapper":[0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

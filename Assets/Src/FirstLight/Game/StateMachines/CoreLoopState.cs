@@ -140,8 +140,13 @@ namespace FirstLight.Game.StateMachines
 
 		private async void AttemptJoinTutorialRoom()
 		{
+			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
-			_ = SwipeScreenPresenter.StartSwipe();
+			
+			// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
+			// before the event of starting the match is fireds causing an infinite loop and crash.
+			// This can still happen on some devices so this hack needs to be solved.
+			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
 			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
 		}
 

@@ -24,7 +24,7 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 2
+        Value2: 3
       CollectableChestPickupRadius:
         RawValue: 111411
       CollectTime:

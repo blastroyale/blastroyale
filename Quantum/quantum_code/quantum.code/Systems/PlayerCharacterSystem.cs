@@ -156,7 +156,7 @@ namespace Quantum.Systems
 				var ammoFilled = stats->CurrentAmmoPercent * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)
+				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + FPMath.RoundToInt(playerDead->GetEnergyLevel(f) / 5) + 1); i++)
 				{
 					var consumable = GameId.AmmoSmall;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health

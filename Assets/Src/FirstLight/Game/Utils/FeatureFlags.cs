@@ -120,7 +120,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
-		public static bool ITEM_DURABILITY_NON_NFTS = true;
+		public static bool ITEM_DURABILITY_NON_NFTS = false;
 
 		/// <summary>
 		/// Enables / disables item durability checks for NFTs

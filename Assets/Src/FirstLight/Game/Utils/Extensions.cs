@@ -777,7 +777,7 @@ namespace FirstLight.Game.Utils
 				
 				case AmbienceType.Urban:
 					return AudioId.UrbanAmbientLoop;
-				
+
 				case AmbienceType.Water:
 					return AudioId.WaterAmbientLoop;
 				

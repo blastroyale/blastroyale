@@ -12,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 	public class ParticleVfxMonoComponent : Vfx<VfxId>
 	{
 		[SerializeField, Required] private ParticleSystem _particle;
-
+		
 		private void OnValidate()
 		{
 			_particle = _particle ? _particle : GetComponent<ParticleSystem>();

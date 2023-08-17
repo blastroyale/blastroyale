@@ -287,7 +287,7 @@ namespace FirstLight.Services
 			} 
 			// Need to do while loop and check as parent objects could have destroyed the entity/gameobject before it could
 			// be properly disposed by pool service
-			while (entity == null);
+			while (entity == null); // wtf
 			
 			SpawnedEntities.Add(entity);
 

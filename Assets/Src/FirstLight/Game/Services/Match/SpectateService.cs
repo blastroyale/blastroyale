@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services
 		public EntityRef Entity;
 		public PlayerRef Player;
 		public int Team;
-		public Transform Transform;
+		public Transform Transform; // todo: managed memory in unmanaged struct should remove
 
 		public SpectatedPlayer(EntityRef entity, PlayerRef player, int team, Transform transform)
 		{
@@ -46,6 +46,12 @@ namespace FirstLight.Game.Services
 		/// Starts spectating the previous player.
 		/// </summary>
 		public void SwipeRight();
+
+		/// <summary>
+		/// Returns the current spectated entity
+		/// </summary>
+		/// <returns></returns>
+		public EntityRef GetSpectatedEntity();
 	}
 
 	public class SpectateService : ISpectateService, MatchServices.IMatchService
@@ -78,6 +84,8 @@ namespace FirstLight.Game.Services
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
+
+		public EntityRef GetSpectatedEntity() => _spectatedPlayer.Value.Entity;
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{

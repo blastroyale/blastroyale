@@ -28,7 +28,7 @@ namespace Quantum.Systems
 				// Projectile that performs Sub Projectile at end of lifetime is not considered as failed
 				else
 				{
-					f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position);
+					f.Events.OnProjectileFailedHit(filter.Entity, *filter.Projectile, filter.Transform->Position, false);
 				}
 				
 				f.Destroy(filter.Entity);
@@ -107,7 +107,7 @@ namespace Quantum.Systems
 			var position = f.Get<Transform3D>(projectileEntity).Position;
 
 			if(targetHit == projectileEntity || !targetHit.IsValid)
-				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position);
+				f.Events.OnProjectileFailedHit(projectileEntity, projectile, position, true);
 			else
 				f.Events.OnProjectileSuccessHit(projectile, targetHit, position);
 			

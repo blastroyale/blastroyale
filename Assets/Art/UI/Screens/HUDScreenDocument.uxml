@@ -19,8 +19,8 @@
             <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button customizable-hud">
                 <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />
             </FirstLight.Game.UIElements.ImageButton>
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0 customizable-hud" />
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="customizable-hud special-button--special1" />
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0 customizable-hud"/>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="customizable-hud special-button--special1"/>
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
                     <ui:VisualElement name="AliveContainer" class="match-status__alive-container customizable-hud">

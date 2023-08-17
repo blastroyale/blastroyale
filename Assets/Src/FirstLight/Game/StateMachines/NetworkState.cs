@@ -36,6 +36,7 @@ namespace FirstLight.Game.StateMachines
 	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IOnEventCallback, IErrorInfoCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
+		public static readonly IStatechartEvent PhotonInvalidServer = new StatechartEvent("NETWORK - Photon Invalid Server Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
 		public static readonly IStatechartEvent PhotonCriticalDisconnectedEvent = new StatechartEvent("NETWORK - Photon Critical Disconnected Event");
 
@@ -96,6 +97,7 @@ namespace FirstLight.Game.StateMachines
 			var connectToRegionMaster = stateFactory.State("NETWORK - Connect To Region Master");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 			var iapProcessing = stateFactory.State("NETWORK - IAP Processing");
+			var invalidServer = stateFactory.Transition("NETWORK - InvalidServer");
 
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
@@ -103,7 +105,11 @@ namespace FirstLight.Game.StateMachines
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(RegionListPinged).Target(connectToRegionMaster);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
-
+			initialConnection.Event(PhotonInvalidServer).Target(invalidServer);;
+			
+			invalidServer.OnEnter(ClearServerData);
+			invalidServer.Transition().Target(initialConnection);
+			
 			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
 
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
@@ -135,6 +141,11 @@ namespace FirstLight.Game.StateMachines
 			connectToRegionMaster.Event(PhotonDisconnectedEvent).Target(disconnected);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void ClearServerData()
+		{
+			_gameDataProvider.AppDataProvider.ConnectionRegion.Value = null;
 		}
 
 		private void SubscribeEvents()
@@ -415,6 +426,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnDisconnected " + cause);
 
+			if (cause == DisconnectCause.InvalidRegion || cause == DisconnectCause.InvalidAuthentication)
+			{
+				if (!string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.ConnectionRegion.Value))
+				{
+					FLog.Info("Invalid region, retrying");
+					_statechartTrigger(PhotonInvalidServer);
+					return;
+				}
+			}
+			
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
 				_networkService.QuantumClient.DisconnectedCause
 					.ToString());

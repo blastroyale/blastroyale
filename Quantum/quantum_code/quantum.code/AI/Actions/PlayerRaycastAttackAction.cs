@@ -16,7 +16,6 @@ namespace Quantum
 		/// <inheritdoc />
 		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var isAccuracyMutator = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
@@ -33,7 +32,7 @@ namespace Quantum
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = weaponConfig.MinAttackAngle;
-			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
+			var shotAngle = weaponConfig.NumberOfShots == 1 ?
 				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				   FP._0;
 

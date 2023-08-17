@@ -107,6 +107,13 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateSpecials(Frame f, WeaponSlot currentSlot)
 		{
+			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			{
+				_special0Button.SetVisibility(false);
+				_special1Button.SetVisibility(false);
+				return;
+			}
+			
 			UpdateSpecial(f, currentSlot, 0, _special0Button);
 			UpdateSpecial(f, currentSlot, 1, _special1Button);
 		}

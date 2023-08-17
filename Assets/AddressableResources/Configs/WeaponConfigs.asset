@@ -62,7 +62,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 60
       FiringMode: 0
-      MaxAmmo: 160
+      MaxAmmo: 180
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -146,7 +146,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 84
       FiringMode: 0
-      MaxAmmo: 35
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -188,7 +188,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 86
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 1613285068775141220
@@ -314,7 +314,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 90
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -398,7 +398,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 94
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 1613285068775141220
@@ -440,7 +440,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 96
       FiringMode: 0
-      MaxAmmo: 160
+      MaxAmmo: 180
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -482,7 +482,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 97
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -608,7 +608,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 100
       FiringMode: 0
-      MaxAmmo: 35
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -692,7 +692,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 88
       FiringMode: 0
-      MaxAmmo: 160
+      MaxAmmo: 180
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -818,7 +818,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 71
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 3582668498530828953
@@ -860,7 +860,7 @@ MonoBehaviour:
       UseRangedCam: 0
     - Id: 93
       FiringMode: 0
-      MaxAmmo: 35
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 148021496798672150
@@ -902,7 +902,7 @@ MonoBehaviour:
       UseRangedCam: 1
     - Id: 101
       FiringMode: 0
-      MaxAmmo: 45
+      MaxAmmo: 50
       BulletPrototype:
         Id:
           Value: 1613285068775141220

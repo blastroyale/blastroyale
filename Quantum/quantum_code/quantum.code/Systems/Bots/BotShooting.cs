@@ -237,6 +237,11 @@ namespace Quantum.Systems.Bots
 		// We check specials and try to use them depending on their type if possible
 		public static bool TryUseSpecials(this ref BotCharacter bot, PlayerCharacter* player, EntityRef botEntity, Frame f)
 		{
+			if (f.Context.TryGetMutatorByType(MutatorType.NoAbilities, out _))
+			{
+				return false;
+			}
+			
 			if (f.Time < bot.NextAllowedSpecialUseTime)
 			{
 				return false;

@@ -18,13 +18,13 @@ MonoBehaviour:
     Levels:
     - RewardId: 1
       PointsForNextLevel: 25
-    - RewardId: 12
+    - RewardId: 17
       PointsForNextLevel: 35
-    - RewardId: 13
+    - RewardId: 18
       PointsForNextLevel: 55
-    - RewardId: 14
+    - RewardId: 19
       PointsForNextLevel: 80
-    - RewardId: 16
+    - RewardId: 20
       PointsForNextLevel: 95
-    - RewardId: 15
+    - RewardId: 21
       PointsForNextLevel: 100

@@ -188,7 +188,9 @@ namespace Quantum
 								  ref Dictionary<Equipment, int> equipmentToDrop, ref List<GameId> consumablesToDrop)
 		{
 			var playerRef = playerCharacter->Player;
-			var hasLoadoutWeapon = loadoutWeapon->IsValid() && !loadoutWeapon->IsDefaultItem();
+			var hasLoadoutWeapon = loadoutWeapon->IsValid() &&
+								   !loadoutWeapon->IsDefaultItem() &&
+								   !f.Context.TryGetWeaponLimiterMutator(out _);
 			
 			// In case we are giving equipment to a bot - we gather a random loadout based on LoadoutGearNumber of a bot
 			var botLoadout = new List<Equipment>();
@@ -223,35 +225,38 @@ namespace Quantum
 				
 				for (uint i = 0; i < count; i++)
 				{
-
-					//only drop your loadout weaoon if you are getting dropped an equipment
-					// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
-					// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
-					// Busy primary slot => skip dropping a weapon here
-					// There are items in the pool to drop
-					if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
-						!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) &&
-						!gameContainer->DropPool.IsPoolEmpty)
+					// Do not drop guns if we have HammerTime mutator
+					if (!f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
 					{
-						var weaponItem = hasLoadoutWeapon ? *loadoutWeapon : gameContainer->GenerateNextWeapon(f);
-
-						ModifyEquipmentRarity(f, ref weaponItem, gameContainer->DropPool.AverageRarity, gameContainer->DropPool.AverageRarity);
-						
-						equipmentToDrop.Add(weaponItem, -1);
-						angleStep++;
-						
-						playerCharacter->SetDroppedLoadoutItem(&weaponItem);
-						skipDropNumber++;
-						chestItems.Add(new ChestItemDropped()
+						//only drop your loadout weaoon if you are getting dropped an equipment
+						// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
+						// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
+						// Busy primary slot => skip dropping a weapon here
+						// There are items in the pool to drop
+						if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
+							!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) &&
+							!gameContainer->DropPool.IsPoolEmpty)
 						{
-							ChestType = config.Id,
-							ChestPosition = chestPosition,
-							Player = playerRef,
-							PlayerEntity = playerEntity,
-							ItemType = weaponItem.GameId,
-							Amount = 1,
-							AngleStepAroundChest = angleStep
-						});
+							var weaponItem = hasLoadoutWeapon ? *loadoutWeapon : gameContainer->GenerateNextWeapon(f);
+
+							ModifyEquipmentRarity(f, ref weaponItem, gameContainer->DropPool.AverageRarity, gameContainer->DropPool.AverageRarity);
+						
+							equipmentToDrop.Add(weaponItem, -1);
+							angleStep++;
+						
+							playerCharacter->SetDroppedLoadoutItem(&weaponItem);
+							skipDropNumber++;
+							chestItems.Add(new ChestItemDropped()
+							{
+								ChestType = config.Id,
+								ChestPosition = chestPosition,
+								Player = playerRef,
+								PlayerEntity = playerEntity,
+								ItemType = weaponItem.GameId,
+								Amount = 1,
+								AngleStepAroundChest = angleStep
+							});
+						}
 					}
 
 					// If we dropped equipment before this method then we count those items and skip the equal amount of drops here

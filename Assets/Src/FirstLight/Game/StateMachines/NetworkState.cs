@@ -806,11 +806,16 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
+			var mutatorsFullList = msg.CustomGameOptions.Mutators;
+			if (msg.CustomGameOptions.WeaponLimiter != ScriptLocalization.MainMenu.None)
+			{
+				mutatorsFullList.Add(msg.CustomGameOptions.WeaponLimiter);
+			}
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
 				MapId = (int) msg.MapConfig.Map,
-				Mutators = msg.CustomGameOptions.Mutators,
+				Mutators = mutatorsFullList,
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName,
 				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,

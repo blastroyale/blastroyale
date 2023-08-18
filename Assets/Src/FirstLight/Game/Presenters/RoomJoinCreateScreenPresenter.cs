@@ -45,6 +45,9 @@ namespace FirstLight.Game.Presenters
 		private Button _joinRoomButton;
 		private Button _playtestButton;
 		private Button _createRoomButton;
+		private LocalizedDropDown _weaponLimitDropDown;
+
+		private static List<string> _weaponLimiterMutators = new List<string>{"HammerTime", "PistolsOnly", "SMGsOnly", "MinigunsOnly", "ShotgunsOnly", "SnipersOnly", "RPGsOnly"};
 
 		private void Awake()
 		{
@@ -78,11 +81,13 @@ namespace FirstLight.Game.Presenters
 			_mutatorModeDropDown[1].value = ScriptLocalization.MainMenu.None;
 			_mutatorModeDropDown[1].RegisterValueChangedCallback(MutatorDropDownChanged);
 			_botDifficultyDropDown = root.Q<LocalizedSliderInt>("BotDifficulty").Required();
+			_weaponLimitDropDown = root.Q<LocalizedDropDown>("WeaponLimiter").Required();
 
 			FillGameModesSelectionList();
 			FillMapSelectionList(0);
 			FillMutatorsSelectionList();
 			FillBotDifficultySelectionList();
+			FillWeaponLimitSelectionList();
 			SetPreviouslyUsedValues();
 		}
 
@@ -119,6 +124,12 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_botDifficultyDropDown.value = DifficultyToSlide(lastUsedOptions.BotDifficulty);
+				
+				var presentWeaponLimiter = _weaponLimitDropDown.choices.FirstOrDefault(o => o == lastUsedOptions.WeaponLimiter);
+				if (presentWeaponLimiter != null)
+				{
+					_weaponLimitDropDown.value = lastUsedOptions.WeaponLimiter;
+				}
 			}
 		}
 
@@ -149,6 +160,7 @@ namespace FirstLight.Game.Presenters
 				Mutators = GetMutatorsList(),
 				MapIndex = _mapDropDown.index,
 				BotDifficulty = SlideToDifficulty(_botDifficultyDropDown.value),
+				WeaponLimiter = _weaponLimitDropDown.value
 			};
 		}
 
@@ -250,6 +262,11 @@ namespace FirstLight.Game.Presenters
 
 				foreach (var mutatorConfig in mutatorConfigs)
 				{
+					if (_weaponLimiterMutators.Contains(mutatorConfig.Id))
+					{
+						continue;
+					}
+					
 					if (!selectedMutators.Contains(mutatorConfig.Id))
 					{
 						menuChoices.Add(mutatorConfig.Id);
@@ -344,6 +361,26 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return 0;
+		}
+		
+		private void FillWeaponLimitSelectionList()
+		{
+			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
+
+			_weaponLimitDropDown.choices.Clear();
+			var menuChoices = new List<string>();
+			menuChoices.Add(ScriptLocalization.MainMenu.None);
+
+			foreach (var mutatorConfig in mutatorConfigs)
+			{
+				if (_weaponLimiterMutators.Contains(mutatorConfig.Id))
+				{
+					menuChoices.Add(mutatorConfig.Id);
+				}
+			}
+
+			_weaponLimitDropDown.choices = menuChoices;
+			_weaponLimitDropDown.index = 0;
 		}
 	}
 }

@@ -14,6 +14,12 @@ namespace Quantum
 		ForceLevelPlayingField,
 		HidePlayerNames,
 		NoAbilities,
+		PistolsOnly,
+		SMGsOnly,
+		MinigunsOnly,
+		ShotgunsOnly,
+		SnipersOnly,
+		RPGsOnly,
 	}
 
 	[Serializable]

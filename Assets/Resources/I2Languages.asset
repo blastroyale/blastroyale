@@ -10940,6 +10940,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON LIMIT
+      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
+      - WEAPON LIMIT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MainMenu/RoomJoinCreateTitle
       TermType: 0
       Description: 
@@ -17094,7 +17105,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1692030336307
+    Google_LastUpdatedVersion: 1692359626916
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

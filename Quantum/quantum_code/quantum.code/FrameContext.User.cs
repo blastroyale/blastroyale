@@ -36,5 +36,46 @@ namespace Quantum
 
 			return _mutators.TryGetValue(type, out quantumMutatorConfig);
 		}
+		
+		// TODO: Refactor this hardcode
+		/// <summary>
+		/// Requests the weapon GameId if forced by mutator
+		/// </summary>
+		public bool TryGetWeaponLimiterMutator(out GameId weaponLimitId)
+		{
+			if (TryGetMutatorByType(MutatorType.PistolsOnly, out _))
+			{
+				weaponLimitId = GameId.ModPistol;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.SMGsOnly, out _))
+			{
+				weaponLimitId = GameId.ApoSMG;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.MinigunsOnly, out _))
+			{
+				weaponLimitId = GameId.ModHeavyMachineGun;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.ShotgunsOnly, out _))
+			{
+				weaponLimitId = GameId.ApoShotgun;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.SnipersOnly, out _))
+			{
+				weaponLimitId = GameId.ModSniper;
+				return true;
+			}
+			if (TryGetMutatorByType(MutatorType.RPGsOnly, out _))
+			{
+				weaponLimitId = GameId.SciCannon;
+				return true;
+			}
+			
+			weaponLimitId = default(GameId);
+			return false;
+		}
 	}
 }

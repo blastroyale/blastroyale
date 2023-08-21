@@ -551,6 +551,7 @@
     margin-top: 1px;
     height: 44px;
     width: 50%;
+    -unity-background-image-tint-color: rgb(0, 183, 255);
 }
 
 .fame__bar__total {

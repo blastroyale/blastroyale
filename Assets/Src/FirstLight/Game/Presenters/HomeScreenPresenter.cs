@@ -3,19 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.Models.Collection;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -52,6 +49,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnStoreClicked;
 			public Action OnDiscordClicked;
 			public Action OnMatchmakingCancelClicked;
+			public Action OnLevelUp;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -66,6 +64,10 @@ namespace FirstLight.Game.Presenters
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 		private Label _playerFameLabel;
+		private VisualElement _playerFameStar1;
+		private VisualElement _playerFameStar2;
+		private VisualElement _playerFameStar3;
+		private VisualElement _playerFameStar4;
 		private VisualElement _avatar;
 		private VisualElement _avatarPfp;
 
@@ -113,6 +115,10 @@ namespace FirstLight.Game.Presenters
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
 			_playerFameLabel = root.Q<Label>("PlayerFameLevel").Required();
+			_playerFameStar1 = root.Q("FameStar1").Required();
+			_playerFameStar2 = root.Q("FameStar2").Required();
+			_playerFameStar3 = root.Q("FameStar3").Required();
+			_playerFameStar4 = root.Q("FameStar4").Required();
 			_avatar = root.Q("Avatar").Required();
 			_avatarPfp = root.Q("AvatarPFP").Required();
 
@@ -156,8 +162,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
-			root.Q<Button>("CollectionButton").clicked += Data.OnCollectionsClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
+			var collectionButton = root.Q<Button>("CollectionButton");
+			collectionButton.clicked += Data.OnCollectionsClicked;
+			collectionButton.LevelLock(this, UnlockSystem.CollectionsScreen);
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
@@ -290,10 +298,46 @@ namespace FirstLight.Game.Presenters
 		{
 			_playerNameLabel.text = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
-		
-		private void OnFameChanged(uint _, uint fameLevel)
+
+		private void OnFameChanged(uint previous, uint current)
 		{
-			_playerFameLabel.text = fameLevel.ToString();
+			_playerFameLabel.text = current.ToString();
+
+			if (current < 2)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 0.2f;
+				_playerFameStar3.style.opacity = 0.2f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 4)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 0.2f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 6)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 1f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 8)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 1f;
+				_playerFameStar4.style.opacity = 1f;
+			}
+
+			if (previous != current && previous > 0)
+			{
+				Data.OnLevelUp(); // TODO: This should be handled from the state machine
+			}
+
+			// TODO: Animate VFX when we have a progress bar: StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _avatar));
 		}
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)

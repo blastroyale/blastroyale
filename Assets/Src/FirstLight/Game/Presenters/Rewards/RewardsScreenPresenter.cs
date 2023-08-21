@@ -17,6 +17,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public bool FameRewards;
 			public List<IReward> Rewards;
 			public Action OnFinish;
 		}
@@ -77,10 +78,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<VisualElement>("OneReward").Required().AttachView(this, out _genericRewardView);
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector);
 
-			root.Q<VisualElement>("ChestSummary").Required().AttachView(this, out _summaryView);
+			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
 			_summaryView.Init(_animations, _animatedBackground, _summaryDirector);
 
-			_summaryView.CreateSummaryElements(Data.Rewards);
+			_summaryView.CreateSummaryElements(Data.Rewards, Data.FameRewards);
 		}
 
 		public void OnClick(ClickEvent evt)

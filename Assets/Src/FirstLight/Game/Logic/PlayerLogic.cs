@@ -81,7 +81,7 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void MarkGuestAccountMigrated();
 
-		void ResetLevel();
+		void ResetLevelAndXP();
 	}
 
 	// TODO: Remove all player skin stuff related and move to CollectionLogic
@@ -260,9 +260,10 @@ namespace FirstLight.Game.Logic
 			data.MigratedGuestData = true;
 		}
 
-		public void ResetLevel()
+		public void ResetLevelAndXP()
 		{
 			_level.Value = 1;
+			_xp.Value = 0;
 		}
 	}
 }

@@ -115,6 +115,10 @@
                     </ui:VisualElement>
                     <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
                     <ui:Label text="72" name="PlayerFameLevel" class="player-header__fame-lvl" />
+                    <ui:VisualElement name="FameStar1" class="player-header__fame-star-1" />
+                    <ui:VisualElement name="FameStar2" class="player-header__fame-star-2" />
+                    <ui:VisualElement name="FameStar3" class="player-header__fame-star-3" />
+                    <ui:VisualElement name="FameStar4" class="player-header__fame-star-4" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
         </ui:VisualElement>

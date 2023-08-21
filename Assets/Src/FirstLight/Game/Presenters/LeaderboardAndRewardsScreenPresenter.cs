@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
@@ -191,11 +192,12 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = 99;
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange + 1, 0, maxLevel);
+			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do
 			{
+				FLog.Info("PACO", "SetLevelReward: nextLevel: " + nextLevel + " currentLevel: " + currentLevel + " gainedLeft: " + gainedLeft);
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
 				levelRewardInfo.MaxLevel = 99;

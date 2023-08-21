@@ -90,7 +90,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 720896
+        RawValue: 655360
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 65536
@@ -258,7 +258,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 262144
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 65536
@@ -468,7 +468,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 262144
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -636,7 +636,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 720896
+        RawValue: 655360
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -678,7 +678,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -762,7 +762,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 458752
+        RawValue: 393216
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -804,7 +804,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -846,7 +846,7 @@ MonoBehaviour:
       NumberOfShots: 6
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 327680
+        RawValue: 262144
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -888,7 +888,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 720896
+        RawValue: 655360
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -930,7 +930,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 524288
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 65536

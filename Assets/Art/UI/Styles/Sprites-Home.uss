@@ -176,6 +176,7 @@
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
+    --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
     --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
@@ -1193,6 +1194,12 @@
     background-image: var(--sprite-home__rewards-gradient-purple);
     width: 200px;
     height: 200px;
+}
+
+.sprite-home__rewards-impact-circle {
+    background-image: var(--sprite-home__rewards-impact-circle);
+    width: 250px;
+    height: 250px;
 }
 
 .sprite-home__reward-slot {

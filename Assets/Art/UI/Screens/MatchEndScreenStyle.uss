@@ -153,6 +153,8 @@
     width: 377px;
     height: 766px;
     transform-origin: bottom;
+    bottom: -97px;
+    margin-bottom: -90px;
 }
 
 .you-won-title__projectorgradient {

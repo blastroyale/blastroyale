@@ -4968,7 +4968,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JADA
+      - SCARLET
       - Jada Green
       - Jada Green
       - 
@@ -4979,7 +4979,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Pilot
+      - Nothing Lasts Forever
       - Sky Pilot
       - Sky Pilot
       - 
@@ -4990,7 +4990,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CAT
+      - LUNA
       - Cat Carter
       - Cat Carter
       - 
@@ -5001,7 +5001,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profession Thief
+      - Shining Strikes
       - Profession Thief
       - Profession Thief
       - 
@@ -5012,7 +5012,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MILEENA
+      - RAVEN
       - Mileena Melee
       - Mileena Melee
       - 
@@ -5023,7 +5023,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Violent Enforcer
+      - A Fatal Whisper
       - Violent Enforcer
       - Violent Enforcer
       - 
@@ -5034,7 +5034,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SONIA
+      - KATARINA
       - Sonia Shocksmith
       - Sonia Shocksmith
       - 
@@ -5045,7 +5045,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lieutenant Colonel
+      - Combat Queen
       - Lieutenant Colonel
       - Lieutenant Colonel
       - 
@@ -5056,7 +5056,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELECTRA
+      - ROSE
       - Electra Deckard
       - Electra Deckard
       - 
@@ -5067,7 +5067,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Rock Thrasher
+      - Petal to the Metal
       - Punk Rock Thrasher
       - Punk Rock Thrasher
       - 
@@ -5078,7 +5078,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - IRIS
+      - JADE
       - IRIS
       - IRIS
       - 
@@ -5089,7 +5089,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Maverick Reporter
+      - The Icon
       - Maverick Reporter
       - Maverick Reporter
       - 
@@ -5449,7 +5449,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - JONNY
+      - JOEL
       - "\u0413\u043E\u0432\u044F\u0434\u0438\u043D\u0430 \u0427\u0435\u0433\u0432\u0438\u043D"
       - Carne Chegwin
       - 
@@ -5460,7 +5460,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Archeologist Extraordinaire
+      - Endure and Survive!
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
       - 
@@ -5471,7 +5471,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HUGO
+      - BO
       - "\u0425\u044C\u044E\u0433\u043E \u041C\u0430\u0440\u043A\u0441"
       - Hugo Marks
       - 
@@ -5482,7 +5482,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Superstar Shooter
+      - One shot, Two kills
       - Superstar Shooter
       - Superstar Shooter
       - 
@@ -5493,7 +5493,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - AJAY
+      - ARCHER
       - Ajay Quicksilver
       - Ajay Quicksilver
       - 
@@ -5504,7 +5504,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Deadly Assassin
+      - Hunt, Target, Kill
       - Deadly Assassin
       - Deadly Assassin
       - 
@@ -5515,7 +5515,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ZANE
+      - VICTOR
       - ZANE
       - ZANE
       - 
@@ -5526,7 +5526,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Corpos Major General
+      - El General
       - Major General
       - Major General
       - 
@@ -5537,7 +5537,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SID
+      - SPIKE
       - Jonny Badhair
       - Jonny Badhair
       - 
@@ -5548,7 +5548,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Wild Anarchist
+      - Punctured Your Ego?
       - Wild Anarchist
       - Wild Anarchist
       - 
@@ -5559,7 +5559,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MAX
+      - DRAKE
       - Max Power
       - Max Power
       - 
@@ -5570,7 +5570,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rebel Rouser
+      - Passionfruit Killer
       - Rebel Rouser
       - Rebel Rouser
       - 
@@ -7333,6 +7333,72 @@ MonoBehaviour:
       Description: 
       Languages:
       - BIG ROYALE
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/COIN
+      TermType: 0
+      Description: 
+      Languages:
+      - Coin
+      - 
+      - Moeda
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/COIN_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Coins
+      - 
+      - Moedas
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BPP
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Point
+      - 
+      - Ponto do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/BPP_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Battlepass Points
+      - 
+      - Pontos do passe de batalha
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/CS_Plural
+      TermType: 0
+      Description: 
+      Languages:
+      - Craft Spice
       - 
       - 
       - 
@@ -13177,6 +13243,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITProfileScreen/profile
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYER PROFILE
+      - PLAYER PROFILE
+      - PLAYER PROFILE
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -15348,6 +15425,83 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITRewards/
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/rewards_remaining
+      TermType: 0
+      Description: 
+      Languages:
+      - REWARDS REMAINING
+      - 
+      - RECOMPENSAS RESTANTES
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/you_got
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU GOT
+      - 
+      - "VOC\xCA GANHOU"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/new
+      TermType: 0
+      Description: 
+      Languages:
+      - NEW
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/long_range
+      TermType: 0
+      Description: 
+      Languages:
+      - LONG RANGE
+      - 
+      - LONGA DISTANCIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/short_range
+      TermType: 0
+      Description: 
+      Languages:
+      - SHORT RANGE
+      - 
+      - CURTA DISTANCIA
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITRewards/fame
+      TermType: 0
+      Description: 
+      Languages:
+      - FAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/account_deleted_desc
       TermType: 0
       Description: 
@@ -15905,6 +16059,17 @@ MonoBehaviour:
       - Cone Aim
       - 
       - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITSettings/hud_customization
+      TermType: 0
+      Description: 
+      Languages:
+      - Customize Hud
+      - Customize Hud
+      - Customizar Hud
       - 
       - 
       Flags: 0000000000
@@ -16905,6 +17070,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON LIMIT
+      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
+      - WEAPON LIMIT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -16929,7 +17105,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1689551675772
+    Google_LastUpdatedVersion: 1692367569633
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

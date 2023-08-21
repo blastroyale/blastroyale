@@ -262,35 +262,39 @@ namespace Quantum
 					}
 					
 					// Second, we drop equipment from their loadout if it is all valid and we haven't dropped them all already
-					Equipment drop;
-					if (!f.Has<BotCharacter>(playerEntity))
+					// NOTE: Level Playing Field mutator prevents gear from dropping
+					if (!f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
 					{
-						drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
-					}
-					else
-					{
-						drop = GetNextLoadoutGearItem(f, playerCharacter, botLoadout.ToArray());
-					}
-					
-					if (drop.GameId != GameId.Random && drop.IsValid())
-					{
-						playerCharacter->SetDroppedLoadoutItem(&drop);
-						
-						equipmentToDrop.Add(drop, playerRef);
-						angleStep++;
-
-						chestItems.Add(new ChestItemDropped
+						Equipment drop;
+						if (!f.Has<BotCharacter>(playerEntity))
 						{
-							ChestType = config.Id,
-							ChestPosition = chestPosition,
-							Player = playerCharacter->Player,
-							PlayerEntity = playerEntity,
-							ItemType = drop.GameId,
-							Amount = 1,
-							AngleStepAroundChest = angleStep
-						});
+							drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
+						}
+						else
+						{
+							drop = GetNextLoadoutGearItem(f, playerCharacter, botLoadout.ToArray());
+						}
+					
+						if (drop.GameId != GameId.Random && drop.IsValid())
+						{
+							playerCharacter->SetDroppedLoadoutItem(&drop);
 						
-						continue;
+							equipmentToDrop.Add(drop, playerRef);
+							angleStep++;
+
+							chestItems.Add(new ChestItemDropped
+							{
+								ChestType = config.Id,
+								ChestPosition = chestPosition,
+								Player = playerCharacter->Player,
+								PlayerEntity = playerEntity,
+								ItemType = drop.GameId,
+								Amount = 1,
+								AngleStepAroundChest = angleStep
+							});
+						
+							continue;
+						}
 					}
 
 					// If we dropped all equipment from loadout, then we drop energy cubes

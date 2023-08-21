@@ -21,7 +21,8 @@ namespace FirstLight.Game.UIElements
 
 		private readonly VisualElement _stick;
 		private readonly VisualElement _directionHalo;
-
+		private Vector3 _initialPosition;
+		
 		public event Action<Vector2> OnMove;
 		public event Action<float> OnClick; // Float so that we can use it directly with the input system
 
@@ -60,6 +61,11 @@ namespace FirstLight.Game.UIElements
 
 		private void OnDetachFromPanel(DetachFromPanelEvent evt)
 		{
+			RemoveListeners();
+		}
+
+		public void RemoveListeners()
+		{
 			parent.UnregisterCallback<PointerDownEvent>(OnPointerDown);
 			parent.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
 			parent.UnregisterCallback<PointerUpEvent>(OnPointerUp);
@@ -67,6 +73,7 @@ namespace FirstLight.Game.UIElements
 
 		private void OnPointerDown(PointerDownEvent evt)
 		{
+			_initialPosition = transform.position;
 			parent.CapturePointer(evt.pointerId);
 
 			AddToClassList(UssFree);
@@ -107,7 +114,7 @@ namespace FirstLight.Game.UIElements
 			RemoveFromClassList(UssFree);
 			_stick.RemoveFromClassList(UssStickFree);
 
-			transform.position = Vector3.zero;
+			transform.position = _initialPosition;
 			_stick.transform.position = Vector3.zero;
 			_directionHalo.style.opacity = 0f;
 

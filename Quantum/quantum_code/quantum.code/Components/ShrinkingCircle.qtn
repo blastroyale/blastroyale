@@ -4,10 +4,11 @@ singleton component ShrinkingCircle
 	FPVector2 TargetCircleCenter;
 	FP CurrentRadius;
 	FP TargetRadius;
-	FP ShrinkingStartTime;
-	FP ShrinkingDurationTime;
+	int ShrinkingWarningTime;
+	int ShrinkingStartTime;
+	int ShrinkingDurationTime;
 	Int32 Step;
-    FP Damage;
+    FP Damage; // TODO: Remove from component since it's a config value
 	FP ShrinkingSizeK;
 	FP AirDropChance;
 }

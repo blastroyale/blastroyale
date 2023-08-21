@@ -118,10 +118,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CloseSwipeTransition()
 		{
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
-			{
-				_uiService.CloseUi<SwipeScreenPresenter>(true);
-			}
+			_ = SwipeScreenPresenter.Finish();
 		}
 
 		private void SubscribeEvents()
@@ -414,7 +411,6 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
@@ -455,8 +451,8 @@ namespace FirstLight.Game.StateMachines
 				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.PlayerSkin)).Id,
 				DeathMarker = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.DeathMarker)).Id,
 				Glider = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.Glider)).Id,
-				PlayerLevel = info.Level,
-				PlayerTrophies = info.TotalTrophies,
+				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
+				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,

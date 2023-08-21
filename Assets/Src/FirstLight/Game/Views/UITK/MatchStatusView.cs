@@ -1,9 +1,13 @@
+using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
+using Photon.Deterministic;
 using Quantum;
 using Quantum.Core;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -21,6 +25,7 @@ namespace FirstLight.Game.Views.UITK
 		private Label _notificationLabel;
 
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 
 		private PlayableDirector _notificationDirector;
 
@@ -34,6 +39,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			base.Attached(element);
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 
 			_aliveCountLabel = element.Q<Label>("AliveCountText").Required();
 			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
@@ -42,13 +48,13 @@ namespace FirstLight.Game.Views.UITK
 			_counterElement = element.Q<VisualElement>("Counter");
 
 			_notificationLabel = element.Q<Label>("NotificationText").Required();
-			
+
 			_notificationLabel.SetDisplay(false);
 
 			_pingAnimation = _pingElement.experimental.animation.Scale(0.6f, 1000).KeepAlive();
 			_pingAnimation.from = 1f;
 		}
-		
+
 		public void SetAreaShrinkingDirector(PlayableDirector director)
 		{
 			_notificationDirector = director;
@@ -82,10 +88,11 @@ namespace FirstLight.Game.Views.UITK
 				return;
 			}
 
-			var countdown = ((callback.ShrinkingCircle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000)
-				.AsLong;
+			var warningStart = callback.ShrinkingCircle.ShrinkingStartTime - callback.ShrinkingCircle.ShrinkingWarningTime;
+			var shrinkingStart = callback.ShrinkingCircle.ShrinkingStartTime;
+			var shrinkingDuration = callback.ShrinkingCircle.ShrinkingDurationTime;
 
-			StartCountdown(countdown, (callback.ShrinkingCircle.ShrinkingDurationTime * 1000).AsLong);
+			StartCountdown(warningStart, shrinkingStart, shrinkingDuration);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -99,8 +106,11 @@ namespace FirstLight.Game.Views.UITK
 			_counterElement.SetVisibility(true);
 			if (_timerUpdate == null && callback.Game.Frames.Predicted.TryGetSingleton<ShrinkingCircle>(out var circle))
 			{
-				var countdown = ((circle.ShrinkingStartTime - callback.Game.Frames.Predicted.Time) * 1000).AsLong;
-				StartCountdown(countdown, (circle.ShrinkingDurationTime * 1000).AsLong);
+				var warningStart = circle.ShrinkingStartTime - circle.ShrinkingWarningTime;
+				var shrinkingStart = circle.ShrinkingStartTime;
+				var shrinkingDuration = circle.ShrinkingDurationTime;
+
+				StartCountdown(warningStart, shrinkingStart, shrinkingDuration);
 			}
 		}
 
@@ -139,47 +149,61 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void StartCountdown(long warningTimeMs, long shrinkingTimeMs)
+		// This method does the countdowns on Unity side with Unity's timers, so it might not be 100% accurate
+		// If that proves to be an issue we may need to rather recalculate the time left using Quantum's Frame.Time.
+		private void StartCountdown(int warningStartTime, int shrinkingStartTime, int shrinkingDuration)
 		{
-			Assert.IsTrue(shrinkingTimeMs % 1000 == 0, "Shrinking time must be rounded to seconds!");
-
-			var initialDelayMs = warningTimeMs % 1000;
-
-			var warningSeconds = (int) (warningTimeMs / 1000);
-			var shrinkingSeconds = (int) (shrinkingTimeMs / 1000);
 			var shrinkingNotified = false;
-			
-			ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
+			var warningNotified = false;
+
+			// FLog.Info("PACO",
+			// 	"StartCountdown: delayTime: " + delayTimeMs + " warningTimeMs: " + warningTimeMs + " shrinkingTimeMs: " + shrinkingTimeMs +
+			// 	" initialDelayMs: " + initialDelayMs + " delaySeconds: " + delaySeconds + " warningSeconds: " + warningSeconds +
+			// 	" shrinkingSeconds: " + shrinkingSeconds + " shrinkingNotified: " + shrinkingNotified + " warningNotified: " + warningNotified + "");
 
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
 				{
-					if (warningSeconds > 0)
+					if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
+
+					var currentTime = QuantumRunner.Default.Game.Frames.Predicted.Time;
+					var currentTimeSeconds = FPMath.FloorToInt(currentTime);
+
+					if (currentTimeSeconds < warningStartTime)
 					{
-						_timerLabel.text = warningSeconds.ToString();
-						warningSeconds--;
+						_timerLabel.text = string.Empty;
 					}
-					else if (shrinkingSeconds > 0)
+					else if (currentTimeSeconds < shrinkingStartTime)
+					{
+						if (!warningNotified)
+						{
+							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
+							warningNotified = true;
+						}
+
+						_timerLabel.text = FPMath.RoundToInt(shrinkingStartTime - currentTimeSeconds).ToString();
+					}
+					else if (currentTimeSeconds < shrinkingStartTime + shrinkingDuration)
 					{
 						if (!shrinkingNotified)
 						{
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
 						}
-						
-						_timerLabel.text = shrinkingSeconds.ToString();
-						shrinkingSeconds--;
+
+						_timerLabel.text = FPMath.RoundToInt((shrinkingStartTime + shrinkingDuration) - currentTimeSeconds).ToString();
 						_pingAnimation.Start();
 					}
 					else
 					{
 						_timerLabel.text = string.Empty;
 					}
-				}).StartingIn(initialDelayMs)
+				})
+				.StartingIn((FPMath.Fraction(QuantumRunner.Default.Game.Frames.Predicted.Time) * FP._1000).AsLong +
+					100) // 100ms offset so we don't skip numbers because we round down.
 				.Every(1000)
-				.Until(() =>
-					warningSeconds == 0 &&
-					shrinkingSeconds == -1); // -1 because we want to show empty string after the countdown
+				.Until(() => !QuantumRunner.Default.IsDefinedAndRunning() ||
+					QuantumRunner.Default.Game.Frames.Predicted.Time > shrinkingStartTime + shrinkingDuration);
 		}
 
 		private void ShowNotification(string message)

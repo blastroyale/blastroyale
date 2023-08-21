@@ -14,21 +14,20 @@ namespace Quantum
 		/// <summary>
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
-		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin,
-								GameId deathMarker, GameId glider, uint playerTrophies, int teamId)
+		internal void AddPlayer(Frame f, PlayerCharacterSetup setup)
 		{
-			var isBot = f.TryGet<BotCharacter>(playerEntity, out var bot);
+			var isBot = f.TryGet<BotCharacter>(setup.e, out var bot);
 
-			PlayersData[player] = new PlayerMatchData
+			PlayersData[setup.playerRef] = new PlayerMatchData
 			{
-				Entity = playerEntity,
-				Player = player,
-				PlayerLevel = playerLevel,
-				PlayerSkin = skin,
-				PlayerTrophies = playerTrophies,
-				PlayerDeathMarker = isBot ? bot.DeathMarker : deathMarker,
-				Glider = isBot ? bot.Glider : glider,
-				TeamId = teamId,
+				Entity = setup.e,
+				Player = setup.playerRef,
+				PlayerLevel = setup.playerLevel,
+				PlayerSkin = setup.skin,
+				PlayerTrophies = setup.trophies,
+				PlayerDeathMarker = isBot ? bot.DeathMarker : setup.deathMarker,
+				Glider = isBot ? bot.Glider : setup.glider,
+				TeamId = setup.teamId,
 				BotNameIndex = isBot ? bot.BotNameIndex : 0
 			};
 		}

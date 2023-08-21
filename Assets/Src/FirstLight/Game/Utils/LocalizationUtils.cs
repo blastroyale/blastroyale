@@ -49,6 +49,20 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetCurrencyLocalization(this GameId id, uint amount)
+		{
+			var key = id.GetLocalizationKey();
+			if (amount != 1 && LocalizationManager.TryGetTranslation(key + "_Plural", out var translation))
+			{
+				return translation;
+			}
+
+			return LocalizationManager.GetTranslation(key);
+		}
+
+		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/> + Description;
 		/// </summary>
 		public static string GetDescriptionLocalization(this GameId id)
@@ -86,6 +100,19 @@ namespace FirstLight.Game.Utils
 		public static string GetLocalizationKey(this GameId id)
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
+		}
+
+		/// <summary>
+		/// Gets the translation term of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetLocalizationKey(this EquipmentRarity rarity)
+		{
+			return $"{nameof(ScriptTerms.UITEquipment)}/rarity_{rarity.ToString().ToLowerInvariant()}";
+		}
+
+		public static string GetLocalization(this EquipmentRarity rarity)
+		{
+			return LocalizationManager.GetTranslation(GetLocalizationKey(rarity));
 		}
 
 		/// <summary>

@@ -536,7 +536,7 @@ MonoBehaviour:
     - GuardrailD
     - GuardrailB
     - GuardrailC
-    padding: 4d0000002a0000001e0000004a000000
+    padding: 4d0000002a000000220000004a000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - barricade_sandbags
@@ -698,8 +698,9 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Clapperboard_2_Grp_Base
-    padding: 09000000
-    unwrapper: 00000000
+    - Top
+    padding: 090000000e000000
+    unwrapper: 0000000000000000
   - meshName:
     - RadioShack_GEO
     padding: 06000000
@@ -756,11 +757,12 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Base
-    padding: 06000000
-    unwrapper: 00000000
+    - Top
+    padding: 0600000008000000
+    unwrapper: 0000000000000000
   - meshName:
     - DC_Grey
-    padding: 16000000
+    padding: 11000000
     unwrapper: 00000000
   - meshName:
     - DC_Red
@@ -780,19 +782,21 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Brownstone_Geo_Base
-    padding: 09000000
-    unwrapper: 00000000
+    - Top
+    padding: 0b00000011000000
+    unwrapper: 0000000000000000
   - meshName:
     - Brownstone_2_Base_Geo
-    padding: 08000000
-    unwrapper: 00000000
+    - Top
+    padding: 0a0000000d000000
+    unwrapper: 0000000000000000
   - meshName:
     - broken_building_3
     padding: 0e000000
     unwrapper: 00000000
   - meshName:
     - Brownstone_Broken_1
-    padding: 08000000
+    padding: 0a000000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowClean
@@ -820,12 +824,14 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Motel_base_Geo
-    padding: 06000000
-    unwrapper: 00000000
+    - Top
+    padding: 0600000005000000
+    unwrapper: 0000000000000000
   - meshName:
     - Base
-    padding: 0d000000
-    unwrapper: 00000000
+    - Top
+    padding: 0d00000018000000
+    unwrapper: 0000000000000000
   - meshName:
     - Top
     - Base
@@ -833,8 +839,9 @@ MonoBehaviour:
     unwrapper: 0000000000000000
   - meshName:
     - Base_Geo
-    padding: 04000000
-    unwrapper: 00000000
+    - Top
+    padding: 0400000004000000
+    unwrapper: 0000000000000000
   - meshName:
     - Orange_canopy
     padding: 1e000000

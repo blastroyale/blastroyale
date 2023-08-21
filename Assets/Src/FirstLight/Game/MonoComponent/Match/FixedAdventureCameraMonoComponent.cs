@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Cinemachine;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -48,6 +49,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponAdded>(this, OnPlayerWeaponAdded);
 			gameObject.SetActive(false);
 		}
 
@@ -56,6 +58,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 		
 		private static GameObject GetFollowObject(SpectatedPlayer player)
@@ -66,7 +69,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				FLog.Warn("Camera following something that is not a player :L");
 				return player.Transform.gameObject;
 			}
-			return component.Instance.transform.gameObject;
+			return component.transform.gameObject;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -91,10 +94,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera?.SnapCamera();
 		}
 
-		private void SetActiveCamera(InputAction.CallbackContext context)
-		{
-			SetActiveCamera(context.canceled ? _adventureCamera : _specialAimCamera);
+		public void OnPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
+		{		
+			var useLongRangeCam = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId).UseRangedCam;
+			SetActiveCamera(useLongRangeCam ? _specialAimCamera : _adventureCamera);
 		}
+
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
 		{
@@ -156,7 +161,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
+			if (virtualCamera != null && virtualCamera.gameObject != null && FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera != null &&
 				 virtualCamera.gameObject == FLGCamera.Instance.CinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;

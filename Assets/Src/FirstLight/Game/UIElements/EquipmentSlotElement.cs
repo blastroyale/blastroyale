@@ -44,10 +44,6 @@ namespace FirstLight.Game.UIElements
 		private const string UssEquipmentImageEmpty = UssEquipmentImage + "--empty";
 		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
 
-		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
-		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
-		private const string UssDurabilityProgress = UssBlock + "__durability-progress";
-
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
 
@@ -67,7 +63,6 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _equipmentImage;
 		private readonly VisualElement _equipmentImageShadow;
 		private readonly VisualElement _factionIcon;
-		private readonly VisualElement _durabilityProgress;
 		private readonly VisualElement _badgeNft;
 		private readonly VisualElement _badgeLoaned;
 		private readonly VisualElement _notificationIcon;
@@ -130,19 +125,6 @@ namespace FirstLight.Game.UIElements
 				_factionIcon.RemoveSpriteClasses();
 				_factionIcon.AddToClassList(UssFactionIcon);
 				_factionIcon.AddToClassList(string.Format(UssSpriteFaction, "celestial"));
-
-				var durabilityProgressBg = new VisualElement {name = "durability-progress-bg"};
-				{
-					filledElement.Add(durabilityProgressBg);
-					durabilityProgressBg.AddToClassList(UssDurabilityProgressBg);
-
-					durabilityProgressBg.Add(_durabilityProgress = new VisualElement {name = "durability-progress"});
-					_durabilityProgress.AddToClassList(UssDurabilityProgress);
-				}
-
-				var durabilityIcon = new VisualElement {name = "durability-icon"};
-				filledElement.Add(durabilityIcon);
-				durabilityIcon.AddToClassList(UssDurabilityIcon);
 			}
 
 			var emptyElement = new VisualElement {name = "empty"};
@@ -192,8 +174,6 @@ namespace FirstLight.Game.UIElements
 			_factionIcon.RemoveSpriteClasses();
 			_factionIcon.AddToClassList(
 				string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
-
-			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
 
 			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 

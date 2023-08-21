@@ -2,6 +2,7 @@ using System.Collections;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -19,7 +20,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	{
 		private static readonly int _mainText = Shader.PropertyToID("_MainTex");
 		private static readonly int _hitProperty = Shader.PropertyToID("_Hit");
-
+		private IGameServices _services;
+		
 		/// <summary>
 		/// Animation booleans to play in the avatar
 		/// </summary>
@@ -82,6 +84,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			_animatorWrapper = new AnimatorWrapper(_animator);
+			_services = MainInstaller.ResolveServices();
 			
 			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
@@ -136,6 +139,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
+			if (!Culled)
+			{
+				_services.VfxService.Spawn(VfxId.DeathEffect).transform.position = transform.position + Vector3.up;
+			}
+			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
 			AnimatorWrapper.SetTrigger(Triggers.Die);

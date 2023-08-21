@@ -15,6 +15,8 @@ namespace UITTimeline
         public List<VisualElement> Elements { get; internal set; }
         public bool AutomaticUsageHints { get; internal set; }
 
+        private HashSet<Type> usedBehaviours = new();
+
         public override void OnGraphStart(Playable playable)
         {
             var suggestedHints = UsageHints.None;
@@ -39,6 +41,8 @@ namespace UITTimeline
                         vis.Elements = Elements;
                         break;
                 }
+
+                usedBehaviours.Add(behaviour.GetType());
             }
 
             if (AutomaticUsageHints)
@@ -56,6 +60,7 @@ namespace UITTimeline
             var rotation = 0f;
             var scale = new Vector2(1f, 1f);
             var opacity = 1f;
+            var backgroundTint = Color.white;
 
             for (int i = 0; i < playable.GetInputCount(); i++)
             {
@@ -68,24 +73,35 @@ namespace UITTimeline
                         position += trs.Position * playable.GetInputWeight(i);
                         break;
                     case UITScaleBehaviour scl:
+                        // TODO: Switch to Lerp?
                         scale += scl.Scale * playable.GetInputWeight(i);
                         break;
                     case UITRotationBehaviour rot:
                         rotation += rot.Rotation * playable.GetInputWeight(i);
                         break;
                     case UITOpacityBehaviour op:
+                        // TODO: Switch to Lerp?
                         opacity += op.Opacity * playable.GetInputWeight(i);
+                        break;
+                    case UITBackgroundTintBehaviour tint:
+                        backgroundTint = Color.Lerp(backgroundTint, tint.Color, playable.GetInputWeight(i));
                         break;
                 }
             }
 
             foreach (var e in Elements)
             {
-                e.transform.position = position;
-                e.transform.scale = scale;
-                e.transform.rotation = Quaternion.Euler(0, 0, rotation);
-                e.style.opacity = opacity;
+                if (UsesBehaviour<UITPositionBehaviour>()) e.transform.position = position;
+                if (UsesBehaviour<UITScaleBehaviour>()) e.transform.scale = scale;
+                if (UsesBehaviour<UITRotationBehaviour>()) e.transform.rotation = Quaternion.Euler(0, 0, rotation);
+                if (UsesBehaviour<UITOpacityBehaviour>()) e.style.opacity = opacity;
+                if (UsesBehaviour<UITBackgroundTintBehaviour>()) e.style.unityBackgroundImageTintColor = backgroundTint;
             }
+        }
+
+        private bool UsesBehaviour<T>() where T : UITBehaviour
+        {
+            return usedBehaviours.Contains(typeof(T));
         }
     }
 }

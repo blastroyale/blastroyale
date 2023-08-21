@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -25,6 +26,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     
     private Vector3 _localPositionOffset = new (0, 0.17f, 0);
     private IGameServices _services;
+    private IMatchServices _matchServices;
     private Vector3 _rightStepScale;
     private Vector3 _leftStepScale;
     private EntityView _view;
@@ -41,6 +43,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     private void Start()
     {
         _services = MainInstaller.Resolve<IGameServices>();
+        _matchServices = MainInstaller.Resolve<IMatchServices>();
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
@@ -98,7 +101,20 @@ public class FootprinterMonoComponent : MonoBehaviour
         _pooledFootprint.transform.localScale = _right ? _rightStepScale : _leftStepScale;
         _pooledFootprint.transform.rotation = Quaternion.Euler(90, _localRotation.eulerAngles.y, 0);
         _pooledFootprint.SetActive(true);
+        PlayEffects();
         StartCoroutine(Despawn(_pooledFootprint));
+    }
+
+    private void PlayEffects()
+    {
+        if (_matchServices.EntityVisibilityService.CanSpectatedPlayerSee(_character.PlayerView.EntityRef))
+        {
+            _services.AudioFxService.PlayClip3D(AudioId.PlayerWalkRoad, _character.transform.position);
+        }
+        if (_matchServices.SpectateService.GetSpectatedEntity() == _character.EntityView.EntityRef)
+        {
+            _services.VfxService.Spawn(VfxId.StepSmoke).transform.position = _pooledFootprint.transform.position;
+        }
     }
 
     private IEnumerator Despawn(GameObject o)

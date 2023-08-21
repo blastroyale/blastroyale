@@ -26,6 +26,9 @@ namespace FirstLight.Game.Ids
 		WeaponAim = 19,
 		CollectableIndicatorLarge = 20,
 		ProjectileFailedSmoke = 21,
+		Shell = 22,
+		DeathEffect = 23,
+		StepSmoke = 24
 	}
 	
 	/// <summary>

@@ -1,25 +1,19 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 358ab1843752a2f458b1032d85a23b78
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Apc
-    second:
-      fileID: 2100000
-      guid: 1827869761088354d9d48372016f2ce8
-      type: 2
+    second: {fileID: 2100000, guid: 1827869761088354d9d48372016f2ce8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second:
-      fileID: 2100000
-      guid: 8cfb2472d6ca73d49a503682b1bbc573
-      type: 2
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,7 +40,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Container_Red"],"padding":[19],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -56,6 +51,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -63,7 +59,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -83,6 +79,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -109,13 +106,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource:
-    instanceID: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

@@ -1,0 +1,578 @@
+.rewards-root {
+    align-items: center;
+    justify-content: center;
+}
+
+.rewards-one__gradient {
+    position: relative;
+    background-image: var(--sprite-home__rewards-gradient-purple);
+    width: 1080px;
+    height: 1080px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rewards-one__rays {
+    width: 1080px;
+    height: 1080px;
+    position: absolute;
+    background-image: var(--sprite-home__vfx-rewards-rays);
+    align-self: center;
+    -unity-background-image-tint-color: rgba(240, 119, 255, 0.5);
+}
+
+.rewards-one__name {
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    position: absolute;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    align-self: center;
+    top: 280px;
+}
+
+.rewards-one__amount {
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    align-self: center;
+    top: 720px;
+    position: absolute;
+}
+
+.rewards-one__rewardicon {
+    background-color: rgba(0, 0, 0, 0);
+    width: 182px;
+    height: 182px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rewards-one__spark-gradient {
+    width: 300px;
+    height: 300px;
+    background-image: var(--sprite-match__gradientwhite);
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    position: absolute;
+}
+
+.rewards-one__appear-spark {
+    background-image: var(--sprite-match__vfx-blast-spark);
+    width: 200px;
+    height: 200px;
+}
+
+.rewards-one__spark {
+    background-image: var(--sprite-match__vfx-blast-spark);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.rewards-equipment__new-label-spark {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 40px;
+    height: 40px;
+    -unity-background-image-tint-color: rgb(255, 242, 35);
+    left: 46px;
+    top: -11px;
+    background-image: var(--sprite-match__vfx-blast-spark);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.rewards-equipment__dark-pattern {
+    position: absolute;
+    background-image: var(--sprite-home__dark-pattern);
+    width: 1536px;
+    height: 1566px;
+    rotate: -49deg;
+    align-self: flex-start;
+    top: -747px;
+    left: -775px;
+}
+
+.rewards-equipment__dark-pattern-continuation {
+    position: relative;
+    align-self: flex-start;
+    width: 1498px;
+    height: 1200px;
+    background-color: rgb(0, 0, 0);
+}
+
+.rewards-equipment__item-icon {
+    width: 372px;
+    height: 372px;
+    background-image: var(--sprite-home__weapon-placeholder);
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.rewards-equipment__rays {
+    position: absolute;
+    width: 1080px;
+    height: 1080px;
+    align-self: center;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.24);
+    background-image: var(--sprite-home__vfx-rewards-rays);
+}
+
+.rewards-equipment__gradient-stronger {
+    width: 400px;
+    height: 400px;
+    top: 345px;
+    position: absolute;
+    background-image: var(--sprite-match__gradientwhite);
+    align-self: center;
+}
+
+.rewards-equipment__gradient {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background-image: var(--sprite-match__gradientwhite);
+    align-self: center;
+    top: 147px;
+}
+
+.rewards-equipment__name {
+    font-size: 72px;
+    color: rgb(255, 255, 255);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-outline-width: 1.4px;
+}
+
+.rewards-equipment__info-container {
+    width: 817px;
+    height: 677px;
+    position: absolute;
+    left: 1282px;
+    top: 209px;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.rewards-equipment__new-label {
+    font-size: 36px;
+    color: rgb(248, 199, 46);
+    width: 66px;
+    height: 42px;
+    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+}
+
+.rewards-equipment__new-label-gradient {
+    position: absolute;
+    width: 335px;
+    height: 253px;
+    -unity-background-image-tint-color: rgba(248, 135, 46, 0.38);
+    background-image: var(--sprite-match__gradientwhite);
+    align-self: center;
+    top: -100px;
+    left: -131px;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.rewards-equipment__card {
+    top: 80px;
+    scale: 1.3 1.3;
+}
+
+.rewards-equipment__tag-label {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+    background-color: rgb(170, 222, 110);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-left: 18px;
+    padding-right: 18px;
+    align-self: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.rewards-equipment__tag-label--common {
+    background-color: rgb(252, 252, 252);
+    color: rgb(72, 72, 72);
+}
+
+.rewards-equipment__tag-label--uncommon {
+    background-color: rgb(170, 222, 110);
+}
+
+.rewards-equipment__tag-label--rare {
+    background-color: rgb(88, 155, 255);
+}
+
+.rewards-equipment__tag-label--epic {
+    background-color: rgb(255, 72, 72);
+    color: rgb(72, 72, 72);
+}
+
+.rewards-equipment__tag-label--legendary {
+    background-color: rgb(253, 203, 41);
+    color: rgb(72, 72, 72);
+}
+
+.rewards-equipment__range-tag {
+    flex-direction: row;
+    flex-basis: 233px;
+    background-image: var(--sprite-home__tag-body);
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+    left: -69px;
+}
+
+.rewards-equipment__equipment-card {
+    background-image: var(--sprite-home__equipmentcard-placeholder);
+    width: 406px;
+    height: 427px;
+}
+
+.rewards-remaining__number-label {
+    font-size: 60px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    background-color: rgba(46, 5, 81, 0.65);
+    width: 88px;
+    height: 88px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.rewards-remaining__text {
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    margin-right: 20px;
+    -unity-text-align: upper-right;
+}
+
+.screen-blink-white {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+}
+
+.rewards-summary__rewards-container {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.rewards-summary__you-got-label {
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-bottom: 40px;
+}
+
+.rewards-summary__slot-amount-label {
+    color: rgb(255, 255, 255);
+    font-size: 46px;
+    position: absolute;
+    align-self: center;
+    top: 206px;
+    left: 87px;
+    -unity-text-align: upper-center;
+}
+
+.rewards-summary__rewards-container--manyrewards {
+    max-width: 1360px;
+    scale: 0.7 0.7;
+    flex-wrap: wrap;
+    top: -66px;
+}
+
+.rewards-summary__label-rewards-holder {
+    top: auto;
+    align-items: center;
+}
+
+.rewards-equipment {
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.rewards-equipment__rays--uncommon {
+    -unity-background-image-tint-color: rgba(181, 255, 153, 0.19);
+}
+
+.rewards-equipment__name-container {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.rewards-equipment__tags-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 637px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rewards-remaining {
+    right: 80px;
+    bottom: 44px;
+    position: absolute;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.rewards-one__spark-small {
+    width: 24px;
+    height: 24px;
+    background-image: var(--sprite-match__gradientwhite);
+    align-items: center;
+    justify-content: center;
+}
+
+.rewards-one__spark-small--2 {
+    width: 40px;
+    height: 40px;
+    top: 180px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.48);
+    left: 122px;
+}
+
+.rewards-one__spark-small--3 {
+    width: 38px;
+    height: 38px;
+    top: -155px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.48);
+    left: 234px;
+}
+
+.rewards-one__spark-small--1 {
+    left: -200px;
+    top: -48px;
+}
+
+.rewards-equipment__gradient--uncommon {
+    -unity-background-image-tint-color: rgb(216, 255, 155);
+}
+
+.rewards-equipment__rays--rare {
+    -unity-background-image-tint-color: rgba(129, 209, 255, 0.24);
+}
+
+.rewards-equipment__gradient--rare {
+    -unity-background-image-tint-color: rgb(42, 251, 255);
+}
+
+.rewards-equipment__rays--epic {
+    -unity-background-image-tint-color: rgba(255, 84, 66, 0.54);
+}
+
+.rewards-equipment__gradient--epic {
+    -unity-background-image-tint-color: rgb(255, 161, 150);
+}
+
+.rewards-equipment__rays--legendary {
+    -unity-background-image-tint-color: rgba(255, 188, 20, 0.53);
+}
+
+.rewards-equipment__gradient--legendary {
+    -unity-background-image-tint-color: rgb(255, 223, 18);
+}
+
+.rewards-equipment__rays--mythic {
+    -unity-background-image-tint-color: rgba(255, 117, 222, 0.46);
+}
+
+.rewards-equipment__gradient--mythic {
+    -unity-background-image-tint-color: rgb(71, 255, 215);
+}
+
+.dark-pattern {
+    position: absolute;
+    height: 300%;
+    width: 100%;
+    flex-direction: row;
+    transform-origin: right;
+}
+
+.dark-pattern__black-square {
+    background-color: rgb(0, 0, 0);
+    flex-grow: 1;
+}
+
+.dark-pattern__pattern-holder {
+    background-color: rgba(0, 0, 0, 0);
+    width: 43px;
+}
+
+.dark-pattern__pattern {
+    background-image: var(--sprite-home__dark-pattern-piece);
+    width: 43px;
+    height: 483px;
+}
+
+.dark-pattern--left {
+    rotate: 45deg;
+    left: -1783px;
+}
+
+.dark-pattern--right {
+    rotate: 225deg;
+    align-self: flex-end;
+    right: 552px;
+}
+
+.reward-summary-item {
+    background-image: var(--sprite-home__reward-slot);
+    width: 270px;
+    height: 270px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+
+.rewards-summary {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.rewards-summary--fame {
+}
+
+.rewards-summary__avatar-holder {
+    position: absolute;
+    top: 44px;
+    display: none;
+}
+
+.rewards-summary--fame .rewards-summary__avatar-holder {
+    display: flex;
+}
+
+.rewards-summary__rewards-container > EquipmentCardElement {
+    top: -17px;
+    scale: 0.84 0.84;
+}
+
+.rewards-summary__rewards-container.rewards-summary__rewards-container--manyrewards > EquipmentCardElement {
+    margin-top: -17px;
+    top: 0;
+    margin-right: -17px;
+    margin-left: -18px;
+}
+
+.reward-summary-item__icon {
+    position: absolute;
+    left: 72px;
+    height: 127px;
+    top: 48px;
+    -unity-background-scale-mode: scale-to-fit;
+    width: 127px;
+}
+
+.reward-summary-item__label {
+    color: rgb(255, 255, 255);
+    font-size: 46px;
+    position: absolute;
+    left: 0;
+    bottom: 13px;
+    right: 18px;
+    -unity-text-align: upper-center;
+}
+
+.player-header__avatar {
+    width: 110px;
+    height: 110px;
+    background-color: rgb(214, 74, 123);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.player-header__avatar--nft {
+    background-color: initial;
+    background-image: var(--sprite-home__background-avatar-nft);
+}
+
+.player-header__avatar-mask {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.player-header__avatar--nft > .player-header__avatar-mask {
+    background-image: url('project://database/Assets/Art/UI/Vectors/ProfileBgShapeNft.svg?fileID=7388822144124034973&guid=383af2f3fddfd49a28a8e090f2857a24&type=3#ProfileBgShapeNft');
+}
+
+.player-header__avatar-pfp {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: var(--sprite-shared__avatar-default);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.player-header__avatar--nft .player-header__avatar-pfp {
+    border-top-left-radius: initial;
+    border-bottom-left-radius: initial;
+    border-top-right-radius: initial;
+    border-bottom-right-radius: initial;
+}
+
+.player-header__fame-lvl {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -30px;
+    -unity-text-align: upper-center;
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}

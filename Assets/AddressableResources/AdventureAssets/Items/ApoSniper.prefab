@@ -4980,6 +4980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 3195541657606193346}
+  _shells: 1
 --- !u!114 &1924506580031129484
 MonoBehaviour:
   m_ObjectHideFlags: 0

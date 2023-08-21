@@ -344,6 +344,11 @@ MonoBehaviour:
         Id:
           Value: 994130492505007734
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SkydiveStopAction_10]
+    - Path: AddressableResources/QuantumAssets/Physics Config Assets/BotCharacterController
+      AssetRef:
+        Id:
+          Value: 1044184774816408002
+      Address: QuantumAssets/Physics Config Assets/BotCharacterController.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_5
       AssetRef:
         Id:

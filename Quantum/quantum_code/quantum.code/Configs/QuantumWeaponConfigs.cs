@@ -4,7 +4,7 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
-	public enum ProjectileHitType
+	public enum SubProjectileHitType
 	{
 		/// <summary>
 		/// Lasts for one second
@@ -24,7 +24,7 @@ namespace Quantum
 		public AssetRefEntityPrototype BulletPrototype;
 		public AssetRefEntityPrototype BulletHitPrototype;
 		public AssetRefEntityPrototype BulletEndOfLifetimePrototype;
-		public ProjectileHitType HitType;
+		public SubProjectileHitType HitType;
 		public int MagazineSize;
 		public FP ReloadTime;
 		public FP AimingMovementSpeed;
@@ -42,6 +42,7 @@ namespace Quantum
 		public List<GameId> Specials;
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
+		public bool UseRangedCam;
 		
 		/// <summary>
 		/// Requests if this config is from a melee weapon

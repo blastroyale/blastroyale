@@ -5,6 +5,7 @@ Shader "FLG/Unlit/Dynamic Outline"
     {
         _Color ("Color", Color) = (1,1,1,1)
         _Width ("Width", float) = 0.01
+        [MaterialToggle] _UsePhysicalSize ("Use physical screen size", Float) = 0
     }
     SubShader
     {
@@ -16,35 +17,58 @@ Shader "FLG/Unlit/Dynamic Outline"
 
         Pass
         {
-            Name "Normal"
+            Name "Outline"
+
+            ZWrite On // No idea why it doesn't work without this.
+            ZTest Always
+
+            Stencil
+            {
+                Ref 1
+                Comp NotEqual
+                Pass Keep
+                Fail Keep
+            }
 
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-
             struct Attributes
             {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
+                half4 positionOS : POSITION;
+                half3 normalOS : NORMAL;
             };
 
             struct Varyings
             {
-                float4 vertex : SV_POSITION;
+                half4 positionHCS : SV_POSITION;
             };
 
+            float4 _PhysicalScreenSize;
+
             CBUFFER_START(UnityPerMaterial)
-            float4 _Color;
-            float _Width;
+            half4 _Color;
+            half _Width;
+            half _UsePhysicalSize;
             CBUFFER_END
 
-            Varyings vert(Attributes v)
+            Varyings vert(Attributes IN)
             {
-                Varyings o;
-                o.vertex = TransformObjectToHClip(v.vertex.xyz + v.normal * _Width);
-                return o;
+                Varyings OUT;
+
+                // Transform vertex from object space to clip space.
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+
+                // Transform normal vector from object space to clip space.
+                float3 normalHCS = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, IN.normalOS));
+
+                // Move vertex along normal vector in clip space.
+                OUT.positionHCS.xy += normalize(normalHCS.xy) / _ScreenParams.xy * OUT.positionHCS.w * _Width *
+                    (_UsePhysicalSize ? _PhysicalScreenSize.x : 1);
+
+                return OUT;
             }
 
             half4 frag() : SV_Target

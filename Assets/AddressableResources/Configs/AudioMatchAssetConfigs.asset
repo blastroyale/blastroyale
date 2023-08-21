@@ -2228,3 +2228,35 @@ MonoBehaviour:
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
       PitchModPerLoop: 0
+  - Key: 85
+    Value:
+      AudioClips:
+      - m_AssetGUID: 156f86af8df14a74180542b245c684b2
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 1
+      - m_AssetGUID: 367465b87beaeb746b9d69636203b038
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 0.7
+      BasePitch: 0.9
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.25
+      PitchModPerLoop: 0
+  - Key: 170
+    Value:
+      AudioClips:
+      - m_AssetGUID: 93555ed6e34704e6d8626942276ff03a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      RandomiseStartTime: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0.25
+      PitchModPerLoop: 0

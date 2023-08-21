@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using Quantum;
@@ -48,9 +49,13 @@ namespace FirstLight.Game.Messages
 	}
 	
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
-	public struct AllMatchAssetsLoadedMessage : IMessage { }
-	public struct StartedFinalPreloadMessage : IMessage { }
-	public struct AssetReloadRequiredMessage : IMessage { }
+	public struct WaitingMandatoryMatchAssetsMessage : IMessage { }
+
+	public struct PlayerUpdateLoadoutMessage : IMessage
+	{
+		public Player Player;
+		public List<GameId> Loadout;
+	}
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
 

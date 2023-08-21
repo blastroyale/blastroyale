@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087908713987682056}
   - component: {fileID: 2087908713987682059}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Tombstone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2087908714253060109}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8b74da159f5d3c24493810a2751ab3bb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

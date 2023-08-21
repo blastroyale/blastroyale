@@ -15,6 +15,12 @@ namespace Quantum
 		public FP WarningTime;
 		public FP ShrinkingTime;
 		public FP ShrinkingSizeK;
+		
+		// 1 means new safe area will fit and may touch edges
+		// 0 (min value) means new safe area will be exactly in the center
+		// 2 (max value) means new safe area will be able to go half of its radius outside of the current safe area
+		public FP NewSafeSpaceAreaSizeK;
+		
 		public FP MaxHealthDamage;
 		public FP AirdropChance;
 		public QuantumPair<FP, FP> AirdropStartTimeRange;

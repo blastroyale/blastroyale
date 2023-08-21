@@ -63,7 +63,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -83,7 +83,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -103,7 +103,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -123,7 +123,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(3, rewards.Count);
+			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -144,7 +144,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(1, rewards.Count);
+			Assert.AreEqual(2, rewards.Count);
 		}
 
 		[Test]
@@ -191,7 +191,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				GamePlayerCount = _matchData.Count
 			}, out _);
 
-			Assert.AreEqual(1, rewards.Count);
+			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
 		}
 

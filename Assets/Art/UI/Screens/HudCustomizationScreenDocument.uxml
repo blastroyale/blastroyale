@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="HUDScreenDocument" src="project://database/Assets/Art/UI/Screens/HUDScreenDocument.uxml?fileID=9197481963319205126&amp;guid=1ef7c16a5493a4c00bb9accbdf10e106&amp;type=3#HUDScreenDocument" />
+    <Style src="project://database/Assets/Art/UI/Screens/HudCustomizationScreenStyle.uss?fileID=7433441132597879392&amp;guid=85f5f98f3a8fb416787813fd764b3e52&amp;type=3#HudCustomizationScreenStyle" />
+    <ui:VisualElement name="root" class="hud-customization-root">
+        <ui:VisualElement name="Container" class="customized-hud-container">
+            <ui:Instance template="HUDScreenDocument" name="HUDScreenDocument" class="customizing-hud" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Menu" class="menu size-120pct">
+            <FirstLight.Game.UIElements.ImageButton display-tooltip-when-elided="true" name="OpenCloseButton" class="menu__opener">
+                <ui:VisualElement display-tooltip-when-elided="true" name="OpenCloseIcon" class="menu__opener-icon menu__animation" />
+            </FirstLight.Game.UIElements.ImageButton>
+            <ui:VisualElement name="MenuOptions" class="menu__options menu__animation">
+                <ui:Label tabindex="-1" text="Customize Element" display-tooltip-when-elided="true" name="MenuTitle" class="menu__label" />
+                <ui:VisualElement name="SizeSliderElement" class="menu__slider" style="display: none;">
+                    <ui:VisualElement name="SliderLabelRow" class="menu__slider-row">
+                        <ui:Label tabindex="-1" text="Size" display-tooltip-when-elided="true" name="Title" class="menu__label menu__label--small" />
+                        <ui:Label tabindex="-1" text="50%" display-tooltip-when-elided="true" name="Title" class="menu__label menu__label--small" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Slider">
+                        <ui:Slider picking-mode="Ignore" value="0.5" high-value="1" name="SizeSlider" class="menu__slider" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="OpacitySliderElement" class="menu__slider">
+                    <ui:VisualElement name="SliderLabelRow" class="menu__slider-row">
+                        <ui:Label tabindex="-1" text="Opacity" display-tooltip-when-elided="true" name="OpacityTitle" class="menu__label menu__label--small item-disabled" />
+                        <ui:Label tabindex="-1" text="50%" display-tooltip-when-elided="true" name="OpacityValue" class="menu__label menu__label--small item-disabled" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Slider">
+                        <ui:Slider picking-mode="Ignore" value="0.5" high-value="1" name="OpacitySlider" class="menu__slider item-disabled" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Buttons" class="menu__buttons">
+                    <ui:VisualElement name="ButtonRow" class="menu__button-row">
+                        <ui:Button text="Reset to Default" display-tooltip-when-elided="true" name="ResetButton" class="menu__action-button menu__action-button--purple" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ButtonRow" class="menu__button-row">
+                        <ui:Button text="Quit" display-tooltip-when-elided="true" name="CloseButton" class="menu__action-button menu__action-button--purple" />
+                        <ui:Button text="Save" display-tooltip-when-elided="true" name="SaveButton" class="menu__action-button menu__action-button--yellow" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

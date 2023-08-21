@@ -1,5 +1,6 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-home__ArrowBig: url('/Assets/Art/UI/Sprites/Home/ArrowBig.png');
     --sprite-home__background-avatar-nft: url('/Assets/Art/UI/Sprites/Home/background-avatar-nft.png');
     --sprite-home__background-bpchestreward: url('/Assets/Art/UI/Sprites/Home/background-bpchestreward.png');
     --sprite-home__background-bpreward-outline: url('/Assets/Art/UI/Sprites/Home/background-bpreward-outline.png');
@@ -95,6 +96,8 @@
     --sprite-home__character-malecorpos: url('/Assets/Art/UI/Sprites/Home/character-malecorpos.png');
     --sprite-home__character-malepunk: url('/Assets/Art/UI/Sprites/Home/character-malepunk.png');
     --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
+    --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
+    --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
     --sprite-home__flag-superstar: url('/Assets/Art/UI/Sprites/Home/flag-superstar.png');
     --sprite-home__flag-tombstone: url('/Assets/Art/UI/Sprites/Home/flag-tombstone.png');
@@ -150,6 +153,10 @@
     --sprite-home__icon-shop: url('/Assets/Art/UI/Sprites/Home/icon-shop.png');
     --sprite-home__icon-show-purple: url('/Assets/Art/UI/Sprites/Home/icon-show-purple.png');
     --sprite-home__icon-spinner-thick: url('/Assets/Art/UI/Sprites/Home/icon-spinner-thick.png');
+    --sprite-home__icon-star-bronze: url('/Assets/Art/UI/Sprites/Home/icon-star-bronze.png');
+    --sprite-home__icon-star-diamond: url('/Assets/Art/UI/Sprites/Home/icon-star-diamond.png');
+    --sprite-home__icon-star-gold: url('/Assets/Art/UI/Sprites/Home/icon-star-gold.png');
+    --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
@@ -172,12 +179,24 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
+    --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
+    --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
+    --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
     --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
     --sprite-home__vfx-lightrays-reward: url('/Assets/Art/UI/Sprites/Home/vfx-lightrays-reward.png');
+    --sprite-home__vfx-rewards-rays: url('/Assets/Art/UI/Sprites/Home/vfx-rewards-rays.png');
+    --sprite-home__volume-header: url('/Assets/Art/UI/Sprites/Home/volume-header.png');
+    --sprite-home__weapon-placeholder: url('/Assets/Art/UI/Sprites/Home/weapon-placeholder.png');
+}
+
+.sprite-home__ArrowBig {
+    background-image: var(--sprite-home__ArrowBig);
+    width: 54px;
+    height: 84px;
 }
 
 .sprite-home__background-avatar-nft {
@@ -706,6 +725,18 @@
     height: 256px;
 }
 
+.sprite-home__customizable-back-part {
+    background-image: var(--sprite-home__customizable-back-part);
+    width: 190px;
+    height: 50px;
+}
+
+.sprite-home__dark-pattern-piece {
+    background-image: var(--sprite-home__dark-pattern-piece);
+    width: 43px;
+    height: 483px;
+}
+
 .sprite-home__flag-demon {
     background-image: var(--sprite-home__flag-demon);
     width: 324px;
@@ -1030,6 +1061,30 @@
     height: 68px;
 }
 
+.sprite-home__icon-star-bronze {
+    background-image: var(--sprite-home__icon-star-bronze);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-diamond {
+    background-image: var(--sprite-home__icon-star-diamond);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-gold {
+    background-image: var(--sprite-home__icon-star-gold);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-silver {
+    background-image: var(--sprite-home__icon-star-silver);
+    width: 36px;
+    height: 36px;
+}
+
 .sprite-home__logo-blasthub {
     background-image: var(--sprite-home__logo-blasthub);
     width: 260px;
@@ -1162,6 +1217,24 @@
     height: 14px;
 }
 
+.sprite-home__rewards-gradient-purple {
+    background-image: var(--sprite-home__rewards-gradient-purple);
+    width: 200px;
+    height: 200px;
+}
+
+.sprite-home__reward-slot {
+    background-image: var(--sprite-home__reward-slot);
+    width: 270px;
+    height: 270px;
+}
+
+.sprite-home__tag-body {
+    background-image: var(--sprite-home__tag-body);
+    width: 30px;
+    height: 30px;
+}
+
 .sprite-home__temp-icon-profile-neil {
     background-image: var(--sprite-home__temp-icon-profile-neil);
     width: 110px;
@@ -1196,5 +1269,23 @@
     background-image: var(--sprite-home__vfx-lightrays-reward);
     width: 346px;
     height: 198px;
+}
+
+.sprite-home__vfx-rewards-rays {
+    background-image: var(--sprite-home__vfx-rewards-rays);
+    width: 718px;
+    height: 718px;
+}
+
+.sprite-home__volume-header {
+    background-image: var(--sprite-home__volume-header);
+    width: 20px;
+    height: 38px;
+}
+
+.sprite-home__weapon-placeholder {
+    background-image: var(--sprite-home__weapon-placeholder);
+    width: 688px;
+    height: 687px;
 }
 

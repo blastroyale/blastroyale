@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -79,6 +78,10 @@ namespace FirstLight.Game.StateMachines
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 			dead.Event(NetworkState.PhotonDisconnectedEvent).Target(final);
+			dead.OnExit(() =>
+			{
+				_uiService.CloseUi<MatchEndScreenPresenter>();
+			});
 			
 			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(_localPlayerExitEvent).Target(final);
@@ -164,7 +167,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				OnTimeToLeave = () => _statechartTrigger(_localPlayerNextEvent),
+				OnTimeToLeave = () =>
+				{
+					_statechartTrigger(_localPlayerNextEvent);
+				},
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);

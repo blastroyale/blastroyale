@@ -62,8 +62,8 @@ namespace FirstLight.Game.Utils
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
 			
-			public const float SFX_3D_MIN_DISTANCE = 5f;
-			public const float SFX_3D_MAX_DISTANCE = 20f;
+			public const float SFX_3D_MIN_DISTANCE = 0.5f;
+			public const float SFX_3D_MAX_DISTANCE = 16f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
@@ -161,8 +161,7 @@ namespace FirstLight.Game.Utils
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
 			// are used to signal at which point in the loading flow the player is currently during matchmaking screen.
 			public const string PLAYER_PROPS_CORE_LOADED = "propsCoreLoaded";
-			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
-			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
+			public const string PLAYER_PROPS_LOADOUT = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
@@ -230,7 +229,6 @@ namespace FirstLight.Game.Utils
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 			
 			public const int REWARD_POPUP_CLOSE_MS = 300;
-			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
 
 			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
 		}

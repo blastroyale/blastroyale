@@ -44,6 +44,9 @@ MonoBehaviour:
     BotNavMeshConfig:
       Id:
         Value: 1093005050644660195
+    BotKccConfig:
+      Id:
+        Value: 1044184774816408002
   ErrorCube:
     m_AssetGUID: a9651f376caf92241bf234d75cb584ea
     m_SubObjectName: 

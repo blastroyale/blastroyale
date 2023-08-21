@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Views.UITK;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -179,13 +183,49 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static IValueAnimation AnimatePing(this VisualElement element, float amount = 1.4f, int duration = 150)
 		{
-			var anim =
-				element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
-				{
-					element.experimental.animation.Scale(1f, duration).Start();
-				});
+			var anim = element.experimental.animation.Scale(amount, duration).OnCompleted(() =>
+			{
+				element.experimental.animation.Scale(1f, duration).Start();
+			});
 			anim.Start();
 			return anim;
 		}
+
+
+		public static async Task<Sprite> LoadSprite(GameId id)
+		{
+			// TODO: This should be handled better.
+			var services = MainInstaller.Resolve<IGameServices>();
+			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(id, instantiate: false);
+			return sprite;
+		}
+
+		public static async Task SetSprite(GameId id, params VisualElement[] elements)
+		{
+			foreach (var visualElement in elements)
+			{
+				visualElement.style.backgroundImage = null;
+			}
+
+			var sprite = await LoadSprite(id);
+			foreach (var visualElement in elements)
+			{
+				visualElement.style.backgroundImage = new StyleBackground(sprite);
+			}
+		}
+
+		/// <summary>
+		/// Locks an element behind a level.
+		/// </summary>
+		public static void LevelLock<TElement, TPData>(this TElement element,
+													   UiToolkitPresenterData<TPData> presenter, UnlockSystem unlockSystem)
+			where TElement : VisualElement
+			where TPData : struct
+		{
+			
+			element.AttachView(presenter, out FameLockedView storeLockedView);
+			storeLockedView.Init(unlockSystem);
+		}
+
 	}
 }

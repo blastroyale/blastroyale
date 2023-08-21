@@ -39,6 +39,7 @@
                     </FirstLight.Game.UIElements.TabbedView>
                     <ui:VisualElement name="Divider" class="divider" />
                     <ui:VisualElement name="BottomButtons" class="settings-footer">
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" name="ServerButton" class="button-long sfx-click-forwards" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" name="FAQButton" class="button-long sfx-click-forwards" />
                     </ui:VisualElement>

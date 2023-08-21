@@ -95,31 +95,5 @@ namespace FirstLight.Tests.EditorMode.Integration
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(2, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
 		}
-
-		/// <summary>
-		/// Ensuring repair item command deducts the correct ammount of the repair cost
-		/// </summary>
-		[Test]
-		public void RepairItemCommand()
-		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxDurability = 2, Level = 1};
-			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
-			var cost = TestLogic.EquipmentLogic.GetRepairCost(equip, false);
-			var data = TestData.GetData<PlayerData>();
-
-			data.Currencies[cost.Key] = cost.Value;
-
-			TestServices.CommandService.ExecuteCommand(new RepairItemCommand()
-			{
-				Item = itemUniqueId
-			});
-
-			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
-
-			Assert.AreEqual(0, data.Currencies[cost.Key]);
-			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
-			Assert.That(info.Equipment.LastRepairTimestamp,
-				Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(TimeSpan.TicksPerSecond * 3));
-		}
 	}
 }

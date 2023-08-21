@@ -48,3 +48,15 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
+    - Id: HidePlayerNames
+      Type: 6
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0
+    - Id: NoAbilities
+      Type: 7
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

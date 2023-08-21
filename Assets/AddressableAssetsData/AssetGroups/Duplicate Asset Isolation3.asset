@@ -117,11 +117,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce63e895be79d1647adc81956ae6181d
     m_Address: Assets/Art/Models/Pickups/DeathMatch_Pickups.fbx
     m_ReadOnly: 0

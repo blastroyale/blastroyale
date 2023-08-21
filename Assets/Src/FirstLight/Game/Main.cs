@@ -107,7 +107,7 @@ namespace FirstLight.Game
 		// Does not work with "async void" - works with "async Task" only
 		private void TaskExceptionLogging(object sender, UnobservedTaskExceptionEventArgs e)
 		{
-			if (sender.GetType().GetGenericTypeDefinition() == typeof(Task<>))
+			try
 			{
 				if (sender is Task task)
 				{
@@ -122,9 +122,9 @@ namespace FirstLight.Game
 				}
 
 			}
-			else
+			catch (Exception ex)
 			{
-				Debug.LogError("Exception raised from a `async void` method. Please do not use async void.");
+				Debug.LogException(ex);
 			}
 
 			Debug.LogException(e.Exception);

@@ -36,8 +36,8 @@ namespace FirstLight.Game.Services.Party
 				MemberData = new()
 				{
 					{DisplayNameMemberProperty, _appDataProvider.GetDisplayName()},
-					{LevelProperty, _playerDataProvider.PlayerInfo.Level.ToString()},
-					{TrophiesProperty, _playerDataProvider.PlayerInfo.TotalTrophies.ToString()}
+					{LevelProperty, _playerDataProvider.Level.Value.ToString()},
+					{TrophiesProperty, _playerDataProvider.Trophies.Value.ToString()}
 				}
 			};
 		}

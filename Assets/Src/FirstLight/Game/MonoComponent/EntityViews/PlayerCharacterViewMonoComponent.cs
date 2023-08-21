@@ -25,7 +25,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
-		private const float SPEED_THRESHOLD = 0.5f; // unity units per second	
+		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private bool _moveSpeedControl = false;
 		public Transform RootTransform;
 
@@ -39,6 +39,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private Collider[] _colliders;
 
 		private Coroutine _attackHideRendererCoroutine;
+		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private bool _playerFullyGrounded;
 
@@ -63,6 +64,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			base.OnAwake();
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_services = MainInstaller.ResolveServices();
+			
 			BuildingVisibility = new();
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
@@ -84,7 +87,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, HandleUpdateView);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, HandleOnRadarUsed);
 		}
-		
+
 		private void OnDestroy()
 		{
 			if (_attackHideRendererCoroutine != null)
@@ -536,8 +539,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
-			var isMoving = sqrSpeed > SPEED_THRESHOLD * SPEED_THRESHOLD;
+			var isMoving = sqrSpeed > SPEED_THRESHOLD_SQUARED;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
+
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
 			_characterView.PrintFootsteps = isMoving;
 			if (isMoving)

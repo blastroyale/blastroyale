@@ -634,6 +634,6 @@
 .sprite-match__winLight {
     background-image: var(--sprite-match__winLight);
     width: 444px;
-    height: 112px;
+    height: 266px;
 }
 

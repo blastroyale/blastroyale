@@ -33,13 +33,12 @@
                 <ui:VisualElement class="stats-list-holder anim-delay-2 anim-translate anim-translate--left-xxl">
                     <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" horizontal-scrolling="false" class="stats-list" />
                 </ui:VisualElement>
-                <ui:Instance template="EquipmentDurability" name="EquipmentDurability" class="anim-delay-1 anim-translate anim-translate--left-xxl">
+                <ui:VisualElement name="InfoButtonHolder">
                     <FirstLight.Game.UIElements.ImageButton name="InfoButton" class="details__info-button sprite-home__button-info" />
-                </ui:Instance>
+                </ui:VisualElement>
                 <ui:VisualElement name="ButtonsHolder" focusable="true" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl">
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/scrap" name="ScrapButton" />
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradeButton" />
-                    <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/repair" name="RepairButton" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/pack" name="EquipButton" class="button-long button-long--yellow" />
                 </ui:VisualElement>
             </ui:VisualElement>

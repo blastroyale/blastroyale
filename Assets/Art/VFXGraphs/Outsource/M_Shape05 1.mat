@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _base_texture:
-        m_Texture: {fileID: 2800000, guid: 785875df5aca34b478e979e0b594fe46, type: 3}
+        m_Texture: {fileID: 2800000, guid: e18d8a04e45fd8c458ef8215f440bd8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _color_Tex:
@@ -156,7 +156,7 @@ Material:
     - _ZWrite: 1
     - _Ztest: 4
     - _Zwrite: 0
-    - _add_or_blend: 0.071
+    - _add_or_blend: 0
     - _alpha_power: 2.45
     - _base_back_power: 1
     - _base_front_power: 0.21

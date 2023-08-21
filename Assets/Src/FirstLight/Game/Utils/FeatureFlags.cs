@@ -120,7 +120,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
-		public static bool ITEM_DURABILITY_NON_NFTS = true;
+		public static bool ITEM_DURABILITY_NON_NFTS = false;
 
 		/// <summary>
 		/// Enables / disables item durability checks for NFTs
@@ -171,7 +171,12 @@ namespace FirstLight.Game.Utils
 		/// When enabled will enable aiming deadzone to avoid missfires
 		/// </summary>
 		public static bool AIM_DEADZONE = true;
-
+		
+		/// <summary>
+		/// Will replace map music by ambience sound effects
+		/// </summary>
+		public static bool NEW_SFX = true;
+		
 		/// <summary>
 		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
 		/// If false it will be more accurate visually but not necessarily shoot where you aim

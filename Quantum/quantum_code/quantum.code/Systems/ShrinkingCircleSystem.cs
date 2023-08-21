@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -29,19 +30,14 @@ namespace Quantum.Systems
 			{
 				var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
-
+				// Set initial shrinking circle data
 				if (circle->Step < 0)
 				{
 					var config = f.Context.MapShrinkingCircleConfigs[0];
 					SetShrinkingCircleData(f, circle, ref config);
 				}
 
-				if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
-					f.GetSingleton<GameContainer>().PlayersData[0].Entity != EntityRef.None)
-				{
-					ProcessShrinkingCircle(f, circle);
-				}
-
+				ProcessShrinkingCircle(f, circle);
 				circle->GetMovingCircle(f, out var center, out var radius);
 
 				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
@@ -71,8 +67,8 @@ namespace Quantum.Systems
 
 			if (circle->Step >= f.Context.MapShrinkingCircleConfigs.Count)
 			{
-				circle->ShrinkingStartTime = FP.MaxValue;
-				circle->ShrinkingDurationTime = FP.MaxValue;
+				circle->ShrinkingStartTime = int.MaxValue;
+				circle->ShrinkingDurationTime = int.MaxValue;
 				circle->CurrentRadius = circle->TargetRadius;
 				circle->CurrentCircleCenter = circle->TargetCircleCenter;
 
@@ -92,17 +88,33 @@ namespace Quantum.Systems
 			{
 				SetShrinkingCircleCenteredOnLocalPlayer(circle, f);
 			}
-			
+
 			circle->Step = config.Step;
-			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
-			circle->ShrinkingDurationTime = config.ShrinkingTime;
+			circle->ShrinkingStartTime = f.Time.AsInt + config.DelayTime.AsInt + config.WarningTime.AsInt; // Get time as int to round it down
 			circle->CurrentCircleCenter = circle->TargetCircleCenter;
 			circle->TargetRadius = circle->CurrentRadius * config.ShrinkingSizeK;
-			circle->Damage = config.MaxHealthDamage;
+			
+			circle->ShrinkingDurationTime = config.ShrinkingTime.AsInt; // TODO: Storing configs in components isn't ideal
+			circle->Damage = config.MaxHealthDamage; // TODO: Storing configs in components isn't ideal
+			circle->ShrinkingWarningTime = config.WarningTime.AsInt; // TODO: Storing configs in components isn't ideal
+
+			var fitRadius = circle->CurrentRadius - circle->TargetRadius;
+			var radiusDiff = circle->CurrentRadius - fitRadius;
+			var radiusToPickNewCenter = FP._0;
+
+			if (config.NewSafeSpaceAreaSizeK > FP._1)
+			{
+				radiusToPickNewCenter = FPMath.Min(circle->CurrentRadius,
+					fitRadius + radiusDiff * (config.NewSafeSpaceAreaSizeK - FP._1));
+			}
+			else
+			{
+				radiusToPickNewCenter = FPMath.Max(0, fitRadius * config.NewSafeSpaceAreaSizeK);
+			}
 
 			QuantumHelpers.TryFindPosOnNavMesh(f, circle->CurrentCircleCenter.XOY,
-			                                   circle->CurrentRadius - circle->TargetRadius,
-			                                   out var targetPos);
+				radiusToPickNewCenter,
+				out var targetPos);
 			circle->TargetCircleCenter = targetPos.XZ;
 
 			// When we change a step of a circle, we need to remove current spell from all players
@@ -148,7 +160,8 @@ namespace Quantum.Systems
 				OriginalHitPosition = position,
 				PowerAmount = (uint) damage,
 				TeamSource = Constants.TEAM_ID_NEUTRAL,
-				Victim = playerEntity
+				Victim = playerEntity,
+				IgnoreShield = true,
 			};
 			f.Add(newSpell, spell);
 			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->TakingCircleDamage = true;
@@ -160,6 +173,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(spellEntity);
 			}
+
 			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->TakingCircleDamage = false;
 		}
 
@@ -195,6 +209,7 @@ namespace Quantum.Systems
 
 			return false;
 		}
+
 		private void SetShrinkingCircleCenteredOnLocalPlayer(ShrinkingCircle* circle, Frame f)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
@@ -203,12 +218,10 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if(f.TryGet<Transform3D>(characterEntity, out var trans))
+			if (f.TryGet<Transform3D>(characterEntity, out var trans))
 			{
 				circle->TargetCircleCenter = new FPVector2(trans.Position.X, trans.Position.Z);
 			}
 		}
 	}
-	
-
 }

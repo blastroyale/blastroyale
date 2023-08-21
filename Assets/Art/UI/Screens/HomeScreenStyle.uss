@@ -60,6 +60,47 @@
     text-overflow: ellipsis;
 }
 
+.player-header__fame-lvl {
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 31px;
+    right: 96px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.player-header__fame-star-1 {
+    background-image: var(--sprite-home__icon-star-bronze);
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 167px;
+}
+
+.player-header__fame-star-2 {
+    background-image: var(--sprite-home__icon-star-silver);
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 201px;
+}
+
+.player-header__fame-star-3 {
+    background-image: var(--sprite-home__icon-star-gold);
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 236px;
+}
+
+.player-header__fame-star-4 {
+    background-image: var(--sprite-home__icon-star-diamond);
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 271px;
+}
+
 .player-header__profile-button {
     background-image: var(--sprite-home__button-profile);
     width: 342px;
@@ -96,7 +137,7 @@
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    left: 97px;
+    left: 56px;
     top: 6px;
 }
 
@@ -921,4 +962,12 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.button-with-icon.fame-lock > .fame-lock__holder {
+    top: -25px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

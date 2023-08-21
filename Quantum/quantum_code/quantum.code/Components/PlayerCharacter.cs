@@ -4,6 +4,24 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public class PlayerCharacterSetup
+	{
+		public EntityRef e;
+		public PlayerRef playerRef;
+		public Transform3D spawnPosition;
+		public uint playerLevel;
+		public uint trophies;
+		public GameId skin;
+		public GameId deathMarker;
+		public GameId glider;
+		public int teamId = -1;
+		public Equipment[] startingEquipment;
+		public Equipment loadoutWeapon;
+		public List<Modifier> modifiers = null;
+		public uint minimumHealth = 0;
+		public CharacterController3DConfig KccConfig;
+	}
+	
 	public unsafe partial struct PlayerCharacter
 	{
 		/// <summary>
@@ -19,32 +37,30 @@ namespace Quantum
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, GameId glider, int teamId, Equipment[] startingEquipment, 
-						   Equipment loadoutWeapon, List<Modifier> modifiers = null, uint minimumHealth = 0)
+		internal void Init(Frame f, PlayerCharacterSetup setup)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
-			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var transform = f.Unsafe.GetPointer<Transform3D>(setup.e);
 
-			Player = playerRef;
-			TeamId = teamId;
+			Player = setup.playerRef;
+			TeamId = setup.teamId;
 			CurrentWeaponSlot = 0;
 			DroppedLoadoutFlags = 0;
-			transform->Position = spawnPosition.Position;
-			transform->Rotation = spawnPosition.Rotation;
+			transform->Position = setup.spawnPosition.Position;
+			transform->Rotation = setup.spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
 			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(f, GameId.Hammer, EquipmentRarity.Common, 1);
-			if (loadoutWeapon.IsValid())
+			if (setup.loadoutWeapon.IsValid())
 			{
-				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
+				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = setup.loadoutWeapon.Faction;
 			}
 
 			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
 			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
 			
-			foreach (var item in startingEquipment)
+			foreach (var item in setup.startingEquipment)
 			{
 				var slot = GetGearSlot(&item);
 				Gear[slot] = item;
@@ -61,27 +77,28 @@ namespace Quantum
 			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
-			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, glider, trophies, TeamId);
-			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
+			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, setup);
+			var kccConfig = setup.KccConfig ?? f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id);
+			kcc.Init(f, kccConfig);
 
-			f.Add(e, blackboard);
-			f.Add(e, kcc);
+			f.Add(setup.e, blackboard);
+			f.Add(setup.e, kcc);
 
-			f.AddOrGet<Stats>(e, out var stats);
-			if (modifiers != null)
+			f.AddOrGet<Stats>(setup.e, out var stats);
+			if (setup.modifiers != null)
 			{
-				foreach (var modifier in modifiers)
+				foreach (var modifier in setup.modifiers)
 				{
-					stats->AddModifier(f, e, modifier);
+					stats->AddModifier(f, setup.e, modifier);
 				}
 			}
 			
-			stats->MinimumHealth = (int)minimumHealth;
+			stats->MinimumHealth = (int)setup.minimumHealth;
 
-			f.Add<HFSMAgent>(e);
-			HFSMManager.Init(f, e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
+			f.Add<HFSMAgent>(setup.e);
+			HFSMManager.Init(f, setup.e, f.FindAsset<HFSMRoot>(HfsmRootRef.Id));
 
-			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
+			f.Unsafe.GetPointer<PhysicsCollider3D>(setup.e)->Enabled = false;
 		}
 
 		/// <summary>

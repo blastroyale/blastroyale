@@ -27,6 +27,12 @@ namespace FirstLight.Services
 		public void OnSpawn()
 		{
 			OnSpawned();
+			var particle = GetComponent<ParticleSystem>();
+			if (particle != null)
+			{
+				var main = particle.main;
+				main.stopAction = ParticleSystemStopAction.Disable;
+			}
 		}
 
 		/// <inheritdoc />

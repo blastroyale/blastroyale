@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
@@ -32,19 +31,22 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _blasted1Director;
-		
+
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _blasted2Director;
-		
+
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _blasted3Director;
-		
+
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _blastedBeastDirector;
-		
+
 		[SerializeField, Required, TabGroup("Animation")]
 		private Gradient _outOfAmmoGradient;
-		
+
+		[SerializeField, Required, TabGroup("Animation")]
+		private int _lowHPThreshold = 50;
+
 		[SerializeField, Required, TabGroup("Input")]
 		private UnityInputScreenControl _moveDirectionJoystickInput;
 
@@ -74,6 +76,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _gameServices;
 
+		// ReSharper disable NotAccessedField.Local
 		private WeaponDisplayView _weaponDisplayView;
 		private KillFeedView _killFeedView;
 		private MatchStatusView _matchStatusView;
@@ -84,10 +87,12 @@ namespace FirstLight.Game.Presenters
 		private StatusBarsView _statusBarsView;
 		private StatusNotificationsView _statusNotificationsView;
 
+		// ReSharper restore NotAccessedField.Local
+
 		private JoystickElement _movementJoystick;
 		private JoystickElement _shootingJoystick;
 		private ImageButton _menuButton;
-		
+
 		private Vector2 _direction;
 		private Vector2 _aim;
 		private bool _shooting;
@@ -96,7 +101,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_gameServices = MainInstaller.Resolve<IGameServices>();
-			var matchServices = MainInstaller.Resolve<IMatchServices>();
+
+			_gameServices.ControlsSetup.SetControlPositions(Root);
 
 			root.Q("WeaponDisplay").Required().AttachView(this, out _weaponDisplayView);
 			root.Q("KillFeed").Required().AttachView(this, out _killFeedView);
@@ -110,12 +116,12 @@ namespace FirstLight.Game.Presenters
 
 			_weaponDisplayView.OutOfAmmoColors = _outOfAmmoGradient;
 			_matchStatusView.SetAreaShrinkingDirector(_areaShrinkingDirector);
-			_statusNotificationsView.SetDirectors(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector);
+			_statusNotificationsView.Init(_blasted1Director, _blasted2Director, _blasted3Director, _blastedBeastDirector, _lowHPThreshold);
 
 			_movementJoystick = root.Q<JoystickElement>("MovementJoystick").Required();
 			_shootingJoystick = root.Q<JoystickElement>("ShootingJoystick").Required();
 			_menuButton = root.Q<ImageButton>("MenuButton").Required();
-			
+
 			_menuButton.clicked += OnMenuClicked;
 			_movementJoystick.OnMove += e => InputState.Change(_moveDirectionJoystickInput.control, e);
 			_movementJoystick.OnClick += e => InputState.Change(_moveDownJoystickInput.control, e);
@@ -123,7 +129,7 @@ namespace FirstLight.Game.Presenters
 			_shootingJoystick.OnClick += e => InputState.Change(_aimDownJoystickInput.control, e);
 
 			_weaponDisplayView.OnClick += e => InputState.Change(_weaponSwitchInput.control, e);
-			
+
 			_specialButtonsView.OnSpecial0Pressed += e => InputState.Change(_special0PressedInput.control, e);
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
 			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);
@@ -131,7 +137,7 @@ namespace FirstLight.Game.Presenters
 
 			HideSkydivingElements(true);
 		}
-		
+
 		public JoystickElement MovementJoystick => _movementJoystick;
 		public JoystickElement ShootingJoystick => _shootingJoystick;
 		public SpecialButtonElement Special0 => _specialButtonsView._special0Button;
@@ -165,7 +171,7 @@ namespace FirstLight.Game.Presenters
 		protected override Task OnClosed()
 		{
 			_legacyMinimap.SetActive(false);
-			
+
 			return base.OnClosed();
 		}
 

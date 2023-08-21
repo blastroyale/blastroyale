@@ -88,6 +88,7 @@ namespace Quantum.Systems.Bots
 		/// <inheritdoc />
 		private void Update(Frame f, BotUpdateGlobalContext botCtx, ref BotCharacterFilter filter)
 		{
+			if (QuantumFeatureFlags.FREEZE_BOTS) return;
 			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
 			if (f.Context.GameModeConfig.BotRespawn && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
 			{

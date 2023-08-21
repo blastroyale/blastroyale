@@ -1,22 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HUDScreenStyle.uss?fileID=7433441132597879392&amp;guid=9db6e0e9477634e1699c3ae2172101f4&amp;type=3#HUDScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDDeathNotificationStyle.uss?fileID=7433441132597879392&amp;guid=81378c7a28dd4d908def922f1c1005b1&amp;type=3#HUDDeathNotificationStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDSquadMemberStyle.uss?fileID=7433441132597879392&amp;guid=ba1757a6e8524f1db463d85aeaa30f4a&amp;type=3#HUDSquadMemberStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDPlayerStatusBarStyle.uss?fileID=7433441132597879392&amp;guid=751c0e72a1b84d48bdcdb4e2da1076d7&amp;type=3#HUDPlayerStatusBarStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/HUDStatusNotificationsStyle.uss?fileID=7433441132597879392&amp;guid=ddf3c6530da749cb8886772e19e8e25f&amp;type=3#HUDStatusNotificationsStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="fill-parent">
-            <FirstLight.Game.UIElements.HealthStatusBarElement name="HealthStatusBarElement" style="position: absolute; left: 1107px; top: 246px;" />
-            <FirstLight.Game.UIElements.PlayerStatusBarElement style="left: 1065px; top: 313px;">
-                <ui:VisualElement name="AbovePlayerNotifications" class="max-hp-shield-ammo__container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxShieldLabel" class="max-shield__label" style="width: 94px; height: 37px; display: flex;">
-                        <ui:VisualElement name="MaxShieldIcon" class="max-shield__icon" />
-                    </ui:Label>
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxHPLabel" class="max-hp__label" style="display: none;">
-                        <ui:VisualElement name="MaxHPIcon" class="max-hp__icon" />
-                    </ui:Label>
-                    <ui:Label tabindex="-1" text="MAX" display-tooltip-when-elided="true" name="MaxAmmoLabel" class="max-ammo__label" style="display: none;">
-                        <ui:VisualElement name="MaxAmmoIcon" class="max-ammo__icon" />
-                    </ui:Label>
-                    <ui:Label tabindex="-1" text="+1  &lt;sprite=&quot;UISpriteAsset&quot; name=EnergylevelIcon&gt;" display-tooltip-when-elided="false" name="PlusLevelLabel" class="plus-level__label" style="display: flex;" />
-                </ui:VisualElement>
-            </FirstLight.Game.UIElements.PlayerStatusBarElement>
+        <ui:VisualElement name="PlayerBars" picking-mode="Ignore" usage-hints="GroupTransform" class="non-customizable-hud fill-parent" style="display: flex; visibility: visible;">
+            <FirstLight.Game.UIElements.HealthStatusBarElement name="TempHealthBar" style="position: absolute; left: 1107px; top: 246px;" />
+            <FirstLight.Game.UIElements.PlayerStatusBarElement name="TempStatusBar" style="left: 1065px; top: 313px;" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="MoveJoystickArea" class="joystick-container">
@@ -25,31 +16,35 @@
             <ui:VisualElement name="AimJoystickArea" class="joystick-container">
                 <FirstLight.Game.UIElements.JoystickElement name="ShootingJoystick" class="joystick--aim" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button">
+            <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button customizable-hud">
                 <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />
             </FirstLight.Game.UIElements.ImageButton>
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0" />
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="special-button--special1" />
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0 customizable-hud"/>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="customizable-hud special-button--special1"/>
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
-                    <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
-                    <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
-                    <ui:VisualElement name="Counter" class="match-status__counter">
+                    <ui:VisualElement name="AliveContainer" class="match-status__alive-container customizable-hud">
+                        <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
+                        <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Counter" class="match-status__counter customizable-hud">
                         <ui:VisualElement name="PingBG" usage-hints="DynamicTransform" class="match-status__ping-bg" />
                         <ui:VisualElement name="BG" class="match-status__bg" />
                         <ui:Label text="30" name="TimerText" class="match-status__counter-text" />
                     </ui:VisualElement>
-                    <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
-                    <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
-                    <ui:Label text="AREA SHRINKING" name="NotificationText" class="status-areashrinking" />
+                    <ui:VisualElement name="KillContainer" class="customizable-hud match-status__kills-container">
+                        <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
+                        <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
+                    </ui:VisualElement>
+                    <ui:Label text="AREA SHRINKING" name="NotificationText" class="customizable-hud status-areashrinking" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="device-status-bar">
+            <ui:VisualElement name="DeviceStatus" picking-mode="Ignore" class="customizable-hud device-status-bar">
                 <ui:VisualElement name="BatteryIcon" class="icon-battery sprite-match__icon-battery-medium" />
                 <ui:VisualElement name="WifiIcon" class="icon-wifi sprite-match__icon-wifi-medium" />
                 <ui:Label text="49 ms" name="LatencyLabel" class="latency-label" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display">
+            <FirstLight.Game.UIElements.ImageButton name="WeaponDisplay" class="weapon-display customizable-hud">
                 <ui:VisualElement name="Melee" class="weapon-display__melee">
                     <ui:VisualElement name="Rarity" class="weapon-display__rarity-bg weapon-display__rarity-bg-melee">
                         <ui:VisualElement name="MeleeRarityIcon" class="weapon-display__rarity-icon sprite-equipmentcard__card-rarity-common" />
@@ -76,15 +71,15 @@
                 </ui:VisualElement>
                 <ui:Label text="67 &lt;sprite=&quot;UISpriteAsset&quot; name=&quot;AmmoIcon&quot;&gt;&#10;&lt;size=70%&gt;/ 134" name="Ammo" class="weapon-display__ammo" />
             </FirstLight.Game.UIElements.ImageButton>
-            <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="kill-feed">
+            <ui:VisualElement name="KillFeed" picking-mode="Ignore" class="customizable-hud kill-feed">
                 <FirstLight.Game.UIElements.DeathNotificationElement class="death-notification--suicide" />
                 <FirstLight.Game.UIElements.DeathNotificationElement />
             </ui:VisualElement>
-            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="squad-members-container">
+            <ui:VisualElement name="SquadMembers" picking-mode="Ignore" class="customizable-hud squad-members-container">
                 <FirstLight.Game.UIElements.SquadMemberElement />
                 <FirstLight.Game.UIElements.SquadMemberElement />
             </ui:VisualElement>
-            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="equipment-display">
+            <ui:VisualElement name="EquipmentDisplay" picking-mode="Ignore" class="customizable-hud equipment-display">
                 <ui:VisualElement name="Character" picking-mode="Ignore" class="equipment-display__character">
                     <ui:VisualElement name="Armor" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--armor" />
                     <ui:VisualElement name="Amulet" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--amulet" />
@@ -94,7 +89,7 @@
                 <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="fill-parent">
+        <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="non-customizable-hud fill-parent">
             <ui:VisualElement name="BackgroundCyanTint" class="status-kill__background-cyan" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;" />
             <ui:VisualElement name="BeastBlastNotification" class="status-kill" style="display: flex;">
                 <ui:VisualElement name="BlastGradient" class="status-kill__gradient" style="width: 1256px; left: -389px; rotate: -8deg; top: -241px; height: 611px;" />
@@ -151,6 +146,10 @@
                     <ui:VisualElement name="SkullIconFull" class="status-kill__skull-full" />
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0;">
+                <FirstLight.Game.UIElements.GradientElement name="Left" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--left" />
+                <FirstLight.Game.UIElements.GradientElement name="Right" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--right" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

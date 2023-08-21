@@ -61,12 +61,12 @@ MonoBehaviour:
     - Map: 65
       MaxPlayers: 30
       IsTestMap: 0
-      IsCustomOnly: 1
+      IsCustomOnly: 0
       DropSelectionSize: 1
     - Map: 108
-      MaxPlayers: 20
+      MaxPlayers: 12
       IsTestMap: 0
-      IsCustomOnly: 0
+      IsCustomOnly: 1
       DropSelectionSize: 1
     - Map: 113
       MaxPlayers: 30
@@ -74,7 +74,7 @@ MonoBehaviour:
       IsCustomOnly: 1
       DropSelectionSize: 1
     - Map: 114
-      MaxPlayers: 30
+      MaxPlayers: 12
       IsTestMap: 0
       IsCustomOnly: 1
       DropSelectionSize: 1

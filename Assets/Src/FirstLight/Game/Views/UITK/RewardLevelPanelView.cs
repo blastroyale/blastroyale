@@ -13,9 +13,9 @@ namespace FirstLight.Game.Views
 	/// <summary>
 	/// View for the simple rewards in the rewards match end screen
 	/// </summary>
-	public class RewardBPPanelView : UIView
+	public class RewardLevelPanelView : UIView
 	{
-		public struct BPPLevelRewardInfo
+		public struct LevelLevelRewardInfo
 		{
 			public int NextLevel;
 			public int MaxForLevel;
@@ -34,7 +34,7 @@ namespace FirstLight.Game.Views
 		private Label _gainedWeek;
 		private Label _totalWeek;
 		
-		private List<BPPLevelRewardInfo> _levelRewardsInfo;
+		private List<LevelLevelRewardInfo> _levelRewardsInfo;
 
 		public override void Attached(VisualElement element)
 		{
@@ -44,18 +44,19 @@ namespace FirstLight.Game.Views
 			_totalLabel = element.Q<Label>("Total").Required();
 			_previousPointsBar = element.Q<VisualElement>("GreenBar").Required();
 			_newPointsBar = element.Q<VisualElement>("YellowBar").Required();
-			_gainedWeek = element.Q<Label>("GainedWeek").Required();
-			_next = element.Q<Label>("Next").Required();
-			_totalWeek = element.Q<Label>("TotalWeek").Required();
-			_toLevelLabel = element.Q<Label>("ToLevel").Required();
+
+			_gainedWeek = element.Q<Label>("GainedWeek");
+			_next = element.Q<Label>("Next");
+			_totalWeek = element.Q<Label>("TotalWeek");
+			_toLevelLabel = element.Q<Label>("ToLevel");
 			
 			HidePanel();
 		}
 
 		/// <summary>
-		/// Set the reward data
+		/// Set the reward data with pool info
 		/// </summary>
-		public void SetData(List<BPPLevelRewardInfo> levelRewardsInfo, int currentPool, int maxPool, ResourcePoolInfo poolInfo)
+		public void SetData(List<LevelLevelRewardInfo> levelRewardsInfo, int currentPool, int maxPool, ResourcePoolInfo poolInfo)
 		{
 			_levelRewardsInfo = levelRewardsInfo;
 
@@ -63,6 +64,14 @@ namespace FirstLight.Game.Views
 			_totalWeek.text = "/" + maxPool;
 
 			UpdatePool(poolInfo);
+		}
+		
+		/// <summary>
+		/// Set the reward data without pool info
+		/// </summary>
+		public void SetData(List<LevelLevelRewardInfo> levelRewardsInfo)
+		{
+			_levelRewardsInfo = levelRewardsInfo;
 		}
 		
 		/// <summary>

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -123,6 +124,23 @@ public partial class SROptions
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
+			},
+			OnFinish = () => { uiService.CloseUi<RewardsScreenPresenter>(true); }
+		});
+	}
+	
+	[Category("Other")]
+	public void OpenRewardsTestFame()
+	{
+		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
+		uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+		{
+			FameRewards = true,
+			Rewards = new List<IReward>()
+			{
+				new CurrencyReward(GameId.BPP, 300),
+				new CurrencyReward(GameId.CS, 20000),
+				new UnlockReward(UnlockSystem.ShopScreen)
 			},
 			OnFinish = () => { uiService.CloseUi<RewardsScreenPresenter>(true); }
 		});

@@ -50,7 +50,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin fame-locked-button">
                     <ui:VisualElement class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
@@ -114,6 +114,11 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
+                    <ui:Label text="72" name="PlayerFameLevel" class="player-header__fame-lvl" />
+                    <ui:VisualElement name="FameStar1" class="player-header__fame-star-1" />
+                    <ui:VisualElement name="FameStar2" class="player-header__fame-star-2" />
+                    <ui:VisualElement name="FameStar3" class="player-header__fame-star-3" />
+                    <ui:VisualElement name="FameStar4" class="player-header__fame-star-4" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
         </ui:VisualElement>

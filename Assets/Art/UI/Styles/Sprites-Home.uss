@@ -153,6 +153,10 @@
     --sprite-home__icon-shop: url('/Assets/Art/UI/Sprites/Home/icon-shop.png');
     --sprite-home__icon-show-purple: url('/Assets/Art/UI/Sprites/Home/icon-show-purple.png');
     --sprite-home__icon-spinner-thick: url('/Assets/Art/UI/Sprites/Home/icon-spinner-thick.png');
+    --sprite-home__icon-star-bronze: url('/Assets/Art/UI/Sprites/Home/icon-star-bronze.png');
+    --sprite-home__icon-star-diamond: url('/Assets/Art/UI/Sprites/Home/icon-star-diamond.png');
+    --sprite-home__icon-star-gold: url('/Assets/Art/UI/Sprites/Home/icon-star-gold.png');
+    --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
@@ -1055,6 +1059,30 @@
     background-image: var(--sprite-home__icon-spinner-thick);
     width: 68px;
     height: 68px;
+}
+
+.sprite-home__icon-star-bronze {
+    background-image: var(--sprite-home__icon-star-bronze);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-diamond {
+    background-image: var(--sprite-home__icon-star-diamond);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-gold {
+    background-image: var(--sprite-home__icon-star-gold);
+    width: 36px;
+    height: 36px;
+}
+
+.sprite-home__icon-star-silver {
+    background-image: var(--sprite-home__icon-star-silver);
+    width: 36px;
+    height: 36px;
 }
 
 .sprite-home__logo-blasthub {

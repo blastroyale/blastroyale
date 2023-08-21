@@ -130,7 +130,7 @@ namespace FirstLight.Game.Services
 			{
 				GameModeId = gameModeId,
 				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
-				RoomIdentifier = _dataProvider.PlayerDataProvider.PlayerInfo.Nickname + Guid.NewGuid(),
+				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
 				JoinType = JoinType.ForcedGame,
 				MatchType = MatchType.Ranked,

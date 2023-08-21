@@ -131,7 +131,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level.ToString()},
+				{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
 				{"total_players", totalPlayers.ToString()},
 				{"total_bots", (NetworkUtils.GetMaxPlayers(setup,false) - totalPlayers).ToString()},
 				{"map_id", _gameIdsLookup[config.Map]},

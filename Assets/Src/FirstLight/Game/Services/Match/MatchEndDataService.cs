@@ -83,6 +83,16 @@ namespace FirstLight.Game.Services
 		/// What level was the player in BP before the change
 		/// </summary>
 		public uint BPLevelBeforeChange { get; }
+		
+		/// <summary>
+		/// How much BPP the player had before the change
+		/// </summary>
+		public uint LevelBeforeChange { get; }
+
+		/// <summary>
+		/// What level was the player in BP before the change
+		/// </summary>
+		public uint XPBeforeChange { get; }
 
 		/// <summary>
 		/// Has local player left the match before it ended (either through menu UI, or during spectate)
@@ -133,6 +143,8 @@ namespace FirstLight.Game.Services
 		public uint CSBeforeChange { get; private set; }
 		public uint BPPBeforeChange { get; private set; }
 		public uint BPLevelBeforeChange { get; private set; }
+		public uint LevelBeforeChange { get; private set;}
+		public uint XPBeforeChange { get; private set;}
 		public bool LeftBeforeMatchFinished { get; private set; }
 
 		public void Reload()
@@ -160,6 +172,8 @@ namespace FirstLight.Game.Services
 			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
 			PlayersFinalEquipment.Clear();
+			LevelBeforeChange = _dataProvider.PlayerDataProvider.Level.Value;
+			XPBeforeChange = _dataProvider.PlayerDataProvider.XP.Value;
 		}
 
 		/// <inheritdoc />

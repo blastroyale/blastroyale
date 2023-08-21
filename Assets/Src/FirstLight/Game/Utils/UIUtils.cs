@@ -1,9 +1,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Views.UITK;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -210,5 +213,19 @@ namespace FirstLight.Game.Utils
 				visualElement.style.backgroundImage = new StyleBackground(sprite);
 			}
 		}
+
+		/// <summary>
+		/// Locks an element behind a level.
+		/// </summary>
+		public static void LevelLock<TElement, TPData>(this TElement element,
+													   UiToolkitPresenterData<TPData> presenter, UnlockSystem unlockSystem)
+			where TElement : VisualElement
+			where TPData : struct
+		{
+			
+			element.AttachView(presenter, out FameLockedView storeLockedView);
+			storeLockedView.Init(unlockSystem);
+		}
+
 	}
 }

@@ -47,7 +47,16 @@ namespace FirstLight.Game.Presenters
 		private Button _createRoomButton;
 		private LocalizedDropDown _weaponLimitDropDown;
 
-		private static List<string> _weaponLimiterMutators = new List<string>{"HammerTime", "PistolsOnly", "SMGsOnly", "MinigunsOnly", "ShotgunsOnly", "SnipersOnly", "RPGsOnly"};
+		private enum _weaponLimiterMutators
+		{
+			HammerTime = MutatorType.HammerTime,
+			PistolsOnly = MutatorType.PistolsOnly,
+			SMGsOnly = MutatorType.SMGsOnly,
+			MinigunsOnly = MutatorType.MinigunsOnly,
+			ShotgunsOnly = MutatorType.ShotgunsOnly,
+			SnipersOnly = MutatorType.SnipersOnly,
+			RPGsOnly = MutatorType.RPGsOnly
+		}
 
 		private void Awake()
 		{
@@ -262,7 +271,7 @@ namespace FirstLight.Game.Presenters
 
 				foreach (var mutatorConfig in mutatorConfigs)
 				{
-					if (_weaponLimiterMutators.Contains(mutatorConfig.Id))
+					if (_weaponLimiterMutators.IsDefined(typeof(_weaponLimiterMutators), mutatorConfig.Id))
 					{
 						continue;
 					}
@@ -373,7 +382,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var mutatorConfig in mutatorConfigs)
 			{
-				if (_weaponLimiterMutators.Contains(mutatorConfig.Id))
+				if (_weaponLimiterMutators.IsDefined(typeof(_weaponLimiterMutators), mutatorConfig.Id))
 				{
 					menuChoices.Add(mutatorConfig.Id);
 				}

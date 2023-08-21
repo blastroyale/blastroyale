@@ -44,16 +44,17 @@ namespace FirstLight.Game.Views
 			_totalLabel = element.Q<Label>("Total").Required();
 			_previousPointsBar = element.Q<VisualElement>("GreenBar").Required();
 			_newPointsBar = element.Q<VisualElement>("YellowBar").Required();
-			_gainedWeek = element.Q<Label>("GainedWeek").Required();
-			_next = element.Q<Label>("Next").Required();
-			_totalWeek = element.Q<Label>("TotalWeek").Required();
-			_toLevelLabel = element.Q<Label>("ToLevel").Required();
+
+			_gainedWeek = element.Q<Label>("GainedWeek");
+			_next = element.Q<Label>("Next");
+			_totalWeek = element.Q<Label>("TotalWeek");
+			_toLevelLabel = element.Q<Label>("ToLevel");
 			
 			HidePanel();
 		}
 
 		/// <summary>
-		/// Set the reward data
+		/// Set the reward data with pool info
 		/// </summary>
 		public void SetData(List<LevelLevelRewardInfo> levelRewardsInfo, int currentPool, int maxPool, ResourcePoolInfo poolInfo)
 		{
@@ -63,6 +64,14 @@ namespace FirstLight.Game.Views
 			_totalWeek.text = "/" + maxPool;
 
 			UpdatePool(poolInfo);
+		}
+		
+		/// <summary>
+		/// Set the reward data without pool info
+		/// </summary>
+		public void SetData(List<LevelLevelRewardInfo> levelRewardsInfo)
+		{
+			_levelRewardsInfo = levelRewardsInfo;
 		}
 		
 		/// <summary>

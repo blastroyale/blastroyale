@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using DG.Tweening;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
@@ -40,6 +41,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 		private IGameDataProvider _gameDataProvider;
 
 		private Button _nextButton;
@@ -51,11 +53,12 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _craftSpice;
 		private VisualElement _trophies;
 		private VisualElement _bpp;
+		private VisualElement _fame;
 
 		private RewardPanelView _craftSpiceView;
 		private RewardPanelView _trophiesView;
-		private RewardBPPanelView _bppView;
-		private RewardPanelView _levelView;
+		private RewardLevelPanelView _bppView;
+		private RewardLevelPanelView _levelView;
 
 		private bool _showingLeaderboards;
 
@@ -65,6 +68,7 @@ namespace FirstLight.Game.Presenters
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void OnOpened()
@@ -103,6 +107,8 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
+			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
+			_fame.AttachView(this, out _levelView);
 		}
 
 		private void OnNextButtonClicked()
@@ -142,6 +148,7 @@ namespace FirstLight.Game.Presenters
 			await _craftSpiceView.Animate();
 			await _trophiesView.Animate();
 			await _bppView.Animate();
+			await _levelView.Animate();
 		}
 
 		private void UpdateRewards()
@@ -167,6 +174,63 @@ namespace FirstLight.Game.Presenters
 			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
 
 			// BPP
+			SetBPPReward(rewards);
+			
+			// Level (Fame)
+			SetLevelReward(rewards);
+		}
+
+		private void SetLevelReward(Dictionary<GameId, int> rewards)
+		{
+			var bppReward = 0;
+			if (rewards.ContainsKey(GameId.XP))
+			{
+				bppReward = rewards[GameId.XP];
+			}
+
+			var maxLevel = 99;
+			var gainedLeft = bppReward;
+			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
+			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange + 1, 0, maxLevel);
+			var currentLevel = nextLevel;
+
+			do
+			{
+				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
+
+				levelRewardInfo.MaxLevel = 99;
+
+				// If it's the next level to the current one, we might have already some points in there
+				if (nextLevel == currentLevel)
+				{
+					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.LevelBeforeChange;
+				}
+
+				levelRewardInfo.MaxForLevel =
+					(int) _gameServices.ConfigsProvider.GetConfig<PlayerLevelConfig>(currentLevel).LevelUpXP;
+				levelRewardInfo.NextLevel = currentLevel;
+
+				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
+				if (amountToMax < gainedLeft)
+				{
+					levelRewardInfo.Total = amountToMax;
+					gainedLeft -= amountToMax;
+				}
+				else
+				{
+					levelRewardInfo.Total = gainedLeft;
+					gainedLeft = 0;
+				}
+
+				levelsInfo.Add(levelRewardInfo);
+
+				currentLevel++;
+			} while (gainedLeft > 0 && currentLevel < maxLevel);
+
+			_levelView.SetData(levelsInfo);
+		}
+		private void SetBPPReward(Dictionary<GameId, int> rewards)
+		{
 			var bppReward = 0;
 			if (rewards.ContainsKey(GameId.BPP))
 			{
@@ -176,13 +240,13 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
-			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
+			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
 			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do
 			{
-				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
+				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
 				levelRewardInfo.MaxLevel = (int) maxLevel;
 
@@ -215,7 +279,7 @@ namespace FirstLight.Game.Presenters
 
 			_bppView.SetData(levelsInfo, (int) bppPoolInfo.CurrentAmount, (int) bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
-
+		
 		private void UpdatePlayerName()
 		{
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None

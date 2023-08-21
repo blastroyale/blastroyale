@@ -479,6 +479,7 @@
     position: absolute;
     top: -33px;
     left: 56px;
+    display: none;
 }
 
 .fame__title {

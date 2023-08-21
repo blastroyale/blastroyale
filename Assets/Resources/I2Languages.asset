@@ -7321,7 +7321,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DISTRICT DASH ROTATED
+      - RIVERBANK RUMBLE
       - 
       - 
       - 
@@ -10936,17 +10936,6 @@ MonoBehaviour:
       - MUTATOR 2
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 2"
       - Mutator 2
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
-      TermType: 0
-      Description: 
-      Languages:
-      - WEAPON LIMIT
-      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
-      - WEAPON LIMIT
       - 
       - 
       Flags: 0000000000
@@ -17081,6 +17070,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON LIMIT
+      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
+      - WEAPON LIMIT
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -17105,7 +17105,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1692359626916
+    Google_LastUpdatedVersion: 1692367569633
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -74,14 +74,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 			if (SelectionEnabled)
 			{
 				var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-				var defaultX = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
-				var defaultY = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
-				var defaultDropPos = new Vector2Int(defaultX, defaultY);
-				
-				SetGridPosition(defaultDropPos, false);
+				var position = new Vector2Int(
+					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().x), 
+					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().y));
+				SetGridPosition(position, false);
 				_dropzoneLayout.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
 
-				_services.AnalyticsService.MatchCalls.DefaultDropPosition = defaultDropPos;
+				_services.AnalyticsService.MatchCalls.DefaultDropPosition = position;
 				_services.AnalyticsService.MatchCalls.PresentedMapPath = dropzonePosRot.ToString();
 			}
 		}

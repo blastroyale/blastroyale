@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7087418058083405533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.035, z: -0.067}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 4616529936769953599}
+  _shells: 0
 --- !u!114 &7225982141456834087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +112,7 @@ MonoBehaviour:
   _particleRenderers:
   - {fileID: 7919828936495197876}
   - {fileID: 5344167235760159321}
+  - {fileID: 3643418795876058929}
   _originalMaterials:
   - {fileID: 2100000, guid: 824b3738f29b32b40aa56bf9198b119b, type: 2}
 --- !u!1001 &4375673338622869539
@@ -174,6 +176,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b04b82df6d157459196793d31b04218c, type: 3}
+--- !u!199 &3643418795876058929 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 1020493714997315346, guid: b04b82df6d157459196793d31b04218c, type: 3}
+  m_PrefabInstance: {fileID: 4375673338622869539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4616529936769953599 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8982629788994940700, guid: b04b82df6d157459196793d31b04218c, type: 3}

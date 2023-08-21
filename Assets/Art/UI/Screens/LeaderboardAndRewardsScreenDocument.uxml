@@ -34,6 +34,19 @@
                     <ui:VisualElement name="LogoTotal" class="trophies__logo-total" />
                     <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
                 </ui:VisualElement>
+                <ui:VisualElement name="Fame" class="fame">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/fame" class="fame__title" />
+                    <ui:VisualElement name="LogoTop" class="fame__logo-top" />
+                    <ui:VisualElement name="PinkBand" />
+                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" />
+                    <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="fame__to-level" />
+                    <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="fame__level" />
+                    <ui:VisualElement name="Bar" class="fame__bar">
+                        <ui:VisualElement name="YellowBar" class="fame__bar__yellow-bar" />
+                        <ui:VisualElement name="GreenBar" class="fame__bar__green-bar" />
+                        <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="fame__bar__total" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="BPP" class="bpp">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
                     <ui:VisualElement name="LogoTop" class="bpp__logo-top" />

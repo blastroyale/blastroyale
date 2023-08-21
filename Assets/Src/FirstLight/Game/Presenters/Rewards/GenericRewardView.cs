@@ -36,17 +36,28 @@ namespace FirstLight.Game.Presenters
 			_icon = element.Q<VisualElement>("RewardIcon");
 		}
 
-
 		public void ShowReward(IReward reward)
 		{
-			_amount.text = $"X {reward.Amount}";
-			_name.text = reward.DisplayName;
 			_animatedBackground.SetDefault();
-#pragma warning disable CS4014
-			// Ignore task return because it only loads the sprite and we don't want to wait for it
-			UIUtils.SetSprite(reward.GameId, _icon);
-#pragma warning restore CS4014
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			_icon.RemoveSpriteClasses();
+			_icon.style.backgroundImage = StyleKeyword.Null;
+			
+			if (reward is UnlockReward ur)
+			{
+				_name.text = "NEW SCREEN UNLOCKED!";
+				_amount.text = ur.DisplayName;
+				_icon.AddToClassList("sprite-home__icon-shop");
+			}
+			else
+			{
+				_amount.text = $"X {reward.Amount}";
+				_name.text = reward.DisplayName;
+#pragma warning disable CS4014
+				// Ignore task return because it only loads the sprite and we don't want to wait for it
+				UIUtils.SetSprite(reward.GameId, _icon);
+#pragma warning restore CS4014
+			}
 		}
 	}
 }

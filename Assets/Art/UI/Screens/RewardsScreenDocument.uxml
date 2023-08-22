@@ -49,7 +49,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="EquipmentReward" class="rewards-equipment" style="display: flex;">
+        <ui:VisualElement name="EquipmentReward" class="rewards-equipment" style="display: none;">
             <ui:VisualElement name="RaysEquipment" class="rewards-equipment__rays">
                 <ui:VisualElement name="RaysStrongerGradient" class="rewards-equipment__gradient-stronger" />
                 <ui:VisualElement name="RaysGradient" class="rewards-equipment__gradient" />

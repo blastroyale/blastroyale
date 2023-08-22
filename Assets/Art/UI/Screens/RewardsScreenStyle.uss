@@ -125,7 +125,7 @@
     width: 1080px;
     height: 1080px;
     align-self: center;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0.24);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.19);
     background-image: var(--sprite-home__vfx-rewards-rays);
 }
 
@@ -145,6 +145,7 @@
     background-image: var(--sprite-match__gradientwhite);
     align-self: center;
     top: 147px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.43);
 }
 
 .rewards-equipment__name {
@@ -185,8 +186,8 @@
     -unity-background-image-tint-color: rgba(248, 135, 46, 0.38);
     background-image: var(--sprite-match__gradientwhite);
     align-self: center;
-    top: -100px;
-    left: -118px;
+    top: -106px;
+    left: -130px;
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
 }
@@ -334,7 +335,7 @@
 }
 
 .rewards-equipment__rays--uncommon {
-    -unity-background-image-tint-color: rgba(181, 255, 153, 0.19);
+    -unity-background-image-tint-color: rgba(181, 255, 153, 0.15);
 }
 
 .rewards-equipment__name-container {
@@ -400,7 +401,7 @@
 }
 
 .rewards-equipment__gradient--uncommon {
-    -unity-background-image-tint-color: rgb(216, 255, 155);
+    -unity-background-image-tint-color: rgba(216, 255, 155, 0.67);
 }
 
 .rewards-equipment__rays--rare {
@@ -408,23 +409,23 @@
 }
 
 .rewards-equipment__gradient--rare {
-    -unity-background-image-tint-color: rgb(42, 207, 255);
+    -unity-background-image-tint-color: rgba(95, 239, 255, 0.7);
 }
 
 .rewards-equipment__rays--epic {
-    -unity-background-image-tint-color: rgba(255, 66, 82, 0.54);
+    -unity-background-image-tint-color: rgba(255, 105, 117, 0.3);
 }
 
 .rewards-equipment__gradient--epic {
-    -unity-background-image-tint-color: rgb(255, 106, 83);
+    -unity-background-image-tint-color: rgb(255, 107, 93);
 }
 
 .rewards-equipment__rays--legendary {
-    -unity-background-image-tint-color: rgba(255, 162, 0, 0.68);
+    -unity-background-image-tint-color: rgb(255, 133, 11);
 }
 
 .rewards-equipment__gradient--legendary {
-    -unity-background-image-tint-color: rgba(255, 244, 172, 0.82);
+    -unity-background-image-tint-color: rgba(255, 228, 119, 0.69);
 }
 
 .rewards-equipment__rays--mythic {

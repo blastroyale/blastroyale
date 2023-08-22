@@ -78,9 +78,20 @@ namespace FirstLight.Game
 
 			OnGameLoadAwake?.Invoke();
 		}
+		
+		private void EnableLowLevelTraces()
+		{
+			Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.Full);
+			Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.Full);
+			Application.SetStackTraceLogType(LogType.Warning, StackTraceLogType.Full);
+		}
+
 
 		private void Start()
 		{
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			EnableLowLevelTraces();
+#endif
 			TrySetLocalServer();
 			FlgCustomSerializers.RegisterAOT();
 			FlgCustomSerializers.RegisterSerializers();

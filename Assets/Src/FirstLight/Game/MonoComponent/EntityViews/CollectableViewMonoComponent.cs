@@ -20,6 +20,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private const string CLIP_IDLE = "idle";
 		private const string CLIP_COLLECT = "collect";
 
+		/// <summary>
+		/// We need this correction because we attempt to size the quantum collider with the size of the indicator.
+		/// Both are using the same measurement but the indicator might be rendering a bit more/less so this correction
+		/// is to ensure its precise.
+		/// </summary>
+		private const float RADIUS_CORRECTION = 0.9f;
+		
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField, Required] private Animation _animation;
 
@@ -92,8 +99,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (frame.TryGet<Collectable>(EntityView.EntityRef, out var collectable) &&
 				collectable.PickupRadius > FP._0)
 			{
+				var radiusCorrected = collectable.PickupRadius.AsFloat * RADIUS_CORRECTION;
 				_pickupCircle.localScale =
-					new Vector3(collectable.PickupRadius.AsFloat, collectable.PickupRadius.AsFloat, 1f);
+					new Vector3(radiusCorrected, radiusCorrected, 1f);
 				_pickupCircle.position = _collectableIndicatorAnchor.position +
 					new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 

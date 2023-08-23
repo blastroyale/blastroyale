@@ -355,8 +355,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				posX = Random.value * mapWidth;
-				posY = Random.value * mapHeight;
+				posX = Random.value * mapWidth / 2;
+				posY = Random.value * mapHeight / 2;
 				_dropzone.SetDisplay(false);
 			}
 

@@ -75,8 +75,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 				var position = new Vector2Int(
-					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().x), 
-					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().y));
+					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().x / 2), 
+					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().y) / 2);
 				SetGridPosition(position, false);
 				_dropzoneLayout.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
 

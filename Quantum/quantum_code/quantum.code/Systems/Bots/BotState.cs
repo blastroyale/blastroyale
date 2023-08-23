@@ -101,7 +101,7 @@ namespace Quantum
 			bb->Set(f, Constants.IsAimPressedKey, true);
 			if (bot.Target != target)
 			{
-				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : PlayerCharacterSystem.AIM_DELAY));
+				PlayerCharacterSystem.OnStartAiming(f, bb, weaponConfig);
 			}
 			bot.Target = target;
 		}

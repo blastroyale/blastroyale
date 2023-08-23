@@ -26,7 +26,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		/// is to ensure its precise.
 		/// </summary>
 		private const float RADIUS_CORRECTION = 0.9f;
-		
+
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField, Required] private Animation _animation;
 
@@ -170,12 +170,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 				transform.position = pos;
 				transform.localScale = scale;
+				UpdateVfxPosition();
 				yield return new WaitForEndOfFrame();
 			}
 
 			transform.position = endPos;
 			transform.localScale = startScale;
+			UpdateVfxPosition();
 		}
+
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
@@ -274,7 +277,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				var position = _collectableIndicatorAnchor.position +
 					new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
 
-				_collectingVfx.transform.SetPositionAndRotation(position, Quaternion.AngleAxis(145, Vector3.up));
+
+				UpdateVfxPosition();
+				_collectingVfx.transform.rotation = Quaternion.AngleAxis(145, Vector3.up);
 				_collectingVfx.transform.localScale = new Vector3(_pickupCircle.localScale.x * 2.5f, 1f,
 					_pickupCircle.localScale.y * 2.5f);
 				_collectingVfx.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
@@ -284,6 +289,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime, EntityRef);
 			}
+		}
+
+		private void UpdateVfxPosition()
+		{
+			if (_displayedCollector == EntityRef.None) return;
+			var position = _collectableIndicatorAnchor.position +
+				new Vector3(0f, GameConstants.Visuals.RADIAL_LOCAL_POS_OFFSET, 0f);
+			_collectingVfx.transform.position = position;
 		}
 
 		private void AddDebugCylinder(Frame f)

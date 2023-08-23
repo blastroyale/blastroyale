@@ -81,6 +81,7 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
@@ -333,6 +334,15 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
 				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			{
+				playerBar.PingDamage(callback.TotalDamage);
+			}
+		}
+
+		private unsafe void OnShrinkingCircleDmg(EventOnShrinkingCircleDmg callback)
+		{
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if (callback.HitEntity == spectatedPlayer.Entity && _visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
 				playerBar.PingDamage(callback.TotalDamage);
 			}

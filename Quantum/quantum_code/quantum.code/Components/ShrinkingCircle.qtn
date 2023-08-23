@@ -17,3 +17,9 @@ synced event OnNewShrinkingCircle
 {
 	ShrinkingCircle ShrinkingCircle;
 }
+
+synced event OnShrinkingCircleDmg
+{
+	entity_ref HitEntity;
+    UInt32 TotalDamage;
+}

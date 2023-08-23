@@ -38,7 +38,7 @@
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/fame" class="fame__title" />
                     <ui:VisualElement name="LogoTop" class="fame__logo-top" />
                     <ui:VisualElement name="PinkBand" />
-                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" />
+                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" style="display: none;" />
                     <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="fame__to-level" />
                     <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="fame__level" />
                     <ui:VisualElement name="Bar" class="fame__bar">
@@ -50,12 +50,11 @@
                 <ui:VisualElement name="BPP" class="bpp">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
                     <ui:VisualElement name="LogoTop" class="bpp__logo-top" />
-                    <ui:VisualElement name="PinkBand" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="bpp__gained" />
-                    <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
+                    <ui:Label text="to Lv" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
                     <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="bpp__level" />
                     <ui:VisualElement name="Bar" class="bpp__bar">
-                        <ui:VisualElement name="YellowBar" class="bpp__bar__yellow-bar" />
+                        <ui:VisualElement name="YellowBar" class="bpp__bar__yellow-bar" style="-unity-background-image-tint-color: rgb(41, 84, 83);" />
                         <ui:VisualElement name="GreenBar" class="bpp__bar__green-bar" />
                         <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total" />
                     </ui:VisualElement>

@@ -32,18 +32,16 @@
 .player-header {
     flex-direction: row-reverse;
     position: absolute;
-    left: 36px;
-    top: 36px;
+    left: 104px;
+    top: 50px;
     align-items: center;
+    scale: 1.2 1.2;
 }
 
 .player-header__name {
     position: absolute;
-    left: 35px;
-    right: 70px;
-    bottom: 14px;
     color: rgb(255, 255, 255);
-    font-size: 38px;
+    font-size: 34px;
     -unity-text-align: lower-center;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding-left: 0;
@@ -58,57 +56,72 @@
     overflow: hidden;
     -unity-text-overflow-position: end;
     text-overflow: ellipsis;
+    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    left: 164px;
+    top: 23px;
 }
 
 .player-header__fame-lvl {
-    font-size: 38px;
+    font-size: 34px;
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 31px;
-    right: 96px;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    top: 73px;
+    right: 49px;
+    text-shadow: -43px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    left: 77px;
+    -unity-text-align: upper-center;
 }
 
 .player-header__fame-star-1 {
     background-image: var(--sprite-home__icon-star-bronze);
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    left: 167px;
+    left: 84px;
+    top: 113px;
 }
 
 .player-header__fame-star-2 {
     background-image: var(--sprite-home__icon-star-silver);
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    left: 201px;
+    left: 112px;
+    top: 105px;
+    scale: 0.9 0.9;
 }
 
 .player-header__fame-star-3 {
     background-image: var(--sprite-home__icon-star-gold);
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    left: 236px;
+    left: 52px;
+    scale: 0.9 0.9;
+    top: 107px;
 }
 
 .player-header__fame-star-4 {
     background-image: var(--sprite-home__icon-star-diamond);
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    left: 271px;
+    left: 131px;
+    scale: 0.7 0.7;
+    top: 92px;
 }
 
 .player-header__profile-button {
     background-image: var(--sprite-home__button-profile);
-    width: 342px;
+    width: 164px;
     height: 138px;
 }
 
 .player-header__profile-button:active {
-    width: 342px;
+    width: 164px;
     height: 138px;
     background-image: var(--sprite-home__button-profile-pressed);
 }
@@ -122,22 +135,22 @@
 }
 
 .player-header__profile-button:active .player-header__profile-holder {
-    left: 6px;
+    left: -4px;
     right: -6px;
     top: 6px;
     bottom: -6px;
 }
 
 .player-header__avatar {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     position: absolute;
     background-color: rgb(214, 74, 123);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    left: 56px;
+    left: 33px;
     top: 6px;
 }
 
@@ -178,33 +191,36 @@
 
 .player-header__trophies-holder {
     position: relative;
-    width: 454px;
-    height: 116px;
+    width: 422px;
+    height: 126px;
     flex-direction: row;
     align-items: center;
     background-image: var(--sprite-home__background-profile);
     left: -83px;
     justify-content: space-between;
-    padding-left: 53px;
-    padding-right: 94px;
+    padding-left: 86px;
+    padding-right: 33px;
+    padding-top: 37px;
 }
 
 .player-header__trophies-label {
     flex-grow: 1;
-    color: rgb(255, 255, 255);
-    font-size: 34px;
+    color: rgb(253, 183, 0);
+    font-size: 30px;
     -unity-text-align: middle-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .player-header__leaderboards-button {
     width: 83px;
     height: 68px;
     -unity-background-scale-mode: scale-to-fit;
-    border-left-color: rgb(147, 139, 197);
-    border-right-color: rgb(147, 139, 197);
-    border-top-color: rgb(147, 139, 197);
-    border-bottom-color: rgb(147, 139, 197);
+    border-left-color: rgba(147, 139, 197, 0.47);
+    border-right-color: rgba(147, 139, 197, 0.47);
+    border-top-color: rgba(147, 139, 197, 0.47);
+    border-bottom-color: rgba(147, 139, 197, 0.47);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
@@ -970,4 +986,9 @@
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.sprite-shared__icon-trophy {
+    width: 34px;
+    height: 36px;
 }

@@ -195,7 +195,7 @@
 .craft-spice__gained {
     font-size: 50px;
     -unity-font-style: normal;
-    color: rgb(254, 130, 71);
+    color: rgb(248, 199, 46);
     position: absolute;
     left: 117px;
     top: 24px;
@@ -211,12 +211,15 @@
 }
 
 .craft-spice__total {
-    font-size: 50px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 435px;
-    top: 24px;
+    left: 432px;
+    top: 31px;
+    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .trophies {
@@ -278,12 +281,15 @@
 }
 
 .trophies__total {
-    font-size: 50px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 435px;
-    top: 24px;
+    left: 431px;
+    top: 35px;
+    -unity-text-outline-width: 0.7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .bpp {
@@ -336,28 +342,34 @@
 }
 
 .bpp__to-level {
-    font-size: 35px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 435px;
+    left: 451px;
     top: 42px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .bpp__level {
-    font-size: 50px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 30px;
+    top: 43px;
     width: 100px;
     -unity-text-align: upper-right;
-    right: 65px;
+    right: 71px;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .bpp__bar {
     background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
-    height: 48px;
+    height: 30px;
     position: absolute;
     left: 80px;
     right: 70px;
@@ -367,26 +379,32 @@
     padding-top: 1px;
     padding-bottom: 1px;
     flex-direction: row;
+    -unity-background-image-tint-color: rgb(22, 20, 38);
 }
 
 .bpp__bar__yellow-bar {
     background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
     position: absolute;
-    margin-top: 1px;
-    height: 44px;
+    height: 26px;
     width: 70%;
+    margin-left: 3px;
+    margin-right: 3px;
+    align-self: center;
+    -unity-background-image-tint-color: rgb(248, 199, 46);
 }
 
 .bpp__bar__green-bar {
-    background-image: var(--sprite-shared__progress-battlepass-bpp-rewards);
     position: absolute;
-    margin-top: 1px;
-    height: 44px;
+    height: 26px;
     width: 50%;
+    align-self: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp');
 }
 
 .bpp__bar__total {
-    font-size: 35px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -444,7 +462,7 @@
 }
 
 .bpp__week-info__next {
-    font-size: 40px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
@@ -457,13 +475,9 @@
     top: 504px;
     left: 150px;
     width: 619px;
-    height: 162px;
+    height: 106px;
     position: absolute;
-    -unity-slice-left: 16;
-    -unity-slice-right: 16;
-    background-image: var(--sprite-match__background-reward-bpp);
-    -unity-slice-top: 3;
-    -unity-slice-bottom: 3;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png?fileID=21300000&guid=351bb965f9ed2974e9edc1ea7688cc75&type=3#background-rewards-fame');
     transition-property: opacity;
     transition-duration: 0.3s;
 }
@@ -490,72 +504,83 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     position: absolute;
-    left: 127px;
-    top: -20px;
+    left: 212px;
+    top: 11px;
 }
 
 .fame__gained {
     font-size: 50px;
     -unity-font-style: normal;
-    color: rgb(94, 255, 211);
+    color: rgb(248, 199, 46);
     position: absolute;
     left: 100px;
     top: 30px;
 }
 
 .fame__to-level {
-    font-size: 35px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 435px;
-    top: 42px;
+    left: 479px;
+    top: 7px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .fame__level {
-    font-size: 50px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 30px;
-    width: 100px;
+    top: 7px;
     -unity-text-align: upper-right;
-    right: 65px;
+    right: 33px;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .fame__bar {
     background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
-    height: 48px;
+    height: 30px;
     position: absolute;
-    left: 80px;
+    left: 202px;
     right: 70px;
-    top: 95px;
+    top: 62px;
     padding-left: 1px;
     padding-right: 1px;
     padding-top: 1px;
     padding-bottom: 1px;
     flex-direction: row;
+    -unity-background-image-tint-color: rgb(22, 20, 38);
+    width: 374px;
 }
 
 .fame__bar__yellow-bar {
-    background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png?fileID=21300000&guid=063b38f07262840f8bc807b13c43d0cf&type=3#progress-battlepass-bpp-yellow');
     position: absolute;
-    margin-top: 1px;
-    height: 44px;
+    height: 26px;
     width: 70%;
+    align-self: center;
+    margin-right: 3px;
+    margin-left: 3px;
+    -unity-background-image-tint-color: rgb(82, 33, 67);
 }
 
 .fame__bar__green-bar {
-    background-image: var(--sprite-shared__progress-battlepass-bpp-rewards);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards.png?fileID=21300000&guid=cc30324b9951b419db0ce1e9b0d8b0fd&type=3#progress-battlepass-rewards');
     position: absolute;
-    margin-top: 1px;
-    height: 44px;
+    height: 26px;
     width: 50%;
-    -unity-background-image-tint-color: rgb(0, 183, 255);
+    align-self: center;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .fame__bar__total {
-    font-size: 35px;
+    font-size: 36px;
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;

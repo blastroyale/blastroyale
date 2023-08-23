@@ -96,7 +96,7 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label text="Logic server out of sync" display-tooltip-when-elided="true" name="OutOfSyncWarning" style="font-size: 40px; color: rgb(255, 18, 18); -unity-text-align: middle-center; position: absolute; bottom: 0; left: 0; height: 68px; width: 100%; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
+            <ui:Label text="Logic server out of sync" display-tooltip-when-elided="true" name="OutOfSyncWarning" style="font-size: 40px; color: rgb(255, 18, 18); -unity-text-align: middle-center; position: absolute; bottom: 0; left: 0; height: 68px; width: 100%; -unity-text-outline-width: 1px; -unity-text-outline-color: rgba(0, 0, 0, 0.67);" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="Header" class="player-header anim-delay-0 anim-translate anim-translate--down-l">
             <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">
@@ -113,14 +113,15 @@
                             <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
-                    <ui:Label text="72" name="PlayerFameLevel" class="player-header__fame-lvl" />
                     <ui:VisualElement name="FameStar1" class="player-header__fame-star-1" />
                     <ui:VisualElement name="FameStar2" class="player-header__fame-star-2" />
                     <ui:VisualElement name="FameStar3" class="player-header__fame-star-3" />
                     <ui:VisualElement name="FameStar4" class="player-header__fame-star-4" />
+                    <ui:VisualElement name="FameStar5" class="player-header__fame-star-4" style="left: 28px; top: 97px;" />
+                    <ui:Label text="72" name="PlayerFameLevel" class="player-header__fame-lvl" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
+            <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />
         </ui:VisualElement>
         <ui:VisualElement name="Matchmaking" class="matchmaking-container matchmaking-container--hidden">
             <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent matchmaking-container__safearea">

@@ -26,4 +26,11 @@ else
 fi 
 set -x
 
-msbuild "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Debug -p:RestorePackagesConfig=true -p:DefineConstants=\"$symbols\"
+command="msbuild"
+if ! command -v "msbuild" &> /dev/null
+then
+    command="msbuild.exe"
+fi
+
+
+$command "$SCRIPTPATH/quantum_code.sln" -restore -p:Configuration=Debug -p:RestorePackagesConfig=true -p:DefineConstants=\"$symbols\"

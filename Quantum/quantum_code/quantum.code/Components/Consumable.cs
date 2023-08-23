@@ -96,13 +96,13 @@ namespace Quantum
 							stats->GainHealth(f, teammateCandidate.Entity, &spell);
 							break;
 						case ConsumableType.Ammo:
-							f.Unsafe.GetPointer<Stats>(teammateCandidate.Entity)->GainAmmoPercent(f, teammateCandidate.Entity, Amount);
+							stats->GainAmmoPercent(f, teammateCandidate.Entity, Amount);
 							break;
 						case ConsumableType.Shield:
 							stats->GainShield(f, teammateCandidate.Entity, Amount.AsInt);
 							break;
 						case ConsumableType.Energy:
-							playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
+							playerChar->GainEnergy(f, teammateCandidate.Entity, Amount.AsInt);
 							break;
 					}
 				}

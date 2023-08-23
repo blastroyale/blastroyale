@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Tyres_Baricade"],"padding":[34],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Tyres_Baricade"],"padding":[31],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

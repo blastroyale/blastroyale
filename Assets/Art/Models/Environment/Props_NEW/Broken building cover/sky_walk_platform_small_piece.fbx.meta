@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["sky_walk_platform_small_piece"],"padding":[49],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["sky_walk_platform_small_piece"],"padding":[46],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

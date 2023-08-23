@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["MB_Funnel_Shape"],"padding":[17],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["MB_Funnel_Shape"],"padding":[16],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

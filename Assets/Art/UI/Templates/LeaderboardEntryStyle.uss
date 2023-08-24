@@ -41,8 +41,9 @@
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
-    left: 140px;
-    position: absolute;
+    position: relative;
+    left: auto;
+    min-width: 65px;
 }
 
 .leaderboard-entry--first .leaderboard-entry__rank-number {
@@ -58,9 +59,9 @@
 }
 
 .leaderboard-entry__rank-badge {
-    position: absolute;
-    left: 120px;
     display: none;
+    position: relative;
+    left: auto;
 }
 
 .leaderboard-entry--first .leaderboard-entry__rank-badge {
@@ -88,8 +89,8 @@
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
-    left: 200px;
-    position: absolute;
+    position: relative;
+    left: auto;
 }
 
 .leaderboard-entry--first .leaderboard-entry__player-name {
@@ -112,9 +113,11 @@
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
-    right: 250px;
     position: absolute;
     -unity-text-align: upper-right;
+    right: 35px;
+    white-space: nowrap;
+    left: auto;
 }
 
 .leaderboard-entry--global .leaderboard-entry__kills {
@@ -208,3 +211,18 @@
     right: -5px;
     -unity-background-scale-mode: scale-and-crop;
 }
+
+.leaderboard-entry__central-bar {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    min-width: auto;
+    min-height: auto;
+    width: 66%;
+    height: 100%;
+    left: 113px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: auto;
+}
+

@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// Controller for the AnimatedBackground, always use this to modify the background in any way.
@@ -12,8 +9,9 @@ using UnityEngine.Serialization;
 /// </summary>
 public class AnimatedBackground : MonoBehaviour
 {
-	private static readonly int _colorTop = Shader.PropertyToID("_ColorTop");
-	private static readonly int _colorBottom = Shader.PropertyToID("_ColorBottom");
+	private static readonly int _colorTopPID = Shader.PropertyToID("_ColorTop");
+	private static readonly int _colorBottomPID = Shader.PropertyToID("_ColorBottom");
+	private static readonly int _colorPatternPID = Shader.PropertyToID("_ColorPattern");
 
 	[SerializeField, Required] private Renderer _quadRenderer;
 
@@ -23,11 +21,17 @@ public class AnimatedBackground : MonoBehaviour
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/common_row")]
 	private Color _commonTop;
 
+	[SerializeField, Required, FoldoutGroup("Rarity Colors")]
+	private Color _commonPattern;
+
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/uncommon_row")]
 	private Color _uncommonBottom;
 
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/uncommon_row")]
 	private Color _uncommonTop;
+
+	[SerializeField, Required, FoldoutGroup("Rarity Colors")]
+	private Color _uncommonPattern;
 
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/rare_row")]
 	private Color _rareBottom;
@@ -35,11 +39,17 @@ public class AnimatedBackground : MonoBehaviour
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/rare_row")]
 	private Color _rareTop;
 
+	[SerializeField, Required, FoldoutGroup("Rarity Colors")]
+	private Color _rarePattern;
+
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/epic_row")]
 	private Color _epicBottom;
 
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/epic_row")]
 	private Color _epicTop;
+
+	[SerializeField, Required, FoldoutGroup("Rarity Colors")]
+	private Color _epicPattern;
 
 	[SerializeField, Required, FoldoutGroup("Rarity Colors"), HorizontalGroup("Rarity Colors/legendary_row")]
 	private Color _legendaryBottom;
@@ -47,50 +57,50 @@ public class AnimatedBackground : MonoBehaviour
 	[SerializeField, Required, FoldoutGroup("Rarity Colors", expanded: true), HorizontalGroup("Rarity Colors/legendary_row")]
 	private Color _legendaryTop;
 
+	[SerializeField, Required, FoldoutGroup("Rarity Colors", expanded: true)]
+	private Color _legendaryPattern;
+
 	private Color _defaultColorTop;
 	private Color _defaultColorBottom;
+	private Color _defaultColorPattern;
 
-	private Dictionary<EquipmentRarity, (Color bottom, Color top)> _colorMap;
-
+	private Dictionary<EquipmentRarity, (Color bottom, Color top, Color gradient)> _colorMap;
 
 	private void Awake()
 	{
-		_defaultColorTop = _quadRenderer.material.GetColor(_colorTop);
-		_defaultColorBottom = _quadRenderer.material.GetColor(_colorBottom);
+		_defaultColorTop = _quadRenderer.material.GetColor(_colorTopPID);
+		_defaultColorBottom = _quadRenderer.material.GetColor(_colorBottomPID);
+		_defaultColorPattern = _quadRenderer.material.GetColor(_colorPatternPID);
 
-		_colorMap = new Dictionary<EquipmentRarity, (Color, Color)>()
+		_colorMap = new Dictionary<EquipmentRarity, (Color, Color, Color)>()
 		{
-			{EquipmentRarity.Common, (_commonBottom, _commonTop)},
-			{EquipmentRarity.CommonPlus, (_commonBottom, _commonTop)},
-			{EquipmentRarity.Uncommon, (_uncommonBottom, _uncommonTop)},
-			{EquipmentRarity.UncommonPlus, (_uncommonBottom, _uncommonTop)},
-			{EquipmentRarity.Rare, (_rareBottom, _rareTop)},
-			{EquipmentRarity.RarePlus, (_rareBottom, _rareTop)},
-			{EquipmentRarity.Epic, (_epicBottom, _epicTop)},
-			{EquipmentRarity.EpicPlus, (_epicBottom, _epicTop)},
-			{EquipmentRarity.Legendary, (_legendaryBottom, _legendaryTop)},
-			{EquipmentRarity.LegendaryPlus, (_legendaryBottom, _legendaryTop)},
+			{EquipmentRarity.Common, (_commonBottom, _commonTop, _commonPattern)},
+			{EquipmentRarity.CommonPlus, (_commonBottom, _commonTop, _commonPattern)},
+			{EquipmentRarity.Uncommon, (_uncommonBottom, _uncommonTop, _uncommonPattern)},
+			{EquipmentRarity.UncommonPlus, (_uncommonBottom, _uncommonTop, _uncommonPattern)},
+			{EquipmentRarity.Rare, (_rareBottom, _rareTop, _rarePattern)},
+			{EquipmentRarity.RarePlus, (_rareBottom, _rareTop, _rarePattern)},
+			{EquipmentRarity.Epic, (_epicBottom, _epicTop, _epicPattern)},
+			{EquipmentRarity.EpicPlus, (_epicBottom, _epicTop, _epicPattern)},
+			{EquipmentRarity.Legendary, (_legendaryBottom, _legendaryTop, _legendaryPattern)},
+			{EquipmentRarity.LegendaryPlus, (_legendaryBottom, _legendaryTop, _legendaryPattern)},
 		};
 	}
 
 	public void SetDefault()
 	{
-		SetColor(_defaultColorTop, _defaultColorBottom);
+		SetColor(_defaultColorTop, _defaultColorBottom, _defaultColorPattern);
 	}
 
 	public void SetColorByRarity(EquipmentRarity rarity)
 	{
-		SetColor(_colorMap[rarity].top, _colorMap[rarity].bottom);
+		SetColor(_colorMap[rarity].top, _colorMap[rarity].bottom, _colorMap[rarity].gradient);
 	}
 
-	public void SetColor(Color color, float desaturation = 0.8f)
+	private void SetColor(Color top, Color bottom, Color pattern)
 	{
-		SetColor(color, color * desaturation);
-	}
-
-	public void SetColor(Color top, Color bottom)
-	{
-		_quadRenderer.material.SetColor("_ColorTop", top);
-		_quadRenderer.material.SetColor("_ColorBottom", bottom);
+		_quadRenderer.material.SetColor(_colorTopPID, top);
+		_quadRenderer.material.SetColor(_colorBottomPID, bottom);
+		_quadRenderer.material.SetColor(_colorPatternPID, pattern);
 	}
 }

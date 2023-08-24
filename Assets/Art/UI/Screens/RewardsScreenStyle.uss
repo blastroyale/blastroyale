@@ -530,6 +530,8 @@
     width: 800px;
     height: 800px;
     background-image: var(--sprite-home__rewards-impact-circle);
+}
+
 .player-header__avatar {
     width: 110px;
     height: 110px;

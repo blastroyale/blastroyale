@@ -29,8 +29,10 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField] private Vector3 _collectionSpawnPosition;
 		[SerializeField] private Vector3 _gliderSpawnPosition;
+		[SerializeField] private Vector3 _collectionSpawnRotation;
 		[SerializeField] private Vector3 _gliderSpawnRotation;
-
+		[SerializeField] private Vector3 _deathMarkerSpawnRotation;
+		
 		private static readonly int PAGE_SIZE = 3;
 
 		public struct StateData
@@ -61,6 +63,7 @@ namespace FirstLight.Game.Presenters
 		private GameObject _anchorObject;
 		private readonly List<UniqueId> _seenItems = new();
 		private const float ITEM_ROTATE_SPEED = 40f;
+		private float _degreesToRotate = 0f;
 
 		private void Awake()
 		{
@@ -117,6 +120,8 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			_degreesToRotate = 0f;
+			
 			ViewOwnedItemsFromCategory(_selectedCategory);
 			SelectEquipped(_selectedCategory);
 			UpdateCollectionDetails(_selectedCategory);
@@ -164,7 +169,8 @@ namespace FirstLight.Game.Presenters
 		private void OnCategoryClicked(CollectionCategory group)
 		{
 			if (_selectedCategory == group) return;
-			
+
+			_degreesToRotate = 0f;
 			_collectionList.ScrollToItem(0);
 			_selectedCategory = group;
 			
@@ -298,30 +304,45 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_anchorObject= new GameObject();
-			_anchorObject.transform.position = _collectionSpawnPosition;
-
+			_anchorObject.transform.position = _selectedCategory.Id == GameIdGroup.Glider ? _gliderSpawnPosition : _collectionSpawnPosition;
+			_collectionObject.transform.parent = _anchorObject.transform;
+			_collectionObject.transform.localPosition = Vector3.zero;
+			_collectionObject.transform.localRotation = Quaternion.identity;
+			
 			if (_selectedCategory.Id == GameIdGroup.Glider)
 			{
-				_collectionObject.transform.SetPositionAndRotation(_gliderSpawnPosition, Quaternion.Euler(_gliderSpawnRotation));
+				_degreesToRotate = _gliderSpawnRotation.y;
+				_anchorObject.transform.localRotation = Quaternion.Euler(_gliderSpawnRotation);
 				_collectionObject.GetComponent<MainMenuGliderViewComponent>().ActivateParticleEffects(false);
+			}
+			else if (_selectedCategory.Id == GameIdGroup.DeathMarker)
+			{
+				_degreesToRotate = _deathMarkerSpawnRotation.y;
+				_anchorObject.transform.localRotation = Quaternion.Euler(_deathMarkerSpawnRotation);
 			}
 			else
 			{
-				_collectionObject.transform.parent = _anchorObject.transform;
-				_collectionObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+				_degreesToRotate = _collectionSpawnRotation.y;
+				_anchorObject.transform.localRotation = Quaternion.Euler(_collectionSpawnRotation);
 			}
 		}
 		
 		void Update()
 		{
-			if (_selectedCategory.Id == GameIdGroup.Glider && _collectionObject)
+			if (!_anchorObject)
 			{
-				_collectionObject.transform.Rotate(Vector3.right * (ITEM_ROTATE_SPEED * Time.deltaTime));
+				return;
 			}
-			else if (_anchorObject)
+
+			_degreesToRotate += (ITEM_ROTATE_SPEED * Time.deltaTime);
+
+			if (_degreesToRotate > 360f)
 			{
-				_anchorObject.transform.Rotate(Vector3.up * (ITEM_ROTATE_SPEED * Time.deltaTime));
+				_degreesToRotate = 0f;
 			}
+
+			var eulerAngles = _anchorObject.transform.localEulerAngles;
+			_anchorObject.transform.localRotation = Quaternion.Euler(eulerAngles.x,  _degreesToRotate, eulerAngles.z);
 		}
 
 		/// Updated cost of Collection items / has it been equipped, etc. 

@@ -256,7 +256,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			SetRenderContainerVisible(true);
 
-			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS);
 
 			if (IsInInvisibilityArea())
 			{

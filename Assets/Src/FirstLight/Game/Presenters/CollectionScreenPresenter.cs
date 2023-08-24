@@ -60,6 +60,7 @@ namespace FirstLight.Game.Presenters
 		private GameObject _collectionObject;
 		private GameObject _anchorObject;
 		private readonly List<UniqueId> _seenItems = new();
+		private const float ITEM_ROTATE_SPEED = 40f;
 
 		private void Awake()
 		{
@@ -307,22 +308,19 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				_collectionObject.transform.parent = _anchorObject.transform;
-				_collectionObject.transform.SetLocalPositionAndRotation(Vector3.zero, new Quaternion(0, 0, 0, 0));
+				_collectionObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 			}
 		}
 		
 		void Update()
 		{
-			if (_collectionObject)
+			if (_selectedCategory.Id == GameIdGroup.Glider && _collectionObject)
 			{
-				if (_selectedCategory.Id == GameIdGroup.Glider)
-				{
-					_collectionObject.transform.Rotate(1, 0, 0, Space.Self);
-				}
-				else
-				{
-					_collectionObject.transform.Rotate(0, 1, 0, Space.Self);
-				}
+				_collectionObject.transform.Rotate(Vector3.right * (ITEM_ROTATE_SPEED * Time.deltaTime));
+			}
+			else if (_anchorObject)
+			{
+				_anchorObject.transform.Rotate(Vector3.up * (ITEM_ROTATE_SPEED * Time.deltaTime));
 			}
 		}
 

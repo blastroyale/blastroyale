@@ -62,7 +62,7 @@
     position: absolute;
     width: 400px;
     height: 600px;
-    display: none;
+    background-image: url('project://database/Assets/Art/UI/RenderTextures/rt-collection-item.renderTexture?fileID=8400000&guid=446a12b0162d14cc19fc53c0a75d803c&type=2#rt-collection-item');
 }
 
 .info-holder__item-name {

@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters
 				_collectionList.visible = false;
 			}
 
-			//_renderTexture.visible = hasItems;
+			_renderTexture.visible = hasItems;
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;

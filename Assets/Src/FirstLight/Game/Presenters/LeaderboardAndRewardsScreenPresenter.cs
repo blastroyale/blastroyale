@@ -109,7 +109,14 @@ namespace FirstLight.Game.Presenters
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
-			_fame.AttachView(this, out _levelView);
+
+			// TODO FAME
+			{
+				_fame.SetDisplay(false);
+				_bpp.style.top = 510;
+				_bpp.style.left = 150;
+				// _fame.AttachView(this, out _levelView);
+			}
 		}
 
 		private void OnNextButtonClicked()
@@ -149,7 +156,7 @@ namespace FirstLight.Game.Presenters
 			await _craftSpiceView.Animate();
 			await _trophiesView.Animate();
 			await _bppView.Animate();
-			await _levelView.Animate();
+			// TODO FAME await _levelView.Animate();
 		}
 
 		private void UpdateRewards()
@@ -178,7 +185,7 @@ namespace FirstLight.Game.Presenters
 			SetBPPReward(rewards);
 			
 			// Level (Fame)
-			SetLevelReward(rewards);
+			// TODO FAME SetLevelReward(rewards);
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)

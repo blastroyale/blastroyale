@@ -45,7 +45,6 @@
 }
 
 .rewards-one__rewardicon {
-    background-image: var(--sprite-shared__icon-currency-coin);
     background-color: rgba(0, 0, 0, 0);
     width: 182px;
     height: 182px;
@@ -361,16 +360,6 @@
     align-items: center;
 }
 
-.rewards-chest-summary {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-}
-
 .rewards-one__spark-small {
     width: 24px;
     height: 24px;
@@ -480,6 +469,29 @@
     margin-left: 0;
 }
 
+.rewards-summary {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.rewards-summary--fame {
+}
+
+.rewards-summary__avatar-holder {
+    position: absolute;
+    top: 44px;
+    display: none;
+}
+
+.rewards-summary--fame .rewards-summary__avatar-holder {
+    display: flex;
+}
+
 .rewards-summary__rewards-container > EquipmentCardElement {
     top: -17px;
     scale: 0.84 0.84;
@@ -493,13 +505,12 @@
 }
 
 .reward-summary-item__icon {
-    background-image: var(--sprite-shared__icon-currency-coin);
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 72px;
     height: 127px;
     top: 48px;
     -unity-background-scale-mode: scale-to-fit;
+    width: 127px;
 }
 
 .reward-summary-item__label {
@@ -519,4 +530,58 @@
     width: 800px;
     height: 800px;
     background-image: var(--sprite-home__rewards-impact-circle);
+.player-header__avatar {
+    width: 110px;
+    height: 110px;
+    background-color: rgb(214, 74, 123);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.player-header__avatar--nft {
+    background-color: initial;
+    background-image: var(--sprite-home__background-avatar-nft);
+}
+
+.player-header__avatar-mask {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.player-header__avatar--nft > .player-header__avatar-mask {
+    background-image: url('project://database/Assets/Art/UI/Vectors/ProfileBgShapeNft.svg?fileID=7388822144124034973&guid=383af2f3fddfd49a28a8e090f2857a24&type=3#ProfileBgShapeNft');
+}
+
+.player-header__avatar-pfp {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: var(--sprite-shared__avatar-default);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.player-header__avatar--nft .player-header__avatar-pfp {
+    border-top-left-radius: initial;
+    border-bottom-left-radius: initial;
+    border-top-right-radius: initial;
+    border-bottom-right-radius: initial;
+}
+
+.player-header__fame-lvl {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -30px;
+    -unity-text-align: upper-center;
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }

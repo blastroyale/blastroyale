@@ -130,6 +130,11 @@ namespace FirstLight.Game.Views.UITK
 
 					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
 						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl);
+					if (f.TryGet<Stats>(e, out var stats))
+					{
+						squadMember.UpdateHealth(StatUtils.GetHealthPercentage(stats).AsFloat);
+						squadMember.UpdateShield(StatUtils.GetShieldPercentage(stats).AsFloat);
+					}
 
 					index++;
 				}

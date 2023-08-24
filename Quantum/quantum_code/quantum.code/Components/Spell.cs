@@ -48,6 +48,12 @@ namespace Quantum
 				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, attacker.TeamId, Victim, 
 					OriginalHitPosition, PowerAmount);
 			}
+
+			if (this.Id == ShrinkingCircleId)
+			{
+				f.Events.OnShrinkingCircleDmg(Victim, PowerAmount);
+			}
+			
 			if (!f.Unsafe.TryGetPointer<Stats>(Victim, out var stats) || PowerAmount == 0)
 			{
 				return;

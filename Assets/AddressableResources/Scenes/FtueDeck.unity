@@ -9276,7 +9276,7 @@ MonoBehaviour:
   Prototype:
     Gear:
     - Id:
-        Value: 86
+        Value: 71
       Rarity:
         Value: 0
       Level: 5

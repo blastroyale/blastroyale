@@ -12,6 +12,7 @@ namespace FirstLight.Editor.AssetImporters
 			if (!assetImporter.assetPath.Contains("Assets/")) return;
 			
 			TextureImporter importer = assetImporter as TextureImporter;
+			if (importer == null) return;
 			if (importer.mipmapEnabled)
 			{
 				importer.mipmapEnabled = false;

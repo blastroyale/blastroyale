@@ -6800,3 +6800,608 @@ Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_fi
 Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LM0_final.hdr" 1024
 [usbmuxd] Stop listen thread
 [usbmuxd] Listen thread exiting
+2023-8-17
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA30.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA31.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final" 4 16 3 "gi_IslandsMap_LMA32.bin" "IslandsMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "IslandsMap_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting
+2023-8-18
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting
+2023-8-21
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+2023-8-22
+Rendering UV GBuffer for District_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for District_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for District_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LMA1.lz4" 2 0 1 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_ao" 8 16 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_ao" 8 16 1
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_diffuse" 4 16 2 "gi_District_LMA20.bin" "District_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_diffuse" 4 16 0 "gi_District_LM00.bin" "District_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_diffuse" 4 16 1 "gi_District_LMA10.bin" "District_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_diffuse" 4 16 2 "gi_District_LMA21.bin" "District_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_diffuse" 4 16 0 "gi_District_LM01.bin" "District_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_diffuse" 4 16 1 "gi_District_LMA11.bin" "District_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_final" 4 16 2 "gi_District_LMA22.bin" "District_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_final" 4 16 0 "gi_District_LM02.bin" "District_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_final" 4 16 1 "gi_District_LMA12.bin" "District_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "District_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "District_LM0_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "District_LMA1_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LMA1_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting
+2023-8-23
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA30.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_diffuse" 4 16 4 "gi_IslandsMap_LMA40.bin" "IslandsMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_diffuse" 4 16 5 "gi_IslandsMap_LMA50.bin" "IslandsMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA31.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_diffuse" 4 16 4 "gi_IslandsMap_LMA41.bin" "IslandsMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_diffuse" 4 16 5 "gi_IslandsMap_LMA51.bin" "IslandsMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final" 4 16 3 "gi_IslandsMap_LMA32.bin" "IslandsMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_final" 4 16 4 "gi_IslandsMap_LMA42.bin" "IslandsMap_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_final" 4 16 5 "gi_IslandsMap_LMA52.bin" "IslandsMap_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "IslandsMap_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "IslandsMap_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "IslandsMap_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for District_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for District_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for District_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_District_LMA1.lz4" 2 0 1 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_ao" 8 16 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_ao" 8 16 1
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_diffuse" 4 16 2 "gi_District_LMA20.bin" "District_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_diffuse" 4 16 0 "gi_District_LM00.bin" "District_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_diffuse" 4 16 1 "gi_District_LMA10.bin" "District_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_diffuse" 4 16 2 "gi_District_LMA21.bin" "District_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_diffuse" 4 16 0 "gi_District_LM01.bin" "District_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_diffuse" 4 16 1 "gi_District_LMA11.bin" "District_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_final" 4 16 2 "gi_District_LMA22.bin" "District_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_final" 4 16 0 "gi_District_LM02.bin" "District_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_final" 4 16 1 "gi_District_LMA12.bin" "District_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "District_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "District_LM0_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "District_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiser c "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "District_LMA1_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/District_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/District/District_LMA1_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for IslandsMap_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for IslandsMap_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_IslandsMap_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_diffuse" 4 16 4 "gi_IslandsMap_LMA40.bin" "IslandsMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA10.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA20.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA30.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_diffuse" 4 16 5 "gi_IslandsMap_LMA50.bin" "IslandsMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM00.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_diffuse" 4 16 4 "gi_IslandsMap_LMA41.bin" "IslandsMap_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_diffuse" 4 16 1 "gi_IslandsMap_LMA11.bin" "IslandsMap_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_diffuse" 4 16 2 "gi_IslandsMap_LMA21.bin" "IslandsMap_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_diffuse" 4 16 3 "gi_IslandsMap_LMA31.bin" "IslandsMap_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_diffuse" 4 16 5 "gi_IslandsMap_LMA51.bin" "IslandsMap_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_diffuse" 4 16 0 "gi_IslandsMap_LM01.bin" "IslandsMap_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_final" 4 16 4 "gi_IslandsMap_LMA42.bin" "IslandsMap_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final" 4 16 1 "gi_IslandsMap_LMA12.bin" "IslandsMap_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final" 4 16 2 "gi_IslandsMap_LMA22.bin" "IslandsMap_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final" 4 16 3 "gi_IslandsMap_LMA32.bin" "IslandsMap_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_final" 4 16 5 "gi_IslandsMap_LMA52.bin" "IslandsMap_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final" 4 16 0 "gi_IslandsMap_LM02.bin" "IslandsMap_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "IslandsMap_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "IslandsMap_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "IslandsMap_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "IslandsMap_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "IslandsMap_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "IslandsMap_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "IslandsMap_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/IslandsMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/AddressableResources/Scenes/IslandsMap/IslandsMap_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting

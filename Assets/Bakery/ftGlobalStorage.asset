@@ -125,7 +125,15 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
   - Assets/Art/Models/Environment/Outer Map assets/Tank region/Decal 1.fbx
   - Assets/Art/Models/Environment/Outer Map assets/Props/HDK.fbx
-  modifiedAssetPaddingHash: d6a958ff202439fbe937ed0413b35d909bb576f108dc894b16c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac2023911b04adc894b9e8f1ac23e3fd3d995c2a69318573014353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9a48f1ac2bb09ecc0e55031eee55031eee55031eee55031ee185730142ab126fcaf67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d93639f8f1ac266083ca803911ac25e8f1ac2d2f23a060e6d76d99c09ecc0eddb894be4901ac298f23a06797e9363f427c115ddc783049908e1402a80ecaf3e3fd3d914f33a06343fd3d9a48f1ac23e3fd3d9d60aecc0d15634b7275031ee38c2a693377e9363c25031ee5bc2a6938c67e2a85dc5d89061dd894b14f33a0695c2a6938c67e2a813a3ddde9f398033567e9363e55031ee885031ee3c4efff0f1f23a063367e2a880c5d8905267e2a81b3a8033a768e2a8885031ee
+  - Assets/Art/Models/Environment/Model_Trees/PT3.fbx
+  - Assets/Art/Models/Environment/Model_Trees/PT1.fbx
+  - Assets/Art/Models/Environment/Props_OLD/Containers.fbx
+  - Assets/Art/Models/Environment/Model_Trees/PT2.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/FancyFacade_2_GRP_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/ToolShop_GRP_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Clapperboard_1_SS_Y0.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/FancyFacade_3_GRP_SS_Y0.fbx
+  modifiedAssetPaddingHash: d6a958ff202439fbe937ed04fefa474f9bb576f108dc894bbc93da515eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac2023911b04adc894b9e8f1ac23e3fd3d995c2a69318573014353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9a48f1ac2bb09ecc0e55031eee55031eee55031eee55031ee185730142ab126fcaf67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d93639f8f1ac266083ca803911ac25e8f1ac2d2f23a060e6d76d99c09ecc0eddb894be4901ac298f23a06797e9363f427c115ddc783049908e1402a80ecaf3e3fd3d914f33a06343fd3d9a48f1ac23e3fd3d9d60aecc0d15634b7275031ee38c2a693377e9363c25031ee5bc2a6938c67e2a85dc5d89061dd894b14f33a0695c2a6938c67e2a813a3ddde9f398033567e9363e55031ee885031ee3c4efff0f1f23a063367e2a880c5d8905267e2a81b3a8033a768e2a8885031ee75f23a066209ecc0d7c2a693885031ee81b4c42c9531e5c0af67e2a89c22c3b8
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -524,7 +532,7 @@ MonoBehaviour:
     - Car_Chevvy_Purple_GEO
     - Car_Chevvy_Red_GEO
     - Car_Chevvy_Blue_GEO
-    padding: 1c0000005a0000001c0000001c000000
+    padding: 1c0000001c0000001c0000001c000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - Car_Convertable_Green_GEO
@@ -539,8 +547,9 @@ MonoBehaviour:
   - meshName:
     - Car_PickUp_Red_GEO
     - Car_PickUp_Blue_GEO
-    padding: 1500000015000000
-    unwrapper: 0000000000000000
+    - Car_PickUp_Green_GEO
+    padding: 150000001500000015000000
+    unwrapper: 000000000000000000000000
   - meshName:
     - SatDish
     - Paving
@@ -1000,6 +1009,41 @@ MonoBehaviour:
     - Hot_dog_kart
     padding: 2f000000
     unwrapper: 00000000
+  - meshName:
+    - PT3
+    padding: 3c000000
+    unwrapper: 00000000
+  - meshName:
+    - PT1
+    padding: 34000000
+    unwrapper: 00000000
+  - meshName:
+    - Container_Red
+    padding: 13000000
+    unwrapper: 00000000
+  - meshName:
+    - PT2
+    padding: 2f000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - FancyFacade_Base_Geo
+    padding: 140000000c000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - ToolShop_Roof_GEO
+    - ToolShop_Base_GEO
+    padding: 0e0000000b000000
+    unwrapper: 0000000000000000
+  - meshName:
+    - Clapperboard_1_GEO
+    padding: 0b000000
+    unwrapper: 00000000
+  - meshName:
+    - Top
+    - Fancy_Facade_Base_Geo
+    padding: 0e00000009000000
+    unwrapper: 0000000000000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
   - Assets/Bakery/examples/content/floor_lamp.FBX
@@ -1151,7 +1195,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 0600000005000000
-  modifiedMeshUnwrapperArray: 0000000000000000
+  modifiedMeshPaddingArray: 08000000
+  modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

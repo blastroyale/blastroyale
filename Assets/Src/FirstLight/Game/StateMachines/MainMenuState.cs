@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -524,11 +526,35 @@ namespace FirstLight.Game.StateMachines
 				OnBattlePassClicked = () => _statechartTrigger(BattlePassClickedEvent),
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 				OnDiscordClicked = DiscordButtonClicked,
-				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage
+				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
+				OnLevelUp = OpenLevelUpScreen
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
+		}
+
+		private void OpenLevelUpScreen()
+		{
+			var config = _services.ConfigsProvider.GetConfig<PlayerLevelConfig>((int) _gameDataProvider.PlayerDataProvider.Level.Value);
+			var rewards = new List<IReward>();
+
+			foreach (var (id, amount) in config.Rewards)
+			{
+				rewards.Add(new CurrencyReward(id, (uint) amount));
+			}
+
+			foreach (var unlockSystem in config.Systems)
+			{
+				rewards.Add(new UnlockReward(unlockSystem));
+			}
+
+			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+			{
+				FameRewards = true,
+				Rewards = rewards,
+				OnFinish = OpenHomeScreen
+			});
 		}
 
 		private void OpenDisconnectedScreen()

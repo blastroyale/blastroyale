@@ -18,20 +18,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public enum UnlockSystem
 	{
-		EquipmentScreen,
-		BattlePassScreen,
-		CollectionScreen,
-		LeaderboardScreen,
 		ShopScreen,
-		SpecialsScreen,
-		SpecialSlot1,
-		SpecialSlot2,
-		Squads,
-		EquipmentUpgrade,
-		EquipmentScrapping,
-		EquipmentFusion,
-		CustomGameMode,
-		TriosGameMode,
+		CollectionsScreen
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

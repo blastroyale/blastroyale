@@ -1,10 +1,19 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.SDK.Services;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Messages
 {
+	public struct ItemEquippedMessage : IMessage
+	{
+		public PlayerCharacterViewMonoComponent Character;
+		public GameObject Item;
+		public GameId Id;
+	}
+	
 	public struct ItemScrappedMessage : IMessage
 	{
 		public UniqueId Id;

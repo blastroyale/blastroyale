@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Level: 1
-    LevelUpXP: 0
+    LevelUpXP: 50
     Rewards:
       _keyData: 
       _valueData: 
-    Systems: 000000000100000006000000
+    Systems: 
   - Level: 2
     LevelUpXP: 100
     Rewards:
@@ -30,61 +30,61 @@ MonoBehaviour:
     Rewards:
       _keyData: 3d000000
       _valueData: 96000000
-    Systems: 09000000
+    Systems: 00000000
   - Level: 4
     LevelUpXP: 200
     Rewards:
       _keyData: 3d0000000c000000
       _valueData: c800000032000000
-    Systems: 02000000
+    Systems: 
   - Level: 5
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
       _valueData: 64000000
-    Systems: 0a000000
+    Systems: 
   - Level: 6
     LevelUpXP: 400
     Rewards:
       _keyData: 0c000000
       _valueData: 64000000
-    Systems: 0300000004000000
+    Systems: 
   - Level: 7
     LevelUpXP: 400
     Rewards:
       _keyData: 0c000000
       _valueData: 64000000
-    Systems: 0d000000
+    Systems: 01000000
   - Level: 8
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
       _valueData: f4010000
-    Systems: 08000000
+    Systems: 
   - Level: 9
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
       _valueData: 64000000
-    Systems: 05000000
+    Systems: 
   - Level: 10
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
       _valueData: e8030000
-    Systems: 0b000000
+    Systems: 
   - Level: 11
     LevelUpXP: 600
     Rewards:
       _keyData: 3d000000
       _valueData: e8030000
-    Systems: 0b000000
+    Systems: 
   - Level: 12
     LevelUpXP: 800
     Rewards:
       _keyData: 3d000000
       _valueData: d0070000
-    Systems: 07000000
+    Systems: 
   - Level: 13
     LevelUpXP: 1500
     Rewards:

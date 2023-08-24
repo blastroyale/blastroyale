@@ -3,18 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
-using FirstLight.Models.Collection;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -51,6 +49,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnStoreClicked;
 			public Action OnDiscordClicked;
 			public Action OnMatchmakingCancelClicked;
+			public Action OnLevelUp;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -64,6 +63,11 @@ namespace FirstLight.Game.Presenters
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
+		private Label _playerFameLabel;
+		private VisualElement _playerFameStar1;
+		private VisualElement _playerFameStar2;
+		private VisualElement _playerFameStar3;
+		private VisualElement _playerFameStar4;
 		private VisualElement _avatar;
 		private VisualElement _avatarPfp;
 
@@ -110,6 +114,11 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
+			_playerFameLabel = root.Q<Label>("PlayerFameLevel").Required();
+			_playerFameStar1 = root.Q("FameStar1").Required();
+			_playerFameStar2 = root.Q("FameStar2").Required();
+			_playerFameStar3 = root.Q("FameStar3").Required();
+			_playerFameStar4 = root.Q("FameStar4").Required();
 			_avatar = root.Q("Avatar").Required();
 			_avatarPfp = root.Q("AvatarPFP").Required();
 
@@ -153,12 +162,18 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
-			root.Q<Button>("CollectionButton").clicked += Data.OnCollectionsClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
+			var collectionButton = root.Q<Button>("CollectionButton");
+			collectionButton.clicked += Data.OnCollectionsClicked;
+			collectionButton.LevelLock(this, UnlockSystem.CollectionsScreen);
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
+			if (FeatureFlags.STORE_ENABLED)
+			{
+				storeButton.LevelLock(this, UnlockSystem.ShopScreen);
+			}
 
 			var discordButton = root.Q<Button>("DiscordButton");
 			discordButton.clicked += () =>
@@ -229,6 +244,7 @@ namespace FirstLight.Game.Presenters
 			SubscribeToSquadEvents();
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
+			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 		}
 
 
@@ -283,6 +299,47 @@ namespace FirstLight.Game.Presenters
 			_playerNameLabel.text = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
+		private void OnFameChanged(uint previous, uint current)
+		{
+			_playerFameLabel.text = current.ToString();
+
+			if (current < 2)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 0.2f;
+				_playerFameStar3.style.opacity = 0.2f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 4)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 0.2f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 6)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 1f;
+				_playerFameStar4.style.opacity = 0.2f;
+			}
+			else if (current < 8)
+			{
+				_playerFameStar1.style.opacity = 1f;
+				_playerFameStar2.style.opacity = 1f;
+				_playerFameStar3.style.opacity = 1f;
+				_playerFameStar4.style.opacity = 1f;
+			}
+
+			if (previous != current && previous > 0)
+			{
+				Data.OnLevelUp(); // TODO: This should be handled from the state machine
+			}
+
+			// TODO: Animate VFX when we have a progress bar: StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _avatar));
+		}
+
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
 			UpdateGameModeButton();
@@ -291,10 +348,10 @@ namespace FirstLight.Game.Presenters
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
 			yield return new WaitForSeconds(0.1f);
-			
+
 			label.text = previous.ToString();
 
-			for (int i = 0; i < Mathf.Clamp((current - previous)/5, 3, 10); i++)
+			for (int i = 0; i < Mathf.Clamp((current - previous) / 5, 3, 10); i++)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.05f,
@@ -305,9 +362,9 @@ namespace FirstLight.Game.Presenters
 						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 					});
 			}
-			
+
 			yield return new WaitForSeconds(TROPHIES_COUNT_DELAY);
-			
+
 			DOVirtual.Float(previous, current, 0.5f, val => { label.text = val.ToString("F0"); });
 		}
 
@@ -359,7 +416,7 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassReward();
 
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -374,9 +431,9 @@ namespace FirstLight.Game.Presenters
 			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
 			// I guess it depends on how long the transition to home screen take; so these errors still may appear
 			yield return new WaitForSeconds(0.1f);
-			
+
 			var pointsDiff = (int) current - (int) previous;
-			var pointsToAnimate = Mathf.Clamp((current - previous)/10, 3, 10);
+			var pointsToAnimate = Mathf.Clamp((current - previous) / 10, 3, 10);
 			var pointSegment = Mathf.RoundToInt(pointsDiff / pointsToAnimate);
 
 			var pointSegments = new List<int>();
@@ -420,7 +477,7 @@ namespace FirstLight.Game.Presenters
 						UpdateBattlePassPoints(points);
 					});
 			}
-			
+
 			yield break;
 		}
 
@@ -446,7 +503,7 @@ namespace FirstLight.Game.Presenters
 			var buttonEnabled = true;
 
 			if (forceLoading || _services.PartyService.OperationInProgress.Value ||
-			    _services.MatchmakingService.IsMatchmaking.Value)
+				_services.MatchmakingService.IsMatchmaking.Value)
 			{
 				buttonClass = "play-button--loading";
 				buttonEnabled = false;
@@ -510,8 +567,8 @@ namespace FirstLight.Game.Presenters
 			if (!hasRewards)
 			{
 				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
-				    _dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
-				    _dataProvider.BattlePassDataProvider.MaxLevel)
+					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+					_dataProvider.BattlePassDataProvider.MaxLevel)
 				{
 					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);
 					_bppPoolContainer.SetDisplay(false);

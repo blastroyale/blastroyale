@@ -8,10 +8,17 @@
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITRewards/rewards_remaining" text="REWARDS REMAINING" name="RewardsRemainingLabel" class="rewards-remaining__text" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="backref" class="fill-parent" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/References/Back.png?fileID=2800000&amp;guid=aa3da0aa20f63d148a95a9724e2b64f7&amp;type=3#Back&apos;); display: none;" />
-        <ui:VisualElement name="ChestSummary" class="rewards-chest-summary" style="display: none;">
+        <ui:VisualElement name="RewardsSummary" class="rewards-summary" style="display: flex;">
             <ui:VisualElement name="RaysSummaryReward" class="rewards-one__rays">
                 <ui:VisualElement name="RaysGradient" class="rewards-one__gradient" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AvatarHolder" class="rewards-summary__avatar-holder">
+                <ui:VisualElement name="Avatar" class="player-header__avatar">
+                    <ui:VisualElement name="AvatarMask" class="player-header__avatar-mask">
+                        <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label tabindex="-1" text="44" display-tooltip-when-elided="true" name="FameLevel" class="player-header__fame-lvl" />
             </ui:VisualElement>
             <ui:VisualElement name="LabelRewardsContainer" class="rewards-summary__label-rewards-holder">
                 <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/you_got" text="YOU GOT" display-tooltip-when-elided="true" name="YouGotLabel" class="rewards-summary__you-got-label" />
@@ -19,7 +26,7 @@
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
-                    <FirstLight.Game.UIElements.RewardSummaryItemElement />
+                    <FirstLight.Game.UIElements.RewardSummaryItemElement style="align-items: flex-end; justify-content: space-around;" />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.EquipmentCardElement />
                     <FirstLight.Game.UIElements.RewardSummaryItemElement />
@@ -34,7 +41,7 @@
             <ui:Label tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
             <ui:Label tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
             <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
-            <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon">
+            <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon sprite-home__icon-shop">
                 <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>

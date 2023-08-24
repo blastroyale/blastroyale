@@ -318,6 +318,7 @@
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
     <Compile Include="Utils\QuantumStatCalculator.cs" />
+    <Compile Include="Utils\StatUtils.cs" />
     <Compile Include="Utils\TeamHelpers.cs" />
   </ItemGroup>
   <ItemGroup>

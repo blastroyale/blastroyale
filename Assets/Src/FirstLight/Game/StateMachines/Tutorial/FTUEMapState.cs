@@ -181,6 +181,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardLand);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			_services.MessageBrokerService.Subscribe<PlayerUsedMovementJoystick>(OnPlayerUsedMovementJoystick);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
@@ -231,7 +232,6 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			await Task.Yield();
-
 			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerAlive));
 		}
 
@@ -242,6 +242,12 @@ namespace FirstLight.Game.StateMachines
 			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			CheckGameplayProceedConditions(typeof(EventOnEquipmentCollected));
+		}
+		
+		private async void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			await Task.Yield();
+			CheckGameplayProceedConditions(typeof(EventOnPlayerDead));
 		}
 
 		private async void OnHazardLand(EventOnHazardLand callback)
@@ -275,6 +281,7 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeMessages()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private void StartFirstTutorialMatch()
@@ -467,8 +474,7 @@ namespace FirstLight.Game.StateMachines
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()
 			{
-				EventType = typeof(EventOnPlayerKilledPlayer),
-				EventMetaAmount = 1
+				EventType = typeof(EventOnPlayerDead)
 			};
 			_services.MessageBrokerService.Publish(new AdvancedFirstMatchMessage
 			{

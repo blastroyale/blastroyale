@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -8,7 +7,6 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
-using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;

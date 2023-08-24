@@ -155,6 +155,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var shrinkingNotified = false;
 			var warningNotified = false;
+			var delayPhaseStarted = false;
 
 			// FLog.Info("PACO",
 			// 	"StartCountdown: delayTime: " + delayTimeMs + " warningTimeMs: " + warningTimeMs + " shrinkingTimeMs: " + shrinkingTimeMs +
@@ -171,12 +172,18 @@ namespace FirstLight.Game.Views.UITK
 
 					if (currentTimeSeconds < warningStartTime)
 					{
-						_timerLabel.text = string.Empty;
+						if (!delayPhaseStarted)
+						{
+							_timerLabel.text = string.Empty;
+							_counterElement.SetVisibility(false);
+							delayPhaseStarted = true;
+						}
 					}
 					else if (currentTimeSeconds < shrinkingStartTime)
 					{
 						if (!warningNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
 						}
@@ -187,6 +194,7 @@ namespace FirstLight.Game.Views.UITK
 					{
 						if (!shrinkingNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
 						}

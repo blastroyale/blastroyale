@@ -40,6 +40,7 @@
             </ui:VisualElement>
             <ui:Label tabindex="-1" text="COINS" display-tooltip-when-elided="true" name="RewardName" class="rewards-one__name" />
             <ui:Label tabindex="-1" text="x 250" display-tooltip-when-elided="true" name="RewardAmount" class="rewards-one__amount" />
+            <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
             <ui:VisualElement name="RewardIcon" class="rewards-one__rewardicon sprite-home__icon-shop">
                 <ui:VisualElement name="SparkGradient1" class="rewards-one__spark-small rewards-one__spark-small--1">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
@@ -94,7 +95,7 @@
                 <ui:VisualElement name="SparkGradient3" class="rewards-one__spark-small rewards-one__spark-small--3">
                     <ui:VisualElement name="Spark" class="rewards-one__spark" />
                 </ui:VisualElement>
-                <ui:VisualElement name="AppearGradient" class="rewards-one__spark-gradient">
+                <ui:VisualElement name="AppearGradientEquipment" class="rewards-one__spark-gradient">
                     <ui:VisualElement name="AppearSparkEquipment" class="rewards-one__appear-spark" />
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -110,8 +111,9 @@
                     <ui:Label tabindex="-1" text="UNCOMMON" display-tooltip-when-elided="true" name="EquipmentRarityLabel" class="rewards-equipment__tag-label" />
                     <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" text="LONG RANGE" display-tooltip-when-elided="true" name="EquipmentRangeLabel" class="rewards-equipment__tag-label" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.EquipmentCardElement name="EquipmentRewardCard" class="rewards-equipment__card" />
+                <FirstLight.Game.UIElements.EquipmentCardElement name="EquipmentRewardCard" class="rewards-equipment__card rewards-equipment__rays" />
             </ui:VisualElement>
+            <ui:VisualElement name="RewardsImpactCircle" class="rewards-one__circle-impact" />
             <ui:VisualElement name="WhiteBlink" class="screen-blink-white" />
         </ui:VisualElement>
     </ui:VisualElement>

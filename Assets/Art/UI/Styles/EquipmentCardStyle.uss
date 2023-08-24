@@ -3,6 +3,7 @@
     height: 328px;
     transition-property: scale;
     transition-duration: 0.2s;
+    top: 270px;
 }
 
 .equipment-card--marketplace .equipment-card__level {
@@ -48,7 +49,7 @@
     transition-duration: 0.2s;
 }
 
-.equipment-card--highlighted  .equipment-card__highlight {
+.equipment-card--highlighted .equipment-card__highlight {
     position: absolute;
     top: 0;
     left: -7px;

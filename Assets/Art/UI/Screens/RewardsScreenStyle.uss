@@ -10,6 +10,7 @@
     height: 1080px;
     align-items: center;
     justify-content: center;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.69);
 }
 
 .rewards-one__rays {
@@ -18,7 +19,7 @@
     position: absolute;
     background-image: var(--sprite-home__vfx-rewards-rays);
     align-self: center;
-    -unity-background-image-tint-color: rgba(240, 119, 255, 0.5);
+    -unity-background-image-tint-color: rgba(240, 119, 255, 0.27);
 }
 
 .rewards-one__name {
@@ -110,8 +111,8 @@
 }
 
 .rewards-equipment__item-icon {
-    width: 372px;
-    height: 372px;
+    width: 440px;
+    height: 440px;
     background-image: var(--sprite-home__weapon-placeholder);
     align-items: center;
     justify-content: center;
@@ -123,7 +124,7 @@
     width: 1080px;
     height: 1080px;
     align-self: center;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0.24);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.19);
     background-image: var(--sprite-home__vfx-rewards-rays);
 }
 
@@ -143,6 +144,7 @@
     background-image: var(--sprite-match__gradientwhite);
     align-self: center;
     top: 147px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.43);
 }
 
 .rewards-equipment__name {
@@ -183,8 +185,8 @@
     -unity-background-image-tint-color: rgba(248, 135, 46, 0.38);
     background-image: var(--sprite-match__gradientwhite);
     align-self: center;
-    top: -100px;
-    left: -131px;
+    top: -106px;
+    left: -130px;
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
 }
@@ -220,16 +222,16 @@
 }
 
 .rewards-equipment__tag-label--rare {
-    background-color: rgb(88, 155, 255);
+    background-color: rgb(59, 142, 226);
 }
 
 .rewards-equipment__tag-label--epic {
-    background-color: rgb(255, 72, 72);
+    background-color: rgb(208, 73, 85);
     color: rgb(72, 72, 72);
 }
 
 .rewards-equipment__tag-label--legendary {
-    background-color: rgb(253, 203, 41);
+    background-color: rgb(255, 193, 64);
     color: rgb(72, 72, 72);
 }
 
@@ -332,7 +334,7 @@
 }
 
 .rewards-equipment__rays--uncommon {
-    -unity-background-image-tint-color: rgba(181, 255, 153, 0.19);
+    -unity-background-image-tint-color: rgba(181, 255, 153, 0.15);
 }
 
 .rewards-equipment__name-container {
@@ -388,31 +390,31 @@
 }
 
 .rewards-equipment__gradient--uncommon {
-    -unity-background-image-tint-color: rgb(216, 255, 155);
+    -unity-background-image-tint-color: rgba(216, 255, 155, 0.67);
 }
 
 .rewards-equipment__rays--rare {
-    -unity-background-image-tint-color: rgba(129, 209, 255, 0.24);
+    -unity-background-image-tint-color: rgba(77, 162, 253, 0.35);
 }
 
 .rewards-equipment__gradient--rare {
-    -unity-background-image-tint-color: rgb(42, 251, 255);
+    -unity-background-image-tint-color: rgba(95, 239, 255, 0.7);
 }
 
 .rewards-equipment__rays--epic {
-    -unity-background-image-tint-color: rgba(255, 84, 66, 0.54);
+    -unity-background-image-tint-color: rgba(255, 105, 117, 0.3);
 }
 
 .rewards-equipment__gradient--epic {
-    -unity-background-image-tint-color: rgb(255, 161, 150);
+    -unity-background-image-tint-color: rgb(255, 107, 93);
 }
 
 .rewards-equipment__rays--legendary {
-    -unity-background-image-tint-color: rgba(255, 188, 20, 0.53);
+    -unity-background-image-tint-color: rgb(255, 133, 11);
 }
 
 .rewards-equipment__gradient--legendary {
-    -unity-background-image-tint-color: rgb(255, 223, 18);
+    -unity-background-image-tint-color: rgba(255, 228, 119, 0.69);
 }
 
 .rewards-equipment__rays--mythic {
@@ -519,6 +521,15 @@
     bottom: 13px;
     right: 18px;
     -unity-text-align: upper-center;
+}
+
+.rewards-one__circle-impact {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background-image: var(--sprite-home__rewards-impact-circle);
 }
 
 .player-header__avatar {

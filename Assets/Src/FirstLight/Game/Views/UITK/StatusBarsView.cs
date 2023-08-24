@@ -28,6 +28,7 @@ namespace FirstLight.Game.Views.UITK
 		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
 		private readonly HashSet<EntityRef> _culledPlayers = new();
 		private readonly List<EntityRef> _entityCache = new(5);
+		private readonly StyleColor _defaultShieldDmgColor = new StyleColor(new Color(0.2f, 0.72f, 1f));
 
 		// TODO: Only returned to pool when it's destroyed, and they're not culled
 		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new();
@@ -315,7 +316,7 @@ namespace FirstLight.Game.Views.UITK
 				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
 				{
 					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
-
+			
 					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
 						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
 				}
@@ -335,7 +336,7 @@ namespace FirstLight.Game.Views.UITK
 			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
 				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
-				playerBar.PingDamage(callback.TotalDamage);
+				playerBar.PingDamage(callback.TotalDamage, callback.isShieldDmg ? _defaultShieldDmgColor : null);
 			}
 		}
 

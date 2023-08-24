@@ -59,6 +59,8 @@ namespace FirstLight.Game.UIElements
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
+		private readonly StyleColor _defaultPingDmgColor = new StyleColor(new Color(1f, 1f, 1f));
+
 		private ValueAnimation<Vector3> _reloadAnimation;
 
 		public PlayerStatusBarElement()
@@ -159,12 +161,13 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// If the bar is not friendly, display it for some amount of time.
 		/// </summary>
-		public void PingDamage(uint damage)
+		public void PingDamage(uint damage, StyleColor? color = null)
 		{
 			_damageNumberIndex = (_damageNumberIndex + 1) % DAMAGE_NUMBER_MAX_POOL_SIZE;
 			var damageNumberLabel = _damageNumbersPool[_damageNumberIndex];
 			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
 			_damageNumberAnimValues[_damageNumberIndex] = damage;
+			damageNumberLabel.style.color = color ?? _defaultPingDmgColor;
 			damageNumberLabel.text = damage.ToString();
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();

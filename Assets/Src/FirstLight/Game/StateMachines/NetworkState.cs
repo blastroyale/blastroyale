@@ -19,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -361,6 +362,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LeaveRoom()
 		{
+			FLog.Verbose("Leaving current room");
 			_networkService.LeaveRoom(false, true);
 		}
 
@@ -440,7 +442,7 @@ namespace FirstLight.Game.StateMachines
 				_networkService.QuantumClient.DisconnectedCause
 					.ToString());
 
-			if (QuantumRunner.Default != null)
+			if (QuantumRunner.Default != null && QuantumRunner.Default.Session.GameMode != DeterministicGameMode.Local)
 			{
 				FLog.Verbose("Disabling Simulation Updates");
 				QuantumRunner.Default.OverrideUpdateSession = true;

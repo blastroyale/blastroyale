@@ -435,13 +435,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			if (!_services.NetworkService.JoinSource.IsSnapshotAutoConnect())
-			{
-				FLog.Verbose("Not snapshot connect room");
-				return false;
-			}
-
-			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (room.GetMatchType() == MatchType.Custom || room.IsOffline || _services.GameBackendService.IsDev());
+			return room.IsOffline;
 		}
 
 		/// <summary>
@@ -454,7 +448,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 
-			return FeatureFlags.RESTORE_SNAPSHOT_GAMES && (snapshot.Setup.MatchType == MatchType.Custom || snapshot.Offline || _services.GameBackendService.IsDev());
+			return snapshot.Offline;
 		}
 
 		public static void SetProperty(this Room room, string prop, object value)

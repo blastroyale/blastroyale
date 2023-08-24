@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -7,6 +8,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
@@ -57,7 +59,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 
 			_healthBarPool = new ObjectPool<HealthStatusBarElement>(
 				() =>
@@ -70,7 +72,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 		}
 
 		public override void SubscribeToEvents()
@@ -86,8 +88,8 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
-
-			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -151,7 +153,12 @@ namespace FirstLight.Game.Views.UITK
 			// Duplicates above ^
 			foreach (var (entity, bar) in _healthBars)
 			{
-				var anchor = _anchors[entity];
+				// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+				if (!_anchors.TryGetValue(entity, out var anchor))
+				{
+					FLog.Warn($"Failed to restore anchor for entity {entity}, likely due to reconnection, skipping");
+					continue;
+				}
 				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
@@ -161,33 +168,31 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnMatchStarted(MatchStartedMessage message)
+		private void OnMatchStart(MatchStartedMessage msg)
 		{
-			if (!message.IsResync) return;
-
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
+			for (int i = 0; i < f.PlayerCount; i++)
+			{
+				InitPlayer(f, dataArray[i].Entity);
+			}
+		}
+		
+		private void OnGameResync(CallbackGameResynced cb)
+		{
 			_anchors.Clear();
 			_culledPlayers.Clear();
+			_healthBars.Clear();
 			foreach (var (_, bar) in _visiblePlayers)
 			{
 				_playerBarPool.Release(bar);
 			}
-
 			_visiblePlayers.Clear();
 			foreach (var (_, bar) in _healthBars)
 			{
 				_healthBarPool.Release(bar);
 			}
-
 			_healthBarPool.Clear();
-
-			var f = message.Game.Frames.Verified;
-
-			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
-
-			for (int i = 0; i < f.PlayerCount; i++)
-			{
-				InitPlayer(f, dataArray[i].Entity);
-			}
 		}
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
@@ -199,6 +204,12 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
 
+			// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+			if (_anchors.ContainsKey(entity))
+			{
+				FLog.Warn("Unhandled reconnection flow initializing entity twice, ignoring it for now");
+				return;
+			}
 			_anchors.Add(entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
 			if (f.IsCulled(entity))

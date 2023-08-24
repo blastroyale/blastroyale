@@ -68,7 +68,10 @@ namespace FirstLight.Game.Utils
 			var isTutorialMode = setup.GameModeId == GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID ||
 				setup.GameModeId == GameConstants.Tutorial.SECOND_BOT_MODE_ID;
 			var roomNameFinal = setup.RoomIdentifier;
-			var emptyTtl = 0;
+			
+			// In offline games we need to create the room with the correct TTL as we cannot update TTL
+			// mid games. If we don't we won't be able to reconnect to the room unless we use a frame snapshot which is tricky.
+			var emptyTtl = isTutorialMode ? GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS : 0;
 
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
@@ -122,6 +125,7 @@ namespace FirstLight.Game.Utils
 				roomNameFinal += RoomCommitLockData;
 			}
 
+			Log.Warn("Enter Custom Games");
 			return new EnterRoomParams
 			{
 				RoomName = roomNameFinal,

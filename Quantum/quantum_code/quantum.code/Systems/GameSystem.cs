@@ -112,20 +112,30 @@ namespace Quantum.Systems
 
 			offPool.Remove(GameId.Hammer);
 
-			for (var i = 0; i < count; i++)
+			if (!isHammerTimeMutator && f.Context.TryGetWeaponLimiterMutator(out var forcedWeaponId))
 			{
-				var playerData = f.GetPlayerData(i);
-				var equipment = playerData?.Weapon;
-
-				if (!equipment.HasValue || !equipment.Value.IsValid() || equipment.Value.IsDefaultItem())
+				for (var i = 0; i < count; i++)
 				{
-					var index = f.RNG->Next(0, offPool.Count);
-
-					equipment = Equipment.Create(f, offPool[index], EquipmentRarity.Common, 1);
+					component->DropPool.WeaponPool[i] = Equipment.Create(f, forcedWeaponId, EquipmentRarity.Common, 1);
 				}
+			}
+			else
+			{
+				for (var i = 0; i < count; i++)
+				{
+					var playerData = f.GetPlayerData(i);
+					var equipment = playerData?.Weapon;
 
-				rarity += (int) equipment.Value.Rarity;
-				component->DropPool.WeaponPool[i] = equipment.Value;
+					if (!equipment.HasValue || !equipment.Value.IsValid() || equipment.Value.IsDefaultItem())
+					{
+						var index = f.RNG->Next(0, offPool.Count);
+
+						equipment = Equipment.Create(f, offPool[index], EquipmentRarity.Common, 1);
+					}
+
+					rarity += (int) equipment.Value.Rarity;
+					component->DropPool.WeaponPool[i] = equipment.Value;
+				}
 			}
 
 			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));

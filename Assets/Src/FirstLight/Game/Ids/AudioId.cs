@@ -194,7 +194,8 @@ namespace FirstLight.Game.Ids
 		Vo_Countdown3,
 		Vo_Countdown2,
 		Vo_Countdown1,
-		Vo_CountdownGo
+		Vo_CountdownGo,
+		Shells
 	}
 	
 	/// <summary>

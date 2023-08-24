@@ -151,6 +151,7 @@ namespace FirstLight.Game.Logic
 		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
+
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
 			trophyChange = 0;
 
@@ -229,6 +230,7 @@ namespace FirstLight.Game.Logic
 			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
 			{
 				CalculateBPPReward(rewards, rewardConfig);
+				CalculateXPReward(rewards, rewardConfig);
 			}
 
 			return rewards;
@@ -387,7 +389,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (reward.RewardId == GameId.XP)
 			{
-				GameLogic.PlayerLogic.AddXp((uint) reward.Value);
+				GameLogic.PlayerLogic.AddXP((uint) reward.Value);
 			}
 			else if (reward.RewardId == GameId.BPP)
 			{
@@ -455,11 +457,21 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		private void CalculateXPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		{
+			// TODO FAME
+			return;
+			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
+			{
+				rewards.Add(new RewardData(GameId.XP, amount));
+			}
+		}
+
 		private void CalculateTrophiesReward(ICollection<RewardData> rewards,
-										IReadOnlyCollection<QuantumPlayerMatchData> players,
-										QuantumPlayerMatchData localPlayerData,
-										TrophyRewardConfig rewardConfig,
-										out int trophyChangeOut)
+											 IReadOnlyCollection<QuantumPlayerMatchData> players,
+											 QuantumPlayerMatchData localPlayerData,
+											 TrophyRewardConfig rewardConfig,
+											 out int trophyChangeOut)
 		{
 			trophyChangeOut = 0;
 

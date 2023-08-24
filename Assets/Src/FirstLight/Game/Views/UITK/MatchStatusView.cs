@@ -155,6 +155,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			var shrinkingNotified = false;
 			var warningNotified = false;
+			var delayPhaseStarted = false;
 
 			// FLog.Info("PACO",
 			// 	"StartCountdown: delayTime: " + delayTimeMs + " warningTimeMs: " + warningTimeMs + " shrinkingTimeMs: " + shrinkingTimeMs +
@@ -164,19 +165,25 @@ namespace FirstLight.Game.Views.UITK
 			_timerUpdate?.Pause();
 			_timerUpdate = Element.schedule.Execute(() =>
 				{
-					if (!QuantumRunner.Default.IsRunning || QuantumRunner.Default.Game == null) return;
+					if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
 
 					var currentTime = QuantumRunner.Default.Game.Frames.Predicted.Time;
 					var currentTimeSeconds = FPMath.FloorToInt(currentTime);
 
 					if (currentTimeSeconds < warningStartTime)
 					{
-						_timerLabel.text = string.Empty;
+						if (!delayPhaseStarted)
+						{
+							_timerLabel.text = string.Empty;
+							_counterElement.SetVisibility(false);
+							delayPhaseStarted = true;
+						}
 					}
 					else if (currentTimeSeconds < shrinkingStartTime)
 					{
 						if (!warningNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.go_to_safe_area);
 							warningNotified = true;
 						}
@@ -187,6 +194,7 @@ namespace FirstLight.Game.Views.UITK
 					{
 						if (!shrinkingNotified)
 						{
+							_counterElement.SetVisibility(true);
 							ShowNotification(ScriptLocalization.UITMatch.area_shrinking);
 							shrinkingNotified = true;
 						}
@@ -202,7 +210,7 @@ namespace FirstLight.Game.Views.UITK
 				.StartingIn((FPMath.Fraction(QuantumRunner.Default.Game.Frames.Predicted.Time) * FP._1000).AsLong +
 					100) // 100ms offset so we don't skip numbers because we round down.
 				.Every(1000)
-				.Until(() => !QuantumRunner.Default.IsRunning || QuantumRunner.Default.Game == null ||
+				.Until(() => !QuantumRunner.Default.IsDefinedAndRunning() ||
 					QuantumRunner.Default.Game.Frames.Predicted.Time > shrinkingStartTime + shrinkingDuration);
 		}
 

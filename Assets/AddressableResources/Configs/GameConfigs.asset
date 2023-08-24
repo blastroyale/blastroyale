@@ -39,7 +39,7 @@ MonoBehaviour:
       GoToNextMatchForceTime:
         RawValue: 655360
       ShrinkingDamageCooldown:
-        RawValue: 65536
+        RawValue: 98304
       PlayerDefaultHealth:
         Default: 600
         Keys:
@@ -53,7 +53,7 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 190054
+        - RawValue: 186777
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 600
@@ -120,7 +120,7 @@ MonoBehaviour:
       AirdropHeight:
         RawValue: 1310720
       MultiKillResetTime:
-        RawValue: 983040
+        RawValue: 262144
       BotsMaxDifficulty: 0
       NftDurabilityDropDays:
         RawValue: 458752

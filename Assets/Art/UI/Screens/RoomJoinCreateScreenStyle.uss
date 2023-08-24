@@ -32,13 +32,19 @@
 
 .roomjoin-options {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 60%;
+    height: 50%;
     left: 50px;
     top: 200px;
     bottom: 0;
-    right: 1672px;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+.roomjoin-options-column {
+    flex-grow: 1;
+}
+
 .roomjoin-button-holder {
     width: 359px;
     right: auto; 

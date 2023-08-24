@@ -19,6 +19,7 @@ namespace FirstLight.Game.Data
 		public int GameModeIndex;
 		public int MapIndex;
 		public int BotDifficulty;
+		public string WeaponLimiter;
 	}
 	
 	/// <summary>

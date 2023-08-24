@@ -92,20 +92,9 @@ namespace FirstLight.Game.StateMachines
 			createRoomFromSnapshot.Event(NetworkState.CreateRoomFailedEvent).OnTransition(ClearSnapshot).Target(final);
 		}
 
-		private async Task OneFrame()
-		{
-			await Task.Delay(1);
-		}
-
 		private void FireReconnect()
 		{
 			_statechartTrigger(ReconnectToRoomEvent);
-		}
-
-		private void AlreadyJoinedSnapshot()
-		{
-			FLog.Verbose("Already connected to snapshot, reconnecting");
-			_networkService.JoinSource.Value = JoinRoomSource.ReconnectFrameSnapshot;
 		}
 
 		private void ClearSnapshot()
@@ -146,8 +135,16 @@ namespace FirstLight.Game.StateMachines
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
 			var singlePlayerServerless = _services.GameBackendService.IsDev() && (snapShot.Offline || snapShot.AmtPlayers <= 1);
-			
-			if (!singlePlayerServerless && !isTutorial && !snapShot.Expired())
+
+			// Tutorial does not support reconnecting mid-way if app was closed due to keeping track of internal states in view/state machines
+			// and not simulation
+			if (isTutorial)
+			{
+				ClearSnapshot();
+				return false;
+			} 
+
+			if (!singlePlayerServerless && !snapShot.Expired())
 			{
 				return true;
 			}

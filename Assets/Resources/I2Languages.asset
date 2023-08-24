@@ -4979,7 +4979,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Pilot
+      - Nothing Lasts Forever
       - Sky Pilot
       - Sky Pilot
       - 
@@ -5001,7 +5001,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profession Thief
+      - Shining Strikes
       - Profession Thief
       - Profession Thief
       - 
@@ -5023,7 +5023,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Violent Enforcer
+      - A Fatal Whisper
       - Violent Enforcer
       - Violent Enforcer
       - 
@@ -5045,7 +5045,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Lieutenant Colonel
+      - Combat Queen
       - Lieutenant Colonel
       - Lieutenant Colonel
       - 
@@ -5056,7 +5056,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELEKTRA
+      - ROSE
       - Electra Deckard
       - Electra Deckard
       - 
@@ -5067,7 +5067,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Punk Rock Thrasher
+      - Petal to the Metal
       - Punk Rock Thrasher
       - Punk Rock Thrasher
       - 
@@ -5089,7 +5089,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Maverick Reporter
+      - The Icon
       - Maverick Reporter
       - Maverick Reporter
       - 
@@ -5460,7 +5460,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Archeologist Extraordinaire
+      - Endure and Survive!
       - Archeologist Extraordinaire
       - Archeologist Extraordinaire
       - 
@@ -5482,7 +5482,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Superstar Shooter
+      - One shot, Two kills
       - Superstar Shooter
       - Superstar Shooter
       - 
@@ -5504,7 +5504,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Deadly Assassin
+      - Hunt, Target, Kill
       - Deadly Assassin
       - Deadly Assassin
       - 
@@ -5526,7 +5526,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Corpos Major General
+      - El General
       - Major General
       - Major General
       - 
@@ -5548,7 +5548,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Wild Anarchist
+      - Punctured Your Ego?
       - Wild Anarchist
       - Wild Anarchist
       - 
@@ -5570,7 +5570,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rebel Rouser
+      - Passionfruit Killer
       - Rebel Rouser
       - Rebel Rouser
       - 
@@ -7321,7 +7321,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DISTRICT DASH ROTATED
+      - RIVERBANK RUMBLE
       - 
       - 
       - 
@@ -10936,6 +10936,17 @@ MonoBehaviour:
       - MUTATOR 2
       - "\u041C\u0443\u0442\u0430\u0442\u043E\u0440 2"
       - Mutator 2
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateWeaponLimiterSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON LIMIT
+      - "\u041B\u0418\u041C\u0418\u0422 \u041E\u0420\u0423\u0416\u0418\u042F"
+      - WEAPON LIMIT
       - 
       - 
       Flags: 0000000000
@@ -15491,6 +15502,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITRewards/fame
+      TermType: 0
+      Description: 
+      Languages:
+      - FAME
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITSettings/account_deleted_desc
       TermType: 0
       Description: 
@@ -16056,9 +16078,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Customize Hud
-      - Customize Hud
-      - Customizar Hud
+      - EDIT CONTROLS
+      - EDIT CONTROLS
+      - EDIT CONTROLS
       - 
       - 
       Flags: 0000000000
@@ -17083,7 +17105,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1691418200071
+    Google_LastUpdatedVersion: 1692614902762
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -125,7 +125,7 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 65536
         Z:
           RawValue: 0
       BoxExtents:

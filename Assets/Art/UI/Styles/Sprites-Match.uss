@@ -77,6 +77,7 @@
     --sprite-match__text-youwon-white: url('/Assets/Art/UI/Sprites/Match/text-youwon-white.png');
     --sprite-match__vfx-blast-spark: url('/Assets/Art/UI/Sprites/Match/vfx-blast-spark.png');
     --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
+    --sprite-match__vfx-explosion: url('/Assets/Art/UI/Sprites/Match/vfx-explosion.png');
     --sprite-match__vfx-joystick-direction: url('/Assets/Art/UI/Sprites/Match/vfx-joystick-direction.png');
     --sprite-match__vfx-killstreak-skullpart1: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart1.png');
     --sprite-match__vfx-killstreak-skullpart10: url('/Assets/Art/UI/Sprites/Match/vfx-killstreak-skullpart10.png');
@@ -550,6 +551,12 @@
     background-image: var(--sprite-match__vfx-crack-red);
     width: 274px;
     height: 260px;
+}
+
+.sprite-match__vfx-explosion {
+    background-image: var(--sprite-match__vfx-explosion);
+    width: 228px;
+    height: 206px;
 }
 
 .sprite-match__vfx-joystick-direction {

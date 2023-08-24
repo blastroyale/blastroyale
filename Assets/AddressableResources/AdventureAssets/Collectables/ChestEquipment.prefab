@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 7400000, guid: c6470cda5d6a35d4893249d78a1d41b8, type: 2}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _renderers.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _renderers.Array.data[0]
@@ -172,8 +172,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7058484468630103900}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _renderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 6402443443421484598}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _originalMaterials.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _originalMaterials.Array.data[0]
@@ -182,7 +186,11 @@ PrefabInstance:
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _originalMaterials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 0d1c2c519323a4f7aaf985fa0d7330ba, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+      propertyPath: _originalMaterials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb74f861d33ae4d0886d7fdb42f9bcd6, type: 2}
     - target: {fileID: 7972609098695308985, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -202,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 8394961782085835017, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _collectClip
       value: 
-      objectReference: {fileID: 7400000, guid: c6470cda5d6a35d4893249d78a1d41b8, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -214,6 +222,11 @@ PrefabInstance:
 --- !u!4 &706167793148751438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7273039971299085641, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
+  m_PrefabInstance: {fileID: 7864349878343443207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6402443443421484598 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3889356288209368369, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
   m_PrefabInstance: {fileID: 7864349878343443207}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &7058484468630103900 stripped

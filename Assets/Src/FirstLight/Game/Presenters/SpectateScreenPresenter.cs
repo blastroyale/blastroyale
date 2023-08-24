@@ -104,6 +104,10 @@ namespace FirstLight.Game.Presenters
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 			
+			_followCamera.Follow = current.Transform;
+			_followCamera.LookAt = current.Transform;
+			_followCamera.SnapCamera();
+			
 			_playerName.text = data.GetPlayerName();
 			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
 			UpdateCurrentMight(playerCharacter);

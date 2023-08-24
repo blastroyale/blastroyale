@@ -168,9 +168,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
 			QuantumEvent.SubscribeManual<EventOnAirDropLanded>(this, OnAirdropLanded);
 			QuantumEvent.SubscribeManual<EventOnAirDropCollected>(this, OnAirdropCollected);
-			QuantumEvent.SubscribeManual<EventOnStartedCollecting>(this, OnStartCollection);
-			QuantumEvent.SubscribeManual<EventOnStoppedCollecting>(this, OnCollectionStopped);
-			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
@@ -179,7 +176,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerStartReload);
 			QuantumEvent.SubscribeManual<EventOnPlayerMagazineReloaded>(this, OnPlayerMagazineReloaded);
 		}
-
+		
 		private void UnsubscribeMatchEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
@@ -430,17 +427,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
 		}
 
-		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
-		{
-			CheckDespawnClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
-
-			//TODO: replace this sfx with a proper sfx for your pickup being blocked
-			_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
-		}
-
 		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
+			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
 			CheckDespawnClips(nameof(EventOnPlayerWeaponChanged), callback.Entity);
 
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
@@ -450,26 +439,6 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClip3D(AudioId.WeaponSwitch, entityView.transform.position);
 			}
 			//TODO: have a negative sound for trying to swap to an empty weapon slot or an unavailable weapon
-		}
-
-		private void OnCollectionStopped(EventOnStoppedCollecting callback)
-		{
-			CheckDespawnClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
-		}
-
-		private void OnStartCollection(EventOnStartedCollecting callback)
-		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
-
-			_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
-			var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
-			var despawnEvents = new[]
-			{
-				nameof(EventOnStoppedCollecting),
-				nameof(EventOnCollectableBlocked),
-				nameof(EventOnCollectableCollected)
-			};
-			_currentClips.Add(new LoopedAudioClip(collectSfx, despawnEvents, callback.CollectableEntity));
 		}
 
 		private void OnAirdropCollected(EventOnAirDropCollected callback)
@@ -834,6 +803,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
+			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
 			CheckDespawnClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
 
 			var audio = AudioId.None;
@@ -900,18 +870,25 @@ namespace FirstLight.Game.StateMachines
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
-			if (damagedPlayerIsLocal)
+			if (FeatureFlags.NEW_SFX)
 			{
-				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
+				audio = AudioId.TakeHealthDamage;
 			}
 			else
 			{
-				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-			}
+				if (damagedPlayerIsLocal)
+				{
+					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
+				}
+				else
+				{
+					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
+				}
 
-			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
-			{
-				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
+				if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
+				{
+					audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
+				}
 			}
 
 			if (spectatedEntity == callback.Entity || spectatedEntity == callback.Attacker)

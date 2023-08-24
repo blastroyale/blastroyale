@@ -167,6 +167,7 @@ event OnPlayerAttackHit
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
 	UInt32 TotalDamage;
+	bool isShieldDmg;
 }
 
 event OnPlayerStopAttack

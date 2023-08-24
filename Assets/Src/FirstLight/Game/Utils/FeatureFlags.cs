@@ -106,6 +106,11 @@ namespace FirstLight.Game.Utils
 		public static bool COMMIT_VERSION_LOCK = true;
 
 		/// <summary>
+		/// When true will display "BETA" in loading screen
+		/// </summary>
+		public static bool BETA_VERSION = false;
+		
+		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 
 		/// To use this in our backend the backend needs to be compiled with this flag being False.
@@ -120,7 +125,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Enables / disables item durability checks for Non NFTs
 		/// </summary>
-		public static bool ITEM_DURABILITY_NON_NFTS = true;
+		public static bool ITEM_DURABILITY_NON_NFTS = false;
 
 		/// <summary>
 		/// Enables / disables item durability checks for NFTs
@@ -171,7 +176,12 @@ namespace FirstLight.Game.Utils
 		/// When enabled will enable aiming deadzone to avoid missfires
 		/// </summary>
 		public static bool AIM_DEADZONE = true;
-
+		
+		/// <summary>
+		/// Will replace map music by ambience sound effects
+		/// </summary>
+		public static bool NEW_SFX = true;
+		
 		/// <summary>
 		/// If true will be slightly more delayed aim but will be precise to Quantum inputs
 		/// If false it will be more accurate visually but not necessarily shoot where you aim
@@ -281,6 +291,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BULLET_COLORS", overrideData, out var bulletCollors))
 			{
 				BULLET_COLORS = bulletCollors;
+			}
+			
+			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
+			{
+				BETA_VERSION = beta;
 			}
 		}
 

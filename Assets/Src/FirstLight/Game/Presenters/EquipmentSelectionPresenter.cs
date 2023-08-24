@@ -32,7 +32,6 @@ namespace FirstLight.Game.Presenters
 		private const string ADJECTIVE_LOC_KEY = "UITEquipment/adjective_{0}";
 		private const string RARITY_LOC_KEY = "UITEquipment/rarity_{0}";
 		private const string NO_ITEMS_LOC_KEY = "UITEquipment/details_no_{0}";
-		private const string DURABILITY_AMOUNT = "{0}/{1}";
 
 		private const string UssEquipmentTagRarity = "equipment-tag--rarity";
 		private const string UssEquipmentTagRarityModifier = UssEquipmentTagRarity + "-{0}";
@@ -60,13 +59,10 @@ namespace FirstLight.Game.Presenters
 		private Label _equipmentName;
 		private VisualElement _equipmentIcon;
 		private ListView _statsList;
-		private VisualElement _durabilityBar;
-		private Label _durabilityAmount;
 
 		private Button _equipButton;
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
-		private PriceButton _repairButton;
 		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
@@ -120,19 +116,14 @@ namespace FirstLight.Game.Presenters
 			_special1Tag = root.Q("Special1Tag").Required();
 			_special1Icon = _special1Tag.Q<VisualElement>("Icon").Required();
 
-			_durabilityBar = root.Q("DurabilityProgress").Required();
-			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
-
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
-			_repairButton = root.Q<PriceButton>("RepairButton").Required();
 			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
-			_repairButton.clicked += Data.OnRepairClicked;
 			_infoButton.clicked += OnInfoClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
@@ -297,12 +288,6 @@ namespace FirstLight.Game.Presenters
 				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 
-			// Durability
-			_durabilityAmount.text =
-				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(),
-					info.Equipment.MaxDurability.ToString());
-			_durabilityBar.style.flexGrow = (float)info.CurrentDurability / info.Equipment.MaxDurability;
-
 			// Stats
 			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)).ToList();
 			_statItems.Sort((x1, x2) => x1.Key.CompareTo(x2.Key));
@@ -357,8 +342,6 @@ namespace FirstLight.Game.Presenters
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
 			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
-			_repairButton.SetPrice(info.RepairCost, info.IsNft, !HasEnoughCurrency(info.RepairCost));
-			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);

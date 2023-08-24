@@ -62,8 +62,8 @@ namespace FirstLight.Game.Utils
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
 			
-			public const float SFX_3D_MIN_DISTANCE = 5f;
-			public const float SFX_3D_MAX_DISTANCE = 20f;
+			public const float SFX_3D_MIN_DISTANCE = 0.5f;
+			public const float SFX_3D_MAX_DISTANCE = 16f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
@@ -224,7 +224,8 @@ namespace FirstLight.Game.Utils
 			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
 			
-			public const long GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2000;
+			public const long GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS = 2;
+			public const long GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION = 2000;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 			

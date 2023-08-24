@@ -20,6 +20,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -354,6 +355,8 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				posX = Random.value * mapWidth / 2;
+				posY = Random.value * mapHeight / 2;
 				_dropzone.SetDisplay(false);
 			}
 

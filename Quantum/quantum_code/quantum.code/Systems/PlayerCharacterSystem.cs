@@ -15,7 +15,7 @@ namespace Quantum.Systems
 	{
 		private static readonly FP TURN_RATE = FP._0_50 + FP._0_05;
 		private static readonly FP MOVE_SPEED_UP_CAP = FP._0_50 + FP._0_20 + FP._0_25;
-		public static readonly FP AIM_DELAY = FP._0_33;
+		public static readonly FP AIM_DELAY = FP._0_50;
 		public struct PlayerCharacterFilter
 		{
 			public EntityRef Entity;
@@ -151,12 +151,10 @@ namespace Quantum.Systems
 				
 				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
 				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
-				
-				// Because max ammo is deliberately practically unreachable, we use half of ammo to compare
-				var ammoFilled = stats->CurrentAmmoPercent * Constants.LOW_AMMO_THRESHOLD_TO_DROP_MORE;
+				var ammoFilled = stats->CurrentAmmoPercent;
 
 				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
-				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + 1); i++)
+				for (uint i = 0; i < (FPMath.FloorToInt(itemCount / 5) + FPMath.RoundToInt(playerDead->GetEnergyLevel(f) / 5) + 1); i++)
 				{
 					var consumable = GameId.AmmoSmall;
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
@@ -249,6 +247,21 @@ namespace Quantum.Systems
 			playerCharacter->Init(f, setup);
 		}
 
+		/// <summary>
+		/// When player starts to aim, there is an initial delay for when a bullet needs to be fired.
+		/// </summary>
+		public static void OnStartAiming(Frame f, AIBlackboardComponent* bb, QuantumWeaponConfig weaponConfig)
+		{
+			if (weaponConfig.IsMeleeWeapon) return; // melee weapons are instant
+			var nextShotTime = bb->GetFP(f, nameof(Constants.NextShotTime));
+			var expectedAimDelayShot = f.Time + AIM_DELAY;
+			var isInCooldown = nextShotTime > f.Time;
+			// If the shoot cooldown will finish after the aim delay, we use it instead
+			if (isInCooldown && nextShotTime > expectedAimDelayShot) expectedAimDelayShot = nextShotTime;
+			bb->Set(f, nameof(Constants.NextShotTime), expectedAimDelayShot);
+			bb->Set(f, nameof(Constants.NextTapTime), expectedAimDelayShot);
+		}
+
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)
 		{
 			// Do not process input if player is stunned or not alive
@@ -309,9 +322,9 @@ namespace Quantum.Systems
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 			bb->Set(f, Constants.MoveSpeedKey, moveSpeed);
 			
-			if (!wasShooting && shooting && !weaponConfig.IsMeleeWeapon)
+			if (!wasShooting && shooting)
 			{
-				bb->Set(f, nameof(Constants.NextTapTime), f.Time + (weaponConfig.IsMeleeWeapon ? 0 : AIM_DELAY));
+				OnStartAiming(f, bb, weaponConfig);
 			}
 			
 			var aimDirection = bb->GetVector2(f, Constants.AimDirectionKey);
@@ -381,11 +394,13 @@ namespace Quantum.Systems
 		public bool OnCharacterCollision3D(FrameBase f, EntityRef character, Hit3D hit)
 		{
 			var blockMovement = !TeamHelpers.HasSameTeam(f, character, hit.Entity);
+			if (!QuantumFeatureFlags.PLAYER_PUSHING) return blockMovement;
 			if (blockMovement && f.TryGet<CharacterController3D>(hit.Entity, out var enemyKcc) && f.TryGet<CharacterController3D>(character, out var myKcc))
 			{
 				var myTransform = f.Get<Transform3D>(character);
 				var enemyTransform = f.Unsafe.GetPointer<Transform3D>(hit.Entity);
 				var pushAngle = (myTransform.Position - enemyTransform->Position).Normalized;
+				pushAngle.Y = 0;
 				enemyKcc.Move(f, hit.Entity, pushAngle);
 			}
 			return blockMovement;

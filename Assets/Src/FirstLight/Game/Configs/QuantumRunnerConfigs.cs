@@ -76,12 +76,15 @@ namespace FirstLight.Game.Configs
 			{
 				roomSize = playersInRoom;
 			}
+
+			var quitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive;
 			
 			FLog.Verbose($"Starting simulation for {roomSize} players");
 			
 			if (room.IsOffline)
 			{
 				gameMode = DeterministicGameMode.Local;
+				quitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.None;
 			}
 
 			var recordInput = FeatureFlags.GetLocalConfiguration().RecordQuantumInput;
@@ -93,7 +96,7 @@ namespace FirstLight.Game.Configs
 				ReplayProvider = null,
 				GameMode = gameMode,
 				RunnerId = "DEFAULT",
-				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoomAndBecomeInactive,
+				QuitBehaviour = quitBehaviour,
 				LocalPlayerCount = 1,
 				RecordingFlags = recordInput ? RecordingFlags.Input : RecordingFlags.None,
 				ResourceManagerOverride = null,

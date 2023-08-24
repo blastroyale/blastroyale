@@ -233,41 +233,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.Throws<LogicException>(() => _equipmentLogic.Upgrade(item.Key));
 		}
-
-		[Test]
-		public void RepairItemCheck()
-		{
-			var item = SetupItem(2, GameId.MausHelmet, 0);
-
-			TestData.Inventory.Add(item.Key, item.Value);
-
-			_equipmentLogic.Repair(item.Key);
-
-			var resultItem = _equipmentLogic.Inventory[item.Key];
-			Assert.That(resultItem.LastRepairTimestamp, Is.EqualTo(TimeService.DateTimeUtcNow.Ticks).Within(1));
-			Assert.AreEqual(resultItem.MaxDurability, resultItem.TotalRestoredDurability);
-		}
-
-		[Test]
-		public void RepairItem_NotInventory_ThrowsException()
-		{
-			Assert.Throws<KeyNotFoundException>(() => _equipmentLogic.Repair(UniqueId.Invalid));
-		}
-
-		[Test]
-		public void RepairItem_NFTItem_ThrowsException()
-		{
-			TestData.NftInventory.Add(_item.Key, new NftEquipmentData());
-
-			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
-		}
-
-		[Test]
-		public void RepairItem_FullRepaired_ThrowsException()
-		{
-			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
-		}
-
+		
 		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, long durabilityTimeStamp = -1)
 		{
 			var item = new Equipment(gameId)

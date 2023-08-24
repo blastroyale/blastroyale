@@ -119,6 +119,7 @@ namespace FirstLight.Game.Presenters
 			_playerFameStar2 = root.Q("FameStar2").Required();
 			_playerFameStar3 = root.Q("FameStar3").Required();
 			_playerFameStar4 = root.Q("FameStar4").Required();
+
 			_avatar = root.Q("Avatar").Required();
 			_avatarPfp = root.Q("AvatarPFP").Required();
 
@@ -188,6 +189,16 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 			OnAnyPartyUpdate();
 			UpdateSquadsButtonVisibility();
+			
+			// TODO FAME
+			{
+				_playerFameLabel.SetDisplay(false);
+				_playerFameStar1.SetDisplay(false);
+				_playerFameStar2.SetDisplay(false);
+				_playerFameStar3.SetDisplay(false);
+				_playerFameStar4.SetDisplay(false);
+				_avatar.style.left = 100;
+			}
 		}
 
 		protected override void OnOpened()
@@ -301,6 +312,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnFameChanged(uint previous, uint current)
 		{
+			// TODO FAME
+			return;
+			
 			_playerFameLabel.text = current.ToString();
 
 			if (current < 2)

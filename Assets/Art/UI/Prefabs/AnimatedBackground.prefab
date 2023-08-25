@@ -246,18 +246,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _quadRenderer: {fileID: 9143211546483603550}
-  _commonBottom: {r: 0.7303956, g: 0.7303956, b: 0.7303956, a: 1}
-  _commonTop: {r: 0.5682356, g: 0.5682356, b: 0.5682356, a: 1}
-  _commonPattern: {r: 0, g: 0, b: 0, a: 0.09803922}
+  _commonBottom: {r: 0.7264151, g: 0.71189326, b: 0.59278214, a: 1}
+  _commonTop: {r: 0.40521538, g: 0.44356343, b: 0.5471698, a: 1}
+  _commonPattern: {r: 0.08290316, g: 0.15424946, b: 0.21698111, a: 0.09803922}
   _uncommonBottom: {r: 0.64705884, g: 0.84313726, b: 0.42745098, a: 0}
   _uncommonTop: {r: 0.22352941, g: 0.3647059, b: 0.36078432, a: 0}
-  _uncommonPattern: {r: 0, g: 0, b: 0, a: 0.09803922}
-  _rareBottom: {r: 0.3254902, g: 0.7294118, b: 0.9882353, a: 0}
-  _rareTop: {r: 0.16470589, g: 0.36862746, b: 0.7254902, a: 0}
-  _rarePattern: {r: 0, g: 0, b: 0, a: 0.09803922}
-  _epicBottom: {r: 1, g: 0.46666667, b: 0.41960785, a: 0}
+  _uncommonPattern: {r: 0.00057849905, g: 0.122641504, b: 0.012391036, a: 0.09803922}
+  _rareBottom: {r: 0.2784314, g: 0.61960787, b: 0.9098039, a: 0}
+  _rareTop: {r: 0.2, g: 0.44705883, b: 0.78431374, a: 0}
+  _rarePattern: {r: 0.02701541, g: 0, b: 0.1981132, a: 0.101960786}
+  _epicBottom: {r: 0.98039216, g: 0.4509804, b: 0.40784314, a: 0}
   _epicTop: {r: 0.5921569, g: 0.12941177, b: 0.15294118, a: 0}
-  _epicPattern: {r: 0, g: 0, b: 0, a: 0.09803922}
-  _legendaryBottom: {r: 1, g: 0.75686276, b: 0.2509804, a: 0}
-  _legendaryTop: {r: 0.90588236, g: 0.42352942, b: 0.03529412, a: 0}
-  _legendaryPattern: {r: 0, g: 0, b: 0, a: 0.09803922}
+  _epicPattern: {r: 0.18867922, g: 0, b: 0.02964955, a: 0.14117648}
+  _legendaryBottom: {r: 0.90588236, g: 0.7146651, b: 0.03529413, a: 0}
+  _legendaryTop: {r: 0.90588236, g: 0.37246782, b: 0.03529413, a: 0}
+  _legendaryPattern: {r: 0.65882355, g: 0.2198085, b: 0.14117645, a: 0.23529412}

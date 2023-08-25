@@ -406,6 +406,13 @@
         "com.unity.timeline": "1.6.5"
       }
     },
+    "dev.kyubuns.appiconchangerunity": {
+      "version": "https://github.com/kyubuns/AppIconChangerUnity.git?path=Assets/AppIconChanger",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "48cbd360031104245ab583b8eb83420de070c610"
+    },
     "unity-dependencies-hunter": {
       "version": "file:DependenciesHunter",
       "depth": 0,

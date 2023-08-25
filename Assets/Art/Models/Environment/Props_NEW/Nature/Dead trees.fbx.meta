@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 34bb55a62b260a74c9cc9ff8df096d32
+guid: d4aaecd35eba22343b482a275307d75b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["SB_Junk_wall"],"padding":[48],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Dead_tree_2","Dead_tree_3","Dead_tree_1"],"padding":[44,40,69],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

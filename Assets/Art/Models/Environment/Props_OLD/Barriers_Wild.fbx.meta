@@ -36,7 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Barrier_Wild_Logs01"],"padding":[36],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Barrier_Wild_Logs01"],"padding":[38],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

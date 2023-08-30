@@ -66,10 +66,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b4ac3561274eec04cb5787cd7c7ca216, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 1
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b4ac3561274eec04cb5787cd7c7ca216, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2385532252016970672}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b4ac3561274eec04cb5787cd7c7ca216, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3896384375239945606}
   m_SourcePrefab: {fileID: 100100000, guid: b4ac3561274eec04cb5787cd7c7ca216, type: 3}
+--- !u!1 &6532810269829248051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b4ac3561274eec04cb5787cd7c7ca216, type: 3}
+  m_PrefabInstance: {fileID: 6226329298207181154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2385532252016970672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532810269829248051}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.91, y: 2.3037264, z: 1.12}
+  m_Center: {x: -0.06, y: 0.9364916, z: -0.19}
+--- !u!114 &3896384375239945606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532810269829248051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 2385532252016970672}
+  Size:
+    X:
+      RawValue: 256245
+    Y:
+      RawValue: 150977
+    Z:
+      RawValue: 73400
+  PositionOffset:
+    X:
+      RawValue: -3932
+    Y:
+      RawValue: 61373
+    Z:
+      RawValue: -12451
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: RuleConfig
   m_EditorClassIdentifier: 
   projectRules:
-  - Enabled: 1
-    EnabledOverridden: 1
-    Type: Sirenix.OdinValidator.Editor.Validators.MissingScriptValidator, Sirenix.OdinValidator.Editor
-    Override: 
   - Enabled: 0
     EnabledOverridden: 1
     Type: Sirenix.OdinValidator.Editor.Validators.DuplicateComponentsValidator, Sirenix.OdinValidator.Editor

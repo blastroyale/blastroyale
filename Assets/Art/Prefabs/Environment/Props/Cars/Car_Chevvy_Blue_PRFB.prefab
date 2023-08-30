@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 6709355584076995578}
   - component: {fileID: 5966721178240154075}
   - component: {fileID: 784283786023782208}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Car_Chevvy_Blue_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8030068475453126523
 Transform:
@@ -166,7 +166,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &7425254025844128112
 Transform:

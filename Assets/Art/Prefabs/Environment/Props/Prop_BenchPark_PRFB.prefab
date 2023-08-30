@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1450880305715952858}
   - component: {fileID: 2561796561042420607}
   - component: {fileID: 317964674686568373}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_BenchPark_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1450880305715952858
 Transform:
@@ -100,7 +100,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7334954221890244122
 Transform:

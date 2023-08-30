@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1784021153991728720}
   - component: {fileID: 7038240353171711990}
   - component: {fileID: 4137029884115851745}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_Rubble_2_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1784021153991728720
 Transform:

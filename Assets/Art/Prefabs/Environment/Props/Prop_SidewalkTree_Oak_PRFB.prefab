@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 781629842424201033}
   - component: {fileID: 4429065546759598316}
   - component: {fileID: 1915090801157080102}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_SidewalkTree_Oak_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &781629842424201033
 Transform:
@@ -100,7 +100,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7549099974929228064
 Transform:
@@ -125,9 +125,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148222652778222885}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1.6112254, y: 2.6589146, z: 1.6155984}
   m_Center: {x: 0.006100297, y: 1.3294573, z: 0.016479611}
 --- !u!114 &516797934315014186

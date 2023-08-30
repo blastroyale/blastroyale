@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 3674929027228261413}
   - component: {fileID: 4034857588641073691}
   - component: {fileID: 3156597298794634191}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Car_PickUp_Red_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3674929027228261413
 Transform:
@@ -100,7 +100,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1242249535907360259
 Transform:

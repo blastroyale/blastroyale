@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2174723032925949522}
   - component: {fileID: 6761789376674201020}
   - component: {fileID: 7528143405745228251}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_StreetLight_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1037243875530814781
 Transform:
@@ -93,9 +93,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373472642285891463}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.33145943, y: 2.322283, z: 0.33145943}
   m_Center: {x: 0, y: 1.1611415, z: 0}
 --- !u!114 &7528143405745228251

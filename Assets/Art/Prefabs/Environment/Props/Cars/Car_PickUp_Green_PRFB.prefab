@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6518328536263879701
 Transform:
@@ -108,12 +108,12 @@ GameObject:
   - component: {fileID: 6965255349621250086}
   - component: {fileID: 1302103535836599204}
   - component: {fileID: 2136359013623333603}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Car_PickUp_Green_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6965255349621250086
 Transform:

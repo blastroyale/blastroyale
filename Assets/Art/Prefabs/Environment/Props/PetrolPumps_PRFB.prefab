@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 7245701069783277745}
   - component: {fileID: 8636015874491191098}
   - component: {fileID: 2626903900669169125}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: PetrolPumps_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8414635499146599390
 Transform:
@@ -94,9 +94,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9191031877936742756}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1.9273452, y: 5.5295105, z: 4.6326246}
   m_Center: {x: -0.24224502, y: 2.7647552, z: 0}
 --- !u!114 &2626903900669169125

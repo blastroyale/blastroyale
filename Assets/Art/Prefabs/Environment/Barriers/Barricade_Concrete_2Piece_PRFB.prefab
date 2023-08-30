@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2956260350070697403}
   - component: {fileID: 2877623031512952239}
   - component: {fileID: 1384261371968435894}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Barricade_Concrete_LowDamage_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2956260350070697403
 Transform:
@@ -99,7 +99,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &413986291225408163
 Transform:
@@ -193,12 +193,12 @@ GameObject:
   - component: {fileID: 4663712395038778083}
   - component: {fileID: 6890758955169309075}
   - component: {fileID: 5594569813101021828}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Barricade_Concrete_LowClean_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4663712395038778083
 Transform:

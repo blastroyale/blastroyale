@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 6868144775068591837}
   - component: {fileID: 1800451410846143064}
   - component: {fileID: 4935917557211275717}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Car_Convertable_Green_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4355798678048751178
 Transform:
@@ -167,7 +167,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &6066497734688335024
 Transform:

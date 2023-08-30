@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4291674346949961355}
   - component: {fileID: 873923185548257582}
   - component: {fileID: 3153711369807994340}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_TrafficCone_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4291674346949961355
 Transform:

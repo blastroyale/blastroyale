@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4968416230775532364}
   - component: {fileID: 8312668175185880297}
   - component: {fileID: 6104753403881508899}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_Sign_DIner_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4968416230775532364
 Transform:
@@ -96,12 +96,12 @@ GameObject:
   - component: {fileID: 7745826148879241929}
   - component: {fileID: 2020447482182954726}
   - component: {fileID: 5012593455616325318}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CLLSN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7745826148879241929
 Transform:
@@ -126,9 +126,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7129246496818591098}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 2.318546, y: 7.268957, z: 1.4095917}
   m_Center: {x: -0.01825869, y: 3.6344786, z: 0}
 --- !u!114 &5012593455616325318

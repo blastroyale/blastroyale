@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 6090553770025896551}
   - component: {fileID: 5908928861907805478}
   - component: {fileID: 2984462754001081517}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_TrashCan_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 9
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4958131956887892232
 Transform:

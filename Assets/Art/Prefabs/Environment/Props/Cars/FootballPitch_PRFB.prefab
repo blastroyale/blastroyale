@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 9196545236927915401}
   - component: {fileID: 6298121916822820242}
   - component: {fileID: 1062868973471611337}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Poster_Teeth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9196545236927915401
 Transform:
@@ -94,12 +94,12 @@ GameObject:
   - component: {fileID: 2003290172698026563}
   - component: {fileID: 5252946036945466617}
   - component: {fileID: 7525948882944761788}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Poster_WantedFemale_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2003290172698026563
 Transform:
@@ -177,12 +177,12 @@ GameObject:
   - component: {fileID: 7300728852185180115}
   - component: {fileID: 3200310364431422763}
   - component: {fileID: 6187170766419301054}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Poster_WantedMale_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7300728852185180115
 Transform:
@@ -260,12 +260,12 @@ GameObject:
   - component: {fileID: 7257579768469258676}
   - component: {fileID: 2958019160739735769}
   - component: {fileID: 2632830906708693077}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Poster_CupsAndCakes_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7257579768469258676
 Transform:
@@ -343,12 +343,12 @@ GameObject:
   - component: {fileID: 7070443666423512751}
   - component: {fileID: 1828304879462718561}
   - component: {fileID: 2865511840678897815}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FootballPitch_GEO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7070443666423512751
 Transform:
@@ -430,7 +430,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7039236632770924072
 Transform:
@@ -465,7 +465,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7281413250334971360
 Transform:
@@ -511,7 +511,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3759597531504479443
 Transform:

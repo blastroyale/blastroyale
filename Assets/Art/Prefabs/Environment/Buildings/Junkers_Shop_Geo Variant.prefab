@@ -13,32 +13,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029999256
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.81
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0008535632
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9999997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -46,11 +58,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 179.902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3430509982867594767, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -357244740779330193, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -357244740779330193, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 648901634083325387, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -59,6 +83,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_Name
       value: Junkers_Shop_Geo Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273851817779346262, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273851817779346262, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3484845596512115945, guid: a62da2a2fadf9134cad3869abacddbed, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -18,6 +18,7 @@ namespace FirstLight.Game.Configs
 		public AudioId WeaponShotWindDownId;
 		public AudioId ProjectileFlyTrailId;
 		public AudioId ProjectileImpactId;
+		public AudioId ProjectileEndOfLife;
 	}
 	
 	/// <summary>

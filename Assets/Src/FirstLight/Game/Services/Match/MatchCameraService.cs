@@ -58,7 +58,6 @@ namespace FirstLight.Game.Services
 			
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
-			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
@@ -162,12 +161,7 @@ namespace FirstLight.Game.Services
 		{
 			ExplosionScreenShake(callback.sourceId, callback.HitPosition.ToUnityVector3());
 		}
-
-		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
-		{
-			ExplosionScreenShake(callback.sourceId, callback.EndPosition.ToUnityVector3());
-		}
-		
+        
 		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) || 

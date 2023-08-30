@@ -160,7 +160,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
-			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
+			QuantumEvent.SubscribeManual<EventOnProjectileEndOfLife>(this, OnProjectileEndOfLife);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
@@ -176,7 +176,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerStartReload);
 			QuantumEvent.SubscribeManual<EventOnPlayerMagazineReloaded>(this, OnPlayerMagazineReloaded);
 		}
-		
+
 		private void UnsubscribeMatchEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
@@ -460,12 +460,12 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			
+
 			if (callback.ShrinkingCircle.Step >= f.Context.MapShrinkingCircleConfigs.Count())
 			{
 				yield break;
 			}
-			
+
 			var config = f.Context.MapShrinkingCircleConfigs[callback.ShrinkingCircle.Step];
 
 			var circle = f.GetSingleton<ShrinkingCircle>();
@@ -575,6 +575,17 @@ namespace FirstLight.Game.StateMachines
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+		}
+
+		private void OnProjectileEndOfLife(EventOnProjectileEndOfLife callback)
+		{
+			if (callback.SubProjectile)
+			{
+				return;
+			}
+
+			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.SourceId);
+			_services.AudioFxService.PlayClip3D(weaponConfig.ProjectileEndOfLife, callback.EndPosition.ToUnityVector3());
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -706,10 +717,6 @@ namespace FirstLight.Game.StateMachines
 			CheckDespawnClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 		}
 
-		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
-		{
-			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
-		}
 
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
@@ -820,6 +827,10 @@ namespace FirstLight.Game.StateMachines
 				case GameId.ShieldSmall:
 					audio = AudioId.ShieldPickup;
 					break;
+				case GameId.EnergyCubeLarge:
+				case GameId.EnergyCubeSmall:
+					audio = AudioId.GearPickup;
+					break;
 			}
 
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
@@ -900,13 +911,14 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
-		
+
 		private void OnPlayerEnteredAmbienceMessage(PlayerEnteredAmbienceMessage msg)
 		{
 			_ambienceList.Add(msg.Ambience.GetAmbientAudioId());
-			_services.AudioFxService.PlayAmbience(_ambienceList.Last(),GameConstants.Audio.AMBIENCE_FADE_SECONDS,GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
+			_services.AudioFxService.PlayAmbience(_ambienceList.Last(), GameConstants.Audio.AMBIENCE_FADE_SECONDS,
+				GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
 		}
-		
+
 		private void OnPlayerLeftAmbienceMessage(PlayerLeftAmbienceMessage msg)
 		{
 			// Remove top-most matching occurence of the ambience in the list
@@ -916,7 +928,8 @@ namespace FirstLight.Game.StateMachines
 
 			if (_ambienceList.Count > 0)
 			{
-				_services.AudioFxService.PlayAmbience(_ambienceList.Last(),GameConstants.Audio.AMBIENCE_FADE_SECONDS,GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
+				_services.AudioFxService.PlayAmbience(_ambienceList.Last(), GameConstants.Audio.AMBIENCE_FADE_SECONDS,
+					GameConstants.Audio.AMBIENCE_FADE_SECONDS, true);
 			}
 			else
 			{

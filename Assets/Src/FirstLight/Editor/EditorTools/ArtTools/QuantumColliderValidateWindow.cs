@@ -14,22 +14,16 @@ using Debug = UnityEngine.Debug;
 namespace FirstLight.Editor.EditorTools.ArtTools
 {
 	/// <summary>
-	/// 
+	/// Validate QuantumStaticBoxCollider3D gameObject owner scale is not negative
 	/// </summary>
 	public class QuantumColliderValidateWindow : OdinEditorWindow
 	{
-		
 		[MenuItem("FLG/Validators/QuantumColliderValidateWindow")]
 		private static void OpenWindow()
 		{
 			GetWindow<QuantumColliderValidateWindow>("QuantumColliderValidateWindow").Show();
 		}
-
-		protected override void Initialize()
-		{
-			base.Initialize();
-		}
-
+		
 		[Button, HideInPlayMode]
 		private void ValidateNegativeScale()
 		{
@@ -43,12 +37,6 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 					Debug.LogError($"QCV | {c.gameObject.FullGameObjectPath()} has negative scale");
 				}
 			}
-		}
-		
-		[UsedImplicitly]
-		private bool IsEnvironmentReady()
-		{
-			return Application.isPlaying && SceneManager.GetActiveScene().name == "EquipmentCardRender";
 		}
 	}
 }

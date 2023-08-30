@@ -14,80 +14,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Level: 1
-    LevelUpXP: 50
+    LevelUpXP: 100
     Rewards:
-      _keyData: 
-      _valueData: 
+      _keyData: 3d000000
+      _valueData: 32000000
     Systems: 
   - Level: 2
     LevelUpXP: 100
     Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: 6400000019000000
-    Systems: 
-  - Level: 3
-    LevelUpXP: 150
-    Rewards:
       _keyData: 3d000000
-      _valueData: 96000000
-    Systems: 00000000
-  - Level: 4
+      _valueData: 32000000
+    Systems: 01000000
+  - Level: 3
     LevelUpXP: 200
     Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: c800000032000000
+      _keyData: 3d000000
+      _valueData: 32000000
     Systems: 
-  - Level: 5
+  - Level: 4
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
-      _valueData: 64000000
+      _valueData: 32000000
+    Systems: 00000000
+  - Level: 5
+    LevelUpXP: 1000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 32000000
     Systems: 
   - Level: 6
-    LevelUpXP: 400
+    LevelUpXP: 2000
     Rewards:
       _keyData: 0c000000
-      _valueData: 64000000
+      _valueData: 32000000
     Systems: 
   - Level: 7
-    LevelUpXP: 400
+    LevelUpXP: 5000
     Rewards:
       _keyData: 0c000000
-      _valueData: 64000000
-    Systems: 01000000
+      _valueData: 32000000
+    Systems: 
   - Level: 8
-    LevelUpXP: 400
+    LevelUpXP: 35000
     Rewards:
       _keyData: 3d000000
-      _valueData: f4010000
+      _valueData: 32000000
     Systems: 
   - Level: 9
-    LevelUpXP: 400
+    LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
-      _valueData: 64000000
+      _valueData: 32000000
     Systems: 
   - Level: 10
-    LevelUpXP: 400
+    LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
-      _valueData: e8030000
+      _valueData: 32000000
     Systems: 
   - Level: 11
-    LevelUpXP: 600
+    LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
-      _valueData: e8030000
+      _valueData: 32000000
     Systems: 
   - Level: 12
-    LevelUpXP: 800
+    LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
-      _valueData: d0070000
+      _valueData: 32000000
     Systems: 
   - Level: 13
-    LevelUpXP: 1500
+    LevelUpXP: 150000
     Rewards:
-      _keyData: 3d0000000c000000
-      _valueData: d0070000c8000000
+      _keyData: 3d000000
+      _valueData: 32000000
     Systems: 

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardAndRewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=671410c7fc8b44ebebe2e36a0f17d624&amp;type=3#LeaderboardAndRewardsScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="PlayerName" class="player-name">
             <ui:VisualElement name="Badge" class="player-name__badge" />
@@ -35,6 +36,7 @@
                     <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Fame" class="fame">
+                    <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="fame__avatar" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/fame" class="fame__title" />
                     <ui:VisualElement name="LogoTop" class="fame__logo-top" />
                     <ui:VisualElement name="PinkBand" />

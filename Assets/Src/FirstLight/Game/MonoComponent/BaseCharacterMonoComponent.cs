@@ -19,6 +19,8 @@ namespace FirstLight.Game.MonoComponent
 	{
 		private readonly int _victoryHash = Animator.StringToHash("victory");
 		
+		protected bool IsLoaded = false;
+		
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
 		

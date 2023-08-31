@@ -54,8 +54,6 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateLock(bool animate)
 		{
-			// TODO FAME
-			return;
 			var locked = _currentLevel < _requiredLevel;
 			EnableLock(locked, animate);
 		}

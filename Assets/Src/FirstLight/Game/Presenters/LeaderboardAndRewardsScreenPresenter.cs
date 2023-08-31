@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			
+
 			UpdateCharacter();
 			UpdatePlayerName();
 			UpdateLeaderboard();
@@ -109,14 +109,7 @@ namespace FirstLight.Game.Presenters
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
-
-			// TODO FAME
-			{
-				_fame.SetDisplay(false);
-				_bpp.style.top = 510;
-				_bpp.style.left = 150;
-				// _fame.AttachView(this, out _levelView);
-			}
+			_fame.AttachView(this, out _levelView);
 		}
 
 		private void OnNextButtonClicked()
@@ -156,13 +149,13 @@ namespace FirstLight.Game.Presenters
 			await _craftSpiceView.Animate();
 			await _trophiesView.Animate();
 			await _bppView.Animate();
-			// TODO FAME await _levelView.Animate();
+			await _levelView.Animate();
 		}
 
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-			
+
 			// craft spice
 			var csReward = 0;
 			if (rewards.ContainsKey(GameId.CS))
@@ -183,9 +176,9 @@ namespace FirstLight.Game.Presenters
 
 			// BPP
 			SetBPPReward(rewards);
-			
+
 			// Level (Fame)
-			// TODO FAME SetLevelReward(rewards);
+			SetLevelReward(rewards);
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
@@ -238,6 +231,7 @@ namespace FirstLight.Game.Presenters
 
 			_levelView.SetData(levelsInfo);
 		}
+
 		private void SetBPPReward(Dictionary<GameId, int> rewards)
 		{
 			var bppReward = 0;
@@ -288,13 +282,13 @@ namespace FirstLight.Game.Presenters
 
 			_bppView.SetData(levelsInfo, (int) bppPoolInfo.CurrentAmount, (int) bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
-		
+
 		private void UpdatePlayerName()
 		{
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_playerNameText.text = "";
@@ -332,7 +326,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateLeaderboard()
 		{
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-			
+
 			entries.SortByPlayerRank(false);
 
 			foreach (var entry in entries)
@@ -370,7 +364,7 @@ namespace FirstLight.Game.Presenters
 		private void SetupCamera()
 		{
 			// A very magic number that makes the character look good enough in any aspect ratio
-			_camera.m_Lens.FieldOfView =  Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
+			_camera.m_Lens.FieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
 		}
 
 		private async void UpdateCharacter()
@@ -378,7 +372,7 @@ namespace FirstLight.Game.Presenters
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_character.gameObject.SetActive(false);

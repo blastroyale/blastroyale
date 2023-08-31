@@ -18,7 +18,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Animation _animation;
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		
-		private readonly int _newBarMod = 25;
+		private readonly int _newBarMod = 25; 
 		private int _customBarsY = 0;
 		
 		/// <inheritdoc />
@@ -50,10 +50,6 @@ namespace FirstLight.Game.Presenters
 				AddTextBar("Ranked w/o Equip");
 			}
 #endif
-			if (FeatureFlags.BETA_VERSION)
-			{
-				AddTextBar("BETA", 2);
-			}
 		}
 
 		private void AddTextBar(string text, float size = 1)

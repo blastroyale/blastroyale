@@ -94,6 +94,7 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolAmountLabel;
 
 		private Label _outOfSyncWarningLabel;
+		private Label _betaLabel;
 
 		private MatchmakingStatusView _matchmakingStatusView;
 
@@ -157,7 +158,8 @@ namespace FirstLight.Game.Presenters
 				.SetAnimationOrigin(_playButton);
 
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
-
+			_betaLabel = root.Q<Label>("BetaWarning").Required();
+			
 			_gameModeButton.clicked += Data.OnGameModeClicked;
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
@@ -210,6 +212,7 @@ namespace FirstLight.Game.Presenters
 #else
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
+			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
 			UpdatePFP();
 		}
 

@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Dead_tree_2","Dead_tree_3","Dead_tree_1"],"padding":[44,40,69],"unwrapper":[0,0,0]}'
+    - '#BAKERY{"meshName":["Dead_tree_2","Dead_tree_3","Dead_tree_1"],"padding":[234,216,256],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

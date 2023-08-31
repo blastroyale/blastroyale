@@ -177,7 +177,7 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Props_OLD/Containers.fbx
   - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Broken_balcony_1.fbx
   - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_U_Wall.fbx
-  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed0439b38e6dfed00d49fa4dfff016c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd9398033d35634b7d9398033194efff0bb7d93639f398033534ffff0eb37ed0442dd894b344ffff042dd894b42dd894ba768e2a8d93980332bf43a06d9398033d9398033fe901ac2d5fc99434adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8133b8033b7f23a0680c5d89080c5d890cdc1249127dc894bb4c2a693797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031eee55031eee55031ee3e3fd3d93f3fd3d9797e93633f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d9363353fd3d9797e936303911ac2333fd3d9d2f23a06d3e376db9342a73a7f8f1ac2c0178e323c4efff0d7c2a693df4dfff0b7f23a0604c5d890567e9363f1f23a06797e93638109ecc09c09ecc01c7e9363cedb894b377e93631c7e936395c2a693de09ecc01b3a8033d2f23a06bb09ecc0d93980335dc5d8905267e2a808dc894bb7f23a06eddb894b7ac2a69380c5d890194efff008dc894b42dd894b885031ee6209ecc075f23a06e55031ee4adc894b3ec5d890194efff08c67e2a8fa4dfff0194efff07ac2a693a35031ee27dc894b344ffff042dd894b42dd894b42dd894b3ec5d890af67e2a875f23a06eddb894b567e9363567e9363567e9363d7c2a693f1f23a063c4efff0567e9363d2f23a06eddb894b333fd3d9363fd3d9333fd3d986eb9fa8ed5c3d5a95c2a693885031ee13a3dddeecc124915d39803361dd894bbe398033df4dfff05bc2a693c25031eed2f23a06d7c2a693275031ee323fd3d9e63d1072333fd3d9ddc2c7a45dc5d8909c09ecc0b4c2a693
+  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed040394aef694a3464a1328c115be19c55d5eb96a7fcfc3a693ba2bd22a1488e0d28d534d68d9398033ecc12491d939803313a3dddeecc12491ecc12491ecc12491ecc1249142dd894b344ffff042dd894b42dd894ba768e2a8d9398033ecc12491d9398033d9398033fe901ac22fa0b5534adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8ecc12491b7f23a06275031ee275031eecdc1249127dc894bcec12491797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031ee78c6d890e55031ee3e3fd3d93f3fd3d956f23a063f3fd3d9ecc12491ecc12491ecc12491ecc12491ecc12491ecc12491353fd3d9797e936303911ac2333fd3d9d2f23a06d3e376db9342a73a31105b36e468b98ff627c115f927c115ecc12491d74608c8ecc12491e937ed04fe27c1152009ecc00a38ed04c8d15080d35634b7ecc12491c4d15080d35634b7dc4608c8abdb894b97c6d89002b309cec34608c8cc318883b45634b7e54608c89550cf35d94608c835a3dddeecc1249180c5d890d1c124919650cf35ecc12491f0c12491ecc12491ecc1249178c6d89061dd894bca318883d0c12491b74608c81728c115d0c124917ac2a6931728c1150ca3ddde344ffff042dd894b42dd894b42dd894bcf31888375f23a06ecc1249128a3dddeef37ed04e937ed04e937ed04f227c115f527c1153c4efff0e837ed04d2c1249134a3dddef839803314f33a06333fd3d964c6ab4382070c542028c115f1c12491ecc12491ecc12491ecc12491ecc124912ba3dddeecc12491ecc1249107a3ddde01b309cef827c115ecc12491194efff0e48446fd8c67e2a8a08751f7b25634b7fdb209ced7c12491
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets:
@@ -577,23 +577,23 @@ MonoBehaviour:
     - Car_Chevvy_Red_GEO
     - Car_Chevvy_Blue_GEO
     - Car_Chevvy_Green_GEO
-    padding: 1c0000001c0000001e0000001c0000001e000000
+    padding: 1c000000960000001e0000001c0000001e000000
     unwrapper: 0000000000000000000000000000000000000000
   - meshName:
     - Car_Convertable_Green_GEO
     - Car_Convertable_Orange_GEO
     - Car_Convertable_Blue_GEO
     - Car_Convertable_Pink_GEO
-    padding: 1a0000001a0000001a0000001a000000
+    padding: 8b0000001a0000001a0000008b000000
     unwrapper: 00000000000000000000000000000000
   - meshName:
     - Barrier_Wild_Logs01
-    padding: 26000000
+    padding: ce000000
     unwrapper: 00000000
   - meshName:
     - Car_PickUp_Red_GEO
     - Car_PickUp_Blue_GEO
-    padding: 1500000015000000
+    padding: 7300000073000000
     unwrapper: 0000000000000000
   - meshName:
     - SatDish
@@ -606,7 +606,7 @@ MonoBehaviour:
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - Car_TowTruck_GEO
-    padding: 12000000
+    padding: 63000000
     unwrapper: 00000000
   - meshName:
     - SatDish1
@@ -615,7 +615,7 @@ MonoBehaviour:
     - ACduct1
     - AC2
     - AC1
-    padding: 3b00000011000000040000001c0000003000000030000000
+    padding: 000100005d00000018000000970000000001000000010000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - VentPot2
@@ -629,7 +629,7 @@ MonoBehaviour:
     - Wall_Base_Straight_GEO
     - Wall_Base_Corner_Long_GEO
     - Wall_Base_Corner_Short_GEO
-    padding: 1a0000001700000018000000
+    padding: 8c0000001700000081000000
     unwrapper: 000000000000000000000000
   - meshName:
     - DC_Grey
@@ -637,7 +637,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Prop_ShipBollard_GEO
-    padding: e7000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - DC_Green
@@ -645,23 +645,23 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Statue_GEO
-    padding: 1c000000
+    padding: 95000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficConeLine_GEO
-    padding: 49000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_Fallen_GEO
-    padding: 37000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Prop_TrashCan_GEO
-    padding: 58000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficCone_GEO
-    padding: 7f000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - side_walk_Curb
@@ -689,7 +689,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Bush
-    padding: 50000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
@@ -707,7 +707,7 @@ MonoBehaviour:
   - meshName:
     - Prop_Rubble_2_GEO
     - Prop_Rubble_1_GEO
-    padding: 460000002a000000
+    padding: 00010000e2000000
     unwrapper: 0000000000000000
   - meshName:
     - Prop_Sign_Motel_GEO
@@ -741,7 +741,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Prop_BenchPark_GEO
-    padding: 5f000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Skull_R_Fence_pole
@@ -749,11 +749,11 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Mobile_Home_Red
-    padding: 0e000000
+    padding: 4d000000
     unwrapper: 00000000
   - meshName:
     - Mobile_Home_Yellow
-    padding: 0e000000
+    padding: 4d000000
     unwrapper: 00000000
   - meshName:
     - R_Fence_pole
@@ -765,7 +765,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - R_fence_Long_no_pannel
-    padding: 1d000000
+    padding: 9d000000
     unwrapper: 00000000
   - meshName:
     - R_Bus
@@ -804,7 +804,7 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - DC_Yellow
-    padding: 11000000
+    padding: 5e000000
     unwrapper: 00000000
   - meshName:
     - DC_Blue
@@ -822,7 +822,7 @@ MonoBehaviour:
     unwrapper: 0000000000000000
   - meshName:
     - broken_building_3
-    padding: 0d000000
+    padding: 46000000
     unwrapper: 00000000
   - meshName:
     - Brownstone_Broken_1
@@ -830,27 +830,27 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowClean
-    padding: 40000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - barricade_sandbags
-    padding: 3f000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowDamage
-    padding: 40000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - TrafficCone02
-    padding: 68000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_High
-    padding: 44000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - barricade_concrete_LowCorner
-    padding: 3f000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Motel_base_Geo
@@ -890,117 +890,117 @@ MonoBehaviour:
   - meshName:
     - Top
     - base
-    padding: 0500000006000000
+    padding: 1b00000021000000
     unwrapper: 0000000000000000
   - meshName:
     - secondary_roof
     - Main_roof
     - Base_Geo
-    padding: 100000000700000005000000
+    padding: 57000000260000001b000000
     unwrapper: 000000000000000000000000
   - meshName:
     - corvett_crash
-    padding: 12000000
+    padding: 64000000
     unwrapper: 00000000
   - meshName:
     - LB_Fortified_wall
-    padding: 13000000
+    padding: 67000000
     unwrapper: 00000000
   - meshName:
     - SB_Junk_wall
-    padding: 30000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - SB_Cardboard_boxes
-    padding: 28000000
+    padding: d9000000
     unwrapper: 00000000
   - meshName:
     - SB_Broken_colomb
-    padding: 36000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - LB_Skip
-    padding: 17000000
+    padding: 7d000000
     unwrapper: 00000000
   - meshName:
     - MB_Fridge
-    padding: 14000000
+    padding: 6c000000
     unwrapper: 00000000
   - meshName:
     - MB_Wall_T_shape
-    padding: 0d000000
+    padding: 48000000
     unwrapper: 00000000
   - meshName:
     - SB_Shelving_Broken
-    padding: 2a000000
+    padding: e1000000
     unwrapper: 00000000
   - meshName:
     - SB_Low_wall
-    padding: 20000000
+    padding: ad000000
     unwrapper: 00000000
   - meshName:
     - SB_concrete_barrier
-    padding: 2b000000
+    padding: e7000000
     unwrapper: 00000000
   - meshName:
     - SB_Thick_concrete_colomb
-    padding: 38000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Thick_colomb_baricade
-    padding: 21000000
+    padding: b1000000
     unwrapper: 00000000
   - meshName:
     - SB_container
-    padding: 2b000000
+    padding: e7000000
     unwrapper: 00000000
   - meshName:
     - Tyres_Baricade
-    padding: 27000000
+    padding: d4000000
     unwrapper: 00000000
   - meshName:
     - MB_wall_Compound_shape
-    padding: 0c000000
+    padding: 42000000
     unwrapper: 00000000
   - meshName:
     - MB_Wall_L_Shape_Bare
-    padding: 0f000000
+    padding: 54000000
     unwrapper: 00000000
   - meshName:
     - MB_barrel_pallete
-    padding: 1e000000
+    padding: a2000000
     unwrapper: 00000000
   - meshName:
     - MB_Wall_L_Shape_tyres
-    padding: 16000000
+    padding: 76000000
     unwrapper: 00000000
   - meshName:
     - Floor_damage_1
-    padding: 23000000
+    padding: ba000000
     unwrapper: 00000000
   - meshName:
     - Scatter_assets_7
-    padding: 18000000
+    padding: 85000000
     unwrapper: 00000000
   - meshName:
     - Scatter_asset_4
-    padding: 29000000
+    padding: db000000
     unwrapper: 00000000
   - meshName:
     - Scatter_asset_1
-    padding: 24000000
+    padding: c0000000
     unwrapper: 00000000
   - meshName:
     - Scatter_asset_5
-    padding: 28000000
+    padding: d7000000
     unwrapper: 00000000
   - meshName:
     - Scatter_asset_2
-    padding: 2e000000
+    padding: f8000000
     unwrapper: 00000000
   - meshName:
     - floor_damage_4
-    padding: 31000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Fancy_facade_BRKN
@@ -1008,55 +1008,55 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Scatter_assets_6
-    padding: 1c000000
+    padding: 98000000
     unwrapper: 00000000
   - meshName:
     - floor_damage_3
-    padding: 24000000
+    padding: c1000000
     unwrapper: 00000000
   - meshName:
     - Prop_TrafficLight_GEO
-    padding: 60000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - PT2
-    padding: 2f000000
+    padding: fc000000
     unwrapper: 00000000
   - meshName:
     - PT1
-    padding: 34000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - PT3
-    padding: 3c000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - DC_Grey
-    padding: 11000000
+    padding: 5e000000
     unwrapper: 00000000
   - meshName:
     - SB_Low_wall_long_L_shape
-    padding: 10000000
+    padding: 56000000
     unwrapper: 00000000
   - meshName:
     - road_end
-    padding: 22000000
+    padding: b8000000
     unwrapper: 00000000
   - meshName:
     - straight_road
-    padding: 1c000000
+    padding: 97000000
     unwrapper: 00000000
   - meshName:
     - T_junction_wide2
-    padding: 15000000
+    padding: 72000000
     unwrapper: 00000000
   - meshName:
     - right_angle_road_thin
-    padding: 26000000
+    padding: ca000000
     unwrapper: 00000000
   - meshName:
     - right_anngle_road
-    padding: 1c000000
+    padding: 97000000
     unwrapper: 00000000
   - meshName:
     - road_end_small
@@ -1064,11 +1064,11 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - straight_road_thin
-    padding: 25000000
+    padding: ca000000
     unwrapper: 00000000
   - meshName:
     - T_junction_narow
-    padding: 1a000000
+    padding: 8e000000
     unwrapper: 00000000
   - meshName:
     - pure_side_walk
@@ -1088,39 +1088,39 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - T_junction_narow_and_thin
-    padding: 22000000
+    padding: b5000000
     unwrapper: 00000000
   - meshName:
     - store_floor
-    padding: 0b000000
-    unwrapper: 00000000
-  - meshName:
-    - Hospital_sign
     padding: 3c000000
     unwrapper: 00000000
   - meshName:
+    - Hospital_sign
+    padding: 00010000
+    unwrapper: 00000000
+  - meshName:
     - sky_walk_platform_small_piece
-    padding: 2e000000
+    padding: f5000000
     unwrapper: 00000000
   - meshName:
     - sky_walk_platform_clean
-    padding: 17000000
+    padding: 7b000000
     unwrapper: 00000000
   - meshName:
     - sky_walk_broken_both_ends
-    padding: 17000000
+    padding: 7d000000
     unwrapper: 00000000
   - meshName:
     - sky_walk_broken_single_end
-    padding: 17000000
+    padding: 7d000000
     unwrapper: 00000000
   - meshName:
     - Sky_walk_base
-    padding: 13000000
+    padding: 68000000
     unwrapper: 00000000
   - meshName:
     - Sky_walk_base_broken
-    padding: 14000000
+    padding: 6b000000
     unwrapper: 00000000
   - meshName:
     - LB_Half_shootable_wall
@@ -1128,23 +1128,23 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - MB_Funnel_Shape
-    padding: 17000000
+    padding: 7c000000
     unwrapper: 00000000
   - meshName:
     - LB_Broken_baclony_2
-    padding: 1e000000
+    padding: 99000000
     unwrapper: 00000000
   - meshName:
     - Prop_Dumpster_GEO
-    padding: 2e000000
+    padding: f9000000
     unwrapper: 00000000
   - meshName:
     - wall_under_ground
-    padding: 04000000
+    padding: 19000000
     unwrapper: 00000000
   - meshName:
     - islands1
-    padding: 01000000
+    padding: 0a000000
     unwrapper: 00000000
   - meshName:
     - wall_under_ground
@@ -1160,7 +1160,7 @@ MonoBehaviour:
     - T_bridge_short
     - Right_angle_bridge
     - T_bridge_medium
-    padding: 120000002100000010000000150000000c0000000f0000000f0000000f0000000e000000
+    padding: 61000000b00000005600000072000000410000005500000051000000550000004c000000
     unwrapper: 000000000000000000000000000000000000000000000000000000000000000000000000
   - meshName:
     - rubble_large_4
@@ -1169,19 +1169,19 @@ MonoBehaviour:
     - Rubble_small_3
     - rubble_large_2
     - rubble_large_1
-    padding: 13000000170000003600000040000000210000001d000000
+    padding: 650000007b0000000001000000010000b10000009f000000
     unwrapper: 000000000000000000000000000000000000000000000000
   - meshName:
     - gate
-    padding: 27000000
+    padding: d1000000
     unwrapper: 00000000
   - meshName:
     - gate_small_section
-    padding: 2f000000
+    padding: fb000000
     unwrapper: 00000000
   - meshName:
     - Mine
-    padding: 95000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Missile
@@ -1189,53 +1189,53 @@ MonoBehaviour:
     unwrapper: 00000000
   - meshName:
     - Ammo_box
-    padding: 4b000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Barrel
-    padding: 56000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Cement_barrier_broken_no_reinforcement
-    padding: 2d000000
+    padding: f2000000
     unwrapper: 00000000
   - meshName:
     - Scatter_asset_3
-    padding: 30000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Tank_trap
-    padding: 3b000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Spare_tank_track
-    padding: 1b000000
+    padding: 91000000
     unwrapper: 00000000
   - meshName:
     - Cement_barrier_broken
-    padding: 1e000000
+    padding: a1000000
     unwrapper: 00000000
   - meshName:
     - Tank_under_construction
-    padding: 13000000
+    padding: 66000000
     unwrapper: 00000000
   - meshName:
     - Lamp_post
-    padding: 4d000000
+    padding: 00010000
     unwrapper: 00000000
   - meshName:
     - Edge_of_urban_area
-    padding: 05000000
+    padding: 1c000000
     unwrapper: 00000000
   - meshName:
     - Dead_tree_2
     - Dead_tree_3
     - Dead_tree_1
-    padding: 2c0000002800000045000000
+    padding: ea000000d800000000010000
     unwrapper: 000000000000000000000000
   - meshName:
     - Cube__1_
-    padding: 04000000
+    padding: 15000000
     unwrapper: 00000000
   - meshName:
     - ROCK_5
@@ -1243,19 +1243,19 @@ MonoBehaviour:
     - ROCK_1
     - ROCK_4
     - ROCK_3
-    padding: 2f00000024000000280000003900000023000000
+    padding: ff000000c3000000d900000000010000bc000000
     unwrapper: 0000000000000000000000000000000000000000
   - meshName:
     - Container_Red
-    padding: 18000000
+    padding: 83000000
     unwrapper: 00000000
   - meshName:
     - LB_Broken_balcony_1
-    padding: 20000000
+    padding: a5000000
     unwrapper: 00000000
   - meshName:
     - LB_U_Wall
-    padding: 1d000000
+    padding: 9e000000
     unwrapper: 00000000
   assetList:
   - Assets/Bakery/examples/content/sponza/bush.FBX
@@ -5237,7 +5237,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 100000000700000005000000
-  modifiedMeshUnwrapperArray: 000000000000000000000000
+  modifiedMeshPaddingArray: 000100005d00000018000000970000000001000000010000
+  modifiedMeshUnwrapperArray: 000000000000000000000000000000000000000000000000
   texSettingsKey: []
   texSettingsVal: []

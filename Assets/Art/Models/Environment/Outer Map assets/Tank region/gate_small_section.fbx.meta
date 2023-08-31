@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["gate_small_section"],"padding":[47],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["gate_small_section"],"padding":[251],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -67,8 +67,8 @@ Material:
     - _QueueOffset: 0
     - contrast: 2.33
     m_Colors:
-    - DarkFoamColor: {r: 0.40797433, g: 0.6792453, b: 0.4793997, a: 1}
+    - DarkFoamColor: {r: 0.24292454, g: 0.5, b: 0.48714623, a: 1}
     - FoamDistanceColor: {r: 0.9685534, g: 0.991951, b: 1, a: 0}
-    - LightFoamColor: {r: 0.6533167, g: 0.8584906, b: 0.6918107, a: 0}
-    - WaterColor: {r: 0.32156864, g: 0.5176471, b: 0.3325826, a: 1}
+    - LightFoamColor: {r: 0.71675867, g: 0.8584906, b: 0.8584906, a: 0}
+    - WaterColor: {r: 0.42145783, g: 0.7264151, b: 0.65542924, a: 1}
   m_BuildTextureStacks: []

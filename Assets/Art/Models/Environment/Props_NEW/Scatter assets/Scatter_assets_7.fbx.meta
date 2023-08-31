@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Scatter_assets_7"],"padding":[24],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Scatter_assets_7"],"padding":[133],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

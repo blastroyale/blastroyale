@@ -152,8 +152,8 @@
 }
 
 .craft-spice {
-    top: 200px;
-    left: 238px;
+    top: 527px;
+    left: 150px;
     width: 609px;
     height: 117px;
     position: absolute;
@@ -223,8 +223,8 @@
 }
 
 .trophies {
-    top: 355px;
-    left: 200px;
+    top: 353px;
+    left: 192px;
     width: 609px;
     height: 117px;
     position: absolute;
@@ -472,9 +472,9 @@
 }
 
 .fame {
-    top: 504px;
-    left: 150px;
-    width: 619px;
+    top: 181px;
+    left: 230px;
+    width: 612px;
     height: 106px;
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/Shared/background-rewards-fame.png?fileID=21300000&guid=351bb965f9ed2974e9edc1ea7688cc75&type=3#background-rewards-fame');
@@ -522,7 +522,7 @@
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
-    left: 479px;
+    left: 474px;
     top: 7px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);

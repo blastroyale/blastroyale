@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/RewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7c90e78a8c46ca409017b7643aa3eb4&amp;type=3#RewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
-    <ui:VisualElement name="root" class="fill-parent rewards-root">
+    <ui:VisualElement name="root" class="fill-parent rewards-root" style="background-image: url(&apos;project://database/Assets/Art/UI/References/RewardsFame.png?fileID=2800000&amp;guid=ba9f8ab6da85c4a7d804cf75c87cdaff&amp;type=3#RewardsFame&apos;);">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
             <ui:VisualElement name="RewardsRemaining" class="rewards-remaining">
                 <ui:Label text="32" name="NumberLabel" class="rewards-remaining__number-label" />
@@ -12,14 +12,7 @@
             <ui:VisualElement name="RaysSummaryReward" class="rewards-one__rays">
                 <ui:VisualElement name="RaysGradient" class="rewards-one__gradient" />
             </ui:VisualElement>
-            <ui:VisualElement name="AvatarHolder" class="rewards-summary__avatar-holder">
-                <ui:VisualElement name="Avatar" class="player-header__avatar">
-                    <ui:VisualElement name="AvatarMask" class="player-header__avatar-mask">
-                        <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:Label tabindex="-1" text="44" display-tooltip-when-elided="true" name="FameLevel" class="player-header__fame-lvl" />
-            </ui:VisualElement>
+            <FirstLight.Game.UIElements.PlayerAvatarElement class="player-avatar--nft" />
             <ui:VisualElement name="LabelRewardsContainer" class="rewards-summary__label-rewards-holder">
                 <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/you_got" text="YOU GOT" display-tooltip-when-elided="true" name="YouGotLabel" class="rewards-summary__you-got-label" />
                 <ui:VisualElement name="RewardsContainer" class="rewards-summary__rewards-container">

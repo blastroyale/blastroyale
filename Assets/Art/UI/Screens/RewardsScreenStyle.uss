@@ -532,9 +532,15 @@
     background-image: var(--sprite-home__rewards-impact-circle);
 }
 
-.player-header__avatar {
-    width: 110px;
-    height: 110px;
+.player-avatar {
+    align-items: center;
+    top: -86px;
+    left: -8px;
+}
+
+.player-avatar__avatar {
+    width: 160px;
+    height: 160px;
     background-color: rgb(214, 74, 123);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
@@ -542,25 +548,25 @@
     border-bottom-right-radius: 50%;
 }
 
-.player-header__avatar--nft {
+.player-avatar--nft > .player-avatar__avatar {
     background-color: initial;
     background-image: var(--sprite-home__background-avatar-nft);
 }
 
-.player-header__avatar-mask {
+.player-avatar__mask {
     flex-grow: 1;
     overflow: hidden;
-    margin-left: 7px;
-    margin-right: 7px;
-    margin-top: 7px;
+    margin-left: 11px;
+    margin-right: 11px;
+    margin-top: 4px;
     margin-bottom: 7px;
 }
 
-.player-header__avatar--nft > .player-header__avatar-mask {
+.player-avatar--nft .player-avatar__mask {
     background-image: url('project://database/Assets/Art/UI/Vectors/ProfileBgShapeNft.svg?fileID=7388822144124034973&guid=383af2f3fddfd49a28a8e090f2857a24&type=3#ProfileBgShapeNft');
 }
 
-.player-header__avatar-pfp {
+.player-avatar__pfp {
     flex-grow: 1;
     -unity-background-scale-mode: scale-to-fit;
     background-image: var(--sprite-shared__avatar-default);
@@ -570,22 +576,77 @@
     border-bottom-right-radius: 50%;
 }
 
-.player-header__avatar--nft .player-header__avatar-pfp {
+.player-avatar--nft .player-avatar__pfp {
     border-top-left-radius: initial;
     border-bottom-left-radius: initial;
     border-top-right-radius: initial;
     border-bottom-right-radius: initial;
 }
 
-.player-header__fame-lvl {
+.player-avatar__fame-lvl {
+    -unity-text-align: upper-center;
+    font-size: 62px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    top: 114px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -30px;
-    -unity-text-align: upper-center;
-    font-size: 38px;
-    color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.player-avatar__fame-stars-holder {
+    height: 58px;
+    right: 0;
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+}
+
+.player-avatar__fame-star-1 {
+    width: 30px;
+    height: 30px;
+    background-image: var(--sprite-home__icon-star-bronze);
+    top: -5px;
+    position: absolute;
+    left: 18px;
+}
+
+.player-avatar__fame-star-2 {
+    width: 30px;
+    height: 30px;
+    background-image: var(--sprite-home__icon-star-bronze);
+    top: 21px;
+    position: absolute;
+    left: 38px;
+}
+
+.player-avatar__fame-star-3 {
+    width: 30px;
+    height: 30px;
+    background-image: var(--sprite-home__icon-star-bronze);
+    position: absolute;
+    left: 66px;
+    top: 27px;
+}
+
+.player-avatar__fame-star-4 {
+    width: 30px;
+    height: 30px;
+    background-image: var(--sprite-home__icon-star-bronze);
+    top: 21px;
+    position: absolute;
+    left: 98px;
+}
+
+.player-avatar__fame-star-5 {
+    width: 30px;
+    height: 30px;
+    background-image: var(--sprite-home__icon-star-bronze);
+    top: -5px;
+    position: absolute;
+    left: 115px;
 }
 
 .equipment-card {

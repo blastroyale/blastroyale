@@ -28,6 +28,7 @@ namespace FirstLight.Game.Views.UITK
 		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
 		private readonly HashSet<EntityRef> _culledPlayers = new();
 		private readonly List<EntityRef> _entityCache = new(5);
+		private readonly StyleColor _defaultShieldDmgColor = new StyleColor(new Color(0.2f, 0.72f, 1f));
 
 		// TODO: Only returned to pool when it's destroyed, and they're not culled
 		private readonly Dictionary<EntityRef, HealthStatusBarElement> _healthBars = new();
@@ -56,7 +57,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 
 			_healthBarPool = new ObjectPool<HealthStatusBarElement>(
 				() =>
@@ -69,7 +70,7 @@ namespace FirstLight.Game.Views.UITK
 				pbe => pbe.SetDisplay(true),
 				pbe => pbe.SetDisplay(false),
 				pbe => pbe.RemoveFromHierarchy(),
-				true, 3);
+				false, 3);
 		}
 
 		public override void SubscribeToEvents()
@@ -81,11 +82,12 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnPlayerLevelUp>(this, OnPlayerLevelUp);
 			QuantumEvent.SubscribeManual<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.SubscribeManual<EventOnShrinkingCircleDmg>(this, OnShrinkingCircleDmg);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
-
-			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -149,7 +151,12 @@ namespace FirstLight.Game.Views.UITK
 			// Duplicates above ^
 			foreach (var (entity, bar) in _healthBars)
 			{
-				var anchor = _anchors[entity];
+				// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+				if (!_anchors.TryGetValue(entity, out var anchor))
+				{
+					FLog.Warn($"Failed to restore anchor for entity {entity}, likely due to reconnection, skipping");
+					continue;
+				}
 				if (anchor == null) continue;
 				var screenPoint = _camera.WorldToScreenPoint(anchor.position);
 				screenPoint.y = _camera.pixelHeight - screenPoint.y;
@@ -159,33 +166,31 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnMatchStarted(MatchStartedMessage message)
+		private void OnMatchStart(MatchStartedMessage msg)
 		{
-			if (!message.IsResync) return;
-
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
+			for (int i = 0; i < f.PlayerCount; i++)
+			{
+				InitPlayer(f, dataArray[i].Entity);
+			}
+		}
+		
+		private void OnGameResync(CallbackGameResynced cb)
+		{
 			_anchors.Clear();
 			_culledPlayers.Clear();
+			_healthBars.Clear();
 			foreach (var (_, bar) in _visiblePlayers)
 			{
 				_playerBarPool.Release(bar);
 			}
-
 			_visiblePlayers.Clear();
 			foreach (var (_, bar) in _healthBars)
 			{
 				_healthBarPool.Release(bar);
 			}
-
 			_healthBarPool.Clear();
-
-			var f = message.Game.Frames.Verified;
-
-			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
-
-			for (int i = 0; i < f.PlayerCount; i++)
-			{
-				InitPlayer(f, dataArray[i].Entity);
-			}
 		}
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
@@ -197,6 +202,12 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view)) return;
 
+			// TODO: https://tree.taiga.io/project/firstlightgames-blast-royale-reloaded/issue/915
+			if (_anchors.ContainsKey(entity))
+			{
+				FLog.Warn("Unhandled reconnection flow initializing entity twice, ignoring it for now");
+				return;
+			}
 			_anchors.Add(entity, view.GetComponent<HealthEntityBase>().HealthBarAnchor);
 
 			if (f.IsCulled(entity))
@@ -314,7 +325,7 @@ namespace FirstLight.Game.Views.UITK
 				if (!_healthBars.TryGetValue(callback.HitEntity, out var bar))
 				{
 					bar = _healthBars[callback.HitEntity] = _healthBarPool.Get();
-
+			
 					_anchors[callback.HitEntity] = _matchServices.EntityViewUpdaterService
 						.GetManualView(callback.HitEntity).GetComponent<HealthEntityBase>().HealthBarAnchor;
 				}
@@ -333,6 +344,15 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			if ((callback.PlayerTeamId == spectatedPlayer.Team || callback.HitEntity == spectatedPlayer.Entity) &&
 				_visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
+			{
+				playerBar.PingDamage(callback.TotalDamage, callback.isShieldDmg ? _defaultShieldDmgColor : null);
+			}
+		}
+
+		private unsafe void OnShrinkingCircleDmg(EventOnShrinkingCircleDmg callback)
+		{
+			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			if (callback.HitEntity == spectatedPlayer.Entity && _visiblePlayers.TryGetValue(callback.HitEntity, out var playerBar))
 			{
 				playerBar.PingDamage(callback.TotalDamage);
 			}

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -101,6 +103,13 @@ namespace FirstLight.Game.MonoComponent
 			{
 				UnequipItem(slot);
 			}
+			
+			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
+			{
+				Character = gameObject.GetComponent<PlayerCharacterViewMonoComponent>(),
+				Item = instance,
+				Id = gameId
+			});
 
 			var childCount = instance.transform.childCount;
 
@@ -127,6 +136,9 @@ namespace FirstLight.Game.MonoComponent
 			// If we detached the child of a parent, we destroy the parent
 			if (childCount > 0)
 			{
+#if UNITY_EDITOR
+				Log.Warn("Unecessary destroy of child of equipment hack triggered, please fix");
+#endif
 				Destroy(instance);
 			}
 

@@ -44,7 +44,7 @@ namespace FirstLight.Game.UIElements
 
 			_opacityAnimation.Stop();
 			style.opacity = 1f;
-			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION);
 		}
 
 		public new class UxmlFactory : UxmlFactory<HealthStatusBarElement, UxmlTraits>

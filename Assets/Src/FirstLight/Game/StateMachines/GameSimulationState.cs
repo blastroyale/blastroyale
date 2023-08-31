@@ -369,11 +369,13 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void StopSimulation()
 		{
+			FLog.Verbose("Stopping Simulation");
 			if (QuantumRunner.Default == null || QuantumRunner.Default.IsDestroyed())
 			{
 				FLog.Verbose("Simulation already destroyed");
 				return;
 			}
+
 			_services.MessageBrokerService.Publish(new SimulationEndedMessage
 			{
 				Game = QuantumRunner.Default.Game,

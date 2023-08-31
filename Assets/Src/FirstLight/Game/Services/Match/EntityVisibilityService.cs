@@ -42,6 +42,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.SubscribeManual<EventOnEnterVisibilityArea>(this, OnEnterVisibilityArea);
 			QuantumEvent.SubscribeManual<EventOnLeaveVisibilityArea>(this, OnLeaveVisibilityArea);
 			_gameServices.MessageBrokerService.Subscribe<EntityViewLoaded>(OnEntityViewLoad);
+			_gameServices.MessageBrokerService.Subscribe<ItemEquippedMessage>(OnItemEquipped);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectateChange); 
 		}
 		
@@ -59,8 +60,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		public bool CanSpectatedPlayerSee(EntityRef entity)
 		{
-
 			return CheckSpectatorVisibility(entity).CanSee;
+		}
+
+		private void OnItemEquipped(ItemEquippedMessage msg)
+		{
+			if (!CanSpectatedPlayerSee(msg.Character.EntityRef))
+			{
+				var rend = msg.Item.GetComponentInChildren<RenderersContainerMonoComponent>();
+				rend?.SetEnabled(false);
+			}
 		}
 		
 		private void OnSpectateChange(SpectatedPlayer oldView, SpectatedPlayer newView)
@@ -148,7 +157,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			
-			var renderer = FindRenderer(view);
+			var renderer = FindRenderer(view.gameObject);
 			if(renderer == null)
 			{
 				_waitingLoad.Add(towardsEntity);
@@ -200,7 +209,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		}
 
 		[CanBeNull]
-		private RenderersContainerProxyMonoComponent FindRenderer(EntityView view)
+		private RenderersContainerProxyMonoComponent FindRenderer(GameObject view)
 		{
 			if (!view.TryGetComponent<RenderersContainerProxyMonoComponent>(out var viewBase))
 			{

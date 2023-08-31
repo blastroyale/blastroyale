@@ -5,5 +5,7 @@ namespace Quantum
 		public static bool DropEnergyCubes = true;
 
 		public static bool FREEZE_BOTS = false;
+
+		public static bool PLAYER_PUSHING = false;
 	}
 }

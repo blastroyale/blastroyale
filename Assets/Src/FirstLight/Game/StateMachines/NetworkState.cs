@@ -19,6 +19,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
@@ -361,6 +362,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LeaveRoom()
 		{
+			FLog.Verbose("Leaving current room");
 			_networkService.LeaveRoom(false, true);
 		}
 
@@ -440,7 +442,7 @@ namespace FirstLight.Game.StateMachines
 				_networkService.QuantumClient.DisconnectedCause
 					.ToString());
 
-			if (QuantumRunner.Default != null)
+			if (QuantumRunner.Default != null && QuantumRunner.Default.Session.GameMode != DeterministicGameMode.Local)
 			{
 				FLog.Verbose("Disabling Simulation Updates");
 				QuantumRunner.Default.OverrideUpdateSession = true;
@@ -806,11 +808,16 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinSource.Value = JoinRoomSource.FirstJoin;
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
+			var mutatorsFullList = msg.CustomGameOptions.Mutators;
+			if (msg.CustomGameOptions.WeaponLimiter != ScriptLocalization.MainMenu.None)
+			{
+				mutatorsFullList.Add(msg.CustomGameOptions.WeaponLimiter);
+			}
 			var setup = new MatchRoomSetup()
 			{
 				GameModeId = gameModeId,
 				MapId = (int) msg.MapConfig.Map,
-				Mutators = msg.CustomGameOptions.Mutators,
+				Mutators = mutatorsFullList,
 				MatchType = MatchType.Custom,
 				RoomIdentifier = msg.RoomName,
 				BotDifficultyOverwrite = msg.CustomGameOptions.BotDifficulty,

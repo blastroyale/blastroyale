@@ -48,7 +48,7 @@
     transition-duration: 0.2s;
 }
 
-.equipment-card--highlighted  .equipment-card__highlight {
+.equipment-card--highlighted .equipment-card__highlight {
     position: absolute;
     top: 0;
     left: -7px;

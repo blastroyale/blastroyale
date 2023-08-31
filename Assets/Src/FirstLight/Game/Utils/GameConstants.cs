@@ -224,7 +224,8 @@ namespace FirstLight.Game.Utils
 			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
 			
-			public const long GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2000;
+			public const long GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS = 2;
+			public const long GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION = 2000;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 			

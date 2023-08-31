@@ -141,9 +141,13 @@ blast_royale_BackUpThisFolder_ButDontShipItWithYourGame
 blast_royale_BurstDebugInformation_DoNotShip
 Assets/InitTestScene*.unity
 Assets/InitTestScene*.unity.meta
+Assets/UnityDefaultRuntimeTheme.tss.meta
+Assets/UnityDefaultRuntimeTheme.tss
 
 # DLLs
 Assets/Libs/Photon/Quantum/Assemblies/quantum.code.dll
 Assets/Libs/Photon/Quantum/Assemblies/quantum.core.dll
 Assets/Libs/Photon/Quantum/Assemblies/PhotonDeterministic.dll
 Quantum/quantum_code/quantum.code/Core/CodeGen.cs
+
+

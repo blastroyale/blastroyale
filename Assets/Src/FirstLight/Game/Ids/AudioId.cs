@@ -195,7 +195,9 @@ namespace FirstLight.Game.Ids
 		Vo_Countdown2,
 		Vo_Countdown1,
 		Vo_CountdownGo,
-		Shells
+		Shells,
+		
+		RocketExplosion
 	}
 	
 	/// <summary>

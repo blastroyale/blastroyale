@@ -459,6 +459,8 @@ namespace FirstLight.Game.Logic
 
 		private void CalculateXPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
 		{
+			// TODO FAME
+			return;
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
 			{
 				rewards.Add(new RewardData(GameId.XP, amount));

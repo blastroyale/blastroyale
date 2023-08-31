@@ -105,6 +105,11 @@ namespace Quantum
 			return false;
 		}
 
+		public bool HasShield()
+		{
+			return CurrentShield > 0;
+		}
+
 		/// <summary>
 		/// Removes all modifiers, removes immunity, resets health and shields
 		/// </summary>

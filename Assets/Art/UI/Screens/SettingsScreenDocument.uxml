@@ -19,14 +19,13 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="Graphics" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/fps" name="FPSRBG" choices="Normal, High" class="settings-radio-button-group" />
-                            <FirstLight.Game.UIElements.LocalizedRadioButtonGroup value="0" localization-key="UITSettings/graphics_title" name="GraphicsRBG" choices="Low,Medium,High" class="settings-radio-button-group-graphics settings-radio-button-group" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Controls" class="settings-container">
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/haptic_feedback" name="HapticFeedback" class="settings-toggle" />
-                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/camera_panning" name="CameraPanning" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/screenshake" name="ScreenShake" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/cone_aim" name="AimBackground" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">
                             <ui:Label text="First Light ID Connected!&#10;&#10;User ID: Penus48212" name="AccountStatusLabel" class="account-status-label" />
@@ -39,7 +38,6 @@
                     </FirstLight.Game.UIElements.TabbedView>
                     <ui:VisualElement name="Divider" class="divider" />
                     <ui:VisualElement name="BottomButtons" class="settings-footer">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/server" name="ServerButton" class="button-long sfx-click-forwards" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/faq" name="FAQButton" class="button-long sfx-click-forwards" />
                     </ui:VisualElement>

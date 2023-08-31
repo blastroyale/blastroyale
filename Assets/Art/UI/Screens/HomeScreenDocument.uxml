@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
@@ -51,14 +52,14 @@
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin fame-locked-button">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="EquipmentIcon" class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/collection" name="CollectionButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="CollectionIcon" class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--right-l main-button-margin">
-                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="StoreIcon" class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl button-with-pool">
                     <ui:VisualElement name="BPPPoolContainer" class="resource-pool resource-pool--bpp">

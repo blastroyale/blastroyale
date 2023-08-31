@@ -36,13 +36,12 @@
                     <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Fame" class="fame">
-                    <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="fame__avatar" />
-                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/fame" class="fame__title" />
+                    <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="fame__avatar" style="scale: 0.7 0.7;" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="PLAYERNAME" name="Title" localization-key="UITRewards/fame" class="fame__title" />
                     <ui:VisualElement name="LogoTop" class="fame__logo-top" />
                     <ui:VisualElement name="PinkBand" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" style="display: none;" />
-                    <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="fame__to-level" />
-                    <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="fame__level" />
+                    <ui:Label text="&lt;size=80%&gt;TO LV&lt;/size&gt; 77" display-tooltip-when-elided="true" name="Level" class="fame__level" />
                     <ui:VisualElement name="Bar" class="fame__bar">
                         <ui:VisualElement name="YellowBar" class="fame__bar__yellow-bar" />
                         <ui:VisualElement name="GreenBar" class="fame__bar__green-bar" />

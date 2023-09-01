@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9024961273082354092}
   - component: {fileID: 6546427308672239144}
   - component: {fileID: 2460263077203074276}
+  - component: {fileID: 8847023727952549390}
+  - component: {fileID: 5238182109692146895}
   m_Layer: 0
   m_Name: ROCK_2
   m_TagString: Untagged
@@ -83,3 +85,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8847023727952549390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839341847873424523}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.29, y: 3.0291014, z: 2.14}
+  m_Center: {x: -0.10708541, y: 1.4394016, z: -0.039841533}
+--- !u!114 &5238182109692146895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839341847873424523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8847023727952549390}
+  Size:
+    X:
+      RawValue: 150077
+    Y:
+      RawValue: 198515
+    Z:
+      RawValue: 140247
+  PositionOffset:
+    X:
+      RawValue: -7017
+    Y:
+      RawValue: 94332
+    Z:
+      RawValue: -2611
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

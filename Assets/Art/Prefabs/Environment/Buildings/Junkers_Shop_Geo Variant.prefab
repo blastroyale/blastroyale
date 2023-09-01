@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 8953032516694366218}
   - component: {fileID: 2995753316579965954}
   - component: {fileID: 7904015912562649004}
+  - component: {fileID: 6580769776169721540}
   m_Layer: 0
   m_Name: Junkers_Shop_Geo Variant
   m_TagString: Untagged
@@ -866,6 +867,27 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!95 &6580769776169721540
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2348363921017461252}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2da55f569784d42deb613bf769c80593, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4672458516826395910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2781888740461403855}
   m_Layer: 0
-  m_Name: Roof
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
       propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].BoxExtents.X.RawValue
-      value: 411566
+      value: 184811
       objectReference: {fileID: 0}
     - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
       propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].BoxExtents.Y.RawValue
@@ -1447,7 +1469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
       propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].PositionOffset.X.RawValue
-      value: -157286
+      value: -381419
       objectReference: {fileID: 0}
     - target: {fileID: 2879431998764754499, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
       propertyPath: PhysicsCollider.Shape3D.CompoundShapes.Array.data[1].PositionOffset.Y.RawValue
@@ -1529,19 +1551,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 11.85998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+      propertyPath: m_Size.z
+      value: 19.93998
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Center.x
-      value: 0
+      value: 2.82999
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647717, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Center.z
-      value: 0
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_RootOrder
@@ -1549,15 +1579,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1565,7 +1595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1599,6 +1629,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2497506558876647719, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+      propertyPath: _topRemovalAnimator
+      value: 
+      objectReference: {fileID: 6580769776169721540}
     - target: {fileID: 2497506558876647737, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Name
       value: TopRemovalCollider
@@ -1613,13 +1647,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4249914207961925157, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2497506558876647737, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 525743326415411768}
   m_SourcePrefab: {fileID: 100100000, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+--- !u!1 &4700253540304718124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2497506558876647737, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+  m_PrefabInstance: {fileID: 7174879939738437653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &525743326415411768
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700253540304718124}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.63998, y: 2, z: 13.65998}
+  m_Center: {x: -5.81999, y: 1, z: 2.75}
 --- !u!4 &4700253540304718131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2497506558876647718, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}

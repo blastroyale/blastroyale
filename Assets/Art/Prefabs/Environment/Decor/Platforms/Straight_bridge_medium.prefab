@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8632805739466860348}
   - component: {fileID: 5805886743464464695}
   - component: {fileID: 5049122827234908203}
+  - component: {fileID: 8807767304448817136}
+  - component: {fileID: 1557601038642996956}
   m_Layer: 0
   m_Name: Straight_bridge_medium
   m_TagString: Untagged
@@ -83,3 +85,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8807767304448817136
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3346781449564844033}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.000005, y: 5, z: 4.255171}
+  m_Center: {x: 0, y: -2.6, z: -0.010366917}
+--- !u!114 &1557601038642996956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3346781449564844033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8807767304448817136}
+  Size:
+    X:
+      RawValue: 589824
+    Y:
+      RawValue: 327680
+    Z:
+      RawValue: 278866
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: -170393
+    Z:
+      RawValue: -679
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

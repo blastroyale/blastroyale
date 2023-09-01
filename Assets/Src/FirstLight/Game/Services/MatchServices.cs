@@ -27,6 +27,7 @@ namespace FirstLight.Game.Services
 		public IPlayerIndicatorService PlayerIndicatorService { get; }
 		public IBulletService BulletService { get; }
 		public IMatchAssetsService MatchAssetService { get; }
+		public ITeamService TeamService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -69,6 +70,7 @@ namespace FirstLight.Game.Services
 		public IBulletService BulletService { get; }
 		
 		public IMatchAssetsService MatchAssetService { get; }
+		public ITeamService TeamService { get; }
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, 
 							 IGameServices services, 
@@ -89,6 +91,7 @@ namespace FirstLight.Game.Services
 			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
 			BulletService = Configure(new BulletService(_gameServices, this));
 			MatchAssetService = Configure(new MatchAssetsService());
+			TeamService = Configure(new TeamService(_gameServices, this));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
 			FLog.Verbose("Registered Match Services");

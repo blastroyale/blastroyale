@@ -7,6 +7,11 @@ synced event OnPlayerLeft
 	entity_ref Entity;
 }
 
+synced event OnTeamAssigned
+{
+    entity_ref Entity;
+}
+
 synced event OnPlayerSpawned
 {
 	player_ref Player;

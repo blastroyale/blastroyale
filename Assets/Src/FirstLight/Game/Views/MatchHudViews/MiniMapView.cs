@@ -30,6 +30,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _friendliesPID = Shader.PropertyToID("_Friendlies");
 		private static readonly int _friendliesCountPID = Shader.PropertyToID("_FriendliesCount");
 		private static readonly int _EnemiesOpacityPID = Shader.PropertyToID("_EnemiesOpacity");
+		private static readonly int _FriendlyColorsPID = Shader.PropertyToID("_FriendliesColors");
 
 		private static readonly int _pingPositionPID = Shader.PropertyToID("_PingPosition");
 		private static readonly int _pingProgressPID = Shader.PropertyToID("_PingProgress");
@@ -80,6 +81,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IObjectPool<MinimapPingView> _pingPool;
 		private readonly Vector4[] _enemyPositions = new Vector4[30];
 		private readonly Vector4[] _friendlyPositions = new Vector4[30];
+		private readonly Color[] _friendlyColors = new Color[30];
 
 		private Tweener _pingTweener;
 
@@ -315,9 +317,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 					}
 
 					// Dont Show TeamMates
-					if (f.TryGet<Targetable>(entity, out var targetable))
+					if (f.TryGet<PlayerCharacter>(entity, out var player))
 					{
-						if (IsFriendly(f, entity, targetable))
+						if (IsFriendly(f, entity, player))
 						{
 							continue;
 						}
@@ -336,25 +338,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void UpdateFriendlies(Frame f)
 		{
 			int index = 0;
-			foreach (var (entity, t) in f.GetComponentIterator<Targetable>())
+			foreach (var (entity, t) in f.GetComponentIterator<PlayerCharacter>())
 			{
 				if (!IsFriendly(f, entity, t)) continue;
 
 				var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
 				var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
+				var color = _matchServices.TeamService.GetTeamMemberColor(entity);
+				if(color.HasValue) _friendlyColors[index] = color.Value;
 				_friendlyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 			}
 
+			_minimapImage.materialForRendering.SetColorArray(_FriendlyColorsPID, _friendlyColors);
 			_minimapImage.materialForRendering.SetVectorArray(_friendliesPID, _friendlyPositions);
 			_minimapImage.materialForRendering.SetInteger(_friendliesCountPID, index);
 		}
 
-		private bool IsFriendly(Frame f, EntityRef entity, Targetable targetable)
+		private bool IsFriendly(Frame f, EntityRef entity, PlayerCharacter targetable)
 		{
 			var spectatePlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
-			return !f.Context.IsLocalPlayer(f.Get<PlayerCharacter>(entity).Player) &&
-				targetable.Team == spectatePlayer.Team;
+			return !f.Context.IsLocalPlayer(targetable.Player) &&
+				targetable.TeamId == spectatePlayer.Team;
 		}
 
 		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)

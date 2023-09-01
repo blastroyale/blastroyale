@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class AutoPrefabUpdater : EditorWindow
 {
-	[SerializeField] private bool _updateSceneOnly;
-		
+	private bool _updateSceneOnly;
 	private FolderSelector _folder = new ();
 
 	protected virtual bool OnValidate() => true;
@@ -19,8 +18,11 @@ public class AutoPrefabUpdater : EditorWindow
 	void OnGUI()
 	{
 		OnRenderUI();
+		
+		_updateSceneOnly = EditorGUILayout.Toggle("Update Scene Only", _updateSceneOnly);
+		
 		_folder.OnDrawWidget();
-	
+		
 		if (GUILayout.Button("Replace"))
 		{
 			if (!OnValidate())

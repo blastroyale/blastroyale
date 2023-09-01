@@ -50,6 +50,7 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _leaderboardScrollView;
 		private VisualElement _playerName;
 		private Label _playerNameText;
+		private Label _fameTitle;
 		private VisualElement _rewardsPanel;
 		private VisualElement _craftSpice;
 		private VisualElement _trophies;
@@ -108,8 +109,12 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
+			FLog.Info("PACO", "Query0");
+
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
 			_fame.AttachView(this, out _levelView);
+			_fameTitle = root.Q<Label>("FameTitle").Required();
+			FLog.Info("PACO", "Query");
 		}
 
 		private void OnNextButtonClicked()
@@ -158,36 +163,43 @@ namespace FirstLight.Game.Presenters
 
 			// craft spice
 			var csReward = 0;
-			if (rewards.ContainsKey(GameId.CS))
+			if (rewards.TryGetValue(GameId.CS, out var reward))
 			{
-				csReward = rewards[GameId.CS];
+				csReward = reward;
 			}
 
 			_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
 
 			// Trophies
 			var trophiesReward = 0;
-			if (rewards.ContainsKey(GameId.Trophies))
+			if (rewards.TryGetValue(GameId.Trophies, out var r))
 			{
-				trophiesReward = rewards[GameId.Trophies];
+				trophiesReward = r;
 			}
 
 			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
 
+			FLog.Info("PACO", "SetLevelData1");
 			// BPP
 			SetBPPReward(rewards);
 
+			FLog.Info("PACO", "SetLevelData2");
 			// Level (Fame)
 			SetLevelReward(rewards);
+			FLog.Info("PACO", "SetLevelData3");
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
 		{
 			var bppReward = 0;
-			if (rewards.ContainsKey(GameId.XP))
+			FLog.Info("PACO", "SetLevelReward1");
+
+			if (rewards.TryGetValue(GameId.XP, out var reward))
 			{
-				bppReward = rewards[GameId.XP];
+				bppReward = reward;
 			}
+			
+			FLog.Info("PACO", "SetLevelReward2");
 
 			var maxLevel = 99;
 			var gainedLeft = bppReward;
@@ -320,7 +332,9 @@ namespace FirstLight.Game.Presenters
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
 
-			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			_playerNameText.text += playerName;
+			_fameTitle.text = playerName;
 		}
 
 		private void UpdateLeaderboard()

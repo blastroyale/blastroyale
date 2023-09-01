@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Sirenix.OdinInspector;
@@ -45,6 +47,7 @@ namespace FirstLight.Game.Presenters
 
 		private Label _remainingNumber;
 		private VisualElement _remainingRoot;
+		private PlayerAvatarElement _avatar;
 
 		#endregion
 
@@ -57,6 +60,8 @@ namespace FirstLight.Game.Presenters
 
 		#endregion
 
+		private IGameDataProvider _gameDataProvider;
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -66,9 +71,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
 			_animations = new RewardsAnimationController();
 			_remainingRoot = root.Q<VisualElement>("RewardsRemaining").Required();
 			_remainingNumber = _remainingRoot.Q<Label>("NumberLabel").Required();
+			_avatar = root.Q<PlayerAvatarElement>("Avatar").Required();
+			_avatar.SetLocalPlayerData(_gameDataProvider);
 
 			root.RegisterCallback<ClickEvent>(OnClick);
 

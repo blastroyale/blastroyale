@@ -37,7 +37,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Fame" class="fame">
                     <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="fame__avatar" style="scale: 0.7 0.7;" />
-                    <FirstLight.Game.UIElements.LocalizedLabel text="PLAYERNAME" name="Title" localization-key="UITRewards/fame" class="fame__title" />
+                    <ui:Label tabindex="-1" text="PLAYER NAME" display-tooltip-when-elided="true" name="FameTitle" class="fame__title" />
                     <ui:VisualElement name="LogoTop" class="fame__logo-top" />
                     <ui:VisualElement name="PinkBand" />
                     <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="fame__gained" style="display: none;" />

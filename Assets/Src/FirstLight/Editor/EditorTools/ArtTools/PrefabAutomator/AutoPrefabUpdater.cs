@@ -1,20 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using FirstLight.Editor.EditorTools.ArtTools;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class AutoPrefabUpdater : EditorWindow
 {
+	[SerializeField] private bool _updateSceneOnly;
+		
 	private FolderSelector _folder = new ();
 
 	protected virtual bool OnValidate() => true;
 
-	protected virtual bool OnUpdatePrefab(GameObject prefab) => false;
-
+	protected virtual bool OnUpdateGameObject(GameObject prefab) => false;
+	
 	protected virtual void OnRenderUI() {}
 	
 	void OnGUI()
@@ -30,17 +29,43 @@ public class AutoPrefabUpdater : EditorWindow
 				return;
 			}
 			
-			if (!_folder.Valid)
+			if (!_updateSceneOnly && !_folder.Valid)
 			{
 				EditorUtility.DisplayDialog("Yo !", "Invalid path", "aight");
 				return;
 			}
-			
-			if (EditorUtility.DisplayDialog("Confirm", $"Update prefabs in folder {_folder} ?", "DOIT", "naw"))
+
+			var message = _updateSceneOnly ?  "Update gameObjects in current scene?" : $"Update prefabs in folder {_folder} ?";
+			if (EditorUtility.DisplayDialog("Confirm", message, "DOIT", "naw"))
 			{
-				foreach (var prefab in ArtUtils.GetPrefabs(_folder))
+				if (_updateSceneOnly)
 				{
-					if(OnUpdatePrefab(prefab.LoadedPrefab)) prefab.SaveChanges();
+					var saveOpenScene = false;
+					var l = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+					for (int i = 0; i < l.Count(); i++)
+					{
+						var o = l.ElementAt(i);
+						if (OnUpdateGameObject(o))
+						{
+							EditorUtility.SetDirty(o);
+							saveOpenScene = true;
+						}
+					}
+
+					if (saveOpenScene)
+					{
+						var s = EditorSceneManager.GetActiveScene();
+						EditorSceneManager.MarkSceneDirty(s);
+						EditorSceneManager.SaveScene(s);
+					}
+				}
+				else
+				{
+					foreach (var prefab in ArtUtils.GetPrefabs(_folder))
+					{
+						if(OnUpdateGameObject(prefab.LoadedPrefab)) prefab.SaveChanges();
+					}
 				}
 			}
 		}

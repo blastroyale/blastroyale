@@ -7483,3 +7483,5 @@ Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA2_fi
 Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA1_final.hdr" 1024
 Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LMA3_final.hdr" 1024
 Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting

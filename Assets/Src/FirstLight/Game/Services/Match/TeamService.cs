@@ -12,9 +12,9 @@ namespace FirstLight.Game.MonoComponent.Match
 	public static class TeamConstants
 	{
 		public static readonly Color [] Colors = {
-			new (216/255f, 75/255f, 121/255f), 
-			new (93/255f, 127/255f, 239/255f), 
 			new (15/255f, 145/255f, 70/255f), 
+			new (216/255f, 75/255f, 121/255f), 
+			new (93/255f, 127/255f, 239/255f),
 			new (144/255f,93/255f, 239/255f), 
 		};
 	}
@@ -57,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return null;
 			if (!QuantumRunner.Default.PredictedFrame().TryGet<TeamMember>(e, out var member)) return null;
-			return TeamConstants.Colors[member.TeamIndex];
+			return TeamConstants.Colors[Mathf.Max(member.TeamIndex, TeamConstants.Colors.Length-1)];
 		}
 
 		public int GetTeam(EntityRef e)

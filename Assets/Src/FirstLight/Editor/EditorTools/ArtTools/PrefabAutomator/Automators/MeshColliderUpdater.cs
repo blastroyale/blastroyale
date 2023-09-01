@@ -22,7 +22,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			GUILayout.Label("Converts all mesh colliders to box colliders. Might need manual size adjustments.");
 		}
 		
-		protected override bool OnUpdatePrefab(GameObject o)
+		protected override bool OnUpdateGameObject(GameObject o)
 		{
 			var meshColliders = o.GetComponentsInChildren<MeshCollider>();
 			if (meshColliders == null || meshColliders.Length == 0) return false;

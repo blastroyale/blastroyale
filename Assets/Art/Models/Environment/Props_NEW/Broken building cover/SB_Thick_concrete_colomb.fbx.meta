@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["SB_Thick_concrete_colomb"],"padding":[256],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["SB_Thick_concrete_colomb"],"padding":[56],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

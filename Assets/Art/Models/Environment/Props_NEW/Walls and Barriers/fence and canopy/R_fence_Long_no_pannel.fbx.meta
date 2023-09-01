@@ -36,7 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["R_fence_Long_no_pannel"],"padding":[157],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["R_fence_Long_no_pannel"],"padding":[29],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

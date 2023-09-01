@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Car_TowTruck_GEO"],"padding":[99],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Car_TowTruck_GEO"],"padding":[18],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

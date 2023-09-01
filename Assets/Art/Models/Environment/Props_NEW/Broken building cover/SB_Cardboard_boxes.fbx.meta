@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["SB_Cardboard_boxes"],"padding":[217],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["SB_Cardboard_boxes"],"padding":[40],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

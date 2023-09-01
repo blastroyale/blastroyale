@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -15,54 +16,87 @@ namespace FirstLight.Game.UIElements
 		private const string USS_FAME_STAR_3 = USS_BLOCK + "__fame-star-3";
 		private const string USS_FAME_STAR_4 = USS_BLOCK + "__fame-star-4";
 		private const string USS_FAME_STAR_5 = USS_BLOCK + "__fame-star-5";
-		
+		private const string USS_AVATAR_NFT = USS_BLOCK + "--nft";
+
 		private readonly Label _fameLvl;
 		private readonly VisualElement _starsHolder;
-		
+		private readonly VisualElement _pfp;
+		private readonly VisualElement _avatarHolder;
+
+		private int _avatarRequestHandle;
+
 		public PlayerAvatarElement()
 		{
 			AddToClassList(USS_BLOCK);
-			
-			var avatar = new VisualElement {name = "avatar"};
-			Add(avatar);
-			avatar.AddToClassList(USS_AVATAR);
+
+			Add(_avatarHolder = new VisualElement {name = "avatar"});
+			_avatarHolder.AddToClassList(USS_AVATAR);
 			{
 				var mask = new VisualElement {name = "mask"};
-				avatar.Add(mask);
+				_avatarHolder.Add(mask);
 				mask.AddToClassList(USS_MASK);
 				{
-					var pfp = new VisualElement {name = "pfp"};
-					mask.Add(pfp);
-					pfp.AddToClassList(USS_PFP);
+					mask.Add(_pfp = new VisualElement {name = "pfp"});
+					_pfp.AddToClassList(USS_PFP);
 				}
 			}
-			
-			Add(_fameLvl = new Label("122") { name = "fame-lvl" });
+
+			Add(_fameLvl = new Label("122") {name = "fame-lvl"});
 			_fameLvl.AddToClassList(USS_FAME_LVL);
-			
-			Add(_starsHolder = new VisualElement { name = "fame-stars-holder" });
+
+			Add(_starsHolder = new VisualElement {name = "fame-stars-holder"});
 			_starsHolder.AddToClassList(USS_FAME_STARS_HOLDER);
 			{
-				var star1 = new VisualElement { name = "fame-star-1" };
+				var star1 = new VisualElement {name = "fame-star-1"};
 				_starsHolder.Add(star1);
 				star1.AddToClassList(USS_FAME_STAR_1);
-				
-				var star2 = new VisualElement { name = "fame-star-2" };
+
+				var star2 = new VisualElement {name = "fame-star-2"};
 				_starsHolder.Add(star2);
 				star2.AddToClassList(USS_FAME_STAR_2);
-				
-				var star3 = new VisualElement { name = "fame-star-3" };
+
+				var star3 = new VisualElement {name = "fame-star-3"};
 				_starsHolder.Add(star3);
 				star3.AddToClassList(USS_FAME_STAR_3);
-				
-				var star4 = new VisualElement { name = "fame-star-4" };
+
+				var star4 = new VisualElement {name = "fame-star-4"};
 				_starsHolder.Add(star4);
 				star4.AddToClassList(USS_FAME_STAR_4);
-				
-				var star5 = new VisualElement { name = "fame-star-5" };
+
+				var star5 = new VisualElement {name = "fame-star-5"};
 				_starsHolder.Add(star5);
 				star5.AddToClassList(USS_FAME_STAR_5);
 			}
+		}
+
+		public void SetLevel(uint level)
+		{
+			_fameLvl.text = level.ToString();
+		}
+
+		public void SetAvatar(string url)
+		{
+			var services = MainInstaller.ResolveServices();
+			services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
+
+			if (string.IsNullOrEmpty(url)) return;
+
+			_avatarHolder.SetVisibility(false);
+			AddToClassList(USS_AVATAR_NFT);
+			_avatarRequestHandle = services.RemoteTextureService.RequestTexture(
+				url,
+				tex =>
+				{
+					if (panel == null) return;
+					_pfp.style.backgroundImage = new StyleBackground(tex);
+					_avatarHolder.SetVisibility(true);
+				},
+				() =>
+				{
+					if (panel == null) return;
+					_avatarHolder.RemoveFromClassList(USS_AVATAR_NFT);
+					_pfp.SetVisibility(true);
+				});
 		}
 
 

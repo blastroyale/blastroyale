@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
@@ -109,17 +109,7 @@
             </ui:Button>
             <FirstLight.Game.UIElements.ImageButton name="ProfileButton" class="player-header__profile-button sfx-click-forwards">
                 <ui:VisualElement name="Holder" class="player-header__profile-holder">
-                    <ui:VisualElement name="Avatar" class="player-header__avatar">
-                        <ui:VisualElement name="AvatarMask" class="player-header__avatar-mask">
-                            <ui:VisualElement name="AvatarPFP" class="player-header__avatar-pfp" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="FameStar1" class="player-header__fame-star-1" />
-                    <ui:VisualElement name="FameStar2" class="player-header__fame-star-2" />
-                    <ui:VisualElement name="FameStar3" class="player-header__fame-star-3" />
-                    <ui:VisualElement name="FameStar4" class="player-header__fame-star-4" />
-                    <ui:VisualElement name="FameStar5" class="player-header__fame-star-4" style="left: 28px; top: 97px;" />
-                    <ui:Label text="72" name="PlayerFameLevel" class="player-header__fame-lvl" />
+                    <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" style="position: absolute; scale: 0.6 0.6; left: 6px; top: -20px;" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.ImageButton>
             <ui:Label text="PLAYER NAME" name="PlayerName" class="player-header__name" />

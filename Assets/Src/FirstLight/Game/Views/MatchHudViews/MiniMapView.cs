@@ -88,6 +88,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private float _radarRange;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
+		private float _mapConfigCameraSize;
+		private float _currentViewportSize = 0.2f;
 
 		private void OnValidate()
 		{
@@ -98,7 +100,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var containerSize = _fullScreenContainer.rect.size;
 			var mapSize = _rectTransform.rect.size;
-
+			_currentViewportSize = _viewportSize;
 			_fullScreenMapSize = Mathf.Min(containerSize.x, containerSize.y);
 			_smallMapSize = Mathf.Min(mapSize.x, mapSize.y);
 			_smallMapPosition = _rectTransform.anchoredPosition;
@@ -120,8 +122,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
+			SetupCameraSize();
 		}
 
+		private void SetupCameraSize()
+		{
+			if (_services.NetworkService.CurrentRoomMapConfig.HasValue)
+			{
+				var configValue = _services.NetworkService.CurrentRoomMapConfig.Value.MinimapCameraSize;
+				if (configValue != 0)
+				{
+					_mapConfigCameraSize = configValue;
+
+					var currentSize = _minimapCamera.orthographicSize;
+					var ratio = currentSize / _mapConfigCameraSize;
+					_viewportSize *= ratio;
+					_currentViewportSize = _viewportSize;
+				}
+			}
+		}
 		private void OnTeamPositionPing(EventOnTeamPositionPing e)
 		{
 			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
@@ -152,8 +171,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEnable()
 		{
-			_cameraTransform = FLGCamera.Instance.MainCamera.transform; 
-			
+			_cameraTransform = FLGCamera.Instance.MainCamera.transform;
+
 			_opened = false;
 			_backgroundImage.raycastTarget = false;
 
@@ -195,7 +214,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding, f);
 			_rectTransform.pivot = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
-			_viewportSize = Mathf.Lerp(0.3f, 1f, f);
+			_currentViewportSize = Mathf.Lerp(_viewportSize, 1f, f);
 		}
 
 		private void UpdatePlayerIndicator(Vector3 playerViewportPoint, Transform3D playerTransform)
@@ -239,9 +258,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_minimapImage.materialForRendering.SetVector(_safeAreaOffsetPID, safeCenter);
 
 			// UV Rect
-			var uvRect = new Vector4((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
-				(playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
-				_viewportSize, _viewportSize);
+			var uvRect = new Vector4((playerViewportPoint.x - _currentViewportSize / 2f) * (1f - _animationModifier),
+				(playerViewportPoint.y - _currentViewportSize / 2f) * (1f - _animationModifier),
+				_currentViewportSize, _currentViewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
 			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
@@ -416,6 +435,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Button, HideInEditorMode]
 		private void RenderMinimap()
 		{
+			if (_mapConfigCameraSize != 0)
+			{
+				_minimapCamera.orthographicSize = _mapConfigCameraSize;
+			}
 			var ct = _minimapCamera.transform;
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
@@ -487,7 +510,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)
 		{
 			var rect = _rectTransform.rect;
-			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
+			var minimapFullSize = new Vector2(rect.width / _currentViewportSize, rect.height / _currentViewportSize);
 
 			return (viewportPosition - playerViewportPosition * (1f - _animationModifier)) * minimapFullSize -
 				minimapFullSize / 2f * _animationModifier;

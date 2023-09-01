@@ -19,7 +19,7 @@ public class AutoPrefabUpdater : EditorWindow
 	{
 		OnRenderUI();
 		
-		_updateSceneOnly = EditorGUILayout.Toggle("Update Scene Only", _updateSceneOnly);
+		_updateSceneOnly = EditorGUILayout.Toggle("Update Scene Only:", _updateSceneOnly);
 		
 		_folder.OnDrawWidget();
 		

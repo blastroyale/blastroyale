@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
@@ -37,6 +38,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _summaryDirector;
 
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _fameSummaryDirector;
+
 		#endregion
 
 		#region Elements
@@ -47,7 +51,6 @@ namespace FirstLight.Game.Presenters
 
 		private Label _remainingNumber;
 		private VisualElement _remainingRoot;
-		private PlayerAvatarElement _avatar;
 
 		#endregion
 
@@ -62,22 +65,13 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			_remaining = new Queue<IReward>(Data.Rewards);
-			Move();
-		}
-
 		protected override void QueryElements(VisualElement root)
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_animations = new RewardsAnimationController();
 			_remainingRoot = root.Q<VisualElement>("RewardsRemaining").Required();
 			_remainingNumber = _remainingRoot.Q<Label>("NumberLabel").Required();
-			_avatar = root.Q<PlayerAvatarElement>("Avatar").Required();
-			_avatar.SetLocalPlayerData(_gameDataProvider);
 
 			root.RegisterCallback<ClickEvent>(OnClick);
 
@@ -88,9 +82,26 @@ namespace FirstLight.Game.Presenters
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector);
 
 			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
-			_summaryView.Init(_animations, _animatedBackground, _summaryDirector);
+			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector);
 
 			_summaryView.CreateSummaryElements(Data.Rewards, Data.FameRewards);
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+
+			if (Data.FameRewards)
+			{
+				_remaining = new Queue<IReward>();
+				ShowSummary();
+				_summaryShowedOrSkipped = true;
+			}
+			else
+			{
+				_remaining = new Queue<IReward>(Data.Rewards);
+				Move();
+			}
 		}
 
 		public void OnClick(ClickEvent evt)
@@ -165,6 +176,19 @@ namespace FirstLight.Game.Presenters
 			_summaryView.Element.SetDisplay(view == _summaryView);
 			_equipmentRewardView.Element.SetDisplay(view == _equipmentRewardView);
 			_remainingRoot.SetDisplay(_remaining.Count > 0);
+		}
+
+		public void OnLevelUpSignal()
+		{
+			_summaryView.SetPlayerLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+		}
+
+		public void OnChangeRewardsSignal()
+		{
+			FLog.Info("PACO", "Change rewards signal");
+			var nextLevel = _gameDataProvider.PlayerDataProvider.Level.Value + 1;
+			var nextLevelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForLevel(nextLevel);
+			_summaryView.CreateSummaryElements(nextLevelRewards, true);
 		}
 	}
 }

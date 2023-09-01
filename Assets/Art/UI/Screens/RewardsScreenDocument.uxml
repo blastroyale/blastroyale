@@ -14,7 +14,7 @@
                 <ui:VisualElement name="RaysGradient" class="rewards-one__gradient" />
             </ui:VisualElement>
             <ui:Label tabindex="-1" text="YOU&apos;VE LEVELED UP" display-tooltip-when-elided="true" name="LevelUp" class="level-up__label" style="font-size: 48px; color: rgb(255, 255, 255); -unity-text-outline-width: 1.2px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 3px 3px 0 rgb(0, 0, 0); display: none;" />
-            <FirstLight.Game.UIElements.PlayerAvatarElement class="player-avatar--nft rewards-summary__avatar" style="display: none;" />
+            <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" class="player-avatar--nft rewards-summary__avatar" style="display: none;" />
             <ui:VisualElement name="LabelRewardsContainer" class="rewards-summary__label-rewards-holder">
                 <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITRewards/you_got" text="YOU GOT" display-tooltip-when-elided="true" name="YouGotLabel" class="rewards-summary__you-got-label" />
                 <ui:Label tabindex="-1" text="REACH LEVEL &lt;color=#f8c72e&gt; 130 &lt;/color&gt; TO GET NEXT REWARDS" display-tooltip-when-elided="true" name="ReachLevelToGetRewards" class="rewards-summary__you-got-label" />

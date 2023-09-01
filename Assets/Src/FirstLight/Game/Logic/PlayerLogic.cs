@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Infos;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Services;
-using Quantum;
 
 namespace FirstLight.Game.Logic
 {
@@ -24,16 +22,11 @@ namespace FirstLight.Game.Logic
 		/// Request the player's current fame level
 		/// </summary>
 		IObservableFieldReader<uint> Level { get; }
-		
+
 		/// <summary>
 		/// Request the player's current XP (level up consumes XP).
 		/// </summary>
 		IObservableFieldReader<uint> XP { get; }
-
-		/// <summary>
-		/// Requests a list of systems already seen by the player.
-		/// </summary>
-		IObservableList<UnlockSystem> SystemsTagged { get; }
 
 		/// <summary>
 		/// Requests the unlock level of the given <paramref name="unlockSystem"/>
@@ -41,9 +34,9 @@ namespace FirstLight.Game.Logic
 		uint GetUnlockSystemLevel(UnlockSystem unlockSystem);
 
 		/// <summary>
-		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
+		/// Returns a list of rewards you get for reaching a specific level.
 		/// </summary>
-		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
+		List<IReward> GetRewardsForLevel(uint level);
 
 		/// <summary>
 		/// Checks if a given player has completed a given tutorial step
@@ -102,9 +95,6 @@ namespace FirstLight.Game.Logic
 		public IObservableFieldReader<uint> Level => _level;
 		public IObservableFieldReader<uint> XP => _xp;
 
-		/// <inheritdoc />
-		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
-
 		public bool MigratedGuestAccount
 		{
 			get
@@ -128,7 +118,6 @@ namespace FirstLight.Game.Logic
 			_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
 			_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
 			_tutorialSections = new ObservableField<TutorialSection>(DataProvider.GetData<TutorialData>().TutorialSections);
-			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
 		}
 
 		public void ReInit()
@@ -144,18 +133,11 @@ namespace FirstLight.Game.Logic
 				_level = new ObservableResolverField<uint>(() => Data.Level, val => Data.Level = val);
 				_level.AddObservers(listeners);
 			}
-			
-			
+
 			{
 				var listeners = _xp.GetObservers();
 				_xp = new ObservableResolverField<uint>(() => Data.Xp, val => Data.Xp = val);
 				_xp.AddObservers(listeners);
-			}
-
-			{
-				var listeners = SystemsTagged.GetObservers();
-				SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-				SystemsTagged.AddObservers(listeners);
 			}
 
 			{
@@ -168,7 +150,6 @@ namespace FirstLight.Game.Logic
 			_level.InvokeUpdate();
 			_xp.InvokeUpdate();
 			_tutorialSections.InvokeUpdate();
-			SystemsTagged.InvokeUpdate();
 		}
 
 		/// <inheritdoc />
@@ -187,28 +168,22 @@ namespace FirstLight.Game.Logic
 			throw new LogicException($"The system {unlockSystem} is not defined in the {nameof(PlayerLevelConfig)}");
 		}
 
-		/// <inheritdoc />
-		public List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1)
+		public List<IReward> GetRewardsForLevel(uint level)
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsList<PlayerLevelConfig>();
-			var ret = new List<UnlockSystem>();
+			var config = GameLogic.ConfigsProvider.GetConfig<PlayerLevelConfig>((int) level);
+			var rewards = new List<IReward>();
 
-			for (var i = 0; i < configs.Count; i++)
+			foreach (var (id, amount) in config.Rewards)
 			{
-				if (configs[i].Level < startLevel)
-				{
-					continue;
-				}
-
-				if (configs[i].Level > level)
-				{
-					break;
-				}
-
-				ret.AddRange(configs[i].Systems);
+				rewards.Add(new CurrencyReward(id, (uint) amount));
 			}
 
-			return ret;
+			foreach (var unlockSystem in config.Systems)
+			{
+				rewards.Add(new UnlockReward(unlockSystem));
+			}
+
+			return rewards;
 		}
 
 		/// <inheritdoc />

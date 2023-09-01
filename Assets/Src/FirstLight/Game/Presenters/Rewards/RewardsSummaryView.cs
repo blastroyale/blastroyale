@@ -20,8 +20,6 @@ namespace FirstLight.Game.Presenters
 		private const int MANY_REWARDS_AMOUNT = 5;
 		private const string USS_REWARD_SUMMARY_CONTAINER_MANY_REWARDS_MODIFIER = "rewards-summary__rewards-container--manyrewards";
 		private const string USS_FAME_REWARDS_SUMMARY = "rewards-summary--fame";
-		
-		private const string USS_AVATAR_NFT = "player-header__avatar--nft";
 
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
@@ -31,8 +29,8 @@ namespace FirstLight.Game.Presenters
 		private PlayableDirector _animationDirector;
 
 		private VisualElement _container;
-		private VisualElement _avatar;
-		private VisualElement _avatarPfp;
+		private PlayerAvatarElement _avatar;
+		private Label _reachLevelLabel;
 
 		private int _avatarRequestHandle = -1;
 
@@ -46,14 +44,23 @@ namespace FirstLight.Game.Presenters
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
-			_container = element.Q<VisualElement>("RewardsContainer").Required();
-			_avatar = element.Q("Avatar").Required();
-			_avatarPfp = element.Q("AvatarPFP").Required();
-
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.ResolveServices();
 
-			UpdatePFP();
+			_container = element.Q<VisualElement>("RewardsContainer").Required();
+			_avatar = element.Q<PlayerAvatarElement>("Avatar").Required();
+			_reachLevelLabel = Element.Q<Label>("ReachLevelToGetRewards").Required();
+
+			SetupAvatarAndLevels();
+		}
+
+		private void SetupAvatarAndLevels()
+		{
+			var currentLevel = _dataProvider.PlayerDataProvider.Level.Value; 
+			_reachLevelLabel.text = string.Format("REACH LEVEL <color=#f8c72e>{0}</color> TO GET NEXT REWARDS",
+				currentLevel + 1);
+			_avatar.SetLevel(currentLevel - 1);
+			_avatar.SetAvatar(_dataProvider.AppDataProvider.AvatarUrl);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -99,34 +106,15 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void UpdatePFP()
-		{
-			var avatarUrl = _dataProvider.AppDataProvider.AvatarUrl;
-			if (string.IsNullOrEmpty(avatarUrl)) return;
-
-			// DBG: Use random PFP
-			// avatarUrl = avatarUrl.Replace("1.png", $"{Random.Range(1, 888)}.png");
-
-			_avatar.SetVisibility(false);
-			_avatar.AddToClassList(USS_AVATAR_NFT);
-			_avatarRequestHandle = _services.RemoteTextureService.RequestTexture(
-				avatarUrl,
-				tex =>
-				{
-					_avatarPfp.style.backgroundImage = new StyleBackground(tex);
-					_avatar.SetVisibility(true);
-				},
-				() =>
-				{
-					_avatar.RemoveFromClassList(USS_AVATAR_NFT);
-					_avatar.SetVisibility(true);
-				});
-		}
-
 		public void Show()
 		{
 			_animatedBackground.SetDefault();
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+		}
+
+		public void SetPlayerLevel(uint level)
+		{
+			_avatar.SetLevel(level);
 		}
 	}
 }

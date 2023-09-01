@@ -9,6 +9,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
@@ -109,12 +110,12 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
-			FLog.Info("PACO", "Query0");
 
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
 			_fame.AttachView(this, out _levelView);
 			_fameTitle = root.Q<Label>("FameTitle").Required();
-			FLog.Info("PACO", "Query");
+			
+			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider);
 		}
 
 		private void OnNextButtonClicked()

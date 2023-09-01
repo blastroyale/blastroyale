@@ -12,7 +12,7 @@ public class AutoPrefabUpdater : EditorWindow
 
 	protected virtual bool OnValidate() => true;
 
-	protected virtual bool OnUpdateGameObject(GameObject prefab) => false;
+	protected virtual bool OnUpdateGameObject(GameObject go) => false;
 	
 	protected virtual void OnRenderUI() {}
 	

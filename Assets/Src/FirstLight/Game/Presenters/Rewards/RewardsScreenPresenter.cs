@@ -56,7 +56,8 @@ namespace FirstLight.Game.Presenters
 
 		#region UIState
 
-		private bool _summaryShowedOrSkipped;
+		private bool _summaryShowedOrIgnored;
+		private bool _canSkipSummary;
 		private bool _finished;
 		private Queue<IReward> _remaining;
 		private RewardsAnimationController _animations;
@@ -82,7 +83,7 @@ namespace FirstLight.Game.Presenters
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector);
 
 			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
-			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector);
+			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards);
 
 			_summaryView.CreateSummaryElements(Data.Rewards, Data.FameRewards);
 		}
@@ -95,7 +96,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_remaining = new Queue<IReward>();
 				ShowSummary();
-				_summaryShowedOrSkipped = true;
+				_summaryShowedOrIgnored = true;
 			}
 			else
 			{
@@ -120,15 +121,21 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			if (!_summaryShowedOrSkipped)
+			if (!_summaryShowedOrIgnored)
 			{
-				_summaryShowedOrSkipped = true;
+				_summaryShowedOrIgnored = true;
 				if (ShouldShowSummary())
 				{
 					ShowSummary();
 					return;
 				}
 			}
+
+			// if (_canSkipSummary)
+			// {
+			// 	_canSkipSummary = !_summaryView.Skip();
+			// 	return;
+			// }
 
 			_finished = true;
 			Data.OnFinish?.Invoke();
@@ -166,6 +173,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowSummary()
 		{
+			_canSkipSummary = Data.FameRewards;
 			_summaryView.Show();
 			SetDisplays(_summaryView);
 		}

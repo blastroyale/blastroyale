@@ -159,7 +159,7 @@
 
 .squad-member__name {
     position: absolute;
-    top: -3px;
+    top: 6px;
     left: 139px;
     font-size: 30px;
     color: rgb(255, 255, 255);

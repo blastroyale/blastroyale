@@ -134,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var snapShot = _dataProvider.AppDataProvider.LastFrameSnapshot.Value;
 			var isTutorial = snapShot.Setup is {GameModeId: GameConstants.Tutorial.FIRST_TUTORIAL_GAME_MODE_ID};
-			var singlePlayerServerless = _services.GameBackendService.IsDev() && (snapShot.Offline || snapShot.AmtPlayers <= 1);
+			var canRestoreFromSnapshot = _services.GameBackendService.RunsSimulationOnServer() || snapShot.Offline || snapShot.AmtPlayers > 1;
 
 			// Tutorial does not support reconnecting mid-way if app was closed due to keeping track of internal states in view/state machines
 			// and not simulation
@@ -144,7 +144,7 @@ namespace FirstLight.Game.StateMachines
 				return false;
 			} 
 
-			if (!singlePlayerServerless && !snapShot.Expired())
+			if (canRestoreFromSnapshot && !snapShot.Expired())
 			{
 				return true;
 			}

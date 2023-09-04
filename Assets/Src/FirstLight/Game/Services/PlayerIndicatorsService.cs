@@ -168,10 +168,10 @@ namespace FirstLight.Game.Services
 				}
 			}
 		}
-		
 
 		private void OnShooting(InputAction.CallbackContext c)
 		{
+			if (c.canceled || !QuantumRunner.Default.IsDefinedAndRunning()) return;
 			var newValue = c.ReadValueAsButton();
 			if (newValue != _shooting && _shooting)
 			{

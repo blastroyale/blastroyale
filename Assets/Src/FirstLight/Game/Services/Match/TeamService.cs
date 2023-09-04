@@ -57,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!QuantumRunner.Default.IsDefinedAndRunning()) return null;
 			if (!QuantumRunner.Default.PredictedFrame().TryGet<TeamMember>(e, out var member)) return null;
-			return TeamConstants.Colors[Mathf.Max(member.TeamIndex, TeamConstants.Colors.Length-1)];
+			return TeamConstants.Colors[Mathf.Min(member.TeamIndex, TeamConstants.Colors.Length-1)];
 		}
 
 		public int GetTeam(EntityRef e)

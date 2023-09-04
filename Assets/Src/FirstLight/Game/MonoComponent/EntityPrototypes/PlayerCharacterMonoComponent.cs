@@ -55,7 +55,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
-			if (e.Entity != PlayerView.EntityRef) return;
+			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
 			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
 			if (!color.HasValue) return;
 			_circleIndicator.color = color.Value;
@@ -105,8 +105,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool ShouldDisplayColorTag()
 		{
+			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed()) return false;
 			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count <= 1) return false;
-			if (this.IsDestroyed() || PlayerView.IsEntityDestroyed()) return false;
 			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 

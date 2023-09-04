@@ -181,6 +181,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public bool IsBeingSpectated => EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
+		public PlayerCharacter CharacterComponent => QuantumRunner.Default.Game.Frames.Predicted.Get<PlayerCharacter>(EntityRef);
+
+		public bool IsEntityDestroyed() => !QuantumRunner.Default.PredictedFrame().Exists(EntityView.EntityRef);
+		
+		public bool IsSkydiving
+		{
+			get
+			{
+				var f = QuantumRunner.Default.PredictedFrame();
+				return f.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(f, Constants.IsSkydiving);
+			}
+		}
+
 		protected override void OnInit(QuantumGame game)
 		{
 			base.OnInit(game);
@@ -196,10 +209,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (!Services.NetworkService.JoinSource.HasResync())
 			{
-				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef)
-					.GetBoolean(frame, Constants.IsSkydiving);
-
-				if (isSkydiving)
+				if (IsSkydiving)
 				{
 					_playerFullyGrounded = false;
 					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);

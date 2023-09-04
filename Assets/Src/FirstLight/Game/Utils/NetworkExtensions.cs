@@ -78,6 +78,17 @@ namespace FirstLight.Game.Utils
 				!runner.Session.IsPaused;
 		}
 
+		public static Frame PredictedFrame(this QuantumRunner runner)
+		{
+			return runner.Game.Frames.Predicted;
+		}
+		
+		public static Frame VerifiedFrame(this QuantumRunner runner)
+		{
+			return runner.Game.Frames.Verified;
+		}
+
+
 		public static bool ShouldUsePlayfabMatchmaking(this QuantumGameModeConfig config)
 		{
 			return config.Teams;

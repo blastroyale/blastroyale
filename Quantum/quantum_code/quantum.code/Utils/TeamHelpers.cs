@@ -5,6 +5,12 @@ namespace Quantum
 {
 	public static unsafe class TeamHelpers
 	{
+		/// <summary>
+		/// Returns true if the character is in a team. If he's playing solo returns false.
+		/// This is regardless if team is alive or not.
+		/// </summary>
+		public static bool HasTeam(this PlayerCharacter character) => character.TeamId > Constants.TEAM_ID_NEUTRAL;
+
 		public static Dictionary<int, List<EntityRef>> GetPlayersByTeam(Frame f)
 		{
 			var playersByTeam = new Dictionary<int, List<EntityRef>>();

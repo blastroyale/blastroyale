@@ -13,3 +13,8 @@ enum TeamPingType
     Player,
     Equipment
 }
+
+component TeamMember {
+    int TeamId;
+    int TeamIndex;
+}

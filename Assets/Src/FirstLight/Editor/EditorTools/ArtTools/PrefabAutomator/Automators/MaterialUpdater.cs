@@ -22,7 +22,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
 		protected override bool OnValidate() => NewMaterial != null;
 
-		protected override bool OnUpdatePrefab(GameObject o)
+		protected override bool OnUpdateGameObject(GameObject o)
 		{
 			var renderers = o.GetComponentsInChildren<Renderer>(true);
 			if (renderers == null || renderers.Length == 0) return false;

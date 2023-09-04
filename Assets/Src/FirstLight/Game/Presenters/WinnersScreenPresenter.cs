@@ -134,7 +134,7 @@ namespace FirstLight.Game.Presenters
 
 			await Task.WhenAll(tasks);
 
-			_character1.AnimateFlair();
+			_character1.AnimateVictory();
 		}
 	}
 }

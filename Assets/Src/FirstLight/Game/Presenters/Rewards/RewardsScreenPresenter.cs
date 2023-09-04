@@ -131,12 +131,6 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
-			// if (_canSkipSummary)
-			// {
-			// 	_canSkipSummary = !_summaryView.Skip();
-			// 	return;
-			// }
-
 			_finished = true;
 			Data.OnFinish?.Invoke();
 		}

@@ -26,9 +26,20 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 		{
 			var renderers = o.GetComponentsInChildren<Renderer>(true);
 			if (renderers == null || renderers.Length == 0) return false;
-			
-			foreach (var renderer in renderers) 
-				renderer.sharedMaterial.shader = NewShader;
+
+			foreach (var renderer in renderers)
+			{
+				var m = renderer.sharedMaterial;
+
+				if (m.shader != null && m.shader == NewShader)
+				{
+					continue;
+				}
+
+				m.shader = NewShader;
+				EditorUtility.SetDirty(m);
+			}
+
 			return true;
 		}
 	}

@@ -216,16 +216,15 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Locks an element behind a level.
+		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
 		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UiToolkitPresenterData<TPData> presenter, UnlockSystem unlockSystem)
+													   UiToolkitPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem, Action unlockedCallback)
 			where TElement : VisualElement
 			where TPData : struct
 		{
-			
 			element.AttachView(presenter, out FameLockedView storeLockedView);
-			storeLockedView.Init(unlockSystem);
+			storeLockedView.Init(unlockSystem, root, unlockedCallback);
 		}
 		
 		/// <summary>

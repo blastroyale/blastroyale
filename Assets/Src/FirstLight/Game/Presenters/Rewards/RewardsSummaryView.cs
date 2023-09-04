@@ -17,6 +17,7 @@ namespace FirstLight.Game.Presenters
 	public class RewardsSummaryView : UIView
 	{
 		private const float SKIP_ANIMATION_TIME = 0.2f;
+		private const float FAME_MIDDLE_SKIP_TIME = 4.7f;
 		private const int MANY_REWARDS_AMOUNT = 5;
 		private const string USS_REWARD_SUMMARY_CONTAINER_MANY_REWARDS_MODIFIER = "rewards-summary__rewards-container--manyrewards";
 		private const string USS_FAME_REWARDS_SUMMARY = "rewards-summary--fame";
@@ -27,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		private RewardsAnimationController _animationController;
 		private AnimatedBackground _animatedBackground;
 		private PlayableDirector _animationDirector;
+		private bool _isFame;
 
 		private VisualElement _container;
 		private PlayerAvatarElement _avatar;
@@ -34,11 +36,13 @@ namespace FirstLight.Game.Presenters
 
 		private int _avatarRequestHandle = -1;
 
-		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector)
+		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector,
+						 bool isFame)
 		{
 			_animationController = animationController;
 			_animatedBackground = animatedBackground;
 			_animationDirector = animationDirector;
+			_isFame = isFame;
 		}
 
 		public override void Attached(VisualElement element)
@@ -56,7 +60,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetupAvatarAndLevels()
 		{
-			var currentLevel = _dataProvider.PlayerDataProvider.Level.Value; 
+			var currentLevel = _dataProvider.PlayerDataProvider.Level.Value;
 			_reachLevelLabel.text = string.Format("REACH LEVEL <color=#f8c72e>{0}</color> TO GET NEXT REWARDS",
 				currentLevel + 1);
 			_avatar.SetLevel(currentLevel - 1);
@@ -109,7 +113,19 @@ namespace FirstLight.Game.Presenters
 		public void Show()
 		{
 			_animatedBackground.SetDefault();
-			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			if (_isFame)
+			{
+				_animationController.StartAnimation(_animationDirector, FAME_MIDDLE_SKIP_TIME, FAME_MIDDLE_SKIP_TIME);
+			}
+			else
+			{
+				_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
+			}
+		}
+
+		public bool Skip()
+		{
+			return _animationController.Skip();
 		}
 
 		public void SetPlayerLevel(uint level)

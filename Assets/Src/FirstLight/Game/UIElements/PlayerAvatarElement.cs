@@ -1,4 +1,6 @@
 using FirstLight.Game.Utils;
+using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -18,8 +20,18 @@ namespace FirstLight.Game.UIElements
 		private const string USS_FAME_STAR_5 = USS_BLOCK + "__fame-star-5";
 		private const string USS_AVATAR_NFT = USS_BLOCK + "--nft";
 
+		private const string USS_STARS_BRONZE = USS_FAME_STARS_HOLDER + "--bronze";
+		private const string USS_STARS_SILVER = USS_FAME_STARS_HOLDER + "--silver";
+		private const string USS_STARS_GOLD = USS_FAME_STARS_HOLDER + "--gold";
+		private const string USS_STARS_DIAMOND = USS_FAME_STARS_HOLDER + "--diamond";
+
 		private readonly Label _fameLvl;
 		private readonly VisualElement _starsHolder;
+		private readonly VisualElement _star1;
+		private readonly VisualElement _star2;
+		private readonly VisualElement _star3;
+		private readonly VisualElement _star4;
+		private readonly VisualElement _star5;
 		private readonly VisualElement _pfp;
 		private readonly VisualElement _avatarHolder;
 
@@ -46,32 +58,32 @@ namespace FirstLight.Game.UIElements
 
 			Add(_starsHolder = new VisualElement {name = "fame-stars-holder"});
 			_starsHolder.AddToClassList(USS_FAME_STARS_HOLDER);
+			_starsHolder.AddToClassList(USS_STARS_BRONZE);
 			{
-				var star1 = new VisualElement {name = "fame-star-1"};
-				_starsHolder.Add(star1);
-				star1.AddToClassList(USS_FAME_STAR_1);
+				_starsHolder.Add(_star1 = new VisualElement {name = "fame-star-1"});
+				_star1.AddToClassList(USS_FAME_STAR_1);
 
-				var star2 = new VisualElement {name = "fame-star-2"};
-				_starsHolder.Add(star2);
-				star2.AddToClassList(USS_FAME_STAR_2);
+				_starsHolder.Add(_star2 = new VisualElement {name = "fame-star-2"});
+				_star2.AddToClassList(USS_FAME_STAR_2);
 
-				var star3 = new VisualElement {name = "fame-star-3"};
-				_starsHolder.Add(star3);
-				star3.AddToClassList(USS_FAME_STAR_3);
+				_starsHolder.Add(_star3 = new VisualElement {name = "fame-star-3"});
+				_star3.AddToClassList(USS_FAME_STAR_3);
 
-				var star4 = new VisualElement {name = "fame-star-4"};
-				_starsHolder.Add(star4);
-				star4.AddToClassList(USS_FAME_STAR_4);
+				_starsHolder.Add(_star4 = new VisualElement {name = "fame-star-4"});
+				_star4.AddToClassList(USS_FAME_STAR_4);
 
-				var star5 = new VisualElement {name = "fame-star-5"};
-				_starsHolder.Add(star5);
-				star5.AddToClassList(USS_FAME_STAR_5);
+				_starsHolder.Add(_star5 = new VisualElement {name = "fame-star-5"});
+				_star5.AddToClassList(USS_FAME_STAR_5);
 			}
 		}
 
 		public void SetLevel(uint level)
 		{
 			_fameLvl.text = level.ToString();
+
+			var visibleStars = ((level - 1) % 5) + 1;
+			SetVisibleStars(visibleStars);
+			SetStarsColorLevel((uint) Mathf.FloorToInt((level - 1) / 5f));
 		}
 
 		public void SetAvatar(string url)
@@ -99,6 +111,37 @@ namespace FirstLight.Game.UIElements
 				});
 		}
 
+		private void SetVisibleStars(uint visibleStars)
+		{
+			Assert.IsTrue(visibleStars is <= 5 and > 0, "Can only show 1 - 5 visible stars");
+
+			_star1.SetDisplay(visibleStars is 4 or 5);
+			_star2.SetDisplay(visibleStars is 2 or 3 or 4 or 5);
+			_star3.SetDisplay(visibleStars is 1 or 3 or 5);
+			_star4.SetDisplay(visibleStars is 2 or 3 or 4 or 5);
+			_star5.SetDisplay(visibleStars is 4 or 5);
+		}
+
+		private void SetStarsColorLevel(uint colorLevel)
+		{
+			_starsHolder.RemoveModifiers();
+
+			switch (colorLevel)
+			{
+				case 0:
+					_starsHolder.AddToClassList(USS_STARS_BRONZE);
+					break;
+				case 1:
+					_starsHolder.AddToClassList(USS_STARS_SILVER);
+					break;
+				case 2:
+					_starsHolder.AddToClassList(USS_STARS_GOLD);
+					break;
+				case >= 3:
+					_starsHolder.AddToClassList(USS_STARS_DIAMOND);
+					break;
+			}
+		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerAvatarElement>
 		{

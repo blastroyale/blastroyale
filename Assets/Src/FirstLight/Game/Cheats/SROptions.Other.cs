@@ -140,7 +140,7 @@ public partial class SROptions
 			{
 				new CurrencyReward(GameId.BPP, 300),
 				new CurrencyReward(GameId.CS, 20000),
-				new UnlockReward(UnlockSystem.ShopScreen)
+				new UnlockReward(UnlockSystem.Shop)
 			},
 			OnFinish = () => { uiService.CloseUi<RewardsScreenPresenter>(true); }
 		});

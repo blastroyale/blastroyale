@@ -154,13 +154,13 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 			var collectionButton = root.Q<Button>("CollectionButton");
-			collectionButton.LevelLock(this, Root, UnlockSystem.CollectionsScreen, Data.OnCollectionsClicked);
+			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock(this, Root, UnlockSystem.ShopScreen, Data.OnStoreClicked);
+				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			var discordButton = root.Q<Button>("DiscordButton");

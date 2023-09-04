@@ -18,8 +18,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public enum UnlockSystem
 	{
-		ShopScreen,
-		CollectionsScreen
+		Shop,
+		Collection
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

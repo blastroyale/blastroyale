@@ -141,7 +141,7 @@
 }
 
 .rewards-panel {
-    width: 50%;
+    width: 1176px;
     right: 0;
     position: absolute;
     height: 100%;

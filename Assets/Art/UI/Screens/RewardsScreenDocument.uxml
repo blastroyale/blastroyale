@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/RewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7c90e78a8c46ca409017b7643aa3eb4&amp;type=3#RewardsScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
-    <ui:VisualElement name="root" class="fill-parent rewards-root" style="background-image: url(&apos;project://database/Assets/Art/UI/References/Back.png?fileID=2800000&amp;guid=aa3da0aa20f63d148a95a9724e2b64f7&amp;type=3#Back&apos;);">
+    <ui:VisualElement name="root" class="fill-parent rewards-root">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
             <ui:VisualElement name="RewardsRemaining" class="rewards-remaining" style="display: none;">
                 <ui:Label text="32" name="NumberLabel" class="rewards-remaining__number-label" />

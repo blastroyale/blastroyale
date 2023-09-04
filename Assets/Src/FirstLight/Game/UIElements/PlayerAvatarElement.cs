@@ -58,6 +58,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_starsHolder = new VisualElement {name = "fame-stars-holder"});
 			_starsHolder.AddToClassList(USS_FAME_STARS_HOLDER);
+			_starsHolder.AddToClassList(USS_STARS_BRONZE);
 			{
 				_starsHolder.Add(_star1 = new VisualElement {name = "fame-star-1"});
 				_star1.AddToClassList(USS_FAME_STAR_1);

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
@@ -225,6 +226,19 @@ namespace FirstLight.Game.Utils
 			
 			element.AttachView(presenter, out FameLockedView storeLockedView);
 			storeLockedView.Init(unlockSystem);
+		}
+		
+		/// <summary>
+		/// Sets the PFP and level of the local player to this avatar element.
+		/// </summary>
+		public static void SetLocalPlayerData(this PlayerAvatarElement element, IGameDataProvider gameDataProvider)
+		{
+			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
+		
+			var avatarUrl = gameDataProvider.AppDataProvider.AvatarUrl;
+			if (string.IsNullOrEmpty(avatarUrl)) return;
+
+			element.SetAvatar(avatarUrl);
 		}
 
 	}

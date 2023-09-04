@@ -10,10 +10,7 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private const string USS_FAME_LOCK = "fame-lock";
 		private const string USS_FAME_LOCK_HOLDER = USS_FAME_LOCK + "__holder";
-		private const string USS_FAME_LOCK_LABEL = USS_FAME_LOCK + "__label";
 		private const string USS_FAME_LOCK_ICON = USS_FAME_LOCK + "__icon";
-
-		private const string LABEL_FORMAT = "LVL {0}";
 
 		private IGameDataProvider _dataProvider;
 
@@ -54,8 +51,6 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateLock(bool animate)
 		{
-			// TODO FAME
-			return;
 			var locked = _currentLevel < _requiredLevel;
 			EnableLock(locked, animate);
 		}
@@ -75,9 +70,6 @@ namespace FirstLight.Game.Views.UITK
 					var icon = new VisualElement();
 					_lockHolder.Add(icon);
 					icon.AddToClassList(USS_FAME_LOCK_ICON);
-
-					_lockHolder.Add(_lockLabel = new Label(string.Format(LABEL_FORMAT, _requiredLevel)));
-					_lockLabel.AddToClassList(USS_FAME_LOCK_LABEL);
 				}
 			}
 			else if (_lockHolder != null)

@@ -172,7 +172,6 @@
     --sprite-home__pattern-rewardglow-uncommon: url('/Assets/Art/UI/Sprites/Home/pattern-rewardglow-uncommon.png');
     --sprite-home__progress-battlepass: url('/Assets/Art/UI/Sprites/Home/progress-battlepass.png');
     --sprite-home__progress-battlepass-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepass-bg.png');
-    --sprite-home__progress-battlepassbtn: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn.png');
     --sprite-home__progress-battlepassbtn-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn-bg.png');
     --sprite-home__progress-durability: url('/Assets/Art/UI/Sprites/Home/progress-durability.png');
     --sprite-home__progress-durability-bg: url('/Assets/Art/UI/Sprites/Home/progress-durability-bg.png');
@@ -304,8 +303,8 @@
 
 .sprite-home__background-profile {
     background-image: var(--sprite-home__background-profile);
-    width: 122px;
-    height: 116px;
+    width: 98px;
+    height: 128px;
 }
 
 .sprite-home__background-resourcepool {
@@ -622,7 +621,7 @@
 
 .sprite-home__button-profile {
     background-image: var(--sprite-home__button-profile);
-    width: 342px;
+    width: 164px;
     height: 138px;
 }
 
@@ -1174,12 +1173,6 @@
     background-image: var(--sprite-home__progress-battlepass-bg);
     width: 35px;
     height: 30px;
-}
-
-.sprite-home__progress-battlepassbtn {
-    background-image: var(--sprite-home__progress-battlepassbtn);
-    width: 22px;
-    height: 20px;
 }
 
 .sprite-home__progress-battlepassbtn-bg {

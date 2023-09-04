@@ -63,13 +63,7 @@ namespace FirstLight.Game.Presenters
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
-		private Label _playerFameLabel;
-		private VisualElement _playerFameStar1;
-		private VisualElement _playerFameStar2;
-		private VisualElement _playerFameStar3;
-		private VisualElement _playerFameStar4;
-		private VisualElement _avatar;
-		private VisualElement _avatarPfp;
+		private PlayerAvatarElement _avatar;
 
 		private VisualElement _equipmentNotification;
 
@@ -99,7 +93,6 @@ namespace FirstLight.Game.Presenters
 		private MatchmakingStatusView _matchmakingStatusView;
 
 		private Coroutine _updatePoolsCoroutine;
-		private int _avatarRequestHandle = -1;
 
 		private void Awake()
 		{
@@ -115,14 +108,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
-			_playerFameLabel = root.Q<Label>("PlayerFameLevel").Required();
-			_playerFameStar1 = root.Q("FameStar1").Required();
-			_playerFameStar2 = root.Q("FameStar2").Required();
-			_playerFameStar3 = root.Q("FameStar3").Required();
-			_playerFameStar4 = root.Q("FameStar4").Required();
 
-			_avatar = root.Q("Avatar").Required();
-			_avatarPfp = root.Q("AvatarPFP").Required();
+			_avatar = root.Q<PlayerAvatarElement>("Avatar").Required();
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
@@ -191,16 +178,6 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 			OnAnyPartyUpdate();
 			UpdateSquadsButtonVisibility();
-			
-			// TODO FAME
-			{
-				_playerFameLabel.SetDisplay(false);
-				_playerFameStar1.SetDisplay(false);
-				_playerFameStar2.SetDisplay(false);
-				_playerFameStar3.SetDisplay(false);
-				_playerFameStar4.SetDisplay(false);
-				_avatar.style.left = 100;
-			}
 		}
 
 		protected override void OnOpened()
@@ -216,34 +193,9 @@ namespace FirstLight.Game.Presenters
 			UpdatePFP();
 		}
 
-		protected override Task OnClosed()
-		{
-			_services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
-			return base.OnClosed();
-		}
-
 		private void UpdatePFP()
 		{
-			var avatarUrl = _dataProvider.AppDataProvider.AvatarUrl;
-			if (string.IsNullOrEmpty(avatarUrl)) return;
-
-			// DBG: Use random PFP
-			// avatarUrl = avatarUrl.Replace("1.png", $"{Random.Range(1, 888)}.png");
-
-			_avatar.SetVisibility(false);
-			_avatar.AddToClassList(USS_AVATAR_NFT);
-			_avatarRequestHandle = _services.RemoteTextureService.RequestTexture(
-				avatarUrl,
-				tex =>
-				{
-					_avatarPfp.style.backgroundImage = new StyleBackground(tex);
-					_avatar.SetVisibility(true);
-				},
-				() =>
-				{
-					_avatar.RemoveFromClassList(USS_AVATAR_NFT);
-					_avatar.SetVisibility(true);
-				});
+			_avatar.SetLocalPlayerData(_dataProvider);
 		}
 
 		protected override void SubscribeToEvents()
@@ -315,39 +267,38 @@ namespace FirstLight.Game.Presenters
 
 		private void OnFameChanged(uint previous, uint current)
 		{
-			// TODO FAME
-			return;
+			_avatar.SetLevel(current);
 			
-			_playerFameLabel.text = current.ToString();
-
-			if (current < 2)
-			{
-				_playerFameStar1.style.opacity = 1f;
-				_playerFameStar2.style.opacity = 0.2f;
-				_playerFameStar3.style.opacity = 0.2f;
-				_playerFameStar4.style.opacity = 0.2f;
-			}
-			else if (current < 4)
-			{
-				_playerFameStar1.style.opacity = 1f;
-				_playerFameStar2.style.opacity = 1f;
-				_playerFameStar3.style.opacity = 0.2f;
-				_playerFameStar4.style.opacity = 0.2f;
-			}
-			else if (current < 6)
-			{
-				_playerFameStar1.style.opacity = 1f;
-				_playerFameStar2.style.opacity = 1f;
-				_playerFameStar3.style.opacity = 1f;
-				_playerFameStar4.style.opacity = 0.2f;
-			}
-			else if (current < 8)
-			{
-				_playerFameStar1.style.opacity = 1f;
-				_playerFameStar2.style.opacity = 1f;
-				_playerFameStar3.style.opacity = 1f;
-				_playerFameStar4.style.opacity = 1f;
-			}
+			// _playerFameLabel.text = current.ToString();
+			//
+			// if (current < 2)
+			// {
+			// 	_playerFameStar1.style.opacity = 1f;
+			// 	_playerFameStar2.style.opacity = 0.2f;
+			// 	_playerFameStar3.style.opacity = 0.2f;
+			// 	_playerFameStar4.style.opacity = 0.2f;
+			// }
+			// else if (current < 4)
+			// {
+			// 	_playerFameStar1.style.opacity = 1f;
+			// 	_playerFameStar2.style.opacity = 1f;
+			// 	_playerFameStar3.style.opacity = 0.2f;
+			// 	_playerFameStar4.style.opacity = 0.2f;
+			// }
+			// else if (current < 6)
+			// {
+			// 	_playerFameStar1.style.opacity = 1f;
+			// 	_playerFameStar2.style.opacity = 1f;
+			// 	_playerFameStar3.style.opacity = 1f;
+			// 	_playerFameStar4.style.opacity = 0.2f;
+			// }
+			// else if (current < 8)
+			// {
+			// 	_playerFameStar1.style.opacity = 1f;
+			// 	_playerFameStar2.style.opacity = 1f;
+			// 	_playerFameStar3.style.opacity = 1f;
+			// 	_playerFameStar4.style.opacity = 1f;
+			// }
 
 			if (previous != current && previous > 0)
 			{

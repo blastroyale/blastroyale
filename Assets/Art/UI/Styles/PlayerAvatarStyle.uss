@@ -68,10 +68,25 @@
     bottom: -50px;
 }
 
+.player-avatar__fame-stars-holder--bronze > VisualElement {
+    background-image: var(--sprite-home__icon-star-bronze);
+}
+
+.player-avatar__fame-stars-holder--silver > VisualElement {
+    background-image: var(--sprite-home__icon-star-silver);
+}
+
+.player-avatar__fame-stars-holder--gold > VisualElement {
+    background-image: var(--sprite-home__icon-star-gold);
+}
+
+.player-avatar__fame-stars-holder--diamond > VisualElement {
+    background-image: var(--sprite-home__icon-star-diamond);
+}
+
 .player-avatar__fame-star-1 {
     width: 30px;
     height: 30px;
-    background-image: var(--sprite-home__icon-star-bronze);
     top: -5px;
     position: absolute;
     left: 18px;
@@ -80,7 +95,6 @@
 .player-avatar__fame-star-2 {
     width: 30px;
     height: 30px;
-    background-image: var(--sprite-home__icon-star-bronze);
     top: 21px;
     position: absolute;
     left: 38px;
@@ -89,7 +103,6 @@
 .player-avatar__fame-star-3 {
     width: 30px;
     height: 30px;
-    background-image: var(--sprite-home__icon-star-bronze);
     position: absolute;
     left: 66px;
     top: 27px;
@@ -98,7 +111,6 @@
 .player-avatar__fame-star-4 {
     width: 30px;
     height: 30px;
-    background-image: var(--sprite-home__icon-star-bronze);
     top: 21px;
     position: absolute;
     left: 98px;
@@ -107,7 +119,6 @@
 .player-avatar__fame-star-5 {
     width: 30px;
     height: 30px;
-    background-image: var(--sprite-home__icon-star-bronze);
     top: -5px;
     position: absolute;
     left: 115px;

@@ -55,6 +55,11 @@ namespace FirstLight.Tests.EditorMode
 			return true;
 		}
 
+		public bool RunsSimulationOnServer()
+		{
+			return false;
+		}
+
 		public Environment? EnvironmentRedirect { get; set; }
 		
 		public void SetupBackendEnvironment()

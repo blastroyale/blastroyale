@@ -54,6 +54,17 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
+			_matchEndTitle.SetDisplay(false);
+			_youChoseDeathTitle.SetDisplay(false);
+			_bustedTitle.SetDisplay(false);
+			_waitTime = 2f;
+
+			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null)
+			{
+				Data.OnTimeToLeave?.Invoke();
+				return; // reconnection edge case to avoid soft-lock
+			}
+			
 			var game = QuantumRunner.Default.Game;
 			var gameOver = game.IsGameOver();
 			var playersData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
@@ -61,12 +72,6 @@ namespace FirstLight.Game.Presenters
 
 			var localPlayerRef = game.GetLocalPlayerRef();
 			var localPlayer = localPlayerRef == PlayerRef.None ? playersData[leader] : playersData[localPlayerRef];
-
-			_matchEndTitle.SetDisplay(false);
-			_youChoseDeathTitle.SetDisplay(false);
-			_bustedTitle.SetDisplay(false);
-			_waitTime = 2f;
-
 			if (localWinner && gameOver)
 			{
 				_winDirector.Play();

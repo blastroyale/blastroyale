@@ -459,7 +459,7 @@ namespace FirstLight.Game.Logic
 
 		private void CalculateXPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
 		{
-			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
+			if (rewardConfig.Rewards.TryGetValue(GameId.XP, out var amount))
 			{
 				rewards.Add(new RewardData(GameId.XP, amount));
 			}

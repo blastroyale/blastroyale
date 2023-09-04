@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
@@ -108,50 +109,57 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
-			_playerNumAttacks = 0;
-			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var setup = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchSetup();
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
-			var totalPlayers = room.PlayerCount;
-			var loadout = _gameData.EquipmentDataProvider.Loadout;
-			var ids = _gameData.UniqueIdDataProvider.Ids;
 
-			loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
-			loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
-			loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
-			loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
-			loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
-			
-			var data = new Dictionary<string, object>
+			try
 			{
-				{"match_id", _matchId},
-				{"match_type", _matchType},
-				{"game_mode", _gameModeId},
-				{"mutators", _mutators},
-				{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
-				{"total_players", totalPlayers.ToString()},
-				{"total_bots", (NetworkUtils.GetMaxPlayers(setup,false) - totalPlayers).ToString()},
-				{"map_id", _gameIdsLookup[config.Map]},
-				{"team_size", gameModeConfig.MaxPlayersInTeam },
-				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
-				{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
-				{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
-				{"item_shield", shieldId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[shieldId]]},
-				{"item_armour", armorId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[armorId]]},
-				{"item_amulet", amuletId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[amuletId]]},
-				{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
-				{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
-			};
+				_playerNumAttacks = 0;
 
-			if (PresentedMapPath != null)
-			{
-				data.Add("drop_open_grid", PresentedMapPath);
+				var room = _services.NetworkService.QuantumClient.CurrentRoom;
+				var setup = room.GetMatchSetup();
+				var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+				var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
+				var totalPlayers = room.PlayerCount;
+				var loadout = _gameData.EquipmentDataProvider.Loadout;
+				var ids = _gameData.UniqueIdDataProvider.Ids;
+
+				loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
+				loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
+				loadout.TryGetValue(GameIdGroup.Shield, out var shieldId);
+				loadout.TryGetValue(GameIdGroup.Armor, out var armorId);
+				loadout.TryGetValue(GameIdGroup.Amulet, out var amuletId);
+
+				var data = new Dictionary<string, object>
+				{
+					{"match_id", _matchId},
+					{"match_type", _matchType},
+					{"game_mode", _gameModeId},
+					{"mutators", _mutators},
+					{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
+					{"total_players", totalPlayers.ToString()},
+					{"total_bots", (NetworkUtils.GetMaxPlayers(setup, false) - totalPlayers).ToString()},
+					{"map_id", _gameIdsLookup[config.Map]},
+					{"team_size", gameModeConfig.MaxPlayersInTeam},
+					{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
+					{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
+					{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
+					{"item_shield", shieldId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[shieldId]]},
+					{"item_armour", armorId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[armorId]]},
+					{"item_amulet", amuletId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[amuletId]]},
+					{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
+					{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
+				};
+
+				if (PresentedMapPath != null)
+				{
+					data.Add("drop_open_grid", PresentedMapPath);
+				}
+
+				_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 			}
-			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
+			catch (Exception e)
+			{
+				FLog.Error("Analytics exception raised. Execution not interrupted", e);
+			}
 		}
 
 		/// <summary>

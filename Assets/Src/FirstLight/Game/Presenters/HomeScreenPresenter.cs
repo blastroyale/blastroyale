@@ -146,7 +146,7 @@ namespace FirstLight.Game.Presenters
 
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = root.Q<Label>("BetaWarning").Required();
-			
+
 			_gameModeButton.clicked += Data.OnGameModeClicked;
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
@@ -154,15 +154,13 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 			var collectionButton = root.Q<Button>("CollectionButton");
-			collectionButton.clicked += Data.OnCollectionsClicked;
-			collectionButton.LevelLock(this, UnlockSystem.CollectionsScreen);
+			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 
 			var storeButton = root.Q<Button>("StoreButton");
-			storeButton.clicked += Data.OnStoreClicked;
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock(this, UnlockSystem.ShopScreen);
+				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			var discordButton = root.Q<Button>("DiscordButton");
@@ -268,37 +266,6 @@ namespace FirstLight.Game.Presenters
 		private void OnFameChanged(uint previous, uint current)
 		{
 			_avatar.SetLevel(current);
-			
-			// _playerFameLabel.text = current.ToString();
-			//
-			// if (current < 2)
-			// {
-			// 	_playerFameStar1.style.opacity = 1f;
-			// 	_playerFameStar2.style.opacity = 0.2f;
-			// 	_playerFameStar3.style.opacity = 0.2f;
-			// 	_playerFameStar4.style.opacity = 0.2f;
-			// }
-			// else if (current < 4)
-			// {
-			// 	_playerFameStar1.style.opacity = 1f;
-			// 	_playerFameStar2.style.opacity = 1f;
-			// 	_playerFameStar3.style.opacity = 0.2f;
-			// 	_playerFameStar4.style.opacity = 0.2f;
-			// }
-			// else if (current < 6)
-			// {
-			// 	_playerFameStar1.style.opacity = 1f;
-			// 	_playerFameStar2.style.opacity = 1f;
-			// 	_playerFameStar3.style.opacity = 1f;
-			// 	_playerFameStar4.style.opacity = 0.2f;
-			// }
-			// else if (current < 8)
-			// {
-			// 	_playerFameStar1.style.opacity = 1f;
-			// 	_playerFameStar2.style.opacity = 1f;
-			// 	_playerFameStar3.style.opacity = 1f;
-			// 	_playerFameStar4.style.opacity = 1f;
-			// }
 
 			if (previous != current && previous > 0)
 			{

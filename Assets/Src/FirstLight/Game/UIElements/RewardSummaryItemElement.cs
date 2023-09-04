@@ -49,8 +49,12 @@ namespace FirstLight.Game.UIElements
 			{
 				switch (ur.UnlockSystem)
 				{
-					case UnlockSystem.ShopScreen:
+					// TODO: Make this more dynamic
+					case UnlockSystem.Shop:
 						_icon.AddToClassList("sprite-home__icon-shop");
+						break;
+					case UnlockSystem.Collection:
+						_icon.AddToClassList("sprite-home__icon-heroes");
 						break;
 				}
 

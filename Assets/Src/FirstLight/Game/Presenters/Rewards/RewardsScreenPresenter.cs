@@ -185,7 +185,6 @@ namespace FirstLight.Game.Presenters
 
 		public void OnChangeRewardsSignal()
 		{
-			FLog.Info("PACO", "Change rewards signal");
 			var nextLevel = _gameDataProvider.PlayerDataProvider.Level.Value + 1;
 			var nextLevelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForLevel(nextLevel);
 			_summaryView.CreateSummaryElements(nextLevelRewards, true);

@@ -180,27 +180,21 @@ namespace FirstLight.Game.Presenters
 
 			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
 
-			FLog.Info("PACO", "SetLevelData1");
 			// BPP
 			SetBPPReward(rewards);
 
-			FLog.Info("PACO", "SetLevelData2");
 			// Level (Fame)
 			SetLevelReward(rewards);
-			FLog.Info("PACO", "SetLevelData3");
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
 		{
 			var bppReward = 0;
-			FLog.Info("PACO", "SetLevelReward1");
 
 			if (rewards.TryGetValue(GameId.XP, out var reward))
 			{
 				bppReward = reward;
 			}
-			
-			FLog.Info("PACO", "SetLevelReward2");
 
 			var maxLevel = 99;
 			var gainedLeft = bppReward;
@@ -210,7 +204,6 @@ namespace FirstLight.Game.Presenters
 
 			do
 			{
-				FLog.Info("PACO", "SetLevelReward: nextLevel: " + nextLevel + " currentLevel: " + currentLevel + " gainedLeft: " + gainedLeft);
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
 				levelRewardInfo.MaxLevel = 99;

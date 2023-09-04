@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbd6efe55cf40b49a7bb7e3dddd4c48, type: 3}
+  m_Name: ModularWallPrefabProfileDbUI
+  m_EditorClassIdentifier: 
+  _prefabViewStates:
+  - {fileID: 6822610903008628018, guid: f4a9e0c68cc8b461bb5bcca9ac0343f8, type: 2}
+  - {fileID: 2403382930574820232, guid: f4a9e0c68cc8b461bb5bcca9ac0343f8, type: 2}
+  - {fileID: -4719708549129785800, guid: f4a9e0c68cc8b461bb5bcca9ac0343f8, type: 2}
+  _ruleUIContainerWidth: 300
+  _prefabPreviewScale: 0.5
+  _ruleUIScrollOffset: {x: 0, y: 0}
+  _prefabSettingsScrollPos: {x: 0, y: 0}

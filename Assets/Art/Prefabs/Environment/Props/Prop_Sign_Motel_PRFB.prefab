@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 236465654706916259}
   - component: {fileID: 3812230941274653702}
   - component: {fileID: 1369996565841522892}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Prop_Sign_Motel_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &236465654706916259
 Transform:
@@ -53,9 +53,9 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
@@ -97,12 +97,12 @@ GameObject:
   - component: {fileID: 2936328049434466431}
   - component: {fileID: 5219380798498775402}
   - component: {fileID: 1670814793688663871}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CLLSN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2936328049434466431
 Transform:

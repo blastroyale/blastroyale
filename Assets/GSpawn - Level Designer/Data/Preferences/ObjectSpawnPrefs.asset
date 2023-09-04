@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 307d2086c3474334983f566fd1f5c4bf, type: 3}
+  m_Name: ObjectSpawnPrefs
+  m_EditorClassIdentifier: 
+  _mdWallSpawnCellWireColor: {r: 1, g: 1, b: 1, a: 1}
+  _segmentsSpawnExtensionPlaneFillColor: {r: 0, g: 1, b: 0, a: 0.05}
+  _segmentsSpawnExtensionPlaneBorderColor: {r: 0, g: 0, b: 0, a: 1}
+  _segmentsSpawnExtensionPlaneInflateAmount: 2
+  _segmentsSpawnCellWireColor: {r: 1, g: 1, b: 1, a: 1}
+  _boxSpawnXAxisColor: {r: 0.85882354, g: 0.24313726, b: 0.11372549, a: 0.92941177}
+  _boxSpawnYAxisColor: {r: 0.6039216, g: 0.9529412, b: 0.28235295, a: 0.92941177}
+  _boxSpawnZAxisColor: {r: 0.22745098, g: 0.47843137, b: 0.972549, a: 0.92941177}
+  _boxSpawnXAxisLength: 10
+  _boxSpawnYAxisLength: 10
+  _boxSpawnZAxisLength: 10
+  _boxSpawnExtensionPlaneFillColor: {r: 0, g: 1, b: 0, a: 0.05}
+  _boxSpawnExtensionPlaneBorderColor: {r: 0, g: 0, b: 0, a: 1}
+  _boxSpawnExtensionPlaneInflateAmount: 2
+  _boxSpawnCellWireColor: {r: 1, g: 1, b: 1, a: 1}
+  _boxSpawnShowInfoText: 1
+  _trSpawnPaintBrushBorderColor: {r: 0, g: 1, b: 0, a: 1}
+  _trSpawnEraseBrushBorderColor: {r: 1, g: 0, b: 0, a: 1}
+  _trSpawnShadowLineColor: {r: 1, g: 1, b: 1, a: 0.08627451}
+  _trSpawnShadowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.4}
+  _trSpawnConnectColor: {r: 0, g: 1, b: 0, a: 1}
+  _trSpawnDynamicGrid: 0
+  _propsSpawnTerrainFlattenAreaColor: {r: 0, g: 1, b: 0, a: 1}
+  _scatterBrushSpawnBrushBorderColor: {r: 0, g: 1, b: 0, a: 1}
+  _curveSpawnCurveColor: {r: 1, g: 1, b: 1, a: 1}
+  _curveSpawnSegmentColor: {r: 1, g: 1, b: 1, a: 1}
+  _curveSpawnTickColor: {r: 0, g: 1, b: 0, a: 1}
+  _curveSpawnSelectedTickColor: {r: 1, g: 0.4, b: 0, a: 1}
+  _curveSpawnTickSize: 0.06
+  _curveSmoothness: 1
+  _curveSpawnMoveGizmoDragRadius: 300
+  _refreshCurvesWhenPrefabDataChanges: 1
+  _physicsSpawnCircleColor: {r: 0, g: 1, b: 0, a: 1}
+  _physicsSpawnHeightLineColor: {r: 1, g: 1, b: 1, a: 1}
+  _physicsSpawnMarkerColor: {r: 0, g: 1, b: 0, a: 1}
+  _physicsSpawnMarkerSize: 0.5

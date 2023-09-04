@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cacc018dbc73a6499475682eae02740, type: 3}
+  m_Name: PhysicsObjectSpawnSettings
+  m_EditorClassIdentifier: 
+  _randomPrefabProfileName: Default
+  _randomizeRotation: 1
+  _simulationTime: 10
+  _simulationStep: 0.01
+  _outOfBoundsYCoord: -10
+  _dropRadius: 2
+  _dropHeight: 5
+  _dropInterval: 0.05
+  _instant: 0

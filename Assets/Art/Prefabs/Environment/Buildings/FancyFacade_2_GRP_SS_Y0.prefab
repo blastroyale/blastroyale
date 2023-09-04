@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7778995020045864508}
   - component: {fileID: 6875974799664033564}
   - component: {fileID: 1544176186934101168}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7778995020045864508
 Transform:
@@ -112,7 +112,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4066903778242924356
 Transform:
@@ -614,12 +614,12 @@ GameObject:
   - component: {fileID: 7927517378170726272}
   - component: {fileID: 1994847012315511616}
   - component: {fileID: 5505942577325459961}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7927517378170726272
 Transform:
@@ -697,6 +697,14 @@ PrefabInstance:
     - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_Name
       value: DoorGlow_PRFB (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4356649877729499252, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_RootOrder
@@ -857,6 +865,14 @@ PrefabInstance:
     - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_Name
       value: DoorGlow_PRFB
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4356649877729499252, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_RootOrder

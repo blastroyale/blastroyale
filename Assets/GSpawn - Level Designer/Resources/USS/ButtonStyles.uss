@@ -1,0 +1,18 @@
+ToolbarButton
+{
+}
+
+ToolbarButton:active
+{
+	-unity-background-image-tint-color: #888888;
+}
+
+Button
+{
+	background-color: rgba(0.0, 0.0, 0.0, 0.0);
+}
+
+Button:active
+{
+-unity-background-image-tint-color: #888888;
+}

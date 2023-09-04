@@ -10,7 +10,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 		[MenuItem("FLG/Art/Prefab Automation/Replace Shader")]
 		public static void OpenWindow()
 		{
-			MaterialUpdater wnd = GetWindow<MaterialUpdater>();
+			ShaderUpdater wnd = GetWindow<ShaderUpdater>();
 			wnd.titleContent = new GUIContent("Folder Shader Replace");
 		}
 

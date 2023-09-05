@@ -51,23 +51,27 @@ namespace FirstLight.Editor.Build
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
 
 		private static readonly string InfoLogLevelSymbol = "LOG_LEVEL_INFO";
+		private static readonly string VerboseLogLevelSymbol = "LOG_LEVEL_VERBOSE";
 
-		private static readonly string[] CommonSymbols = new[]
-		{
+		private static readonly string[] CommonSymbols = {
 			"QUANTUM_ADDRESSABLES",
 			"ENABLE_PLAYFAB_BETA",
 			"TextMeshPro",
 		};
 
-		private static readonly string[] DebugSymbols = new[]
-		{
+		private static readonly string[] DebugSymbols = {
 			"QUANTUM_REMOTE_PROFILER",
+			VerboseLogLevelSymbol
+		};
+
+		private static readonly string[] StoreReleaseSymbols = {
+			"DISABLE_SRDEBUGGER",
 			InfoLogLevelSymbol
 		};
 
-		private static readonly string[] StoreReleaseSymbols = new[]
-		{
+		private static readonly string[] ReleaseSymbols = {
 			"DISABLE_SRDEBUGGER",
+			VerboseLogLevelSymbol
 		};
 
 
@@ -190,9 +194,14 @@ namespace FirstLight.Editor.Build
 				symbols.AddRange(DebugSymbols);
 			}
 
-			if (buildSymbols.Contains(StoreSymbol) || buildSymbols.Contains(StoreSymbol))
+			if (buildSymbols.Contains(StoreSymbol))
 			{
 				symbols.AddRange(StoreReleaseSymbols);
+			}
+
+			if (buildSymbols.Contains(ReleaseSymbol))
+			{
+				symbols.AddRange(ReleaseSymbols);
 			}
 
 			symbols.AddRange(buildSymbols);

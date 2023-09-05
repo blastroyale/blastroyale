@@ -20,8 +20,9 @@ namespace Quantum.Systems
 		{
 			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD)
 			{
-				var spell = new Spell {Attacker = filter.Entity, PowerAmount = int.MaxValue};
-				filter.Stats->ReduceHealth(f, filter.Entity, &spell);
+				var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, 100000, 0, filter.Transform->Position);
+				spell.IgnoreShield = true;
+				QuantumHelpers.ProcessHit(f, &spell);
 			}
 		}
 	}

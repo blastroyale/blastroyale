@@ -204,7 +204,8 @@ namespace Quantum.Systems.Bots
 			var vectorToTeammate = teammatePosition - botPosition;
 			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
 
-			if (vectorToTeammate.SqrMagnitude < maxDistanceSquared)
+			var distance = vectorToTeammate.SqrMagnitude;
+			if (distance < maxDistanceSquared)
 			{
 				return false;
 			}
@@ -215,6 +216,7 @@ namespace Quantum.Systems.Bots
 
 			if (isGoing)
 			{
+				BotLogger.LogAction(ref filter, $"going to teammate {filter.BotCharacter->RandomTeammate}distance {distance}");
 				filter.SetHasWaypoint(f);
 			}
 

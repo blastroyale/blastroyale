@@ -91,23 +91,30 @@ namespace Quantum.Systems.Bots
 					continue;
 				}
 
+				var teamCollecting = false;
+
 				// If team mate is collecting ignore it!
 				foreach (var member in teamMembers)
 				{
 					if (collectibleFilter.Component->IsCollecting(member.Component->Player))
 					{
-						continue;
+						teamCollecting = true;
+						break;
 					}
 
 					if (f.TryGet<BotCharacter>(member.Entity, out var otherBot))
 					{
 						if (otherBot.MoveTarget == collectibleFilter.Entity)
 						{
-							continue;
+							teamCollecting = true;
+							break;
 						}
 					}
+				}
 
-					return false;
+				if (teamCollecting)
+				{
+					continue;
 				}
 
 				if (f.TryGet<Consumable>(collectibleFilter.Entity, out var consumable))

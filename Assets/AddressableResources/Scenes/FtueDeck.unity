@@ -9276,7 +9276,7 @@ MonoBehaviour:
   Prototype:
     Gear:
     - Id:
-        Value: 71
+        Value: 88
       Rarity:
         Value: 0
       Level: 5
@@ -15682,7 +15682,7 @@ Transform:
   m_GameObject: {fileID: 2028925619}
   m_LocalRotation: {x: 0, y: -0.3118375, z: 0, w: 0.95013547}
   m_LocalPosition: {x: 0, y: -20.1, z: 0}
-  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_LocalScale: {x: 25, y: 1, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

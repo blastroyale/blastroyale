@@ -10,6 +10,7 @@ TagManager:
   - GroundIndicator
   - GuideUiTarget
   - Bullet
+  - MapPreviewObject
   layers:
   - Default
   - TransparentFX

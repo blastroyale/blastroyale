@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["MB_Wall_L_Shape_tyres"],"padding":[22],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["MB_Wall_L_Shape_tyres"],"padding":[18],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

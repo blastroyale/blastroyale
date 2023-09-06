@@ -73,7 +73,6 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 
 		private void HideSceneGeometry()
 		{
-			// Get all GameObjects in the scene
 			GameObject[] allObjects = FindObjectsOfType<GameObject>();
 			
 			foreach (GameObject obj in allObjects)
@@ -107,9 +106,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			
 			foreach (GameObject obj in allObjects)
 			{
-				// Check if the GameObject has a MeshRenderer or SkinnedMeshRenderer component
 				Renderer renderer = obj.GetComponent<Renderer>();
-				//if (renderer != null && obj.activeSelf && renderer.enabled)
 				if (renderer != null && obj.activeSelf && renderer.enabled)
 				{
 					if (!foundBounds)
@@ -120,7 +117,6 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 					}
 					else
 					{
-						// Expand the sceneBounds to encapsulate the bounds of the current object
 						sceneBounds.Encapsulate(renderer.bounds);	
 					}
 				}

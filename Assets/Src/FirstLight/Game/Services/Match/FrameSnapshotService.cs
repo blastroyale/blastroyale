@@ -123,8 +123,18 @@ namespace FirstLight.Game.Services
 			return QuantumRunner.Default != null && QuantumRunner.Default.Game?.Frames.Verified != null && _services.NetworkService.LastConnectedRoom.CanBeRestoredWithLocalSnapshot();
 		}
 
+		private bool CanGameBeReconnected()
+		{
+			if (QuantumRunner.Default == null || !QuantumRunner.Default.IsDefinedAndRunning()) return false;
+			if(!QuantumRunner.Default.Game.Frames.Verified.TryGetSingleton<GameContainer>(out var container)) return false;
+			if (container.IsGameOver) return false;
+			return true;
+		}
+
 		public void TakeSnapshot(QuantumGame game)
 		{
+			if (!CanGameBeReconnected()) return;
+			
 			var isOffline = _services.NetworkService.LastConnectedRoom?.IsOffline;
 			var snapshot = new FrameSnapshot()
 			{

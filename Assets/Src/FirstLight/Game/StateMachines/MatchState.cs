@@ -259,6 +259,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
+			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 		
 		private void OpenWinnerScreen()
@@ -269,6 +270,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
+			_matchServices.FrameSnapshotService.ClearFrameSnapshot();
 		}
 
 		private bool IsMatchmakingTimerComplete()

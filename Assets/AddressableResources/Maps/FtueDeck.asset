@@ -3330,6 +3330,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3388,7 +3389,7 @@ MonoBehaviour:
     GearOverwrite:
     - Gear:
       - Id:
-          Value: 71
+          Value: 88
         Rarity:
           Value: 0
         Level: 5
@@ -3423,6 +3424,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3511,6 +3513,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3599,6 +3602,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3692,6 +3696,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3782,6 +3787,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3866,6 +3872,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3950,6 +3957,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4034,6 +4042,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4114,6 +4123,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger:
     - Target:
         SceneIndexPlusOne: 10
@@ -4241,6 +4251,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger:
     - Target:
         SceneIndexPlusOne: 11
@@ -4379,6 +4390,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4495,6 +4507,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger:
     - Target:
         SceneIndexPlusOne: 13

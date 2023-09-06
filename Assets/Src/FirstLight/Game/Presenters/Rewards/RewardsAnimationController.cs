@@ -20,6 +20,7 @@ namespace FirstLight.Game.Presenters
 				_currentAnimation.Stop();
 			}
 
+			_skipToTime = skipToTime;
 			_skippedCurrentAnimation = false;
 			_currentAnimationSkippableBefore = Time.time + allowSkipBefore;
 			_currentAnimation = director;

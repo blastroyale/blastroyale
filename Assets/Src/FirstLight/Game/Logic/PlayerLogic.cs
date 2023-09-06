@@ -204,6 +204,11 @@ namespace FirstLight.Game.Logic
 				level++;
 			}
 
+			if (level > _level.Value)
+			{
+				GameLogic.RewardLogic.GiveLevelRewards(_level.Value, level);
+			}
+
 			_level.Value = level;
 			_xp.Value = level >= configs.Count ? 0 : xp;
 		}

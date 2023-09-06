@@ -26,12 +26,12 @@ namespace FirstLight.Game.Logic
 		/// Reflects if a player quit early in the game
 		/// </summary>
 		public bool DidPlayerQuit { get; set; }
-		
+
 		/// <summary>
 		/// Reflects how many players were participating in the game
 		/// </summary>
 		public int GamePlayerCount { get; set; }
-		
+
 		/// <summary>
 		/// Reflects the match data collected by quantum simulation
 		/// </summary>
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		public MatchType MatchType { get; set; }
 	}
-	
+
 	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's rewards
 	/// </summary>
@@ -57,7 +57,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
 		IObservableListReader<RewardData> UnclaimedRewards { get; }
-		
+
 		/// <summary>
 		/// Checks if we are currently collecting rewards (running <see cref="IRewardLogic.ClaimUncollectedRewards"/>).
 		/// </summary>
@@ -79,7 +79,7 @@ namespace FirstLight.Game.Logic
 		/// <see cref="UnclaimedRewards"/> list.
 		/// </summary>
 		bool HasUnclaimedPurchases();
-		
+
 		/// <summary>
 		/// Obtains the rewards for a given tutorial step
 		/// </summary>
@@ -95,6 +95,11 @@ namespace FirstLight.Game.Logic
 		List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
+		/// Awards rewards for a level up.
+		/// </summary>
+		List<RewardData> GiveLevelRewards(uint previousLevel, uint currentLevel);
+
+		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
@@ -103,7 +108,7 @@ namespace FirstLight.Game.Logic
 		/// Claims all the unclaimed IAP rewards (that were purchased from the shop).
 		/// </summary>
 		/// <returns></returns>
-		List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards();
+		List<KeyValuePair<UniqueId, Equipment>> ClaimIAPRewards();
 
 		/// <summary>
 		/// Adds an IAP reward to the list of unclaimed rewards. This is used when doing an IAP, to
@@ -144,7 +149,7 @@ namespace FirstLight.Game.Logic
 				_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 				_unclaimedRewards.AddObservers(listeners);
 			}
-			
+
 			_unclaimedRewards.InvokeUpdate();
 		}
 
@@ -164,23 +169,25 @@ namespace FirstLight.Game.Logic
 				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(localMatchData.GameModeId);
 			var teamSize = Math.Max(1, gameModeConfig.MaxPlayersInTeam);
 			var maxTeamsInMatch = gameModeConfig.MaxPlayers / teamSize;
-			
+
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
-			                                     .GetConfigsList<MatchRewardConfig>()
-			                                     .OrderByDescending(x => x.Placement).ToList();
+				.GetConfigsList<MatchRewardConfig>()
+				.OrderByDescending(x => x.Placement).ToList();
 			var gameModeTrophyConfigs = GameLogic.ConfigsProvider //clean this up
-												 .GetConfigsList<TrophyRewardConfig>()
-												 .OrderByDescending(x => x.Placement).ToList();
+				.GetConfigsList<TrophyRewardConfig>()
+				.OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
 			var trophyRewardConfig = gameModeTrophyConfigs[0];
 
 			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
 			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
 			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
-			var rankValue = (int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
-			
+			var rankValue =
+				(int) Math.Min(1 + Math.Floor(maxTeamsInMatch / (double) ((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)),
+					maxTeamsInMatch);
+
 			//clean this up
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -242,7 +249,7 @@ namespace FirstLight.Game.Logic
 
 			for (var i = 0; i < _unclaimedRewards.Count; i++)
 			{
-				if ( _unclaimedRewards[i].RewardId == productReward.RewardId)
+				if (_unclaimedRewards[i].RewardId == productReward.RewardId)
 				{
 					return true;
 				}
@@ -285,11 +292,27 @@ namespace FirstLight.Game.Logic
 			return rewards;
 		}
 
+		public List<RewardData> GiveLevelRewards(uint previousLevel, uint currentLevel)
+		{
+			var rewards = new List<RewardData>();
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+
+			for (var i = previousLevel + 1; i <= currentLevel; i++)
+			{
+				foreach (var (key, amount) in configs[(int) i].Rewards)
+				{
+					ClaimReward(new RewardData(key, amount));
+				}
+			}
+
+			return rewards;
+		}
+
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{
 			IsCollecting = true;
-			
+
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 
 			foreach (var reward in Data.UncollectedRewards)
@@ -299,15 +322,15 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.UncollectedRewards.RemoveAll(r => rewards.Contains(r));
-			
+
 			IsCollecting = false;
 
 			return rewards;
 		}
 
-		public List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards()
+		public List<KeyValuePair<UniqueId, Equipment>> ClaimIAPRewards()
 		{
-			var rewards = new List<KeyValuePair<UniqueId,Equipment>>(1);
+			var rewards = new List<KeyValuePair<UniqueId, Equipment>>(1);
 
 			foreach (var reward in Data.UncollectedRewards)
 			{
@@ -352,10 +375,10 @@ namespace FirstLight.Game.Logic
 
 			// Omit rest of calculations if the tutorial doesn't have any rewards to give
 			if (tutorialRewardsCount == 0) return rewards;
-			
+
 			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint)c.Id));
-			
+			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
+
 			foreach (var rewardConfig in rewardsConfigs)
 			{
 				if (rewardConfig.IsEquipment())
@@ -374,7 +397,7 @@ namespace FirstLight.Game.Logic
 					var finalAmount = section == TutorialSection.FIRST_GUIDE_MATCH && rewardConfig.GameId == GameId.BPP
 						? (int) GameLogic.BattlePassLogic.GetRequiredPointsForLevel()
 						: rewardConfig.Amount;
-					
+
 					rewards.Add(new ItemData()
 					{
 						Amount = finalAmount,
@@ -382,6 +405,7 @@ namespace FirstLight.Game.Logic
 					});
 				}
 			}
+
 			return rewards;
 		}
 
@@ -412,7 +436,7 @@ namespace FirstLight.Game.Logic
 			return reward;
 		}
 
-		private KeyValuePair<UniqueId,Equipment> ClaimEquipmentReward(GameId id)
+		private KeyValuePair<UniqueId, Equipment> ClaimEquipmentReward(GameId id)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
@@ -429,7 +453,7 @@ namespace FirstLight.Game.Logic
 			// rewardPair.Value is the absolute percent of the max take that people will be awarded
 
 			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			
+
 			var takeForCollectedItems = info.WinnerRewardAmount * collectedNFTsCount;
 			var take = (uint) Math.Ceiling(takeForCollectedItems * percent);
 			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
@@ -481,26 +505,27 @@ namespace FirstLight.Game.Logic
 				{
 					continue;
 				}
+
 				bracket = rewardBracket.Key;
 				break;
 			}
-			
+
 			if (rewardConfig.BracketReward.TryGetValue(bracket, out var amount))
 			{
 				var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-				
-				var killsMade = (int)localPlayerData.Data.PlayersKilledCount;
-				var finalTrophyChange = amount + (int)Math.Floor(gameConfig.TrophiesPerKill.AsDouble * killsMade);
-				
+
+				var killsMade = (int) localPlayerData.Data.PlayersKilledCount;
+				var finalTrophyChange = amount + (int) Math.Floor(gameConfig.TrophiesPerKill.AsDouble * killsMade);
+
 				if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
 				{
 					finalTrophyChange = (int) -Data.Trophies;
 				}
-				
+
 				trophyChangeOut = finalTrophyChange;
 				rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
 			}
-			
+
 			// The logic below is left here DELIBERATELY
 			// We will reuse it a bit later to calculate MMR which we will potentially keep hidden
 

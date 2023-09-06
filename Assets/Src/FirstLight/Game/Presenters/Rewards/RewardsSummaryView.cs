@@ -123,11 +123,6 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		public bool Skip()
-		{
-			return _animationController.Skip();
-		}
-
 		public void SetPlayerLevel(uint level)
 		{
 			_avatar.SetLevel(level);

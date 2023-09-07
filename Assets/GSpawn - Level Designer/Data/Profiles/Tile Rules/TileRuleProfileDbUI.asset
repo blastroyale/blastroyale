@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c33e2b70a48614da3aee2901dba521, type: 3}
+  m_Name: TileRuleProfileDbUI
+  m_EditorClassIdentifier: 
+  _tileRuleUIContainerWidth: 300
+  _prefabPreviewScale: 0.5
+  _ruleUIScrollOffset: {x: 0, y: 0}
+  _prefabSettingsScrollPos: {x: 0, y: 0}
+  _tileRuleFilter: -1
+  _neighborRadius: 1
+  _autoRefreshTileGrids: 1

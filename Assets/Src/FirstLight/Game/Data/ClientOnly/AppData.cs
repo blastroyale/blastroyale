@@ -72,7 +72,6 @@ namespace FirstLight.Game.Data
 			set { }
 		}
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
-		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
 		public bool ConeAim;
 		public bool MovespeedControl;

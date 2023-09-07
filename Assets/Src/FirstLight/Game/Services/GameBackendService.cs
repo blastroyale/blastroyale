@@ -137,6 +137,10 @@ namespace FirstLight.Game.Services
 		bool IsDev();
 
 		/// <summary>
+		/// Returns true for environments that run server-side simulation
+		bool RunsSimulationOnServer();
+
+		/// <summary>
 		/// Handles if we should redirect the login flow to another environment after logging in.
 		/// This is mainly for store approval where we redirect builds to staging.
 		/// </summary>
@@ -412,6 +416,11 @@ namespace FirstLight.Game.Services
 		public bool IsDev()
 		{
 			return CurrentEnvironmentData.EnvironmentID == Environment.DEV;
+		}
+
+		public bool RunsSimulationOnServer()
+		{
+			return CurrentEnvironmentData.EnvironmentID == Environment.STAGING || CurrentEnvironmentData.EnvironmentID == Environment.PROD;
 		}
 
 		public Environment? EnvironmentRedirect { get; set; } = null;

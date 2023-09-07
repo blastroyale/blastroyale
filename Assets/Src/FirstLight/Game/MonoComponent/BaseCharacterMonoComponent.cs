@@ -17,9 +17,8 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
-		protected readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
-		protected readonly int _equipBodyHash = Animator.StringToHash("equip_body");
-		protected readonly int _flairHash = Animator.StringToHash("flair");
+		private readonly int _victoryHash = Animator.StringToHash("victory");
+		
 		protected bool IsLoaded = false;
 		
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
@@ -56,9 +55,9 @@ namespace FirstLight.Game.MonoComponent
 			await SkinLoaded(skin, instance);
 		}
 
-		public void AnimateFlair()
+		public void AnimateVictory()
 		{
-			_animator.SetTrigger(_flairHash);
+			_animator.SetTrigger(_victoryHash);
 		}
 
 		protected async void EquipDefault()

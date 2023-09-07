@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2519710826503657405}
   - component: {fileID: 239393191174332763}
   - component: {fileID: 6145894822900367786}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2519710826503657405
 Transform:
@@ -94,6 +94,14 @@ PrefabInstance:
     - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_Name
       value: DoorGlow_PRFB
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4356649877729499252, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_RootOrder
@@ -223,7 +231,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d49ad62f98347d04b9ae6d98ff9d1b96, type: 2}
     - target: {fileID: 243041194690276544, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 243041194690276544, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
       propertyPath: m_Name
@@ -232,6 +244,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5754084199372789682, guid: ea0909c116bcf9140b8a7b84a7267355, type: 3}
@@ -1013,6 +1029,14 @@ PrefabInstance:
     - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_Name
       value: DoorGlow_PRFB (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4356649877729499252, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_RootOrder

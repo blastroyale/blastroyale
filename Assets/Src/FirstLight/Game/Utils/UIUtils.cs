@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
@@ -215,16 +216,28 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Locks an element behind a level.
+		/// Locks an element behind a level. unlockedCallback is triggered when this element isn't locked and is pressed.
 		/// </summary>
 		public static void LevelLock<TElement, TPData>(this TElement element,
-													   UiToolkitPresenterData<TPData> presenter, UnlockSystem unlockSystem)
+													   UiToolkitPresenterData<TPData> presenter, VisualElement root, UnlockSystem unlockSystem, Action unlockedCallback)
 			where TElement : VisualElement
 			where TPData : struct
 		{
-			
 			element.AttachView(presenter, out FameLockedView storeLockedView);
-			storeLockedView.Init(unlockSystem);
+			storeLockedView.Init(unlockSystem, root, unlockedCallback);
+		}
+		
+		/// <summary>
+		/// Sets the PFP and level of the local player to this avatar element.
+		/// </summary>
+		public static void SetLocalPlayerData(this PlayerAvatarElement element, IGameDataProvider gameDataProvider)
+		{
+			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
+		
+			var avatarUrl = gameDataProvider.AppDataProvider.AvatarUrl;
+			if (string.IsNullOrEmpty(avatarUrl)) return;
+
+			element.SetAvatar(avatarUrl);
 		}
 
 	}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26efd6bf7a9016b43bc3da02800fb7e6, type: 3}
+  m_Name: TileRuleObjectSpawn_TileRuleGridSettings
+  m_EditorClassIdentifier: 
+  _tileRuleProfileName: Default
+  _tileRuleNeighborRadius: 1
+  _cellSize: {x: 1, y: 1, z: 1}
+  _wireColor: {r: 0, g: 0, b: 0, a: 1}
+  _fillColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}

@@ -12,7 +12,6 @@ namespace Quantum
 		[NonSerialized] public string[] Mutators;
 		[NonSerialized] public int BotOverwriteDifficulty;
 		
-		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumMapConfigs MapConfigs;
 		public AssetRefQuantumGameModeConfigs GameModeConfigs;

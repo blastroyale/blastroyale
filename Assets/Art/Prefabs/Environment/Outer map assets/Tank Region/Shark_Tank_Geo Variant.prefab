@@ -53,12 +53,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: e324e4ad729fa7849935cd48efb91e63, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e324e4ad729fa7849935cd48efb91e63, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e324e4ad729fa7849935cd48efb91e63, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
     - target: {fileID: 919132149155446097, guid: e324e4ad729fa7849935cd48efb91e63, type: 3}
       propertyPath: m_Name
       value: Shark_Tank_Geo Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e324e4ad729fa7849935cd48efb91e63, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

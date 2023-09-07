@@ -113,10 +113,11 @@
     flex-direction: row;
     position: absolute;
     align-items: center;
+    -unity-background-image-tint-color: rgb(22, 20, 38);
 }
 
 .bpp-bar__progress {
-    background-image: var(--sprite-shared__progress-battlepass-bpp);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/progress-battlepass-rewards-bpp.png?fileID=21300000&guid=557657056a3d9b44dbbbb666ec2fc9d9&type=3#progress-battlepass-rewards-bpp');
     height: 85%;
     flex-grow: 0.5;
 }

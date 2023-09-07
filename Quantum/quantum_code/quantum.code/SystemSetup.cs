@@ -41,7 +41,7 @@ namespace Quantum
 				new CollectablePlatformSpawnerSystem(),
 				new HazardSystem(),
 				new ProjectileSystem(),
-
+				
 				new PlayerChargingSystem(),
 				new PlayerCharacterSystem(),
 				new BotCharacterSystem(),
@@ -52,6 +52,7 @@ namespace Quantum
 				new DestructibleSystem(),
 				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
 				new RoofDamageSystem(),
+				new TeamSystem(), // needs to be after bots
 
 				// Debugging
 				// new BotSDKDebuggerSystem(),

@@ -11,6 +11,7 @@ namespace Quantum
 		public bool IsTestMap;
 		public bool IsCustomOnly;
 		public float DropSelectionSize;
+		public float MinimapCameraSize;
 	}
 	
 	/// <summary>

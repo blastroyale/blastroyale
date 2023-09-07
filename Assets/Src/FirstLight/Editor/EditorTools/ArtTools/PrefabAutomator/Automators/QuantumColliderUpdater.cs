@@ -23,7 +23,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			GUILayout.Label("Will skip objects that already have quantum static colliders.");
 		}
 		
-		protected override bool OnUpdatePrefab(GameObject o)
+		protected override bool OnUpdateGameObject(GameObject o)
 		{
 			var colliders = o.GetComponentsInChildren<BoxCollider>();
 			if (colliders == null || colliders.Length == 0) return false;

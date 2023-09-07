@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Sirenix.OdinInspector;
@@ -35,6 +38,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required, TabGroup("Animation")]
 		private PlayableDirector _summaryDirector;
 
+		[SerializeField, Required, TabGroup("Animation")]
+		private PlayableDirector _fameSummaryDirector;
+
 		#endregion
 
 		#region Elements
@@ -50,22 +56,20 @@ namespace FirstLight.Game.Presenters
 
 		#region UIState
 
-		private bool _summaryShowedOrSkipped;
+		private bool _summaryShowedOrIgnored;
+		private bool _canSkipSummary;
 		private bool _finished;
 		private Queue<IReward> _remaining;
 		private RewardsAnimationController _animations;
 
 		#endregion
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			_remaining = new Queue<IReward>(Data.Rewards);
-			Move();
-		}
+		private IGameDataProvider _gameDataProvider;
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+
 			_animations = new RewardsAnimationController();
 			_remainingRoot = root.Q<VisualElement>("RewardsRemaining").Required();
 			_remainingNumber = _remainingRoot.Q<Label>("NumberLabel").Required();
@@ -79,9 +83,26 @@ namespace FirstLight.Game.Presenters
 			_genericRewardView.Init(_animations, _animatedBackground, _genericRewardDirector);
 
 			root.Q<VisualElement>("RewardsSummary").Required().AttachView(this, out _summaryView);
-			_summaryView.Init(_animations, _animatedBackground, _summaryDirector);
+			_summaryView.Init(_animations, _animatedBackground, Data.FameRewards ? _fameSummaryDirector : _summaryDirector, Data.FameRewards);
 
 			_summaryView.CreateSummaryElements(Data.Rewards, Data.FameRewards);
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+
+			if (Data.FameRewards)
+			{
+				_remaining = new Queue<IReward>();
+				ShowSummary();
+				_summaryShowedOrIgnored = true;
+			}
+			else
+			{
+				_remaining = new Queue<IReward>(Data.Rewards);
+				Move();
+			}
 		}
 
 		public void OnClick(ClickEvent evt)
@@ -100,9 +121,9 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			if (!_summaryShowedOrSkipped)
+			if (!_summaryShowedOrIgnored)
 			{
-				_summaryShowedOrSkipped = true;
+				_summaryShowedOrIgnored = true;
 				if (ShouldShowSummary())
 				{
 					ShowSummary();
@@ -146,6 +167,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ShowSummary()
 		{
+			_canSkipSummary = Data.FameRewards;
 			_summaryView.Show();
 			SetDisplays(_summaryView);
 		}
@@ -156,6 +178,18 @@ namespace FirstLight.Game.Presenters
 			_summaryView.Element.SetDisplay(view == _summaryView);
 			_equipmentRewardView.Element.SetDisplay(view == _equipmentRewardView);
 			_remainingRoot.SetDisplay(_remaining.Count > 0);
+		}
+
+		public void OnLevelUpSignal()
+		{
+			_summaryView.SetPlayerLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
+		}
+
+		public void OnChangeRewardsSignal()
+		{
+			var nextLevel = _gameDataProvider.PlayerDataProvider.Level.Value + 1;
+			var nextLevelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForLevel(nextLevel);
+			_summaryView.CreateSummaryElements(nextLevelRewards, true);
 		}
 	}
 }

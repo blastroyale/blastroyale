@@ -136,7 +136,7 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
-			
+
 			void AddGoToMatchmakingHook(params IStateEvent[] states)
 			{
 				foreach (var state in states)
@@ -156,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 			homeCheck.Transition().Condition(MetaTutorialConditionsCheck).Target(enterNameDialog);
 			homeCheck.Transition().Target(homeMenu);
 			homeCheck.OnExit(OpenHomeScreen);
-			
+
 			homeMenu.OnEnter(OpenHomeScreen);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(PlayClickedEvent).Target(playClickedCheck);
@@ -170,7 +170,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_equipmentClickedEvent).Target(equipmentMenu);
 			homeMenu.Event(_collectionClickedEvent).Target(collectionMenu);
 			homeMenu.Event(NetworkState.JoinedPlayfabMatchmaking).Target(waitMatchmaking);
-			
+
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeCheck);
 			equipmentMenu.Nest(_equipmentMenuState.Setup).Target(homeCheck);
 			collectionMenu.Nest(_collectionMenuState.Setup).Target(homeCheck);
@@ -248,6 +248,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
+
 				_ = _assetAdderService.LoadAssetAsync<AssetBase>(asset.Item1);
 			}
 		}
@@ -262,7 +263,7 @@ namespace FirstLight.Game.StateMachines
 		private bool MetaTutorialConditionsCheck()
 		{
 			// If meta/match tutorial not completed, and tutorial not running
-			return FeatureFlags.TUTORIAL && 
+			return FeatureFlags.TUTORIAL &&
 				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH) &&
 				!_services.TutorialService.IsTutorialRunning;
 		}
@@ -536,20 +537,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLevelUpScreen()
 		{
-			var config = _services.ConfigsProvider.GetConfig<PlayerLevelConfig>((int) _gameDataProvider.PlayerDataProvider.Level.Value);
-			var rewards = new List<IReward>();
+			var rewards = _gameDataProvider.PlayerDataProvider.GetRewardsForLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
 
-			foreach (var (id, amount) in config.Rewards)
-			{
-				rewards.Add(new CurrencyReward(id, (uint) amount));
-			}
-
-			foreach (var unlockSystem in config.Systems)
-			{
-				rewards.Add(new UnlockReward(unlockSystem));
-			}
-
-			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData
 			{
 				FameRewards = true,
 				Rewards = rewards,
@@ -570,9 +560,9 @@ namespace FirstLight.Game.StateMachines
 		private void LoadingComplete()
 		{
 			CloseTransitions();
-			
+
 			// Giving new skins to old players
-			if(!_gameDataProvider.CollectionDataProvider.IsItemOwned(new (GameId.MaleAssassin)))
+			if (!_gameDataProvider.CollectionDataProvider.IsItemOwned(new(GameId.MaleAssassin)))
 			{
 				_services.CommandService.ExecuteCommand(new GetNewSkinsCommand());
 			}
@@ -617,7 +607,7 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMainMenuServices>(mainMenuServices);
 
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
-			
+
 			await _services.AudioFxService.LoadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			await _services.AssetResolverService.LoadScene(SceneId.MainMenu, LoadSceneMode.Additive);
@@ -645,9 +635,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMainMenuAssetConfigs>()
 				.ConfigsDictionary);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
-			
+
 			await _services.AssetResolverService.UnloadScene(SceneId.MainMenu);
-			
+
 			Resources.UnloadUnusedAssets();
 			MainInstaller.CleanDispose<IMainMenuServices>();
 		}

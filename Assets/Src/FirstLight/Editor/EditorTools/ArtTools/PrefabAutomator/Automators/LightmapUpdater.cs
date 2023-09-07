@@ -23,7 +23,7 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 			ReceiveShadows = EditorGUILayout.Toggle("Receive Shadows", ReceiveShadows);
 		}
 		
-		protected override bool OnUpdatePrefab(GameObject o)
+		protected override bool OnUpdateGameObject(GameObject o)
 		{
 			var renderers = o.GetComponentsInChildren<MeshRenderer>(true);
 			if (renderers == null || renderers.Length == 0) return false;

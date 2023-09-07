@@ -15,7 +15,6 @@ Shader "FLG/UI/Minimap"
         _DangerRingColor ("Danger Ring Color", Color) = (1,1,1,1)
         _OuterRingColor ("Outer Ring Color", Color) = (1,1,1,1)
         _EnemiesColor ("Enemies Color", Color) = (1,0,1,1)
-        _FriendliesColor ("Friendlies Color", Color) = (1,0,1,1)
         _PlayersOutlineColor ("Players Outline Color", Color) = (1,0,1,1)
         _PingColor ("Ping Color", Color) = (0,0,1,1)
         _PingProgress ("Ping Progress", Float) = 1
@@ -95,42 +94,42 @@ Shader "FLG/UI/Minimap"
             sampler2D _OverlayTex;
             fixed4 _Color;
             fixed4 _TextureSampleAdd;
-            float4 _ClipRect;
-            float _UIMaskSoftnessX;
-            float _UIMaskSoftnessY;
+            half4 _ClipRect;
+            half _UIMaskSoftnessX;
+            half _UIMaskSoftnessY;
 
             float4 _UvRect;
 
-            float _RingWidth;
-            float _OuterRindWidth;
+            half _RingWidth;
+            half _OuterRindWidth;
 
-            float _SafeAreaSize;
-            float4 _SafeAreaOffset;
+            half _SafeAreaSize;
+            half4 _SafeAreaOffset;
 
-            float _DangerAreaSize;
-            float4 _DangerAreaOffset;
+            half _DangerAreaSize;
+            half4 _DangerAreaOffset;
 
-            float _PlayersSize;
+            fixed _PlayersSize;
 
             fixed4 _SafeAreaColor;
             fixed4 _DangerAreaColor;
             fixed4 _DangerRingColor;
             fixed4 _OuterRingColor;
             fixed4 _EnemiesColor;
-            fixed4 _FriendliesColor;
             fixed4 _PlayersOutlineColor;
             fixed4 _PingColor;
 
             int _EnemiesCount = 0;
-            float4 _Enemies[30];
+            half4 _Enemies[30];
             int _FriendliesCount = 0;
-            float4 _Friendlies[30];
-            float _EnemiesOpacity;
+            half4 _Friendlies[30];
+            fixed4 _FriendliesColors[30];
+            half _EnemiesOpacity;
 
-            float _PingSize;
-            float _PingWidth;
-            float4 _PingPosition;
-            float _PingProgress;
+            half _PingSize;
+            half _PingWidth;
+            half4 _PingPosition;
+            half _PingProgress;
 
             inline float circle(in float2 st, in float radius)
             {
@@ -141,16 +140,16 @@ Shader "FLG/UI/Minimap"
             {
                 v2f OUT;
 
-                float4 vPosition = UnityObjectToClipPos(v.vertex);
+                half4 vPosition = UnityObjectToClipPos(v.vertex);
                 OUT.worldPosition = v.vertex;
                 OUT.vertex = vPosition;
 
-                float2 pixelSize = vPosition.w;
-                pixelSize /= float2(1, 1) * abs(mul((float2x2)UNITY_MATRIX_P, _ScreenParams.xy));
+                half2 pixelSize = vPosition.w;
+                pixelSize /= half2(1, 1) * abs(mul((half2x2)UNITY_MATRIX_P, _ScreenParams.xy));
 
-                float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
+                half4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
                 OUT.texcoord = v.texcoord.xy;
-                OUT.mask = float4(v.vertex.xy * 2 - clampedRect.xy - clampedRect.zw,
+                OUT.mask = half4(v.vertex.xy * 2 - clampedRect.xy - clampedRect.zw,
                                   0.25 / (0.25 * half2(_UIMaskSoftnessX, _UIMaskSoftnessY) + abs(pixelSize.xy)));
 
                 OUT.color = v.color * _Color;
@@ -167,34 +166,34 @@ Shader "FLG/UI/Minimap"
                 IN.color.a = round(IN.color.a * alphaPrecision) * invAlphaPrecision;
 
                 // BEGIN CUSTOM DRAW
-                const float2 st = IN.texcoord;
-                const float2 stMod = float2(_UvRect.x + _UvRect.z * st.x, _UvRect.y + _UvRect.w * st.y);
+                const half2 st = IN.texcoord;
+                const half2 stMod = half2(_UvRect.x + _UvRect.z * st.x, _UvRect.y + _UvRect.w * st.y);
 
                 // Draw base texture
-                half4 color = IN.color * (tex2D(_MainTex, stMod) + _TextureSampleAdd);
+                fixed4 color = IN.color * (tex2D(_MainTex, stMod) + _TextureSampleAdd);
 
                 // Draw danger area
-                const float2 dangerAreaPosition = stMod - _DangerAreaOffset;
-                const float dangerAreaCircle = circle(dangerAreaPosition, _DangerAreaSize);
-                const float dangerAreaCircleInv = 1 - dangerAreaCircle;
+                const half2 dangerAreaPosition = stMod - _DangerAreaOffset;
+                const half dangerAreaCircle = circle(dangerAreaPosition, _DangerAreaSize);
+                const half dangerAreaCircleInv = 1 - dangerAreaCircle;
                 color = color * dangerAreaCircleInv * _DangerAreaColor + dangerAreaCircle * color;
 
                 // Draw safe ring
-                const float2 safeAreaPosition = stMod - _SafeAreaOffset;
-                const float safeAreaCircle = circle(safeAreaPosition, _SafeAreaSize) - circle(
+                const half2 safeAreaPosition = stMod - _SafeAreaOffset;
+                const half safeAreaCircle = circle(safeAreaPosition, _SafeAreaSize) - circle(
                     safeAreaPosition, _SafeAreaSize - _RingWidth);
                 color = color * (1 - safeAreaCircle) + _SafeAreaColor * safeAreaCircle;
 
                 // Draw danger ring
-                const float dangerCircle = dangerAreaCircle - circle(dangerAreaPosition, _DangerAreaSize - _RingWidth);
+                const half dangerCircle = dangerAreaCircle - circle(dangerAreaPosition, _DangerAreaSize - _RingWidth);
                 color = color * (1 - dangerCircle) + _DangerRingColor * dangerCircle;
 
                 // Draw player circles
                 for (int i = 0; i < _EnemiesCount; i++)
                 {
-                    const float2 playerPos = stMod - _Enemies[i];
-                    const float playerCircle = circle(playerPos, _PlayersSize) * _EnemiesOpacity;
-                    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15) * _EnemiesOpacity;
+                    const half2 playerPos = stMod - _Enemies[i];
+                    const half playerCircle = circle(playerPos, _PlayersSize) * _EnemiesOpacity;
+                    const half playerCircleOuter = circle(playerPos, _PlayersSize * 1.15) * _EnemiesOpacity;
 
                     color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
                     color = color * (1 - playerCircle) + playerCircle * _EnemiesColor;
@@ -202,30 +201,30 @@ Shader "FLG/UI/Minimap"
 
                 for (int i = 0; i < _FriendliesCount; i++)
                 {
-                    const float2 playerPos = stMod - _Friendlies[i];
-                    const float playerCircle = circle(playerPos, _PlayersSize);
-                    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15);
+                    const half2 playerPos = stMod - _Friendlies[i];
+                    const half playerCircle = circle(playerPos, _PlayersSize);
+                    const half playerCircleOuter = circle(playerPos, _PlayersSize * 1.15);
 
                     color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
-                    color = color * (1 - playerCircle) + playerCircle * _FriendliesColor;
+                    color = color * (1 - playerCircle) + playerCircle * _FriendliesColors[i];
                 }
 
                 // Draw Ping ring
-                const float2 pingPos = stMod - _PingPosition;
-                const float progressCubic = _PingProgress * _PingProgress;
+                const half2 pingPos = stMod - _PingPosition;
+                const half progressCubic = _PingProgress * _PingProgress;
                 // This is the easeOutCubic of _PingProgress, for the size
-                const float progressQuint = progressCubic * _PingProgress * _PingProgress *
+                const half progressQuint = progressCubic * _PingProgress * _PingProgress *
                     _PingProgress; // This is the easeOutQuint of _PingProgress, for the "alpha"
-                const float pingRing = circle(pingPos, _PingSize * progressCubic) - circle(
+                const half pingRing = circle(pingPos, _PingSize * progressCubic) - circle(
                     pingPos, _PingSize * progressCubic - _PingWidth);
                 color = (color * (1 - pingRing) + _PingColor * pingRing) * (1 - progressQuint) + color * progressQuint;
 
                 // Draw outer ring
-                const float outerRing = circle(st, 1) - circle(st, 1.0 - _OuterRindWidth);
+                const half outerRing = circle(st, 1) - circle(st, 1.0 - _OuterRindWidth);
                 color = color * (1 - outerRing) + outerRing * _OuterRingColor;
 
                 // Fade
-                const float fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
+                const half fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
                 color.a = fade + outerRing * _OuterRingColor.a;
 
                 // END CUSTOM DRAW

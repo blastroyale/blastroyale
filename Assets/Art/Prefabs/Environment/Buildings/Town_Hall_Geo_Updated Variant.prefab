@@ -129,6 +129,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorGlow_PRFB
       objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980686567439106766, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4356649877729499252, guid: d59d32d12709fee46a2430e78b52626d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -271,6 +279,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 7799200939321987722, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -335,12 +347,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3430509982867594767, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 1
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: -895306380916907690, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
+    - target: {fileID: 243041194690276544, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 648901634083325387, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_StaticShadowCaster
       value: 1
@@ -352,6 +368,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
       propertyPath: m_Name
       value: Town_Hall_Geo_Updated Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a86078a6e54571439b3f33a5dbeaa6c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

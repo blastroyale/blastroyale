@@ -84,53 +84,97 @@ MonoBehaviour:
   - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Warehouse.fbx
   - Assets/Art/Models/Environment/Model_Buildings/large buildings/Town_Hall_Geo_Updated.fbx
   - Assets/Art/Models/Environment/Props_NEW/Walls and Barriers/fence and canopy/Orange_canopy.fbx
-  - Assets/Art/Models/Destructibles/Baricade_Wobble.fbx
-  - Assets/Art/SceneTests/FTUE_LEVELART/ramen sign with glow.fbx
-  - Assets/Art/Models/Environment/Props_NEW/Prop Dumpster.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Shops_GRP_SS_Y0.fbx
-  - Assets/Art/Models/Environment/Model_Trees/CCT3.fbx
-  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Building_Industrial_Small.fbx
-  - Assets/Art/Models/Environment/Props_NEW/Prop_FireHydrant.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/Non enterable v2/non_enterable_cafe.fbx
-  - Assets/Art/Models/Environment/Props_NEW/Posters.fbx
-  - Assets/Art/Models/Environment/Props_NEW/CampingAssets.fbx
-  - Assets/Art/Models/Environment/Old_Model_Buildings/FancyFacade_1.fbx
-  - Assets/Art/Models/Environment/Old_Model_Buildings/FootballPitch.fbx
-  - Assets/Art/Models/Environment/Old_Model_Buildings/RedBrick_2.fbx
-  - Assets/Art/Models/Environment/Old_Model_Buildings/AssetStoreReimports/Buidling_Industrial_Large.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Main_construction_platform.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/hazard_plane.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Lamp_post.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_platform.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_track.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_Trap.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Gun Construction.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/buildings/Cosmic comics.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_bollard.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Mine.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken_no_reinforcement.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile_Battery.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Crane.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate_small_section.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_under_construction.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_body.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/spare_tank_head.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Shark_Tank_Geo.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Turret_head_loose.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Bunny_Tank.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Decal 1.fbx
-  - Assets/Art/Models/Environment/Outer Map assets/Props/HDK.fbx
-  - Assets/Art/Models/Environment/Model_Trees/PT3.fbx
-  - Assets/Art/Models/Environment/Model_Trees/PT1.fbx
-  - Assets/Art/Models/Environment/Props_OLD/Containers.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/MM_Buildings/MM_Medium_Building.fbx
+  - Assets/NewMapStuff/PolygonApocalypse/Models/SM_Bld_Industrial_Small_01.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/large buildings/BoBs_Bazaar_GRP.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Junkers_Shop_Geo.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/corvett_crash.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Fortified_wall.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Junk_wall.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Cardboard_boxes.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Broken_colomb.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Skip.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_Fridge.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_Wall_T_shape.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Shelving_Broken.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Low_wall.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_concrete_barrier.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Thick_concrete_colomb.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/Thick_colomb_baricade.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_container.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/Tyres_Baricade.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_wall_Compound_shape.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_Wall_L_Shape_Bare.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_barrel_pallete.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_Wall_L_Shape_tyres.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Floor_damage_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_assets_7.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_asset_4.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_asset_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_asset_5.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_asset_2.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/floor_damage_4.fbx
+  - Assets/Art/Models/Environment/Model_Buildings/Broken buildings v2/Fancy_facade_Broken.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_assets_6.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/floor_damage_3.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop_TrafficLight.fbx
   - Assets/Art/Models/Environment/Model_Trees/PT2.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/single story v2/FancyFacade_2_GRP_SS_Y0.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/single story v2/ToolShop_GRP_SS_Y0.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/single story v2/Clapperboard_1_SS_Y0.fbx
-  - Assets/Art/Models/Environment/Model_Buildings/single story v2/FancyFacade_3_GRP_SS_Y0.fbx
-  modifiedAssetPaddingHash: d6a958ff202439fbe937ed04fefa474f9bb576f108dc894bbc93da515eb96a7f3c4efff050cd29d21488e0d268b727acd939803313a3ddded93980335dc5d890bb7d93639f398033534ffff0eb37ed04344ffff0133b80330cf43a060cf43a06a768e2a8d93980332bf43a06d9398033d9398033fe901ac2023911b04adc894b9e8f1ac23e3fd3d995c2a69318573014353fd3d96d67e2a8133b80333ec5d89080c5d89080c5d890cdc124913c4efff08c67e2a8797e9363cedb894becb4d8ac343fd3d9a48f1ac2bb09ecc0e55031eee55031eee55031eee55031ee185730142ab126fcaf67e2a83f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d93639f8f1ac266083ca803911ac25e8f1ac2d2f23a060e6d76d99c09ecc0eddb894be4901ac298f23a06797e9363f427c115ddc783049908e1402a80ecaf3e3fd3d914f33a06343fd3d9a48f1ac23e3fd3d9d60aecc0d15634b7275031ee38c2a693377e9363c25031ee5bc2a6938c67e2a85dc5d89061dd894b14f33a0695c2a6938c67e2a813a3ddde9f398033567e9363e55031ee885031ee3c4efff0f1f23a063367e2a880c5d8905267e2a81b3a8033a768e2a8885031ee75f23a066209ecc0d7c2a693885031ee81b4c42c9531e5c0af67e2a89c22c3b8
+  - Assets/Art/Models/Environment/Model_Trees/PT1.fbx
+  - Assets/Art/Models/Environment/Model_Trees/PT3.fbx
+  - Assets/Art/Prefabs/Environment/Barriers/New Containers/DC_Grey.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/SB_Low_wall_long_L_shape.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/road_end.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/straight_road.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/T_junction_wide.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/right angle road
+    thin.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/Right_angle _road.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/road_end_small.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/straight_road_thin.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/T_junction_narow.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/Road and sidewalk/pure_side_walk.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/Road and sidewalk/Full_Corners.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/Road and sidewalk/side_walk_Curb.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/Road and sidewalk/rounded_side_walk.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/New Road Tiles/T_junction_narow_and_thin.fbx
+  - Assets/Art/Models/Environment/Model_road_tiles/store floor tiles/store floor.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/Hospital_sign.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/sky_walk_platform_small_piece.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/sky_walk_platform_clean.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/sky_walk_broken_both_ends.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/sky_walk_broken_single_end.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/Sky_walk_base.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/Sky Walk Base Broken.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Half_shootable_wall.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/MB_Funnel_Shape.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Broken_baclony_2.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Prop Dumpster.fbx
+  - Assets/Art/Models/Environment/platforms/under wall.fbx
+  - Assets/Art/Models/Environment/platforms/all islands meshed together.fbx
+  - Assets/Art/Models/Environment/platforms/Under Wall.fbx
+  - Assets/Art/Models/Environment/platforms/Bridges.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Broken street rubble/rubble
+    pieces.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/gate_small_section.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Mine.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Missile.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Ammo_box.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Barrel.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken_no_reinforcement.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Scatter_asset_3.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_Trap.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Spare_tank_track.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Cement_barrier_broken.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Tank_under_construction.fbx
+  - Assets/Art/Models/Environment/Outer Map assets/Tank region/Lamp_post.fbx
+  - Assets/Art/Models/Environment/platforms/Bespoke edges to geometry islands/Edges
+    to the island area.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Nature/Dead trees.fbx
+  - Assets/Art/Models/Environment/platforms/Bespoke edges to geometry islands/garden
+    entrance test.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Scatter assets/Rocks/rocks.fbx
+  - Assets/Art/Models/Environment/Props_OLD/Containers.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_Broken_balcony_1.fbx
+  - Assets/Art/Models/Environment/Props_NEW/Broken building cover/LB_U_Wall.fbx
+  modifiedAssetPaddingHash: d6a958ff8ca620fde937ed0439b38e6dfed00d49fa4dfff016c52f295eb96a7f3c4efff050cd29d21488e0d268b727acd9398033ecc12491d9398033194efff0bb7d93639f398033534ffff0eb37ed0442dd894b344ffff042dd894b42dd894ba768e2a8d93980332bf43a06d9398033d9398033fe901ac2754b71fb4adc894b9e8f1ac23e3fd3d995c2a6933e3fd3d9353fd3d96d67e2a8133b8033b7f23a0680c5d89080c5d890cdc1249127dc894bb4c2a693797e9363cedb894becb4d8ac343fd3d9353fd3d9bb09ecc0e55031eee55031eee55031eee55031ee3e3fd3d93f3fd3d9797e93633f3fd3d9e1c4d890da7d9363e1c4d890f227c1159d4dfff0da7d9363353fd3d9797e936303911ac2333fd3d9d2f23a06d3e376db9342a73a7f8f1ac2c0178e323c4efff0d7c2a693df4dfff0b7f23a0604c5d890567e9363f1f23a06797e93638109ecc09c09ecc01c7e9363cedb894b377e93631c7e936395c2a693de09ecc01b3a8033d2f23a06bb09ecc0d93980335dc5d8905267e2a808dc894bb7f23a06eddb894b7ac2a69380c5d890194efff008dc894b42dd894b885031ee6209ecc075f23a06e55031eef1f23a063ec5d890194efff08c67e2a8fa4dfff0194efff07ac2a693a35031ee27dc894b344ffff042dd894b42dd894b42dd894b3ec5d890af67e2a875f23a06eddb894b567e9363567e9363567e9363d7c2a693f1f23a063c4efff0567e9363194efff0eddb894b333fd3d9363fd3d9333fd3d93edb1627ed5c3d5a95c2a693885031ee13a3dddeecc124915d39803361dd894bbe398033df4dfff05bc2a693c25031eed2f23a06d7c2a693275031ee323fd3d9e63d1072333fd3d9ddc2c7a45dc5d8906d67e2a8b4c2a693

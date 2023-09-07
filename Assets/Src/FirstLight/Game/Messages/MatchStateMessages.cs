@@ -41,6 +41,11 @@ namespace FirstLight.Game.Messages
 		public EntityView View;
 		public EntityBase Entity;
 	}
+	
+	public struct PlayerCharacterInstantiated : IMessage
+	{
+		public PlayerCharacterMonoComponent Character;
+	}
 
 	public struct LocalPlayerEntityVisibilityUpdate : IMessage
 	{

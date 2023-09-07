@@ -9,6 +9,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Presenters
 		private ScrollView _leaderboardScrollView;
 		private VisualElement _playerName;
 		private Label _playerNameText;
+		private Label _fameTitle;
 		private VisualElement _rewardsPanel;
 		private VisualElement _craftSpice;
 		private VisualElement _trophies;
@@ -77,7 +79,7 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
-			
+
 			UpdateCharacter();
 			UpdatePlayerName();
 			UpdateLeaderboard();
@@ -108,15 +110,12 @@ namespace FirstLight.Game.Presenters
 			_trophies.AttachView(this, out _trophiesView);
 			_bpp = _rewardsPanel.Q<VisualElement>("BPP").Required();
 			_bpp.AttachView(this, out _bppView);
-			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
 
-			// TODO FAME
-			{
-				_fame.SetDisplay(false);
-				_bpp.style.top = 510;
-				_bpp.style.left = 150;
-				// _fame.AttachView(this, out _levelView);
-			}
+			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
+			_fame.AttachView(this, out _levelView);
+			_fameTitle = root.Q<Label>("FameTitle").Required();
+			
+			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider);
 		}
 
 		private void OnNextButtonClicked()
@@ -156,44 +155,45 @@ namespace FirstLight.Game.Presenters
 			await _craftSpiceView.Animate();
 			await _trophiesView.Animate();
 			await _bppView.Animate();
-			// TODO FAME await _levelView.Animate();
+			await _levelView.Animate();
 		}
 
 		private void UpdateRewards()
 		{
 			var rewards = ProcessRewards();
-			
+
 			// craft spice
 			var csReward = 0;
-			if (rewards.ContainsKey(GameId.CS))
+			if (rewards.TryGetValue(GameId.CS, out var reward))
 			{
-				csReward = rewards[GameId.CS];
+				csReward = reward;
 			}
 
 			_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
 
 			// Trophies
 			var trophiesReward = 0;
-			if (rewards.ContainsKey(GameId.Trophies))
+			if (rewards.TryGetValue(GameId.Trophies, out var r))
 			{
-				trophiesReward = rewards[GameId.Trophies];
+				trophiesReward = r;
 			}
 
 			_trophiesView.SetData(trophiesReward, (int) _matchServices.MatchEndDataService.TrophiesBeforeChange);
 
 			// BPP
 			SetBPPReward(rewards);
-			
+
 			// Level (Fame)
-			// TODO FAME SetLevelReward(rewards);
+			SetLevelReward(rewards);
 		}
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
 		{
 			var bppReward = 0;
-			if (rewards.ContainsKey(GameId.XP))
+
+			if (rewards.TryGetValue(GameId.XP, out var reward))
 			{
-				bppReward = rewards[GameId.XP];
+				bppReward = reward;
 			}
 
 			var maxLevel = 99;
@@ -204,7 +204,6 @@ namespace FirstLight.Game.Presenters
 
 			do
 			{
-				FLog.Info("PACO", "SetLevelReward: nextLevel: " + nextLevel + " currentLevel: " + currentLevel + " gainedLeft: " + gainedLeft);
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
 				levelRewardInfo.MaxLevel = 99;
@@ -238,6 +237,7 @@ namespace FirstLight.Game.Presenters
 
 			_levelView.SetData(levelsInfo);
 		}
+
 		private void SetBPPReward(Dictionary<GameId, int> rewards)
 		{
 			var bppReward = 0;
@@ -288,13 +288,13 @@ namespace FirstLight.Game.Presenters
 
 			_bppView.SetData(levelsInfo, (int) bppPoolInfo.CurrentAmount, (int) bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
-		
+
 		private void UpdatePlayerName()
 		{
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_playerNameText.text = "";
@@ -326,13 +326,15 @@ namespace FirstLight.Game.Presenters
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
 
-			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
+			_playerNameText.text += playerName;
+			_fameTitle.text = playerName;
 		}
 
 		private void UpdateLeaderboard()
 		{
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-			
+
 			entries.SortByPlayerRank(false);
 
 			foreach (var entry in entries)
@@ -370,7 +372,7 @@ namespace FirstLight.Game.Presenters
 		private void SetupCamera()
 		{
 			// A very magic number that makes the character look good enough in any aspect ratio
-			_camera.m_Lens.FieldOfView =  Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
+			_camera.m_Lens.FieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.m_Lens.Aspect);
 		}
 
 		private async void UpdateCharacter()
@@ -378,7 +380,7 @@ namespace FirstLight.Game.Presenters
 			var playerRef = _matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None
 				? _matchServices.MatchEndDataService.Leader
 				: _matchServices.MatchEndDataService.LocalPlayer;
-			
+
 			if (playerRef == PlayerRef.None)
 			{
 				_character.gameObject.SetActive(false);

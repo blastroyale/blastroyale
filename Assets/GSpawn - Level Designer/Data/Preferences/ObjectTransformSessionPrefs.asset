@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31565f562c222c4479f1c065bc107e79, type: 3}
+  m_Name: ObjectTransformSessionPrefs
+  m_EditorClassIdentifier: 
+  _modularSnapRotationRelativeToGrid: 1
+  _modularSnapDrawObjectPivotTicks: 1
+  _modularSnapDrawProjectedObjectPivotTicks: 1
+  _modularSnapDrawObjectPivotProjectionLines: 1
+  _modularSnapDrawObjectBoxes: 1
+  _modularSnapObjectPivotTickColor: {r: 0, g: 1, b: 0, a: 1}
+  _modularSnapObjectPivotTickSize: 0.04
+  _modularSnapProjectedObjectPivotTickColor: {r: 1, g: 0.64705884, b: 0, a: 1}
+  _modularSnapProjectedObjectPivotTickSize: 0.04
+  _modularSnapObjectPivotProjectionLineColor: {r: 1, g: 1, b: 1, a: 0.25}
+  _modularSnapObjectBoxWireColor: {r: 1, g: 1, b: 1, a: 0.25}
+  _modularSnapShowInfoText: 1
+  _modularSnapDrawAlignmentHighlights: 1
+  _modularSnapAlignmentHighlightRadius: 80
+  _modularSnapShowAlignmentHints: 1
+  _modularSnapMaxNumAlignmentHints: 2
+  _surfaceSnapDrawAnchorLines: 1
+  _surfaceSnapDrawAnchorTick: 1
+  _surfaceSnapDrawObjectPivotTicks: 1
+  _surfaceSnapDrawObjectBoxes: 1
+  _surfaceSnapAnchorLineColor: {r: 1, g: 1, b: 1, a: 0.25}
+  _surfaceSnapAnchorTickColor: {r: 1, g: 0.64705884, b: 0, a: 1}
+  _surfaceSnapAnchorTickSize: 0.04
+  _surfaceSnapObjectPivotTickColor: {r: 0, g: 1, b: 0, a: 1}
+  _surfaceSnapObjectPivotTickSize: 0.04
+  _surfaceSnapObjectBoxWireColor: {r: 1, g: 1, b: 1, a: 0.25}
+  _surfaceSnapShowInfoText: 1
+  _vertSnapTickColor: {r: 0, g: 1, b: 0, a: 1}
+  _vertSnapTickSize: 0.04
+  _vertSnapTriangleWireColor: {r: 0, g: 1, b: 0, a: 1}
+  _boxSnapTickColor: {r: 0, g: 1, b: 0, a: 1}
+  _boxSnapCenterTickColor: {r: 1, g: 0, b: 1, a: 1}
+  _boxSnapTickSize: 0.04
+  _boxSnapObjectBoxWireColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

@@ -25,7 +25,7 @@ MonoBehaviour:
       Z:
         RawValue: 0
     Radius:
-      RawValue: 32768
+      RawValue: 19660
     MaxPenetration:
       RawValue: 9830
     PenetrationCorrection:

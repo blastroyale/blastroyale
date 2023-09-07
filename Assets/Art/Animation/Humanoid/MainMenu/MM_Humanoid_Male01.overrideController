@@ -9,7 +9,7 @@ AnimatorOverrideController:
   m_Name: MM_Humanoid_Male01
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 323a8d754db39457f8bb3ca4d5c254a8, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 992b08e75b18947909623398b8a3e1e1, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 87cc7cf0f1edbec40846a2709c28096f, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 2054557a757811c439c08ad19e8e0d41, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 87cc7cf0f1edbec40846a2709c28096f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 323a8d754db39457f8bb3ca4d5c254a8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 87cc7cf0f1edbec40846a2709c28096f, type: 2}

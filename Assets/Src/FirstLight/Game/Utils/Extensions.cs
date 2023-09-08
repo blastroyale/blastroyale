@@ -661,9 +661,9 @@ namespace FirstLight.Game.Utils
 		/// Requests the local player entity ref.
 		/// Always gets from Verified frame
 		/// </summary>
-		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game)
+		public static EntityRef GetLocalPlayerEntityRef(this QuantumGame game,bool isVerified = true)
 		{
-			return game.GetLocalPlayerData(true, out _).Entity;
+			return game.GetLocalPlayerData(isVerified, out _).Entity;
 		}
 
 		/// <summary>

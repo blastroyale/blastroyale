@@ -46,7 +46,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sets up the backend with the correct cloud environment, per platform
 		/// </summary>
-		void SetupBackendEnvironment();
+		void SetupBackendEnvironment(Environment? forceEnvironment = null);
 
 		/// <summary>
 		/// Updates the user nickname in playfab.
@@ -139,12 +139,6 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Returns true for environments that run server-side simulation
 		bool RunsSimulationOnServer();
-
-		/// <summary>
-		/// Handles if we should redirect the login flow to another environment after logging in.
-		/// This is mainly for store approval where we redirect builds to staging.
-		/// </summary>
-		Environment? EnvironmentRedirect { get; set; }
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -243,16 +237,16 @@ namespace FirstLight.Game.Services
 #endif
 		}
 
-		public void SetupBackendEnvironment()
+		public void SetupBackendEnvironment(Environment? forceEnvironment)
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var envData = new BackendEnvironmentData();
 
-			if (EnvironmentRedirect.HasValue)
+			if (forceEnvironment.HasValue)
 			{
-				FLog.Info("Environment Redirect");
-				SetupEnvironmentFromLocalConfig(EnvironmentRedirect.Value, envData);
+				FLog.Info("Forcing Environment");
+				SetupEnvironmentFromLocalConfig(forceEnvironment.Value, envData);
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -77,6 +78,11 @@ namespace FirstLight.Game.Services
 
 		public bool IsInSegment(string segmentName)
 		{
+			if (_segments == null)
+			{
+				FLog.Error("Reading segments before fetching them, something went bad");
+				return false;
+			}
 			return _segments.Contains(segmentName.ToLower());
 		}
 

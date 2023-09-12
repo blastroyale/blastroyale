@@ -319,7 +319,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			FLog.Info($"Logged in. PlayfabId={result.PlayFabId}");
+			FLog.Info($"Logged in. PlayfabId={result.PlayFabId} Title={PlayFabSettings.TitleId}");
 
 			var appData = _dataService.GetData<AppData>();
 			var tutorialData = _dataService.GetData<TutorialData>();
@@ -329,14 +329,17 @@ namespace FirstLight.Game.Services
 			{
 				if (version == VersionUtils.VersionExternal)
 				{
-					_services.GameBackendService.EnvironmentRedirect = Environment.STAGING;
-					onSuccess(loginData);
+					FLog.Info("Redirecting to staging");
+					_services.GameBackendService.SetupBackendEnvironment(Environment.STAGING);
+					LoginSetupGuest(onSuccess, onError);
 					return;
 				}
 			}
-
-			_services.GameBackendService.EnvironmentRedirect = null;
-
+			else
+			{
+				FLog.Info($"No server redirect version={VersionUtils.VersionExternal} vInternal {VersionUtils.VersionInternal}");
+			}
+			
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;

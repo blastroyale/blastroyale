@@ -461,47 +461,44 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Cosmetics")]
-	public void UnlockAllSkins()
+	private void UnlockCollectionItem(GameId item, IGameLogic gameLogic, IGameServices services)
 	{
-		var skins = new List<GameId>
+		var newCollectionItem = new CollectionItem(item);
+		
+		if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
 		{
-			GameId.Male01Avatar,
-			GameId.Male02Avatar,
-			GameId.MaleAssassin,
-			GameId.MaleCorpos,
-			GameId.MalePunk,
-			GameId.MaleSuperstar,
-			GameId.Female01Avatar,
-			GameId.Female02Avatar,
-			GameId.FemaleAssassin,
-			GameId.FemaleCorpos,
-			GameId.FemalePunk,
-			GameId.FemaleSuperstar,
-		};
-
+			gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
+				
+			services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
+			{
+				Source = CollectionUnlockSource.ServerGift,
+				EquippedItem = newCollectionItem
+			});
+		}
+	}
+	
+	[Category("Cosmetics")]
+	public void UnlockAllCosmetics()
+	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
 		
-		foreach (var skin in skins)
+		foreach (var glider in GameIdGroup.Glider.GetIds())
 		{
-			var newCollectionItem = new CollectionItem(skin);
-			
-			if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
-			{
-				gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
-				
-				services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
-				{
-					Source = CollectionUnlockSource.ServerGift,
-					EquippedItem = newCollectionItem
-				});
-			}
+			UnlockCollectionItem(glider, gameLogic, services);
+		}
+		foreach (var deathmarker in GameIdGroup.DeathMarker.GetIds())
+		{
+			UnlockCollectionItem(deathmarker, gameLogic, services);
+		}
+		foreach (var skin in GameIdGroup.PlayerSkin.GetIds())
+		{
+			UnlockCollectionItem(skin, gameLogic, services);
 		}
 		
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-
+	
 	[Category("Progression")]
 	private void AddXp(uint amount)
 	{

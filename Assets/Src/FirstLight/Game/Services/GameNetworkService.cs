@@ -768,7 +768,10 @@ namespace FirstLight.Game.Services
 
 		private void ResetQuantumProperties(string teamId = null)
 		{
-			QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
+			if (QuantumClient.AuthValues != null)
+			{
+				QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
+			}
 			QuantumClient.EnableProtocolFallback = true;
 			QuantumClient.NickName = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 			var preloadIds = new List<int>();

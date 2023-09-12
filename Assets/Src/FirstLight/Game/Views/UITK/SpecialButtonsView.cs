@@ -61,6 +61,14 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
+		
+		public void UpdateFromLatestVerifiedFrame()
+		{
+			var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var pc = f.Get<PlayerCharacter>(playerEntity);
+			UpdateSpecials(f, pc.WeaponSlots[pc.CurrentWeaponSlot]);
+		}
 
 		private void OnLocalPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{

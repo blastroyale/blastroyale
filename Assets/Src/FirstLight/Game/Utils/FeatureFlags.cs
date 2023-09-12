@@ -145,7 +145,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
-		public static bool DESYNC_DETECTION = true;
+		public static bool DESYNC_DETECTION = false;
 
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.

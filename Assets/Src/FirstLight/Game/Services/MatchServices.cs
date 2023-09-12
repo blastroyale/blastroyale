@@ -28,6 +28,12 @@ namespace FirstLight.Game.Services
 		public IBulletService BulletService { get; }
 		public IMatchAssetsService MatchAssetService { get; }
 		public ITeamService TeamService { get; }
+
+		/// <summary>
+		///  Run the actions when the match starts, if the match already started run instantaneously
+		///  The bool parameter is if is a reconnection
+		/// </summary>
+		public void RunOnMatchStart(Action<bool> action);
 	}
 
 	internal class MatchServices : IMatchServices
@@ -72,6 +78,10 @@ namespace FirstLight.Game.Services
 		public IMatchAssetsService MatchAssetService { get; }
 		public ITeamService TeamService { get; }
 
+		private bool _matchStarted = false;
+		private bool _isReconnect = false;
+		private Action<bool> _runOnMatchStart;
+		
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, 
 							 IGameServices services, 
 							 IGameDataProvider dataProvider, 
@@ -114,11 +124,25 @@ namespace FirstLight.Game.Services
 			return _gameServices.NetworkService.QuantumClient.IsConnectedAndReady && QuantumRunner.Default.IsDefinedAndRunning();
 		}
 
+		public void RunOnMatchStart(Action<bool> action)
+		{
+			if (_matchStarted)
+			{
+				action.Invoke(_isReconnect);
+				return;
+			}
+			_runOnMatchStart += action;
+		}
+		
 		private void OnMatchStart(MatchStartedMessage message)
 		{
+			if (!CanTriggerMessage()) return;
+			_isReconnect = message.IsResync;
+			_matchStarted = true;
+			_runOnMatchStart?.Invoke(_isReconnect);
+			_runOnMatchStart = null;
 			foreach (var service in _services)
 			{
-				if (!CanTriggerMessage()) return;
 				service.OnMatchStarted(message.Game, message.IsResync);
 			}
 		}

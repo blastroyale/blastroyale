@@ -58,17 +58,31 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Choppiness: 0.2
-    - FlowSpeed: 0.02
-    - FlowStrength: 0.0075
-    - FoamDistance: 1.45
-    - Size: 4
+    - Choppiness: 0.5
+    - FlowSpeed: 0.005
+    - FlowStrength: 0.003
+    - FoamDistance: 10
+    - Size: 15
+    - Vector1_28287F92: 1
+    - Vector1_485BCCF8: 0
+    - Vector1_534C4AC9: 0
+    - Vector1_B3F6D69: 2
+    - Vector1_DB7D2282: 0.5
+    - Vector1_E33CBEF2: 0
+    - Vector1_E7AE6CD: 5
+    - Vector1_FE3B4DFB: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - contrast: 2.33
+    - contrast: 0
     m_Colors:
-    - DarkFoamColor: {r: 0.24292454, g: 0.5, b: 0.48714623, a: 1}
+    - Color_17AB51B8: {r: 0.454902, g: 2.682353, b: 4, a: 0}
+    - Color_20EAE851: {r: 0, g: 0.6984148, b: 2, a: 0}
+    - Color_2596AE61: {r: 1, g: 1, b: 1, a: 0}
+    - DarkFoamColor: {r: 0.35686275, g: 0.6612751, b: 0.6784314, a: 1}
     - FoamDistanceColor: {r: 0.9685534, g: 0.991951, b: 1, a: 0}
-    - LightFoamColor: {r: 0.71675867, g: 0.8584906, b: 0.8584906, a: 0}
-    - WaterColor: {r: 0.42145783, g: 0.7264151, b: 0.65542924, a: 1}
+    - LightFoamColor: {r: 0.61960787, g: 0.81681556, b: 0.8509804, a: 0}
+    - ShearCenter: {r: 0, g: 0, b: 0, a: 0}
+    - ShearStrenght: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_348319FB: {r: 0.5, g: 0, b: 0, a: 0}
+    - WaterColor: {r: 0.41960785, g: 0.70179456, b: 0.7254902, a: 1}
   m_BuildTextureStacks: []

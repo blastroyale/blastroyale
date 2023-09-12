@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
@@ -134,8 +135,6 @@ namespace FirstLight.Game.Presenters
 			_specialButtonsView.OnSpecial1Pressed += e => InputState.Change(_special1PressedInput.control, e);
 			_specialButtonsView.OnDrag += e => InputState.Change(_specialAimInput.control, e);
 			_specialButtonsView.OnCancel += e => InputState.Change(_specialCancelInput.control, e);
-
-			HideSkydivingElements(true);
 		}
 
 		public JoystickElement MovementJoystick => _movementJoystick;
@@ -146,13 +145,15 @@ namespace FirstLight.Game.Presenters
 		protected override void SubscribeToEvents()
 		{
 			base.SubscribeToEvents();
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, _ => HideSkydivingElements(false));
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, _ => HideControls(true));
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, _ => HideControls(false));
 		}
 
 		protected override void UnsubscribeFromEvents()
 		{
 			base.UnsubscribeFromEvents();
 			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		public bool IsMenuVisible()
@@ -160,12 +161,29 @@ namespace FirstLight.Game.Presenters
 			return !_gameServices.TutorialService.IsTutorialRunning &&
 				_gameServices.NetworkService.CurrentRoomMatchType == MatchType.Custom;
 		}
-
+	
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 			_legacyMinimap.SetActive(_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap);
 			_menuButton.SetVisibility(IsMenuVisible());
+			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
+			{
+				if (!isReconnect) return;
+				var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+				// player died
+				if (!QuantumRunner.Default.Game.Frames.Verified.Exists(playerEntity))
+				{
+					HideControls(true);
+					return;
+				}; 
+					
+				HideControls(false);
+				_weaponDisplayView.UpdateFromLatestVerifiedFrame();
+				_specialButtonsView.UpdateFromLatestVerifiedFrame();
+				_statusBarsView.InitAll();
+
+			});
 		}
 
 		protected override Task OnClosed()
@@ -180,7 +198,7 @@ namespace FirstLight.Game.Presenters
 			_gameServices.MessageBrokerService.Publish(new QuitGameClickedMessage());
 		}
 
-		private void HideSkydivingElements(bool hide)
+		private void HideControls(bool hide)
 		{
 			Root.EnableInClassList(USS_SKYDIVING, hide);
 		}

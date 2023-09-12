@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b3c7eff3e22cd794aa5b129ea98b06c8
+guid: 7e282dcaf7b1d74479a2a97f6835e3ce
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -31,12 +31,12 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["straight_road_thin"],"padding":[60],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Barrier_Wild_Logs01"],"padding":[40],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

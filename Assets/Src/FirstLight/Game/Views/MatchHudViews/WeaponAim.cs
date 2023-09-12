@@ -10,6 +10,7 @@ using Quantum.Physics3D;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {
@@ -145,11 +146,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_aim = _aim.Normalized;
-			
-			var origin = _view.transform.position.ToFPVector3();
+
+			var playerTransform = _view.transform;
+			var origin = playerTransform.position.ToFPVector3();
 			var end = (_aim * _range).XOY;
 
-			var offset = transform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
+			var offset = playerTransform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
 			origin += offset.ToFPVector3();
 			
 			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);

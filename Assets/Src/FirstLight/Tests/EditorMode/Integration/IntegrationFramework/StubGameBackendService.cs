@@ -60,9 +60,7 @@ namespace FirstLight.Tests.EditorMode
 			return false;
 		}
 
-		public Environment? EnvironmentRedirect { get; set; }
-		
-		public void SetupBackendEnvironment()
+		public void SetupBackendEnvironment(Environment? force)
 		{
 
 		}

@@ -86,8 +86,6 @@ namespace FirstLight.Game.Views.UITK
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerReloadStart);
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnUpdateView);
-			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
-			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 		}
 
 		public override void UnsubscribeFromEvents()
@@ -166,7 +164,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 
-		private void OnMatchStart(MatchStartedMessage msg)
+		public void InitAll()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var dataArray = f.GetSingleton<GameContainer>().PlayersData;
@@ -176,23 +174,6 @@ namespace FirstLight.Game.Views.UITK
 			}
 		}
 		
-		private void OnGameResync(CallbackGameResynced cb)
-		{
-			_anchors.Clear();
-			_culledPlayers.Clear();
-			_healthBars.Clear();
-			foreach (var (_, bar) in _visiblePlayers)
-			{
-				_playerBarPool.Release(bar);
-			}
-			_visiblePlayers.Clear();
-			foreach (var (_, bar) in _healthBars)
-			{
-				_healthBarPool.Release(bar);
-			}
-			_healthBarPool.Clear();
-		}
-
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
 			InitPlayer(callback.Game.Frames.Predicted, callback.Entity);

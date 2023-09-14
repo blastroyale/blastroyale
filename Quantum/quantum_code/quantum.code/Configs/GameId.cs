@@ -178,6 +178,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.Yololand, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.BattlelandsMap, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
@@ -185,6 +191,12 @@ namespace Quantum
 				},
 				{
 					GameId.IslandsMap, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
+					GameId.MazeMayhem, new List<GameIdGroup>
 					{
 						GameIdGroup.Map
 					}.AsReadOnly()
@@ -987,8 +999,10 @@ namespace Quantum
 						GameId.NewBRMap,
 						GameId.FtueMiniMap,
 						GameId.District,
+						GameId.Yololand,
 						GameId.BattlelandsMap,
-						GameId.IslandsMap
+						GameId.IslandsMap,
+						GameId.MazeMayhem
 					}.AsReadOnly()
 				},
 				{

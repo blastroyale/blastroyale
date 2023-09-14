@@ -1,5 +1,5 @@
-using FirstLight.FLogger;
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -28,7 +28,7 @@ namespace FirstLight.Game.UIElements
 			if (!LocalizationManager.TryGetTranslation(key, out var translation))
 			{
 				translation = key;
-				FLog.Warn($"Could not find translation for key {key}");
+				Debug.LogWarning($"Could not find translation for key {key}");
 			}
 			localizationKey = key;
 			text = translation;

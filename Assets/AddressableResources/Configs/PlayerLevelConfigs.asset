@@ -13,81 +13,101 @@ MonoBehaviour:
   m_Name: PlayerLevelConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Level: 1
+  - LevelStart: 1
+    LevelEnd: 1
     LevelUpXP: 100
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 2
+  - LevelStart: 2
+    LevelEnd: 2
     LevelUpXP: 100
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 01000000
-  - Level: 3
+  - LevelStart: 3
+    LevelEnd: 3
     LevelUpXP: 200
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 4
+  - LevelStart: 4
+    LevelEnd: 4
     LevelUpXP: 400
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 00000000
-  - Level: 5
+  - LevelStart: 5
+    LevelEnd: 5
     LevelUpXP: 1000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 6
+  - LevelStart: 6
+    LevelEnd: 6
     LevelUpXP: 2000
     Rewards:
       _keyData: 0c000000
       _valueData: 32000000
     Systems: 
-  - Level: 7
+  - LevelStart: 7
+    LevelEnd: 7
     LevelUpXP: 5000
     Rewards:
       _keyData: 0c000000
       _valueData: 32000000
     Systems: 
-  - Level: 8
+  - LevelStart: 8
+    LevelEnd: 8
     LevelUpXP: 35000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 9
+  - LevelStart: 9
+    LevelEnd: 9
     LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 10
+  - LevelStart: 10
+    LevelEnd: 10
     LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 11
+  - LevelStart: 11
+    LevelEnd: 11
     LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 12
+  - LevelStart: 12
+    LevelEnd: 12
     LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
     Systems: 
-  - Level: 13
+  - LevelStart: 13
+    LevelEnd: 13
     LevelUpXP: 150000
     Rewards:
       _keyData: 3d000000
       _valueData: 32000000
+    Systems: 
+  - LevelStart: 14
+    LevelEnd: 999
+    LevelUpXP: 300000
+    Rewards:
+      _keyData: 3d000000
+      _valueData: 4b000000
     Systems: 

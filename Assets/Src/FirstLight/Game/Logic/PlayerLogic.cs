@@ -4,7 +4,9 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
+using PlayFab.Internal;
 
 namespace FirstLight.Game.Logic
 {
@@ -155,13 +157,16 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public uint GetUnlockSystemLevel(UnlockSystem unlockSystem)
 		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsList<PlayerLevelConfig>();
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 
-			for (var i = 0; i < configs.Count; i++)
+			foreach (var config in configs)
 			{
-				if (configs[i].Systems.Contains(unlockSystem))
+				for (var i = config.Value.LevelStart; i <= config.Value.LevelEnd; i++)
 				{
-					return configs[i].Level;
+					if (config.Value.Systems.Contains(unlockSystem))
+					{
+						return config.Value.LevelStart;
+					}
 				}
 			}
 
@@ -170,17 +175,25 @@ namespace FirstLight.Game.Logic
 
 		public List<IReward> GetRewardsForLevel(uint level)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<PlayerLevelConfig>((int) level);
+			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			var rewards = new List<IReward>();
 
-			foreach (var (id, amount) in config.Rewards)
+			foreach (var config in configs)
 			{
-				rewards.Add(new CurrencyReward(id, (uint) amount));
-			}
+				if (level >= config.Value.LevelStart && level <= config.Value.LevelEnd)
+				{
+					foreach (var (id, amount) in config.Value.Rewards)
+					{
+						rewards.Add(new CurrencyReward(id, (uint) amount));
+					}
 
-			foreach (var unlockSystem in config.Systems)
-			{
-				rewards.Add(new UnlockReward(unlockSystem));
+					foreach (var unlockSystem in config.Value.Systems)
+					{
+						rewards.Add(new UnlockReward(unlockSystem));
+					}
+					
+					break;
+				}
 			}
 
 			return rewards;
@@ -192,16 +205,34 @@ namespace FirstLight.Game.Logic
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			var xp = _xp.Value + amount;
 			var level = _level.Value;
-
-			if (level == configs.Count + 1)
+			
+			if (level == GameConstants.Data.PLAYER_FAME_MAX_LEVEL)
 			{
 				return;
 			}
 
-			while (configs.TryGetValue((int) level, out var config) && xp >= config.LevelUpXP)
+			foreach (var config in configs)
 			{
-				xp -= config.LevelUpXP;
-				level++;
+				if (level < config.Value.LevelStart || level > config.Value.LevelEnd)
+				{
+					continue;
+				}
+				
+				for (var i = config.Value.LevelStart; i <= config.Value.LevelEnd; i++)
+				{
+					if (xp < config.Value.LevelUpXP)
+					{
+						break;
+					}
+					
+					xp -= config.Value.LevelUpXP;
+					level++;
+				}
+				
+				if (xp < config.Value.LevelUpXP)
+				{
+					break;
+				}
 			}
 
 			if (level > _level.Value)
@@ -210,7 +241,7 @@ namespace FirstLight.Game.Logic
 			}
 
 			_level.Value = level;
-			_xp.Value = level >= configs.Count ? 0 : xp;
+			_xp.Value = level >= GameConstants.Data.PLAYER_FAME_MAX_LEVEL ? 0 : xp;
 		}
 
 		/// <inheritdoc />

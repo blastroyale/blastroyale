@@ -123,6 +123,7 @@ namespace FirstLight.Game.Utils
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
+			public const uint PLAYER_FAME_MAX_LEVEL = 999;
 		}
 		
 

@@ -1,3 +1,4 @@
+using FirstLight.FLogger;
 using I2.Loc;
 using UnityEngine.UIElements;
 
@@ -24,8 +25,13 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void Localize(string key)
 		{
+			if (!LocalizationManager.TryGetTranslation(key, out var translation))
+			{
+				translation = key;
+				FLog.Warn($"Could not find translation for key {key}");
+			}
 			localizationKey = key;
-			text = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
+			text = translation;
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedLabel, UxmlTraits>

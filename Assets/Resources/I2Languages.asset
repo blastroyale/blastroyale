@@ -14902,9 +14902,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - K
-      - K
-      - K
+      - Kills
+      - Kills
+      - Kills
       - 
       - 
       Flags: 0000000000
@@ -14938,6 +14938,28 @@ MonoBehaviour:
       - TROPHIES
       - "\u0422\u0440\u043E\u0444\u0435\u0438"
       - "Trof\xE9us"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/wins
+      TermType: 0
+      Description: 
+      Languages:
+      - Games Won
+      - Games Won
+      - "Vit\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/games
+      TermType: 0
+      Description: 
+      Languages:
+      - Games
+      - Games
+      - Jogos
       - 
       - 
       Flags: 0000000000
@@ -17105,7 +17127,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1692614902762
+    Google_LastUpdatedVersion: 1694603096436
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

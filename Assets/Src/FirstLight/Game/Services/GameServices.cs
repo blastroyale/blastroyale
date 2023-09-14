@@ -116,6 +116,7 @@ namespace FirstLight.Game.Services
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		
 		public IControlSetupService ControlsSetup { get; }
+		public ILeaderboardService LeaderboardService { get; }
 
 		/// <summary>
 		/// Reason why the player quit the app
@@ -166,6 +167,8 @@ namespace FirstLight.Game.Services
 		
 		public IControlSetupService ControlsSetup { get; }
 		
+		public ILeaderboardService LeaderboardService { get; }
+
 		public ICheatsService CheatsService { get; }
 
 		public string QuitReason { get; set; }
@@ -202,6 +205,7 @@ namespace FirstLight.Game.Services
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
+			LeaderboardService = new LeaderboardsService(this);
 			CoroutineService = new CoroutineService();
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);

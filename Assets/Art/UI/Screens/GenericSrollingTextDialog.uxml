@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PrivacyDialogStyle.uss?fileID=7433441132597879392&amp;guid=cb0eb3341c6774ab8867621416ff2384&amp;type=3#PrivacyDialogStyle" />
+    <ui:VisualElement name="root" class="screen-root">
+        <ui:Button name="BlockerButton" class="blocker" />
+        <ui:VisualElement name="Popup" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl popup--xlarge" style="min-height: 600px; max-height: 600px; height: 600px;">
+            <ui:VisualElement name="Window" class="popup-radius popup__window">
+                <ui:VisualElement name="Header" class="background-purple window__header">
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
+                    <ui:Label name="Title" text="Privacy Policy" class="DO_NOT_USE_font-style-h2" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Content" class="window__content">
+                    <ui:ScrollView class="scroll-text">
+                        <ui:Label name="PopupText" focusable="false" text="TEXT" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc scroll-text-font" />
+                    </ui:ScrollView>
+                    <ui:VisualElement name="Controls" class="content__controls">
+                        <ui:VisualElement name="OkButton" class="button-flat-outline">
+                            <ui:Button localization-key="Accept" name="ConfirmButton" text="Ok" class="button-flat button-flat--primary accept-btn" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

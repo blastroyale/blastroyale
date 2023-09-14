@@ -124,3 +124,24 @@
     height: 0;
     width: 42px;
 }
+
+.popup--xlarge {
+    width: 1000px;
+    height: 800px;
+    max-height: 800px;
+    min-height: 800px;
+}
+
+.scroll-text {
+    width: 100%;
+    height: 400%;
+    max-height: 400px;
+    min-height: 400px;
+}
+
+.scroll-text-font {
+    margin-bottom: 10px;
+    font-size: 24px;
+    -unity-font-style: normal;
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+}

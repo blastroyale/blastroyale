@@ -270,7 +270,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (IsInInvisibilityArea())
 			{
-				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) && BuildingVisibility.CanSee());
+				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) || BuildingVisibility.CanSee());
 			}
 		}
 

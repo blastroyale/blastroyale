@@ -183,10 +183,6 @@ namespace FirstLight.Game.Utils
 			
 			public const char ROOM_META_SEPARATOR = '#';
 			
-			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-			public const int LEADERBOARD_TOP_RANK_AMOUNT = 100;
-			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 1;
-			
 			public const string MANUAL_TEAM_ID_PREFIX = "manual_";
 		}
 

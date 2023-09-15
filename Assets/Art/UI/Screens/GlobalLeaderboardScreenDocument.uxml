@@ -10,6 +10,14 @@
                         <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header__label--rank-number" />
                     </ui:VisualElement>
                     <ui:ListView focusable="true" name="LeaderboardList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="leaderboard-entries" />
+                    <ui:VisualElement name="LeaderboardDescription" class="leaderboard-description">
+                        <ui:Label tabindex="-1" text="Some Description&#10;Some rewards&#10;Some more text&#10;yoloylolyoylo" display-tooltip-when-elided="true" style="font-size: 30px; color: rgb(255, 255, 255); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="LeaderboardOptions" class="leaderboard-options">
+                        <ui:Button text="Trophies" display-tooltip-when-elided="true" name="LeaderboardViewButton" class="leaderboard-button" style="display: none; visibility: hidden;">
+                            <ui:VisualElement name="Indicator" class="leaderboard-button__indicator" />
+                        </ui:Button>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="FixedLocalPlayerHolder" class="localplayer-fixed-pos-holder" />
                 <ui:VisualElement name="Footer" class="leaderboard__footer">

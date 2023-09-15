@@ -152,7 +152,28 @@
 }
 
 .leaderboard-entry__trophies-icon {
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
     background-image: var(--sprite-shared__icon-trophy);
+}
+
+.leaderboard-entry__kills-icon {
+    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
+}
+
+.leaderboard-entry__games-icon {
+    background-image: var(--sprite-home__icon-crown-ranked);
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
+}
+
+.leaderboard-entry__wins-icon {
+    background-image: var(--sprite-home__icon-crown-ranked);
     width: 44px;
     height: 44px;
     margin-right: 10px;
@@ -225,4 +246,3 @@
     align-items: center;
     align-self: auto;
 }
-

@@ -24,10 +24,11 @@ namespace FirstLight.Game.Views
 		private VisualElement _leaderboardEntry;
 		private Label _rankNumber;
 		private Label _playerName;
-		private Label _kills;
-		private Label _trophies;
+		private Label _insideMetric;
+		private Label _mainMetric;
 		private VisualElement _pfp;
 		private VisualElement _pfpImage;
+		private VisualElement _metricIcon;
 
 		private IGameServices _services;
 
@@ -41,13 +42,22 @@ namespace FirstLight.Game.Views
 			_leaderboardEntry = element.Q<VisualElement>("LeaderboardEntryParent").Required();
 			_rankNumber = element.Q<Label>("RankNumber").Required();
 			_playerName = element.Q<Label>("PlayerName").Required();
-			_kills = element.Q<Label>("Kills").Required();
-			_trophies = element.Q<Label>("TrophiesAmount").Required();
-			//_pfp = _root.Q<VisualElement>("PFP").Required();
+			_insideMetric = element.Q<Label>("Kills").Required();
+			_mainMetric = element.Q<Label>("TrophiesAmount").Required();
 			_pfp = element.Q("PFP").Required();
 			_pfpImage = element.Q("PFPImage").Required();
+			_metricIcon = element.Q("TrophiesIcon").Required();
 		}
 
+		public void SetIcon(string iconClass)
+		{
+			_metricIcon.ClearClassList();
+			if (iconClass != null)
+			{
+				_metricIcon.AddToClassList($"{USS_LEADERBOARD_ENTRY}__{iconClass}");
+			}
+		}
+		
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>
@@ -79,8 +89,8 @@ namespace FirstLight.Game.Views
 			}
 
 			_playerName.text = playerName;
-			_kills.text = playerKilledCount.ToString();
-			_trophies.text = playerTrophies.ToString();
+			_insideMetric.text = playerKilledCount.ToString();
+			_mainMetric.text = playerTrophies.ToString();
 
 			var delayTime = 0.3f + rank * 0.1f;
 
@@ -95,19 +105,16 @@ namespace FirstLight.Game.Views
 			// PFP
 			if (!string.IsNullOrEmpty(pfpUrl))
 			{
-				_pfp.SetVisibility(false);
 				_pfp.AddToClassList(USS_AVATAR_NFT);
 				_pfpRequestHandle = _services.RemoteTextureService.RequestTexture(
 					pfpUrl,
 					tex =>
 					{
 						_pfpImage.style.backgroundImage = new StyleBackground(tex);
-						_pfp.SetVisibility(true);
 					},
 					() =>
 					{
 						_pfp.RemoveFromClassList(USS_AVATAR_NFT);
-						_pfp.SetVisibility(true);
 					});
 			}
 			else

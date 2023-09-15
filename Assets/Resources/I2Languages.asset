@@ -5791,7 +5791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NEW BR MAP
+      - MAZE MAYHEM
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -14942,6 +14942,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITLeaderboards/wins
+      TermType: 0
+      Description: 
+      Languages:
+      - Games Won
+      - Games Won
+      - "Vit\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/games
+      TermType: 0
+      Description: 
+      Languages:
+      - Games
+      - Games
+      - Jogos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
@@ -17081,39 +17103,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/MazeMayhem
-      TermType: 0
-      Description: 
-      Languages:
-      - MAZE MAYHEM
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/wins
-      TermType: 0
-      Description: 
-      Languages:
-      - Games Won
-      - Games Won
-      - "Vit\xF3rias"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/games
-      TermType: 0
-      Description: 
-      Languages:
-      - Games
-      - Games
-      - Jogos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -17138,7 +17127,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1694622570341
+    Google_LastUpdatedVersion: 1694603096436
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

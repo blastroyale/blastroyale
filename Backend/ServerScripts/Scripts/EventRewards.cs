@@ -30,7 +30,7 @@ public class EventRewards : PlayfabScript
    public async Task RunAsync()
    {
       var tasks = new List<Task<string>>();
-      var leaderboard = await GetLeaderboard(100, 100, GameConstants.Network.LEADERBOARD_LADDER_NAME);
+      var leaderboard = await GetLeaderboard(100, 100, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
 
       await CreateSumMetric("Tournament Top1");
       await CreateSumMetric("Made Tournament Top3");

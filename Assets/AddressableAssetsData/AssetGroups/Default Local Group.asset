@@ -177,7 +177,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 368bf89a47cbb404b92c463d44a0e59f
-    m_Address: Assets/AddressableResources/Scenes/MazeMayhem.unity
+    m_Address: Scenes/MazeMayhem.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

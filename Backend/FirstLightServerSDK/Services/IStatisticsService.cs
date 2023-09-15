@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using FirstLight.Server.SDK.Models;
 
 namespace FirstLightServerSDK.Services
 {
@@ -20,5 +22,10 @@ namespace FirstLightServerSDK.Services
 		/// fire and forget operation.
 		/// </summary>
 		void UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
+
+		/// <summary>
+		/// Gets the statistics profile of a given user
+		/// </summary>
+		Task<PublicPlayerProfile> GetProfile(string user);
 	}
 }

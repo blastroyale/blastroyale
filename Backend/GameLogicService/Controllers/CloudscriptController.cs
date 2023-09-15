@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 using GameLogicService.Services;
 using Microsoft.AspNetCore.Http;
@@ -28,15 +29,17 @@ namespace ServerCommon.Cloudscript
 	[Consumes("application/json")]
 	public class CloudscriptController : ControllerBase
 	{
+		private IStatisticsService _statistics;
 		private ILogicWebService _logicServer;
 		private ShopService _shop;
 		private IEventManager _events;
 
-		public CloudscriptController(ILogicWebService logicServer, ShopService shop, IEventManager events)
+		public CloudscriptController(ILogicWebService logicServer, ShopService shop, IEventManager events, IStatisticsService stats)
 		{
 			_logicServer = logicServer;
 			_shop = shop;
 			_events = events;
+			_statistics = stats;
 		}
 		
 		[HttpPost]
@@ -82,6 +85,15 @@ namespace ServerCommon.Cloudscript
 		public async Task<IActionResult> DeletePlayerData([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.RemovePlayerData(request.PlayfabId)));
+		}
+		
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("GetPublicProfile")]
+		public async Task<IActionResult> GetUserProfile([FromBody] CloudscriptRequest<LogicRequest> request)
+		{
+			var result = Playfab.Result(request.PlayfabId, await _statistics.GetProfile(request.FunctionArgument!.Command));
+			return Ok(new CloudscriptResponse(result));
 		}
 	}
 }

@@ -15,7 +15,7 @@ public partial class SROptions
 	[Category("Gameplay")]
 	public void TestPlayerStatistics()
 	{
-		var t = new GameStatisticsService();
+		var t = new PlayerProfileService(MainInstaller.ResolveServices().GameBackendService);
 		
 		t.TestServerQuery();
 	}

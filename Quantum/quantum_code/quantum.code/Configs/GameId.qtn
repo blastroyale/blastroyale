@@ -21,7 +21,6 @@ enum GameId
 	NewBRMap = 65,
 	FtueMiniMap = 133,
 	District = 108,
-	Yololand = 112,
 	BattlelandsMap = 113,
 	IslandsMap = 114,
 	MazeMayhem = 115,

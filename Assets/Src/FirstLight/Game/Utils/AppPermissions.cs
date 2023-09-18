@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace FirstLight.Game.Utils
 {
@@ -36,7 +35,7 @@ namespace FirstLight.Game.Utils
 			#if UNITY_IOS
 				return IsIOSTrackingAccepted();
 			#endif
-			return false;
+			return true;
 		}
 
 		public void RequestPermissions()
@@ -46,6 +45,7 @@ namespace FirstLight.Game.Utils
 			#endif
 		}
 		
+		#if UNITY_IOS
 		private bool IsIOSTrackingAccepted()
 		{
 			var currentStatus = Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
@@ -72,6 +72,7 @@ namespace FirstLight.Game.Utils
 				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
 			}
 		}
+		#endif
 
 		public async Task PermissionResponseAwaitTask()
 		{

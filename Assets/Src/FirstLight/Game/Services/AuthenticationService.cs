@@ -168,7 +168,7 @@ namespace FirstLight.Game.Services
 			{
 				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
-				GetTitleData = true
+				GetTitleData = true,
 			};
 
 		public PlayfabAuthenticationService(IGameLogicInitializer logicInit, IGameServices services, IDataService dataService,

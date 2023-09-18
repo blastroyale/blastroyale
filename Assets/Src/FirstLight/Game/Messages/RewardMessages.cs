@@ -12,6 +12,13 @@ namespace FirstLight.Game.Messages
 		public uint newLevel;
 	}
 
+	public class TrophiesUpdatedMessage : IMessage
+	{
+		public ulong OldValue;
+		public ulong NewValue;
+		public uint Season;
+	}
+
 	public struct FinishedClaimingBpRewardsMessage : IMessage
 	{
 		

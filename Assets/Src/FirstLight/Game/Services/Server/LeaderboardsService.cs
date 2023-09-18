@@ -1,38 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using FirstLight.FLogger;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using PlayFab.ClientModels;
 
 namespace FirstLight.Game.Services
 {
-
-	public class GameLeaderboard
-	{
-		/// <summary>
-		/// Localized name key for the leaderboard
-		/// </summary>
-		public string Name;
-		
-		/// <summary>
-		/// Should be the same name as the playfab metric name
-		/// </summary>
-		public string MetricName { get; set; }
-		
-		/// <summary>
-		/// Icon class for the point icon for this leaderboard
-		/// </summary>
-		public string IconClass;
-
-		public GameLeaderboard(string name, string metric, string iconClass)
-		{
-			Name = name;
-			MetricName = metric;
-			IconClass = iconClass;
-		}
-	}
-
 	public interface ILeaderboardService
 	{
 		/// <summary>
@@ -40,6 +20,11 @@ namespace FirstLight.Game.Services
 		/// This register happens in-code in service constructor
 		/// </summary>
 		IReadOnlyList<GameLeaderboard> Leaderboards { get; }
+
+		/// <summary>
+		/// Returns the leaderboard config for the given leaderboard
+		/// </summary>
+		LeaderboardConfigs GetConfigs();
 
 		/// <summary>
 		/// Max amount of returned entries leaderboards
@@ -57,14 +42,15 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void GetNeighborRankLeaderboard(string metricName, Action<GetLeaderboardAroundPlayerResult> onSuccess);
 	}
-	
-	
+
 	public class LeaderboardsService : ILeaderboardService
 	{
 		public const int MAX_ENTRIES = 100;
+		public const string LeaderboardConfigsDataName = "LeaderboardConfigs";
 		
 		private IGameServices _services;
 		private readonly List<GameLeaderboard> _leaderboards = new();
+		private LeaderboardConfigs _configs;
 		
 		public LeaderboardsService(IGameServices services)
 		{
@@ -74,8 +60,27 @@ namespace FirstLight.Game.Services
 			_leaderboards.Add(new GameLeaderboard("Kills", "Kills", "kills-icon"));
 			_leaderboards.Add(new GameLeaderboard("Wins", "Games Won", "wins-icon"));
 			_leaderboards.Add(new GameLeaderboard("Games", "Games Played", "games-icon"));
+			_services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(OnMenuOpened);
 		}
+
+		public LeaderboardConfigs GetConfigs() => _configs;
 		
+		private void OnMenuOpened(MainMenuOpenedMessage msg)
+		{
+			if (_configs != null) return;
+			var data = _services.DataService.GetData<AppData>().TitleData;
+			if(!data.TryGetValue(LeaderboardConfigsDataName, out var config)) return;
+			_configs = ModelSerializer.Deserialize<LeaderboardConfigs>(config);
+			foreach (var board in _leaderboards)
+			{
+				if (!_configs.ContainsKey(board.MetricName))
+				{
+					throw new Exception($"Could not find leaderboard configs in playfab title data for metric {board.MetricName}");
+				}
+			}
+			_services.MessageBrokerService.Unsubscribe<MainMenuOpenedMessage>(OnMenuOpened);
+		}
+
 		public int MaxEntries => MAX_ENTRIES;
 		
 		public IReadOnlyList<GameLeaderboard> Leaderboards => _leaderboards;
@@ -85,12 +90,13 @@ namespace FirstLight.Game.Services
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
 				StatisticName = metricName, 
-				StartPosition = 0, MaxResultsCount = MAX_ENTRIES, 
-				ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowDisplayName = true, }
+				StartPosition = 0, MaxResultsCount = MAX_ENTRIES,
+				ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowDisplayName = true}
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, LeaderboardError);
 		}
+
 		
 		public void GetNeighborRankLeaderboard(string metricName, Action<GetLeaderboardAroundPlayerResult> onSuccess)
 		{

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
@@ -24,7 +25,6 @@ namespace Src.FirstLight.Server
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			_ctx.Statistics.SetupStatistic(GameConstants.Stats.LEADERBOARD_LADDER_NAME, false);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_PLAYED, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.GAMES_WON, true);
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.KILLS, true);
@@ -36,15 +36,8 @@ namespace Src.FirstLight.Server
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
-			evManager.RegisterCommandListener<CollectUnclaimedRewardsCommand>(OnClaimRewardsCommand);
 		}
 
-		private void OnClaimRewardsCommand(string userId, CollectUnclaimedRewardsCommand claimCommand,
-										   ServerState state)
-		{
-			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
-			_ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
-		}
 
 		private void OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{

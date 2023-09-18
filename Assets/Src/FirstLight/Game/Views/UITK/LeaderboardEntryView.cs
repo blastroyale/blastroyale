@@ -58,6 +58,8 @@ namespace FirstLight.Game.Views
 			}
 		}
 		
+		public VisualElement MetricIcon => _metricIcon;
+		
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>

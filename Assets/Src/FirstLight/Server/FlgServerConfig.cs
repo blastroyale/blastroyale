@@ -40,7 +40,8 @@ namespace Src.FirstLight.Server
             {
                 new ServerAnalyticsPlugin(),
                 new SeasonResetPlugin(),
-                new ServerStatisticsPlugin()
+                new ServerStatisticsPlugin(),
+                new TrophyLeaderboardPlugin()
             };
         }
 

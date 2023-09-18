@@ -19,8 +19,28 @@ namespace ServerCommon.Cloudscript
 		public T? FunctionArgument { get; set; }
 		
 		public string PlayfabId => CallerEntityProfile?.Lineage?.MasterPlayerAccountId;
-        
-        public PlayFabAuthenticationContext GetAuthContext()
+
+		public CloudscriptRequest()
+		{
+		}
+
+		public CloudscriptRequest(string userId)
+		{
+			CallerEntityProfile = new PlayfabEntityProfile()
+			{
+				Lineage = new PlayfabLineage()
+				{
+					MasterPlayerAccountId = userId,
+					TitlePlayerAccountId = userId
+				},
+				Entity = new PlayfabEntity()
+				{
+					Id = userId
+				}
+			};
+		}
+
+		public PlayFabAuthenticationContext GetAuthContext()
         {
            
             var authContext = ModelSerializer.DeserializeFromData<PlayFabAuthenticationContext>(FunctionArgument.Data);

@@ -59,12 +59,10 @@ namespace ServerCommon.Cloudscript
 		
 		[HttpPost]
 		[RequiresApiKey]
-		[Route("ExecuteEvent")]
+		[Route("SyncPlayfabInventory")]
 		public async Task<dynamic> ExecuteEvent([FromBody] CloudscriptRequest<LogicRequest> request)
 		{
-			var eventType = typeof(GameServerEvent).GetAssembly().GetType(request.FunctionArgument.Data["event"]);
-			var eventClass = Activator.CreateInstance(eventType, request.PlayfabId) as GameServerEvent;
-			_events.CallEvent(eventClass);
+			await _events.CallEvent(new InventoryUpdatedEvent(request.PlayfabId));
 			return Ok(new CloudscriptResponse(Playfab.Result(request.PlayfabId)));
 		}
 	

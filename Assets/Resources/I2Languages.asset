@@ -5791,7 +5791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MAZE MAYHEM
+      - NEW BR MAP
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -14946,7 +14946,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Games Won
+      - Wins
       - Games Won
       - "Vit\xF3rias"
       - 
@@ -17103,6 +17103,28 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MazeMayhem
+      TermType: 0
+      Description: 
+      Languages:
+      - MAZE MAYHEM
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -17127,7 +17149,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1694603096436
+    Google_LastUpdatedVersion: 1694691233334
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

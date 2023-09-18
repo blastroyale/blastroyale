@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -22,6 +23,7 @@ namespace FirstLight.Game.Views
 	{
 		private const string _bootSceneName = "Boot";
 		private const string _mainSceneName = "Main";
+		private AppPermissions _permissions = new ();
 
 		[SerializeField, Required] private AudioSource _audioSource;
 
@@ -37,7 +39,12 @@ namespace FirstLight.Game.Views
 			DebugManager.instance.enableRuntimeUI = false;
 		}
 
-		private async void Start()
+		private void Start()
+		{
+			_ = StartTask();
+		}
+
+		private async Task StartTask()
 		{
 			var asyncOperation = SceneManager.LoadSceneAsync(_mainSceneName, LoadSceneMode.Additive);
 
@@ -47,14 +54,26 @@ namespace FirstLight.Game.Views
 
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"), new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
 
+			_permissions.RequestPermissions();
+			await _permissions.PermissionResponseAwaitTask();
+
+			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());
+			
 			await UnityServices.InitializeAsync();
-			await InitAtt();
 			await StartAnalytics();
+			if (_permissions.IsTrackingAccepted())
+			{
 #if !UNITY_EDITOR
-			SingularSDK.InitializeSingularSDK();
+					SingularSDK.InitializeSingularSDK();
 #endif
+			}
 			StartSplashScreen();
-			MergeScenes(asyncOperation);
+			await MergeScenes(asyncOperation);
+		}
+
+		private void OnApplicationFocus(bool hasFocus)
+		{
+			if(hasFocus) _permissions.RequestPermissions();
 		}
 
 		private async Task WaitForInstaller()
@@ -63,21 +82,6 @@ namespace FirstLight.Game.Views
 			{
 				await Task.Yield();
 			}
-		}
-
-		private async Task InitAtt()
-		{
-#if UNITY_IOS
-			Unity.Advertisement.IosSupport.SkAdNetworkBinding.SkAdNetworkRegisterAppForNetworkAttribution();
-
-			if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() ==
-				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
-			{
-				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
-
-				await Task.Delay(500);
-			}
-#endif
 		}
 
 		private async Task StartAnalytics()
@@ -93,7 +97,7 @@ namespace FirstLight.Game.Views
 			}
 
 			FirebaseApp.Create();
-			FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
+			FirebaseAnalytics.SetAnalyticsCollectionEnabled(_permissions.IsTrackingAccepted());
 		}
 
 		private void StartSplashScreen()
@@ -112,7 +116,7 @@ namespace FirstLight.Game.Views
 			}
 		}
 
-		private async void MergeScenes(AsyncOperation asyncOperation)
+		private async Task MergeScenes(AsyncOperation asyncOperation)
 		{
 			while (!SplashScreen.isFinished || asyncOperation.progress < 0.9f || _audioSource.isPlaying)
 			{

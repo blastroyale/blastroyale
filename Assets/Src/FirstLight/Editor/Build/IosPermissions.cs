@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
+using UnityEngine;
 
 namespace FirstLight.Editor.Build
 {
@@ -24,6 +25,8 @@ namespace FirstLight.Editor.Build
 
 		// Retrieve the plist file from the Xcode project directory:
 		string plistPath = pathToXcode + "/Info.plist";
+		Debug.Log($"Using Info.plist at path {plistPath}");
+		
 		var plistObj = new UnityEditor.iOS.Xcode.PlistDocument();
 		
 		// Read the values from the plist file:
@@ -36,8 +39,9 @@ namespace FirstLight.Editor.Build
 		plistRoot.SetString("NSUserTrackingUsageDescription", _description);
  
 		// Save changes to the plist:
-		File.WriteAllText(plistPath, plistObj.WriteToString());
-
+		var plistContents = plistObj.WriteToString();
+		Debug.Log($"Saved plist file: {plistContents}");
+		File.WriteAllText(plistPath, plistContents);
 		}
 	}
 }

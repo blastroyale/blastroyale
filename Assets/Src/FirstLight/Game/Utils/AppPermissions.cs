@@ -49,14 +49,12 @@ namespace FirstLight.Game.Utils
 		private bool IsIOSTrackingAccepted()
 		{
 			var currentStatus = Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-			Debug.Log("Current iOS permission status: " + currentStatus);
 			return currentStatus != Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED;
 		}
 
 		private bool IsIOSPermissionAnswered()
 		{
 			var currentStatus = Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-			Debug.Log("Current iOS permission status: " + currentStatus);
 			return currentStatus != Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED;
 		}
 		
@@ -64,11 +62,9 @@ namespace FirstLight.Game.Utils
 		{
 			Unity.Advertisement.IosSupport.SkAdNetworkBinding.SkAdNetworkRegisterAppForNetworkAttribution();
 			var currentStatus = Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-			Debug.Log("Current iOS permission Status: " + currentStatus);
 			if (currentStatus ==
 				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
 			{
-				Debug.Log("Requesting app permissions");
 				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
 			}
 		}

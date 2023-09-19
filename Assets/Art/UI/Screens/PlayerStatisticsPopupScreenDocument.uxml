@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/EquipmentPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=f94e5ce933248497cb64ddc715782042&amp;type=3#EquipmentPopupScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
+            <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
+                <ui:Label name="Title" text="PLAYER STATS" class="equipment-popup__title" />
+                <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
+                <ui:VisualElement name="Content" class="equipment-popup__content">
+                    <ui:Label tabindex="-1" text="STATS HERE" display-tooltip-when-elided="true" name="StatsLabel" style="justify-content: flex-start; align-self: flex-start; align-items: flex-start; overflow: visible; visibility: hidden; flex-wrap: wrap; width: auto; -unity-font-style: normal; white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

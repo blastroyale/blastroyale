@@ -1,7 +1,9 @@
 using System.ComponentModel;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
+using PlayFab;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
@@ -19,7 +21,25 @@ public partial class SROptions
 		
 		t.TestServerQuery();
 	}
-	
+
+	[Category("Gameplay")]
+	public void OpenPlayerStatisticsPopup()
+	{
+		var service = MainInstaller.ResolveServices().GameUiService;
+
+		var data = new PlayerStatisticsPopupPresenter.StateData
+		{
+			PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+			OnCloseClicked = () =>
+			{
+				service.CloseUi<PlayerStatisticsPopupPresenter>();
+			}
+		};
+		
+
+		service.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+	}
+
 	[Category("Gameplay")]
 	public void KillLocalPlayer()
 	{

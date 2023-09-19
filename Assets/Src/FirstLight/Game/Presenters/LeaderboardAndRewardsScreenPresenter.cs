@@ -341,10 +341,11 @@ namespace FirstLight.Game.Presenters
 			{
 				// TODO: PFP
 				var newEntry = _leaderboardEntryAsset.Instantiate();
+				var borderColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)entry.LeaderboardRank);
 				newEntry.AttachView(this, out LeaderboardEntryView view);
 				view.SetData((int) entry.PlayerRank, entry.GetPlayerName(), (int) entry.Data.PlayersKilledCount,
 					(int) entry.Data.PlayerTrophies,
-					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl);
+					_matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player, entry.AvatarUrl, borderColor);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}

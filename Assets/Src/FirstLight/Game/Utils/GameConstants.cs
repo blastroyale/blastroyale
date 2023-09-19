@@ -165,7 +165,8 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
-
+			public const string PLAYER_PROPS_RANK = "rank";
+			
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
 			public const string ROOM_PROPS_CREATION_TICKS = "creationTicks";

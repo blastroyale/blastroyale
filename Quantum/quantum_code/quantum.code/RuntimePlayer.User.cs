@@ -13,6 +13,7 @@ namespace Quantum
 		public GameId Glider;
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
+		public uint LeaderboardRank;
 		public FPVector2 NormalizedSpawnPosition;
 		public string PartyId = string.Empty;
 		public Equipment Weapon;
@@ -40,6 +41,7 @@ namespace Quantum
 			stream.Serialize(ref AvatarUrl);
 			stream.Serialize(ref UseBotBehaviour);
 			stream.SerializeArrayLength(ref Loadout);
+			stream.Serialize(ref LeaderboardRank);
 
 			for (var i = 0; i < Loadout.Length; i++)
 			{

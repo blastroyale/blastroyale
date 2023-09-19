@@ -458,6 +458,7 @@ namespace FirstLight.Game.StateMachines
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
+				LeaderboardRank = (uint)_services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
 				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
 				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour

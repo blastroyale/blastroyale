@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using DG.Tweening;
+using System.Linq; 
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
@@ -11,15 +10,10 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.NativeUi;
 using FirstLight.UiService;
-using I2.Loc;
-using Newtonsoft.Json;
-using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Presenters
 {
@@ -168,9 +162,10 @@ namespace FirstLight.Game.Presenters
 			
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
+			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName[..^5], -1,
-				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl);
+				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, borderColor);
 			
 			leaderboardEntryView.SetIcon(_viewingBoard.IconClass);
 		}
@@ -263,7 +258,7 @@ namespace FirstLight.Game.Presenters
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				trophies, true, _dataProvider.AppDataProvider.AvatarUrl);
+				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, Color.white);
 
 			view.SetIcon(_viewingBoard.IconClass);
 			

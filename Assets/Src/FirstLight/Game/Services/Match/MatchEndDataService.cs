@@ -223,9 +223,9 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
+
 				List<Equipment> gear = new();
 				Equipment weapon = Equipment.None;
-
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
 				{
 					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];

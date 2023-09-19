@@ -299,9 +299,19 @@ namespace FirstLight.Game.Logic
 
 			for (var i = previousLevel + 1; i <= currentLevel; i++)
 			{
-				foreach (var (key, amount) in configs[(int) i].Rewards)
+				foreach (var config in configs)
 				{
-					ClaimReward(new RewardData(key, amount));
+					if (i < config.Value.LevelStart || i > config.Value.LevelEnd)
+					{
+						continue;
+					}
+					
+					foreach (var (key, amount) in config.Value.Rewards)
+					{
+						ClaimReward(new RewardData(key, amount));
+					}
+					
+					break;
 				}
 			}
 

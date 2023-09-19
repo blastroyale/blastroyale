@@ -196,26 +196,34 @@ namespace FirstLight.Game.Presenters
 				bppReward = reward;
 			}
 
-			var maxLevel = 99;
+			var maxLevel = GameConstants.Data.PLAYER_FAME_MAX_LEVEL;
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
 			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
 			var currentLevel = nextLevel;
-
+			var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+			
 			do
 			{
 				var levelRewardInfo = new RewardLevelPanelView.LevelLevelRewardInfo();
 
-				levelRewardInfo.MaxLevel = 99;
+				levelRewardInfo.MaxLevel = (int)maxLevel;
 
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
 					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.LevelBeforeChange;
 				}
-
-				levelRewardInfo.MaxForLevel =
-					(int) _gameServices.ConfigsProvider.GetConfig<PlayerLevelConfig>(currentLevel).LevelUpXP;
+				
+				foreach (var config in configs)
+				{
+					if (currentLevel >= config.Value.LevelStart && currentLevel <= config.Value.LevelEnd)
+					{
+						levelRewardInfo.MaxForLevel = (int) config.Value.LevelUpXP;
+						break;
+					}
+				}
+				
 				levelRewardInfo.NextLevel = currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;

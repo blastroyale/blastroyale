@@ -95,4 +95,4 @@ MonoBehaviour:
       IsTestMap: 0
       IsCustomOnly: 0
       DropSelectionSize: 1
-      MinimapCameraSize: 120
+      MinimapCameraSize: 135

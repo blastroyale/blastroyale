@@ -3,14 +3,14 @@
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
-            <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
+            <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl" style="-unity-text-align: upper-left;">
                 <ui:Label name="Title" text="PLAYER STATS" class="equipment-popup__title" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
-                <ui:VisualElement name="Content" class="equipment-popup__content">
-                    <ui:Label tabindex="-1" text="STATS HERE" display-tooltip-when-elided="true" name="StatsLabel" style="justify-content: flex-start; align-self: flex-start; align-items: flex-start; overflow: visible; visibility: hidden; flex-wrap: wrap; width: auto; -unity-font-style: normal; white-space: normal;" />
+                <ui:VisualElement name="Content" class="equipment-popup__content" style="left: 0; justify-content: flex-end; align-items: center; align-self: center; flex-direction: column-reverse; margin-top: 64px;">
+                    <ui:Label tabindex="-1" text="stats here" display-tooltip-when-elided="true" name="StatsLabel" style="justify-content: center; align-self: center; align-items: center; overflow: visible; visibility: hidden; flex-wrap: wrap; width: auto; -unity-font-style: normal; white-space: normal; -unity-text-align: middle-center; max-width: 600px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" />
+        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: hidden;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -42,8 +42,8 @@ namespace FirstLight.Game.Presenters
 
 			_label = root.Q<Label>("StatsLabel").Required();
 			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
-			
-			_loadingSpinner.SetDisplay(true);
+
+			_loadingSpinner.visible = true;
 			
 			root.SetupClicks(_services);
 		}
@@ -71,8 +71,8 @@ namespace FirstLight.Game.Presenters
 				
 				_label.visible = true;
 				_label.text = sbTerms.ToString();
-				
-				_loadingSpinner.SetDisplay( false);
+
+				_loadingSpinner.visible = false;
 			});
 		}
 	}

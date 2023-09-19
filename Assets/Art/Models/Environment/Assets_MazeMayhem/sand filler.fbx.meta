@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 185804a757469a140999a152cb416914
+guid: 446cb005e7bcec9468eac0330ed60af1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,21 +31,21 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["floor_damage_4"],"padding":[106],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["sand_filler"],"padding":[22],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 1
+    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

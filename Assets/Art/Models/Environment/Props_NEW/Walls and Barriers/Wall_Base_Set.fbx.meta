@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Wall_Base_Straight_GEO","Wall_Base_Corner_Long_GEO","Wall_Base_Corner_Short_GEO"],"padding":[26,23,24],"unwrapper":[0,0,0]}'
+    - '#BAKERY{"meshName":["Wall_Base_Straight_GEO","Wall_Base_Corner_Long_GEO","Wall_Base_Corner_Short_GEO"],"padding":[28,23,24],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

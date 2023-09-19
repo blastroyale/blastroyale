@@ -44,6 +44,20 @@ namespace FirstLight.Game.Views
 			_ = StartTask();
 		}
 
+		/// <summary>
+		/// Because apple is garbage, if we request permissions on boot it does not work
+		/// Requesitn on focus is also not guaranteed
+		/// So this is to try to make it appear at least. This is ultra hacky but life is about
+		/// what u have on the moment i guess
+		/// </summary>
+		private async Task PermissionRequestHack()
+		{
+			await Task.Delay(500);
+			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
+			await Task.Delay(1500);
+			if(!_permissions.IsPermissionsAnswered()) _permissions.RequestPermissions();
+		}
+
 		private async Task StartTask()
 		{
 			var asyncOperation = SceneManager.LoadSceneAsync(_mainSceneName, LoadSceneMode.Additive);
@@ -53,8 +67,8 @@ namespace FirstLight.Game.Views
 			InitializePlugins();
 
 			Shader.SetGlobalVector(Shader.PropertyToID("_PhysicalScreenSize"), new Vector4(Screen.width / Screen.dpi, Screen.height / Screen.dpi, Screen.dpi, 69));
-
-			_permissions.RequestPermissions();
+			
+			_ = PermissionRequestHack();
 			await _permissions.PermissionResponseAwaitTask();
 
 			Debug.Log("initializing with analytics enabled = " + _permissions.IsTrackingAccepted());

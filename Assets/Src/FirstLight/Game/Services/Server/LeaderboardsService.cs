@@ -11,6 +11,7 @@ using FirstLight.Server.SDK.Modules;
 using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.ClientModels;
+using Quantum;
 using UnityEditor.Graphs;
 using UnityEngine;
 
@@ -75,16 +76,13 @@ namespace FirstLight.Game.Services
 		private readonly List<GameLeaderboard> _leaderboards = new();
 		private LeaderboardConfigs _configs;
 		private PlayerLeaderboardEntry _currentRankedEntry = new();
-
+		private Dictionary<string, int> _currentSeasons = new();
+		
 		public LeaderboardsService(IGameServices services)
 		{
 			_services = services;
-			// TODO: Fix localization _leaderboards.Add(new GameLeaderboard("UITLeaderboards/trophies", "Trophies Ladder", "trophies-icon"));
-			_leaderboards.Add(new GameLeaderboard("Ranked", GameConstants.Stats.LEADERBOARD_LADDER_NAME, "trophies-icon"));
-			_leaderboards.Add(new GameLeaderboard("Kills", GameConstants.Stats.KILLS, "kills-icon"));
-			_leaderboards.Add(new GameLeaderboard("Wins", GameConstants.Stats.GAMES_WON, "wins-icon"));
-			_leaderboards.Add(new GameLeaderboard("Games", GameConstants.Stats.GAMES_PLAYED, "games-icon"));
 			_services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(OnMenuOpened);
+			_services.AuthenticationService.OnLogin += OnLogin;
 		}
 
 		public LeaderboardConfigs GetConfigs() => _configs;
@@ -101,21 +99,31 @@ namespace FirstLight.Game.Services
 		private void FetchLeaderboardConfigs()
 		{
 			var data = _services.DataService.GetData<AppData>().TitleData;
-			if(!data.TryGetValue(LeaderboardConfigsDataName, out var config)) return;
-			_configs = ModelSerializer.Deserialize<LeaderboardConfigs>(config);
-			foreach (var board in _leaderboards)
+			if(!data.TryGetValue(LeaderboardConfigsDataName, out var configs)) return;
+			_configs = ModelSerializer.Deserialize<LeaderboardConfigs>(configs);
+			foreach (var (metricName, config) in _configs)
 			{
-				if (!_configs.ContainsKey(board.MetricName))
+				if (!_currentSeasons.TryGetValue(metricName, out var currentSeason)) currentSeason = config.LastSeason;
+				var seasonConfig = config.GetSeason(currentSeason);
+				if (seasonConfig.Visible)
 				{
-					throw new Exception($"Could not find leaderboard configs in playfab title data for metric {board.MetricName}");
+					var lb = new GameLeaderboard(seasonConfig.Name, metricName);
+					_leaderboards.Add(lb);
+					if (metricName == GameConstants.Stats.LEADERBOARD_LADDER_NAME) // likely never change so hard coded
+					{
+						Ranked = lb;
+					}
+					FLog.Verbose($"Registered Leaderboard for metric {metricName}");
 				}
 			}
+			_services.MessageBrokerService.Unsubscribe<MainMenuOpenedMessage>(OnMenuOpened);
+
 		}
 
-		public GameLeaderboard Ranked => _leaderboards.First();
+		public GameLeaderboard Ranked { get; set; }
 
 		public int MaxEntries => MAX_ENTRIES;
-		
+
 		public IReadOnlyList<GameLeaderboard> Leaderboards => _leaderboards;
 		
 		public void GetTopRankLeaderboard(string metricName, Action<GetLeaderboardResult> onSuccess)
@@ -130,7 +138,6 @@ namespace FirstLight.Game.Services
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, LeaderboardError);
 		}
 
-		
 		public void GetNeighborRankLeaderboard(string metricName, Action<GetLeaderboardAroundPlayerResult> onSuccess)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
@@ -178,6 +185,11 @@ namespace FirstLight.Game.Services
 		private void LeaderboardError(PlayFabError error)
 		{
 			_services.GameBackendService.HandleError(error, null, AnalyticsCallsErrors.ErrorType.Session);
+		}
+
+		private void OnLogin(LoginResult login)
+		{
+			_currentSeasons = login.InfoResultPayload.PlayerStatistics.ToDictionary(k => k.StatisticName, k => (int)k.Version);
 		}
 	}
 }

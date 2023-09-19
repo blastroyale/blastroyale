@@ -1,7 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/EquipmentPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=f94e5ce933248497cb64ddc715782042&amp;type=3#EquipmentPopupScreenStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
-    <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PlayerStatisticsPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=b7e478ebaa8934e55b2fb8f78e67dbc6&amp;type=3#PlayerStatisticsPopupScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
@@ -13,5 +11,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" />
     </ui:VisualElement>
 </ui:UXML>

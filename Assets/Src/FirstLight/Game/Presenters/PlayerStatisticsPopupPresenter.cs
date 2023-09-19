@@ -1,16 +1,10 @@
 using System;
-using System.Linq;
 using System.Text;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
-using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
-using I2.Loc;
-using PlayFab;
-using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -31,6 +25,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private Label _label;
+		private VisualElement _loadingSpinner;
 		
 
 		private void Awake()
@@ -46,6 +41,9 @@ namespace FirstLight.Game.Presenters
 				.RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
 			_label = root.Q<Label>("StatsLabel").Required();
+			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
+			
+			_loadingSpinner.SetDisplay(true);
 			
 			root.SetupClicks(_services);
 		}
@@ -73,6 +71,8 @@ namespace FirstLight.Game.Presenters
 				
 				_label.visible = true;
 				_label.text = sbTerms.ToString();
+				
+				_loadingSpinner.SetDisplay( false);
 			});
 		}
 	}

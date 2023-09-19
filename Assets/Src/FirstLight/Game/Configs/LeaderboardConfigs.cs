@@ -23,7 +23,7 @@ namespace FirstLight.Game.Configs
 
 		public GameLeaderboard(string name, string metric)
 		{
-			Name = name;
+			Name = name.ToUpper();
 			MetricName = metric;
 		}
 	}

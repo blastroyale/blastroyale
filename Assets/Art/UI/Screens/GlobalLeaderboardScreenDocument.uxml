@@ -17,15 +17,19 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="EndsInContainer" class="timer-bar">
                             <ui:Label tabindex="-1" text="Ends in 115d 5h" display-tooltip-when-elided="true" name="EndsInText" class="description-text timer-text" />
+                            <ui:VisualElement name="InfoIcon" class="info-icon">
+                                <ui:Label tabindex="-1" text="!" display-tooltip-when-elided="true" name="InfoIconText" class="info-icon__text" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="LeaderboardIcon" class="leaderboard-header-icon" />
                         <ui:Label tabindex="-1" text="Compete with other players for this prize pool" display-tooltip-when-elided="true" name="LeaderboardTitleDesc" class="description-title" />
                         <ui:VisualElement name="RewardsWidget" class="rewards-widget">
                             <ui:Label tabindex="-1" text="Some Rewards hf hkf hjgf jghf hkg fky fhk fkhgf hkgf h" display-tooltip-when-elided="true" name="RewardsText" class="rewards-text" />
                         </ui:VisualElement>
-                        <ui:Label tabindex="-1" text="Some Description" display-tooltip-when-elided="true" name="DescText" class="description-text" />
+                        <ui:Label tabindex="-1" text="Description Text Very Long Text to Break a Line and Attempt to screw up the UI mwahahaha" display-tooltip-when-elided="true" name="DescText" class="description-text" />
                         <ui:Label tabindex="-1" text="Join our discord for more info" display-tooltip-when-elided="true" name="JoinDiscordText" class="description-text join-discord-text" />
                         <ui:Button text="&#10;" display-tooltip-when-elided="true" name="DiscordButton" class="join-discord-icon" />
+                        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="InfoButton" tabindex="5" class="info-button" />
                     </ui:VisualElement>
                     <ui:VisualElement name="LeaderboardOptions" class="leaderboard-options" />
                 </ui:VisualElement>

@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
 		private const string UssLeaderboardEntry = "leaderboard-entry";
 		private const string UssLeaderboardButton = "leaderboard-button";
+		private const string UssLeaderboardButtonHighlight = UssLeaderboardButton+"--highlight";
 		private const string UssLeaderboardButtonIndicator = UssLeaderboardButton+"__indicator";
 		private const string NoDisplayNameReplacement = "Unamed00000";
 
@@ -48,6 +49,7 @@ namespace FirstLight.Game.Presenters
 		private Label _leaderboardDescription;
 		private Label _leaderboardTitle;
 		private Button _discordButton;
+		private Button _infoButton;
 		private Label _rewardsText;
 		private Label _endsIn;
 		private VisualElement _headerIcon;
@@ -88,15 +90,21 @@ namespace FirstLight.Game.Presenters
 			_rewardsText = root.Q<Label>("RewardsText").Required();
 			_rewardsWidget = root.Q("RewardsWidget").Required();
 			_rewardsTitle = root.Q("LeaderboardTitleDesc").Required();
-			
+			_infoButton = root.Q<Button>("InfoButton").Required();
 			_headerIcon.SetVisibility(false);
 			_leaderboardListView.DisableScrollbars();
 			_leaderboardListView.SetVisibility(false);
 			_viewingIndicator = new VisualElement();
 			_viewingIndicator.AddToClassList(UssLeaderboardButtonIndicator);
 
-			_loadingSpinner.SetDisplay(true);	
-			
+			_loadingSpinner.SetDisplay(true);
+
+			_infoButton.clicked += () =>
+			{
+				// TODO: Language not working for some reason
+				_endsIn.OpenTooltip(Root, "Statistics Resets to 0 after season ends !", TooltipDirection.TopRight,
+					TooltipPosition.BottomLeft, 20, 20);
+			};
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
 			_leaderboardListView.bindItem = BindLeaderboardEntry;
@@ -131,8 +139,10 @@ namespace FirstLight.Game.Presenters
 
 		private void DisplayLeaderboard(GameLeaderboard board)
 		{
+			foreach(var b in _buttons.Values) b.RemoveFromClassList(UssLeaderboardButtonHighlight);
 			var button = _buttons[board];
 			button.Add(_viewingIndicator);
+			button.AddToClassList(UssLeaderboardButtonHighlight);
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
 			_leaderboardListView.SetVisibility(false);

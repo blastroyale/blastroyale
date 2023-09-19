@@ -194,6 +194,24 @@
     display: none;
 }
 
+.player-status-bar__icon {
+    width: 15px;
+    height: 15px;
+    top: 7px;
+    left: 2px;
+    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
+    position: absolute;
+}
+
+.player-status-bar__icon-border {
+    width: 19px;
+    height: 19px;
+    top: 5px;
+    -unity-background-image-tint-color: black;
+    background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
+    position: absolute;
+}
+
 .player-status-bar__damage-holder {
     position: absolute;
     left: 0;

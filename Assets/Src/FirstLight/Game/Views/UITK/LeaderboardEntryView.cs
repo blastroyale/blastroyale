@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _pfp;
 		private VisualElement _pfpImage;
 		private VisualElement _metricIcon;
+		private VisualElement _border;
 
 		private IGameServices _services;
 
@@ -47,6 +48,7 @@ namespace FirstLight.Game.Views
 			_pfp = element.Q("PFP").Required();
 			_pfpImage = element.Q("PFPImage").Required();
 			_metricIcon = element.Q("TrophiesIcon").Required();
+			_border = element.Q("PfpFrameColor").Required();
 		}
 
 		public void SetIcon(string iconClass)
@@ -58,14 +60,26 @@ namespace FirstLight.Game.Views
 			}
 		}
 		
+		public VisualElement MetricIcon => _metricIcon;
+		
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data.
 		/// </summary>
 		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer,
-							string pfpUrl)
+							string pfpUrl, Color? borderColor)
 		{
 			_leaderboardEntry.RemoveModifiers();
 
+			if (borderColor.HasValue && borderColor != Color.white)
+			{
+				_border.SetDisplay(true);
+				_border.style.unityBackgroundImageTintColor = borderColor.Value;
+			}
+			else
+			{
+				_border.SetDisplay(false);
+			}
+			
 			if (rank <= 3)
 			{
 				var rankClass = rank switch

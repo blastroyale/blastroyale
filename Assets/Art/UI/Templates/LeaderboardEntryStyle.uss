@@ -246,3 +246,13 @@
     align-items: center;
     align-self: auto;
 }
+
+.pfp-bg {
+    top: -8px;
+    width: 117px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    height: 80px;
+    left: -2px;
+    bottom: -6px;
+}
+

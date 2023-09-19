@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirstLightServerSDK.Services
 {
@@ -20,5 +21,15 @@ namespace FirstLightServerSDK.Services
 		/// fire and forget operation.
 		/// </summary>
 		void UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
+
+		/// <summary>
+		/// Gets the current season of a given statistic
+		/// </summary>
+		void GetSeason(string name, Action<int> onGetSeason, Action<string> onError);
+		
+		/// <summary>
+		/// Gets season of a metric, async
+		/// </summary>
+		Task<int> GetSeasonAsync(string name);
 	}
 }

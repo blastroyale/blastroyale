@@ -22,6 +22,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
+		private const string USS_ICON = USS_BLOCK + "__icon";
+		private const string USS_ICON_BORDER = USS_BLOCK + "__icon-border";
 		private const string USS_NAME = USS_BLOCK + "__name";
 		private const string USS_LEVEL = USS_BLOCK + "__level";
 		private const string USS_SHIELD_HOLDER = USS_BLOCK + "__shield-holder";
@@ -47,7 +49,8 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _ammoHolder;
 		private readonly VisualElement _ammoReloadBar;
 		private readonly Label _notificationLabel;
-
+		private readonly VisualElement _icon;
+		private readonly VisualElement _iconBackground;
 		private readonly Label[] _damageNumbersPool = new Label[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly ValueAnimation<float>[] _damageNumberAnims = new ValueAnimation<float>[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
@@ -71,7 +74,13 @@ namespace FirstLight.Game.UIElements
 
 			Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
-
+			
+			Add(_iconBackground = new VisualElement() {name = "icon-border"});
+			_iconBackground.AddToClassList(USS_ICON_BORDER);
+			
+			Add(_icon = new VisualElement() {name = "icon"});
+			_icon.AddToClassList(USS_ICON);
+			
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -146,6 +155,21 @@ namespace FirstLight.Game.UIElements
 			SetMagazine(4, 6);
 		}
 
+		public void SetIconColor(Color color)
+		{
+			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == default)
+			{
+				_iconBackground.SetVisibility(false);
+				_icon.SetVisibility(false);
+			}
+			else
+			{
+				_icon.style.unityBackgroundImageTintColor = color;
+				_iconBackground.SetVisibility(true);
+				_icon.SetVisibility(true);
+			}
+		}
+		
 		/// <summary>
 		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
 		/// </summary>

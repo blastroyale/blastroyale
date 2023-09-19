@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
@@ -22,12 +23,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 		private Action<Player> _kickPlayerCallback;
+		private IGameServices _services;
+
+		void Start()
+		{
+			_services = MainInstaller.ResolveServices();
+		}
 		
 		/// <summary>
 		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots
 		/// </summary>
 		public void Init(uint playerLimit, Action<Player> kickPlayerCallback)
 		{
+
 			_kickPlayerCallback = kickPlayerCallback;
 
 			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
@@ -42,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);
-				newEntry.SetInfo(null, false, false, false, string.Empty, _kickPlayerCallback);
+				newEntry.SetInfo(null, false, false, false, string.Empty, _kickPlayerCallback, default);
 			}
 
 			_nameEntryViewRef.gameObject.SetActive(false);
@@ -67,13 +75,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// Adds a player to the list, or updates them if already there
 		/// </summary>
 		public void AddOrUpdatePlayer(Player player, bool sortList = true)
-		{ 
+		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
 			var isLoaded = (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
-
+			var rank = (int) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_RANK];
+			var color = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, rank);
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback, color);
 			}
 			else
 			{
@@ -81,7 +90,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback, color);
 				}
 			}
 
@@ -100,7 +109,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(null, false, false, false, string.Empty, null);
+				existingEntry.SetInfo(null, false, false, false, string.Empty, null, default);
 
 				SortPlayerList();
 			}

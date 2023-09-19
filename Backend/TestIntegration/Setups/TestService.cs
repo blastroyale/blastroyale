@@ -86,6 +86,8 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 	{
 		builder.ConfigureServices(services =>
 		{
+			services.RemoveAll(typeof(IServerMutex));
+			services.AddSingleton<IServerMutex, InMemoryMutex>();
 			services.RemoveAll(typeof(IBaseServiceConfiguration));
 			services.AddSingleton<IBaseServiceConfiguration>(p => _cfg);
 		});

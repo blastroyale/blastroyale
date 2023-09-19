@@ -1,23 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
+using System.Globalization;
+using System.Linq; 
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
-using FirstLight.NativeUi;
 using FirstLight.UiService;
-using I2.Loc;
-using Newtonsoft.Json;
-using PlayFab;
 using PlayFab.ClientModels;
+using UnityEditor.Graphs;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Presenters
 {
@@ -47,8 +44,15 @@ namespace FirstLight.Game.Presenters
 		private ScreenHeaderElement _header;
 		private VisualElement _loadingSpinner;
 		private VisualElement _leaderboardOptions;
-		private VisualElement _leaderboardDescription;
-		
+		private VisualElement _descriptionContainer;
+		private Label _leaderboardDescription;
+		private Label _leaderboardTitle;
+		private Button _discordButton;
+		private Label _rewardsText;
+		private Label _endsIn;
+		private VisualElement _headerIcon;
+		private VisualElement _rewardsWidget;
+		private VisualElement _rewardsTitle;
 		private LocalizedLabel _pointsName;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -63,6 +67,41 @@ namespace FirstLight.Game.Presenters
 		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
 		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
 
+		protected override void QueryElements(VisualElement root)
+		{
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += Data.OnBackClicked;
+			_header.homeClicked += Data.OnBackClicked;
+			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
+			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
+			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
+			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
+			_pointsName = root.Q<LocalizedLabel>("Trophies").Required();
+			_descriptionContainer = root.Q("LeaderboardDescription").Required();
+			_leaderboardOptions = root.Q<VisualElement>("LeaderboardOptions").Required();
+			_leaderboardDescription = root.Q<Label>("DescText").Required();
+			_leaderboardTitle = root.Q<Label>("LeaderboardTitle").Required();
+			_headerIcon = root.Q("LeaderboardIcon").Required();
+			_endsIn = root.Q<Label>("EndsInText").Required();
+			_discordButton = root.Q<Button>("DiscordButton").Required();
+			_rewardsText = root.Q<Label>("RewardsText").Required();
+			_rewardsWidget = root.Q("RewardsWidget").Required();
+			_rewardsTitle = root.Q("LeaderboardTitleDesc").Required();
+			
+			_headerIcon.SetVisibility(false);
+			_leaderboardListView.DisableScrollbars();
+			_leaderboardListView.SetVisibility(false);
+			_viewingIndicator = new VisualElement();
+			_viewingIndicator.AddToClassList(UssLeaderboardButtonIndicator);
+
+			_loadingSpinner.SetDisplay(true);	
+			
+			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+			_leaderboardListView.makeItem = CreateLeaderboardEntry;
+			_leaderboardListView.bindItem = BindLeaderboardEntry;
+			root.SetupClicks(_services);
+		}
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -96,36 +135,14 @@ namespace FirstLight.Game.Presenters
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
 			_leaderboardListView.SetVisibility(false);
+			_descriptionContainer.SetVisibility(false);
+			_headerIcon.SetVisibility(false);
 			_loadingSpinner.SetDisplay(true);
 			_fixedLocalPlayerHolder.Clear();
 			_leaderboardPanel.RemoveFromClassList(UssLeaderboardPanelLocalPlayerFixed);
 			_services.LeaderboardService.GetTopRankLeaderboard(
 				board.MetricName,
 				r => OnLeaderboardTopRanksReceived(board, r));
-		}
-
-		protected override void QueryElements(VisualElement root)
-		{
-			_header = root.Q<ScreenHeaderElement>("Header").Required();
-			_header.backClicked += Data.OnBackClicked;
-			_header.homeClicked += Data.OnBackClicked;
-			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
-			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
-			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
-			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
-			_pointsName = root.Q<LocalizedLabel>("Trophies").Required();
-			_leaderboardOptions = root.Q<VisualElement>("LeaderboardOptions").Required();
-			_leaderboardDescription = root.Q<VisualElement>("LeaderboardDescription").Required();
-			_leaderboardListView.DisableScrollbars();
-			_leaderboardListView.SetVisibility(false);
-			_viewingIndicator = new VisualElement();
-			_viewingIndicator.AddToClassList(UssLeaderboardButtonIndicator);
-
-			_loadingSpinner.SetDisplay(true);	
-			
-			_leaderboardListView.makeItem = CreateLeaderboardEntry;
-			_leaderboardListView.bindItem = BindLeaderboardEntry;
-			root.SetupClicks(_services);
 		}
 
 		private VisualElement CreateLeaderboardEntry()
@@ -146,11 +163,50 @@ namespace FirstLight.Game.Presenters
 			
 			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
+			var borderColor = _services.LeaderboardService.GetRankColor(_viewingBoard, leaderboardEntry.Position + 1);
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName[..^5], -1,
-				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl);
+				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, borderColor);
 			
 			leaderboardEntryView.SetIcon(_viewingBoard.IconClass);
+		}
+
+		/// <summary>
+		/// Fills the right side of the screen (LeaderboardDescription)
+		/// Has seasonal information read from a mix of playfab and configs
+		/// </summary>
+		private void DisplaySeasonData(GameLeaderboard board, GetLeaderboardResult result)
+		{
+			var leaderboardConfigs = _services.LeaderboardService.GetConfigs().GetConfig(board);
+			var currentSeason = result.Version;
+			SeasonConfig seasonConfig = null;
+			if (leaderboardConfigs.HasSeason(currentSeason)) seasonConfig = leaderboardConfigs.GetSeason(currentSeason);
+			else seasonConfig = leaderboardConfigs.LastSeasonConfig;
+			_leaderboardDescription.text = seasonConfig.Desc;
+			_leaderboardTitle.text = board.Name;
+			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
+			if(hasRewards) _rewardsText.text = seasonConfig.Rewards;
+			_rewardsWidget.SetDisplay(hasRewards);
+			_rewardsTitle.SetVisibility(hasRewards);
+			DateTime endTime = DateTime.UtcNow;
+			_descriptionContainer.SetVisibility(true);
+			if (board == _services.LeaderboardService.Leaderboards.First())
+			{
+				_headerIcon.SetVisibility(true);
+			}
+			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))
+			{
+				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+			}
+			else if (!result.NextReset.HasValue)
+			{
+				FLog.Warn($"Missing leaderboard {board.Name} end time");
+				_endsIn.text = $"Not Scheduled";
+				return;
+			} else endTime = result.NextReset.Value;
+			var daysTillReset = (int)Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
+			_endsIn.text = $"Ends in {daysTillReset} days";
+			
 		}
 		
 		private void OnLeaderboardTopRanksReceived(GameLeaderboard board, GetLeaderboardResult result)
@@ -161,6 +217,7 @@ namespace FirstLight.Game.Presenters
 			_pointsName.Localize(board.Name);
 			_playfabLeaderboardEntries.Clear();
 			_viewingBoard = board;
+			DisplaySeasonData(board, result);
 			FLog.Verbose($"Displaying Leaderboard for metric {board.MetricName}");
 			for (int i = 0; i < resultPos; i++)
 			{
@@ -202,13 +259,13 @@ namespace FirstLight.Game.Presenters
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				trophies, true, _dataProvider.AppDataProvider.AvatarUrl);
+				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, Color.white);
 
 			view.SetIcon(_viewingBoard.IconClass);
 			
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
-
+	
 			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
 
 			_fixedLocalPlayerHolder.Clear();

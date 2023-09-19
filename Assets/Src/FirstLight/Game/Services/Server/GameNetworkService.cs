@@ -792,7 +792,8 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_LOADOUT, preloadIds.ToArray()},
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId},
+				{GameConstants.Network.PLAYER_PROPS_RANK, _services.LeaderboardService.CurrentRankedEntry.Position},
 			};
 
 			SetPlayerCustomProperties(playerProps);

@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
 		private const string UssLeaderboardEntry = "leaderboard-entry";
 		private const string UssLeaderboardButton = "leaderboard-button";
+		private const string UssLeaderboardButtonHighlight = UssLeaderboardButton+"--highlight";
 		private const string UssLeaderboardButtonIndicator = UssLeaderboardButton+"__indicator";
 		private const string NoDisplayNameReplacement = "Unamed00000";
 
@@ -48,6 +49,7 @@ namespace FirstLight.Game.Presenters
 		private Label _leaderboardDescription;
 		private Label _leaderboardTitle;
 		private Button _discordButton;
+		private Button _infoButton;
 		private Label _rewardsText;
 		private Label _endsIn;
 		private VisualElement _headerIcon;
@@ -57,6 +59,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private GameLeaderboard _viewingBoard;
+		private int _viewingSeason;
 		private Dictionary<GameLeaderboard, Button> _buttons = new();
 		private ListView _leaderboardListView;
 		private VisualElement _localPlayerVisualElement;
@@ -87,15 +90,21 @@ namespace FirstLight.Game.Presenters
 			_rewardsText = root.Q<Label>("RewardsText").Required();
 			_rewardsWidget = root.Q("RewardsWidget").Required();
 			_rewardsTitle = root.Q("LeaderboardTitleDesc").Required();
-			
+			_infoButton = root.Q<Button>("InfoButton").Required();
 			_headerIcon.SetVisibility(false);
 			_leaderboardListView.DisableScrollbars();
 			_leaderboardListView.SetVisibility(false);
 			_viewingIndicator = new VisualElement();
 			_viewingIndicator.AddToClassList(UssLeaderboardButtonIndicator);
 
-			_loadingSpinner.SetDisplay(true);	
-			
+			_loadingSpinner.SetDisplay(true);
+
+			_infoButton.clicked += () =>
+			{
+				// TODO: Language not working for some reason
+				_endsIn.OpenTooltip(Root, "Statistics Resets to 0 after season ends !", TooltipDirection.TopRight,
+					TooltipPosition.BottomLeft, 20, 20);
+			};
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
 			_leaderboardListView.bindItem = BindLeaderboardEntry;
@@ -130,8 +139,10 @@ namespace FirstLight.Game.Presenters
 
 		private void DisplayLeaderboard(GameLeaderboard board)
 		{
+			foreach(var b in _buttons.Values) b.RemoveFromClassList(UssLeaderboardButtonHighlight);
 			var button = _buttons[board];
 			button.Add(_viewingIndicator);
+			button.AddToClassList(UssLeaderboardButtonHighlight);
 			_leaderboardListView.Clear();
 			_leaderboardListView.RefreshItems();
 			_leaderboardListView.SetVisibility(false);
@@ -168,20 +179,22 @@ namespace FirstLight.Game.Presenters
 				leaderboardEntry.DisplayName[..^5], -1,
 				leaderboardEntry.StatValue, isLocalPlayer, leaderboardEntry.Profile.AvatarUrl, borderColor);
 			
-			leaderboardEntryView.SetIcon(_viewingBoard.IconClass);
+			leaderboardEntryView.SetIcon(GetViewingSeasonConfig().Icon);
 		}
 
+		private SeasonConfig GetViewingSeasonConfig()
+		{
+			return _services.LeaderboardService.GetConfigs().GetConfig(_viewingBoard).GetSeason(_viewingSeason);;
+		}
+		
 		/// <summary>
 		/// Fills the right side of the screen (LeaderboardDescription)
 		/// Has seasonal information read from a mix of playfab and configs
 		/// </summary>
 		private void DisplaySeasonData(GameLeaderboard board, GetLeaderboardResult result)
 		{
-			var leaderboardConfigs = _services.LeaderboardService.GetConfigs().GetConfig(board);
-			var currentSeason = result.Version;
-			SeasonConfig seasonConfig = null;
-			if (leaderboardConfigs.HasSeason(currentSeason)) seasonConfig = leaderboardConfigs.GetSeason(currentSeason);
-			else seasonConfig = leaderboardConfigs.LastSeasonConfig;
+
+			var seasonConfig = GetViewingSeasonConfig();
 			_leaderboardDescription.text = seasonConfig.Desc;
 			_leaderboardTitle.text = board.Name;
 			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
@@ -217,6 +230,7 @@ namespace FirstLight.Game.Presenters
 			_pointsName.Localize(board.Name);
 			_playfabLeaderboardEntries.Clear();
 			_viewingBoard = board;
+			_viewingSeason = result.Version;
 			DisplaySeasonData(board, result);
 			FLog.Verbose($"Displaying Leaderboard for metric {board.MetricName}");
 			for (int i = 0; i < resultPos; i++)
@@ -261,7 +275,7 @@ namespace FirstLight.Game.Presenters
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				trophies, true, _dataProvider.AppDataProvider.AvatarUrl, Color.white);
 
-			view.SetIcon(_viewingBoard.IconClass);
+			view.SetIcon(GetViewingSeasonConfig().Icon);
 			
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);

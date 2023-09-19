@@ -129,9 +129,9 @@
     color: rgb(255, 255, 255);
     font-size: 50px;
     flex-direction: row;
-    height: 100px;
-    max-height: 100px;
-    min-height: 100px;
+    height: 90px;
+    max-height: 90px;
+    min-height: 90px;
     background-color: rgb(255, 255, 255);
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
@@ -151,9 +151,10 @@
     -unity-slice-right: 1;
     -unity-slice-bottom: 1;
     -unity-background-scale-mode: stretch-to-fill;
-    background-image: var(--sprite-home__button-long-darkblue);
     align-items: center;
     -unity-text-align: middle-center;
+    background-image: var(--sprite-home__button-main-purple);
+    margin-bottom: 10px;
 }
 
 .leaderboard-options {
@@ -241,6 +242,10 @@
     margin-top: 20px;
     margin-bottom: 20px;
     text-shadow: 0 0 0 rgba(0, 0, 0, 0.42);
+    flex-wrap: wrap;
+    white-space: normal;
+    margin-left: 0;
+    -unity-text-align: upper-center;
 }
 
 .description-title {
@@ -315,6 +320,7 @@
     align-self: auto;
     justify-content: center;
     color: rgb(125, 54, 20);
+    -unity-text-align: middle-left;
 }
 
 .timer-bar {
@@ -345,4 +351,56 @@
     overflow: hidden;
     align-items: center;
     justify-content: center;
+}
+
+.leaderboard-button--highlight {
+    background-image: var(--sprite-home__button-main-purple-pressed);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    -unity-background-image-tint-color: rgb(190, 189, 189);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(248, 199, 46);
+}
+
+.info-icon {
+    flex-grow: 1;
+    background-color: rgb(233, 60, 121);
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    max-height: 35px;
+    max-width: 35px;
+    min-height: 35px;
+    min-width: 35px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    right: -15px;
+    top: -10px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.info-icon__text {
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset?fileID=11400000&guid=e9b95b0e9aa0b48e08bd5e26c6365ddc&type=2#Stawix-Italic-Dynamic');
+    -unity-font-style: normal;
+    font-size: 20px;
+    -unity-font: initial;
+    color: rgb(255, 255, 255);
+    margin-left: 4px;
+}
+
+.info-button {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    top: 30px;
+    left: 110px;
 }

@@ -20,7 +20,11 @@ namespace FirstLight.Game.Commands
 		public void Execute(CommandExecutionContext ctx)
 		{
 			var trophiesBefore = ctx.Logic.PlayerLogic().Trophies.Value;
-			ctx.Logic.RewardLogic().ClaimUncollectedRewards();
+			var rewards = ctx.Logic.RewardLogic().ClaimUncollectedRewards();
+			ctx.Services.MessageBrokerService().Publish(new ClaimedRewardsMessage()
+			{
+				Rewards = rewards
+			});
 			var trophiesAfter = ctx.Logic.PlayerLogic().Trophies.Value;
 			if (trophiesBefore != trophiesAfter)
 			{

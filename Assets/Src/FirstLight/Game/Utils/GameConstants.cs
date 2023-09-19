@@ -125,7 +125,6 @@ namespace FirstLight.Game.Utils
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
 		
-
 		public static class PlayFab
 		{
 			public const string VERSION_KEY = nameof(Application.version);
@@ -134,14 +133,36 @@ namespace FirstLight.Game.Utils
 
 		public static class Stats
 		{
+			public const string RANKED_GAMES_PLAYED = "Ranked Games Played";
 			public const string GAMES_PLAYED = "Games Played";
 			public const string GAMES_WON = "Games Won";
+			public const string RANKED_GAMES_WON = "Ranked Games Won";
+			public const string RANKED_KILLS = "Ranked Kills";
 			public const string KILLS = "Kills";
 			public const string DEATHS = "Deaths";
 			public const string NFT_ITEMS = "Nft Items";
 			public const string NON_NFTS = "Non Nft Items";
 			public const string BROKEN_ITEMS = "Broken Items";
+			public const string ITEM_UPGRADES = "Item Upgrades";
+			public const string ITEM_UPGRADES_EVER = "Item Upgrades Ever";
+			public const string ITEM_SCRAPS = "Item Scraps";
+			public const string ITEM_SCRAPS_EVER = "Item Scraps Ever";
+			public const string FAME = "Fame";
+			public const string COINS_EARNED = "Coins Earned";
+			public const string CS_EARNED = "CS Earned";
+			public const string COINS_TOTAL = "Coins Total";
+			public const string CS_TOTAL = "CS Total";
+			public const string ITEMS_OBTAINED = "Items Obtained";
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+			
+			// Metrics that should not be used in leaderboards seasons
+			// as they should never be reset
+			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
+			public const string RANKED_GAMES_WON_EVER = "Ranked Games Won Ever";
+			public const string RANKED_GAMES_PLAYED_EVER = "Ranked Games Played Ever";
+			public const string KILLS_EVER = "Kills Ever";
+			public const string GAMES_PLAYED_EVER = "Games Played Ever";
+			public const string GAMES_WON_EVER = "Games Won Ever";
 		}
 		
 		public static class Network

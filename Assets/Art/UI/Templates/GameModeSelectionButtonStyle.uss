@@ -164,7 +164,7 @@
     background-image: var(--sprite-home__background-modeselection-custom);
 }
 
-.game-mode-button--ranked .game-mode-button__data-panel {
+.game-mode-button--matchmaking .game-mode-button__data-panel {
     background-image: var(--sprite-home__background-modeselection-ranked);
 }
 
@@ -190,7 +190,7 @@
     background-image: var(--sprite-home__icon-gamemode-deathmatch);
 }
 
-.game-mode-button--ranked .game-mode-button__icon {
+.game-mode-button--matchmaking .game-mode-button__icon {
     -unity-background-image-tint-color: rgb(71, 18, 2);
 }
 
@@ -217,7 +217,7 @@
     font-size: 42px;
 }
 
-.game-mode-button--ranked .game-mode-button__label {
+.game-mode-button--matchmaking .game-mode-button__label {
     color: rgb(71, 18, 2);
 }
 
@@ -234,7 +234,7 @@
     padding-right: 4px;
 }
 
-.game-mode-button--ranked .game-mode-button__description {
+.game-mode-button--matchmaking .game-mode-button__description {
     color: rgb(120, 3, 23);
 }
 
@@ -259,7 +259,7 @@
     right: 30px;
 }
 
-.game-mode-button--ranked .game-mode-button__timer {
+.game-mode-button--matchmaking .game-mode-button__timer {
     color: rgb(155, 47, 38);
 }
 
@@ -345,7 +345,7 @@
     position: absolute;
 }
 
-.game-mode-button--ranked .game-mode-button__mode-tag {
+.game-mode-button--matchmaking .game-mode-button__mode-tag {
     background-image: var(--sprite-home__background-modetag-ranked);
 }
 
@@ -359,7 +359,7 @@
     -unity-text-outline-width: 2px;
 }
 
-.game-mode-button--ranked .game-mode-button__mode-tag-title {
+.game-mode-button--matchmaking .game-mode-button__mode-tag-title {
     -unity-text-outline-color: rgb(177, 46, 0);
 }
 
@@ -394,19 +394,19 @@
 }
 
 .visible-gamemodebutton1 {
-    transition-delay: 0.7s, 0.7s;
+    transition-delay: 0.1s, 0.1s;
 }
 
 .visible-gamemodebutton2 {
-    transition-delay: 0.8s, 0.8s;
+    transition-delay: 0.15s, 0.15s;
 }
 
 .visible-gamemodebutton3 {
-    transition-delay: 0.9s, 0.9s;
+    transition-delay: 0.2s, 0.2s;
 }
 
 .visible-gamemodebutton4 {
-    transition-delay: 1s, 1s;
+    transition-delay: 0.25s, 0.25s;
 }
 
 .game-mode-button__title {
@@ -424,5 +424,5 @@
 }
 
 .anim-delay-3 {
-    transition-delay: 1.5s;
+    transition-delay: 0.5s;
 }

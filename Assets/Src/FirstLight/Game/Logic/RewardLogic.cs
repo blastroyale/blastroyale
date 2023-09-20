@@ -220,7 +220,7 @@ namespace FirstLight.Game.Logic
 			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
 			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
-				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
+				if (source.MatchType == MatchType.Matchmaking && source.DidPlayerQuit)
 				{
 					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 				}
@@ -228,18 +228,15 @@ namespace FirstLight.Game.Logic
 				return rewards;
 			}
 
-			if (source.MatchType == MatchType.Ranked)
+			if (source.MatchType == MatchType.Matchmaking || source.MatchType == MatchType.Forced)
 			{
 				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
-			}
-
-			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
-			{
 				CalculateBPPReward(rewards, rewardConfig);
 				CalculateXPReward(rewards, rewardConfig);
-			}
 
+			}
+            
 			return rewards;
 		}
 

@@ -191,16 +191,6 @@ namespace FirstLight.Game.Utils
 			
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
-			public const string ROOM_PROPS_CREATION_TICKS = "creationTicks";
-			public const string ROOM_PROPS_COMMIT = "commit";
-			public const string ROOM_PROPS_MAP = "mapId";
-			public const string ROOM_PROPS_GAME_MODE = "gameModeId";
-			public const string ROOM_PROPS_SETUP = "roomSetup";
-			public const string ROOM_PROPS_MUTATORS = "mutators";
-			public const string ROOM_PROPS_BOTS = "gameHasBots";
-			public const string DROP_ZONE_POS_ROT = "dropzonePosRot";
-			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
-			public const string ROOM_PROPS_STARTED_GAME = "startedGame";
 
 			public const string DEFAULT_REGION = "eu";
 			

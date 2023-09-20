@@ -159,13 +159,13 @@ namespace FirstLight.Game.Presenters
 		public bool IsMenuVisible()
 		{
 			return !_gameServices.TutorialService.IsTutorialRunning &&
-				_gameServices.NetworkService.CurrentRoomMatchType == MatchType.Custom;
+				_gameServices.RoomService.CurrentRoom.Properties.MatchType.Value == MatchType.Custom;
 		}
 	
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			_legacyMinimap.SetActive(_gameServices.NetworkService.CurrentRoomGameModeConfig.Value.ShowUIMinimap);
+			_legacyMinimap.SetActive(_gameServices.RoomService.CurrentRoom.GameModeConfig.ShowUIMinimap);
 			_menuButton.SetVisibility(IsMenuVisible());
 			MainInstaller.ResolveMatchServices().RunOnMatchStart((isReconnect) =>
 			{

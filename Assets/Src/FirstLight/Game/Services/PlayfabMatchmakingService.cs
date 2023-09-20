@@ -16,7 +16,9 @@ using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab.Json;
+using Quantum;
 using SRF;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -101,7 +103,6 @@ namespace FirstLight.Game.Services
 		public IReadOnlyList<string> Mutators;
 		public string RoomIdentifier = "";
 		public int BotDifficultyOverwrite = -1;
-		public JoinType JoinType;
 
 		public override string ToString() => ModelSerializer.Serialize(this).Value;
 	}
@@ -154,6 +155,7 @@ namespace FirstLight.Game.Services
 		private readonly IPartyService _party;
 		private readonly IGameNetworkService _networkService;
 		private readonly IGameBackendService _backendService;
+		internal readonly IConfigsProvider _configsProvider;
 
 		private MatchmakingPooling _pooling;
 		private ObservableField<bool> _isMatchmaking;
@@ -166,11 +168,12 @@ namespace FirstLight.Game.Services
 
 		public PlayfabMatchmakingService(IGameDataProvider dataProviderProvider, ICoroutineService coroutines,
 										 IPartyService party, IMessageBrokerService broker, IGameNetworkService networkService,
-										 IGameBackendService backendService)
+										 IGameBackendService backendService, IConfigsProvider configsProvider)
 		{
 			_networkService = networkService;
 			_dataProvider = dataProviderProvider;
 			_backendService = backendService;
+			_configsProvider = configsProvider;
 			_coroutines = coroutines;
 			_party = party;
 			_isMatchmaking = new ObservableField<bool>(false);
@@ -471,7 +474,8 @@ namespace FirstLight.Game.Services
 
 		private void HandleCancellation(GetMatchmakingTicketResult ticket)
 		{
-			FLog.Info(PlayfabMatchmakingService.LOG_TAG, "HandlingTicketCancellation Reason:" + ticket.CancellationReasonString + " Ticket:" + ticket.TicketId);
+			FLog.Info(PlayfabMatchmakingService.LOG_TAG,
+				"HandlingTicketCancellation Reason:" + ticket.CancellationReasonString + " Ticket:" + ticket.TicketId);
 			if (ticket.CancellationReasonString == "Timeout")
 			{
 				string matchId = "timeout-match-" + ticket.TicketId;
@@ -503,9 +507,10 @@ namespace FirstLight.Game.Services
 						player => player.TeamId
 					);
 
+				var gamemodeConfig = _service._configsProvider.GetConfig<QuantumGameModeConfig>(_setup.GameModeId);
 				// This distribution should be deterministic and used in the server to validate if anyone is exploiting
-				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, _setup.GameMode().MaxPlayersInTeam);
-
+				membersWithTeam = TeamDistribution.Distribute(membersWithTeam, gamemodeConfig.MaxPlayersInTeam);
+ 
 				_service.InvokeMatchFound(new GameMatched()
 				{
 					ExpectedPlayers = result.Members

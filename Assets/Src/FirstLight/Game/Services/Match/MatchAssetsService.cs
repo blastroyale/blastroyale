@@ -83,14 +83,9 @@ namespace FirstLight.Game.Services
 		{
 			if (!_services.NetworkService.InRoom) return;
 			var time = Time.realtimeSinceStartup;
-			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
-			var botDifficultyOverwrite = _services.NetworkService.CurrentRoom.GetMatchSetup().BotDifficultyOverwrite;
-			var map = config.Map.ToString();
+			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value.ToString();
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds, botDifficultyOverwrite);
+			_services.RoomService.CurrentRoom.SetRuntimeConfig();
 			LoadQuantumAssets(map);
 			_mandatoryAssets.Add(LoadScene(map));
 			_mandatoryAssets.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));

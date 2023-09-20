@@ -101,7 +101,7 @@ namespace Src.FirstLight.Server
 			var toSend = new List<ValueTuple<string, int>>();
 			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
-			var ranked = endGameCmd.QuantumValues.MatchType == MatchType.Ranked;
+			var ranked = endGameCmd.QuantumValues.MatchType == MatchType.Matchmaking;
 			if (thisPlayerData.PlayerRank == 1)
 			{
 				toSend.Add((GameConstants.Stats.GAMES_WON, 1));

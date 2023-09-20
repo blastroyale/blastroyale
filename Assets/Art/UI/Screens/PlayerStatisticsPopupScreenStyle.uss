@@ -79,43 +79,6 @@
     height: 120px;
 }
 
-.requirements {
-    background-color: rgb(23, 20, 38);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 70px;
-    padding-right: 70px;
-}
-
-.requirements__title {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -50px;
-    -unity-text-align: upper-center;
-    white-space: nowrap;
-}
-
-.requirements__icon {
-    width: 50px;
-    height: 50px;
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-.requirements--insufficient {
-    color: rgb(233, 58, 58);
-}
-
-.requirements__amount {
-}
-
 .spinner {
     background-image: var(--sprite-home__icon-spinner-thick);
     width: 68px;

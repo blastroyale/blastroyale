@@ -277,7 +277,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _roomService.CurrentRoom.Properties.MatchType.Value
+				MatchType = _roomService.CurrentRoom.Properties.MatchType.Value,
+				AllowedRewards = _roomService.CurrentRoom.Properties.AllowedRewards.Value
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}

@@ -717,6 +717,7 @@ namespace FirstLight.Game.StateMachines
 				GameModeId = gameModeId,
 				Mutators = mutators,
 				MatchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType,
+				AllowedRewards = selectedGameMode.Entry.AllowedRewards
 			};
 
 			StartRandomMatchmaking(matchmakingSetup);

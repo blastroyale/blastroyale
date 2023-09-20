@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Utils;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -18,20 +20,33 @@ namespace FirstLight.Game.Configs
 		[Serializable]
 		public struct GameModeEntry : IEquatable<GameModeEntry>
 		{
+			public static string InvalidRewardsMessage = "You can only select the following values: " +
+				string.Join(",", GameConstants.Data.AllowedGameRewards.Select(i => Enum.GetName(typeof(GameId), i)));
+
 			public string GameModeId;
 			public MatchType MatchType;
 			public List<string> Mutators;
 			public bool Squads;
 			public bool NFT;
 
+			[Required] [ValidateInput("ValidateAllowedRewards", "$InvalidRewardsMessage")]
+			public List<GameId> AllowedRewards;
+
 			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads,
-								 bool needNft)
+								 bool needNft, List<GameId> allowedRewards)
 			{
 				GameModeId = gameModeId;
 				MatchType = matchType;
 				Mutators = mutators;
 				Squads = isSquads;
 				NFT = needNft;
+				AllowedRewards = allowedRewards;
+			}
+
+			private bool ValidateAllowedRewards(List<GameId> ids)
+			{
+				if (ids == null) return false;
+				return ids.All(i => GameConstants.Data.AllowedGameRewards.Contains(i));
 			}
 
 			public override string ToString()
@@ -46,8 +61,22 @@ namespace FirstLight.Game.Configs
 					MatchType == other.MatchType &&
 					Mutators.SequenceEqual(other.Mutators) &&
 					Squads == other.Squads &&
-					NFT == other.NFT;
+					NFT == other.NFT
+					&& IsAllowedRewardsEqual(other.AllowedRewards);
 			}
+
+			private bool IsAllowedRewardsEqual(List<GameId> two)
+			{
+				if ((AllowedRewards == null || AllowedRewards.Count == 0) && (two == null || two.Count == 0))
+				{
+					return true;
+				}
+
+				if (AllowedRewards == null || two == null) return false;
+
+				return AllowedRewards.SequenceEqual(two);
+			}
+
 
 			public override bool Equals(object obj)
 			{

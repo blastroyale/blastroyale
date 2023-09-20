@@ -10,6 +10,7 @@ using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Services
 {
@@ -26,10 +27,10 @@ namespace FirstLight.Game.Services
 			EndTime = endTime;
 		}
 
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft,
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, bool isSquads, bool needNft, List<GameId> allowedRewards,
 							DateTime endTime = default)
 		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft);
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators, isSquads, needNft, allowedRewards);
 			EndTime = endTime;
 		}
 

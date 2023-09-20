@@ -306,7 +306,8 @@ namespace FirstLight.Game.Services
 				ExecutingPlayer = playerRef,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Count()
+				GamePlayerCount = QuantumPlayerMatchData.Count(),
+				AllowedRewards = _services.RoomService.CurrentRoom.Properties.AllowedRewards.Value
 			};
 			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;

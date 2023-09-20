@@ -57,6 +57,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
 				MatchType = MatchType.Matchmaking,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -80,7 +81,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
@@ -100,7 +102,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
@@ -120,7 +123,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
@@ -141,7 +145,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
@@ -156,7 +161,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards,
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
@@ -172,7 +178,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = new List<GameId>(),
 			}, out _);
 
 			Assert.AreEqual(0, rewards.Count);
@@ -181,20 +188,23 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_Casual_OnlyRewardsBPP()
 		{
-			// Currently there is only ranked matches on matchmaking
-			// need to reimplement ranked property 
-			/*SetPlayerRank(1, 10);
+		
+			SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
 				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
-				GamePlayerCount = _matchData.Count
+				GamePlayerCount = _matchData.Count,
+				AllowedRewards = new List<GameId>()
+				{
+					GameId.BPP
+				},
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);*/
+			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
 		}
 
 		[Test]

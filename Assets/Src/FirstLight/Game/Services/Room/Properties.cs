@@ -90,9 +90,43 @@ namespace FirstLight.Game.Services.RoomService
 		}
 	}
 
+	public class ListEnumRoomProperty<T> : RoomProperty<List<T>> where T : struct, Enum
+	{
+		public ListEnumRoomProperty(string key, bool expose) : base(key, expose)
+		{
+		}
+
+		public override void FromRaw(object value)
+		{
+			var str = (string) value;
+			if (string.IsNullOrEmpty(str.Trim()))
+			{
+				SetInternal(new List<T>());
+				return;
+			}
+
+			var list = str.Split(",");
+
+			var convertedList = new List<T>();
+			foreach (var enumKey in list)
+			{
+				if (!Enum.TryParse<T>(enumKey, out var enumValue)) throw new Exception("Enum value not found for key " + enumKey);
+				convertedList.Add(enumValue);
+
+			}
+
+			SetInternal(convertedList);
+		}
+
+		public override object ToRaw()
+		{
+			return string.Join(",", _currentValue.Select(e => Enum.GetName(typeof(T), e)));
+		}
+	}
+
 	public class ListRoomProperty : RoomProperty<List<string>>
 	{
-		public ListRoomProperty(string key, bool expose) : base(key)
+		public ListRoomProperty(string key, bool expose) : base(key, expose)
 		{
 		}
 

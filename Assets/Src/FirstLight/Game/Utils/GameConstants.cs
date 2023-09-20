@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Quantum;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace FirstLight.Game.Utils
 	{
 		public static class Editor
 		{
-	
 		}
 
 		public static class Scenes
@@ -25,13 +25,13 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
-			#if LIVE_SERVER
+#if LIVE_SERVER
 				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
-			#elif STAGE_SERVER
+#elif STAGE_SERVER
 				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
-			#else
-				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
-			#endif
+#else
+			public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
+#endif
 		}
 
 		public static class Balance
@@ -45,39 +45,39 @@ namespace FirstLight.Game.Utils
 			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
 			public const string MIXER_LOBBY_SNAPSHOT_ID = "Lobby";
 			public const string MIXER_INDOOR_SNAPSHOT_ID = "Indoor";
-			
+
 			public const string MIXER_GROUP_MASTER_ID = "Master";
 			public const string MIXER_GROUP_MUSIC_ID = "Music";
 			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
 			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
 			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
 			public const string MIXER_GROUP_AMBIENT_ID = "Ambient";
-			
+
 			public const int SOUND_QUEUE_BREAK_MS = 75;
 			public const float SPATIAL_3D_THRESHOLD = 0.1f;
-			
+
 			public const float MIXER_OCCLUSION_TRANSITION_SECONDS = 0.25f;
 			public const float MIXER_MUSIC_TRANSITION_SECONDS = 0.5f;
-			
+
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
-			
+
 			public const float SFX_3D_MIN_DISTANCE = 0.5f;
 			public const float SFX_3D_MAX_DISTANCE = 16f;
 
 			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
-			
+
 			public const float AMBIENCE_FADE_SECONDS = 0.75f;
-			
+
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
 			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
-			
+
 			public const int DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 			public const int BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
-			
+
 			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
 			public const int VO_SFX_SINGLE_KILL_PREVENTION_SECONDS = 12;
 			public const int VO_SFX_LEADERBOARD_PREVENTION_SECONDS = 3;
@@ -86,14 +86,14 @@ namespace FirstLight.Game.Utils
 		public static class Screenshake
 		{
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
-			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 15;
+			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX = 15;
 
 			public const float SCREENSHAKE_SMALL_SHOT_STRENGTH = 0.08f;
 			public const float SCREENSHAKE_SMALL_SHOT_DURATION = 0.06f;
 
 			public const float SCREENSHAKE_SHOT_STRENGTH = 0.12f;
 			public const float SCREENSHAKE_SHOT_DURATION = 0.08f;
-			
+
 			public const float SCREENSHAKE_SMALL_STRENGTH = 0.25f;
 			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;
 
@@ -103,6 +103,7 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_LARGE_STRENGTH = 0.6f;
 			public const float SCREENSHAKE_LARGE_DURATION = 0.8f;
 		}
+
 		public static class Notifications
 		{
 			public const string NOTIFICATION_IDLE_BOXES_CHANNEL = "idle_boxes";
@@ -124,8 +125,16 @@ namespace FirstLight.Game.Utils
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 			public const uint PLAYER_FAME_MAX_LEVEL = 999;
+
+			public static List<GameId> AllowedGameRewards = new List<GameId>()
+			{
+				GameId.XP,
+				GameId.CS,
+				GameId.BPP,
+				GameId.Trophies
+			};
 		}
-		
+
 		public static class PlayFab
 		{
 			public const string VERSION_KEY = nameof(Application.version);
@@ -155,7 +164,7 @@ namespace FirstLight.Game.Utils
 			public const string CS_TOTAL = "CS Total";
 			public const string ITEMS_OBTAINED = "Items Obtained";
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-			
+
 			// Metrics that should not be used in leaderboards seasons
 			// as they should never be reset
 			public const string RANKED_KILLS_EVER = "Ranked Kills Ever";
@@ -165,18 +174,18 @@ namespace FirstLight.Game.Utils
 			public const string GAMES_PLAYED_EVER = "Games Played Ever";
 			public const string GAMES_WON_EVER = "Games Won Ever";
 		}
-		
+
 		public static class Network
 		{
 			// Network state time settings
 			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 1;
-			
+
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
-			
+
 			// Time control values
 			public const int PLAYER_GAME_TTL_MS = 99999999;
 			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
-			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000; 
+			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000;
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -188,14 +197,14 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
 			public const string PLAYER_PROPS_RANK = "rank";
-			
+
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
 
 			public const string DEFAULT_REGION = "eu";
-			
+
 			public const char ROOM_META_SEPARATOR = '#';
-			
+
 			public const string MANUAL_TEAM_ID_PREFIX = "manual_";
 		}
 
@@ -212,7 +221,7 @@ namespace FirstLight.Game.Utils
 
 			public const int LOW_FPS_MODE_TARGET = 30;
 			public const int HIGH_FPS_MODE_TARGET = 60;
-			
+
 			// Description post fix string tag
 			public const string DESCRIPTION_POSTFIX = "Description";
 
@@ -230,14 +239,15 @@ namespace FirstLight.Game.Utils
 
 			// This conversion is the "true" one, works for plain circles with no decor, like weapon aiming range circle
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+
 			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
-			
+
 			public const long GAMEPLAY_BUSH_ATTACK_REVEAL_SECONDS = 2;
 			public const long GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION = 2000;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
-			
+
 			public const int REWARD_POPUP_CLOSE_MS = 300;
 
 			public const float CHEST_CONSUMABLE_POPOUT_HEIGHT = 2f;
@@ -256,12 +266,12 @@ namespace FirstLight.Game.Utils
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
-			
+
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
 			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
 		}
-		
+
 		public static class Haptics
 		{
 			// Platform dependent intensity as the vibrations vary greatly between android/iOS
@@ -269,8 +279,8 @@ namespace FirstLight.Game.Utils
 			public const float DAMAGE_INTENSITY_MIN = 0.1f;
 			public const float DAMAGE_INTENSITY_MAX = 0.8f;
 #else
-		public const float DAMAGE_INTENSITY_MIN = 0.3f;
-		public const float DAMAGE_INTENSITY_MAX = 1f;
+			public const float DAMAGE_INTENSITY_MIN = 0.3f;
+			public const float DAMAGE_INTENSITY_MAX = 1f;
 #endif
 
 			// Min/max amounts of haptic vibration sharpness when a player is damaged
@@ -279,7 +289,7 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
-			
+
 			// Duration of haptic feedback when player is damaged
 			public const float GAME_START_DURATION = 0.25f;
 			public const float GAME_START_INTENSITY = 1f;
@@ -300,12 +310,12 @@ namespace FirstLight.Game.Utils
 			public const int TIME_750MS = 750;
 			public const int TIME_1000MS = 1000;
 			public const int TIME_4000MS = 4000;
-			
+
 			public const int TIME_HIGHLIGHT_FADE = 450;
-			
+
 			public const string TAG_INDICATORS = "GroundIndicator";
 			public const string TAG_GUIDE_UI = "GuideUiTarget";
-			
+
 			public const string TRIGGER_FIRST_MOVE_AREA = "FirstMoveArea";
 			public const string TRIGGER_DUMMY_AREA = "DummyArea";
 			public const string TRIGGER_CHEST_AREA = "ChestArea";
@@ -315,7 +325,7 @@ namespace FirstLight.Game.Utils
 			public const string GUIDE_UI_MOVEMENT_JOYSTICK = "MovementUiJoystick";
 			public const string GUIDE_UI_SHOOTING_JOYSTICK = "ShootingUiJoystick";
 			public const string GUIDE_UI_SPECIAL_BUTTON = "TutorialSpecialTarget";
-			
+
 			public const string INDICATOR_FIRST_MOVE = "FirstMove";
 			public const string INDICATOR_WOODEN_BARRIER = "WoodenBarrier";
 			public const string INDICATOR_FIRST_WEAPON = "FirstWeapon";

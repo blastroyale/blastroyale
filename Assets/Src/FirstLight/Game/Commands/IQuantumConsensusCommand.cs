@@ -17,6 +17,7 @@ namespace FirstLight.Game.Commands
 		public string MatchId;
 		public PlayerRef ExecutingPlayer;
 		public MatchType MatchType;
+		public List<GameId> AllowedRewards;
 	}
 
 	/// <summary>

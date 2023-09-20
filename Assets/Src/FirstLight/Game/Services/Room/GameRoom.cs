@@ -253,7 +253,8 @@ namespace FirstLight.Game.Services.RoomService
 				MatchType = Properties.MatchType.Value,
 				BotDifficultyOverwrite = Properties.BotDifficultyOverwrite.Value,
 				GameModeId = Properties.GameModeId.Value,
-				RoomIdentifier = _room.Name
+				RoomIdentifier = _room.Name,
+				AllowedRewards = Properties.AllowedRewards.Value
 			};
 		}
 	}

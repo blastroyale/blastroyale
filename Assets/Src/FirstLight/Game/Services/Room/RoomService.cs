@@ -22,7 +22,7 @@ namespace FirstLight.Game.Services.RoomService
 	{
 		// TODO MOVE THIS TO CONFIGS
 		public static TimeSpan LOADING_TIMEOUT_MS = TimeSpan.FromSeconds(5);
-		public static TimeSpan QUANTUM_MATCHMAKING_SELECT_ZONE_TIME = TimeSpan.FromSeconds(30);
+		public static TimeSpan QUANTUM_MATCHMAKING_SELECT_ZONE_TIME = TimeSpan.FromSeconds(10);
 		public static TimeSpan CUSTOM_GAME_SELECT_ZONE_TIME = TimeSpan.FromSeconds(10);
 	}
 	public enum PlayerChangeReason

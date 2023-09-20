@@ -421,7 +421,7 @@ namespace FirstLight.Game.Presenters
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
 
-			var hasPool = current.MatchType == MatchType.Matchmaking;
+			var hasPool = current.AllowedRewards.Contains(GameId.CS);
 			_csPoolContainer.SetDisplay(hasPool);
 			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
 

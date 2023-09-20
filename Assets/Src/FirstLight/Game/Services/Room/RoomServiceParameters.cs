@@ -66,11 +66,11 @@ namespace FirstLight.Game.Services.RoomService
 			{
 				MatchType = {Value = setup.MatchType},
 				Commit = {Value = VersionUtils.Commit},
-				// Reminder: IDK IF THIS CAST WORKS POSSIBLE BUG CAUSE
 				MapId = {Value = (GameId) setup.MapId},
 				GameModeId = {Value = setup.GameModeId},
 				Mutators = {Value = setup.Mutators.ToList()},
-				GameStarted = {Value = false}
+				GameStarted = {Value = false},
+				AllowedRewards = {Value = setup.AllowedRewards}
 			};
 		}
 

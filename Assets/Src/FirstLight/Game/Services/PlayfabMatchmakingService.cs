@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 		public IReadOnlyList<string> Mutators;
 		public string RoomIdentifier = "";
 		public int BotDifficultyOverwrite = -1;
-
+		public List<GameId> AllowedRewards = new();
 		public override string ToString() => ModelSerializer.Serialize(this).Value;
 	}
 

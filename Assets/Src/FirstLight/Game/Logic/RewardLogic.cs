@@ -10,6 +10,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
+using NUnit.Framework;
 using Quantum;
 using UnityEngine.Purchasing;
 
@@ -46,6 +47,11 @@ namespace FirstLight.Game.Logic
 		/// Reflects the type of the given match
 		/// </summary>
 		public MatchType MatchType { get; set; }
+
+		/// <summary>
+		/// Allowed rewards for this match
+		/// </summary>
+		public List<GameId> AllowedRewards { get; set; }
 	}
 
 	/// <summary>
@@ -217,26 +223,34 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
-			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
+			var allowedRewards = source.AllowedRewards ?? new List<GameId>();
+			
+			// We dont give rewards for quitting, but players can loose trophies
+			if (allowedRewards.Contains(GameId.Trophies))
 			{
-				if (source.MatchType == MatchType.Matchmaking && source.DidPlayerQuit)
-				{
-					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
-				}
-
+				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
+			}
+			if (source.DidPlayerQuit)
+			{
 				return rewards;
 			}
 
-			if (source.MatchType == MatchType.Matchmaking || source.MatchType == MatchType.Forced)
+			if (allowedRewards.Contains(GameId.CS))
 			{
 				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
-				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
-				CalculateBPPReward(rewards, rewardConfig);
-				CalculateXPReward(rewards, rewardConfig);
-
 			}
-            
+
+			if (allowedRewards.Contains(GameId.BPP))
+			{
+				CalculateBPPReward(rewards, rewardConfig);
+			}
+
+			if (allowedRewards.Contains(GameId.XP))
+			{
+				CalculateXPReward(rewards, rewardConfig);
+			}
+
+
 			return rewards;
 		}
 
@@ -302,12 +316,12 @@ namespace FirstLight.Game.Logic
 					{
 						continue;
 					}
-					
+
 					foreach (var (key, amount) in config.Value.Rewards)
 					{
 						ClaimReward(new RewardData(key, amount));
 					}
-					
+
 					break;
 				}
 			}

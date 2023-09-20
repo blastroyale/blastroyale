@@ -18,6 +18,7 @@ namespace FirstLight.Game.Services.RoomService
 		// A list of mutators used in this room
 		public RoomProperty<List<string>> Mutators;
 		public RoomProperty<bool> HasBots;
+		public RoomProperty<List<GameId>> AllowedRewards;
 		public RoomProperty<bool> GameStarted;
 		public RoomProperty<bool> StartCustomGame;
 		public RoomProperty<int> LoadingStartServerTime;
@@ -45,6 +46,7 @@ namespace FirstLight.Game.Services.RoomService
 			Commit = Create<string>("cm", true);
 			Mutators = CreateList("mttrs", true);
 			MatchType = CreateEnum<MatchType>("mt", true);
+			AllowedRewards = CreateEnumList<GameId>("alrewards", true);
 			GameModeId = Create<string>("gmid", true);
 			MapId = CreateEnum<GameId>("mapid", true);
 			GameStarted = Create<bool>("started",true);
@@ -54,13 +56,7 @@ namespace FirstLight.Game.Services.RoomService
 			BotDifficultyOverwrite = Create<int>("botdif");
 			StartCustomGame = Create<bool>("cstart");
 		}
-
-		/*GameConstants.Network.ROOM_PROPS_COMMIT,
-		GameConstants.Network.ROOM_PROPS_MAP,
-		GameConstants.Network.ROOM_PROPS_MATCH_TYPE,
-		GameConstants.Network.ROOM_PROPS_GAME_MODE,
-		GameConstants.Network.ROOM_PROPS_MUTATORS*/
-
+		
 
 		private void InitProperty<T>(RoomProperty<T> property)
 		{
@@ -85,6 +81,13 @@ namespace FirstLight.Game.Services.RoomService
 		private ListRoomProperty CreateList(string key, bool expose = false)
 		{
 			var property = new ListRoomProperty(key, expose);
+			InitProperty(property);
+			return property;
+		}
+		
+		private ListEnumRoomProperty<T> CreateEnumList<T>(string key, bool expose = false) where T : struct, Enum
+		{
+			var property = new ListEnumRoomProperty<T>(key, expose);
 			InitProperty(property);
 			return property;
 		}

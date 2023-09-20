@@ -7,47 +7,47 @@
                 <ui:Label name="Title" text="PLAYER STATS" class="equipment-popup__title" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
                 <ui:VisualElement name="Content" class="equipment-popup__content" style="left: 0; justify-content: flex-start; align-items: center; align-self: center; flex-direction: column; margin-top: 0; visibility: visible;">
-                    <ui:VisualElement name="HeaderRow" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 70%; height: 100px; max-height: 200px; flex-direction: row; align-items: center; justify-content: flex-start; display: flex; align-self: center; margin-bottom: 8px;">
+                    <ui:VisualElement name="HeaderRow" class="header-row">
                         <ui:VisualElement name="PfpImage" style="flex-grow: 1; background-color: rgb(214, 74, 123); width: 128px; height: 128px; max-width: 128px; max-height: 128px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&amp;guid=a586a1ae1408749e9b1267b30f1bc628&amp;type=3#avatar-default&apos;); align-self: flex-end; align-items: center; justify-content: center; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); display: none; visibility: visible;" />
                         <ui:VisualElement name="SpinnerHolder" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 128px; height: 128px; max-width: 128px; max-height: 128px; align-items: center; justify-content: center;">
                             <FirstLight.Game.UIElements.AnimatedImageElement name="AvatarImageLoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: visible; position: relative; left: auto; top: auto;" />
                         </ui:VisualElement>
                         <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" style="justify-content: center; align-items: auto; align-self: center; -unity-text-align: upper-right; flex-direction: column; margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatRow1" style="flex-grow: 1; background-color: rgb(68, 64, 89); width: 70%; height: 200px; max-height: 200px; flex-direction: row; align-items: auto; justify-content: space-around; display: flex; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
-                        <ui:VisualElement name="StatsContainer0" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 160px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName0" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue0" style="justify-content: center; align-items: center;" />
+                    <ui:VisualElement name="StatRow0" class="stat-row">
+                        <ui:VisualElement name="StatsContainer0" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName0" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue0" class="stats-container_stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer1" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName1" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue1" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer1" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName1" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue1" class="stats-container__stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer2" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName2" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue2" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer2" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName2" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue2" class="stats-container__stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer3" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; visibility: visible; display: flex;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName3" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue3" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer3" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName3" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue3" class="stats-container__stat-value" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatRow2" style="flex-grow: 1; background-color: rgb(68, 64, 89); width: 70%; height: 100px; max-height: 200px; flex-direction: row; align-items: auto; justify-content: space-around; display: flex; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; margin-top: 8px;">
-                        <ui:VisualElement name="StatsContainer4" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 160px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName4" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue4" style="justify-content: center; align-items: center;" />
+                    <ui:VisualElement name="StatRow1" class="stat-row">
+                        <ui:VisualElement name="StatsContainer4" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName4" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue4" class="stats-container__stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer5" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName5" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue5" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer5" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName5" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue5" class="stats-container__stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer6" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; visibility: hidden;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName6" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue6" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer6" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName6" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue6" class="stats-container__stat-value" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer7" style="flex-grow: 1; background-color: rgba(60, 57, 77, 0); width: 100px; height: 160px; max-width: 160px; max-height: 160px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; visibility: hidden; display: flex;">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName7" style="-unity-text-align: upper-center; white-space: nowrap; position: absolute; top: 0; width: 100%;" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue7" style="justify-content: center; align-items: center;" />
+                        <ui:VisualElement name="StatsContainer7" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName7" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue7" class="stats-container__stat-value" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

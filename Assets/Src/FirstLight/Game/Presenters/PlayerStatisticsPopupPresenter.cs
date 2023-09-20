@@ -31,7 +31,9 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _loadingSpinner;
 		private VisualElement _avatarImageLoadingSpinner;
 		private VisualElement _pfpImage;
-		
+
+		private VisualElement _statRow0;
+		private VisualElement _statRow1;
 		private Label[] _statLabels;
 		private Label[] _statValues;
 		private VisualElement[] _statContainers;
@@ -47,7 +49,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_statLabels = new Label[6];
 			_statValues = new Label[6];
-			_statContainers = new VisualElement[6];
+			_statContainers = new VisualElement[8];
 			
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background")
@@ -59,13 +61,19 @@ namespace FirstLight.Game.Presenters
 			_nameLabel = root.Q<Label>("NameLabel").Required();
 			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
 
-			for (int i = 0; i < 6; i++)
+			_statRow0 = root.Q<VisualElement>($"StatRow0").Required();
+			_statRow1 = root.Q<VisualElement>($"StatRow1").Required();
+				
+			for (int i = 0; i < 8; i++)
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
+				_statContainers[i].visible = false;
+			}
+			
+			for (int i = 0; i < 6; i++)
+			{
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
-
-				_statContainers[i].visible = false;
 			}
 
 			_content.visible = false;
@@ -94,7 +102,7 @@ namespace FirstLight.Game.Presenters
 			
 			t.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
-				_nameLabel.text = result.Name;
+				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
 				var i = 0;
 				foreach (var s in result.Statistics)
@@ -105,6 +113,9 @@ namespace FirstLight.Game.Presenters
 					i++;
 					Debug.Log($"{s.Name} = {s.Value}");
 				}
+
+				_statRow0.visible = result.Statistics.Count > 0;
+				_statRow1.visible = result.Statistics.Count > 4;
 
 				if (!string.IsNullOrEmpty(result.AvatarUrl))
 				{

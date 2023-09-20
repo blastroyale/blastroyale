@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["LB_Broken_baclony_2"],"padding":[28],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["LB_Broken_baclony_2"],"padding":[38],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Car_Convertable_Green_GEO","Car_Convertable_Orange_GEO","Car_Convertable_Blue_GEO","Car_Convertable_Pink_GEO"],"padding":[26,26,26,26],"unwrapper":[0,0,0,0]}'
+    - '#BAKERY{"meshName":["Car_Convertable_Green_GEO","Car_Convertable_Orange_GEO","Car_Convertable_Blue_GEO","Car_Convertable_Pink_GEO"],"padding":[34,26,26,34],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

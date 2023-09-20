@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSubstitute.Core;
 
 namespace FirstLight.Game.Services.RoomService
 {
@@ -23,6 +22,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// Callback for when the local player changes a property
 		/// </summary>
 		public event Action<RoomProperty<T>> OnLocalPlayerSet;
+
 		/// <summary>
 		/// Generic callback for when the value changes, it might be received an update from server, or local player changed it
 		/// </summary>
@@ -43,7 +43,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		protected T _currentValue;
 
-		public RoomProperty(string key,bool expose = false)
+		public RoomProperty(string key, bool expose = false)
 		{
 			Key = key;
 			Expose = expose;
@@ -53,7 +53,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		public virtual void FromRaw(object value)
 		{
-			SetInternal((T)value);
+			SetInternal((T) value);
 		}
 
 		public virtual object ToRaw()
@@ -75,7 +75,6 @@ namespace FirstLight.Game.Services.RoomService
 
 	public class EnumProperty<T> : RoomProperty<T> where T : struct, Enum
 	{
-		
 		public override void FromRaw(object value)
 		{
 			SetInternal(Enum.Parse<T>(value.ToString()));
@@ -105,13 +104,14 @@ namespace FirstLight.Game.Services.RoomService
 				SetInternal(new List<string>());
 				return;
 			}
+
 			var list = str.Split(",");
 			SetInternal(list.ToList());
 		}
 
 		public override object ToRaw()
 		{
-			return _currentValue.Join(",");
+			return string.Join(",", _currentValue);
 		}
 	}
 }

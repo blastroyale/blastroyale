@@ -50,35 +50,6 @@
     justify-content: center;
 }
 
-.equipment-popup__button-container {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 666px;
-}
-
-.equipment-popup__bh-holder {
-    display: none;
-    color: rgb(148, 140, 197);
-    flex-direction: row;
-    align-items: center;
-    font-size: 32px;
-    justify-content: flex-end;
-    right: 46px;
-    position: absolute;
-    bottom: 45px;
-}
-
-.equipment-popup__bh-logo {
-    background-image: var(--sprite-home__logo-blasthub);
-    width: 260px;
-    height: 52px;
-    margin-left: 39px;
-}
-
-.content-bottom-filler {
-    height: 120px;
-}
-
 .spinner {
     background-image: var(--sprite-home__icon-spinner-thick);
     width: 68px;
@@ -152,4 +123,38 @@
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.header-row__pfp-image {
+    flex-grow: 1;
+    background-color: rgb(214, 74, 123);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&guid=a586a1ae1408749e9b1267b30f1bc628&type=3#avatar-default');
+    align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    display: none;
+    visibility: visible;
+}
+
+.header-row__spinner-holder {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    align-items: center;
+    justify-content: center;
 }

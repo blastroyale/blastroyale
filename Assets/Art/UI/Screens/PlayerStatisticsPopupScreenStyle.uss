@@ -2,7 +2,7 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.equipment-popup {
+.player-statistics-popup {
     background-image: var(--sprite-home__background-popup-equipment);
     width: 1350px;
     height: 820px;
@@ -12,19 +12,19 @@
     font-size: 38px;
 }
 
-.equipment-popup--full-page .equipment-popup__content {
+.player-statistics-popup--full-page .player-statistics-popup__content {
     left: 0;
 }
 
-.equipment-popup__title {
-    background-image: var(--sprite-home__header-popup-equipment);
+.player-statistics-popup__title {
+    background-image: var(--sprite-home__header-popup-player-statistics);
     -unity-text-align: middle-center;
     height: 86px;
     margin: 0;
     padding: 0 120px 0 20px;
 }
 
-.equipment-popup__close {
+.player-statistics-popup__close {
     position: absolute;
     right: 0;
     top: -5px;
@@ -33,11 +33,11 @@
     width: 104px;
 }
 
-.equipment-popup__close:active {
+.player-statistics-popup__close:active {
     background-image: var(--sprite-home__button-popup-equipment-close-pressed);
 }
 
-.equipment-popup__content {
+.player-statistics-popup__content {
     position: absolute;
     left: 500px;
     top: 86px;
@@ -157,4 +157,18 @@
     max-height: 128px;
     align-items: center;
     justify-content: center;
+}
+
+.player-statistics-popup__content {
+    left: 0;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 0;
+    visibility: visible;
+}
+
+.stat-row0 {
+    margin-bottom: 4px;
 }

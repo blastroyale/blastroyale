@@ -129,20 +129,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetupCameraSize()
 		{
-			if (_services.NetworkService.CurrentRoomMapConfig.HasValue)
-			{
-				var configValue = _services.NetworkService.CurrentRoomMapConfig.Value.MinimapCameraSize;
-				if (configValue != 0)
-				{
-					_mapConfigCameraSize = configValue;
+			var room = _services.RoomService.CurrentRoom;
 
-					var currentSize = _minimapCamera.orthographicSize;
-					var ratio = currentSize / _mapConfigCameraSize;
-					_viewportSize *= ratio;
-					_currentViewportSize = _viewportSize;
-				}
+			var configValue = room.MapConfig.MinimapCameraSize;
+			if (configValue != 0)
+			{
+				_mapConfigCameraSize = configValue;
+
+				var currentSize = _minimapCamera.orthographicSize;
+				var ratio = currentSize / _mapConfigCameraSize;
+				_viewportSize *= ratio;
+				_currentViewportSize = _viewportSize;
 			}
 		}
+
 		private void OnTeamPositionPing(EventOnTeamPositionPing e)
 		{
 			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
@@ -346,7 +346,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
 				var color = _matchServices.TeamService.GetTeamMemberColor(entity);
-				if(color.HasValue) _friendlyColors[index] = color.Value;
+				if (color.HasValue) _friendlyColors[index] = color.Value;
 				_friendlyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 			}
 
@@ -444,6 +444,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_minimapCamera.orthographicSize = _mapConfigCameraSize;
 			}
+
 			var ct = _minimapCamera.transform;
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();

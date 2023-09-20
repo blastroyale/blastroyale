@@ -65,7 +65,8 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			// TODO: Use proper localization
-			_header.SetSubtitle(_services.NetworkService.CurrentRoomGameModeConfig?.Id.ToUpper());
+			var gamemodeID =_services.RoomService.CurrentRoom.Properties.GameModeId.Value;
+			_header.SetSubtitle(gamemodeID.ToUpper());
 		}
 
 		protected override void SubscribeToEvents()

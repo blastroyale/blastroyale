@@ -115,14 +115,14 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.MatchEndScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/MatchmakingScreen.prefab
-    Layer: -1
-    UiType: FirstLight.Game.Presenters.MatchmakingScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/PartyDialog.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.PartyDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/PreGameLoadingScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.PreGameLoadingScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/RewardsScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.RewardsScreenPresenter, FirstLight.Game, Version=0.0.0.0,

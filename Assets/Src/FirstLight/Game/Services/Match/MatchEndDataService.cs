@@ -287,8 +287,8 @@ namespace FirstLight.Game.Services
 				? Leader
 				: LocalPlayer;
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var matchType = room?.GetMatchType() ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
+			var room = _services.RoomService.CurrentRoom;
+			var matchType = room?.Properties.MatchType.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)

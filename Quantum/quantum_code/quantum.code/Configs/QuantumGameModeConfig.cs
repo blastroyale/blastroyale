@@ -104,6 +104,11 @@ namespace Quantum
 		[FoldoutGroup("Player"), PropertyTooltip(DESC_MINIMUM_HEALTH),
 		 InfoBox("If more than zero the player will never die. Only works with real players, not bots.", InfoMessageType.Warning)]
 		public uint MinimumHealth;
+        
+		/// <summary>
+		/// If this gamemode skips the pre game loading screen with the plane and maps election
+		/// </summary>
+		public bool InstantLoad;
 
 #endregion
 

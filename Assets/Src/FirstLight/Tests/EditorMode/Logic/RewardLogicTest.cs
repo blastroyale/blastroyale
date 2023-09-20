@@ -56,7 +56,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -76,7 +76,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(10, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -96,7 +96,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -116,7 +116,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(10, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -137,7 +137,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetupZeroResources();
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -152,7 +152,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
@@ -181,10 +181,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_Casual_OnlyRewardsBPP()
 		{
-			SetPlayerRank(1, 10);
+			// Currently there is only ranked matches on matchmaking
+			// need to reimplement ranked property 
+			/*SetPlayerRank(1, 10);
 			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
 			{
-				MatchType = MatchType.Casual,
+				MatchType = MatchType.Matchmaking,
 				MatchData = _matchData,
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
@@ -192,7 +194,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);*/
 		}
 
 		[Test]
@@ -202,7 +204,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				_rewardLogic.CalculateMatchRewards(new RewardSource
 				{
-					MatchType = MatchType.Ranked,
+					MatchType = MatchType.Matchmaking,
 					MatchData = new List<QuantumPlayerMatchData> {new()},
 					ExecutingPlayer = 0,
 					DidPlayerQuit = false,

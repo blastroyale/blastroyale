@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private RectTransform _contentTransform;
 
 		private IObjectPool<PlayerNameEntryView> _playerNamePool;
-		
+
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 		private Action<Player> _kickPlayerCallback;
@@ -77,12 +77,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void AddOrUpdatePlayer(Player player, bool sortList = true)
 		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
-			var isLoaded = (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
 			var rank = (int) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_RANK];
 			var color = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, rank);
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback, color);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, player.GetTeamId(), _kickPlayerCallback, color);
 			}
 			else
 			{
@@ -90,7 +89,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback, color);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, player.GetTeamId(), _kickPlayerCallback, color);
 				}
 			}
 
@@ -98,6 +97,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				SortPlayerList();
 			}
+		}
+
+		public IList<Player> GetPlayers()
+		{
+			return _activePlayerEntries.Select(x => x.Player).ToList();
 		}
 
 		/// <summary>

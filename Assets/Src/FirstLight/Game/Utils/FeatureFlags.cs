@@ -327,11 +327,7 @@ namespace FirstLight.Game.Utils
 				TUTORIAL = _localConfig.Tutorial.Bool();
 			}
 
-			if (_localConfig.RecordQuantumInput)
-			{
-				// Fix the seed
-				QuantumRunnerConfigs.FixedSeed = 42;
-			}
+			
 		}
 
 		/// <summary>

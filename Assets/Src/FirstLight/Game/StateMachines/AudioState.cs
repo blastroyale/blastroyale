@@ -71,7 +71,6 @@ namespace FirstLight.Game.StateMachines
 			var matchmaking = stateFactory.State("AUDIO - Matchmaking");
 			var gameModeCheck = stateFactory.Choice("AUDIO - Game Mode Check");
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
-			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
 			var disconnected = stateFactory.State("AUDIO - Disconnected");
 			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
@@ -98,8 +97,6 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.OnEnter(SetMatchServices);
 			gameModeCheck.OnEnter(SubscribeMatchEvents);
 			gameModeCheck.OnEnter(PrepareForMatchMusic);
-			gameModeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
-			gameModeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			gameModeCheck.Transition().Target(battleRoyale);
 			gameModeCheck.OnExit(() => SetSimulationRunning(true));
 
@@ -111,15 +108,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
-
-			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-			deathmatch.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(MatchState.MatchQuitEvent).OnTransition(StopAllAudio).Target(audioBase);
-			deathmatch.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
-			deathmatch.OnExit(UnsubscribeMatchEvents);
-			deathmatch.OnExit(() => SetSimulationRunning(false));
+            
 
 			postGameSpectatorCheck.Transition().Condition(IsSpectator).OnTransition(StopMusicInstant).Target(audioBase);
 			postGameSpectatorCheck.Transition().Target(postGame);
@@ -192,18 +181,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
-
-		private bool ShouldUseDeathmatchSM()
-		{
-			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
-				AudioStateMachine.Deathmatch;
-		}
-
-		private bool ShouldUseBattleRoyaleSM()
-		{
-			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
-				AudioStateMachine.BattleRoyale;
-		}
+        
 
 		private void SetMatchServices()
 		{
@@ -259,7 +237,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var matchData = game.GeneratePlayersMatchDataLocal(out var leader, out var localWinner);
 			var localPlayerData = matchData[game.GetLocalPlayerRef()];
-			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			var gameMode = _services.RoomService.CurrentRoom.GameModeConfig;
 
 			if (localWinner)
 			{
@@ -374,7 +352,7 @@ namespace FirstLight.Game.StateMachines
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			// Respawnable game-mode
-			if (_services.NetworkService.CurrentRoomGameModeConfig.Value.Lives is 0 or > 1)
+			if (_services.RoomService.CurrentRoom.GameModeConfig.Lives is 0 or > 1)
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
 				CheckDespawnClips(nameof(EventOnPlayerAlive), callback.Entity);

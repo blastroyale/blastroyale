@@ -55,7 +55,7 @@ namespace FirstLight.Game.Views
 		private List<VisualElement> _mutatorLines;
 
 		private List<string> _gameModes = new (){"deathmatch", "battleroyale", "battleroyaletrios"};
-		private List<string> _matchTypes = new (){"ranked", "casual", "custom"};
+		private List<string> _matchTypes = new (){"matchmaking", "forced", "custom"};
 
 		public GameModeSelectionButtonView()
 		{

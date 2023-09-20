@@ -45,6 +45,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1
@@ -89,6 +90,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: BattleRoyale
       BotSearchForCrates: 1
@@ -133,6 +135,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -173,6 +176,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 0
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -213,6 +217,7 @@ MonoBehaviour:
       DeathDropStrategy: 5
       DeathMarker: 0
       MinimumHealth: 100
+      InstantLoad: 1
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -253,6 +258,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1

@@ -495,6 +495,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task OpenPreGameScreen()
 		{
+			await OpenSwipeTransition();
 			FLog.Verbose("Entering Match State");
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
 

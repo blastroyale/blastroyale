@@ -9,11 +9,6 @@ namespace Quantum
 		public FP DisconnectedDestroySeconds;
 		public uint DoubleKillTimeLimit;
 		public int RoomLockKillCount;
-		public FP MatchmakingTime;
-		public FP CasualMatchmakingTime;
-		public FP RankedMatchmakingTime;
-		public FP PlayfabMatchmakingTime;
-		public int RankedMatchmakingMinPlayers;
 		public int BotsNameCount;
 		public FP PlayerRespawnTime;
 		public FP PlayerForceRespawnTime;

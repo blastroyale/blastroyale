@@ -57,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
 		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
 		[SerializeField, Required] private TextMeshProUGUI _topTitleText;
+		[SerializeField, Required] private TextMeshProUGUI _selectDropZoneText;
 		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
@@ -155,6 +156,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
+			_selectDropZoneText.text = room.Properties.MapId.Value.GetLocalization();
 			_lockRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
 			_playersFoundText.gameObject.SetActive(true);

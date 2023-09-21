@@ -30,6 +30,7 @@ namespace FirstLight.Game.Utils
 			if (string.IsNullOrEmpty(name)) return null;
 			return CurrentSkins.FirstOrDefault(temporarySkin => name.Contains(temporarySkin.GetSpriteText()));
 		}
+		
 
 		[CanBeNull]
 		public static TemporarySkin GetSkinBasedOnFlags(PlayerFlags flags)

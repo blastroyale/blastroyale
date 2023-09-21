@@ -55,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 			_reconnection = new ReconnectionState(services, gameLogic, networkService, uiService, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
-			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(_reconnection, services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger,services.RoomService);
 			_statechart = new Statechart.Statechart(Setup);
 			
 #if DEVELOPMENT_BUILD

@@ -69,19 +69,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchInitiate()
 		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var room = _services.RoomService.CurrentRoom;
 			if (room == null)
 			{
 				return;
 			}
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
-			_mutators = string.Join(",", room.GetMutatorIds());
-			_matchType = room.GetMatchType().ToString();
-			_gameModeId = room.GetGameModeId();
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			var gameModeConfig =
-				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
+			_mutators = string.Join(",", room.Properties.Mutators.Value);
+			_matchType = room.Properties.MatchType.ToString();
+			_gameModeId = room.Properties.GameModeId.Value;
+			var config = room.MapConfig;
+			var gameModeConfig = room.GameModeConfig;
 			_mapId = ((int) config.Map).ToString();
 			
 			var data = new Dictionary<string, object>
@@ -114,10 +113,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				_playerNumAttacks = 0;
 
-				var room = _services.NetworkService.QuantumClient.CurrentRoom;
-				var setup = room.GetMatchSetup();
-				var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-				var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId());
+				var room = _services.RoomService.CurrentRoom;
+				var config = room.MapConfig;
+				var gameModeConfig = room.GameModeConfig;
 				var totalPlayers = room.PlayerCount;
 				var loadout = _gameData.EquipmentDataProvider.Loadout;
 				var ids = _gameData.UniqueIdDataProvider.Ids;
@@ -136,7 +134,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					{"mutators", _mutators},
 					{"player_level", _gameData.PlayerDataProvider.Level.Value.ToString()},
 					{"total_players", totalPlayers.ToString()},
-					{"total_bots", (NetworkUtils.GetMaxPlayers(setup, false) - totalPlayers).ToString()},
+					{"total_bots", (room.GetMaxPlayers(false) - totalPlayers).ToString()},
 					{"map_id", _gameIdsLookup[config.Map]},
 					{"team_size", gameModeConfig.MaxPlayersInTeam},
 					{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},

@@ -13,6 +13,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
@@ -43,14 +44,14 @@ namespace FirstLight.Game.StateMachines
 		private Coroutine _csPoolTimerCoroutine;
 
 		public CoreLoopState(ReconnectionState reconnection, IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
-		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
+		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger, IRoomService roomService)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger,roomService);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_reconnection = reconnection;
 		}

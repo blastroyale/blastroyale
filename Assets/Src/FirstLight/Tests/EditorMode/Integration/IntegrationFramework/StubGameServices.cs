@@ -2,6 +2,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.Party;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -47,6 +48,8 @@ namespace FirstLight.Tests.EditorMode
 		public IGameUiService GameUiService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
+		public IRoomService RoomService { get; }
+		public ILeaderboardService LeaderboardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
@@ -91,10 +94,11 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService,
-				MessageBrokerService, NetworkService, GameBackendService);
+				MessageBrokerService, NetworkService, GameBackendService,ConfigsProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
+			RoomService = Substitute.For<IRoomService>();
 		}
 	}
 }

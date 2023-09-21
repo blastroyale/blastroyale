@@ -115,10 +115,11 @@ namespace FirstLight.Game.Services
 				MapId = GameId.FtueDeck.GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
-				JoinType = JoinType.ForcedGame,
+				MatchType = MatchType.Forced,
+				AllowedRewards = new ()
 			};
 
-			_services.NetworkService.CreateRoom(roomSetup, true);
+			_services.RoomService.CreateRoom(roomSetup, true);
 		}
 
 		public void CreateJoinSecondTutorialRoom()
@@ -132,11 +133,11 @@ namespace FirstLight.Game.Services
 				MapId = gameModeConfig.AllowedMaps[0].GetHashCode(),
 				RoomIdentifier = Guid.NewGuid().ToString(),
 				Mutators = Array.Empty<string>(),
-				JoinType = JoinType.ForcedGame,
-				MatchType = MatchType.Ranked,
+				MatchType = MatchType.Forced,
+				AllowedRewards = GameConstants.Data.AllowedGameRewards
 			};
 
-			_services.NetworkService.JoinOrCreateRandomRoom(setup);
+			_services.RoomService.JoinOrCreateRandomRoom(setup);
 		}
 
 		public GameObject[] FindTutorialObjects(string referenceTag)

@@ -3,6 +3,7 @@
     <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner">
         <ui:VisualElement name="LocalPlayerHighlight" class="leaderboard-entry-positioner__highlight" />
         <ui:VisualElement name="LeaderboardEntryParent" class="leaderboard-entry">
+            <ui:VisualElement name="PfpFrameColor" class="leaderboard-entry__pfp pfp-bg" />
             <ui:VisualElement name="PFP" class="leaderboard-entry__pfp">
                 <ui:VisualElement name="PFPImage" class="leaderboard-entry__pfp-image" />
             </ui:VisualElement>

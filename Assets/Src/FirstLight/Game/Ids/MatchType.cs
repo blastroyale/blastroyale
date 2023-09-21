@@ -7,7 +7,7 @@ namespace FirstLight.Game.Ids
 	public enum MatchType
 	{
 		Custom,
-		Casual,
-		Ranked
+		Matchmaking,
+		Forced,
 	}
 }

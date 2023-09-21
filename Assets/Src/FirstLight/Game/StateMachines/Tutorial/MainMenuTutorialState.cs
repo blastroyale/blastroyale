@@ -377,8 +377,8 @@ namespace FirstLight.Game.StateMachines
 			await Task.Delay(GameConstants.Tutorial.TIME_4000MS);
 			_dialogUi.ShowDialog(ScriptLocalization.UITTutorial.select_map_position, CharacterType.Female, CharacterDialogMoodType.Happy, CharacterDialogPosition.TopLeft);
 			_tutorialUtilsUi.Unblock();
-			_tutorialUtilsUi.BlockAround<MatchmakingScreenPresenter>("tutorial-drop-pos");
-			_tutorialUtilsUi.Highlight<MatchmakingScreenPresenter>("tutorial-drop-pos");
+			_tutorialUtilsUi.BlockAround<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
+			_tutorialUtilsUi.Highlight<PreGameLoadingScreenPresenter>("tutorial-drop-pos");
 		}
 		
 		private void OnMapSelectExit()

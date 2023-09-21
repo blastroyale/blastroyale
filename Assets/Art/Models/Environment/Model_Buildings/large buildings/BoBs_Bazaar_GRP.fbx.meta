@@ -31,12 +31,12 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Top","base"],"padding":[5,6],"unwrapper":[0,0]}'
+    - '#BAKERY{"meshName":["Top","base"],"padding":[7,8],"unwrapper":[0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

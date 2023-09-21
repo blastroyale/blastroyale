@@ -223,9 +223,9 @@ namespace FirstLight.Game.Services
 				}
 
 				var frameData = frame.GetPlayerData(quantumPlayerData.Data.Player);
+
 				List<Equipment> gear = new();
 				Equipment weapon = Equipment.None;
-
 				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
 				{
 					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];
@@ -287,8 +287,8 @@ namespace FirstLight.Game.Services
 				? Leader
 				: LocalPlayer;
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var matchType = room?.GetMatchType() ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
+			var room = _services.RoomService.CurrentRoom;
+			var matchType = room?.Properties.MatchType.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
@@ -306,7 +306,8 @@ namespace FirstLight.Game.Services
 				ExecutingPlayer = playerRef,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Count()
+				GamePlayerCount = QuantumPlayerMatchData.Count(),
+				AllowedRewards = _services.RoomService.CurrentRoom.Properties.AllowedRewards.Value
 			};
 			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;

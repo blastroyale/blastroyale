@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 090000006c000000410000007100000072000000
+      AllowedMaps: 090000006c00000041000000710000007200000073000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -45,6 +45,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1
@@ -68,7 +69,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 3
       MinPlayersInTeam: 1
-      AllowedMaps: 090000006c000000410000007100000072000000
+      AllowedMaps: 090000006c00000041000000710000007200000073000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1
@@ -89,6 +90,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: BattleRoyale
       BotSearchForCrates: 1
@@ -133,6 +135,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -173,6 +176,7 @@ MonoBehaviour:
       DeathDropStrategy: 0
       DeathMarker: 0
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 0
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -213,6 +217,7 @@ MonoBehaviour:
       DeathDropStrategy: 5
       DeathMarker: 0
       MinimumHealth: 100
+      InstantLoad: 1
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 0
@@ -232,7 +237,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 41000000
+      AllowedMaps: 73000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -253,6 +258,7 @@ MonoBehaviour:
       DeathDropStrategy: 4
       DeathMarker: 1
       MinimumHealth: 0
+      InstantLoad: 0
       AllowBots: 1
       UseBotsFromGamemode: 
       BotSearchForCrates: 1

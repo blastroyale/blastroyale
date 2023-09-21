@@ -105,7 +105,6 @@ namespace FirstLight.Game.TestCases.Helpers
 
 		public void OnAwake()
 		{
-			QuantumRunnerConfigs.FixedSeed = 42;
 		}
 
 		void IInputManipulator.Stop()

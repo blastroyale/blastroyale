@@ -4787,7 +4787,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Custom
+      - Custom Game
       - "\u041E\u0431\u044B\u0447\u0430\u0439"
       - Personalizado
       - 
@@ -5791,7 +5791,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MAZE MAYHEM
+      - NEW BR MAP
       - "\u041D\u043E\u0432\u0430\u044F \u043A\u0430\u0440\u0442\u0430 BR"
       - Novo mapa BR
       - 
@@ -5855,13 +5855,24 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/Ranked
+    - Term: GameIds/Matchmaking
       TermType: 0
       Description: 
       Languages:
-      - Ranked
+      - Matchmaking
       - "\u0420\u0430\u043D\u0436\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439"
       - Classificado
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Forced
+      TermType: 0
+      Description: 
+      Languages:
+      - ' '
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -7410,6 +7421,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - BIG ROYALE TRIOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MazeMayhem
+      TermType: 0
+      Description: 
+      Languages:
+      - MAZE MAYHEM
       - 
       - 
       - 
@@ -14902,9 +14924,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - K
-      - K
-      - K
+      - Kills
+      - Kills
+      - Kills
       - 
       - 
       Flags: 0000000000
@@ -14938,6 +14960,39 @@ MonoBehaviour:
       - TROPHIES
       - "\u0422\u0440\u043E\u0444\u0435\u0438"
       - "Trof\xE9us"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/wins
+      TermType: 0
+      Description: 
+      Languages:
+      - Wins
+      - Games Won
+      - "Vit\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/games
+      TermType: 0
+      Description: 
+      Languages:
+      - Games
+      - Games
+      - Jogos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      - 
       - 
       - 
       Flags: 0000000000
@@ -17105,7 +17160,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1692614902762
+    Google_LastUpdatedVersion: 1694970292172
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

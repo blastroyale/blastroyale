@@ -134,7 +134,6 @@ namespace FirstLight.Game.StateMachines
 			var store = stateFactory.Wait("Store");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 
 			void AddGoToMatchmakingHook(params IStateEvent[] states)
@@ -179,7 +178,6 @@ namespace FirstLight.Game.StateMachines
 			store.WaitingFor(OpenStore).Target(homeCheck);
 			AddGoToMatchmakingHook(settingsMenu, equipmentMenu, collectionMenu, battlePass, leaderboard, store);
 
-			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
 			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			playClickedCheck.Transition().Condition(CheckPartyNotReady).Target(homeCheck);
 			playClickedCheck.Transition().Condition(CheckIsNotPartyLeader).OnTransition(TogglePartyReadyStatus)
@@ -209,7 +207,6 @@ namespace FirstLight.Game.StateMachines
 			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
 			brokenItems.OnExit(CloseBrokenItemsPopUp);
 
-			loadoutRestricted.WaitingFor(OpenItemsAmountInvalidDialog).Target(homeCheck);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(PlayClickedEvent).OnTransition(OpenHomeScreen).Target(waitMatchmaking);
@@ -341,20 +338,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchmakingCancelMessage());
 		}
-
-
-		private bool LoadoutCountCheckToPlay()
-		{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-
-			if (FeatureFlags.GetLocalConfiguration().IgnoreEquipmentRequirementForRanked)
-			{
-				return false;
-			}
-#endif
-			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
-				&& !_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
-		}
+        
 
 		private bool CheckItemsBroken()
 		{

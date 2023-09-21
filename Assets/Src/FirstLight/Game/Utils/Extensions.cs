@@ -332,10 +332,10 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
-		public static int GetMapId(this Room room)
+		/*public static int GetMapId(this Room room)
 		{
 			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
-		}
+		}*/
 		
 		public static List<GameId> GetLoadoutGameIds(this Player player)
 		{
@@ -345,53 +345,47 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Obtains the current selected game mode id in the given <paramref name="room"/>
 		/// </summary>
+		/*
 		public static string GetGameModeId(this Room room)
 		{
 			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
 		}
+		*/
 
 		/// <summary>
 		/// Return if this room was created by playfab matchmaking
 		/// </summary>
-		public static bool ShouldUsePlayFabMatchmaking(this Room room, IConfigsProvider configsProvider)
+		/*public static bool ShouldUsePlayFabMatchmaking(this Room room, IConfigsProvider configsProvider)
 		{
 			var gamemodeId = room.GetGameModeId();
 			return configsProvider.GetConfig<QuantumGameModeConfig>(gamemodeId).ShouldUsePlayfabMatchmaking();
-		}
+		}*/
 
 
 		/// <summary>
 		/// Obtains the current room creation time (created with UTC.Now)
 		/// </summary>
-		public static DateTime GetRoomCreationDateTime(this Room room)
+		/*public static DateTime GetRoomCreationDateTime(this Room room)
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
-		}
+		}*/
 
 		/// <summary>
 		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
 		/// </summary>
-		public static Vector3 GetDropzonePosRot(this Room room)
+		/*public static Vector3 GetDropzonePosRot(this Room room)
 		{
 			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
-		}
-
-		/// <summary>
-		/// Obtains the current room creation time (created with UTC.Now)
-		/// </summary>
-		public static string TrimRoomCommitLock(this string roomName)
-		{
-			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
-		}
+		}*/
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
 		/// </summary>
-		public static List<string> GetMutatorIds(this Room room)
+		/*public static List<string> GetMutatorIds(this Room room)
 		{
 			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
 			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-		}
+		}*/
 
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
@@ -412,18 +406,20 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Obtains info on whether the room is used for matchmaking
 		/// </summary>
+		/*
 		public static bool HaveStartedGame(this Room room)
 		{
 			return room.GetProp<bool>(GameConstants.Network.ROOM_PROPS_STARTED_GAME);
 		}
+		*/
 
 		/// <summary>
 		/// Obtains the <see cref="MatchType"/> of this room.
 		/// </summary>
-		public static MatchType GetMatchType(this Room room)
+		/*public static MatchType GetMatchType(this Room room)
 		{
 			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
-		}
+		}*/
 
 		/// <summary>
 		/// Can a game room frame be restored from a local snapshot ?
@@ -465,91 +461,25 @@ namespace FirstLight.Game.Utils
 			return default;
 		}
 
-		public static MatchRoomSetup GetMatchSetup(this Room room)
+		/*public static MatchRoomSetup GetMatchSetup(this Room room)
 		{
 			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_SETUP];
 			return ModelSerializer.Deserialize<MatchRoomSetup>(str);
-		}
+		}*/
 
-		/// <summary>
-		/// Obtains amount of non-spectator players currently in room
-		/// </summary>
-		public static int GetRealPlayerAmount(this Room room)
-		{
-			int playerAmount = 0;
-
-			foreach (var kvp in room.Players)
-			{
-				kvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_SPECTATOR, out var isSpectator);
-				if (isSpectator is null or false)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
-		}
-
-		/// <summary>
-		/// Obtains amount of spectators players currently in room
-		/// </summary>
-		public static int GetSpectatorAmount(this Room room)
-		{
-			int playerAmount = 0;
-
-			foreach (var kvp in room.Players)
-			{
-				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-
-				if (isSpectator)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
-		}
+        
+	
 
 		/// <summary>
 		/// Obtains room capacity for non-spectator players
 		/// </summary>
-		public static int GetRealPlayerCapacity(this Room room)
-		{
-			return room.MaxPlayers - room.GetSpectatorCapacity();
-		}
-
-		/// <summary>
-		/// Obtains room capacity for non-spectator players
-		/// </summary>
-		public static int GetSpectatorCapacity(this Room room)
+		/*public static int GetSpectatorCapacity(this Room room)
 		{
 			return NetworkUtils.GetMaxSpectators(room.GetMatchSetup());
-		}
+		}*/
 
-		/// <summary>
-		/// Obtains info on whether room has all its player slots full
-		/// </summary>
-		public static bool IsAtFullPlayerCapacity(this Room room, IConfigsProvider cfgProvider)
-		{
-			// This is playfab mm
-			if (room.ShouldUsePlayFabMatchmaking(cfgProvider) && room.ExpectedUsers != null && room.ExpectedUsers.Length > 0)
-			{
-				bool everyBodyJoined = room.ExpectedUsers
-					.All(id => room.Players.Any(p => p.Value.UserId == id));
-
-				bool everybodyLoadedCoreAssets = room.Players.Values.All(p => p.LoadedCoreMatchAssets());
-				return everyBodyJoined && everybodyLoadedCoreAssets;
-			}
-			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
-		}
-
-		/// <summary>
-		/// Obtains info on whether room has all its spectator slots full
-		/// </summary>
-		public static bool IsAtFullSpectatorCapacity(this Room room)
-		{
-			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
-		}
+		
+        
 
 		/// <summary>
 		/// Obtains spectator/player status for player
@@ -746,7 +676,7 @@ namespace FirstLight.Game.Utils
 
 		public static void SelectDefaultRankedMode(this IGameModeService service)
 		{
-			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
+			var gameMode = service.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Matchmaking);
 			service.SelectedGameMode.Value = gameMode;
 		}
 

@@ -136,13 +136,14 @@ namespace FirstLight.Game.Services
 			if (!CanGameBeReconnected()) return;
 			
 			var isOffline = _services.NetworkService.LastConnectedRoom?.IsOffline;
+			var lastRoom = _services.RoomService.LastRoom;
 			var snapshot = new FrameSnapshot()
 			{
-				RoomName = _services.NetworkService.LastConnectedRoom?.Name,
+				RoomName = lastRoom?.Name,
 				TimeInTicks = DateTime.UtcNow.Ticks,
-				Offline = isOffline.HasValue ? isOffline.Value : false,
-				Setup = _services.NetworkService.LastConnectedRoom.GetMatchSetup(),
-				AmtPlayers = (byte)_services.NetworkService.LastConnectedRoom.GetRealPlayerAmount()
+				Offline = lastRoom?.IsOffline ?? false,
+				Setup = lastRoom?.ToMatchSetup(),
+				AmtPlayers = (byte) lastRoom?.GetRealPlayerAmount(),
 			};
 
 			if (ShouldAddFrameData())

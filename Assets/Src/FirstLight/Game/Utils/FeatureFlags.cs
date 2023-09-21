@@ -117,6 +117,8 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool QUANTUM_CUSTOM_SERVER = false;
 
+		public static bool RANKED_BORDERS = false;
+		
 		/// <summary>
 		/// If true will load game configurations from remote server
 		/// </summary>
@@ -277,6 +279,11 @@ namespace FirstLight.Game.Utils
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
+			
+			if (TrySetFlag("RANKED_BORDERS", overrideData, out var rankedBorders))
+			{
+				RANKED_BORDERS = rankedBorders;
+			}
 
 			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
 			{
@@ -330,11 +337,7 @@ namespace FirstLight.Game.Utils
 				TUTORIAL = _localConfig.Tutorial.Bool();
 			}
 
-			if (_localConfig.RecordQuantumInput)
-			{
-				// Fix the seed
-				QuantumRunnerConfigs.FixedSeed = 42;
-			}
+			
 		}
 
 		/// <summary>

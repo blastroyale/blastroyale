@@ -87,11 +87,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
-
-		/// <summary>
-		/// Requests to see if player has enough NFTs equipped for play
-		/// </summary>
-		bool EnoughLoadoutEquippedToPlay();
+        
 
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
@@ -355,12 +351,7 @@ namespace FirstLight.Game.Logic
 
 			return ret;
 		}
-
-		public bool EnoughLoadoutEquippedToPlay()
-		{
-			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
-		}
-
+        
 		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			if (config.Level < 1)

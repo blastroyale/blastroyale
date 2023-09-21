@@ -6,6 +6,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Quantum;
 
 public partial class SROptions
 {
@@ -16,7 +17,7 @@ public partial class SROptions
 	[Category("Create Game Mode")] public string Mutators { get; set; }
 
 	[Category("Create Game Mode")] public bool Squads { get; set; }
-	
+
 	[Category("Create Game Mode")] public bool NFT { get; set; }
 
 	[Category("Create Game Mode")]
@@ -26,6 +27,6 @@ public partial class SROptions
 			new GameModeInfo(GameModeId, MatchType,
 				string.IsNullOrEmpty(Mutators)
 					? new List<string>()
-					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(), Squads, NFT);
+					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(), Squads, NFT, GameConstants.Data.AllowedGameRewards);
 	}
 }

@@ -159,6 +159,11 @@ MonoBehaviour:
         Id:
           Value: 534549481968428075
       Address: QuantumAssets/Default Config Assets/Default PhysicsMaterialAsset.asset
+    - Path: AddressableResources/Maps/MazeMayhem
+      AssetRef:
+        Id:
+          Value: 534712889589439825
+      Address: Maps/MazeMayhem.asset
     - Path: AddressableResources/Maps/MainDeck
       AssetRef:
         Id:
@@ -369,6 +374,11 @@ MonoBehaviour:
         Id:
           Value: 1093005050644660195
       Address: QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig.asset
+    - Path: AddressableResources/Maps/MazeMayhem_NavMesh_data
+      AssetRef:
+        Id:
+          Value: 1151613473964670480
+      Address: Maps/MazeMayhem_NavMesh_data.asset
     - Path: AddressableResources/Maps/BattlelandsMap_NavMesh_data
       AssetRef:
         Id:
@@ -719,6 +729,11 @@ MonoBehaviour:
         Id:
           Value: 2549353079267951186
       Address: Maps/FtueDeck_NavMesh_data.asset
+    - Path: AddressableResources/Maps/MazeMayhem_mesh
+      AssetRef:
+        Id:
+          Value: 2551591651683386162
+      Address: Maps/MazeMayhem_mesh.asset
     - Path: AddressableResources/Maps/District_NavMesh
       AssetRef:
         Id:
@@ -739,6 +754,11 @@ MonoBehaviour:
         Id:
           Value: 2794687721108520062
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardBool_3]
+    - Path: AddressableResources/Maps/MazeMayhem_NavMesh
+      AssetRef:
+        Id:
+          Value: 2797025370966690795
+      Address: Maps/MazeMayhem_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_10
       AssetRef:
         Id:

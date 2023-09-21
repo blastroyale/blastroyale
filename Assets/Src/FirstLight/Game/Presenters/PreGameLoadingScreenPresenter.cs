@@ -11,6 +11,7 @@ using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -31,8 +32,7 @@ namespace FirstLight.Game.Presenters
 	/// matchmaking and custom lobby, just before players are dropped into the match.
 	/// </summary>
 	[LoadSynchronously]
-	public class MatchmakingScreenPresenter : UiToolkitPresenterData<MatchmakingScreenPresenter.StateData>,
-											  IInRoomCallbacks
+	public class PreGameLoadingScreenPresenter : UiToolkitPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -61,14 +61,14 @@ namespace FirstLight.Game.Presenters
 		private Label _debugPlayerCountLabel;
 		private Label _debugMasterClient;
 		private IGameServices _services;
-		private Coroutine _matchmakingTimerCoroutine;
+		private GameRoom CurrentRoom => _services.RoomService.CurrentRoom;
+		private Coroutine _gameStartTimerCoroutine;
 		private Tweener _planeFlyTween;
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
 
 		private List<Player> _squadMembers = new();
 
-		private Room CurrentRoom => _services.NetworkService.CurrentRoom;
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
 		private void Awake()
@@ -118,8 +118,13 @@ namespace FirstLight.Game.Presenters
 
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 
+			_services.RoomService.OnPlayersChange += OnPlayersChanged;
+			_services.RoomService.OnMasterChanged += UpdateMasterClient;
+			_services.RoomService.OnPlayerPropertiesUpdated += OnPlayerPropertiesUpdate;
 			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 		}
+
+	
 
 		protected override void OnOpened()
 		{
@@ -130,8 +135,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshPartyList()
 		{
-			if (!_services.NetworkService.CurrentRoomGameModeConfig.HasValue) return;
-			var isSquadGame = _services.NetworkService.CurrentRoomGameModeConfig!.Value!.Teams;
+			var isSquadGame = CurrentRoom.GameModeConfig.Teams;
 
 			if (isSquadGame)
 			{
@@ -164,7 +168,7 @@ namespace FirstLight.Game.Presenters
 				if (squadMember.IsLocal) continue;
 
 				var memberDropPosition = squadMember.GetDropPosition();
-				var marker = new VisualElement { name = "marker" };
+				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
@@ -178,7 +182,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
 
-			((Label)element).text = _squadMembers[index].NickName;
+			((Label) element).text = _squadMembers[index].NickName;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -192,9 +196,9 @@ namespace FirstLight.Game.Presenters
 		{
 			base.UnsubscribeFromEvents();
 
-			if (_matchmakingTimerCoroutine != null)
+			if (_gameStartTimerCoroutine != null)
 			{
-				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
+				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
 
 			_services.MessageBrokerService.Unsubscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
@@ -215,7 +219,7 @@ namespace FirstLight.Game.Presenters
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (_mapImage == null) return;
-			
+
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 
 			if (checkClickWithinRadius)
@@ -246,7 +250,6 @@ namespace FirstLight.Game.Presenters
 
 		private bool IsWithinMapRadius(Vector3 dropPos)
 		{
-			
 			var mapRadius = _mapImage.contentRect.width / 2;
 			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
 				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
@@ -268,20 +271,10 @@ namespace FirstLight.Game.Presenters
 		}
 
 		// TODO: Should not be here, should only have a listener to timer events
-		private void UpdateMatchmakingTimer()
+		private void StartLabelTimerCoroutine()
 		{
-			var matchType = CurrentRoom.GetMatchType();
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
-			FLog.Verbose("Matchmaking Min Players: "+minPlayers);
-			var matchmakingTime = NetworkUtils.GetMatchmakingTime(matchType, gameModeConfig, quantumGameConfig);
-			if (_matchmakingTimerCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
-			}
-			_matchmakingTimerCoroutine =
-				_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
+			_gameStartTimerCoroutine =
+				_services.CoroutineService.StartCoroutine(GameStartTimerCoroutine());
 		}
 
 		private void InitMap(GeometryChangedEvent evt)
@@ -292,14 +285,13 @@ namespace FirstLight.Game.Presenters
 			// the geometry changed event fires constantly.
 			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
 
-			var matchType = CurrentRoom.GetMatchType();
-			var gameMode = CurrentRoom.GetGameModeId();
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var matchType = CurrentRoom.Properties.MatchType.Value;
+			var gameModeConfig = CurrentRoom.GameModeConfig;
+			var mapConfig = CurrentRoom.MapConfig;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_header.SetTitle(gameMode.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
+			_header.SetTitle(gameModeConfig.Id.GetTranslationGameIdString()?.ToUpper(), matchType.GetLocalization().ToUpper());
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
@@ -307,8 +299,8 @@ namespace FirstLight.Game.Presenters
 
 			UpdatePlayerCount();
 			UpdateMasterClient();
-			UpdateMatchmakingTimer();
-			
+			StartLabelTimerCoroutine();
+
 			if (!gameModeConfig.SkydiveSpawn || RejoiningRoom)
 			{
 				_dropzone.SetDisplay(false);
@@ -325,10 +317,6 @@ namespace FirstLight.Game.Presenters
 			{
 				OnWaitingMandatoryMatchAssets(new WaitingMandatoryMatchAssetsMessage());
 			}
-			else
-			{
-				StartPlaneFlyAnimLoop();
-			}
 
 			InitSkydiveSpawnMapData();
 			_ = LoadMapAsset(mapConfig);
@@ -336,42 +324,15 @@ namespace FirstLight.Game.Presenters
 
 		private void InitSkydiveSpawnMapData()
 		{
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-
-			// Init DZ position/rotation
-			var mapWidth = _mapHolder.contentRect.width;
-			var mapHeight = _mapHolder.contentRect.height;
 			var posX = 0f;
 			var posY = 0f;
-
-			if (gameModeConfig.SpawnPattern)
-			{
-				var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
-				_dropzone.SetDisplay(true);
-				posX = mapWidth * dropzonePosRot.x;
-				posY = mapHeight * dropzonePosRot.y;
-				_dropzone.transform.position = new Vector3(posX, posY);
-				_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
-			}
-			else
-			{
-				posX = Random.value * mapWidth / 2;
-				posY = Random.value * mapHeight / 2;
-				_dropzone.SetDisplay(false);
-			}
-
+			_dropzone.SetDisplay(false);
 			SelectMapPosition(new Vector2(posX, posY), false, false);
-
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
-
-		public void OnPlayerEnteredRoom(Player newPlayer)
-		{
-			UpdatePlayerCount();
-			RefreshPartyList();
-		}
-
-		public void OnPlayerLeftRoom(Player otherPlayer)
+        
+        
+		private void OnPlayersChanged(Player p, PlayerChangeReason r)
 		{
 			UpdatePlayerCount();
 			RefreshPartyList();
@@ -379,9 +340,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnWaitingMandatoryMatchAssets(WaitingMandatoryMatchAssetsMessage obj)
 		{
-			if (_matchmakingTimerCoroutine != null)
+			if (_gameStartTimerCoroutine != null)
 			{
-				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
+				_services.CoroutineService.StopCoroutine(_gameStartTimerCoroutine);
 			}
 
 			_header.SetHomeVisible(false);
@@ -418,47 +379,46 @@ namespace FirstLight.Game.Presenters
 		}
 
 
-		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
+		/// <summary>
+		///  Used only for updating the labels!!!!!!!!
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerator GameStartTimerCoroutine()
 		{
-			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
-			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
-			
-			while (DateTime.UtcNow < matchmakingEndTime && !CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
+			var wait = new WaitForSeconds(0.5f);
+			UpdateTimer();
+			while (true)
 			{
-				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
-				var translation = CurrentRoom.ShouldUsePlayFabMatchmaking(_services.ConfigsProvider)
-					? ScriptLocalization.UITMatchmaking.loading_status_waiting_timer
-					: ScriptLocalization.UITMatchmaking.loading_status_timer;
-				_loadStatusLabel.text = string.Format(translation, timeLeft.TotalSeconds.ToString("F0"));
-
-				yield return new WaitForSeconds(.2f);
+				yield return wait;
+				if (CurrentRoom.GameStarted) break;
+				UpdateTimer();
 			}
+		}
 
-			if (CurrentRoom.IsAtFullPlayerCapacity(_services.ConfigsProvider))
+		private void UpdateTimer()
+		{
+			if (CurrentRoom.ShouldTimerRun())
 			{
-				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
-			}
-			else if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
-			{
-				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+				if (CurrentRoom.GameStarted)
+				{
+					_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+					return;
+				}
+
+				var timeLeft = CurrentRoom.TimeLeftToGameStart();
+				if (timeLeft.Milliseconds < 0)
+				{
+					return;	
+				}
+				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_waiting_timer,
+					timeLeft.TotalSeconds.ToString("F0"));
 			}
 			else
 			{
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
 			}
 		}
-
-		private void StartPlaneFlyAnimLoop()
-		{
-			_plane.experimental.animation.Start(0, 100f, _planeFlyDurationMs,
-				(ve, val) => { ve.style.bottom = new Length(val, LengthUnit.Percent); }).OnCompleted(() =>
-			{
-				if (_dropSelectionAllowed)
-				{
-					StartPlaneFlyAnimLoop();
-				}
-			});
-		}
+        
 
 		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
 		{
@@ -469,23 +429,12 @@ namespace FirstLight.Game.Presenters
 			return descriptions;
 		}
 
-		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-		{
-			if (propertiesThatChanged.ContainsKey(GameConstants.Network.ROOM_PROPS_CREATION_TICKS))
-			{
-				UpdateMatchmakingTimer();
-			}
-		}
 
-		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+		public void OnPlayerPropertiesUpdate()
 		{
 			RefreshPartyList();
 		}
-
-		public void OnMasterClientSwitched(Player newMasterClient)
-		{
-		}
-
+		
 		private void OnCloseClicked()
 		{
 			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);

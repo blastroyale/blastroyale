@@ -54,19 +54,6 @@ namespace FirstLight.Game.Services
 		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
-		/// Requests current top leaderboard entries
-		/// </summary>
-		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
-								   Action<PlayFabError> onError);
-
-		/// <summary>
-		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
-		/// </summary>
-		void GetNeighborRankLeaderboard(int amountOfEntries,
-										Action<GetLeaderboardAroundPlayerResult> onSuccess,
-										Action<PlayFabError> onError);
-
-		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
 		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
@@ -305,23 +292,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void GetTopRankLeaderboard(int amountOfEntries,
-										  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError)
-		{
-			var leaderboardRequest = new GetLeaderboardRequest() { StatisticName = _leaderboardLadderName, StartPosition = 0, MaxResultsCount = amountOfEntries, ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowDisplayName = true, } };
-
-			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
-		}
-
-		/// <inheritdoc />
-		public void GetNeighborRankLeaderboard(int amountOfEntries,
-											   Action<GetLeaderboardAroundPlayerResult> onSuccess,
-											   Action<PlayFabError> onError)
-		{
-			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest() { StatisticName = _leaderboardLadderName, MaxResultsCount = amountOfEntries };
-
-			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, e => { HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session); });
-		}
+		
 
 		/// <inheritdoc />
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,

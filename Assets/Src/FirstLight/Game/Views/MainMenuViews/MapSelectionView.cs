@@ -43,7 +43,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Setup the map visuals to look awesome on the screen and selects a random point in battle royale mode
 		/// </summary>
-		public async void SetupMapView(string gameModeId, int mapId, Vector3 dropzonePosRot)
+		public async void SetupMapView(string gameModeId, int mapId)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId);
@@ -59,7 +59,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
 			_mapImage.rectTransform.localScale = Vector3.one / _dropSelectionSize;
-			SelectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
 			var selectionPattern = gameModeConfig.SpawnPattern;
 
 			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
@@ -71,18 +70,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
 			_aspectRatioFitter.aspectRatio = (_mapImage.preferredWidth / _mapImage.preferredHeight);
 
-			if (SelectionEnabled)
-			{
-				var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-				var position = new Vector2Int(
-					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().x / 2), 
-					Mathf.FloorToInt(Random.value * mapGridConfigs.GetSize().y) / 2);
-				SetGridPosition(position, false);
-				_dropzoneLayout.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
-
-				_services.AnalyticsService.MatchCalls.DefaultDropPosition = position;
-				_services.AnalyticsService.MatchCalls.PresentedMapPath = dropzonePosRot.ToString();
-			}
+		
 		}
 
 		/// <inheritdoc />

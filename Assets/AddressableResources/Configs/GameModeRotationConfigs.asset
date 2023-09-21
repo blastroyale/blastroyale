@@ -18,13 +18,15 @@ MonoBehaviour:
     Slots:
     - Entries:
       - GameModeId: BattleRoyale
-        MatchType: 2
+        MatchType: 1
         Mutators: []
         Squads: 0
         NFT: 0
+        AllowedRewards: 030000000c000000160000001a000000
     - Entries:
       - GameModeId: BattleRoyaleTrios
-        MatchType: 2
+        MatchType: 1
         Mutators: []
         Squads: 1
         NFT: 0
+        AllowedRewards: 030000000c000000160000001a000000

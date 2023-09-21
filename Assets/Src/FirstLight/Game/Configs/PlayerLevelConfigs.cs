@@ -9,7 +9,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct PlayerLevelConfig
 	{
-		public uint Level;
+		public uint LevelStart;
+		public uint LevelEnd;
 		public uint LevelUpXP;
 		public SerializedDictionary<GameId,int> Rewards;
 		public List<UnlockSystem> Systems;

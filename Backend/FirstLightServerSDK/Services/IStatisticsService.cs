@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.Server.SDK.Models;
 
 namespace FirstLightServerSDK.Services
 {
@@ -24,8 +23,13 @@ namespace FirstLightServerSDK.Services
 		void UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
 
 		/// <summary>
-		/// Gets the statistics profile of a given user
+		/// Gets the current season of a given statistic
 		/// </summary>
-		Task<PublicPlayerProfile> GetProfile(string user);
+		void GetSeason(string name, Action<int> onGetSeason, Action<string> onError);
+		
+		/// <summary>
+		/// Gets season of a metric, async
+		/// </summary>
+		Task<int> GetSeasonAsync(string name);
 	}
 }

@@ -124,9 +124,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SetupPopup()
 		{
-			var t = new PlayerProfileService(MainInstaller.ResolveServices().GameBackendService);
-			
-			t.GetPlayerPublicProfile(Data.PlayerId, (result) =>
+			MainInstaller.ResolveServices().ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 

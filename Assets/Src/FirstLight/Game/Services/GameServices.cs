@@ -78,6 +78,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameBackendService"/>
 		IGameBackendService GameBackendService { get; }
+		
+		/// <inheritdoc cref="IPlayerProfileService"/>
+		IPlayerProfileService ProfileService { get; }
 
 		/// <inheritdoc cref="IAuthenticationService"/>
 		IAuthenticationService AuthenticationService { get; }
@@ -153,6 +156,8 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
+		
+		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
 		public ILiveopsService LiveopsService { get; }
@@ -197,13 +202,14 @@ namespace FirstLight.Game.Services
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			TutorialService = tutorialService;
-
+			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
 			PlayfabPubSubService = new PlayfabPubSubService(MessageBrokerService);
 			GameBackendService =
 				new GameBackendService(messageBrokerService, gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this, dataService, networkService, gameLogic,
 				configsProvider);
 			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider, GameBackendService,

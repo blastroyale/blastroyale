@@ -13,13 +13,14 @@ using PlayFab.SharedModels;
 namespace FirstLight.Game.Services
 {
 	/// <summary>
-	/// This service provides....
+	/// This service provides access to player profile
 	/// </summary>
 	public interface IPlayerProfileService
 	{
 		/// <summary>
-		/// 
+		/// Query read-only public player profile data
 		/// </summary>
+		void GetPlayerPublicProfile(string playerId, Action<PublicPlayerProfile> onSuccess);
 	}
 	
 	/// <inheritdoc cref="IPlayerProfileService"/>
@@ -32,17 +33,6 @@ namespace FirstLight.Game.Services
 			_backend = backend;
 		}
 		
-		public void TestServerQuery()
-		{
-			GetPlayerPublicProfile(PlayFabSettings.staticPlayer.PlayFabId, (result) =>
-			{
-				foreach (var s in result.Statistics)
-				{
-					Debug.Log($"{s.Name} = {s.Value}");
-				}
-			});
-		}
-
 		public void GetPlayerPublicProfile(string playerId, Action<PublicPlayerProfile> onSuccess)
 		{
 			_backend.CallFunction("GetPublicProfile", r =>

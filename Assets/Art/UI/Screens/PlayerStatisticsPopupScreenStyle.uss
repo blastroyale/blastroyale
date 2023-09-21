@@ -96,14 +96,6 @@
     margin-bottom: 0;
 }
 
-.stats-container__stat-name {
-    -unity-text-align: upper-center;
-    white-space: nowrap;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
 .stats-container__stat-value {
     justify-content: center;
     align-items: center;
@@ -178,4 +170,8 @@
     justify-content: center;
     align-items: center;
     align-self: center;
+}
+
+.stats-container__stat-name {
+    font-size: 30px;
 }

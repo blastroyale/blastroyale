@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
+using FirstLight.Server.SDK.Models;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -32,15 +34,13 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _loadingSpinner;
 		private VisualElement _avatarImageLoadingSpinner;
 		private VisualElement _pfpImage;
-
-		private VisualElement _statRow0;
-		private VisualElement _statRow1;
+		
 		private Label[] _statLabels;
 		private Label[] _statValues;
 		private VisualElement[] _statContainers;
 		private int _pfpRequestHandle = -1;
 		
-		private const int StatisticMaxSize = 8;
+		private const int StatisticMaxSize = 6;
 		
 		private void Awake()
 		{
@@ -71,10 +71,7 @@ namespace FirstLight.Game.Presenters
 			_statValues = new Label[StatisticMaxSize];
 			_statContainers = new VisualElement[StatisticMaxSize];
 
-			root.Q<ImageButton>("EditNameButton").clicked += () =>
-			{
-				Data.OnEditNameClicked();
-			};
+			root.Q<ImageButton>("EditNameButton").clicked += () =>Data.OnEditNameClicked();
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
@@ -84,9 +81,7 @@ namespace FirstLight.Game.Presenters
 			_nameLabel = root.Q<Label>("NameLabel").Required();
 			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
 
-			_statRow0 = root.Q<VisualElement>($"StatRow0").Required();
-			_statRow1 = root.Q<VisualElement>($"StatRow1").Required();
-				
+			
 			for (int i = 0; i < StatisticMaxSize; i++)
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
@@ -119,6 +114,14 @@ namespace FirstLight.Game.Presenters
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}
 
+		private void SetStatInfo(int index, PublicPlayerProfile result, string statName)
+		{
+			var stat = result.Statistics.FirstOrDefault(s => s.Name == statName);
+			_statLabels[index].text = statName;
+			_statValues[index].text = stat.Value.ToString();
+			_statContainers[index].visible = true;
+		}
+
 		private void SetupPopup()
 		{
 			var t = new PlayerProfileService(MainInstaller.ResolveServices().GameBackendService);
@@ -127,19 +130,13 @@ namespace FirstLight.Game.Presenters
 			{
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
-				var i = 0;
-				foreach (var s in result.Statistics)
-				{
-					_statContainers[i].visible = true;
-					_statLabels[i].text = s.Name;
-					_statValues[i].text = s.Value.ToString();
-					i++;
-					Debug.Log($"{s.Name} = {s.Value}");
-				}
-
-				_statRow0.visible = result.Statistics.Count > 0;
-				_statRow1.visible = result.Statistics.Count > (StatisticMaxSize / 2);
-
+				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER);
+				SetStatInfo(1, result, GameConstants.Stats.RANKED_KILLS_EVER);
+				SetStatInfo(2, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER);
+				SetStatInfo(3, result, GameConstants.Stats.KILLS_EVER);
+				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER);
+				SetStatInfo(5, result, GameConstants.Stats.GAMES_PLAYED_EVER);
+				
 				if (!string.IsNullOrEmpty(result.AvatarUrl))
 				{
 					_pfpRequestHandle = _services.RemoteTextureService.RequestTexture(

@@ -24,33 +24,25 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="StatsContainer1" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName1" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue1" class="stats-container__stat-value" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue1" class="stats-container_stat-value" />
                         </ui:VisualElement>
                         <ui:VisualElement name="StatsContainer2" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName2" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue2" class="stats-container__stat-value" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer3" class="stats-container">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName3" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue3" class="stats-container__stat-value" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue2" class="stats-container_stat-value" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="StatRow1" class="stat-row">
+                        <ui:VisualElement name="StatsContainer3" class="stats-container">
+                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName3" class="stats-container__stat-name" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue3" class="stats-container_stat-value" />
+                        </ui:VisualElement>
                         <ui:VisualElement name="StatsContainer4" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName4" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue4" class="stats-container__stat-value" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue4" class="stats-container_stat-value" />
                         </ui:VisualElement>
                         <ui:VisualElement name="StatsContainer5" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName5" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue5" class="stats-container__stat-value" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer6" class="stats-container">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName6" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue6" class="stats-container__stat-value" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="StatsContainer7" class="stats-container">
-                            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName7" class="stats-container__stat-name" />
-                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue7" class="stats-container__stat-value" />
+                            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue0" class="stats-container_stat-value" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

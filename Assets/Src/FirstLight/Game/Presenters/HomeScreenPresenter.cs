@@ -107,20 +107,27 @@ namespace FirstLight.Game.Presenters
 		{
 			root.Q<ImageButton>("ProfileButton").clicked += () => 
 			{
-				var data = new PlayerStatisticsPopupPresenter.StateData
+				if (FeatureFlags.PLAYER_STATS_ENABLED)
 				{
-					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
-					OnCloseClicked = () =>
+					var data = new PlayerStatisticsPopupPresenter.StateData
 					{
-						_uiService.CloseUi<PlayerStatisticsPopupPresenter>();
-					},
-					OnEditNameClicked = () =>
-					{
-						Data.OnProfileClicked();
-					}
-				};
-					
-				_uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+						PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+						OnCloseClicked = () =>
+						{
+							_uiService.CloseUi<PlayerStatisticsPopupPresenter>();
+						},
+						OnEditNameClicked = () =>
+						{
+							Data.OnProfileClicked();
+						}
+					};
+
+					_uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+				}
+				else
+				{
+					Data.OnProfileClicked();
+				}
 			}; 
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();

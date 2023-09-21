@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Prop_TrafficCone_GEO"],"padding":[127],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Prop_TrafficCone_GEO"],"padding":[170],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

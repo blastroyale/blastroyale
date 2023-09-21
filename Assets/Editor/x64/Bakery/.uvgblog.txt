@@ -7485,3 +7485,733 @@ Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LMA3_fi
 Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/NewBRMap_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/NewBRMap_LM0_final.hdr" 1024
 [usbmuxd] Stop listen thread
 [usbmuxd] Listen thread exiting
+2023-9-18
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_diffuse" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_diffuse" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_diffuse" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_diffuse" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_diffuse" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_diffuse" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_diffuse" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final" 4 16 5 "gi_MazeMayhem_LMA51.bin" "MazeMayhem_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA41.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA11.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA21.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA31.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM01.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "MazeMayhem_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting
+2023-9-18
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA6 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA6.lz4" 2 0 6 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_ao" 8 16 6
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_6" 4 0 6 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_6" 4 0 6 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6" 4 0 6 comp_6.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_diffuse" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_diffuse" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_diffuse" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_diffuse" 4 16 6 "gi_MazeMayhem_LMA60.bin" "MazeMayhem_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_diffuse" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_diffuse" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_diffuse" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA11.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final" 4 16 5 "gi_MazeMayhem_LMA51.bin" "MazeMayhem_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA21.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_final" 4 16 6 "gi_MazeMayhem_LMA61.bin" "MazeMayhem_LMA6_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA31.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA41.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM01.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "MazeMayhem_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_final_HDR.lz4" 4 0 6 addao_6.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "6" "MazeMayhem_LMA6_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA6_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+[usbmuxd] Stop listen thread
+[usbmuxd] Listen thread exiting
+2023-9-19
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_diffuse" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_diffuse" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_diffuse" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_diffuse" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_diffuse" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_diffuse" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA41.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA31.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA21.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA11.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final" 4 16 5 "gi_MazeMayhem_LMA51.bin" "MazeMayhem_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM01.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "MazeMayhem_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "MazeMayhem_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+2023-9-20
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA5 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA6 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA6.lz4" 2 0 6 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA5.lz4" 2 0 5 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_ao" 8 16 6
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_ao" 8 16 5
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_6" 4 0 6 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_6" 4 0 6 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6" 4 0 6 comp_6.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_5" 4 0 5 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_5" 4 0 5 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5" 4 0 5 comp_5.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_diffuse" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_diffuse" 4 16 6 "gi_MazeMayhem_LMA60.bin" "MazeMayhem_LMA6_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_diffuse" 4 16 5 "gi_MazeMayhem_LMA50.bin" "MazeMayhem_LMA5_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_diffuse" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_diffuse" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_diffuse" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_diffuse" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA41.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_final" 4 16 6 "gi_MazeMayhem_LMA61.bin" "MazeMayhem_LMA6_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final" 4 16 5 "gi_MazeMayhem_LMA51.bin" "MazeMayhem_LMA5_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA11.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA31.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA21.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM01.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA6_final_HDR.lz4" 4 0 6 addao_6.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "6" "MazeMayhem_LMA6_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA5_final_HDR.lz4" 4 0 5 addao_5.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "5" "MazeMayhem_LMA5_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA6_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA6_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA5_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA5_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+Loaded vertex shader: quad.vso
+Loaded pixel shader: skyOutput.pso
+Loaded pixel shader: cookieOutput.pso
+initShaders done
+initScene done
+Done
+Rendering UV GBuffer for MazeMayhem_LM0 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA1 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA2 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA3 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Rendering UV GBuffer for MazeMayhem_LMA4 51
+RGBA32F...RGBA8...RGBA8_SRGB...RGBA16F...states...
+Rendering UV normal...
+Rendering faceted UV normal...
+Rendering UV pos...
+Rendering smooth UV pos...
+Done
+Done
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA4.lz4" 2 0 4 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA3.lz4" 2 0 3 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LM0.lz4" 2 0 0 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA1.lz4" 2 0 1 0
+Running ftraceRTX fixpos12 "C:\Users\user\AppData\Local\Temp\frender" "uvpos_MazeMayhem_LMA2.lz4" 2 0 2 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_ao" 8 16 4
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_ao" 8 16 3
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_ao" 8 16 0
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_ao" 8 16 1
+Running ftraceRTX ao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_ao" 8 16 2
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_4" 4 0 4 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_4" 4 0 4 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4" 4 0 4 comp_4.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_3" 4 0 3 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_3" 4 0 3 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3" 4 0 3 comp_3.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_0" 4 0 0 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_0" 4 0 0 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0" 4 0 0 comp_0.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_1" 4 0 1 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_1" 4 0 1 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1" 4 0 1 comp_1.bin
+Running ftraceRTX sky "C:\Users\user\AppData\Local\Temp\frender" "light_1_2" 4 0 2 sky0.bin
+Running ftraceRTX sun "C:\Users\user\AppData\Local\Temp\frender" "light_2_2" 4 0 2 direct0.bin
+Running ftraceRTX addmul "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2" 4 0 2 comp_2.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_diffuse" 4 16 4 "gi_MazeMayhem_LMA40.bin" "MazeMayhem_LMA4_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_diffuse" 4 16 3 "gi_MazeMayhem_LMA30.bin" "MazeMayhem_LMA3_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_diffuse" 4 16 0 "gi_MazeMayhem_LM00.bin" "MazeMayhem_LM0_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_diffuse" 4 16 1 "gi_MazeMayhem_LMA10.bin" "MazeMayhem_LMA1_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_diffuse" 4 16 2 "gi_MazeMayhem_LMA20.bin" "MazeMayhem_LMA2_diffuse0_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final" 4 16 4 "gi_MazeMayhem_LMA41.bin" "MazeMayhem_LMA4_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final" 4 16 3 "gi_MazeMayhem_LMA31.bin" "MazeMayhem_LMA3_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final" 4 16 0 "gi_MazeMayhem_LM01.bin" "MazeMayhem_LM0_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final" 4 16 1 "gi_MazeMayhem_LMA11.bin" "MazeMayhem_LMA1_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX texgi "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final" 4 16 2 "gi_MazeMayhem_LMA21.bin" "MazeMayhem_LMA2_lights_HDR.lz4" vbTraceTex.bin
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA4_final_HDR.lz4" 4 0 4 addao_4.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "4" "MazeMayhem_LMA4_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA3_final_HDR.lz4" 4 0 3 addao_3.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "3" "MazeMayhem_LMA3_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LM0_final_HDR.lz4" 4 0 0 addao_0.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "0" "MazeMayhem_LM0_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA1_final_HDR.lz4" 4 0 1 addao_1.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "1" "MazeMayhem_LMA1_final_HDR.lz4"
+Running ftraceRTX addao "C:\Users\user\AppData\Local\Temp\frender" "MazeMayhem_LMA2_final_HDR.lz4" 4 0 2 addao_2.bin
+Running denoiserOIDN c "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" 2048 0
+Running seamfixer "C:\Users\user\AppData\Local\Temp\frender" "2" "MazeMayhem_LMA2_final_HDR.lz4"
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA4_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA4_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA3_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA3_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LM0_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LM0_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA1_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA1_final.hdr" 1024
+Running halffloat2hdr "C:\Users\user\AppData\Local\Temp\frender/MazeMayhem_LMA2_final_HDR.lz4" "C:/Users/user/Documents/blast-royale/Assets/BakeryLightmaps/MazeMayhem_LMA2_final.hdr" 1024

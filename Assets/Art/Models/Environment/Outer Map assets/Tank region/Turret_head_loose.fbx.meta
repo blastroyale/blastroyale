@@ -31,7 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties:
-    - '#BAKERY{"meshName":["Turret_head_loose"],"padding":[41],"unwrapper":[0]}'
+    - '#BAKERY{"meshName":["Turret_head_loose"],"padding":[55],"unwrapper":[0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

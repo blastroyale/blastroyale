@@ -75,5 +75,80 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b135fd3295e1b044aa6d08b241e43f85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8393699165407652608}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b135fd3295e1b044aa6d08b241e43f85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3625329629711869505}
   m_SourcePrefab: {fileID: 100100000, guid: b135fd3295e1b044aa6d08b241e43f85, type: 3}
+--- !u!1 &4988196145836328666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b135fd3295e1b044aa6d08b241e43f85, type: 3}
+  m_PrefabInstance: {fileID: 5330230227387890571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8393699165407652608
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988196145836328666}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.380497, y: 5.8555155, z: 2.3805022}
+  m_Center: {x: -0.0000019073486, y: 2.9274144, z: -0.000000059604645}
+--- !u!114 &3625329629711869505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988196145836328666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 8393699165407652608}
+  Size:
+    X:
+      RawValue: 156008
+    Y:
+      RawValue: 383747
+    Z:
+      RawValue: 156008
+  PositionOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 191851
+    Z:
+      RawValue: 0
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

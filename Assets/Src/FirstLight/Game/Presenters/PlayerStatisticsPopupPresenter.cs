@@ -21,6 +21,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public string PlayerId;
 			public Action OnCloseClicked;
+			public Action OnEditNameClicked;
 		}
 		
 		private IGameServices _services;
@@ -39,21 +40,39 @@ namespace FirstLight.Game.Presenters
 		private VisualElement[] _statContainers;
 		private int _pfpRequestHandle = -1;
 		
+		private const int StatisticMaxSize = 8;
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
+		}
+
+		private void OnDisplayNameChanged(string _, string current)
+		{
+			_nameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
+		}
+
 		protected override void QueryElements(VisualElement root)
 		{
-			_statLabels = new Label[6];
-			_statValues = new Label[6];
-			_statContainers = new VisualElement[8];
+			_statLabels = new Label[StatisticMaxSize];
+			_statValues = new Label[StatisticMaxSize];
+			_statContainers = new VisualElement[StatisticMaxSize];
 			
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.Q<VisualElement>("Background")
-				.RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
 			_pfpImage = root.Q<VisualElement>("PfpImage").Required();
 			_avatarImageLoadingSpinner = root.Q<VisualElement>("SpinnerHolder").Required();
@@ -64,13 +83,13 @@ namespace FirstLight.Game.Presenters
 			_statRow0 = root.Q<VisualElement>($"StatRow0").Required();
 			_statRow1 = root.Q<VisualElement>($"StatRow1").Required();
 				
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < StatisticMaxSize; i++)
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
 				_statContainers[i].visible = false;
 			}
 			
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < StatisticMaxSize; i++)
 			{
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
@@ -115,7 +134,7 @@ namespace FirstLight.Game.Presenters
 				}
 
 				_statRow0.visible = result.Statistics.Count > 0;
-				_statRow1.visible = result.Statistics.Count > 4;
+				_statRow1.visible = result.Statistics.Count > (StatisticMaxSize / 2);
 
 				if (!string.IsNullOrEmpty(result.AvatarUrl))
 				{

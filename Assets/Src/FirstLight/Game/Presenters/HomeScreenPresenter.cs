@@ -15,6 +15,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
+using PlayFab;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -104,7 +105,23 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			root.Q<ImageButton>("ProfileButton").clicked += Data.OnProfileClicked;
+			root.Q<ImageButton>("ProfileButton").clicked += () => 
+			{
+				var data = new PlayerStatisticsPopupPresenter.StateData
+				{
+					PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
+					OnCloseClicked = () =>
+					{
+						_uiService.CloseUi<PlayerStatisticsPopupPresenter>();
+					},
+					OnEditNameClicked = () =>
+					{
+						Data.OnProfileClicked();
+					}
+				};
+					
+				_uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+			}; 
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();

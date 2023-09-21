@@ -15,32 +15,6 @@ public partial class SROptions
 #if DEVELOPMENT_BUILD
 
 	[Category("Gameplay")]
-	public void TestPlayerStatistics()
-	{
-		var t = new PlayerProfileService(MainInstaller.ResolveServices().GameBackendService);
-		
-		t.TestServerQuery();
-	}
-
-	[Category("Gameplay")]
-	public void OpenPlayerStatisticsPopup()
-	{
-		var service = MainInstaller.ResolveServices().GameUiService;
-
-		var data = new PlayerStatisticsPopupPresenter.StateData
-		{
-			PlayerId = PlayFabSettings.staticPlayer.PlayFabId,
-			OnCloseClicked = () =>
-			{
-				service.CloseUi<PlayerStatisticsPopupPresenter>();
-			}
-		};
-		
-
-		service.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
-	}
-
-	[Category("Gameplay")]
 	public void KillLocalPlayer()
 	{
 		var game = QuantumRunner.Default.Game;

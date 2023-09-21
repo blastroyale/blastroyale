@@ -70,7 +70,11 @@ namespace FirstLight.Game.Presenters
 			_statLabels = new Label[StatisticMaxSize];
 			_statValues = new Label[StatisticMaxSize];
 			_statContainers = new VisualElement[StatisticMaxSize];
-			
+
+			root.Q<ImageButton>("EditNameButton").clicked += () =>
+			{
+				Data.OnEditNameClicked();
+			};
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 

@@ -13,6 +13,9 @@
                             <FirstLight.Game.UIElements.AnimatedImageElement name="AvatarImageLoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: visible; position: relative; left: auto; top: auto;" />
                         </ui:VisualElement>
                         <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" style="justify-content: center; align-items: auto; align-self: center; -unity-text-align: upper-right; flex-direction: column; margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                        <FirstLight.Game.UIElements.ImageButton name="EditNameButton" class="player-header__leaderboards-button sfx-click-forwards header-row__edit-name-button">
+                            <ui:VisualElement name="Icon" class="player-header__leaderboards-icon" style="background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Pen@4x.png?fileID=2800000&amp;guid=0aec7c7bf99354f66bc2a1d18bd0b4d2&amp;type=3#d_Pen@4x&apos;); width: 24px; height: 24px;" />
+                        </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>
                     <ui:VisualElement name="StatRow0" class="stat-row stat-row0">
                         <ui:VisualElement name="StatsContainer0" class="stats-container">

@@ -172,3 +172,10 @@
 .stat-row0 {
     margin-bottom: 4px;
 }
+
+.header-row__edit-name-button {
+    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}

@@ -27,7 +27,7 @@ MonoBehaviour:
     Radius:
       RawValue: 32768
     MaxPenetration:
-      RawValue: 0
+      RawValue: 1966
     PenetrationCorrection:
       RawValue: 32768
     Extent:

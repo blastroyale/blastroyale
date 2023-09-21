@@ -3640,7 +3640,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOADING..
+  m_text: Loading...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
   m_sharedMaterial: {fileID: 8102028289063871304, guid: c217d48c5a6144940999ecff1d69389f, type: 2}
@@ -6431,6 +6431,7 @@ MonoBehaviour:
   _playerCountText: {fileID: 8417088899061205114}
   _spectatorCountText: {fileID: 5007134362510740454}
   _topTitleText: {fileID: 4419470714733192584}
+  _selectDropZoneText: {fileID: 3340806776177444251}
   _kickOverlayObjects:
   - {fileID: 2375602479812299111}
   - {fileID: 2949961465567251211}

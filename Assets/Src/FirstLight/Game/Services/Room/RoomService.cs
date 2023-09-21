@@ -18,13 +18,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace FirstLight.Game.Services.RoomService
 {
-	public static class RoomConstants
-	{
-		// TODO MOVE THIS TO CONFIGS
-		public static TimeSpan LOADING_TIMEOUT_MS = TimeSpan.FromSeconds(5);
-		public static TimeSpan QUANTUM_MATCHMAKING_SELECT_ZONE_TIME = TimeSpan.FromSeconds(10);
-		public static TimeSpan CUSTOM_GAME_SELECT_ZONE_TIME = TimeSpan.FromSeconds(10);
-	}
 	public enum PlayerChangeReason
 	{
 		Join,
@@ -147,7 +140,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		private RoomServiceParameters _parameters;
 
-        
+
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
 		public event Action OnRoomPropertiesChanged;
 		public event Action OnMatchStarted;
@@ -156,6 +149,8 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnPlayerPropertiesUpdated;
 
 		public bool InRoom => CurrentRoom != null;
+
+		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
 						   ICoroutineService coroutineService)
@@ -363,15 +358,20 @@ namespace FirstLight.Game.Services.RoomService
 			OnRoomPropertiesChanged?.Invoke();
 			SubscribeToPropertyChangeEvents(CurrentRoom);
 
-			if (!CurrentRoom.LocalPlayer.IsMasterClient || CurrentRoom.Properties.MatchType.Value == MatchType.Custom || CurrentRoom.Properties.LoadingStartServerTime.HasValue) return;
 			// When master joins matchmaking it should set the timer values
-			StartMatchmakingTimer();
+			CheckMatchmakingLoadingStart();
 		}
 
-		private void StartMatchmakingTimer()
+		private void CheckMatchmakingLoadingStart()
 		{
+			// When master joins matchmaking it should set the timer values
+			if (!CurrentRoom.LocalPlayer.IsMasterClient || CurrentRoom.Properties.MatchType.Value == MatchType.Custom ||
+				CurrentRoom.Properties.LoadingStartServerTime.HasValue || CurrentRoom.GameStarted) return;
+			var time = _networkService.ServerTimeInMilliseconds;
+			// We don't have server time yet lets wait
+			if (time == 0) return;
 			CurrentRoom.Properties.LoadingStartServerTime.Value = _networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Convert.ToInt32(RoomConstants.QUANTUM_MATCHMAKING_SELECT_ZONE_TIME.TotalSeconds);
+			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToStartOldMatchmakingRoom;
 		}
 
 		private void SubscribeToPropertyChangeEvents(GameRoom room)
@@ -412,7 +412,7 @@ namespace FirstLight.Game.Services.RoomService
 			}
 		}
 
-		
+
 		public void CheckSimulationStart()
 		{
 			if (InRoom && !CurrentRoom.GameStarted)
@@ -420,8 +420,15 @@ namespace FirstLight.Game.Services.RoomService
 				FLog.Verbose("game starts in " + CurrentRoom.TimeLeftToGameStart().TotalSeconds);
 			}
 
+			// Sometimes when player joined the room we don't have the server time yet so we don't start the loading timer,
+			// so we keep checking if we have the time to start matchmaking
+			if (InRoom && CurrentRoom.LocalPlayer.IsMasterClient)
+			{
+				CheckMatchmakingLoadingStart();
+			}
+
 			// Check timer to start the game
-			if (!InRoom || !_networkService.LocalPlayer.IsMasterClient || !CurrentRoom.ShouldGameStart() || CurrentRoom.GameStarted)
+			if (!InRoom || !CurrentRoom.LocalPlayer.IsMasterClient || !CurrentRoom.ShouldGameStart() || CurrentRoom.GameStarted)
 			{
 				return;
 			}
@@ -432,7 +439,7 @@ namespace FirstLight.Game.Services.RoomService
 			}
 
 			// Check if players loaded assets, give them 5 more seconds then start game
-			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() + RoomConstants.LOADING_TIMEOUT_MS.TotalMilliseconds >
+			if (!CurrentRoom.AreAllPlayersReady() && CurrentRoom.GameStartsAt() + (Configs.SecondsLoadingTimeout * 1000) >
 				_networkService.ServerTimeInMilliseconds)
 			{
 				return;
@@ -456,7 +463,7 @@ namespace FirstLight.Game.Services.RoomService
 			_networkService.CurrentRoom.IsOpen = false;
 			CurrentRoom.Properties.LoadingStartServerTime.Value =
 				_networkService.ServerTimeInMilliseconds;
-			CurrentRoom.Properties.SecondsToStart.Value = Convert.ToInt32(RoomConstants.CUSTOM_GAME_SELECT_ZONE_TIME.Seconds);
+			CurrentRoom.Properties.SecondsToStart.Value = Configs.SecondsToLoadCustomGames;
 			CurrentRoom.Properties.StartCustomGame.Value = true;
 		}
 
@@ -492,10 +499,7 @@ namespace FirstLight.Game.Services.RoomService
 		{
 			if (newMasterClient.IsLocal && CurrentRoom.Properties.MatchType.Value != MatchType.Custom)
 			{
-				if (!CurrentRoom.Properties.LoadingStartServerTime.HasValue)
-				{
-					StartMatchmakingTimer();
-				}
+				CheckMatchmakingLoadingStart();
 			}
 
 			OnMasterChanged?.Invoke();

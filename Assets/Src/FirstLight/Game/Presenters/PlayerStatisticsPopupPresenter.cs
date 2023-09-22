@@ -112,8 +112,6 @@ namespace FirstLight.Game.Presenters
 			base.OnClosed();
 			
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
-
-			_pfpImage = null;
 		}
 
 		private void SetStatInfo(int index, PublicPlayerProfile result, string statName)
@@ -128,6 +126,8 @@ namespace FirstLight.Game.Presenters
 		{
 			MainInstaller.ResolveServices().ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
+			    if (!IsOpen) return;
+				
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER);
@@ -143,14 +143,12 @@ namespace FirstLight.Game.Presenters
 						result.AvatarUrl,
 						tex =>
 						{
-							if(_pfpImage == null) return;
 							_pfpImage.SetDisplay(true);
 							_pfpImage.style.backgroundImage = new StyleBackground(tex);
 							_avatarImageLoadingSpinner.SetDisplay(false);
 						},
 						() =>
 						{
-							if(_pfpImage == null) return;
 							_avatarImageLoadingSpinner.SetDisplay(false);
 						});
 				}

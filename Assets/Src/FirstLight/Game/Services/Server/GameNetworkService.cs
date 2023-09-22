@@ -75,13 +75,6 @@ namespace FirstLight.Game.Services
 		bool SendPlayerToken(string token);
 
 		/// <summary>
-		/// Raises event to kick specified player from the room. Only works in rooms, as master client.
-		/// </summary>
-		/// <param name="playerToKick"></param>
-		/// <returns>True if the operation was sent successfully</returns>
-		bool KickPlayer(Player playerToKick);
-
-		/// <summary>
 		/// Updates the spectator status in custom player properties
 		/// </summary>
 		/// <param name="isSpectator">Is player the spectator</param>
@@ -476,21 +469,7 @@ namespace FirstLight.Game.Services
 				SendOptions.SendReliable);
 		}
 
-		public bool KickPlayer(Player playerToKick)
-		{
-			if (CurrentRoom == null || !LocalPlayer.IsMasterClient)
-			{
-				return false;
-			}
-
-			FLog.Info($"KickPlayer: {playerToKick}");
-
-			var eventOptions = new RaiseEventOptions() {Receivers = ReceiverGroup.All};
-			return QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, playerToKick.ActorNumber,
-				eventOptions,
-				SendOptions.SendReliable);
-		}
-
+	
 		public void ReconnectPhoton(out bool requiresManualReconnection)
 		{
 			FLog.Info("ReconnectPhoton");

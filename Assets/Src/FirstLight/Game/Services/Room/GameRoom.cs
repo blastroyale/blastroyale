@@ -30,6 +30,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		public int PlayerCount => _room.PlayerCount;
 
+		public int MasterClientId => _room.MasterClientId;
+
 		public bool IsOffline => _room.IsOffline;
 
 		public GameRoom(RoomService roomService, Room room)
@@ -38,8 +40,9 @@ namespace FirstLight.Game.Services.RoomService
 			_room = room;
 			Properties = new RoomProperties();
 		}
+
 		public Player LocalPlayer => _roomService._networkService.LocalPlayer;
-        
+
 
 		/// <summary>
 		/// Return when the game starts based on the server time
@@ -210,9 +213,8 @@ namespace FirstLight.Game.Services.RoomService
 			runtimeConfig.Mutators = Properties.Mutators.Value.ToArray();
 			runtimeConfig.BotOverwriteDifficulty = Properties.BotDifficultyOverwrite.HasValue ? Properties.BotDifficultyOverwrite.Value : -1;
 		}
-		
-		
-		
+
+
 		/// <summary>
 		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not
 		/// based on loading state of all players assets
@@ -229,7 +231,7 @@ namespace FirstLight.Game.Services.RoomService
 					FLog.Verbose("Inactive player" + playerKvp.Value.LoadedCoreMatchAssets());
 					continue;
 				}
-				
+
 				if (!playerKvp.Value.LoadedCoreMatchAssets())
 				{
 					return false;

@@ -34,7 +34,7 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IOnEventCallback, IErrorInfoCallback
+	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IErrorInfoCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonInvalidServer = new StatechartEvent("NETWORK - Photon Invalid Server Event");
@@ -164,7 +164,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoadedMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 			_services.MessageBrokerService.Subscribe<ManualTeamIdSetMessage>(OnManualTeamIdSetMessage);
-			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
 			_services.MatchmakingService.OnGameMatched += OnGameMatched;
@@ -232,35 +231,8 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		// This method receives all photon events, but is only used for our custom in-game events
-		public void OnEvent(EventData photonEvent)
-		{
-			// DebugEvent(photonEvent);
-			if (photonEvent.Code == (byte) QuantumCustomEvents.KickPlayer)
-			{
-				OnKickPlayerEventReceived((int) photonEvent.CustomData, photonEvent.Sender);
-			}
-		}
-
-		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
-		{
-			if (_networkService.LocalPlayer.ActorNumber != userIdToLeave ||
-			    !_networkService.InRoom || _networkService.CurrentRoom.MasterClientId != senderIndex)
-			{
-				return;
-			}
-
-			LeaveRoom();
-
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK.ToUpper(),
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
-		}
+	
+        
 
 		private void UpdateLastDisconnectLocation()
 		{
@@ -359,12 +331,6 @@ namespace FirstLight.Game.StateMachines
 				FLog.Info($"RoomDebugString: {_networkService.CurrentRoom.GetRoomDebugString()}");
 				_networkService.SetCurrentRoomOpen(false);
 			}
-		}
-
-		private void LeaveRoom()
-		{
-			FLog.Verbose("Leaving current room");
-			_services.RoomService.LeaveRoom(false);
 		}
         
 
@@ -649,12 +615,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.SetManualTeamId(message.TeamId);
 		}
-
-		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
-		{
-			_networkService.KickPlayer(msg.Player);
-		}
-
+		
 		private void OnAttemptManualReconnectionMessage(AttemptManualReconnectionMessage obj)
 		{
 			ReconnectPhoton();
@@ -675,7 +636,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				s.FrameSnapshotService.ClearFrameSnapshot();
 			}
-			LeaveRoom();
+			_services.RoomService.LeaveRoom();
 		}
 
 		private void OnMatchSimulationEndedMessage(SimulationEndedMessage msg)
@@ -683,7 +644,7 @@ namespace FirstLight.Game.StateMachines
 			if (msg.Reason != SimulationEndReason.Disconnected)
 			{
 				FLog.Verbose("Simulation endeed abruptly, leaving room");
-				LeaveRoom();
+				_services.RoomService.LeaveRoom();
 			}
 		}
 

@@ -15,6 +15,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using FirstLight.Statechart;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 
@@ -74,7 +75,9 @@ namespace FirstLight.Game.StateMachines
 			{
 				statechartTrigger(CustomGameLoadStart);
 			};
+			_roomService.OnLocalPlayerKicked += OnLocalPlayerKicked;
 		}
+        
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
@@ -189,6 +192,7 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(DisposeMatchServices);
 			final.OnEnter(UnsubscribeEvents);
 		}
+		
 
 		private bool IsInstantLoad()
 		{
@@ -519,6 +523,17 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 		}
 
+		private void OnLocalPlayerKicked()
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK.ToUpper(),
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
+		}
 
 		private void CloseSwipeTransition() => _ = SwipeScreenPresenter.Finish();
 

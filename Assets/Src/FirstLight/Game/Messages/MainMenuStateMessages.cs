@@ -36,10 +36,6 @@ namespace FirstLight.Game.Messages
 	{
 		public string TeamId;
 	}
-	public struct RequestKickPlayerMessage : IMessage
-	{
-		public Player Player;
-	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
 	public struct MatchmakingCancelMessage : IMessage { }

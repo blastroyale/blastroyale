@@ -456,8 +456,7 @@ namespace FirstLight.Game.Presenters
 		private void RequestKickPlayer(Player player)
 		{
 			if (player.UserId == _services.NetworkService.LocalPlayer.UserId ||
-				!_kickModeActive || !_services.NetworkService.LocalPlayer.IsMasterClient ||
-				!player.LoadedCoreMatchAssets())
+				!_kickModeActive || !_services.NetworkService.LocalPlayer.IsMasterClient)
 			{
 				return;
 			}
@@ -468,7 +467,7 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.General.Yes.ToUpper(),
 				ButtonOnClick = () =>
 				{
-					_services.MessageBrokerService.Publish(new RequestKickPlayerMessage() {Player = player});
+					_services.RoomService.KickPlayer(player);
 					DeactivateKickOverlay();
 				}
 			};

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -55,6 +52,12 @@ namespace FirstLight.Game.Services.RoomService
 		/// Yo
 		/// </summary>
 		event Action OnPlayerPropertiesUpdated;
+
+		/// <summary>
+		/// When the local player got kicked
+		/// </summary>
+		public event Action OnLocalPlayerKicked;
+
 
 		bool InRoom { get; }
 
@@ -125,7 +128,12 @@ namespace FirstLight.Game.Services.RoomService
 		/// Leaves the current room that local player is in
 		/// </summary>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool LeaveRoom(bool becomeInactive);
+		bool LeaveRoom(bool becomeInactive = false);
+
+		/// <summary>
+		/// Kicks another player, only master can call this method
+		/// </summary>
+		bool KickPlayer(Player playerToKick);
 	}
 
 	public class RoomService : IInRoomCallbacks, IMatchmakingCallbacks, IRoomService
@@ -139,6 +147,7 @@ namespace FirstLight.Game.Services.RoomService
 		public GameRoom LastRoom { get; private set; }
 
 		private RoomServiceParameters _parameters;
+		private RoomServiceCommands _commands;
 
 
 		public event Action<Player, PlayerChangeReason> OnPlayersChange;
@@ -147,6 +156,7 @@ namespace FirstLight.Game.Services.RoomService
 		public event Action OnCustomGameLoadStart;
 		public event Action OnMasterChanged;
 		public event Action OnPlayerPropertiesUpdated;
+		public event Action OnLocalPlayerKicked;
 
 		public bool InRoom => CurrentRoom != null;
 
@@ -160,6 +170,7 @@ namespace FirstLight.Game.Services.RoomService
 			_configsProvider = configsProvider;
 			_coroutineService = coroutineService;
 			_parameters = new RoomServiceParameters(this);
+			_commands = new RoomServiceCommands(this);
 			RegisterListeners();
 
 			// TODO: Optimize to only start this coroutine on game join
@@ -271,7 +282,7 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 
-		public bool LeaveRoom(bool becomeInactive)
+		public bool LeaveRoom(bool becomeInactive = false)
 		{
 			if (!InRoom) return false;
 
@@ -516,6 +527,22 @@ namespace FirstLight.Game.Services.RoomService
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
 			FLog.Info(message);
+		}
+
+		internal void InvokeLocalPlayerKicked()
+		{
+			OnLocalPlayerKicked?.Invoke();
+		}
+
+		public bool KickPlayer(Player playerToKick)
+		{
+			if (CurrentRoom == null || !CurrentRoom.LocalPlayer.IsMasterClient)
+			{
+				return false;
+			}
+
+			FLog.Info($"KickPlayer: {playerToKick}");
+			return _commands.SendKickCommand(playerToKick);
 		}
 	}
 }

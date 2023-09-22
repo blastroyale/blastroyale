@@ -1,7 +1,10 @@
+#if UNITY_IOS
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+
 
 namespace FirstLight.Editor.Build
 {
@@ -45,3 +48,5 @@ namespace FirstLight.Editor.Build
 		}
 	}
 }
+
+#endif

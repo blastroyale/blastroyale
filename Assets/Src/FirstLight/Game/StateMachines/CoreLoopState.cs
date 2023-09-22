@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.DemiLib;
@@ -139,16 +140,50 @@ namespace FirstLight.Game.StateMachines
 			return false;
 		}
 
-		private async void AttemptJoinTutorialRoom()
+		private async Task TutorialJoinTask(bool transition = false)
+		{
+			await _services.GameUiService.CloseUi<PrivacyDialogPresenter>();
+			if (transition)
+			{
+				await TransitionScreen();
+				// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
+				// before the event of starting the match is fireds causing an infinite loop and crash.
+				// This can still happen on some devices so this hack needs to be solved.
+				await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
+			}
+			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
+		}
+
+		private async Task TransitionScreen()
 		{
 			await SwipeScreenPresenter.StartSwipe();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
+		private async Task AcceptPrivacyDialog()
+		{
+			await TransitionScreen();
+			var data = new PrivacyDialogPresenter.StateData()
+			{
+				OnAccept = AcceptTerms
+			};
+			await _services.GameUiService.OpenUiAsync<PrivacyDialogPresenter, PrivacyDialogPresenter.StateData>(data);
+		}
+
+		private void AcceptTerms()
+		{
 			
-			// This is an ugly hack - if we dont wait a second here the state machine will get back to iddle state
-			// before the event of starting the match is fireds causing an infinite loop and crash.
-			// This can still happen on some devices so this hack needs to be solved.
-			await Task.Delay(GameConstants.Tutorial.TIME_1000MS);
-			_services.MessageBrokerService.Publish(new RequestStartFirstGameTutorialMessage());
+			_ = TutorialJoinTask();
+		}
+
+		private void AttemptJoinTutorialRoom()
+		{
+			if (_dataProvider.AppDataProvider.IsFirstSession)
+			{
+				_ = AcceptPrivacyDialog();
+				return;
+			}
+			_ = TutorialJoinTask(true);
 		}
 
 		private void SubscribeEvents()

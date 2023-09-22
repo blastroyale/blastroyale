@@ -4,6 +4,7 @@ using Firebase.Analytics;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using FirstLight.UiService;
@@ -119,6 +120,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
+			if (!AppPermissions.Get().IsTrackingAccepted()) return;
+			
 			try
 			{
 				//PlayFab Analytics

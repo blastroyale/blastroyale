@@ -240,6 +240,11 @@ namespace FirstLight.Game.Logic
 				GameLogic.RewardLogic.GiveLevelRewards(_level.Value, level);
 			}
 
+			if (level > _level.Value)
+			{
+				GameLogic.RewardLogic.GiveLevelRewards(_level.Value, level);
+			}
+
 			_level.Value = level;
 			_xp.Value = level >= GameConstants.Data.PLAYER_FAME_MAX_LEVEL ? 0 : xp;
 		}

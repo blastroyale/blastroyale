@@ -176,6 +176,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7669ba84d914e42d5ae78492e4327270
+    m_Address: Ui/PrivacyDialog.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b7d5050f53ec40958e62a007ccbb00f
+    m_Address: Ui/GenericScrollingTextDialog.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 368bf89a47cbb404b92c463d44a0e59f
     m_Address: Scenes/MazeMayhem.unity
     m_ReadOnly: 0

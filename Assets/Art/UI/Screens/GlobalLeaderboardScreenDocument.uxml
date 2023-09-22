@@ -34,9 +34,6 @@
                     <ui:VisualElement name="LeaderboardOptions" class="leaderboard-options" />
                 </ui:VisualElement>
                 <ui:VisualElement name="FixedLocalPlayerHolder" class="localplayer-fixed-pos-holder" />
-                <ui:VisualElement name="Footer" class="leaderboard__footer">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" class="leaderboard__footer-text" />
-                </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />

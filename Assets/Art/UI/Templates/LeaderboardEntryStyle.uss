@@ -11,7 +11,7 @@
     -unity-slice-top: 0;
     -unity-slice-right: 20;
     -unity-slice-bottom: 0;
-    width: 900px;
+    width: 720px;
     height: 64px;
     justify-content: center;
     right: 0;
@@ -238,7 +238,7 @@
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
     min-height: auto;
-    width: 66%;
+    width: 50%;
     height: 100%;
     left: 113px;
     flex-direction: row;

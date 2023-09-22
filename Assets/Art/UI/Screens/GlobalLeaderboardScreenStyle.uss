@@ -6,7 +6,7 @@
     width: 100%;
     position: absolute;
     top: 150px;
-    bottom: 130px;
+    bottom: 50px;
     align-items: center;
     display: flex;
 }
@@ -24,7 +24,7 @@
     top: 0;
     position: relative;
     height: 35px;
-    width: 900px;
+    width: 720px;
     margin-right: 0;
     font-size: 35px;
     color: rgb(233, 226, 225);
@@ -32,6 +32,7 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     margin-top: 15px;
+    left: -5%;
 }
 
 .header__label--rank-number {
@@ -49,26 +50,6 @@
     -unity-text-align: upper-right;
 }
 
-.leaderboard__footer {
-    position: absolute;
-    justify-content: center;
-    height: 70px;
-    width: 80%;
-    flex-direction: column-reverse;
-    align-items: center;
-    bottom: 35px;
-}
-
-.leaderboard__footer-text {
-    font-size: 35px;
-    -unity-font-style: normal;
-    -unity-text-align: middle-center;
-    color: rgb(233, 226, 225);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
 .localplayer-fixed-pos-holder {
     position: absolute;
     bottom: 125px;
@@ -81,10 +62,10 @@
     bottom: 0;
     right: 0;
     top: 70px;
-    left: 50%;
+    left: 45%;
     align-items: center;
     padding-right: 0;
-    width: 980px;
+    width: 800px;
     translate: -50% 0;
 }
 
@@ -93,7 +74,7 @@
 }
 
 .leaderboard-entries > .unity-scroll-view {
-    width: 980px;
+    width: 800px;
 }
 
 .spinner {
@@ -172,8 +153,8 @@
     flex-grow: 1;
     background-color: rgb(255, 255, 255);
     position: absolute;
-    width: 22%;
-    height: 600px;
+    width: 30%;
+    height: 90%;
     left: auto;
     top: 70px;
     right: 30px;
@@ -227,14 +208,14 @@
 }
 
 .leaderboard-title {
-    font-size: 30px;
+    font-size: 24px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .description-text {
-    font-size: 24px;
+    font-size: 32px;
     color: rgb(122, 118, 168);
     -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -249,7 +230,7 @@
 }
 
 .description-title {
-    font-size: 24px;
+    font-size: 32px;
     color: rgb(122, 118, 168);
     -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -308,7 +289,7 @@
 }
 
 .rewards-text {
-    font-size: 30px;
+    font-size: 40px;
     color: rgb(122, 118, 168);
     align-items: center;
     align-self: center;
@@ -317,6 +298,7 @@
 }
 
 .timer-text {
+    font-size: 40px;
     align-self: auto;
     justify-content: center;
     color: rgb(125, 54, 20);
@@ -327,12 +309,12 @@
     flex-grow: 1;
     background-color: rgb(248, 199, 46);
     position: absolute;
-    width: 250px;
-    height: 40px;
+    width: 300px;
+    height: 45px;
     bottom: auto;
     top: 60px;
     border-radius: 15px;
-    left: 26%;
+    left: 30%;
     -unity-text-align: middle-center;
     justify-content: center;
     align-items: center;

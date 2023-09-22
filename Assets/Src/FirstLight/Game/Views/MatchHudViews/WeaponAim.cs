@@ -176,12 +176,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			line.SetPosition(0, originUnity);
 			if (hits.Count > 0)
 			{
-				var hit = hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, hit, entity));
+				var hit = hits.ToArray().LastOrDefault(hit => IsValidRaycastHit(f, hit, entity));
 				if (hit.Point != FPVector3.Zero)
 				{
 					lineEnd = hit.Point.ToUnityVector3();
 				}
-			} 
+			}
 			line.SetPosition(1, lineEnd);
 		}
 

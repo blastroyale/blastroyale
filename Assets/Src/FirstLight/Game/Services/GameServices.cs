@@ -245,7 +245,7 @@ namespace FirstLight.Game.Services
 			var environmentService = new EnvironmentService(MessageBrokerService);
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,
 				tutorialService);
-			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService);
+			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 		}
 
 		/// <inheritdoc />

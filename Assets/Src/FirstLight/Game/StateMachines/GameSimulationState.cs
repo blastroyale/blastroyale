@@ -207,12 +207,12 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.LocalPlayer.IsSpectator();
+			return _services.RoomService.IsLocalPlayerSpectator;
 		}
 
 		private string GetTeamId()
 		{
-			return _services.NetworkService.LocalPlayer.GetTeamId();
+			return _services.RoomService.CurrentRoom.LocalPlayerProperties.TeamId.Value;
 		}
 
 
@@ -299,7 +299,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void QuitGameConfirmedClicked()
 		{
-			if (!_services.NetworkService.LocalPlayer.IsSpectator())
+			if (!_services.RoomService.IsLocalPlayerSpectator)
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
@@ -407,7 +407,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _services.NetworkService.LocalPlayer.GetDropPosition();
+			var spawnPosition = _services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value;
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 			var finalLoadOut = new List<Equipment>();
 

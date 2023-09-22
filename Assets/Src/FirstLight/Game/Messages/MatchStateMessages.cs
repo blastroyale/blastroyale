@@ -53,14 +53,8 @@ namespace FirstLight.Game.Messages
 		public bool CanSee;
 	}
 	
-	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct WaitingMandatoryMatchAssetsMessage : IMessage { }
-
-	public struct PlayerUpdateLoadoutMessage : IMessage
-	{
-		public Player Player;
-		public List<GameId> Loadout;
-	}
+    
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
 

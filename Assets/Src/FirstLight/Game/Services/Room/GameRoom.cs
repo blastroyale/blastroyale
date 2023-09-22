@@ -18,6 +18,7 @@ namespace FirstLight.Game.Services.RoomService
 	public class GameRoom
 	{
 		public RoomProperties Properties { get; private set; }
+		private Dictionary<int, PlayerProperties> _playerProperties = new();
 
 		private Room _room;
 		private RoomService _roomService;
@@ -42,6 +43,7 @@ namespace FirstLight.Game.Services.RoomService
 		}
 
 		public Player LocalPlayer => _roomService._networkService.LocalPlayer;
+		public PlayerProperties LocalPlayerProperties => GetPlayerProperties(LocalPlayer);
 
 
 		/// <summary>
@@ -116,19 +118,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public int GetSpectatorAmount()
 		{
-			int playerAmount = 0;
-
-			foreach (var kvp in _room.Players)
-			{
-				var isSpectator = (bool) kvp.Value.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-
-				if (isSpectator)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
+			return _room.Players.Values.Count(player => GetPlayerProperties(player).Spectator.Value);
 		}
 
 
@@ -137,18 +127,7 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public int GetRealPlayerAmount()
 		{
-			var playerAmount = 0;
-
-			foreach (var kvp in _room.Players)
-			{
-				kvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_SPECTATOR, out var isSpectator);
-				if (isSpectator is null or false)
-				{
-					playerAmount++;
-				}
-			}
-
-			return playerAmount;
+			return _room.Players.Values.Count(player => !GetPlayerProperties(player).Spectator.Value);
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>
@@ -226,13 +205,14 @@ namespace FirstLight.Game.Services.RoomService
 				// We check userid null because that means player is joining first time
 				// if userid is not null means he entered the room then left, in this case room should start without him
 				// with the player being inactive so he can join later
+				var loaded = GetPlayerProperties(playerKvp.Value).CoreLoaded.Value;
 				if (playerKvp.Value.IsInactive && playerKvp.Value.UserId == null)
 				{
-					FLog.Verbose("Inactive player" + playerKvp.Value.LoadedCoreMatchAssets());
+					FLog.Verbose("Inactive player" + loaded);
 					continue;
 				}
 
-				if (!playerKvp.Value.LoadedCoreMatchAssets())
+				if (!loaded)
 				{
 					return false;
 				}
@@ -240,6 +220,7 @@ namespace FirstLight.Game.Services.RoomService
 
 			return true;
 		}
+		
 
 		public string GetRoomName()
 		{
@@ -258,6 +239,18 @@ namespace FirstLight.Game.Services.RoomService
 				RoomIdentifier = _room.Name,
 				AllowedRewards = Properties.AllowedRewards.Value
 			};
+		}
+
+		public PlayerProperties GetPlayerProperties(Player player)
+		{
+			if (_playerProperties.TryGetValue(player.ActorNumber, out var properties))
+			{
+				return properties;
+			}
+
+			var newPlayerProps = new PlayerProperties();
+			_playerProperties.Add(player.ActorNumber, newPlayerProps);
+			return newPlayerProps;
 		}
 	}
 }

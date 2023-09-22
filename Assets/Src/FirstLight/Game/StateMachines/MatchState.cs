@@ -16,6 +16,7 @@ using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 
@@ -176,7 +177,7 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(() => _ = OpenSwipeTransition());
 
-			disconnected.Event(NetworkState.RoomReadyEvent).Target(postDisconnectCheck);
+			disconnected.Event(RoomGameStartEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinedPlayfabMatchmaking).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(transitionToMenu);
@@ -349,16 +350,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Simulation;
 		}
-
-		private bool HasGameAlreadyStarted()
-		{
-			return _roomService.CurrentRoom.GameStarted;
-		}
-
-		private bool AreAllPlayersReady()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
-		}
+        
 
 		private void StartMatchLoading()
 		{

@@ -29,13 +29,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.ResolveServices();
 		}
-		
+
 		/// <summary>
 		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots
 		/// </summary>
 		public void Init(uint playerLimit, Action<Player> kickPlayerCallback)
 		{
-
 			_kickPlayerCallback = kickPlayerCallback;
 
 			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
@@ -77,11 +76,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void AddOrUpdatePlayer(Player player, bool sortList = true)
 		{
 			var existingEntry = _activePlayerEntries.FirstOrDefault(x => x.Player == player);
-			var rank = (int) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_RANK];
+			var props = _services.RoomService.CurrentRoom.GetPlayerProperties(player);
+			var rank = props.Rank.Value;
+			var teamId = props.TeamId.Value;
 			var color = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, rank);
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, player.GetTeamId(), _kickPlayerCallback, color);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, teamId, _kickPlayerCallback, color);
 			}
 			else
 			{
@@ -89,7 +90,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, player.GetTeamId(), _kickPlayerCallback, color);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, true, teamId, _kickPlayerCallback, color);
 				}
 			}
 

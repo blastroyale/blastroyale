@@ -139,11 +139,11 @@ namespace FirstLight.Game.Presenters
 
 			if (isSquadGame)
 			{
-				var teamId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetTeamId();
+				var teamId = CurrentRoom.LocalPlayerProperties.TeamId.Value;
 
 				_squadContainer.SetDisplay(true);
-				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
-					.Where(p => p.GetTeamId() == teamId)
+				_squadMembers = CurrentRoom.Players.Values
+					.Where(p => CurrentRoom.GetPlayerProperties(p).TeamId.Value == teamId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
@@ -166,8 +166,9 @@ namespace FirstLight.Game.Presenters
 			foreach (var squadMember in _squadMembers)
 			{
 				if (squadMember.IsLocal) continue;
-
-				var memberDropPosition = squadMember.GetDropPosition();
+				
+				// TODO apply team colors here
+				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
 				var mapWidth = _mapImage.contentRect.width;
@@ -227,7 +228,6 @@ namespace FirstLight.Game.Presenters
 				_services.MessageBrokerService.Publish(new MapDropPointSelectedMessage());
 			}
 
-			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapWidth = _mapImage.contentRect.width;
 			var mapHeight = _mapImage.contentRect.height;
 			var mapWidthHalf = mapWidth / 2;
@@ -243,7 +243,7 @@ namespace FirstLight.Game.Presenters
 
 			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
 			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
-			_services.NetworkService.SetDropPosition(quantumSelectPos);
+			_services.RoomService.CurrentRoom.LocalPlayerProperties.DropPosition.Value = quantumSelectPos;
 
 			_mapMarkerTitle.SetDisplay(false);
 		}

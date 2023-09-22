@@ -25,7 +25,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
-		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private IMatchServices _matchServices;
@@ -42,7 +41,6 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider = gameLogic;
 			_statechartTrigger = statechartTrigger;
 			_audioBrState = new AudioBattleRoyaleState(services, statechartTrigger);
-			_audioDmState = new AudioDeathmatchState(services, gameLogic, statechartTrigger);
 		}
 
 		private struct LoopedAudioClip
@@ -179,7 +177,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.LocalPlayer.IsSpectator();
+			return _services.RoomService.IsLocalPlayerSpectator;
 		}
         
 
@@ -215,7 +213,7 @@ namespace FirstLight.Game.StateMachines
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
-			if (_services.NetworkService.LocalPlayer.IsSpectator() &&
+			if (_services.RoomService.IsLocalPlayerSpectator &&
 				_matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;

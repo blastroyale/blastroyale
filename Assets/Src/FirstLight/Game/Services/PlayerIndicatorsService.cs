@@ -44,7 +44,7 @@ namespace FirstLight.Game.Services
 			_inputs = _matchServices.PlayerInputService.Input.Gameplay;
 			_indicatorContainerView.InstantiateAllIndicators();
 			RegisterListeners();
-			if (_services.NetworkService.LocalPlayer.IsSpectator() || !isReconnect)
+			if (_services.RoomService.IsLocalPlayerSpectator || !isReconnect)
 			{
 				return;
 			}

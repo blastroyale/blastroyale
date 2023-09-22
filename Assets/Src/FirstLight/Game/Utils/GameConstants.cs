@@ -186,17 +186,7 @@ namespace FirstLight.Game.Utils
 			public const int PLAYER_GAME_TTL_MS = 99999999;
 			public const int EMPTY_ROOM_GAME_TTL_MS = 1000 * 60 * 5; // 5 minutes
 			public const int TIMEOUT_SNAPSHOT_SECONDS = EMPTY_ROOM_GAME_TTL_MS / 1000;
-
-			// Player properties
-			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
-			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
-			// are used to signal at which point in the loading flow the player is currently during matchmaking screen.
-			public const string PLAYER_PROPS_CORE_LOADED = "propsCoreLoaded";
-			public const string PLAYER_PROPS_LOADOUT = "preloadIds";
-			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
-			public const string PLAYER_PROPS_TEAM_ID = "teamId";
-			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
-			public const string PLAYER_PROPS_RANK = "rank";
+            
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";

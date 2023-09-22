@@ -128,7 +128,7 @@ namespace FirstLight.Game.Presenters
 
 			_rootObject.SetActive(true);
 
-			var room = _services.RoomService.CurrentRoom;
+			var room = CurrentRoom;
 			var gameModeConfig = room.GameModeConfig;
 
 
@@ -175,8 +175,7 @@ namespace FirstLight.Game.Presenters
 			// TODO: Sets the initial TeamID. Hacky, should be somewhere else, but it should do for custom games for now.
 			if (gameModeConfig.Teams)
 			{
-				_services.MessageBrokerService.Publish(new ManualTeamIdSetMessage
-					{TeamId = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}"});
+				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			}
 
 
@@ -233,7 +232,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_kickButton.gameObject.SetActive(true);
 				_lockRoomButton.gameObject.SetActive(true);
-				_botsToggleObjectRoot.SetActive(_services.RoomService.CurrentRoom.GameModeConfig.AllowBots);
+				_botsToggleObjectRoot.SetActive(CurrentRoom.GameModeConfig.AllowBots);
 			}
 			else
 			{
@@ -276,7 +275,7 @@ namespace FirstLight.Game.Presenters
 
 		private void AddOrUpdatePlayerInList(Player player)
 		{
-			var isSpectator = (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+			var isSpectator = CurrentRoom.GetPlayerProperties(player).Spectator.Value;
 
 			if (isSpectator)
 			{
@@ -307,11 +306,9 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var isSpectator =
-				(bool) _services.NetworkService.LocalPlayer.CustomProperties
-					[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
-			var relevantPlayerAmount = 0;
-			var relevantPlayerCapacity = 0;
+			var isSpectator = _services.RoomService.IsLocalPlayerSpectator;
+			int relevantPlayerAmount;
+			int relevantPlayerCapacity;
 
 			if (isSpectator)
 			{
@@ -369,7 +366,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.RoomService.CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
+			CurrentRoom.Properties.HasBots.Value = _botsToggle.isOn;
 			_services.RoomService.StartCustomGameLoading();
 		}
 
@@ -448,8 +445,7 @@ namespace FirstLight.Game.Presenters
 			_squadIdUpdateDelayed?.Kill();
 			_squadIdUpdateDelayed = DOVirtual.DelayedCall(1f, () =>
 			{
-				_services.MessageBrokerService.Publish(new ManualTeamIdSetMessage
-					{TeamId = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}"});
+				CurrentRoom.LocalPlayerProperties.TeamId.Value = $"{GameConstants.Network.MANUAL_TEAM_ID_PREFIX}{_squadId}";
 			});
 		}
 
@@ -484,7 +480,7 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.interactable = false;
 			}
 
-			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});
+			CurrentRoom.LocalPlayerProperties.Spectator.Value = isOn;
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());
 		}
 	}

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -63,6 +66,8 @@ namespace FirstLight.Game.Services.RoomService
 
 		GameRoom CurrentRoom { get; }
 		GameRoom LastRoom { get; }
+		int LastMatchPlayerAmount { get; }
+		public bool IsLocalPlayerSpectator { get; }
 		byte GetMaxSpectators(MatchType matchType);
 
 		byte GetMaxPlayers(QuantumGameModeConfig gameModeConfig,
@@ -138,13 +143,17 @@ namespace FirstLight.Game.Services.RoomService
 
 	public class RoomService : IInRoomCallbacks, IMatchmakingCallbacks, IRoomService
 	{
-		internal IGameNetworkService _networkService;
-		private IGameBackendService _backendService;
-		internal IConfigsProvider _configsProvider;
-		private ICoroutineService _coroutineService;
+		internal readonly IGameNetworkService _networkService;
+		private readonly IGameBackendService _backendService;
+		internal readonly IConfigsProvider _configsProvider;
+		private readonly ICoroutineService _coroutineService;
+		private readonly IGameDataProvider _dataProvider;
+		private readonly ILeaderboardService _leaderboardService;
 
 		public GameRoom CurrentRoom { get; private set; }
 		public GameRoom LastRoom { get; private set; }
+
+		public int LastMatchPlayerAmount { get; private set; }
 
 		private RoomServiceParameters _parameters;
 		private RoomServiceCommands _commands;
@@ -160,15 +169,19 @@ namespace FirstLight.Game.Services.RoomService
 
 		public bool InRoom => CurrentRoom != null;
 
+		public bool IsLocalPlayerSpectator => CurrentRoom.LocalPlayerProperties.Spectator.Value;
+
 		internal MatchmakingAndRoomConfig Configs => _configsProvider.GetConfig<MatchmakingAndRoomConfig>();
 
 		public RoomService(IGameNetworkService networkService, IGameBackendService backendService, IConfigsProvider configsProvider,
-						   ICoroutineService coroutineService)
+						   ICoroutineService coroutineService, IGameDataProvider dataProvider, ILeaderboardService leaderboardService)
 		{
 			_networkService = networkService;
 			_backendService = backendService;
 			_configsProvider = configsProvider;
 			_coroutineService = coroutineService;
+			_dataProvider = dataProvider;
+			_leaderboardService = leaderboardService;
 			_parameters = new RoomServiceParameters(this);
 			_commands = new RoomServiceCommands(this);
 			RegisterListeners();
@@ -194,9 +207,8 @@ namespace FirstLight.Game.Services.RoomService
 
 			var enterParams = _parameters.GetRoomEnterParams(roomName);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			_networkService.ResetQuantumProperties();
-			_networkService.SetSpectatePlayerProperty(false);
+            
+			ResetLocalPlayerProperties();
 			_networkService.LastUsedSetup.Value = null;
 
 			return _networkService.QuantumClient.OpJoinRoom(enterParams);
@@ -215,8 +227,7 @@ namespace FirstLight.Game.Services.RoomService
 
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = offlineMode;
 
-			_networkService.ResetQuantumProperties();
-			_networkService.SetSpectatePlayerProperty(false);
+			ResetLocalPlayerProperties();
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpCreateRoom(createParams);
@@ -236,8 +247,7 @@ namespace FirstLight.Game.Services.RoomService
 			var createParams = _parameters.GetRoomCreateParams(setup);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			_networkService.ResetQuantumProperties(teamID);
-			_networkService.SetSpectatePlayerProperty(false);
+			ResetLocalPlayerProperties();
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
@@ -272,9 +282,7 @@ namespace FirstLight.Game.Services.RoomService
 			FLog.Verbose(ModelSerializer.PrettySerialize(joinRandomParams));
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			_networkService.ResetQuantumProperties();
-
-			_networkService.SetSpectatePlayerProperty(false);
+			ResetLocalPlayerProperties();
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 
@@ -329,23 +337,32 @@ namespace FirstLight.Game.Services.RoomService
 		public void RegisterListeners()
 		{
 			_networkService.QuantumClient.AddCallbackTarget(this);
+			_networkService.OnConnectedToMaster += OnConnectedToMaster;
+		}
+
+		private void OnConnectedToMaster()
+		{
+			ResetLocalPlayerProperties();
 		}
 
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
+			InitPlayerProperties(newPlayer);
 			OnPlayersChange?.Invoke(newPlayer, PlayerChangeReason.Join);
+			LastMatchPlayerAmount = CurrentRoom.Players.Count;
 		}
 
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			OnPlayersChange?.Invoke(otherPlayer, PlayerChangeReason.Leave);
+			LastMatchPlayerAmount = CurrentRoom.Players.Count;
 		}
 
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
 			if (!InRoom) return;
-			FLog.Info("Received properties update");
+			FLog.Info("Received properties update "+propertiesThatChanged);
 			foreach (var entry in propertiesThatChanged)
 			{
 				CurrentRoom.Properties.OnReceivedPropertyChange(entry.Key.ToString(), entry.Value);
@@ -354,24 +371,71 @@ namespace FirstLight.Game.Services.RoomService
 			OnRoomPropertiesChanged?.Invoke();
 		}
 
-
-		public void OnJoinedRoom()
+		void CheckRoomInit()
 		{
+			if (CurrentRoom != null && CurrentRoom.Name == _networkService.CurrentRoom.Name)
+			{
+				return;
+			}
 			CurrentRoom = new GameRoom(this, _networkService.QuantumClient.CurrentRoom);
 			LastRoom = CurrentRoom;
+			// Fill room properties
 			var properties = _networkService.QuantumClient.CurrentRoom.CustomProperties;
 			foreach (var entry in properties)
 			{
 				CurrentRoom.Properties.OnReceivedPropertyChange(entry.Key.ToString(), entry.Value);
 			}
 
-			CurrentRoom.Properties.OnLocalPlayerSetProperty += OnLocalPlayerSetProperty;
+			CurrentRoom.Properties.OnLocalPlayerSetProperty += OnLocalPlayerSetRoomProperty;
+
+			// Fill player properties
+			foreach (var player in CurrentRoom.Players.Values)
+			{
+				InitPlayerProperties(player);
+			}
+
 			OnRoomPropertiesChanged?.Invoke();
+			OnPlayerPropertiesUpdated?.Invoke();
 			SubscribeToPropertyChangeEvents(CurrentRoom);
 
 			// When master joins matchmaking it should set the timer values
 			CheckMatchmakingLoadingStart();
 		}
+
+		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+		{
+			if (!InRoom) return;
+			FLog.Info($"Received player property {targetPlayer.NickName} update {changedProps}");
+
+			foreach (var entry in changedProps)
+			{
+				var props = CurrentRoom.GetPlayerProperties(targetPlayer);
+				props.OnReceivedPropertyChange(entry.Key.ToString(), entry.Value);
+			}
+
+			OnPlayerPropertiesUpdated?.Invoke();
+		}
+
+
+		public void OnJoinedRoom()
+		{
+			CheckRoomInit();
+		}
+
+		private void InitPlayerProperties(Player player)
+		{
+			var props = CurrentRoom.GetPlayerProperties(player);
+			foreach (var entry in player.CustomProperties)
+			{
+				props.OnReceivedPropertyChange(entry.Key.ToString(), entry.Value);
+			}
+
+			if (player.IsLocal)
+			{
+				props.OnLocalPlayerSetProperty += OnLocalPlayerSetPlayerProperty;
+			}
+		}
+
 
 		private void CheckMatchmakingLoadingStart()
 		{
@@ -404,13 +468,22 @@ namespace FirstLight.Game.Services.RoomService
 			};
 		}
 
-		private void OnLocalPlayerSetProperty(string key, object value)
+		private void OnLocalPlayerSetRoomProperty(string key, object value)
 		{
 			_networkService.QuantumClient.CurrentRoom.SetCustomProperties(new Hashtable
 			{
 				{key, value}
 			});
-			FLog.Verbose($"Setting property {key} to {value}");
+			FLog.Verbose($"Setting room property {key} to {value}");
+		}
+
+		private void OnLocalPlayerSetPlayerProperty(string key, object value)
+		{
+			CurrentRoom.LocalPlayer.SetCustomProperties(new Hashtable()
+			{
+				{key, value}
+			});
+			FLog.Verbose($"Setting local player property {key} to {value}");
 		}
 
 		public IEnumerator CheckGameStartCoroutine()
@@ -426,11 +499,6 @@ namespace FirstLight.Game.Services.RoomService
 
 		public void CheckSimulationStart()
 		{
-			if (InRoom && !CurrentRoom.GameStarted)
-			{
-				FLog.Verbose("game starts in " + CurrentRoom.TimeLeftToGameStart().TotalSeconds);
-			}
-
 			// Sometimes when player joined the room we don't have the server time yet so we don't start the loading timer,
 			// so we keep checking if we have the time to start matchmaking
 			if (InRoom && CurrentRoom.LocalPlayer.IsMasterClient)
@@ -501,10 +569,6 @@ namespace FirstLight.Game.Services.RoomService
 			CurrentRoom = null;
 		}
 
-		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-		{
-			OnPlayerPropertiesUpdated?.Invoke();
-		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
@@ -543,6 +607,31 @@ namespace FirstLight.Game.Services.RoomService
 
 			FLog.Info($"KickPlayer: {playerToKick}");
 			return _commands.SendKickCommand(playerToKick);
+		}
+
+		private void ResetLocalPlayerProperties(string teamId = null)
+		{
+			_networkService.QuantumClient.NickName = _dataProvider.AppDataProvider.DisplayNameTrimmed;
+			var preloadIds = new List<GameId>();
+
+			if (_dataProvider.EquipmentDataProvider.Loadout != null)
+			{
+				preloadIds.AddRange(_dataProvider.EquipmentDataProvider.Loadout
+					.Select(item => _dataProvider.EquipmentDataProvider.Inventory[item.Value])
+					.Select(equipmentDataInfo => equipmentDataInfo.GameId));
+				preloadIds.Add(_dataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.PlayerSkin)).Id);
+			}
+
+			var props = new PlayerProperties
+			{
+				Loadout = {Value = preloadIds},
+				Spectator = {Value = false},
+				CoreLoaded = {Value = false},
+				TeamId = {Value = teamId},
+				Rank = {Value = _leaderboardService.CurrentRankedEntry.Position}
+			};
+
+			_networkService.LocalPlayer.SetCustomProperties(props.ToHashTable());
 		}
 	}
 }

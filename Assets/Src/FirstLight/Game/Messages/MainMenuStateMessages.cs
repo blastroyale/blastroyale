@@ -28,14 +28,6 @@ namespace FirstLight.Game.Messages
 	{
 		public bool AddBots;
 	}
-	public struct SpectatorModeToggledMessage : IMessage
-	{
-		public bool IsSpectator;
-	}
-	public struct ManualTeamIdSetMessage : IMessage
-	{
-		public string TeamId;
-	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }
 	public struct MatchmakingCancelMessage : IMessage { }

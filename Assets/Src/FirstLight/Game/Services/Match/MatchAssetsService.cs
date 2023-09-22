@@ -10,7 +10,9 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Services.RoomService;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -64,12 +66,19 @@ namespace FirstLight.Game.Services
 			_data = MainInstaller.Resolve<IGameDataProvider>();
 			_mandatoryAssets = new AsyncTaskTracker();
 			_optionalAssets = new AsyncTaskTracker();
-			_services.MessageBrokerService.Subscribe<PlayerUpdateLoadoutMessage>(OnUpdateLoadout);
+			_services.RoomService.OnPlayersChange += OnRoomPlayersChange;
 		}
+
+
 
 		public void StartOptionalAssetLoad()
 		{
-			LoadGameIds(_services.NetworkService.LocalPlayer.GetLoadoutGameIds());
+			var localPlayerLoadout = _services.RoomService.CurrentRoom.LocalPlayerProperties.Loadout.Value;
+			if (localPlayerLoadout != null)
+			{
+				LoadGameIds(localPlayerLoadout);
+	
+			}
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<MaterialVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
 			_optionalAssets.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
@@ -101,7 +110,12 @@ namespace FirstLight.Game.Services
 				};
 				_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 				FLog.Verbose("Completed loading all core assets");
-				if (_services.NetworkService.InRoom) _services.MessageBrokerService.Publish(new CoreMatchAssetsLoadedMessage());
+
+				if (_services.RoomService.InRoom)
+				{
+					_services.RoomService.CurrentRoom.LocalPlayerProperties.CoreLoaded.Value = true;
+
+				}
 			});
 		}
 		
@@ -143,11 +157,13 @@ namespace FirstLight.Game.Services
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}
-		
-		private void OnUpdateLoadout(PlayerUpdateLoadoutMessage msg)
+        
+		private void OnRoomPlayersChange(Player player, PlayerChangeReason reason)
 		{
-			FLog.Verbose("Loading assets for player "+msg.Player.NickName);
-			LoadGameIds(msg.Loadout);
+			if (reason == PlayerChangeReason.Join)
+			{
+				LoadGameIds(_services.RoomService.CurrentRoom.GetPlayerProperties(player).Loadout.Value);
+			}
 		}
 
 		private void LoadGameIds(List<GameId> ids)

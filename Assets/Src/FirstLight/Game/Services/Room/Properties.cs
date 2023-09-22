@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using ExitGames.Client.Photon;
 
 namespace FirstLight.Game.Services.RoomService
 {
-	public interface IRoomProperty
+	public interface IQuantumProperty
 	{
 		public string Key { get; }
 		public bool Expose { get; }
@@ -14,19 +16,19 @@ namespace FirstLight.Game.Services.RoomService
 		object ToRaw();
 	}
 
-	public class RoomProperty<T> : IRoomProperty
+	public class QuantumProperty<T> : IQuantumProperty
 	{
 		public string Key { get; }
 
 		/// <summary>
 		/// Callback for when the local player changes a property
 		/// </summary>
-		public event Action<RoomProperty<T>> OnLocalPlayerSet;
+		public event Action<QuantumProperty<T>> OnLocalPlayerSet;
 
 		/// <summary>
 		/// Generic callback for when the value changes, it might be received an update from server, or local player changed it
 		/// </summary>
-		public event Action<RoomProperty<T>> OnValueChanged;
+		public event Action<QuantumProperty<T>> OnValueChanged;
 
 		public bool Expose { get; private set; }
 		public bool HasValue { get; private set; }
@@ -43,7 +45,7 @@ namespace FirstLight.Game.Services.RoomService
 
 		protected T _currentValue;
 
-		public RoomProperty(string key, bool expose = false)
+		public QuantumProperty(string key, bool expose = false)
 		{
 			Key = key;
 			Expose = expose;
@@ -53,6 +55,11 @@ namespace FirstLight.Game.Services.RoomService
 
 		public virtual void FromRaw(object value)
 		{
+			if (value == null)
+			{
+				SetInternal(default);
+				return;
+			}
 			SetInternal((T) value);
 		}
 
@@ -64,7 +71,7 @@ namespace FirstLight.Game.Services.RoomService
 		protected void SetInternal(T value)
 		{
 			HasValue = true;
-			var changed = !value.Equals(_currentValue);
+			var changed = !Equals(_currentValue,value);
 			_currentValue = value;
 			if (changed)
 			{
@@ -73,7 +80,7 @@ namespace FirstLight.Game.Services.RoomService
 		}
 	}
 
-	public class EnumProperty<T> : RoomProperty<T> where T : struct, Enum
+	public class EnumProperty<T> : QuantumProperty<T> where T : struct, Enum
 	{
 		public override void FromRaw(object value)
 		{
@@ -89,10 +96,9 @@ namespace FirstLight.Game.Services.RoomService
 		{
 		}
 	}
-
-	public class ListEnumRoomProperty<T> : RoomProperty<List<T>> where T : struct, Enum
+	public class ListEnumQuantumProperty<T> : QuantumProperty<List<T>> where T : struct, Enum
 	{
-		public ListEnumRoomProperty(string key, bool expose) : base(key, expose)
+		public ListEnumQuantumProperty(string key, bool expose) : base(key, expose)
 		{
 		}
 
@@ -124,9 +130,9 @@ namespace FirstLight.Game.Services.RoomService
 		}
 	}
 
-	public class ListRoomProperty : RoomProperty<List<string>>
+	public class ListQuantumProperty : QuantumProperty<List<string>>
 	{
-		public ListRoomProperty(string key, bool expose) : base(key, expose)
+		public ListQuantumProperty(string key, bool expose) : base(key, expose)
 		{
 		}
 
@@ -146,6 +152,79 @@ namespace FirstLight.Game.Services.RoomService
 		public override object ToRaw()
 		{
 			return string.Join(",", _currentValue);
+		}
+	}
+	
+	public class PropertiesHolder
+	{
+		private List<IQuantumProperty> _allProperties = new();
+        
+
+		public delegate void OnSetPropertyCallback(string key, object value);
+
+		public event OnSetPropertyCallback OnLocalPlayerSetProperty;
+        
+
+		private void InitProperty<T>(QuantumProperty<T> property)
+		{
+			_allProperties.Add(property);
+			property.OnLocalPlayerSet += OnLocalPlayerSetPropertyCallback;
+		}
+
+		protected QuantumProperty<T> Create<T>(string key, bool expose = false)
+		{
+			var property = new QuantumProperty<T>(key, expose);
+			InitProperty(property);
+			return property;
+		}
+
+		protected QuantumProperty<T> CreateEnum<T>(string key, bool expose = false) where T : struct, Enum
+		{
+			var property = new EnumProperty<T>(key, expose);
+			InitProperty(property);
+			return property;
+		}
+
+		protected ListQuantumProperty CreateList(string key, bool expose = false)
+		{
+			var property = new ListQuantumProperty(key, expose);
+			InitProperty(property);
+			return property;
+		}
+
+		protected ListEnumQuantumProperty<T> CreateEnumList<T>(string key, bool expose = false) where T : struct, Enum
+		{
+			var property = new ListEnumQuantumProperty<T>(key, expose);
+			InitProperty(property);
+			return property;
+		}
+
+
+		private void OnLocalPlayerSetPropertyCallback(IQuantumProperty property)
+		{
+			OnLocalPlayerSetProperty?.Invoke(property.Key, property.ToRaw());
+		}
+
+		public void OnReceivedPropertyChange(string key, object value)
+		{
+			var roomProperty = _allProperties.Find(e => e.Key == key);
+			roomProperty?.FromRaw(value);
+		}
+
+		public string[] GetExposedPropertiesIds()
+		{
+			return _allProperties.Where(e => e.Expose).Select(e => e.Key).ToArray();
+		}
+
+		public Hashtable ToHashTable()
+		{
+			var table = new Hashtable();
+			foreach (var roomProperty in _allProperties.Where(roomProperty => roomProperty.HasValue))
+			{
+				table.Add(roomProperty.Key, roomProperty.ToRaw());
+			}
+
+			return table;
 		}
 	}
 }

@@ -1,0 +1,177 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.player-statistics-popup {
+    background-image: var(--sprite-home__background-popup-equipment);
+    width: 1350px;
+    height: 820px;
+    top: 30px;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 38px;
+}
+
+.player-statistics-popup--full-page .player-statistics-popup__content {
+    left: 0;
+}
+
+.player-statistics-popup__title {
+    background-image: var(--sprite-home__header-popup-player-statistics);
+    -unity-text-align: middle-center;
+    height: 86px;
+    margin: 0;
+    padding: 0 120px 0 20px;
+}
+
+.player-statistics-popup__close {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    background-image: var(--sprite-home__button-popup-equipment-close);
+    height: 90px;
+    width: 104px;
+}
+
+.player-statistics-popup__close:active {
+    background-image: var(--sprite-home__button-popup-equipment-close-pressed);
+}
+
+.player-statistics-popup__content {
+    position: absolute;
+    left: 500px;
+    top: 86px;
+    right: 0;
+    bottom: 0;
+}
+
+.safe-area {
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    background-image: var(--sprite-home__icon-spinner-thick);
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.header-row {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 70%;
+    height: 100px;
+    max-height: 200px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    align-self: center;
+    margin-bottom: 8px;
+}
+
+.stats-container {
+    flex-grow: 1;
+    background-color: rgba(60, 57, 77, 0);
+    width: 160px;
+    height: 160px;
+    max-width: 160px;
+    max-height: 160px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.stats-container__stat-value {
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-row {
+    flex-grow: 1;
+    background-color: rgb(68, 64, 89);
+    width: 70%;
+    height: 200px;
+    max-height: 200px;
+    flex-direction: row;
+    align-items: auto;
+    justify-content: space-around;
+    display: flex;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.header-row__pfp-image {
+    flex-grow: 1;
+    background-color: rgb(214, 74, 123);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/avatar-default.png?fileID=2800000&guid=a586a1ae1408749e9b1267b30f1bc628&type=3#avatar-default');
+    align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    display: none;
+    visibility: visible;
+}
+
+.header-row__spinner-holder {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-statistics-popup__content {
+    left: 0;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 0;
+    visibility: visible;
+}
+
+.stat-row0 {
+    margin-bottom: 4px;
+}
+
+.header-row__edit-name-button {
+    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.stats-container__stat-name {
+    font-size: 30px;
+}

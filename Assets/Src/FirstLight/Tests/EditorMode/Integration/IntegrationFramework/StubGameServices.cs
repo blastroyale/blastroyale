@@ -34,6 +34,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
 		public virtual IGameBackendService GameBackendService { get; }
+		public virtual IPlayerProfileService ProfileService { get; }
 		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
 		public virtual ILiveopsService LiveopsService { get; set; }
@@ -86,6 +87,7 @@ namespace FirstLight.Tests.EditorMode
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
+			ProfileService = new PlayerProfileService(GameBackendService);
 			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer) gameLogic, this,
 				dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);

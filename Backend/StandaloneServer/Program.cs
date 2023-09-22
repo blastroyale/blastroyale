@@ -18,6 +18,8 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
+using GameLogicService.Game;
 using GameLogicService.Services;
 using StandaloneServer;
 using PluginManager = PlayFab.PluginManager;
@@ -56,7 +58,8 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
 	var webServer = app.Services.GetService<ILogicWebService>();
 	var shop = app.Services.GetService<ShopService>();
-
+	var statistics = app.Services.GetService<IStatisticsService>();
+	
 	logger.LogInformation($"Logic Request Contents: {logicString?.ToString()}");
 	
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
@@ -65,7 +68,8 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 		"ConsumeValidatedPurchaseCommand" => await shop.ProcessPurchaseRequest(playerId, logicRequest.Data["item_id"], bool.Parse(logicRequest.Data["fake_store"])),
 		"RemovePlayerData"                => await webServer.RemovePlayerData(playerId),
 		"ExecuteCommand"                  => await webServer.RunLogic(playerId, logicRequest),
-		"GetPlayerData"                   => await webServer.GetPlayerData(playerId)
+		"GetPlayerData"                   => await webServer.GetPlayerData(playerId),
+		"GetPublicProfile"                => Playfab.Result(playerId, await statistics.GetProfile(logicRequest.Command))
 	};
 	var res = new ExecuteFunctionResult()
 	{

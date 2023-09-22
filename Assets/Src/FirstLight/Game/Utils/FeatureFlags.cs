@@ -143,6 +143,11 @@ namespace FirstLight.Game.Utils
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
+		
+		/// <summary>
+		/// Enables / disables the player stats button in the home screen
+		/// </summary>
+		public static bool PLAYER_STATS_ENABLED = true;
 
 		/// <summary>
 		/// Will try to detect and raise any desyncs server/client finds.
@@ -263,6 +268,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("STORE_ENABLED", overrideData, out var storeEnabled))
 			{
 				STORE_ENABLED = storeEnabled;
+			}
+			
+			if (TrySetFlag("PLAYER_STATS_ENABLED", overrideData, out var playerStatsEnabled))
+			{
+				PLAYER_STATS_ENABLED = playerStatsEnabled;
 			}
 
 			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))

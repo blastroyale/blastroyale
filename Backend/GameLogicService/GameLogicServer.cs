@@ -13,6 +13,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using GameLogicService.Game;
 
 namespace Backend
@@ -52,9 +53,9 @@ namespace Backend
 		private readonly IBaseServiceConfiguration _serviceConfiguration;
 		private readonly GameServer _server;
 		private readonly IEventManager _eventManager;
-		private readonly IStateMigrator<ServerState> _migrator;
+		private readonly IStatisticsService _statistics;
 
-		public GameLogicWebWebService(IEventManager eventManager, ILogger log, IStateMigrator<ServerState> migrator,
+		public GameLogicWebWebService(IEventManager eventManager, ILogger log,
 									  IPlayerSetupService service, IServerStateService stateService, GameServer server, IBaseServiceConfiguration serviceConfiguration)
 		{
 			_setupService = service;
@@ -62,7 +63,6 @@ namespace Backend
 			_server = server;
 			_serviceConfiguration = serviceConfiguration;
 			_eventManager = eventManager;
-			_migrator = migrator;
 			_log = log;
 		}
 
@@ -89,19 +89,7 @@ namespace Backend
 					_log.LogInformation($"Setting up player {playerId}");
 					await SetupPlayer(playerId);
 				}
-				else
-				{
-					var versionUpdates = _migrator.RunMigrations(state);
-					if (versionUpdates > 0)
-					{
-						await _stateService.UpdatePlayerState(playerId, state);
-						_log.LogDebug(
-							$"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
-					}
-				}
-
 				await _eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
-
 				return Playfab.Result(playerId, new Dictionary<string, string>()
 				{
 					{"BuildNumber", _serviceConfiguration.BuildNumber},

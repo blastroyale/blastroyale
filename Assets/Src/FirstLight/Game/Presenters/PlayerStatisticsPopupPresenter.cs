@@ -128,6 +128,8 @@ namespace FirstLight.Game.Presenters
 		{
 			MainInstaller.ResolveServices().ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
+			    if (!IsOpen) return;
+				
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
 				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER);

@@ -51,9 +51,10 @@ namespace FirstLight.Game.Presenters
 		private Button _infoButton;
 		private Label _rewardsText;
 		private Label _endsIn;
+		private VisualElement _endsInContainer;
 		private VisualElement _headerIcon;
 		private VisualElement _rewardsWidget;
-		private VisualElement _rewardsTitle;
+		private Label _rewardsTitle;
 		private LocalizedLabel _pointsName;
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -85,10 +86,11 @@ namespace FirstLight.Game.Presenters
 			_leaderboardTitle = root.Q<Label>("LeaderboardTitle").Required();
 			_headerIcon = root.Q("LeaderboardIcon").Required();
 			_endsIn = root.Q<Label>("EndsInText").Required();
+			_endsInContainer = root.Q<VisualElement>("EndsInContainer").Required();
 			_discordButton = root.Q<Button>("DiscordButton").Required();
 			_rewardsText = root.Q<Label>("RewardsText").Required();
 			_rewardsWidget = root.Q("RewardsWidget").Required();
-			_rewardsTitle = root.Q("LeaderboardTitleDesc").Required();
+			_rewardsTitle = root.Q<Label>("LeaderboardTitleDesc").Required();
 			_infoButton = root.Q<Button>("InfoButton").Required();
 			_headerIcon.SetVisibility(false);
 			_leaderboardListView.DisableScrollbars();
@@ -101,8 +103,8 @@ namespace FirstLight.Game.Presenters
 			_infoButton.clicked += () =>
 			{
 				// TODO: Language not working for some reason
-				_endsIn.OpenTooltip(Root, "Statistics Resets to 0 after season ends !", TooltipDirection.TopRight,
-					TooltipPosition.BottomLeft, 20, 20);
+				_endsInContainer.OpenTooltip(Root, "Progress will be reset at the end of the season", TooltipDirection.TopRight,
+				                             TooltipPosition.BottomLeft, 20, 20);
 			};
 			_discordButton.clicked += () => Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
@@ -192,20 +194,28 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		private void DisplaySeasonData(GameLeaderboard board, GetLeaderboardResult result)
 		{
-
+			DateTime endTime = DateTime.UtcNow;
 			var seasonConfig = GetViewingSeasonConfig();
+			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
+			
 			_leaderboardDescription.text = seasonConfig.Desc;
 			_leaderboardTitle.text = board.Name;
-			var hasRewards = !string.IsNullOrEmpty(seasonConfig.Rewards); // TODO: Read from playfab prize tables
-			if(hasRewards) _rewardsText.text = seasonConfig.Rewards;
+			
+			if (hasRewards)
+			{
+				_rewardsText.text = seasonConfig.Rewards;
+				_rewardsTitle.text = seasonConfig.RewardsTitle;
+			}
+			
 			_rewardsWidget.SetDisplay(hasRewards);
 			_rewardsTitle.SetVisibility(hasRewards);
-			DateTime endTime = DateTime.UtcNow;
+			
 			_descriptionContainer.SetVisibility(true);
 			if (board == _services.LeaderboardService.Leaderboards.First())
 			{
 				_headerIcon.SetVisibility(true);
 			}
+			
 			if (!string.IsNullOrEmpty(seasonConfig.ManualEndTime))
 			{
 				endTime = DateTime.ParseExact(seasonConfig.ManualEndTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -214,11 +224,19 @@ namespace FirstLight.Game.Presenters
 			{
 				FLog.Warn($"Missing leaderboard {board.Name} end time");
 				_endsIn.text = $"Not Scheduled";
+				_endsInContainer.SetDisplay(false);
+				_endsInContainer.SetVisibility(false);
 				return;
-			} else endTime = result.NextReset.Value;
+			}
+			else
+			{
+				endTime = result.NextReset.Value;
+			}
+			
+			_endsInContainer.SetDisplay(true);
+			_endsInContainer.SetVisibility(true);
 			var daysTillReset = (int)Math.Ceiling((endTime - DateTime.UtcNow).TotalDays);
 			_endsIn.text = $"Ends in {daysTillReset} days";
-			
 		}
 		
 		private void OnLeaderboardTopRanksReceived(GameLeaderboard board, GetLeaderboardResult result)

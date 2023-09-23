@@ -38,6 +38,7 @@ namespace FirstLight.Game.Configs
 		public string Icon = "games-icon";
 		public bool Visible = true;
 		public string Desc;
+		public string RewardsTitle;
 		public string Rewards;
 		public string ManualEndTime;
 	}

@@ -171,6 +171,14 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.WinnersScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/PrivacyDialog.prefab
+    Layer: 8
+    UiType: FirstLight.Game.Presenters.PrivacyDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GenericScrollingTextDialog.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.GenericScrollingTextDialogPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _sets:
   - SetId: 0
     UiConfigsType:
@@ -178,6 +186,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 1

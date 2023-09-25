@@ -141,10 +141,12 @@
 }
 
 .content-scrapping {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .content-scrapping__button {
     margin-top: 35px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .content-bottom-filler {
@@ -156,6 +158,7 @@
     justify-content: space-between;
     padding-bottom: 30px;
     padding-top: 143px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .content-repairing__durability {

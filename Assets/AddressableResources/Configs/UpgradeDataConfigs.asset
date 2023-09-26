@@ -49,7 +49,7 @@ MonoBehaviour:
     LevelMultiplier:
       RawValue: 1638
     DurabilityDivider: 48
-  - ResourceType: 116
+  - ResourceType: 112
     BaseValue: 100
     GrowthMultiplier:
       RawValue: 94175

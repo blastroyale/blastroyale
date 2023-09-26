@@ -3,11 +3,11 @@
     <Style src="project://database/Assets/Art/UI/Screens/PrivacyDialogStyle.uss?fileID=7433441132597879392&amp;guid=cb0eb3341c6774ab8867621416ff2384&amp;type=3#PrivacyDialogStyle" />
     <ui:VisualElement name="root" class="screen-root">
         <ui:Button name="BlockerButton" class="blocker" />
-        <ui:VisualElement name="Popup" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl popup--xlarge" style="min-height: 600px; max-height: 600px; height: 600px;">
+        <ui:VisualElement name="Popup" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl popup--xlarge privacy-popup">
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
-                    <ui:Label name="Title" text="Privacy Policy" class="DO_NOT_USE_font-style-h2" />
+                    <ui:Label name="Title" text="Privacy Policy" class="title-text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:ScrollView class="scroll-text">

@@ -16,7 +16,6 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action ConfirmClicked;
 			public Equipment Equipment;
-			public UniqueId EquipmentId;
 		}
 		
 		private EquipmentCardElement _equipmentCard;
@@ -35,7 +34,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void InitEquipment()
 		{
-			_equipmentCard.SetEquipment(Data.Equipment, Data.EquipmentId);
+			_equipmentCard.SetEquipment(Data.Equipment);
 		}
 	}
 }

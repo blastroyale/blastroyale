@@ -75,7 +75,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			
  			Destroy(_characterViewComponent.gameObject);
 
-			if (!msg.EquippedItem.IsValid()) return;
+			if (msg.EquippedItem == null) return;
 			
 			await UpdateSkin(msg.EquippedItem.Id, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}

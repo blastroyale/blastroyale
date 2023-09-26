@@ -1,4 +1,5 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using Quantum;
 using FirstLight.SDK.Services;
 
@@ -14,12 +15,12 @@ namespace FirstLight.Game.Messages
 	public struct CollectionItemEquippedMessage : IMessage
 	{
 		public CollectionCategory Category;
-		public CollectionItem EquippedItem;
+		public ItemData EquippedItem;
 	}
 	
 	public struct CollectionItemUnlockedMessage : IMessage
 	{
 		public CollectionUnlockSource Source;
-		public CollectionItem EquippedItem;
+		public ItemData EquippedItem;
 	}
 }

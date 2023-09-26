@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
@@ -51,13 +52,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(9);
-			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
-
-			Assert.AreEqual(0, newLevel);
-			Assert.AreEqual(9, _battlePassLogic.CurrentPoints.Value);
-			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
-			Assert.IsEmpty(rewards);
-			Assert.IsFalse(redeemed);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			
+			Assert.AreEqual(0, claimableLevels.Count);
+			Assert.AreEqual(9, points);
 		}
 
 		[Test]
@@ -67,13 +65,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(10);
-			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
-
-			Assert.AreEqual(1, newLevel);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
+			
+			Assert.AreEqual(1, claimableLevels.Max());
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(1, _battlePassLogic.CurrentLevel.Value);
 			Assert.AreEqual(1, rewards.Count);
-			Assert.IsTrue(redeemed);
 		}
 
 		[Test]
@@ -83,13 +82,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(15);
-			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var newLevel = claimableLevels.Max();
+			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
 			Assert.AreEqual(1, newLevel);
 			Assert.AreEqual(5, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(1, _battlePassLogic.CurrentLevel.Value);
 			Assert.AreEqual(1, rewards.Count);
-			Assert.IsTrue(redeemed);
 		}
 
 		[Test]
@@ -99,13 +100,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(30);
-			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var newLevel = claimableLevels.Max();
+			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
 			Assert.AreEqual(3, newLevel);
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(3, _battlePassLogic.CurrentLevel.Value);
 			Assert.AreEqual(3, rewards.Count);
-			Assert.IsTrue(redeemed);
 		}
 
 		[Test]
@@ -115,15 +118,16 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
 
 			_battlePassLogic.AddBPP(100);
-			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			var rewards = _battlePassLogic.GetRewardConfigs(claimableLevels.ToArray());
+			var newLevel = claimableLevels.Max();
+			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
 			Assert.AreEqual(_battlePassLogic.MaxLevel, newLevel);
 			Assert.AreEqual(4, _battlePassLogic.CurrentLevel.Value);
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(4, rewards.Count);
 			Assert.AreEqual(_battlePassLogic.GetRemainingPointsOfBp(), 0);
-
-			Assert.IsTrue(redeemed);
 		}
 
 		[Test]
@@ -142,7 +146,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
 
-			_battlePassLogic.RedeemBPP(out _, out _);
+			var claimableLevels = _battlePassLogic.GetClaimableLevels(out var points);
+			_battlePassLogic.SetLevelAndPoints(claimableLevels.Max(), points);
 
 			Assert.AreEqual(6, _battlePassLogic.GetRemainingPointsOfBp());
 		}
@@ -173,23 +178,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.IsTrue(_battlePassLogic.IsRedeemable());
 			Assert.AreEqual(10, pointsPerLevel);
 		}
-
-		[Test]
-		public void TestAddLevels()
-		{
-			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
-			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
-
-			_battlePassLogic.AddBPP(5);
-
-			_battlePassLogic.AddLevels(2, out var rewards, out var newLevel);
-
-			Assert.AreEqual(5, _battlePassLogic.CurrentPoints.Value);
-			Assert.AreEqual(2, _battlePassLogic.CurrentLevel.Value);
-			Assert.AreEqual(2, newLevel);
-			Assert.AreEqual(2, rewards.Count);
-		}
-
+		
 		private void SetupConfigs()
 		{
 			var bpConfig = new BattlePassConfig

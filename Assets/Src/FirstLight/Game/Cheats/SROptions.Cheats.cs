@@ -7,6 +7,7 @@ using System.Text;
 using FirstLight.FLogger;
 using FirstLight.Game;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -463,8 +464,7 @@ public partial class SROptions
 
 	private void UnlockCollectionItem(GameId item, IGameLogic gameLogic, IGameServices services)
 	{
-		var newCollectionItem = new CollectionItem(item);
-		
+		var newCollectionItem = ItemFactory.Collection(item);
 		if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
 		{
 			gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
@@ -637,6 +637,18 @@ public partial class SROptions
 
 		gameLogic.PlayerLogic.AddXP(50);
 
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void LevelFameUp()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+		var level = gameLogic.PlayerLogic.Level.Value;
+		var xp = gameLogic.PlayerLogic.XP.Value;
+		var finalXpNeeded = gameLogic.PlayerLogic.GetXpNeededForLevel(level) - xp;
+		gameLogic.PlayerLogic.AddXP(finalXpNeeded);
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 	

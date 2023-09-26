@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -63,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			var currentLevel = _dataProvider.PlayerDataProvider.Level.Value;
 			_reachLevelLabel.text = string.Format("REACH LEVEL <color=#f8c72e>{0}</color> TO GET NEXT REWARDS",
 				currentLevel + 1);
-			_avatar.SetLevel(currentLevel - 1);
+			_avatar.SetLevel(currentLevel);
 			_avatar.SetAvatar(_dataProvider.AppDataProvider.AvatarUrl);
 		}
 
@@ -72,7 +73,7 @@ namespace FirstLight.Game.Presenters
 			_services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
 		}
 
-		public void CreateSummaryElements(IList<IReward> rewards, bool fameRewards)
+		public void CreateSummaryElements(IEnumerable<ItemData> items, bool fameRewards)
 		{
 			// Clean up example elements
 			for (var i = _container.childCount - 1; i >= 0; i--)
@@ -80,26 +81,13 @@ namespace FirstLight.Game.Presenters
 				_container.RemoveAt(i);
 			}
 
-			foreach (var dataReward in rewards)
+			foreach (var item in items)
 			{
-				if (dataReward is EquipmentReward er)
-				{
-					var eq = new EquipmentCardElement(er.Equipment, new UniqueId())
-					{
-						pickingMode = PickingMode.Ignore
-					};
-					_container.Add(eq);
-					continue;
-				}
-
-				var el = new RewardSummaryItemElement(dataReward)
-				{
-					pickingMode = PickingMode.Ignore
-				};
-				_container.Add(el);
+				var view = item.GetViewModel();
+				_container.Add(view.ItemCard);
 			}
 
-			if (rewards.Count >= MANY_REWARDS_AMOUNT)
+			if (items.Count() >= MANY_REWARDS_AMOUNT)
 			{
 				_container.AddToClassList(USS_REWARD_SUMMARY_CONTAINER_MANY_REWARDS_MODIFIER);
 			}

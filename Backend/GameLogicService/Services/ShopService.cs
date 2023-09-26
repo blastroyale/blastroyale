@@ -76,7 +76,7 @@ namespace GameLogicService.Services
 			await _events.CallEvent(new InventoryUpdatedEvent(playerId));
 
 			var result = Playfab.Result(playerId);
-			ModelSerializer.SerializeToData(result.Result.Data, JsonConvert.DeserializeObject<RewardData>(item.CustomData));
+			ModelSerializer.SerializeToData(result.Result.Data, JsonConvert.DeserializeObject<LegacyItemData>(item.CustomData));
 			return result;
 		}
 	

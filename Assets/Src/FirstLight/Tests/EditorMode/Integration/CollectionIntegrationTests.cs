@@ -18,7 +18,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestEquipSkinCommand()
 		{
-			var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.FemaleAssassin) };
+			var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.FemaleAssassin) };
 			
 			TestServices.CommandService.ExecuteCommand(cmd);
 			

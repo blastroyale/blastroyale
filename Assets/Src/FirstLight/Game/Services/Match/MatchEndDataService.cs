@@ -57,7 +57,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// List of rewards
 		/// </summary>
-		public List<RewardData> Rewards { get; }
+		public List<ItemData> Rewards { get; }
 
 		/// <summary>
 		/// How trophies total changed
@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services
 		public PlayerRef LocalPlayerKiller { get; private set; }
 		public bool DiedFromRoofDamage { get; private set; }
 		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new();
-		public List<RewardData> Rewards { get; private set; }
+		public List<ItemData> Rewards { get; private set; }
 		public int TrophiesChange { get; private set; }
 		public uint TrophiesBeforeChange { get; private set; }
 		public uint CSBeforeChange { get; private set; }

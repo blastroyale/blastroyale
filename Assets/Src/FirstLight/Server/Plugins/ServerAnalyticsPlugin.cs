@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
@@ -8,7 +9,9 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
+using Quantum;
 
 namespace Src.FirstLight.Server
 {
@@ -140,12 +143,13 @@ namespace Src.FirstLight.Server
 		{
 			var data = new AnalyticsData
 			{
-				{"new_level", ev.Message.newLevel},
+				{"new_level", ev.Message.NewLevel},
 			};
 			if (ev.Message.Rewards != null)
 			{
-				data["rewards"] = JsonConvert.SerializeObject(
-					ev.Message.Rewards.Select(e => e.Value.GetAnalyticsData(e.Key)));
+				var rewardData = new List<string>();
+			
+				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards.Select(e => e.Id.ToString()));
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.PlayerId, "battle_pass_rewards", data);

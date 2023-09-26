@@ -56,8 +56,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
 		private readonly CollectionMenuState _collectionMenuState;
-
-
+		
 		private int _unclaimedCountCheck;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic,
@@ -521,12 +520,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLevelUpScreen()
 		{
-			var rewards = _gameDataProvider.PlayerDataProvider.GetRewardsForLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
-
+			var levelRewards = _gameDataProvider.PlayerDataProvider.GetRewardsForFameLevel(
+				_gameDataProvider.PlayerDataProvider.Level.Value - 1
+			);
 			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData
 			{
 				FameRewards = true,
-				Rewards = rewards,
+				Items = levelRewards,
 				OnFinish = OpenHomeScreen
 			});
 		}
@@ -546,7 +546,7 @@ namespace FirstLight.Game.StateMachines
 			CloseTransitions();
 
 			// Giving new skins to old players
-			if (!_gameDataProvider.CollectionDataProvider.IsItemOwned(new(GameId.MaleAssassin)))
+			if (!_gameDataProvider.CollectionDataProvider.IsItemOwned(ItemFactory.Collection(GameId.MaleAssassin)))
 			{
 				_services.CommandService.ExecuteCommand(new GetNewSkinsCommand());
 			}

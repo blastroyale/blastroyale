@@ -515,12 +515,17 @@
 
 .reward-summary-item__label {
     color: rgb(255, 255, 255);
-    font-size: 46px;
     position: absolute;
-    left: 0;
+    left: 20px;
     bottom: 13px;
-    right: 18px;
+    right: 34px;
     -unity-text-align: upper-center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 46px;
+    white-space: normal;
 }
 
 .rewards-one__circle-impact {
@@ -542,4 +547,20 @@
 
 .level-up__label {
     top: -109px;
+}
+
+.parent-item {
+    position: absolute;
+    top: -150px;
+    width: 90px;
+    height: 90px;
+    align-self: center;
+    -unity-text-align: upper-center;
+    left: 364px;
+    display: flex;
+}
+
+.parent-item__name {
+    margin-top: 100px;
+    font-size: 32px;
 }

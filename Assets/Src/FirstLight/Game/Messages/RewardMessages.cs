@@ -3,13 +3,15 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using Equipment = Quantum.Equipment;
 using FirstLight.SDK.Services;
+using Quantum;
+using UnityEngine.Serialization;
 
 namespace FirstLight.Game.Messages
 {
 	public struct BattlePassLevelUpMessage : IMessage
 	{
-		public List<KeyValuePair<UniqueId,Equipment>> Rewards;
-		public uint newLevel;
+		public IEnumerable<ItemData> Rewards;
+		public uint NewLevel;
 	}
 
 	public class TrophiesUpdatedMessage : IMessage
@@ -25,7 +27,7 @@ namespace FirstLight.Game.Messages
 	/// </summary>
 	public class ClaimedRewardsMessage : IMessage
 	{
-		public List<RewardData> Rewards;
+		public List<ItemData> Rewards;
 	}
 
 	public struct FinishedClaimingBpRewardsMessage : IMessage
@@ -37,9 +39,15 @@ namespace FirstLight.Game.Messages
 	{
 	}
 
+	public struct OpenedCoreMessage : IMessage
+	{
+		public ItemData Core;
+		public ItemData [] Results;
+	}
+
 	public struct GameCompletedRewardsMessage : IMessage
 	{
-		public List<RewardData> Rewards;
+		public List<ItemData> Rewards;
 		public int TrophiesChange;
 		public uint TrophiesBeforeChange;
 	}

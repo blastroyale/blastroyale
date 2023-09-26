@@ -69,15 +69,15 @@ public partial class SROptions
 		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
 		uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 		{
-			Rewards = new List<IReward>()
+			Items = new List<ItemData>()
 			{
-				new EquipmentReward(new Equipment(GameId.ModRifle,
+				ItemFactory.Equipment( new Equipment(GameId.ModRifle,
 					rarity: EquipmentRarity.Legendary,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				new CurrencyReward(GameId.COIN, 1),
-				new EquipmentReward(new Equipment(GameId.ApoShotgun,
+				ItemFactory.Currency(GameId.COIN, 1),
+				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
 					rarity: EquipmentRarity.UncommonPlus,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
@@ -93,33 +93,33 @@ public partial class SROptions
 		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
 		uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 		{
-			Rewards = new List<IReward>()
+			Items = new List<ItemData>()
 			{
-				new EquipmentReward(new Equipment(GameId.ModRifle,
+				ItemFactory.Equipment (new Equipment(GameId.ModRifle,
 					rarity: EquipmentRarity.Legendary,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				new CurrencyReward(GameId.COIN, 1),
-				new CurrencyReward(GameId.COIN, 100),
-				new CurrencyReward(GameId.BPP, 300),
-				new CurrencyReward(GameId.CS, 20000),
-				new EquipmentReward(new Equipment(GameId.SciSniper,
+				ItemFactory.Currency (GameId.COIN, 1),
+				ItemFactory.Currency (GameId.COIN, 100),
+				ItemFactory.Currency (GameId.BPP, 300),
+				ItemFactory.Currency (GameId.CS, 20000),
+				ItemFactory.Equipment (new Equipment(GameId.SciSniper,
 					rarity: EquipmentRarity.EpicPlus,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				new EquipmentReward(new Equipment(GameId.ApoShotgun,
+				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
 					rarity: EquipmentRarity.Rare,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				new EquipmentReward(new Equipment(GameId.ApoRPG,
+				ItemFactory.Equipment (new Equipment(GameId.ApoRPG,
 					rarity: EquipmentRarity.Uncommon,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				new EquipmentReward(new Equipment(GameId.ApoShotgun,
+				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
 					rarity: EquipmentRarity.CommonPlus,
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
@@ -136,11 +136,11 @@ public partial class SROptions
 		uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 		{
 			FameRewards = true,
-			Rewards = new List<IReward>()
+			Items = new List<ItemData>()
 			{
-				new CurrencyReward(GameId.BPP, 300),
-				new CurrencyReward(GameId.CS, 20000),
-				new UnlockReward(UnlockSystem.Shop)
+				ItemFactory.Currency(GameId.BPP, 300),
+				ItemFactory.Currency (GameId.CS, 20000),
+				ItemFactory.Unlock(UnlockSystem.Shop)
 			},
 			OnFinish = () => { uiService.CloseUi<RewardsScreenPresenter>(true); }
 		});

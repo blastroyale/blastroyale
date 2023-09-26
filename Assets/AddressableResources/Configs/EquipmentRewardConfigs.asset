@@ -887,3 +887,127 @@ MonoBehaviour:
     Level: 1
     Generation: 0
     Amount: 1
+  - Id: 22
+    GameId: 82
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 
+      _valueData: []
+    Rarity:
+      _keyData: 
+      _valueData: []
+    Grade:
+      _keyData: 
+      _valueData: []
+    Faction:
+      _keyData: 
+      _valueData: []
+    Adjective:
+      _keyData: 
+      _valueData: []
+    Material:
+      _keyData: 
+      _valueData: []
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 0
+  - Id: 23
+    GameId: 73
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 
+      _valueData: []
+    Rarity:
+      _keyData: 
+      _valueData: []
+    Grade:
+      _keyData: 
+      _valueData: []
+    Faction:
+      _keyData: 
+      _valueData: []
+    Adjective:
+      _keyData: 
+      _valueData: []
+    Material:
+      _keyData: 
+      _valueData: []
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 0
+  - Id: 24
+    GameId: 25
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 
+      _valueData: []
+    Rarity:
+      _keyData: 
+      _valueData: []
+    Grade:
+      _keyData: 
+      _valueData: []
+    Faction:
+      _keyData: 
+      _valueData: []
+    Adjective:
+      _keyData: 
+      _valueData: []
+    Material:
+      _keyData: 
+      _valueData: []
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 0
+  - Id: 25
+    GameId: 12
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 
+      _valueData: []
+    Rarity:
+      _keyData: 
+      _valueData: []
+    Grade:
+      _keyData: 
+      _valueData: []
+    Faction:
+      _keyData: 
+      _valueData: []
+    Adjective:
+      _keyData: 
+      _valueData: []
+    Material:
+      _keyData: 
+      _valueData: []
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 100

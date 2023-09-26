@@ -113,8 +113,8 @@ public class PlayfabInventorySync : BaseEventDataSync<InventoryUpdatedEvent>
 				foreach (var item in inventory.Inventory)
 				{
 					var catalogItem = await GetCatalogItem(item);
-					var rewardData = JsonConvert.DeserializeObject<RewardData>(catalogItem.CustomData);
-					playerData.UncollectedRewards.Add(rewardData);
+					var legacy = JsonConvert.DeserializeObject<LegacyItemData>(catalogItem.CustomData);
+					playerData.UncollectedRewards.Add(ItemFactory.Legacy(legacy));
 					var res = await PlayFabServerAPI.ConsumeItemAsync(new ConsumeItemRequest
 						{ConsumeCount = 1, PlayFabId = player, ItemInstanceId = item.ItemInstanceId});
 					if (res.Error != null) throw new Exception(res.Error.GenerateErrorReport());

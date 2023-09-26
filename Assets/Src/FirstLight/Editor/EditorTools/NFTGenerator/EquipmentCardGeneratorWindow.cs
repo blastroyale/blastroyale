@@ -129,7 +129,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			if (_equipmentList.MoveNext())
 			{
-				_card.SetEquipment(_equipmentList.Current, _card.UniqueId + 1, loadEditorSprite: true);
+				_card.SetEquipment(_equipmentList.Current , loadEditorSprite: true);
 			}
 			else
 			{

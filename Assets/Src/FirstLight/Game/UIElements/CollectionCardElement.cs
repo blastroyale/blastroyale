@@ -41,8 +41,8 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-		
-		
+
+
 		public GameIdGroup Category { get; set; }
 		public GameId MenuGameId { get; private set; }
 		public int CollectionIndex { get; private set; }
@@ -56,11 +56,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
-		
-		private const string UssSpriteCharacter = "sprite-home__character-{0}";
-		private const string UssSpriteGlider = "sprite-home__glider-{0}";
-		private const string UssSpriteBanner = "sprite-home__flag-{0}";
-		
+
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
@@ -69,7 +65,7 @@ namespace FirstLight.Game.UIElements
 		public CollectionCardElement()
 		{
 			AddToClassList(UssBlock);
-			
+
 			var selectedBg = new VisualElement {name = "selected-bg"};
 			Add(selectedBg);
 			selectedBg.AddToClassList(UssSelected);
@@ -85,10 +81,10 @@ namespace FirstLight.Game.UIElements
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
-			
+
 			cardHolder.Add(_image = new VisualElement {name = "item-image"});
 			_image.AddToClassList(UssImage);
-			
+
 			_locked = new VisualElement {name = "locked-icon"};
 			Add(_locked);
 			_locked.AddToClassList((UssLockedIcon));
@@ -106,19 +102,18 @@ namespace FirstLight.Game.UIElements
 			badgeHolder.Add(
 				_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
 			_equippedBadge.AddToClassList(UssBadgeEquipped);
-			
+
 
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
-			
+
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
 
 			base.clicked += () => clicked?.Invoke(CollectionIndex);
-
 		}
-		
+
 		public void SetSelected(bool selected)
 		{
 			if (selected)
@@ -141,11 +136,11 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool owned = false, bool equipped = false, 
-								bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
+		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool owned = false, bool equipped = false,
+										 bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
-			
+
 			if (highlighted)
 			{
 				AddToClassList(UssBlockHighlighted);
@@ -155,40 +150,16 @@ namespace FirstLight.Game.UIElements
 			_loanedBadge.SetDisplay(loaned);
 			_nftBadge.SetDisplay(isNft);
 			SetLocked(owned);
-			
+
 			MenuGameId = gameId;
 			CollectionIndex = index;
 			Category = category;
-			
+
 			_name.text = gameId.GetLocalization();
 			_image.RemoveSpriteClasses();
-
-			string item = "";
-
-			switch (Category)
-			{
-				case GameIdGroup.PlayerSkin:
-
-					item = string.Format(UssSpriteCharacter, MenuGameId.ToString().ToLowerInvariant());
-					
-					break;
-				
-				case GameIdGroup.Glider:
-
-					item = string.Format(UssSpriteGlider, MenuGameId.ToString().ToLowerInvariant());
-					
-					break;
-
-				case GameIdGroup.DeathMarker:
-
-					item = string.Format(UssSpriteBanner, MenuGameId.ToString().ToLowerInvariant());
-					
-					break;
-			}
-			
-			_image.AddToClassList(item);
+			_image.AddToClassList(MenuGameId.GetUSSSpriteClass());
 		}
-		
+
 
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
 		{

@@ -7,6 +7,7 @@ using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -40,13 +41,13 @@ public class TestBlastRoyaleCommands
 	public void TestBrCustomDictSerializer()
 	{
 		var data = new CollectionData();
-		data.Equipped[new(GameIdGroup.PlayerSkin)] = new (GameId.Male01Avatar);
+		data.Equipped[new(GameIdGroup.PlayerSkin)] = ItemFactory.Collection (GameId.Male01Avatar);
 
 		var serialized = ModelSerializer.Serialize(data).Value;
 
 		var deserialized = ModelSerializer.Deserialize<CollectionData>(serialized);
 		
-		Assert.AreEqual(deserialized.Equipped[new(GameIdGroup.PlayerSkin)], new CollectionItem(GameId.Male01Avatar));
+		Assert.AreEqual(deserialized.Equipped[new(GameIdGroup.PlayerSkin)], ItemFactory.Collection(GameId.Male01Avatar));
 	}
 
 	[Test]

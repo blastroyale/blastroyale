@@ -1,4 +1,5 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
@@ -20,14 +21,14 @@ namespace FirstLight.Game.Commands
 
 		private bool TryGiveUpdatedItem(CommandExecutionContext ctx, GameId oldItem, GameId newItem)
 		{
-			var newCollectionItem = new CollectionItem(newItem);
-			if (ctx.Logic.CollectionLogic().IsItemOwned(new (oldItem)) && !ctx.Logic.CollectionLogic().IsItemOwned(newCollectionItem))
+			var item = ItemFactory.Collection(newItem);
+			if (ctx.Logic.CollectionLogic().IsItemOwned(ItemFactory.Collection(oldItem)) && !ctx.Logic.CollectionLogic().IsItemOwned(item))
 			{
-				ctx.Logic.CollectionLogic().UnlockCollectionItem(newCollectionItem);
+				ctx.Logic.CollectionLogic().UnlockCollectionItem(item);
 				ctx.Services.MessageBrokerService().Publish(new CollectionItemUnlockedMessage()
 				{
 					Source = CollectionUnlockSource.ServerGift,
-					EquippedItem = newCollectionItem
+					EquippedItem = item
 				});
 				return true;
 			}

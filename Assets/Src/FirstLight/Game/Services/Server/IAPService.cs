@@ -111,20 +111,7 @@ namespace FirstLight.Game.Services
 		{
 			_store = controller;
 			_products = controller.products.all.ToList();
-
 			_initialized.Value = true;
-
-			var pendingRewards = _store.products.set.Any(product =>
-				!string.IsNullOrEmpty(product.receipt) && !string.IsNullOrEmpty(product.transactionID)
-			);
-			var unclaimedPurchases = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchases();
-
-			if (!pendingRewards && unclaimedPurchases)
-			{
-				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
-			}
-
-			FLog.Info($"IAP Initialized: Pending({pendingRewards}), Unclaimed({unclaimedPurchases})");
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)
@@ -135,14 +122,19 @@ namespace FirstLight.Game.Services
 		public void OnInitializeFailed(InitializationFailureReason error, string message)
 		{
 			FLog.Warn($"IAP Initialization failed: {error} - {message}");
-
 			_initialized.Value = false;
 		}
 
+		public bool HasUnclaimedPurchase(Product product)
+		{
+			var productReward = JsonConvert.DeserializeObject<LegacyItemData>(product.definition.payout.data);
+			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Any(r => r.Id == productReward.RewardId);
+		}
+		
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
 		{
 			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);
-			var validated = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchase(purchaseEvent.purchasedProduct);
+			var validated = HasUnclaimedPurchase(purchaseEvent.purchasedProduct);
 
 			FLog.Info(
 				$"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}, Validated: {validated}, TransactionId({purchaseEvent.purchasedProduct.transactionID})");
@@ -193,18 +185,22 @@ namespace FirstLight.Game.Services
 
 				var logicResult =
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
-				var reward = ModelSerializer.DeserializeFromData<RewardData>(logicResult!.Result.Data);
+				var legacyReward = ModelSerializer.DeserializeFromData<LegacyItemData>(logicResult!.Result.Data);
+				var item = ItemFactory.Legacy(legacyReward);
 
 				// The first command (client only) syncs up client state with the server, as the
 				// server adds the reward item to UnclaimedRewards on its end, and we have to do the same.
-				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = reward});
+				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = item});
 
 				// Second command is server and client, and collects the unclaimed reward.
-				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
+				_commandService.ExecuteCommand(new ClaimUnclaimedRewardCommand()
+				{
+					ToClaim = item
+				});
 
 				_store.ConfirmPendingPurchase(product);
 
-				SendAnalyticsEvent(product, reward);
+				SendAnalyticsEvent(product, item);
 			}, null, request);
 		}
 
@@ -253,7 +249,7 @@ namespace FirstLight.Game.Services
 				product.receipt.Contains("\"Store\":\"fake\"");
 		}
 
-		private void SendAnalyticsEvent(Product product, RewardData reward)
+		private void SendAnalyticsEvent(Product product, ItemData reward)
 		{
 			if (IsFakeStore(product)) return;
 

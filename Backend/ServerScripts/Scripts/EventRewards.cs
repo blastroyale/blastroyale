@@ -56,10 +56,7 @@ public class EventRewards : PlayfabScript
    private void AddReward(PlayerData data, GameId id, int amt)
    {
       _lastRewards += $"{amt}x {id}";
-      data.UncollectedRewards.Add(new RewardData()
-      {
-         Value = amt, RewardId = id
-      });
+      data.UncollectedRewards.Add(ItemFactory.Currency(id, amt));
    }
 
    private async Task<string> Proccess(PlayerLeaderboardEntry entry)

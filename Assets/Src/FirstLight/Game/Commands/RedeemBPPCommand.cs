@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -16,21 +19,29 @@ namespace FirstLight.Game.Commands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (ctx.Logic.BattlePassLogic().RedeemBPP(out var rewards, out var newLevel))
+			var levelsCompleted = ctx.Logic.BattlePassLogic().GetClaimableLevels(out var points);
+			if (levelsCompleted.Count == 0) return;
+			var rewardConfigs = ctx.Logic.BattlePassLogic().GetRewardConfigs(levelsCompleted);
+			IEnumerable<ItemData> rewardItems = null;
+			if (rewardConfigs.Count > 0)
 			{
-				ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
+				rewardItems = ctx.Logic.RewardLogic().CreateItemsFromConfigs(rewardConfigs);
+				ctx.Logic.RewardLogic().Reward(rewardItems);
+			}
+			var newLevel = levelsCompleted.Max();
+			ctx.Logic.BattlePassLogic().SetLevelAndPoints(newLevel, points);
+			ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
+			{
+				Rewards = rewardItems,
+				NewLevel = newLevel
+			});
+			if (ctx.Logic.BattlePassLogic().IsTutorial())
+			{
+				if (newLevel >= ctx.Logic.BattlePassLogic().MaxLevel)
 				{
-					Rewards = rewards,
-					newLevel = newLevel
-				});
-				if (ctx.Logic.BattlePassLogic().IsTutorial())
-				{
-					if (newLevel >= ctx.Logic.BattlePassLogic().MaxLevel)
-					{
-						ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(TutorialSection.TUTORIAL_BP);
-						ctx.Logic.BattlePassLogic().Reset();
-						ctx.Services.MessageBrokerService().Publish(new TutorialBattlePassCompleted());
-					}
+					ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(TutorialSection.TUTORIAL_BP);
+					ctx.Logic.BattlePassLogic().Reset();
+					ctx.Services.MessageBrokerService().Publish(new TutorialBattlePassCompleted());
 				}
 			}
 		}

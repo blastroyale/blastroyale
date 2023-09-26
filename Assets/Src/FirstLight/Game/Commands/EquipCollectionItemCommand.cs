@@ -1,4 +1,5 @@
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Modules.Commands;
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct EquipCollectionItemCommand : IGameCommand
 	{
-		public CollectionItem Item;
+		public ItemData Item;
 		
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 

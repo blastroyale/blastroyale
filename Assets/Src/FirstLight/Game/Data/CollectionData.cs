@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Serializers;
 using FirstLight.Game.Utils;
 using FirstLight.Models.Collection;
@@ -82,12 +83,12 @@ namespace FirstLight.Game.Data
 	/// They can share the same game id but have different metas.
 	/// </summary>
 	[Serializable]
-	public readonly struct CollectionMeta
+	public class CollectionTrait
 	{
 		public readonly string Key;
 		public readonly string Value;
 
-		public CollectionMeta(string key, string value)
+		public CollectionTrait(string key, string value)
 		{
 			Key = key;
 			Value = value;
@@ -99,50 +100,6 @@ namespace FirstLight.Game.Data
 	}
 	
 	/// <summary>
-	/// Represents an item of a collection.
-	/// </summary>
-	[Serializable]
-	public readonly struct CollectionItem : IEqualityComparer<CollectionItem>, IEquatable<CollectionItem>
-	{
-		public readonly GameId Id;
-		public readonly CollectionMeta[] Meta;
-		
-		public bool IsValid() => Id != GameId.Random;
-
-		public CollectionItem(GameId id, params CollectionMeta [] meta)
-		{
-			Id = id;
-			Meta = meta;
-		}
-
-		public bool Equals(CollectionItem x, CollectionItem y)
-		{
-			return x.Id == y.Id && x.GetMeta().SequenceEqual(y.GetMeta());
-		}
-
-		public int GetHashCode(CollectionItem obj)
-		{
-			var hash = obj.Id.GetHashCode();
-			foreach(var m in obj.GetMeta()) hash = unchecked(hash * 31 + m.GetHashCode());
-			return hash;
-		}
-
-		public CollectionMeta[] GetMeta() => Meta ?? Array.Empty<CollectionMeta>();
-		
-		public override int GetHashCode()
-		{
-			var hash = Id.GetHashCode();
-			foreach(var m in GetMeta()) hash = unchecked(hash * 31 + m.GetHashCode());
-			return hash;
-		}
-
-		public bool Equals(CollectionItem other)
-		{
-			return Id == other.Id && GetMeta().SequenceEqual(other.GetMeta());
-		}
-	}
-
-	/// <summary>
 	/// Player data holder of what is owned by a given collection or what is equipped.
 	/// Some items from the owned can be remotely synced via CollectionItemEnrichmentData
 	/// </summary>
@@ -150,44 +107,44 @@ namespace FirstLight.Game.Data
 	public class CollectionData : CollectionItemEnrichmentData
 	{
 		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<CollectionItem>>))]
-		public readonly Dictionary<CollectionCategory, List<CollectionItem>> OwnedCollectibles = new()
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<ItemData>>))]
+		public readonly Dictionary<CollectionCategory, List<ItemData>> OwnedCollectibles = new()
 		{
-			{ CollectionCategories.PROFILE_PICTURE, new List<CollectionItem>() },
+			{ CollectionCategories.PROFILE_PICTURE, new List<ItemData>() },
 			{
-				CollectionCategories.PLAYER_SKINS, new List<CollectionItem>()
+				CollectionCategories.PLAYER_SKINS, new List<ItemData>()
 				{
-					new(GameId.MaleAssassin), new(GameId.FemaleAssassin),
-					new(GameId.MaleSuperstar), new(GameId.FemaleSuperstar),
+					ItemFactory.Collection(GameId.MaleAssassin), ItemFactory.Collection(GameId.FemaleAssassin),
+					ItemFactory.Collection(GameId.MaleSuperstar), ItemFactory.Collection(GameId.FemaleSuperstar),
 				}
 			},
 			{
-				new (GameIdGroup.Glider), new List<CollectionItem>()
+				new (GameIdGroup.Glider), new List<ItemData>()
 				{
-					new(GameId.Falcon),
+					ItemFactory.Collection(GameId.Falcon),
 				}
 			},
 			{
-				new (GameIdGroup.DeathMarker), new List<CollectionItem>()
+				new (GameIdGroup.DeathMarker), new List<ItemData>()
 				{
-					new(GameId.Tombstone),
+					ItemFactory.Collection(GameId.Tombstone),
 				}
 			}
 		};
 
 		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
-		public readonly Dictionary<CollectionCategory, CollectionItem> Equipped = new()
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
+		public readonly Dictionary<CollectionCategory, ItemData> Equipped = new()
 		{
-			{ CollectionCategories.PLAYER_SKINS, new(GameId.MaleAssassin) },
+			{ CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin) },
 		};
 		
 		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, CollectionItem>))]
-		public readonly Dictionary<CollectionCategory, CollectionItem> DefaultEquipped = new()
+		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
+		public readonly Dictionary<CollectionCategory, ItemData> DefaultEquipped = new()
 		{
-			{ CollectionCategories.GLIDERS, new(GameId.Falcon) },
-			{ CollectionCategories.GRAVE, new(GameId.Tombstone) }
+			{ CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Falcon) },
+			{ CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Tombstone) }
 		};
 
 		public override int GetHashCode()
@@ -206,7 +163,8 @@ namespace FirstLight.Game.Data
 		{
 			if (type == typeof(Corpos))
 			{
-				var item = new CollectionItem(GameId.MaleCorpos, new CollectionMeta("token_id", remoteData.Identifier));
+				
+				var item = ItemFactory.Collection(GameId.MaleCorpos, new CollectionTrait("token_id", remoteData.Identifier));
 				OwnedCollectibles[CollectionCategories.PROFILE_PICTURE].Add(item);
 			}
 		}

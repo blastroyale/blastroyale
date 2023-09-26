@@ -87,13 +87,12 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockTimeLabel;
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
-
 		private Label _outOfSyncWarningLabel;
 		private Label _betaLabel;
-
 		private MatchmakingStatusView _matchmakingStatusView;
-
 		private Coroutine _updatePoolsCoroutine;
+		private HashSet<GameId> _currentAnimations = new();
+		private HashSet<GameId> _initialized = new();
 
 		private void Awake()
 		{
@@ -272,7 +271,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnTrophiesChanged(uint previous, uint current)
 		{
-			if (_dataProvider.RewardDataProvider.IsCollecting && current > previous)
+			if (current > previous && !_currentAnimations.Contains(GameId.Trophies))
 			{
 				StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _playerTrophiesLabel));
 			}
@@ -290,7 +289,7 @@ namespace FirstLight.Game.Presenters
 		private void OnFameChanged(uint previous, uint current)
 		{
 			_avatar.SetLevel(current);
-
+			
 			if (previous != current && previous > 0)
 			{
 				Data.OnLevelUp(); // TODO: This should be handled from the state machine
@@ -306,6 +305,7 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
+			_currentAnimations.Add(id);
 			yield return new WaitForSeconds(0.1f);
 
 			label.text = previous.ToString();
@@ -323,8 +323,9 @@ namespace FirstLight.Game.Presenters
 			}
 
 			yield return new WaitForSeconds(TROPHIES_COUNT_DELAY);
-
+	
 			DOVirtual.Float(previous, current, 0.5f, val => { label.text = val.ToString("F0"); });
+			_currentAnimations.Remove(id);
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
@@ -374,19 +375,20 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateBattlePassReward();
 
-			if (_dataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			if (current > previous && _initialized.Contains(GameId.BPP) && !_currentAnimations.Contains(GameId.BPP))
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
 			else
 			{
+				_initialized.Add(GameId.BPP);
 				UpdateBattlePassPoints((int) current);
 			}
 		}
 
 		private IEnumerator AnimateBPP(GameId id, ulong previous, ulong current)
 		{
+			_currentAnimations.Add(id);
 			// Apparently this initial delay is a must, otherwise "GetPositionOnScreen" starts throwing "Element out of bounds" exception OCCASIONALLY
 			// I guess it depends on how long the transition to home screen take; so these errors still may appear
 			yield return new WaitForSeconds(0.1f);
@@ -437,7 +439,7 @@ namespace FirstLight.Game.Presenters
 					});
 			}
 
-			yield break;
+			_currentAnimations.Remove(id);
 		}
 
 		private void UpdateGameModeButton()

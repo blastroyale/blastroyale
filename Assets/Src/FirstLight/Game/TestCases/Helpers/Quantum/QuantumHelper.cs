@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
@@ -39,9 +40,9 @@ namespace FirstLight.Game.TestCases.Helpers
 			Services.GameUiService.ScreenStartOpening += OnScreenOpened;
 		}
 
-		private void OnScreenOpened(string type)
+		private void OnScreenOpened(Type type)
 		{
-			if (typeof(MatchEndScreenPresenter).ToString() == type)
+			if (typeof(MatchEndScreenPresenter) == type)
 			{
 				// This is the exact moment the user loses the input hability, when the match end screen open
 				if (_inputManipulator != null)

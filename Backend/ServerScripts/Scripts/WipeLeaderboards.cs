@@ -44,11 +44,7 @@ public class WipeLeaderboards : PlayfabScript
 		playerData.Currencies[GameId.COIN] = coins;
 		if (playerData.Trophies >= 1200)
 		{
-			playerData.UncollectedRewards.Add(new RewardData()
-			{
-				RewardId = GameId.CS,
-				Value = 500
-			});
+			playerData.UncollectedRewards.Add(ItemFactory.Currency(GameId.CS, 500));
 		}
 		state.UpdateModel(playerData);
 	}

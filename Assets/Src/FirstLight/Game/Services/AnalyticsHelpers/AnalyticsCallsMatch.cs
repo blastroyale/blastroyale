@@ -25,11 +25,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				Parameters = parameters;
 			}
 		}
-		
+
 		public string PresentedMapPath { get; set; }
 		public Vector2IntSerializable DefaultDropPosition { get; set; }
 		public Vector2IntSerializable SelectedDropPosition { get; set; }
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameData;
 
@@ -41,13 +41,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 		private Dictionary<GameId, string> _gameIdsLookup = new();
 
-		private List<AnalyticsMatchQueuedEvent> _queue = new ();
+		private List<AnalyticsMatchQueuedEvent> _queue = new();
 
 		private int _playerNumAttacks;
 
 		public AnalyticsCallsMatch(IAnalyticsService analyticsService,
-		                           IGameServices services,
-		                           IGameDataProvider gameDataProvider) : base(analyticsService)
+								   IGameServices services,
+								   IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
 			_services = services;
@@ -57,13 +57,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
-			
+
 			foreach (var gameId in (GameId[]) Enum.GetValues(typeof(GameId)))
 			{
 				_gameIdsLookup.Add(gameId, gameId.ToString());
 			}
 		}
-		
+
 		/// <summary>
 		/// Logs when we entered the matchmaking room
 		/// </summary>
@@ -74,31 +74,38 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
+
 			// We create lookups so we don't have boxing situations happening during the gameplay
 			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
 			_mutators = string.Join(",", room.Properties.Mutators.Value);
 			_matchType = room.Properties.MatchType.ToString();
+			var rewards = room.Properties.AllowedRewards.Value ?? new List<GameId>();
+			if (room.Properties.MatchType.Value == MatchType.Matchmaking)
+			{
+				_matchType = rewards.Contains(GameId.Trophies) ? "Ranked" : "Casual";
+			}
+
 			_gameModeId = room.Properties.GameModeId.Value;
 			var config = room.MapConfig;
 			var gameModeConfig = room.GameModeConfig;
 			_mapId = ((int) config.Map).ToString();
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"team_size", gameModeConfig.MaxPlayersInTeam },
+				{"team_size", gameModeConfig.MaxPlayersInTeam},
 				{"is_spectator", IsSpectator().ToString()},
-				{"playfab_player_id", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
+				{"playfab_player_id", _gameData.AppDataProvider.PlayerId} // must be named PlayFabPlayerId or will create error
 			};
-			
+
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
-			
+
 			_queue.Clear();
 		}
-		
+
 		/// <summary>
 		/// Logs when we start the match
 		/// </summary>
@@ -171,7 +178,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 
 			SendQueue();
-			
+
 			var f = game.Frames.Verified;
 			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
 			var totalPlayers = 0;
@@ -183,7 +190,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					totalPlayers++;
 				}
 			}
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -192,17 +199,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"map_id", _mapId},
 				{"players_left", totalPlayers.ToString()},
-				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
+				{"suicide", localPlayerData.Data.SuicideCount.ToString()},
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"match_time", f.Time.ToString()},
 				{"player_rank", playerRank.ToString()},
-				{"team_id", localPlayerData.Data.TeamId },
-				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam },
+				{"team_id", localPlayerData.Data.TeamId},
+				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
-			
+
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEndBattleRoyalePlayerDead, data);
-			
+
 			_playerNumAttacks = 0;
 		}
 
@@ -222,7 +229,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
+
 			var f = game.Frames.Verified;
 			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
 			var totalPlayers = 0;
@@ -234,7 +241,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					totalPlayers++;
 				}
 			}
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -243,18 +250,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"map_id", _mapId},
 				{"players_left", totalPlayers.ToString()},
-				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
+				{"suicide", localPlayerData.Data.SuicideCount.ToString()},
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", f.Time.ToString()},
 				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()},
-				{"team_id", localPlayerData.Data.TeamId },
-				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam }
+				{"team_id", localPlayerData.Data.TeamId},
+				{"team_size", f.Context.GameModeConfig.MaxPlayersInTeam}
 			};
-			
+
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
-			
+
 			_playerNumAttacks = 0;
 		}
 
@@ -264,18 +271,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void MatchKillAction(EventOnPlayerKilledPlayer playerKilledEvent)
 		{
 			// We cannot send this event for everyone every time so we only send if we are the killer or its a suicide
-			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
-					playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
+			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) ||
+				playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
 			{
 				return;
 			}
-			
+
 			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
-			
+
 			// We send fixed name in case of offline Tutorial match
-			var deadName = playerKilledEvent.PlayersMatchData.Count <= 1 ?
-				               "Dummy" :
-				               playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead].GetPlayerName();
+			var deadName = playerKilledEvent.PlayersMatchData.Count <= 1
+				? "Dummy"
+				: playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead].GetPlayerName();
 
 			var data = new Dictionary<string, object>
 			{
@@ -287,10 +294,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"killed_reason", "player"},
 				{"player_name", killerData.GetPlayerName()}
 			};
-			
+
 			QueueEvent(AnalyticsEvents.MatchKillAction, data);
 		}
-		
+
 		/// <summary>
 		/// Logs when a player dies
 		/// </summary>
@@ -305,9 +312,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var frame = playerDeadEvent.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GeneratePlayersMatchData(frame, out _, out _);
-			
+
 			var deadData = playerData[playerDeadEvent.Player];
-			
+
 			string killerName = "";
 			bool isKillerBot = false;
 			if (playerDeadEvent.PlayerKiller.IsValid)
@@ -316,7 +323,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				killerName = killerData.GetPlayerName();
 				isKillerBot = killerData.IsBot;
 			}
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -324,10 +331,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"killed_name", deadData.GetPlayerName()},
-				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(isKillerBot?"bot":"player")},
+				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller ? "suicide" : (isKillerBot ? "bot" : "player")},
 				{"killer_name", killerName}
 			};
-			
+
 			QueueEvent(AnalyticsEvents.MatchDeadAction, data);
 		}
 
@@ -341,7 +348,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -350,9 +357,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"chest_type", _gameIdsLookup[callback.ChestType]},
 				{"chest_coordinates", callback.ChestPosition.ToString()},
-				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
+				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
 			};
-			
+
 			QueueEvent(AnalyticsEvents.MatchChestOpenAction, data);
 
 			foreach (var item in callback.Items)
@@ -360,7 +367,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				MatchChestItemDrop(item, callback.Game);
 			}
 		}
-		
+
 		/// <summary>
 		/// Logs when a chest item is dropped
 		/// </summary>
@@ -383,10 +390,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"amount", chestItemDropped.Amount.ToString()},
 				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest.ToString()}
 			};
-			
+
 			QueueEvent(AnalyticsEvents.MatchChestItemDrop, data);
 		}
-		
+
 		/// <summary>
 		/// Logs when an item is picked up
 		/// </summary>
@@ -396,7 +403,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
+
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -405,12 +412,12 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"item_type", _gameIdsLookup[callback.CollectableId]},
 				{"amount", "1"},
-				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
+				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed}
 			};
-			
+
 			QueueEvent(AnalyticsEvents.MatchPickupAction, data);
 		}
-		
+
 		private bool IsSpectator()
 		{
 			return _services.RoomService.IsLocalPlayerSpectator;
@@ -422,14 +429,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
+
 			_playerNumAttacks++;
 		}
 
 		private void QueueEvent(string eventName, Dictionary<string, object> parameters = null)
 		{
 			parameters?.Add("custom_event_timestamp", DateTime.UtcNow);
-			
+
 			_queue.Add(new AnalyticsMatchQueuedEvent(eventName, parameters));
 		}
 
@@ -439,7 +446,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				_analyticsService.LogEvent(matchEvent.EventName, matchEvent.Parameters);
 			}
-			
+
 			_queue.Clear();
 		}
 	}

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -44,7 +46,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 
-		private readonly Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards = new();
+		private readonly Queue<ItemData> _pendingRewards = new();
 
 		private void Awake()
 		{
@@ -66,7 +68,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void SubscribeToEvents()
 		{
-			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseCompletedMessage>(OnPurchaseCompleted);
+			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
 			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
 		}
 
@@ -99,20 +101,19 @@ namespace FirstLight.Game.Presenters
 #endif
 		}
 
-		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
+		private void OnCoresOpened(OpenedCoreMessage msg)
 		{
 			Data.IapProcessingFinished();
-			
-			_blocker.style.display = DisplayStyle.None;
-			
-			_pendingRewards.Clear();
-
-			foreach (var equipment in msg.Rewards)
+			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
-				_pendingRewards.Enqueue(equipment);
-			}
-
-			TryShowNextReward();
+				ParentItem = msg.Core,
+				Items = msg.Results,
+				FameRewards = false,
+				OnFinish = () =>
+				{
+					_gameServices.GameUiService.OpenScreenAsync<StoreScreenPresenter, StateData>(Data);
+				}
+			});
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -124,33 +125,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_blocker.style.display = DisplayStyle.Flex;
 			Data.OnPurchaseItem(id);
-		}
-
-		private async void TryShowNextReward()
-		{
-			// Keep showing/dismissing reward dialogs recursively, until all have been shown
-			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
-			{
-				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
-
-				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
-			}
-
-			if (!_pendingRewards.TryDequeue(out var reward))
-			{
-				_blocker.style.display = DisplayStyle.None;
-				return;
-			}
-
-			var data = new EquipmentRewardDialogPresenter.StateData()
-			{
-				ConfirmClicked = TryShowNextReward,
-				Equipment = reward.Value,
-				EquipmentId = reward.Key
-			};
-
-			var popup = await Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
-			popup.InitEquipment();
 		}
 
 		private void SetupItem(string uiId, string storeId, string localizationPostfix)

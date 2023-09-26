@@ -5,7 +5,7 @@ enum GameId
 	RealMoney = 125,
 	COIN = 61,
 	BLST = 14,
-	Fragments = 116,
+	Fragments = 112,
 	CS = 12,
 	XP = 3,
 	Trophies = 22,

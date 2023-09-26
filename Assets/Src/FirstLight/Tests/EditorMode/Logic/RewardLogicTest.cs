@@ -6,6 +6,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
 using NSubstitute;
 using NUnit.Framework;
 using Photon.Deterministic;
@@ -66,9 +67,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
-			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
+				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -87,9 +88,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
-			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
+				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -108,9 +109,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
-			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
+				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -129,9 +130,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
-				rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
-			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
+				rewards.Find(data => data.Id == GameId.CS).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
+			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.Id == GameId.Trophies).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -204,7 +205,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
-			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.Id == GameId.BPP).GetMetadata<CurrencyMetadata>().Amount);
 		}
 
 		[Test]
@@ -226,11 +227,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void ClaimUncollectedRewards_WhenCalled_ReturnsCorrectRewards()
 		{
-			var testReward = new RewardData {RewardId = GameId.CS, Value = RESOURCEINFO_CSS_STARTAMOUNT};
+			var testReward = ItemFactory.Currency(GameId.CS, RESOURCEINFO_CSS_STARTAMOUNT);
 
 			TestData.UncollectedRewards.Add(testReward);
 
-			var rewards = _rewardLogic.ClaimUncollectedRewards();
+			var rewards = _rewardLogic.ClaimUnclaimedRewards();
 
 			Assert.AreEqual(1, rewards.Count);
 			Assert.AreEqual(testReward, rewards[0]);
@@ -239,19 +240,35 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void ClaimUncollectedRewards_WhenCalled_CleansRewards()
 		{
-			var testReward = new RewardData {RewardId = GameId.CS, Value = RESOURCEINFO_CSS_STARTAMOUNT};
-
+			var testReward = ItemFactory.Currency(GameId.CS, RESOURCEINFO_CSS_STARTAMOUNT);
 			TestData.UncollectedRewards.Add(testReward);
-
-			_rewardLogic.ClaimUncollectedRewards();
-
+			_rewardLogic.ClaimUnclaimedRewards();
 			Assert.AreEqual(0, TestData.UncollectedRewards.Count);
+		}
+		
+		[Test]
+		public void TestItemDataCompare()
+		{
+			var i1 = ItemFactory.Collection(GameId.Female01Avatar);
+			var i2 = ItemFactory.Collection(GameId.Female01Avatar);
+
+			Assert.AreEqual(i1, i2);
+		}
+		
+		[Test]
+		public void TestCurrencySerialization()
+		{
+			var i1 = ItemFactory.Currency(GameId.COIN, 100);
+
+			var i2 = ModelSerializer.Deserialize<ItemData>(ModelSerializer.Serialize(i1).Value);
+
+			Assert.AreEqual(i1, i2);
 		}
 
 		[Test]
 		public void CollectRewards_Empty_DoesNothing()
 		{
-			var rewards = _rewardLogic.ClaimUncollectedRewards();
+			var rewards = _rewardLogic.ClaimUnclaimedRewards();
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -347,9 +364,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);
-
 			_matchData.Clear();
-
 			for (int i = 1; i <= totalPlayers; i++)
 			{
 				_matchData.Add(new QuantumPlayerMatchData
@@ -360,7 +375,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 						CollectedOwnedNfts = collectedNfts
 					}
 				});
-
 				_executingPlayer = rank - 1;
 			}
 		}

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Data
 		public uint BPLevel = 0;
 		public uint BPPoints = 0;
 		public bool MigratedGuestData = false;
-		public readonly List<RewardData> UncollectedRewards = new();
+		public readonly List<ItemData> UncollectedRewards = new();
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer())
 		{
@@ -58,7 +58,7 @@ namespace FirstLight.Game.Data
 			hash = hash * 23 + BPPoints.GetHashCode();
 			
 			foreach (var e in UncollectedRewards)
-				hash = hash * 23 + (int)e.RewardId + e.Value.GetHashCode();
+				hash = hash * 23 + e.GetHashCode();
 			
 			foreach (var e in Equipped.OrderBy(entry => (int)entry.Key))
 				hash = hash * 23 + (int)e.Key + e.Value.GetHashCode();

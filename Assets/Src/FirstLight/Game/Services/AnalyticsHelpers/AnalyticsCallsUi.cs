@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.UiService;
 
@@ -17,7 +18,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	{
 		public AnalyticsCallsUi(IAnalyticsService analyticsService, IUiService uiService) : base(analyticsService)
 		{
-			uiService.ScreenStartOpening += ScreenView;
+			uiService.ScreenStartOpening += t => ScreenView(t.ToString());
 		}
 		
 		/// <summary>

@@ -23,7 +23,7 @@
                         </ui:Button>
                     </ui:VisualElement>
                     <ui:VisualElement name="Row">
-                        <ui:Label name="Desc" focusable="false" text="to continue playing" localization-key="UITBattlePass/equipment_reward_desc" class="font-style-popup content__desc" style="margin-bottom: 10px;" />
+                        <ui:Label name="Desc" focusable="false" text="to continue playing" localization-key="UITBattlePass/equipment_reward_desc" class="desc-text-row font-style-popup content__desc"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">

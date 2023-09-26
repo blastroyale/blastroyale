@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
@@ -50,7 +51,7 @@ namespace Src.FirstLight.Server
 
 			var evManager = _ctx.PluginEventManager!;
 			evManager.RegisterEventListener<GameLogicMessageEvent<ClaimedRewardsMessage>>(OnClaimRewards);
-			evManager.RegisterEventListener<GameLogicMessageEvent<IAPPurchaseCompletedMessage>>(OnPurchase);
+			evManager.RegisterEventListener<GameLogicMessageEvent<RewardClaimedMessage>>(OnPurchase);
 			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassLevel);
 			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
 			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
@@ -70,8 +71,8 @@ namespace Src.FirstLight.Server
 
 		private async Task OnClaimRewards(GameLogicMessageEvent<ClaimedRewardsMessage> ev)
 		{
-			var coins = ev.Message.Rewards.Where(r => r.RewardId == GameId.COIN).Sum(r => r.Value);
-			var cs = ev.Message.Rewards.Where(r => r.RewardId == GameId.CS).Sum(r => r.Value);
+			var coins = ev.Message.Rewards.Where(r => r.Id == GameId.COIN).Sum(r => r.GetMetadata<CurrencyMetadata>().Amount);
+			var cs = ev.Message.Rewards.Where(r => r.Id == GameId.CS).Sum(r => r.GetMetadata<CurrencyMetadata>().Amount);
 			if (coins > 0 || cs > 0)
 			{
 				_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.COINS_EARNED, coins),
@@ -91,7 +92,7 @@ namespace Src.FirstLight.Server
 			}
 		}
 		
-		private async Task OnPurchase(GameLogicMessageEvent<IAPPurchaseCompletedMessage> ev)
+		private async Task OnPurchase(GameLogicMessageEvent<RewardClaimedMessage> ev)
 		{
 			_ctx.Statistics.UpdateStatistics(ev.PlayerId, (GameConstants.Stats.ITEMS_OBTAINED, 1));
 		}

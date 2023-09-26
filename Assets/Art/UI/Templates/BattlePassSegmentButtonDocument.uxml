@@ -21,7 +21,7 @@
             <FirstLight.Game.UIElements.AutoSizeLabel text="REWARD" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="reward__title" />
             <ui:VisualElement name="RewardHolder" picking-mode="Ignore" class="reward__reward-holder">
                 <ui:VisualElement name="RewardRarity" picking-mode="Ignore" class="reward-holder__rarity" />
-                <ui:VisualElement name="RewardImage" picking-mode="Ignore" class="reward-holder__image" />
+                <ui:VisualElement name="RewardImage" picking-mode="Ignore" class="reward-holder__image sprite-home__icon-questionmark" />
             </ui:VisualElement>
             <ui:VisualElement name="ClaimBubble" picking-mode="Ignore" class="claim-bubble">
                 <FirstLight.Game.UIElements.LocalizedLabel name="Label" localization-key="UITBattlePass/tap_to_claim" picking-mode="Ignore" class="claim-bubble__label" />

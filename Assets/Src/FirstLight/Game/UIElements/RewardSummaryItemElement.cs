@@ -14,12 +14,12 @@ namespace FirstLight.Game.UIElements
 		private const string USS_BLOCK = "reward-summary-item";
 		private const string USS_ICON = USS_BLOCK + "__icon";
 		private const string USS_LABEL = USS_BLOCK + "__label";
-		
+
 		private const string USS_SPRITE_ICON_COIN = "sprite-shared__icon-currency-coin";
 
-		private readonly Label _label;
-		private readonly VisualElement _icon;
-
+		protected readonly Label _label;
+		protected readonly VisualElement _icon;
+		
 		public RewardSummaryItemElement()
 		{
 			AddToClassList(USS_BLOCK);
@@ -33,40 +33,12 @@ namespace FirstLight.Game.UIElements
 			_label.AddToClassList(USS_LABEL);
 		}
 
-		public RewardSummaryItemElement(IReward reward) : this()
-		{
-			SetReward(reward);
-		}
-
 		/// <summary>
 		/// Update the current displayed reward
 		/// </summary>
-		public void SetReward(IReward reward)
+		public virtual RewardSummaryItemElement SetReward(IItemViewModel itemViewModel)
 		{
-			_icon.style.backgroundImage = StyleKeyword.Null;
-			_icon.RemoveSpriteClasses();
-			if (reward is UnlockReward ur)
-			{
-				switch (ur.UnlockSystem)
-				{
-					// TODO: Make this more dynamic
-					case UnlockSystem.Shop:
-						_icon.AddToClassList("sprite-home__icon-shop");
-						break;
-					case UnlockSystem.Collection:
-						_icon.AddToClassList("sprite-home__icon-heroes");
-						break;
-				}
-
-				_label.text = ur.DisplayName;
-			}
-			else
-			{
-#pragma warning disable CS4014
-				UIUtils.SetSprite(reward.GameId, _icon);
-#pragma warning restore CS4014
-				_label.text = "X " + reward.Amount;
-			}
+			return this;
 		}
 
 		public new class UxmlFactory : UxmlFactory<RewardSummaryItemElement, UxmlTraits>

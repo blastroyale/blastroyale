@@ -51,6 +51,7 @@ namespace FirstLight.Tests.EditorMode
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
+		public IRewardService RewardService { get; set; }
 		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 

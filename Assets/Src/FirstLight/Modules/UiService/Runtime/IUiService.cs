@@ -13,7 +13,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public interface IUiService
 	{ 
-		event Action<string> ScreenStartOpening;
+		event Action<Type> ScreenStartOpening;
 		
 		/// <summary>
 		/// Requests the total amount of layers available in the UI
@@ -172,6 +172,11 @@ namespace FirstLight.UiService
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
 		Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter;
+
+		/// <summary>
+		/// Checks if a given UI is open
+		/// </summary>
+		bool IsOpen<T>() where T : UiPresenter;
 
 		/// <summary>
 		/// Opens and returns the UI of given type <typeparamref name="T"/>.
@@ -395,6 +400,11 @@ namespace FirstLight.UiService
 		/// It closes the current open screen that was opened by OpenScreen
 		/// </summary>
 		void CloseCurrentScreen();
+
+		/// <summary>
+		/// Gets the currently open screen
+		/// </summary>
+		UiPresenter GetCurrentOpenedScreen();
 	}
 
 	/// <inheritdoc />

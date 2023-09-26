@@ -36,6 +36,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _blocker;
 		private VisualElement _claimBubble;
 		private VisualElement _rarityImage;
+		private VisualElement _rewardImage;
 		private VisualElement _claimStatusOutline;
 		private VisualElement _readyToClaimShine;
 		private VisualElement _readyToClaimOutline;
@@ -64,6 +65,7 @@ namespace FirstLight.Game.Views
 			_levelBg = element.Q("LevelBg").Required();
 			_button = element.Q<ImageButton>("Button").Required();
 			_rarityImage = element.Q("RewardRarity").Required();
+			_rewardImage = element.Q("RewardImage").Required();
 			_title = element.Q<AutoSizeLabel>("Title");
 			_levelNumber = element.Q<AutoSizeLabel>("LevelLabel");
 
@@ -76,7 +78,7 @@ namespace FirstLight.Game.Views
 		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
-			
+
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
@@ -85,6 +87,20 @@ namespace FirstLight.Game.Views
 
 			_rarityImage.RemoveSpriteClasses();
 			_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
+
+			var rewardImage = data.RewardConfig.GameId.GetUSSSpriteClass();
+			if (rewardImage != null)
+			{
+				_rewardImage.RemoveSpriteClasses();
+				_rewardImage.AddToClassList(rewardImage);
+			}
+			else
+			{
+				// Legacy sprite load
+#pragma warning disable CS4014
+				UIUtils.SetSprite(data.RewardConfig.GameId, _rewardImage);
+#pragma warning restore CS4014
+			}
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);

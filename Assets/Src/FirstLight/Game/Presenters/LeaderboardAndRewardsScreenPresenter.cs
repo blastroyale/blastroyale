@@ -6,6 +6,7 @@ using Cinemachine;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
@@ -362,19 +363,16 @@ namespace FirstLight.Game.Presenters
 		{
 			var dictionary = new Dictionary<GameId, int>();
 			var rewards = _matchServices.MatchEndDataService.Rewards;
-
 			for (var i = 0; i < rewards.Count; i++)
 			{
-				var id = rewards[i].RewardId;
-
+				var id = rewards[i].Id;
+				if (!rewards[i].TryGetMetadata<CurrencyMetadata>(out var meta)) continue;
 				if (!dictionary.ContainsKey(id))
 				{
 					dictionary.Add(id, 0);
 				}
-
-				dictionary[id] += rewards[i].Value;
+				dictionary[id] += meta.Amount;
 			}
-
 			return dictionary;
 		}
 

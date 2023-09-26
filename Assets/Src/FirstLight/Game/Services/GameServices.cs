@@ -121,6 +121,7 @@ namespace FirstLight.Game.Services
 
 		public IControlSetupService ControlsSetup { get; }
 		public ILeaderboardService LeaderboardService { get; }
+		public IRewardService RewardService { get; }
 
 		public IRoomService RoomService { get; }
 
@@ -180,6 +181,7 @@ namespace FirstLight.Game.Services
 		public ILeaderboardService LeaderboardService { get; }
 
 		public ICheatsService CheatsService { get; }
+		public IRewardService RewardService { get; }
 
 		public string QuitReason { get; set; }
 
@@ -218,6 +220,7 @@ namespace FirstLight.Game.Services
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
+			RewardService = new RewardService(this);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			CoroutineService = new CoroutineService();

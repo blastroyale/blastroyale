@@ -13,7 +13,7 @@ namespace FirstLight.UiService
 	/// <inheritdoc />
 	public class UiService : IUiServiceInit
 	{
-		public event Action<string> ScreenStartOpening;
+		public event Action<Type> ScreenStartOpening;
 		
 		private readonly IUiAssetLoader _assetLoader;
 		private readonly IDictionary<Type, UiReference> _uiViews = new Dictionary<Type, UiReference>();
@@ -288,6 +288,11 @@ namespace FirstLight.UiService
 			await GetUiAsync<T>();
 
 			return OpenUi<T>(openedException);
+		}
+
+		public bool IsOpen<T>() where T : UiPresenter
+		{
+			return _visibleUiList.Contains(typeof(T));
 		}
 
 		/// <inheritdoc />
@@ -581,7 +586,7 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
 		{
-			ScreenStartOpening?.Invoke(typeof(T).ToString());
+			ScreenStartOpening?.Invoke(typeof(T));
 			
 			if (_lastScreen != null)
 			{
@@ -606,7 +611,7 @@ namespace FirstLight.UiService
 		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
 			
-			ScreenStartOpening?.Invoke(typeof(T).ToString());
+			ScreenStartOpening?.Invoke(typeof(T));
 			
 			if (_lastScreen != null)
 			{
@@ -628,6 +633,11 @@ namespace FirstLight.UiService
 				FLog.Verbose($"ClosingScreen<{_lastScreen.GetType().Name}>");
 				await CloseUi(_lastScreen.GetType(), true);
 			}
+		}
+
+		public UiPresenter GetCurrentOpenedScreen()
+		{
+			return _lastScreen;
 		}
 
 		private UiReference GetReference(Type type)

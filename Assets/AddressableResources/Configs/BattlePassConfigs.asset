@@ -16,19 +16,19 @@ MonoBehaviour:
     CurrentSeason: 5
     DefaultPointsPerLevel: 400
     Levels:
-    - RewardId: 7
+    - RewardId: 14
       PointsForNextLevel: 25
-    - RewardId: 8
+    - RewardId: 22
       PointsForNextLevel: 35
-    - RewardId: 9
+    - RewardId: 23
       PointsForNextLevel: 55
-    - RewardId: 2
+    - RewardId: 24
       PointsForNextLevel: 80
-    - RewardId: 3
+    - RewardId: 11
       PointsForNextLevel: 95
-    - RewardId: 2
+    - RewardId: 0
       PointsForNextLevel: 105
-    - RewardId: 3
+    - RewardId: 25
       PointsForNextLevel: 110
     - RewardId: 2
       PointsForNextLevel: 125

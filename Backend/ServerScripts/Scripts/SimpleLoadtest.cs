@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CsvHelper;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -51,7 +52,7 @@ public class SimpleLoadtest : PlayfabScript
 
 	public async Task RunAsync(List<LoginResult> loggedInUsers)
 	{
-		var cmd = new EquipCollectionItemCommand() { Item = new CollectionItem(GameId.Male01Avatar) };
+		var cmd = new EquipCollectionItemCommand() { Item = ItemFactory.Collection(GameId.Male01Avatar) };
 		var start = DateTime.UtcNow;
 		var tasks = new List<Task>();
 		

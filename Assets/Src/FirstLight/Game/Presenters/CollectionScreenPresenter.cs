@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -176,7 +177,7 @@ namespace FirstLight.Game.Presenters
 			
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(_selectedCategory);
 
-			if (!equipped.IsValid())
+			if (equipped == null)
 			{
 				_selectedIndex = 0;
 			}
@@ -214,8 +215,7 @@ namespace FirstLight.Game.Presenters
 			var collection = GetCollectionAll();
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 			var equippedIndex = _equippedIndex;
-			
-			if (equipped.IsValid())
+			if (equipped == null)
 			{
 				_selectedIndex = collection.IndexOf(equipped);
 				_equippedIndex = _selectedIndex;
@@ -243,12 +243,12 @@ namespace FirstLight.Game.Presenters
 			_collectionList.RefreshItems();
 		}
 
-		private CollectionItem GetSelectedItem()
+		private ItemData GetSelectedItem()
 		{
 			return GetCollectionAll()[_selectedIndex];
 		}
 		
-		public List<CollectionItem> GetCollectionAll()
+		public List<ItemData> GetCollectionAll()
 		{
 			var collection = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
 			return collection.OrderBy(c => !_gameDataProvider.CollectionDataProvider.IsItemOwned(c)).ToList();
@@ -280,7 +280,7 @@ namespace FirstLight.Game.Presenters
 		private async void Update3DObject()
 		{
 			var selectedItem = GetSelectedItem();
-			if (!selectedItem.IsValid())
+			if (selectedItem == null)
 			{
 				return;
 			}
@@ -351,7 +351,7 @@ namespace FirstLight.Game.Presenters
 			var selectedId = GetSelectedItem().Id;
 			var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 			// If an item is already equipped, show SELECTED instead of Equip
-			_equipButton.text = equipped.IsValid() && selectedId == equipped.Id
+			_equipButton.text = equipped == null && selectedId == equipped.Id
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
 
@@ -390,7 +390,7 @@ namespace FirstLight.Game.Presenters
 		private void BindCollectionListItem(VisualElement visualElement, int rowNumber)
 		{
 			var rowCards = visualElement.Children().Cast<CollectionCardElement>().ToArray();
-			var rowItems = _collectionList.itemsSource[rowNumber] as IList<CollectionItem>;
+			var rowItems = _collectionList.itemsSource[rowNumber] as IList<ItemData>;
 			for (var x = 0; x < PAGE_SIZE; x++)
 			{
 				var card = rowCards[x];
@@ -409,7 +409,7 @@ namespace FirstLight.Game.Presenters
 				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
 
 				card.SetCollectionElement(selectedItem.Id, itemIndex, category.Id, owned,
-					equipped.IsValid() && equipped.Equals(selectedItem));
+					equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
 			}
 		}

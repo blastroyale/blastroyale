@@ -141,7 +141,6 @@
 }
 
 .content-scrapping {
-    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .content-scrapping__button {

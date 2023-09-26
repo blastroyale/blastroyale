@@ -39,7 +39,7 @@
                             <ui:Label text="325" name="Amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_cannot_undo_action" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_yes_scrap" display-tooltip-when-elided="true" name="ScrapButton" text="YES, SCRAP" class="button-long button-long--red" style="-unity-text-align: middle-center; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/button-long-yellow.png?fileID=21300000&amp;guid=9da5c1bf95cb14250aacab06348ab34d&amp;type=3#button-long-yellow&apos;);" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_yes_scrap" display-tooltip-when-elided="true" name="ScrapButton" text="YES, SCRAP" class="button-long button-long--yellow" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Repairing" class="fill-parent content-repairing" style="display: none;">

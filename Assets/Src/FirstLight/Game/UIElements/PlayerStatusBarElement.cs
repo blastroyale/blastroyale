@@ -207,9 +207,10 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the name of the player.
 		/// </summary>
-		public void SetName(string playerName)
+		public void SetName(string playerName, Color nameColor)
 		{
 			_name.text = playerName;
+			_name.style.color = nameColor;
 		}
 
 		/// <summary>

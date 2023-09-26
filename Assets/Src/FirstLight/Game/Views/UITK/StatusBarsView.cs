@@ -212,18 +212,18 @@ namespace FirstLight.Game.Views.UITK
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
 			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
 			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
+			var nameColor = pd != null
+				                ? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
+				                : GameConstants.PlayerName.DEFAULT_COLOR;
 
-
-			bar.SetName(playerName);
+			bar.SetName(playerName, nameColor);
 			bar.SetIsFriendly(isFriendlyPlayer);
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 			bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
-			bar.SetIconColor(pd != null
-				? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
-				: default);
+			bar.SetIconColor(nameColor);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)

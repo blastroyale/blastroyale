@@ -211,7 +211,16 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
+			
+			UpdatePlayerNameColor();
 			UpdatePFP();
+		}
+	
+		private void UpdatePlayerNameColor()
+		{
+			var leaderboardRank = _services.LeaderboardService.CurrentRankedEntry.Position;
+			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
+			_playerNameLabel.style.color = nameColor;
 		}
 
 		private void UpdatePFP()

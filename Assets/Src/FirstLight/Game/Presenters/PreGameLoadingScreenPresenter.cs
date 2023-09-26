@@ -183,7 +183,11 @@ namespace FirstLight.Game.Presenters
 		{
 			if (index < 0 || index >= _squadMembers.Count) return;
 
+			var props = CurrentRoom.GetPlayerProperties(_squadMembers[index]);
+			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, props.Rank.Value);
+
 			((Label) element).text = _squadMembers[index].NickName;
+			((Label)element).style.color = nameColor;
 		}
 
 		private VisualElement CreateSquadListEntry()

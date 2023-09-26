@@ -69,8 +69,8 @@ namespace FirstLight.Game.Views
 							string pfpUrl, Color? borderColor)
 		{
 			_leaderboardEntry.RemoveModifiers();
-
-			if (borderColor.HasValue && borderColor != Color.white)
+			
+			if (borderColor.HasValue && borderColor.Value != GameConstants.PlayerName.DEFAULT_COLOR)//  rank > 0 && rank <= GameConstants.Data.LEADERBOARD_BRONZE_ENTRIES)
 			{
 				_border.SetDisplay(true);
 				_border.style.unityBackgroundImageTintColor = borderColor.Value;
@@ -79,6 +79,9 @@ namespace FirstLight.Game.Views
 			{
 				_border.SetDisplay(false);
 			}
+			
+			_playerName.style.color = borderColor.Value;
+			_rankNumber.style.color = borderColor.Value;
 			
 			if (rank <= 3)
 			{

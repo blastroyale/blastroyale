@@ -159,7 +159,7 @@ namespace FirstLight.Game.UIElements
 				name = "currency",
 				defaultValue = GameId.CS,
 				restriction = new UxmlEnumeration
-					{values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString()}},
+					{values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString(), GameId.Fragments.ToString()}},
 				use = UxmlAttributeDescription.Use.Required
 			};
 

@@ -43,7 +43,8 @@ namespace FirstLight.Game.Data
 		{
 			{ GameId.CS, 0 },
 			{ GameId.BLST, 0 },
-			{ GameId.COIN, 0 }
+			{ GameId.COIN, 0 },
+			{ GameId.Fragments, 0 }
 		};
 
 		public override int GetHashCode()

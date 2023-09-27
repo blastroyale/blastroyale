@@ -229,6 +229,11 @@ namespace FirstLight.Game.Utils
 		public static bool BULLET_COLORS = false;
 
 		/// <summary>
+		/// Adjust bullets visuals to fit camera better
+		/// </summary>
+		public static bool BULLET_CAMERA_ADJUSTMENT = true;
+		
+		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
@@ -313,6 +318,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("BETA_VERSION", overrideData, out var beta))
 			{
 				BETA_VERSION = beta;
+			}
+			
+			if (TrySetFlag("BULLET_CAMERA_ADJUSTMENT", overrideData, out var cameraFix))
+			{
+				BULLET_CAMERA_ADJUSTMENT = cameraFix;
 			}
 		}
 

@@ -115,6 +115,10 @@ namespace FirstLight.Game.Utils
 			public const int PLAYER_NAME_MIN_LENGTH = 3;
 			public const int PLAYER_NAME_MAX_LENGTH = 20;
 			public const string DEFAULT_PLAYER_NAME = "Player Name";
+			public static readonly Color GOLD_COLOR = new (247/255f, 198/255f, 46/255f);
+			public static readonly Color SILVER_COLOR = new (153/255f, 176/255f, 221/255f);
+			public static readonly Color BRONZE_COLOR = new (160/255f, 103/255f, 65/255f); 
+			public static readonly Color DEFAULT_COLOR = new (233/255f, 226/255f, 225/255f);
 		}
 
 		public static class Data
@@ -125,6 +129,11 @@ namespace FirstLight.Game.Utils
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 			public const uint PLAYER_FAME_MAX_LEVEL = 999;
+
+			// TODO: Move leaderboard entries to configs
+			public const short LEADERBOARD_GOLD_ENTRIES = 10;
+			public const short LEADERBOARD_SILVER_ENTRIES = 50;
+			public const short LEADERBOARD_BRONZE_ENTRIES = 200;
 
 			public static List<GameId> AllowedGameRewards = new List<GameId>()
 			{

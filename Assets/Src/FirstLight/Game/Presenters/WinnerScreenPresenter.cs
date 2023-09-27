@@ -68,6 +68,9 @@ namespace FirstLight.Game.Presenters
 			{
 				_playerWinnerEntity = playerWinner.Data.Entity;
 				_nameLabel.text = playerWinner.GetPlayerName();
+				
+				var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)playerWinner.LeaderboardRank);
+				_nameLabel.style.color = nameColor;
 			}
 			else
 			{

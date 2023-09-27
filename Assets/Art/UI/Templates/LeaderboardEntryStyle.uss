@@ -40,7 +40,6 @@
 .leaderboard-entry__rank-number {
     font-size: 36px;
     -unity-font-style: normal;
-    color: rgb(105, 98, 166);
     position: relative;
     left: auto;
     min-width: 65px;
@@ -88,25 +87,8 @@
 .leaderboard-entry__player-name {
     font-size: 36px;
     -unity-font-style: normal;
-    color: rgb(105, 98, 166);
     position: relative;
     left: auto;
-}
-
-.leaderboard-entry--first .leaderboard-entry__player-name {
-    color: rgb(248, 199, 46);
-}
-
-.leaderboard-entry--second .leaderboard-entry__player-name {
-    color: rgb(153, 176, 221);
-}
-
-.leaderboard-entry--third .leaderboard-entry__player-name {
-    color: rgb(161, 103, 65);
-}
-
-.leaderboard-entry--local .leaderboard-entry__player-name {
-    color: rgb(233, 226, 225);
 }
 
 .leaderboard-entry__kills {
@@ -129,10 +111,6 @@
 }
 
 .leaderboard-entry--local .leaderboard-entry__deaths {
-    color: rgb(233, 226, 225);
-}
-
-.leaderboard-entry--local .leaderboard-entry__rank-number {
     color: rgb(233, 226, 225);
 }
 

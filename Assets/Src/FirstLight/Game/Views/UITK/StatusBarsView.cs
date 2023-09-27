@@ -223,7 +223,9 @@ namespace FirstLight.Game.Views.UITK
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
 			bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
-			bar.SetIconColor(nameColor);
+			
+			//TODO: Call this again when we implement icons properly
+			//bar.SetIconColor(nameColor);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)

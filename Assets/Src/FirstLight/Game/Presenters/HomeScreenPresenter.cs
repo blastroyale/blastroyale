@@ -166,6 +166,9 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("CoinCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
+				.AttachView(this, out CurrencyDisplayView _)
+				.SetAnimationOrigin(_playButton);
 
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = root.Q<Label>("BetaWarning").Required();

@@ -9,8 +9,8 @@
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
-                <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-2 anim-translate anim-translate--down-s" />
+                <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <ui:VisualElement name="PartyHolder" class="anim-delay-2 anim-translate anim-translate--left-xl">

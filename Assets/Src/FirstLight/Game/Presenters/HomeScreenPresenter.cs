@@ -16,6 +16,7 @@ using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using PlayFab;
+using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -211,14 +212,18 @@ namespace FirstLight.Game.Presenters
 			_outOfSyncWarningLabel.SetDisplay(false);
 #endif
 			_betaLabel.SetDisplay(FeatureFlags.BETA_VERSION);
-			
-			UpdatePlayerNameColor();
+
 			UpdatePFP();
+			UpdatePlayerNameColor(_services.LeaderboardService.CurrentRankedEntry.Position);
+		}
+
+		private void OnRankingUpdateHandler(PlayerLeaderboardEntry leaderboardEntry)
+		{
+			UpdatePlayerNameColor(leaderboardEntry.Position);
 		}
 	
-		private void UpdatePlayerNameColor()
+		private void UpdatePlayerNameColor(int leaderboardRank)
 		{
-			var leaderboardRank = _services.LeaderboardService.CurrentRankedEntry.Position;
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
 			_playerNameLabel.style.color = nameColor;
 		}
@@ -241,6 +246,7 @@ namespace FirstLight.Game.Presenters
 			_updatePoolsCoroutine = _services.CoroutineService.StartCoroutine(UpdatePoolLabels());
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
+			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 		}
 
 
@@ -257,6 +263,7 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.MatchmakingService.IsMatchmaking.StopObserving(OnIsMatchmakingChanged);
+			_services.LeaderboardService.OnRankingUpdate -= OnRankingUpdateHandler;
 
 			UnsubscribeFromSquadEvents();
 

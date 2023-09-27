@@ -57,6 +57,11 @@ namespace FirstLight.Game.Services
 		/// Gets the main ranked board
 		/// </summary>
 		public GameLeaderboard Ranked { get; }
+		
+		/// <summary>
+		/// Event happens when player's rank in the global leaderboard changes
+		/// </summary>
+		event Action<PlayerLeaderboardEntry> OnRankingUpdate;
 	}
 
 	public class LeaderboardsService : ILeaderboardService

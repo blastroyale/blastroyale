@@ -28,7 +28,7 @@
                 </FirstLight.Game.UIElements.SafeAreaElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" name="Header" class="screen-header--no-back" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" name="Header" class="screen-header--no-navigation" />
         <FirstLight.Game.UIElements.SafeAreaElement name="MainSafeArea" picking-mode="Ignore" class="fill-parent">
             <ui:VisualElement name="ShowHide" focusable="false" class="show-hide-toggle sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s">
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/hide" name="Hide" class="show-hide-toggle__label show-hide-toggle__label--hide" />

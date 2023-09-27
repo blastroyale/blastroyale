@@ -11,6 +11,7 @@
     --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
     --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
     --sprite-shared__icon-currency-cs: url('/Assets/Art/UI/Sprites/Shared/icon-currency-cs.png');
+    --sprite-shared__icon-currency-fragments: url('/Assets/Art/UI/Sprites/Shared/icon-currency-fragments.png');
     --sprite-shared__icon-equipmentcategory-amulet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-amulet.png');
     --sprite-shared__icon-equipmentcategory-armor: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-armor.png');
     --sprite-shared__icon-equipmentcategory-helmet: url('/Assets/Art/UI/Sprites/Shared/icon-equipmentcategory-helmet.png');
@@ -101,6 +102,12 @@
     background-image: var(--sprite-shared__icon-currency-cs);
     width: 64px;
     height: 64px;
+}
+
+.sprite-shared__icon-currency-fragments {
+    background-image: var(--sprite-shared__icon-currency-fragments);
+    width: 40px;
+    height: 40px;
 }
 
 .sprite-shared__icon-equipmentcategory-amulet {

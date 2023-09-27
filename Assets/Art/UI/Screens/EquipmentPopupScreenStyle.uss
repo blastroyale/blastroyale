@@ -115,10 +115,10 @@
 }
 
 .content-scrapping__amount-icon {
-    background-image: var(--sprite-shared__icon-currency-coin);
     width: 60px;
     height: 60px;
     margin-right: 30px;
+    background-image: var(--sprite-shared__icon-currency-fragments);
 }
 
 .equipment-popup__bh-holder {

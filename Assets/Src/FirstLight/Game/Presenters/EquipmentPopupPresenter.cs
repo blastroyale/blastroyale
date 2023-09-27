@@ -67,6 +67,7 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").Required().AttachView(this, out CurrencyDisplayView _);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
+			root.Q<CurrencyDisplayElement>("FragmentsCurrency").Required().AttachView(this, out CurrencyDisplayView _);
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background")

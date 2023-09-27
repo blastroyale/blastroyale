@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -39,11 +40,11 @@ namespace FirstLight.Game.UIElements
 		private readonly Label _victimName;
 		private readonly VisualElement _victimBar;
 
-		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, "ENEMYLONGNAMEHI", false, false)
+		public DeathNotificationElement() : this("FRIENDLYLONGNAME", true, "ENEMYLONGNAMEHI", false, false, GameConstants.PlayerName.DEFAULT_COLOR, GameConstants.PlayerName.DEFAULT_COLOR)
 		{
 		}
 
-		public DeathNotificationElement(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide)
+		public DeathNotificationElement(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			AddToClassList(USS_BLOCK);
 
@@ -90,13 +91,16 @@ namespace FirstLight.Game.UIElements
 			_victimBar.AddToClassList(USS_BAR_VICTIM);
 			_victimBar.AddToClassList(USS_BAR_ENEMY);
 
-			SetData(killerName, killerFriendly, victimName, victimFriendly, suicide);
+			SetData(killerName, killerFriendly, victimName, victimFriendly, suicide, killerColor, victimColor);
 		}
 
-		public void SetData(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide)
+		public void SetData(string killerName, bool killerFriendly, string victimName, bool victimFriendly, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			_killerName.text = killerName.ToUpper();
 			_victimName.text = victimName.ToUpper();
+
+			_killerName.style.color = killerColor;
+			_victimName.style.color = victimColor;
 
 			_killerBar.RemoveFromClassList(USS_BAR_FRIENDLY);
 			_killerBar.RemoveFromClassList(USS_BAR_ENEMY);

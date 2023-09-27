@@ -10,6 +10,7 @@
                 <ui:VisualElement name="CurrencyGlow" class="currency-glow anim-delay-0 anim-fade" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-0 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-0 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="FragmentsCurrency" currency="Fragments" class="anim-delay-0 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
                 <ui:Label name="Title" text="SCRAPPING ITEM" class="equipment-popup__title" />

@@ -16,6 +16,7 @@ namespace FirstLight.Game.Views.UITK
 		private const long RELEASED_AFTER = 6000;
 
 		private IMatchServices _matchServices;
+		private IGameServices _gameServices;
 
 		public override void Attached(VisualElement element)
 		{
@@ -24,6 +25,7 @@ namespace FirstLight.Game.Views.UITK
 			element.Clear();
 
 			_matchServices = MainInstaller.ResolveMatchServices();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
 		public override void SubscribeToEvents()
@@ -46,19 +48,22 @@ namespace FirstLight.Game.Views.UITK
 
 			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
 			var victimData = callback.PlayersMatchData[callback.PlayerDead];
+			
+			var killerNameColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)killerData.LeaderboardRank);
+			var victimNameColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)victimData.LeaderboardRank);
 
 			var killerFriendly = killerData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
 			var victimFriendly = victimData.TeamId == _matchServices.SpectateService.SpectatedPlayer.Value.Team;
 
 			SpawnDeathNotification(killerData.GetPlayerName(), killerFriendly, victimData.GetPlayerName(),
-				victimFriendly, killerData.Data.Player == victimData.Data.Player);
+				victimFriendly, killerData.Data.Player == victimData.Data.Player, killerNameColor, victimNameColor);
 		}
 
 		private void SpawnDeathNotification(string killerName, bool killerFriendly, string victimName,
-											bool victimFriendly, bool suicide)
+											bool victimFriendly, bool suicide, StyleColor killerColor, StyleColor victimColor)
 		{
 			// TODO: Add a pool for this
-			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, victimName, victimFriendly, suicide);
+			var deathNotification = new DeathNotificationElement(killerName, killerFriendly, victimName, victimFriendly, suicide, killerColor, victimColor);
 			deathNotification.Hide(false);
 
 			deathNotification.schedule.Execute(() => deathNotification.Show())

@@ -123,11 +123,11 @@
 }
 
 .leaderboard-header__rank-number {
-    left: 60px;
+    left: 200px;
 }
 
 .leaderboard-header__player {
-    left: 140px;
+    left: 280px;
 }
 
 .leaderboard-header__kills {
@@ -500,7 +500,6 @@
     font-size: 40px;
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    color: rgb(248, 199, 46);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     position: absolute;

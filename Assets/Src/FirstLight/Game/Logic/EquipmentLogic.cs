@@ -193,7 +193,7 @@ namespace FirstLight.Game.Logic
 
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
 		{
-			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var resourceType = isNft ? GameId.CS : GameId.Fragments;
 			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
 			var rarityValue =
 				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));

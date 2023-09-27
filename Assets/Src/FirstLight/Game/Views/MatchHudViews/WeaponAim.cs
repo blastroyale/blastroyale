@@ -1,6 +1,4 @@
 using System.Linq;
-using System.Numerics;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -31,8 +29,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[Required, SerializeField] private LineRenderer _lowerLineRenderer;
 
 		private const int _minAngleVariation = 15;
-		private readonly Color _sideLineStartColor = new Color(0.13f, 0.13f, 0.13f);
-		private readonly Color _sideLineEndColor = new Color(0.02f, 0.02f, 0.02f);
+		private readonly Color _sideLineStartColor = new (0.13f, 0.13f, 0.13f);
+		private readonly Color _sideLineEndColor = new (0.02f, 0.02f, 0.02f);
 		private readonly Color _mainLineColor = Color.white;
 		
 		private FP _variationRange;
@@ -154,6 +152,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var offset = playerTransform.rotation * playerCharacter->ProjectileSpawnOffset.ToUnityVector3();
 			origin += offset.ToFPVector3();
 			
+			if (FeatureFlags.BULLET_CAMERA_ADJUSTMENT)
+			{
+				origin += BulletMonoComponent.CameraCorrectionOffset.ToFPVector3();
+			}
+
 			DrawAimLine(f, _centerLineRenderer, _view.EntityRef, origin, end);
 			
 			if (_angleVariation > _minAngleVariation)
@@ -168,21 +171,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_lastFrameUpdate = Time.frameCount;
 		}
 
+		private Vector3 GetHit(Frame f, EntityRef entity, FPVector3 origin, FPVector3 end)
+		{
+			var hits = f.Physics3D.LinecastAll(origin, origin+end, -1, _hitQuery);
+			if (hits.Count > 0)
+			{
+				hits.SortCastDistance();
+				var hit = hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, hit, entity));
+				if (hit.Point != FPVector3.Zero)
+				{
+					return hit.Point.ToUnityVector3();
+				}
+			}
+			return Vector3.zero;
+		}
+
 		private void DrawAimLine(Frame f, LineRenderer line, EntityRef entity, FPVector3 origin, FPVector3 end)
 		{
 			var originUnity = origin.ToUnityVector3();
 			var lineEnd = originUnity + end.ToUnityVector3();
-			var hits = f.Physics3D.LinecastAll(origin, origin+end, f.Context.TargetAllLayerMask, _hitQuery);
+			
 			line.SetPosition(0, originUnity);
-			if (hits.Count > 0)
-			{
-				var hit = hits.ToArray().LastOrDefault(hit => IsValidRaycastHit(f, hit, entity));
-				if (hit.Point != FPVector3.Zero)
-				{
-					lineEnd = hit.Point.ToUnityVector3();
-				}
-			}
-			line.SetPosition(1, lineEnd);
+			var hit = GetHit(f, entity, origin, end);
+			if (hit != Vector3.zero) lineEnd = hit;
+;			line.SetPosition(1, lineEnd);
 		}
 
 		private bool IsValidRaycastHit(Frame f, Hit3D hit, EntityRef shooter)

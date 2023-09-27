@@ -63,10 +63,6 @@
     text-shadow: 2px 2px 0 rgb(23, 18, 53);
 }
 
-.player-status-bar--friendly .player-status-bar__name {
-    color: rgb(68, 174, 255);
-}
-
 .player-status-bar__ammo-holder {
     bottom: 4px;
     right: 11px;

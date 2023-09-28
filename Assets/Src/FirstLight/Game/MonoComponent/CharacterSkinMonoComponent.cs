@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.IsolatedStorage;
-using System.Linq;
 using Quantum;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FirstLight.Game.MonoComponent
 {

@@ -1,5 +1,5 @@
-#if UNITY_EDITOR
 using System;
+#if UNITY_EDITOR
 using FirstLight.Game;
 using Sirenix.OdinInspector.Editor.Validation;
 using UnityEditor;

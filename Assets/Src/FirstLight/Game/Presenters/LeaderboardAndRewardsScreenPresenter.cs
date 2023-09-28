@@ -334,10 +334,13 @@ namespace FirstLight.Game.Presenters
 			{
 				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
 			}
-
+			
+			var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)localPlayerData.QuantumPlayerMatchData.LeaderboardRank);
 			var playerName = localPlayerData.QuantumPlayerMatchData.GetPlayerName();
 			_playerNameText.text += playerName;
 			_fameTitle.text = playerName;
+			_playerNameText.style.color = rankColor;
+			_fameTitle.style.color = rankColor;
 		}
 
 		private void UpdateLeaderboard()

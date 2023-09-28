@@ -40,7 +40,6 @@
 
 .player-header__name {
     position: absolute;
-    color: rgb(255, 255, 255);
     font-size: 34px;
     -unity-text-align: lower-center;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);

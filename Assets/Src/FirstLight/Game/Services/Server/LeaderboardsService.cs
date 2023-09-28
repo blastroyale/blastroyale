@@ -57,6 +57,11 @@ namespace FirstLight.Game.Services
 		/// Gets the main ranked board
 		/// </summary>
 		public GameLeaderboard Ranked { get; }
+		
+		/// <summary>
+		/// Event happens when player's rank in the global leaderboard changes
+		/// </summary>
+		event Action<PlayerLeaderboardEntry> OnRankingUpdate;
 	}
 
 	public class LeaderboardsService : ILeaderboardService
@@ -65,9 +70,6 @@ namespace FirstLight.Game.Services
 		
 		public const int MAX_ENTRIES = 100;
 		public const string LeaderboardConfigsDataName = "LeaderboardConfigs";
-		private readonly Color GOLD = Color.yellow;
-		private readonly Color SILVER = new (163/255f, 163/255f, 194/255f);
-		private readonly Color BRONZE = new (153/255f, 153/255f, 102/255f); 
 		
 		private IGameServices _services;
 		private readonly List<GameLeaderboard> _leaderboards = new();
@@ -148,12 +150,12 @@ namespace FirstLight.Game.Services
 		public PlayerLeaderboardEntry CurrentRankedEntry => _currentRankedEntry;
 		public Color GetRankColor(GameLeaderboard board, int rank)
 		{
-			if (board != Ranked || rank <= 0) return default;
-			// TODO: Put in configs
-			if (rank < 6) return GOLD;
-			else if (rank < 21) return SILVER;
-			else if (rank < 101) return BRONZE;
-			return default;
+			if (board != Ranked || rank <= 0) return GameConstants.PlayerName.DEFAULT_COLOR;
+			
+			if (rank <= GameConstants.Data.LEADERBOARD_GOLD_ENTRIES) return GameConstants.PlayerName.GOLD_COLOR;
+			else if (rank <= GameConstants.Data.LEADERBOARD_SILVER_ENTRIES) return GameConstants.PlayerName.SILVER_COLOR;
+			else if (rank <= GameConstants.Data.LEADERBOARD_BRONZE_ENTRIES) return GameConstants.PlayerName.BRONZE_COLOR;
+			return GameConstants.PlayerName.DEFAULT_COLOR;
 		}
 
 		public void UpdateLocalPlayerClientRank()

@@ -81,6 +81,10 @@ namespace FirstLight.Game.UIElements
 			Add(_icon = new VisualElement() {name = "icon"});
 			_icon.AddToClassList(USS_ICON);
 			
+			//TODO: Make them visible again when we implement them properly
+			_iconBackground.SetVisibility(false);
+			_icon.SetVisibility(false);
+			
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -157,7 +161,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetIconColor(Color color)
 		{
-			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == default)
+			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
 			{
 				_iconBackground.SetVisibility(false);
 				_icon.SetVisibility(false);
@@ -207,9 +211,10 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the name of the player.
 		/// </summary>
-		public void SetName(string playerName)
+		public void SetName(string playerName, Color nameColor)
 		{
 			_name.text = playerName;
+			_name.style.color = nameColor;
 		}
 
 		/// <summary>

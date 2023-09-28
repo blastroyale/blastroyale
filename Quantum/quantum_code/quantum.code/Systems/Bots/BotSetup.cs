@@ -444,7 +444,43 @@ namespace Quantum.Systems.Bots
 			// Get players in bot team and this point the bot is not in this list
 			if (ctx.PlayersByTeam.TryGetValue(teamId, out var players) && players.Count > 0)
 			{
-				var randomPlayer = f.RNG->RandomElement(players);
+				var randomPlayer = EntityRef.None;
+				
+				// We are trying to find an actual real player in a team
+				for (var i = 0; i < players.Count; i++)
+				{
+					if (f.Has<BotCharacter>(players[i]))
+					{
+						continue;
+					}
+					
+					randomPlayer = players[i];
+					
+					break;
+				}
+				
+				// If we didn't find a real player in a team then we look for a bot with defined spawn position (via transform3d)
+				if (randomPlayer == EntityRef.None)
+				{
+					for (var i = 0; i < players.Count; i++)
+					{
+						if (f.Unsafe.TryGetPointer<Transform3D>(players[i], out var pt) &&
+							pt->Position != FPVector3.Zero)
+						{
+							randomPlayer = players[i];
+							break;
+						}
+					}
+				}
+				
+				// If we still have no one then we return and allow other logic to choose a random free spawn point
+				if (randomPlayer == EntityRef.None)
+				{
+					spawnPointForBot = 0;
+					return false;
+				}
+				
+				// If we DID find a real player or bot with defined position then we look for a spot to spawn nearby
 				if (f.TryGet<Transform3D>(randomPlayer, out var transform))
 				{
 					var position = transform.Position.XZ;

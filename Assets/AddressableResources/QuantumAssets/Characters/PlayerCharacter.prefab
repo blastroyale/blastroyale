@@ -240,7 +240,7 @@ MonoBehaviour:
     Shape3D:
       ShapeType: 1
       SphereRadius:
-        RawValue: 19659
+        RawValue: 22937
       PositionOffset:
         X:
           RawValue: 0

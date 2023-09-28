@@ -182,7 +182,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var reward = _equipmentLogic.Scrap(_item.Key);
 
-			Assert.AreEqual(GameId.COIN, reward.Key);
+			Assert.AreEqual(GameId.Fragments, reward.Key);
 			Assert.AreEqual(212, reward.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}

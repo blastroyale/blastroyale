@@ -124,6 +124,11 @@ namespace FirstLight.Game.Presenters
 					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Repair, info.Id),
 						!HasEnoughCurrency(info.RepairCost));
 					break;
+				case Mode.Fuse:
+					_title.text = ScriptLocalization.UITEquipment.popup_fusing_item;
+					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
+						!HasEnoughCurrency(info.FuseCost));
+					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -139,7 +144,8 @@ namespace FirstLight.Game.Presenters
 			Scrap,
 			Upgrade,
 			Repair,
-			Rusted
+			Rusted,
+			Fuse
 		}
 	}
 }

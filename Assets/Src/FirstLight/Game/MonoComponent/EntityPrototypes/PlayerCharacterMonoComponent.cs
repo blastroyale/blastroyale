@@ -24,7 +24,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private PlayerCharacterViewMonoComponent _playerView;
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		
+
 		/// <summary>
 		/// The <see cref="Transform"/> anchor values to attach the avatar emoji
 		/// </summary>
@@ -61,7 +61,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_circleIndicator.color = color.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
-	
+
 		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
@@ -99,9 +99,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				Destroy(obj);
 				return;
 			}
+
 			obj.transform.position = position;
 		}
-		
+
 
 		public bool ShouldDisplayColorTag()
 		{
@@ -110,20 +111,48 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
+		private async Task<GameObject> LoadCharacterSkin(GameId skin)
+		{
+			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
+
+			// Add renderer containers
+			var container = obj.AddComponent<RenderersContainerMonoComponent>();
+			container.UpdateRenderers();
+			// TODO REMOVE THIS SHIT SOMEDAY
+			AddLegacyCollider(obj);
+			obj.AddComponent<RenderersContainerProxyMonoComponent>();
+			obj.AddComponent<MatchCharacterViewMonoComponent>();
+			obj.AddComponent<PlayerCharacterViewMonoComponent>();
+			return obj;
+		}
+
+		private void AddLegacyCollider(GameObject obj)
+		{
+			// Legacy collider for old visibility volumes
+			var newCollider = obj.AddComponent<CapsuleCollider>();
+			newCollider.center = new Vector3(0, 0.75f, 0);
+			newCollider.radius = 0.2f;
+			newCollider.height = 0.75f;
+			newCollider.direction = 1; // Y axis
+			newCollider.isTrigger = true;
+		}
+
 		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
-			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(loadout.Skin, true, true, OnLoaded);
+
+			var skinInstance = await LoadCharacterSkin(loadout.Skin);
+			OnLoaded(loadout.Skin, skinInstance, true);
 
 			if (this.IsDestroyed())
 			{
 				return;
 			}
 
-			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
-			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
+			_playerView = skinInstance.GetComponent<PlayerCharacterViewMonoComponent>();
+			var matchCharacterViewMonoComponent = skinInstance.GetComponent<MatchCharacterViewMonoComponent>();
 			await matchCharacterViewMonoComponent.Init(EntityView, loadout, frame);
 
 			if (this.IsDestroyed())
@@ -147,7 +176,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var colorTag = _matchServices.TeamService.GetTeamMemberColor(EntityView.EntityRef);
 			if (colorTag.HasValue) _circleIndicator.color = colorTag.Value;
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
-			
+
 			_services.MessageBrokerService.Publish(new PlayerCharacterInstantiated()
 			{
 				Character = this

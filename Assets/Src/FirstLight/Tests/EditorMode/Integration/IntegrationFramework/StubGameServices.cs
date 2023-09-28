@@ -48,6 +48,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IPlayfabPubSubService PlayfabPubSubService { get; }
 		public IGameUiService GameUiService { get; }
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		public ICollectionService CollectionService { get; }
 		public IControlSetupService ControlsSetup { get; set; }
 		public IRoomService RoomService { get; }
 		public ILeaderboardService LeaderboardService { get; set; }
@@ -102,6 +103,7 @@ namespace FirstLight.Tests.EditorMode
 			NotificationService = Substitute.For<INotificationService>();
 			PlayfabPubSubService = Substitute.For<IPlayfabPubSubService>();
 			RoomService = Substitute.For<IRoomService>();
+			CollectionService = Substitute.For<ICollectionService>();
 		}
 	}
 }

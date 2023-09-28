@@ -1,56 +1,90 @@
-using ExitGames.Client.Photon.StructWrapping;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Utils;
-using FirstLightServerSDK.Modules.RemoteCollection;
-using FirstLightServerSDK.Services;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Configs;
+using FirstLight.Game.MonoComponent;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Quantum;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Game.Services
 {
-	/// <summary>
-	/// Service responsible for enrhicing collectiondata model with remote data
-	/// from third party services.
-	/// 
-	/// Flow:
-	/// - Client receives data models
-	/// - Client checks if data model is IEnrichableData
-	/// - Client calls registered IRemoteCollectionAdapter to obtain extra remote data
-	/// - Client merges data to the IEnrichableData data model  
-	/// </summary>
-	public class CollectionEnrichmentService : ICollectionEnrichmentService
+	public interface ICollectionService
 	{
-		private IGameBackendService _backend;
-		private IGameDataProvider _data;
-		private IRemoteCollectionAdapter _adapter;
+		Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true);
+		Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true);
+	}
 
-		public CollectionEnrichmentService(IGameBackendService backend, IGameDataProvider data)
+	public class CollectionService : ICollectionService
+	{
+		private IAssetResolverService _assetResolver;
+		private IConfigsProvider _configsProvider;
+		private CharacterSkinsConfig SkinContainer => _configsProvider.GetConfig<CharacterSkinsConfig>();
+
+		public CollectionService(IAssetResolverService assetResolver, IConfigsProvider configsProvider)
 		{
-			_adapter = new PlayfabRemoteCollectionAdapter(backend);
-			_backend = backend;
-			_data = data;
+			_assetResolver = assetResolver;
+			_configsProvider = configsProvider;
 		}
 
-		public IRemoteCollectionAdapter GetAdapter() => _adapter;
 
-		public void Enrich<T>(T clientData) where T : IEnrichableData
+		public async Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true)
 		{
-			if (!FeatureFlags.REMOTE_COLLECTIONS)
+			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
+			if (skin.GameId == id)
 			{
-				return;
+				return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
 			}
-			var services = MainInstaller.Resolve<IGameServices>();
-			foreach (var collectionType in clientData.GetEnrichedTypes())
+
+			return await _assetResolver.RequestAsset<GameId, Sprite>(id, true, instantiate);
+		}
+
+		public async Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true)
+		{
+			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
+			if (skin.GameId == id)
 			{
-				_adapter.FetchOwned(collectionType, list =>
-				{
-					foreach(var owned in list) clientData.Enrich(owned);
-					services.MessageBrokerService.Publish(new CollectionEnrichedMessage()
-					{
-						CollectionType = collectionType,
-						DataType = clientData.GetType()
-					});
-				});
+				return await CreateCharacterSkin(id, menuModel, instantiate);
 			}
+
+			return await _assetResolver.RequestAsset<GameId, GameObject>(id, true, instantiate);
+		}
+
+
+		private async Task UpdateAnimator(GameObject obj, CharacterSkinMonoComponent skinComponent, bool menu)
+		{
+			// Copy default animators values
+			var defaultValues = menu ? SkinContainer.MenuDefaultAnimation : SkinContainer.InGameDefaultAnimation;
+			var animator = obj.GetComponent<Animator>();
+			animator.runtimeAnimatorController = menu switch
+			{
+				true when skinComponent.MenuController != null    => skinComponent.MenuController,
+				false when skinComponent.InGameController != null => skinComponent.InGameController,
+				_                                                 => defaultValues.Controller
+			};
+
+			animator.applyRootMotion = defaultValues.ApplyRootMotion;
+			animator.updateMode = defaultValues.UpdateMode;
+			animator.cullingMode = defaultValues.CullingMode;
+		}
+
+		public async Task<GameObject> CreateCharacterSkin(GameId skinId, bool menu = false, bool instantiate = true)
+		{
+		
+			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == skinId);
+			if (skin.GameId != skinId)
+			{
+				return null;
+			}
+
+			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
+			if (!instantiate) return obj;
+			var skinComponent = obj.GetComponent<CharacterSkinMonoComponent>();
+			// Check animators
+			await UpdateAnimator(obj, skinComponent, menu);
+
+			return obj;
 		}
 	}
 }

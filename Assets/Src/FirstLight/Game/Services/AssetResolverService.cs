@@ -37,6 +37,14 @@ namespace FirstLight.Game.Services
 			where TAsset : Object;
 
 		/// <summary>
+		///  Load asset by reference 
+		/// </summary>
+		Task<TAsset> LoadAssetByReference<TAsset>(AssetReference assetReference, bool loadAsynchronously = true,
+												  bool instantiate = true,
+												  Action<TAsset, bool> onLoadCallback =
+													  null) where TAsset : Object;
+		
+		/// <summary>
 		/// Requests the given <typeparamref name="TAsset"/> of the given <paramref name="id"/> while passing the
 		/// given <paramref name="data"/> to the <paramref name="onLoadCallback"/> call.
 		/// If <paramref name="loadAsynchronously"/> is true then will load asynchronously.
@@ -123,6 +131,8 @@ namespace FirstLight.Game.Services
 		/// Adds the debug assets when errors occur
 		/// </summary>
 		void AddDebugConfigs(Sprite errorSprite, GameObject errorCube, Material errorMaterial, AudioClip errorClip);
+		
+		
 	}
 
 	/// <inheritdoc cref="IAssetResolverService" />
@@ -286,6 +296,48 @@ namespace FirstLight.Game.Services
 			}
 
 			onLoadCallback?.Invoke(id, asset, data, instantiate);
+
+			return asset;
+		}
+
+		/// <inheritdoc />
+		public async Task<TAsset> LoadAssetByReference<TAsset>(AssetReference assetReference, bool loadAsynchronously = true,
+													bool instantiate = true,
+													Action<TAsset, bool> onLoadCallback =
+														null)
+			where TAsset : Object
+		{
+			TAsset asset;
+			var id = assetReference.AssetGUID;
+		
+			if (!assetReference.OperationHandle.IsValid())
+			{
+				FLog.Verbose($"Loading Asset: ID({id}), Type({typeof(TAsset).Name})");
+				assetReference.LoadAssetAsync<TAsset>();
+			}
+
+			if (!loadAsynchronously)
+			{
+				assetReference.OperationHandle.WaitForCompletion();
+			}
+
+			if (!assetReference.IsDone)
+			{
+				await assetReference.OperationHandle.Task;
+			}
+
+			if (assetReference.Asset == null)
+			{
+				asset = null;
+				
+				Debug.LogWarning($"Loading the asset for the given id '{id}' is loading an empty asset reference");
+			}
+			else
+			{
+				asset = Convert<TAsset>(assetReference, instantiate);
+			}
+
+			onLoadCallback?.Invoke(asset, instantiate);
 
 			return asset;
 		}

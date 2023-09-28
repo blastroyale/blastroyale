@@ -118,6 +118,7 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		public ICollectionService CollectionService { get; }
 
 		public IControlSetupService ControlsSetup { get; }
 		public ILeaderboardService LeaderboardService { get; }
@@ -173,6 +174,7 @@ namespace FirstLight.Game.Services
 		public IGameUiService GameUiService { get; }
 
 		public ICollectionEnrichmentService CollectionEnrichnmentService { get; }
+		public ICollectionService CollectionService { get; }
 
 		public IControlSetupService ControlsSetup { get; }
 		
@@ -249,6 +251,7 @@ namespace FirstLight.Game.Services
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,
 				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
+			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider);
 		}
 
 		/// <inheritdoc />

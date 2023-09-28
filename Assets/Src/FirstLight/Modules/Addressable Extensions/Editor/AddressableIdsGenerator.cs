@@ -19,6 +19,7 @@ namespace FirstLightEditor.AddressablesExtensions
 		private const string _objectName = "AddressableId";
 		private const string _namespace = "FirstLight.Game.Ids";
 		private const string _generateLabel = "GenerateIds";
+		private const string _scriptableObjectsOnly = "ScriptableObjectsOnly";
 		
 		[MenuItem("FLG/Generators/Generate AddressableIds")]
 		private static void GenerateAddressableIds()
@@ -224,6 +225,22 @@ namespace FirstLightEditor.AddressablesExtensions
 			       $"typeof({asseType}), new [] {{{GenerateLabels(new List<string>(addressableAssetEntry.labels))}}})";
 		}
 
+		private static bool ShouldGenerate(AddressableAssetEntry asset)
+		{
+			var generate = 	asset.labels.Contains(_generateLabel);
+			if (!generate) return false;
+			var scriptableOnly = asset.labels.Contains(_scriptableObjectsOnly);
+			if (scriptableOnly)
+			{
+				var assetType = asset.MainAssetType;
+				if (!typeof(ScriptableObject).IsAssignableFrom(assetType))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 		private static void ProcessData(IList<AddressableAssetEntry> assetList,
 		                                out Dictionary<string, IList<AddressableAssetEntry>> labelMap, 
 		                                out List<string> paths)
@@ -233,7 +250,14 @@ namespace FirstLightEditor.AddressablesExtensions
 			
 			for (var i = assetList.Count - 1; i > -1; --i)
 			{
-				foreach (var label in assetList[i].labels)
+				
+				var asset = assetList[i];
+                if (!ShouldGenerate(asset))
+				{
+					assetList.RemoveAt(i);
+					continue;
+				}
+				foreach (var label in asset.labels)
 				{
 					if (label != _generateLabel)
 					{
@@ -246,16 +270,9 @@ namespace FirstLightEditor.AddressablesExtensions
 						labelMap.Add(label, list);
 					}
 					
-					list.Add(assetList[i]);
+					list.Add(asset);
 				}
-				
-				if (!assetList[i].labels.Contains(_generateLabel))
-				{
-					assetList.RemoveAt(i);
-					continue;
-				}
-				
-				var address = assetList[i].address;
+				var address = asset.address;
 				var pathLastCharIndex = address.Replace('\\', '/').LastIndexOf('/');
 				var path = pathLastCharIndex < 0 ? address : address.Substring(0,  pathLastCharIndex);
 

@@ -7472,6 +7472,72 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/TempSkin1
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 1
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TempSkin2
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 2
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TempSkin3
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 3
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TempSkin4
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 4
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TempSkin5
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 5
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TempSkin6
+      TermType: 0
+      Description: 
+      Languages:
+      - Temporary Skin 6
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: General/ATTDescription
       TermType: 0
       Description: 
@@ -15514,17 +15580,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITRewards/
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      - 
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     - Term: UITRewards/battlepass
       TermType: 0
       Description: 
@@ -17227,7 +17282,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1695831690210
+    Google_LastUpdatedVersion: 1695907984758
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

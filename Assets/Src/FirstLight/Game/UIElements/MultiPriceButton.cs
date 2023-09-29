@@ -51,7 +51,6 @@ namespace FirstLight.Game.UIElements
 			for(int i = 0; i < prices.Length; i++)
 			{
 				Label currentPrice;
-				//currentPrice.RemoveModifiers();
 				_holder.Add(currentPrice = new Label("123") { name = "price" });
 				currentPrice.AddToClassList(UssPrice);
 				currentPrice.text = prices[i].Value.ToString();
@@ -60,13 +59,11 @@ namespace FirstLight.Game.UIElements
 				_holder.Add(currentIcon = new VisualElement { name = "icon" });
 				currentIcon.AddToClassList(UssIcon);
 				currentIcon.AddToClassList(string.Format(UssSpriteIcon, prices[i].Key.ToString().ToLowerInvariant()));
-				//currentIcon.RemoveSpriteClasses();
 
 				if (insufficient[i])
 				{
 					currentPrice.AddToClassList(UssPriceInsufficient);
 				}
-
 			}
 
 			_holder.SetDisplay(!isNft);

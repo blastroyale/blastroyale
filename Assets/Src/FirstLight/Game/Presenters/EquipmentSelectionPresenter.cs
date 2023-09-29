@@ -347,7 +347,12 @@ namespace FirstLight.Game.Presenters
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
 			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, !HasEnoughCurrency(info.FuseCost));
+			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
+			for(int i = 0; i < info.FuseCost.Length; i++)
+			{
+				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]);
+			}
+			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
 			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 
 			// Equip Button
@@ -369,15 +374,6 @@ namespace FirstLight.Game.Presenters
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
 		{
 			return cost.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(cost.Key);
-		}
-		private bool HasEnoughCurrency(Pair<GameId, uint> [] cost)
-		{
-			var hasCurrencey = true;
-			foreach(var item in cost)
-			{
-				hasCurrencey = item.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(item.Key);
-			}
-			return hasCurrencey;
 		}
 
 		private void UpdateEquipButtonText()

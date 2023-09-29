@@ -15,18 +15,14 @@ namespace FirstLight.Game.UIElements
 	public class MultiPriceButton : ImageButton
 	{
 		private const string UssButtonStyle = "button-long";
-		private const string UssBlock = "price-button";
+		private const string UssBlock = "multi-price-button";
 		private const string UssHolder = UssBlock + "__holder";
 		private const string UssOffsetTitle = UssBlock + "__offset-title";
-		private const string UssPriceHolder = UssBlock + "__price-holder";
 		private const string UssPrice = UssBlock + "__price";
 		private const string UssPriceInsufficient = UssPrice + "--insufficient";
 		private const string UssIcon = UssBlock + "__icon";
 		private const string UssSpriteIcon = "sprite-shared__icon-currency-{0}";
 
-		private Label _price;
-		private VisualElement _icon;
-		private VisualElement _priceHolder;
 		private VisualElement _holder;
 		private Label _title;
 
@@ -37,54 +33,49 @@ namespace FirstLight.Game.UIElements
 			AddToClassList(UssButtonStyle);
 			AddToClassList(UssBlock);
 
-			var holder = new VisualElement { name = "holder" };
-			holder.AddToClassList(UssHolder);
+			Add(_holder = new VisualElement { name = "holder" });
+			_holder.AddToClassList(UssHolder);
 
-			Add(holder);
-			{
-				var priceHolder = new VisualElement { name = "price-holder" };
-				priceHolder.AddToClassList(UssPriceHolder);
-
-				_holder = holder;
-				_priceHolder = priceHolder;
-
-				holder.Add(_title = new Label("REPAIR") { name = "title" });
-			}
+			Add(_title = new Label("REPAIR") { name = "title" });
 		}
 
 		/// <summary>
 		/// Sets the price amounts and icons for each cost.
 		/// </summary>
-		public void SetPrice(Pair<GameId, uint>[] prices, bool isNft, bool insufficient = false, bool overrideDisablePrice = false)
+		public void SetPrice(Pair<GameId, uint>[] prices,bool isNft, bool[] insufficient, bool overrideDisablePrice = false)
 		{
-			_priceHolder.Remove(_priceHolder);
-			var priceHolder = new VisualElement { name = "price-holder" };
-			priceHolder.AddToClassList(UssPriceHolder);
-			_priceHolder = priceHolder;
+			Remove(_holder);
+			Add(_holder = new VisualElement { name = "holder" });
+			_holder.AddToClassList(UssHolder);
 
-			foreach (var cost in prices)
+			for(int i = 0; i < prices.Length; i++)
 			{
 				Label currentPrice;
-				VisualElement currentIcon;
-				_priceHolder.Add(currentPrice = new Label("123") { name = "price" });
-				_priceHolder.Add(currentIcon = new VisualElement { name = "icon" });
+				//currentPrice.RemoveModifiers();
+				_holder.Add(currentPrice = new Label("123") { name = "price" });
+				currentPrice.AddToClassList(UssPrice);
+				currentPrice.text = prices[i].Value.ToString();
 
-				currentPrice.text = cost.Value.ToString();
-				currentPrice.RemoveModifiers();
-				if (insufficient)
+				VisualElement currentIcon;
+				_holder.Add(currentIcon = new VisualElement { name = "icon" });
+				currentIcon.AddToClassList(UssIcon);
+				currentIcon.AddToClassList(string.Format(UssSpriteIcon, prices[i].Key.ToString().ToLowerInvariant()));
+				//currentIcon.RemoveSpriteClasses();
+
+				if (insufficient[i])
 				{
 					currentPrice.AddToClassList(UssPriceInsufficient);
 				}
 
-				currentIcon.RemoveSpriteClasses();
-				currentIcon.AddToClassList(string.Format(UssSpriteIcon, cost.Key.ToString().ToLowerInvariant()));
 			}
 
-			_priceHolder.SetDisplay(!isNft);
+			_holder.SetDisplay(!isNft);
+			_title.EnableInClassList(UssOffsetTitle, isNft);
 
 			if (overrideDisablePrice)
 			{
-				_priceHolder.SetDisplay(false);
+				_holder.SetDisplay(false);
+				_title.EnableInClassList(UssOffsetTitle, true);
 			}
 		}
 

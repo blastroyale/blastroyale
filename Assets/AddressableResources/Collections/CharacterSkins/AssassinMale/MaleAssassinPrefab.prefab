@@ -508,22 +508,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuController: {fileID: 22100000, guid: 54ebea0f38e59d04686044b60eec3c60, type: 2}
   _inGameController: {fileID: 0}
-  _weaponAnchors:
-  - {fileID: 5818767226273223100}
-  _helmetAnchors:
-  - {fileID: 5491401630450809201}
-  _bootsAnchors:
-  - {fileID: 761769221491169777}
-  - {fileID: 1791064984961222362}
-  _shieldAnchors:
-  - {fileID: 3621091283922265881}
-  _amuletAnchors:
-  - {fileID: 8842516451807485346}
-  _armorAnchors:
-  - {fileID: 7528204958075160098}
-  - {fileID: 6966782664457838246}
-  - {fileID: 7611940259695063042}
-  _gliderAnchor: {fileID: 8041342746382153768}
+  _anchors:
+  - Key: 1
+    Value:
+    - {fileID: 5491401630450809201}
+  - Key: 5
+    Value:
+    - {fileID: 8842516451807485346}
+  - Key: 2
+    Value:
+    - {fileID: 3621091283922265881}
+  - Key: 3
+    Value:
+    - {fileID: 7528204958075160098}
+    - {fileID: 6966782664457838246}
+    - {fileID: 7611940259695063042}
+  - Key: 0
+    Value:
+    - {fileID: 5818767226273223100}
+  - Key: 4
+    Value:
+    - {fileID: 8041342746382153768}
 --- !u!95 &2437184675857467281
 Animator:
   serializedVersion: 5

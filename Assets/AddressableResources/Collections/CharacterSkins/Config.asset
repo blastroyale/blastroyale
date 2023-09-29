@@ -156,3 +156,64 @@ MonoBehaviour:
       UpdateMode: 0
       CullingMode: 1
       Controller: {fileID: 22100000, guid: 1e2ae51406c824b4aba97335aa2a77d9, type: 2}
+    Anchors:
+    - Key: 0
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: -90, z: -90}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: WeaponAttach2_R
+        AtBeggningOfHierarchy: 0
+    - Key: 2
+      Value:
+      - Offset:
+          Position: {x: 7.460698e-16, y: -0.02, z: -7.216449e-17}
+          Rotation: {x: 0, y: 0, z: 90}
+          Scale: {x: 0, y: 0, z: 0}
+        AttachToBone: WeaponAttach2_L
+        AtBeggningOfHierarchy: 0
+    - Key: 1
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Head_M
+        AtBeggningOfHierarchy: 0
+    - Key: 4
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Spine1_M
+        AtBeggningOfHierarchy: 0
+    - Key: 3
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Spine2_M
+        AtBeggningOfHierarchy: 0
+      - Offset:
+          Position: {x: 0.02, y: 0, z: -0.02}
+          Rotation: {x: 90, y: 0, z: 150}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Shoulder_L
+        AtBeggningOfHierarchy: 0
+      - Offset:
+          Position: {x: 0.02, y: 0, z: -0.02}
+          Rotation: {x: -90, y: -150, z: -4}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Shoulder_R
+        AtBeggningOfHierarchy: 0
+    - Key: 5
+      Value:
+      - Offset:
+          Position: {x: 0, y: 0.01, z: 0.015}
+          Rotation: {x: -4.117, y: 0, z: 0}
+          Scale: {x: 1, y: 1, z: 1}
+        AttachToBone: Neck_M
+        AtBeggningOfHierarchy: 0

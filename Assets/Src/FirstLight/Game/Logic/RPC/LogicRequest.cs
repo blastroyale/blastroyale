@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLightServerSDK.Modules;
 
@@ -6,6 +7,7 @@ namespace FirstLight.Game.Logic.RPC
 	/// <summary>
 	/// This object defines the request structure to execution a logic function
 	/// </summary>
+	[Serializable]
 	public class LogicRequest : ICloudScriptDataObject
 	{
 		/// <summary>

@@ -19,6 +19,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using ExitGames.Client.Photon.StructWrapping;
 
 namespace FirstLight.Game.Presenters
 {
@@ -63,7 +64,7 @@ namespace FirstLight.Game.Presenters
 		private Button _equipButton;
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
-		private PriceButton _fuseButton;
+		private MultiPriceButton _fuseButton;
 		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
@@ -120,7 +121,7 @@ namespace FirstLight.Game.Presenters
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
-			_fuseButton = root.Q<PriceButton>("FuseButton").Required();
+			_fuseButton = root.Q<MultiPriceButton>("FuseButton").Required();
 			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
@@ -347,7 +348,7 @@ namespace FirstLight.Game.Presenters
 			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 
 			_fuseButton.SetPrice(info.FuseCost, info.IsNft, !HasEnoughCurrency(info.FuseCost));
-			_upgradeButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
+			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);
@@ -368,6 +369,15 @@ namespace FirstLight.Game.Presenters
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
 		{
 			return cost.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(cost.Key);
+		}
+		private bool HasEnoughCurrency(Pair<GameId, uint> [] cost)
+		{
+			var hasCurrencey = true;
+			foreach(var item in cost)
+			{
+				hasCurrencey = item.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(item.Key);
+			}
+			return hasCurrencey;
 		}
 
 		private void UpdateEquipButtonText()

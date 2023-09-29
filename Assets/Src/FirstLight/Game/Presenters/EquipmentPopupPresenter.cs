@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 				case Mode.Fuse:
 					_title.text = ScriptLocalization.UITEquipment.popup_fusing_item;
 					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
-						!HasEnoughCurrency(info.FuseCost));
+						!(HasEnoughCurrency(info.FuseCost[0]) && HasEnoughCurrency(info.FuseCost[1]))); 
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -39,10 +39,19 @@
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/scrap" name="ScrapButton" />
                     <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradeButton" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/pack" name="EquipButton" class="button-long button-long--yellow" />
-                    <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/fuse" name="FuseButton" />
+                    <ui:VisualElement name="FuseButton" class="unity-button button-long price_display" style="background-color: rgba(0, 0, 0, 0);">
+                        <ui:VisualElement name="MultiPriceHolder" style="background-color: rgba(0, 0, 0, 0); height: auto; flex-direction: row; align-items: center; justify-content: center;">
+                            <ui:VisualElement name="PriceDisplay">
+                                <ui:VisualElement name="Icon" class="sprite-shared__icon-currency-bpp price-display__icon" style="width: 40px; height: 40px;" />
+                                <ui:Label tabindex="-1" text="123" display-tooltip-when-elided="true" name="Price" class="price-display__price" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" localization-key="UITEquipment/fuse" class="unity-label" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" />
     </ui:VisualElement>
+    <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" />
 </ui:UXML>

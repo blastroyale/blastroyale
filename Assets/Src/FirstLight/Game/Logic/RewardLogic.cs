@@ -35,7 +35,7 @@ namespace FirstLight.Game.Logic
 		public List<QuantumPlayerMatchData> MatchData { get; set; }
 
 		/// <summary>
-		/// TODO
+		/// Player Rank of the local player in MatchData array
 		/// </summary>
 		public int ExecutingPlayer { get; set; }
 
@@ -373,15 +373,14 @@ namespace FirstLight.Game.Logic
 
 			var playerTrophies = localPlayerData.Data.PlayerTrophies;
 			var bracket = 0;
-			foreach (var rewardBracket in rewardConfig.BracketReward)
+			var maxBracket = rewardConfig.BracketReward.Keys.Max();
+			if (playerTrophies > maxBracket)
 			{
-				if (playerTrophies > rewardBracket.Key)
-				{
-					continue;
-				}
-
-				bracket = rewardBracket.Key;
-				break;
+				bracket = maxBracket;
+			}
+			else
+			{
+				bracket = rewardConfig.BracketReward.FirstOrDefault(kp => playerTrophies <= kp.Key).Key;
 			}
 
 			if (rewardConfig.BracketReward.TryGetValue(bracket, out var amount))

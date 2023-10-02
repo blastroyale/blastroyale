@@ -58,6 +58,11 @@ namespace FirstLight.Game.Logic
 		Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft);
 
 		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> fusion cost for 1 upgrade
+		/// </summary>
+		Pair<GameId, uint>[] GetFuseCost(Equipment equipment);
+
+		/// <summary>
 		/// Requests the given's <paramref name="equipment"/> repair cost
 		/// </summary>
 		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
@@ -227,13 +232,14 @@ namespace FirstLight.Game.Logic
 			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
 		}
 
-
 		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
 		{
-			//TODO: create and add fusion config logic here 
+			var config = GameLogic.ConfigsProvider.GetConfig<FuseConfig>((int) equipment.Rarity);
+			Debug.LogWarning("Coin cost for rarity " + equipment.Rarity + " is " + config.CoinCost);
+
 			return new Pair<GameId, uint>[]{
-				new (GameId.COIN, 30),
-				new (GameId.Fragments, 20)
+				new (GameId.COIN, config.CoinCost),
+				new (GameId.Fragments, config.FragmentCost)
 			};
 		}
 

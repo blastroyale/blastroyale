@@ -235,7 +235,6 @@ namespace FirstLight.Game.Logic
 		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<FuseConfig>((int) equipment.Rarity);
-			Debug.LogWarning("Coin cost for rarity " + equipment.Rarity + " is " + config.CoinCost);
 
 			return new Pair<GameId, uint>[]{
 				new (GameId.COIN, config.CoinCost),

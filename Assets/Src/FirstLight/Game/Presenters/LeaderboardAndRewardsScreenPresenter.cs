@@ -114,6 +114,7 @@ namespace FirstLight.Game.Presenters
 
 			_fame = _rewardsPanel.Q<VisualElement>("Fame").Required();
 			_fame.AttachView(this, out _levelView);
+			_levelView.HideFinalLevel();
 			_fameTitle = root.Q<Label>("FameTitle").Required();
 			
 			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider);
@@ -190,19 +191,18 @@ namespace FirstLight.Game.Presenters
 
 		private void SetLevelReward(Dictionary<GameId, int> rewards)
 		{
-			var bppReward = 0;
-
+			var xpRewards = 0;
 			if (rewards.TryGetValue(GameId.XP, out var reward))
 			{
-				bppReward = reward;
+				xpRewards = reward;
 			}
 
 			var maxLevel = GameConstants.Data.PLAYER_FAME_MAX_LEVEL;
-			var gainedLeft = bppReward;
+			var gainedLeft = xpRewards;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var nextLevel = (int) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
+			var nextLevel = (uint) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
 			var currentLevel = nextLevel;
-			var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			
 			do
 			{
@@ -213,19 +213,11 @@ namespace FirstLight.Game.Presenters
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
-					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.LevelBeforeChange;
+					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.XPBeforeChange;
 				}
-				
-				foreach (var config in configs)
-				{
-					if (currentLevel >= config.Value.LevelStart && currentLevel <= config.Value.LevelEnd)
-					{
-						levelRewardInfo.MaxForLevel = (int) config.Value.LevelUpXP;
-						break;
-					}
-				}
-				
-				levelRewardInfo.NextLevel = currentLevel;
+
+				levelRewardInfo.MaxForLevel = (int)_gameDataProvider.PlayerDataProvider.GetXpNeededForLevel(currentLevel);
+				levelRewardInfo.NextLevel = (int)currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
 				if (amountToMax < gainedLeft)
@@ -238,9 +230,7 @@ namespace FirstLight.Game.Presenters
 					levelRewardInfo.Total = gainedLeft;
 					gainedLeft = 0;
 				}
-
 				levelsInfo.Add(levelRewardInfo);
-
 				currentLevel++;
 			} while (gainedLeft > 0 && currentLevel < maxLevel);
 

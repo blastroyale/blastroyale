@@ -56,7 +56,7 @@ namespace FirstLight.Game.Views
 
 			while (currentGained != _gained)
 			{
-				await Task.Delay(50);
+				await Task.Delay(2);
 				currentGained += increment;
 				currentTotal += increment;
 

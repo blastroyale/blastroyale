@@ -73,6 +73,14 @@ namespace FirstLight.Game.Views
 		{
 			_levelRewardsInfo = levelRewardsInfo;
 		}
+
+		/// <summary>
+		/// Hides the next level number. Good for level icons that already display current level to avoid confusion.
+		/// </summary>
+		public void HideFinalLevel()
+		{
+			_nextLevelLabel.SetDisplay(false);
+		}
 		
 		/// <summary>
 		/// Animates the values up to the total

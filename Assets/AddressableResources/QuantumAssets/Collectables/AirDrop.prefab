@@ -210,7 +210,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 11
+    Layer: 9
     CallbackFlags:
       Value: 448
   PhysicsBody:

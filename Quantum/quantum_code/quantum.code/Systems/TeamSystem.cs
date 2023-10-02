@@ -6,7 +6,8 @@ namespace Quantum.Systems
 	{
 		public void AllPlayersSpawned(Frame f)
 		{
-			foreach (var kp in TeamHelpers.GetPlayersByTeam(f))
+			var playersByTeam = TeamHelpers.GetPlayersByTeam(f);
+			foreach (var kp in playersByTeam)
 			{
 				var teamId = kp.Key;
 				var members = kp.Value;
@@ -19,8 +20,11 @@ namespace Quantum.Systems
 						TeamIndex = index
 					};
 					f.Add(entity, component);
-					f.Events.OnTeamAssigned(entity);
 				}
+			}
+			foreach (var kp in playersByTeam)
+			{
+				foreach(var entity in kp.Value) f.Events.OnTeamAssigned(entity);
 			}
 		}
 	}

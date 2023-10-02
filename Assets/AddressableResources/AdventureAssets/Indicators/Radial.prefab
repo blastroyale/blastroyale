@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6442293614775160539}
   - component: {fileID: 1668517317963692357}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Radial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5511871915891584604}
   - component: {fileID: 6623196431745626753}
   - component: {fileID: 1805097366325645235}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -125,7 +125,6 @@ namespace FirstLight.Editor.EditorTools
 			await ArtifactCopier.GameTranslations.CopyTo(_backendResources);
 		}
 
-
 #if ENABLE_PLAYFABADMIN_API
 		/// <summary>
 		/// Uploads the last serialized configuration to dev playfab.

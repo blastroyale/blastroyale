@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1969717073681190072}
   - component: {fileID: 5006176107355488481}
   - component: {fileID: 4527445493281042505}
-  m_Layer: 18
+  m_Layer: 7
   m_Name: MainBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
       IsSetFromSourceCollider: 0
-    Layer: 18
+    Layer: 7
     CallbackFlags:
       Value: 1152
   PhysicsBody:
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4922382568112587626}
   - component: {fileID: 7824555107552583310}
   - component: {fileID: 1212169772923130493}
-  m_Layer: 18
+  m_Layer: 7
   m_Name: BulletMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

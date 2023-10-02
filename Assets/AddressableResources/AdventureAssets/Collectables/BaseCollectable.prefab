@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7154763326806129797}
   - component: {fileID: 4159690803613263917}
   - component: {fileID: 6932532202222978580}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: BaseCollectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 6016362987678719623}
   - component: {fileID: 8571972573124198521}
   - component: {fileID: 3889356288209368369}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7273039971299085641}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7972609098695308985}
   - component: {fileID: 925224423651476571}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -38,6 +38,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _scrappingContent;
 		private VisualElement _upgradingContent;
 		private VisualElement _repairingContent;
+		private VisualElement _fusingContent;
 		private VisualElement _rustedContent;
 
 		private VisualElement _blastHubContainer;
@@ -46,6 +47,7 @@ namespace FirstLight.Game.Presenters
 		private EquipmentPopupUpgradeView _upgradeView;
 		private EquipmentPopupRepairView _repairView;
 		private EquipmentPopupRustedView _rustedView;
+		private EquipmentPopupFuseView _fuseView;
 
 		private void Awake()
 		{
@@ -89,6 +91,7 @@ namespace FirstLight.Game.Presenters
 			_scrappingContent.SetDisplay(Data.PopupMode == Mode.Scrap);
 			_upgradingContent.SetDisplay(Data.PopupMode == Mode.Upgrade);
 			_repairingContent.SetDisplay(Data.PopupMode == Mode.Repair);
+			_fusingContent.SetDisplay(Data.PopupMode == Mode.Fuse);
 			_rustedContent.SetDisplay(Data.PopupMode == Mode.Rusted);
 
 			if (Data.PopupMode == Mode.Rusted)
@@ -126,7 +129,7 @@ namespace FirstLight.Game.Presenters
 					break;
 				case Mode.Fuse:
 					_title.text = ScriptLocalization.UITEquipment.popup_fusing_item;
-					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
+					_fuseView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
 						!(HasEnoughCurrency(info.FuseCost[0]) && HasEnoughCurrency(info.FuseCost[1]))); 
 					break;
 				default:

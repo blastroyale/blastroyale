@@ -59,7 +59,7 @@ namespace FirstLight.Game.Infos
 
 		public override string ToString()
 		{
-			return $"{nameof(Id)}: {Id}, {nameof(Equipment)}: {Equipment}, {nameof(Manufacturer)}: {Manufacturer}, {nameof(ScrappingValue)}: {ScrappingValue}, {nameof(UpgradeCost)}: {UpgradeCost}, {nameof(RepairCost)}: {RepairCost}, {nameof(CurrentDurability)}: {CurrentDurability}, {nameof(IsEquipped)}: {IsEquipped}, {nameof(IsNft)}: {IsNft}, {nameof(MaxLevel)}: {MaxLevel}, {nameof(Stats)}: {Stats}, {nameof(NextLevelStats)}: {NextLevelStats}, {nameof(IsBroken)}: {IsBroken}";
+			return $"{nameof(Id)}: {Id}, {nameof(Equipment)}: {Equipment}, {nameof(Manufacturer)}: {Manufacturer}, {nameof(ScrappingValue)}: {ScrappingValue}, {nameof(UpgradeCost)}: {UpgradeCost}, {nameof(FuseCost)}: {FuseCost}, {nameof(RepairCost)}: {RepairCost}, {nameof(CurrentDurability)}: {CurrentDurability}, {nameof(IsEquipped)}: {IsEquipped}, {nameof(IsNft)}: {IsNft}, {nameof(MaxLevel)}: {MaxLevel}, {nameof(Stats)}: {Stats}, {nameof(NextLevelStats)}: {NextLevelStats}, {nameof(IsBroken)}: {IsBroken}";
 		}
 	}
 

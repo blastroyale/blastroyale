@@ -55,9 +55,24 @@ namespace FirstLight.Game.MonoComponent
 			container.UpdateRenderers();
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MainMenuCharacterViewComponent>();
-
+			AddDragCollider(obj);
 			await SkinLoaded(skinId, obj);
 		}
+		/// <summary>
+		/// Collider used for IDragHandler so we can rotate character on main menu
+		/// </summary>
+		/// <param name="obj"></param>
+		private void AddDragCollider(GameObject obj)
+		{
+			// Legacy collider for old visibility volumes
+			var newCollider = obj.AddComponent<CapsuleCollider>();
+			newCollider.center = new Vector3(0, 0.75f, 0);
+			newCollider.radius = 0.36f;
+			newCollider.height = 1.5f;
+			newCollider.direction = 1; // Y axis
+			newCollider.isTrigger = false;
+		}
+
 
 		public void AnimateVictory()
 		{

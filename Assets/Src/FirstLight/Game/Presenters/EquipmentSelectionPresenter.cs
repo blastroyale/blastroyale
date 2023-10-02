@@ -19,7 +19,6 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using ExitGames.Client.Photon.StructWrapping;
 
 namespace FirstLight.Game.Presenters
 {
@@ -350,7 +349,7 @@ namespace FirstLight.Game.Presenters
 			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
 			for(int i = 0; i < info.FuseCost.Length; i++)
 			{
-				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]);
+				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]); 
 			}
 			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
 			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));

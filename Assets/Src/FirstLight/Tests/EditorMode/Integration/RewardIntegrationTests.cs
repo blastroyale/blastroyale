@@ -59,7 +59,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestCollectionReward()
 		{
-			var item = ItemFactory.Collection(GameId.Corpo);
+			var item = ItemFactory.Collection(GameId.MaleCorpos);
 
 			Assert.IsFalse(TestLogic.CollectionLogic.IsItemOwned(item));
 			TestLogic.RewardLogic.Reward(new [] {item});

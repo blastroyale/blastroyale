@@ -1,84 +1,94 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
-using FirstLight.GoogleSheetImporter;
-using FirstLightEditor.GoogleSheetImporter;
+using Quantum;
 using UnityEditor;
 using UnityEngine;
+using Application = UnityEngine.Device.Application;
 
-namespace FirstLight.Editor.SheetImporters
+namespace FirstLight.Editor.Ids
 {
-	/// <inheritdoc />
-	[GoogleSheetImportOrder(0)]
-	public class GameIdsImporter : IGoogleSheetConfigsImporter
+	public class Generator
 	{
 		private const string _name = "GameId";
 		private const string _nameGroup = "GameIdGroup";
-		private const string _idTag = "Id";
-		private const string _groupsTag = "Groups";
 		private const string _namespace = "FirstLight.Game.Ids";
-		
-		/// <inheritdoc />
-		public string GoogleSheetUrl => "***REMOVED***/edit#gid=683619898";
-		
-		/// <inheritdoc />
-		public void Import(List<Dictionary<string, string>> data)
-		{
-			var idList = new List<string>();
-			var groupList = new List<string>();
-			var mapGroups = new Dictionary<string, List<string>>();
-			var mapIds = new Dictionary<string, List<string>>();
-			
-			foreach (var entry in data)
-			{
-				var groups = CsvParser.ArrayParse<string>(entry[_groupsTag]);
-				var id = GetCleanName(entry[_idTag]);
-				
-				idList.Add(id);
-				mapGroups.Add(id, groups);
 
-				foreach (var group in groups)
+
+		/*[MenuItem("FLG/GOOOOOO")]
+		 Used for converting the current game ids to the new format
+		public static void GenerateBootstrap()
+		{
+			var values = SortByEnumOrder(Enum.GetValues(typeof(GameId)).Cast<GameId>());
+
+			var str = new StringBuilder();
+			foreach (var id in values)
+			{
+				var groups = string.Join(',', id.GetGroups().Select(g => "GroupSource." + g));
+				if (groups != "")
 				{
-					var groupName = GetCleanName(group);
-					if (!groupList.Contains(groupName))
-					{
-						groupList.Add(groupName);
-						mapIds.Add(groupName, new List<string>());
-					}
-					
-					mapIds[groupName].Add(id);
+					groups = ", " + groups;
+				}
+
+				str.AppendLine($"{{\"{id}\", {(int) id} {groups}}},");
+			}
+
+			Debug.Log(str);
+		}*/
+        
+
+
+		[MenuItem("FLG/Generate GameIds")]
+		public static void GenerateIds()
+		{
+			Ids.GameIds.CheckDuplicates();
+			var groups = SortByEnumOrder(Enum.GetValues(typeof(Ids.GroupSource)).Cast<Ids.GroupSource>()).ToList();
+			var ids = Ids.GameIds.InternalList;
+			var idsByGroup = new Dictionary<string, List<string>>();
+			var groupsById = new Dictionary<string, List<string>>();
+			foreach (var groupSource in groups)
+			{
+				idsByGroup[groupSource.ToString()] = new List<string>();
+			}
+
+			foreach (var gameIdEntry in ids)
+			{
+				groupsById[gameIdEntry.Name] = gameIdEntry.Groups.Select(g => g.ToString()).ToList();
+				foreach (var groupSource in gameIdEntry.Groups)
+				{
+					idsByGroup[groupSource.ToString()].Add(gameIdEntry.Name);
 				}
 			}
-			GenerateQuantumQtn(idList, groupList);
-			GenerateQuantumScript(mapGroups, mapIds);
+
+
+			GenerateQuantumQtn(ids, groups);
+			GenerateQuantumScript(idsByGroup, groupsById);
 			AssetDatabase.Refresh();
 		}
 
-		private static void GenerateQuantumQtn(IList<string> ids, IList<string> groups)
+		private static void GenerateQuantumQtn(IList<GameIdEntry> ids, IList<Ids.GroupSource> groups)
 		{
 			var stringBuilder = new StringBuilder();
-			var fileIds = new Dictionary<string, int>();
-			var fileGroups = new Dictionary<string, int>();
 			var path = Application.dataPath.Replace("/Assets", $"/Quantum/quantum_code/quantum.code/Configs/{_name}.qtn");
 
-			ProcessQuantumQtn(fileIds, fileGroups, path);
 
 			stringBuilder.AppendLine("/* AUTO GENERATED CODE */");
 			stringBuilder.AppendLine($"enum {_name}");
 			stringBuilder.AppendLine("{");
-			GenerateEnum(stringBuilder, ids, fileIds);
+			GenerateEnumIds(stringBuilder, ids);
 			stringBuilder.AppendLine("}");
 			stringBuilder.AppendLine("");
 			stringBuilder.AppendLine($"enum {_nameGroup}");
 			stringBuilder.AppendLine("{");
-			GenerateEnum(stringBuilder, groups, fileGroups);
-			
+			GenerateEnumGroups(stringBuilder, groups);
+
 			stringBuilder.AppendLine("}");
-			
+
 			File.WriteAllText(path, stringBuilder.ToString());
 		}
-		
+
 		private static void GenerateQuantumScript(Dictionary<string, List<string>> mapGroups, Dictionary<string, List<string>> mapIds)
 		{
 			var stringBuilder = new StringBuilder();
@@ -118,18 +128,18 @@ namespace FirstLight.Editor.SheetImporters
 			stringBuilder.AppendLine("\t\t\treturn (int)obj;");
 			stringBuilder.AppendLine("\t\t}");
 			stringBuilder.AppendLine("\t}");
-			
+
 			stringBuilder.AppendLine("");
 			stringBuilder.AppendLine($"\tpublic static class {_name}Lookup");
 			stringBuilder.AppendLine("\t{");
 			GenerateLoopUpMethods(stringBuilder);
-			GenerateLoopUpMaps(stringBuilder, mapGroups, _name, _nameGroup, "groups");
-			GenerateLoopUpMaps(stringBuilder, mapIds, _nameGroup, _name, "ids");
+			GenerateLoopUpMaps(stringBuilder, mapIds, _name, _nameGroup, "groups");
+			GenerateLoopUpMaps(stringBuilder, mapGroups, _nameGroup, _name, "ids");
 			stringBuilder.AppendLine("\t}");
-			
+
 			stringBuilder.AppendLine("}");
 
-			File.WriteAllText(Application.dataPath.Replace("/Assets", path) , stringBuilder.ToString());
+			File.WriteAllText(Application.dataPath.Replace("/Assets", path), stringBuilder.ToString());
 		}
 
 		private static void GenerateLoopUpMethods(StringBuilder stringBuilder)
@@ -142,7 +152,7 @@ namespace FirstLight.Editor.SheetImporters
 			stringBuilder.AppendLine("\t\t\t}");
 			stringBuilder.AppendLine("\t\t\treturn groups.Contains(group);");
 			stringBuilder.AppendLine("\t\t}");
-			
+
 			stringBuilder.AppendLine("");
 			stringBuilder.AppendLine($"\t\tpublic static IList<{_name}> GetIds(this {_nameGroup} group)");
 			stringBuilder.AppendLine("\t\t{");
@@ -157,10 +167,11 @@ namespace FirstLight.Editor.SheetImporters
 		}
 
 		private static void GenerateLoopUpMaps(StringBuilder stringBuilder, Dictionary<string, List<string>> map,
-			string element1Type, string element2Type, string fieldName)
+											   string element1Type, string element2Type, string fieldName)
 		{
 			stringBuilder.AppendLine("");
-			stringBuilder.AppendLine($"\t\tprivate static readonly Dictionary<{element1Type}, ReadOnlyCollection<{element2Type}>> _{fieldName} =");
+			stringBuilder.AppendLine(
+				$"\t\tprivate static readonly Dictionary<{element1Type}, ReadOnlyCollection<{element2Type}>> _{fieldName} =");
 			stringBuilder.AppendLine($"\t\t\tnew Dictionary<{element1Type}, ReadOnlyCollection<{element2Type}>> (new {element1Type}Comparer())");
 			stringBuilder.AppendLine("\t\t\t{");
 
@@ -175,74 +186,38 @@ namespace FirstLight.Editor.SheetImporters
 					stringBuilder.Append($"{element2Type}.{pair.Value[i]}");
 					stringBuilder.Append(i + 1 == pair.Value.Count ? "\n" : ",\n");
 				}
+
 				stringBuilder.AppendLine("\t\t\t\t\t}.AsReadOnly()");
 				stringBuilder.AppendLine("\t\t\t\t},");
 			}
-			
+
 			stringBuilder.AppendLine("\t\t\t};");
 		}
 
-		private static void ProcessQuantumQtn(IDictionary<string, int> fileIds, IDictionary<string, int> fileGroups, string filePath)
+
+		private static void GenerateEnumIds(StringBuilder stringBuilder, IList<GameIdEntry> ids)
 		{
-			var text = System.IO.File.ReadAllText(filePath);
-			var idx1 = text.IndexOf('{') + 2;
-			var idx2 = text.IndexOf('}') - 1;
-			var idx3 = text.IndexOf('{', idx1) + 2;
-			var idx4 = text.LastIndexOf('}') - 1;
-			var ids = text.Substring(idx1, idx2 - idx1).Split('\n');
-			var groups = text.Substring(idx3, idx4 - idx3).Split('\n');
-			
-			foreach (var id in ids)
+			foreach (var t in ids)
 			{
-				if (string.IsNullOrWhiteSpace(id))
-				{
-					continue;
-				}
-
-				var split = id.Split('=');
-				var splitNumber = split[1].Trim();
-
-				fileIds.Add(split[0].Trim(), int.Parse(splitNumber.Substring(0, splitNumber.Length - 1)));
-			}
-
-			foreach (var id in groups)
-			{
-				if (string.IsNullOrWhiteSpace(id))
-				{
-					continue;
-				}
-
-				var split = id.Split('=');
-				var splitNumber = split[1].Trim();
-
-				fileGroups.Add(split[0].Trim(), int.Parse(splitNumber.Substring(0, splitNumber.Length - 1)));
+				stringBuilder.Append($"\t{t.Name} = {t.Id.ToString()},\n");
 			}
 		}
-		
-		private static void GenerateEnum(StringBuilder stringBuilder, IList<string> ids, Dictionary<string, int> fileIds)
+
+		private static void GenerateEnumGroups(StringBuilder stringBuilder, IList<Ids.GroupSource> ids)
 		{
-			for (int i = 0, j = 0; i < ids.Count; i++)
+			foreach (var t in ids)
 			{
-				if (!fileIds.TryGetValue(ids[i], out var value))
-				{
-					while (fileIds.ContainsValue(j))
-					{
-						j++;
-					}
-					value = j++;
-				}
-				
-				stringBuilder.Append($"\t{ids[i]} = {value.ToString()},\n");
+				stringBuilder.Append($"\t{t.ToString()} = {(int) t},\n");
 			}
 		}
-		
+
 		private static string GetCleanName(string name)
 		{
 			return name.Replace(' ', '_');
 		}
 
 		private static void GenerateScript(IList<string> ids, IList<string> groups, Dictionary<string, List<string>> mapGroups,
-			Dictionary<string, List<string>> mapIds)
+										   Dictionary<string, List<string>> mapIds)
 		{
 			var stringBuilder = new StringBuilder();
 
@@ -254,28 +229,28 @@ namespace FirstLight.Editor.SheetImporters
 			stringBuilder.AppendLine("/* AUTO GENERATED CODE */");
 			stringBuilder.AppendLine($"namespace {_namespace}");
 			stringBuilder.AppendLine("{");
-			
+
 			stringBuilder.AppendLine("\t[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]");
 			stringBuilder.AppendLine($"\tpublic enum {_name}");
 			stringBuilder.AppendLine("\t{");
-			
+
 			for (var i = 0; i < ids.Count; i++)
 			{
 				stringBuilder.Append($"\t{ids[i]} = {i.ToString()},\n");
 			}
-			
+
 			stringBuilder.AppendLine("\t}");
-			
+
 			stringBuilder.AppendLine("");
 			stringBuilder.AppendLine("\t[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]");
 			stringBuilder.AppendLine($"\tpublic enum {_nameGroup}");
 			stringBuilder.AppendLine("\t{");
-			
+
 			for (var i = 0; i < groups.Count; i++)
 			{
 				stringBuilder.Append($"\t{groups[i]} = {i.ToString()},\n");
 			}
-			
+
 			stringBuilder.AppendLine("\t}");
 
 			stringBuilder.AppendLine("");
@@ -305,7 +280,7 @@ namespace FirstLight.Editor.SheetImporters
 			stringBuilder.AppendLine("\t\t\treturn (int)obj;");
 			stringBuilder.AppendLine("\t\t}");
 			stringBuilder.AppendLine("\t}");
-			
+
 			stringBuilder.AppendLine("");
 			stringBuilder.AppendLine($"\tpublic static class {_name}Lookup");
 			stringBuilder.AppendLine("\t{");
@@ -313,7 +288,7 @@ namespace FirstLight.Editor.SheetImporters
 			GenerateLoopUpMaps(stringBuilder, mapGroups, _name, _nameGroup, "groups");
 			GenerateLoopUpMaps(stringBuilder, mapIds, _nameGroup, _name, "ids");
 			stringBuilder.AppendLine("\t}");
-			
+
 			stringBuilder.AppendLine("}");
 
 			SaveScript(stringBuilder.ToString());
@@ -335,6 +310,26 @@ namespace FirstLight.Editor.SheetImporters
 			}
 
 			File.WriteAllText(scriptPath, scriptString);
+		}
+		
+		private static IEnumerable<T> SortByEnumOrder<T>(IEnumerable<T> original) where T : Enum
+		{
+			return original.OrderBy(id =>
+			{
+				int index = 0;
+				foreach (var fieldInfo in typeof(T).GetFields()
+							 .Where(fi => fi.IsStatic).OrderBy(fi => fi.MetadataToken))
+				{
+					if (fieldInfo.Name == id.ToString())
+					{
+						return index;
+					}
+
+					index++;
+				}
+
+				return index;
+			});
 		}
 	}
 }

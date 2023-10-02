@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Core.Serialization;
@@ -9,6 +10,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using FirstLightServerSDK.Services;
 using GameLogicService.Game;
@@ -37,38 +39,22 @@ namespace ServerCommon.Cloudscript
 	[Consumes("application/json")]
 	public class PlayfabProxyController : ControllerBase
 	{
-		private IStatisticsService _statistics;
-		private ILogicWebService _logicServer;
+		private IServiceProvider _provider;
 		private ILogger _log;
 		private IBaseServiceConfiguration _config;
-		private ShopService _shop;
 
-		// Playfab Format for response
-		[Serializable]
-		private class PlayfabHttpResponse
+		private class PlayfabProxyResponseFormat
 		{
 			public int code;
 			public string status;
-			public PlayfabFunctionResult data;
+			public object data;
 		}
-		
-		[Serializable]
-		private class PlayfabFunctionResult
+
+		public PlayfabProxyController(IServiceProvider provider, ILogger log, IBaseServiceConfiguration config)
 		{
-			public FunctionExecutionError Error;
-			public int ExecutionTimeMilliseconds;
-			public string FunctionName;
-			public PlayFabResult<BackendLogicResult> FunctionResult;
-			public bool? FunctionResultTooLarge;
-		}
-		
-		public PlayfabProxyController(ILogicWebService logicServer, ShopService shop, ILogger log, IStatisticsService stats, IBaseServiceConfiguration config)
-		{
-			_logicServer = logicServer;
+			_provider = provider;
 			_log = log;
 			_config = config;
-			_statistics = stats;
-			_shop = shop;
 		}
 		
 		[HttpPost]
@@ -80,26 +66,26 @@ namespace ServerCommon.Cloudscript
 			var serializer = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
 			var playerId = functionRequest?.AuthenticationContext.PlayFabId;
 			var logicString = functionRequest?.FunctionParameter as JObject;
-			var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
-			PlayFabResult<BackendLogicResult> result = functionRequest?.FunctionName switch
+			var model = new CloudscriptRequest<LogicRequest>(playerId)
 			{
-				"ConsumeValidatedPurchaseCommand" => await _shop.ProcessPurchaseRequest(playerId, logicRequest.Data["item_id"], bool.Parse(logicRequest.Data["fake_store"])),
-				"RemovePlayerData"                => await _logicServer.RemovePlayerData(playerId),
-				"ExecuteCommand"                  => await _logicServer.RunLogic(playerId, logicRequest),
-				"GetPlayerData"                   => await _logicServer.GetPlayerData(playerId),
-				"GetPublicProfile"                => Playfab.Result(playerId, await _statistics.GetProfile(logicRequest.Command)),
-				_                                 => throw new ArgumentOutOfRangeException()
+				FunctionArgument = serializer.DeserializeObject<LogicRequest>(logicString?.ToString())
 			};
-			return Content(serializer.SerializeObject(new PlayfabHttpResponse()
+			var controller = _provider.GetService(typeof(CloudscriptController)) as CloudscriptController;
+			dynamic response = controller.GetType().GetMethod(functionRequest?.FunctionName).Invoke(controller, new object [] {model});
+			OkObjectResult result = response.GetAwaiter().GetResult();
+			return Content(serializer.SerializeObject(new PlayfabProxyResponseFormat()
 			{
 				code = 200,
 				status = "OK",
-				data = new PlayfabFunctionResult()
+				data = new ExecuteFunctionResult()
 				{
-					FunctionName = "ExecuteCommand",
-					FunctionResult = result
+					FunctionName = functionRequest.FunctionName,
+					FunctionResult = new PlayFabResult<BackendLogicResult>()
+					{
+						Result = ((CloudscriptResponse)result.Value).Result
+					}
 				}
-			}), "application/json"); 
+			}), "application/json");
 		}
 	}
 }

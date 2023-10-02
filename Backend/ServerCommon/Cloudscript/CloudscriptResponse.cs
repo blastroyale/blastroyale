@@ -12,7 +12,7 @@ namespace ServerCommon.Cloudscript
 	[Serializable]
 	public class CloudscriptResponse
 	{
-		public BackendLogicResult Result { get; set; }
+		public BackendLogicResult Result;
 		
 		public CloudscriptResponse(PlayFabResult<BackendLogicResult> playfabResult)
 		{

@@ -114,6 +114,11 @@ namespace FirstLight.Game.Logic
 		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
+		/// Removes a given equipment from inventory.
+		/// </summary>
+		void RemoveFromInventory(UniqueId id);
+
+		/// <summary>
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
@@ -579,16 +584,14 @@ namespace FirstLight.Game.Logic
 			throw new LogicException("Dictionary weighted random could not return a valid index.");
 		}
 
-		private void RemoveFromInventory(UniqueId equipment)
+		public void RemoveFromInventory(UniqueId equipment)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
-
 			if (_loadout.TryGetValue(slot, out var equippedId) && equippedId == equipment)
 			{
 				Unequip(equippedId);
 			}
-
 			_inventory.Remove(equipment);
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 		}

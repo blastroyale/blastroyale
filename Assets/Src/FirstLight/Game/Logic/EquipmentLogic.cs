@@ -225,15 +225,11 @@ namespace FirstLight.Game.Logic
 
 		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
 		{
-			var totalCost = new Pair<GameId, uint>[2];
-			
-			var coinCost = new Pair<GameId, uint>(GameId.COIN, 30);
-			var fragCost = new Pair<GameId, uint>(GameId.Fragments, 20);
-
-			totalCost[0] = coinCost;
-			totalCost[1] = fragCost;
-
-			return totalCost;
+			//TODO: create and add fusion config logic here 
+			return new Pair<GameId, uint>[]{
+				new (GameId.COIN, 30),
+				new (GameId.Fragments, 20)
+			};
 		}
 
 		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)

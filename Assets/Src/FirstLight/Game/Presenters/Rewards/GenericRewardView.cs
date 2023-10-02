@@ -1,7 +1,5 @@
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using Quantum;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 

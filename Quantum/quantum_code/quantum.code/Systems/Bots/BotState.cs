@@ -49,7 +49,7 @@ namespace Quantum
 		{
 			BotLogger.LogAction(bot, "Set Waypoint");
 			bot.MoveTarget = entity;
-			bot.NextDecisionTime = f.Time + FP._10;
+			bot.NextDecisionTime = f.Time + bot.DecisionInterval;
 		}
 		
 		/// <summary>

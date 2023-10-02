@@ -156,8 +156,11 @@ namespace FirstLight.Game.UIElements
 			Category = category;
 
 			_name.text = gameId.GetLocalization();
-			_image.RemoveSpriteClasses();
-			_image.AddToClassList(MenuGameId.GetUSSSpriteClass());
+			// Miha will kill-me for this change, but I intent to do it properly in the next PR, i don't want to make this one very big
+			// I'm writing this at 27/09/2023 If you are seeing this comment and this code is old, go yell at me on slack 
+			// TODO: Use classes
+			var collectionService = MainInstaller.ResolveServices().CollectionService;
+			UIUtils.SetSprite(collectionService.LoadCollectionItemSprite(MenuGameId, false), _image);
 		}
 
 

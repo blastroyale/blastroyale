@@ -19,33 +19,22 @@ namespace FirstLight.Game.MonoComponent
 	/// </summary>
 	public abstract class CharacterEquipmentMonoComponent : MonoBehaviour
 	{
-		[FormerlySerializedAs("_animator")] [SerializeField]
-		protected Animator Animator;
-
-		[SerializeField] private Transform[] _weaponAnchors;
-		[SerializeField] private Transform[] _helmetAnchors;
-		[SerializeField] private Transform[] _bootsAnchors;
-		[SerializeField] private Transform[] _shieldAnchors;
-		[SerializeField] private Transform[] _amuletAnchors;
-		[SerializeField] private Transform[] _armorAnchors;
-		[SerializeField] private Transform _gliderAnchor;
-		[SerializeField, Required] private RenderersContainerProxyMonoComponent _renderersContainerProxy;
+		protected Animator _animator;
+		private RenderersContainerProxyMonoComponent _renderersContainerProxy;
+		private CharacterSkinMonoComponent _skin;
 
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		protected IGameServices _services;
 
-		private void OnValidate()
-		{
-			Animator = Animator ? Animator : GetComponent<Animator>();
-			_renderersContainerProxy = _renderersContainerProxy ? _renderersContainerProxy : GetComponent<RenderersContainerProxyMonoComponent>();
-
-			OnEditorValidate();
-		}
+	
 
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_equipment = new Dictionary<GameIdGroup, IList<GameObject>>();
+			_skin = GetComponent<CharacterSkinMonoComponent>();
+			_renderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
+			_animator = GetComponent<Animator>();
 		}
 
 		/// <summary>
@@ -53,7 +42,7 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public async Task<List<GameObject>> InstantiateItem(GameId gameId, GameIdGroup gameIdGroup)
 		{
-			var anchors = GetEquipmentAnchors(gameIdGroup);
+			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
 			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
 			var instances = new List<GameObject>(anchors.Length);
 
@@ -89,10 +78,10 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var slot = gameId.GetSlot();
 
-			var anchors = GetEquipmentAnchors(slot);
+			var anchors =  _skin.GetEquipmentAnchors(slot);
 			var instances = new List<GameObject>();
 			var instance = await InstantiateEquipment(gameId);
-			
+
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
@@ -103,7 +92,7 @@ namespace FirstLight.Game.MonoComponent
 			{
 				UnequipItem(slot);
 			}
-			
+
 			_services.MessageBrokerService.Publish(new ItemEquippedMessage()
 			{
 				Character = gameObject.GetComponent<PlayerCharacterViewMonoComponent>(),
@@ -152,7 +141,7 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public void DestroyItem(GameIdGroup slotType)
 		{
-			var anchors = GetEquipmentAnchors(slotType);
+			var anchors = _skin.GetEquipmentAnchors(slotType);
 			for (var i = 0; i < anchors.Length; i++)
 			{
 				if (i >= anchors.Length) continue;
@@ -227,7 +216,7 @@ namespace FirstLight.Game.MonoComponent
 
 			for (var i = 0; i < weapons.Count; i++)
 			{
-				Animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
+				_animator.runtimeAnimatorController = weapons[i].GetComponent<RuntimeAnimatorMonoComponent>().AnimatorController;
 			}
 
 			return weapons;
@@ -235,27 +224,6 @@ namespace FirstLight.Game.MonoComponent
 
 		protected virtual void OnEditorValidate()
 		{
-		}
-
-		private Transform[] GetEquipmentAnchors(GameIdGroup slotType)
-		{
-			switch (slotType)
-			{
-				case GameIdGroup.Weapon:
-					return _weaponAnchors;
-				case GameIdGroup.Helmet:
-					return _helmetAnchors;
-				case GameIdGroup.Shield:
-					return _shieldAnchors;
-				case GameIdGroup.Amulet:
-					return _amuletAnchors;
-				case GameIdGroup.Armor:
-					return _armorAnchors;
-				case GameIdGroup.Glider:
-					return new[] { _gliderAnchor };
-				default:
-					throw new ArgumentOutOfRangeException(nameof(slotType), slotType, null);
-			}
 		}
 	}
 }

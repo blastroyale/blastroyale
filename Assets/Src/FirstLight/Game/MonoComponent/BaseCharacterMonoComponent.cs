@@ -18,12 +18,12 @@ namespace FirstLight.Game.MonoComponent
 	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
 		private readonly int _victoryHash = Animator.StringToHash("victory");
-		
+
 		protected bool IsLoaded = false;
-		
+
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
-		
+
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
 		protected Animator _animator;
@@ -40,8 +40,8 @@ namespace FirstLight.Game.MonoComponent
 
 			await UpdateSkin(skin, equipmentList);
 		}
-		
-		public async Task UpdateSkin(GameId skin, List<Equipment> equipment = null)
+
+		public async Task UpdateSkin(GameId skinId, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -49,10 +49,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 
 			_equipment = equipment;
-			
-			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true);
 
-			await SkinLoaded(skin, instance);
+			var obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, true,true);
+			var container = obj.AddComponent<RenderersContainerMonoComponent>();
+			container.UpdateRenderers();
+			obj.AddComponent<RenderersContainerProxyMonoComponent>();
+			obj.AddComponent<MainMenuCharacterViewComponent>();
+
+			await SkinLoaded(skinId, obj);
 		}
 
 		public void AnimateVictory()
@@ -77,7 +81,7 @@ namespace FirstLight.Game.MonoComponent
 			cacheTransform.localRotation = Quaternion.identity;
 
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-			
+
 			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);

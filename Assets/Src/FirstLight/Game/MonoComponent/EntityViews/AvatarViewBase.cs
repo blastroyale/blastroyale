@@ -83,6 +83,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnAwake()
 		{
+			if (_animator == null)
+			{
+				_animator = GetComponent<Animator>();
+			}
 			_animatorWrapper = new AnimatorWrapper(_animator);
 			_services = MainInstaller.ResolveServices();
 			

@@ -203,12 +203,17 @@ namespace FirstLight.Game.Utils
 
 		public static async Task SetSprite(GameId id, params VisualElement[] elements)
 		{
+			await SetSprite(LoadSprite(id), elements);
+		}
+
+		public static async Task SetSprite(Task<Sprite> fetchSpriteTask, params VisualElement[] elements)
+		{
 			foreach (var visualElement in elements)
 			{
 				visualElement.style.backgroundImage = null;
 			}
 
-			var sprite = await LoadSprite(id);
+			var sprite = await fetchSpriteTask;
 			foreach (var visualElement in elements)
 			{
 				visualElement.style.backgroundImage = new StyleBackground(sprite);

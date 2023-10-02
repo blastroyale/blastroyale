@@ -72,8 +72,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void OnCharacterSkinUpdatedMessage(CollectionItemEquippedMessage msg)
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.PlayerSkin)) return;
-			
- 			Destroy(_characterViewComponent.gameObject);
+
+			if (_characterViewComponent != null)
+			{
+				Destroy(_characterViewComponent.gameObject);
+			}
 
 			if (msg.EquippedItem == null) return;
 			

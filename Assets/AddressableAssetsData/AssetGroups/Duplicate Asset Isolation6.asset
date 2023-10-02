@@ -462,21 +462,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab7fe09aa9b23a14e922ebbb2e1d13e2
-    m_Address: Assets/Art/Models/Characters/Player/MaleAssassin/Char_PlayerMaleAssassin.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 94e2ae7764a712042a7f1458728e7cda
-    m_Address: Assets/Art/Models/Characters/Player/MaleAssassin/T_MaleAssassinBody_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdd99614458bac94591953b7699fe539
-    m_Address: Assets/Art/Models/Characters/Player/MaleAssassin/T_MaleAssassinHead_C.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 581b744b947bd9a408fbcd4334806aef
     m_Address: Assets/Art/Models/Characters/Player/CorposMale/Char_PlayerMaleCorpos.fbx
     m_ReadOnly: 0

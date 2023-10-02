@@ -142,8 +142,17 @@ namespace FirstLight.Game.Serializers
 		private const int CURRENT_VERSION = 0;
 
 		private static readonly EquipmentEnumConvertersV0 Converter = new();
-
-
+		
+		/// <summary>
+		/// Just in case we need to debug, good to keep track.
+		/// This is used in server
+		/// </summary>
+		public static readonly string[] FIELDS_FOR_REFERENCE =
+		{
+			"version", "gameid", "adjective", "edition", "faction", "grade", "material", "rarity", "generation", "initialReplicationCounter",
+			"lastRepair", "level", "maxDurability", "replicationCounter", "totalRestoredDurability", "tuning"
+		};
+		
 		public override void WriteJson(JsonWriter writer, Equipment value, JsonSerializer serializer)
 		{
 			writer.WriteStartArray();

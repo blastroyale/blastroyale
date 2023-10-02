@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297d5c61b847c4a1fa6a25ff7e03cef8, type: 3}
   m_Name: MainMenuCharacterAnimationConfigs
   m_EditorClassIdentifier: 
-  _configs:
-  - FlareAnimMinPlaybackTime: 10
+  _config:
+    FlareAnimMinPlaybackTime: 10
     FlareAnimMaxPlaybackTime: 25
     AnimationNames:
     - special

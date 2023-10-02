@@ -8,12 +8,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK.Models;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
-using Newtonsoft.Json;
-using NUnit.Framework;
 using Quantum;
-using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Logic
 {
@@ -95,13 +90,6 @@ namespace FirstLight.Game.Logic
 		/// Returns UniqueId of equipment if generated
 		/// </summary>
 		ItemData ClaimUnclaimedReward(ItemData item);
-
-		/// <summary>
-		/// Generates an equipment by ids ID.
-		/// It will search equip generation configs for the first entry of the given id.
-		/// Mainly used for chests/cores as the game id will refer to generation rule for that game id.
-		/// </summary>
-		public Equipment GenerateItemFromGameId(GameId id);
 
 		/// <summary>
 		/// Generic item handler to give items to player as rewards
@@ -218,6 +206,7 @@ namespace FirstLight.Game.Logic
 			{
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, trophyRewardConfig, out trophyChange);
 			}
+			
 			if (source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				return rewards;
@@ -300,15 +289,24 @@ namespace FirstLight.Game.Logic
 			}
 			return rewardItems;
 		}
-
-		public ItemData CreateItemFromConfig(EquipmentRewardConfig reward)
+		
+		public ItemData CreateItemFromConfig(EquipmentRewardConfig config)
 		{
-			if (reward.IsEquipment())
+			if (config.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(reward);
+				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
+				return ItemFactory.Equipment(generatedEquipment);
+			} if (config.GameId.IsInGroup(GameIdGroup.Collection))
+			{
+				return ItemFactory.Collection(config.GameId);
+			}
+			if (config.GameId.IsInGroup(GameIdGroup.Core))
+			{
+				// TODO: Isolate opening cores into "ChestLogic"
+				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
 				return ItemFactory.Equipment(generatedEquipment);
 			}
-			return ItemFactory.Currency(reward.GameId, reward.Amount);
+			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
 		public IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
@@ -318,11 +316,11 @@ namespace FirstLight.Game.Logic
 			return items;
 		}
 
-		public Equipment GenerateItemFromGameId(GameId id)
+		private ItemData OpenCoreById(GameId id)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
-			return GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
+			return CreateItemFromConfig(config);
 		}
 
 		private void CalculateCSReward(ICollection<ItemData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
@@ -401,41 +399,8 @@ namespace FirstLight.Game.Logic
 				trophyChangeOut = finalTrophyChange;
 				rewards.Add(ItemFactory.Currency(GameId.Trophies, finalTrophyChange));
 			}
-
-			// The logic below is left here DELIBERATELY
-			// We will reuse it a bit later to calculate MMR which we will potentially keep hidden
-
-			// var tempPlayers = new List<QuantumPlayerMatchData>(players);
-			// tempPlayers.SortByPlayerRank(false);
-			//
-			// var trophyChange = 0d;
-			//
-			// // Losses; Note: PlayerRank starts from 1, not from 0
-			// for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
-			// {
-			// 	trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
-			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			// }
-			//
-			// // Wins; Note: PlayerRank starts from 1, not from 0
-			// for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
-			// {
-			// 	trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
-			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			// }
 		}
 
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
-										  double eloK, double minTrophyChange)
-		{
-			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (double) eloRange);
-			var trophyChange = eloK * (score - 1 / (1 + eloBracket));
-
-			return trophyChange < 0 ? Math.Min(trophyChange, -minTrophyChange) : Math.Max(trophyChange, minTrophyChange);
-		}
-		
 		// TODO: implement adapters
 		private ItemData AddItemToPlayerInventory(ItemData reward)
 		{
@@ -449,9 +414,8 @@ namespace FirstLight.Game.Logic
 			}
 			else if (reward.Id.IsInGroup(GameIdGroup.Core)) // Cores auto-opens when added to inventory
 			{
-				var equip = GenerateItemFromGameId(reward.Id);
-				GameLogic.EquipmentLogic.AddToInventory(equip);
-				var generated = ItemFactory.Equipment(equip);
+				var generated = OpenCoreById(reward.Id);
+				AddItemToPlayerInventory(generated);
 				GameLogic.MessageBrokerService.Publish(new OpenedCoreMessage()
 				{
 					Core = reward,

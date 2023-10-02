@@ -14,6 +14,7 @@ namespace Tests.Stubs
 		public string? TelemetryConnectionString { get; set; }
 		public Version? MinClientVersion { get; set; }
 		public bool DevelopmentMode { get; set; }
+		public bool Standalone { get; set; }
 		public bool NftSync { get; set; }
 		public bool RemoteGameConfiguration { get; set; }
 		public string BuildCommit { get; set; }

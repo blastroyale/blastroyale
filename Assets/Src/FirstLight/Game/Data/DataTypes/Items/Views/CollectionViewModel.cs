@@ -20,18 +20,17 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
 		{
-			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
+			icon.RemoveSpriteClasses();
 			name.text = DisplayName;
 			icon.AddToClassList(GameId.GetUSSSpriteClass());
-			if(amount != null) amount.text = string.Empty;
 		}
 
 		public CollectionViewModel(ItemData item)
 		{
 			GameId = item.Id;
 			Amount = 1;
-			DisplayName = GameId.GetLocalization();
+			DisplayName = GameId.GetLocalization().ToUpper();
 		}
 	}
 }

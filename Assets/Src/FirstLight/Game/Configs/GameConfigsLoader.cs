@@ -77,7 +77,9 @@ namespace FirstLight.Game.Configs
 				LoadConfig<LiveopsSegmentActionConfigs>(AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
 				LoadConfig<TutorialRewardConfigs>(AddressableId.Configs_TutorialRewardConfigs, asset => configsAdder.AddConfigs(data => (int)data.Section, asset.Configs)),
 				LoadConfig<BotDifficultyConfigs>(AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
-				LoadConfig<MatchmakingAndRoomConfigs>(AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config))
+				LoadConfig<MatchmakingAndRoomConfigs>(AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<CharacterSkinConfigs>(AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<MainMenuCharacterAnimationConfigs>(AddressableId.Configs_MainMenuCharacterAnimationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 			};
 		}
 

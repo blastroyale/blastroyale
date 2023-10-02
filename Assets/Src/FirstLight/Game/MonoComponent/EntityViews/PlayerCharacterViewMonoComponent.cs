@@ -27,7 +27,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int _playerPos = Shader.PropertyToID("_PlayerPos");
 		private const float SPEED_THRESHOLD_SQUARED = 0.45f * 0.45f; // unity units per second	
 		private bool _moveSpeedControl = false;
-		public Transform RootTransform;
 
 		/// <summary>
 		/// Deprecated, should be removed.
@@ -65,7 +64,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.ResolveServices();
-			
+			if (_characterView == null)
+			{
+				_characterView = GetComponent<MatchCharacterViewMonoComponent>();
+			}
 			BuildingVisibility = new();
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);

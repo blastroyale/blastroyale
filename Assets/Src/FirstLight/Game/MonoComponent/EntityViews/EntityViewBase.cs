@@ -87,6 +87,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void Awake()
 		{
+			if (RenderersContainerProxy == null)
+			{
+				RenderersContainerProxy = GetComponent<RenderersContainerProxyMonoComponent>();
+			}
+
 			base.Awake();
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 		}

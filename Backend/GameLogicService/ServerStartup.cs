@@ -33,7 +33,7 @@ namespace Backend
 	/// </summary>
 	public static class ServerStartup
 	{
-		public static void Setup(IMvcBuilder builder, string appPath)
+		public static EnvironmentVariablesConfigurationService Setup(IMvcBuilder builder, string appPath)
 		{
 			var envConfig = new EnvironmentVariablesConfigurationService(appPath);
 			var services = builder.Services;
@@ -56,6 +56,7 @@ namespace Backend
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
+			services.AddSingleton<IGameLogicContextService, GameLogicContextService>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 			services.AddSingleton<IDataSynchronizer, PlayerDataSynchronizer>();
 			services.AddSingleton<IStatisticsService, PlayfabStatisticsService>();
@@ -81,6 +82,7 @@ namespace Backend
 			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
 			builder.SetupSharedServices(appPath);
 			pluginManager.LoadServerSetup(services);
+			return envConfig;
 		}
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)

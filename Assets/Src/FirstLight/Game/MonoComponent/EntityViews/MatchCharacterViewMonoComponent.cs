@@ -38,9 +38,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 					return Instantiate(asset);
 				}
 			}
-
 			return await base.InstantiateEquipment(gameId);
-
 		}
 
 		private TemporarySkin GetHammerSkin(Frame frame, EntityRef entity)
@@ -51,7 +49,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			return TemporarySkin.GetSkinBasedOnName(playerName);
 		}
 		
-
 		/// <summary>
 		/// Initializes the Adventure character view with the given player data
 		/// </summary>

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 0e52a60771cc149338b91a85f39606ae
   m_currentHash:
     serializedVersion: 2
-    Hash: 3dcd4416036484cf3b251a3d5ffeb9b9
+    Hash: bbc7317f6168191b1413ee890f4f457d
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
     - default
     - Quantum
     - GenerateIds
+    - ScriptableObjectsOnly
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1e1411d15bd0747d08255cbe53d40e15, type: 2}

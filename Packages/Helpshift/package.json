@@ -1,0 +1,10 @@
+{
+    "name": "com.helpshift",
+    "displayName": "Helpshift",
+    "version": "1.5.2",
+    "unity": "2018.4",
+    "description": "Helpshift",
+    "license": "MIT",
+	"keywords": [ "Bread" ],
+    "dependencies": {}
+}

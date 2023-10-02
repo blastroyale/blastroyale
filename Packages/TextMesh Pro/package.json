@@ -1,0 +1,11 @@
+{
+  "name": "com.textmeshproflg",
+  "displayName": "textmeshpro",
+  "version": "1.5.2",
+  "unity": "2018.4",
+  "description": "textmeshpro",
+  "license": "MIT",
+  "keywords": [
+    "Bread"
+  ]
+}

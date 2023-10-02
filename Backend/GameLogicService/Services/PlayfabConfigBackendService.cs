@@ -48,12 +48,12 @@ namespace Backend.Game.Services
 		
 		public async Task<ulong> GetRemoteVersion()
 		{
-			return ulong.Parse(await GetTitleData(PlayfabConfigurationProvider.ConfigVersion));
+			return ulong.Parse(await GetTitleData(PlayfabConfigKeys.ConfigVersion));
 		}
 
 		public async Task<IConfigsProvider> FetchRemoteConfiguration(ulong version)
 		{
-			var gameConfig = await GetTitleData(PlayfabConfigurationProvider.ConfigName);
+			var gameConfig = await GetTitleData(PlayfabConfigKeys.ConfigName);
 			var serializer = new ConfigsSerializer();
 			var config = serializer.Deserialize<ServerConfigsProvider>(gameConfig);
 			config.SetVersion(version);

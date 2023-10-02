@@ -9,9 +9,8 @@ namespace Backend.Game
 	/// Server implemementation of ConfigsProvider.
 	/// Mainly for more explicit checks and/or error messages.
 	/// </summary>
-	public class ServerConfigsProvider : PlayfabConfigurationProvider
+	public class ServerConfigsProvider : ConfigsProvider
 	{
-
 		/// <summary>
 		/// Obtains the config by a hard-typed type as opposed to a generic type
 		/// </summary>

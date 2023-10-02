@@ -122,12 +122,12 @@ namespace FirstLight.Game.StateMachines
 					await Task.Delay(1);
 				}
 
-				if (!appData.TitleData.TryGetValue(PlayfabConfigurationProvider.ConfigName, out var remoteStringConfig))
+				if (!appData.TitleData.TryGetValue(PlayfabConfigKeys.ConfigName, out var remoteStringConfig))
 				{
 					throw new Exception("Remote Configs is ON but no remote configs found. Please upload.");
 				}
 				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
+				var remoteConfig = serializer.Deserialize<ConfigsProvider>(remoteStringConfig);
 				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
 				{
 					NewConfig = remoteConfig,

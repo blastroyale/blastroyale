@@ -82,6 +82,7 @@ namespace FirstLight.Game.Views
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
+			// TODO: Use IItemViewModel to render items
 			_title.text = GetRewardName(_data.RewardConfig.GameId);
 			_levelNumber.text = levelForUi.ToString();
 
@@ -147,10 +148,10 @@ namespace FirstLight.Game.Views
 				case GameId.CoreRare:
 				case GameId.CoreEpic:
 				case GameId.CoreLegendary:
-					return ScriptLocalization.UITBattlePass.random_equipment;
+					return ScriptLocalization.UITBattlePass.random_equipment.ToUpper();
 
 				default:
-					return id.GetLocalization();
+					return id.GetLocalization().ToUpper();
 			}
 		}
 	}

@@ -30,9 +30,6 @@ namespace FirstLight.Game.Configs
 		public uint Level;
 		public uint Generation;
 		public int Amount;
-
-		public bool IsEquipment() => GameId.IsInGroup(GameIdGroup.Equipment);
-
 	}
 	/// <summary>
 	/// Scriptable Object tool to import the <seealso cref="EquipmentRewardConfigs"/> sheet data

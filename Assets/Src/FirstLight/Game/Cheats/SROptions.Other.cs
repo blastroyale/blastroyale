@@ -76,7 +76,32 @@ public partial class SROptions
 					adjective: EquipmentAdjective.Cool,
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
-				ItemFactory.Currency(GameId.COIN, 1),
+				ItemFactory.Collection(GameId.FemaleAssassin),
+				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
+					rarity: EquipmentRarity.UncommonPlus,
+					adjective: EquipmentAdjective.Cool,
+					material: EquipmentMaterial.Carbon,
+					faction: EquipmentFaction.Chaos)),
+			},
+			OnFinish = () => { uiService.CloseUi<RewardsScreenPresenter>(true); }
+		});
+	}
+	
+	[Category("Other")]
+	public void OpenRewardsTestForFame()
+	{
+		var uiService = MainInstaller.Resolve<IGameServices>().GameUiService;
+		uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+		{
+			FameRewards = true,
+			Items = new List<ItemData>()
+			{
+				ItemFactory.Equipment( new Equipment(GameId.ModRifle,
+					rarity: EquipmentRarity.Legendary,
+					adjective: EquipmentAdjective.Cool,
+					material: EquipmentMaterial.Carbon,
+					faction: EquipmentFaction.Chaos)),
+				ItemFactory.Collection(GameId.FemaleAssassin),
 				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
 					rarity: EquipmentRarity.UncommonPlus,
 					adjective: EquipmentAdjective.Cool,

@@ -356,7 +356,7 @@ namespace FirstLight.Game.Logic
 
 			return ret;
 		}
-        
+		
 		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			if (config.Level < 1)

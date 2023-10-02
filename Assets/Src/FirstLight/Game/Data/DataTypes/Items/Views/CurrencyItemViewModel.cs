@@ -13,7 +13,7 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
-		public string DisplayName => GameId.GetCurrencyLocalization(_amount);
+		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore

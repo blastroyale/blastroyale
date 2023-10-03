@@ -63,6 +63,7 @@ namespace FirstLight.Game.Presenters
 		private Button _equipButton;
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
+		private MultiPriceButton _fuseButton;
 		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
@@ -119,10 +120,12 @@ namespace FirstLight.Game.Presenters
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
+			_fuseButton = root.Q<MultiPriceButton>("FuseButton").Required();
 			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
+			_fuseButton.clicked += Data.OnScrapClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
 			_infoButton.clicked += OnInfoClicked;
 
@@ -342,6 +345,14 @@ namespace FirstLight.Game.Presenters
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
 			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
+
+			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
+			for(int i = 0; i < info.FuseCost.Length; i++)
+			{
+				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]); 
+			}
+			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
+			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);

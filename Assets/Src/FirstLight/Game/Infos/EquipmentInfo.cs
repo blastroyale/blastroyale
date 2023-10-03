@@ -43,6 +43,7 @@ namespace FirstLight.Game.Infos
 		public EquipmentManufacturer Manufacturer;
 		public Pair<GameId, uint> ScrappingValue;
 		public Pair<GameId, uint> UpgradeCost;
+		public Pair<GameId, uint>[] FuseCost;
 		public Pair<GameId, uint> RepairCost;
 		public uint CurrentDurability;
 		public bool IsEquipped;

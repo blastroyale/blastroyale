@@ -369,6 +369,38 @@
     -unity-text-align: lower-center;
 }
 
+.multi-price-button {
+    flex-direction: column-reverse;
+}
+
+.multi-price-button:active .price-button__holder {
+    top: 3px;
+    bottom: 5px;
+}
+
+.multi-price-button__holder {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.multi-price-button__price {
+    flex-shrink: 1;
+}
+
+.multi-price-button__offset-title {
+    padding-top: 12px;
+}
+
+.multi-price-button__price--insufficient {
+    color: rgb(233, 58, 58);
+}
+
+.multi-price-button__icon {
+    width: 40px;
+    height: 40px;
+}
+
 .price-button {
 }
 

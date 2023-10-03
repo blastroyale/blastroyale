@@ -227,6 +227,16 @@ namespace FirstLight.Game.Logic
 			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
 		}
 
+
+		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
+		{
+			//TODO: create and add fusion config logic here 
+			return new Pair<GameId, uint>[]{
+				new (GameId.COIN, 30),
+				new (GameId.Fragments, 20)
+			};
+		}
+
 		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
 		{
 			var resourceType = isNft ? GameId.CS : GameId.COIN;
@@ -258,13 +268,14 @@ namespace FirstLight.Game.Logic
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
 					GameLogic.TimeService.DateTimeUtcNow.Ticks);
-			
+
 			return new EquipmentInfo
 			{
 				Equipment = equipment,
 				ScrappingValue = GetScrappingReward(equipment, isNft),
 				UpgradeCost = GetUpgradeCost(equipment, isNft),
 				RepairCost = GetRepairCost(equipment, isNft),
+				FuseCost = GetFuseCost(equipment),
 				CurrentDurability = durability,
 				IsNft = isNft,
 				MaxLevel = GetMaxLevel(equipment),

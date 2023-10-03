@@ -320,7 +320,7 @@ MonoBehaviour:
         UserTag: 0
         IsSetFromSourceCollider: 0
       IsSetFromSourceCollider: 0
-    Layer: 0
+    Layer: 9
     CallbackFlags:
       Value: 455
   PhysicsBody:

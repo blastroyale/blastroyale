@@ -198,6 +198,46 @@ MonoBehaviour:
     - ScriptableObjectsOnly
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 200f11153aed542e3aeb0adb534ade89
+    m_Address: Assets/Art/UI/Sprites/Home/flag-demon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdc7358579aa94ba0a86ff51775df66b
+    m_Address: Assets/Art/UI/Sprites/Home/flag-superstar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55356cbdba04d48d9b5a996b1db941ca
+    m_Address: Assets/Art/UI/Sprites/Home/flag-unicorn.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ce754ea943f24c39812ee0c1156204a
+    m_Address: Assets/Art/UI/Sprites/Home/glider-turbine.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3812d1e1c56b4a188ccfb9324966a36
+    m_Address: Assets/Art/UI/Sprites/Home/flag-tombstone.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 939f9d55c3bea4ada9601d4a0843b2f3
+    m_Address: Assets/Art/UI/Sprites/Home/glider-rocket.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce83c8bea7bca44b893b799aca685404
+    m_Address: Assets/Art/UI/Sprites/Home/glider-falcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b196d1a9145c4220b265b4d0ff754a1
+    m_Address: Assets/Art/UI/Sprites/Home/glider-divinci.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

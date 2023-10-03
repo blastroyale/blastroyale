@@ -1,29 +1,29 @@
 using System.Linq;
+using FirstLight.Editor.EditorTools.ArtTools;
 using FirstLight.Game.Utils;
 using Sirenix.OdinInspector.Editor.Validation;
+using UnityEditor;
+using UnityEngine;
 
-
-[assembly: RegisterValidator(typeof(QuantumStatic3dColliderValidator))]
 
 /// <summary>
 /// Validate QuantumStaticBoxCollider3D gameObject owner scale is not negative
-/// </summary>
-public class TechPassValidator : SceneValidator
+/// </summary>p
+public class TechPassValidator
 {
-	protected override void Validate(ValidationResult result)
+	[MenuItem("FLG/Art/Validators/MapValidation")]
+	private static void ValidateMap()
 	{
-		var l = this.GetAllGameObjectsInScene();
+		var l = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 		
-		for (int i = 0; i < l.Count(); i++)
+		foreach(var go in l)
 		{
-			var go = l.ElementAt(i);
-
 			if (go.GetComponent<QuantumStaticBoxCollider3D>() != null)
 			{
 				var s = go.transform.localScale;
 				if (s.x < 0 || s.y < 0 || s.z < 0)
 				{
-					result.AddError($"QCV | {go.FullGameObjectPath()} has negative scale");
+					Debug.LogError($"QCV | {go.FullGameObjectPath()} has negative scale");
 				}
 			}
 		}

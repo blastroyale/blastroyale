@@ -125,7 +125,6 @@ namespace FirstLight.Editor.EditorTools
 			await ArtifactCopier.GameTranslations.CopyTo(_backendResources);
 		}
 
-
 #if ENABLE_PLAYFABADMIN_API
 		/// <summary>
 		/// Uploads the last serialized configuration to dev playfab.
@@ -159,8 +158,8 @@ namespace FirstLight.Editor.EditorTools
 
 				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
 
-				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);
-				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigVersion, nextVersion.ToString());
+				PlayFabShortcuts.SetTitleData(PlayfabConfigKeys.ConfigName, serialiezd);
+				PlayFabShortcuts.SetTitleData(PlayfabConfigKeys.ConfigVersion, nextVersion.ToString());
 				Debug.Log($"Configs uploaded to playfab and version bumped to {nextVersion}");
 			});
 		}

@@ -12,7 +12,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestOwnedChecks()
 		{
-			var skin = ItemFactory.Collection(GameId.Corpo);
+			var skin = ItemFactory.Collection(GameId.MaleCorpos);
 			
 			Assert.IsFalse(TestLogic.CollectionLogic.IsItemOwned(skin));
 		}
@@ -20,9 +20,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestOwnedAfterAdding()
 		{
-			TestLogic.CollectionLogic.UnlockCollectionItem(ItemFactory.Collection(GameId.Corpo));
+			TestLogic.CollectionLogic.UnlockCollectionItem(ItemFactory.Collection(GameId.MaleCorpos));
 			
-			var skin = ItemFactory.Collection(GameId.Corpo);
+			var skin = ItemFactory.Collection(GameId.MaleCorpos);
 			
 			Assert.IsTrue(TestLogic.CollectionLogic.IsItemOwned(skin));
 		}

@@ -4,7 +4,6 @@ using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,7 +28,6 @@ namespace FirstLight.Game.Views
 		public float PressedDuration = 0.1f;
 		// Final scale of button when pressed
 		public Vector3 PressedScale = new Vector3(0.95f, 0.95f, 1f);
-		public HapticTypes HapticType = HapticTypes.None;
 		public Transform Anchor;
 		public AnimationClip ClickClip;
 

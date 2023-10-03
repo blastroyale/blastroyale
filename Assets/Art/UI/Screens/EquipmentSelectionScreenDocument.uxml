@@ -45,5 +45,4 @@
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" />
     </ui:VisualElement>
-    <FirstLight.Game.UIElements.LocalizedLabel tabindex="-1" />
 </ui:UXML>

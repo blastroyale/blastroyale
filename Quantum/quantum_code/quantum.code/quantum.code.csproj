@@ -314,6 +314,7 @@
     <Compile Include="Utils\FPMathHelpers.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
+    <Compile Include="Utils\PhysicsLayers.cs" />
     <Compile Include="Utils\PlayerLoadout.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />

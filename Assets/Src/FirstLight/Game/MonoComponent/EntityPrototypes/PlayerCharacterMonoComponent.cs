@@ -46,6 +46,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			QuantumEvent.Subscribe<EventOnTeamAssigned>(this, OnTeamAssigned);
 		}
 
+		public bool IsBot => QuantumRunner.Default.PredictedFrame().Has<BotCharacter>(EntityView.EntityRef);
+
 		private void OnSpectateChange(SpectatedPlayer oldP, SpectatedPlayer newP)
 		{
 			if (oldP.Team == newP.Team) return;
@@ -106,8 +108,21 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		public bool ShouldDisplayColorTag()
 		{
-			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed()) return false;
-			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count <= 1) return false;
+			if (IsBot)
+			{
+				var specTeam = _matchServices.TeamService.GetTeam(_matchServices.SpectateService.GetSpectatedEntity());
+				var botTeam = _matchServices.TeamService.GetTeam(EntityView.EntityRef);
+				Log.Warn($"Bot {EntityView.EntityRef} team {botTeam} playerteam {specTeam}");
+			}
+
+			if (PlayerView == null || this.IsDestroyed() || PlayerView.IsEntityDestroyed())
+			{
+				return false;
+			}
+			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count <= 1)
+			{
+				return false;
+			}
 			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
@@ -160,7 +175,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 				return;
 			}
 
-			if (frame.Has<BotCharacter>(EntityView.EntityRef))
+			if (IsBot)
 			{
 				var bot = _playerView.gameObject.AddComponent<BotCharacterViewMonoComponent>();
 				bot.SetEntityView(quantumGame, _playerView.EntityView);

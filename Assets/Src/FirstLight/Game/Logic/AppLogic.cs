@@ -8,7 +8,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
-using MoreMountains.NiceVibrations;
 using PlayFab;
 using PlayFab.ClientModels;
 using Quantum;
@@ -270,7 +269,6 @@ namespace FirstLight.Game.Logic
 			set
 			{
 				Data.HapticEnabled = value;
-				MMVibrationManager.SetHapticsActive(value);
 			}
 		}
 

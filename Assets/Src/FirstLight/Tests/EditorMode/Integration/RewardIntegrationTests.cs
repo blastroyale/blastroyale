@@ -4,6 +4,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
@@ -59,7 +60,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestCollectionReward()
 		{
-			var item = ItemFactory.Collection(GameId.Corpo);
+			var item = ItemFactory.Collection(GameId.MaleCorpos);
 
 			Assert.IsFalse(TestLogic.CollectionLogic.IsItemOwned(item));
 			TestLogic.RewardLogic.Reward(new [] {item});
@@ -118,6 +119,49 @@ namespace FirstLight.Tests.EditorMode.Integration
 			});
 			
 			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards.Section));
+		}
+
+		/// <summary>
+		/// TODO: We should not need to copy game mode if on every single player mtch data that's just silly
+		/// </summary>
+		private QuantumPlayerMatchData MatchData(uint rank, uint trophies, string gameMode, uint kills = 1)
+		{
+			return new QuantumPlayerMatchData()
+			{
+				GameModeId = gameMode,
+				PlayerRank = rank,
+				Data = new PlayerMatchData() {PlayerTrophies = trophies, PlayersKilledCount = kills},
+			};
+		}
+		
+		[Test]
+		public void TestHighTrophyRewards()
+		{
+			var configs = TestLogic.ConfigsProvider.GetConfigsDictionary<QuantumGameModeConfig>();
+			TestData.GetData<PlayerData>().Trophies = 4000;
+			var gameMode = configs.Values.First().Id;
+			var rewardSource = new RewardSource()
+			{
+				ExecutingPlayer = 0,
+				GamePlayerCount = 10, 
+				AllowedRewards = new List<GameId>() {GameId.Trophies},
+				MatchData = new List<QuantumPlayerMatchData>()
+				{
+					MatchData(1, 4000, gameMode),
+					MatchData(2, 4000, gameMode),
+					MatchData(3, 4000, gameMode),
+					MatchData(4, 4000, gameMode),
+					MatchData(5, 4000, gameMode),
+					MatchData(6, 4000, gameMode),
+					MatchData(7, 4000, gameMode),
+					MatchData(8, 4000, gameMode),
+					MatchData(9, 4000, gameMode),
+					MatchData(10, 4000, gameMode),
+				}
+			};
+			TestLogic.RewardLogic.CalculateMatchRewards(rewardSource, out var trophies);
+			
+			Assert.That(trophies > 0);
 		}
 	}
 }

@@ -128,8 +128,13 @@ enum GameId
 	CoreRare = 47,
 	CoreEpic = 48,
 	CoreLegendary = 59,
-	Corpo = 105,
+	Avatar1 = 116,
+	Avatar2 = 117,
+	Avatar3 = 118,
+	Avatar4 = 120,
+	Avatar5 = 121,
 	FootprintDot = 111,
+	TestSkin = 122,
 }
 
 enum GameIdGroup

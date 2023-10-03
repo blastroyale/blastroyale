@@ -13,6 +13,7 @@ using FirstLight.Game.Services.Tutorial;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -99,42 +100,53 @@ namespace FirstLight.Game.StateMachines
 
 			moveJoystick.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveJoystick); });
 			moveJoystick.OnEnter(OnEnterMoveJoystick);
+			moveJoystick.Event(MatchState.MatchUnloadedEvent).Target(final);
 			moveJoystick.Event(ProceedTutorialEvent).Target(firstMove);
+			moveJoystick.OnExit(OnExitMoveJoystick);
 
 			firstMove.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.FirstMove); });
 			firstMove.OnEnter(OnEnterFirstMove);
+			firstMove.Event(MatchState.MatchUnloadedEvent).Target(final);
 			firstMove.Event(ProceedTutorialEvent).Target(destroyBarrier);
 			
 			destroyBarrier.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.DestroyBarrier); });
 			destroyBarrier.OnEnter(OnEnterDestroyBarrier);
+			destroyBarrier.Event(MatchState.MatchUnloadedEvent).Target(final);
 			destroyBarrier.Event(ProceedTutorialEvent).Target(pickupWeapon);
 
 			pickupWeapon.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickUpWeapon); });
 			pickupWeapon.OnEnter(OnEnterPickupWeapon);
+			pickupWeapon.Event(MatchState.MatchUnloadedEvent).Target(final);
 			pickupWeapon.Event(ProceedTutorialEvent).Target(moveToDummyArea);
 			
 			moveToDummyArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToDummyArea); });
 			moveToDummyArea.OnEnter(OnEnterMoveToDummyArea);
+			moveToDummyArea.Event(MatchState.MatchUnloadedEvent).Target(final);
 			moveToDummyArea.Event(ProceedTutorialEvent).Target(kill2Bots);
 
 			kill2Bots.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill2Bots); });
 			kill2Bots.OnEnter(OnEnterKill2Bots);
+			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill2Bots.Event(ProceedTutorialEvent).Target(kill1BotSpecial);
 
 			kill1BotSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.Kill1BotSpecial); });
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
+			kill1BotSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
 
 			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
+			moveToGateArea.Event(MatchState.MatchUnloadedEvent).Target(final);
 			moveToGateArea.Event(ProceedTutorialEvent).Target(moveToChestArea);
 			
 			moveToChestArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToChestArea); });
 			moveToChestArea.OnEnter(OnEnterMoveToChestArea);
+			moveToChestArea.Event(MatchState.MatchUnloadedEvent).Target(final);
 			moveToChestArea.Event(ProceedTutorialEvent).Target(openBox);
 
 			openBox.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.OpenBox); });
 			openBox.OnEnter(OnEnterOpenBox);
+			openBox.Event(MatchState.MatchUnloadedEvent).Target(final);
 			openBox.Event(ProceedTutorialEvent).Target(killFinalBot);
 
 			killFinalBot.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.KillFinalBot); });
@@ -186,7 +198,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
-			_services.MessageBrokerService.Subscribe<PlayerUsedMovementJoystick>(OnPlayerUsedMovementJoystick);
 			_services.MessageBrokerService.Subscribe<PlayerEnteredMessageVolume>(OnPlayerEnteredMessageVolume);
 		}
 
@@ -216,12 +227,7 @@ namespace FirstLight.Game.StateMachines
 				_dialogUi.HideDialog(CharacterType.Female);
 			}
 		}
-
-		private void OnPlayerUsedMovementJoystick(PlayerUsedMovementJoystick msg)
-		{
-			CheckGameplayProceedConditions(typeof(PlayerUsedMovementJoystick));
-		}
-
+		
 		private void BindMatchServices()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -297,6 +303,9 @@ namespace FirstLight.Game.StateMachines
 			if (_currentGameplayProceedData.EventMetaAmount != 0 &&
 			    _currentGameplayProceedData.EventMetaAmount > metaAmount) return;
 
+			DespawnPointers();
+			_dialogUi.HideDialog(CharacterType.Female);
+			
 			_statechartTrigger(ProceedTutorialEvent);
 		}
 
@@ -316,10 +325,10 @@ namespace FirstLight.Game.StateMachines
 			var elementPosition = element.GetPositionOnScreen(root);
 			_guideHandUi.SetScreenPosition(elementPosition, angle);
 		}
-		
-		private async Task WaitMovementAsync()
+
+		private async Task OnEnterMoveJoystickAsync()
 		{
-			_services.TutorialService.ListenForSentMovement();
+			_matchServices.PlayerInputService.OnQuantumInputSent += OnInput;
 			_dialogUi.ContinueDialog(ScriptLocalization.UITTutorial.use_left_joystick, CharacterType.Female, CharacterDialogMoodType.Neutral); 
 			_hud = _services.GameUiService.GetUi<HUDScreenPresenter>();
 			await _hud.EnsureOpen();
@@ -332,7 +341,20 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEnterMoveJoystick()
 		{
-			WaitMovementAsync();
+			_ = OnEnterMoveJoystickAsync();
+		}
+
+		private void OnExitMoveJoystick()
+		{
+			_matchServices.PlayerInputService.OnQuantumInputSent -= OnInput;
+		}
+
+		private void OnInput(Quantum.Input input)
+		{
+			if (input.Direction.Magnitude > FP._0_05)
+			{
+				CheckGameplayProceedConditions(typeof(PlayerUsedMovementJoystick));
+			}
 		}
 		
 		private void OnEnterFirstMove()

@@ -18,7 +18,10 @@ using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
 /// </summary>
 public class WipeLeaderboards : PlayfabScript
 {
-	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.STAGING;
+	private List<string> wiped = new List<string>();
+	private List<string> error = new List<string>();
+	
+	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.PROD;
 	public override void Execute(ScriptParameters parameters)
     {
     	var task = RunAsync();
@@ -28,39 +31,37 @@ public class WipeLeaderboards : PlayfabScript
 	public async Task RunAsync()
 	{
 		var tasks = new List<Task>();
-		foreach (var player in await GetAllPlayers())
+		var batchSize = 10000;
+		var allPlayers = await GetAllPlayers();
+		foreach (var player in allPlayers)
 		{
 			tasks.Add(Proccess(player));
+			if (tasks.Count >= batchSize)
+			{
+				Console.WriteLine("Waiting Batch Proccess");
+				await Task.WhenAll(tasks.ToArray());
+				tasks.Clear();
+			}
 		}
-		Task.WaitAll(tasks.ToArray());
 		Console.WriteLine("Done !");
-	}
-
-	private void GiveRewards(PlayerProfile profile, ServerState state)
-	{
-		var playerData = state.DeserializeModel<PlayerData>();
-		playerData.Currencies.TryGetValue(GameId.COIN, out var coins);
-		coins += 1000;
-		playerData.Currencies[GameId.COIN] = coins;
-		if (playerData.Trophies >= 1200)
-		{
-			playerData.UncollectedRewards.Add(ItemFactory.Currency(GameId.CS, 500));
-		}
-		state.UpdateModel(playerData);
+		Console.WriteLine("Wipes: "+wiped.Count);
+		Console.WriteLine("Errors: "+string.Join(",", error));
 	}
 
 	private async Task Proccess(PlayerProfile profile)
 	{
-		var state = await ReadUserState(profile.PlayerId);
+		var state = await ReadUserState(profile);
 		if (state == null || !state.Has<PlayerData>())
 		{
+			error.Add(profile.PlayerId);
 			return;
 		}
-		GiveRewards(profile, state);
+		//GiveRewards(profile, state);
 		var playerData = state.DeserializeModel<PlayerData>();
-		playerData.Trophies = 1000;
+		playerData.Trophies = 0;
 		state.UpdateModel(playerData);
 		await SetUserState(profile.PlayerId, state);
-		Console.WriteLine($"Wiped Trophies for player {profile.PlayerId}");
+		//Console.WriteLine($"Wiped Trophies for player {profile.PlayerId}");
+		wiped.Add(profile.PlayerId);
 	}
 }

@@ -42,7 +42,7 @@ namespace IntegrationTests
 		[Test]
 		public async Task TestPlayfabConfigUpdate()
 		{
-			var configs = _server.GetService<IConfigsProvider>() as PlayfabConfigurationProvider;
+			var configs = _server.GetService<IConfigsProvider>() as ConfigsProvider;
 
 			var levelConfigs = configs.GetAllConfigs()[typeof(PlayerLevelConfig)] as Dictionary<int, PlayerLevelConfig>;
 			

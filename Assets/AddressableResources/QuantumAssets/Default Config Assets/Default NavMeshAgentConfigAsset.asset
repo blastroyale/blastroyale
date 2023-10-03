@@ -18,7 +18,7 @@ MonoBehaviour:
       Guid:
         Value: 4427458006344599318
     UpdateInterval: 1
-    PathQuality: 1
+    PathQuality: 0
     CachedWaypointCount: 6
     MaxRepathTimeout:
       RawValue: 327680

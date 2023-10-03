@@ -273,7 +273,7 @@ namespace Quantum
 						Equipment drop;
 						if (!f.Has<BotCharacter>(playerEntity))
 						{
-							drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
+							drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadoutGear(f));
 						}
 						else
 						{

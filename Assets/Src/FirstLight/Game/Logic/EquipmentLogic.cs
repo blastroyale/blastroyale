@@ -149,6 +149,11 @@ namespace FirstLight.Game.Logic
 		void Upgrade(UniqueId itemId);
 
 		/// <summary>
+		/// Fuses the equipment of the given <paramref name="itemId"/> increasing it's rarity by 1 step
+		/// </summary>
+		void Fuse(UniqueId itemId);
+
+		/// <summary>
 		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
 		/// </summary>
 		void Repair(UniqueId itemId);
@@ -552,6 +557,28 @@ namespace FirstLight.Game.Logic
 
 			_inventory[itemId] = equipment;
 		}
+
+		public void Fuse(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+										 $"{itemId} - {equipment.GameId.ToString()} is a NFT");
+			}
+
+			if (equipment.Rarity == EquipmentRarity.TOTAL -1)
+			{
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already at max rarity " +
+										 $"{equipment.Level} and cannot be fused further");
+			}
+
+			equipment.Rarity++;
+
+			_inventory[itemId] = equipment;
+		}
+
 
 		public void Repair(UniqueId itemId)
 		{

@@ -36,8 +36,7 @@ namespace FirstLight.Game.Commands
 				});
 			}
 
-			//Fuse item logic to be done in here
-			//logic.Fuse(Item);
+			logic.Fuse(Item);
 
 			ctx.Services.MessageBrokerService().Publish(new ItemFusedMessage
 			{

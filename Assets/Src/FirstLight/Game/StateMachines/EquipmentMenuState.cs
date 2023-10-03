@@ -155,7 +155,7 @@ namespace FirstLight.Game.StateMachines
 
 					//TODO: Fuse item command must be made and referenced here, if this comment is still here it means I forgort and didnt do it :(
 				case EquipmentPopupPresenter.Mode.Fuse:
-					_services.CommandService.ExecuteCommand(new UpgradeItemCommand { Item = id });
+					_services.CommandService.ExecuteCommand(new FuseItemCommand { Item = id });
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

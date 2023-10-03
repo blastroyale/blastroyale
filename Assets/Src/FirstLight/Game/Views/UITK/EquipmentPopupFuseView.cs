@@ -10,20 +10,18 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Views.UITK
 {
 	/// <summary>
-	/// Handles the upgrade content on the equipment popup
+	/// Handles the fusion content on the equipment popup
 	/// </summary>
 	public class EquipmentPopupFuseView : UIView
 	{
 		private const string UssPriceInsufficient = "requirements--insufficient";
 		private const string UssSpriteCurrency = "sprite-shared__icon-currency-{0}";
+		private const string UssCurrencyIconStyle = "requirements_icon";
 
-		private Label _currentLvl;
-		private Label _nextLvl;
+		private Label _currentRarity;
+		private Label _nextRarity;
 		private ListView _statsList;
-		private PriceButton _fuseButton;
-		private VisualElement _requirements;
-		private Label _requirementsAmount;
-		private VisualElement _requirementsIcon;
+		private MultiPriceButton _fuseButton;
 		private VisualElement _bottomFiller;
 
 		private Action _confirmAction;
@@ -33,13 +31,10 @@ namespace FirstLight.Game.Views.UITK
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
-			_currentLvl = element.Q<Label>("LevelCurrent").Required();
-			_nextLvl = element.Q<Label>("LevelNext").Required();
+			_currentRarity = element.Q<Label>("RarityCurrent").Required();
+			_nextRarity = element.Q<Label>("RarityNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
-			_fuseButton = element.Q<PriceButton>("UpgradePopupButton").Required();
-			_requirements = element.Q<VisualElement>("Requirements").Required();
-			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
-			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
+			_fuseButton = element.Q<MultiPriceButton>("FusePriceButton").Required();
 			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 
 			_statsList.DisableScrollbars();
@@ -47,30 +42,14 @@ namespace FirstLight.Game.Views.UITK
 			_fuseButton.clicked += () => _confirmAction();
 		}
 
-		public void SetData(EquipmentInfo info, Action confirmAction, bool insufficient)
+		public void SetData(EquipmentInfo info, Action confirmAction, bool[] insufficient)
 		{
-			_currentLvl.text = string.Format(ScriptLocalization.UITEquipment.popup_upgrade_lvl, info.Equipment.Level);
-			_nextLvl.text = string.Format(ScriptLocalization.UITEquipment.popup_upgrade_lvl, info.Equipment.Level + 1);
+			var canPurchase = insufficient[0] && insufficient[1];
+			_currentRarity.text = string.Format(info.Equipment.Rarity.ToString());
+			_nextRarity.text = string.Format((info.Equipment.Rarity + 1).ToString());
 
-			_fuseButton.SetDisplay(!info.IsNft);
-			_fuseButton.SetEnabled(!insufficient);
-			_fuseButton.SetPrice(info.UpgradeCost, insufficient);
-
-			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
-			//_requirements.SetDisplay(info.IsNft);
-			_requirements.SetDisplay(false);
-
-			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
-			_requirementsIcon.RemoveSpriteClasses();
-			_requirementsIcon.AddToClassList(string.Format(UssSpriteCurrency,
-				info.UpgradeCost.Key.ToString().ToLowerInvariant()));
-
-			if (insufficient)
-			{
-				_requirements.AddToClassList(UssPriceInsufficient);
-			}
-
-			_bottomFiller.SetDisplay(info.IsNft);
+			_fuseButton.SetEnabled(!canPurchase);
+			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient);
 
 			_confirmAction = confirmAction;
 
@@ -83,7 +62,7 @@ namespace FirstLight.Game.Views.UITK
 			{
 				if (!EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)) continue;
 
-				var nextValue = info.NextLevelStats[pair.Key];
+				var nextValue = info.NextRarityStats[pair.Key];
 				if (pair.Value < nextValue)
 				{
 					_statItems.Add(new Tuple<EquipmentStatType, float, float>(pair.Key, pair.Value, nextValue));

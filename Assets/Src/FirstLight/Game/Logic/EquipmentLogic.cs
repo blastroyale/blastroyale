@@ -269,6 +269,9 @@ namespace FirstLight.Game.Logic
 		{
 			var nextEquipment = equipment;
 			nextEquipment.Level++;
+
+			var nextRarityEquipment = equipment;
+			nextRarityEquipment.Rarity++;
 			
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
@@ -286,7 +289,8 @@ namespace FirstLight.Game.Logic
 				MaxLevel = GetMaxLevel(equipment),
 				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
-				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
+				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider),
+				NextRarityStats = nextRarityEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 

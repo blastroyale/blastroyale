@@ -256,6 +256,7 @@
     padding-bottom: 20px;
     padding-left: 70px;
     padding-right: 70px;
+    margin-bottom: 20px;
 }
 
 .requirements__title {
@@ -278,4 +279,36 @@
 }
 
 .requirements__amount {
+}
+
+.content-fusing {
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 73px;
+}
+
+.content-fusing__level-holder {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400px;
+    font-size: 36px;
+    align-items: center;
+    color: rgb(244, 200, 42);
+    margin-bottom: 20px;
+}
+
+.content-fusing__arrow-icon {
+    background-image: var(--sprite-home__icon-arrow-level);
+    width: 44px;
+    height: 36px;
+}
+
+.content-fusing__stats-list {
+    flex-grow: 1;
+    width: 600px;
+}
+
+.content-fusing__stats-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
 }

@@ -66,6 +66,7 @@ namespace FirstLight.Game.Presenters
 			_upgradingContent = root.Q<VisualElement>("Upgrading").Required().AttachView(this, out _upgradeView);
 			_repairingContent = root.Q<VisualElement>("Repairing").Required().AttachView(this, out _repairView);
 			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
+			_fusingContent = root.Q<VisualElement>("Fusion").Required().AttachView(this, out _fuseView);
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").Required().AttachView(this, out CurrencyDisplayView _);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").Required().AttachView(this, out CurrencyDisplayView _);
@@ -130,7 +131,7 @@ namespace FirstLight.Game.Presenters
 				case Mode.Fuse:
 					_title.text = ScriptLocalization.UITEquipment.popup_fusing_item;
 					_fuseView.SetData(info, () => Data.OnActionConfirmed(Mode.Fuse, info.Id),
-						!(HasEnoughCurrency(info.FuseCost[0]) && HasEnoughCurrency(info.FuseCost[1]))); 
+						new bool[] { !HasEnoughCurrency(info.FuseCost[0]), !HasEnoughCurrency(info.FuseCost[1]) });
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

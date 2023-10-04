@@ -163,7 +163,7 @@ MonoBehaviour:
           Position: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: -90, z: -90}
           Scale: {x: 1, y: 1, z: 1}
-        AttachToBone: WeaponAttach2_R
+        AttachToBone: WeaponAttach_R
         AtBeggningOfHierarchy: 0
     - Key: 2
       Value:

@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
@@ -43,6 +41,7 @@ namespace FirstLight.Game.Configs
 		{
 			return new List<Task>
 			{
+				LoadConfig<AvatarCollectableConfigs>(AddressableId.Configs_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),

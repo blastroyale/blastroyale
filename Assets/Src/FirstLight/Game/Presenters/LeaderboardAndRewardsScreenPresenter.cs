@@ -117,7 +117,7 @@ namespace FirstLight.Game.Presenters
 			_levelView.HideFinalLevel();
 			_fameTitle = root.Q<Label>("FameTitle").Required();
 			
-			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider);
+			root.Q<PlayerAvatarElement>("Avatar").Required().SetLocalPlayerData(_gameDataProvider, _gameServices);
 		}
 
 		private void OnNextButtonClicked()

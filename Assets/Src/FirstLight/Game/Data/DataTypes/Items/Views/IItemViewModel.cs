@@ -46,7 +46,9 @@ namespace FirstLight.Game.Data.DataTypes
 			if (item.HasMetadata<EquipmentMetadata>()) return new EquipmentItemViewModel(item);
 			if (item.HasMetadata<CurrencyMetadata>()) return new CurrencyItemViewModel(item);
 			if (item.HasMetadata<UnlockMetadata>()) return new UnlockItemViewModel(item);
+			if (item.Id.IsInGroup(GameIdGroup.ProfilePicture)) return new ProfilePictureViewModel(item);
 			if (item.Id.IsInGroup(GameIdGroup.Collection)) return new CollectionViewModel(item);
+			
 			FLog.Error($"Not implemented view for item {item}");
 			return new CollectionViewModel(item);
 		}

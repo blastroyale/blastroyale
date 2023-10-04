@@ -56,6 +56,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _loanedBadge;
 		private readonly VisualElement _equippedBadge;
 		private readonly VisualElement _notification;
+		private int _requestTextureHandle = -1;
 
 		/// <summary>
 		/// Triggered when the card is clicked
@@ -136,7 +137,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public void SetCollectionElement(GameId gameId, int index, GameIdGroup category, bool owned = false, bool equipped = false,
+		public void SetCollectionElement(GameId gameId, string avatarUrl, int index, GameIdGroup category, bool owned = false, bool equipped = false,
 										 bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
 		{
 			_equippedBadge.SetDisplay(equipped);
@@ -156,11 +157,34 @@ namespace FirstLight.Game.UIElements
 			Category = category;
 
 			_name.text = gameId.GetLocalization();
-			// Miha will kill-me for this change, but I intent to do it properly in the next PR, i don't want to make this one very big
-			// I'm writing this at 27/09/2023 If you are seeing this comment and this code is old, go yell at me on slack 
-			// TODO: Use classes
-			var collectionService = MainInstaller.ResolveServices().CollectionService;
-			UIUtils.SetSprite(collectionService.LoadCollectionItemSprite(MenuGameId, false), _image);
+			
+			var services = MainInstaller.ResolveServices();
+			services.RemoteTextureService.CancelRequest(_requestTextureHandle);
+			
+			if (string.IsNullOrEmpty(avatarUrl))
+			{
+				// Miha will kill-me for this change, but I intent to do it properly in the next PR, i don't want to make this one very big
+				// I'm writing this at 27/09/2023 If you are seeing this comment and this code is old, go yell at me on slack 
+				// TODO: Use classes
+				var collectionService = MainInstaller.ResolveServices().CollectionService;
+				UIUtils.SetSprite(collectionService.LoadCollectionItemSprite(MenuGameId, false), _image);
+			}
+			else
+			{
+				_requestTextureHandle = services.RemoteTextureService.RequestTexture(
+					avatarUrl, 
+					tex =>
+					{
+						if (_image != null && _image.panel != null)
+						{
+							_image.style.backgroundImage = new StyleBackground(tex);
+						}
+					},
+					() =>
+					{
+
+					});
+			}
 		}
 
 

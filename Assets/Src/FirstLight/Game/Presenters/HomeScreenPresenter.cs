@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -233,7 +232,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePFP()
 		{
-			_avatar.SetLocalPlayerData(_dataProvider);
+			_avatar.SetLocalPlayerData(_dataProvider, _services);
 		}
 
 		protected override void SubscribeToEvents()
@@ -276,7 +275,7 @@ namespace FirstLight.Game.Presenters
 				_updatePoolsCoroutine = null;
 			}
 		}
-
+		
 		private void OnPlayButtonClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;

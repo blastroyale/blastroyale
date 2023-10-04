@@ -24,7 +24,7 @@ namespace FirstLight.Game.Data
 		public static readonly CollectionCategory PLAYER_SKINS = new (GameIdGroup.PlayerSkin);
 		public static readonly CollectionCategory GLIDERS = new (GameIdGroup.Glider);
 		public static readonly CollectionCategory GRAVE = new (GameIdGroup.DeathMarker);
-		public static readonly CollectionCategory PROFILE_PICTURE = new (GameIdGroup.Platform);
+		public static readonly CollectionCategory PROFILE_PICTURE = new (GameIdGroup.ProfilePicture);
 	}
 	
 	/// <summary>

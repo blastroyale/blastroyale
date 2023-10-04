@@ -41,7 +41,8 @@ namespace Src.FirstLight.Server
                 new ServerAnalyticsPlugin(),
                 new SeasonResetPlugin(),
                 new ServerStatisticsPlugin(),
-                new TrophyLeaderboardPlugin()
+                new TrophyLeaderboardPlugin(),
+				new PlayfabAvatarPlugin()
             };
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -236,11 +237,19 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Sets the PFP and level of the local player to this avatar element.
 		/// </summary>
-		public static void SetLocalPlayerData(this PlayerAvatarElement element, IGameDataProvider gameDataProvider)
+		public static void SetLocalPlayerData(this PlayerAvatarElement element, IGameDataProvider gameDataProvider, IGameServices gameServices)
 		{
 			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
 
-			var avatarUrl = gameDataProvider.AppDataProvider.AvatarUrl;
+			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			
+			string avatarUrl = null;
+			if (itemData != null)
+			{
+				var avatarCollectableConfigs = gameServices.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
+				avatarUrl = avatarCollectableConfigs.GameIdUrlDictionary[itemData.Id];
+			}
+			
 			if (string.IsNullOrEmpty(avatarUrl)) return;
 
 			element.SetAvatar(avatarUrl);

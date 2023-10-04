@@ -77,6 +77,7 @@ public partial class SROptions
 					material: EquipmentMaterial.Carbon,
 					faction: EquipmentFaction.Chaos)),
 				ItemFactory.Collection(GameId.FemaleAssassin),
+				ItemFactory.Collection(GameId.Avatar3),
 				ItemFactory.Equipment (new Equipment(GameId.ApoShotgun,
 					rarity: EquipmentRarity.UncommonPlus,
 					adjective: EquipmentAdjective.Cool,

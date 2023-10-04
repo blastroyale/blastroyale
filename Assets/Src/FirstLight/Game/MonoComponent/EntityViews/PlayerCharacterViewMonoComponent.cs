@@ -246,7 +246,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		public bool IsInInvisibilityArea()
 		{
-			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef) || BuildingVisibility.CollidingVisibilityVolumes.Count > 0;
+			return MatchServices.EntityVisibilityService.IsInInvisibilityArea(EntityRef);
 		}
 
 		private void TryStartAttackWithinVisVolume()
@@ -260,7 +260,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
-
 			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
@@ -272,7 +271,13 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (IsInInvisibilityArea())
 			{
-				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef) || BuildingVisibility.CanSee());
+				SetRenderContainerVisible(MatchServices.EntityVisibilityService.CanSpectatedPlayerSee(EntityRef));
+			}
+			
+			//Old system needs to burn in fire
+			else if (BuildingVisibility.IsInLegacyVisibilityVolume())
+			{
+				SetRenderContainerVisible(BuildingVisibility.IsInSameLegacyVolumeAsSpectator());
 			}
 		}
 

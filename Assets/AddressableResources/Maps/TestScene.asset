@@ -77,7 +77,7 @@ MonoBehaviour:
       StaticData:
         Name: Coll_01 (3)
         Tag: Untagged
-        Layer: 0
+        Layer: 8
         Asset:
           Id:
             Value: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
       StaticData:
         Name: Island
         Tag: Untagged
-        Layer: 0
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -454,6 +454,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea:
@@ -469,7 +470,7 @@ MonoBehaviour:
     PhysicsCollider2D: []
     PhysicsCollider3D:
     - ShapeConfig:
-        ShapeType: 2
+        ShapeType: 16
         SphereRadius:
           RawValue: 0
         PositionOffset:
@@ -495,9 +496,35 @@ MonoBehaviour:
             RawValue: 0
         UserTag: 0
         IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 1
-      Layer: 0
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 163840
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 163840
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
       IsTrigger: 1
       PhysicsMaterial:
         Id:
@@ -565,6 +592,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea:
@@ -580,7 +608,7 @@ MonoBehaviour:
     PhysicsCollider2D: []
     PhysicsCollider3D:
     - ShapeConfig:
-        ShapeType: 2
+        ShapeType: 16
         SphereRadius:
           RawValue: 0
         PositionOffset:
@@ -606,9 +634,35 @@ MonoBehaviour:
             RawValue: 0
         UserTag: 0
         IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 1
-      Layer: 0
+        CompoundShapes:
+        - ShapeType: 2
+          SphereRadius:
+            RawValue: 0
+          PositionOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 0
+          BoxExtents:
+            X:
+              RawValue: 163840
+            Y:
+              RawValue: 32768
+            Z:
+              RawValue: 163840
+          RotationOffset:
+            X:
+              RawValue: 0
+            Y:
+              RawValue: 0
+            Z:
+              RawValue: 0
+          UserTag: 0
+          IsSetFromSourceCollider: 0
+        IsSetFromSourceCollider: 0
+      Layer: 9
       IsTrigger: 1
       PhysicsMaterial:
         Id:
@@ -682,6 +736,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger:
     - Target:
         SceneIndexPlusOne: 3
@@ -735,7 +790,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 0
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -820,6 +875,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -862,7 +918,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -947,6 +1003,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -989,7 +1046,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1074,6 +1131,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1116,7 +1174,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1201,6 +1259,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1243,7 +1302,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1328,6 +1387,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1370,7 +1430,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1455,6 +1515,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1497,7 +1558,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1582,6 +1643,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1624,7 +1686,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1709,6 +1771,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1751,7 +1814,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1836,6 +1899,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -1878,7 +1942,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -1963,6 +2027,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2005,7 +2070,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2090,6 +2155,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2132,7 +2198,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2217,6 +2283,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2259,7 +2326,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2344,6 +2411,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2386,7 +2454,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2471,6 +2539,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2513,7 +2582,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2598,6 +2667,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2640,7 +2710,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2725,6 +2795,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2767,7 +2838,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2852,6 +2923,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -2894,7 +2966,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -2979,6 +3051,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3021,7 +3094,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3106,6 +3179,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3148,7 +3222,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3233,6 +3307,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3275,7 +3350,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3360,6 +3435,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3402,7 +3478,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3487,6 +3563,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3529,7 +3606,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3614,6 +3691,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3656,7 +3734,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3741,6 +3819,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3783,7 +3862,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3868,6 +3947,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -3910,7 +3990,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -3995,6 +4075,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4037,7 +4118,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4122,6 +4203,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4164,7 +4246,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4249,6 +4331,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4291,7 +4374,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4376,6 +4459,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4418,7 +4502,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4503,6 +4587,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4545,7 +4630,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4630,6 +4715,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4672,7 +4758,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4757,6 +4843,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4799,7 +4886,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4884,6 +4971,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -4926,7 +5014,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5011,6 +5099,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5053,7 +5142,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5138,6 +5227,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5180,7 +5270,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5265,6 +5355,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5307,7 +5398,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5392,6 +5483,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5434,7 +5526,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5519,6 +5611,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5561,7 +5654,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5646,6 +5739,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5688,7 +5782,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 1
       PhysicsMaterial:
         Id:
@@ -5773,6 +5867,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5815,7 +5910,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -5900,6 +5995,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -5942,7 +6038,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6015,6 +6111,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6057,7 +6154,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6130,6 +6227,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6172,7 +6270,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6245,6 +6343,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6287,7 +6386,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6360,6 +6459,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6402,7 +6502,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6475,6 +6575,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6517,7 +6618,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6590,6 +6691,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6632,7 +6734,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 9
+      Layer: 6
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -6706,6 +6808,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6786,6 +6889,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6866,6 +6970,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -6946,6 +7051,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7036,6 +7142,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7120,6 +7227,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7204,6 +7312,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7288,6 +7397,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7372,6 +7482,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7456,6 +7567,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7540,6 +7652,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7624,6 +7737,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7708,6 +7822,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7792,6 +7907,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7876,6 +7992,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -7960,6 +8077,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8044,6 +8162,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8128,6 +8247,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8212,6 +8332,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8296,6 +8417,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8380,6 +8502,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8464,6 +8587,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8548,6 +8672,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8632,6 +8757,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8716,6 +8842,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8800,6 +8927,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8884,6 +9012,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -8968,6 +9097,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9052,6 +9182,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9136,6 +9267,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9220,6 +9352,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9304,6 +9437,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9388,6 +9522,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9472,6 +9607,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9556,6 +9692,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9640,6 +9777,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9724,6 +9862,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9808,6 +9947,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9892,6 +10032,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -9976,6 +10117,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10060,6 +10202,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10144,6 +10287,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10228,6 +10372,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10312,6 +10457,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10396,6 +10542,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10480,6 +10627,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10564,6 +10712,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10648,6 +10797,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10732,6 +10882,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10816,6 +10967,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10900,6 +11052,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -10984,6 +11137,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11068,6 +11222,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11152,6 +11307,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11236,6 +11392,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11320,6 +11477,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11404,6 +11562,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11488,6 +11647,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11572,6 +11732,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11656,6 +11817,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11740,6 +11902,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11824,6 +11987,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11908,6 +12072,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -11992,6 +12157,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12076,6 +12242,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12160,6 +12327,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12244,6 +12412,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12328,6 +12497,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12412,6 +12582,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12496,6 +12667,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12580,6 +12752,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12664,6 +12837,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12748,6 +12922,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12832,6 +13007,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -12916,6 +13092,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13000,6 +13177,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13084,6 +13262,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13168,6 +13347,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13252,6 +13432,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13336,6 +13517,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13420,6 +13602,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13504,6 +13687,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13588,6 +13772,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13672,6 +13857,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13756,6 +13942,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13840,6 +14027,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -13924,6 +14112,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -14008,6 +14197,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []
@@ -14092,6 +14282,7 @@ MonoBehaviour:
     Stats: []
     Stun: []
     Targetable: []
+    TeamMember: []
     Trigger: []
     UTAgent: []
     VisibilityArea: []

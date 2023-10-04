@@ -21,8 +21,8 @@ namespace FirstLight.Game.Commands
 		{
 			var logic = ctx.Logic.EquipmentLogic();
 			var info = logic.GetInfo(Item);
-			var item = logic.Inventory[Item];
-			var cost = logic.GetFuseCost(item);
+			var item = info.Equipment;
+			var cost = info.FuseCost;
 
 			foreach(var price in cost)
 			{
@@ -44,7 +44,7 @@ namespace FirstLight.Game.Commands
 				GameId = info.Equipment.GameId,
 				Name = info.Equipment.GameId.ToString(),
 				Durability = info.CurrentDurability,
-				Level = item.Level + 1,
+				rarity = item.Rarity +1,
 				Price = cost
 			});
 		}

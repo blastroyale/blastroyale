@@ -39,7 +39,7 @@ namespace FirstLight.Game.Messages
 		public GameId GameId;
 		public string Name;
 		public float Durability;
-		public uint Level;
+		public EquipmentRarity rarity;
 		public Pair<GameId, uint>[] Price;
 	}
 

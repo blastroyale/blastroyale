@@ -41,7 +41,6 @@ namespace FirstLight.Editor.Build
 			var pbxProject = new UnityEditor.iOS.Xcode.PBXProject();
 			var scheme = new UnityEditor.iOS.Xcode.XcScheme();
 			var plist = new UnityEditor.iOS.Xcode.PlistDocument();
-			var bitCode = "NO";
 
 			pbxProject.ReadFromFile(projectPath);
 
@@ -56,14 +55,14 @@ namespace FirstLight.Editor.Build
 			plist.root.SetString("NSUserTrackingUsageDescription", ScriptLocalization.General.ATTDescription);
 			plist.WriteToFile(plistPath);
 
-#if !DEVELOPMENT_BUILD
-			bitCode = "YES";
-#endif
-
 			pbxProject.SetBuildProperty(frameworkTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
 			pbxProject.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
-			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", bitCode);
 			pbxProject.SetBuildProperty(mainTargetGuid, "SWIFT_VERSION", "5.1");
+			
+			// Disable bitcode
+			pbxProject.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
+			pbxProject.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
+
 			pbxProject.WriteToFile(projectPath);
 #endif
 		}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data;
@@ -77,7 +78,23 @@ namespace FirstLight.Game.Logic
 			{
 				collection = new();
 			}
-			return collection;
+
+			var defaultItemsForCollection = GetDefaultItemsForCollection(group);
+			
+			var l = new List<ItemData>(collection);
+			l.AddRange(defaultItemsForCollection);
+			return l;
+		}
+
+		public IEnumerable<ItemData> GetDefaultItemsForCollection(CollectionCategory group)
+		{
+			if (group == CollectionCategories.PROFILE_PICTURE)
+			{
+				var collection = new List<ItemData>();
+				collection.Add(ItemFactory.Collection(GameId.Avatar1));
+				return collection;
+			}
+			return Array.Empty<ItemData>();
 		}
 
 		[CanBeNull]
@@ -113,7 +130,10 @@ namespace FirstLight.Game.Logic
 		{
 			return new List<CollectionCategory>()
 			{
-				new (GameIdGroup.PlayerSkin), new (GameIdGroup.DeathMarker), new (GameIdGroup.Glider)
+				new (GameIdGroup.PlayerSkin), 
+				new (GameIdGroup.DeathMarker), 
+				new (GameIdGroup.Glider),
+				new (GameIdGroup.ProfilePicture)
 			};
 		}
 

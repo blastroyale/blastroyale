@@ -26,7 +26,8 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteIconBanner = "sprite-home__icon-banner";
 		private const string UssSpriteIconGlider = "sprite-home__icon-jetpack";
 		private const string UssSpriteIconCharacters = "sprite-home__icon-characters";
-
+		private const string UssSpriteIconProfilePicture = "sprite-home__icon-profilepicture";
+		
 		public CollectionCategory Category { get; set; }
 
 		private readonly VisualElement _icon;
@@ -79,10 +80,11 @@ namespace FirstLight.Game.UIElements
 
 			_name.text = cat.Id switch
 			{
-				GameIdGroup.Glider      => ScriptLocalization.UITCollectionScreen.gliders,
-				GameIdGroup.PlayerSkin  => ScriptLocalization.UITCollectionScreen.characters,
-				GameIdGroup.DeathMarker => ScriptLocalization.UITCollectionScreen.banners,
-				_                       => cat.ToString()
+				GameIdGroup.Glider         => ScriptLocalization.UITCollectionScreen.gliders,
+				GameIdGroup.PlayerSkin     => ScriptLocalization.UITCollectionScreen.characters,
+				GameIdGroup.DeathMarker    => ScriptLocalization.UITCollectionScreen.banners,
+				GameIdGroup.ProfilePicture => ScriptLocalization.UITCollectionScreen.avatars,
+				_                          => cat.ToString()
 			};
 		}
 

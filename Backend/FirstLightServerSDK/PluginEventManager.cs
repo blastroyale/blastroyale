@@ -101,8 +101,15 @@ namespace FirstLight.Server.SDK
 			var subs = GetSubscribers(ev.GetType());
 			foreach (var listener in subs.Listeners)
 			{
-				var action = listener.Action as Func<TEventType, Task>;
-				await action?.Invoke(ev);
+				try
+				{				
+					var action = listener.Action as Func<TEventType, Task>;
+					await action?.Invoke(ev);
+				}
+				catch (Exception e)
+				{
+					_log.LogError(e);
+				}
 			}
 		}
 

@@ -34,9 +34,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _container;
 		private PlayerAvatarElement _avatar;
 		private Label _reachLevelLabel;
-
-		private int _avatarRequestHandle = -1;
-
+		
 		public void Init(RewardsAnimationController animationController, AnimatedBackground animatedBackground, PlayableDirector animationDirector,
 						 bool isFame)
 		{
@@ -67,11 +65,7 @@ namespace FirstLight.Game.Presenters
 			_avatar.SetLevel(currentLevel);
 			_avatar.SetAvatar(_dataProvider.AppDataProvider.AvatarUrl);
 		}
-
-		public override void UnsubscribeFromEvents()
-		{
-			_services.RemoteTextureService.CancelRequest(_avatarRequestHandle);
-		}
+		
 
 		public void CreateSummaryElements(IEnumerable<ItemData> items, bool fameRewards)
 		{

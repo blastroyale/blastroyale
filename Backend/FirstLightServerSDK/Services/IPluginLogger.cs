@@ -14,6 +14,8 @@ namespace FirstLight.Server.SDK.Services
 		void LogDebug(string msg);
 
 		void LogError(string msg);
+		
+		void LogError(Exception exception);
 
 		void LogTrace(string trace);
 	}

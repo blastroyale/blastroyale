@@ -7472,66 +7472,110 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin1
+    - Term: GameIds/Avatar1
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 1
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin2
+    - Term: GameIds/Avatar1Description
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 2
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin3
+    - Term: GameIds/Avatar2
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 3
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin4
+    - Term: GameIds/Avatar2Description
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 4
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin5
+    - Term: GameIds/Avatar3
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 5
+      - 
       - 
       - 
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: GameIds/TempSkin6
+    - Term: GameIds/Avatar4
       TermType: 0
       Description: 
       Languages:
-      - Temporary Skin 6
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar4Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar5
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/Avatar5Description
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/TestSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Test Skin
       - 
       - 
       - 
@@ -13387,6 +13431,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITCollectionScreen/avatars
+      TermType: 0
+      Description: 
+      Languages:
+      - AVATARS
+      - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
+      - AVATARES
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITProfileScreen/profile
       TermType: 0
       Description: 
@@ -17258,6 +17313,237 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/MeleeSkinDefault
+      TermType: 0
+      Description: 
+      Languages:
+      - Classic
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSausage
+      TermType: 0
+      Description: 
+      Languages:
+      - Super dog
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinCactus
+      TermType: 0
+      Description: 
+      Languages:
+      - Spicky boy
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinAtomSlicer
+      TermType: 0
+      Description: 
+      Languages:
+      - Atom slicer
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinDaggerOfDestiny
+      TermType: 0
+      Description: 
+      Languages:
+      - Dagger of destiny
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinElectricSolo
+      TermType: 0
+      Description: 
+      Languages:
+      - Eletric solo
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinGigaMelee
+      TermType: 0
+      Description: 
+      Languages:
+      - Giga hammer
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinHatchet
+      TermType: 0
+      Description: 
+      Languages:
+      - Hatchet
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMicDrop
+      TermType: 0
+      Description: 
+      Languages:
+      - Mic drop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinMightySledge
+      TermType: 0
+      Description: 
+      Languages:
+      - Mighty sledge
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinOutOfThePark
+      TermType: 0
+      Description: 
+      Languages:
+      - Out of the park
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPowerPan
+      TermType: 0
+      Description: 
+      Languages:
+      - Power pan
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinPutter
+      TermType: 0
+      Description: 
+      Languages:
+      - Putter
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinSirQuacks
+      TermType: 0
+      Description: 
+      Languages:
+      - Sir Quacks Alot
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinToyMelee
+      TermType: 0
+      Description: 
+      Languages:
+      - Toy hammer
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinTvTakedown
+      TermType: 0
+      Description: 
+      Languages:
+      - TV takedown
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWheelOfPain
+      TermType: 0
+      Description: 
+      Languages:
+      - Wheel of pain
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinWrench
+      TermType: 0
+      Description: 
+      Languages:
+      - Wrench
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinYouGotMail
+      TermType: 0
+      Description: 
+      Languages:
+      - You got mail
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIds/MeleeSkinThunderAxe
+      TermType: 0
+      Description: 
+      Languages:
+      - Thunder axe
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UITCollectionScreen/meleeskins
+      TermType: 0
+      Description: 
+      Languages:
+      - HAMMERS
+      - "\u041C\u043E\u043B\u043E\u0442\u043A\u0438"
+      - MARTELOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -17282,7 +17568,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1695907984758
+    Google_LastUpdatedVersion: 1696369884320
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

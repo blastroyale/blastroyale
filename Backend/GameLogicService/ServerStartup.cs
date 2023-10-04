@@ -22,6 +22,7 @@ using GameLogicService.Game;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
+using IPlayerProfileService = FirstLight.Game.Services.IPlayerProfileService;
 using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend
@@ -55,6 +56,7 @@ namespace Backend
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
+			services.AddSingleton<IServerPlayerProfileService, PlayfabProfileService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IGameLogicContextService, GameLogicContextService>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();

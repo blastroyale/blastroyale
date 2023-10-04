@@ -26,7 +26,8 @@ namespace FirstLight.Server.SDK
 		public readonly IConfigsProvider? GameConfig;
 		public readonly IStatisticsService? Statistics;
 		public readonly IDataSynchronizer? DataSyncs;
-
+		public readonly IServerPlayerProfileService? PlayerProfile;
+		
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
 			PluginEventManager = evManager;
@@ -39,6 +40,7 @@ namespace FirstLight.Server.SDK
 			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
 			Statistics = services.GetService(typeof(IStatisticsService)) as IStatisticsService;
 			DataSyncs = services.GetService(typeof(IDataSynchronizer)) as IDataSynchronizer;
+			PlayerProfile = services.GetService(typeof(IServerPlayerProfileService)) as IServerPlayerProfileService;
 		}
 	}
 }

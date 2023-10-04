@@ -154,7 +154,7 @@
     background-color: rgb(255, 255, 255);
     position: absolute;
     width: 30%;
-    height: 90%;
+    height: 800;
     left: auto;
     top: 70px;
     right: 30px;
@@ -289,7 +289,7 @@
 }
 
 .rewards-text {
-    font-size: 40px;
+    font-size: 32px;
     color: rgb(122, 118, 168);
     align-items: center;
     align-self: center;

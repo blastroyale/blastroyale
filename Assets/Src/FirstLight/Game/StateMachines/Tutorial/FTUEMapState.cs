@@ -302,9 +302,6 @@ namespace FirstLight.Game.StateMachines
 
 			if (_currentGameplayProceedData.EventMetaAmount != 0 &&
 			    _currentGameplayProceedData.EventMetaAmount > metaAmount) return;
-
-			DespawnPointers();
-			_dialogUi.HideDialog(CharacterType.Female);
 			
 			_statechartTrigger(ProceedTutorialEvent);
 		}

@@ -217,6 +217,7 @@ namespace Quantum.Systems.Bots
 				NextDecisionTime = FP._0,
 				NextLookForTargetsToShootAtTime = FP._0,
 				NextAllowedSpecialUseTime = FP._0,
+				StuckDetectionPosition = FPVector2.Zero,
 			};
 
 			ctx.BotNamesIndices.Remove(listNamesIndex);

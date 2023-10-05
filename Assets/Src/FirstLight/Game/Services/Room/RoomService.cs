@@ -247,7 +247,7 @@ namespace FirstLight.Game.Services.RoomService
 			var createParams = _parameters.GetRoomCreateParams(setup);
 			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
 
-			ResetLocalPlayerProperties();
+			ResetLocalPlayerProperties(teamID);
 			_networkService.LastDisconnectLocation = LastDisconnectionLocation.None;
 			_networkService.LastUsedSetup.Value = setup;
 			return _networkService.QuantumClient.OpJoinOrCreateRoom(createParams);

@@ -4,7 +4,7 @@ using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.Utils;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using FirstLightServerSDK.Services;

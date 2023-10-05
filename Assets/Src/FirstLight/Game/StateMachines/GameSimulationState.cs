@@ -437,19 +437,25 @@ namespace FirstLight.Game.StateMachines
 			{
 				IsNft = nftLoadout.Any(nft => nft.Equipment.Equals(e))
 			}).ToArray();
+
+			var equippedCosmetics = _gameDataProvider.CollectionDataProvider
+				.GetCollectionsCategories()
+				.Select(id => _gameDataProvider.CollectionDataProvider.GetEquipped(id))
+				.Where(data => data != null)
+				.Select(data => data.Id)
+				.ToArray();
+
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
 				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
-				Skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.PlayerSkin)).Id,
-				DeathMarker = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.DeathMarker)).Id,
-				Glider = _gameDataProvider.CollectionDataProvider.GetEquipped(new(GameIdGroup.Glider)).Id,
+				Cosmetics = equippedCosmetics,
 				PlayerLevel = _gameDataProvider.PlayerDataProvider.Level.Value,
 				PlayerTrophies = _gameDataProvider.PlayerDataProvider.Trophies.Value,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
-				LeaderboardRank = (uint)_services.LeaderboardService.CurrentRankedEntry.Position,
+				LeaderboardRank = (uint) _services.LeaderboardService.CurrentRankedEntry.Position,
 				PartyId = GetTeamId(),
 				AvatarUrl = _gameDataProvider.AppDataProvider.AvatarUrl,
 				UseBotBehaviour = FLGTestRunner.Instance.IsRunning() && FLGTestRunner.Instance.UseBotBehaviour

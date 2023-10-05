@@ -84,18 +84,6 @@
     --sprite-home__button-special: url('/Assets/Art/UI/Sprites/Home/button-special.png');
     --sprite-home__card-selected: url('/Assets/Art/UI/Sprites/Home/card-selected.png');
     --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites/Home/card-shadow-pink.png');
-    --sprite-home__character-female01avatar: url('/Assets/Art/UI/Sprites/Home/character-female01avatar.png');
-    --sprite-home__character-female02avatar: url('/Assets/Art/UI/Sprites/Home/character-female02avatar.png');
-    --sprite-home__character-femaleassassin: url('/Assets/Art/UI/Sprites/Home/character-femaleassassin.png');
-    --sprite-home__character-femalecorpos: url('/Assets/Art/UI/Sprites/Home/character-femalecorpos.png');
-    --sprite-home__character-femalepunk: url('/Assets/Art/UI/Sprites/Home/character-femalepunk.png');
-    --sprite-home__character-femalesuperstar: url('/Assets/Art/UI/Sprites/Home/character-femalesuperstar.png');
-    --sprite-home__character-male01avatar: url('/Assets/Art/UI/Sprites/Home/character-male01avatar.png');
-    --sprite-home__character-male02avatar: url('/Assets/Art/UI/Sprites/Home/character-male02avatar.png');
-    --sprite-home__character-maleassassin: url('/Assets/Art/UI/Sprites/Home/character-maleassassin.png');
-    --sprite-home__character-malecorpos: url('/Assets/Art/UI/Sprites/Home/character-malecorpos.png');
-    --sprite-home__character-malepunk: url('/Assets/Art/UI/Sprites/Home/character-malepunk.png');
-    --sprite-home__character-malesuperstar: url('/Assets/Art/UI/Sprites/Home/character-malesuperstar.png');
     --sprite-home__customizable-back-part: url('/Assets/Art/UI/Sprites/Home/customizable-back-part.png');
     --sprite-home__dark-pattern-piece: url('/Assets/Art/UI/Sprites/Home/dark-pattern-piece.png');
     --sprite-home__flag-demon: url('/Assets/Art/UI/Sprites/Home/flag-demon.png');
@@ -143,6 +131,7 @@
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
+    --sprite-home__icon-melee-skin: url('/Assets/Art/UI/Sprites/Home/icon-melee-skin.png');
     --sprite-home__icon-mutator-healthyair: url('/Assets/Art/UI/Sprites/Home/icon-mutator-healthyair.png');
     --sprite-home__icon-mutator-quickspecials: url('/Assets/Art/UI/Sprites/Home/icon-mutator-quickspecials.png');
     --sprite-home__icon-mutator-speedup: url('/Assets/Art/UI/Sprites/Home/icon-mutator-speedup.png');
@@ -653,78 +642,6 @@
     height: 304px;
 }
 
-.sprite-home__character-female01avatar {
-    background-image: var(--sprite-home__character-female01avatar);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-female02avatar {
-    background-image: var(--sprite-home__character-female02avatar);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-femaleassassin {
-    background-image: var(--sprite-home__character-femaleassassin);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-femalecorpos {
-    background-image: var(--sprite-home__character-femalecorpos);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-femalepunk {
-    background-image: var(--sprite-home__character-femalepunk);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-femalesuperstar {
-    background-image: var(--sprite-home__character-femalesuperstar);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-male01avatar {
-    background-image: var(--sprite-home__character-male01avatar);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-male02avatar {
-    background-image: var(--sprite-home__character-male02avatar);
-    width: 128px;
-    height: 128px;
-}
-
-.sprite-home__character-maleassassin {
-    background-image: var(--sprite-home__character-maleassassin);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-malecorpos {
-    background-image: var(--sprite-home__character-malecorpos);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-malepunk {
-    background-image: var(--sprite-home__character-malepunk);
-    width: 256px;
-    height: 256px;
-}
-
-.sprite-home__character-malesuperstar {
-    background-image: var(--sprite-home__character-malesuperstar);
-    width: 256px;
-    height: 256px;
-}
-
 .sprite-home__customizable-back-part {
     background-image: var(--sprite-home__customizable-back-part);
     width: 190px;
@@ -999,6 +916,12 @@
     background-image: var(--sprite-home__icon-marketplace);
     width: 128px;
     height: 85px;
+}
+
+.sprite-home__icon-melee-skin {
+    background-image: var(--sprite-home__icon-melee-skin);
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-mutator-healthyair {

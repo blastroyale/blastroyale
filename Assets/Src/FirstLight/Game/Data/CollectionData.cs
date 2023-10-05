@@ -24,6 +24,7 @@ namespace FirstLight.Game.Data
 		public static readonly CollectionCategory PLAYER_SKINS = new (GameIdGroup.PlayerSkin);
 		public static readonly CollectionCategory GLIDERS = new (GameIdGroup.Glider);
 		public static readonly CollectionCategory GRAVE = new (GameIdGroup.DeathMarker);
+		public static readonly CollectionCategory MELEE_SKINS = new (GameIdGroup.MeleeSkin);
 		public static readonly CollectionCategory PROFILE_PICTURE = new (GameIdGroup.ProfilePicture);
 	}
 	
@@ -106,31 +107,8 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class CollectionData : CollectionItemEnrichmentData
 	{
-		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<ItemData>>))]
-		public readonly Dictionary<CollectionCategory, List<ItemData>> OwnedCollectibles = new()
-		{
-			{ CollectionCategories.PROFILE_PICTURE, new List<ItemData>() },
-			{
-				CollectionCategories.PLAYER_SKINS, new List<ItemData>()
-				{
-					ItemFactory.Collection(GameId.MaleAssassin), ItemFactory.Collection(GameId.FemaleAssassin),
-					ItemFactory.Collection(GameId.MaleSuperstar), ItemFactory.Collection(GameId.FemaleSuperstar),
-				}
-			},
-			{
-				new (GameIdGroup.Glider), new List<ItemData>()
-				{
-					ItemFactory.Collection(GameId.Falcon),
-				}
-			},
-			{
-				new (GameIdGroup.DeathMarker), new List<ItemData>()
-				{
-					ItemFactory.Collection(GameId.Tombstone),
-				}
-			}
-		};
+		[JsonProperty] [JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<ItemData>>))]
+		public readonly Dictionary<CollectionCategory, List<ItemData>> OwnedCollectibles = new ();
 
 		[JsonProperty]
 		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
@@ -138,14 +116,17 @@ namespace FirstLight.Game.Data
 		{
 			{ CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin) },
 		};
-		
-		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
-		public readonly Dictionary<CollectionCategory, ItemData> DefaultEquipped = new()
+
+		/// <summary>
+		/// This is used in the quantum server plugin for validating the skins, if you want to check inside the game do not use this!
+		/// </summary>
+		/// <param name="gameId"></param>
+		/// <returns></returns>
+		public bool HasCollectionItem(GameId gameId)
 		{
-			{ CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Falcon) },
-			{ CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Tombstone) }
-		};
+			return OwnedCollectibles.Values.SelectMany(ownedItems => ownedItems)
+				.Any(data => data.Id == gameId);
+		}
 
 		public override int GetHashCode()
 		{

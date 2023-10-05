@@ -11,9 +11,6 @@ namespace Quantum
 		public Transform3D spawnPosition;
 		public uint playerLevel;
 		public uint trophies;
-		public GameId skin;
-		public GameId deathMarker;
-		public GameId glider;
 		public int teamId = -1;
 		public Equipment[] startingEquipment;
 		public Equipment loadoutWeapon;

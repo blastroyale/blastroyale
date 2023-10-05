@@ -442,7 +442,7 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{
@@ -468,7 +468,7 @@ public partial class SROptions
 		if (!gameLogic.CollectionLogic.IsItemOwned(newCollectionItem))
 		{
 			gameLogic.CollectionLogic.UnlockCollectionItem(newCollectionItem);
-				
+
 			services.MessageBrokerService.Publish(new CollectionItemUnlockedMessage()
 			{
 				Source = CollectionUnlockSource.ServerGift,
@@ -476,29 +476,22 @@ public partial class SROptions
 			});
 		}
 	}
-	
+
 	[Category("Cosmetics")]
 	public void UnlockAllCosmetics()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
-		
-		foreach (var glider in GameIdGroup.Glider.GetIds())
+
+		foreach (var glider in gameLogic.CollectionLogic.GetCollectionsCategories().SelectMany(category => category.Id.GetIds()))
 		{
 			UnlockCollectionItem(glider, gameLogic, services);
 		}
-		foreach (var deathmarker in GameIdGroup.DeathMarker.GetIds())
-		{
-			UnlockCollectionItem(deathmarker, gameLogic, services);
-		}
-		foreach (var skin in GameIdGroup.PlayerSkin.GetIds())
-		{
-			UnlockCollectionItem(skin, gameLogic, services);
-		}
-		
+
+
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	private void AddXp(uint amount)
 	{
@@ -628,7 +621,7 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void Add50XP()
 	{
@@ -639,7 +632,7 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void LevelFameUp()
 	{
@@ -651,7 +644,7 @@ public partial class SROptions
 		gameLogic.PlayerLogic.AddXP(finalXpNeeded);
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
 	[Category("Progression")]
 	public void ResetLevelAndXP()
 	{

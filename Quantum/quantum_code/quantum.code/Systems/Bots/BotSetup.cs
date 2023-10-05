@@ -83,13 +83,14 @@ namespace Quantum.Systems.Bots
 				Gliders = GameIdGroup.Glider.GetIds(),
 				SkinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray(),
 				WeaponsPool = GameIdGroup.Weapon.GetIds().Where(id => id != GameId.Hammer
-																	  && !id.IsInGroup(GameIdGroup.Deprecated)).ToList(),
+					&& !id.IsInGroup(GameIdGroup.Deprecated)).ToList(),
 				BotConfigs = GetBotConfigsList(f, baseTrophies),
 				AverageTrophies = baseTrophies,
 				PlayerPrototype = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id),
 				NavMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id),
 				PlayersByTeam = TeamHelpers.GetPlayersByTeam(f),
-				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers / (f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
+				TotalTeamsInGameMode = f.Context.GameModeConfig.MaxPlayers /
+					(f.Context.GameModeConfig.Teams ? f.Context.GameModeConfig.MaxPlayersInTeam : 1)
 			};
 			AddBotTeams(ctx);
 			return ctx;
@@ -135,7 +136,8 @@ namespace Quantum.Systems.Bots
 
 			else
 			{
-				BotLogger.LogAction(EntityRef.None, $"Using configs levels {string.Join(",", ctx.BotConfigs.Select(c => c.Difficulty))}");
+				BotLogger.LogAction(EntityRef.None,
+					$"Using configs levels {string.Join(",", ctx.BotConfigs.Select(c => c.Difficulty))}");
 			}
 
 			var forcedBotTypes = new List<BotBehaviourType>();
@@ -155,7 +157,8 @@ namespace Quantum.Systems.Bots
 				var forcedTypeConfigIndex = -1;
 				while (forcedBotTypes.Count > 0 && forcedTypeConfigIndex == -1)
 				{
-					forcedTypeConfigIndex = ctx.BotConfigs.FindIndex(config => config.BehaviourType == forcedBotTypes[0]);
+					forcedTypeConfigIndex =
+						ctx.BotConfigs.FindIndex(config => config.BehaviourType == forcedBotTypes[0]);
 					forcedBotTypes.RemoveAt(0);
 				}
 
@@ -169,11 +172,14 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config, bool realPlayer = false)
+		private void AddBot(Frame f, BotSetupContext ctx, PlayerRef id, QuantumBotConfig config,
+							bool realPlayer = false)
 		{
 			var teamId = GetBotTeamId(f, id, ctx.PlayersByTeam);
 
-			var botEntity = realPlayer ? f.GetSingleton<GameContainer>().PlayersData[id].Entity : f.Create(ctx.PlayerPrototype);
+			var botEntity = realPlayer
+				? f.GetSingleton<GameContainer>().PlayersData[id].Entity
+				: f.Create(ctx.PlayerPrototype);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 			var pathfinder = NavMeshPathfinder.Create(f, botEntity, ctx.NavMeshAgentConfig);
 			var listNamesIndex = f.RNG->RandomElement(ctx.BotNamesIndices);
@@ -228,14 +234,15 @@ namespace Quantum.Systems.Bots
 			f.Add(botEntity, botCharacter);
 
 			if (realPlayer) return; // wtf ?
-			
+
 			// Calculate bot trophies
 			// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 			// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 			var trophies = (uint)Math.Max(0, ctx.AverageTrophies + f.RNG->Next(-50, 50));
 
 			// Giving bots random weapon based on loadout rarity provided in bot configs
-			var randomWeapon = new Equipment(f.RNG->RandomElement(ctx.WeaponsPool), EquipmentEdition.Genesis, botCharacter.LoadoutRarity);
+			var randomWeapon = new Equipment(f.RNG->RandomElement(ctx.WeaponsPool), EquipmentEdition.Genesis,
+				botCharacter.LoadoutRarity);
 
 			List<Modifier> modifiers = null;
 
@@ -297,15 +304,13 @@ namespace Quantum.Systems.Bots
 				spawnPosition = spawnerTransform,
 				playerLevel = 1,
 				trophies = trophies,
-				skin = botCharacter.Skin,
-				deathMarker = botCharacter.DeathMarker,
-				glider = botCharacter.Glider,
 				teamId = teamId,
 				startingEquipment = startingEquipment,
 				loadoutWeapon = randomWeapon,
 				modifiers = modifiers,
 				KccConfig = kccConfig
 			};
+			SetupBotSkins(f, botEntity);
 			playerCharacter->Init(f, setup);
 			if (GetAmmoPercentage(f, ref spawner, out var percentage))
 			{
@@ -313,7 +318,26 @@ namespace Quantum.Systems.Bots
 			}
 		}
 
-		private bool GetAmmoPercentage(Frame f, ref EntityComponentPointerPair<PlayerSpawner> spawner, out FP percentage)
+		private GameId RandomBotCosmeticInGroup(Frame f, GameIdGroup group)
+		{
+			var availableSkins = group.GetIds().Where(a => a.IsInGroup(GameIdGroup.BotItem)).ToArray();
+			return f.RNG->RandomElement(availableSkins);
+		}
+
+		private void SetupBotSkins(Frame f, EntityRef entity)
+		{
+			f.Add<CosmeticsHolder>(entity);
+			f.Unsafe.GetPointer<CosmeticsHolder>(entity)->SetCosmetics(f, new[]
+			{
+				RandomBotCosmeticInGroup(f, GameIdGroup.PlayerSkin),
+				RandomBotCosmeticInGroup(f, GameIdGroup.MeleeSkin),
+				RandomBotCosmeticInGroup(f, GameIdGroup.Glider),
+				RandomBotCosmeticInGroup(f, GameIdGroup.DeathMarker),
+			});
+		}
+
+		private bool GetAmmoPercentage(Frame f, ref EntityComponentPointerPair<PlayerSpawner> spawner,
+									   out FP percentage)
 		{
 			if (f.Unsafe.TryGetPointer<GearOverwrite>(spawner.Entity, out var gear))
 			{
@@ -329,7 +353,8 @@ namespace Quantum.Systems.Bots
 		{
 			if (f.Unsafe.TryGetPointer<GearOverwrite>(spawner.Entity, out var gear))
 			{
-				return f.ResolveList(gear->Gear).Select(minified => Equipment.Create(f, minified.Id, minified.Rarity, minified.Level)).ToArray();
+				return f.ResolveList(gear->Gear)
+					.Select(minified => Equipment.Create(f, minified.Id, minified.Rarity, minified.Level)).ToArray();
 			}
 
 			return Array.Empty<Equipment>();
@@ -393,7 +418,8 @@ namespace Quantum.Systems.Bots
 
 			if (list.Count == 0)
 			{
-				list.Add(new EntityComponentPointerPair<PlayerSpawner> { Component = f.Unsafe.GetPointer<PlayerSpawner>(entity), Entity = entity });
+				list.Add(new EntityComponentPointerPair<PlayerSpawner>
+					{ Component = f.Unsafe.GetPointer<PlayerSpawner>(entity), Entity = entity });
 			}
 
 			return list;
@@ -410,7 +436,8 @@ namespace Quantum.Systems.Bots
 		}
 
 
-		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig, out int specificSpawnPoint)
+		private bool GetSpecificSpawn(Frame f, BotSetupContext ctx, QuantumBotConfig botConfig,
+									  out int specificSpawnPoint)
 		{
 			// Try to find spawners that are specific to the type of bot
 			var botType = botConfig.BehaviourType;
@@ -446,7 +473,7 @@ namespace Quantum.Systems.Bots
 			if (ctx.PlayersByTeam.TryGetValue(teamId, out var players) && players.Count > 0)
 			{
 				var randomPlayer = EntityRef.None;
-				
+
 				// We are trying to find an actual real player in a team
 				for (var i = 0; i < players.Count; i++)
 				{
@@ -454,12 +481,12 @@ namespace Quantum.Systems.Bots
 					{
 						continue;
 					}
-					
+
 					randomPlayer = players[i];
-					
+
 					break;
 				}
-				
+
 				// If we didn't find a real player in a team then we look for a bot with defined spawn position (via transform3d)
 				if (randomPlayer == EntityRef.None)
 				{
@@ -473,14 +500,14 @@ namespace Quantum.Systems.Bots
 						}
 					}
 				}
-				
+
 				// If we still have no one then we return and allow other logic to choose a random free spawn point
 				if (randomPlayer == EntityRef.None)
 				{
 					spawnPointForBot = 0;
 					return false;
 				}
-				
+
 				// If we DID find a real player or bot with defined position then we look for a spot to spawn nearby
 				if (f.TryGet<Transform3D>(randomPlayer, out var transform))
 				{
@@ -525,9 +552,13 @@ namespace Quantum.Systems.Bots
 
 			if (f.RuntimeConfig.BotOverwriteDifficulty != -1)
 			{
-				BotLogger.LogAction(EntityRef.None,  "Using config difficulty "+f.RuntimeConfig.BotOverwriteDifficulty);
+				BotLogger.LogAction(EntityRef.None,
+					"Using config difficulty " + f.RuntimeConfig.BotOverwriteDifficulty);
 				var configs = f.BotConfigs.QuantumConfigs;
-				return configs.Where(config => config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty && config.GameMode == botGamemodeKey).ToList();
+				return configs.Where(config =>
+						config.Difficulty == f.RuntimeConfig.BotOverwriteDifficulty &&
+						config.GameMode == botGamemodeKey)
+					.ToList();
 			}
 
 			var trophiesConfigs = GetBotConfigsFromTrophiesAmount(f, baseTrophiesAmount, botGamemodeKey);
@@ -541,16 +572,19 @@ namespace Quantum.Systems.Bots
 		}
 
 
-		private List<QuantumBotConfig> GetBotConfigsFromTrophiesAmount(Frame f, uint trophiesAmount, string botGamemodeKey)
+		private List<QuantumBotConfig> GetBotConfigsFromTrophiesAmount(Frame f, uint trophiesAmount,
+																	   string botGamemodeKey)
 		{
 			// If there is no config it will return the default one;
-			var matchedDifficulties = f.BotDifficultyConfigs.BotDifficulties.Where(bd => trophiesAmount >= bd.MinTrophies && trophiesAmount <= bd.MaxTrophies)
+			var matchedDifficulties = f.BotDifficultyConfigs.BotDifficulties.Where(bd =>
+					trophiesAmount >= bd.MinTrophies && trophiesAmount <= bd.MaxTrophies)
 				.Select(bd => bd.BotDifficulty);
 			var difficulties = matchedDifficulties.ToList();
 			// If there is no matched config it will use 0, because it is uint default value
 			var difficulty = difficulties.FirstOrDefault();
 			var configs = f.BotConfigs.QuantumConfigs;
-			return configs.Where(config => config.Difficulty == difficulty && config.GameMode == botGamemodeKey).ToList();
+			return configs.Where(config => config.Difficulty == difficulty && config.GameMode == botGamemodeKey)
+				.ToList();
 		}
 	}
 }

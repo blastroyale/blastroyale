@@ -5,11 +5,7 @@ struct PlayerMatchData
 	UInt32 PlayerLevel;
 	UInt32 PlayerTrophies;
 	Int32 TeamId;
-	GameId PlayerSkin;
-	GameId Glider;
-	GameId PlayerDeathMarker;
 	Int32 BotNameIndex;
-	
 	FPVector3 LastDeathPosition;
 	FP FirstDeathTime;
 	UInt32 PlayersKilledCount;
@@ -21,8 +17,9 @@ struct PlayerMatchData
 	UInt32 SuicideCount;
 	UInt32 SpecialsUsedCount;
 	byte CollectedOwnedNfts;
-	
 	UInt32 CurrentKillStreak;
 	UInt32 CurrentMultiKill;
 	FP MultiKillResetTime;
+	[AllocateOnComponentAdded, FreeOnComponentRemoved]
+    list<GameId> Cosmetics;
 }

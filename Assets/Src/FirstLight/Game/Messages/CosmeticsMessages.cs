@@ -9,7 +9,8 @@ namespace FirstLight.Game.Messages
 	{
 		Store, 
 		Bp, 
-		ServerGift	
+		ServerGift,
+		DefaultItem
 	}
 	
 	public struct CollectionItemEquippedMessage : IMessage

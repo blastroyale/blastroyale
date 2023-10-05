@@ -680,7 +680,6 @@ namespace I2.Loc
 			public static string Superstar 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Superstar"); } }
 			public static string SuperstarDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SuperstarDescription"); } }
 			public static string TestScene 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TestScene"); } }
-			public static string TestSkin 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TestSkin"); } }
 			public static string TikTokAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmulet"); } }
 			public static string TikTokAmuletDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/TikTokAmuletDescription"); } }
 			public static string Tombstone 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Tombstone"); } }
@@ -2316,7 +2315,6 @@ namespace I2.Loc
 		    public const string Superstar = "GameIds/Superstar";
 		    public const string SuperstarDescription = "GameIds/SuperstarDescription";
 		    public const string TestScene = "GameIds/TestScene";
-		    public const string TestSkin = "GameIds/TestSkin";
 		    public const string TikTokAmulet = "GameIds/TikTokAmulet";
 		    public const string TikTokAmuletDescription = "GameIds/TikTokAmuletDescription";
 		    public const string Tombstone = "GameIds/Tombstone";

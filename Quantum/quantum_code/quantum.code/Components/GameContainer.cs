@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Quantum.Collections;
 
 namespace Quantum
 {
@@ -17,20 +18,28 @@ namespace Quantum
 		internal void AddPlayer(Frame f, PlayerCharacterSetup setup)
 		{
 			var isBot = f.TryGet<BotCharacter>(setup.e, out var bot);
-
-			PlayersData[setup.playerRef] = new PlayerMatchData
+			var data = PlayersData[setup.playerRef];
+			data.Entity = setup.e;
+			data.Player = setup.playerRef;
+			data.PlayerLevel = setup.playerLevel;
+			data.PlayerTrophies = setup.trophies;
+			data.TeamId = setup.teamId;
+			data.BotNameIndex = isBot ? bot.BotNameIndex : 0;
+			var skins = f.ResolveList(data.Cosmetics);
+			if (f.TryGet<CosmeticsHolder>(setup.e, out var cosmeticsHolder))
 			{
-				Entity = setup.e,
-				Player = setup.playerRef,
-				PlayerLevel = setup.playerLevel,
-				PlayerSkin = setup.skin,
-				PlayerTrophies = setup.trophies,
-				PlayerDeathMarker = isBot ? bot.DeathMarker : setup.deathMarker,
-				Glider = isBot ? bot.Glider : setup.glider,
-				TeamId = setup.teamId,
-				BotNameIndex = isBot ? bot.BotNameIndex : 0
-			};
+				var skinListFromComponent = f.ResolveList(cosmeticsHolder.Cosmetics);
+
+				foreach (var skinId in skinListFromComponent)
+				{
+					skins.Add(skinId);
+				}
+			}
+
+			PlayersData[setup.playerRef] = data;
 		}
+
+		
 
 		/// <summary>
 		/// Remove an existing PlayerMatchData from the container that is linked to a specific PlayerRef.
@@ -84,7 +93,7 @@ namespace Quantum
 
 			// We count how many teams are alive towards our goal (we remove ours)
 			var teamsAliveForGoal = teamsAlive.Count - 1;
-			CurrentProgress = (uint) (TargetProgress - teamsAliveForGoal);
+			CurrentProgress = (uint)(TargetProgress - teamsAliveForGoal);
 
 			if (CurrentProgress >= TargetProgress)
 			{
@@ -185,7 +194,7 @@ namespace Quantum
 		{
 			public uint ProcessRank(IReadOnlyList<QuantumPlayerMatchData> playersData, int i, IRankSorter sorter)
 			{
-				var rank = (uint) i + 1;
+				var rank = (uint)i + 1;
 
 				if (i > 0 && sorter.Compare(playersData[i], playersData[i - 1]) == 0)
 				{

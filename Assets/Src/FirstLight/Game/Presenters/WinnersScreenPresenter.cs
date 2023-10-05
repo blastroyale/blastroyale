@@ -106,7 +106,8 @@ namespace FirstLight.Game.Presenters
 				if (i < playerDataCount)
 				{
 					var player = playerData[i];
-					var rankColor = _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int)player.LeaderboardRank);
+					var rankColor =
+						_gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) player.LeaderboardRank);
 
 					characters[i].gameObject.SetActive(true);
 					playerNames[i].visible = true;
@@ -132,7 +133,9 @@ namespace FirstLight.Game.Presenters
 				{
 					continue;
 				}
-				tasks.Add(characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+
+				var skin = _gameServices.CollectionService.GetCosmeticForGroup(_matchServices.MatchEndDataService.PlayerMatchData[player].Cosmetics, GameIdGroup.PlayerSkin);
+				tasks.Add(characters[i].UpdateSkin(skin,
 					_matchServices.MatchEndDataService.PlayerMatchData[player].Gear.ToList()));
 			}
 

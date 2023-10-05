@@ -1,90 +1,131 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
-using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Collection.Handles;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-namespace FirstLight.Game.Services
+namespace FirstLight.Game.Services.Collection
 {
 	public interface ICollectionService
 	{
 		Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true);
 		Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true);
+
+		/// <summary>
+		/// Find the cosmetic of ids present in the group, 
+		/// </summary>
+		/// <param name="group"></param>
+		/// <param name="returnDefault">If no skin was present for given group, return the default skin</param>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		GameId GetCosmeticForGroup(IEnumerable<GameId> ids, GameIdGroup group, bool returnDefault = true);
+	}
+
+	interface ICollectionGroupHandler
+	{
+		bool CanHandle(GameId id);
+		Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true);
+		Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true);
 	}
 
 	public class CollectionService : ICollectionService
 	{
+		// Used if the player doesn't have any skin equipped, this should never be the case is a fallback to always render something
+		private static readonly Dictionary<GameIdGroup, GameId> DefaultSkins = new ()
+		{
+			{GameIdGroup.PlayerSkin, GameId.Male01Avatar},
+			{GameIdGroup.MeleeSkin, GameId.MeleeSkinDefault},
+			{GameIdGroup.Glider, GameId.Divinci},
+			{GameIdGroup.DeathMarker, GameId.Tombstone},
+			{GameIdGroup.Footprint, GameId.FootprintDot},
+			{GameIdGroup.ProfilePicture, GameId.Avatar1},
+		};
+
+
 		private IAssetResolverService _assetResolver;
 		private IConfigsProvider _configsProvider;
-		private CharacterSkinsConfig SkinContainer => _configsProvider.GetConfig<CharacterSkinsConfig>();
+		private IGameDataProvider _dataProvider;
+		private IGameCommandService _commandService;
+		private ICollectionGroupHandler[] _handlers;
 
-		public CollectionService(IAssetResolverService assetResolver, IConfigsProvider configsProvider)
+		public CollectionService(IAssetResolverService assetResolver,
+								 IConfigsProvider configsProvider,
+								 IMessageBrokerService messageBrokerService,
+								 IGameDataProvider dataProvider,
+								 IGameCommandService commandService)
 		{
 			_assetResolver = assetResolver;
 			_configsProvider = configsProvider;
+			_dataProvider = dataProvider;
+			_commandService = commandService;
+			_handlers = new ICollectionGroupHandler[]
+			{
+				new CharacterSkinGroupHandler(_configsProvider, _assetResolver),
+				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
+			};
+			messageBrokerService.Subscribe<SuccessAuthentication>(GiveDefaultCollectionItems);
+		}
+
+		/// <summary>
+		/// Give default items on player authentication
+		/// </summary>
+		private void GiveDefaultCollectionItems(SuccessAuthentication _)
+		{
+			if (!_dataProvider.CollectionDataProvider.HasAllDefaultCollectionItems())
+			{
+				_commandService.ExecuteCommand(new GiveDefaultCollectionItemsCommand());
+			}
+		}
+
+		public GameId GetCosmeticForGroup(IEnumerable<GameId> ids, GameIdGroup group, bool returnDefault = true)
+		{
+			if (ids != null)
+			{
+				foreach (var gameId in ids)
+				{
+					if (gameId.IsInGroup(group))
+					{
+						return gameId;
+					}
+				}
+			}
+
+			return returnDefault ? DefaultSkins[group] : default;
 		}
 
 
 		public async Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true)
 		{
-			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
-			if (skin.GameId == id)
+			foreach (var handler in _handlers)
 			{
-				return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
+				if (handler.CanHandle(id))
+				{
+					return await handler.LoadCollectionItemSprite(id, instantiate);
+				}
 			}
 
 			return await _assetResolver.RequestAsset<GameId, Sprite>(id, true, instantiate);
 		}
 
+
 		public async Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true)
 		{
-			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
-			if (skin.GameId == id)
+			foreach (var handler in _handlers)
 			{
-				return await CreateCharacterSkin(id, menuModel, instantiate);
+				if (handler.CanHandle(id))
+				{
+					return await handler.LoadCollectionItem3DModel(id, menuModel, instantiate);
+				}
 			}
 
 			return await _assetResolver.RequestAsset<GameId, GameObject>(id, true, instantiate);
-		}
-
-
-		private async Task UpdateAnimator(GameObject obj, CharacterSkinMonoComponent skinComponent, bool menu)
-		{
-			// Copy default animators values
-			var defaultValues = menu ? SkinContainer.MenuDefaultAnimation : SkinContainer.InGameDefaultAnimation;
-			var animator = obj.GetComponent<Animator>();
-			animator.runtimeAnimatorController = menu switch
-			{
-				true when skinComponent.MenuController != null    => skinComponent.MenuController,
-				false when skinComponent.InGameController != null => skinComponent.InGameController,
-				_                                                 => defaultValues.Controller
-			};
-
-			animator.applyRootMotion = defaultValues.ApplyRootMotion;
-			animator.updateMode = defaultValues.UpdateMode;
-			animator.cullingMode = defaultValues.CullingMode;
-		}
-
-		public async Task<GameObject> CreateCharacterSkin(GameId skinId, bool menu = false, bool instantiate = true)
-		{
-		
-			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == skinId);
-			if (skin.GameId != skinId)
-			{
-				return null;
-			}
-
-			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
-			if (!instantiate) return obj;
-			var skinComponent = obj.GetComponent<CharacterSkinMonoComponent>();
-			// Check animators
-			await UpdateAnimator(obj, skinComponent, menu);
-
-			return obj;
 		}
 	}
 }

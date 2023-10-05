@@ -57,7 +57,7 @@ public class FootprinterMonoComponent : MonoBehaviour
     {
         _character = view.GetComponent<PlayerCharacterMonoComponent>();
         _view = view;
-        _id = loadout.Footstep;
+        _id =  MainInstaller.Resolve<IGameServices>().CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);;
     }
 
     private void Update()
@@ -87,7 +87,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         if (_character.PlayerView.Culled) return;
         
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
-        else  _pooledFootprint = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(_id);
+        else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_id);
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
         if (_rightStepScale == Vector3.zero)
         {

@@ -11,6 +11,10 @@ namespace FirstLight.Game.MonoComponent
 	{
 		[SerializeField, Required] private RuntimeAnimatorController _animatorController;
 		
-		public RuntimeAnimatorController AnimatorController => _animatorController;
+		public RuntimeAnimatorController AnimatorController
+		{
+			get => _animatorController;
+			set => _animatorController = value;
+		}
 	}
 }

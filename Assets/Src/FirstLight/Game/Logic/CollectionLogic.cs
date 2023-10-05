@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -16,6 +17,11 @@ namespace FirstLight.Game.Logic
 	public interface ICollectionDataProvider
 	{
 		/// <summary>
+		/// Default items gave to the player on account creation
+		/// </summary>
+		IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems { get; }
+
+		/// <summary>
 		/// Gets all items in a given collection group
 		/// </summary>
 		List<ItemData> GetFullCollection(CollectionCategory group);
@@ -28,7 +34,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Get equipped item from a collection
 		/// </summary>
-		[CanBeNull] ItemData GetEquipped(CollectionCategory group);
+		[CanBeNull]
+		ItemData GetEquipped(CollectionCategory group);
 
 		/// <summary>
 		/// Get a collection type from a collection item
@@ -44,6 +51,11 @@ namespace FirstLight.Game.Logic
 		/// Does the player own a specific item?
 		/// </summary>
 		bool IsItemOwned(ItemData item);
+
+		/// <summary>
+		/// Check if player has all the default skins
+		/// </summary>
+		bool HasAllDefaultCollectionItems();
 	}
 
 	/// <summary>
@@ -52,16 +64,63 @@ namespace FirstLight.Game.Logic
 	public interface ICollectionLogic : ICollectionDataProvider
 	{
 		CollectionCategory Equip(ItemData item);
-		
+
 		/// <summary>
 		/// Unlocks the collection item for the player
 		/// </summary>
 		ItemData UnlockCollectionItem(ItemData item);
-		
 	}
-	
+
 	public class CollectionLogic : AbstractBaseLogic<CollectionData>, ICollectionLogic, IGameLogicInitializer
 	{
+		public IReadOnlyDictionary<CollectionCategory, List<ItemData>> DefaultCollectionItems => new ReadOnlyDictionary<CollectionCategory, List<ItemData>>(new Dictionary<CollectionCategory, List<ItemData>>()
+		{
+			{
+				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
+				{
+					ItemFactory.Collection(GameId.Avatar1)
+				}
+			},
+			{
+				CollectionCategories.PLAYER_SKINS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.MaleAssassin), ItemFactory.Collection(GameId.FemaleAssassin),
+					ItemFactory.Collection(GameId.MaleSuperstar), ItemFactory.Collection(GameId.FemaleSuperstar),
+				}
+			},
+			{
+				CollectionCategories.GLIDERS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.Falcon),
+				}
+			},
+			{
+				CollectionCategories.GRAVE, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.Tombstone),
+				}
+			},
+			{
+				CollectionCategories.MELEE_SKINS, new List<ItemData>
+				{
+					ItemFactory.Collection(GameId.MeleeSkinDefault),
+				}
+			}
+		});
+
+		/// <summary>
+		/// If the player doesn't have an equipped it will return this values when the equipped item is requested
+		/// If the player doesn't have the item, or there is no setting for the category it will get the first item of the collection
+		/// </summary>
+		public readonly Dictionary<CollectionCategory, ItemData> DefaultEquipped = new ()
+		{
+			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Falcon)},
+			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Tombstone)},
+			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
+			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar1)},
+		};
+
+
 		public List<ItemData> GetFullCollection(CollectionCategory group)
 		{
 			List<ItemData> collection = new List<ItemData>();
@@ -69,6 +128,7 @@ namespace FirstLight.Game.Logic
 			{
 				collection.Add(ItemFactory.Collection(id));
 			}
+
 			return collection;
 		}
 
@@ -76,25 +136,15 @@ namespace FirstLight.Game.Logic
 		{
 			if (!Data.OwnedCollectibles.TryGetValue(group, out var collection))
 			{
-				collection = new();
+				collection = new ();
 			}
 
-			var defaultItemsForCollection = GetDefaultItemsForCollection(group);
-			
-			var l = new List<ItemData>(collection);
-			l.AddRange(defaultItemsForCollection);
-			return l;
+			return collection;
 		}
 
-		public IEnumerable<ItemData> GetDefaultItemsForCollection(CollectionCategory group)
+		public bool HasAllDefaultCollectionItems()
 		{
-			if (group == CollectionCategories.PROFILE_PICTURE)
-			{
-				var collection = new List<ItemData>();
-				collection.Add(ItemFactory.Collection(GameId.Avatar1));
-				return collection;
-			}
-			return Array.Empty<ItemData>();
+			return DefaultCollectionItems.SelectMany(category => category.Value).All(IsItemOwned);
 		}
 
 		[CanBeNull]
@@ -105,18 +155,28 @@ namespace FirstLight.Game.Logic
 				return equipped;
 			}
 
-			Data.DefaultEquipped.TryGetValue(group, out var defaultEquipped);
-			return defaultEquipped;
+			if (DefaultEquipped.TryGetValue(group, out var defaultEquipped))
+			{
+				if (IsItemOwned(defaultEquipped))
+				{
+					return defaultEquipped;
+				}
+			}
+
+			var owned = GetOwnedCollection(group);
+			return owned.Count > 0 ? owned[0] : null;
 		}
+
 
 		public ItemData UnlockCollectionItem(ItemData item)
 		{
 			var category = GetCollectionType(item);
 			if (!Data.OwnedCollectibles.TryGetValue(category, out var collection))
 			{
-				collection = new();
+				collection = new ();
 				Data.OwnedCollectibles[category] = collection;
 			}
+
 			collection.Add(item);
 			return item;
 		}
@@ -126,13 +186,15 @@ namespace FirstLight.Game.Logic
 			return new (item.Id.GetGroups().First()); // TODO: this is shit
 		}
 
+
 		public List<CollectionCategory> GetCollectionsCategories()
 		{
 			return new List<CollectionCategory>()
 			{
-				new (GameIdGroup.PlayerSkin), 
-				new (GameIdGroup.DeathMarker), 
+				new (GameIdGroup.PlayerSkin),
+				new (GameIdGroup.DeathMarker),
 				new (GameIdGroup.Glider),
+				new (GameIdGroup.MeleeSkin),
 				new (GameIdGroup.ProfilePicture)
 			};
 		}
@@ -150,10 +212,11 @@ namespace FirstLight.Game.Logic
 			{
 				throw new LogicException("Collection item not owned");
 			}
+
 			Data.Equipped[group] = item;
 			return group;
 		}
-		
+
 		public CollectionLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}

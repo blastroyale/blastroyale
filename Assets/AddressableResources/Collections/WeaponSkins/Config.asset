@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd91bfc66901ef34b990c2e1edc2625e, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  _config:
+    Groups:
+    - Key: 38
+      Value:
+        DefaultAnimationOverwrite: {fileID: 22100000, guid: 02cae561722a8ef429dadff05f4b7e45, type: 2}
+        DefaultSkin: 300
+        Configs:
+        - SkinId: 300
+          Prefab:
+            m_AssetGUID: 81ad39d08d4dc674295b62068c55c2bc
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: af5354c45bc5ade41bbf79ca52981eb2
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 301
+          Prefab:
+            m_AssetGUID: dca1e785bfe8c79a38c4e195a6438880
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 4d43da8af80996c4db0792629175800d
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 302
+          Prefab:
+            m_AssetGUID: 4cb27021e3ce0f6cf8a06cbe42283b90
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 340e2674962762046a08d4784a5b0cbe
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 312
+          Prefab:
+            m_AssetGUID: 8f3c3a5ab62f00e439a41d6b00eb995e
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 908c908ca859cde478fc68652c63b63e
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 306
+          Prefab:
+            m_AssetGUID: 7b4e1dfdd03534a478b4fcceb92db05a
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 655819c44a4a14c42a03c956ec4267fc
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 315
+          Prefab:
+            m_AssetGUID: 25c5cfc773f8eaa4595c4abea0813fca
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 887399a805c1197429094b4480d8409f
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 303
+          Prefab:
+            m_AssetGUID: d5ae918c14101f944a0c064373c0fa96
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 694c83c24e7afbc4cbf3a82d5029c6cb
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 304
+          Prefab:
+            m_AssetGUID: 111205dad61d8ca48a9831bf1ec6cf42
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: bec3f39b39fb6b04daac427491b7bbca
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 305
+          Prefab:
+            m_AssetGUID: 6e12ec8c98e4dee43a0c789b777cacae
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 192a8b58b60a3a44a934e80594875ad1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 307
+          Prefab:
+            m_AssetGUID: 1e3990a12098ad64287e4b49f6a5a4b2
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 420d335d58c7f5f4da1b9ac617e6fbb7
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 308
+          Prefab:
+            m_AssetGUID: ec28f8ef7c1a33c49a640e1c3782d6c3
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 0c238912582796047aa3dec0a2c6de11
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 309
+          Prefab:
+            m_AssetGUID: ca34acef44906c542bdc52fe30913b78
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 1e0959560a3749b4f9e1a3c2b5a26fcc
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 310
+          Prefab:
+            m_AssetGUID: e7d033c2fb9cc104f8a064b6da0dca3c
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: c9f9f14c0e050cf4eb1d916e3fa4e173
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 311
+          Prefab:
+            m_AssetGUID: 50566947549d241458dd467cebc7f282
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 03a7fa12e59624e4a86b8ff735c31cad
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 313
+          Prefab:
+            m_AssetGUID: 6d7836ef1d0e8ba48a4174fd52a248a6
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 16127020d5d39dd4488ff59defb8687b
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 314
+          Prefab:
+            m_AssetGUID: 27ac40e30f8bf4a46a4f20a24cb9e1cb
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: f158bd2095690bc419c5e7c44dbc64da
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 316
+          Prefab:
+            m_AssetGUID: 2bed5aebdccdffb49b5ff0b0f9ca1875
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 8fcd7cdd52988884e99df2f88cb2e2a1
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 317
+          Prefab:
+            m_AssetGUID: adeec381b0f8d5b4ab7aa7b87bd14a49
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 5238100ed8da2fa4e96a1a143d195ac0
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 318
+          Prefab:
+            m_AssetGUID: c8ca057e2800eee4fac244ca0db29559
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: 63cdb60f3e39f9646852812a2698d78f
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+        - SkinId: 319
+          Prefab:
+            m_AssetGUID: 4653962159a233f48a2ac458aac6321b
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
+          Sprite:
+            m_AssetGUID: b84bf3fbcc4b73a46a636ab382b69670
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0

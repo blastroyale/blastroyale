@@ -29,6 +29,8 @@ public class TestDataService
 		_server = new TestServer();
 		_server.SetupInMemoryServer();
 		_service = _server.GetService<IServerStateService>();
+		_server.SendTestCommand(new GiveDefaultCollectionItemsCommand());
+
 	}
 
 	/// <summary>

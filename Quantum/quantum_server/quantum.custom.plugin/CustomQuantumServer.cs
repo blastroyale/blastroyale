@@ -15,170 +15,174 @@ using quantum.custom.plugin;
 
 namespace Quantum
 {
-	/// <summary>
-	/// Main class to override custom quantum server behaviour.
-	/// Contains all required information and overrides to change base quantum behaviour.
-	/// </summary>
-	public class CustomQuantumServer : DeterministicServer, IDisposable
-	{
-		private static ResourceManagerStaticPreloaded _resourceManager;
-		private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
-		private static Object _initializationLock = new Object();
-		
-		private DeterministicSessionConfig _config;
-		private RuntimeConfig _runtimeConfig;
-		private readonly Dictionary<String, String> _photonConfig;
-		private readonly Dictionary<string, SetPlayerData> _receivedPlayers;
-		private readonly Dictionary<int, SetPlayerData> _validPlayers;
-		private readonly Dictionary<int, int> _actorNrToIndex;
-		public SessionContainer gameSession;
-		private InputProvider inputProvider;
-		private bool _serverSimulation = true;
-	
-		public readonly PhotonPlayfabSDK Playfab;
-		public Action<EventFireQuantumServerCommand> OnSimulationCommand;
-		
-		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
-			_photonConfig = photonConfig;
-			Playfab = new PhotonPlayfabSDK(photonConfig, host);
-			_receivedPlayers = new Dictionary<string, SetPlayerData>();
-			_validPlayers = new Dictionary<int, SetPlayerData>();
-			_actorNrToIndex = new Dictionary<int, int>();
-			FlgCustomSerializers.RegisterSerializers();
-			if(photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
-			{
-				_serverSimulation = false;
-			}
-		}
+    /// <summary>
+    /// Main class to override custom quantum server behaviour.
+    /// Contains all required information and overrides to change base quantum behaviour.
+    /// </summary>
+    public class CustomQuantumServer : DeterministicServer, IDisposable
+    {
+        private static ResourceManagerStaticPreloaded _resourceManager;
+        private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
+        private static Object _initializationLock = new Object();
 
-		#region Server Simulation
-		public override void OnDeterministicStartSession()
-		{
-			if(!_serverSimulation)
-			{
-				return;
-			}
+        private DeterministicSessionConfig _config;
+        private RuntimeConfig _runtimeConfig;
+        private readonly Dictionary<String, String> _photonConfig;
+        private readonly Dictionary<string, SetPlayerData> _receivedPlayers;
+        private readonly Dictionary<int, SetPlayerData> _validPlayers;
+        private readonly Dictionary<int, int> _actorNrToIndex;
+        public SessionContainer gameSession;
+        private InputProvider inputProvider;
+        private bool _serverSimulation = true;
 
-			lock (_initializationLock) 
-			{
-				if (!FPLut.IsLoaded)
-				{
-					FPLut.Init(Path.Combine(PluginLocation, "MathTables"));
-					String pathToDB = Path.Combine(PluginLocation, "assetDatabase.json");
-					byte[] assetDBData = LoadAssetDBData(pathToDB, null);
-					Assert.Always(assetDBData != null, "No asset database found");
-					Native.Utils = Native.Utils ?? SessionContainer.CreateNativeUtils();
-					var assets = _serializer.DeserializeAssets(assetDBData);
-					var allocator = SessionContainer.CreateNativeAllocator();
-					_resourceManager = ResourceManagerStaticPreloaded.Create(assets, allocator);
-				}
-			}
-			StartServerSimulation();
-		}
+        public readonly PhotonPlayfabSDK Playfab;
+        public Action<EventFireQuantumServerCommand> OnSimulationCommand;
 
-		/// <summary>
-		/// Called whenever the simulation fires a command that should be directed to the server
-		/// This would transform the event into a logic server command.
-		private void OnServerCommand(EventFireQuantumServerCommand ev)
-		{
-			if(!_serverSimulation)
-			{
-				return;
-			}
+        public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host)
+        {
+            _photonConfig = photonConfig;
+            Playfab = new PhotonPlayfabSDK(photonConfig, host);
+            _receivedPlayers = new Dictionary<string, SetPlayerData>();
+            _validPlayers = new Dictionary<int, SetPlayerData>();
+            _actorNrToIndex = new Dictionary<int, int>();
+            FlgCustomSerializers.RegisterSerializers();
+            if (photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
+            {
+                _serverSimulation = false;
+            }
+        }
 
-			if (FlgConfig.DebugMode)
-			{
-				Log.Info($"Received server command {ev.CommandType} from player {ev.Player}");
-			}
-			OnSimulationCommand?.Invoke(ev);
-		}
+        #region Server Simulation
 
-		public void StartServerSimulation()
-		{
-			if (!_serverSimulation)
-			{
-				return;
-			}
+        public override void OnDeterministicStartSession()
+        {
+            if (!_serverSimulation)
+            {
+                return;
+            }
 
-			var events = new EventDispatcher();
-			events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
-			var configsFile = new ReplayFile();
-			configsFile.DeterministicConfig = _config;
-			configsFile.RuntimeConfig = _runtimeConfig;
-			gameSession = new SessionContainer(configsFile);
-			var startParams = new QuantumGame.StartParameters
-			{
-				AssetSerializer = _serializer,
-				ResourceManager = _resourceManager,
-				EventDispatcher = events,
-			};
-			inputProvider = new InputProvider(_config);
-			var taskRunner = new InactiveTaskRunner();
-			gameSession.StartReplay(startParams, inputProvider, "server", false, taskRunner: taskRunner);
-		}
+            lock (_initializationLock)
+            {
+                if (!FPLut.IsLoaded)
+                {
+                    FPLut.Init(Path.Combine(PluginLocation, "MathTables"));
+                    String pathToDB = Path.Combine(PluginLocation, "assetDatabase.json");
+                    byte[] assetDBData = LoadAssetDBData(pathToDB, null);
+                    Assert.Always(assetDBData != null, "No asset database found");
+                    Native.Utils = Native.Utils ?? SessionContainer.CreateNativeUtils();
+                    var assets = _serializer.DeserializeAssets(assetDBData);
+                    var allocator = SessionContainer.CreateNativeAllocator();
+                    _resourceManager = ResourceManagerStaticPreloaded.Create(assets, allocator);
+                }
+            }
 
-		public string PluginLocation
-		{
-			get
-			{
-				string codeBase = GetType().Assembly.CodeBase;
-				UriBuilder uri = new UriBuilder(codeBase);
-				string path = Uri.UnescapeDataString(uri.Path);
-				return Path.GetDirectoryName(path);
-			}
-		}
+            StartServerSimulation();
+        }
 
-		private byte[] LoadAssetDBData(string pathToDB, string embeddedDB)
-		{
-			byte[] assetDBFileContent = null;
+        /// <summary>
+        /// Called whenever the simulation fires a command that should be directed to the server
+        /// This would transform the event into a logic server command.
+        private void OnServerCommand(EventFireQuantumServerCommand ev)
+        {
+            if (!_serverSimulation)
+            {
+                return;
+            }
 
-			// Trying to load the asset db file from disk
-			if (string.IsNullOrEmpty(pathToDB) == false)
-			{
-				if (File.Exists(pathToDB))
-				{
-					PluginHost.LogInfo($"Loading Quantum AssetDB from file '{pathToDB}' ..");
-					assetDBFileContent = File.ReadAllBytes(pathToDB);
-					Assert.Always(assetDBFileContent != null);
-				}
-				else
-				{
-					PluginHost.LogInfo($"No asset db file found at '{pathToDB}'.");
-				}
-			}
+            if (FlgConfig.DebugMode)
+            {
+                Log.Info($"Received server command {ev.CommandType} from player {ev.Player}");
+            }
 
-			// Trying to load the asset db file from the assembly
-			if (assetDBFileContent == null)
-			{
-				PluginHost.LogInfo($"Loading Quantum AssetDB from internal resource '{embeddedDB}'");
-				using (var stream = typeof(QuantumGame).Assembly.GetManifestResourceStream(embeddedDB))
-				{
-					if (stream != null)
-					{
-						if (stream.Length > 0)
-						{
-							assetDBFileContent = new byte[stream.Length];
-							var bytesRead = stream.Read(assetDBFileContent, 0, (int)stream.Length);
-							Assert.Always(bytesRead == (int)stream.Length);
-						}
-						else
-						{
-							PluginHost.LogError($"The file '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}' is empty.");
-						}
-					}
-					else
-					{
-						PluginHost.LogError($"Failed to find the Quantum AssetDB resource from '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}'. Here are all resources found inside the assembly:");
-						foreach (var name in typeof(QuantumGame).Assembly.GetManifestResourceNames())
-						{
-							PluginHost.LogInfo(name);
-						}
-					}
-				}
-			}
+            OnSimulationCommand?.Invoke(ev);
+        }
 
-			return assetDBFileContent;
-		}
+        public void StartServerSimulation()
+        {
+            if (!_serverSimulation)
+            {
+                return;
+            }
+
+            var events = new EventDispatcher();
+            events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
+            var configsFile = new ReplayFile();
+            configsFile.DeterministicConfig = _config;
+            configsFile.RuntimeConfig = _runtimeConfig;
+            gameSession = new SessionContainer(configsFile);
+            var startParams = new QuantumGame.StartParameters
+            {
+                AssetSerializer = _serializer,
+                ResourceManager = _resourceManager,
+                EventDispatcher = events,
+            };
+            inputProvider = new InputProvider(_config);
+            var taskRunner = new InactiveTaskRunner();
+            gameSession.StartReplay(startParams, inputProvider, "server", false, taskRunner: taskRunner);
+        }
+
+        public string PluginLocation
+        {
+            get
+            {
+                string codeBase = GetType().Assembly.CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
+
+        private byte[] LoadAssetDBData(string pathToDB, string embeddedDB)
+        {
+            byte[] assetDBFileContent = null;
+
+            // Trying to load the asset db file from disk
+            if (string.IsNullOrEmpty(pathToDB) == false)
+            {
+                if (File.Exists(pathToDB))
+                {
+                    PluginHost.LogInfo($"Loading Quantum AssetDB from file '{pathToDB}' ..");
+                    assetDBFileContent = File.ReadAllBytes(pathToDB);
+                    Assert.Always(assetDBFileContent != null);
+                }
+                else
+                {
+                    PluginHost.LogInfo($"No asset db file found at '{pathToDB}'.");
+                }
+            }
+
+            // Trying to load the asset db file from the assembly
+            if (assetDBFileContent == null)
+            {
+                PluginHost.LogInfo($"Loading Quantum AssetDB from internal resource '{embeddedDB}'");
+                using (var stream = typeof(QuantumGame).Assembly.GetManifestResourceStream(embeddedDB))
+                {
+                    if (stream != null)
+                    {
+                        if (stream.Length > 0)
+                        {
+                            assetDBFileContent = new byte[stream.Length];
+                            var bytesRead = stream.Read(assetDBFileContent, 0, (int)stream.Length);
+                            Assert.Always(bytesRead == (int)stream.Length);
+                        }
+                        else
+                        {
+                            PluginHost.LogError($"The file '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}' is empty.");
+                        }
+                    }
+                    else
+                    {
+                        PluginHost.LogError($"Failed to find the Quantum AssetDB resource from '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}'. Here are all resources found inside the assembly:");
+                        foreach (var name in typeof(QuantumGame).Assembly.GetManifestResourceNames())
+                        {
+                            PluginHost.LogInfo(name);
+                        }
+                    }
+                }
+            }
+
+            return assetDBFileContent;
+        }
 
 		/// <summary>
 		/// Method responsible for receiving client inputs and forwarding them to the server simulation
@@ -192,235 +196,239 @@ namespace Quantum
 			inputProvider.InjectInput(input, true);
 		}
 
-		/// <summary>
-		/// Method called when ticking the simulation.
-		/// Will advance the simulation necessary frames.
-		/// </summary>
-		public override void OnDeterministicUpdate()
-		{
-			if (!_serverSimulation)
-			{
-				return;
-			}
+        /// <summary>
+        /// Method called when ticking the simulation.
+        /// Will advance the simulation necessary frames.
+        /// </summary>
+        public override void OnDeterministicUpdate()
+        {
+            if (!_serverSimulation)
+            {
+                return;
+            }
 
-			if (gameSession == null)
-			{
-				return;
-			}
+            if (gameSession == null)
+            {
+                return;
+            }
 
-			try
-			{
-				if (gameSession.Session.FrameVerified != null)
-				{
-					// Interpolate time to make sure server catchup if it ticked too slow for some reason
-					double gameTime = Session.Input.GameTime;
-					var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
-					gameSession.Service(gameTime - sessionTime);
-				}
-				else
-				{
-					gameSession.Service();
-				}
-			} catch(Exception e)
-			{
-				PluginHost.LogError($"An exception was thrown while servicing the GameSession.");
-				PluginHost.LogException(e);
+            try
+            {
+                if (gameSession.Session.FrameVerified != null)
+                {
+                    // Interpolate time to make sure server catchup if it ticked too slow for some reason
+                    double gameTime = Session.Input.GameTime;
+                    var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
+                    gameSession.Service(gameTime - sessionTime);
+                }
+                else
+                {
+                    gameSession.Service();
+                }
+            }
+            catch (Exception e)
+            {
+                PluginHost.LogError($"An exception was thrown while servicing the GameSession.");
+                PluginHost.LogException(e);
 
-				gameSession?.Destroy();
-				gameSession = null;
-			}
-		}
+                gameSession?.Destroy();
+                gameSession = null;
+            }
+        }
 
-		/// <summary>
-		/// Called when clients requests a snapshot of the last validated frame.
-		/// Only works for validated frames server-side. Server does not run predicted frames.
-		/// </summary>
-		public override Boolean OnDeterministicSnapshotRequested(ref Int32 tick, ref byte[] data)
-		{
-			if (!_serverSimulation)
-			{
-				return false;
-			}
+        /// <summary>
+        /// Called when clients requests a snapshot of the last validated frame.
+        /// Only works for validated frames server-side. Server does not run predicted frames.
+        /// </summary>
+        public override Boolean OnDeterministicSnapshotRequested(ref Int32 tick, ref byte[] data)
+        {
+            if (!_serverSimulation)
+            {
+                return false;
+            }
 
-			if (gameSession?.Session?.FrameVerified == null)
-			{
-				return false;
-			}
-			tick = gameSession.Session.FrameVerified.Number;
-			data = gameSession.Session.FrameVerified.Serialize(DeterministicFrameSerializeMode.Serialize);
-			return true;
-		}
-		#endregion
+            if (gameSession?.Session?.FrameVerified == null)
+            {
+                return false;
+            }
 
-		public int GetClientIndexByActorNumber(int actorNr) => _actorNrToIndex[actorNr];
+            tick = gameSession.Session.FrameVerified.Number;
+            data = gameSession.Session.FrameVerified.Serialize(DeterministicFrameSerializeMode.Serialize);
+            return true;
+        }
 
-		/// <summary>
-		/// Obtains the actor number based on the quantum index
-		/// </summary>
-		public int GetClientActorNumberByIndex(int index)
-		{
-			foreach(var actorNr in _actorNrToIndex.Keys)
-			{
-				if (_actorNrToIndex[actorNr] == index)
-					return actorNr;
-			}
-			return -1;
-		}
+        #endregion
 
-		public Dictionary<int, SetPlayerData> GetValidatedPlayers() => _validPlayers;
+        public int GetClientIndexByActorNumber(int actorNr) => _actorNrToIndex[actorNr];
 
-		/// <summary>
-		/// Called whenever a game session is about to start and client passes down session configuration.
-		/// </summary>
-		public override void OnDeterministicSessionConfig(DeterministicPluginClient client, SessionConfig configData)
-		{
-			_config = configData.Config;
-		}
+        /// <summary>
+        /// Obtains the actor number based on the quantum index
+        /// </summary>
+        public int GetClientActorNumberByIndex(int index)
+        {
+            foreach (var actorNr in _actorNrToIndex.Keys)
+            {
+                if (_actorNrToIndex[actorNr] == index)
+                    return actorNr;
+            }
 
-		public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client, Photon.Deterministic.Protocol.RuntimeConfig configData)
-		{
-			base.OnDeterministicRuntimeConfig(client, configData);
-			_runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
-		}
+            return -1;
+        }
 
-		public string GetPlayFabIdByIndex(int playerRef)
-		{
-			if (FlgConfig.DebugMode)
-			{
-				Log.Debug($"Actor Index {playerRef} searching for playerId");
-			}
-			foreach (var playfabId in _receivedPlayers.Keys)
-			{
-				if (_receivedPlayers[playfabId].Index == playerRef)
-					return playfabId;
-			}
-			return null;
-		}
+        public Dictionary<int, SetPlayerData> GetValidatedPlayers() => _validPlayers;
 
-		public string GetPlayFabId(int actorNr)
-		{
-			var playerRef = GetClientIndexByActorNumber(actorNr);
-			if (FlgConfig.DebugMode)
-			{
-				Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
-			}
-			foreach (var playfabId in _receivedPlayers.Keys)
-			{
-				if (_receivedPlayers[playfabId].Index == playerRef)
-					return playfabId;
-			}
-			return null;
-		}
+        /// <summary>
+        /// Called whenever a game session is about to start and client passes down session configuration.
+        /// </summary>
+        public override void OnDeterministicSessionConfig(DeterministicPluginClient client, SessionConfig configData)
+        {
+            _config = configData.Config;
+        }
 
-		/// <summary>
-		/// Override method that will block adding any player data from to the relay stream by direct client input.
-		/// Will call external services via HTTP to validate if the client input is correct, and only after
-		/// verification it will add the RuntimePlayer serialized object to relay BitStream.
-		/// </summary>
-		public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
-		{
-			if (_validPlayers.ContainsKey(client.ActorNr))
-				return true;
+        public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client, Photon.Deterministic.Protocol.RuntimeConfig configData)
+        {
+            base.OnDeterministicRuntimeConfig(client, configData);
+            _runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
+        }
 
-			var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
-			_receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
-			_actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
-			if(!IsGameIdsValid(clientPlayer)) {
-				return false;
-			};
-			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
-			if (FlgConfig.DebugMode)
-			{
-				Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
-			}
-			return false; // denies adding player data to the bitstream when client sends it
-		}
+        public string GetPlayFabIdByIndex(int playerRef)
+        {
+            if (FlgConfig.DebugMode)
+            {
+                Log.Debug($"Actor Index {playerRef} searching for playerId");
+            }
 
-		/// <summary>
-		/// Checks if game ids sent to runtime player belongs to specific groups.
-		/// Does not check ownership
-		/// TODO: Check ownership when we implement player skins / tombstone unlocking.
-		/// </summary>
-		private bool IsGameIdsValid(RuntimePlayer player)
-		{
-			if(!player.Skin.IsInGroup(GameIdGroup.PlayerSkin))
-			{
-				Log.Error($"Player {player.PlayerId} is trying to hack skins");
-				return false;
-			}
-			if (!player.DeathMarker.IsInGroup(GameIdGroup.DeathMarker))
-			{
-				Log.Error($"Player {player.PlayerId} is trying to hack deathmarkers");
-				return false;
-			}
-			return true;
-		}
+            foreach (var playfabId in _receivedPlayers.Keys)
+            {
+                if (_receivedPlayers[playfabId].Index == playerRef)
+                    return playfabId;
+            }
+
+            return null;
+        }
+
+        public string GetPlayFabId(int actorNr)
+        {
+            var playerRef = GetClientIndexByActorNumber(actorNr);
+            if (FlgConfig.DebugMode)
+            {
+                Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
+            }
+
+            foreach (var playfabId in _receivedPlayers.Keys)
+            {
+                if (_receivedPlayers[playfabId].Index == playerRef)
+                    return playfabId;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Override method that will block adding any player data from to the relay stream by direct client input.
+        /// Will call external services via HTTP to validate if the client input is correct, and only after
+        /// verification it will add the RuntimePlayer serialized object to relay BitStream.
+        /// </summary>
+        public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
+        {
+            if (_validPlayers.ContainsKey(client.ActorNr))
+                return true;
+
+            var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
+            _receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
+            _actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
+            Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+            if (FlgConfig.DebugMode)
+            {
+                Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+            }
+
+            return false; // denies adding player data to the bitstream when client sends it
+        }
 
 
-		/// <summary>
-		/// Callback for receiving player data from playfab.
-		/// Will match the data sent from client 
-		/// </summary>
-		private void OnUserDataResponse(IHttpResponse response, object userState)
-		{
-			var playfabResponse = Playfab.HttpWrapper.DeserializePlayFabResponse<GetUserDataResult>(response);
-			var playfabData = playfabResponse.Data.ToDictionary(
-				entry => entry.Key,
-				entry => entry.Value.Value);
-			var playerId = response.Request.UserState as string;
-			if (FlgConfig.DebugMode)
-			{
-				Log.Debug($"Validating loadout for player {playerId}");
-			}
-			if (playerId == null || !_receivedPlayers.TryGetValue(playerId, out var setPlayerData))
-			{
-				Log.Error($"Could not find set player data request for player {playerId}");
-				return;
-			}
-			var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
-			var equipmentData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
-			var validItemHashes = new HashSet<int>();
+        /// <summary>
+        /// Callback for receiving player data from playfab.
+        /// Will match the data sent from client 
+        /// </summary>
+        private void OnUserDataResponse(IHttpResponse response, object userState)
+        {
+            var playfabResponse = Playfab.HttpWrapper.DeserializePlayFabResponse<GetUserDataResult>(response);
+            var playfabData = playfabResponse.Data.ToDictionary(
+                entry => entry.Key,
+                entry => entry.Value.Value);
+            var playerId = response.Request.UserState as string;
+            if (FlgConfig.DebugMode)
+            {
+                Log.Debug($"Validating loadout for player {playerId}");
+            }
 
-			foreach (var itemTuple in equipmentData.Inventory)
-			{
-				var isNft = equipmentData.NftInventory.ContainsKey(itemTuple.Key);
-				if (isNft || !itemTuple.Value.IsBroken())
-				{
-					validItemHashes.Add(itemTuple.Value.GetServerHashCode());
-				}
-			}
+            if (playerId == null || !_receivedPlayers.TryGetValue(playerId, out var setPlayerData))
+            {
+                Log.Error($"Could not find set player data request for player {playerId}");
+                return;
+            }
 
-			foreach (var clientEquip in clientPlayer.Loadout)
-			{
-				var clientEquiphash = clientEquip.GetServerHashCode();
-				if (!validItemHashes.Contains(clientEquiphash))
-				{
-					Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");
-					return;
-				}
-			}
-			if (FlgConfig.DebugMode)
-			{
-				Log.Debug($"Player {playerId} has valid loadout");
-			}
-			_validPlayers[GetClientActorNumberByIndex(setPlayerData.Index)] = setPlayerData;
-			SetDeterministicPlayerData(setPlayerData);
-		}
+            var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
+            var equipmentData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
+            var validItemHashes = new HashSet<int>();
 
-		/// <summary>
-		/// Called after a match ends
-		/// </summary>
-		public void Dispose()
-		{
-			if (FlgConfig.DebugMode)
-			{
-				Log.Debug("Destroying simulation");
-			}
-			gameSession?.Destroy();
-			_receivedPlayers.Clear();
-			_validPlayers.Clear();
-			_actorNrToIndex.Clear();
-		}
+            foreach (var itemTuple in equipmentData.Inventory)
+            {
+                var isNft = equipmentData.NftInventory.ContainsKey(itemTuple.Key);
+                if (isNft || !itemTuple.Value.IsBroken())
+                {
+                    validItemHashes.Add(itemTuple.Value.GetServerHashCode());
+                }
+            }
 
-	}
+            foreach (var clientEquip in clientPlayer.Loadout)
+            {
+                var clientEquiphash = clientEquip.GetServerHashCode();
+                if (!validItemHashes.Contains(clientEquiphash))
+                {
+                    Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");
+                    return;
+                }
+            }
+
+            if (!ValidatePlayerSkins(playfabData, ref clientPlayer))
+            {
+                Log.Error(
+                    $"Player {clientPlayer.PlayerId} tried to send skins {string.Join(",", clientPlayer.Skins.Select(s => s.ToString()))} which he doesn't have!");
+                return;
+            }
+
+            if (FlgConfig.DebugMode)
+            {
+                Log.Debug($"Player {playerId} has valid loadout");
+            }
+
+            _validPlayers[GetClientActorNumberByIndex(setPlayerData.Index)] = setPlayerData;
+            SetDeterministicPlayerData(setPlayerData);
+        }
+
+        public bool ValidatePlayerSkins(Dictionary<string, string> playfabData, ref RuntimePlayer playerData)
+        {
+            var skins = playerData.Skins;
+            var collectionData = ModelSerializer.DeserializeFromData<CollectionData>(playfabData);
+            return skins.All(skin => collectionData.HasCollectionItem(skin));
+        }
+
+        /// <summary>
+        /// Called after a match ends
+        /// </summary>
+        public void Dispose()
+        {
+            if (FlgConfig.DebugMode)
+            {
+                Log.Debug("Destroying simulation");
+            }
+
+            gameSession?.Destroy();
+            _receivedPlayers.Clear();
+            _validPlayers.Clear();
+            _actorNrToIndex.Clear();
+        }
+    }
 }

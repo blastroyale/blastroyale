@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs.Collection;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {
@@ -18,11 +20,11 @@ namespace FirstLight.Game.Configs
 		/// Using the given asset resolver, loads and fills the IConfigsAdder object.
 		/// </summary>
 		IEnumerable<Task> LoadConfigTasks(IConfigsAdder cfg);
-		
+
 		/// <summary>
 		/// Loads a specific config using the given asset resolver. 
 		/// </summary>
-		Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete);
+		Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer : ScriptableObject;
 	}
 
 	/// <summary>
@@ -79,6 +81,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<BotDifficultyConfigs>(AddressableId.Configs_BotDifficultyConfigs, configsAdder.AddSingletonConfig),
 				LoadConfig<MatchmakingAndRoomConfigs>(AddressableId.Configs_MatchmakingAndRoomConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<CharacterSkinConfigs>(AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<WeaponSkinsConfigContainer>(AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MainMenuCharacterAnimationConfigs>(AddressableId.Configs_MainMenuCharacterAnimationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 			};
 		}
@@ -88,7 +91,7 @@ namespace FirstLight.Game.Configs
 			return typeof(TContainer).CustomAttributes.Any(c => c.AttributeType == typeof(IgnoreServerSerialization));
 		}
 	
-		public async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete)
+		public async Task LoadConfig<TContainer>(AddressableId id, Action<TContainer> onLoadComplete) where TContainer: ScriptableObject
 		{
 			var asset = await _assetLoader.LoadAssetAsync<TContainer>(id.GetConfig().Address);
 			onLoadComplete(asset);

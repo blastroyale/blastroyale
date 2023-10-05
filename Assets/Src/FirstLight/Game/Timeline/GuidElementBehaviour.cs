@@ -1,5 +1,5 @@
 using FirstLight.Game.Ids;
-using FirstLight.Game.MonoComponent;
+using FirstLight.Game.MonoComponent.Collections;
 using UnityEngine.Playables;
 
 namespace FirstLight.Game.Timeline

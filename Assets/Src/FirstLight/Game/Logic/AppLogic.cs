@@ -426,7 +426,7 @@ namespace FirstLight.Game.Logic
 			if (tagged)
 			{
 				var playerData = DataProvider.GetData<PlayerData>();
-				var skin = TemporarySkin.GetSkinBasedOnFlags(playerData.Flags);
+				var skin = TemporaryPlayerBadges.GetBadgeBasedOnFlags(playerData.Flags);
 				return skin != null ? $"{skin.GetSpriteText()} {name}" : name;
 			}
 

@@ -75,6 +75,7 @@ namespace FirstLight.Editor.EditorTools.MapGenerator
 		{
 			GetWindow<MapGeneratorEditorWindow>("Map Generator EditorWindow").Show();
 		}
+        
 		
 		
 		[Button("Export Scene")]

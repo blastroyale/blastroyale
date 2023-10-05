@@ -103,8 +103,10 @@ namespace FirstLight.Game.StateMachines
 
 			gameUpdate.OnEnter(OpenGameUpdateDialog);
 
+			final.OnEnter(PublishAuthenticationSuccessMessage);
 			final.OnEnter(UnsubscribeEvents);
 		}
+
 
 		private async Task WaitForAsyncLogin()
 		{
@@ -384,6 +386,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnApplicationQuit(ApplicationQuitMessage msg)
 		{
 			OpenLoadingScreen();
+		}
+
+		private void PublishAuthenticationSuccessMessage()
+		{
+			_services.MessageBrokerService.Publish(new SuccessAuthentication());
 		}
 	}
 }

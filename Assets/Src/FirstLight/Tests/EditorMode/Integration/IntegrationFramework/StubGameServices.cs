@@ -1,6 +1,7 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
 using FirstLight.NotificationService;
@@ -8,7 +9,6 @@ using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using FirstLight.UiService;
 using FirstLightServerSDK.Modules.RemoteCollection;
 using NSubstitute;
 

@@ -394,7 +394,8 @@ namespace FirstLight.Game.Presenters
 
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData[playerRef];
 
-			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
+			var skinId = _gameServices.CollectionService.GetCosmeticForGroup(playerData.Cosmetics, GameIdGroup.PlayerSkin);
+			await _character.UpdateSkin(skinId, playerData.Gear.ToList());
 
 			var targetPosition = _character.transform.position;
 			var initialPosition = targetPosition;

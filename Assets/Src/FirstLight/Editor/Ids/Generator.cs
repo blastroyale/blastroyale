@@ -40,7 +40,7 @@ namespace FirstLight.Editor.Ids
         
 
 
-		[MenuItem("FLG/Generate GameIds")]
+		[MenuItem("FLG/Generators/Generate GameIds.qtn and GameIds.cs",priority = 20)]
 		public static void GenerateIds()
 		{
 			Ids.GameIds.CheckDuplicates();
@@ -66,6 +66,7 @@ namespace FirstLight.Editor.Ids
 			GenerateQuantumQtn(ids, groups);
 			GenerateQuantumScript(idsByGroup, groupsById);
 			AssetDatabase.Refresh();
+			EditorUtility.DisplayDialog("Success!", "Ids generated successfully!", "Ok");
 		}
 
 		private static void GenerateQuantumQtn(IList<GameIdEntry> ids, IList<Ids.GroupSource> groups)

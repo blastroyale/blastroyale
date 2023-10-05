@@ -6,6 +6,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
 using FirstLight.Game.Services.RoomService;
+using FirstLight.Game.Services.Collection;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameBackendService"/>
 		IGameBackendService GameBackendService { get; }
-		
+
 		/// <inheritdoc cref="IPlayerProfileService"/>
 		IPlayerProfileService ProfileService { get; }
 
@@ -158,7 +159,7 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IGameBackendService GameBackendService { get; }
-		
+
 		public IPlayerProfileService ProfileService { get; }
 		public IAuthenticationService AuthenticationService { get; }
 		public ITutorialService TutorialService { get; }
@@ -177,9 +178,9 @@ namespace FirstLight.Game.Services
 		public ICollectionService CollectionService { get; }
 
 		public IControlSetupService ControlsSetup { get; }
-		
+
 		public IRoomService RoomService { get; }
-		
+
 		public ILeaderboardService LeaderboardService { get; }
 
 		public ICheatsService CheatsService { get; }
@@ -206,7 +207,7 @@ namespace FirstLight.Game.Services
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
 			TutorialService = tutorialService;
-			
+
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
@@ -229,7 +230,7 @@ namespace FirstLight.Game.Services
 			ControlsSetup = new ControlSetupService();
 			CollectionEnrichnmentService = new CollectionEnrichmentService(GameBackendService, gameLogic);
 			MatchmakingService = new PlayfabMatchmakingService(gameLogic, CoroutineService, PartyService, MessageBrokerService, NetworkService,
-				GameBackendService,ConfigsProvider);
+				GameBackendService, ConfigsProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			GameUiService = uiService;
@@ -251,7 +252,7 @@ namespace FirstLight.Game.Services
 			CheatsService = new CheatsService(CommandService, GenericDialogService, environmentService, messageBrokerService, gameLogic,
 				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
-			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider);
+			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
 		}
 
 		/// <inheritdoc />

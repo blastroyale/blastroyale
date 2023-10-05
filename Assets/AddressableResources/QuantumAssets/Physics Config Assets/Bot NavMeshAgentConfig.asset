@@ -49,7 +49,7 @@ MonoBehaviour:
     AutoBraking: 0
     AutoBrakingDistance:
       RawValue: 32768
-    ClampAgentToNavmesh: 0
+    ClampAgentToNavmesh: 1
     ClampAgentToNavmeshCorrection:
       RawValue: 16384
     AvoidanceType: 2

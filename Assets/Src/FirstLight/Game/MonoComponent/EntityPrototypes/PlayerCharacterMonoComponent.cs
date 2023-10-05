@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -86,16 +87,16 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 			if (f == null || _playerView == null) return;
 
-			var playerData = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef];
-			var marker = playerData.PlayerDeathMarker;
-
+			var cosmeticIds = PlayerLoadout.GetCosmetics(f, _playerView.PlayerRef);
+			var marker = _services.CollectionService.GetCosmeticForGroup(cosmeticIds, GameIdGroup.DeathMarker);
+			
 			_ = SpawnDeathMarker(marker);
 		}
 
 		private async Task SpawnDeathMarker(GameId marker)
 		{
 			var position = transform.position;
-			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
 			if (!QuantumRunner.Default.IsDefinedAndRunning() || this.IsDestroyed())
 			{
 				Destroy(obj);
@@ -126,8 +127,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			return !PlayerView.IsSkydiving && _matchServices.TeamService.IsSameTeamAsSpectator(EntityView.EntityRef);
 		}
 
-		private async Task<GameObject> LoadCharacterSkin(GameId skin)
+		private async Task<GameObject> LoadCharacterSkin(GameId[] playerSkins)
 		{
+			var skin = Services.CollectionService.GetCosmeticForGroup(playerSkins, GameIdGroup.PlayerSkin);
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(skin);
 
 			// Add renderer containers
@@ -138,6 +140,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
+			OnLoaded(skin, obj, true);
 			return obj;
 		}
 
@@ -157,9 +160,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var frame = quantumGame.Frames.Verified;
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
+			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);
 
-			var skinInstance = await LoadCharacterSkin(loadout.Skin);
-			OnLoaded(loadout.Skin, skinInstance, true);
 
 			if (this.IsDestroyed())
 			{

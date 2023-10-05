@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs.Utils;
-using FirstLight.Game.MonoComponent;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 using Sirenix.OdinInspector;

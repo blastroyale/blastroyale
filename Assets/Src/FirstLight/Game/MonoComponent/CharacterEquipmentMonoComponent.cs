@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Messages;
+using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -26,7 +27,14 @@ namespace FirstLight.Game.MonoComponent
 		private IDictionary<GameIdGroup, IList<GameObject>> _equipment;
 		protected IGameServices _services;
 
-	
+		private GameId[] _cosmetics = { };
+
+		public GameId[] Cosmetics
+		{
+			get => _cosmetics;
+			set => _cosmetics = value;
+		}
+
 
 		protected virtual void Awake()
 		{
@@ -64,9 +72,20 @@ namespace FirstLight.Game.MonoComponent
 			return instances;
 		}
 
-		protected virtual async Task<GameObject> InstantiateEquipment(GameId gameId)
+		protected async Task<GameObject> InstantiateEquipment(GameId gameId)
 		{
-			var obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			// TODO Generic GameId to GameIDGroup skin converter
+			GameObject obj;
+			if (gameId == GameId.Hammer)
+			{
+				var skinId = _services.CollectionService.GetCosmeticForGroup(_cosmetics, GameIdGroup.MeleeSkin);
+				obj = await _services.CollectionService.LoadCollectionItem3DModel(skinId, false, true);
+			}
+			else
+			{
+				obj = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			}
+
 			obj.name = gameId.ToString();
 			return obj;
 		}
@@ -78,7 +97,7 @@ namespace FirstLight.Game.MonoComponent
 		{
 			var slot = gameId.GetSlot();
 
-			var anchors =  _skin.GetEquipmentAnchors(slot);
+			var anchors = _skin.GetEquipmentAnchors(slot);
 			var instances = new List<GameObject>();
 			var instance = await InstantiateEquipment(gameId);
 
@@ -103,7 +122,7 @@ namespace FirstLight.Game.MonoComponent
 			var childCount = instance.transform.childCount;
 
 			// We detach the first child of the equipment and copy it to the anchor
-			// Not sure why
+			// Not sure why. Neither do I
 			for (var i = 0; i < Mathf.Max(childCount, 1); i++)
 			{
 				var piece = childCount > 0 ? instance.transform.GetChild(0) : instance.transform;

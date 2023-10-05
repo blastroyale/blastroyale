@@ -88,6 +88,8 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 			return _configs as IReadOnlyDictionary<Type, IEnumerable>;
 		}
 
+		public event Action? OnConfigVersionChanged;
+
 		/// <inheritdoc />
 		public void AddAllConfigs(IReadOnlyDictionary<Type, IEnumerable> configs)
 		{
@@ -103,6 +105,7 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		public void SetVersion(ulong version)
 		{
 			_version = version;
+			OnConfigVersionChanged?.Invoke();
 		}
 
 		/// <inheritdoc />

@@ -27,14 +27,12 @@ namespace FirstLight.Editor.Ids
 			Amulet = 16,
 			Armor = 17,
 			Shield = 15,
-			PlayerSkin = 18,
 			Collection = 14,
 			Assassin = 31,
 			Corpo = 32,
 			BotItem = 4,
 			Punk = 30,
 			Superstar = 29,
-			Glider = 28,
 			Consumable = 19,
 			Collectable = 27,
 			Ammo = 7,
@@ -43,14 +41,23 @@ namespace FirstLight.Editor.Ids
 			Destructible = 26,
 			DummyCharacter = 3,
 			Platform = 37,
-			DeathMarker = 10,
 			Core = 22,
 			IAP = 23,
+
+
+			#region CollectionGroup
+
+			MeleeSkin = 38,
+			PlayerSkin = 18,
+			Glider = 28,
+			DeathMarker = 10,
 			ProfilePicture = 9,
 			Footprint = 33,
+
+			#endregion
 		}
 
-		internal static GameIdHolder GameIds = new()
+		internal static GameIdHolder GameIds = new ()
 		{
 			{"Random", 0, GameDesign},
 			{"RealMoney", 125, Currency},
@@ -123,22 +130,6 @@ namespace FirstLight.Editor.Ids
 			{"WarriorShield", 54, Shield, Equipment, Gear},
 			{"RiotShield", 27, Shield, Equipment, Gear},
 			{"RoadShield", 36, Shield, Equipment, Gear, Simple},
-			{"Male01Avatar", 55, PlayerSkin, Collection},
-			{"Male02Avatar", 56, PlayerSkin, Collection},
-			{"Female01Avatar", 57, PlayerSkin, Collection},
-			{"Female02Avatar", 58, PlayerSkin, Collection},
-			{"MaleAssassin", 68, PlayerSkin, Assassin, Collection},
-			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
-			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
-			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
-			{"FemaleAssassin", 81, PlayerSkin, Assassin, Collection},
-			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
-			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
-			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
-			{"Divinci", 66, Glider, BotItem, Collection},
-			{"Falcon", 67, Glider, BotItem, Collection},
-			{"Rocket", 73, Glider, Collection},
-			{"Turbine", 74, Glider, Collection},
 			{"Rage", 64, Consumable, Collectable},
 			{"Health", 4, Consumable, Collectable},
 			{"AmmoSmall", 127, Consumable, Collectable, Ammo},
@@ -170,22 +161,93 @@ namespace FirstLight.Editor.Ids
 			{"DummyCharacter", 6, DummyCharacter},
 			{"WeaponPlatformSpawner", 138, Platform},
 			{"ConsumablePlatformSpawner", 140, Platform},
-			{"Tombstone", 37, DeathMarker, BotItem, Collection},
-			{"Demon", 25, DeathMarker, BotItem, Collection},
-			{"Superstar", 75, DeathMarker, Collection},
-			{"Unicorn", 76, DeathMarker, Collection},
 			{"CoreCommon", 15, Core},
 			{"CoreUncommon", 46, Core},
 			{"CoreRare", 47, Core, IAP, Chest},
 			{"CoreEpic", 48, Core, IAP, Chest},
 			{"CoreLegendary", 59, Core, IAP, Chest},
+
+
+			#region Collections
+
+			#region Player Skins
+
+			{"Male01Avatar", 55, PlayerSkin, Collection},
+			{"Male02Avatar", 56, PlayerSkin, Collection},
+			{"Female01Avatar", 57, PlayerSkin, Collection},
+			{"Female02Avatar", 58, PlayerSkin, Collection},
+			{"MaleAssassin", 68, PlayerSkin, Assassin, Collection},
+			{"MaleCorpos", 69, PlayerSkin, Corpo, Collection},
+			{"MalePunk", 77, PlayerSkin, BotItem, Punk, Collection},
+			{"MaleSuperstar", 80, PlayerSkin, BotItem, Superstar, Collection},
+			{"FemaleAssassin", 81, PlayerSkin, Assassin, Collection},
+			{"FemaleCorpos", 82, PlayerSkin, Corpo, Collection},
+			{"FemalePunk", 83, PlayerSkin, BotItem, Punk, Collection},
+			{"FemaleSuperstar", 104, PlayerSkin, BotItem, Superstar, Collection},
+			{"TestSkin", 122},
+
+			#endregion Player skins
+
+			#region Gliders
+
+			{"Divinci", 66, Glider, BotItem, Collection},
+			{"Falcon", 67, Glider, BotItem, Collection},
+			{"Rocket", 73, Glider, Collection},
+			{"Turbine", 74, Glider, Collection},
+
+			#endregion
+
+			#region Deathmarkers
+
+			{"Tombstone", 37, DeathMarker, BotItem, Collection},
+			{"Demon", 25, DeathMarker, BotItem, Collection},
+			{"Superstar", 75, DeathMarker, Collection},
+			{"Unicorn", 76, DeathMarker, Collection},
+
+			#endregion
+
+			#region MeleeSkins
+
+			{"MeleeSkinDefault", 300, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinSausage", 301, MeleeSkin, Collection},
+			{"MeleeSkinCactus", 302, MeleeSkin, Collection},
+			{"MeleeSkinAtomSlicer", 303, MeleeSkin, Collection},
+			{"MeleeSkinDaggerOfDestiny", 304, MeleeSkin, Collection},
+			{"MeleeSkinElectricSolo", 305, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinGigaMelee", 306, MeleeSkin, Collection},
+			{"MeleeSkinHatchet", 307, MeleeSkin, Collection},
+			{"MeleeSkinMicDrop", 308, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinMightySledge", 309, MeleeSkin, Collection},
+			{"MeleeSkinOutOfThePark", 310, MeleeSkin, Collection},
+			{"MeleeSkinPowerPan", 311, MeleeSkin, Collection},
+			{"MeleeSkinPutter", 312, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinSirQuacks", 313, MeleeSkin, Collection},
+			{"MeleeSkinThunderAxe", 314, MeleeSkin, Collection},
+			{"MeleeSkinToyMelee", 315, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinTvTakedown", 316, MeleeSkin, Collection},
+			{"MeleeSkinWheelOfPain", 317, MeleeSkin, Collection},
+			{"MeleeSkinWrench", 318, MeleeSkin, Collection, BotItem},
+			{"MeleeSkinYouGotMail", 319, MeleeSkin, Collection},
+
+			#endregion
+
+			#region ProfilePictures
+
 			{"Avatar1", 116, ProfilePicture, Collection},
 			{"Avatar2", 117, ProfilePicture, Collection},
 			{"Avatar3", 118, ProfilePicture, Collection},
 			{"Avatar4", 120, ProfilePicture, Collection},
 			{"Avatar5", 121, ProfilePicture, Collection},
-			{"FootprintDot", 111, Footprint},
-			{"TestSkin", 122, PlayerSkin, Collection},
+
+			#endregion
+
+			#region Footprint
+
+			{"FootprintDot", 111, Footprint, BotItem},
+
+			#endregion
+
+			#endregion
 		};
 	}
 }

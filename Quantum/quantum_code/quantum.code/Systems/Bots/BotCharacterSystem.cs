@@ -110,9 +110,9 @@ namespace Quantum.Systems.Bots
 			{
 				return;
 			}
-
-			// Don't do anything until grounded
-			if (!filter.Controller->Grounded)
+			
+			// Don't do anything when skydiving
+			if (filter.PlayerCharacter->IsSkydiving(f, filter.Entity))
 			{
 				// Grounding is handled by skydiving if it exists; otherwise we need to call "Move" so gravity does its job
 				if (!f.Context.GameModeConfig.SkydiveSpawn)

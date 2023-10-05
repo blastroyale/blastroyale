@@ -33,7 +33,7 @@ namespace FirstLight.Game.Services
 		PlayerRef LocalPlayer { get; }
 
 		PlayerRef Leader { get; }
-		
+
 		/// <summary>
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
@@ -83,7 +83,7 @@ namespace FirstLight.Game.Services
 		/// What level was the player in BP before the change
 		/// </summary>
 		public uint BPLevelBeforeChange { get; }
-		
+
 		/// <summary>
 		/// How much BPP the player had before the change
 		/// </summary>
@@ -114,13 +114,16 @@ namespace FirstLight.Game.Services
 		public Equipment Weapon { get; }
 		public List<Equipment> Gear { get; }
 
+		public List<GameId> Cosmetics { get; }
+
 		public PlayerMatchData(PlayerRef playerRef, QuantumPlayerMatchData quantumData, Equipment weapon,
-							   List<Equipment> gear)
+							   List<Equipment> gear, List<GameId> cosmetics)
 		{
 			PlayerRef = playerRef;
 			QuantumPlayerMatchData = quantumData;
 			Weapon = weapon;
 			Gear = gear;
+			Cosmetics = cosmetics;
 		}
 	}
 
@@ -129,7 +132,7 @@ namespace FirstLight.Game.Services
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 
 		public PlayerRef Leader { get; private set; }
-		
+
 		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		public PlayerRef LocalPlayer { get; private set; }
@@ -143,8 +146,8 @@ namespace FirstLight.Game.Services
 		public uint CSBeforeChange { get; private set; }
 		public uint BPPBeforeChange { get; private set; }
 		public uint BPLevelBeforeChange { get; private set; }
-		public uint LevelBeforeChange { get; private set;}
-		public uint XPBeforeChange { get; private set;}
+		public uint LevelBeforeChange { get; private set; }
+		public uint XPBeforeChange { get; private set; }
 		public bool LeftBeforeMatchFinished { get; private set; }
 
 		public void Reload()
@@ -249,7 +252,8 @@ namespace FirstLight.Game.Services
 					gear.Add(weapon);
 				}
 
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear);
+				var cosmetics = PlayerLoadout.GetCosmetics(frame, quantumPlayerData.Data.Player);
+				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear, cosmetics.ToList());
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{
@@ -286,7 +290,7 @@ namespace FirstLight.Game.Services
 			var playerRef = LocalPlayer == PlayerRef.None
 				? Leader
 				: LocalPlayer;
-			
+
 			var room = _services.RoomService.CurrentRoom;
 			var matchType = room?.Properties.MatchType.Value ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 

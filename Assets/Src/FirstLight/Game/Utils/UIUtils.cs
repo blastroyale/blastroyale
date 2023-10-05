@@ -176,7 +176,7 @@ namespace FirstLight.Game.Utils
 				GameId.CoreRare      => USS_SPRITE_RARITY_RARE,
 				GameId.CoreEpic      => USS_SPRITE_RARITY_EPIC,
 				GameId.CoreLegendary => USS_SPRITE_RARITY_LEGENDARY,
-				_                    => USS_SPRITE_RARITY_RAINBOW
+				_                    => ""
 			};
 		}
 

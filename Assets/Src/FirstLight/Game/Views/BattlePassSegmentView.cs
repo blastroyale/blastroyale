@@ -148,7 +148,7 @@ namespace FirstLight.Game.Views
 				case GameId.CoreRare:
 				case GameId.CoreEpic:
 				case GameId.CoreLegendary:
-					return ScriptLocalization.UITBattlePass.random_equipment.ToUpper();
+					return id.GetLocalization().ToUpper();
 
 				default:
 					return id.GetLocalization().ToUpper();

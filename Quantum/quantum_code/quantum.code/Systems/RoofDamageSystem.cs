@@ -18,8 +18,8 @@ namespace Quantum.Systems
 
 		public override void Update(Frame f, ref RoofDamageFilter filter)
 		{
-			var kcc = f.Unsafe.GetPointer<CharacterController3D>(filter.Entity);
-			if (!kcc->Grounded) return;
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(filter.Entity);
+			if (playerCharacter->IsSkydiving(f, filter.Entity)) return;
 
 			var maxHeight = f.GameConfig.RoofDamageHeight;
 			var position = f.Unsafe.GetPointer<Transform3D>(filter.Entity)->Position;

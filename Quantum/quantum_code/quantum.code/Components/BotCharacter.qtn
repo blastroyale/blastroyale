@@ -81,6 +81,7 @@ component BotCharacter
 	entity_ref Target;
 	entity_ref MoveTarget;
 	entity_ref RandomTeammate;
+	FPVector2 StuckDetectionPosition;
 	
 	// Direction used in the wander behaviour, it changes if the direction is blocked
 	bool WanderDirection;

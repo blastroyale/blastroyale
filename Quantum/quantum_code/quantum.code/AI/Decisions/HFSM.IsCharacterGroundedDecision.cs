@@ -13,6 +13,8 @@ namespace Quantum
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
+			// We have to use Grounded check here because it is necessary in the step where character drops to the ground after flying in
+			// In ALL other cases we should check IsSkydiving blackboard variable instead of Grounded
 			return f.Get<CharacterController3D>(e).Grounded;
 		}
 	}

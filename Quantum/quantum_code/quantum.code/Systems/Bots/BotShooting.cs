@@ -147,7 +147,7 @@ namespace Quantum.Systems.Bots
 		public static bool TryCombatMovement(this ref BotCharacter bot, in EntityRef e, Frame f, in FPVector3 botPosition, in EntityRef target, in FPVector3 targetPosition, in FP rangeSquared, in FP distanceSquared)
 		{
 			if (bot.IsLowLife(e, f) || bot.BehaviourType == BotBehaviourType.Static) return false;
-			if (!bot.Target.IsValid && bot.HasWaypoint()) return false; // if im not combating and moving ill ignore
+			if (!bot.Target.IsValid && bot.HasWaypoint(e, f)) return false; // if im not combating and moving ill ignore
 			if (!bot.GetCanTakeDecision(f)) return false;
 			
 			// If bot is too close he will walk randomly around the bot itself 

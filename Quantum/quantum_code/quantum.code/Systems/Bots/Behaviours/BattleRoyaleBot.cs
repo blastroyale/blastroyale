@@ -34,7 +34,6 @@ namespace Quantum.Systems.Bots
 			BotLogger.LogAction(ref filter, "Taking decision");
 
 			// If bot is collecting something at the moment then let this bot finish collection before doing anything else
-			// and also clear StuckPosition so bot doesn't think that they stuck
 			if (filter.BotCharacter->MoveTarget != EntityRef.None &&
 				f.TryGet<Collectable>(filter.BotCharacter->MoveTarget, out var collectable) &&
 				collectable.IsCollecting(filter.PlayerCharacter->Player))
@@ -86,15 +85,15 @@ namespace Quantum.Systems.Bots
 			}
 
 			// Let it finish the path
-			if (filter.BotCharacter->HasWaypoint() && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
+			if (filter.BotCharacter->HasWaypoint(filter.Entity, f) && filter.Controller->Velocity != FPVector3.Zero && filter.NavMeshAgent->IsActive)
 			{
-				BotLogger.LogAction(ref filter, "wait for path to finish waypoint");
+				BotLogger.LogAction(ref filter, "wait for path to finish waypoint. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
 
 			if (filter.TryGoForClosestCollectable(f, botCtx.circleCenter, botCtx.circleRadius, botCtx.circleIsShrinking))
 			{
-				BotLogger.LogAction(ref filter, "go to collectable");
+				BotLogger.LogAction(ref filter, "go to collectable. MoveTarget now is: " + filter.BotCharacter->MoveTarget);
 				return;
 			}
 

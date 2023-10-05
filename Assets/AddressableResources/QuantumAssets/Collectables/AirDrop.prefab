@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8485195695496540133
 Transform:
   m_ObjectHideFlags: 0
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 4189436069317226143}
   - component: {fileID: 3294266258226344514}
   - component: {fileID: 8021256014724763504}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 4281254824798933915}
   - component: {fileID: 92922402604554721}
   - component: {fileID: 2701821241445637797}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

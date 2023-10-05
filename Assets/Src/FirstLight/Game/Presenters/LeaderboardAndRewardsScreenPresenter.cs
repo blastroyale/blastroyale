@@ -154,10 +154,10 @@ namespace FirstLight.Game.Presenters
 		private async void AnimatePanels()
 		{
 			await Task.Delay(400);
-			await _craftSpiceView.Animate();
-			await _trophiesView.Animate();
-			await _bppView.Animate();
 			await _levelView.Animate();
+			await _trophiesView.Animate();
+			await _craftSpiceView.Animate();
+			await _bppView.Animate();
 		}
 
 		private void UpdateRewards()

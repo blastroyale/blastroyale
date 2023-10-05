@@ -8,6 +8,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.UIElements;
 using FirstLight.Server.SDK.Models;
 using FirstLight.UiService;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -114,10 +115,10 @@ namespace FirstLight.Game.Presenters
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}
 
-		private void SetStatInfo(int index, PublicPlayerProfile result, string statName)
+		private void SetStatInfo(int index, PublicPlayerProfile result, string statName, string statLoc)
 		{
 			var stat = result.Statistics.FirstOrDefault(s => s.Name == statName);
-			_statLabels[index].text = statName;
+			_statLabels[index].text = statLoc;
 			_statValues[index].text = stat.Value.ToString();
 			_statContainers[index].visible = true;
 		}
@@ -130,12 +131,13 @@ namespace FirstLight.Game.Presenters
 				
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
-				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER);
-				SetStatInfo(1, result, GameConstants.Stats.RANKED_KILLS_EVER);
-				SetStatInfo(2, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER);
-				SetStatInfo(3, result, GameConstants.Stats.KILLS_EVER);
-				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER);
-				SetStatInfo(5, result, GameConstants.Stats.GAMES_PLAYED_EVER);
+				
+				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
+				SetStatInfo(1, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
+				SetStatInfo(2, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
+				SetStatInfo(3, result, GameConstants.Stats.KILLS_EVER, ScriptLocalization.MainMenu.KillsEver);
+				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER, ScriptLocalization.MainMenu.GamesWonEver);
+				SetStatInfo(5, result, GameConstants.Stats.GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.GamesPlayedEver);
 				
 				if (!string.IsNullOrEmpty(result.AvatarUrl))
 				{

@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.UITK
 			_nextRarity.text = string.Format((info.Equipment.Rarity + 1).ToString());
 
 			_fuseButton.SetEnabled(!canPurchase);
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient);
+			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient, canPurchase);
 
 			_confirmAction = confirmAction;
 

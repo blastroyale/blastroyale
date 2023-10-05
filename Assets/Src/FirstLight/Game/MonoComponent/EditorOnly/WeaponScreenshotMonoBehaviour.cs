@@ -2,26 +2,23 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs.Collection;
 using FirstLight.Game.Ids;
 using Quantum;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace FirstLight.Editor.EditorTools.Skins
 {
-#if UNITY_EDITOR
 	public class WeaponScreenshot : MonoBehaviour
 	{
+#if UNITY_EDITOR
 		public IEnumerator<Pair<GameId, GameObject>> _skins;
 		private Camera _camera;
 		private Vector3 _originalCameraPos;
 		private Quaternion _originalCameraRot;
-		
-		
+
+
 		private RenderTexture _rt;
 
 		private async void Start()
@@ -58,7 +55,7 @@ namespace FirstLight.Editor.EditorTools.Skins
 			while (_skins.MoveNext())
 			{
 				var current = _skins.Current;
-				var screenShotFile = Path.GetDirectoryName(AssetDatabase.GetAssetPath(current.Value)) + "/sprite_automatic.png";
+				var screenShotFile = Path.GetDirectoryName(UnityEditor.AssetDatabase.GetAssetPath(current.Value)) + "/sprite_automatic.png";
 				for (int i = transform.childCount - 1; i >= 0; i--)
 				{
 					Destroy(transform.GetChild(i).gameObject);
@@ -69,7 +66,7 @@ namespace FirstLight.Editor.EditorTools.Skins
 				yield return new WaitForSeconds(0.1f);
 				FocusOn(_camera, obj, 1.1f);
 				var sprite = TakeScreenshot(screenShotFile);
-				_camera.transform.SetPositionAndRotation(_originalCameraPos,_originalCameraRot);
+				_camera.transform.SetPositionAndRotation(_originalCameraPos, _originalCameraRot);
 				var currentEntry = config.Config.Groups.First(g => g.Key == GameIdGroup.MeleeSkin)
 					.Value.Configs.Find(a => a.SkinId == current.Key);
 				if (currentEntry.Sprite == null || currentEntry.Sprite.editorAsset == null)
@@ -79,11 +76,11 @@ namespace FirstLight.Editor.EditorTools.Skins
 				}
 			}
 
-			EditorUtility.SetDirty(config);
-			AssetDatabase.SaveAssets();
-			AssetDatabase.Refresh();
+			UnityEditor.EditorUtility.SetDirty(config);
+			UnityEditor.AssetDatabase.SaveAssets();
+			UnityEditor.AssetDatabase.Refresh();
 
-			EditorApplication.isPlaying = false;
+			UnityEditor.EditorApplication.isPlaying = false;
 		}
 
 		public static Bounds GetBoundsWithChildren(GameObject gameObject)
@@ -123,14 +120,10 @@ namespace FirstLight.Editor.EditorTools.Skins
 			Vector3 pos = view_direction * dist + b.center;
 			c.transform.position = pos;
 			c.transform.LookAt(b.center);
-
-
-
 		}
 
 		private AssetReferenceSprite TakeScreenshot(string path)
 		{
-			
 			_rt.Release();
 			_camera.Render();
 
@@ -141,14 +134,14 @@ namespace FirstLight.Editor.EditorTools.Skins
 
 			byte[] bytes = tex.EncodeToPNG();
 			System.IO.File.WriteAllBytes(path, bytes);
-			AssetDatabase.ImportAsset(path);
-			TextureImporter importer = UnityEditor.AssetImporter.GetAtPath(path) as TextureImporter;
-			importer.textureType = TextureImporterType.Sprite;
+			UnityEditor.AssetDatabase.ImportAsset(path);
+			UnityEditor.TextureImporter importer = UnityEditor.AssetImporter.GetAtPath(path) as UnityEditor.TextureImporter;
+			importer.textureType = UnityEditor.TextureImporterType.Sprite;
 			Debug.Log("Saved to " + path);
-			AssetDatabase.WriteImportSettingsIfDirty(path);
-			var newPrefabGuid = AssetDatabase.AssetPathToGUID(path);
+			UnityEditor.AssetDatabase.WriteImportSettingsIfDirty(path);
+			var newPrefabGuid = UnityEditor.AssetDatabase.AssetPathToGUID(path);
 			return new AssetReferenceSprite(newPrefabGuid);
 		}
-	}
 #endif
+	}
 }

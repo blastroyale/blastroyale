@@ -137,6 +137,7 @@
     --sprite-home__icon-mutator-speedup: url('/Assets/Art/UI/Sprites/Home/icon-mutator-speedup.png');
     --sprite-home__icon-notification: url('/Assets/Art/UI/Sprites/Home/icon-notification.png');
     --sprite-home__icon-player-blue: url('/Assets/Art/UI/Sprites/Home/icon-player-blue.png');
+    --sprite-home__icon-profilepicture: url('/Assets/Art/UI/Sprites/Home/icon-profilepicture.png');
     --sprite-home__icon-questionmark: url('/Assets/Art/UI/Sprites/Home/icon-questionmark.png');
     --sprite-home__icon-settings: url('/Assets/Art/UI/Sprites/Home/icon-settings.png');
     --sprite-home__icon-shop: url('/Assets/Art/UI/Sprites/Home/icon-shop.png');
@@ -952,6 +953,12 @@
     background-image: var(--sprite-home__icon-player-blue);
     width: 549px;
     height: 599px;
+}
+
+.sprite-home__icon-profilepicture {
+    background-image: var(--sprite-home__icon-profilepicture);
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-questionmark {

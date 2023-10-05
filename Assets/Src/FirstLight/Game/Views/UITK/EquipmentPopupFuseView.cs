@@ -44,12 +44,12 @@ namespace FirstLight.Game.Views.UITK
 
 		public void SetData(EquipmentInfo info, Action confirmAction, bool[] insufficient)
 		{
-			var canPurchase = insufficient[0] && insufficient[1];
+			var canPurchase = insufficient[0] || insufficient[1];
 			_currentRarity.text = string.Format(info.Equipment.Rarity.ToString());
 			_nextRarity.text = string.Format((info.Equipment.Rarity + 1).ToString());
 
 			_fuseButton.SetEnabled(!canPurchase);
-			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient);
+			_fuseButton.SetPrice(info.FuseCost, info.IsNft, insufficient, canPurchase);
 
 			_confirmAction = confirmAction;
 

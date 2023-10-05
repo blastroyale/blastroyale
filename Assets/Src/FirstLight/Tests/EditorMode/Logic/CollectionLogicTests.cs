@@ -12,7 +12,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void TestOwnedChecks()
 		{
-			var skin = ItemFactory.Collection(GameId.Avatar1);
+			var skin = ItemFactory.Collection(GameId.Avatar5);
 			
 			Assert.IsFalse(TestLogic.CollectionLogic.IsItemOwned(skin));
 		}

@@ -74,7 +74,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnSpectateChange(SpectatedPlayer oldView, SpectatedPlayer newView)
 		{
-			if (!newView.Entity.IsValid || !oldView.Entity.IsValid || newView.Entity == QuantumRunner.Default.Game.GetLocalPlayerEntityRef()) return;
+			if (newView.Entity == QuantumRunner.Default.Game.GetLocalPlayerEntityRef()) return;
+			if (!newView.Entity.IsValid || !oldView.Entity.IsValid) return;
 			
 			foreach (var hidden in _clientHidden)
 			{

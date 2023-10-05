@@ -923,6 +923,8 @@ namespace I2.Loc
 			public static string FuseResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseResults"); } }
 			public static string FusionWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FusionWarning"); } }
 			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
+			public static string GamesPlayedEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GamesPlayedEver"); } }
+			public static string GamesWonEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GamesWonEver"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
 			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
@@ -936,6 +938,7 @@ namespace I2.Loc
 			public static string ItemEnhancedText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ItemEnhancedText"); } }
 			public static string Items 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Items"); } }
 			public static string JoinRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/JoinRoom"); } }
+			public static string KillsEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/KillsEver"); } }
 			public static string LeaveMatchMessage 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LeaveMatchMessage"); } }
 			public static string Loading 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loading"); } }
 			public static string Locked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Locked"); } }
@@ -995,6 +998,9 @@ namespace I2.Loc
 			public static string PrepareForActionWaiting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionWaiting"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
+			public static string RankedGamesPlayedEver 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesPlayedEver"); } }
+			public static string RankedGamesWon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedGamesWon"); } }
+			public static string RankedKills 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RankedKills"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
@@ -2558,6 +2564,8 @@ namespace I2.Loc
 		    public const string FuseResults = "MainMenu/FuseResults";
 		    public const string FusionWarning = "MainMenu/FusionWarning";
 		    public const string GameMode = "MainMenu/GameMode";
+		    public const string GamesPlayedEver = "MainMenu/GamesPlayedEver";
+		    public const string GamesWonEver = "MainMenu/GamesWonEver";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
 		    public const string HighResMode = "MainMenu/HighResMode";
@@ -2571,6 +2579,7 @@ namespace I2.Loc
 		    public const string ItemEnhancedText = "MainMenu/ItemEnhancedText";
 		    public const string Items = "MainMenu/Items";
 		    public const string JoinRoom = "MainMenu/JoinRoom";
+		    public const string KillsEver = "MainMenu/KillsEver";
 		    public const string LeaveMatchMessage = "MainMenu/LeaveMatchMessage";
 		    public const string Loading = "MainMenu/Loading";
 		    public const string Locked = "MainMenu/Locked";
@@ -2630,6 +2639,9 @@ namespace I2.Loc
 		    public const string PrepareForActionWaiting = "MainMenu/PrepareForActionWaiting";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
+		    public const string RankedGamesPlayedEver = "MainMenu/RankedGamesPlayedEver";
+		    public const string RankedGamesWon = "MainMenu/RankedGamesWon";
+		    public const string RankedKills = "MainMenu/RankedKills";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		    public const string RegisterButton = "MainMenu/RegisterButton";

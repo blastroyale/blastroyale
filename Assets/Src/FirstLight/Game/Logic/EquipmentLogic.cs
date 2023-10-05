@@ -58,6 +58,11 @@ namespace FirstLight.Game.Logic
 		Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft);
 
 		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> fusion cost for 1 upgrade
+		/// </summary>
+		Pair<GameId, uint>[] GetFuseCost(Equipment equipment);
+
+		/// <summary>
 		/// Requests the given's <paramref name="equipment"/> repair cost
 		/// </summary>
 		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
@@ -144,6 +149,11 @@ namespace FirstLight.Game.Logic
 		void Upgrade(UniqueId itemId);
 
 		/// <summary>
+		/// Fuses the equipment of the given <paramref name="itemId"/> increasing it's rarity by 1 step
+		/// </summary>
+		void Fuse(UniqueId itemId);
+
+		/// <summary>
 		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
 		/// </summary>
 		void Repair(UniqueId itemId);
@@ -227,13 +237,13 @@ namespace FirstLight.Game.Logic
 			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
 		}
 
-
 		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)
 		{
-			//TODO: create and add fusion config logic here 
+			var config = GameLogic.ConfigsProvider.GetConfig<FuseConfig>((int) equipment.Rarity);
+
 			return new Pair<GameId, uint>[]{
-				new (GameId.COIN, 30),
-				new (GameId.Fragments, 20)
+				new (GameId.COIN, config.CoinCost),
+				new (GameId.Fragments, config.FragmentCost)
 			};
 		}
 
@@ -264,6 +274,9 @@ namespace FirstLight.Game.Logic
 		{
 			var nextEquipment = equipment;
 			nextEquipment.Level++;
+
+			var nextRarityEquipment = equipment;
+			nextRarityEquipment.Rarity++;
 			
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
@@ -281,7 +294,8 @@ namespace FirstLight.Game.Logic
 				MaxLevel = GetMaxLevel(equipment),
 				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
-				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
+				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider),
+				NextRarityStats = nextRarityEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 
@@ -543,6 +557,28 @@ namespace FirstLight.Game.Logic
 
 			_inventory[itemId] = equipment;
 		}
+
+		public void Fuse(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+										 $"{itemId} - {equipment.GameId.ToString()} is a NFT");
+			}
+
+			if (equipment.Rarity == EquipmentRarity.TOTAL -1)
+			{
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already at max rarity " +
+										 $"{equipment.Level} and cannot be fused further");
+			}
+
+			equipment.Rarity++;
+
+			_inventory[itemId] = equipment;
+		}
+
 
 		public void Repair(UniqueId itemId)
 		{

@@ -45,6 +45,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnCloseClicked;
 			public Action OnBackClicked;
 			public Action OnScrapClicked;
+			public Action OnFuseClicked;
 			public Action OnUpgradeClicked;
 			public Action OnRepairClicked;
 		}
@@ -125,7 +126,7 @@ namespace FirstLight.Game.Presenters
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
-			_fuseButton.clicked += Data.OnScrapClicked;
+			_fuseButton.clicked += Data.OnFuseClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
 			_infoButton.clicked += OnInfoClicked;
 

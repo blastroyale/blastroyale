@@ -370,7 +370,7 @@
 }
 
 .multi-price-button {
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .multi-price-button:active .price-button__holder {

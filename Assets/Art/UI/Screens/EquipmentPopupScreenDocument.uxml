@@ -33,7 +33,7 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_go_repair" name="RepairButton" class="button-long button-long--yellow content-rusted__button content-rusted__button--go-repair" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: flex;">
+                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: none;">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" name="AreYouSureLabel" />
                         <ui:VisualElement name="Requirements" class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
@@ -68,6 +68,17 @@
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradePopupButton" class="button-long button-long--yellow content-scrapping__button" />
+                        <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Fusion" class="fill-parent content-fusing" style="display: flex;">
+                        <ui:VisualElement name="LevelHolder" class="content-fusing__level-holder">
+                            <ui:Label text="Common" name="RarityCurrent" />
+                            <ui:VisualElement name="RightArrow" class="content-fusing__arrow-icon" />
+                            <ui:Label text="LegendaryPlus" name="RarityNext" />
+                        </ui:VisualElement>
+                        <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="content-fusing__stats-list" />
+                        <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
+                        <FirstLight.Game.UIElements.MultiPriceButton name="FusePriceButton" localization-key="UITEquipment/fuse" class="button-long--yellow" />
                         <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                 </ui:VisualElement>

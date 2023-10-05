@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -20,6 +20,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _slotClickedEvent = new StatechartEvent("Slot Clicked Event");
 		private readonly IStatechartEvent _scrapClickedEvent = new StatechartEvent("Scrap Clicked Event");
 		private readonly IStatechartEvent _upgradeClickedEvent = new StatechartEvent("Upgrade Clicked Event");
+		private readonly IStatechartEvent _fuseClickedEvent = new StatechartEvent("Fuse Clicked Event");
 		private readonly IStatechartEvent _repairClickedEvent = new StatechartEvent("Repair Clicked Event");
 		private readonly IStatechartEvent _itemProcessedEvent = new StatechartEvent("Item Processed Event");
 		private readonly IStatechartEvent _backButtonClickedEvent = new StatechartEvent("Equipment Back Button Clicked Event");
@@ -50,6 +51,7 @@ namespace FirstLight.Game.StateMachines
 			var equipmentState = stateFactory.State("Equipment Screen State");
 			var equipmentSelectionState = stateFactory.State("Equipment Selection Screen State");
 			var scrapState = stateFactory.State("Equipment Scrap Popup State");
+			var fuseState = stateFactory.State("Equipment Fuse Popup State");
 			var upgradeState = stateFactory.State("Equipment Upgrade Popup State");
 			var repairState = stateFactory.State("Equipment Repair Popup State");
 			var final = stateFactory.Final("Final");
@@ -62,11 +64,14 @@ namespace FirstLight.Game.StateMachines
 			equipmentState.Event(CloseButtonClickedEvent).Target(final);
 			equipmentState.Event(_scrapClickedEvent).Target(scrapState);
 			equipmentState.Event(_upgradeClickedEvent).Target(upgradeState);
+			equipmentState.Event(_fuseClickedEvent).Target(fuseState);
 			equipmentState.Event(_repairClickedEvent).Target(repairState);
 
 			equipmentSelectionState.OnEnter(OpenEquipmentSelectionScreen);
 			equipmentSelectionState.Event(_scrapClickedEvent).Target(scrapState);
 			equipmentSelectionState.Event(_upgradeClickedEvent).Target(upgradeState);
+			equipmentSelectionState.Event(_fuseClickedEvent).Target(fuseState);
+
 			equipmentSelectionState.Event(_repairClickedEvent).Target(repairState);
 			equipmentSelectionState.Event(_backButtonClickedEvent).Target(equipmentState);
 			equipmentSelectionState.Event(CloseButtonClickedEvent).Target(final);
@@ -75,6 +80,11 @@ namespace FirstLight.Game.StateMachines
 			scrapState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
 			scrapState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			scrapState.OnExit(CloseEquipmentPopup);
+
+			fuseState.OnEnter(OpenFusePopup);
+			fuseState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
+			fuseState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
+			fuseState.OnExit(CloseEquipmentPopup);
 
 			upgradeState.OnEnter(OpenUpgradePopup);
 			upgradeState.Event(CloseButtonClickedEvent).Target(equipmentSelectionState);
@@ -99,6 +109,10 @@ namespace FirstLight.Game.StateMachines
 			OpenPopup(EquipmentPopupPresenter.Mode.Upgrade);
 		}
 
+		private void OpenFusePopup()
+		{
+			OpenPopup(EquipmentPopupPresenter.Mode.Fuse);
+		}
 		private void OpenRepairPopup()
 		{
 			OpenPopup(EquipmentPopupPresenter.Mode.Repair);
@@ -137,6 +151,11 @@ namespace FirstLight.Game.StateMachines
 					break;
 				case EquipmentPopupPresenter.Mode.Repair:
 					_services.CommandService.ExecuteCommand(new RepairItemCommand {Item = id});
+					break;
+
+					//TODO: Fuse item command must be made and referenced here, if this comment is still here it means I forgort and didnt do it :(
+				case EquipmentPopupPresenter.Mode.Fuse:
+					_services.CommandService.ExecuteCommand(new FuseItemCommand { Item = id });
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -183,6 +202,7 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(CloseButtonClickedEvent),
 				OnScrapClicked = () => _statechartTrigger(_scrapClickedEvent),
 				OnUpgradeClicked = () => _statechartTrigger(_upgradeClickedEvent),
+				OnFuseClicked = () => _statechartTrigger(_fuseClickedEvent),
 				OnRepairClicked = () => _statechartTrigger(_repairClickedEvent),
 			};
 

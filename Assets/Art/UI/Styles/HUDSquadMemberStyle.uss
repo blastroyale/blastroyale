@@ -162,7 +162,6 @@
     top: 6px;
     left: 139px;
     font-size: 30px;
-    color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(24, 18, 54);
     text-shadow: 2px 2px 0 rgb(24, 18, 54);

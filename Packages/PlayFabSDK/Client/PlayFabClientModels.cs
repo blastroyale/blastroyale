@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using PlayFab.SharedModels;
+using UnityEngine.Scripting;
+
+[assembly: Preserve]
 
 namespace PlayFab.ClientModels
 {

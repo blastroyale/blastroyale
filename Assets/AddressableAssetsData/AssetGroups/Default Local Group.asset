@@ -47,13 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa9c5497372c14d9ea5dab0d6be12609
-    m_Address: Configs
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Quantum
-    - GenerateIds
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b905d4b46c36744f087748d11391932d
     m_Address: Ui
     m_ReadOnly: 0

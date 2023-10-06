@@ -17,11 +17,13 @@
 }
 
 .player-statistics-popup__title {
-    background-image: var(--sprite-home__header-popup-player-statistics);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/header-popup-equipment.png?fileID=21300000&guid=2d6c823359e264eac88204c4e1664c4c&type=3#header-popup-equipment');
     -unity-text-align: middle-center;
     height: 86px;
     margin: 0;
     padding: 0 120px 0 20px;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .player-statistics-popup__close {
@@ -43,6 +45,7 @@
     top: 86px;
     right: 0;
     bottom: 0;
+    flex-grow: 1;
 }
 
 .safe-area {
@@ -70,51 +73,22 @@
     justify-content: flex-start;
     display: flex;
     align-self: center;
-    margin-bottom: 8px;
 }
 
 .stats-container {
-    flex-grow: 1;
     background-color: rgba(60, 57, 77, 0);
-    width: 160px;
-    height: 160px;
-    max-width: 160px;
-    max-height: 160px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     align-items: center;
     justify-content: center;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    flex-grow: 1;
 }
 
 .stats-container__stat-value {
     justify-content: center;
     align-items: center;
-}
-
-.stat-row {
-    flex-grow: 1;
-    background-color: rgb(68, 64, 89);
-    width: 70%;
-    height: 200px;
-    max-height: 200px;
-    flex-direction: row;
-    align-items: auto;
-    justify-content: space-around;
-    display: flex;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
 }
 
 .header-row__pfp-image {
@@ -161,17 +135,94 @@
     visibility: visible;
 }
 
+.stat-row {
+    flex-grow: 1;
+    background-color: rgb(22, 20, 38);
+    width: 70%;
+    height: 200px;
+    max-height: 200px;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-around;
+    display: flex;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
 .stat-row0 {
-    margin-bottom: 4px;
+    flex-grow: 1;
+    background-color: rgb(22, 20, 38);
+    width: 70%;
+    height: 200px;
+    max-height: 200px;
+    align-items: stretch;
+    justify-content: space-around;
+    display: flex;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-direction: row;
+    margin-bottom: 20px;
 }
 
 .header-row__edit-name-button {
-    margin-left: 10px;
+    margin-left: 23px;
     justify-content: center;
     align-items: center;
     align-self: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(22, 20, 38);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .stats-container__stat-name {
     font-size: 30px;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-header__leaderboards-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    width: 50px;
+    height: 50px;
+}
+
+.player-header__edit-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Shared/icon_edit.png?fileID=21300000&guid=5a4652befed4d024db77cdcb367eb46f&type=3#icon_edit');
+    width: 50px;
+    height: 50px;
+}
+
+.player-header__playername-label {
+    justify-content: center;
+    align-items: auto;
+    align-self: center;
+    -unity-text-align: upper-right;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.stats-container_stat-value {
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.player-avatar {
+    scale: 0.7 0.7;
 }

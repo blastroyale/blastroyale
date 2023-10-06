@@ -4108,9 +4108,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Beginner Blast Pass
-      - BlastPass
-      - Blastpass
+      - Alpha Pass
+      - Alpha Pass
+      - Alpha Pass
       - 
       - 
       Flags: 0000000000
@@ -17634,7 +17634,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1696524352774
+    Google_LastUpdatedVersion: 1696584587351
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

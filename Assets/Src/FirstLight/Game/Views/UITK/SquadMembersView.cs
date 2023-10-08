@@ -143,9 +143,12 @@ namespace FirstLight.Game.Views.UITK
 
 					var isBot = f.Has<BotCharacter>(e);
 					var playerName = Extensions.GetPlayerName(f, e, pc);
-
+					var playerNameColor = isBot ?
+						                      GameConstants.PlayerName.DEFAULT_COLOR :
+						                      _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, (int)f.GetPlayerData(pc.Player).LeaderboardRank);
+					
 					squadMember.SetPlayer(pc.Player, playerName, pc.GetEnergyLevel(f),
-						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl);
+						isBot ? null : f.GetPlayerData(pc.Player).AvatarUrl, playerNameColor);
 					if (f.TryGet<Stats>(e, out var stats))
 					{
 						squadMember.UpdateHealth(StatUtils.GetHealthPercentage(stats).AsFloat);

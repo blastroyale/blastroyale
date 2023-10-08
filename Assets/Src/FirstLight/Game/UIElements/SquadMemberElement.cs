@@ -144,12 +144,13 @@ namespace FirstLight.Game.UIElements
 			else _teamColor.style.backgroundColor = color.Value;
 		}
 
-		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl)
+		public void SetPlayer(PlayerRef player, string playerName, int level, string pfpUrl, Color playerNameColor)
 		{
 			if (_player == player) return;
 			_player = player;
 
 			_name.text = playerName;
+			_name.style.color = playerNameColor;
 			_level.text = level.ToString();
 
 			if (Application.isPlaying)

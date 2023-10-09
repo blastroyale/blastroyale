@@ -4108,9 +4108,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BlastPass
-      - BlastPass
-      - Blastpass
+      - Alpha Pass
+      - Alpha Pass
+      - Alpha Pass
       - 
       - 
       Flags: 0000000000
@@ -11886,6 +11886,78 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: MainMenu/RankedGamesWon
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked Games Won
+      - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "Jogos classificados j\xE1 vencidos"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedKills
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked Kills
+      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
+      - Jogos classificados vencidos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/RankedGamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked Games Played
+      - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
+        \u0438\u0433\u0440"
+      - "\nMortes Classificat\xF3rias"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/KillsEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Kills
+      - "\u0412\u0441\u0435\u0433\u043E \u0443\u0431\u0438\u0439\u0441\u0442\u0432"
+      - '
+
+        Total de mortes'
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/GamesPlayedEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Played
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0441\u044B\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos disputados
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/GamesWonEver
+      TermType: 0
+      Description: 
+      Languages:
+      - Total Games Won
+      - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
+        \u0438\u0433\u0440"
+      - Total de jogos ganhos
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: MapDropPoints/Aircraft
       TermType: 0
       Description: 
@@ -17538,78 +17610,6 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: MainMenu/RankedGamesWon
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked Games Won
-      - "\u0412\u044B\u0438\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
-        \u0438\u0433\u0440"
-      - "Jogos classificados j\xE1 vencidos"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedKills
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked Kills
-      - "\n\u0420\u0430\u043D\u0433\u043E\u0432\u044B\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430"
-      - Jogos classificados vencidos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/RankedGamesPlayedEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked Games Played
-      - "\u0421\u044B\u0433\u0440\u0430\u043D\u043E \u0440\u0435\u0439\u0442\u0438\u043D\u0433\u043E\u0432\u044B\u0445
-        \u0438\u0433\u0440"
-      - "\nMortes Classificat\xF3rias"
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/KillsEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Kills
-      - "\u0412\u0441\u0435\u0433\u043E \u0443\u0431\u0438\u0439\u0441\u0442\u0432"
-      - '
-
-        Total de mortes'
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/GamesPlayedEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Games Played
-      - "\n\u0412\u0441\u0435\u0433\u043E \u0441\u044B\u0433\u0440\u0430\u043D\u043E
-        \u0438\u0433\u0440"
-      - Total de jogos disputados
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
-    - Term: MainMenu/GamesWonEver
-      TermType: 0
-      Description: 
-      Languages:
-      - Total Games Won
-      - "\n\u0412\u0441\u0435\u0433\u043E \u0432\u044B\u0438\u0433\u0440\u0430\u043D\u043E
-        \u0438\u0433\u0440"
-      - Total de jogos ganhos
-      - 
-      - 
-      Flags: 0000000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -17634,7 +17634,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1696508881877
+    Google_LastUpdatedVersion: 1696584587351
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

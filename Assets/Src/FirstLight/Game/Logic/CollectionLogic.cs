@@ -84,8 +84,7 @@ namespace FirstLight.Game.Logic
 			{
 				CollectionCategories.PLAYER_SKINS, new List<ItemData>
 				{
-					ItemFactory.Collection(GameId.MaleAssassin), ItemFactory.Collection(GameId.FemaleAssassin),
-					ItemFactory.Collection(GameId.MaleSuperstar), ItemFactory.Collection(GameId.FemaleSuperstar),
+					ItemFactory.Collection(GameId.MaleAssassin),
 				}
 			},
 			{

@@ -20,8 +20,7 @@ MonoBehaviour:
   - m_GUID: 7d88988e5c3e66b42ad3757d3ac6f4aa
     m_Address: Maps/Islands
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}

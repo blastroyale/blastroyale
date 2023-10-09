@@ -20,8 +20,7 @@ MonoBehaviour:
   - m_GUID: 69b6ada9e097c4b45835a813b0a66f87
     m_Address: Maps/Battlelands
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}

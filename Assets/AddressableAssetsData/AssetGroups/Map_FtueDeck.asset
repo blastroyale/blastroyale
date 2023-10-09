@@ -20,8 +20,7 @@ MonoBehaviour:
   - m_GUID: 30ecf3093636fef44a09546128767755
     m_Address: Maps/FtueDeck
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GenerateIds
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}

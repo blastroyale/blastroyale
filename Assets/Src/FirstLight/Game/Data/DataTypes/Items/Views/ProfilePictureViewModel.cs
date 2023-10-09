@@ -1,9 +1,9 @@
-using FirstLight.FLogger;
-using FirstLight.Game.Configs;
+using System.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine.UIElements;
+
 
 namespace FirstLight.Game.Data.DataTypes
 {
@@ -12,45 +12,48 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class ProfilePictureViewModel : IItemViewModel
 	{
-		private int _requestTextureHandle = -1;
-		
+		public ItemData Item { get; }
 		public GameId GameId { get; }
 		public uint Amount => 1;
 		public string DisplayName { get; }
+		public string Description => null;
 		
 		public VisualElement ItemCard => new ProfilePictureRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.style.backgroundImage = StyleKeyword.Null;
-			var services = MainInstaller.ResolveServices();
-			services.RemoteTextureService.CancelRequest(_requestTextureHandle);
-			
-			var avatarCollectableConfigs = services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
-			var avatarUrl = avatarCollectableConfigs.GameIdUrlDictionary[GameId];
-				
-			_requestTextureHandle = services.RemoteTextureService.RequestTexture(
-				avatarUrl, 
-				tex =>
-				{
-					if (icon != null && icon.panel != null)
-					{
-						icon.style.backgroundImage = new StyleBackground(tex);
-					}
-				},
-				() =>
-				{
-					FLog.Error($"Could not retrieve remote texture for url: {avatarUrl}");
-				});
-			
-			name.text = DisplayName;
+			icon.RemoveSpriteClasses();
+			_ = DrawAvatar(icon);
+		}
+
+		private async Task DrawAvatar(VisualElement icon)
+		{
+			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
+			icon.style.backgroundImage = new StyleBackground(sprite);
+			var w = icon.resolvedStyle.width / 2;
+			if (w == 0) w = 128;
+			icon.style.borderBottomLeftRadius = w;
+			icon.style.borderBottomRightRadius = w;
+			icon.style.borderTopLeftRadius = w;
+			icon.style.borderTopRightRadius = w;
+			/*
+			// BELOW CODE IS IDEAL but did not work on all places
+			var avatarElement = new PlayerAvatarElement();
+			avatarElement.style.position = Position.Absolute;
+			avatarElement.SetDisplayLevel(false);
+			avatarElement.SetVisibleStars(0);
+			avatarElement.SetAvatar(sprite);
+			icon.Add(avatarElement);
+			*/
 		}
 		
 		public ProfilePictureViewModel(ItemData item)
 		{
+			Item = item;
 			GameId = item.Id;
 			DisplayName = GameId.GetLocalization();
 		}

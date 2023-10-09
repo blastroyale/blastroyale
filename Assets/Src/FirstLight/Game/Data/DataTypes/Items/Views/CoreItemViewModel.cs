@@ -11,6 +11,7 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class CoreItemViewModel : IItemViewModel
 	{
+		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => 1;
 		public string DisplayName => GameId.GetLocalization().ToUpper();
@@ -19,19 +20,21 @@ namespace FirstLight.Game.Data.DataTypes
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
-			name.text = DisplayName;
 #pragma warning disable CS4014
 			UIUtils.SetSprite(GameId, icon);
 #pragma warning restore CS4014
 		}
 
+		public string Description => null;
+
 		private GameId _gameId;
 		public CoreItemViewModel(ItemData item)
 		{
+			Item = item;
 			_gameId = item.Id;
 		}
 	}

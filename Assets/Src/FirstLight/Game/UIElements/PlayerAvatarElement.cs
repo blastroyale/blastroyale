@@ -1,3 +1,4 @@
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -53,7 +54,7 @@ namespace FirstLight.Game.UIElements
 				}
 			}
 
-			Add(_fameLvl = new Label("122") {name = "fame-lvl"});
+			Add(_fameLvl = new Label("") {name = "fame-lvl"});
 			_fameLvl.AddToClassList(USS_FAME_LVL);
 
 			Add(_starsHolder = new VisualElement {name = "fame-stars-holder"});
@@ -77,6 +78,11 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		public void SetDisplayLevel(bool display)
+		{
+			_fameLvl.SetDisplay(display);
+		}
+
 		public void SetLevel(uint level)
 		{
 			_fameLvl.text = level.ToString();
@@ -84,6 +90,12 @@ namespace FirstLight.Game.UIElements
 			var visibleStars = ((level - 1) % 5) + 1;
 			SetVisibleStars(visibleStars);
 			SetStarsColorLevel((uint) Mathf.FloorToInt((level - 1) / 5f));
+		}
+		
+		public void SetAvatar(Sprite sprite)
+		{
+			_pfp.style.backgroundImage = new StyleBackground(sprite);
+			_avatarHolder.SetVisibility(true);
 		}
 
 		public void SetAvatar(string url)
@@ -111,10 +123,10 @@ namespace FirstLight.Game.UIElements
 				});
 		}
 
-		private void SetVisibleStars(uint visibleStars)
+		public void SetVisibleStars(uint visibleStars)
 		{
-			Assert.IsTrue(visibleStars is <= 5 and > 0, "Can only show 1 - 5 visible stars");
-
+			Assert.IsTrue(visibleStars is <= 5 and >= 0, "Can only show 0 - 5 visible stars");
+			
 			_star1.SetDisplay(visibleStars is 4 or 5);
 			_star2.SetDisplay(visibleStars is 2 or 3 or 4 or 5);
 			_star3.SetDisplay(visibleStars is 1 or 3 or 5);

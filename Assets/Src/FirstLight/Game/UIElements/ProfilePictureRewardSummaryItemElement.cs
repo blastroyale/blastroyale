@@ -12,28 +12,7 @@ namespace FirstLight.Game.UIElements
 		
 		public override RewardSummaryItemElement SetReward(IItemViewModel itemViewModel)
 		{
-			var services = MainInstaller.ResolveServices();
-			services.RemoteTextureService.CancelRequest(_requestTextureHandle);
-			
-			var avatarCollectableConfigs = services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
-			var avatarUrl = avatarCollectableConfigs.GameIdUrlDictionary[itemViewModel.GameId];
-			
-			_icon.style.backgroundImage = StyleKeyword.Null;
-			
-			_requestTextureHandle = services.RemoteTextureService.RequestTexture(
-				avatarUrl, 
-				tex =>
-				{
-					if (_icon != null && _icon.panel != null)
-					{
-						_icon.style.backgroundImage = new StyleBackground(tex);
-					}
-				},
-				() =>
-				{
-					FLog.Error($"Could not retrieve remote texture for url: {avatarUrl}");
-				});
-			
+			itemViewModel.DrawIcon(_icon);
 			_label.text = itemViewModel.DisplayName;
 			return this;
 		}

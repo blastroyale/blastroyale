@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -26,7 +27,7 @@ namespace FirstLight.Game.Views
 		private const string UssSpriteRarityEpic = UssSpriteRarityModifier + "epic";
 		private const string UssSpriteRarityLegendary = UssSpriteRarityModifier + "legendary";
 		private const string UssSpriteRarityRainbow = UssSpriteRarityModifier + "rainbow";
-
+		private const string UssBorderRadius = "circle-border-radius";
 		private const string UssOutlineClaimed = "reward__button-outline--claimed";
 		private const string UssLevelBgComplete = "progress-bar__level-bg--complete";
 		private const string UssFirstReward = "first-reward";
@@ -37,6 +38,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _claimBubble;
 		private VisualElement _rarityImage;
 		private VisualElement _rewardImage;
+		private VisualElement _imageContainer;
 		private VisualElement _claimStatusOutline;
 		private VisualElement _readyToClaimShine;
 		private VisualElement _readyToClaimOutline;
@@ -68,8 +70,20 @@ namespace FirstLight.Game.Views
 			_rewardImage = element.Q("RewardImage").Required();
 			_title = element.Q<AutoSizeLabel>("Title");
 			_levelNumber = element.Q<AutoSizeLabel>("LevelLabel");
-
+			_imageContainer = _rewardImage.parent;
 			_button.clicked += () => Clicked?.Invoke(this);
+		}
+
+		private async Task CollectionItemLegacyDraw(BattlePassSegmentData data)
+		{
+			_rewardImage.RemoveSpriteClasses();
+			var collectionItem = ItemFactory.Collection(data.RewardConfig.GameId);
+			var view = collectionItem.GetViewModel();
+			//_rewardImage.style.backgroundImage = new StyleBackground(sprite);
+			//_rewardImage.AddToClassList(UssBorderRadius);
+			
+			// MAKE THE BELOW WORK INSTEAD OF SETTING BG IMAGE
+			view.DrawIcon(_rewardImage);
 		}
 
 		/// <summary>
@@ -81,27 +95,35 @@ namespace FirstLight.Game.Views
 
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
-
+			_rewardImage.style.backgroundImage = StyleKeyword.Null;
+			_rewardImage.RemoveFromClassList(UssBorderRadius);
+			if (data.RewardConfig.GameId.IsInGroup(GameIdGroup.Collection))
+			{
+				_ = CollectionItemLegacyDraw(data);
+			}
+			else
+			{
+				_rarityImage.RemoveSpriteClasses();
+				_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
+				var rewardImage = data.RewardConfig.GameId.GetUSSSpriteClass();
+				if (rewardImage != null)
+				{
+					_rewardImage.RemoveSpriteClasses();
+					_rewardImage.AddToClassList(rewardImage);
+				}
+				else
+				{
+					// Legacy sprite load
+#pragma warning disable CS4014
+					UIUtils.SetSprite(data.RewardConfig.GameId, _rewardImage);
+#pragma warning restore CS4014
+				}
+			}
 			// TODO: Use IItemViewModel to render items
 			_title.text = GetRewardName(_data.RewardConfig.GameId);
 			_levelNumber.text = levelForUi.ToString();
 
-			_rarityImage.RemoveSpriteClasses();
-			_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
-
-			var rewardImage = data.RewardConfig.GameId.GetUSSSpriteClass();
-			if (rewardImage != null)
-			{
-				_rewardImage.RemoveSpriteClasses();
-				_rewardImage.AddToClassList(rewardImage);
-			}
-			else
-			{
-				// Legacy sprite load
-#pragma warning disable CS4014
-				UIUtils.SetSprite(data.RewardConfig.GameId, _rewardImage);
-#pragma warning restore CS4014
-			}
+		
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);

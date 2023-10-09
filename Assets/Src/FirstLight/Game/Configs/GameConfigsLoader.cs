@@ -43,7 +43,6 @@ namespace FirstLight.Game.Configs
 		{
 			return new List<Task>
 			{
-				LoadConfig<AvatarCollectableConfigs>(AddressableId.Configs_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
 				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
@@ -83,6 +82,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<CharacterSkinConfigs>(AddressableId.Collections_CharacterSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<WeaponSkinsConfigContainer>(AddressableId.Collections_WeaponSkins_Config, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MainMenuCharacterAnimationConfigs>(AddressableId.Configs_MainMenuCharacterAnimationConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<AvatarCollectableConfigs>(AddressableId.Collections_ProfilePicture_AvatarCollectableConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 			};
 		}
 

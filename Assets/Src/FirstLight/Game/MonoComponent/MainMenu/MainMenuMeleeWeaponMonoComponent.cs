@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -48,12 +49,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private async void InitAllComponents()
 		{
-			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.MeleeSkin)).Id;
+			var skin = _gameDataProvider.CollectionDataProvider.GetEquipped(new (GameIdGroup.MeleeSkin));
 
 			await UpdateMeleeObject(skin);
 		}
 
-		private async Task UpdateMeleeObject(GameId skin)
+		private async Task UpdateMeleeObject(ItemData skin)
 		{
 			if (_currentMeleeWeapon != null)
 			{
@@ -74,8 +75,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			if (msg.Category != new CollectionCategory(GameIdGroup.MeleeSkin)) return;
 			if (msg.EquippedItem == null) return;
-
-			await UpdateMeleeObject(msg.EquippedItem.Id);
+			await UpdateMeleeObject(msg.EquippedItem);
 		}
 	}
 }

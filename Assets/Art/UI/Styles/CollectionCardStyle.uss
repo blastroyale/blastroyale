@@ -60,6 +60,7 @@
     right: 0;
     bottom: 0;
     flex-direction: column-reverse;
+
 }
 
 .collection-card:active .collection-card__card-holder {
@@ -74,7 +75,7 @@
     height: 237px;
     position: absolute;
     left: 9px;
-    top: 2px;
+    top: 8px;
     -unity-background-scale-mode: scale-to-fit;
     transition-property: opacity;
 }

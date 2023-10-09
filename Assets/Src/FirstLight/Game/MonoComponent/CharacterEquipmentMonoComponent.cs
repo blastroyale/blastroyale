@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Game.MonoComponent.EntityViews;
@@ -48,10 +49,10 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Instantiate a Game Item of the specified GameIdGroup
 		/// </summary>
-		public async Task<List<GameObject>> InstantiateItem(GameId gameId, GameIdGroup gameIdGroup)
+		public async Task<List<GameObject>> InstantiateItem(ItemData item, GameIdGroup gameIdGroup)
 		{
 			var anchors = _skin.GetEquipmentAnchors(gameIdGroup);
-			var instance = await _services.AssetResolverService.RequestAsset<GameId, GameObject>(gameId);
+			var instance = await _services.CollectionService.LoadCollectionItem3DModel(item);
 			var instances = new List<GameObject>(anchors.Length);
 
 			if (this.IsDestroyed())

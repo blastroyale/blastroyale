@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
@@ -21,33 +22,30 @@ namespace FirstLight.Game.Services.Collection.Handles
 			_assetResolver = assetResolver;
 		}
 
-		public bool CanHandle(GameId id)
+		public bool CanHandle(ItemData item)
 		{
-			return SkinContainer.Skins.Any(s => s.GameId == id);
+			return SkinContainer.Skins.Any(s => s.GameId == item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true)
+		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
-			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
+			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			return await _assetResolver.LoadAssetByReference<Sprite>(skin.Sprite, true, instantiate);
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true)
+		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
-			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == id);
+			var skin = SkinContainer.Skins.FirstOrDefault(s => s.GameId == item.Id);
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(skin.Prefab, true, instantiate);
 			if (!instantiate) return obj;
 			var skinComponent = obj.GetComponent<CharacterSkinMonoComponent>();
-			// Check animators
-			UpdateAnimator(obj, skinComponent, menuModel);
-
+			if (skinComponent != null) UpdateAnimator(obj, skinComponent, menuModel);
 			return obj;
 		}
 
 		private void UpdateAnimator(GameObject obj, CharacterSkinMonoComponent skinComponent, bool menu)
 		{
-			// Copy default animators values
 			var defaultValues = menu ? SkinContainer.MenuDefaultAnimation : SkinContainer.InGameDefaultAnimation;
 			var animator = obj.GetComponent<Animator>();
 			animator.runtimeAnimatorController = menu switch
@@ -56,7 +54,6 @@ namespace FirstLight.Game.Services.Collection.Handles
 				false when skinComponent.InGameController != null => skinComponent.InGameController,
 				_                                                 => defaultValues.Controller
 			};
-
 			animator.applyRootMotion = defaultValues.ApplyRootMotion;
 			animator.updateMode = defaultValues.UpdateMode;
 			animator.cullingMode = defaultValues.CullingMode;

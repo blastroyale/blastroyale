@@ -182,6 +182,10 @@
     position: absolute;
 }
 
+.circle-border-radius {
+    border-radius: 50px;
+}
+
 .reward-holder__image {
     width: 200px;
     height: 200px;

@@ -21,7 +21,7 @@ namespace FirstLight.Game.Services
 		/// or be retrieved from the local cache.
 		/// </summary>
 		/// <returns>A handle ID that can be used in <see cref="CancelRequest"/></returns>
-		int RequestTexture(string url, Action<Texture2D> success, Action error);
+		int RequestTexture(string url, Action<Texture2D> success, Action error=null);
 
 		/// <summary>
 		/// Cancels a texture request. After this is called, the request callbacks
@@ -73,7 +73,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public int RequestTexture(string url, Action<Texture2D> callback, Action error)
+		public int RequestTexture(string url, Action<Texture2D> callback, Action error=null)
 		{
 			FLog.Info($"Requested texture: {url}");
 
@@ -109,7 +109,7 @@ namespace FirstLight.Game.Services
 		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle)
 		{
 			FLog.Verbose($"Loading texture URI: {uri}");
-
+			
 			var request = UnityWebRequestTexture.GetTexture(uri);
 			yield return request.SendWebRequest();
 
@@ -124,7 +124,7 @@ namespace FirstLight.Game.Services
 
 			if (request.result != UnityWebRequest.Result.Success)
 			{
-				FLog.Warn($"Error loading texture from {uri}: {request.error}");
+				FLog.Error($"Error loading texture from {uri}: {request.error}");
 				error?.Invoke();
 			}
 			else

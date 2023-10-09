@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
@@ -93,7 +94,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_ = SpawnDeathMarker(marker);
 		}
 
-		private async Task SpawnDeathMarker(GameId marker)
+		private async Task SpawnDeathMarker(ItemData marker)
 		{
 			var position = transform.position;
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
@@ -140,7 +141,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
-			OnLoaded(skin, obj, true);
+			OnLoaded(skin.Id, obj, true);
 			return obj;
 		}
 

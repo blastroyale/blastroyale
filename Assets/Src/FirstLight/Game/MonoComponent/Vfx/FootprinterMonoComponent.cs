@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -19,8 +20,8 @@ public class FootprinterMonoComponent : MonoBehaviour
     private static Queue<GameObject> _globalPool = new(); 
     private static readonly Vector3 _rightStepVariation = new(-0.1f, 0, 0);
     private static readonly Vector3 _leftStepVariation = new(0.1f, 0, 0);
-    
-    private GameId _id;
+
+    private ItemData _skin;
     private WaitForSeconds _duration = new (2.4f);
     private Cooldown _cooldown = new (TimeSpan.FromMilliseconds(300));
     
@@ -55,14 +56,15 @@ public class FootprinterMonoComponent : MonoBehaviour
 
     public void Init(EntityView view, PlayerLoadout loadout)
     {
+        var services = MainInstaller.Resolve<IGameServices>();
         _character = view.GetComponent<PlayerCharacterMonoComponent>();
         _view = view;
-        _id =  MainInstaller.Resolve<IGameServices>().CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);;
+        _skin = services.CollectionService.GetCosmeticForGroup(loadout.Cosmetics, GameIdGroup.Footprint);
     }
 
     private void Update()
     {
-        if (_character != null && _view != null && SpawnFootprints && _id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
+        if (_character != null && _view != null && SpawnFootprints && _skin.Id != GameId.Random && _cooldown.CheckTrigger()) Spawn();
     }
 
     private Quaternion GetFootRotation()
@@ -87,7 +89,7 @@ public class FootprinterMonoComponent : MonoBehaviour
         if (_character.PlayerView.Culled) return;
         
         if (_globalPool.Count > 0) _pooledFootprint = _globalPool.Dequeue();
-        else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_id);
+        else  _pooledFootprint = await _services.CollectionService.LoadCollectionItem3DModel(_skin);
         if (!QuantumRunner.Default.IsDefinedAndRunning()) return;
         if (_rightStepScale == Vector3.zero)
         {

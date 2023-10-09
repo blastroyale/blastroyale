@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -206,7 +207,7 @@ namespace FirstLight.Game.Presenters
 				_collectionList.visible = false;
 			}
 
-			_renderTexture.visible = hasItems && _selectedCategory != CollectionCategories.PROFILE_PICTURE;
+			_renderTexture.visible = hasItems && _collectionObject != null;
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;
@@ -272,8 +273,7 @@ namespace FirstLight.Game.Presenters
 				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
 			}
 		}
-
-
+		
 		/// <summary>
 		/// TODO: Enable players to buy new items here.
 		/// </summary>
@@ -283,8 +283,6 @@ namespace FirstLight.Game.Presenters
 
 		private async void Update3DObject()
 		{
-			if (_selectedCategory == CollectionCategories.PROFILE_PICTURE) return;
-
 			var selectedItem = GetSelectedItem();
 			if (selectedItem == null)
 			{
@@ -299,9 +297,8 @@ namespace FirstLight.Game.Presenters
 				_collectionObject = null;
 			}
 
-			_collectionObject = await _services.CollectionService.LoadCollectionItem3DModel(selectedItem.Id, true, true);
-
-
+			_collectionObject = await _services.CollectionService.LoadCollectionItem3DModel(selectedItem, true, true);
+			if (_collectionObject == null) return;
 			if (_anchorObject != null)
 			{
 				Destroy(_anchorObject);
@@ -390,7 +387,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < PAGE_SIZE; i++)
 			{
 				var card = new CollectionCardElement {name = "item-" + (i + 1)};
-				card.clicked += OnCollectionItemSelected;
+				card.Clicked += OnCollectionItemSelected;
 				row.Add(card);
 			}
 
@@ -429,16 +426,9 @@ namespace FirstLight.Game.Presenters
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
-
-				string avatarUrl = null;
-				if (_selectedCategory == CollectionCategories.PROFILE_PICTURE)
-				{
-					var avatarCollectableConfigs = _services.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
-					avatarUrl = avatarCollectableConfigs.GameIdUrlDictionary[selectedItem.Id];
-				}
-
-				card.SetCollectionElement(selectedItem.Id, avatarUrl, itemIndex, category.Id, owned,
-					equipped != null && equipped.Equals(selectedItem));
+				card.SetCollectionElement(selectedItem, itemIndex);
+				card.SetIsOwned(owned);
+				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
 			}
 		}

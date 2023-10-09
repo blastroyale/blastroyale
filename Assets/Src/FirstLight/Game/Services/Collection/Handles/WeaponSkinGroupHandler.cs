@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.Collection;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.MonoComponent.Collections;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -49,8 +50,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 					.SelectMany(x => x)
 					.Select(a => a.SkinId)
 					.ToHashSet();
-
-
+				
 				_spriteLookup = Configs.Groups.Select(groups => groups.Value)
 					.Select(group => group.Configs)
 					.SelectMany(x => x)
@@ -72,23 +72,23 @@ namespace FirstLight.Game.Services.Collection.Handles
 		}
 
 
-		public bool CanHandle(GameId id)
+		public bool CanHandle(ItemData item)
 		{
 			CheckConfigInitialize();
-			return _canHandleLookup.Contains(id);
+			return _canHandleLookup.Contains(item.Id);
 		}
 
-		public async Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true)
+		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
-			var assetRef = _spriteLookup[id];
+			var assetRef = _spriteLookup[item.Id];
 			return await _assetResolver.LoadAssetByReference<Sprite>(assetRef, true, instantiate);
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true)
+		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			CheckConfigInitialize();
-			var assetRef = _prefabLookup[id];
+			var assetRef = _prefabLookup[item.Id];
 			var obj = await _assetResolver.LoadAssetByReference<GameObject>(assetRef, true, instantiate);
 			if (!instantiate) return obj;
 			// Workaround, somehow the playercharacter monocomponent detaches the first child of the prefab, i tried to fix the code there but i couldn't do it quickly
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Services.Collection.Handles
 			var a = obj.AddComponent<RenderersContainerMonoComponent>();
 			a.UpdateRenderers();
 			var skin = obj.GetComponent<WeaponSkinMonoComponent>();
-			var animator = skin.AnimatorController != null ? skin.AnimatorController : _groupLookup[id].DefaultAnimationOverwrite;
+			var animator = skin.AnimatorController != null ? skin.AnimatorController : _groupLookup[item.Id].DefaultAnimationOverwrite;
 			var component = obj.AddComponent<RuntimeAnimatorMonoComponent>();
 			component.AnimatorController = animator;
 

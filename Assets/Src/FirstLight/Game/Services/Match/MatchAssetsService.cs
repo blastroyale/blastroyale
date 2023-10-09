@@ -5,6 +5,7 @@ using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -169,7 +170,7 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var id in ids)
 			{
-				_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(id, false, false));
+				_optionalAssets.Add(_services.CollectionService.LoadCollectionItem3DModel(ItemFactory.Collection(id), false, false));
 			}
 		}
 

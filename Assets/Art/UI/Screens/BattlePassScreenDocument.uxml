@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
             <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl" />

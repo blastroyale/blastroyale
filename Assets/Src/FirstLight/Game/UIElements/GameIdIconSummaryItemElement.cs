@@ -8,11 +8,7 @@ namespace FirstLight.Game.UIElements
 	{
 		public override RewardSummaryItemElement SetReward(IItemViewModel itemViewModel)
 		{
-			_icon.style.backgroundImage = StyleKeyword.Null;
-			_icon.RemoveSpriteClasses();
-#pragma warning disable CS4014
-			UIUtils.SetSprite(itemViewModel.GameId, _icon);
-#pragma warning restore CS4014
+			itemViewModel.DrawIcon(_icon);
 			_label.text = itemViewModel.DisplayName;
 			return this;
 		}

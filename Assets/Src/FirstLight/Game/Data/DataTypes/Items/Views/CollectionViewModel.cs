@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -10,6 +11,7 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class CollectionViewModel : IItemViewModel
 	{
+		public ItemData Item { get; }
 		public GameId GameId { get; }
 		public uint Amount { get; }
 		public string DisplayName { get; }
@@ -18,16 +20,25 @@ namespace FirstLight.Game.Data.DataTypes
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.style.backgroundImage = StyleKeyword.Null;
 			icon.RemoveSpriteClasses();
-			name.text = DisplayName;
-			icon.AddToClassList(GameId.GetUSSSpriteClass());
+			_ = DrawDynamicIconAsync(icon);
 		}
+
+		private async Task DrawDynamicIconAsync(VisualElement icon)
+		{
+			var sprite = await MainInstaller.ResolveServices().CollectionService.LoadCollectionItemSprite(Item);
+			if(sprite != null) icon.style.backgroundImage = new StyleBackground(sprite);
+			else icon.AddToClassList(GameId.GetUSSSpriteClass());
+		}
+		
+		public string Description => null;
 
 		public CollectionViewModel(ItemData item)
 		{
+			Item = item;
 			GameId = item.Id;
 			Amount = 1;
 			DisplayName = GameId.GetLocalization().ToUpper();

@@ -8,9 +8,7 @@ namespace FirstLight.Game.UIElements
 	{
 		public override RewardSummaryItemElement SetReward(IItemViewModel itemViewModel)
 		{
-			_icon.style.backgroundImage = StyleKeyword.Null;
-			_icon.RemoveSpriteClasses();
-			_icon.AddToClassList(itemViewModel.GameId.GetUSSSpriteClass());
+			itemViewModel.DrawIcon(_icon);
 			_label.text = itemViewModel.DisplayName;
 			return this;
 		}

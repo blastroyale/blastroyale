@@ -30,12 +30,22 @@ namespace FirstLight.Game.Data.DataTypes
 		/// Gets a generated item card
 		/// </summary>
 		VisualElement ItemCard { get; }
-		
+
+		/// <summary>
+		/// Base Item used to generate the view model
+		/// </summary>
+		ItemData Item { get; }
+
 		/// <summary>
 		/// Legacy way of rendering an item sprite.
 		/// Should be replaced by item card and removed.
 		/// </summary>
-		void LegacyRenderSprite(VisualElement icon, Label name, Label amount);
+		void DrawIcon(VisualElement icon);
+		
+		/// <summary>
+		/// Displays the quantity of an item or null if nothing to display
+		/// </summary>
+		string Description { get; }
 	}
 
 	public static class ItemViewExtensions

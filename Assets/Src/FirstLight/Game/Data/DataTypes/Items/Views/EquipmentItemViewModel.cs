@@ -11,20 +11,21 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class EquipmentItemViewModel : IItemViewModel
 	{
+		public ItemData Item { get; }
 		public Equipment Equipment => _equipment;
 		public GameId GameId => _equipment.GameId;
 		public uint Amount => 1;
+		public string Description => null;
 		public string DisplayName => GameId.GetLocalization().ToUpper();
 		public VisualElement ItemCard => new EquipmentCardElement(_equipment)
 		{
 			pickingMode = PickingMode.Ignore
 		};
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
-			name.text = DisplayName;
 #pragma warning disable CS4014
 			UIUtils.SetSprite(GameId, icon);
 #pragma warning restore CS4014
@@ -38,6 +39,8 @@ namespace FirstLight.Game.Data.DataTypes
 			{
 				throw new Exception($"Building View {GetType().Name} with wrong item type {item}");
 			}
+
+			Item = item;
 			_equipment = item.GetMetadata<EquipmentMetadata>().Equipment;
 		}
 	}

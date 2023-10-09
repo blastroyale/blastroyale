@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
@@ -34,14 +35,14 @@ namespace FirstLight.Game.MonoComponent
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		public async Task UpdateSkin(GameId skin, List<EquipmentInfo> equipment = null)
+		public async Task UpdateSkin(ItemData skin, List<EquipmentInfo> equipment = null)
 		{
 			var equipmentList = equipment?.Select(equipmentInfo => equipmentInfo.Equipment).ToList();
 
 			await UpdateSkin(skin, equipmentList);
 		}
 
-		public async Task UpdateSkin(GameId skinId, List<Equipment> equipment = null)
+		public async Task UpdateSkin(ItemData skinId, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -84,7 +85,7 @@ namespace FirstLight.Game.MonoComponent
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
-		private async Task SkinLoaded(GameId id, GameObject instance)
+		private async Task SkinLoaded(ItemData skin, GameObject instance)
 		{
 			instance.SetActive(false);
 

@@ -7,6 +7,7 @@
 @import url("/Assets/Art/UI/Styles/Sprites-FTUE.uss");
 @import url("/Assets/Art/UI/Styles/CommonStyle.uss");
 @import url("/Assets/Art/UI/Styles/Transitions.uss");
+@import url("/Assets/Art/UI/Styles/ProfilePictures.uss");
 @import url("/Assets/Art/UI/Styles/CurrencyDisplayStyle.uss");
 @import url("/Assets/Art/UI/Styles/ScreenHeaderStyle.uss");
 @import url("/Assets/Art/UI/Styles/PasswordFieldElementStyle.uss");

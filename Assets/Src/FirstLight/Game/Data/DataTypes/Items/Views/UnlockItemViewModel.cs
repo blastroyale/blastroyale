@@ -9,21 +9,21 @@ namespace FirstLight.Game.Data.DataTypes
 {
 	public class UnlockItemViewModel : IItemViewModel
 	{
+		public ItemData Item { get; }
 		public UnlockSystem UnlockSystem { get; }
 		public GameId GameId { get; }
 		public uint Amount { get; }
-		public string DisplayName => UnlockSystem.ToString().ToUpper(); // TODO: Move to localizations
+		public string Description => null;
+		public string DisplayName => "NEW SCREEN UNLOCKED"; // TODO: Move to localizations
 		public VisualElement ItemCard => new UnlockRewardSummaryElement()
 		{
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
-			name.text = "NEW SCREEN UNLOCKED!";
-			if(amount != null) amount.text = DisplayName;
 			icon.AddToClassList("sprite-home__icon-shop");
 		}
 
@@ -33,6 +33,8 @@ namespace FirstLight.Game.Data.DataTypes
 			{
 				throw new Exception($"Building View {GetType().Name} with wrong item type {item}");
 			}
+
+			Item = item;
 			UnlockSystem = item.GetMetadata<UnlockMetadata>().Unlock;
 		}
 	}

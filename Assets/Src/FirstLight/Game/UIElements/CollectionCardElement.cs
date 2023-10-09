@@ -1,4 +1,7 @@
 using System;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -41,10 +44,8 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-
-
-		public GameIdGroup Category { get; set; }
-		public GameId MenuGameId { get; private set; }
+		
+		public ItemData Item { get; private set; }
 		public int CollectionIndex { get; private set; }
 
 		private readonly VisualElement _backgroundImage;
@@ -61,7 +62,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Triggered when the card is clicked
 		/// </summary>
-		public new event Action<int> clicked;
+		public event Action<int> Clicked;
 
 		public CollectionCardElement()
 		{
@@ -103,28 +104,24 @@ namespace FirstLight.Game.UIElements
 			badgeHolder.Add(
 				_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
 			_equippedBadge.AddToClassList(UssBadgeEquipped);
-
-
+			
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
 
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
-
-			base.clicked += () => clicked?.Invoke(CollectionIndex);
+			
+			SetNotificationPip(false);
+			SetLoanedIcon(false);
+			SetIsNft(false);
+			clicked += () => Clicked?.Invoke(CollectionIndex);
 		}
 
 		public void SetSelected(bool selected)
 		{
-			if (selected)
-			{
-				AddToClassList(UssBlockSelected);
-			}
-			else
-			{
-				RemoveFromClassList(UssBlockSelected);
-			}
+			if (selected) AddToClassList(UssBlockSelected);
+			else RemoveFromClassList(UssBlockSelected);
 		}
 
 		private void SetLocked(bool locked)
@@ -133,61 +130,28 @@ namespace FirstLight.Game.UIElements
 			_image.style.opacity = locked ? 1f : 0.2f;
 			_backgroundImage.style.color = new Color(0.1f, 0.1f, 0.1f, 1f);
 		}
-
-		/// <summary>
-		/// Sets the equipment item that should be displayed on this element. Use default for empty.
-		/// </summary>
-		public void SetCollectionElement(GameId gameId, string avatarUrl, int index, GameIdGroup category, bool owned = false, bool equipped = false,
-										 bool highlighted = false, bool isNft = false, bool loaned = false, bool notification = false)
+		
+		public void SetNotificationPip(bool b) => _notification.SetDisplay(b);
+		public void SetLoanedIcon(bool b) => _loanedBadge.SetDisplay(b);
+		public void SetIsNft(bool b) => _nftBadge.SetDisplay(b);
+		public void SetIsEquipped(bool b) => _equippedBadge.SetDisplay(b);
+		public void SetIsOwned(bool b) => SetLocked(b);
+		public void SetHighlight(bool b)
 		{
-			_equippedBadge.SetDisplay(equipped);
-
-			if (highlighted)
-			{
-				AddToClassList(UssBlockHighlighted);
-			}
-
-			_notification.SetDisplay(notification);
-			_loanedBadge.SetDisplay(loaned);
-			_nftBadge.SetDisplay(isNft);
-			SetLocked(owned);
-
-			MenuGameId = gameId;
-			CollectionIndex = index;
-			Category = category;
-
-			_name.text = gameId.GetLocalization();
-			
-			var services = MainInstaller.ResolveServices();
-			services.RemoteTextureService.CancelRequest(_requestTextureHandle);
-			
-			if (string.IsNullOrEmpty(avatarUrl))
-			{
-				// Miha will kill-me for this change, but I intent to do it properly in the next PR, i don't want to make this one very big
-				// I'm writing this at 27/09/2023 If you are seeing this comment and this code is old, go yell at me on slack 
-				// TODO: Use classes
-				var collectionService = MainInstaller.ResolveServices().CollectionService;
-				UIUtils.SetSprite(collectionService.LoadCollectionItemSprite(MenuGameId, false), _image);
-			}
-			else
-			{
-				_requestTextureHandle = services.RemoteTextureService.RequestTexture(
-					avatarUrl, 
-					tex =>
-					{
-						if (_image != null && _image.panel != null)
-						{
-							_image.style.backgroundImage = new StyleBackground(tex);
-						}
-					},
-					() =>
-					{
-
-					});
-			}
+			if (b) AddToClassList(UssBlockHighlighted);
+			else RemoveFromClassList(UssBlockHighlighted);
 		}
-
-
+		
+		public void SetCollectionElement(ItemData item, int index, bool owned = false)
+		{
+			Item = item;
+			var gameId = item.Id;
+			var view = item.GetViewModel();
+			CollectionIndex = index;
+			_name.text = gameId.GetLocalization();
+			view.DrawIcon(_image);
+		}
+		
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
 		{
 		}

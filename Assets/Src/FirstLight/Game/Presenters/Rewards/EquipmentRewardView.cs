@@ -65,7 +65,8 @@ namespace FirstLight.Game.Presenters
 			if (parent == null) return;
 			_parentItemIcon.SetDisplay(true);
 			_parentItemIcon.RemoveSpriteClasses();
-			parent.LegacyRenderSprite(_parentItemIcon, _parentItemName, null);
+			_parentItemName.text = parent.DisplayName;
+			parent.DrawIcon(_parentItemIcon);
 		}
 
 		internal void ShowEquipment(EquipmentItemViewModel itemViewModel)

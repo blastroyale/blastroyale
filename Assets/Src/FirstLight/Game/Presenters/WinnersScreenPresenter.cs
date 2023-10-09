@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using DG.Tweening;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;

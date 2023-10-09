@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Collection.Handles;
@@ -15,8 +16,8 @@ namespace FirstLight.Game.Services.Collection
 {
 	public interface ICollectionService
 	{
-		Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true);
-		Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true);
+		Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
+		Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
 
 		/// <summary>
 		/// Find the cosmetic of ids present in the group, 
@@ -25,14 +26,14 @@ namespace FirstLight.Game.Services.Collection
 		/// <param name="returnDefault">If no skin was present for given group, return the default skin</param>
 		/// <param name="ids"></param>
 		/// <returns></returns>
-		GameId GetCosmeticForGroup(IEnumerable<GameId> ids, GameIdGroup group, bool returnDefault = true);
+		ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true);
 	}
 
 	interface ICollectionGroupHandler
 	{
-		bool CanHandle(GameId id);
-		Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true);
-		Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true);
+		bool CanHandle(ItemData item);
+		Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true);
+		Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true);
 	}
 
 	public class CollectionService : ICollectionService
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Services.Collection
 			_commandService = commandService;
 			_handlers = new ICollectionGroupHandler[]
 			{
+				new ProfilePictureHandler(_configsProvider, _assetResolver),
 				new CharacterSkinGroupHandler(_configsProvider, _assetResolver),
 				new WeaponSkinCollectionHandler(_configsProvider, _assetResolver)
 			};
@@ -84,48 +86,47 @@ namespace FirstLight.Game.Services.Collection
 			}
 		}
 
-		public GameId GetCosmeticForGroup(IEnumerable<GameId> ids, GameIdGroup group, bool returnDefault = true)
+		public ItemData GetCosmeticForGroup(IEnumerable<GameId> cosmeticLoadout, GameIdGroup group, bool returnDefault = true)
 		{
-			if (ids != null)
+			if (cosmeticLoadout != null)
 			{
-				foreach (var gameId in ids)
+				foreach (var gameId in cosmeticLoadout)
 				{
 					if (gameId.IsInGroup(group))
 					{
-						return gameId;
+						return ItemFactory.Collection(gameId);
 					}
 				}
 			}
-
-			return returnDefault ? DefaultSkins[group] : default;
+			return ItemFactory.Collection(returnDefault ? DefaultSkins[group] : default);
 		}
 
 
-		public async Task<Sprite> LoadCollectionItemSprite(GameId id, bool instantiate = true)
+		public async Task<Sprite> LoadCollectionItemSprite(ItemData item, bool instantiate = true)
 		{
 			foreach (var handler in _handlers)
 			{
-				if (handler.CanHandle(id))
+				if (handler.CanHandle(item))
 				{
-					return await handler.LoadCollectionItemSprite(id, instantiate);
+					return await handler.LoadCollectionItemSprite(item, instantiate);
 				}
 			}
 
-			return await _assetResolver.RequestAsset<GameId, Sprite>(id, true, instantiate);
+			return await _assetResolver.RequestAsset<GameId, Sprite>(item.Id, true, instantiate);
 		}
 
 
-		public async Task<GameObject> LoadCollectionItem3DModel(GameId id, bool menuModel = false, bool instantiate = true)
+		public async Task<GameObject> LoadCollectionItem3DModel(ItemData item, bool menuModel = false, bool instantiate = true)
 		{
 			foreach (var handler in _handlers)
 			{
-				if (handler.CanHandle(id))
+				if (handler.CanHandle(item))
 				{
-					return await handler.LoadCollectionItem3DModel(id, menuModel, instantiate);
+					return await handler.LoadCollectionItem3DModel(item, menuModel, instantiate);
 				}
 			}
 
-			return await _assetResolver.RequestAsset<GameId, GameObject>(id, true, instantiate);
+			return await _assetResolver.RequestAsset<GameId, GameObject>(item.Id, true, instantiate);
 		}
 	}
 }

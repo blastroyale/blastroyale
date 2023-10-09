@@ -39,7 +39,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_animatedBackground.SetDefault();
 			_animationController.StartAnimation(_animationDirector, SKIP_ANIMATION_TIME);
-			itemViewModel.LegacyRenderSprite(_icon, _name, _amount);
+			itemViewModel.DrawIcon(_icon);
+			_name.text = itemViewModel.DisplayName;
+			if (itemViewModel.Description != null)
+			{
+				_amount.text = itemViewModel.Description;
+			}
 		}
 	}
 }

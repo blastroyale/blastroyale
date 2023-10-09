@@ -11,20 +11,20 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class CurrencyItemViewModel : IItemViewModel
 	{
+		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
 		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
+		public string Description => $"X {_amount}";
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
-		public void LegacyRenderSprite(VisualElement icon, Label name, Label amount)
+		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
 			icon.style.backgroundImage = StyleKeyword.Null;
-			if(amount != null) amount.text = $"X {Amount}";
-			name.text = DisplayName;
 #pragma warning disable CS4014
 			UIUtils.SetSprite(GameId, icon);
 #pragma warning restore CS4014
@@ -35,6 +35,7 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public CurrencyItemViewModel(ItemData item)
 		{
+			Item = item;
 			_gameId = item.Id;
 			_amount = (uint)item.GetMetadata<CurrencyMetadata>().Amount;
 		}

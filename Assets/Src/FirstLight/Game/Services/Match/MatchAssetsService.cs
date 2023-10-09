@@ -92,7 +92,7 @@ namespace FirstLight.Game.Services
 		{
 			if (!_services.NetworkService.InRoom) return;
 			var time = Time.realtimeSinceStartup;
-			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value.ToString();
+			var map = _services.RoomService.CurrentRoom.Properties.MapId.Value;
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			_services.RoomService.CurrentRoom.SetRuntimeConfig();
 			LoadQuantumAssets(map);
@@ -152,9 +152,14 @@ namespace FirstLight.Game.Services
 		}
 
 
-		private async Task LoadScene(string map)
+		private async Task LoadScene(GameId map)
 		{
-			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+			if (!_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
+			{
+				throw new Exception("Asset map config not found for map " + map);
+			}
+
+			var sceneTask = _assetAdderService.LoadSceneAsync(config.Scene, LoadSceneMode.Additive);
 			SceneManager.SetActiveScene(await sceneTask);
 		}
 
@@ -174,12 +179,17 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void LoadQuantumAssets(string map)
+		private void LoadQuantumAssets(GameId map)
 		{
+			if (_services.ConfigsProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
+			{
+				_optionalAssets.Add(_assetAdderService.LoadAssetAsync<AssetBase>(config.QuantumMap));
+			}
+
 			var assets = UnityDB.CollectAddressableAssets();
 			foreach (var asset in assets)
 			{
-				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/") && !asset.Item1.Contains(map)) ||
+				if (asset.Item1.Contains("Settings") || (asset.Item1.StartsWith("Maps/") && !asset.Item1.Contains(map.ToString())) ||
 					asset.Item1.Contains("CircuitExport"))
 				{
 					continue;

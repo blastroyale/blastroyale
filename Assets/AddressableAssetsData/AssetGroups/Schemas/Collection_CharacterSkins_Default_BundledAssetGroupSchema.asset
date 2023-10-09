@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
   m_Name: Collection_CharacterSkins_Default_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 27aa5c2e03257c0438338de5cfc6d576, type: 2}
+  m_Group: {fileID: 11400000, guid: 8a2dacb6b0766074c9b8dff0ac1853d9, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

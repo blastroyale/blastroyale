@@ -39,16 +39,11 @@ MonoBehaviour:
         Id:
           Value: 148021496798672150
       Address: QuantumAssets/Projectiles/MainBullet.prefab[MainBulletEntityPrototype]
-    - Path: AddressableResources/Maps/SmallWilderness_NavMesh_data
+    - Path: AddressableResources/Maps/Test/SmallWilderness_NavMesh_data
       AssetRef:
         Id:
           Value: 150081812885928368
-      Address: Maps/SmallWilderness_NavMesh_data.asset
-    - Path: AddressableResources/Maps/BRGenesis_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 187962833955632473
-      Address: Maps/BRGenesis_NavMesh_data.asset
+      Address: Maps/Test/SmallWilderness_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/SmallBullet|EntityPrototype
       AssetRef:
         Id:
@@ -69,11 +64,6 @@ MonoBehaviour:
         Id:
           Value: 261474022001638259
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFPDecision_31]
-    - Path: AddressableResources/Maps/MapTestScene_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 284354135744090335
-      Address: Maps/MapTestScene_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_2
       AssetRef:
         Id:
@@ -124,11 +114,11 @@ MonoBehaviour:
         Id:
           Value: 434800705800386188
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_4]
-    - Path: AddressableResources/Maps/TestScene_NavMesh_data
+    - Path: AddressableResources/Maps/Test/TestScene_NavMesh_data
       AssetRef:
         Id:
           Value: 477379078662942642
-      Address: Maps/TestScene_NavMesh_data.asset
+      Address: Maps/Test/TestScene_NavMesh_data.asset
     - Path: AddressableResources/Configs/MutatorConfigs
       AssetRef:
         Id:
@@ -159,61 +149,41 @@ MonoBehaviour:
         Id:
           Value: 534549481968428075
       Address: QuantumAssets/Default Config Assets/Default PhysicsMaterialAsset.asset
-    - Path: AddressableResources/Maps/MazeMayhem
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem
       AssetRef:
         Id:
           Value: 534712889589439825
-      Address: Maps/MazeMayhem.asset
-    - Path: AddressableResources/Maps/MainDeck
-      AssetRef:
-        Id:
-          Value: 546214715936283533
-      Address: Maps/MainDeck.asset
-    - Path: AddressableResources/Maps/BlimpDeck
-      AssetRef:
-        Id:
-          Value: 559068933630856861
-      Address: Maps/BlimpDeck.asset
+      Address: Maps/MazeMayhem/MazeMayhem.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_34
       AssetRef:
         Id:
           Value: 562045426505754909
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_34]
-    - Path: AddressableResources/Maps/MapTestScene
-      AssetRef:
-        Id:
-          Value: 564143260845836062
-      Address: Maps/MapTestScene.asset
-    - Path: AddressableResources/Maps/BRGenesis
-      AssetRef:
-        Id:
-          Value: 581929196288820183
-      Address: Maps/BRGenesis.asset
-    - Path: AddressableResources/Maps/NewBRMap_NavMesh_data
+    - Path: AddressableResources/Maps/NewBR/NewBRMap_NavMesh_data
       AssetRef:
         Id:
           Value: 583182488621692793
-      Address: Maps/NewBRMap_NavMesh_data.asset
+      Address: Maps/NewBR/NewBRMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_38
       AssetRef:
         Id:
           Value: 602376439807427076
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFiringMode_38]
-    - Path: AddressableResources/Maps/FtueDeck_mesh
+    - Path: AddressableResources/Maps/FtueDeck/FtueDeck_mesh
       AssetRef:
         Id:
           Value: 642761047244750205
-      Address: Maps/FtueDeck_mesh.asset
+      Address: Maps/FtueDeck/FtueDeck_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_1
       AssetRef:
         Id:
           Value: 643489516016099705
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMAndDecision_1]
-    - Path: AddressableResources/Maps/FtueDeck_NavMesh
+    - Path: AddressableResources/Maps/FtueDeck/FtueDeck_NavMesh
       AssetRef:
         Id:
           Value: 645733108213557161
-      Address: Maps/FtueDeck_NavMesh.asset
+      Address: Maps/FtueDeck/FtueDeck_NavMesh.asset
     - Path: AddressableResources/Configs/StatConfigs
       AssetRef:
         Id:
@@ -249,11 +219,6 @@ MonoBehaviour:
         Id:
           Value: 727426939994474453
       Address: QuantumAssets/Projectiles/PlayerBullet.prefab[PlayerBulletEntityPrototype]
-    - Path: AddressableResources/Maps/TinyTemple_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 730405914180159932
-      Address: Maps/TinyTemple_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_46
       AssetRef:
         Id:
@@ -284,11 +249,11 @@ MonoBehaviour:
         Id:
           Value: 802778647459596964
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetAmmoCountFunction_3]
-    - Path: AddressableResources/Maps/TestScene
+    - Path: AddressableResources/Maps/Test/TestScene
       AssetRef:
         Id:
           Value: 803407184028536169
-      Address: Maps/TestScene.asset
+      Address: Maps/Test/TestScene.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_9
       AssetRef:
         Id:
@@ -299,26 +264,16 @@ MonoBehaviour:
         Id:
           Value: 855484753883037958
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerProjectileAttackAction_0]
-    - Path: AddressableResources/Maps/IslandsMap_NavMesh
+    - Path: AddressableResources/Maps/Islands/IslandsMap_NavMesh
       AssetRef:
         Id:
           Value: 855809909992764249
-      Address: Maps/IslandsMap_NavMesh.asset
+      Address: Maps/Islands/IslandsMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFiringMode_36
       AssetRef:
         Id:
           Value: 884576220807429317
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckFiringMode_36]
-    - Path: AddressableResources/Maps/BlimpDeck_mesh
-      AssetRef:
-        Id:
-          Value: 910401404763108684
-      Address: Maps/BlimpDeck_mesh.asset
-    - Path: AddressableResources/Maps/FloodCity_mesh
-      AssetRef:
-        Id:
-          Value: 920157354207779733
-      Address: Maps/FloodCity_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_0
       AssetRef:
         Id:
@@ -374,16 +329,16 @@ MonoBehaviour:
         Id:
           Value: 1093005050644660195
       Address: QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig.asset
-    - Path: AddressableResources/Maps/MazeMayhem_NavMesh_data
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_NavMesh_data
       AssetRef:
         Id:
           Value: 1151613473964670480
-      Address: Maps/MazeMayhem_NavMesh_data.asset
-    - Path: AddressableResources/Maps/BattlelandsMap_NavMesh_data
+      Address: Maps/MazeMayhem/MazeMayhem_NavMesh_data.asset
+    - Path: AddressableResources/Maps/Battlelands/BattlelandsMap_NavMesh_data
       AssetRef:
         Id:
           Value: 1167231962424191134
-      Address: Maps/BattlelandsMap_NavMesh_data.asset
+      Address: Maps/Battlelands/BattlelandsMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_8
       AssetRef:
         Id:
@@ -394,36 +349,21 @@ MonoBehaviour:
         Id:
           Value: 1187171314464035236
       Address: AdventureAssets/MapObjects/Bush.prefab[BushEntityPrototype]
-    - Path: AddressableResources/Maps/BlimpDeck_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 1242416935241100476
-      Address: Maps/BlimpDeck_NavMesh_data.asset
-    - Path: AddressableResources/Maps/IslandsMap
+    - Path: AddressableResources/Maps/Islands/IslandsMap
       AssetRef:
         Id:
           Value: 1255118517591299658
-      Address: Maps/IslandsMap.asset
+      Address: Maps/Islands/IslandsMap.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_5
       AssetRef:
         Id:
           Value: 1290780386109179055
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMAndDecision_5]
-    - Path: AddressableResources/Maps/SmallWilderness_NavMesh
-      AssetRef:
-        Id:
-          Value: 1337877252277489417
-      Address: Maps/SmallWilderness_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_21
       AssetRef:
         Id:
           Value: 1398700407390186350
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardFP_21]
-    - Path: AddressableResources/Maps/SmallWilderness_mesh
-      AssetRef:
-        Id:
-          Value: 1422382007345030213
-      Address: Maps/SmallWilderness_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Stunned_6
       AssetRef:
         Id:
@@ -459,11 +399,11 @@ MonoBehaviour:
         Id:
           Value: 1501081643659677846
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_16]
-    - Path: AddressableResources/Maps/District_mesh
+    - Path: AddressableResources/Maps/District/District_mesh
       AssetRef:
         Id:
           Value: 1536258848976152407
-      Address: Maps/District_mesh.asset
+      Address: Maps/District/District_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_13
       AssetRef:
         Id:
@@ -494,11 +434,11 @@ MonoBehaviour:
         Id:
           Value: 1599967694158015135
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TeleportSpawn_5]
-    - Path: AddressableResources/Maps/NewBRMap
+    - Path: AddressableResources/Maps/NewBR/NewBRMap
       AssetRef:
         Id:
           Value: 1601773346252770156
-      Address: Maps/NewBRMap.asset
+      Address: Maps/NewBR/NewBRMap.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityPrototype
       AssetRef:
         Id:
@@ -509,21 +449,16 @@ MonoBehaviour:
         Id:
           Value: 1628267810515087164
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[SetBlackboardFP_13]
-    - Path: AddressableResources/Maps/BattlelandsMap
+    - Path: AddressableResources/Maps/Battlelands/BattlelandsMap
       AssetRef:
         Id:
           Value: 1656225088092065763
-      Address: Maps/BattlelandsMap.asset
-    - Path: AddressableResources/Maps/NewBRMap_NavMesh
+      Address: Maps/Battlelands/BattlelandsMap.asset
+    - Path: AddressableResources/Maps/NewBR/NewBRMap_NavMesh
       AssetRef:
         Id:
           Value: 1656664420704237954
-      Address: Maps/NewBRMap_NavMesh.asset
-    - Path: AddressableResources/Maps/SmallWilderness
-      AssetRef:
-        Id:
-          Value: 1683172728059604911
-      Address: Maps/SmallWilderness.asset
+      Address: Maps/NewBR/NewBRMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/SlimBullet|EntityPrototype
       AssetRef:
         Id:
@@ -539,11 +474,6 @@ MonoBehaviour:
         Id:
           Value: 1722351953338325886
       Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityPrototype]
-    - Path: AddressableResources/Maps/FloodCity_NavMesh
-      AssetRef:
-        Id:
-          Value: 1767223204703182348
-      Address: Maps/FloodCity_NavMesh.asset
     - Path: AddressableResources/Configs/CustomAssetConfigs
       AssetRef:
         Id:
@@ -564,11 +494,6 @@ MonoBehaviour:
         Id:
           Value: 1833622622204030874
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetMagShotCountFunction_12]
-    - Path: AddressableResources/Maps/TinyTemple_NavMesh
-      AssetRef:
-        Id:
-          Value: 1838569179050410201
-      Address: Maps/TinyTemple_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/Gates/GateBarrierEntity|EntityPrototype
       AssetRef:
         Id:
@@ -634,11 +559,11 @@ MonoBehaviour:
         Id:
           Value: 2088995045313192023
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_25]
-    - Path: AddressableResources/Maps/FtueDeck
+    - Path: AddressableResources/Maps/FtueDeck/FtueDeck
       AssetRef:
         Id:
           Value: 2106855069082239478
-      Address: Maps/FtueDeck.asset
+      Address: Maps/FtueDeck/FtueDeck.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_14
       AssetRef:
         Id:
@@ -724,21 +649,21 @@ MonoBehaviour:
         Id:
           Value: 2526948452384311002
       Address: QuantumAssets/Collectables/AirDrop.prefab[AirDropEntityView]
-    - Path: AddressableResources/Maps/FtueDeck_NavMesh_data
+    - Path: AddressableResources/Maps/FtueDeck/FtueDeck_NavMesh_data
       AssetRef:
         Id:
           Value: 2549353079267951186
-      Address: Maps/FtueDeck_NavMesh_data.asset
-    - Path: AddressableResources/Maps/MazeMayhem_mesh
+      Address: Maps/FtueDeck/FtueDeck_NavMesh_data.asset
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_mesh
       AssetRef:
         Id:
           Value: 2551591651683386162
-      Address: Maps/MazeMayhem_mesh.asset
-    - Path: AddressableResources/Maps/District_NavMesh
+      Address: Maps/MazeMayhem/MazeMayhem_mesh.asset
+    - Path: AddressableResources/Maps/District/District_NavMesh
       AssetRef:
         Id:
           Value: 2575471535425279547
-      Address: Maps/District_NavMesh.asset
+      Address: Maps/District/District_NavMesh.asset
     - Path: AddressableResources/AdventureAssets/MapObjects/Bush Small|EntityPrototype
       AssetRef:
         Id:
@@ -754,11 +679,11 @@ MonoBehaviour:
         Id:
           Value: 2794687721108520062
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardBool_3]
-    - Path: AddressableResources/Maps/MazeMayhem_NavMesh
+    - Path: AddressableResources/Maps/MazeMayhem/MazeMayhem_NavMesh
       AssetRef:
         Id:
           Value: 2797025370966690795
-      Address: Maps/MazeMayhem_NavMesh.asset
+      Address: Maps/MazeMayhem/MazeMayhem_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_10
       AssetRef:
         Id:
@@ -774,21 +699,11 @@ MonoBehaviour:
         Id:
           Value: 2816390206062133565
       Address: QuantumAssets/Spawners/PlatformSpawner.prefab[PlatformSpawnerEntityView]
-    - Path: AddressableResources/Maps/MainDeck_mesh
-      AssetRef:
-        Id:
-          Value: 2817580317482346853
-      Address: Maps/MainDeck_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_15
       AssetRef:
         Id:
           Value: 2838018030188143315
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[GetMagShotCountFunction_15]
-    - Path: AddressableResources/Maps/FloodCitySimple_NavMesh
-      AssetRef:
-        Id:
-          Value: 2846328212508811048
-      Address: Maps/FloodCitySimple_NavMesh.asset
     - Path: AddressableResources/Configs/EquipmentMaterialStatConfigs
       AssetRef:
         Id:
@@ -805,11 +720,11 @@ MonoBehaviour:
         Id:
           Value: 3001958099177705209
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Out Of Ammo_13]
-    - Path: AddressableResources/Maps/District_NavMesh_data
+    - Path: AddressableResources/Maps/District/District_NavMesh_data
       AssetRef:
         Id:
           Value: 3005366737582492223
-      Address: Maps/District_NavMesh_data.asset
+      Address: Maps/District/District_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/SmallBullet|EntityView
       AssetRef:
         Id:
@@ -830,11 +745,11 @@ MonoBehaviour:
         Id:
           Value: 3059267041051081090
       Address: QuantumAssets/Destructibles/Barrel.prefab[BarrelEntityView]
-    - Path: AddressableResources/Configs/MapConfigs
+    - Path: AddressableResources/Maps/QuantumMapConfigs
       AssetRef:
         Id:
           Value: 3072854346747122385
-      Address: Configs/MapConfigs.asset
+      Address: Maps/QuantumMapConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_11
       AssetRef:
         Id:
@@ -880,26 +795,21 @@ MonoBehaviour:
         Id:
           Value: 3151177946438730648
       Address: QuantumAssets/Projectiles/BigBullet.prefab[BigBulletEntityPrototype]
-    - Path: AddressableResources/Maps/BattlelandsMap_mesh
+    - Path: AddressableResources/Maps/Battlelands/BattlelandsMap_mesh
       AssetRef:
         Id:
           Value: 3151734064632607498
-      Address: Maps/BattlelandsMap_mesh.asset
+      Address: Maps/Battlelands/BattlelandsMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TryReload_7
       AssetRef:
         Id:
           Value: 3154801819037977363
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TryReload_7]
-    - Path: AddressableResources/Maps/FloodCitySimple
-      AssetRef:
-        Id:
-          Value: 3155179352711372247
-      Address: Maps/FloodCitySimple.asset
-    - Path: AddressableResources/Maps/NewBRMap_mesh
+    - Path: AddressableResources/Maps/NewBR/NewBRMap_mesh
       AssetRef:
         Id:
           Value: 3177262706605919769
-      Address: Maps/NewBRMap_mesh.asset
+      Address: Maps/NewBR/NewBRMap_mesh.asset
     - Path: AddressableResources/Configs/SpecialConfigs
       AssetRef:
         Id:
@@ -911,16 +821,6 @@ MonoBehaviour:
         Id:
           Value: 3252184656170638239
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[Gun Raise_1]
-    - Path: AddressableResources/Maps/FloodCity_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 3315138076201881096
-      Address: Maps/FloodCity_NavMesh_data.asset
-    - Path: AddressableResources/Maps/BRGenesis_NavMesh
-      AssetRef:
-        Id:
-          Value: 3321959121446098905
-      Address: Maps/BRGenesis_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/Projectiles/RocketBullet|EntityView
       AssetRef:
         Id:
@@ -931,21 +831,16 @@ MonoBehaviour:
         Id:
           Value: 3351158279772585640
       Address: QuantumAssets/Projectiles/HammerHit.prefab[HammerHitEntityView]
-    - Path: AddressableResources/Maps/IslandsMap_NavMesh_data
+    - Path: AddressableResources/Maps/Islands/IslandsMap_NavMesh_data
       AssetRef:
         Id:
           Value: 3359083247742784915
-      Address: Maps/IslandsMap_NavMesh_data.asset
+      Address: Maps/Islands/IslandsMap_NavMesh_data.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_35
       AssetRef:
         Id:
           Value: 3413757101321741467
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMOrDecision_35]
-    - Path: AddressableResources/Maps/MapTestScene_mesh
-      AssetRef:
-        Id:
-          Value: 3417993765677673255
-      Address: Maps/MapTestScene_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_42
       AssetRef:
         Id:
@@ -961,21 +856,16 @@ MonoBehaviour:
         Id:
           Value: 3440888157079060277
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[HFSMAndDecision_37]
-    - Path: AddressableResources/Maps/TinyTemple
-      AssetRef:
-        Id:
-          Value: 3508539277504105837
-      Address: Maps/TinyTemple.asset
     - Path: AddressableResources/Configs/ConsumableConfigs
       AssetRef:
         Id:
           Value: 3521447524462001825
       Address: Configs/ConsumableConfigs.asset
-    - Path: AddressableResources/Maps/TestScene_NavMesh
+    - Path: AddressableResources/Maps/Test/TestScene_NavMesh
       AssetRef:
         Id:
           Value: 3526647891069364318
-      Address: Maps/TestScene_NavMesh.asset
+      Address: Maps/Test/TestScene_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_18
       AssetRef:
         Id:
@@ -1006,46 +896,21 @@ MonoBehaviour:
         Id:
           Value: 3726627970685454479
       Address: QuantumAssets/Collectables/ConsumablePickup.prefab[ConsumablePickupEntityView]
-    - Path: AddressableResources/Maps/MainDeck_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 3756390342216925115
-      Address: Maps/MainDeck_NavMesh_data.asset
-    - Path: AddressableResources/Maps/TestScene_mesh
+    - Path: AddressableResources/Maps/Test/TestScene_mesh
       AssetRef:
         Id:
           Value: 3801973863776343812
-      Address: Maps/TestScene_mesh.asset
+      Address: Maps/Test/TestScene_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_15
       AssetRef:
         Id:
           Value: 3810624336601686864
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckIntDecision_15]
-    - Path: AddressableResources/Maps/MainDeck_NavMesh
-      AssetRef:
-        Id:
-          Value: 3812802639836488067
-      Address: Maps/MainDeck_NavMesh.asset
-    - Path: AddressableResources/Maps/BlimpDeck_NavMesh
-      AssetRef:
-        Id:
-          Value: 3849404989003255490
-      Address: Maps/BlimpDeck_NavMesh.asset
-    - Path: AddressableResources/Maps/FloodCitySimple_NavMesh_data
-      AssetRef:
-        Id:
-          Value: 3862263463452617026
-      Address: Maps/FloodCitySimple_NavMesh_data.asset
-    - Path: AddressableResources/Maps/FloodCitySimple_mesh
-      AssetRef:
-        Id:
-          Value: 3890296069019039883
-      Address: Maps/FloodCitySimple_mesh.asset
-    - Path: AddressableResources/Maps/BattlelandsMap_NavMesh
+    - Path: AddressableResources/Maps/Battlelands/BattlelandsMap_NavMesh
       AssetRef:
         Id:
           Value: 3912986414844588615
-      Address: Maps/BattlelandsMap_NavMesh.asset
+      Address: Maps/Battlelands/BattlelandsMap_NavMesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_8
       AssetRef:
         Id:
@@ -1146,41 +1011,21 @@ MonoBehaviour:
         Id:
           Value: 4298551067525067090
       Address: QuantumAssets/Gates/GateBarrierEntity.prefab[GateBarrierEntityEntityView]
-    - Path: AddressableResources/Maps/BRGenesis_mesh
-      AssetRef:
-        Id:
-          Value: 4328303550200794573
-      Address: Maps/BRGenesis_mesh.asset
-    - Path: AddressableResources/Maps/FloodCity
-      AssetRef:
-        Id:
-          Value: 4332060462896694051
-      Address: Maps/FloodCity.asset
-    - Path: AddressableResources/Maps/District
+    - Path: AddressableResources/Maps/District/District
       AssetRef:
         Id:
           Value: 4344381221028547365
-      Address: Maps/District.asset
+      Address: Maps/District/District.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartReload_14
       AssetRef:
         Id:
           Value: 4353102384583738815
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[StartReload_14]
-    - Path: AddressableResources/Maps/TinyTemple_mesh
-      AssetRef:
-        Id:
-          Value: 4374446875972627061
-      Address: Maps/TinyTemple_mesh.asset
-    - Path: AddressableResources/Maps/MapTestScene_NavMesh
-      AssetRef:
-        Id:
-          Value: 4376691450385126578
-      Address: Maps/MapTestScene_NavMesh.asset
-    - Path: AddressableResources/Maps/IslandsMap_mesh
+    - Path: AddressableResources/Maps/Islands/IslandsMap_mesh
       AssetRef:
         Id:
           Value: 4377612866467515236
-      Address: Maps/IslandsMap_mesh.asset
+      Address: Maps/Islands/IslandsMap_mesh.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|AttackShape_12
       AssetRef:
         Id:

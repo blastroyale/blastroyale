@@ -15,11 +15,18 @@ MonoBehaviour:
   m_GroupName: Collection_WeaponSkins_Default
   m_Data:
     m_SerializedData: []
-  m_GUID: 4cf06ad0206905747afacb331ff172d3
-  m_SerializeEntries: []
+  m_GUID: 2b2c07ef86c2d484a814745aa2dd6d8c
+  m_SerializeEntries:
+  - m_GUID: 1c3b08e8be7e0f3489601ae75f94bfd5
+    m_Address: Collections/WeaponSkins
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableObjectsOnly
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e2a6147a1a9e442e087d5db36b71cfc4, type: 2}
-    - {fileID: 11400000, guid: 684ba49c772bd4a7090e4256db4b8641, type: 2}
+    - {fileID: 11400000, guid: d31f478f5e9a7b040b72979172b88847, type: 2}
+    - {fileID: 11400000, guid: 9c8f32e60be8a994bbaf39aa7d8edec1, type: 2}

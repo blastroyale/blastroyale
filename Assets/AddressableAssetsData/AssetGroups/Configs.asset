@@ -15,8 +15,20 @@ MonoBehaviour:
   m_GroupName: Configs
   m_Data:
     m_SerializedData: []
-  m_GUID: a3f11f5c2ec87f0489a12ae919a30faf
+  m_GUID: af2aacc928c4fa64797568970db41854
   m_SerializeEntries:
+  - m_GUID: b90e44e25fcba3f4c8dbc9f2d7f2a66e
+    m_Address: Maps/MapAssetConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0d9bcc08e239214b9f652458396205c
+    m_Address: Maps/QuantumMapConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa9c5497372c14d9ea5dab0d6be12609
     m_Address: Configs
     m_ReadOnly: 0
@@ -24,9 +36,16 @@ MonoBehaviour:
     - Quantum
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43ad42752dc9a4852a54f13c2fd5acec
+    m_Address: Collections/ProfilePicture/AvatarCollectableConfigs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableObjectsOnly
+    - GenerateIds
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 0bcee474eaaa8844886a6d18c69ed378, type: 2}
-    - {fileID: 11400000, guid: 8e5cc687a4c665c45aa122c9d88079f5, type: 2}
+    - {fileID: 11400000, guid: 293babaad41b198448defb8a0c4e44b7, type: 2}
+    - {fileID: 11400000, guid: 096836c4ed0498f489225d31cb92a538, type: 2}

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FirstLight.AssetImporter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -67,6 +68,21 @@ namespace FirstLight.AddressablesExtensions
 		
 			return operation.Result.Scene;
 
+		}
+
+		public async Task<Scene> LoadSceneAsync(AssetReferenceScene reference, LoadSceneMode loadMode = LoadSceneMode.Single, bool activateOnLoad = true)
+		{
+			var operation = Addressables.LoadSceneAsync(reference, loadMode, activateOnLoad);
+		
+			await operation.Task;
+
+			if (operation.Status != AsyncOperationStatus.Succeeded)
+			{
+				throw operation.OperationException;
+			
+			}
+		
+			return operation.Result.Scene;
 		}
 
 		/// <inheritdoc />

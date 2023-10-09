@@ -182,7 +182,13 @@ namespace FirstLight.Game.Services.RoomService
 		/// </summary>
 		public void SetRuntimeConfig()
 		{
-			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{Properties.MapId.Value.ToString()}.asset");
+			var configProvider = _roomService._configsProvider;
+			var map = Properties.MapId.Value;
+			if (!configProvider.GetConfig<MapAssetConfigs>().TryGetConfigForMap(map, out var config))
+			{
+				throw new Exception("Asset map config not found for map " + map);
+			}
+			var op = Addressables.LoadAssetAsync<MapAsset>(config.QuantumMap);
 			var runtimeConfig = _roomService._configsProvider.GetConfig<QuantumRunnerConfigs>().RuntimeConfig;
 			runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 

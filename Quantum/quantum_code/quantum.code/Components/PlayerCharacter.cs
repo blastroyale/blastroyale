@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -525,6 +526,24 @@ namespace Quantum
 			return weapon;
 		}
 
+		/// <summary>
+		/// Requests the player's initial loadout (only gear, weapon excluded)
+		/// </summary>
+		public Equipment[] GetLoadoutGear(Frame f)
+		{
+			var loadout = f.GetPlayerData(Player)?.Loadout.
+							Where(eq => !eq.GameId.IsInGroup(GameIdGroup.Weapon)).ToArray();
+			
+			if (f.Context.TryGetMutatorByType(MutatorType.ForceLevelPlayingField, out _))
+			{
+				for(int i = 0; i < loadout.Length; i++)
+				{
+					loadout[i].Rarity = Constants.STANDARDISED_EQUIPMENT_RARITY;
+				}
+			}
+			return loadout;
+		}
+		
 		/// <summary>
 		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
 		///

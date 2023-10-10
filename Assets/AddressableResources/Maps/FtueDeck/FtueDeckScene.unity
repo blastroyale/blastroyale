@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 8368243}
   - component: {fileID: 8368242}
   - component: {fileID: 8368241}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InvisibleWeaponPickupGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 41083026}
   - component: {fileID: 41083025}
   - component: {fileID: 41083024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 85046272}
   - component: {fileID: 85046271}
   - component: {fileID: 85046270}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1631,7 +1631,7 @@ GameObject:
   - component: {fileID: 217357157}
   - component: {fileID: 217357156}
   - component: {fileID: 217357155}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3127,7 +3127,7 @@ GameObject:
   - component: {fileID: 367859430}
   - component: {fileID: 367859429}
   - component: {fileID: 367859428}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4405,7 +4405,7 @@ GameObject:
   - component: {fileID: 504851268}
   - component: {fileID: 504851267}
   - component: {fileID: 504851266}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6348,7 +6348,7 @@ GameObject:
   - component: {fileID: 701512571}
   - component: {fileID: 701512570}
   - component: {fileID: 701512569}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7858,7 +7858,7 @@ GameObject:
   - component: {fileID: 1034821411}
   - component: {fileID: 1034821410}
   - component: {fileID: 1034821409}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8007,7 +8007,7 @@ GameObject:
   - component: {fileID: 1048375348}
   - component: {fileID: 1048375347}
   - component: {fileID: 1048375346}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8554,7 +8554,7 @@ GameObject:
   - component: {fileID: 1105375453}
   - component: {fileID: 1105375452}
   - component: {fileID: 1105375451}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10484,7 +10484,7 @@ GameObject:
   - component: {fileID: 1461583452}
   - component: {fileID: 1461583451}
   - component: {fileID: 1461583450}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11035,7 +11035,7 @@ GameObject:
   - component: {fileID: 1517782939}
   - component: {fileID: 1517782941}
   - component: {fileID: 1517782940}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GateBarrier (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13069,7 +13069,7 @@ GameObject:
   - component: {fileID: 1686802130}
   - component: {fileID: 1686802129}
   - component: {fileID: 1686802128}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13403,7 +13403,7 @@ GameObject:
   - component: {fileID: 1737837019}
   - component: {fileID: 1737837018}
   - component: {fileID: 1737837017}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14348,7 +14348,7 @@ GameObject:
   - component: {fileID: 1904240262}
   - component: {fileID: 1904240261}
   - component: {fileID: 1904240260}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: _Coll (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16605,7 +16605,7 @@ GameObject:
   - component: {fileID: 7052828113270919576}
   - component: {fileID: 1907611151}
   - component: {fileID: 8220017022940927683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GateBarrierChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16626,7 +16626,7 @@ GameObject:
   - component: {fileID: 7052828112630870192}
   - component: {fileID: 1268086567}
   - component: {fileID: 8220017023647250411}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GateBarrierPlayersAlive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16661,7 +16661,7 @@ GameObject:
   - component: {fileID: 829141750141310936}
   - component: {fileID: 829141750141310939}
   - component: {fileID: 1907611145}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GateBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16716,7 +16716,7 @@ GameObject:
   - component: {fileID: 829141750310827760}
   - component: {fileID: 829141750310827763}
   - component: {fileID: 1268086561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GateBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18019,7 +18019,7 @@ GameObject:
   - component: {fileID: 7176572770364525545}
   - component: {fileID: 814215094325449694}
   - component: {fileID: 7398041109418252646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface417
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18287,7 +18287,7 @@ GameObject:
   - component: {fileID: 6056862037142630298}
   - component: {fileID: 1454954034293561007}
   - component: {fileID: 6056862037142630299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface418
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19144,7 +19144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6817283602725056324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HealthbarAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19164,7 +19164,7 @@ GameObject:
   - component: {fileID: 4250845700077839386}
   - component: {fileID: 1056698440867158435}
   - component: {fileID: 1930756246322229670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19716,10 +19716,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 41083023}
     m_Modifications:
+    - target: {fileID: 648888194008261663, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 733385024695690622, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 927357525636518162, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552867113214689300, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513785743064954706, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3305704128190022801, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+    - target: {fileID: 3533655388096339223, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4002138082360232995, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -19776,10 +19800,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenBarrierModel
       objectReference: {fileID: 0}
+    - target: {fileID: 5382674459112700294, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482611273667570780, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024416576514782642, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414268850832615530, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6938851272347620238, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 18fc48e76742d4c7d8ed3bf44aa0e04a, type: 2}
+    - target: {fileID: 7021842071908971791, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943634526250199143, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9212011966757830208, guid: db69a366b68cd164698f1b52823a5ccc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

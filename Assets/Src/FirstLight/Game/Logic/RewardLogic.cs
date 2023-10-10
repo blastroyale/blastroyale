@@ -403,6 +403,7 @@ namespace FirstLight.Game.Logic
 		// TODO: implement adapters
 		private ItemData AddItemToPlayerInventory(ItemData reward)
 		{
+			GameLogic.MessageBrokerService.Publish(new ItemRewardedMessage(reward));
 			if (reward.TryGetMetadata<EquipmentMetadata>(out var eqMeta))
 			{
 				GameLogic.EquipmentLogic.AddToInventory(eqMeta.Equipment);

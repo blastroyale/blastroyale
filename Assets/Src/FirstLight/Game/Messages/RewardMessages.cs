@@ -44,6 +44,16 @@ namespace FirstLight.Game.Messages
 		public ItemData Core;
 		public ItemData [] Results;
 	}
+	
+	public class ItemRewardedMessage : IMessage
+	{
+		public ItemData Item;
+
+		public ItemRewardedMessage(ItemData item)
+		{
+			Item = item;
+		}
+	}
 
 	public struct GameCompletedRewardsMessage : IMessage
 	{

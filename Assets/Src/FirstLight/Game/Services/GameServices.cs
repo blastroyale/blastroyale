@@ -223,7 +223,7 @@ namespace FirstLight.Game.Services
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
-			RewardService = new RewardService(this);
+			RewardService = new RewardService(this, gameLogic);
 			TickService = new TickService();
 			LeaderboardService = new LeaderboardsService(this);
 			CoroutineService = new CoroutineService();

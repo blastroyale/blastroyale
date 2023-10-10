@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
@@ -46,7 +47,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private ListView _collectionList;
-
+		private Dictionary<CollectionCategory, CollectionCategoryElement> _catElements = new ();
 		private LocalizedLabel _comingSoonLabel;
 		private Label _selectedItemLabel;
 		private Label _selectedItemDescription;
@@ -159,11 +160,15 @@ namespace FirstLight.Game.Presenters
 		private void SetupCategories()
 		{
 			var categories = _gameDataProvider.CollectionDataProvider.GetCollectionsCategories();
+			var unseenCollectionItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
 			foreach (var category in categories)
 			{
 				var catElement = new CollectionCategoryElement();
 				catElement.clicked += OnCategoryClicked;
 				catElement.SetupCategoryButton(category);
+				_catElements[category] = catElement;
+				var unseenOfCategory = unseenCollectionItems.Any(i => _gameDataProvider.CollectionDataProvider.GetCollectionType(i) == category);
+				catElement.SetNotification(unseenOfCategory);
 				_categoriesRoot.Add(catElement);
 			}
 
@@ -195,7 +200,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_comingSoonLabel.visible = false;
 				_collectionList.visible = true;
-
+				_catElements[group].SetNotification(false);
 				ViewOwnedItemsFromCategory(group);
 				SelectEquipped(group);
 				UpdateCollectionDetails(group);
@@ -426,10 +431,17 @@ namespace FirstLight.Game.Presenters
 				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
 				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
 				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
+				var unseenItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
+				var isUnseenItem = unseenItems.Contains(selectedItem);
+				if (isUnseenItem)
+				{
+					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, selectedItem);
+				}
 				card.SetCollectionElement(selectedItem, itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);
+				card.SetNotificationPip(isUnseenItem);
 			}
 		}
 

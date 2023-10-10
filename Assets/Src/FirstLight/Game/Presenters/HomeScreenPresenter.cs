@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 		private PlayerAvatarElement _avatar;
 
 		private VisualElement _equipmentNotification;
+		private VisualElement _collectionNotification;
 
 		private ImageButton _gameModeButton;
 		private Label _gameModeLabel;
@@ -138,6 +140,7 @@ namespace FirstLight.Game.Presenters
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
+			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
 
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
@@ -208,6 +211,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
+			_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
 #if !STORE_BUILD && !UNITY_EDITOR
 			_outOfSyncWarningLabel.SetDisplay(VersionUtils.IsOutOfSync());
 #else

@@ -20,8 +20,8 @@ MonoBehaviour:
     UserAsset:
       Id:
         Value: 2106855069082239478
-    Scene: FtueDeck
-    ScenePath: Assets/AddressableResources/Scenes/FtueDeck.unity
+    Scene: FtueDeckScene
+    ScenePath: Assets/AddressableResources/Maps/FtueDeck/FtueDeckScene.unity
     SceneGuid: 716196f43d523334481ac4ba581947b7
     WorldSize: 128
     BucketsCount: 8
@@ -2906,7 +2906,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -2947,7 +2947,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (1)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -2988,7 +2988,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (2)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3029,7 +3029,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (3)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3070,7 +3070,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (4)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3111,7 +3111,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (5)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3152,7 +3152,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (6)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3193,7 +3193,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (7)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3234,7 +3234,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (8)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0
@@ -3275,7 +3275,7 @@ MonoBehaviour:
       StaticData:
         Name: _Coll (9)
         Tag: Untagged
-        Layer: 8
+        Layer: 9
         Asset:
           Id:
             Value: 0

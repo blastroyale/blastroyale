@@ -33,8 +33,8 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 						// not a bush but its in Player Triggers
 						if (!o.GetComponentInChildren<EntityComponentVisibilityArea>())
 						{
-							o.SetLayer(LayerMask.NameToLayer(PhysicsLayers.PLAYER_TRIGGERS));
-							Debug.Log($"{o.name} layer set to {PhysicsLayers.PLAYER_TRIGGERS}");
+							o.SetLayer(LayerMask.NameToLayer(PhysicsLayers.OBSTACLES));
+							Debug.Log($"{o.name} layer set to {PhysicsLayers.OBSTACLES}");
 						}
 					}
 				}

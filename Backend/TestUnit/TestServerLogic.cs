@@ -27,7 +27,7 @@ public class TestServerLogic
 		_server = new TestServer();
 		// Running player states in-memory
 		_server.SetupInMemoryServer();
-		_server.SendTestCommand(new GiveDefaultCollectionItemsCommand());
+		_server.GiveDefaultSkins();
 		_stateService = _server.GetService<IServerStateService>();
 		_cmdHandler = _server.GetService<IServerCommahdHandler>();
 	}

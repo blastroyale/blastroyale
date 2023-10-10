@@ -25,7 +25,7 @@ namespace Tests
 			_server = new TestServer();
 			_server.SetupInMemoryServer();
 			_pluginEvents = _server.GetService<IEventManager>();
-			_server.SendTestCommand(new GiveDefaultCollectionItemsCommand());
+			_server.GiveDefaultSkins();
 		}
 
 		[Test]

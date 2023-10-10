@@ -4,6 +4,8 @@ using System.IO;
 using Backend;
 using Backend.Game;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Serializers;
@@ -18,15 +20,15 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
+using Quantum;
 using Environment = System.Environment;
 
 /// <summary>
 /// Represents what is needed to run a isolated server testing environment.
 /// </summary>
 public class TestServer
-{	
+{
 	private IServiceProvider _services;
-	private IDataProvider _data;
 	private string? _testPlayerId = null;
 
 	public TestServer(IBaseServiceConfiguration cfg)
@@ -39,7 +41,7 @@ public class TestServer
 			services.AddSingleton<IBaseServiceConfiguration>(p => cfg);
 		});
 	}
-	
+
 	public TestServer()
 	{
 		SetupTestEnv();
@@ -49,10 +51,26 @@ public class TestServer
 		ModelSerializer.RegisterConverter(new FPConverter());
 	}
 
+	public void GiveDefaultSkins()
+	{
+		var collectionData = new CollectionData()
+		{
+			OwnedCollectibles =
+			{
+				{ CollectionCategories.PLAYER_SKINS, new List<ItemData> { ItemFactory.Collection(GameId.FemaleAssassin) } }
+			}
+		};
+		var serializedModel = ModelSerializer.Serialize(collectionData);
+		var serverData = new ServerState();
+		serverData.Add(serializedModel.Key, serializedModel.Value);
+		var service = GetService<IServerStateService>();
+		service?.UpdatePlayerState(GetTestPlayerID(), serverData).Wait();
+	}
+
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
 
 	public IServiceProvider Services => _services;
-	
+
 	/// <summary>
 	/// Obtains a test player id that is setup to be used in tests.
 	/// The player should already exists and be ready to use.
@@ -63,6 +81,7 @@ public class TestServer
 		{
 			_testPlayerId = _services.GetService<ITestPlayerSetup>().GetTestPlayerId();
 		}
+
 		return _testPlayerId;
 	}
 
@@ -82,7 +101,7 @@ public class TestServer
 	/// </summary>
 	public T? GetService<T>()
 	{
-		return (T?)_services.GetService(typeof(T));
+		return (T?) _services.GetService(typeof(T));
 	}
 
 	/// <summary>
@@ -92,8 +111,8 @@ public class TestServer
 	{
 		UpdateDependencies(services =>
 		{
-			services.RemoveAll(typeof(IServerAnalytics)); 
-			services.RemoveAll(typeof(IServerStateService)); 
+			services.RemoveAll(typeof(IServerAnalytics));
+			services.RemoveAll(typeof(IServerStateService));
 			services.RemoveAll(typeof(ITestPlayerSetup));
 			services.RemoveAll(typeof(IServerMutex));
 			services.AddSingleton<IServerStateService>(p => new InMemoryPlayerState());
@@ -102,7 +121,7 @@ public class TestServer
 			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
 		});
 	}
-	
+
 	/// <summary>
 	/// Serializes and sends a test command to the server.
 	/// </summary>
@@ -131,7 +150,7 @@ public class TestServer
 		services.AddSingleton<ILogger>(p => new LoggerFactory().CreateLogger("Log"));
 		return services;
 	}
-	
+
 	private void SetupTestEnv()
 	{
 		Environment.SetEnvironmentVariable("SqlConnectionString", "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
@@ -143,5 +162,4 @@ public class TestServer
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("APPLICATION_ENVIRONMENT", "dev", EnvironmentVariableTarget.Process);
 	}
-
 }

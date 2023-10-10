@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
@@ -13,6 +14,8 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestEquipSkinCommand()
 		{
+			TestData.GetData<CollectionData>().OwnedCollectibles[CollectionCategories.PLAYER_SKINS] = new List<ItemData>() {ItemFactory.Collection(GameId.FemaleAssassin)};
+
 			var cmd = new EquipCollectionItemCommand() {Item = ItemFactory.Collection(GameId.FemaleAssassin)};
 			TestServices.CommandService.ExecuteCommand(new GiveDefaultCollectionItemsCommand());
 			TestServices.CommandService.ExecuteCommand(cmd);

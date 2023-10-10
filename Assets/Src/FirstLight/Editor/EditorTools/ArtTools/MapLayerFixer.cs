@@ -28,6 +28,14 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 					{
 						o.SetLayer(LayerMask.NameToLayer(PhysicsLayers.OBSTACLES));
 						Debug.Log($"{o.name} layer set to {PhysicsLayers.OBSTACLES}");
+					} else if (o.layer == LayerMask.NameToLayer(PhysicsLayers.PLAYER_TRIGGERS))
+					{
+						// not a bush but its in Player Triggers
+						if (!o.GetComponentInChildren<EntityComponentVisibilityArea>())
+						{
+							o.SetLayer(LayerMask.NameToLayer(PhysicsLayers.PLAYER_TRIGGERS));
+							Debug.Log($"{o.name} layer set to {PhysicsLayers.PLAYER_TRIGGERS}");
+						}
 					}
 				}
 
@@ -55,6 +63,5 @@ namespace FirstLight.Editor.EditorTools.ArtTools
 				}
 			}
 		}
-
 	}
 }

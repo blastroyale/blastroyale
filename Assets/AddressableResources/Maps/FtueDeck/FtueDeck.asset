@@ -4187,7 +4187,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 0
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4316,7 +4316,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 0
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4445,7 +4445,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 15
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:
@@ -4574,7 +4574,7 @@ MonoBehaviour:
         IsPersistent: 1
         CompoundShapes: []
         IsSetFromSourceCollider: 0
-      Layer: 0
+      Layer: 8
       IsTrigger: 0
       PhysicsMaterial:
         Id:

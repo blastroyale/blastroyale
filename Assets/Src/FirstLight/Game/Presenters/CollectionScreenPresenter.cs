@@ -250,7 +250,7 @@ namespace FirstLight.Game.Presenters
 			_collectionList.Clear();
 			_collectionList.RefreshItems();
 		}
-
+		
 		private ItemData GetSelectedItem()
 		{
 			var l = GetCollectionAll();
@@ -259,8 +259,17 @@ namespace FirstLight.Game.Presenters
 
 		public List<ItemData> GetCollectionAll()
 		{
+			HashSet<int> hiddenGameIds = new HashSet<int>();
+			// TODO: Move this to configs
+			if (_gameDataProvider.AppDataProvider.TitleData.TryGetValue("HIDE_COLLECTION", out var hidden))
+			{
+				hiddenGameIds = hidden.Split(",").Select(Int32.Parse).ToHashSet();
+			}
 			var collection = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
-			return collection.OrderBy(c => !_gameDataProvider.CollectionDataProvider.IsItemOwned(c)).ToList();
+			return collection
+				.Where(c => !hiddenGameIds.Contains((int)c.Id) || _gameDataProvider.CollectionDataProvider.IsItemOwned(c))
+				.OrderBy(c => !_gameDataProvider.CollectionDataProvider.IsItemOwned(c))
+				.ToList();
 		}
 
 		private void OnEquipClicked()

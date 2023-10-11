@@ -41,6 +41,16 @@ namespace FirstLight.Game.Services.Collection.Handles
 			if (!instantiate) return obj;
 			var skinComponent = obj.GetComponent<CharacterSkinMonoComponent>();
 			if (skinComponent != null) UpdateAnimator(obj, skinComponent, menuModel);
+			var level = menuModel ? 0 : 2;
+
+			foreach (var component in obj.GetComponents<Renderer>())
+			{
+				var text = component.material.mainTexture as Texture2D;
+				if (text != null)
+					text.ClearRequestedMipmapLevel();
+					text.requestedMipmapLevel = level;
+			}
+
 			return obj;
 		}
 

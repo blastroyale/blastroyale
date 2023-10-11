@@ -173,17 +173,77 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private Vector3 GetHit(Frame f, EntityRef entity, FPVector3 origin, FPVector3 end)
 		{
-			var hits = f.Physics3D.LinecastAll(origin, origin+end, -1, _hitQuery);
-			if (hits.Count > 0)
+			// This is OLD linecast we are using
+			// var shapeHits = f.Physics3D.LinecastAll(origin, origin+end, -1, _hitQuery);
+			
+			// Just a note on parameters:
+			// ORIGIN is a vector-position, roughly near player/weapon
+			// END is a vector that contains direction AND distance, so I guess that's what is called Translation
+			// Example of a player shooting from, say, pistol to the right:
+			// Origin = Vector3 (86, 0, 97)
+			// End = Vector3 (6, 0, 0)
+			
+			// I'm using Sphrere as a shape for shapecast
+			// Here I define a radius for the Sphere. Our bullets are roughly 0.12 in width, so I've set 0.05 as a Radius to begin with
+			var radius = FP._0_05;
+			
+			// Here I'm creating a primitive just to visualize where the Origin position is
+			var sp1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			sp1.transform.position = origin.ToUnityVector3();
+			sp1.transform.localScale = Vector3.one * 0.1f;
+			
+			// Here I'm moving Origin on 2 units further along End direction
+			// This is to ensure that the start of the shapecast is not overlapping with a player themselves
+			origin = origin + (end.Normalized * FP._2);
+			
+			// Here I'm creating a primitive to visualize updated Origin position
+			var sp2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			sp2.transform.position = origin.ToUnityVector3();
+			sp2.transform.localScale = Vector3.one * 0.1f;
+			
+			// Here I'm creating a primitive to visualize Origin+End position
+			var sp3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			sp3.transform.position = (origin+end).ToUnityVector3();
+			sp3.transform.localScale = Vector3.one * 0.1f;
+			
+			// This is the shape to be used for Shapecast
+			var shapeToUse = Shape3D.CreateSphere(radius);
+			
+			var shapeHits = f.Physics3D.ShapeCastAll(origin, FPQuaternion.Identity, shapeToUse, end, -1, _hitQuery);
+			
+			// I've commented it, but it usually was returning me non-zero count, so there were hits
+			//Log.Warn("SHAPEHITS COUNT: " + shapeHits.Count);
+			
+			if (shapeHits.Count > 0)
 			{
-				hits.SortCastDistance();
-				var hit = hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, hit, entity));
+				shapeHits.SortCastDistance();
+				
+				// This foreach loop is not needed in a real code, but I'm using it to see if at least ANY of the hits has non-zero values
+				foreach (var shapeHit in shapeHits.ToArray())
+				{
+					var sp = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+					sp.transform.position = shapeHit.Point.ToUnityVector3();
+					sp.transform.localScale = Vector3.one * 0.1f;
+					
+					// This stuff always prints me (0,0,0) whatever I do. God knows why
+					Log.Warn("SHAPEHIT POS: " + sp.transform.position);
+				}
+				
+				var hit = shapeHits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, hit, entity));
 				if (hit.Point != FPVector3.Zero)
 				{
+					// Never seen this one in all my experiments, but that would be the goal
+					Log.Warn("SHAPEHIT RETURNED: " + hit.Point.ToUnityVector3());
+					
 					return hit.Point.ToUnityVector3();
 				}
 			}
 			return Vector3.zero;
+			
+			// One last note:
+			// We are using OverlapShape in our project for Hazards so as a last resort I'm inclined to create a big stretched cube
+			// then use this inside OverlapShape and then do distance sorting from a player's position.
+			// It's completely inappropriate solution for a problem but at least we have an example in our project where it definitely works
 		}
 
 		private void DrawAimLine(Frame f, LineRenderer line, EntityRef entity, FPVector3 origin, FPVector3 end)

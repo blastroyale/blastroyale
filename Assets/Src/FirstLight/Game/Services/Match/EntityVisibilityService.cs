@@ -74,6 +74,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnSpectateChange(SpectatedPlayer oldView, SpectatedPlayer newView)
 		{
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
+			{
+				Log.Error("Tried to change spectator while quantum game was not running");
+				return;
+			}
 			if (newView.Entity == QuantumRunner.Default.Game.GetLocalPlayerEntityRef()) return;
 			if (!newView.Entity.IsValid || !oldView.Entity.IsValid) return;
 			

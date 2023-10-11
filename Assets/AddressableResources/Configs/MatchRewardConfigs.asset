@@ -253,3 +253,93 @@ MonoBehaviour:
     Rewards:
       _keyData: 0c0000001a00000003000000
       _valueData: 000000000500000064000000
+  - MatchRewardId: -1063954649
+    Placement: 1
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 640000006400000064000000
+  - MatchRewardId: -1063954646
+    Placement: 2
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 580000005a00000064000000
+  - MatchRewardId: -1063954647
+    Placement: 3
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 4c0000005500000064000000
+  - MatchRewardId: -1063954652
+    Placement: 4
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 400000005000000064000000
+  - MatchRewardId: -1063954653
+    Placement: 5
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 340000004600000064000000
+  - MatchRewardId: -1063954650
+    Placement: 6
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 280000004100000064000000
+  - MatchRewardId: -1063954651
+    Placement: 7
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 1c0000003c00000064000000
+  - MatchRewardId: -1063954640
+    Placement: 8
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 100000003200000064000000
+  - MatchRewardId: -1063954641
+    Placement: 9
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 040000002d00000064000000
+  - MatchRewardId: 104526575
+    Placement: 10
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000002800000064000000
+  - MatchRewardId: -1461557366
+    Placement: 11
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000001e00000064000000
+  - MatchRewardId: -1058272839
+    Placement: 12
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000001900000064000000
+  - MatchRewardId: 1670610516
+    Placement: 13
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000001400000064000000
+  - MatchRewardId: -1864841893
+    Placement: 14
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000000a00000064000000
+  - MatchRewardId: 864041462
+    Placement: 15
+    TeamSize: 2
+    Rewards:
+      _keyData: 0c0000001a00000003000000
+      _valueData: 000000000500000064000000

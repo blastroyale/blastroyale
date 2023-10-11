@@ -24,7 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      AllowedMaps: 6c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000071000000720000007300000041000000
       RankSorter: 0
       RankProcessor: 0
       ShowUIMinimap: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 3
       MinPlayersInTeam: 1
-      AllowedMaps: 090000006c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000071000000720000007300000041000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1
@@ -271,6 +271,51 @@ MonoBehaviour:
       CompletionKillCount: 0
       AllowEarlyRewards: 1
       IsDebugOnly: 1
+      Systems:
+      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
+      - Quantum.Systems.RoofDamageSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
+    - Id: BattleRoyaleDuos
+      MaxPlayers: 30
+      MinPlayers: 1
+      Teams: 1
+      MaxPlayersInTeam: 2
+      MinPlayersInTeam: 1
+      AllowedMaps: 6c00000071000000720000007300000041000000
+      RankSorter: 1
+      RankProcessor: 1
+      ShowUIMinimap: 1
+      ShowUITimer: 1
+      ShowUIStandingsExtraInfo: 1
+      ShowWeaponSlots: 1
+      SingleSlotMode: 1
+      DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
+      Lives: 1
+      DropWeaponOnPickup: 1
+      AirdropNearPlayer: 0
+      ShrinkingCircleCenteredOnPlayer: 0
+      SpawnWithGear: 0
+      SpawnWithWeapon: 0
+      SkydiveSpawn: 1
+      SpawnSelection: 1
+      SpawnPattern: 0
+      DeathDropStrategy: 4
+      DeathMarker: 1
+      MinimumHealth: 0
+      InstantLoad: 0
+      AllowBots: 1
+      UseBotsFromGamemode: BattleRoyale
+      BotSearchForCrates: 1
+      BotRespawn: 0
+      BotWeaponSearchStrategy: 1
+      BotsTeamOverride: 0
+      GameSimulationStateMachine: 1
+      AudioStateMachine: 1
+      CompletionStrategy: 1
+      CompletionKillCount: 0
+      AllowEarlyRewards: 1
+      IsDebugOnly: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

@@ -24,7 +24,7 @@ MonoBehaviour:
         NFT: 0
         AllowedRewards: 030000000c000000160000001a000000
     - Entries:
-      - GameModeId: BattleRoyaleTrios
+      - GameModeId: BattleRoyaleDuos
         MatchType: 1
         Mutators: []
         Squads: 1

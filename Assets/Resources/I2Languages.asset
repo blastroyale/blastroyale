@@ -4577,6 +4577,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: GameIds/BattleRoyaleDuos
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE DUOS
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: GameIds/BattlelandsMap
       TermType: 0
       Description: 
@@ -9368,6 +9379,20 @@ MonoBehaviour:
       Flags: 0000000000
       Languages_Touch: []
     - Term: MainMenu/BattleRoyaleTriosDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Small map. Last team standing wins the match
+      - "\u041E\u0434\u043D\u0430 \u0436\u0438\u0437\u043D\u044C. \u0411\u043E\u043B\u044C\u0448\u0430\u044F
+        \u043A\u0430\u0440\u0442\u0430. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439
+        \u0438\u0433\u0440\u043E\u043A, \u0441\u0442\u043E\u044F\u0449\u0438\u0439
+        \u0437\u0430 \u043C\u0430\u0442\u0447\u0435\u043C"
+      - "Uma vida. Grande mapa. \xDAltimo jogador em p\xE9 vence a partida"
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: MainMenu/BattleRoyaleDuosDescription
       TermType: 0
       Description: 
       Languages:
@@ -15053,6 +15078,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITHomeScreen/gamemode_BattleRoyaleDuos
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE\nDUOS
+      - BATTLE ROYALE\nDUOS
+      - BATTLE ROYALE\nDUOS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITHomeScreen/gamemode_BigRoyale
       TermType: 0
       Description: 
@@ -17634,7 +17670,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1696584587351
+    Google_LastUpdatedVersion: 1697018165840
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

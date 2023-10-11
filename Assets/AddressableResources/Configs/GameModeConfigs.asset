@@ -69,7 +69,7 @@ MonoBehaviour:
       Teams: 1
       MaxPlayersInTeam: 3
       MinPlayersInTeam: 1
-      AllowedMaps: 090000006c00000041000000710000007200000073000000
+      AllowedMaps: 6c00000041000000710000007200000073000000
       RankSorter: 1
       RankProcessor: 1
       ShowUIMinimap: 1

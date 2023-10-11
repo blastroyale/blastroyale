@@ -120,7 +120,7 @@ namespace FirstLight.Game.Views
 
 			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
 			{
 				_gameModeLabel.AddToClassList("game-mode-button-trios__label");
 			}
@@ -135,7 +135,7 @@ namespace FirstLight.Game.Views
 			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
 
 			// TODO: Remove this adhoc style change
-			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaletrios")
+			if (GameModeInfo.Entry.GameModeId.ToLower() == "battleroyaleduos")
 			{
 				_gameModeLabel.RemoveFromClassList("game-mode-button-trios__label");
 			}

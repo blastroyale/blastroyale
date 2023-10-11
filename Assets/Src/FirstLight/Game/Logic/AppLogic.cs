@@ -62,6 +62,11 @@ namespace FirstLight.Game.Logic
 		bool UseDynamicJoystick { get; set; }
 
 		/// <summary>
+		/// If should show the real damage instead of percentage damage
+		/// </summary>
+		ref bool ShowRealDamage { get; }
+		
+		/// <summary>
 		/// Requests the enable property for dynamic camera movement
 		/// </summary>
 		bool UseDynamicCamera { get; set; }
@@ -257,6 +262,8 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		public ref bool ShowRealDamage => ref Data.ShowRealDamage;
+		
 		/// <inheritdoc />
 		public bool IsDialogueEnabled
 		{

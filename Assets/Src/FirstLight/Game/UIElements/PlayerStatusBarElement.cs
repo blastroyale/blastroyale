@@ -56,9 +56,11 @@ namespace FirstLight.Game.UIElements
 		private readonly float[] _damageNumberAnimOffsets = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private readonly float[] _damageNumberAnimValues = new float[DAMAGE_NUMBER_MAX_POOL_SIZE];
 		private int _damageNumberIndex;
-
+		private float _maxHealth;
 		private bool _isFriendly;
-
+		private float _smallDamage = 32;
+		private float _damageScale = 64;
+		private bool _showRealDamage = false;
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
@@ -147,7 +149,6 @@ namespace FirstLight.Game.UIElements
 					damageNumber.userData = i; // Save index to userData
 					_damageNumberAnimOffsets[i] = Random.Range(-5f, 5f);
 					_damageNumbersPool[i] = damageNumber;
-
 					// Create animation
 					var anim = damageNumber.experimental.animation.Start(0f, 1f, DAMAGE_NUMBER_ANIM_DURATION, AnimateDamageNumber);
 					anim.KeepAlive().Stop();
@@ -158,7 +159,7 @@ namespace FirstLight.Game.UIElements
 			SetIsFriendly(true);
 			SetMagazine(4, 6);
 		}
-
+		
 		public void SetIconColor(Color color)
 		{
 			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
@@ -196,7 +197,16 @@ namespace FirstLight.Game.UIElements
 			var damageNumberAnim = _damageNumberAnims[_damageNumberIndex];
 			_damageNumberAnimValues[_damageNumberIndex] = damage;
 			damageNumberLabel.style.color = color ?? _defaultPingDmgColor;
-			damageNumberLabel.text = damage.ToString();
+			if (_showRealDamage)
+			{
+				damageNumberLabel.text = damage.ToString();
+			}
+			else
+			{
+				var damagePct = (int) Math.Ceiling(100f * damage / _maxHealth);
+				damageNumberLabel.style.fontSize = GetDamageNumberSize(damagePct);
+				damageNumberLabel.text = damagePct.ToString();
+			}
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
@@ -208,6 +218,11 @@ namespace FirstLight.Game.UIElements
 			_opacityAnimationHandle.ExecuteLater(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HEALTHBAR_HIDE_DURATION);
 		}
 
+		private float GetDamageNumberSize(int damagePct)
+		{
+			return _smallDamage + (_damageScale * damagePct/100);
+		}
+
 		/// <summary>
 		/// Sets the name of the player.
 		/// </summary>
@@ -216,6 +231,8 @@ namespace FirstLight.Game.UIElements
 			_name.text = playerName;
 			_name.style.color = nameColor;
 		}
+
+		public ref bool ShowRealDamage => ref _showRealDamage;
 
 		/// <summary>
 		/// Sets the magazine size and how full it is. Only affects friendly players.
@@ -283,6 +300,7 @@ namespace FirstLight.Game.UIElements
 		public void SetHealth(int previous, int current, int max)
 		{
 			// TODO: Handle red bar when damaged (i.e. previous < current)
+			_maxHealth = max;
 			_healthBar.style.flexGrow = (float) current / max;
 		}
 

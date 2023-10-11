@@ -1,5 +1,7 @@
 using System;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Utils
@@ -64,6 +66,14 @@ namespace FirstLight.Game.Utils
 		public static IMatchServices ResolveMatchServices()
 		{
 			return Resolve<IMatchServices>();
+		}
+		
+		/// <summary>
+		/// Helper to resolve data provider
+		/// </summary>
+		public static IGameDataProvider ReesolveData()
+		{
+			return Resolve<IGameDataProvider>();
 		}
 	}
 }

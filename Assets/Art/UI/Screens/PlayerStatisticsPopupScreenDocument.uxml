@@ -10,13 +10,13 @@
                 </ui:Label>
                 <ui:VisualElement name="Content" class="player-statistics-popup__content player-statistics-popup__content">
                     <ui:VisualElement name="HeaderRow" class="header-row">
-                        <FirstLight.Game.UIElements.PlayerAvatarElement />
+                        <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" />
                         <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" class="player-header__playername-label" />
                         <FirstLight.Game.UIElements.ImageButton name="EditNameButton" class="player-header__leaderboards-button sfx-click-forwards header-row__edit-name-button">
                             <ui:VisualElement name="Icon" class="player-header__edit-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatRow0" class="stat-row0">
+                    <ui:VisualElement name="StatRow0" class="stat-row">
                         <ui:VisualElement name="StatsContainer0" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName0" class="stats-container__stat-name" />
                             <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue0" class="stats-container_stat-value" />
@@ -45,6 +45,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: hidden;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

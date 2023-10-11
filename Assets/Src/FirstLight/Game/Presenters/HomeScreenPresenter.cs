@@ -104,6 +104,11 @@ namespace FirstLight.Game.Presenters
 			_partyService = _services.PartyService;
 		}
 
+		private async void OpenStats(PlayerStatisticsPopupPresenter.StateData data)
+		{
+			await _uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+		}
+
 		protected override void QueryElements(VisualElement root)
 		{
 			root.Q<ImageButton>("ProfileButton").clicked += () => 
@@ -123,7 +128,7 @@ namespace FirstLight.Game.Presenters
 						}
 					};
 
-					_uiService.OpenUiAsync<PlayerStatisticsPopupPresenter, PlayerStatisticsPopupPresenter.StateData>(data);
+					OpenStats(data);
 				}
 				else
 				{

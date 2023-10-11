@@ -9,15 +9,29 @@ namespace FirstLight.Editor.AssetImporters
 	{
 		public void OnPreprocessTexture()
 		{
-			if (!assetImporter.assetPath.Contains("Assets/")) return;
-			
 			TextureImporter importer = assetImporter as TextureImporter;
 			if (importer == null) return;
+			if (ApplySkinMipMaps(importer)) return;
+			if (!assetImporter.assetPath.Contains("Assets/")) return;
+
+
 			if (importer.mipmapEnabled)
 			{
 				importer.mipmapEnabled = false;
 				Debug.LogWarning($"Asset {assetImporter.assetPath} was imported using MipMaps which we dont need - disabling it ");
 			}
+		}
+
+
+		private bool ApplySkinMipMaps(TextureImporter importer)
+		{
+			if (importer.textureType == TextureImporterType.Sprite) return false;
+			if (!assetImporter.assetPath.StartsWith("Assets/AddressableResources/Collections/CharacterSkins")) return false;
+			importer.mipmapEnabled = true;
+			importer.streamingMipmaps = true;
+			importer.ignoreMipmapLimit = false;
+			return true;
+
 		}
 	}
 }

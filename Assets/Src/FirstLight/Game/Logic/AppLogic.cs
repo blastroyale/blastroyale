@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
@@ -129,6 +130,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
+		
+		/// <summary>
+		/// Playfab title data thats read and setup after player logs in
+		/// </summary>
+		IReadOnlyDictionary<string, string> TitleData { get; }
 
 		/// <summary>
 		/// Requests the player's title display name.
@@ -328,6 +334,8 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> DisplayName { get; private set; }
 
 		public IObservableField<FrameSnapshot> LastFrameSnapshot { get; private set; }
+
+		public IReadOnlyDictionary<string, string> TitleData => Data.TitleData;
 
 		/// <inheritdoc />
 		public string DisplayNameTrimmed => GetDisplayName();

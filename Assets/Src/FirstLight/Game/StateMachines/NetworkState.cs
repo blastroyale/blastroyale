@@ -609,7 +609,7 @@ namespace FirstLight.Game.StateMachines
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
 			var gameModeId = selectedGameMode.Entry.GameModeId;
 			var mutators = selectedGameMode.Entry.Mutators;
-			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
+			var mapConfig = _services.GameModeService.GetRotationMapConfig(gameModeId);
 
 			var matchmakingSetup = new MatchRoomSetup()
 			{

@@ -33,8 +33,7 @@ namespace FirstLight.Game.Presenters
 		private Label _nameLabel;
 		private VisualElement _content;
 		private VisualElement _loadingSpinner;
-		private VisualElement _avatarImageLoadingSpinner;
-		private VisualElement _pfpImage;
+		private PlayerAvatarElement _pfpImage;
 		
 		private Label[] _statLabels;
 		private Label[] _statValues;
@@ -76,13 +75,11 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
-			_pfpImage = root.Q<VisualElement>("PfpImage").Required();
-			_avatarImageLoadingSpinner = root.Q<VisualElement>("SpinnerHolder").Required();
+			_pfpImage = root.Q<PlayerAvatarElement>("Avatar").Required();
 			_content = root.Q<VisualElement>("Content").Required();
 			_nameLabel = root.Q<Label>("NameLabel").Required();
 			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
 
-			
 			for (int i = 0; i < StatisticMaxSize; i++)
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
@@ -125,40 +122,21 @@ namespace FirstLight.Game.Presenters
 
 		private void SetupPopup()
 		{
-			MainInstaller.ResolveServices().ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
+			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
 			    if (!IsOpen) return;
 				
 				_nameLabel.text = result.Name.Remove(result.Name.Length - 5);
 
-				
-				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
-				SetStatInfo(1, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
-				SetStatInfo(2, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
-				SetStatInfo(3, result, GameConstants.Stats.KILLS_EVER, ScriptLocalization.MainMenu.KillsEver);
+				SetStatInfo(0, result, GameConstants.Stats.RANKED_GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.RankedGamesPlayedEver);
+				SetStatInfo(1, result, GameConstants.Stats.RANKED_GAMES_WON_EVER, ScriptLocalization.MainMenu.RankedGamesWon);
+				SetStatInfo(2, result, GameConstants.Stats.RANKED_KILLS_EVER, ScriptLocalization.MainMenu.RankedKills);
+				SetStatInfo(3, result, GameConstants.Stats.GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.GamesPlayedEver);
 				SetStatInfo(4, result, GameConstants.Stats.GAMES_WON_EVER, ScriptLocalization.MainMenu.GamesWonEver);
-				SetStatInfo(5, result, GameConstants.Stats.GAMES_PLAYED_EVER, ScriptLocalization.MainMenu.GamesPlayedEver);
+				SetStatInfo(5, result, GameConstants.Stats.KILLS_EVER, ScriptLocalization.MainMenu.KillsEver);
 				
-				if (!string.IsNullOrEmpty(result.AvatarUrl))
-				{
-					_pfpRequestHandle = _services.RemoteTextureService.RequestTexture(
-						result.AvatarUrl,
-						tex =>
-						{
-							_pfpImage.SetDisplay(true);
-							_pfpImage.style.backgroundImage = new StyleBackground(tex);
-							_avatarImageLoadingSpinner.SetDisplay(false);
-						},
-						() =>
-						{
-							_avatarImageLoadingSpinner.SetDisplay(false);
-						});
-				}
-				else
-				{
-					_pfpImage.SetDisplay(true);
-					_avatarImageLoadingSpinner.SetDisplay(false);
-				}
+				_pfpImage.SetAvatar(result.AvatarUrl);
+				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
 
 				_content.visible = true;
 				_loadingSpinner.visible = false;

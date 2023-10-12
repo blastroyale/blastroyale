@@ -167,10 +167,12 @@ namespace FirstLight.Game.Presenters
 			{
 				if (squadMember.IsLocal) continue;
 				
-				// TODO apply team colors here
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
+				var props = CurrentRoom.GetPlayerProperties(squadMember);
+				var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, props.Rank.Value);
+				marker.style.backgroundColor = nameColor;
 				var mapWidth = _mapImage.contentRect.width;
 				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
 

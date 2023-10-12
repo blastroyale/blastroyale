@@ -1,6 +1,7 @@
-﻿using FirstLight.Game.Configs;
+﻿using System;
+using FirstLight.Game.Configs;
+using FirstLight.Server.SDK.Modules;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Data.DataTypes.Helpers
 {
@@ -10,7 +11,6 @@ namespace FirstLight.Game.Data.DataTypes.Helpers
 
 		public static string GetAvatarUrl(ItemData item, AvatarCollectableConfig config)
 		{
-			string avatarUrl;
 			if (item.Id == GameId.AvatarRemote)
 			{
 				if (item.TryGetMetadata<CollectionMetadata>(out var metadata)
@@ -30,7 +30,8 @@ namespace FirstLight.Game.Data.DataTypes.Helpers
 				}
 			}
 
-			return config.GameIdUrlDictionary[item.Id];
+			if(config.GameIdUrlDictionary.TryGetValue(item.Id, out var configUrl)) return configUrl;
+			throw new Exception($"Could not find source of URL in neither configs metadata for avatar {ModelSerializer.Serialize(item).Value}");
 		}
 	}
 }

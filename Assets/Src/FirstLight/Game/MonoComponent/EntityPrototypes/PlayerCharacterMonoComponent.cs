@@ -95,10 +95,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		}
 
 		private async Task SpawnDeathMarker(ItemData marker)
-		{
+		{ 
 			var position = transform.position;
 			var obj = await Services.CollectionService.LoadCollectionItem3DModel(marker);
-			if (!QuantumRunner.Default.IsDefinedAndRunning() || this.IsDestroyed())
+			if (!QuantumRunner.Default.IsDefinedAndRunning())
 			{
 				Destroy(obj);
 				return;

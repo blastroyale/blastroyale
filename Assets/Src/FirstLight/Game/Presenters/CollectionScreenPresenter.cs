@@ -306,7 +306,7 @@ namespace FirstLight.Game.Presenters
 		{
 		}
 
-		private async void Update3DObject()
+		private async Task Update3DObject()
 		{
 			var selectedItem = GetSelectedItem();
 			if (selectedItem == null)
@@ -330,9 +330,9 @@ namespace FirstLight.Game.Presenters
 				_anchorObject = null;
 			}
 
-			_anchorObject = new GameObject();
+			_anchorObject = new GameObject("Collection 3D Object Anchor");
 			_anchorObject.transform.position = _selectedCategory.Id == GameIdGroup.Glider ? _gliderSpawnPosition : _collectionSpawnPosition;
-			_collectionObject.transform.parent = _anchorObject.transform;
+			_collectionObject.transform.SetParent(_anchorObject.transform);
 			_collectionObject.transform.localPosition = Vector3.zero;
 			_collectionObject.transform.localRotation = Quaternion.identity;
 

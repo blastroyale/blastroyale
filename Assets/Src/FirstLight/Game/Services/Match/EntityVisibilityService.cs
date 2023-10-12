@@ -60,6 +60,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		public bool CanSpectatedPlayerSee(EntityRef entity)
 		{
+			if (_matchServices.SpectateService.GetSpectatedEntity() == entity) return true;
 			return CheckSpectatorVisibility(entity).CanSee;
 		}
 

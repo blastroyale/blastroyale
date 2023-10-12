@@ -196,6 +196,8 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var hasItems = GetCollectionAll().Any();
+			// Set visible to true after loading 3d object
+			_renderTexture.visible = false;
 			if (hasItems)
 			{
 				_comingSoonLabel.visible = false;
@@ -212,7 +214,6 @@ namespace FirstLight.Game.Presenters
 				_collectionList.visible = false;
 			}
 
-			_renderTexture.visible = hasItems && _collectionObject != null;
 			_equipButton.visible = hasItems;
 			_selectedItemLabel.visible = hasItems;
 			_selectedItemDescription.visible = hasItems;
@@ -335,6 +336,7 @@ namespace FirstLight.Game.Presenters
 			_collectionObject.transform.SetParent(_anchorObject.transform);
 			_collectionObject.transform.localPosition = Vector3.zero;
 			_collectionObject.transform.localRotation = Quaternion.identity;
+			_renderTexture.visible = true;
 
 			if (_selectedCategory.Id == GameIdGroup.Glider)
 			{

@@ -388,7 +388,7 @@ namespace FirstLight.Game.Presenters
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
 
-			_selectedItemLabel.text = _gameDataProvider.CollectionDataProvider.GetDisplayName(selectedItem);
+			_selectedItemLabel.text = selectedItem.GetDisplayName();
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
@@ -459,7 +459,7 @@ namespace FirstLight.Game.Presenters
 					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, selectedItem);
 				}
 
-				card.SetCollectionElement(selectedItem, collectionDataProvider.GetDisplayName(selectedItem), itemIndex);
+				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName(), itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);

@@ -485,6 +485,7 @@ public partial class SROptions
 
 		foreach (var glider in gameLogic.CollectionLogic.GetCollectionsCategories().SelectMany(category => category.Id.GetIds()))
 		{
+			if(glider.IsInGroup(GameIdGroup.GenericCollectionItem))continue;
 			UnlockCollectionItem(glider, gameLogic, services);
 		}
 

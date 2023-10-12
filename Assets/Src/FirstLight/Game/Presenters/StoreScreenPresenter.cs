@@ -85,6 +85,7 @@ namespace FirstLight.Game.Presenters
 		protected override void SubscribeToEvents()
 		{
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
+			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
 		}
 
@@ -124,6 +125,22 @@ namespace FirstLight.Game.Presenters
 			{
 				ParentItem = msg.Core,
 				Items = msg.Results,
+				FameRewards = false,
+				OnFinish = () =>
+				{
+					_gameServices.GameUiService.OpenScreenAsync<StoreScreenPresenter, StateData>(Data);
+				}
+			});
+		}
+		
+		private void OnItemRewarded(ItemRewardedMessage msg)
+		{
+			// Handle only currency
+			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
+			Data.IapProcessingFinished();
+			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+			{
+				Items = new List<ItemData> {msg.Item},
 				FameRewards = false,
 				OnFinish = () =>
 				{

@@ -330,7 +330,13 @@ namespace Quantum
 				
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
-
+			
+			if (f.TryGet<PlayerCharacter>(spell->Attacker, out var attacker))
+			{
+				f.Events.OnPlayerAttackHit(attacker.Player, spell->Attacker, attacker.TeamId, spell->Victim, 
+					spell->OriginalHitPosition, (uint)totalDamage,  previousShield > 0);
+			}
+			
 			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 			

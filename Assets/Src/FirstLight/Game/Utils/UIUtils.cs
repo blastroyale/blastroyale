@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -241,18 +242,11 @@ namespace FirstLight.Game.Utils
 		{
 			element.SetLevel(gameDataProvider.PlayerDataProvider.Level.Value);
 
-			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
-			
-			string avatarUrl = null;
-			if (itemData != null)
-			{
-				var avatarCollectableConfigs = gameServices.ConfigsProvider.GetConfig<AvatarCollectableConfig>();
-				avatarUrl = avatarCollectableConfigs.GameIdUrlDictionary[itemData.Id];
-			}
-			
-			if (string.IsNullOrEmpty(avatarUrl)) return;
 
-			element.SetAvatar(avatarUrl);
+			var itemData = gameDataProvider.CollectionDataProvider.GetEquipped(CollectionCategories.PROFILE_PICTURE);
+			var spriteTask = gameServices.CollectionService.LoadCollectionItemSprite(itemData);
+
+			element.LoadFromTask(spriteTask);
 		}
 	}
 }

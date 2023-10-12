@@ -250,7 +250,7 @@ namespace FirstLight.Game.Presenters
 			_collectionList.Clear();
 			_collectionList.RefreshItems();
 		}
-		
+
 		private ItemData GetSelectedItem()
 		{
 			var l = GetCollectionAll();
@@ -265,11 +265,22 @@ namespace FirstLight.Game.Presenters
 			{
 				hiddenGameIds = hidden.Split(",").Select(Int32.Parse).ToHashSet();
 			}
-			var collection = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory);
-			return collection
-				.Where(c => !hiddenGameIds.Contains((int)c.Id) || _gameDataProvider.CollectionDataProvider.IsItemOwned(c))
-				.OrderBy(c => !_gameDataProvider.CollectionDataProvider.IsItemOwned(c))
-				.ToList();
+
+			var allVisibleItems = _gameDataProvider.CollectionDataProvider.GetFullCollection(_selectedCategory)
+				.Where(c => !hiddenGameIds.Contains((int) c.Id));
+
+			var playerItems = _gameDataProvider.CollectionDataProvider.GetOwnedCollection(_selectedCategory);
+
+			var result = new List<ItemData>(playerItems);
+			foreach (var item in allVisibleItems)
+			{
+				if (result.All(playerOwned => playerOwned.Id != item.Id))
+				{
+					result.Add(item);
+				}
+			}
+
+			return result;
 		}
 
 		private void OnEquipClicked()
@@ -287,7 +298,7 @@ namespace FirstLight.Game.Presenters
 				_collectionObject.GetComponent<MainMenuCharacterViewComponent>().PlayAnimation();
 			}
 		}
-		
+
 		/// <summary>
 		/// TODO: Enable players to buy new items here.
 		/// </summary>
@@ -377,7 +388,7 @@ namespace FirstLight.Game.Presenters
 				? ScriptLocalization.General.Selected.ToUpper()
 				: ScriptLocalization.General.Equip;
 
-			_selectedItemLabel.text = selectedId.GetLocalization();
+			_selectedItemLabel.text = _gameDataProvider.CollectionDataProvider.GetDisplayName(selectedItem);
 			_selectedItemDescription.text = selectedId.GetDescriptionLocalization();
 			_nameLockedIcon.SetDisplay(!_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
 			_equipButton.SetDisplay(_gameDataProvider.CollectionDataProvider.IsItemOwned(GetSelectedItem()));
@@ -437,16 +448,18 @@ namespace FirstLight.Game.Presenters
 				var selectedItem = rowItems[x];
 
 				var itemIndex = rowNumber * PAGE_SIZE + x;
-				var category = _gameDataProvider.CollectionDataProvider.GetCollectionType(selectedItem);
-				var equipped = _gameDataProvider.CollectionDataProvider.GetEquipped(category);
-				var owned = _gameDataProvider.CollectionDataProvider.IsItemOwned(selectedItem);
+				var collectionDataProvider = _gameDataProvider.CollectionDataProvider;
+				var category = collectionDataProvider.GetCollectionType(selectedItem);
+				var equipped = collectionDataProvider.GetEquipped(category);
+				var owned = collectionDataProvider.IsItemOwned(selectedItem);
 				var unseenItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
 				var isUnseenItem = unseenItems.Contains(selectedItem);
 				if (isUnseenItem)
 				{
 					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, selectedItem);
 				}
-				card.SetCollectionElement(selectedItem, itemIndex);
+
+				card.SetCollectionElement(selectedItem, collectionDataProvider.GetDisplayName(selectedItem), itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));
 				card.SetSelected(itemIndex == _selectedIndex);

@@ -60,14 +60,8 @@ namespace Quantum
 			{
 				finalDmg = (uint)stats->CurrentHealth;
 			}
-			
-			if (f.TryGet<PlayerCharacter>(Attacker, out var attacker))
-			{
-				f.Events.OnPlayerAttackHit(attacker.Player, Attacker, attacker.TeamId, Victim, 
-					OriginalHitPosition, finalDmg, stats->HasShield());
-			}
 
-			if (this.Id == ShrinkingCircleId)
+			if (Id == ShrinkingCircleId)
 			{
 				f.Events.OnShrinkingCircleDmg(Victim, finalDmg);
 			}

@@ -1,23 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PlayerStatisticsPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=b7e478ebaa8934e55b2fb8f78e67dbc6&amp;type=3#PlayerStatisticsPopupScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/PlayerAvatarStyle.uss?fileID=7433441132597879392&amp;guid=38b557c69f774f2983d0aded8a5e3b0d&amp;type=3#PlayerAvatarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
-            <ui:VisualElement name="PlayerStatisticsPopup" class="player-statistics-popup anim-delay-0 anim-translate anim-translate--down-xxxl" style="-unity-text-align: upper-left;">
-                <ui:Label name="Title" text="PLAYER STATS" class="player-statistics-popup__title" />
-                <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="player-statistics-popup__close" />
+            <ui:VisualElement name="PlayerStatisticsPopup" class="player-statistics-popup anim-delay-0 anim-translate anim-translate--down-xxxl" style="-unity-text-align: upper-left; width: 1264px;">
+                <ui:Label name="Title" text="PLAYER STATS" class="player-statistics-popup__title">
+                    <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="player-statistics-popup__close" />
+                </ui:Label>
                 <ui:VisualElement name="Content" class="player-statistics-popup__content player-statistics-popup__content">
                     <ui:VisualElement name="HeaderRow" class="header-row">
-                        <ui:VisualElement name="PfpImage" class="header-row__pfp-image" />
-                        <ui:VisualElement name="SpinnerHolder" class="header-row__spinner-holder">
-                            <FirstLight.Game.UIElements.AnimatedImageElement name="AvatarImageLoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: visible; position: relative; left: auto; top: auto;" />
-                        </ui:VisualElement>
-                        <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" style="justify-content: center; align-items: auto; align-self: center; -unity-text-align: upper-right; flex-direction: column; margin-left: 20px; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                        <FirstLight.Game.UIElements.PlayerAvatarElement name="Avatar" />
+                        <ui:Label tabindex="-1" text="Name" display-tooltip-when-elided="true" name="NameLabel" class="player-header__playername-label" />
                         <FirstLight.Game.UIElements.ImageButton name="EditNameButton" class="player-header__leaderboards-button sfx-click-forwards header-row__edit-name-button">
-                            <ui:VisualElement name="Icon" class="player-header__leaderboards-icon" style="background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Pen@4x.png?fileID=2800000&amp;guid=0aec7c7bf99354f66bc2a1d18bd0b4d2&amp;type=3#d_Pen@4x&apos;); width: 24px; height: 24px;" />
+                            <ui:VisualElement name="Icon" class="player-header__edit-icon" />
                         </FirstLight.Game.UIElements.ImageButton>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatRow0" class="stat-row stat-row0">
+                    <ui:VisualElement name="StatRow0" class="stat-row">
                         <ui:VisualElement name="StatsContainer0" class="stats-container">
                             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="StatName0" class="stats-container__stat-name" />
                             <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="StatValue0" class="stats-container_stat-value" />
@@ -46,8 +45,8 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: hidden;" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" style="visibility: hidden;" />
     </ui:VisualElement>
 </ui:UXML>

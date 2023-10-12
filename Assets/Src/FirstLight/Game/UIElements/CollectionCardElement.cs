@@ -44,7 +44,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
-		
+
 		public ItemData Item { get; private set; }
 		public int CollectionIndex { get; private set; }
 
@@ -104,14 +104,14 @@ namespace FirstLight.Game.UIElements
 			badgeHolder.Add(
 				_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
 			_equippedBadge.AddToClassList(UssBadgeEquipped);
-			
+
 			cardHolder.Add(_name = new Label("COLLECTION ITEM") {name = "name"});
 			_name.AddToClassList(UssName);
 
 			cardHolder.Add(_notification = new VisualElement());
 			_notification.AddToClassList(UssNotification);
 			_notification.AddToClassList(UssNotificationIcon);
-			
+
 			SetNotificationPip(false);
 			SetLoanedIcon(false);
 			SetIsNft(false);
@@ -130,28 +130,28 @@ namespace FirstLight.Game.UIElements
 			_image.style.opacity = locked ? 1f : 0.2f;
 			_backgroundImage.style.color = new Color(0.1f, 0.1f, 0.1f, 1f);
 		}
-		
+
 		public void SetNotificationPip(bool b) => _notification.SetDisplay(b);
 		public void SetLoanedIcon(bool b) => _loanedBadge.SetDisplay(b);
 		public void SetIsNft(bool b) => _nftBadge.SetDisplay(b);
 		public void SetIsEquipped(bool b) => _equippedBadge.SetDisplay(b);
 		public void SetIsOwned(bool b) => SetLocked(b);
+
 		public void SetHighlight(bool b)
 		{
 			if (b) AddToClassList(UssBlockHighlighted);
 			else RemoveFromClassList(UssBlockHighlighted);
 		}
-		
-		public void SetCollectionElement(ItemData item, int index, bool owned = false)
+
+		public void SetCollectionElement(ItemData item, string displayName, int index, bool owned = false)
 		{
 			Item = item;
-			var gameId = item.Id;
 			var view = item.GetViewModel();
 			CollectionIndex = index;
-			_name.text = gameId.GetLocalization();
+			_name.text = displayName;
 			view.DrawIcon(_image);
 		}
-		
+
 		public new class UxmlFactory : UxmlFactory<CollectionCardElement, UxmlTraits>
 		{
 		}

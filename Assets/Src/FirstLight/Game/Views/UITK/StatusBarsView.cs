@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
@@ -9,6 +10,7 @@ using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering.LookDev;
 using UnityEngine.UIElements;
 using Assert = UnityEngine.Assertions.Assert;
 
@@ -23,6 +25,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private IMatchServices _matchServices;
 		private IGameServices _gameServices;
+		private IGameDataProvider _data;
 
 		private readonly Dictionary<EntityRef, Transform> _anchors = new();
 		private readonly Dictionary<EntityRef, PlayerStatusBarElement> _visiblePlayers = new();
@@ -43,6 +46,7 @@ namespace FirstLight.Game.Views.UITK
 			_camera = FLGCamera.Instance.MainCamera;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
+			_data = MainInstaller.ReesolveData();
 
 			element.Clear();
 
@@ -218,6 +222,7 @@ namespace FirstLight.Game.Views.UITK
 
 			bar.SetName(playerName, nameColor);
 			bar.SetIsFriendly(isFriendlyPlayer);
+			bar.ShowRealDamage = _data.AppDataProvider.ShowRealDamage;
 			bar.SetLevel(pc.GetEnergyLevel(f));
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);

@@ -435,6 +435,7 @@ namespace I2.Loc
 			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale"); } }
 			public static string BattleRoyale_First_Game 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyale First Game"); } }
+			public static string BattleRoyaleDuos 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyaleDuos"); } }
 			public static string BattleRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattleRoyaleTrios"); } }
 			public static string BattlelandsMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattlelandsMap"); } }
 			public static string BigRoyale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BigRoyale"); } }
@@ -851,6 +852,7 @@ namespace I2.Loc
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
 			public static string BattleRoyaleDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyaleDescription"); } }
+			public static string BattleRoyaleDuosDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyaleDuosDescription"); } }
 			public static string BattleRoyaleTriosDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyaleTriosDescription"); } }
 			public static string BattlepassClaimAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassClaimAll"); } }
 			public static string BattlepassCurrentLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassCurrentLevel"); } }
@@ -1363,6 +1365,7 @@ namespace I2.Loc
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
 			public static string gamemode_BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyale"); } }
+			public static string gamemode_BattleRoyaleDuos 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyaleDuos"); } }
 			public static string gamemode_BattleRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BattleRoyaleTrios"); } }
 			public static string gamemode_BigRoyale 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BigRoyale"); } }
 			public static string gamemode_BigRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/gamemode_BigRoyaleTrios"); } }
@@ -1531,6 +1534,7 @@ namespace I2.Loc
 			public static string screenshake 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/screenshake"); } }
 			public static string server 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/server"); } }
 			public static string settings_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/settings_title"); } }
+			public static string show_real_damage 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/show_real_damage"); } }
 			public static string sixty 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sixty"); } }
 			public static string sound_effects 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_effects"); } }
 			public static string sound_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/sound_title"); } }
@@ -2076,6 +2080,7 @@ namespace I2.Loc
 		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
 		    public const string BattleRoyale = "GameIds/BattleRoyale";
 		    public const string BattleRoyale_First_Game = "GameIds/BattleRoyale First Game";
+		    public const string BattleRoyaleDuos = "GameIds/BattleRoyaleDuos";
 		    public const string BattleRoyaleTrios = "GameIds/BattleRoyaleTrios";
 		    public const string BattlelandsMap = "GameIds/BattlelandsMap";
 		    public const string BigRoyale = "GameIds/BigRoyale";
@@ -2492,6 +2497,7 @@ namespace I2.Loc
 		    public const string BGM = "MainMenu/BGM";
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
 		    public const string BattleRoyaleDescription = "MainMenu/BattleRoyaleDescription";
+		    public const string BattleRoyaleDuosDescription = "MainMenu/BattleRoyaleDuosDescription";
 		    public const string BattleRoyaleTriosDescription = "MainMenu/BattleRoyaleTriosDescription";
 		    public const string BattlepassClaimAll = "MainMenu/BattlepassClaimAll";
 		    public const string BattlepassCurrentLevel = "MainMenu/BattlepassCurrentLevel";
@@ -3004,6 +3010,7 @@ namespace I2.Loc
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
 		    public const string equipment = "UITHomeScreen/equipment";
 		    public const string gamemode_BattleRoyale = "UITHomeScreen/gamemode_BattleRoyale";
+		    public const string gamemode_BattleRoyaleDuos = "UITHomeScreen/gamemode_BattleRoyaleDuos";
 		    public const string gamemode_BattleRoyaleTrios = "UITHomeScreen/gamemode_BattleRoyaleTrios";
 		    public const string gamemode_BigRoyale = "UITHomeScreen/gamemode_BigRoyale";
 		    public const string gamemode_BigRoyaleTrios = "UITHomeScreen/gamemode_BigRoyaleTrios";
@@ -3172,6 +3179,7 @@ namespace I2.Loc
 		    public const string screenshake = "UITSettings/screenshake";
 		    public const string server = "UITSettings/server";
 		    public const string settings_title = "UITSettings/settings_title";
+		    public const string show_real_damage = "UITSettings/show_real_damage";
 		    public const string sixty = "UITSettings/sixty";
 		    public const string sound_effects = "UITSettings/sound_effects";
 		    public const string sound_title = "UITSettings/sound_title";

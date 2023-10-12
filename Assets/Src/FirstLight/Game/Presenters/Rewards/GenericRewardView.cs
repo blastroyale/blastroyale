@@ -1,4 +1,5 @@
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -43,7 +44,12 @@ namespace FirstLight.Game.Presenters
 			_name.text = itemViewModel.DisplayName;
 			if (itemViewModel.Description != null)
 			{
+				_amount.SetVisibility(true);
 				_amount.text = itemViewModel.Description;
+			}
+			else
+			{
+				_amount.SetVisibility(false);
 			}
 		}
 	}

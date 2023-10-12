@@ -17,6 +17,8 @@ namespace FirstLight.Game.MonoComponent.Match
 		private static readonly int _topAnimatorPlayerInsideParamNameHash = Animator.StringToHash("PlayerInside");
 
 		[SerializeField] private Animator _topRemovalAnimator;
+		
+		[SerializeField] private EntityView _visibilityArea;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -32,6 +34,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+			QuantumEvent.Subscribe<EventOnEnterVisibilityArea>(this, OnEnterVisibilityArea);
+			QuantumEvent.Subscribe<EventOnLeaveVisibilityArea>(this, OnLeaveVisibilityArea);
 		}
 
 		private void OnDestroy()
@@ -65,8 +69,40 @@ namespace FirstLight.Game.MonoComponent.Match
 				CheckUpdateBuildingTop();
 			}
 		}
+		
+		private void OnEnterVisibilityArea(EventOnEnterVisibilityArea callback)
+		{
+			if (_visibilityArea.EntityRef != callback.Area)
+			{
+				return;
+			} 
+			
+			//Debug.LogWarning("BuildingTopRemovalMonoComponent->OnPlayerTriggerEnter");
+			_currentlyCollidingEntities.Add(callback.Entity);
+				
+			if (callback.Entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				UpdateBuildingTop(true);
+			}
+		}
 
-		private void OnTriggerEnter(Collider other)
+		private void OnLeaveVisibilityArea(EventOnLeaveVisibilityArea callback)
+		{
+			if (_visibilityArea.EntityRef != callback.Area)
+			{
+				return;
+			}  
+			
+			_currentlyCollidingEntities.Remove(callback.Entity);
+			
+			if (callback.Entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
+				!_currentlyCollidingEntities.Contains(callback.Entity))
+			{
+				UpdateBuildingTop(false);
+			}
+		}
+
+		/*private void OnTriggerEnter(Collider other)
 		{
 			if (!other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
 			
@@ -89,7 +125,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				UpdateBuildingTop(false);
 			}
-		}
+		}*/
 
 		private void CheckUpdateBuildingTop()
 		{

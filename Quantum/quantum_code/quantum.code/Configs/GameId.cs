@@ -1005,7 +1005,8 @@ namespace Quantum
 					GameId.MeleeSkinElectricSolo, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1143,6 +1144,22 @@ namespace Quantum
 					{
 						GameIdGroup.ProfilePicture,
 						GameIdGroup.Collection
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarRemote, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection,
+						GameIdGroup.GenericCollectionItem
+					}.AsReadOnly()
+				},
+				{
+					GameId.AvatarNFTCollection, new List<GameIdGroup>
+					{
+						GameIdGroup.ProfilePicture,
+						GameIdGroup.Collection,
+						GameIdGroup.GenericCollectionItem
 					}.AsReadOnly()
 				},
 				{
@@ -1451,7 +1468,9 @@ namespace Quantum
 						GameId.Avatar2,
 						GameId.Avatar3,
 						GameId.Avatar4,
-						GameId.Avatar5
+						GameId.Avatar5,
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
 					}.AsReadOnly()
 				},
 				{
@@ -1480,6 +1499,7 @@ namespace Quantum
 						GameId.Tombstone,
 						GameId.Demon,
 						GameId.MeleeSkinDefault,
+						GameId.MeleeSkinElectricSolo,
 						GameId.MeleeSkinMicDrop,
 						GameId.MeleeSkinPutter,
 						GameId.MeleeSkinToyMelee,
@@ -1594,6 +1614,13 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameIdGroup.GenericCollectionItem, new List<GameId>
+					{
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
+					}.AsReadOnly()
+				},
+				{
 					GameIdGroup.MeleeSkin, new List<GameId>
 					{
 						GameId.MeleeSkinDefault,
@@ -1660,7 +1687,9 @@ namespace Quantum
 						GameId.Avatar2,
 						GameId.Avatar3,
 						GameId.Avatar4,
-						GameId.Avatar5
+						GameId.Avatar5,
+						GameId.AvatarRemote,
+						GameId.AvatarNFTCollection
 					}.AsReadOnly()
 				},
 				{

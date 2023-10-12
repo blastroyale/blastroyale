@@ -17,6 +17,16 @@ using UnityEngine;
 namespace FirstLight.Game.Data
 {
 	/// <summary>
+	/// Known collection traits keys
+	/// </summary>
+	public static class CollectionTraits
+	{
+		public static readonly string URL = "url";
+		public static readonly string TOKEN_ID = "token";
+		public static readonly string NFT_COLLECTION = "nft_collection";
+	}
+
+	/// <summary>
 	/// Helper class for single allocation of structs
 	/// </summary>
 	public static class CollectionCategories
@@ -27,7 +37,7 @@ namespace FirstLight.Game.Data
 		public static readonly CollectionCategory MELEE_SKINS = new (GameIdGroup.MeleeSkin);
 		public static readonly CollectionCategory PROFILE_PICTURE = new (GameIdGroup.ProfilePicture);
 	}
-	
+
 	/// <summary>
 	/// Holds information of a collection category. Currently mapped to a GameIdGroup.
 	/// Should change in the future because game id groups are a pain in the bumbumb as it should be
@@ -66,7 +76,7 @@ namespace FirstLight.Game.Data
 		{
 			return GetHashCode(this);
 		}
-		
+
 		public int GetHashCode(CollectionCategory obj)
 		{
 			return obj.Id.GetHashCode();
@@ -77,7 +87,7 @@ namespace FirstLight.Game.Data
 			return Id == other.Id;
 		}
 	}
-	
+
 	/// <summary>
 	/// Metadata item of a given collection.
 	/// Here we can store specific collection traits like colors, materials, ids.
@@ -94,12 +104,16 @@ namespace FirstLight.Game.Data
 			Key = key;
 			Value = value;
 		}
+		
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Key.GetDeterministicHashCode(), Value.GetDeterministicHashCode());
+			unchecked
+			{
+				return ((Key != null ? Key.GetDeterministicHashCode() : 0) * 397) ^ (Value != null ? Value.GetDeterministicHashCode() : 0);
+			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Player data holder of what is owned by a given collection or what is equipped.
 	/// Some items from the owned can be remotely synced via CollectionItemEnrichmentData
@@ -110,12 +124,14 @@ namespace FirstLight.Game.Data
 		[JsonProperty] [JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, List<ItemData>>))]
 		public readonly Dictionary<CollectionCategory, List<ItemData>> OwnedCollectibles = new ();
 
-		[JsonProperty]
-		[JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
-		public readonly Dictionary<CollectionCategory, ItemData> Equipped = new()
+		[JsonProperty] [JsonConverter(typeof(CustomDictionaryConverter<CollectionCategory, ItemData>))]
+		public readonly Dictionary<CollectionCategory, ItemData> Equipped = new ()
 		{
-			{ CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin) },
+			{CollectionCategories.PLAYER_SKINS, ItemFactory.Collection(GameId.MaleAssassin)},
 		};
+
+		public ulong LastUpdateTimestamp;
+
 
 		/// <summary>
 		/// This is used in the quantum server plugin for validating the skins, if you want to check inside the game do not use this!
@@ -136,15 +152,16 @@ namespace FirstLight.Game.Data
 				foreach (var item in collection) hash = unchecked(hash * 23 + item.GetHashCode());
 			}
 			foreach (var item in Equipped.Values) hash = unchecked(hash * 23 + item.GetHashCode());
+			hash = unchecked(hash * 37 + LastUpdateTimestamp.GetHashCode());
 			return hash;
 		}
 
 		public override Type[] GetEnrichedTypes() => new[] {typeof(Corpos)};
+
 		protected override void EnrichFromType(Type type, RemoteCollectionItem remoteData)
 		{
 			if (type == typeof(Corpos))
 			{
-				
 				var item = ItemFactory.Collection(GameId.MaleCorpos, new CollectionTrait("token_id", remoteData.Identifier));
 				OwnedCollectibles[CollectionCategories.PROFILE_PICTURE].Add(item);
 			}

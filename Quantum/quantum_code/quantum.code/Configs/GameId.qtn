@@ -154,6 +154,8 @@ enum GameId
 	Avatar3 = 118,
 	Avatar4 = 120,
 	Avatar5 = 121,
+	AvatarRemote = 123,
+	AvatarNFTCollection = 124,
 	FootprintDot = 111,
 }
 
@@ -190,6 +192,7 @@ enum GameIdGroup
 	Platform = 37,
 	Core = 22,
 	IAP = 23,
+	GenericCollectionItem = 39,
 	MeleeSkin = 38,
 	PlayerSkin = 18,
 	Glider = 28,

@@ -17,11 +17,10 @@ namespace BlastRoyaleNFTPlugin
 		{
 			var baseUrl = ReadPluginConfig("API_URL");
 			var apiSecret = ReadPluginConfig("API_KEY");
-			var fullUrl = $"{baseUrl}/blast-royale-equipment";
-			context.Log?.LogInformation($"Using blockchain URL at {fullUrl}");
+			context.Log?.LogInformation($"Using blockchain URL at {baseUrl}");
 			if (context.ServerConfig.NftSync)
 			{
-				context.DataSyncs?.RegisterSync(new NftSynchronizer(fullUrl, apiSecret, context));
+				context.DataSyncs?.RegisterSync(new NftSynchronizer(baseUrl, apiSecret, context));
 			}
 			context.DataSyncs?.RegisterSync(new PlayfabInventorySync(context));
 		}

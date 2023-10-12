@@ -43,6 +43,7 @@ namespace FirstLight.Editor.Ids
 			Platform = 37,
 			Core = 22,
 			IAP = 23,
+			GenericCollectionItem = 39,
 
 
 			#region CollectionGroup
@@ -238,6 +239,8 @@ namespace FirstLight.Editor.Ids
 			{"Avatar3", 118, ProfilePicture, Collection},
 			{"Avatar4", 120, ProfilePicture, Collection},
 			{"Avatar5", 121, ProfilePicture, Collection},
+			{"AvatarRemote", 123, ProfilePicture, Collection, GenericCollectionItem},
+			{"AvatarNFTCollection", 124, ProfilePicture, Collection, GenericCollectionItem},
 
 			#endregion
 

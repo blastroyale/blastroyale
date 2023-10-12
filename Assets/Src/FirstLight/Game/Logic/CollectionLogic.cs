@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
 using JetBrains.Annotations;
 using Quantum;
@@ -56,6 +58,11 @@ namespace FirstLight.Game.Logic
 		/// Check if player has all the default skins
 		/// </summary>
 		bool HasAllDefaultCollectionItems();
+		
+		/// <summary>
+		/// Get Display name for given collection item
+		/// </summary>
+		string GetDisplayName(ItemData data);
 	}
 
 	/// <summary>
@@ -125,11 +132,15 @@ namespace FirstLight.Game.Logic
 			List<ItemData> collection = new List<ItemData>();
 			foreach (var id in group.Id.GetIds())
 			{
+				// Player can have multiple items marked as genericcollectionitem, this means the id represent multiple collectables 
+				if(id.IsInGroup(GameIdGroup.GenericCollectionItem)) continue;
 				collection.Add(ItemFactory.Collection(id));
 			}
+			// Start to data driven shit
 
 			return collection;
 		}
+		
 
 		public List<ItemData> GetOwnedCollection(CollectionCategory group)
 		{
@@ -144,6 +155,22 @@ namespace FirstLight.Game.Logic
 		public bool HasAllDefaultCollectionItems()
 		{
 			return DefaultCollectionItems.SelectMany(category => category.Value).All(IsItemOwned);
+		}
+
+		public string GetDisplayName(ItemData data)
+		{
+			if (!data.Id.IsInGroup(GameIdGroup.GenericCollectionItem)) return data.Id.GetLocalization();
+			// For generic items we cant depend on the game id, so for now display the collection type like "Corpos"
+			if (data.TryGetMetadata<CollectionMetadata>(out var metadata) &&
+				metadata.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection))
+			{
+				if (collection.Length > 0)
+				{
+					return collection[0].ToString().ToUpper() + collection[1..].ToLower();
+				}
+				return collection;
+			}
+			return "";
 		}
 
 		[CanBeNull]

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using UnityEngine;
@@ -91,9 +92,13 @@ namespace FirstLight.Game.UIElements
 			SetVisibleStars(visibleStars);
 			SetStarsColorLevel((uint) Mathf.FloorToInt((level - 1) / 5f));
 		}
-		
-		public void SetAvatar(Sprite sprite)
+
+		public async Task LoadFromTask(Task<Sprite> loadSpriteTask)
 		{
+			_avatarHolder.SetVisibility(false);
+			AddToClassList(USS_AVATAR_NFT);
+			var sprite = await loadSpriteTask;
+			if (panel == null) return;
 			_pfp.style.backgroundImage = new StyleBackground(sprite);
 			_avatarHolder.SetVisibility(true);
 		}
@@ -126,7 +131,7 @@ namespace FirstLight.Game.UIElements
 		public void SetVisibleStars(uint visibleStars)
 		{
 			Assert.IsTrue(visibleStars is <= 5 and >= 0, "Can only show 0 - 5 visible stars");
-			
+
 			_star1.SetDisplay(visibleStars is 4 or 5);
 			_star2.SetDisplay(visibleStars is 2 or 3 or 4 or 5);
 			_star3.SetDisplay(visibleStars is 1 or 3 or 5);

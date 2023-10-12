@@ -14,7 +14,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public GameId GameId { get; }
 		public uint Amount { get; }
 		public string Description => null;
-		public string DisplayName => "NEW SCREEN UNLOCKED"; // TODO: Move to localizations
+		public string DisplayName => UnlockSystem.ToString().ToUpper() + "<br>SCREEN"; // TODO: Move to localizations
 		public VisualElement ItemCard => new UnlockRewardSummaryElement()
 		{
 			pickingMode = PickingMode.Ignore

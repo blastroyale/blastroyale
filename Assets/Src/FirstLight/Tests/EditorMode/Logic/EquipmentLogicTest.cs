@@ -37,13 +37,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{Specials = new List<GameId> {GameId.SpecialShieldSelf, GameId.SpecialShieldSelf}});
 			InitConfigData(new ScrapConfig
 			{
-				ResourceType = GameId.COIN,
-				BaseValue = 200,
-				GrowthMultiplier = FP.FromString("1.5"),
-				AdjectiveCostK = FP.FromString("2.6"),
-				GradeMultiplier = FP.FromString("1.15"),
-				LevelMultiplier = FP.FromString("0.03")
-			});
+				Rarity = EquipmentRarity.Epic,
+				FragmentReward = 120
+			});;
 			_equipmentLogic.Init();
 		}
 

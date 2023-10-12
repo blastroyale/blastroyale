@@ -9,7 +9,6 @@ namespace FirstLight.Game.Configs
 	public struct FuseConfig
 	{
 		public EquipmentRarity Rarity;
-		public uint CSCost;
 		public uint FragmentCost;
 		public uint CoinCost;
 	}

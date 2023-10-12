@@ -4,6 +4,7 @@ enum GameId
 	Random = 0,
 	RealMoney = 125,
 	COIN = 61,
+	BlastBuck = 105,
 	BLST = 14,
 	Fragments = 112,
 	CS = 12,

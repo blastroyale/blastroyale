@@ -197,7 +197,7 @@ namespace FirstLight.Game.Presenters
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 			if (FeatureFlags.STORE_ENABLED)
 			{
-				storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
+				//storeButton.LevelLock(this, Root, UnlockSystem.Shop, Data.OnStoreClicked);
 			}
 
 			var discordButton = root.Q<Button>("DiscordButton");

@@ -74,6 +74,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.BlastBuck, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
@@ -1181,6 +1187,7 @@ namespace Quantum
 					{
 						GameId.RealMoney,
 						GameId.COIN,
+						GameId.BlastBuck,
 						GameId.BLST,
 						GameId.Fragments,
 						GameId.CS

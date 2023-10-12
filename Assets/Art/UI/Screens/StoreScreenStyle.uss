@@ -3,11 +3,12 @@
 }
 
 .store-item {
-    width: 450px;
-    height: 700px;
+    width: 413px;
+    height: 378px;
     background-color: rgba(0, 0, 0, 0);
     overflow: visible;
     border-width: 0;
+    scale: 0.7 0.7;
 }
 
 .store-item:active {
@@ -47,6 +48,11 @@
     width: 100%;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 152px;
 }
 
 .store-item__body__title--rare {
@@ -64,6 +70,7 @@
 .store-item__body__icon {
     width: 400px;
     height: 400px;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .store-item__body__price {
@@ -84,7 +91,8 @@
     width: 75px;
     height: 85px;
     top: -40px;
-    right: -390px;
+    right: -47px;
+    position: absolute;
 }
 
 .store-item__button-info:active {

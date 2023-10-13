@@ -182,7 +182,10 @@ namespace FirstLight.Game.Logic
 				Data.OwnedCollectibles[category] = collection;
 			}
 
-			collection.Add(item);
+			if (!collection.Contains(item))
+			{
+				collection.Add(item);
+			}
 			return item;
 		}
 

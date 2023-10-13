@@ -147,7 +147,7 @@ namespace FirstLight.Game.Services
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
 		public const string LOG_TAG = "Matchmaking";
-		public static int TICKET_TIMEOUT_SECONDS = 45;
+		public static int TICKET_TIMEOUT_SECONDS = 10;
 
 
 		private readonly IGameDataProvider _dataProvider;

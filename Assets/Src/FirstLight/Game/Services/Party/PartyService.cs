@@ -552,7 +552,21 @@ namespace FirstLight.Game.Services.Party
 					_pubsub.ClearListeners(_lobbyTopic);
 				}
 
-				await AsyncPlayfabMultiplayerAPI.LeaveLobby(req);
+				try
+				{
+					await AsyncPlayfabMultiplayerAPI.LeaveLobby(req);
+				}
+				catch (WrappedPlayFabException ex)
+				{
+					// If player try to leaves the lobby but he is not on the lobby or the lobby doesn't exists ignore the error and reset state
+					if (ex.Error.Error is PlayFabErrorCode.LobbyPlayerNotPresent or PlayFabErrorCode.LobbyDoesNotExist)
+					{
+						return;
+					}
+
+					throw ex;
+				}
+
 				ResetState();
 			}
 			catch (Exception ex)

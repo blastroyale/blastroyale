@@ -10,6 +10,8 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public class UnityDeactivateColliderEditorWindow : UnityEditor.EditorWindow
 	{
+		public bool _enable;
+		
 		[MenuItem("FLG/Window/UnityDeactivateColliderEditorWindow")]
 		static void ShowWindow()
 		{
@@ -18,6 +20,8 @@ namespace FirstLight.Editor.EditorTools
 
 		private void OnGUI()
 		{
+			_enable = EditorGUILayout.Toggle("Enabled", _enable);
+			
 			if (GUILayout.Button("Deactivate Unity Colliders"))
 			{
 				var boxColliders = Object.FindObjectsByType<BoxCollider>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -27,7 +31,7 @@ namespace FirstLight.Editor.EditorTools
 					{
 						Debug.Log($"Deactivating {c.gameObject.FullGameObjectPath()} BoxCollider");
 						
-						c.enabled = false;
+						c.enabled = _enable;
 						EditorUtility.SetDirty(c.gameObject);
 					}
 				}
@@ -39,7 +43,7 @@ namespace FirstLight.Editor.EditorTools
 					{
 						Debug.Log($"Deactivating {c.gameObject.FullGameObjectPath()} MeshCollider");
 						
-						c.enabled = false;
+						c.enabled = _enable;
 						EditorUtility.SetDirty(c.gameObject);
 					}
 				}

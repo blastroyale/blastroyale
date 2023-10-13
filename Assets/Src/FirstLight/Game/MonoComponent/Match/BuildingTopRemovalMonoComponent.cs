@@ -77,7 +77,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			} 
 			
-			//Debug.LogWarning("BuildingTopRemovalMonoComponent->OnPlayerTriggerEnter");
+			//Debug.LogWarning("BuildingTopRemovalMonoComponent->OnEnterVisibilityArea");
 			_currentlyCollidingEntities.Add(callback.Entity);
 				
 			if (callback.Entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
@@ -93,6 +93,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}  
 			
+			//Debug.LogWarning("BuildingTopRemovalMonoComponent->OnLeaveVisibilityArea");
 			_currentlyCollidingEntities.Remove(callback.Entity);
 			
 			if (callback.Entity == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
@@ -101,32 +102,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				UpdateBuildingTop(false);
 			}
 		}
-
-		/*private void OnTriggerEnter(Collider other)
-		{
-			if (!other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
-			
-			_currentlyCollidingEntities.Add(player.EntityRef);
-				
-			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-			{
-				UpdateBuildingTop(true);
-			}
-		}
-
-		private void OnTriggerExit(Collider other)
-		{
-			if (!other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
-			
-			_currentlyCollidingEntities.Remove(player.EntityRef);
-			
-			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
-				!_currentlyCollidingEntities.Contains(player.EntityRef))
-			{
-				UpdateBuildingTop(false);
-			}
-		}*/
-
+		
 		private void CheckUpdateBuildingTop()
 		{
 			foreach (var entity in _currentlyCollidingEntities)

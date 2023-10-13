@@ -9,12 +9,9 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct ScrapConfig
 	{
-		public GameId ResourceType;
-		public uint BaseValue;
-		public FP GrowthMultiplier;
-		public FP AdjectiveCostK;
-		public FP GradeMultiplier;
-		public FP LevelMultiplier;
+		public EquipmentRarity Rarity;
+		public uint FragmentReward;
+
 	}
 	
 	/// <summary>

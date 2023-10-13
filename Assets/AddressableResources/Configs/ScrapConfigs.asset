@@ -13,33 +13,23 @@ MonoBehaviour:
   m_Name: ScrapConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - ResourceType: 61
-    BaseValue: 115
-    GrowthMultiplier:
-      RawValue: 88474
-    AdjectiveCostK:
-      RawValue: 0
-    GradeMultiplier:
-      RawValue: 65536
-    LevelMultiplier:
-      RawValue: 1802
-  - ResourceType: 12
-    BaseValue: 100
-    GrowthMultiplier:
-      RawValue: 94175
-    AdjectiveCostK:
-      RawValue: 147456
-    GradeMultiplier:
-      RawValue: 75301
-    LevelMultiplier:
-      RawValue: 1638
-  - ResourceType: 112
-    BaseValue: 100
-    GrowthMultiplier:
-      RawValue: 94175
-    AdjectiveCostK:
-      RawValue: 147456
-    GradeMultiplier:
-      RawValue: 75301
-    LevelMultiplier:
-      RawValue: 1638
+  - Rarity: 0
+    FragmentReward: 2
+  - Rarity: 1
+    FragmentReward: 4
+  - Rarity: 2
+    FragmentReward: 8
+  - Rarity: 3
+    FragmentReward: 15
+  - Rarity: 4
+    FragmentReward: 30
+  - Rarity: 5
+    FragmentReward: 60
+  - Rarity: 6
+    FragmentReward: 120
+  - Rarity: 7
+    FragmentReward: 250
+  - Rarity: 8
+    FragmentReward: 500
+  - Rarity: 9
+    FragmentReward: 1000

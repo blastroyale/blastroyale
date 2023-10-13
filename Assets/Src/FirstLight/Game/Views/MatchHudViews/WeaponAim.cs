@@ -69,7 +69,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_range = f.Get<Stats>(entity).GetStatData(StatType.AttackRange).StatValue;
 			_angleVariation = newWeapon.MinAttackAngle;
 			AdjustDottedLine(_centerLineRenderer);
-			_shape = Shape3D.CreateBox(new FPVector3(1, 1, _range));
+			
+			// TODO: X and Y should come from the bullet size (or move to constants)
+			var size = new FPVector3(FP._0_20 / FP._2, FP._0_20 / FP._2, _range / FP._2);
+			_shape = Shape3D.CreateBox(size);
+			
 			if (_angleVariation > _minAngleVariation)
 			{
 				_upperLineRenderer.gameObject.SetActive(true);
@@ -178,17 +182,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private Vector3 GetHit(Frame f, EntityRef entity, FPVector3 origin, FPVector3 direction)
 		{
-			origin += direction.Normalized * FP._2;
-			FPQuaternion rotation = FPQuaternion.LookRotation(direction, FPVector3.Up);
-			//_hits = f.Physics3D.OverlapShape(origin, rotation, _shape, -1, _hitQuery);
-			_hits = f.Physics3D.ShapeCastAll(FPVector3.Zero,rotation, _shape, origin, -1, _hitQuery);
+			var directionNormalized = direction.Normalized;
+			var centerForShape = origin + (directionNormalized * (_range / FP._2));
+			
+			_hits = f.Physics3D.OverlapShape(centerForShape, FPQuaternion.LookRotation(directionNormalized), _shape, -1, _hitQuery);
+			
 			if (_hits.Count > 0)
 			{
-				_hits.SortCastDistance();
-				var hit = _hits.ToArray().FirstOrDefault(hit => IsValidRaycastHit(f, &hit, entity));
-				if (hit.Point != FPVector3.Zero)
+				var closestHit = FPVector3.Zero;
+				var smallestDistanceSqr = FP.MaxValue;
+				for (var i = 0; i < _hits.Count; i++)
 				{
-					return hit.Point.ToUnityVector3();
+					var hit = _hits[i];
+					
+					var checkSqrDistance = FPVector3.DistanceSquared(_hits[i].Point, origin);
+					if (checkSqrDistance < smallestDistanceSqr && IsValidRaycastHit(f, &hit, entity))
+					{
+						smallestDistanceSqr = checkSqrDistance;
+						closestHit = _hits[i].Point;
+					}
+				}
+
+				if (closestHit != FPVector3.Zero)
+				{
+					return closestHit.ToUnityVector3();
 				}
 			}
 			return Vector3.zero;
@@ -200,14 +217,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			line.SetPosition(0, originUnity);
 			var hit = GetHit(f, entity, origin, direction);
 			var lineEnd = originUnity + direction.ToUnityVector3();
+			
 			if (hit != Vector3.zero)
 			{
 				lineEnd = hit;
 				// TODO: Just adjust magnitude instead of the end being the hit position
-				//var hitMagnitude = (originUnity - hit).magnitude;
+				//var hitMagnitude = Vector3.Distance(originUnity, hit);
 				//direction = FPVector3.ClampMagnitude(direction, hitMagnitude);
 			};
-		
+			
 ;			line.SetPosition(1, lineEnd);
 		}
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
 using Quantum;
@@ -9,14 +9,8 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct UpgradeDataConfig
 	{
-		public GameId ResourceType;
-		public uint BaseValue;
-		public FP GrowthMultiplier;
-		public FP AdjectiveCostK;
-		public uint AdjectiveCostScale;
-		public FP GradeMultiplier;
-		public FP LevelMultiplier;
-		public uint DurabilityDivider;
+		public uint Level;
+		public uint CoinCost;
 	}
 	
 	/// <summary>

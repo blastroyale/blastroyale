@@ -214,19 +214,8 @@ namespace FirstLight.Game.Logic
 
 		public Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft)
 		{
-			var resourceType = isNft ? GameId.CS : GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
-			var rarityValue = Math.Ceiling(config.BaseValue *
-			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective)) -
-			                     config.AdjectiveCostScale;
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
-			var levelMultiplier = ((int)equipment.Level * config.LevelMultiplier).AsDouble;
-			var cost = rarityValue + adjectiveValue + 
-			          ((rarityValue + adjectiveValue) * (int) equipment.Level * 
-				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
-
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) equipment.Level);
+			return new Pair<GameId, uint>(GameId.COIN,config.CoinCost);
 		}
 
 		public Pair<GameId, uint>[] GetFuseCost(Equipment equipment)

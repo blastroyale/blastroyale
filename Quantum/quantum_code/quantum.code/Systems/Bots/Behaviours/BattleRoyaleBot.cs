@@ -55,7 +55,7 @@ namespace Quantum.Systems.Bots
 			// In case a bot has a gun and no ammo, we should check if any chance to use an ability is valid
 			// othewise switch back to hammer
 			if (!filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) && 
-				f.TryGet<Stats>(filter.BotCharacter->MoveTarget, out var ammoStats) &&  
+				f.TryGet<Stats>(filter.Entity, out var ammoStats) &&  
 				ammoStats.CurrentAmmoPercent == FP._0)
 			{
 				filter.TrySwitchToHammer(f);

@@ -136,26 +136,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			// Add renderer containers
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
-			// TODO REMOVE THIS SHIT SOMEDAY
-			AddLegacyCollider(obj);
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
 			OnLoaded(skin.Id, obj, true);
 			return obj;
 		}
-
-		private void AddLegacyCollider(GameObject obj)
-		{
-			// Legacy collider for old visibility volumes
-			var newCollider = obj.AddComponent<CapsuleCollider>();
-			newCollider.center = new Vector3(0, 0.75f, 0);
-			newCollider.radius = 0.2f;
-			newCollider.height = 0.75f;
-			newCollider.direction = 1; // Y axis
-			newCollider.isTrigger = true;
-		}
-
+		
 		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;

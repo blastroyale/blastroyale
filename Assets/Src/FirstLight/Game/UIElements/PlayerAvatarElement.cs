@@ -87,10 +87,13 @@ namespace FirstLight.Game.UIElements
 		public void SetLevel(uint level)
 		{
 			_fameLvl.text = level.ToString();
-
-			var visibleStars = ((level - 1) % 5) + 1;
-			SetVisibleStars(visibleStars);
-			SetStarsColorLevel((uint) Mathf.FloorToInt((level - 1) / 5f));
+			
+			// We use current stars (bronze to diamond) up to Fame Level 100 which is about 2 years of playing casually
+			var visibleStars = level < 100 ? Mathf.FloorToInt((((level - 1) % 25) / 5f) + 1) : 5;
+			var colorLevel = level < 100 ? Mathf.FloorToInt((level - 1) / 25f) : 3;
+			
+			SetVisibleStars((uint) visibleStars);
+			SetStarsColorLevel((uint) colorLevel);
 		}
 
 		public async Task LoadFromTask(Task<Sprite> loadSpriteTask)

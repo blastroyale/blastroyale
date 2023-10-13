@@ -143,7 +143,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IMatchmakingService"/>
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
-		private static string QUEUE_NAME = "flgtrios"; // TODO: Drive from outside for multiple q 
+		private static string QUEUE_NAME = "flgduos"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
 		public const string LOG_TAG = "Matchmaking";

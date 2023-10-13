@@ -3,9 +3,9 @@
     <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner">
         <ui:VisualElement name="LocalPlayerHighlight" class="leaderboard-entry-positioner__highlight" />
         <ui:VisualElement name="LeaderboardEntryParent" class="leaderboard-entry">
-            <ui:VisualElement name="PfpFrameColor" class="leaderboard-entry__pfp pfp-bg" />
-            <ui:VisualElement name="PFP" class="leaderboard-entry__pfp">
-                <ui:VisualElement name="PFPImage" class="leaderboard-entry__pfp-image" />
+            <ui:VisualElement name="PfpFrameColor" class="leaderboard-entry__pfp pfp-bg" style="display: none;" />
+            <ui:VisualElement name="PFP" class="leaderboard-entry__pfp" style="overflow: hidden; top: 4px; left: 3px; bottom: 3px;">
+                <ui:VisualElement name="PFPImage" class="leaderboard-entry__pfp-image" style="top: -8px; width: 100px; -unity-background-scale-mode: scale-to-fit; overflow: hidden; right: 4px; left: 3px; bottom: -34px; height: 100px;" />
             </ui:VisualElement>
             <ui:VisualElement name="CentralBar" class="leaderboard-entry__central-bar">
                 <ui:Label text="441." name="RankNumber" class="leaderboard-entry__rank-number" />

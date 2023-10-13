@@ -25,7 +25,7 @@ namespace FirstLight.Game.Data.DataTypes
 		/// Used in the views to display the item name
 		/// </summary>
 		string DisplayName { get; }
-		
+
 		/// <summary>
 		/// Gets a generated item card
 		/// </summary>
@@ -41,7 +41,7 @@ namespace FirstLight.Game.Data.DataTypes
 		/// Should be replaced by item card and removed.
 		/// </summary>
 		void DrawIcon(VisualElement icon);
-		
+
 		/// <summary>
 		/// Displays the quantity of an item or null if nothing to display
 		/// </summary>
@@ -58,9 +58,33 @@ namespace FirstLight.Game.Data.DataTypes
 			if (item.HasMetadata<UnlockMetadata>()) return new UnlockItemViewModel(item);
 			if (item.Id.IsInGroup(GameIdGroup.ProfilePicture)) return new ProfilePictureViewModel(item);
 			if (item.Id.IsInGroup(GameIdGroup.Collection)) return new CollectionViewModel(item);
-			
+
 			FLog.Error($"Not implemented view for item {item}");
 			return new CollectionViewModel(item);
+		}
+
+		public static string GetDisplayName(this ItemData data)
+		{
+			if (!data.Id.IsInGroup(GameIdGroup.GenericCollectionItem)) return data.Id.GetLocalization();
+
+			if (data.Id == GameId.AvatarRemote)
+			{
+				return "Avatar";
+			}
+			
+			// For generic items we cant depend on the game id, so for now display the collection type like "Corpos"
+			if (data.TryGetMetadata<CollectionMetadata>(out var metadata) &&
+				metadata.TryGetTrait(CollectionTraits.NFT_COLLECTION, out var collection))
+			{
+				if (collection.Length > 0)
+				{
+					return collection[0].ToString().ToUpper() + collection[1..].ToLower();
+				}
+
+				return collection;
+			}
+
+			return "";
 		}
 	}
 }

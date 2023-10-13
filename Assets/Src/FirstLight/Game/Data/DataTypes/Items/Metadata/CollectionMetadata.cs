@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace FirstLight.Game.Data.DataTypes
 {
@@ -10,16 +11,8 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public bool TryGetTrait(string key, out string value)
 		{
-			if (Traits != null)
-				foreach (var collectionTrait in Traits)
-				{
-					if (collectionTrait.Key != key) continue;
-					value = collectionTrait.Value;
-					return true;
-				}
-
-			value = null;
-			return false;
+			value = Traits?.Where(t => t.Key == key).Select(t => t.Value).FirstOrDefault();
+			return value != null;
 		}
 
 		public override int GetHashCode()

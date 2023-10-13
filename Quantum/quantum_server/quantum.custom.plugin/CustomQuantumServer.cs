@@ -392,10 +392,10 @@ namespace Quantum
                 }
             }
 
-            if (!ValidatePlayerSkins(playfabData, ref clientPlayer))
+            if (!ValidatePlayerCosmetics(playfabData, ref clientPlayer))
             {
                 Log.Error(
-                    $"Player {clientPlayer.PlayerId} tried to send skins {string.Join(",", clientPlayer.Skins.Select(s => s.ToString()))} which he doesn't have!");
+                    $"Player {clientPlayer.PlayerId} tried to send cosmetics {string.Join(",", clientPlayer.Cosmetics.Select(s => s.ToString()))} which he doesn't have!");
                 return;
             }
 
@@ -408,9 +408,9 @@ namespace Quantum
             SetDeterministicPlayerData(setPlayerData);
         }
 
-        public bool ValidatePlayerSkins(Dictionary<string, string> playfabData, ref RuntimePlayer playerData)
+        public bool ValidatePlayerCosmetics(Dictionary<string, string> playfabData, ref RuntimePlayer playerData)
         {
-            var skins = playerData.Skins;
+            var skins = playerData.Cosmetics;
             var collectionData = ModelSerializer.DeserializeFromData<CollectionData>(playfabData);
             return skins.All(skin => collectionData.HasCollectionItem(skin));
         }

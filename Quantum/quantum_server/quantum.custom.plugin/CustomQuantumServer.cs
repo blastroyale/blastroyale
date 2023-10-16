@@ -24,7 +24,7 @@ namespace Quantum
         private static ResourceManagerStaticPreloaded _resourceManager;
         private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
         private static Object _initializationLock = new Object();
-
+        
         private DeterministicSessionConfig _config;
         private RuntimeConfig _runtimeConfig;
         private readonly Dictionary<String, String> _photonConfig;
@@ -337,15 +337,51 @@ namespace Quantum
             var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
             _receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
             _actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
-            Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+            
+            // Remote playfab validation disabled until we minimize serialization/data traffic usage
+            // to ensure scale
+            //Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+
             if (FlgConfig.DebugMode)
             {
                 Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
             }
 
-            return false; // denies adding player data to the bitstream when client sends it
+            return MinimalAntiHackValidation(clientPlayer); 
         }
 
+        /// <summary>
+        /// Minimal "localhost" validation that players are not sending silly things to the match.
+        /// This is just needed while remote gear validation is disabled
+        /// </summary>
+        private bool MinimalAntiHackValidation(RuntimePlayer player)
+        {
+            foreach (var cosmetic in player.Cosmetics)
+            {
+                if (!cosmetic.IsInGroup(GameIdGroup.Collection))
+                {
+                    Log.Error($"Player {player.PlayerId} sent invalid cosmetic id {cosmetic}");
+                    return false;
+                }
+            }
+
+            foreach (var eq in player.Loadout)
+            {
+                if (!eq.GameId.IsInGroup(GameIdGroup.Equipment))
+                {
+                    Log.Error($"Player {player.PlayerId} sent invalid equipment id {eq.GameId}");
+                    return false;
+                }
+            }
+
+            if (!player.Weapon.IsWeapon() && !player.Weapon.IsDefaultItem())
+            {
+                Log.Error($"Player {player.PlayerId} sent invalid weapon id {player.Weapon.GameId}");
+                return false;
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// Callback for receiving player data from playfab.

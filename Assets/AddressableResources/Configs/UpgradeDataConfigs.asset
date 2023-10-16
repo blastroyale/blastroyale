@@ -81,3 +81,5 @@ MonoBehaviour:
     CoinCost: 6750
   - Level: 34
     CoinCost: 7100
+  - Level: 35
+    CoinCost: 0

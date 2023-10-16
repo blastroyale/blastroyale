@@ -40,3 +40,6 @@ MonoBehaviour:
   - Rarity: 8
     FragmentCost: 1100
     CoinCost: 75000
+  - Rarity: 9
+    FragmentCost: 0
+    CoinCost: 0

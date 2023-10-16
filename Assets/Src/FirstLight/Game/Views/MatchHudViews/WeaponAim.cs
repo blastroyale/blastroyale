@@ -71,7 +71,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			AdjustDottedLine(_centerLineRenderer);
 			
 			// TODO: X and Y should come from the bullet size (or move to constants)
-			var size = new FPVector3(FP._0_20 / FP._2, FP._0_20 / FP._2, _range / FP._2);
+			var size = new FPVector3(FP._0_10 + FP._0_01, FP._0_20, _range / FP._2);
 			_shape = Shape3D.CreateBox(size);
 			
 			if (_angleVariation > _minAngleVariation)

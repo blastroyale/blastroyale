@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services.Party;
@@ -146,7 +147,7 @@ namespace FirstLight.Game.Services
 		private static string QUEUE_NAME = "flgduos"; // TODO: Drive from outside for multiple q 
 		private const string LOBBY_TICKET_PROPERTY = "mm_match";
 		private const string CANCELLED_KEY = "cancelled";
-		public static int TICKET_TIMEOUT_SECONDS = 10;
+		public int TicketTimeout => _configsProvider.GetConfig<MatchmakingAndRoomConfig>().PlayfabTicketTimeout;
 
 
 		private readonly IGameDataProvider _dataProvider;
@@ -368,7 +369,7 @@ namespace FirstLight.Game.Services
 			{
 				MembersToMatchWith = members,
 				QueueName = QUEUE_NAME,
-				GiveUpAfterSeconds = TICKET_TIMEOUT_SECONDS,
+				GiveUpAfterSeconds = TicketTimeout,
 				Creator = CreateLocalMatchmakingPlayer()
 			}, r =>
 			{
@@ -547,7 +548,7 @@ namespace FirstLight.Game.Services
 				// If playfab timeout doesn't work, so the player won't get stuck in the matchmaking screen
 				waiting += delay;
 				FLog.Info($"Already waited {waiting}s for matchmaking!");
-				var maxWait = PlayfabMatchmakingService.TICKET_TIMEOUT_SECONDS + 30;
+				var maxWait = _service.TicketTimeout + 15;
 				if (waiting >= maxWait)
 				{
 					FLog.Info($"Canceling ticket because it take longer then {maxWait} seconds!");

@@ -209,7 +209,7 @@ namespace FirstLight.Game.Logic
 		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) equipment.Rarity);
-			return new Pair<GameId, uint>(GameId.Fragments, config.FragmentReward);
+			return new Pair<GameId, uint>(GameId.COIN, config.CoinReward);
 		}
 
 		public Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft)

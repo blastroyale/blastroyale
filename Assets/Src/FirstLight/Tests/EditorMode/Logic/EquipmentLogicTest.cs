@@ -38,7 +38,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(new ScrapConfig
 			{
 				Rarity = EquipmentRarity.Epic,
-				FragmentReward = 120
+				CoinReward = 6000
 			});;
 			_equipmentLogic.Init();
 		}
@@ -178,8 +178,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var reward = _equipmentLogic.Scrap(_item.Key);
 
-			Assert.AreEqual(GameId.Fragments, reward.Key);
-			Assert.AreEqual(120, reward.Value);
+			Assert.AreEqual(GameId.COIN, reward.Key);
+			Assert.AreEqual(6000, reward.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 

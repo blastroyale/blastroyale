@@ -177,7 +177,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
-
+			
+			// TODO: Uncomment when we use Fragments
+			root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
+			
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = root.Q<Label>("BetaWarning").Required();
 
@@ -474,7 +477,8 @@ namespace FirstLight.Game.Presenters
 			var current = _services.GameModeService.SelectedGameMode.Value.Entry;
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
 
-			var hasPool = current.AllowedRewards.Contains(GameId.CS);
+			var hasPool = current.AllowedRewards.Contains(GameId.CS)
+			              && _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
 			_csPoolContainer.SetDisplay(hasPool);
 			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
 

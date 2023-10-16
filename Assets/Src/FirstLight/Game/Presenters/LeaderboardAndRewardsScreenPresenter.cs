@@ -65,6 +65,7 @@ namespace FirstLight.Game.Presenters
 		private RewardLevelPanelView _levelView;
 
 		private bool _showingLeaderboards;
+		private bool _showCSReward = false;
 
 		protected override void OnInitialized()
 		{
@@ -153,10 +154,13 @@ namespace FirstLight.Game.Presenters
 
 		private async void AnimatePanels()
 		{
-			await Task.Delay(400);
+			await Task.Delay(300);
 			await _levelView.Animate();
 			await _trophiesView.Animate();
-			await _craftSpiceView.Animate();
+			if (_showCSReward)
+			{
+				await _craftSpiceView.Animate();
+			}
 			await _bppView.Animate();
 		}
 
@@ -169,9 +173,13 @@ namespace FirstLight.Game.Presenters
 			if (rewards.TryGetValue(GameId.CS, out var reward))
 			{
 				csReward = reward;
-			}
 
-			_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
+				if (csReward > 0)
+				{
+					_craftSpiceView.SetData(csReward, (int) _matchServices.MatchEndDataService.CSBeforeChange);
+				}
+			}
+			_showCSReward = csReward != 0;
 
 			// Trophies
 			var trophiesReward = 0;

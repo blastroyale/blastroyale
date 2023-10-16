@@ -120,8 +120,10 @@ namespace FirstLight.Game.UIElements
 				tex =>
 				{
 					if (panel == null) return;
-					_pfp.style.backgroundImage = new StyleBackground(tex);
 					_avatarHolder.SetVisibility(true);
+					_pfp.style.backgroundImage = new StyleBackground(tex);
+					_avatarHolder.usageHints = UsageHints.MaskContainer;
+
 				},
 				() =>
 				{

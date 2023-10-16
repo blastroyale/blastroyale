@@ -354,6 +354,7 @@ namespace FirstLight.Game.Presenters
 			}
 			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
 			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
+			_fuseButton.SetDisplay(!info.IsNft);
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);

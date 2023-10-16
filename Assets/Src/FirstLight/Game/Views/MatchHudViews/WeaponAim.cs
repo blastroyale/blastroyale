@@ -70,9 +70,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_angleVariation = newWeapon.MinAttackAngle;
 			AdjustDottedLine(_centerLineRenderer);
 			
-			// TODO: X and Y should come from the bullet size (or move to constants)
-			var size = new FPVector3(FP._0_10 + FP._0_01, FP._0_20, _range / FP._2);
-			_shape = Shape3D.CreateBox(size);
+			// X and Y are similar to the main bullet collider
+			var colliderSize = new FPVector3(FP._0_10 + FP._0_01, FP._0_20, _range / FP._2);
+			_shape = Shape3D.CreateBox(colliderSize);
 			
 			if (_angleVariation > _minAngleVariation)
 			{
@@ -178,8 +178,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_lastFrameUpdate = Time.frameCount;
 		}
 
-		private GameObject _debug;
-
 		private Vector3 GetHit(Frame f, EntityRef entity, FPVector3 origin, FPVector3 direction)
 		{
 			var directionNormalized = direction.Normalized;
@@ -221,10 +219,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (hit != Vector3.zero)
 			{
 				lineEnd = hit;
-				// TODO: Just adjust magnitude instead of the end being the hit position
-				//var hitMagnitude = Vector3.Distance(originUnity, hit);
-				//direction = FPVector3.ClampMagnitude(direction, hitMagnitude);
-			};
+			}
 			
 ;			line.SetPosition(1, lineEnd);
 		}

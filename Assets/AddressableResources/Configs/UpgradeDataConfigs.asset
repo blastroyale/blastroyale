@@ -14,72 +14,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Level: 1
-    CoinCost: 0
-  - Level: 2
     CoinCost: 200
-  - Level: 3
+  - Level: 2
     CoinCost: 250
-  - Level: 4
+  - Level: 3
     CoinCost: 300
-  - Level: 5
+  - Level: 4
     CoinCost: 350
-  - Level: 6
+  - Level: 5
     CoinCost: 450
-  - Level: 7
+  - Level: 6
     CoinCost: 550
-  - Level: 8
+  - Level: 7
     CoinCost: 650
-  - Level: 9
+  - Level: 8
     CoinCost: 750
-  - Level: 10
+  - Level: 9
     CoinCost: 850
-  - Level: 11
+  - Level: 10
     CoinCost: 1000
-  - Level: 12
+  - Level: 11
     CoinCost: 1150
-  - Level: 13
+  - Level: 12
     CoinCost: 1300
-  - Level: 14
+  - Level: 13
     CoinCost: 1450
-  - Level: 15
+  - Level: 14
     CoinCost: 1600
-  - Level: 16
+  - Level: 15
     CoinCost: 1800
-  - Level: 17
+  - Level: 16
     CoinCost: 2000
-  - Level: 18
+  - Level: 17
     CoinCost: 2200
-  - Level: 19
+  - Level: 18
     CoinCost: 2400
-  - Level: 20
+  - Level: 19
     CoinCost: 2600
-  - Level: 21
+  - Level: 20
     CoinCost: 2850
-  - Level: 22
+  - Level: 21
     CoinCost: 3100
-  - Level: 23
+  - Level: 22
     CoinCost: 3350
-  - Level: 24
+  - Level: 23
     CoinCost: 3600
-  - Level: 25
+  - Level: 24
     CoinCost: 3850
-  - Level: 26
+  - Level: 25
     CoinCost: 4150
-  - Level: 27
+  - Level: 26
     CoinCost: 4450
-  - Level: 28
+  - Level: 27
     CoinCost: 4750
-  - Level: 29
+  - Level: 28
     CoinCost: 5050
-  - Level: 30
+  - Level: 29
     CoinCost: 5350
-  - Level: 31
+  - Level: 30
     CoinCost: 5700
-  - Level: 32
+  - Level: 31
     CoinCost: 6050
-  - Level: 33
+  - Level: 32
     CoinCost: 6400
-  - Level: 34
+  - Level: 33
     CoinCost: 6750
-  - Level: 35
+  - Level: 34
     CoinCost: 7100
+  - Level: 35
+    CoinCost: 0

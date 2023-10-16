@@ -45,6 +45,7 @@ namespace FirstLight.Game.UIElements
 		public void SetPrice(Pair<GameId, uint>[] prices,bool isNft, bool[] insufficient, bool overrideDisablePrice = false)
 		{
 			_holder.Clear();
+
 			for(int i = 0; i < prices.Length; i++)
 			{
 				Label currentPrice;
@@ -70,6 +71,7 @@ namespace FirstLight.Game.UIElements
 			{
 				_holder.SetDisplay(false);
 				_title.EnableInClassList(UssOffsetTitle, true);
+				_holder.Clear();
 			}
 		}
 

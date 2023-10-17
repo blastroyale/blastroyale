@@ -227,7 +227,7 @@ Transform:
   - {fileID: 2797080565624435942}
   - {fileID: 6320236852013400092}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1423154911838253781
 BoxCollider:
@@ -1736,6 +1736,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+--- !u!114 &2125178394519574988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5612451629978073312, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
+  m_PrefabInstance: {fileID: 5808879874161189164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4368802348066485157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7799200939321987721, guid: f10471cd83ee5114fa891b9130f390dd, type: 3}
@@ -1829,6 +1840,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2497506558876647719, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
+      propertyPath: _visibilityArea
+      value: 
+      objectReference: {fileID: 2125178394519574988}
     - target: {fileID: 2497506558876647719, guid: bfda8e7cae1524a8ca01abb3211371f6, type: 3}
       propertyPath: _topRemovalAnimator
       value: 

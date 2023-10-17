@@ -1,14 +1,12 @@
-using System.Linq;
+
 using System.Threading.Tasks;
-using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Realtime;
 using Quantum;
-using Quantum.Systems;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Extensions = FirstLight.Game.Utils.Extensions;
@@ -71,7 +69,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
 
-			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			_playerView.GetComponent<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
 			_shadowBlob.SetActive(true);
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
@@ -138,14 +136,17 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			// TODO REMOVE THIS SHIT SOMEDAY
-			AddLegacyCollider(obj);
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			{
+				AddLegacyCollider(obj);
+			}
 			obj.AddComponent<RenderersContainerProxyMonoComponent>();
 			obj.AddComponent<MatchCharacterViewMonoComponent>();
 			obj.AddComponent<PlayerCharacterViewMonoComponent>();
 			OnLoaded(skin.Id, obj, true);
 			return obj;
 		}
-
+		
 		private void AddLegacyCollider(GameObject obj)
 		{
 			// Legacy collider for old visibility volumes
@@ -156,7 +157,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			newCollider.direction = 1; // Y axis
 			newCollider.isTrigger = true;
 		}
-
+		
 		private async Task InstantiateAvatar(QuantumGame quantumGame, PlayerRef player)
 		{
 			var frame = quantumGame.Frames.Verified;

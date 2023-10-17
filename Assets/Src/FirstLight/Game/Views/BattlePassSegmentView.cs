@@ -120,7 +120,7 @@ namespace FirstLight.Game.Views
 				}
 			}
 			// TODO: Use IItemViewModel to render items
-			_title.text = GetRewardName(_data.RewardConfig.GameId);
+			_title.text = GetRewardName(_data.RewardConfig.GameId, _data.RewardConfig.Amount);
 			_levelNumber.text = levelForUi.ToString();
 
 		
@@ -161,7 +161,7 @@ namespace FirstLight.Game.Views
 			_progressBarFill.style.flexGrow = percent;
 		}
 
-		private string GetRewardName(GameId id)
+		private string GetRewardName(GameId id, int amount)
 		{
 			switch (id)
 			{
@@ -171,7 +171,11 @@ namespace FirstLight.Game.Views
 				case GameId.CoreEpic:
 				case GameId.CoreLegendary:
 					return id.GetLocalization().ToUpper();
-
+				case GameId.COIN:
+				case GameId.CS:
+				case GameId.Fragments:
+				case GameId.BLST:
+					return amount.ToString().ToUpper();
 				default:
 					return id.GetLocalization().ToUpper();
 			}

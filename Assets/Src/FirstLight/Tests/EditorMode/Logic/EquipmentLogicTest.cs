@@ -37,13 +37,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 				{Specials = new List<GameId> {GameId.SpecialShieldSelf, GameId.SpecialShieldSelf}});
 			InitConfigData(new ScrapConfig
 			{
-				ResourceType = GameId.COIN,
-				BaseValue = 200,
-				GrowthMultiplier = FP.FromString("1.5"),
-				AdjectiveCostK = FP.FromString("2.6"),
-				GradeMultiplier = FP.FromString("1.15"),
-				LevelMultiplier = FP.FromString("0.03")
-			});
+				Rarity = EquipmentRarity.Epic,
+				CoinReward = 6000
+			});;
 			_equipmentLogic.Init();
 		}
 
@@ -182,8 +178,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var reward = _equipmentLogic.Scrap(_item.Key);
 
-			Assert.AreEqual(GameId.Fragments, reward.Key);
-			Assert.AreEqual(212, reward.Value);
+			Assert.AreEqual(GameId.COIN, reward.Key);
+			Assert.AreEqual(6000, reward.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 

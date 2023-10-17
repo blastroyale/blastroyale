@@ -162,7 +162,10 @@ namespace FirstLight.Game.Logic
 				{
 					if (config.Value.Systems.Contains(unlockSystem))
 					{
-						return config.Value.LevelStart;
+						// In the config we specify fame points required and rewards in the current level
+						// Example: in config in level 1 we set reward Shop and requirement 100 XP
+						// It means that to get from level 1 to level 2 a player needs to get 100 XP and will be rewarded with Shop
+						return config.Value.LevelStart + 1;
 					}
 				}
 			}

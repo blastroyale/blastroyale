@@ -57,6 +57,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
+
 			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
 			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
 			if (!color.HasValue) return;
@@ -119,7 +120,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return false;
 			}
-			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count <= 1)
+			if (TeamHelpers.GetTeamMembers(QuantumRunner.Default.PredictedFrame(), PlayerView.EntityRef).Count < 1)
 			{
 				return false;
 			}

@@ -1005,8 +1005,7 @@ namespace Quantum
 					GameId.MeleeSkinElectricSolo, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1027,8 +1026,7 @@ namespace Quantum
 					GameId.MeleeSkinMicDrop, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1056,8 +1054,7 @@ namespace Quantum
 					GameId.MeleeSkinPutter, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1078,8 +1075,7 @@ namespace Quantum
 					GameId.MeleeSkinToyMelee, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
@@ -1100,15 +1096,15 @@ namespace Quantum
 					GameId.MeleeSkinWrench, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection,
-						GameIdGroup.BotItem
+						GameIdGroup.Collection
 					}.AsReadOnly()
 				},
 				{
 					GameId.MeleeSkinYouGotMail, new List<GameIdGroup>
 					{
 						GameIdGroup.MeleeSkin,
-						GameIdGroup.Collection
+						GameIdGroup.Collection,
+						GameIdGroup.BotItem
 					}.AsReadOnly()
 				},
 				{
@@ -1499,11 +1495,7 @@ namespace Quantum
 						GameId.Tombstone,
 						GameId.Demon,
 						GameId.MeleeSkinDefault,
-						GameId.MeleeSkinElectricSolo,
-						GameId.MeleeSkinMicDrop,
-						GameId.MeleeSkinPutter,
-						GameId.MeleeSkinToyMelee,
-						GameId.MeleeSkinWrench,
+						GameId.MeleeSkinYouGotMail,
 						GameId.FootprintDot
 					}.AsReadOnly()
 				},

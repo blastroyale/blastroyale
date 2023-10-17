@@ -18,6 +18,9 @@ namespace FirstLight.Game.Configs
 
 		[SerializeField, Required, MinValue(0), InfoBox("How much time wait if somebody didn't load after time timer finishes.")]
 		public int SecondsLoadingTimeout;
+		
+		[SerializeField, Required, MinValue(0), InfoBox("Playfab ticket timeout!")]
+		public int PlayfabTicketTimeout;
 	}
 
 	/// <summary>

@@ -70,6 +70,7 @@ namespace FirstLight.Game.Views
 		{
 			_leaderboardEntry.RemoveModifiers();
 			
+			/*
 			if (borderColor.HasValue && borderColor.Value != GameConstants.PlayerName.DEFAULT_COLOR)//  rank > 0 && rank <= GameConstants.Data.LEADERBOARD_BRONZE_ENTRIES)
 			{
 				_border.SetDisplay(true);
@@ -79,6 +80,7 @@ namespace FirstLight.Game.Views
 			{
 				_border.SetDisplay(false);
 			}
+			*/
 			
 			_playerName.style.color = borderColor.Value;
 			_rankNumber.style.color = borderColor.Value;

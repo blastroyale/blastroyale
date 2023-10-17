@@ -76,7 +76,11 @@ namespace quantum.custom.plugin
 			var request = new GetUserDataRequest()
 			{
 				PlayFabId = playerId,
-				Keys = new string[] { typeof(EquipmentData).FullName }.ToList()
+				Keys = new []
+				{
+					typeof(EquipmentData).FullName,
+					typeof(CollectionData).FullName,
+				}.ToList()
 			};
 			HttpWrapper.Post(playerId, "/Server/GetUserReadOnlyData", request, callback);
 		}

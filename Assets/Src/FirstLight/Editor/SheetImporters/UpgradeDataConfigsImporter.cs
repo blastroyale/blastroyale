@@ -1,4 +1,4 @@
-﻿using FirstLight.Game.Configs;
+using FirstLight.Game.Configs;
 
 namespace FirstLight.Editor.SheetImporters
 {

@@ -94,6 +94,10 @@
     background-image: var(--sprite-home__background-gamemode-deathmatch);
 }
 
+.game-mode-button--battleroyaleduos .game-mode-button__top {
+    background-image: var(--sprite-home__background-gamemode-battleroyale);
+}
+
 .game-mode-button--deathmatch .game-mode-button__top {
     background-image: var(--sprite-home__background-gamemode-deathmatch);
 }
@@ -125,6 +129,14 @@
 }
 
 .game-mode-button--battleroyaletrios .game-mode-button__top-image {
+    background-image: var(--sprite-home__background-gamemode-deathmatch-top);
+    width: 491px;
+    height: 466px;
+    top: 48px;
+    left: -5px;
+}
+
+.game-mode-button--battleroyaleduos .game-mode-button__top-image {
     background-image: var(--sprite-home__background-gamemode-deathmatch-top);
     width: 491px;
     height: 466px;
@@ -183,6 +195,10 @@
 }
 
 .game-mode-button--battleroyaletrios .game-mode-button__icon {
+    background-image: var(--sprite-home__icon-gamemode-battleroyale);
+}
+
+.game-mode-button--battleroyaleduos .game-mode-button__icon {
     background-image: var(--sprite-home__icon-gamemode-battleroyale);
 }
 

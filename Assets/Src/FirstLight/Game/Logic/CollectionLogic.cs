@@ -80,7 +80,7 @@ namespace FirstLight.Game.Logic
 			{
 				CollectionCategories.PROFILE_PICTURE, new List<ItemData>()
 				{
-					ItemFactory.Collection(GameId.Avatar1)
+					ItemFactory.Collection(GameId.Avatar2)
 				}
 			},
 			{
@@ -92,13 +92,13 @@ namespace FirstLight.Game.Logic
 			{
 				CollectionCategories.GLIDERS, new List<ItemData>
 				{
-					ItemFactory.Collection(GameId.Falcon),
+					ItemFactory.Collection(GameId.Turbine),
 				}
 			},
 			{
 				CollectionCategories.GRAVE, new List<ItemData>
 				{
-					ItemFactory.Collection(GameId.Tombstone),
+					ItemFactory.Collection(GameId.Demon),
 				}
 			},
 			{
@@ -115,10 +115,10 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		public readonly Dictionary<CollectionCategory, ItemData> DefaultEquipped = new ()
 		{
-			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Falcon)},
-			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Tombstone)},
+			{CollectionCategories.GLIDERS, ItemFactory.Collection(GameId.Turbine)},
+			{CollectionCategories.GRAVE, ItemFactory.Collection(GameId.Demon)},
 			{CollectionCategories.MELEE_SKINS, ItemFactory.Collection(GameId.MeleeSkinDefault)},
-			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar1)},
+			{CollectionCategories.PROFILE_PICTURE, ItemFactory.Collection(GameId.Avatar2)},
 		};
 
 
@@ -182,7 +182,10 @@ namespace FirstLight.Game.Logic
 				Data.OwnedCollectibles[category] = collection;
 			}
 
-			collection.Add(item);
+			if (!collection.Contains(item))
+			{
+				collection.Add(item);
+			}
 			return item;
 		}
 

@@ -20,6 +20,7 @@ namespace Quantum
 		ShotgunsOnly,
 		SnipersOnly,
 		RPGsOnly,
+		ConsumablesSharing,
 	}
 
 	[Serializable]

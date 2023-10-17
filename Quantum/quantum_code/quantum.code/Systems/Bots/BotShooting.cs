@@ -223,13 +223,6 @@ namespace Quantum.Systems.Bots
 
 		public static bool TrySwitchToHammer(this ref BotCharacterSystem.BotCharacterFilter botFilter, Frame f)
 		{
-			
-			// if the bot has no ammo and can't use specials, switch to hammer 
-			if (f.Time > botFilter.BotCharacter->NextAllowedSpecialUseTime)
-			{
-				return false;
-			}
-			
 			botFilter.PlayerCharacter->EquipSlotWeapon(f, botFilter.Entity, Constants.WEAPON_INDEX_DEFAULT);
 			return true;
 		}

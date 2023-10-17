@@ -85,7 +85,7 @@ namespace Quantum
 				Log.Debug("No Custom Properties");
 				return;
 			}
-			Enum.TryParse((string)customProperties["matchType"], out _matchType);
+			Enum.TryParse((string)customProperties["mt"], out _matchType);
 			if (FlgConfig.DebugMode)
 			{
 				Log.Info($"Created {_matchType.ToString()} game");

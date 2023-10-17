@@ -111,7 +111,7 @@ namespace FirstLight.Game.Views
 				while (levelGained < maxBppForLevel)
 				{
 					// TODO: Make this work based on the current framerate
-					await Task.Delay(20);
+					await Task.Delay(5);
 					
 					var increase = Math.Min(levelGained + increaseNumber, levelRewardInfo.Start+levelRewardInfo.Total) - levelGained;
 					levelGained += increase;

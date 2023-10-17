@@ -80,7 +80,12 @@ namespace FirstLight.Game.UIElements
 		public void SubscribeToEvents()
 		{
 			_gameDataProvider.CurrencyDataProvider.Currencies.Observe(currency, OnCurrencyChanged);
-			_label.text = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency).ToString();
+
+			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
+			
+			// We always Display coins and show other currencies only if the amount is positive
+			this.SetDisplay(currency == GameId.COIN || amount > 0);
+			_label.text = amount.ToString();
 		}
 
 		public void UnsubscribeFromEvents()

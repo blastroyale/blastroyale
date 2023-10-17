@@ -11,7 +11,7 @@ namespace FirstLight.Game.Configs
 	{
 		public EquipmentRarity Rarity;
 		public uint FragmentReward;
-
+		public uint CoinReward;
 	}
 	
 	/// <summary>

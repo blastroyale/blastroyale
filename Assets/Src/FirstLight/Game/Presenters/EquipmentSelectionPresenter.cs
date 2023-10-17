@@ -353,8 +353,11 @@ namespace FirstLight.Game.Presenters
 				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]); 
 			}
 			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
-			_fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
-			_fuseButton.SetDisplay(!info.IsNft);
+			
+			// TODO: Uncomment when/if we use Fusion again
+			// _fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
+			// _fuseButton.SetDisplay(!info.IsNft);
+			_fuseButton.SetDisplay(false);
 
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);

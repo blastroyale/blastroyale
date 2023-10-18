@@ -93,7 +93,8 @@ namespace Quantum
 			var quantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
-				MatchType = _plugin.GetMatchType(),
+				MatchType = _plugin.RoomProperties.MatchType.Value,
+				AllowedRewards = _plugin.RoomProperties.AllowedRewards.Value,
 				MatchId = _plugin.MatchID
 			};
 			commandInstance.FromFrame(frame, quantumValues);

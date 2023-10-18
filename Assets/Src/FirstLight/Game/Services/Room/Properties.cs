@@ -226,5 +226,35 @@ namespace FirstLight.Game.Services.RoomService
 
 			return table;
 		}
+
+		/// <summary>
+		/// Conversion from a system hashtable (used in photon server)
+		/// </summary>
+		public void FromSystemHashTable(System.Collections.Hashtable table)
+		{
+			foreach (var key in table.Keys)
+			{
+				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key);
+				if (hasProp != null)
+				{
+					hasProp.FromRaw(table[key]);
+				}
+			}
+		}
+		
+		/// <summary>
+		/// Conversion from a photon hash table
+		/// </summary>
+		public void FromHashTable(Hashtable table)
+		{
+			foreach (var (key, value) in table)
+			{
+				var hasProp = _allProperties.FirstOrDefault(p => p.Key == key);
+				if (hasProp != null)
+				{
+					hasProp.FromRaw(value);
+				}
+			}
+		}
 	}
 }

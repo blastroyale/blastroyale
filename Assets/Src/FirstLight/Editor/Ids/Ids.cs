@@ -63,6 +63,7 @@ namespace FirstLight.Editor.Ids
 			{"Random", 0, GameDesign},
 			{"RealMoney", 125, Currency},
 			{"COIN", 61, Currency},
+			{"BlastBuck", 105, Currency},
 			{"BLST", 14, Currency},
 			{"Fragments", 112, Currency},
 			{"CS", 12, Currency, ResourcePool},

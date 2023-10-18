@@ -30,6 +30,14 @@ namespace FirstLight.Game.Presenters
 		private const string ITEM_RARE_ID = "com.firstlight.blastroyale.core.rare";
 		private const string ITEM_EPIC_ID = "com.firstlight.blastroyale.core.epic";
 		private const string ITEM_LEGENDARY_ID = "com.firstlight.blastroyale.core.legendary";
+		
+		private const string ITEM_COINPACK_SMALL = "com.firstlight.blastroyale.coinpack.small";
+		private const string ITEM_COINPACK_MEDIUM = "com.firstlight.blastroyale.coinpack.medium";
+		private const string ITEM_COINPACK_LARGE = "com.firstlight.blastroyale.coinpack.large";
+		
+		private const string ITEM_BLASTBUCKPACK_SMALL = "com.firstlight.blastroyale.blastbucks.small";
+		private const string ITEM_BLASTBUCKPACK_MEDIUM = "com.firstlight.blastroyale.blastbucks.medium";
+		private const string ITEM_BLASTBUCKPACK_LARGE = "com.firstlight.blastroyale.blastbucks.large";
 
 		public struct StateData
 		{
@@ -64,11 +72,20 @@ namespace FirstLight.Game.Presenters
 			SetupItem("ItemRare", ITEM_RARE_ID, "rare_core");
 			SetupItem("ItemEpic", ITEM_EPIC_ID, "epic_core");
 			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID, "legendary_core");
+			
+			SetupItem("CoinPackSmall", ITEM_COINPACK_SMALL, "coin_pack_small");
+			SetupItem("CoinPackMedium", ITEM_COINPACK_MEDIUM, "coin_pack_medium");
+			SetupItem("CoinPackLarge", ITEM_COINPACK_LARGE, "coin_pack_large");
+			
+			SetupItem("BlastbuckPackSmall", ITEM_BLASTBUCKPACK_SMALL, "blastbuck_pack_small");
+			SetupItem("BlastbuckPackMedium", ITEM_BLASTBUCKPACK_MEDIUM, "blastbuck_pack_medium");
+			SetupItem("BlastbuckPackLarge", ITEM_BLASTBUCKPACK_LARGE, "blastbuck_pack_large");
 		}
 
 		protected override void SubscribeToEvents()
 		{
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
+			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
 		}
 
@@ -108,6 +125,22 @@ namespace FirstLight.Game.Presenters
 			{
 				ParentItem = msg.Core,
 				Items = msg.Results,
+				FameRewards = false,
+				OnFinish = () =>
+				{
+					_gameServices.GameUiService.OpenScreenAsync<StoreScreenPresenter, StateData>(Data);
+				}
+			});
+		}
+		
+		private void OnItemRewarded(ItemRewardedMessage msg)
+		{
+			// Handle only currency
+			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
+			Data.IapProcessingFinished();
+			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+			{
+				Items = new List<ItemData> {msg.Item},
 				FameRewards = false,
 				OnFinish = () =>
 				{

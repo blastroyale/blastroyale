@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Models;
+using Quantum;
 
 namespace FirstLight.Game.Logic
 {
@@ -77,6 +78,11 @@ namespace FirstLight.Game.Logic
 		/// Advances battle pass level to the given level with the given remaining points
 		/// </summary>
 		void SetLevelAndPoints(uint level, uint points);
+
+		/// <summary>
+		/// Checks if a specific BP season has been purchased. Use default / -1 for the current season.
+		/// </summary>
+		bool HasPurchasedSeason(int season = -1);
 	}
 
 	/// <inheritdoc />
@@ -86,6 +92,11 @@ namespace FirstLight.Game.Logic
 		/// Adds the given <paramref name="amount"/> of BattlePass points to the Player.
 		/// </summary>
 		void AddBPP(uint amount);
+
+		/// <summary>
+		/// Purchase the pro level of the current season of BattlePass.
+		/// </summary>
+		bool Purchase();
 
 		/// <summary>
 		/// Resets battle pass to original state
@@ -178,6 +189,7 @@ namespace FirstLight.Game.Logic
 					totalAccumulatedPoints += predictedProgress.Item2;
 				}
 			}
+
 			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
@@ -187,7 +199,30 @@ namespace FirstLight.Game.Logic
 			{
 				return GameLogic.ConfigsProvider.GetConfig<TutorialBattlePassConfig>().ToBattlePassConfig();
 			}
+
 			return GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+		}
+
+		public bool Purchase()
+		{
+			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var currentBB = GameLogic.CurrencyLogic.GetCurrencyAmount(GameId.BlastBuck);
+
+			if (Data.PurchasedBPSeasons.Contains(config.CurrentSeason) || config.Price > currentBB)
+			{
+				return false;
+			}
+
+			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Price);
+			Data.PurchasedBPSeasons.Add(config.CurrentSeason);
+
+			return true;
+		}
+
+		public bool HasPurchasedSeason(int season = -1)
+		{
+			var checkSeason = season < 0 ? GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().CurrentSeason : (uint) season;
+			return Data.PurchasedBPSeasons.Contains(checkSeason);
 		}
 
 		public void Reset()
@@ -228,6 +263,7 @@ namespace FirstLight.Game.Logic
 				levels.Add(level);
 				currentPointsPerLevel = GetRequiredPointsForLevel((int) level);
 			}
+
 			return levels;
 		}
 

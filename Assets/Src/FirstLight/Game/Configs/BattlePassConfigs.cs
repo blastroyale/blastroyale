@@ -8,6 +8,9 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct BattlePassConfig
 	{
+		[Tooltip("The price of the Pro BP in BlastBucks")]
+		public uint Price;
+
 		public uint CurrentSeason;
 		public uint DefaultPointsPerLevel;
 		public List<BattlePassLevel> Levels;

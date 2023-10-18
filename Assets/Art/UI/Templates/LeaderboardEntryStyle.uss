@@ -181,26 +181,26 @@
 .leaderboard-entry__pfp {
     position: absolute;
     left: 3px;
-    width: 106px;
+    width: 107px;
     -unity-background-image-tint-color: rgb(214, 74, 123);
     background-image: url('project://database/Assets/Art/UI/Vectors/LeaderbordProfileMask.svg?fileID=7388822144124034973&guid=69441292e424642e182fedc73dd14e6b&type=3#LeaderbordProfileMask');
-    overflow: visible;
+    overflow: hidden;
     top: 3px;
     bottom: 3px;
-}
-
-.leaderboard-entry__pfp--nft {
-    overflow: hidden;
+    height: 58px;
 }
 
 .leaderboard-entry__pfp-image {
     background-image: var(--sprite-shared__avatar-default);
     bottom: 0;
-    top: -10px;
+    top: -26px;
     left: 0;
     right: 0;
     position: absolute;
     -unity-background-scale-mode: scale-to-fit;
+    width: 108px;
+    height: 108px;
+    align-self: center;
 }
 
 .leaderboard-entry__pfp--nft > .leaderboard-entry__pfp-image {

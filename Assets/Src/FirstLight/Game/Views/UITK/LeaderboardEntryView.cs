@@ -124,7 +124,6 @@ namespace FirstLight.Game.Views
 			// PFP
 			if (!string.IsNullOrEmpty(pfpUrl))
 			{
-				_pfp.AddToClassList(USS_AVATAR_NFT);
 				_pfpRequestHandle = _services.RemoteTextureService.RequestTexture(
 					pfpUrl,
 					tex =>
@@ -133,13 +132,11 @@ namespace FirstLight.Game.Views
 					},
 					() =>
 					{
-						_pfp.RemoveFromClassList(USS_AVATAR_NFT);
 					});
 			}
 			else
 			{
 				_pfpImage.style.backgroundImage = StyleKeyword.Null;
-				_pfp.RemoveFromClassList(USS_AVATAR_NFT);
 			}
 		}
 

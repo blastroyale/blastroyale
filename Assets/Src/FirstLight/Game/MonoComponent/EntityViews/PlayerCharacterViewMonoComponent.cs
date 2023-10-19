@@ -349,17 +349,35 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (Culled || EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
+			if (Culled || EntityView.EntityRef != callback.PlayerEntity)
 			{
 				return;
 			}
-
-			var vfx = Services.VfxService.Spawn(VfxId.StatusFxHeal).transform;
-
-			vfx.SetParent(transform);
-			vfx.localPosition = Vector3.zero;
-			vfx.localScale = Vector3.one;
-			vfx.localRotation = Quaternion.identity;
+			
+			switch (callback.CollectableId)
+			{
+				case GameId.Health:
+					var vfx = Services.VfxService.Spawn(VfxId.StatusFxHeal).transform;
+					vfx.SetParent(transform);
+					vfx.localPosition = Vector3.zero;
+					vfx.localScale = Vector3.one;
+					vfx.localRotation = Quaternion.identity;
+					return;
+				case GameId.ChestEquipment:
+				case GameId.ChestConsumable:
+				case GameId.ChestLegendary:
+					var frame = callback.Game.Frames.Verified;
+					if (frame.TryGet<Transform3D>(callback.CollectableEntity, out var collectableTransform))
+					{
+						var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
+						chestPickupVfx.position = collectableTransform.Position.ToUnityVector3();
+						chestPickupVfx.localScale = Vector3.one;
+						chestPickupVfx.localRotation = Quaternion.identity;
+					}
+					return;
+				default:
+					return;
+			}
 		}
 
 		private void HandleOnPlayerAlive(EventOnPlayerAlive callback)

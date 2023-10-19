@@ -13,128 +13,190 @@ MonoBehaviour:
   m_Name: BattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
+    Price: 300
     CurrentSeason: 6
     DefaultPointsPerLevel: 400
     Levels:
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 25
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 35
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 55
     - RewardId: 33
+      PremiumRewardId: -1
       PointsForNextLevel: 80
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 95
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 105
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 110
     - RewardId: 34
+      PremiumRewardId: -1
       PointsForNextLevel: 360
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 33
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 34
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 5
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 33
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 6
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 34
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 5
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 33
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 34
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 32
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 33
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 34
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 5
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 2
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 3
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 4
+      PremiumRewardId: -1
       PointsForNextLevel: 0
     - RewardId: 27
+      PremiumRewardId: -1
       PointsForNextLevel: 0

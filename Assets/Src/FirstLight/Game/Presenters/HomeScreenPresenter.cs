@@ -53,6 +53,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnDiscordClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
+			public Action<List<ItemData>> OnRewardsReceived;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -94,8 +95,8 @@ namespace FirstLight.Game.Presenters
 		private Label _betaLabel;
 		private MatchmakingStatusView _matchmakingStatusView;
 		private Coroutine _updatePoolsCoroutine;
-		private HashSet<GameId> _currentAnimations = new();
-		private HashSet<GameId> _initialized = new();
+		private HashSet<GameId> _currentAnimations = new ();
+		private HashSet<GameId> _initialized = new ();
 
 		private void Awake()
 		{
@@ -135,7 +136,7 @@ namespace FirstLight.Game.Presenters
 				{
 					Data.OnProfileClicked();
 				}
-			}; 
+			};
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
@@ -178,10 +179,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency")
 				.AttachView(this, out CurrencyDisplayView _)
 				.SetAnimationOrigin(_playButton);
-			
+
 			// TODO: Uncomment when we use Fragments
 			root.Q<CurrencyDisplayElement>("FragmentsCurrency").SetDisplay(false);
-			
+
 			_outOfSyncWarningLabel = root.Q<Label>("OutOfSyncWarning").Required();
 			_betaLabel = root.Q<Label>("BetaWarning").Required();
 
@@ -244,7 +245,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdatePlayerNameColor(leaderboardEntry.Position);
 		}
-	
+
 		private void UpdatePlayerNameColor(int leaderboardRank)
 		{
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, leaderboardRank);
@@ -271,8 +272,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
 			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
+			_services.MessageBrokerService.Subscribe<ClaimedRewardsMessage>(OnClaimedRewards);
 		}
-
 
 		protected override void UnsubscribeFromEvents()
 		{
@@ -297,7 +298,7 @@ namespace FirstLight.Game.Presenters
 				_updatePoolsCoroutine = null;
 			}
 		}
-		
+
 		private void OnPlayButtonClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
@@ -320,6 +321,11 @@ namespace FirstLight.Game.Presenters
 				_playerTrophiesLabel.text = current.ToString();
 			}
 		}
+		
+		private void OnClaimedRewards(ClaimedRewardsMessage msg)
+		{
+			Data.OnRewardsReceived(msg.Rewards);
+		}
 
 		private void OnDisplayNameChanged(string _, string current)
 		{
@@ -329,7 +335,7 @@ namespace FirstLight.Game.Presenters
 		private void OnFameChanged(uint previous, uint current)
 		{
 			_avatar.SetLevel(current);
-			
+
 			if (previous != current && previous > 0)
 			{
 				Data.OnLevelUp(); // TODO: This should be handled from the state machine
@@ -363,7 +369,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			yield return new WaitForSeconds(TROPHIES_COUNT_DELAY);
-	
+
 			DOVirtual.Float(previous, current, 0.5f, val => { label.text = val.ToString("F0"); });
 			_currentAnimations.Remove(id);
 		}
@@ -488,7 +494,7 @@ namespace FirstLight.Game.Presenters
 			_gameModeLabel.text = LocalizationUtils.GetTranslationForGameModeId(current.GameModeId);
 
 			var hasPool = current.AllowedRewards.Contains(GameId.CS)
-			              && _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
+				&& _dataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.CS).PoolCapacity > 0;
 			_csPoolContainer.SetDisplay(hasPool);
 			_playButtonContainer.EnableInClassList("button-with-pool", hasPool);
 

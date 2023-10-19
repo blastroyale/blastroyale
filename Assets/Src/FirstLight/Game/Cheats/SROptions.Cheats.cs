@@ -596,6 +596,17 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
+	
+	[Category("Progression")]
+	public void Add100BlastBucks()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.CurrencyLogic.AddCurrency(GameId.BlastBuck, 100);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
 
 	[Category("Progression")]
 	public void ResetBpp()

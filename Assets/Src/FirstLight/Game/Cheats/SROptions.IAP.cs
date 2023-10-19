@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -25,6 +26,12 @@ public partial class SROptions
 	public void PurchaseLegendaryCore()
 	{
 		PurchaseItem("com.firstlight.blastroyale.core.legendary");
+	}
+	
+	[Category("IAP")]
+	public void PurchaseBattlePass()
+	{
+		MainInstaller.Resolve<IGameServices>().CommandService.ExecuteCommand(new ActivateBattlepassCommand());
 	}
 	
 	[Category("IAP")]

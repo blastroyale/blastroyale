@@ -7,6 +7,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Services.Party;
@@ -215,6 +216,14 @@ namespace FirstLight.Game.Presenters
 			UpdateSquadsButtonVisibility();
 		}
 
+		private void OnItemRewarded(ItemRewardedMessage msg)
+		{
+			if (msg.Item.Id.IsInGroup(GameIdGroup.Collection))
+			{
+				_collectionNotification.SetDisplay(_services.RewardService.UnseenItems(ItemMetadataType.Collection).Any());
+			}
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -261,6 +270,7 @@ namespace FirstLight.Game.Presenters
 			_services.MatchmakingService.IsMatchmaking.Observe(OnIsMatchmakingChanged);
 			_dataProvider.PlayerDataProvider.Level.InvokeObserve(OnFameChanged);
 			_services.LeaderboardService.OnRankingUpdate += OnRankingUpdateHandler;
+			_services.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
 		}
 
 

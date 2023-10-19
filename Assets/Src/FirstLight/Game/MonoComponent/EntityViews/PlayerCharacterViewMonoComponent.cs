@@ -366,14 +366,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				case GameId.ChestEquipment:
 				case GameId.ChestConsumable:
 				case GameId.ChestLegendary:
-					var frame = callback.Game.Frames.Verified;
-					if (frame.TryGet<Transform3D>(callback.CollectableEntity, out var collectableTransform))
-					{
-						var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
-						chestPickupVfx.position = collectableTransform.Position.ToUnityVector3();
-						chestPickupVfx.localScale = Vector3.one;
-						chestPickupVfx.localRotation = Quaternion.identity;
-					}
+					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
+					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
 					return;
 				default:
 					return;

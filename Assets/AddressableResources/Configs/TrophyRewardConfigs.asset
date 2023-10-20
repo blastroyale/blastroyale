@@ -222,7 +222,7 @@ MonoBehaviour:
     TeamSize: 3
     BracketReward:
       _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
-      _valueData: 0f0000000f0000000f0000000a000000070000000000000000000000
+      _valueData: 0f0000000f0000000f0000000a0000000700000000000000fbffffff
   - MatchRewardId: 1664928705
     Placement: 6
     TeamSize: 3
@@ -253,3 +253,93 @@ MonoBehaviour:
     BracketReward:
       _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
       _valueData: 00000000f9fffffff4fffffff1ffffffecffffffe7ffffffe2ffffff
+  - MatchRewardId: -1063954649
+    Placement: 1
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 23000000230000001e0000001e000000190000001900000014000000
+  - MatchRewardId: -1063954646
+    Placement: 2
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1e0000001e000000190000001900000017000000140000000f000000
+  - MatchRewardId: -1063954647
+    Placement: 3
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 1b0000001a000000170000001700000014000000110000000c000000
+  - MatchRewardId: -1063954652
+    Placement: 4
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 19000000190000001400000014000000110000000f0000000a000000
+  - MatchRewardId: -1063954653
+    Placement: 5
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 170000001700000011000000110000000f0000000c00000005000000
+  - MatchRewardId: -1063954650
+    Placement: 6
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 14000000140000000f0000000f0000000c0000000700000000000000
+  - MatchRewardId: -1063954651
+    Placement: 7
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 11000000110000000c0000000c0000000700000003000000fdffffff
+  - MatchRewardId: -1063954640
+    Placement: 8
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0f0000000f0000000a000000070000000300000000000000fbffffff
+  - MatchRewardId: -1063954641
+    Placement: 9
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0c0000000c000000070000000300000000000000fdfffffff9ffffff
+  - MatchRewardId: 104526575
+    Placement: 10
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0a0000000a0000000500000000000000fdfffffffbfffffff6ffffff
+  - MatchRewardId: -1461557366
+    Placement: 11
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 07000000070000000300000000000000fbfffffff6fffffff4ffffff
+  - MatchRewardId: -1058272839
+    Placement: 12
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 050000000500000000000000fdfffffff9fffffff4fffffff1ffffff
+  - MatchRewardId: 1670610516
+    Placement: 13
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0300000003000000fcfffffffbfffffff6fffffff1ffffffefffffff
+  - MatchRewardId: -1864841893
+    Placement: 14
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 0100000000000000fbfffffff9fffffff4ffffffefffffffecffffff
+  - MatchRewardId: 864041462
+    Placement: 15
+    TeamSize: 2
+    BracketReward:
+      _keyData: f4010000e8030000dc050000d0070000c4090000b80b0000a00f0000
+      _valueData: 00000000fdfffffff9fffffff6fffffff1ffffffecffffffe7ffffff

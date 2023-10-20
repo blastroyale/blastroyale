@@ -456,11 +456,6 @@ namespace FirstLight.Game.Presenters
 				var owned = collectionDataProvider.IsItemOwned(selectedItem);
 				var unseenItems = _services.RewardService.UnseenItems(ItemMetadataType.Collection);
 				var isUnseenItem = unseenItems.Contains(selectedItem);
-				if (isUnseenItem)
-				{
-					_services.RewardService.MarkAsSeen(ItemMetadataType.Collection, selectedItem);
-				}
-
 				card.SetCollectionElement(selectedItem, selectedItem.GetDisplayName(), itemIndex);
 				card.SetIsOwned(owned);
 				card.SetIsEquipped(equipped != null && equipped.Equals(selectedItem));

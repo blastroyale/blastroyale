@@ -519,7 +519,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRewardsReceived(List<ItemData> items)
 		{
-			var rewardsCopy = items.Where(item => item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
+			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
 			if (rewardsCopy.Count > 0)
 			{
 				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()

@@ -239,7 +239,7 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetMagazine(int currentMagazine, int maxMagazine, bool hideMagazine)
 		{
-			_ammoHolder.SetDisplay(!hideMagazine);
+			_ammoHolder.SetEnabled(!hideMagazine);
 			if (!_isFriendly || hideMagazine) return;
 
 			var infiniteMagazine = maxMagazine <= 0;

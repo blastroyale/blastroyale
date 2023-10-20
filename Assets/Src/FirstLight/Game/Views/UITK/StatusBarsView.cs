@@ -215,7 +215,7 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
 			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
-			var hideMagazineBar = pc.WeaponSlot->MagazineSize == -1;
+			var hideMagazineBar = pc.WeaponSlot->MagazineSize <= 0;
 			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
 			var nameColor = pd != null
 				                ? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
@@ -274,7 +274,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetMagazine(callback.CurrentMag, callback.MaxMag, callback.MaxMag == -1);
+			bar.SetMagazine(callback.CurrentMag, callback.MaxMag, callback.MaxMag <= 0);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)

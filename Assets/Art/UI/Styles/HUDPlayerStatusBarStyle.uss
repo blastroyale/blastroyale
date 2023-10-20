@@ -129,6 +129,7 @@
 
 .player-status-bar__background {
     background-image: var(--sprite-match__background-playerbar);
+    flex-shrink: 1;
     position: absolute;
     bottom: 1px;
     right: 0;

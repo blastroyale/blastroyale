@@ -32,7 +32,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_cinemachineBrain = FLGCamera.Instance.CinemachineBrain;
 			
 			_services.MessageBrokerService.Subscribe<PlayScreenOpenedMessage>(OnPlayScreenOpened);
-			_services.MessageBrokerService.Subscribe<ShopScreenOpenedMessage>(OnShopScreenOpened);
 			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
 			_services.MessageBrokerService.Subscribe<EquipmentScreenOpenedMessage>(OnEquipmentScreenOpened);
 			_services.MessageBrokerService.Subscribe<SkinsScreenOpenedMessage>(OnSkinsScreenOpened);
@@ -47,12 +46,6 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
 			_mainCamera.gameObject.SetActive(true);
-		}
-		
-		private void OnShopScreenOpened(ShopScreenOpenedMessage data)
-		{
-			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
-			_shopCamera.gameObject.SetActive(true);
 		}
 		
 		private void OnSkinsScreenOpened(SkinsScreenOpenedMessage data)

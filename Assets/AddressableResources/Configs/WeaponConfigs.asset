@@ -73,9 +73,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 9
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 32768
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -115,9 +115,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -132,7 +132,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -157,9 +157,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 7
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 117965
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -174,7 +174,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 589824
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -241,9 +241,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -258,7 +258,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -283,9 +283,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 45
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 78643
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -325,22 +325,22 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 2
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 72090
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 19661
+        RawValue: 29491
       AttackCooldown:
-        RawValue: 19661
+        RawValue: 29491
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 12
       NumberOfShots: 6
-      NumberOfBursts: 1
+      NumberOfBursts: 2
       AttackRange:
         RawValue: 262144
       CanHitSameTarget: 1
@@ -367,9 +367,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -384,7 +384,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -451,9 +451,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 9
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 32768
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -493,22 +493,22 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 2
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 72090
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 19661
+        RawValue: 29491
       AttackCooldown:
-        RawValue: 19661
+        RawValue: 29491
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 12
       NumberOfShots: 6
-      NumberOfBursts: 1
+      NumberOfBursts: 2
       AttackRange:
         RawValue: 262144
       CanHitSameTarget: 1
@@ -535,9 +535,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 45
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 78643
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -577,9 +577,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -594,7 +594,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -619,9 +619,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 7
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 117965
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -636,7 +636,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 589824
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -661,9 +661,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -678,7 +678,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -703,9 +703,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 9
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 32768
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -745,9 +745,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 45
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 78643
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -787,9 +787,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 90
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 131072
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -804,7 +804,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 6
       AttackRange:
-        RawValue: 524288
+        RawValue: 458752
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0
@@ -829,22 +829,22 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 2
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 72090
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 19661
+        RawValue: 29491
       AttackCooldown:
-        RawValue: 19661
+        RawValue: 29491
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 12
       NumberOfShots: 6
-      NumberOfBursts: 1
+      NumberOfBursts: 2
       AttackRange:
         RawValue: 262144
       CanHitSameTarget: 1
@@ -871,9 +871,9 @@ MonoBehaviour:
         Id:
           Value: 0
       HitType: 0
-      MagazineSize: 7
+      MagazineSize: -1
       ReloadTime:
-        RawValue: 117965
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -888,7 +888,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 589824
       CanHitSameTarget: 1
       SplashRadius:
         RawValue: 0

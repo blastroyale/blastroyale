@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -56,7 +55,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
 		private readonly CollectionMenuState _collectionMenuState;
-		
+
 		private int _unclaimedCountCheck;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic,
@@ -337,7 +336,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchmakingCancelMessage());
 		}
-        
 
 		private bool CheckItemsBroken()
 		{
@@ -511,11 +509,25 @@ namespace FirstLight.Game.StateMachines
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
 				OnDiscordClicked = DiscordButtonClicked,
 				OnMatchmakingCancelClicked = SendCancelMatchmakingMessage,
-				OnLevelUp = OpenLevelUpScreen
+				OnLevelUp = OpenLevelUpScreen,
+				OnRewardsReceived = OnRewardsReceived
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
+		}
+
+		private void OnRewardsReceived(List<ItemData> items)
+		{
+			var rewardsCopy = items.Where(item => !item.Id.IsInGroup(GameIdGroup.Currency) && item.Id is not (GameId.XP or GameId.BPP or GameId.Trophies)).ToList();
+			if (rewardsCopy.Count > 0)
+			{
+				_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
+				{
+					Items = rewardsCopy,
+					OnFinish = OpenHomeScreen
+				});
+			}
 		}
 
 		private void OpenLevelUpScreen()

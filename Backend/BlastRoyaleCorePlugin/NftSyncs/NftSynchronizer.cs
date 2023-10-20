@@ -1,18 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.Models.Collection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Quantum;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
@@ -65,7 +55,6 @@ namespace BlastRoyaleNFTPlugin
 				{
 					await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
 				}
-
 				return values.All(value => value);
 			}
 			finally

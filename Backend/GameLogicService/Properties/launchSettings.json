@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "GameLogicStandalone": {
+    "DevLocalServer": {
       "commandName": "Project",
       "applicationUrl": "http://localhost:7274;",
       "environmentVariables": {
@@ -23,13 +23,30 @@
         "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
         "API_KEY": "devkey",
         "APPLICATION_ENVIRONMENT": "dev"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "StagingLocalServer": {
+        "commandName": "Project",
+        "applicationUrl": "http://localhost:7274;",
+        "environmentVariables": {
+          "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
+          "PLAYFAB_TITLE": "***REMOVED***",
+          "NFT_SYNC": "false",
+          "DEV_MODE": "true",
+          "STANDALONE_MODE": "true",
+          "API_URL": "***REMOVED***",
+          "API_BLOCKCHAIN_SERVICE": "br-blockchain/blast-royale-equipment",
+          "API_KEY": "stagingkey",
+          "APPLICATION_ENVIRONMENT": "dev"
+        }
+      },
+      "IIS Express": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       }
     }
   }

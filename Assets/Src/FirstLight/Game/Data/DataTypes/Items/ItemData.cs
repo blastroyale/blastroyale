@@ -37,6 +37,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public static ItemData Unlock(UnlockSystem unlock) => new (GameId.Random, new UnlockMetadata() { Unlock = unlock });
 		public static ItemData Legacy(LegacyItemData legacy)
 		{
+			if (legacy.RewardId.IsInGroup(GameIdGroup.Collection)) return Collection(legacy.RewardId);
 			return new ItemData(legacy.RewardId, legacy.Value > 1 ? new CurrencyMetadata() { Amount = legacy.Value } : null);
 		}
 	}

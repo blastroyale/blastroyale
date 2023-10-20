@@ -211,7 +211,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameNetworkService"/>
 	public class GameNetworkService : IInternalGameNetworkService, IConnectionCallbacks
 	{
-		private const int LAG_RTT_THRESHOLD_MS = 280;
+		private const int LAG_RTT_THRESHOLD_MS = 140;
 		private const int STORE_RTT_AMOUNT = 10;
 		private const float QUANTUM_TICK_SECONDS = 0.25f;
 		private const float QUANTUM_PING_TICK_SECONDS = 1f;
@@ -364,7 +364,7 @@ namespace FirstLight.Game.Services
 
 		private void CalculateUpdateLag()
 		{
-			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime / 2;
 			LastRttQueue.Enqueue(newRtt);
 
 			CurrentRttTotal += newRtt;
@@ -373,9 +373,6 @@ namespace FirstLight.Game.Services
 			{
 				CurrentRttTotal -= LastRttQueue.Dequeue();
 			}
-
-			var bytesIn = QuantumClient.LoadBalancingPeer.BytesIn;
-			var bytesOut = QuantumClient.LoadBalancingPeer.BytesOut;
 
 			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
 			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();

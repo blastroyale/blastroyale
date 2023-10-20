@@ -1,4 +1,5 @@
 <linker>
     <assembly fullname="Newtonsoft.Json" preserve="all"/>
     <assembly fullname="UnityEngine.AnimationModule" preserve="all"/>
+    <assembly fullname="FirstLightServerSDK" preserve="all"/>
 </linker>

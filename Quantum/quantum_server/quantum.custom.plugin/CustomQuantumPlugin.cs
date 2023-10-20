@@ -9,6 +9,7 @@ using System.Linq;
 using FirstLight.Game.Ids;
 using quantum.custom.plugin;
 using System.Text;
+using FirstLight.Game.Services.RoomService;
 
 namespace Quantum
 {
@@ -19,7 +20,7 @@ namespace Quantum
 	public class CustomQuantumPlugin : DeterministicPlugin
 	{
 		public readonly CustomQuantumServer CustomServer;
-		private MatchType _matchType = MatchType.Custom;
+		private RoomProperties _roomProps;
 		private QuantumCommandHandler _cmdHandler;
 
 		public CustomQuantumPlugin(Dictionary<String, String> config, IServer server) : base(server)
@@ -69,6 +70,7 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
+			
 			if (FlgConfig.DebugMode)
 			{
 				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
@@ -82,13 +84,29 @@ namespace Quantum
 			var customProperties = propsObject as Hashtable;
 			if (customProperties == null)
 			{
-				Log.Debug("No Custom Properties");
+				Log.Error("Game without custom properties");
 				return;
 			}
-			Enum.TryParse((string)customProperties["matchType"], out _matchType);
+			
+			_roomProps = new RoomProperties();
+			
+			// TODO: Not working for some reason
+			//_roomProps.FromSystemHashTable(customProperties);
+			//
+			var allowedRewards = new List<GameId>();
+			foreach (var idString in ((string) customProperties["alrewards"]).Split(','))
+			{
+				var id = (GameId)Enum.Parse(typeof(GameId), idString, true);
+				allowedRewards.Add(id);
+			}
+			_roomProps.AllowedRewards.Value = allowedRewards;
+			_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);
+			// REMOVE ABOVE AND USE FROM HASH TABLE WHEN POSSIBLE
+			
 			if (FlgConfig.DebugMode)
 			{
-				Log.Info($"Created {_matchType.ToString()} game");
+				Log.Info($"Created {_roomProps.MatchType.Value.ToString()} game");
+				Log.Info($"Allowed Rewards: {string.Join(",", _roomProps.AllowedRewards.Value)}");
 			}
 		}
 
@@ -105,6 +123,6 @@ namespace Quantum
 
 		public string MatchID => PluginHost.GameId;
 
-		public MatchType GetMatchType() => _matchType;
+		public RoomProperties RoomProperties => _roomProps;
 	}
 }

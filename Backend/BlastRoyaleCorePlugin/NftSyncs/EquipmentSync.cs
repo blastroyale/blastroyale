@@ -11,140 +11,144 @@ using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
 using Quantum;
 
-namespace BlastRoyaleNFTPlugin;
-
-public class EquipmentSync
+namespace BlastRoyaleNFTPlugin
 {
 
-	private NftSynchronizer _nftSynchronizer;
-
-	public EquipmentSync(NftSynchronizer nftSynchronizer)
+	public class EquipmentSync
 	{
-		_nftSynchronizer = nftSynchronizer;
-	}
 
-	private static readonly IEnumerable<PolygonNFTMetadata> _EMPTY_LIST = new List<PolygonNFTMetadata>();
+		private NftSynchronizer _nftSynchronizer;
 
-	internal async Task<bool> SyncNftEquipment(string playfabId, ServerState serverState, ulong lastBlockchainUpdate)
-	{
-		var equipmentData = serverState.DeserializeModel<EquipmentData>();
-		var playerData = serverState.DeserializeModel<PlayerData>();
-
-		bool unequipHack = false;
-		foreach (var kp in new Dictionary<GameIdGroup, UniqueId>(playerData.Equipped))
+		public EquipmentSync(NftSynchronizer nftSynchronizer)
 		{
-			if (equipmentData.NftInventory.ContainsKey(kp.Value))
-			{
-				continue;
-			}
-
-			if (equipmentData.Inventory.TryGetValue(kp.Value, out var equip))
-			{
-				if (equip.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0)
-				{
-					playerData.Equipped.Remove(kp.Key);
-					unequipHack = true;
-				}
-			}
+			_nftSynchronizer = nftSynchronizer;
 		}
 
-		if (unequipHack)
+		private static readonly IEnumerable<PolygonNFTMetadata> _EMPTY_LIST = new List<PolygonNFTMetadata>();
+
+		internal async Task<bool> SyncNftEquipment(string playfabId, ServerState serverState,
+												   ulong lastBlockchainUpdate)
 		{
+			var equipmentData = serverState.DeserializeModel<EquipmentData>();
+			var playerData = serverState.DeserializeModel<PlayerData>();
+
+			bool unequipHack = false;
+			foreach (var kp in new Dictionary<GameIdGroup, UniqueId>(playerData.Equipped))
+			{
+				if (equipmentData.NftInventory.ContainsKey(kp.Value))
+				{
+					continue;
+				}
+
+				if (equipmentData.Inventory.TryGetValue(kp.Value, out var equip))
+				{
+					if (equip.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0)
+					{
+						playerData.Equipped.Remove(kp.Key);
+						unequipHack = true;
+					}
+				}
+			}
+
+			if (unequipHack)
+			{
+				serverState.UpdateModel(playerData);
+			}
+
+			if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)
+			{
+				_nftSynchronizer._ctx.Log.LogDebug($"{playfabId} had up-to-date NFT's");
+				return false;
+			}
+
+			var idData = serverState.DeserializeModel<IdData>();
+			var ownedNftsInBlockchain = await RequestBlockchainIndexedNfts(playfabId);
+			var ownedNftsInGame = new Dictionary<string, UniqueId>();
+			var ownedTokensInBlockchain = ownedNftsInBlockchain.ToDictionary(nft => nft.token_id, nft => nft);
+
+			foreach (var (id, nftEquipmentData) in equipmentData.NftInventory)
+			{
+				ownedNftsInGame.Add(nftEquipmentData.TokenId, id);
+			}
+
+			// Adding missing NFTS
+			foreach (var nft in ownedNftsInBlockchain)
+			{
+				try
+				{
+					if (!ownedNftsInGame.ContainsKey(nft.token_id))
+					{
+						AddEquipment(playfabId, nft, idData, equipmentData);
+						_nftSynchronizer._ctx.Log.LogInformation(
+							$"Added item {nft.token_id}({nft.name}) to user {playfabId}");
+					}
+				}
+				catch (Exception e)
+				{
+					_nftSynchronizer._ctx.Log.LogError(
+						$"Error while converting NFT to Blast-Royale Equipment: {JsonConvert.SerializeObject(nft)}");
+					_nftSynchronizer._ctx.Log.LogTrace(e.StackTrace);
+				}
+			}
+
+			// Removing unowned NFTS & updating outdated nfts
+			foreach (var (tokenId, equipmentUniqueId) in ownedNftsInGame)
+			{
+				if (!ownedTokensInBlockchain.TryGetValue(tokenId, out var nft))
+				{
+					_nftSynchronizer._ctx.Log.LogInformation($"Removed item {tokenId} from user {playfabId}");
+					RemoveEquipment(playfabId, equipmentUniqueId, equipmentData, playerData, idData);
+				}
+				else
+				{
+					UpdateNft(nft, equipmentData, equipmentUniqueId);
+				}
+			}
+
+			equipmentData.LastUpdateTimestamp = lastBlockchainUpdate;
+			serverState.UpdateModel(equipmentData);
+			serverState.UpdateModel(idData);
 			serverState.UpdateModel(playerData);
+			return true;
 		}
 
-		if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)
+		/// <summary>
+		/// Request for all indexed nfts for a given wallet.
+		/// </summary>
+		public virtual async Task<IEnumerable<PolygonNFTMetadata>?> RequestBlockchainIndexedNfts(string playerId)
 		{
-			_nftSynchronizer._ctx.Log.LogDebug($"{playfabId} had up-to-date NFT's");
-			return false;
-		}
+			var url =
+				$"{_nftSynchronizer._externalUrl}/blast-royale-equipment/indexed?key={_nftSynchronizer._apiKey}&playfabId={playerId}";
+			var response = await _nftSynchronizer._client.GetAsync(url);
+			var responseString = await response.Content.ReadAsStringAsync();
 
-		var idData = serverState.DeserializeModel<IdData>();
-		var ownedNftsInBlockchain = await RequestBlockchainIndexedNfts(playfabId);
-		var ownedNftsInGame = new Dictionary<string, UniqueId>();
-		var ownedTokensInBlockchain = ownedNftsInBlockchain.ToDictionary(nft => nft.token_id, nft => nft);
-
-		foreach (var (id, nftEquipmentData) in equipmentData.NftInventory)
-		{
-			ownedNftsInGame.Add(nftEquipmentData.TokenId, id);
-		}
-
-		// Adding missing NFTS
-		foreach (var nft in ownedNftsInBlockchain)
-		{
-			try
-			{
-				if (!ownedNftsInGame.ContainsKey(nft.token_id))
-				{
-					AddEquipment(playfabId, nft, idData, equipmentData);
-					_nftSynchronizer._ctx.Log.LogInformation($"Added item {nft.token_id}({nft.name}) to user {playfabId}");
-				}
-			}
-			catch (Exception e)
+			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				_nftSynchronizer._ctx.Log.LogError(
-					$"Error while converting NFT to Blast-Royale Equipment: {JsonConvert.SerializeObject(nft)}");
-				_nftSynchronizer._ctx.Log.LogTrace(e.StackTrace);
+					$"Error obtaining indexed NFTS Response {response.StatusCode.ToString()} - {responseString}");
+				return _EMPTY_LIST;
 			}
+
+			return JsonConvert.DeserializeObject<List<PolygonNFTMetadata>>(responseString);
 		}
 
-		// Removing unowned NFTS & updating outdated nfts
-		foreach (var (tokenId, equipmentUniqueId) in ownedNftsInGame)
+
+		/// <summary>
+		/// Attempts to update specific fields for already owned nfts
+		/// </summary>
+		private void UpdateNft(PolygonNFTMetadata nft, EquipmentData equipmentData, UniqueId equipmentUniqueId)
 		{
-			if (!ownedTokensInBlockchain.TryGetValue(tokenId, out var nft))
-			{
-				_nftSynchronizer._ctx.Log.LogInformation($"Removed item {tokenId} from user {playfabId}");
-				RemoveEquipment(playfabId, equipmentUniqueId, equipmentData, playerData, idData);
-			}
-			else
-			{
-				UpdateNft(nft, equipmentData, equipmentUniqueId);
-			}
+			var nftData = equipmentData.NftInventory[equipmentUniqueId];
+			var equipment = equipmentData.Inventory[equipmentUniqueId];
+
+			equipment.LastRepairTimestamp = nft.lastRepairTime;
+			equipment.Level = Convert.ToUInt32(nft.level);
+
+			equipmentData.NftInventory[equipmentUniqueId] = nftData;
+			equipmentData.Inventory[equipmentUniqueId] = equipment;
 		}
 
-		equipmentData.LastUpdateTimestamp = lastBlockchainUpdate;
-		serverState.UpdateModel(equipmentData);
-		serverState.UpdateModel(idData);
-		serverState.UpdateModel(playerData);
-		return true;
-	}
 
-	/// <summary>
-	/// Request for all indexed nfts for a given wallet.
-	/// </summary>
-	public virtual async Task<IEnumerable<PolygonNFTMetadata>?> RequestBlockchainIndexedNfts(string playerId)
-	{
-		var url = $"{_nftSynchronizer._externalUrl}/blast-royale-equipment/indexed?key={_nftSynchronizer._apiKey}&playfabId={playerId}";
-		var response = await _nftSynchronizer._client.GetAsync(url);
-		var responseString = await response.Content.ReadAsStringAsync();
-
-		if (response.StatusCode != HttpStatusCode.OK)
-		{
-			_nftSynchronizer._ctx.Log.LogError(
-				$"Error obtaining indexed NFTS Response {response.StatusCode.ToString()} - {responseString}");
-			return _EMPTY_LIST;
-		}
-
-		return JsonConvert.DeserializeObject<List<PolygonNFTMetadata>>(responseString);
-	}
-	
-	
-	/// <summary>
-	/// Attempts to update specific fields for already owned nfts
-	/// </summary>
-	private void UpdateNft(PolygonNFTMetadata nft, EquipmentData equipmentData, UniqueId equipmentUniqueId)
-	{
-		var nftData = equipmentData.NftInventory[equipmentUniqueId];
-		var equipment = equipmentData.Inventory[equipmentUniqueId];
-
-		equipment.LastRepairTimestamp = nft.lastRepairTime;
-		equipment.Level = Convert.ToUInt32(nft.level);
-
-		equipmentData.NftInventory[equipmentUniqueId] = nftData;
-		equipmentData.Inventory[equipmentUniqueId] = equipment;
-	}
-	
-	
 		/// <summary>
 		/// Adds NFT equipment to game data models. Perform a conversion to game data models from NFT model.
 		/// </summary>
@@ -252,4 +256,5 @@ public class EquipmentSync
 			};
 		}
 
+	}
 }

@@ -46,7 +46,7 @@ namespace FirstLight.Game.Views.UITK
 			_camera = FLGCamera.Instance.MainCamera;
 			_matchServices = MainInstaller.ResolveMatchServices();
 			_gameServices = MainInstaller.ResolveServices();
-			_data = MainInstaller.ReesolveData();
+			_data = MainInstaller.ResolveData();
 
 			element.Clear();
 

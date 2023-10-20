@@ -27,11 +27,14 @@
 }
 
 .currency-display__label {
-    -unity-text-align: center;
+    -unity-text-align: middle-center;
     height: 52px;
     font-size: 42px;
-    margin-left: 30px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 47px;
+    white-space: nowrap;
+    min-width: 132px;
 }

@@ -349,17 +349,29 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void HandleOnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (Culled || EntityView.EntityRef != callback.PlayerEntity || callback.CollectableId != GameId.Health)
+			if (Culled || EntityView.EntityRef != callback.PlayerEntity)
 			{
 				return;
 			}
-
-			var vfx = Services.VfxService.Spawn(VfxId.StatusFxHeal).transform;
-
-			vfx.SetParent(transform);
-			vfx.localPosition = Vector3.zero;
-			vfx.localScale = Vector3.one;
-			vfx.localRotation = Quaternion.identity;
+			
+			switch (callback.CollectableId)
+			{
+				case GameId.Health:
+					var vfx = Services.VfxService.Spawn(VfxId.StatusFxHeal).transform;
+					vfx.SetParent(transform);
+					vfx.localPosition = Vector3.zero;
+					vfx.localScale = Vector3.one;
+					vfx.localRotation = Quaternion.identity;
+					return;
+				case GameId.ChestEquipment:
+				case GameId.ChestConsumable:
+				case GameId.ChestLegendary:
+					var chestPickupVfx = Services.VfxService.Spawn(VfxId.ChestPickupFx).transform;
+					chestPickupVfx.position = callback.CollectablePosition.ToUnityVector3();
+					return;
+				default:
+					return;
+			}
 		}
 
 		private void HandleOnPlayerAlive(EventOnPlayerAlive callback)

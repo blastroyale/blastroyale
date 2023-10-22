@@ -159,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 8394961782085835017, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _collectClip
       value: 
-      objectReference: {fileID: 1827226128182048838, guid: 9c1dc3ea01f7cfe4aa1c0d8034c721cb, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4159690803613263917, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
     m_RemovedGameObjects: []

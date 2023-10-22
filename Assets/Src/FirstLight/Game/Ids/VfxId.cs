@@ -28,7 +28,8 @@ namespace FirstLight.Game.Ids
 		ProjectileFailedSmoke = 21,
 		Shell = 22,
 		DeathEffect = 23,
-		StepSmoke = 24
+		StepSmoke = 24,
+		ChestPickupFx = 25,
 	}
 	
 	/// <summary>

@@ -331,9 +331,9 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 29491
+        RawValue: 72090
       AttackCooldown:
-        RawValue: 29491
+        RawValue: 72090
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:
@@ -499,9 +499,9 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 29491
+        RawValue: 72090
       AttackCooldown:
-        RawValue: 29491
+        RawValue: 72090
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:
@@ -835,9 +835,9 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 29491
+        RawValue: 72090
       AttackCooldown:
-        RawValue: 29491
+        RawValue: 72090
       PowerToDamageRatio:
         RawValue: 24904
       AttackHitSpeed:

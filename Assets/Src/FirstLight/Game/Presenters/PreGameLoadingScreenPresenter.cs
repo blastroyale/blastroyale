@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
-using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.FLogger;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Configs.AssetConfigs;
-using FirstLight.Game.Ids;
+using FirstLight.Game.Data;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.RoomService;
@@ -20,8 +18,6 @@ using Photon.Realtime;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -61,6 +57,7 @@ namespace FirstLight.Game.Presenters
 		private Label _debugPlayerCountLabel;
 		private Label _debugMasterClient;
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private GameRoom CurrentRoom => _services.RoomService.CurrentRoom;
 		private Coroutine _gameStartTimerCoroutine;
 		private Tweener _planeFlyTween;
@@ -74,6 +71,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.ResolveData();
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 		}
 
@@ -367,7 +365,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayerCount()
 		{
-			_debugPlayerCountLabel.text = Debug.isDebugBuild
+			_debugPlayerCountLabel.text = Debug.isDebugBuild || _dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial)
 				? string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
 					CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
 				: "";
@@ -375,7 +373,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateMasterClient()
 		{
-			if (!Debug.isDebugBuild)
+			if (!Debug.isDebugBuild && !_dataProvider.PlayerDataProvider.Flags.HasFlag(PlayerFlags.FLGOfficial))
 			{
 				_debugMasterClient.SetDisplay(false);
 				return;
@@ -383,7 +381,6 @@ namespace FirstLight.Game.Presenters
 
 			_debugMasterClient.SetDisplay(_services.NetworkService.LocalPlayer.IsMasterClient);
 		}
-
 
 		/// <summary>
 		///  Used only for updating the labels!!!!!!!!

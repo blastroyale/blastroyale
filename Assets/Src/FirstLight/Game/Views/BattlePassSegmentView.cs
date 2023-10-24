@@ -74,56 +74,23 @@ namespace FirstLight.Game.Views
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
-		private async Task CollectionItemLegacyDraw(BattlePassSegmentData data)
-		{
-			_rewardImage.RemoveSpriteClasses();
-			var collectionItem = ItemFactory.Collection(data.RewardConfig.GameId);
-			var view = collectionItem.GetViewModel();
-			//_rewardImage.style.backgroundImage = new StyleBackground(sprite);
-			//_rewardImage.AddToClassList(UssBorderRadius);
-			
-			// MAKE THE BELOW WORK INSTEAD OF SETTING BG IMAGE
-			view.DrawIcon(_rewardImage);
-		}
-
 		/// <summary>
 		/// Sets the data needed to fill the segment visuals
 		/// </summary>
 		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
-
-			var levelForUi = _data.SegmentLevelForRewards + 1;
-			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
-			_rewardImage.style.backgroundImage = StyleKeyword.Null;
-			_rewardImage.RemoveFromClassList(UssBorderRadius);
-			if (data.RewardConfig.GameId.IsInGroup(GameIdGroup.Collection))
+			var isRewardClaimed = _data.PlayerCurrentLevel >= data.SegmentLevelForRewards;
+			var reward = data.RewardConfig;
+			var item = ItemFactory.Legacy(new LegacyItemData()
 			{
-				_ = CollectionItemLegacyDraw(data);
-			}
-			else
-			{
-				_rarityImage.RemoveSpriteClasses();
-				_rarityImage.AddToClassList(UIUtils.GetBPRarityStyle(_data.RewardConfig.GameId));
-				var rewardImage = data.RewardConfig.GameId.GetUSSSpriteClass();
-				if (rewardImage != null)
-				{
-					_rewardImage.RemoveSpriteClasses();
-					_rewardImage.AddToClassList(rewardImage);
-				}
-				else
-				{
-					// Legacy sprite load
-#pragma warning disable CS4014
-					UIUtils.SetSprite(data.RewardConfig.GameId, _rewardImage);
-#pragma warning restore CS4014
-				}
-			}
-			// TODO: Use IItemViewModel to render items
-			_title.text = GetRewardName(_data.RewardConfig.GameId, _data.RewardConfig.Amount);
-			_levelNumber.text = levelForUi.ToString();
-
-		
+				RewardId = reward.GameId,
+				Value = reward.Amount
+			});
+			var itemView = item.GetViewModel();
+			itemView.DrawIcon(_rewardImage);
+			_title.text = itemView.DisplayName;
+			_levelNumber.text = (_data.SegmentLevelForRewards + 1).ToString();
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
@@ -142,7 +109,7 @@ namespace FirstLight.Game.Views
 			}
 			else if (data.PredictedCurrentLevel == data.SegmentLevel)
 			{
-				SetProgressFill((float) data.PredictedCurrentProgress / data.MaxProgress);
+				SetProgressFill((float) data.PredictedCurrentPoints / data.PointsToLevel);
 			}
 			else
 			{
@@ -160,26 +127,6 @@ namespace FirstLight.Game.Views
 		{
 			_progressBarFill.style.flexGrow = percent;
 		}
-
-		private string GetRewardName(GameId id, int amount)
-		{
-			switch (id)
-			{
-				case GameId.CoreCommon:
-				case GameId.CoreUncommon:
-				case GameId.CoreRare:
-				case GameId.CoreEpic:
-				case GameId.CoreLegendary:
-					return id.GetLocalization().ToUpper();
-				case GameId.COIN:
-				case GameId.CS:
-				case GameId.Fragments:
-				case GameId.BLST:
-					return amount.ToString().ToUpper();
-				default:
-					return id.GetLocalization().ToUpper();
-			}
-		}
 	}
 
 	/// <summary>
@@ -187,15 +134,39 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public struct BattlePassSegmentData
 	{
+		/// <summary>
+		/// Current index of the segment in the segment list
+		/// </summary>
 		public uint SegmentLevel;
-		public uint CurrentLevel;
-		public uint CurrentProgress;
+		
+		/// <summary>
+		/// Current level 
+		/// </summary>
+		public uint PlayerCurrentLevel;
+		
+		/// <summary>
+		/// The predicted level is what would be the new level after battle pass points were redeemed
+		/// </summary>
 		public uint PredictedCurrentLevel;
-		public uint PredictedCurrentProgress;
-		public uint MaxProgress;
-		public uint MaxLevel;
+		
+		/// <summary>
+		/// Same as predicted current level but 
+		/// </summary>
+		public uint PredictedCurrentPoints;
+		
+		/// <summary>
+		/// Max points for this whole level
+		/// </summary>
+		public uint PointsToLevel;
+		
+		/// <summary>
+		/// Reward config for this segment
+		/// </summary>
 		public EquipmentRewardConfig RewardConfig;
 
+		/// <summary>
+		/// Level needed to be to be able to claim the rewards
+		/// </summary>
 		public uint SegmentLevelForRewards => SegmentLevel + 1;
 	}
 }

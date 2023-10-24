@@ -174,7 +174,6 @@ namespace FirstLight.Game.Presenters
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			var currentLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
-			var currentProgress = _dataProvider.BattlePassDataProvider.CurrentPoints.Value;
 
 			var predictedMaxProgress =
 				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedProgress.Item1);
@@ -207,12 +206,10 @@ namespace FirstLight.Game.Presenters
 				var data = new BattlePassSegmentData
 				{
 					SegmentLevel = (uint) i,
-					CurrentLevel = currentLevel,
-					CurrentProgress = currentProgress,
+					PlayerCurrentLevel = currentLevel,
 					PredictedCurrentLevel = predictedProgress.Item1,
-					PredictedCurrentProgress = predictedProgress.Item2,
-					MaxProgress = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
-					MaxLevel = _dataProvider.BattlePassDataProvider.MaxLevel,
+					PredictedCurrentPoints = predictedProgress.Item2,
+					PointsToLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
 				};
 

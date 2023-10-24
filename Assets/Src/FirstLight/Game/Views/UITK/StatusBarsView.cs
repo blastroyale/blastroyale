@@ -305,7 +305,7 @@ namespace FirstLight.Game.Views.UITK
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.Entity, out var pc)) return;
 
-			bar.ShowReload((int) (pc.WeaponSlot->ReloadTime.AsFloat * 1000));
+			//bar.ShowReload((int) (pc.WeaponSlot->ReloadTime.AsFloat * 1000));
 		}
 
 		private unsafe void OnPlayerAttackHit(EventOnPlayerAttackHit callback)

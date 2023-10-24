@@ -30,6 +30,8 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class PreGameLoadingScreenPresenter : UiToolkitPresenterData<PreGameLoadingScreenPresenter.StateData>
 	{
+		private const int TIMER_PADDING_MS = 2000;
+		
 		public struct StateData
 		{
 			public Action LeaveRoomClicked;
@@ -64,7 +66,7 @@ namespace FirstLight.Game.Presenters
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
 
-		private List<Player> _squadMembers = new();
+		private List<Player> _squadMembers = new ();
 
 		private bool RejoiningRoom => _services.NetworkService.JoinSource.HasResync();
 
@@ -122,7 +124,6 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<WaitingMandatoryMatchAssetsMessage>(OnWaitingMandatoryMatchAssets);
 		}
 
-	
 
 		protected override void OnOpened()
 		{
@@ -164,7 +165,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var squadMember in _squadMembers)
 			{
 				if (squadMember.IsLocal) continue;
-				
+
 				var memberDropPosition = CurrentRoom.GetPlayerProperties(squadMember).DropPosition.Value;
 				var marker = new VisualElement {name = "marker"};
 				marker.AddToClassList("map-marker-party");
@@ -187,7 +188,7 @@ namespace FirstLight.Game.Presenters
 			var nameColor = _services.LeaderboardService.GetRankColor(_services.LeaderboardService.Ranked, props.Rank.Value);
 
 			((Label) element).text = _squadMembers[index].NickName;
-			((Label)element).style.color = nameColor;
+			((Label) element).style.color = nameColor;
 		}
 
 		private VisualElement CreateSquadListEntry()
@@ -334,8 +335,8 @@ namespace FirstLight.Game.Presenters
 			SelectMapPosition(new Vector2(posX, posY), false, false);
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
-        
-        
+
+
 		private void OnPlayersChanged(Player p, PlayerChangeReason r)
 		{
 			UpdatePlayerCount();
@@ -408,11 +409,14 @@ namespace FirstLight.Game.Presenters
 					return;
 				}
 
-				var timeLeft = CurrentRoom.TimeLeftToGameStart();
+				var timeLeft = CurrentRoom.TimeLeftToGameStart().Add(TimeSpan.FromMilliseconds(-TIMER_PADDING_MS));
 				if (timeLeft.Milliseconds < 0)
 				{
-					return;	
+					_dropSelectionAllowed = false;
+					_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
+					return;
 				}
+
 				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_waiting_timer,
 					timeLeft.TotalSeconds.ToString("F0"));
 			}
@@ -421,7 +425,7 @@ namespace FirstLight.Game.Presenters
 				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
 			}
 		}
-        
+
 
 		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
 		{
@@ -437,7 +441,7 @@ namespace FirstLight.Game.Presenters
 		{
 			RefreshPartyList();
 		}
-		
+
 		private void OnCloseClicked()
 		{
 			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);

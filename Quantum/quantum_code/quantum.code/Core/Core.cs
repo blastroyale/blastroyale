@@ -5,20 +5,20 @@ using Quantum.Core;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Quantum.Allocator;
+using Quantum.Profiling;
 using System.Text;
 using System.Runtime.InteropServices;
 using Quantum.Inspector;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Quantum;
-using Quantum.Profiling;
-using Quantum.Allocator;
 using System.Collections.Specialized;
 using System.Threading;
 using Quantum.Prototypes;
 using System.Reflection;
 using Quantum.Task;
-using System.Runtime.CompilerServices;
 
 // Core/CommandSetup.cs
 
@@ -356,6 +356,10 @@ namespace Quantum {
 
     public override FrameMetaData* FrameMetaData => &_globals->FrameMetaData;
 
+    protected override PhysicsEngineState* _physicsState2D => &_globals->PhysicsState2D;
+
+    protected override PhysicsEngineState* _physicsState3D => &_globals->PhysicsState3D;
+
     public override CommitCommandsModes CommitCommandsMode => SimulationConfig.Entities.CommitCommandsMode;
 
     /// <summary>
@@ -601,7 +605,12 @@ namespace Quantum {
     /// <param name="allocOutput"></param>
     /// <returns>Segment of <paramref name="buffer"/> where the serialized frame is stored</returns>
     /// <remarks>Do not serialize during GameStart callback because systems have not been initialized, yet. Rather use CallbackSimulateFinished to wait for the first update.</remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArraySegment<byte> Serialize(DeterministicFrameSerializeMode mode, byte[] buffer, int offset = 0, bool allocOutput = false) {
+      return Serialize(mode, buffer, out _, offset, allocOutput);
+    }
+    
+    public ArraySegment<byte> Serialize(DeterministicFrameSerializeMode mode, byte[] buffer, out FrameSerializer serializer, int offset = 0, bool allocOutput = false) {
       offset = ByteUtils.AddValueBlock((int)mode, buffer, offset);
       offset = ByteUtils.AddValueBlock(Number, buffer, offset);
       offset = ByteUtils.AddValueBlock(CalculateChecksum(false), buffer, offset);
@@ -624,7 +633,7 @@ namespace Quantum {
         offset = ByteUtils.BeginByteBlockHeader(buffer, offset, out var blockOffset);
 
         stream.SetBuffer(buffer, buffer.Length - offset, offset);
-        var serializer = new FrameSerializer(mode, this, stream) {
+        serializer = new FrameSerializer(mode, this, stream) {
           Writing = true
         };
 
@@ -843,12 +852,14 @@ namespace Quantum {
       // physics states
       if (Physics2D != null) {
         printer.AddLine();
-        Physics2D.Print(printer);
+        printer.AddLine("# 2D PHYSICS STATE");
+        PhysicsEngineState.Print(_physicsState2D, printer);
       }
 
       if (Physics3D != null) {
         printer.AddLine();
-        Physics3D.Print(printer);
+        printer.AddLine("# 3D PHYSICS STATE");
+        PhysicsEngineState.Print(_physicsState3D, printer);
       }
 
       // heap state
@@ -935,11 +946,16 @@ namespace Quantum {
     protected sealed override void Copy(DeterministicFrame frame) {
       var f = (Frame)frame;
 
+      HostProfiler.Start("Frame Copy");
+
       // copy player data
       _playerData = f._playerData;
 
+      HostProfiler.Start("Copy Heap");
       // copy heap from frame
       Allocator.Heap.Copy(Context.Allocator, _heap, f._heap);
+
+      HostProfiler.End();
 
       // copy entity registry
       FrameBase.Copy(this, f);
@@ -948,8 +964,16 @@ namespace Quantum {
       _dynamicAssetDB.CopyFrom(f._dynamicAssetDB);
 
       // perform native copy
+
+      HostProfiler.Start("Copy Globals");
       CopyFromGen(f);
+      HostProfiler.End();
+
+      HostProfiler.Start("Copy User");
       CopyFromUser(f);
+      HostProfiler.End();
+
+      HostProfiler.End();
     }
 
     public sealed override void Free() {
@@ -1822,7 +1846,7 @@ namespace Quantum {
   /// <summary>
   /// The SimulationConfig holds parameters used in the ECS layer and inside core systems like physics and navigation.
   /// </summary>
-  [Serializable, AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
+  [Serializable, AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false, GenerateAsMainScript = false)]
   public partial class SimulationConfig : AssetObject {
     public const long DEFAULT_ID = (long)DefaultAssetGuids.SimulationConfig;
     
@@ -1838,16 +1862,19 @@ namespace Quantum {
     /// </summary>
     [Space]
     public Navigation.Config Navigation;
+
     /// <summary>
     /// Global physics configurations.
     /// </summary>
     [Space]
     public PhysicsCommon.Config Physics;
+
     /// <summary>
     /// Global entities configuration
     /// </summary>
     [Space]
     public FrameBase.EntitiesConfig Entities;
+
     /// <summary>
     /// This option will trigger a Unity scene load during the Quantum start sequence.\n
     /// This might be convenient to start with but once the starting sequence is customized disable it and implement the scene loading by yourself.
@@ -1855,11 +1882,43 @@ namespace Quantum {
     /// </summary>
     [Tooltip("This option will trigger a Unity scene load during the Quantum start sequence.\nThis might be convenient to start with but once the starting sequence is customized disable it and implement the scene loading by yourself.\n\"Previous Scene\" refers to a scene name in Quantum Map.")]
     public AutoLoadSceneFromMapMode AutoLoadSceneFromMap = AutoLoadSceneFromMapMode.UnloadPreviousSceneThenLoad;
+
     /// <summary>
     /// Configure how the client tracks the time to progress the Quantum simulation from the QuantumRunner class.
     /// </summary>
     [Tooltip("Configure how the client tracks the time to progress the Quantum simulation from the QuantumRunner class.")]
     public SimulationUpdateTime DeltaTimeType = SimulationUpdateTime.Default;
+
+    /// <summary>
+    /// Override the number of threads used internally.
+    /// </summary>
+    [Tooltip("Override the number of threads used internally.\nDefault is 2.")]
+    public int ThreadCount = 2;
+
+    /// <summary>
+    /// How long to store checksumed verified frames. The are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.
+    /// </summary>
+    [Tooltip("How long to store checksumed verified frames.\nThe are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.\nDefault is 3.")] 
+    public FP ChecksumSnapshotHistoryLengthSeconds = 3;
+
+    /// <summary>
+    /// Additional options for checksum dumps, if the default settings don't provide a clear picture. 
+    /// </summary>
+    [EnumFlags]
+    [Tooltip("Additional options for checksum dumps, if the default settings don't provide a clear picture. ")]
+    public SimulationConfigChecksumErrorDumpOptions ChecksumErrorDumpOptions;
+
+    /// <summary>
+    /// If and to which extent allocations in the Frame Heap should be tracked when in Debug mode.
+    /// Recommended modes for development is `DetectLeaks`.
+    /// While actively debugging a memory leak,`TraceAllocations` mode can be enabled (warning: tracing is very slow).
+    /// </summary>
+    [Header("Frame Heap Settings")]
+    [Tooltip("If and to which extent allocations in the Frame Heap should be tracked when in Debug mode.\n" +
+             "Recommended modes for development is `DetectLeaks`.\n" +
+             "While actively debugging a memory leak,`TraceAllocations` mode can be enabled (warning: tracing is very slow).")]
+    public HeapTrackingMode HeapTrackingMode = HeapTrackingMode.Disabled;
+
     /// <summary>
     /// Define the max heap size for one page of memory the frame class uses for custom allocations like QList<> for example.
     /// </summary>
@@ -1867,34 +1926,20 @@ namespace Quantum {
     /// <remarks><code>TotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount</code></remarks>
     [Tooltip("Define the max heap size for one page of memory the frame class uses for custom allocations like QList<> for example.\n\n2^15 = 32.768 bytes\nTotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount\n\nDefault is 15.")]
     public int HeapPageShift = 15;
+
     /// <summary>
     /// Define the max heap page count for memory the frame class uses for custom allocations like QList<> for example.
     /// </summary>
     /// <remarks><code>TotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount</code></remarks>
     [Tooltip("Define the max heap page count for memory the frame class uses for custom allocations like QList<> for example.\n\nTotalHeapSizeInBytes = (1 << HeapPageShift) * HeapPageCount\n\nDefault is 256.")]
     public int HeapPageCount = 256;
+
     /// <summary>
     /// Sets extra heaps to allocate for a session in case you need to
     /// create 'auxiliary' frames than actually required for the simulation itself
     /// </summary>
     [Tooltip("Sets extra heaps to allocate for a session in case you need to create 'auxiliary' frames than actually required for the simulation itself.\nDefault is 0.")]
     public int HeapExtraCount = 0;
-    /// <summary>
-    /// Override the number of threads used internally.
-    /// </summary>
-    [Tooltip("Override the number of threads used internally.\nDefault is 2.")]
-    public int ThreadCount = 2;
-    /// <summary>
-    /// How long to store checksumed verified frames. The are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.
-    /// </summary>
-    [Tooltip("How long to store checksumed verified frames.\nThe are used to generate a frame dump in case of a checksum error happening. Not used in Replay and Local mode.\nDefault is 3.")] 
-    public FP ChecksumSnapshotHistoryLengthSeconds = 3;
-    /// <summary>
-    /// Additional options for checksum dumps, if the default settings don't provide a clear picture. 
-    /// </summary>
-    [EnumFlags]
-    [Tooltip("Additional options for checksum dumps, if the default settings don't provide a clear picture. ")]
-    public SimulationConfigChecksumErrorDumpOptions ChecksumErrorDumpOptions;
   }
 
   [Serializable, StructLayout(LayoutKind.Explicit)]
@@ -2598,6 +2643,7 @@ namespace Quantum {
     public void OnDestroy() {
       SnapshotsOnDestroy();
       InvokeOnDestroy();
+      CheckTrackedHeapAllocations();
     }
 
     public Frame CreateFrame() {
@@ -2682,6 +2728,11 @@ namespace Quantum {
         args.IsServer                    = (_flags & QuantumGameFlags.Server) == QuantumGameFlags.Server;
         args.IsLocalPlayer               = Session.IsLocalPlayer;
         args.HeapConfig                  = new Heap.Config(Configurations.Simulation.HeapPageShift, Configurations.Simulation.HeapPageCount, heapCount);
+#if DEBUG  
+        args.HeapTrackingMode            = Configurations.Simulation.HeapTrackingMode;
+#else
+        args.HeapTrackingMode            = HeapTrackingMode.Disabled;
+#endif
         args.PhysicsConfig               = Configurations.Simulation.Physics;
         args.NavigationConfig            = Configurations.Simulation.Navigation;
         args.CommandSerializer           = Session.CommandSerializer;
@@ -2737,6 +2788,9 @@ namespace Quantum {
       Frames.PredictedPrevious = (Frame)f;
       Frames.Verified = (Frame)f;
       Frames.PreviousUpdatePredicted = (Frame)f;
+
+      // hook context heap alloc tracker to verified frame
+      Frames.Verified.Context.HookHeapAllocTrackerToFrame(Frames.Verified);
 
       InvokeOnGameStart();
 
@@ -3051,6 +3105,29 @@ namespace Quantum {
           data.Serialize(this, writer);
         }
         return stream.ToArray();
+      }
+    }
+
+    public void CheckTrackedHeapAllocations() {
+      if (_context == null) {
+        return;
+      }
+
+      switch (_context.HeapTrackingMode) {
+        case HeapTrackingMode.Disabled:
+          break;
+
+        case HeapTrackingMode.DetectLeaks:
+        case HeapTrackingMode.TraceAllocations:
+          // verified heap tracker must have been hooked to the context tracker
+          Assert.Check(Frames.Verified.TrackedHeap.Tracker.Equals(_context.HeapTracker));
+
+          Frames.Verified.Serialize(DeterministicFrameSerializeMode.Serialize, new byte[20 * 1024 * 1024], out var frameSerializer);
+          Frames.Verified.TrackedHeap.Tracker.CheckAllocationsDebug(frameSerializer.GetSerializedPtrs());
+          break;
+
+        default:
+          throw new ArgumentOutOfRangeException();
       }
     }
   }
@@ -6089,12 +6166,24 @@ namespace Quantum.Core {
 // Systems/Core/CullingSystem.cs
 
 namespace Quantum.Core {
+  /// <summary>
+  /// During Predicted frames, culls all <see cref="FrameBase.SetCullable">cullable</see> entities with
+  /// <see cref="Transform2D"/> that are positioned out of the
+  /// <see cref="FrameContext.SetPredictionArea">prediction area</see>.
+  /// </summary>
+  /// \ingroup Culling
   public unsafe class CullingSystem2D : SystemBase {
     protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       return f.Context.Culling.Schedule2D(f, taskHandle);
     }
   }
   
+  /// <summary>
+  /// During Predicted frames, culls all <see cref="FrameBase.SetCullable">cullable</see> entities with
+  /// <see cref="Transform3D"/> that are positioned out of the
+  /// <see cref="FrameContext.SetPredictionArea">prediction area</see>.
+  /// </summary>
+  /// \ingroup Culling
   public unsafe class CullingSystem3D : SystemBase {
     protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       return f.Context.Culling.Schedule3D(f, taskHandle);

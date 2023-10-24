@@ -440,6 +440,8 @@ namespace I2.Loc
 			public static string BattlelandsMap 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BattlelandsMap"); } }
 			public static string BigRoyale 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BigRoyale"); } }
 			public static string BigRoyaleTrios 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BigRoyaleTrios"); } }
+			public static string BlastBuck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlastBuck"); } }
+			public static string BlastBuck_Plural 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlastBuck_Plural"); } }
 			public static string BlimpDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BlimpDeck"); } }
 			public static string Boots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Boots"); } }
 			public static string BossAngrymanAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossAngrymanAi"); } }
@@ -968,8 +970,6 @@ namespace I2.Loc
 			public static string ModeDm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeDm"); } }
 			public static string ModeRanked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeRanked"); } }
 			public static string NameHeroTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameHeroTitle"); } }
-			public static string NameTooLong 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooLong"); } }
-			public static string NameTooShort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooShort"); } }
 			public static string NewEnemies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewEnemies"); } }
 			public static string NewFeatureUnlocked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewFeatureUnlocked"); } }
 			public static string NewGameModes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewGameModes"); } }
@@ -1475,6 +1475,9 @@ namespace I2.Loc
 		public static class UITProfileScreen
 		{
 			public static string profile 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/profile"); } }
+			public static string username_invalid_characters 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_invalid_characters"); } }
+			public static string username_too_long 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_long"); } }
+			public static string username_too_short 		{ get{ return LocalizationManager.GetTranslation ("UITProfileScreen/username_too_short"); } }
 		}
 
 		public static class UITRewards
@@ -1598,6 +1601,18 @@ namespace I2.Loc
 
 		public static class UITStore
 		{
+			public static string blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/blastbuck_pack_large"); } }
+			public static string blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/blastbuck_pack_medium"); } }
+			public static string blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/blastbuck_pack_small"); } }
+			public static string coin_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_large"); } }
+			public static string coin_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_medium"); } }
+			public static string coin_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/coin_pack_small"); } }
+			public static string description_blastbuck_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_large"); } }
+			public static string description_blastbuck_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_medium"); } }
+			public static string description_blastbuck_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_blastbuck_pack_small"); } }
+			public static string description_coin_pack_large 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_coin_pack_large"); } }
+			public static string description_coin_pack_medium 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_coin_pack_medium"); } }
+			public static string description_coin_pack_small 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_coin_pack_small"); } }
 			public static string description_epic_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_epic_core"); } }
 			public static string description_legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_legendary_core"); } }
 			public static string description_rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/description_rare_core"); } }
@@ -2085,6 +2100,8 @@ namespace I2.Loc
 		    public const string BattlelandsMap = "GameIds/BattlelandsMap";
 		    public const string BigRoyale = "GameIds/BigRoyale";
 		    public const string BigRoyaleTrios = "GameIds/BigRoyaleTrios";
+		    public const string BlastBuck = "GameIds/BlastBuck";
+		    public const string BlastBuck_Plural = "GameIds/BlastBuck_Plural";
 		    public const string BlimpDeck = "GameIds/BlimpDeck";
 		    public const string Boots = "GameIds/Boots";
 		    public const string BossAngrymanAi = "GameIds/BossAngrymanAi";
@@ -2613,8 +2630,6 @@ namespace I2.Loc
 		    public const string ModeDm = "MainMenu/ModeDm";
 		    public const string ModeRanked = "MainMenu/ModeRanked";
 		    public const string NameHeroTitle = "MainMenu/NameHeroTitle";
-		    public const string NameTooLong = "MainMenu/NameTooLong";
-		    public const string NameTooShort = "MainMenu/NameTooShort";
 		    public const string NewEnemies = "MainMenu/NewEnemies";
 		    public const string NewFeatureUnlocked = "MainMenu/NewFeatureUnlocked";
 		    public const string NewGameModes = "MainMenu/NewGameModes";
@@ -3120,6 +3135,9 @@ namespace I2.Loc
 		public static class UITProfileScreen
 		{
 		    public const string profile = "UITProfileScreen/profile";
+		    public const string username_invalid_characters = "UITProfileScreen/username_invalid_characters";
+		    public const string username_too_long = "UITProfileScreen/username_too_long";
+		    public const string username_too_short = "UITProfileScreen/username_too_short";
 		}
 
 		public static class UITRewards
@@ -3243,6 +3261,18 @@ namespace I2.Loc
 
 		public static class UITStore
 		{
+		    public const string blastbuck_pack_large = "UITStore/blastbuck_pack_large";
+		    public const string blastbuck_pack_medium = "UITStore/blastbuck_pack_medium";
+		    public const string blastbuck_pack_small = "UITStore/blastbuck_pack_small";
+		    public const string coin_pack_large = "UITStore/coin_pack_large";
+		    public const string coin_pack_medium = "UITStore/coin_pack_medium";
+		    public const string coin_pack_small = "UITStore/coin_pack_small";
+		    public const string description_blastbuck_pack_large = "UITStore/description_blastbuck_pack_large";
+		    public const string description_blastbuck_pack_medium = "UITStore/description_blastbuck_pack_medium";
+		    public const string description_blastbuck_pack_small = "UITStore/description_blastbuck_pack_small";
+		    public const string description_coin_pack_large = "UITStore/description_coin_pack_large";
+		    public const string description_coin_pack_medium = "UITStore/description_coin_pack_medium";
+		    public const string description_coin_pack_small = "UITStore/description_coin_pack_small";
 		    public const string description_epic_core = "UITStore/description_epic_core";
 		    public const string description_legendary_core = "UITStore/description_legendary_core";
 		    public const string description_rare_core = "UITStore/description_rare_core";

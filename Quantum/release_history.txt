@@ -1,3 +1,141 @@
+# 2.1.7
+
+## Stable
+
+### Build 1164 (Jun 14, 2023)
+
+**Changes**
+
+- `Map.StaticColliders3DTriangles` is now a `SortedDictionary` instead of a `Dictionary`, so triangle sets are inserted already sorted by their mesh collider ID
+- Upgraded to Photon Realtime `4.1.6.25` (05. June 2023)
+
+**Bug Fixes**
+
+- Fixed: An issue that could cause allocation-too-large exceptions when a large number of entities were destroyed or had components removed on a single frame
+- Fixed: An issue that could cause Instant Replays to be initialized with the current state of the colliders instead of the state they had when the frame copy was created
+- Fixed: An issue that broke the compilation of the `UIRoom.cs` script when creating a component named `Player`. To apply the fix also import `quantum_demo.unitypackage`
+- Fixed: An issue on the plugin that sent outdated input to connecting clients when running a very low simulation time
+- Fixed: An issue on the plugin that could cause PlayerConnected signals to be missed on the clients when disconnecting and joining a new player at the exact same tick
+- Fixed: Serialization issue on QDictionary and QHashCollection (introduced on v2.1.6)
+- Fixed: Multi-object editing of `EntityPrototype` components when `Entity Component Inspector Mode` is set to a value different than `Show Mono Behaviours`
+
+# 2.1.6
+
+## Stable
+
+### Build 1155 (May 11, 2023)
+
+**What's New**
+
+- `QuantumEditorSettings.MaxArraySizeForInspector` - if an array's length exceeds the value (1000 by default), it will not be expandable in the Inspector
+- Memory allocation tracking tool for the Frame Heap, which can detect memory leaks and trace allocations. The tool can be enabled in the Simulation Config (Debug mode only, disabled by default)
+- Debug assertions to check if 2D and 3D Linecast queries have squared magnitude in the FP useable range, logging parameters if an overflow happens
+- Profiling samples when performing Frame copies (Host Profiler only)
+
+**Bug Fixes**
+
+- Fixed: Inaccuracies in the 3D EntityView rotation error computation that could cause jitter in the resultant view rotation values
+- Fixed: Issue in CCD collisions against 3D mesh colliders that would cause the body velocity to not be partially integrated up to the first time-of-impact
+- Fixed: `QuantumPrefabAsset` not unloading properly
+- Fixed: Issue when enabling or disabling toggleable static colliders that could cause multiple colliders to be (en/dis)abled when modifying the state of one (bug introduced on v2.1.5)
+- Fixed: `RNGSession.NextInclusive(FP, FP)` resolution being always 16 bits
+- Fixed: Support for generic assets with `unmanaged, Enum` constraints
+- Fixed: Multiple simultaneous calls loading the same Addressable asset ending up in exceptions
+- Fixed: Enforce Windows-style slashes in auto-generated nuget.config when code integration is used
+- Fixed: Physics OnExit trigger callback not being called if the entity had a trigger collider and the static was not trigger
+
+# 2.1.5
+
+## Stable
+
+### Build 1144 (Mar 14, 2023)
+
+**What's New**
+
+- `UnityDB.FindAssetForInspector(string path)`
+
+**Improvements**
+
+- Reduced the stack frame size used by the 3D box-box narrow collision check
+
+**Changes**
+
+- When baking 2D static edges, if the edge is degenerate (zero length), a warning will be logged and the edge will not be baked
+
+**Bug Fixes**
+
+- Fixed: 3D broad-phase shape cast API `AddShapeCastQuery` query options parameter (optional) having `ComputeDetailedInfo` as default value instead of `HitAll`
+- Fixed: Desync when resetting to a snapshot with disabled static colliders from a map that is different from the map initially loaded by the resyncing client
+- Fixed: Soft memory leak inside the Frame heap when allocating new QLists
+- Fixed: Resolve PluginDisconnect callbacks when using the MultiClient scripts
+- Fixed: Typo in `Map.StaticColliders2D` and `.StaticColliders3D` tooltips
+- Fixed: Debug assertion checks for null QBuffer Ptr fields
+- Fixed: Fixing obsolete warning when using Unity 2022
+
+# 2.1.4
+
+## Stable
+
+### Build 1137 (Jan 25, 2023)
+
+**What's New**
+
+- `AssetObjectConfigAttribute.GenerateAsMainScript` - setting to false will add ".Partial" suffix to the generated file and remove inheriting from the base class. User needs to provide their own script matching the `AssetBase` script's name
+- `EntityComponentConfigAttribute.GenerateAsMainScript` - setting to false will add ".Partial" suffix to the generated file and remove inheriting from the base class. User needs to provide their own script matching the `EntityComponentBase` script's name
+- Component type name to exception thrown from ComponentDataBuffer
+- Component type info to exception thrown from component block iterator
+- `QUANTUM_VSINTEGRATION_ENFORCE_RELEASE_CONFIGURATION` - defining it while using `MergeWithVisualStudioSolution` option will add `Release` configuration to the generated solution, if missing
+- `EndOfLineCharacters` option to `quantum.codegen.host.exe.config`: an ability to control EOL characters for the codegen. If unspecified, uses whatever `TextWriter`'s default is. See documentation for details
+- QuantumCodeIntegration: ability to override paths to mono/dotnet with `QUANTUM_CODE_INTEGRATION_MONO_PATH` and `QUANTUM_CODE_INTEGRATION_DOTNET_PATH` env variables
+
+**Improvements**
+
+- `QuantumTaskRunnerJobs` now implement `IDisposable`, which is called when the Frame Context is disposed, preventing the task runner from holding references to the disposed session's delegates
+- Improved the accuracy of the inertia tensor of 2D and 3D physics bodies with compound shapes that only have a single primitive shape
+
+**Changes**
+
+- QuantumCodeIntegration: For MacOS and when .NET Core is in use, `dotnet` command line tool will be used to run Unity code generation
+
+**Bug Fixes**
+
+- Fixed: `AssetBase` generated for `SimulationConfig` is now suffixed with ".Partial" to avoid name clashes in Unity 2022.2.x
+- Fixed: `EntityComponent` scripts for some built-in components are now merged into `AssetTypes.Partial.cs` to avoid name clashes in Unity 2022.2.x
+- Fixed: Missing serialization of component data buffers' pending removal count.  
+This issue could cause assertion exceptions in Debug and a desync in the `Frame.ComponentCount` if Commit Commands Mode is set to `OnFrameSimulationBegin` in the Simulation Config and Remove or Destroy commands were issued during the frame being serialized
+
+# 2.1.3
+
+## Stable
+
+### Build 1134 (Dec 19, 2022)
+
+**What's New**
+
+- API documentation module for culling-related methods and systems
+
+**Improvements**
+
+- Increased the maximum size supported for the total frame heap memory from 2GB to 4GB
+- A warning message is logged in Debug mode if allocating more than 2GB (previously would crash Unity) and an `ArgumentOutOfRangeException` is thrown if attempting to allocate more than 4GB
+- Default `CustomQuantumServer` now wraps the session container servicing logic in a try-catch and destroys the container if an exception is thrown
+- `Transform3D.Rotate` methods now normalize the resultant quaternion by default, avoiding rounding towards zero over multiple operations. An optional parameter can be used to disable the normalization
+- Improved the API documentation of culling methods
+- Map's Physics World Size is now ensured to be in a valid range also when the asset is loaded and not only on the Editor
+- Assertion exception message when the 3D Physics tries to initialize an entry with zeroed quaternion as rotation now states the entity ref or the static collider index of the offending entry
+
+**Bug Fixes**
+
+- Fixed: Inability to edit layer 31 in `SimulationConfigAsset` editor
+- Fixed: "Do not use ReadObjectThreaded on scene objects!" error when importing scenes (.unity) in any of `AssetSearchPaths` locations
+- Fixed: Unity crash due to size overflow in allocator when trying to allocate or clear more than `int.MaxValue` bytes (usually when trying to allocate a very large number of frame heaps)
+- Fixed: Serialization issue on collision info structure used to track OnEnter/OnExit physics callbacks, which could cause desyncs
+- Fixed: An issue that caused the `NavMeshAvoidanceObstacle` velocity not to be recognized for avoidance calculations in some cases
+- Fixed: Assertion exception in the 2D and 3D physics when initializing the simulation with disabled `AllowCCD` and enabling it in runtime
+- Fixed: An issue on `QuantumRunner` that caused it to not be accessible by `ShutdownAll()` after getting disconnected by the plugin (e.g. Snapshot request timed out). Removing the runner from the static registry was moved from Dispose() to OnDisable(). This changed the runner shutdown handling slightly and can be disabled by adding `QUANTUM_DISABLE_RUNNER_FIX` to the Unity scripting defines (to all required platforms)
+- Fixed: An issue that caused the runner to shutdow twice when stopping a `QuantumInstantReplayDemo`
+- Fixed: An issue that caused a NullReferenceException when updating a destroyed session
+
 # 2.1.2
 
 ## Stable

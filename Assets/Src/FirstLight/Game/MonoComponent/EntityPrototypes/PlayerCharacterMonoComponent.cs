@@ -71,7 +71,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
 
-			_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			if (_playerView != null)
+			{
+				_playerView.GetComponent<MatchCharacterViewMonoComponent>().ShowAllEquipment();
+			}
 			_shadowBlob.SetActive(true);
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
@@ -163,8 +166,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var stats = frame.Get<Stats>(EntityView.EntityRef);
 			var loadout = PlayerLoadout.GetLoadout(frame, EntityView.EntityRef);
 			var skinInstance = await LoadCharacterSkin(loadout.Cosmetics);
-
-
+			
 			if (this.IsDestroyed())
 			{
 				return;

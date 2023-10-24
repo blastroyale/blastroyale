@@ -157,7 +157,7 @@ namespace FirstLight.Game.UIElements
 			}
 
 			SetIsFriendly(true);
-			SetMagazine(4, 6, true);
+			//SetMagazine(4, 6);
 		}
 		
 		public void SetIconColor(Color color)
@@ -237,10 +237,9 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the magazine size and how full it is. Only affects friendly players.
 		/// </summary>
-		public void SetMagazine(int currentMagazine, int maxMagazine, bool hideMagazine)
+		public void SetMagazine(int currentMagazine, int maxMagazine)
 		{
-			_ammoHolder.SetEnabled(!hideMagazine);
-			if (!_isFriendly || hideMagazine) return;
+			if (!_isFriendly) return;
 
 			var infiniteMagazine = maxMagazine <= 0;
 			var totalBars = infiniteMagazine ? 1 : Mathf.Min(maxMagazine, MAX_AMMO_BARS);

@@ -215,7 +215,6 @@ namespace FirstLight.Game.Views.UITK
 			var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			var isFriendlyPlayer = (spectatedPlayer.Entity == entity || pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team);
 			var hidePlayerNames = f.Context.TryGetMutatorByType(MutatorType.HidePlayerNames, out _) && !isFriendlyPlayer;
-			var hideMagazineBar = pc.WeaponSlot->MagazineSize <= 0;
 			var playerName = hidePlayerNames ? string.Empty : Extensions.GetPlayerName(f, entity, pc);
 			var nameColor = pd != null
 				                ? _gameServices.LeaderboardService.GetRankColor(_gameServices.LeaderboardService.Ranked, (int) pd.LeaderboardRank)
@@ -228,7 +227,7 @@ namespace FirstLight.Game.Views.UITK
 			bar.SetHealth(stats.CurrentHealth, stats.CurrentHealth,
 				stats.Values[(int) StatType.Health].StatValue.AsInt);
 			bar.SetShield(stats.CurrentShield, stats.Values[(int) StatType.Shield].StatValue.AsInt);
-			bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize, hideMagazineBar);
+			//bar.SetMagazine(pc.WeaponSlot->MagazineShotCount, pc.WeaponSlot->MagazineSize);
 			
 			//TODO: Call this again when we implement icons properly
 			//bar.SetIconColor(nameColor);
@@ -274,7 +273,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			if (!_visiblePlayers.TryGetValue(callback.Entity, out var bar)) return;
 
-			bar.SetMagazine(callback.CurrentMag, callback.MaxMag, callback.MaxMag <= 0);
+			//bar.SetMagazine(callback.CurrentMag, callback.MaxMag);
 		}
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &773601570866861477
 Transform:
   m_ObjectHideFlags: 0
@@ -807,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3587682744574828602, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: m_Name
-      value: EnergyCubeLarge
+      value: SpecialGrenadeBox
       objectReference: {fileID: 0}
     - target: {fileID: 7154763326806129797, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
       propertyPath: _renderers.Array.size

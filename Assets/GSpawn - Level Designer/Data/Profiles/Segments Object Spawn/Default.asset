@@ -32,7 +32,7 @@ MonoBehaviour:
   _minRandomHeight: 1
   _maxRandomHeight: 5
   _heightPatternWrapMode: 1
-  _heightPattern: {fileID: 0}
+  _heightPattern: {fileID: 2247861556269269620, guid: 80823b58925144118be9064ae3496ac9, type: 2}
   _jitterMode: 0
   _minJitter: 0
   _maxJitter: 0.1

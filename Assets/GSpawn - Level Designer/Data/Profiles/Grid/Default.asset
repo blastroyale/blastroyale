@@ -15,5 +15,5 @@ MonoBehaviour:
   _profileName: Default
   _orientation: 2
   _customRotation: {x: 0, y: 0, z: 0}
-  _localOriginYOffset: 0
+  _localOriginYOffset: -0.5
   _cellSize: {x: 1, y: 1, z: 1}

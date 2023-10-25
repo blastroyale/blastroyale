@@ -10,7 +10,7 @@ ModelImporter:
       name: BR_atlas
     second: {fileID: 2100000, guid: 8ff40c23389a5e74191cc748616c84ca, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1

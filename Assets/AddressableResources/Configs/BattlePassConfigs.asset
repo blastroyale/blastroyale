@@ -200,3 +200,4 @@ MonoBehaviour:
     - RewardId: 27
       PremiumRewardId: -1
       PointsForNextLevel: 0
+    EndsAt: 16/10/2023

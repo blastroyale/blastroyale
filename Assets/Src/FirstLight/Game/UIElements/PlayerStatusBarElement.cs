@@ -157,7 +157,7 @@ namespace FirstLight.Game.UIElements
 			}
 
 			SetIsFriendly(true);
-			SetMagazine(4, 6);
+			//SetMagazine(4, 6);
 		}
 		
 		public void SetIconColor(Color color)

@@ -312,7 +312,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (!IsInitialized() || _localPlayerEntity != callback.Entity)
 				return;
 
-			if (callback.CurrentMag == 0)
+			if (callback.CurrentAmmo == 0)
 			{
 				_weaponAim.SetColor(Color.red);
 			}
@@ -320,9 +320,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_weaponAim.ResetColor();
 			}
-
-			if (callback.CurrentMag != 0)
-				return;
 
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState, true);
 		}

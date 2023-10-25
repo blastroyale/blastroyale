@@ -20,7 +20,10 @@ namespace FirstLight.Game.Configs
 	public enum UnlockSystem
 	{
 		Shop,
-		Collection
+		Collection,
+		Leaderboards,
+		Equipment,
+		GameModes
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

@@ -137,7 +137,11 @@ namespace FirstLight.Game.Presenters
 					Data.OnProfileClicked();
 				}
 			};
+
 			root.Q<ImageButton>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+			var leaderBoardButton = root.Q<ImageButton>("LeaderboardsButton");
+			leaderBoardButton.LevelLock(this, Root, UnlockSystem.Leaderboards, Data.OnLeaderboardClicked);
+
 			_playerNameLabel = root.Q<Label>("PlayerName").Required();
 			_playerTrophiesLabel = root.Q<Label>("TrophiesAmount").Required();
 
@@ -145,6 +149,7 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
+			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
@@ -192,6 +197,10 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
+
+			
+			var equipmentButton = root.Q<Button>("EquipmentButton");
+			equipmentButton.LevelLock(this, Root, UnlockSystem.Equipment, Data.OnLootButtonClicked);
 			var collectionButton = root.Q<Button>("CollectionButton");
 			collectionButton.LevelLock(this, Root, UnlockSystem.Collection, Data.OnCollectionsClicked);
 

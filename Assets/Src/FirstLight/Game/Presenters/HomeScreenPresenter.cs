@@ -149,7 +149,6 @@ namespace FirstLight.Game.Presenters
 
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameModeButton = root.Q<ImageButton>("GameModeButton").Required();
-			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 			_collectionNotification = root.Q<VisualElement>("CollectionNotification").Required();
@@ -192,6 +191,8 @@ namespace FirstLight.Game.Presenters
 			_betaLabel = root.Q<Label>("BetaWarning").Required();
 
 			_gameModeButton.clicked += Data.OnGameModeClicked;
+			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
+
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 

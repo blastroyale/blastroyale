@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
@@ -79,6 +80,7 @@ namespace FirstLight.Game.Views.UITK
 			_unlockedAction = unlockedCallback;
 			_root = root;
 			UpdateLock(false);
+			Debug.LogError("system " + unlockSystem.ToString() + " locked state is " + _locked);
 		}
 
 		private void OnFameUpdated(uint _, uint level)

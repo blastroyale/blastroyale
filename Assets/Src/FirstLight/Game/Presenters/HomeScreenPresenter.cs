@@ -188,7 +188,7 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
-			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
+			//root.Q<Button>("TrophiesHolder").clicked += Data.;
 
 			_gameModeButton.LevelLock(this, Root, UnlockSystem.GameModes, Data.OnGameModeClicked);
 			var leaderBoardButton = root.Q<ImageButton>("LeaderboardsButton");

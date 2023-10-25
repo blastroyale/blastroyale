@@ -23,7 +23,8 @@ namespace FirstLight.Game.Configs
 		Collection,
 		Leaderboards,
 		Equipment,
-		GameModes
+		GameModes,
+		Squads,
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

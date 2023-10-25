@@ -5559,7 +5559,7 @@ MonoBehaviour:
   renderSettingsRTPVWidth: 640
   renderSettingsRTPVHeight: 360
   tagOverrides: []
-  modifiedMeshPaddingArray: 9c000000
+  modifiedMeshPaddingArray: 11000000
   modifiedMeshUnwrapperArray: 00000000
   texSettingsKey: []
   texSettingsVal: []

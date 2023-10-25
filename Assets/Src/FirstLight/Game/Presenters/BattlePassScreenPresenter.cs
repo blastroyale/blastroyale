@@ -53,6 +53,8 @@ namespace FirstLight.Game.Presenters
 		private Label _bppProgressLabel;
 		private Label _currentLevelLabel;
 		private Label _nextLevelValueLabel;
+		private Label _timeLeftLabel;
+		private LocalizedLabel _seasonEndsLabel;
 		private ScreenHeaderElement _screenHeader;
 
 		private IGameServices _services;
@@ -84,7 +86,8 @@ namespace FirstLight.Game.Presenters
 			_bppProgressBackground = root.Q("BppBackground").Required();
 			_bppProgressFill = root.Q("BppProgress").Required();
 			_nextLevelRoot = root.Q("NextLevel").Required();
-
+			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
+			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			root.Q<CurrencyDisplayElement>("CSCurrency").AttachView(this, out CurrencyDisplayView _);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
 
@@ -114,6 +117,7 @@ namespace FirstLight.Game.Presenters
 			RemoveAllSegments();
 			SpawnSegments();
 			InitSegments();
+			UpdateTimeLeft();
 
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
@@ -140,6 +144,31 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
 		}
 
+		private void UpdateTimeLeft()
+		{
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetBattlePassConfig();
+			if (battlePassConfig.TryGetEndsAt(out var endsAt))
+			{
+				var now = DateTime.UtcNow;
+				
+				if (now > endsAt)
+				{
+					_seasonEndsLabel.text = "SEASON ENDED!";
+					_timeLeftLabel.SetVisibility(false);
+				}
+				else
+				{
+					var duration = endsAt - now;
+					_seasonEndsLabel.text = "SEASON ENDS IN";
+					_timeLeftLabel.text = duration.ToDayAndHours().ToUpperInvariant();
+				}
+			
+				return;
+			}
+			_seasonEndsLabel.SetVisibility(false);
+			_timeLeftLabel.SetVisibility(false);
+		}
+		
 		public void EnableFullScreenClaim(bool enableFullScreenClaim)
 		{
 			_fullScreenClaimButton.SetDisplay(enableFullScreenClaim);

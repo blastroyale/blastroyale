@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Quantum;
 using UnityEngine;
 
@@ -14,13 +15,25 @@ namespace FirstLight.Game.Configs
 		public uint CurrentSeason;
 		public uint DefaultPointsPerLevel;
 		public List<BattlePassLevel> Levels;
-
+		public string EndsAt;
+		
 		[Serializable]
 		public struct BattlePassLevel
 		{
 			public int RewardId;
 			public int PremiumRewardId;
 			public uint PointsForNextLevel;
+		}
+
+		public bool TryGetEndsAt(out DateTime dateTime)
+		{
+			if (string.IsNullOrEmpty(EndsAt))
+			{
+				dateTime = default;
+				return false;
+			}
+			dateTime = DateTime.ParseExact(EndsAt, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+			return true;
 		}
 	}
 

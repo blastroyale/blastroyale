@@ -191,20 +191,22 @@
 }
 
 .season-info {
-    align-items: center;
     height: 175px;
     position: absolute;
     bottom: 0;
-    flex-direction: row;
     left: 400px;
     flex-grow: 1;
     right: 500px;
-    justify-content: flex-start;
+    overflow: visible; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .season-info__season-end {
     flex-direction: row;
     align-items: center;
+    display: none;
 }
 
 .season-info__label {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeshCombineSettings
   m_EditorClassIdentifier: 
   _combineStaticMeshes: 1
-  _combineDynamicMeshes: 0
+  _combineDynamicMeshes: 1
   _combineLODs: 0
   _lodIndex: 0
   _combineAsStatic: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
   _ignoreMultiLevelHierarchies: 0
   _generateLightmapUVs: 0
   _combinedMeshesAreReadable: 0
-  _disableSourceRenderers: 1
+  _disableSourceRenderers: 0
   _combinedMeshObjectBaseName: GSpawn_Combined_
   _combinedMeshBaseName: GSpawn_CombinedMesh_
   _combinedMeshFolder: Assets/GSpawn Combined Meshes

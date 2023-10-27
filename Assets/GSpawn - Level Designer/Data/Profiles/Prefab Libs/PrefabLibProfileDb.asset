@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: PrefabLibProfileDbUI_LibViewState
   m_EditorClassIdentifier: 
   selectedItems:
-    _serializedList: []
+    _serializedList:
+    - _guidString: 4f0e3c0f-dd93-4300-8151-dd3aef2e03e8
   collapsedItems:
     _serializedList: []
   selectRangeBeginId:
-    _guidString: 00000000-0000-0000-0000-000000000000
+    _guidString: 4b45c18b-010a-42d9-92e9-17f602706594
   selectRangeEndId:
-    _guidString: 00000000-0000-0000-0000-000000000000
+    _guidString: 4b45c18b-010a-42d9-92e9-17f602706594
   hasSelectRange: 0
   scrollOffset: {x: 0, y: 0}
   vertScrollHighValue: 0
@@ -37,14 +38,15 @@ MonoBehaviour:
   m_Name: PluginPrefabManagerUI_PrefabViewState
   m_EditorClassIdentifier: 
   selectedItems:
-    _serializedList: []
+    _serializedList:
+    - _guidString: 8da95bc3-4917-4267-a83a-47400e8273fa
   selectRangeBeginId:
-    _guidString: 00000000-0000-0000-0000-000000000000
+    _guidString: 8da95bc3-4917-4267-a83a-47400e8273fa
   selectRangeEndId:
-    _guidString: 00000000-0000-0000-0000-000000000000
-  hasSelectRange: 0
-  scrollOffset: {x: 0, y: 0}
-  vertScrollHighValue: 0
+    _guidString: 8da95bc3-4917-4267-a83a-47400e8273fa
+  hasSelectRange: 1
+  scrollOffset: {x: 0, y: 648.8}
+  vertScrollHighValue: NaN
   vertScrollLowValue: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -61,5 +63,5 @@ MonoBehaviour:
   _profiles:
   - {fileID: 11400000, guid: 39f5192944bde44198b9c745bfbc7866, type: 2}
   _activeProfile: {fileID: 11400000, guid: 39f5192944bde44198b9c745bfbc7866, type: 2}
-  _prefabCreationSettingsUI: {fileID: 0}
+  _prefabCreationSettingsUI: {fileID: 11400000, guid: 0847deea3cfea4c5aaad7a1b2fbf3ade, type: 2}
   _objectGroupCreationSettingsUI: {fileID: 0}

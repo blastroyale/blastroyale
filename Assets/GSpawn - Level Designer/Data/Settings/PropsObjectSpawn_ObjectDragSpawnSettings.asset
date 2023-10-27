@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PropsObjectSpawn_ObjectDragSpawnSettings
   m_EditorClassIdentifier: 
   _minDragDistance: 1
-  _useSafeDragDistance: 1
+  _useSafeDragDistance: 0

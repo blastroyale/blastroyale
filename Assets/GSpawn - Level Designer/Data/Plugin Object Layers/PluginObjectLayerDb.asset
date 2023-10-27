@@ -35,6 +35,16 @@ MonoBehaviour:
   m_Name: PluginObjectLayerDb
   m_EditorClassIdentifier: 
   _layers:
+  - {fileID: 424825546105760107}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 6544098043148158312}
+  - {fileID: 0}
+  - {fileID: 9034386605100269643}
+  - {fileID: 7375906773715276172}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -57,13 +67,79 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+--- !u!114 &424825546105760107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_0
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 70da0093-0590-4de1-8dc2-f408584d4b20
+  _layer: 0
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &6544098043148158312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_6
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 6135cbfb-9da8-4758-b6c1-9eafa8aada86
+  _layer: 6
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &7375906773715276172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_9
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: b4091743-86a2-47c9-b892-0b5854987a42
+  _layer: 9
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0
+--- !u!114 &9034386605100269643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79425504febc2843801a7aa28fd9495, type: 3}
+  m_Name: Layer_8
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 5af53d89-cd3c-4d24-82da-9642b2ed7c1e
+  _layer: 8
+  _isErasable: 1
+  _isTerrainMesh: 0
+  _isSphericalMesh: 0
+  _uiSelected: 0

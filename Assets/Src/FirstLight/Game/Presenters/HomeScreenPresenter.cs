@@ -51,6 +51,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
 			public Action OnDiscordClicked;
+			public Action OnYoutubeClicked;
+			public Action OnInstagramClicked;
+			public Action OnTiktokClicked;
 			public Action OnMatchmakingCancelClicked;
 			public Action OnLevelUp;
 			public Action<List<ItemData>> OnRewardsReceived;
@@ -209,6 +212,27 @@ namespace FirstLight.Game.Presenters
 				Data.OnDiscordClicked();
 			};
 
+			var youtubeButton = root.Q<Button>("YoutubeButton");
+			youtubeButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.YoutubeLink);
+				Data.OnYoutubeClicked();
+			};
+			
+			var instagramButton = root.Q<Button>("InstagramButton");
+			instagramButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.InstagramLink);
+				Data.OnInstagramClicked();
+			};
+			
+			var tiktokButton = root.Q<Button>("TiktokButton");
+			tiktokButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.TiktokLink);
+				Data.OnTiktokClicked();
+			};
+			
 			root.Q("Matchmaking").AttachView(this, out _matchmakingStatusView);
 			_matchmakingStatusView.CloseClicked += Data.OnMatchmakingCancelClicked;
 

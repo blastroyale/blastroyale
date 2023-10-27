@@ -3394,6 +3394,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2594952eaa8ee244189843049640b37b
+    m_Address: Assets/Art/UI/Sprites/Home/icon-instagram.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35fbf7d6cec57b346b3bf82283a7d10d
+    m_Address: Assets/Art/UI/Sprites/Home/icon-youtube.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2953c2b5dfa4f864a85fd9ba191c7c19
+    m_Address: Assets/Art/UI/Sprites/Home/icon-tiktok.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

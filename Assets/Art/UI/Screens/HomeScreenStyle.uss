@@ -752,6 +752,36 @@
     position: absolute;
 }
 
+.youtube-button {
+    width: 66px;
+    height: 66px;
+    background-image: var(--sprite-home__icon-youtube);
+    top: 180px;
+    margin-right: 20px;
+    margin-top: 0;
+    position: absolute;
+}
+
+.instagram-button {
+    width: 66px;
+    height: 66px;
+    background-image: var(--sprite-home__icon-instagram);
+    top: 260px;
+    margin-right: 20px;
+    margin-top: 0;
+    position: absolute;
+}
+
+.tiktok-button {
+    width: 66px;
+    height: 66px;
+    background-image: var(--sprite-home__icon-tiktok);
+    top: 340px;
+    margin-right: 20px;
+    margin-top: 0;
+    position: absolute;
+}
+
 .button-with-icon--equipment > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-equipment);
 }

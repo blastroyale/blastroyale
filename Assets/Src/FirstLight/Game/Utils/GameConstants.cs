@@ -22,7 +22,12 @@ namespace FirstLight.Game.Utils
 		public static class Links
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
+			
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
+			public const string YOUTUBE_LINK = "https://www.youtube.com/c/BlastRoyale22";
+			public const string INSTAGRAM_LINK = "https://www.instagram.com/blastroyale";
+			public const string TIKTOK_LINK = "https://www.tiktok.com/@blastroyale";
+			
 			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
 #if LIVE_SERVER

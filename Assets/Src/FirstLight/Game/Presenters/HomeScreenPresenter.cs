@@ -469,7 +469,7 @@ namespace FirstLight.Game.Presenters
 				segmentIndex += 1;
 
 				var points = (int) previous + totalSegmentPointsRedeemed;
-				var wasRedeemable = _dataProvider.BattlePassDataProvider.IsRedeemable((int) previous);
+				var wasRedeemable = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards((int) previous);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					segmentIndex * 0.05f,
@@ -554,7 +554,7 @@ namespace FirstLight.Game.Presenters
 			if (!string.IsNullOrEmpty(buttonClass)) _playButton.AddToClassList(buttonClass);
 			_playButton.Localize(translationKey);
 		}
-
+		
 		private void UpdateBattlePassReward()
 		{
 			var nextLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value + 1;
@@ -562,20 +562,19 @@ namespace FirstLight.Game.Presenters
 
 			if (nextLevel <= _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
-				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel);
+				var reward = _dataProvider.BattlePassDataProvider.GetRewardForLevel(nextLevel, PassType.Free);
 				_battlePassRarity.AddToClassList(UIUtils.GetBPRarityStyle(reward.GameId));
 			}
 		}
 
 		private void UpdateBattlePassPoints(int points)
 		{
-			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(points);
+			var hasRewards = _dataProvider.BattlePassDataProvider.HasUnclaimedRewards(points);
 			_battlePassButton.EnableInClassList("battle-pass-button--claimreward", hasRewards);
 
 			if (!hasRewards)
 			{
-				if (!_dataProvider.BattlePassDataProvider.IsTutorial() &&
-					_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
+				if (_dataProvider.BattlePassDataProvider.CurrentLevel.Value ==
 					_dataProvider.BattlePassDataProvider.MaxLevel)
 				{
 					_battlePassButton.EnableInClassList("battle-pass-button--completed", true);

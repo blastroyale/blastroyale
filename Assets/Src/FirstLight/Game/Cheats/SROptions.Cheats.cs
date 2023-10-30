@@ -613,10 +613,10 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var dataProvider = services.DataSaver as IDataService;
-		var playerData = dataProvider.GetData<PlayerData>();
+		var data = dataProvider.GetData<BattlePassData>();
 
-		playerData.BPLevel = 0;
-		playerData.BPPoints = 0;
+		data.BPLevel = 0;
+		data.BPPoints = 0;
 
 		dataProvider.SaveData<PlayerData>();
 

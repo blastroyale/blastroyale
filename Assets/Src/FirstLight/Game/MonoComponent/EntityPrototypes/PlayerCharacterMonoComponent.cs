@@ -57,7 +57,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnTeamAssigned(EventOnTeamAssigned e)
 		{
-
 			if (PlayerView == null || e.Entity != PlayerView.EntityRef) return;
 			var color = _matchServices.TeamService.GetTeamMemberColor(e.Entity);
 			if (!color.HasValue) return;
@@ -68,8 +67,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		private void OnPlayerSkydiveLanded(EventOnPlayerSkydiveLand callback)
 		{
 			if (callback.Entity != EntityView.EntityRef) return;
-
-			_playerView.GetComponent<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
+			if (_playerView != null)
+			{
+				_playerView.GetComponent<MatchCharacterViewMonoComponent>()?.ShowAllEquipment();
+			}
 			_shadowBlob.SetActive(true);
 			_circleIndicator.gameObject.SetActive(ShouldDisplayColorTag());
 		}
@@ -136,7 +137,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			var container = obj.AddComponent<RenderersContainerMonoComponent>();
 			container.UpdateRenderers();
 			// TODO REMOVE THIS SHIT SOMEDAY
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP)
 			{
 				AddLegacyCollider(obj);
 			}

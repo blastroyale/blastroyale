@@ -37,8 +37,7 @@ namespace FirstLight.Game.Services
 			_commandContext = new CommandExecutionContext(
 				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}
-
-
+		
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
@@ -50,7 +49,6 @@ namespace FirstLight.Game.Services
 			try
 			{
 				command.Execute(_commandContext);
-
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:

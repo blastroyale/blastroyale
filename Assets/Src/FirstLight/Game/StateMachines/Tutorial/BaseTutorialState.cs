@@ -56,13 +56,13 @@ namespace FirstLight.Game.StateMachines
 			idle.Event(_startFirstGameTutorialEvent).Target(firstGameTutorial);
 			idle.Event(_startEquipmentBpTutorialEvent).Target(metaAndMatchTutorial);
 			
-			firstGameTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_GUIDE_MATCH));
+			firstGameTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FTUE_MAP));
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
-			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
+			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FTUE_MAP));
 			
-			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.META_GUIDE_AND_MATCH));
+			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_MATCH));
 			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
-			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.META_GUIDE_AND_MATCH));
+			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_MATCH));
 		}
 
 		private async Task OpenTutorialScreens()
@@ -90,14 +90,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRequestStartFirstTutorialMessage(RequestStartFirstGameTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH)) return;
+			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FTUE_MAP)) return;
 
 			_statechartTrigger(_startFirstGameTutorialEvent);
 		}
 
 		private void OnRequestStartMetaMatchTutorialMessage(RequestStartMetaMatchTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH)) return;
+			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_MATCH)) return;
 
 			_statechartTrigger(_startEquipmentBpTutorialEvent);
 		}

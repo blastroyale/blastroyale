@@ -124,7 +124,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH) return;
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP) return;
 
 			_rootObject.SetActive(true);
 

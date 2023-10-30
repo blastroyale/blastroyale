@@ -119,19 +119,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_dataProvider.EquipmentDataProvider.Loadout.Count >= 1)
 			{
-				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH))
+				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FTUE_MAP))
 				{
 					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 					{
-						Section = TutorialSection.FIRST_GUIDE_MATCH
-					});
-				}
-
-				if (!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.META_GUIDE_AND_MATCH))
-				{
-					_services.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
-					{
-						Section = TutorialSection.META_GUIDE_AND_MATCH
+						Section = TutorialSection.FTUE_MAP
 					});
 				}
 
@@ -198,7 +190,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasCompletedFirstGameTutorial()
 		{
-			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH);
+			return !FeatureFlags.TUTORIAL ||_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FTUE_MAP);
 		}
 	}
 }

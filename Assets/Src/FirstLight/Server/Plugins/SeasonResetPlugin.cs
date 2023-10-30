@@ -43,14 +43,14 @@ namespace Src.FirstLight.Server
 				var playerSeason = seasonData.CurrentSeason;
 				if (playerSeason < currentSeason)
 				{
-					var playerData = state.DeserializeModel<PlayerData>();
-					playerData.BPLevel = 0;
-					playerData.BPPoints = 0;
+					var data = state.DeserializeModel<BattlePassData>();
+					data.BPLevel = 0;
+					data.BPPoints = 0;
 					seasonData.CurrentSeason = currentSeason;
 					state.UpdateModel(seasonData);
 					_ctx.Log.LogInformation(
 						$@"Resetting player {playfabId} battle pass, Player Season {playerSeason} & Current Season {currentSeason}");
-					state.UpdateModel(playerData);
+					state.UpdateModel(data);
 					await _ctx.ServerState.UpdatePlayerState(playfabId, state);
 				}
 			}

@@ -33,7 +33,6 @@ namespace FirstLight.GoogleSheetImporter
 			var lines = csv.Split(new[] {"\r\n"}, StringSplitOptions.None);
 			var list = new List<Dictionary<string, string>>(lines.Length - 1);
 			var headlines = EnumerateCsvLine(lines[0]);
-
 			for (var i = 1; i < lines.Length; i++)
 			{
 				var dictionary = new Dictionary<string, string>(headlines.Length);

@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
-    <ui:VisualElement name="BattlePassSegment" class="segment">
+    <ui:VisualElement name="BattlePassSegment" class="segment" style="scale: 0.6 0.6; translate: -40% 0;">
         <ui:VisualElement name="ProgressBar" class="progress-bar">
             <ui:VisualElement name="ProgressBackground" class="progress-bar__background">
                 <ui:VisualElement name="ProgressFill" class="progress-bar__progress" />

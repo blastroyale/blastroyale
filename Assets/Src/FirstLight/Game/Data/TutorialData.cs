@@ -8,10 +8,15 @@ namespace FirstLight.Game.Data
 	public enum TutorialSection : ushort
 	{
 		NONE = 0,
-		FIRST_GUIDE_MATCH = 1 << 1,
-		META_GUIDE_AND_MATCH = 1 << 2,
-		POST_MATCH_GUIDE = 1 << 3,
-		TUTORIAL_BP = 1 << 4
+		/// <summary>
+		/// Initial FTUE map where player learns movement etc
+		/// </summary>
+		FTUE_MAP = 1 << 1,
+		
+		/// <summary>
+		/// After ftue map, waiting for player to click "PLAY" on main menu
+		/// </summary>
+		FIRST_MATCH = 1 << 2,
 	}
 	
 	/// <summary>

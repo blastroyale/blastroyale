@@ -426,7 +426,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				
 				if (_networkService.QuantumRunnerConfigs.IsOfflineMode ||
-					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_GUIDE_MATCH)
+					_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FTUE_MAP)
 				{
 					LockRoom();
 				}
@@ -601,7 +601,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			// If running the equipment/BP menu tutorial, the room is handled through the EquipmentBpTutorialState.cs
 			// This is the same flow as the first match setup
-			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.META_GUIDE_AND_MATCH)
+			if (_services.TutorialService.CurrentRunningTutorial.Value == TutorialSection.FIRST_MATCH)
 			{
 				return;
 			}

@@ -31,11 +31,11 @@ MonoBehaviour:
   _minRandomHeight: 1
   _maxRandomHeight: 5
   _heightPatternWrapMode: 1
-  _heightPattern: {fileID: 0}
+  _heightPattern: {fileID: 2247861556269269620, guid: 80823b58925144118be9064ae3496ac9, type: 2}
   _constrainSizeToHeightPattern: 0
   _fillMode: 0
   _borderWidth: 1
-  _prefabPickMode: 0
-  _randomPrefabProfileName: Default
+  _prefabPickMode: 1
+  _randomPrefabProfileName: RandomGrass
   _heightRangePrefabProfileName: Default
   _projectionMode: 0

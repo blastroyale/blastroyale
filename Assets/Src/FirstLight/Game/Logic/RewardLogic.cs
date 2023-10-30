@@ -116,7 +116,7 @@ namespace FirstLight.Game.Logic
 		/// Generates ItemData of all given configs.
 		/// Those configs represents a "chest like" structure containing rules on how to generate items.
 		/// </summary>
-		IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
+		IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> configs);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -283,7 +283,7 @@ namespace FirstLight.Game.Logic
 			var rewardsConfigs = rewardsCfg.Where(c => tutorialRewardsCfg.First(c => c.Section == section).RewardIds.Contains((uint) c.Id));
 			var rewardItems = CreateItemsFromConfigs(rewardsConfigs);
 			var bpp = rewardItems.FirstOrDefault(r => r.Id == GameId.BPP);
-			if (bpp != null && section == TutorialSection.FIRST_GUIDE_MATCH && bpp.TryGetMetadata<CurrencyMetadata>(out var meta))
+			if (bpp != null && section == TutorialSection.FTUE_MAP && bpp.TryGetMetadata<CurrencyMetadata>(out var meta))
 			{
 				meta.Amount = (int)GameLogic.BattlePassLogic.GetRequiredPointsForLevel();
 			}
@@ -309,7 +309,7 @@ namespace FirstLight.Game.Logic
 			return ItemFactory.Currency(config.GameId, config.Amount);
 		}
 
-		public IEnumerable<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
+		public IReadOnlyCollection<ItemData> CreateItemsFromConfigs(IEnumerable<EquipmentRewardConfig> rewardConfigs)
 		{
 			var items = new List<ItemData>();
 			foreach (var reward in rewardConfigs) items.Add(CreateItemFromConfig(reward));

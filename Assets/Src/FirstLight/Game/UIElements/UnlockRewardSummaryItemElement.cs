@@ -28,6 +28,16 @@ namespace FirstLight.Game.UIElements
 				case UnlockSystem.Collection:
 					_icon.AddToClassList("sprite-home__icon-heroes");
 					break;
+				case UnlockSystem.Leaderboards:
+					_icon.AddToClassList("sprite-home__icon-leaderboards");
+					break;
+				case UnlockSystem.Equipment:
+					_icon.AddToClassList("sprite-home__icon-equipment");
+					break;
+				case UnlockSystem.GameModes:
+					//TODO: use a unique or seperate icon here to represent game mdoes
+					_icon.AddToClassList("sprite-home__icon-marketplace");
+					break;
 			}
 			_label.text = ur.DisplayName;
 			return this;

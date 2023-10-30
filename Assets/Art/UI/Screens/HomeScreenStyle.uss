@@ -140,7 +140,6 @@
     bottom: -6px;
 }
 
-
 .player-header__trophies-holder {
     position: relative;
     width: 422px;
@@ -743,43 +742,39 @@
 }
 
 .discord-button {
-    width: 66px;
-    height: 66px;
+    width: 48px;
+    height: 48px;
     background-image: var(--sprite-home__icon-discord);
-    top: 100px;
-    margin-right: 20px;
-    margin-top: 0;
+    left: 684px;
     position: absolute;
+    top: 40px;
 }
 
 .youtube-button {
-    width: 66px;
-    height: 66px;
+    width: 48px;
+    height: 48px;
     background-image: var(--sprite-home__icon-youtube);
-    top: 180px;
-    margin-right: 20px;
-    margin-top: 0;
     position: absolute;
+    left: 758px;
+    top: 40px;
 }
 
 .instagram-button {
-    width: 66px;
-    height: 66px;
+    width: 48px;
+    height: 48px;
     background-image: var(--sprite-home__icon-instagram);
-    top: 260px;
-    margin-right: 20px;
-    margin-top: 0;
     position: absolute;
+    left: 832px;
+    top: 40px;
 }
 
 .tiktok-button {
-    width: 66px;
-    height: 66px;
+    width: 48px;
+    height: 48px;
     background-image: var(--sprite-home__icon-tiktok);
-    top: 340px;
-    margin-right: 20px;
-    margin-top: 0;
     position: absolute;
+    top: 40px;
+    left: 906px;
 }
 
 .button-with-icon--equipment > .button-with-icon__icon {

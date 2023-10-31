@@ -31,6 +31,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _friendliesCountPID = Shader.PropertyToID("_FriendliesCount");
 		private static readonly int _EnemiesOpacityPID = Shader.PropertyToID("_EnemiesOpacity");
 		private static readonly int _FriendlyColorsPID = Shader.PropertyToID("_FriendliesColors");
+		private static readonly int _PlayerCircleSizePID = Shader.PropertyToID("_PlayersSize");
+		private static readonly int _PlayerCircleSizeFocusedPID = Shader.PropertyToID("_PlayersSizeFocused");
 
 		private static readonly int _pingPositionPID = Shader.PropertyToID("_PingPosition");
 		private static readonly int _pingProgressPID = Shader.PropertyToID("_PingProgress");
@@ -52,6 +54,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
 		[SerializeField, Required] private float _pingDuration = 1f;
+
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
@@ -88,6 +91,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private bool _radarActive;
 		private DateTime _radarEndTime;
 		private float _radarRange;
+		private float _defaultPlayerSize;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
 		private float _mapConfigCameraSize;
@@ -113,6 +117,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				GameObjectPool<MinimapAirdropView>.Instantiator);
 			_pingPool = new ObjectRefPool<MinimapPingView>(1, _pingIndicatorRef,
 				GameObjectPool<MinimapPingView>.Instantiator);
+			_defaultPlayerSize = _minimapImage.materialForRendering.GetFloat(_PlayerCircleSizePID);
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
@@ -353,6 +358,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_minimapImage.materialForRendering.SetColorArray(_FriendlyColorsPID, _friendlyColors);
 			_minimapImage.materialForRendering.SetVectorArray(_friendliesPID, _friendlyPositions);
 			_minimapImage.materialForRendering.SetInteger(_friendliesCountPID, index);
+			
 		}
 
 		private bool IsFriendly(Frame f, EntityRef entity, PlayerCharacter targetable)
@@ -420,7 +426,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OpenMinimap()
 		{
 			_tweenerSize?.Kill();
-
+			_minimapImage.materialForRendering.SetFloat(_PlayerCircleSizePID, _minimapImage.materialForRendering.GetFloat(_PlayerCircleSizeFocusedPID));
 			_opened = true;
 			_tweenerSize = DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimapSize)
 				.SetEase(_openCloseEase);
@@ -430,7 +436,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void CloseMinimap()
 		{
 			_tweenerSize?.Kill();
-
+			_minimapImage.materialForRendering.SetFloat(_PlayerCircleSizePID, _defaultPlayerSize);
 			_opened = false;
 			_tweenerSize = DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimapSize)
 				.SetEase(_openCloseEase);

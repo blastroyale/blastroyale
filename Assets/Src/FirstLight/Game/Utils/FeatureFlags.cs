@@ -165,6 +165,11 @@ namespace FirstLight.Game.Utils
 		public static bool TUTORIAL = true;
 
 		/// <summary>
+		/// If the main menu systems start locked, useful for testing
+		/// </summary>
+		public static bool SYSTEM_LOCKS = true;
+
+		/// <summary>
 		/// If the tutorial is active, useful for testing
 		/// </summary>
 		public static bool ALLOW_SKIP_TUTORIAL = true;

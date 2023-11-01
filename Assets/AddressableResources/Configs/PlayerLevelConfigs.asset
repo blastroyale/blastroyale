@@ -22,7 +22,7 @@ MonoBehaviour:
     Systems: 01000000
   - LevelStart: 2
     LevelEnd: 2
-    LevelUpXP: 300
+    LevelUpXP: 200
     Rewards:
       _keyData: 3d000000
       _valueData: 64000000

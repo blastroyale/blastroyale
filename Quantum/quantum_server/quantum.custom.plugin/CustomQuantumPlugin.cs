@@ -70,7 +70,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
-			
 			if (FlgConfig.DebugMode)
 			{
 				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");

@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (new Regex("[^a-zA-Z0-9_-]+").IsMatch(newNameTrimmed))
+			if (new Regex("[^a-zA-Z0-9 _-]+").IsMatch(newNameTrimmed))
 			{
 				_nameInvalidStatus = ScriptLocalization.UITProfileScreen.username_invalid_characters;
 				_statechartTrigger(_nameSetInvalidEvent);

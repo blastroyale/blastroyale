@@ -99,10 +99,6 @@ namespace Quantum
 				{
 					allowedRewards.Add(id);
 				}
-				else
-				{
-					Log.Error($"Could not parse gameid '{idString}'");
-				}
 			}
 			_roomProps.AllowedRewards.Value = allowedRewards;
 			_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);

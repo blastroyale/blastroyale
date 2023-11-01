@@ -33,10 +33,7 @@ namespace ServerCommon
 		{
 			if (result.Error != null)
             {
-                var details = result.Error.ErrorDetails == null
-                    ? ""
-                    : JsonConvert.SerializeObject(result.Error.ErrorDetails);
-				throw new LogicException($"Playfab Error {result.Error.ErrorMessage}: {details}");
+				throw new LogicException($"Playfab Error {result.Error.ErrorMessage}: {result.Error.GenerateErrorReport()}");
 			}
 		}
 	}

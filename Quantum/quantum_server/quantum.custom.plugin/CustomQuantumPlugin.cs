@@ -95,8 +95,14 @@ namespace Quantum
 			var allowedRewards = new List<GameId>();
 			foreach (var idString in ((string) customProperties["alrewards"]).Split(','))
 			{
-				var id = (GameId)Enum.Parse(typeof(GameId), idString, true);
-				allowedRewards.Add(id);
+				if(Enum.TryParse(idString, true, out GameId id))
+				{
+					allowedRewards.Add(id);
+				}
+				else
+				{
+					Log.Error($"Could not parse gameid '{idString}'");
+				}
 			}
 			_roomProps.AllowedRewards.Value = allowedRewards;
 			_roomProps.MatchType.Value = (MatchType)Enum.Parse(typeof(MatchType), (string)customProperties["mt"], true);

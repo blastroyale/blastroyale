@@ -9,32 +9,60 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct BattlePassConfig
 	{
-		[Tooltip("The price of the Pro BP in BlastBucks")]
-		public uint Price;
-
-		public uint CurrentSeason;
-		public uint DefaultPointsPerLevel;
+		public List<BattlePassSeason> Seasons;
 		public List<BattlePassLevel> Levels;
-		public string EndsAt;
+
 		
+		[Serializable]
+		public struct BattlePassSeason
+		{
+			public uint Number;
+			[Tooltip("The price of the Pro BP in BlastBucks")]
+			public uint Price;
+			public uint DefaultPointsPerLevel;
+			/// <summary>
+			/// Format dd/MM/yyyy
+			/// </summary>
+			public string StartsAt;
+			public string EndsAt;
+			public DateTime GetStartsAtDateTime() => DateTime.ParseExact(StartsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
+			public DateTime GetEndsAtDateTime() => DateTime.ParseExact(EndsAt, "d/M/yyyy", CultureInfo.InvariantCulture);
+		}
 		[Serializable]
 		public struct BattlePassLevel
 		{
 			public int RewardId;
 			public int PremiumRewardId;
 			public uint PointsForNextLevel;
+			public uint Season;
+		}
+		
+		
+		public class BattlePassSeasonWrapper
+		{
+			public BattlePassSeason Season;
+			public List<BattlePassLevel> Levels;
 		}
 
-		public bool TryGetEndsAt(out DateTime dateTime)
+		public BattlePassSeasonWrapper GetSeasonAt(DateTime dateTime)
 		{
-			if (string.IsNullOrEmpty(EndsAt))
+			foreach (var battlePassSeason in Seasons)
 			{
-				dateTime = default;
-				return false;
+				if (battlePassSeason.GetStartsAtDateTime() < dateTime && battlePassSeason.GetEndsAtDateTime() > dateTime)
+				{
+					return new BattlePassSeasonWrapper()
+					{
+						Season = battlePassSeason,
+						Levels = Levels.FindAll(lvl => lvl.Season == battlePassSeason.Number)
+					};
+				}
 			}
-			dateTime = DateTime.ParseExact(EndsAt, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-			return true;
+
+			return null;
 		}
+		
+		
+		
 	}
 
 	/// <summary>

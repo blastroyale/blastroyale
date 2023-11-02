@@ -13,191 +13,1055 @@ MonoBehaviour:
   m_Name: BattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
-    Price: 300
-    CurrentSeason: 6
-    DefaultPointsPerLevel: 400
+    Seasons:
+    - Number: 5
+      Price: 300
+      DefaultPointsPerLevel: 400
+      StartsAt: 25/10/2023
+      EndsAt: 31/12/2023
+    - Number: 6
+      Price: 300
+      DefaultPointsPerLevel: 400
+      StartsAt: 1/1/2024
+      EndsAt: 29/02/2024
     Levels:
-    - RewardId: 2
+    - RewardId: 7
       PremiumRewardId: -1
       PointsForNextLevel: 25
-    - RewardId: 3
+      Season: 5
+    - RewardId: 8
       PremiumRewardId: -1
       PointsForNextLevel: 35
-    - RewardId: 4
+      Season: 5
+    - RewardId: 9
       PremiumRewardId: -1
       PointsForNextLevel: 55
-    - RewardId: 33
+      Season: 5
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 80
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 95
-    - RewardId: 4
+      Season: 5
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 105
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 110
-    - RewardId: 34
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 125
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 145
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 165
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 190
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 200
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 220
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 240
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 260
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 280
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 320
+      Season: 5
+    - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 360
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
     - RewardId: 4
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 33
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 2
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 34
+      Season: 5
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 5
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 33
+      Season: 5
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 4
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 5
     - RewardId: 6
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 5
+    - RewardId: 7
+      PremiumRewardId: -1
+      PointsForNextLevel: 25
+      Season: 6
+    - RewardId: 8
+      PremiumRewardId: -1
+      PointsForNextLevel: 35
+      Season: 6
+    - RewardId: 9
+      PremiumRewardId: -1
+      PointsForNextLevel: 55
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 80
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 95
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 105
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 110
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 125
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 145
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 165
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 190
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 200
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 220
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 240
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 260
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 280
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 320
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 360
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 34
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 4
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 5
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 33
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 4
+      Season: 6
+    - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 34
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 32
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 33
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 4
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PremiumRewardId: -1
-      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 34
+      Season: 6
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 5
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
     - RewardId: 3
       PremiumRewardId: -1
       PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
     - RewardId: 4
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    - RewardId: 27
+      Season: 6
+    - RewardId: 2
       PremiumRewardId: -1
       PointsForNextLevel: 0
-    EndsAt: 16/10/2023
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 5
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 4
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 2
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 3
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6
+    - RewardId: 6
+      PremiumRewardId: -1
+      PointsForNextLevel: 0
+      Season: 6

@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
 		private Dictionary<PassType, List<BattlePassSegmentView>> _segmentViews;
-		
+
 		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
@@ -109,6 +109,11 @@ namespace FirstLight.Game.Presenters
 
 		private void InitScreenAndSegments()
 		{
+			if (_dataProvider.BattlePassDataProvider.GetCurrentSeason() == null)
+			{
+				// No season present
+				return;
+			}
 			InitScreen();
 			RemoveAllSegments();
 			SpawnSegments();
@@ -141,29 +146,25 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateTimeLeft()
 		{
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetBattlePassConfig();
-			if (battlePassConfig.TryGetEndsAt(out var endsAt))
-			{
-				var now = DateTime.UtcNow;
-				
-				if (now > endsAt)
-				{
-					_seasonEndsLabel.text = "SEASON ENDED!";
-					_timeLeftLabel.SetVisibility(false);
-				}
-				else
-				{
-					var duration = endsAt - now;
-					_seasonEndsLabel.text = "SEASON ENDS IN";
-					_timeLeftLabel.text = duration.ToDayAndHours().ToUpperInvariant();
-				}
-			
-				return;
-			}
-			_seasonEndsLabel.SetVisibility(false);
-			_timeLeftLabel.SetVisibility(false);
-		}
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeason();
 		
+			var now = DateTime.UtcNow;
+			var endsAt = battlePassConfig.Season.GetEndsAtDateTime();
+			if (now > endsAt)
+			{
+				_seasonEndsLabel.text = "SEASON ENDED!";
+				_timeLeftLabel.SetVisibility(false);
+			}
+			else
+			{
+				var duration = endsAt - now;
+				_seasonEndsLabel.text = "SEASON ENDS IN ";
+				_timeLeftLabel.text = duration.ToDayAndHours().ToUpperInvariant();
+				_seasonEndsLabel.SetVisibility(true);
+				_timeLeftLabel.SetVisibility(true);
+			}
+		}
+
 		public void EnableFullScreenClaim(bool enableFullScreenClaim)
 		{
 			_fullScreenClaimButton.SetDisplay(enableFullScreenClaim);
@@ -193,16 +194,16 @@ namespace FirstLight.Game.Presenters
 		{
 			_segmentData = new ()
 			{
-				{ PassType.Free, new List<BattlePassSegmentData>() },
-				{ PassType.Paid, new List<BattlePassSegmentData>() }
+				{PassType.Free, new List<BattlePassSegmentData>()},
+				{PassType.Paid, new List<BattlePassSegmentData>()}
 			};
 			_segmentViews = new ()
 			{
-				{ PassType.Free, new List<BattlePassSegmentView>() },
-				{ PassType.Paid, new List<BattlePassSegmentView>() }
+				{PassType.Free, new List<BattlePassSegmentView>()},
+				{PassType.Paid, new List<BattlePassSegmentView>()}
 			};
 
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetBattlePassConfig();
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeason();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
@@ -220,11 +221,11 @@ namespace FirstLight.Game.Presenters
 			{
 				_currentLevelLabel.text = _bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
 			}
-			
+
 			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number,
-				battlePassConfig.CurrentSeason));
-			
-			
+				battlePassConfig.Season.Number));
+
+
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
 				var data = new BattlePassSegmentData
@@ -235,7 +236,7 @@ namespace FirstLight.Game.Presenters
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId],
 					PassType = PassType.Free
 				};
-				
+
 				// Copy the struct, since its value type this is a copy and not a reference
 				var premiumSegment = data;
 				premiumSegment.PassType = PassType.Paid;
@@ -267,7 +268,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_bottomRow.Add(CreateNewSegmentView(segment).Element);
 			}
-			
+
 			foreach (var segment in _segmentData[PassType.Paid])
 			{
 				_upperRow.Add(CreateNewSegmentView(segment).Element);
@@ -278,7 +279,7 @@ namespace FirstLight.Game.Presenters
 			// in a specific way to keep correct render order
 			foreach (var (type, views) in _segmentViews)
 			{
-				foreach(var view in views) view.Element.BringToFront();
+				foreach (var view in views) view.Element.BringToFront();
 			}
 
 			// Add filler to end of BP so it looks nicer

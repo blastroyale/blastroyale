@@ -181,24 +181,38 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var bpConfig = new BattlePassConfig
 			{
-				DefaultPointsPerLevel = 10,
+				Seasons =   new List<BattlePassConfig.BattlePassSeason>()
+				{
+					new BattlePassConfig.BattlePassSeason()
+					{
+						DefaultPointsPerLevel = 10,
+						Number = 1,
+						Price = 300,
+						StartsAt = "12/09/1999",
+						EndsAt = "12/09/2050"
+					}	
+				},
 				Levels = new List<BattlePassConfig.BattlePassLevel>
 				{
 					new()
 					{
-						RewardId = 0
+						RewardId = 0,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 1
+						RewardId = 1,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 2
+						RewardId = 2,
+						Season = 1
 					},
 					new()
 					{
-						RewardId = 3
+						RewardId = 3,
+						Season = 1
 					}
 				}
 			};

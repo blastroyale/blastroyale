@@ -16,7 +16,7 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
             <ui:VisualElement name="SeasonInfo" class="season-info anim-delay-0 anim-translate anim-translate--up-s">
-                <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end hidden">
+                <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
                     <ui:Label text=" 10D 10H" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--yellow" />
                 </ui:VisualElement>

@@ -127,6 +127,7 @@
     --sprite-home__icon-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-deathmatch.png');
     --sprite-home__icon-heroes: url('/Assets/Art/UI/Sprites/Home/icon-heroes.png');
     --sprite-home__icon-hide-purple: url('/Assets/Art/UI/Sprites/Home/icon-hide-purple.png');
+    --sprite-home__icon-instagram: url('/Assets/Art/UI/Sprites/Home/icon-instagram.png');
     --sprite-home__icon-jetpack: url('/Assets/Art/UI/Sprites/Home/icon-jetpack.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
@@ -147,6 +148,8 @@
     --sprite-home__icon-star-diamond: url('/Assets/Art/UI/Sprites/Home/icon-star-diamond.png');
     --sprite-home__icon-star-gold: url('/Assets/Art/UI/Sprites/Home/icon-star-gold.png');
     --sprite-home__icon-star-silver: url('/Assets/Art/UI/Sprites/Home/icon-star-silver.png');
+    --sprite-home__icon-tiktok: url('/Assets/Art/UI/Sprites/Home/icon-tiktok.png');
+    --sprite-home__icon-youtube: url('/Assets/Art/UI/Sprites/Home/icon-youtube.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
@@ -895,6 +898,12 @@
     height: 38px;
 }
 
+.sprite-home__icon-instagram {
+    background-image: var(--sprite-home__icon-instagram);
+    width: 58px;
+    height: 58px;
+}
+
 .sprite-home__icon-jetpack {
     background-image: var(--sprite-home__icon-jetpack);
     width: 42px;
@@ -1013,6 +1022,18 @@
     background-image: var(--sprite-home__icon-star-silver);
     width: 36px;
     height: 36px;
+}
+
+.sprite-home__icon-tiktok {
+    background-image: var(--sprite-home__icon-tiktok);
+    width: 58px;
+    height: 58px;
+}
+
+.sprite-home__icon-youtube {
+    background-image: var(--sprite-home__icon-youtube);
+    width: 58px;
+    height: 58px;
 }
 
 .sprite-home__logo-blasthub {

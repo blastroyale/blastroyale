@@ -8,6 +8,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	{
 		public static readonly string PlayAsGuest = "play_as_guest";
 		public static readonly string DiscordLink = "discord_link";
+		public static readonly string YoutubeLink = "youtube_link";
+		public static readonly string InstagramLink = "instagram_link";
+		public static readonly string TiktokLink = "tiktok_link";
 		public static readonly string Login = "login";
 	}
 	

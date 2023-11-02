@@ -98,7 +98,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private void UpdateLock(bool animate)
 		{
-			var locked = FeatureFlags.SYSTEM_LOCKS ? false :  _currentLevel < _requiredLevel;
+			var locked = FeatureFlags.SYSTEM_LOCKS ?  _currentLevel < _requiredLevel : false;
 			EnableLock(locked, animate);
 		}
 

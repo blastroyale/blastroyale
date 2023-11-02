@@ -606,7 +606,8 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock');
     width: 200px;
     height: 175px;
-    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-scale-mode: scale-to-fit;
+    scale: 1.5 1.5;
 }
 
 .fame-lock .button-with-icon__icon {

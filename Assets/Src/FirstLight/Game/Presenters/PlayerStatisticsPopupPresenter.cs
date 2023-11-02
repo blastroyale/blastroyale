@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -38,6 +39,7 @@ namespace FirstLight.Game.Presenters
 		private Label[] _statLabels;
 		private Label[] _statValues;
 		private VisualElement[] _statContainers;
+
 		private int _pfpRequestHandle = -1;
 		
 		private const int StatisticMaxSize = 6;
@@ -84,10 +86,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_statContainers[i] = root.Q<VisualElement>($"StatsContainer{i}").Required();
 				_statContainers[i].visible = false;
-			}
-			
-			for (int i = 0; i < StatisticMaxSize; i++)
-			{
+				
 				_statLabels[i] = root.Q<Label>($"StatName{i}").Required();
 				_statValues[i] = root.Q<Label>($"StatValue{i}").Required();
 			}
@@ -101,14 +100,13 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
+		
 			SetupPopup();
 		}
 
 		protected override async Task OnClosed()
 		{
 			base.OnClosed();
-			
 			_services.RemoteTextureService.CancelRequest(_pfpRequestHandle);
 		}
 
@@ -118,10 +116,23 @@ namespace FirstLight.Game.Presenters
 			_statLabels[index].text = statLoc;
 			_statValues[index].text = stat.Value.ToString();
 			_statContainers[index].visible = true;
+			_statContainers[index].parent.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(statLoc, statName));
+		}
+
+		private void OpenLeaderboard(string name, string metric)
+		{
+			_services.GameUiService.CloseUi<PlayerStatisticsPopupPresenter>();
+			_services.GameUiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(new ()
+			{
+				OnBackClicked = () => _services.GameUiService.OpenScreen<HomeScreenPresenter>(),
+				ShowSpecificLeaderboard = new GameLeaderboard(name, metric)
+			});
 		}
 
 		private void SetupPopup()
 		{
+			_content.visible = false;
+			_loadingSpinner.visible = true;
 			_services.ProfileService.GetPlayerPublicProfile(Data.PlayerId, (result) =>
 			{
 			    if (!IsOpen) return;
@@ -137,7 +148,7 @@ namespace FirstLight.Game.Presenters
 				
 				_pfpImage.SetAvatar(result.AvatarUrl);
 				_pfpImage.SetLevel(_gameDataProvider.PlayerDataProvider.Level.Value);
-
+				_pfpImage.RegisterCallback<MouseDownEvent>(e => OpenLeaderboard(ScriptLocalization.General.Level, GameConstants.Stats.FAME));
 				_content.visible = true;
 				_loadingSpinner.visible = false;
 			});

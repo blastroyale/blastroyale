@@ -92,6 +92,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private DateTime _radarEndTime;
 		private float _radarRange;
 		private float _defaultPlayerSize;
+		private float _maxPlayerSize;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
 		private float _mapConfigCameraSize;
@@ -118,6 +119,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_pingPool = new ObjectRefPool<MinimapPingView>(1, _pingIndicatorRef,
 				GameObjectPool<MinimapPingView>.Instantiator);
 			_defaultPlayerSize = _minimapImage.materialForRendering.GetFloat(_PlayerCircleSizePID);
+			_maxPlayerSize = _minimapImage.materialForRendering.GetFloat(_PlayerCircleSizeFocusedPID);
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
@@ -214,6 +216,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void UpdateMinimapSize(float f)
 		{
 			_animationModifier = f;
+			_minimapImage.materialForRendering.SetFloat(_PlayerCircleSizePID, Mathf.Lerp(_defaultPlayerSize, _maxPlayerSize, f));
 			_rectTransform.anchorMin = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_rectTransform.anchorMax = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_rectTransform.anchoredPosition = Vector2.Lerp(_smallMapPosition, Vector2.zero, f);
@@ -426,7 +429,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OpenMinimap()
 		{
 			_tweenerSize?.Kill();
-			_minimapImage.materialForRendering.SetFloat(_PlayerCircleSizePID, _minimapImage.materialForRendering.GetFloat(_PlayerCircleSizeFocusedPID));
 			_opened = true;
 			_tweenerSize = DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimapSize)
 				.SetEase(_openCloseEase);
@@ -436,7 +438,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void CloseMinimap()
 		{
 			_tweenerSize?.Kill();
-			_minimapImage.materialForRendering.SetFloat(_PlayerCircleSizePID, _defaultPlayerSize);
 			_opened = false;
 			_tweenerSize = DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimapSize)
 				.SetEase(_openCloseEase);

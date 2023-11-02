@@ -324,10 +324,15 @@ namespace Quantum
 			if (previousShield > 0 && !spell->IgnoreShield)
 			{
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
-				
+				damageAmount = FPMath.Max(0, damageAmount - shieldDamageAmount).AsInt;
+
 				// We don't do any damage to health if a player had at least 1 shields
-				damageAmount = 0;
-				
+				if (QuantumFeatureFlags.SHIELD_CRACKING)
+				{
+					damageAmount = 0;
+					
+				}
+
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 			

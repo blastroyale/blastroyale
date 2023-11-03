@@ -2,16 +2,30 @@
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
-        <ui:VisualElement name="SeasonContent" class="season-content" style="overflow: visible;">
-            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl" style="flex-direction: row; flex-wrap: nowrap; align-items: flex-start; flex-grow: 1; overflow: visible; top: 0; height: 100%;">
-                <ui:VisualElement name="BpRows" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: nowrap; flex-direction: column; width: 100%; height: 100%; flex-shrink: 0; align-items: auto; min-height: 100%; min-width: auto; max-width: none; max-height: none; position: relative; top: 0;">
-                    <ui:VisualElement name="UpperRow" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: nowrap; flex-direction: row; width: auto; height: 50%; flex-shrink: 1; align-items: center; min-height: auto; min-width: auto; max-width: none; max-height: 50%; position: relative; justify-content: flex-start; align-self: flex-start; overflow: visible; opacity: 1; flex-basis: auto;" />
-                    <ui:VisualElement name="BottomRow" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: nowrap; flex-direction: row; width: auto; height: 50%; flex-shrink: 1; align-items: auto; min-height: auto; min-width: auto; max-width: none; max-height: 50%; position: relative; align-self: flex-start;" />
+        <ui:VisualElement name="SeasonContent" class="season-content">
+            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
+                <ui:VisualElement name="BpRows" class="bp-rows">
+                    <ui:VisualElement name="UpperRow" class="upper-row" />
+                    <ui:VisualElement name="LevelBar" class="level-bar" />
+                    <ui:VisualElement name="BottomRow" class="bottom-row" />
                 </ui:VisualElement>
             </ui:ScrollView>
-            <ui:VisualElement name="SeasonImage" class="season-image anim-delay-0 anim-translate anim-translate--right-xl">
-                <ui:VisualElement name="Mask" class="season-image__mask">
-                    <ui:VisualElement name="Image" class="season-image__bp-image" />
+            <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">
+                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow" />
+                <ui:VisualElement name="PaidContainer" class="paid-container">
+                    <ui:VisualElement name="IconBackground" class="paid-icon-background">
+                        <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
+                        <ui:Label tabindex="-1" text="Premium &#10;Pass" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
+                        <ui:VisualElement name="PremiumLock" class="premium-lock" />
+                    </ui:VisualElement>
+                    <ui:Button text="Activate" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
+                </ui:VisualElement>
+                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow" />
+                <ui:VisualElement name="FreeContainer" class="free-container">
+                    <ui:VisualElement name="IconBackground" class="free-icon-background">
+                        <ui:VisualElement name="PassIcon" class="free-pass-icon" />
+                        <ui:Label tabindex="-1" text="Pleb&apos;s &#10;Pass" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
@@ -20,7 +34,6 @@
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
                     <ui:Label text=" 10D 10H" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--yellow" />
                 </ui:VisualElement>
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" name="GameplayInfo" localization-key="UITBattlePass/play_games_info" class="season-info__label" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
         </ui:VisualElement>

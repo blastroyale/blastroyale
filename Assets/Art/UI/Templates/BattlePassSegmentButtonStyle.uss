@@ -4,90 +4,16 @@
     align-items: center;
     justify-content: center;
     flex-direction: column-reverse;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 80px;
-    position: relative;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.progress-bar__background {
-    height: 35px;
-    width: 100%;
-    background-image: var(--sprite-home__progress-battlepass-bg);
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    flex-direction: row;
-    position: absolute;
-    align-items: center;
-}
-
-.progress-bar__progress {
-    background-image: var(--sprite-home__progress-battlepass);
-    height: 26px;
-    flex-grow: 0.5;
-}
-
-.progress-bar__level {
-    width: 80px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: -50px;
-}
-
-.progress-bar__level-label {
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-font-style: bold;
-    font-size: 50px;
-    color: rgb(255, 255, 255);
-    -unity-paragraph-spacing: -30px;
-    width: 75%;
-    height: 100%;
-    -unity-text-align: middle-center;
-}
-
-.progress-bar__level-bg {
-    background-image: none;
-    position: absolute;
-    -unity-background-scale-mode: scale-to-fit;
-    flex-grow: 1;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(49, 45, 71);
-    border-left-color: rgb(12, 12, 25);
-    border-right-color: rgb(12, 12, 25);
-    border-top-color: rgb(12, 12, 25);
-    border-bottom-color: rgb(12, 12, 25);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left-width: 3px;
-    border-right-width: 4px;
-    border-top-width: 4px;
-    border-bottom-width: 4px;
-}
-
-.progress-bar__level-bg--complete {
-    background-color: rgb(252, 190, 50);
+    align-self: center;
 }
 
 .reward {
     width: 356px;
     height: 400px;
-    bottom: 30px;
+    bottom: 0;
     justify-content: center;
     align-items: center;
-    right: -260px;
+    right: 0;
 }
 
 .first-reward-segment {
@@ -96,35 +22,26 @@
 .reward__title {
     -unity-font-style: normal;
     font-size: 50px;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 215, 0);
     -unity-text-align: middle-center;
     position: absolute;
-    top: 277px;
-    right: 58px;
+    top: 251px;
+    right: auto;
     width: 265px;
     height: 65px;
+    text-shadow: 3px 23px 0 rgba(0, 0, 0, 0.96);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .reward__button {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: var(--sprite-home__button-bpreward);
-    -unity-background-scale-mode: scale-to-fit;
     padding-left: 7px;
     padding-right: 7px;
     padding-top: 10px;
     padding-bottom: 9px;
-}
-
-.reward__button:active {
-    position: absolute;
-    background-image: var(--sprite-home__button-bpreward-pressed);
-    -unity-background-scale-mode: scale-to-fit;
-    padding-top: 18px;
-    padding-left: 12px;
-    padding-right: 3px;
-    padding-bottom: 2px;
 }
 
 .reward__button-outline {
@@ -145,21 +62,28 @@
 }
 
 .reward__ready-to-claim-outline {
-    left: -5px;
-    top: -5px;
-    right: -5px;
-    bottom: 15px;
-    background-image: var(--sprite-home__background-bpreward-outline);
-    -unity-background-scale-mode: scale-to-fit;
+    left: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: 373px;
+    justify-content: center;
+    align-self: center;
+    height: 354px;
+    display: flex;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/Rectangle%2041.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#Rectangle 41');
+    -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
+    align-items: center;
 }
 
 .reward__ready-to-claim-shine {
     background-image: url('project://database/Assets/Art/UI/Textures/battlepass-claimreward.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#battlepass-claimreward');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    width: 950px;
-    height: 950px;
+    width: 1000px; 
+    height: 1000px; 
+    display: flex;
 }
 
 .reward__button-outline--claimed {
@@ -171,7 +95,7 @@
     height: 72px;
     background-image: var(--sprite-home__icon-checkmark);
     right: 0;
-    top: -20px;
+    top: 2px;
     position: absolute;
 }
 
@@ -180,6 +104,8 @@
     justify-content: center;
     bottom: 242px;
     position: absolute;
+    display: flex; 
+    overflow: visible
 }
 
 .circle-border-radius {
@@ -187,10 +113,12 @@
 }
 
 .reward-holder__image {
-    width: 200px;
-    height: 200px;
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&amp;guid=200f11153aed542e3aeb0adb534ade89&amp;type=3#flag-demon'); 
+    width: 338px; 
+    height: 306px; 
+    top: -167px;
 }
 
 .reward-holder__rarity {
@@ -202,26 +130,288 @@
 
 .claim-bubble {
     -unity-background-scale-mode: scale-to-fit;
-    background-image: var(--sprite-home__background-textbubble-yellow);
-    width: 372px;
-    height: 132px;
+    background-image: none;
+    width: auto;
+    height: 64px;
     position: absolute;
-    top: -90px;
+    top: -13px;
     left: 180px;
     align-items: center;
     justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-left-color: rgb(75, 216, 214);
+    border-right-color: rgb(75, 216, 214);
+    border-top-color: rgb(75, 216, 214);
+    border-bottom-color: rgb(75, 216, 214);
+    border-left-width: 3px;
+    border-right-width: 8px;
+    border-top-width: 3px;
+    border-bottom-width: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .claim-bubble__label {
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(156, 36, 12);
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    text-shadow: 0 0 0 rgb(156, 36, 12);
     font-size: 40px;
-    color: rgb(255, 255, 255);
-    right: 30px;
-    left: 30px;
-    position: absolute;
+    color: rgb(51, 49, 96);
+    right: 0;
+    left: 0;
+    position: relative;
     -unity-text-align: middle-center;
-    bottom: 72px;
-    -unity-font-style: bold;
+    bottom: 0;
+    -unity-font-style: normal;
+}
+
+.reward__type {
+    display: flex;
+    color: rgb(255, 255, 255);
+    font-size: 198px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-left;
+    text-overflow: ellipsis;
+    position: absolute;
+    top: 305px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.reward__button-claimable {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png?fileID=21300000&guid=dec701178c78d44d2adbb415c0a74573&type=3#slot-premium-reached');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.reward__button-premium {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=21300000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached');
+}
+
+.reward__button--unclaimed-paid {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=2800000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.reward__button--unclaimed-free {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-free-unreached.png?fileID=2800000&guid=7825359757fd34f539965fe1e8215c08&type=3#slot-free-unreached');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.bar__level {
+    flex-grow: 0;
+    background-color: rgb(13, 239, 249);
+    height: 70px;
+    width: 70px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(36, 121, 128);
+    border-right-color: rgb(36, 121, 128);
+    border-top-color: rgb(36, 121, 128);
+    border-bottom-color: rgb(36, 121, 128);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    left: auto;
+    align-items: center;
+    min-height: auto;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: auto;
+    justify-content: center;
+    align-self: center;
+    right: auto;
+    translate: 50% 0;
+}
+
+.bar__level__label {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.completed-bar {
+    flex-grow: 0;
+    background-color: rgb(0, 238, 255);
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 0;
+    align-items: flex-start;
+    min-height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+
+.completed-bar__shadow {
+    flex-grow: 0;
+    background-color: rgb(31, 90, 94);
+    height: 20%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: auto;
+    align-items: auto;
+    min-height: 20%;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: 2px;
+}
+
+.completed-bar__light {
+    flex-grow: 0;
+    background-color: rgb(193, 242, 245);
+    height: 20%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: auto;
+    align-items: auto;
+    min-height: 20%;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: auto;
+    top: 3px;
+}
+
+.bar-shadow {
+    flex-grow: 0;
+    background-color: rgb(7, 21, 22);
+    height: 20%;
+    width: 459px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 0;
+    align-items: auto;
+    min-height: 20%;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: 2px;
+}
+
+.segment-levelbar {
+    flex-grow: 0;
+    background-color: rgb(27, 61, 63);
+    height: 60px;
+    width: 475px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 0;
+    align-items: auto;
+    min-height: auto;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-self: auto;
+    display: flex;
+    translate: -50% 0;
+}
+
+.bar__level--gray {
+    background-color: rgb(183, 183, 183);
+    border-left-color: rgb(87, 87, 87);
+    border-right-color: rgb(87, 87, 87);
+    border-top-color: rgb(87, 87, 87);
+    border-bottom-color: rgb(87, 87, 87);
+}
+
+.reward__lock {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
+    top: -1px;
+    left: -15px;
 }

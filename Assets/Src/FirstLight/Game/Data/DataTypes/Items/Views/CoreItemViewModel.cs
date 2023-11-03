@@ -20,6 +20,8 @@ namespace FirstLight.Game.Data.DataTypes
 			pickingMode = PickingMode.Ignore
 		}.SetReward(this);
 
+		public string ItemTypeDisplayName => GameIdGroup.Core.ToString();
+		
 		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();

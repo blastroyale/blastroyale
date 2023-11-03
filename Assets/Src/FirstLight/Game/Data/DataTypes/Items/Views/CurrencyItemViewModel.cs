@@ -16,6 +16,8 @@ namespace FirstLight.Game.Data.DataTypes
 		public uint Amount => _amount;
 		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
 		public string Description => $"X {_amount}";
+		
+		public string ItemTypeDisplayName => GameIdGroup.Currency.ToString();
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore

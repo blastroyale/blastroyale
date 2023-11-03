@@ -25,6 +25,7 @@ namespace FirstLight.Game.Configs
 		Equipment,
 		GameModes,
 		Squads,
+		PaidBattlePass
 	}
 
 	public class PlayerLevelConfigs : ScriptableObject, IConfigsContainer<PlayerLevelConfig>

@@ -16,6 +16,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public GameId GameId { get; }
 		public uint Amount => 1;
 		public string DisplayName { get; }
+		public string ItemTypeDisplayName => GameIdGroup.ProfilePicture.ToString();
 		public string Description => null;
 		
 		public VisualElement ItemCard => new ProfilePictureRewardSummaryItemElement()
@@ -40,15 +41,6 @@ namespace FirstLight.Game.Data.DataTypes
 			icon.style.borderBottomRightRadius = w;
 			icon.style.borderTopLeftRadius = w;
 			icon.style.borderTopRightRadius = w;
-			/*
-			// BELOW CODE IS IDEAL but did not work on all places
-			var avatarElement = new PlayerAvatarElement();
-			avatarElement.style.position = Position.Absolute;
-			avatarElement.SetDisplayLevel(false);
-			avatarElement.SetVisibleStars(0);
-			avatarElement.SetAvatar(sprite);
-			icon.Add(avatarElement);
-			*/
 		}
 		
 		public ProfilePictureViewModel(ItemData item)

@@ -25,6 +25,11 @@ namespace FirstLight.Game.Data.DataTypes
 		/// Used in the views to display the item name
 		/// </summary>
 		string DisplayName { get; }
+		
+		/// <summary>
+		/// Should return the item type display name
+		/// </summary>
+		string ItemTypeDisplayName { get; }
 
 		/// <summary>
 		/// Gets a generated item card

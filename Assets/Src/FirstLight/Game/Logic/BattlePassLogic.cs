@@ -81,11 +81,6 @@ namespace FirstLight.Game.Logic
 		List<uint> GetClaimableLevels(out uint points, PassType type);
 
 		/// <summary>
-		/// Advances battle pass level to the given level with the given remaining points
-		/// </summary>
-		void SetLevelAndPoints(uint level, uint points);
-
-		/// <summary>
 		/// Checks if a specific BP season has been purchased. Use default / -1 for the current season.
 		/// </summary>
 		bool HasPurchasedSeason(int season = -1);
@@ -120,7 +115,12 @@ namespace FirstLight.Game.Logic
 		/// Adds the given <paramref name="amount"/> of BattlePass points to the Player.
 		/// </summary>
 		void AddBPP(uint amount);
-
+		
+		/// <summary>
+		/// Advances battle pass level to the given level with the given remaining points
+		/// </summary>
+		void SetLevelAndPoints(uint level, uint points);
+		
 		/// <summary>
 		/// Purchase the pro level of the current season of BattlePass.
 		/// </summary>
@@ -193,7 +193,7 @@ namespace FirstLight.Game.Logic
 			var newLevel = levelsCompleted.Max();
 			SetLevelAndPoints(newLevel, points);
 			SetLastLevelClaimed(newLevel, type);
-			return  GetRewardConfigs(levelsCompleted, type);
+			return GetRewardConfigs(levelsCompleted, type);
 		}
 
 		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)
@@ -257,7 +257,7 @@ namespace FirstLight.Game.Logic
 
 			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
 			Data.PurchasedBPSeasons.Add(config.Season.Number);
-
+			GameLogic.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
 			return true;
 		}
 
@@ -287,9 +287,9 @@ namespace FirstLight.Game.Logic
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
 			var wouldLevelUp = points >= GetRequiredPointsForLevel((int) _currentLevel.Value);
-			var hasPaidRewards = _currentLevel.Value+1 > Data.LastLevelsClaimed[PassType.Paid];
-			var hasFreeRewards = _currentLevel.Value+1 > Data.LastLevelsClaimed[PassType.Free];
-			return _currentLevel.Value < MaxLevel && wouldLevelUp && (hasPaidRewards || hasFreeRewards);
+			var hasPaidRewards = _currentLevel.Value > Data.LastLevelsClaimed[PassType.Paid];
+			var hasFreeRewards = _currentLevel.Value > Data.LastLevelsClaimed[PassType.Free];
+			return (_currentLevel.Value < MaxLevel && wouldLevelUp) || (hasPaidRewards || hasFreeRewards);
 		}
 
 		public void AddBPP(uint amount)

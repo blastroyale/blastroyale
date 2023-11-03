@@ -191,7 +191,7 @@ namespace FirstLight.Game.Logic
 
 		public CollectionCategory GetCollectionType(ItemData item)
 		{
-			return new (item.Id.GetGroups().First()); // TODO: this is shit
+			return item.GetCollectionCategory();
 		}
 
 

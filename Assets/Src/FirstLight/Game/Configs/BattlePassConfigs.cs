@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -12,7 +11,6 @@ namespace FirstLight.Game.Configs
 		public List<BattlePassSeason> Seasons;
 		public List<BattlePassLevel> Levels;
 
-		
 		[Serializable]
 		public struct BattlePassSeason
 		{
@@ -36,7 +34,6 @@ namespace FirstLight.Game.Configs
 			public uint PointsForNextLevel;
 			public uint Season;
 		}
-		
 		
 		public class BattlePassSeasonWrapper
 		{

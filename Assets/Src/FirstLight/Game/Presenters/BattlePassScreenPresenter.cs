@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -9,6 +13,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.Game.Views.UITK;
+using FirstLight.Services;
 using FirstLight.UiService;
 using I2.Loc;
 using UnityEngine;
@@ -33,10 +38,12 @@ namespace FirstLight.Game.Presenters
 		private const string UssBpSegmentFiller = "bp-segment-filler";
 		private const float BpSegmentWidth = 475f;
 
+		[SerializeField] private VisualTreeAsset _battlePassSegmentBarAsset;
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
 		[SerializeField] private int _scrollToDurationMs = 1500;
 
 		private ScrollView _rewardsScroll;
+		private VisualElement _levelBar;
 		private VisualElement _upperRow;
 		private VisualElement _bottomRow;
 		private VisualElement _root;
@@ -44,6 +51,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _bppProgressFill;
 		private VisualElement _nextLevelRoot;
 		private LocalizedButton _claimButton;
+		private VisualElement _premiumLock;
+		private Button _activateButton;
 		private ImageButton _fullScreenClaimButton;
 		private Label _bppProgressLabel;
 		private Label _currentLevelLabel;
@@ -55,15 +64,12 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
-		private Dictionary<PassType, List<BattlePassSegmentView>> _segmentViews;
-
 		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_segmentViews = new Dictionary<PassType, List<BattlePassSegmentView>>();
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -82,6 +88,9 @@ namespace FirstLight.Game.Presenters
 			_nextLevelRoot = root.Q("NextLevel").Required();
 			_upperRow = root.Q("UpperRow").Required();
 			_bottomRow = root.Q("BottomRow").Required();
+			_levelBar = root.Q("LevelBar").Required();
+			_premiumLock = root.Q("PremiumLock").Required();
+			_activateButton = root.Q<Button>("ActivateButton").Required();
 			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
 			root.Q<CurrencyDisplayElement>("CSCurrency").AttachView(this, out CurrencyDisplayView _);
@@ -89,22 +98,24 @@ namespace FirstLight.Game.Presenters
 
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
-			_fullScreenClaimButton.clicked += OnClaimClicked;
-			_claimButton.clicked += OnClaimClicked;
+			//_fullScreenClaimButton.clicked += OnClaimClicked;
+			//_claimButton.clicked += OnClaimClicked;
+			_activateButton.clicked += ActivateClicked;
 
 			_fullScreenClaimButton.SetDisplay(false);
+			
+			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
+		}
+
+		private void OnBpPurchase(BattlePassPurchasedMessage msg)
+		{
+			ShowRewards(new [] {ItemFactory.Unlock(UnlockSystem.PaidBattlePass )});
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-
 			InitScreenAndSegments();
-		}
-
-		public void CloseManual()
-		{
-			Data.BackClicked();
 		}
 
 		private void InitScreenAndSegments()
@@ -115,17 +126,16 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			InitScreen();
-			RemoveAllSegments();
-			SpawnSegments();
-			InitSegments();
 			UpdateTimeLeft();
+		}
 
-			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-
-			if (predictedProgress.Item1 > 1)
-			{
-				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs);
-			}
+		private void ActivateClicked()
+		{
+			Debug.LogError("This is not an error and if you report this you own the dev team a pizza. This is just a reminder the activate button is DEBUG");
+			var data = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
+			data.GetData<BattlePassData>().PurchasedBPSeasons.Add(_dataProvider.BattlePassDataProvider.GetCurrentSeason().Season.Number);
+			((GameCommandService)_services.CommandService).ForceServerDataUpdate();
+			_services.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
 		}
 
 		protected override void SubscribeToEvents()
@@ -172,22 +182,25 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSegmentRewardClicked(BattlePassSegmentView view)
 		{
-			OnClaimClicked();
+			FLog.Verbose("Claiming BP Rewards");
+			OnClaimClicked(view.SegmentData.PassType);
 		}
 
-		private void OnClaimClicked()
+		private void OnClaimClicked(PassType type)
 		{
 			EnableFullScreenClaim(false);
 			if (_dataProvider.BattlePassDataProvider.HasUnclaimedRewards())
 			{
-				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
+				_services.CommandService.ExecuteCommand(new RedeemBPPCommand()
+				{
+					PassType = type
+				});
 			}
 		}
 
 		private void OnBpPointsChanged(uint previous, uint next)
 		{
-			InitScreen();
-			InitSegments();
+			//TODO: DO WE NEED ?
 		}
 
 		private void InitScreen()
@@ -197,16 +210,13 @@ namespace FirstLight.Game.Presenters
 				{PassType.Free, new List<BattlePassSegmentData>()},
 				{PassType.Paid, new List<BattlePassSegmentData>()}
 			};
-			_segmentViews = new ()
-			{
-				{PassType.Free, new List<BattlePassSegmentView>()},
-				{PassType.Paid, new List<BattlePassSegmentView>()}
-			};
 
 			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeason();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
+			_activateButton.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
+			_premiumLock.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.HasUnclaimedRewards());
 			_nextLevelRoot.SetDisplay(predictedProgress.Item1 < _dataProvider.BattlePassDataProvider.MaxLevel);
 
@@ -215,8 +225,8 @@ namespace FirstLight.Game.Presenters
 			_bppProgressLabel.text = predictedProgress.Item2 + "/" + predictedMaxProgress;
 			_currentLevelLabel.text = (predictedProgress.Item1 + 1).ToString();
 			_nextLevelValueLabel.text = (predictedProgress.Item1 + 2).ToString();
-
-			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
+			float pctCurrentLevel = (float) predictedProgress.Item2 / predictedMaxProgress;
+			_bppProgressFill.style.flexGrow = pctCurrentLevel;
 			if (predictedProgress.Item1 >= _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				_currentLevelLabel.text = _bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
@@ -225,10 +235,9 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number,
 				battlePassConfig.Season.Number));
 
-
-			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
+			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
-				var data = new BattlePassSegmentData
+				var freeSegmentData = new BattlePassSegmentData
 				{
 					SegmentLevel = (uint) i,
 					LevelAfterClaiming = predictedProgress.Item1,
@@ -237,15 +246,31 @@ namespace FirstLight.Game.Presenters
 					PassType = PassType.Free
 				};
 
-				// Copy the struct, since its value type this is a copy and not a reference
-				var premiumSegment = data;
-				premiumSegment.PassType = PassType.Paid;
-				var premiumRewardId = battlePassConfig.Levels[i].PremiumRewardId;
-				if (premiumRewardId >= 0) premiumSegment.RewardConfig = rewardConfig[premiumRewardId];
-				else premiumSegment.RewardConfig = default;
+				var paidSegmentData = new BattlePassSegmentData
+				{
+					SegmentLevel = (uint) i,
+					LevelAfterClaiming = predictedProgress.Item1,
+					PointsAfterClaiming = predictedProgress.Item2,
+					RewardConfig = rewardConfig[battlePassConfig.Levels[i].PremiumRewardId],
+					PassType = PassType.Paid
+				};
+				
+				_segmentData[PassType.Free].Add(freeSegmentData);
+				_segmentData[PassType.Paid].Add(paidSegmentData);
 
-				_segmentData[PassType.Free].Add(data);
-				_segmentData[PassType.Paid].Add(premiumSegment);
+				var levelBarPct = 1f;
+				if (paidSegmentData.LevelAfterClaiming == i) levelBarPct = pctCurrentLevel;
+				else if (paidSegmentData.LevelAfterClaiming < i) levelBarPct = 0;
+
+				_bottomRow.Add(CreateNewSegmentView(freeSegmentData).Element);
+				_upperRow.Add(CreateNewSegmentView(paidSegmentData).Element);
+				_levelBar.Insert(0, CreateNewLevelBarSegment(i, levelBarPct).Element);
+			}
+			SpawnScrollFiller();
+			
+			if (predictedProgress.Item1 > 1)
+			{
+				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs);
 			}
 		}
 
@@ -255,64 +280,25 @@ namespace FirstLight.Game.Presenters
 			segmentInstance.AttachView(this, out BattlePassSegmentView view);
 			view.Clicked += OnSegmentRewardClicked;
 			segmentInstance.userData = view;
-			_segmentViews[segment.PassType].Add(view);
-			view.InitWithData(segment);
+			view.SetData(segment);
 			return view;
 		}
 
-		private void SpawnSegments()
+		private BattlePassLevelBarView CreateNewLevelBarSegment(int level, float pct)
 		{
-			SpawnScrollFiller();
-
-			foreach (var segment in _segmentData[PassType.Free])
+			var segmentInstance = _battlePassSegmentBarAsset.Instantiate();
+			segmentInstance.AttachView(this, out BattlePassLevelBarView view);
+			view.SetData(new BattlePassSegmentBarData()
 			{
-				_bottomRow.Add(CreateNewSegmentView(segment).Element);
-			}
-
-			foreach (var segment in _segmentData[PassType.Paid])
-			{
-				_upperRow.Add(CreateNewSegmentView(segment).Element);
-			}
-
-			// Shuffle all the items to front so they are arranged properly
-			// This is done as the elements overlay on top of each other, and they need to be flexed/arranged 
-			// in a specific way to keep correct render order
-			foreach (var (type, views) in _segmentViews)
-			{
-				foreach (var view in views) view.Element.BringToFront();
-			}
-
-			// Add filler to end of BP so it looks nicer
-			SpawnScrollFiller();
-		}
-
-		private void RemoveAllSegments()
-		{
-			foreach (var (type, views) in _segmentViews)
-			{
-				foreach (var view in views)
-				{
-					view.Element.RemoveFromHierarchy();
-				}
-			}
-		}
-
-		private void InitSegments()
-		{
-			foreach (var (type, views) in _segmentViews)
-			{
-				foreach (var view in views)
-				{
-					var updatedData = _segmentData[type][(int) view.SegmentData.SegmentLevel];
-					view.InitWithData(updatedData);
-				}
-			}
+				PctFilled = pct, // 100% for testing
+				SegmentLevel = (uint)level + 1
+			});
+			return view;
 		}
 
 		private void ScrollToBpLevel(int index, int durationMs)
 		{
 			var targetX = ((index + 1) * BpSegmentWidth) - BpSegmentWidth;
-
 			_rewardsScroll.experimental.animation.Start(0, 1f, durationMs, (element, percent) =>
 			{
 				var scrollView = (ScrollView) element;
@@ -338,33 +324,21 @@ namespace FirstLight.Game.Presenters
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			ScrollToBpLevel((int) predictedProgress.Item1, 0);
+			ShowRewards(message.Rewards);
+		}
+
+		private void ShowRewards(IEnumerable<ItemData> rewards)
+		{
 			var battlePassData = Data;
 			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
-				Items = message.Rewards,
+				Items = rewards,
 				OnFinish = () =>
 				{
-					if (_finishedTutorialBpThisCycle)
-					{
-						CompleteTutorialPass();
-					}
-
 					_services.MessageBrokerService.Publish(new FinishedClaimingBpRewardsMessage());
 					_uiService.OpenScreen<BattlePassScreenPresenter, StateData>(battlePassData);
 				}
 			});
-		}
-
-		// TODO: Add some faff jazz & wiggs
-		private void CompleteTutorialPass()
-		{
-			_finishedTutorialBpThisCycle = false;
-			_services.GenericDialogService.OpenButtonDialog("", ScriptLocalization.FTUE.BPComplete, false,
-				new GenericDialogButton()
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = InitScreenAndSegments
-				});
 		}
 	}
 }

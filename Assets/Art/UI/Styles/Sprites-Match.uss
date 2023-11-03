@@ -21,6 +21,13 @@
     --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
     --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
     --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
+    --sprite-match__DarkAirstrike: url('/Assets/Art/UI/Sprites/Match/DarkAirstrike.png');
+    --sprite-match__DarkGrenade: url('/Assets/Art/UI/Sprites/Match/DarkGrenade.png');
+    --sprite-match__DarkHazardAimSpawn: url('/Assets/Art/UI/Sprites/Match/DarkHazardAimSpawn.png');
+    --sprite-match__DarkRadar: url('/Assets/Art/UI/Sprites/Match/DarkRadar.png');
+    --sprite-match__DarkShieldedCharge: url('/Assets/Art/UI/Sprites/Match/DarkShieldedCharge.png');
+    --sprite-match__DarkShieldSelfStatus: url('/Assets/Art/UI/Sprites/Match/DarkShieldSelfStatus.png');
+    --sprite-match__DarkStunGrenade: url('/Assets/Art/UI/Sprites/Match/DarkStunGrenade.png');
     --sprite-match__gradient-lowhp: url('/Assets/Art/UI/Sprites/Match/gradient-lowhp.png');
     --sprite-match__gradientwhite: url('/Assets/Art/UI/Sprites/Match/gradientwhite.png');
     --sprite-match__icon-ammo: url('/Assets/Art/UI/Sprites/Match/icon-ammo.png');
@@ -215,6 +222,48 @@
 
 .sprite-match__button-next:active {
     background-image: var(--sprite-match__button-next-pressed);
+}
+
+.sprite-match__DarkAirstrike {
+    background-image: var(--sprite-match__DarkAirstrike);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkGrenade {
+    background-image: var(--sprite-match__DarkGrenade);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkHazardAimSpawn {
+    background-image: var(--sprite-match__DarkHazardAimSpawn);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkRadar {
+    background-image: var(--sprite-match__DarkRadar);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkShieldedCharge {
+    background-image: var(--sprite-match__DarkShieldedCharge);
+    width: 248px;
+    height: 248px;
+}
+
+.sprite-match__DarkShieldSelfStatus {
+    background-image: var(--sprite-match__DarkShieldSelfStatus);
+    width: 124px;
+    height: 124px;
+}
+
+.sprite-match__DarkStunGrenade {
+    background-image: var(--sprite-match__DarkStunGrenade);
+    width: 248px;
+    height: 248px;
 }
 
 .sprite-match__gradient-lowhp {

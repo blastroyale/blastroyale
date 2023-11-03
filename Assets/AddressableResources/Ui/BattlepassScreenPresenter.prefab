@@ -33,7 +33,7 @@ RectTransform:
   m_Children:
   - {fileID: 7081785407897521937}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   _document: {fileID: 7388267820579563775}
   _background: {fileID: 0}
   _millisecondsToClose: 0
+  _battlePassSegmentBarAsset: {fileID: 9197481963319205126, guid: dcd6238cca50f4181b0953d56e9abee6, type: 3}
   _battlePassSegmentAsset: {fileID: 9197481963319205126, guid: b696482fc2572a84da652c85e867d617, type: 3}
   _scrollToDurationMs: 1500
 --- !u!1001 &5379980170040574766

@@ -13,10 +13,7 @@ namespace FirstLight.Game.Commands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (ctx.Logic.BattlePassLogic().Purchase())
-			{
-				ctx.Services.MessageBrokerService().Publish(new BattlePassPurchasedMessage());
-			}
+			ctx.Logic.BattlePassLogic().Purchase();
 		}
 	}
 }

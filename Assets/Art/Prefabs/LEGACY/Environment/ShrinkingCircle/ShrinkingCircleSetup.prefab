@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803093299297845897}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 3645265080736833621}
   - {fileID: 7178133578685352592}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &803093299297845899
 MonoBehaviour:
@@ -76,6 +76,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4858687258718294325}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -83,7 +84,6 @@ Transform:
   m_Children:
   - {fileID: 914108011930167623}
   m_Father: {fileID: 803093299297845896}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &803093298990468780
 PrefabInstance:
@@ -444,6 +444,10 @@ PrefabInstance:
     - target: {fileID: 5504811613422289842, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
       propertyPath: m_Name
       value: ShrinkingCircleRingOfFireController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504811613422289842, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5504811613519120802, guid: b19f369340d6fa543a7808a8b765df4e, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar

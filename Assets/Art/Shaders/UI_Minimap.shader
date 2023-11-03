@@ -223,10 +223,11 @@ Shader "FLG/UI/Minimap"
                 // Draw outer ring
                 const half outerRing = circle(st, 1) - circle(st, 1.0 - _OuterRindWidth);
                 color = color * (1 - outerRing) + outerRing * _OuterRingColor;
+                
 
                 // Fade
-                const half fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
-                color.a = fade + outerRing * _OuterRingColor.a;
+                // const half fade = 1 - max(0, distance(st, float2(0.5, 0.5)) - 0.405) * 10.0;
+                // color.a = fade + outerRing * _OuterRingColor.a;
 
                 // END CUSTOM DRAW
 

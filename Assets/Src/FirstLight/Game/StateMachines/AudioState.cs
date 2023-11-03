@@ -900,7 +900,12 @@ namespace FirstLight.Game.StateMachines
 			// Remove top-most matching occurence of the ambience in the list
 			// This is so ambience can support entering volumes of same type, and transitioning between
 			// different volumes correctly
-			_ambienceList.RemoveAt(_ambienceList.FindLastIndex(x => x == msg.Ambience.GetAmbientAudioId()));
+			var index = _ambienceList.FindLastIndex(x => x == msg.Ambience.GetAmbientAudioId());
+
+			if (index != -1)
+			{
+				_ambienceList.RemoveAt(index);
+			}
 
 			if (_ambienceList.Count > 0)
 			{

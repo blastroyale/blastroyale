@@ -76,9 +76,9 @@ namespace FirstLight.Game.Presenters
 			
 			//TODO: enable when have Haptic fixed
 			root.Q<LocalizedToggle>("HapticFeedback").SetDisplay(false); 
-			// SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
-			// 	() => _gameDataProvider.AppDataProvider.IsHapticOn,
-			// 	val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
+			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
+				() => _gameDataProvider.AppDataProvider.IsHapticOn,
+				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
 			
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,

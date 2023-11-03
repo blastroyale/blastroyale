@@ -102,7 +102,7 @@ namespace FirstLight.Game.Services
 			PlayerIndicatorService = Configure(new PlayerIndicatorsService(this, _gameServices));
 			EntityVisibilityService = Configure(new EntityVisibilityService(this, _gameServices));
 			BulletService = Configure(new BulletService(_gameServices, this));
-			HapticsService = Configure(new HapticsService(_gameServices, this));
+			HapticsService = Configure(new HapticsService(_gameServices, this, _dataProvider));
 			MatchAssetService = Configure(new MatchAssetsService());
 			TeamService = Configure(new TeamService(_gameServices, this));
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);

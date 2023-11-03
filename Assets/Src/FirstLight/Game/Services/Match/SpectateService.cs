@@ -157,14 +157,18 @@ namespace FirstLight.Game.Services
 
 		private void SwipeLeft(QuantumGame game)
 		{
-			TryGetPreviousPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			if (TryGetPreviousPlayer(game, out var player))
+			{
+				SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			}
 		}
 
 		private void SwipeRight(QuantumGame game)
 		{
-			TryGetNextPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			if (TryGetNextPlayer(game, out var player))
+			{
+				SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
+			}
 		}
 
 		private bool TryGetNextPlayer(QuantumGame game, out Quantum.PlayerMatchData player)

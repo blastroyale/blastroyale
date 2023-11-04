@@ -112,7 +112,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (_lastInnerRadius != _innerRadius)
 			{
 				_lastInnerRadius = _innerRadius;
-				UpdateRingOfFireMesh();
+				//UpdateRingOfFireMesh();
 				
 				// In case we need to have fewer particles for smaller circle (the code below doesn't really work, it's just to show the idea)
 				// var emission = _ringOfFireParticle.emission;

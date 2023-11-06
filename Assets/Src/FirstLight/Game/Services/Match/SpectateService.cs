@@ -117,6 +117,8 @@ namespace FirstLight.Game.Services
 			{
 				SetSpectatedEntity(game.Frames.Verified, playerWinner.Data.Entity, playerWinner.Data.Player, isDisconnected);
 			}
+			
+			QuantumCallback.UnsubscribeListener<CallbackUpdateView>(this);
 		}
 
 		public void OnMatchSimulationEnded(SimulationEndedMessage message)

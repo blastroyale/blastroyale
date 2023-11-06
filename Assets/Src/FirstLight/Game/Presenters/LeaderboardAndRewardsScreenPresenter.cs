@@ -208,7 +208,7 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = GameConstants.Data.PLAYER_FAME_MAX_LEVEL;
 			var gainedLeft = xpRewards;
 			var levelsInfo = new List<RewardLevelPanelView.LevelLevelRewardInfo>();
-			var nextLevel = (uint) Math.Clamp(_matchServices.MatchEndDataService.LevelBeforeChange, 0, maxLevel);
+			var nextLevel = (uint) Math.Clamp(_gameDataProvider.PlayerDataProvider.Level.Value, 1, maxLevel);
 			var currentLevel = nextLevel;
 			//var configs = _gameServices.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
 			

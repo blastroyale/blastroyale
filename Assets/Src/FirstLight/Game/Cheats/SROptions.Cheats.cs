@@ -644,6 +644,17 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
+	
+	[Category("Progression")]
+	public void Add500XP()
+	{
+		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.AddXP(500);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
 
 	[Category("Progression")]
 	public void LevelFameUp()

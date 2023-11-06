@@ -66,6 +66,7 @@ MonoBehaviour:
   _fullScreenPadding: 50
   _viewportSize: 0.3
   _cameraHeight: 10
+  _maxFriendlyDistance: 45
   _openCloseEase: 3
   _duration: 0.1
   _pingDuration: 5

@@ -120,7 +120,7 @@ namespace FirstLight.Game.Presenters
 
 		private void InitScreenAndSegments()
 		{
-			if (_dataProvider.BattlePassDataProvider.GetCurrentSeason() == null)
+			if (_dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig() == null)
 			{
 				// No season present
 				return;
@@ -133,7 +133,8 @@ namespace FirstLight.Game.Presenters
 		{
 			Debug.LogError("This is not an error and if you report this you own the dev team a pizza. This is just a reminder the activate button is DEBUG");
 			var data = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
-			data.GetData<BattlePassData>().PurchasedBPSeasons.Add(_dataProvider.BattlePassDataProvider.GetCurrentSeason().Season.Number);
+			var season = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Number;
+			data.GetData<BattlePassData>().GetSeason(season).Purchased = true;
 			((GameCommandService)_services.CommandService).ForceServerDataUpdate();
 			_services.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
 		}
@@ -156,7 +157,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateTimeLeft()
 		{
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeason();
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
 		
 			var now = DateTime.UtcNow;
 			var endsAt = battlePassConfig.Season.GetEndsAtDateTime();
@@ -211,7 +212,7 @@ namespace FirstLight.Game.Presenters
 				{PassType.Paid, new List<BattlePassSegmentData>()}
 			};
 
-			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeason();
+			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 

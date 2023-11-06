@@ -614,10 +614,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var dataProvider = services.DataSaver as IDataService;
 		var data = dataProvider.GetData<BattlePassData>();
-
-		data.BPLevel = 0;
-		data.BPPoints = 0;
-
+		data.Seasons.Clear();
 		dataProvider.SaveData<PlayerData>();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();

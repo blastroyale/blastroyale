@@ -37,7 +37,6 @@ namespace Src.FirstLight.Server
             return new ServerPlugin[]
             {
                 new ServerAnalyticsPlugin(),
-                new SeasonResetPlugin(),
                 new ServerStatisticsPlugin(),
                 new TrophyLeaderboardPlugin(),
 				new PlayfabAvatarPlugin()

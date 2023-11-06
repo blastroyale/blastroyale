@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -170,6 +171,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameModeService.Init();
 			_services.IAPService.Init();
 			_services.AnalyticsService.SessionCalls.GameLoaded();
+			_services.MessageBrokerService.Publish(new GameLogicInitialized());
 		}
 
 		private void OpenNoInternetPopUp()

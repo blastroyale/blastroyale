@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
@@ -125,7 +124,13 @@ namespace BlastRoyaleNFTPlugin
 						_log.LogInformation($"[Playfab Sync] Synced item {item.DisplayName} -> {legacy.RewardId} to player {player}");
 					}
 				}
-				
+
+				// HACK TO AVOID RANDOM REWARD IDS //
+				foreach(var item in new List<ItemData>(playerData.UncollectedRewards))
+				{
+					if (item.Id == GameId.Random) playerData.UncollectedRewards.Remove(item);
+				}
+
 				state.UpdateModel(playerData);
 				if (state.HasDelta())
 				{

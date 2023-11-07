@@ -60,9 +60,9 @@ namespace FirstLight.Game.StateMachines
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
 			firstGameTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FTUE_MAP));
 			
-			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_MATCH));
+			metaAndMatchTutorial.OnEnter(() => SetCurrentSection(TutorialSection.FIRST_GUIDE_MATCH));
 			metaAndMatchTutorial.Nest(_metaAndMatchTutorialState.Setup).Target(idle);
-			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_MATCH));
+			metaAndMatchTutorial.OnExit(() => SendSectionCompleted(TutorialSection.FIRST_GUIDE_MATCH));
 		}
 
 		private async Task OpenTutorialScreens()
@@ -97,7 +97,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnRequestStartMetaMatchTutorialMessage(RequestStartMetaMatchTutorialMessage msg)
 		{
-			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_MATCH)) return;
+			if(_tutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH)) return;
 
 			_statechartTrigger(_startEquipmentBpTutorialEvent);
 		}

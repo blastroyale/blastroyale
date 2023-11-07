@@ -259,7 +259,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			// If meta/match tutorial not completed, and tutorial not running
 			return FeatureFlags.TUTORIAL &&
-				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_MATCH) &&
+				!_services.TutorialService.HasCompletedTutorialSection(TutorialSection.FIRST_GUIDE_MATCH) &&
 				!_services.TutorialService.IsTutorialRunning;
 		}
 

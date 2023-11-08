@@ -42,6 +42,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private int _scrollToDurationMs = 1500;
 
 		private ScrollView _rewardsScroll;
+		private VisualElement _leftBar;
+		private VisualElement _seasonHeader;
 		private VisualElement _levelBar;
 		private VisualElement _upperRow;
 		private VisualElement _bottomRow;
@@ -74,7 +76,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
-
+			_leftBar = root.Q<VisualElement>("LeftBar").Required();
+			_seasonHeader = root.Q<VisualElement>("SeasonHeader").Required();
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
 			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
@@ -101,19 +104,32 @@ namespace FirstLight.Game.Presenters
 			_activateButton.clicked += ActivateClicked;
 
 			_fullScreenClaimButton.SetDisplay(false);
-			
+
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 		}
-
+		
 		private void OnBpPurchase(BattlePassPurchasedMessage msg)
 		{
-			ShowRewards(new [] {ItemFactory.Unlock(UnlockSystem.PaidBattlePass )});
+			ShowRewards(new[] {ItemFactory.Unlock(UnlockSystem.PaidBattlePass)});
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 			InitScreenAndSegments();
+			FixSafeZone();
+		}
+
+		private void FixSafeZone()
+		{
+			var safeArea = Screen.safeArea;
+			var leftTop =
+				RuntimePanelUtils.ScreenToPanel(_leftBar.panel, new Vector2(safeArea.xMin, Screen.height - safeArea.yMax));
+			var rightBottom =
+				RuntimePanelUtils.ScreenToPanel(_leftBar.panel, new Vector2(Screen.width - safeArea.xMax, safeArea.yMin));
+
+			_leftBar.style.marginLeft = leftTop.x;
+			_seasonHeader.style.paddingRight = rightBottom.x;
 		}
 
 		private void InitScreenAndSegments()
@@ -157,7 +173,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateTimeLeft()
 		{
 			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
-		
+
 			var now = DateTime.UtcNow;
 			var endsAt = battlePassConfig.Season.GetEndsAtDateTime();
 			if (now > endsAt)
@@ -249,7 +265,7 @@ namespace FirstLight.Game.Presenters
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].PremiumRewardId],
 					PassType = PassType.Paid
 				};
-				
+
 				_segmentData[PassType.Free].Add(freeSegmentData);
 				_segmentData[PassType.Paid].Add(paidSegmentData);
 
@@ -261,8 +277,9 @@ namespace FirstLight.Game.Presenters
 				_upperRow.Add(CreateNewSegmentView(paidSegmentData).Element);
 				_levelBar.Insert(0, CreateNewLevelBarSegment(i, levelBarPct).Element);
 			}
+
 			SpawnScrollFiller();
-			
+
 			if (predictedProgress.Item1 > 1)
 			{
 				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs);
@@ -286,7 +303,7 @@ namespace FirstLight.Game.Presenters
 			view.SetData(new BattlePassSegmentBarData()
 			{
 				PctFilled = pct, // 100% for testing
-				SegmentLevel = (uint)level + 1
+				SegmentLevel = (uint) level + 1
 			});
 			return view;
 		}

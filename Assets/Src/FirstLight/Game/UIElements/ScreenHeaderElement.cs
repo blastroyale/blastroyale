@@ -47,7 +47,7 @@ namespace FirstLight.Game.UIElements
 			// on the Header element in UXML if you want to have interactive elements behind it.
 			pickingMode = PickingMode.Ignore;
 
-			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
+			var safeAreaContainer = new SafeAreaElement(true, false, false, true);
 			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
 			Add(safeAreaContainer);
 

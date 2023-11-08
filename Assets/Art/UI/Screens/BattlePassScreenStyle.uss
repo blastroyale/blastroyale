@@ -29,6 +29,7 @@
     width: 100%;
     flex-shrink: 0;
     justify-content: center;
+    padding-right: 0;
 }
 
 .season-header-safe-area {
@@ -42,15 +43,17 @@
 }
 
 .season-header__currencies {
-    position: absolute;
     flex-direction: row;
     align-items: center;
-    right: 8%;
-    left: 15%;
     top: 0;
     bottom: 0;
     width: auto;
     justify-content: space-between;
+    position: relative;
+    left: 0;
+    right: 0;
+    padding-left: 514px;
+    padding-right: 177px;
 }
 
 .season-header__background {
@@ -116,6 +119,9 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    width: 100%;
+    height: 100%;
+    -unity-text-align: upper-center;
 }
 
 
@@ -133,10 +139,10 @@
     background-image: none;
     background-color: rgb(0, 0, 0);
     -unity-background-image-tint-color: rgb(0, 0, 0);
-    width: 484px;
     border-radius: 10px;
-    height: 50px;
     position: relative;
+    width: 363px;
+    height: 51px;
 }
 
 .bpp-bar__progress {
@@ -192,11 +198,23 @@
     white-space: normal;
     padding-bottom: 0;
     padding-right: 0;
-    margin-left: 10%;
     font-size: 54px;
     text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    padding-left: 0;
+    text-overflow: clip;
+    margin-left: 0;
 }
 
+.bottom-bar-opacity {
+    flex-grow: 1;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.37);
+    display: flex;
+}
 
 .season-content {
     flex-direction: row;
@@ -210,6 +228,8 @@
     align-self: auto;
     flex-direction: row;
     flex-wrap: nowrap;
+    padding-top: 0;
+    margin-top: -3px;
 }
 
 .season-content__scroll {
@@ -340,14 +360,12 @@
 .left-bar {
     background-color: rgba(255, 8, 8, 0);
     height: 100%;
-    width: 560px;
     background-image: none;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
     -unity-background-scale-mode: scale-and-crop;
-    left: -77px;
     padding-left: 0;
     -unity-background-image-tint-color: rgb(89, 24, 83);
     padding-right: 0;
@@ -362,11 +380,14 @@
     -unity-slice-right: 0;
     -unity-slice-bottom: 0;
     flex-grow: 1;
-    min-width: 560px;
     max-height: none;
-    max-width: 700px;
     flex-shrink: 0;
     position: absolute;
+    width: 797px;
+    max-width: none;
+    min-width: auto;
+    left: -347px;
+    top: 0;
 }
 
 .paid-container-shadow {
@@ -381,7 +402,6 @@
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 9%;
     padding-left: 150px;
-    -unity-background-image-tint-color: rgba(39, 26, 41, 0.51);
     display: flex;
     width: 100%;
     align-self: auto;
@@ -389,28 +409,58 @@
     position: absolute;
     height: 50%;
     bottom: auto;
-    left: 68px;
     top: 0;
+    left: 51px;
+    -unity-background-image-tint-color: rgba(9, 8, 14, 0.51);
 }
 
-.paid-container {
+.paid-container-border {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
     min-height: auto;
-    flex-shrink: 1;
-    justify-content: flex-start;
+    flex-shrink: 0;
+    justify-content: center;
     align-items: center;
     background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
-    margin-right: 0;
+    margin-right: 9%;
     padding-left: 150px;
+    display: flex;
+    width: 100%;
+    align-self: auto;
+    margin-left: -43px;
+    position: absolute;
+    height: 50%;
+    bottom: auto;
+    top: 0;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    left: 45px;
+}
+
+.paid-container {
+    background-color: rgba(0, 0, 0, 0);
+    min-width: auto;
+    min-height: auto;
+    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    -unity-background-scale-mode: scale-and-crop;
+    margin-right: 0;
     -unity-background-image-tint-color: rgb(116, 23, 180);
     overflow: visible;
     display: flex;
     width: 100%;
-    height: auto;
-    align-self: stretch;
+    border-right-width: 2px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 50%;
+    padding-top: 27px;
+    padding-left: 51px;
+    padding-right: 50px;
+    align-items: auto;
+    justify-content: space-around;
+    align-self: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
 }
 
 .paid-icon-background {
@@ -421,36 +471,53 @@
     overflow: visible;
     min-width: auto;
     min-height: auto;
-    margin-left: -25px;
-    margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    width: 350px;
-    height: 350px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.59);
-    max-height: 350px;
-    align-self: stretch;
     justify-content: flex-end;
-    align-items: center;
     flex-direction: column;
-    position: absolute;
-    top: 5%;
     flex-shrink: 0;
+    width: 336px;
+    height: 330px;
+    max-height: none;
+    position: relative;
+    top: auto;
+    margin-left: auto;
+    align-self: flex-end;
+    align-items: flex-end;
+    padding-right: 0;
+    margin-right: 8px;
 }
 
 .activate-button {
-    position: absolute;
-    bottom: 9px;
     overflow: visible;
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-main-yellow.png?fileID=2800000&guid=fec2c038b4fd64e349c7afb5d98f3cee&type=3#button-main-yellow');
-    width: 300px;
-    height: 80px;
-    font-size: 56px;
-    left: 144px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(147, 35, 14);
     text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: auto;
+    margin-right: 28px;
+    margin-bottom: auto;
+    margin-left: auto;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: 40px;
+    align-self: center;
+    justify-content: flex-end;
+    align-items: center;
+    width: 321px;
+    -unity-font-style: bold;
+    letter-spacing: -8px;
+    right: auto;
+    flex-direction: column;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 85px;
 }
 
 .free-container-shadow {
@@ -473,10 +540,10 @@
     position: absolute;
     height: 50%;
     bottom: 0;
-    left: 21px;
+    left: 7px;
 }
 
-.free-container {
+.free-container-border {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     min-width: auto;
@@ -488,11 +555,37 @@
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 9%;
     padding-left: 150px;
+    display: flex;
+    width: 100%;
+    align-self: auto;
+    margin-left: -43px;
+    position: absolute;
+    height: 50%;
+    bottom: 0;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    left: 1px;
+}
+
+.free-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    min-width: auto;
+    min-height: auto;
+    flex-shrink: 0;
+    background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    -unity-background-scale-mode: scale-and-crop;
+    margin-right: 9%;
     -unity-background-image-tint-color: rgb(39, 26, 41);
     display: flex;
     width: 100%;
     align-self: stretch;
-    margin-left: -43px;
+    left: -43px;
+    margin-left: 0;
+    padding-left: 451px;
+    padding-right: 65px;
+    align-items: center;
+    padding-top: 32px;
+    justify-content: flex-start;
 }
 
 .free-icon-background {
@@ -504,19 +597,19 @@
     min-width: auto;
     min-height: auto;
     margin-left: 12px;
-    margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
     width: 312px;
     height: 330px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.35);
     max-height: 330px;
-    align-self: stretch;
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
-    position: absolute;
     flex-shrink: 0;
+    position: relative;
+    align-self: center;
+    margin-right: 23px;
 }
 
 .free-pass-icon {
@@ -555,12 +648,10 @@
     position: absolute;
     top: auto;
     left: 84px;
-    font-size: 48px;
     color: rgb(252, 188, 50);
     -unity-text-align: upper-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -573,33 +664,38 @@
     -unity-background-scale-mode: stretch-to-fill;
     flex-direction: column;
     overflow: visible;
-    bottom: 5px;
+    font-size: 44px;
+    -unity-paragraph-spacing: -41px;
+    text-shadow: 2px 3px 0 rgb(0, 0, 0);
+    bottom: 27px;
+    letter-spacing: -4px;
 }
 
 .premium-lock {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    width: 70px;
-    height: 80px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=2800000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
-    top: 22px;
-    left: 17px;
     visibility: visible;
     display: flex;
+    width: 57px;
+    height: 62px;
+    left: 35px;
+    top: 16px;
 }
 
 .free-title {
-    position: absolute;
     top: auto;
     left: auto;
-    font-size: 48px;
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    bottom: -1px;
+    letter-spacing: -2px;
+    font-size: 44px;
+    bottom: 39px;
+    position: absolute;
 }
 
 .bp-rows {

@@ -2,8 +2,8 @@
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
-        <ui:VisualElement name="SeasonContent" class="season-content">
-            <ui:VisualElement picking-mode="Ignore" name="HalfOpacity" style="flex-grow: 1; position: absolute; left: 0; top: 50%; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.37); display: flex;" />
+        <ui:VisualElement name="SeasonContent" class="season-content" >
+            <ui:VisualElement picking-mode="Ignore" name="HalfOpacity" class="bottom-bar-opacity" />
             <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
                 <ui:VisualElement name="BpRows" class="bp-rows">
                     <ui:VisualElement name="UpperRow" class="upper-row" />
@@ -12,20 +12,22 @@
                 </ui:VisualElement>
             </ui:ScrollView>
             <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">
-                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow" />
+                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow"  />
+                <ui:VisualElement name="PaidContainerBorder" class="paid-container-border"  />
                 <ui:VisualElement name="PaidContainer" class="paid-container">
                     <ui:VisualElement name="IconBackground" class="paid-icon-background">
                         <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
-                        <ui:Label tabindex="-1" text="Premium &#10;Pass" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
+                        <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title"/>
                         <ui:VisualElement name="PremiumLock" class="premium-lock" />
                     </ui:VisualElement>
-                    <ui:Button text="Activate" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
+                    <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
                 </ui:VisualElement>
-                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow" />
+                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow"  />
+                <ui:VisualElement name="FreeContainerBorder" class="free-container-border"  />
                 <ui:VisualElement name="FreeContainer" class="free-container">
                     <ui:VisualElement name="IconBackground" class="free-icon-background">
                         <ui:VisualElement name="PassIcon" class="free-pass-icon" />
-                        <ui:Label tabindex="-1" text="Pleb&apos;s &#10;Pass" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
+                        <ui:Label tabindex="-1" text="FREE" display-tooltip-when-elided="true" name="FreeTitle" class="free-title" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -48,7 +50,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="Arrow" class="bpp-bar__arrow" />
                     <ui:VisualElement name="NextLevel" class="bar__level">
-                        <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="NextLevelLabel" enable-rich-text="true" class="bar__level__label" />
+                        <ui:Label tabindex="-1" text="13" display-tooltip-when-elided="true" name="NextLevelLabel" enable-rich-text="true" class="bar__level__label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="RightContainer" class="season-header__right-container">

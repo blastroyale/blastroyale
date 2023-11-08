@@ -1,22 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
+using FirstLight.Game.Views;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 using Button = UnityEngine.UIElements.Button;
+
 
 namespace FirstLight.Game.Presenters
 {
@@ -26,35 +25,27 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class StoreScreenPresenter : UiToolkitPresenterData<StoreScreenPresenter.StateData>
 	{
-		// TODO: Read from playfab
-		private const string ITEM_RARE_ID = "com.firstlight.blastroyale.core.rare";
-		private const string ITEM_EPIC_ID = "com.firstlight.blastroyale.core.epic";
-		private const string ITEM_LEGENDARY_ID = "com.firstlight.blastroyale.core.legendary";
-		
-		private const string ITEM_COINPACK_SMALL = "com.firstlight.blastroyale.coinpack.small";
-		private const string ITEM_COINPACK_MEDIUM = "com.firstlight.blastroyale.coinpack.medium";
-		private const string ITEM_COINPACK_LARGE = "com.firstlight.blastroyale.coinpack.large";
-		
-		private const string ITEM_BLASTBUCKPACK_SMALL = "com.firstlight.blastroyale.blastbucks.small";
-		private const string ITEM_BLASTBUCKPACK_MEDIUM = "com.firstlight.blastroyale.blastbucks.medium";
-		private const string ITEM_BLASTBUCKPACK_LARGE = "com.firstlight.blastroyale.blastbucks.large";
-
 		public struct StateData
 		{
 			public Action IapProcessingFinished;
-			public Action<string> OnPurchaseItem;
-			public IGameUiService UiService;
-			
+			public Action<GameProduct> OnPurchaseItem;
 			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
+		public const string UssCategory = "product-category";
+		public const string UssCategoryLabel = "category-label";
+		public const string UssCategoryButton = "category-button";
+
+		[SerializeField] private VisualTreeAsset _StoreProductView;
+		
 		private IGameServices _gameServices;
 
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
-
-		private readonly Queue<ItemData> _pendingRewards = new();
+		private VisualElement _productList;
+		private VisualElement _categoryList;
+		private ScrollView _scroll;
 
 		private void Awake()
 		{
@@ -66,36 +57,65 @@ namespace FirstLight.Game.Presenters
 			_blocker = root.Q("Blocker").Required();
 
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_productList = root.Q("ProductList").Required();
+			_categoryList = root.Q("Categories").Required();
+			_scroll = root.Q<ScrollView>("ProductScrollView").Required();
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnHomeClicked;
 
-			SetupItem("ItemRare", ITEM_RARE_ID, "rare_core");
-			SetupItem("ItemEpic", ITEM_EPIC_ID, "epic_core");
-			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID, "legendary_core");
-			
-			SetupItem("CoinPackSmall", ITEM_COINPACK_SMALL, "coin_pack_small");
-			SetupItem("CoinPackMedium", ITEM_COINPACK_MEDIUM, "coin_pack_medium");
-			SetupItem("CoinPackLarge", ITEM_COINPACK_LARGE, "coin_pack_large");
-			
-			SetupItem("BlastbuckPackSmall", ITEM_BLASTBUCKPACK_SMALL, "blastbuck_pack_small");
-			SetupItem("BlastbuckPackMedium", ITEM_BLASTBUCKPACK_MEDIUM, "blastbuck_pack_medium");
-			SetupItem("BlastbuckPackLarge", ITEM_BLASTBUCKPACK_LARGE, "blastbuck_pack_large");
+			foreach (var category in _gameServices.IAPService.AvailableProductCategories)
+			{
+				var categoryElement = new VisualElement();
+				categoryElement.AddToClassList(UssCategory);
+
+				var categoryLabel = new Label();
+				categoryLabel.AddToClassList(UssCategoryLabel);
+				categoryLabel.text = category.Name;
+				categoryElement.Add(categoryLabel);
+				
+				foreach (var product in category.Products)
+				{
+					var productElement = _StoreProductView.Instantiate();
+					productElement.AttachView(this, out StoreProductView view);
+					view.SetData(product);
+					view.OnClicked = BuyItem;
+					categoryElement.Add(productElement);
+				}
+				
+				_productList.Add(categoryElement);
+
+				var categoryButton = new Button();
+				categoryButton.text = category.Name;
+				categoryButton.AddToClassList(UssCategoryButton);
+				categoryButton.clicked += () => SelectCategory(categoryElement, category);
+				_categoryList.Add(categoryButton);
+			}
+		}
+
+		private void SelectCategory(VisualElement categoryContainer, GameProductCategory category)
+		{
+			var targetX = categoryContainer.resolvedStyle.left;
+			_scroll.experimental.animation.Start(0, 1f, 300, (element, percent) =>
+			{
+				var scrollView = (ScrollView) element;
+				var currentScroll = scrollView.scrollOffset;
+				scrollView.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
+			}).Ease(Easing.OutCubic);
 		}
 
 		protected override void SubscribeToEvents()
 		{
 			_gameServices.MessageBrokerService.Subscribe<OpenedCoreMessage>(OnCoresOpened);
 			_gameServices.MessageBrokerService.Subscribe<ItemRewardedMessage>(OnItemRewarded);
-			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
+			_gameServices.IAPService.UnityStore.OnPurchaseFailure += OnPurchaseFailed;
 		}
 
 		[Button]
-		private void OnPurchaseFailed(IAPPurchaseFailedMessage msg)
+		private void OnPurchaseFailed(PurchaseFailureReason reason)
 		{
 			Data.IapProcessingFinished();
-
 			_blocker.style.display = DisplayStyle.None;
-			if (msg.Reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
+			if (reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
 
 #if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
@@ -105,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, 
-				string.Format(ScriptLocalization.UITStore.iap_error, msg.Reason.ToString()), false, confirmButton);
+				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
 #else
 			var button = new AlertButton
 			{
@@ -135,7 +155,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnItemRewarded(ItemRewardedMessage msg)
 		{
-			// Handle only currency
+			// Handle only currency, other types are handled by claiming rewards
 			if (!msg.Item.Id.IsInGroup(GameIdGroup.Currency)) return;
 			Data.IapProcessingFinished();
 			_gameServices.GameUiService.OpenScreenAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
@@ -152,36 +172,15 @@ namespace FirstLight.Game.Presenters
 		protected override void UnsubscribeFromEvents()
 		{
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
+			_gameServices.IAPService.UnityStore.OnPurchaseFailure -= OnPurchaseFailed;
 		}
 
-		private void BuyItem(string id)
+		private void BuyItem(GameProduct product)
 		{
-			_blocker.style.display = DisplayStyle.Flex;
-			Data.OnPurchaseItem(id);
-		}
-
-		private void SetupItem(string uiId, string storeId, string localizationPostfix)
-		{
-			var product = _gameServices.IAPService.Products.First(item => item.definition.id == storeId);
-
-			var button = Root.Q<Button>(uiId);
-			var priceLabel = button.Q<Label>("Price");
-			var infoButton = button.Q<Button>("InfoButton");
-
-			var backButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.Back,
-				ButtonOnClick = _gameServices.GenericDialogService.CloseDialog
-			};
+			if (_blocker.style.display == DisplayStyle.Flex) return;
 			
-			button.clicked += () => { BuyItem(storeId); };
-			infoButton.clicked += () =>
-			{
-				_gameServices.GenericDialogService.OpenButtonDialog(LocalizationManager.GetTranslation ("UITStore/" + localizationPostfix),
-				                                                    LocalizationManager.GetTranslation ("UITStore/description_" + localizationPostfix),
-				                                                    false, backButton);
-			};
-			priceLabel.text = product.metadata.localizedPriceString;
+			_blocker.style.display = DisplayStyle.Flex;
+			Data.OnPurchaseItem(product);
 		}
 	}
 }

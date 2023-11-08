@@ -135,7 +135,7 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.TryGetTranslation(key, out var translation)
 				? translation
-				: $"#{key}#";
+				: $"{key}";
 		}
 
 		/// <summary>

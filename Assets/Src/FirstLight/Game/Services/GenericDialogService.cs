@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Presenters;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,6 +51,11 @@ namespace FirstLight.Game.Services
 							 TouchScreenKeyboardType keyboardType = TouchScreenKeyboardType.Default);
 
 		/// <summary>
+		/// Displays a simple message dialog
+		/// </summary>
+		void OpenSimpleMessage(string title, string desc, Action onClick = null);
+		
+		/// <summary>
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
 		/// </summary>
 		void CloseDialog();
@@ -91,6 +97,19 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 
 			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, closeCallback, keyboardType);
+		}
+
+		public void OpenSimpleMessage(string title, string desc, Action onClick = null)
+		{
+			OpenButtonDialog(title, desc, false, new GenericDialogButton()
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					CloseDialog();
+					onClick?.Invoke();
+				}
+			});
 		}
 
 		/// <inheritdoc />

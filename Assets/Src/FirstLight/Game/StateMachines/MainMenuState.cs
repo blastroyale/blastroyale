@@ -463,7 +463,6 @@ namespace FirstLight.Game.StateMachines
 				OnBackClicked = () => { activity.Complete(); },
 				OnHomeClicked = () => { activity.Complete(); },
 				OnPurchaseItem = PurchaseItem,
-				UiService = _uiService,
 				IapProcessingFinished = OnIapProcessingFinished
 			};
 
@@ -471,10 +470,10 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new ShopScreenOpenedMessage());
 		}
 
-		private void PurchaseItem(string id)
+		private void PurchaseItem(GameProduct product)
 		{
 			_statechartTrigger(NetworkState.IapProcessStartedEvent);
-			_services.IAPService.BuyProduct(id);
+			_services.IAPService.BuyProduct(product);
 		}
 
 		private void OnIapProcessingFinished()

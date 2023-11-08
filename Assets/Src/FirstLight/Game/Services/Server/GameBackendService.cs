@@ -329,7 +329,7 @@ namespace FirstLight.Game.Services
 
 		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
 		{
-			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			var descriptiveError = error.GenerateErrorReport();
 			FLog.Error(descriptiveError);
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);

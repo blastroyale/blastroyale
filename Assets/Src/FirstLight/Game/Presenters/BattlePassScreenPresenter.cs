@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -130,12 +129,13 @@ namespace FirstLight.Game.Presenters
 
 		private void ActivateClicked()
 		{
-			Debug.LogError("This is not an error and if you report this you own the dev team a pizza. This is just a reminder the activate button is DEBUG");
-			var data = MainInstaller.Resolve<IGameServices>().DataSaver as IDataService;
-			var season = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Number;
-			data.GetData<BattlePassData>().GetSeason(season).Purchased = true;
-			((GameCommandService)_services.CommandService).ForceServerDataUpdate();
-			_services.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
+			// TODO: Remove, should display/disable in the button
+			if (!_dataProvider.BattlePassDataProvider.HasCurrencyForPurchase())
+			{
+				_services.GenericDialogService.OpenSimpleMessage("[Debug]", "Not enough BBs go buy some");
+				return;
+			}
+			_services.CommandService.ExecuteCommand(new ActivateBattlepassCommand());
 		}
 
 		protected override void SubscribeToEvents()

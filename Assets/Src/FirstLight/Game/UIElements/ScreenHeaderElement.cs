@@ -136,7 +136,7 @@ namespace FirstLight.Game.UIElements
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
 				she.subtitleKey = _subTitleKeyAttribute.GetValueFromBag(bag, cc);
 
-				she.SetTitle(she.titleKey.LocalizeKey(),
+				she.SetTitle(string.IsNullOrWhiteSpace(she.titleKey) ? "" : she.titleKey.LocalizeKey(),
 					string.IsNullOrWhiteSpace(she.subtitleKey) ? "" : she.subtitleKey.LocalizeKey());
 			}
 		}

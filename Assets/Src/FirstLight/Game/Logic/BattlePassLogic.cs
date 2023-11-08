@@ -88,6 +88,11 @@ namespace FirstLight.Game.Logic
 		bool HasPurchasedSeason(int season = -1);
 
 		/// <summary>
+		/// Checks if a given player has enough currency to purchase season
+		/// </summary>
+		bool HasCurrencyForPurchase();
+		
+		/// <summary>
 		/// Sets the last level the player claimed rewards for the given pass
 		/// </summary>
 		void SetLastLevelClaimed(uint lastLevel, PassType type);
@@ -342,11 +347,12 @@ namespace FirstLight.Game.Logic
 					totalAccumulatedPoints += predictedProgress.Item2;
 				}
 			}
-
 			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
-		public bool Purchase()
+		
+		
+		public bool HasCurrencyForPurchase()
 		{
 			var config = GetCurrentSeasonConfig();
 			var currentBB = GameLogic.CurrencyLogic.GetCurrencyAmount(GameId.BlastBuck);
@@ -355,9 +361,15 @@ namespace FirstLight.Game.Logic
 			{
 				return false;
 			}
+			return true;
+		}
 
+		public bool Purchase()
+		{
+			var config = GetCurrentSeasonConfig();
+			if (!HasCurrencyForPurchase()) return false;
 			GameLogic.CurrencyLogic.DeductCurrency(GameId.BlastBuck, config.Season.Price);
-			data.Purchased = true;
+			GetCurrentSeasonData().Purchased = true;
 			GameLogic.MessageBrokerService.Publish(new BattlePassPurchasedMessage());
 			return true;
 		}

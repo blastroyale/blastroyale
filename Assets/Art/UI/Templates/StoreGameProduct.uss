@@ -1,0 +1,94 @@
+.product-widget {
+    flex-grow: 0;
+    width: 450px;
+    height: 700px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-white.png?fileID=21300000&guid=46b7b6295ba2d4960a4dcdac3b5595d5&type=3#slot-white');
+    justify-content: space-between;
+    align-items: center;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-image-tint-color: rgb(108, 128, 219);
+    margin-left: 0;
+    align-self: auto;
+    -unity-text-outline-color: rgba(53, 52, 52, 0);
+    color: rgb(53, 52, 52);
+    background-color: rgba(53, 52, 52, 0);
+}
+
+.product-widget--small {
+    width: 450px;
+    height: 350px;
+}
+
+.product-name {
+    position: relative;
+    font-size: 60px;
+    top: auto;
+    left: auto;
+    color: rgb(255, 207, 51);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    bottom: auto;
+    width: 418px;
+    -unity-text-align: upper-center;
+    height: auto;
+    text-overflow: clip;
+    white-space: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.product-image {
+    background-image: url('project://database/Assets/AddressableResources/Sprites/Shared/Coin.png?fileID=21300000&guid=d5f58a3dc7bb0c64db18ff1050c650d9&type=3#Coin');
+    height: 350px;
+    position: relative;
+    top: auto;
+    left: auto;
+    align-self: auto;
+    flex-grow: 1; 
+    -unity-background-scale-mode: scale-to-fit; 
+    width: 100%;
+}
+
+.product-background {
+    flex-grow: 1;
+    position: absolute;
+    bottom: -67px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/EquipmentScreen/CardShine.png?fileID=21300000&guid=cbb60a486856f41fba61e9cf9aa536fd&type=3#CardShine');
+    height: 151px;
+    width: 470px;
+    left: -34px;
+    background-color: rgba(255, 255, 255, 0);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.55);
+    rotate: 0;
+}
+
+.product-price {
+    position: relative;
+    font-size: 60px;
+    top: auto;
+    left: auto;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    bottom: 0;
+    align-self: center;
+    width: 100%;
+    height: 80px;
+}
+
+.widget-effect {
+    position: absolute;
+    width: 100%;
+    height: 480px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png?fileID=21300000&guid=422abc81205ac4abfbc0fd8faf65aca4&type=3#pattern-dots-rotated');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.11);
+    -unity-background-scale-mode: scale-to-fit;
+    rotate: 7deg;
+    top: -29px;
+}

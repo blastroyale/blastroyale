@@ -54,13 +54,13 @@ namespace GameLogicService.Services
 		/// If it finds, will consume the item and award its configured RewardData
 		/// </summary>
 		public async Task<PlayFabResult<BackendLogicResult>> ProcessPurchaseRequest(
-			string playerId, string catalogItemId, bool fakeStore)
+			string playerId, string catalogItemId)
 		{
 			_log.Log(LogLevel.Information, $"{playerId} is executing - ConsumeValidatedPurchaseCommand");
 
 			var item = await FindCatalogItem(catalogItemId);
 			
-			if (fakeStore && _cfg.DevelopmentMode)
+			if (_cfg.DevelopmentMode)
 			{
 				var res = await PlayFabServerAPI.GrantItemsToUserAsync(new()
 				{
@@ -76,7 +76,7 @@ namespace GameLogicService.Services
 			await _events.CallEvent(new InventoryUpdatedEvent(playerId));
 
 			var result = Playfab.Result(playerId);
-			ModelSerializer.SerializeToData(result.Result.Data, JsonConvert.DeserializeObject<LegacyItemData>(item.CustomData));
+			ModelSerializer.SerializeToData(result.Result.Data, ModelSerializer.Deserialize<LegacyItemData>(item.CustomData));
 			return result;
 		}
 	

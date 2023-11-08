@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Server.SDK;
-using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ServerModels;
 using Quantum;
 using ItemInstance = PlayFab.ServerModels.ItemInstance;
 
-namespace BlastRoyaleNFTPlugin
+
+namespace GameLogicService.Services
 {
 	/// <summary>
 	/// Map of game id currencies to playfab currency names
@@ -35,20 +36,20 @@ namespace BlastRoyaleNFTPlugin
 	/// It will remove any pending items and currency from playfab inventory
 	/// and convert to our currency datas
 	/// </summary>
-	public class PlayfabInventorySync : BaseEventDataSync<PlayerDataLoadEvent>
+	public class PlayfabInventorySyncService : IInventorySyncService
 	{
 		private PluginContext _ctx;
 		private IServerStateService _serverState;
 		private IServerMutex _mutex;
-		private IPluginLogger _log;
+		private ILogger _log;
 		private Dictionary<string, CatalogItem> _catalog;
 		
-		public PlayfabInventorySync(PluginContext ctx) : base(ctx)
+		public PlayfabInventorySyncService(IServerStateService state, IServerMutex mutex, ILogger log)
 		{
-			_ctx = ctx;
-			_serverState = ctx.ServerState;
-			_mutex = ctx.PlayerMutex;
-			_log = ctx.Log;
+			_log = log;
+			_serverState = state;
+			_mutex = mutex;
+			_log = log;
 		}
 
 		private async Task<CatalogItem> GetCatalogItem(ItemInstance item)
@@ -91,7 +92,7 @@ namespace BlastRoyaleNFTPlugin
 			return 0;
 		}
 
-		public override async Task<bool> SyncData(string player)
+		public async Task<bool> SyncData(string player)
 		{
 			var consumedItems = new List<ItemInstance>();
 			var consumedCurrencies = new Dictionary<GameId, int>();
@@ -136,12 +137,13 @@ namespace BlastRoyaleNFTPlugin
 			{
 				_log.LogError(e.Message + e.StackTrace);
 				_log.LogError("[Playfab Sync] Exception when syncing inventory, rolling back items removed");
-				var itemIds = consumedItems.Select(e => e.ItemId).ToList();
-				if (itemIds.Count > 0)
+				var itemIds = consumedItems.Select(item => item.ItemId);
+				var list = itemIds.ToList();
+				if (itemIds.Any())
 				{
 					var res = await PlayFabServerAPI.GrantItemsToUserAsync(new()
 					{
-						ItemIds = itemIds,
+						ItemIds = list,
 						PlayFabId = player
 					});
 					if (res.Error != null)
@@ -180,4 +182,3 @@ namespace BlastRoyaleNFTPlugin
 		}
 	}
 }
-

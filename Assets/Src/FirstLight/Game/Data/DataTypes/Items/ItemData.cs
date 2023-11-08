@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using FirstLight.Game.Configs;
+using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
+using PlayFab.ClientModels;
 using Quantum;
 
 namespace FirstLight.Game.Data.DataTypes
@@ -35,6 +37,11 @@ namespace FirstLight.Game.Data.DataTypes
 		public static ItemData Collection(GameId id, params CollectionTrait [] traits) => new (id, new CollectionMetadata() { Traits = traits });
 		public static ItemData Collection(GameId id) => new (id, null);
 		public static ItemData Unlock(UnlockSystem unlock) => new (GameId.Random, new UnlockMetadata() { Unlock = unlock });
+		public static ItemData PlayfabCatalog(CatalogItem catalogItem)
+		{
+			return Legacy(ModelSerializer.Deserialize<LegacyItemData>(catalogItem.CustomData));
+		}
+		
 		public static ItemData Legacy(LegacyItemData legacy)
 		{
 			if (legacy.RewardId.IsInGroup(GameIdGroup.Equipment)) return Equipment(new Equipment(legacy.RewardId));

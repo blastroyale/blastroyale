@@ -67,7 +67,9 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetDescriptionLocalization(this GameId id)
 		{
-			return LocalizationManager.GetTranslation(id.GetLocalizationKey() + "Description");
+			var localized = LocalizationManager.GetTranslation(id.GetLocalizationKey() + "Description");
+			if (string.IsNullOrEmpty(localized)) return id.ToString();
+			return localized;
 		}
 
 		/// <summary>

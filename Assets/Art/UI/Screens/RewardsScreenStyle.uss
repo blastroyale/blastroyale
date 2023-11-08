@@ -40,7 +40,7 @@
     -unity-text-outline-width: 1.4px;
     -unity-text-outline-color: rgb(0, 0, 0);
     align-self: center;
-    top: 720px;
+    top: 793px;
     position: absolute;
 }
 
@@ -371,22 +371,22 @@
 .rewards-one__spark-small--2 {
     width: 40px;
     height: 40px;
-    top: 180px;
+    top: 441px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.48);
-    left: 122px;
+    left: 143px;
 }
 
 .rewards-one__spark-small--3 {
     width: 38px;
     height: 38px;
-    top: -155px;
+    top: 9px;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.48);
-    left: 234px;
+    left: 232px;
 }
 
 .rewards-one__spark-small--1 {
-    left: -200px;
-    top: -48px;
+    left: -233px;
+    top: 44px;
 }
 
 .rewards-equipment__gradient--uncommon {
@@ -563,4 +563,19 @@
 .parent-item__name {
     margin-top: 100px;
     font-size: 32px;
+}
+
+.rewards-equipment__spark-small--1 {
+    position: absolute;
+    left: 25px;
+}
+
+.rewards-equipment__spark-small--2 {
+    left: 192px;
+    top: -177px;
+}
+
+.rewards-equipment__spark-small--3 {
+    left: 105px;
+    top: 185px;
 }

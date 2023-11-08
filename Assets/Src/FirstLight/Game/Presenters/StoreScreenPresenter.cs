@@ -127,13 +127,13 @@ namespace FirstLight.Game.Presenters
 			_gameServices.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, 
 				string.Format(ScriptLocalization.UITStore.iap_error, reason.ToString()), false, confirmButton);
 #else
-			var button = new AlertButton
+			var button = new FirstLight.NativeUi.AlertButton
 			{
-				Style = AlertButtonStyle.Positive,
+				Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
 				Text = ScriptLocalization.UITShared.ok
 			};
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.ErrorGeneric, msg.Reason.ToString(),
+			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.ErrorGeneric, reason.ToString(),
 				button);
 #endif
 		}

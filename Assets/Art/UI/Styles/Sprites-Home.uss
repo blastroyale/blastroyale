@@ -101,12 +101,19 @@
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
+    --sprite-home__icon_blastbucks_1: url('/Assets/Art/UI/Sprites/Home/icon_blastbucks_1.png');
+    --sprite-home__icon_blastbucks_2: url('/Assets/Art/UI/Sprites/Home/icon_blastbucks_2.png');
+    --sprite-home__icon_blastbucks_3: url('/Assets/Art/UI/Sprites/Home/icon_blastbucks_3.png');
+    --sprite-home__icon_coins_1: url('/Assets/Art/UI/Sprites/Home/icon_coins_1.png');
+    --sprite-home__icon_coins_2: url('/Assets/Art/UI/Sprites/Home/icon_coins_2.png');
+    --sprite-home__icon_coins_3: url('/Assets/Art/UI/Sprites/Home/icon_coins_3.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
+    --sprite-home__icon-blastbucks: url('/Assets/Art/UI/Sprites/Home/icon-blastbucks.png');
     --sprite-home__icon-blasthub: url('/Assets/Art/UI/Sprites/Home/icon-blasthub.png');
     --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
@@ -661,20 +668,20 @@
 
 .sprite-home__flag-demon {
     background-image: var(--sprite-home__flag-demon);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__flag-superstar {
     background-image: var(--sprite-home__flag-superstar);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__flag-tombstone {
     background-image: var(--sprite-home__flag-tombstone);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__flag-unicorn {
@@ -685,26 +692,26 @@
 
 .sprite-home__glider-divinci {
     background-image: var(--sprite-home__glider-divinci);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__glider-falcon {
     background-image: var(--sprite-home__glider-falcon);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__glider-rocket {
     background-image: var(--sprite-home__glider-rocket);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__glider-turbine {
     background-image: var(--sprite-home__glider-turbine);
-    width: 324px;
-    height: 324px;
+    width: 512px;
+    height: 512px;
 }
 
 .sprite-home__header-back {
@@ -743,6 +750,42 @@
     background-image: var(--sprite-home__header-profile-pressed);
 }
 
+.sprite-home__icon_blastbucks_1 {
+    background-image: var(--sprite-home__icon_blastbucks_1);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__icon_blastbucks_2 {
+    background-image: var(--sprite-home__icon_blastbucks_2);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__icon_blastbucks_3 {
+    background-image: var(--sprite-home__icon_blastbucks_3);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__icon_coins_1 {
+    background-image: var(--sprite-home__icon_coins_1);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__icon_coins_2 {
+    background-image: var(--sprite-home__icon_coins_2);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__icon_coins_3 {
+    background-image: var(--sprite-home__icon_coins_3);
+    width: 512px;
+    height: 512px;
+}
+
 .sprite-home__icon-airplane {
     background-image: var(--sprite-home__icon-airplane);
     width: 70px;
@@ -777,6 +820,12 @@
     background-image: var(--sprite-home__icon-battlepass-crown);
     width: 104px;
     height: 88px;
+}
+
+.sprite-home__icon-blastbucks {
+    background-image: var(--sprite-home__icon-blastbucks);
+    width: 160px;
+    height: 160px;
 }
 
 .sprite-home__icon-blasthub {

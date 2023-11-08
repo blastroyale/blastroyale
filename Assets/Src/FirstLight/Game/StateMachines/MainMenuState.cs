@@ -271,7 +271,11 @@ namespace FirstLight.Game.StateMachines
 		private void TryClaimUncollectedRewards()
 		{
 			_unclaimedCountCheck = 0;
-
+			if (FeatureFlags.GetLocalConfiguration().OfflineMode)
+			{
+				OnCheckIfServerRewardsMatch(true);
+				return;
+			}
 			_services.GameBackendService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch, null);
 		}
 

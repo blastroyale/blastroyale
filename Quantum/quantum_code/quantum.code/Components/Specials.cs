@@ -53,9 +53,16 @@ namespace Quantum
 			}
 
 			AvailableTime = f.Time + Cooldown;
+			// TODO Charges--;
 			
 			f.Signals.SpecialUsed(playerEntity, specialIndex);
 			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
+
+			if (Charges == 0)
+			{
+				// TODO Trigger update signal
+				//f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->Specials[specialIndex] = default;
+			}
 			
 			return true;
 		}

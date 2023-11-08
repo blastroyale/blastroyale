@@ -147,7 +147,8 @@ namespace FirstLight.Game.Services
 			if (!_specialCancel)
 			{
 				OnSpecialButtonUsed(context, 0);
-			} else _specialCancel = false;
+			}
+			else _specialCancel = false;
 		}
 
 		public void OnSpecialButton1(InputAction.CallbackContext context)
@@ -191,7 +192,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand { WeaponSlotIndex = slotIndexToSwitch });
+			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = slotIndexToSwitch});
 		}
 
 		public void OnTeamPositionPing(InputAction.CallbackContext context)
@@ -207,7 +208,7 @@ namespace FirstLight.Game.Services
 				{
 					moveSpeedPercentage = Math.Min(_direction.magnitude * 100, 100);
 				}
-				
+
 				_quantumInput.SetInput(_aim.ToFPVector2(), _direction.ToFPVector2(), _shooting,
 					FP.FromFloat_UNSAFE(moveSpeedPercentage));
 			}
@@ -232,13 +233,13 @@ namespace FirstLight.Game.Services
 			SendSpecialUsedCommand(specialIndex, aim);
 		}
 
-		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
+		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
 
 			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) ||
-				!playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
+			if (!f.TryGet<PlayerInventory>(data.Entity, out var inventory) ||
+				!inventory.Specials[specialIndex].IsUsable(f))
 			{
 				return;
 			}

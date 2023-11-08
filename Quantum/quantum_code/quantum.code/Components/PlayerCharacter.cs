@@ -115,32 +115,25 @@ namespace Quantum
 			}
 			
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
+			var pi = f.Unsafe.GetPointer<PlayerInventory>(e);
 			if (isRespawning)
 			{
-				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
-				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				for (var i = 0; i < pi->Specials.Length; i++)
 				{
-					var special = defaultSlot->Specials[i];
+					var special = pi->Specials[i];
 
 					special.AvailableTime = f.Time + special.InitialCooldown;
 
-					defaultSlot->Specials[i] = special;
+					pi->Specials[i] = special;
 				}
 				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
 			else
 			{
-				var slot = GetDefaultWeaponSlot();
-				var weaponConfig = SetSlotWeapon(f, e, slot);
-				var defaultSlot = WeaponSlots.GetPointer(slot);
-				var specials = GetSpecials(f, ref weaponConfig);
-				for (var i = 0; i < defaultSlot->Specials.Length; i++)
-				{
-					var id = specials[i];
-					
-					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
-				}
+				// TODO mihak: Temporary for testing
+				pi->Specials[0] = new Special(f, GameId.SpecialDefaultDash);
+				pi->Specials[1] = new Special(f, GameId.SpecialAimingGrenade);
 			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
@@ -317,21 +310,6 @@ namespace Quantum
 			WeaponSlots[slot].Weapon = weapon;
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
-			
-			var specials = GetSpecials(f, ref weaponConfig);
-			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
-			{
-				var id = specials[i];
-				var special	= id == default ? new Special() : new Special(f, id);
-
-				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
-				if (weapon.GameId == primaryWeapon.GameId)
-				{
-					special.AvailableTime = FPMath.Min(WeaponSlots[slot].Specials[i].AvailableTime, special.AvailableTime);
-				}
-
-				WeaponSlots.GetPointer(slot)->Specials[i] = special;
-			}
 
 			EquipSlotWeapon(f, e, slot);
 		}

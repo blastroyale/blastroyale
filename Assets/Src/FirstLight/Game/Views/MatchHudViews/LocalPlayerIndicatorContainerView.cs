@@ -76,14 +76,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!IsInitialized()) return;
 			SetupWeaponInfo(callback.Game.Frames.Predicted, callback.WeaponSlot.Weapon.GameId);
-			SetupWeaponSpecials(callback.WeaponSlot);
 		}
 
-		public void SetupWeaponSpecials(WeaponSlot slot)
+		public void SetupSpecials(PlayerInventory inventory)
 		{
-			for (var i = 0; i < slot.Specials.Length; i++)
+			for (var i = 0; i < inventory.Specials.Length; i++)
 			{
-				SetupIndicator(i, slot.Specials[i].SpecialId, _playerView);
+				SetupIndicator(i, inventory.Specials[i].SpecialId, _playerView);
 			}
 		}
 

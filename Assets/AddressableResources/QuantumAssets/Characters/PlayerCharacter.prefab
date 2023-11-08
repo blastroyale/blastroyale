@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3389589998390685944}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9100407106362044455}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6104580087217741489
 GameObject:
@@ -55,13 +55,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6104580087217741489}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.182, z: 0}
   m_LocalScale: {x: 0.34333694, y: 0.34333694, z: 0.34333694}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9100407106362044455}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &272697846909594401
 SpriteRenderer:
@@ -138,13 +138,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6652739272800500751}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9100407106362044455}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9100407106362044460
 GameObject:
@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 1262098894421941712}
   - component: {fileID: 8755646374635016916}
   - component: {fileID: 672166898487096628}
+  - component: {fileID: 4338328958762609681}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -174,6 +175,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9100407106362044460}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -184,7 +186,6 @@ Transform:
   - {fileID: 8884971393132718743}
   - {fileID: 8885027234592375059}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9100407106362044458
 MonoBehaviour:
@@ -421,51 +422,6 @@ MonoBehaviour:
         ReplicationCounter: 0
         TotalRestoredDurability: 0
         LastRepairTimestamp: 0
-      Specials:
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:
@@ -493,51 +449,6 @@ MonoBehaviour:
         ReplicationCounter: 0
         TotalRestoredDurability: 0
         LastRepairTimestamp: 0
-      Specials:
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:
@@ -565,51 +476,6 @@ MonoBehaviour:
         ReplicationCounter: 0
         TotalRestoredDurability: 0
         LastRepairTimestamp: 0
-      Specials:
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
-      - SpecialId:
-          Value: 0
-        SpecialType:
-          Value: 0
-        InitialCooldown:
-          RawValue: 0
-        Cooldown:
-          RawValue: 0
-        Radius:
-          RawValue: 0
-        SpecialPower:
-          RawValue: 0
-        Speed:
-          RawValue: 0
-        MinRange:
-          RawValue: 0
-        MaxRange:
-          RawValue: 0
-        AvailableTime:
-          RawValue: 0
-        Charges: 0
-        Knockback: 0
       MagazineShotCount: 0
       MagazineSize: 0
       ReloadTime:
@@ -762,6 +628,64 @@ MonoBehaviour:
     _selection: PlayerCharacter
   _elements:
   - {fileID: 9100407106362044460}
+--- !u!114 &4338328958762609681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100407106362044460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33c813011c8e46458a3517eebf8ce99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Specials:
+    - SpecialId:
+        Value: 0
+      SpecialType:
+        Value: 0
+      InitialCooldown:
+        RawValue: 0
+      Cooldown:
+        RawValue: 0
+      Radius:
+        RawValue: 0
+      SpecialPower:
+        RawValue: 0
+      Speed:
+        RawValue: 0
+      MinRange:
+        RawValue: 0
+      MaxRange:
+        RawValue: 0
+      AvailableTime:
+        RawValue: 0
+      Charges: 0
+      Knockback: 0
+    - SpecialId:
+        Value: 0
+      SpecialType:
+        Value: 0
+      InitialCooldown:
+        RawValue: 0
+      Cooldown:
+        RawValue: 0
+      Radius:
+        RawValue: 0
+      SpecialPower:
+        RawValue: 0
+      Speed:
+        RawValue: 0
+      MinRange:
+        RawValue: 0
+      MaxRange:
+        RawValue: 0
+      AvailableTime:
+        RawValue: 0
+      Charges: 0
+      Knockback: 0
 --- !u!1001 &2810552878819034193
 PrefabInstance:
   m_ObjectHideFlags: 0

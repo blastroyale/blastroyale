@@ -25,13 +25,13 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 
 			// Between sending the command and receiving it, the player might have died due to the frame delay between Unity & Quantum
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter))
+			if (!f.Unsafe.TryGetPointer<PlayerInventory>(characterEntity, out var playerInventory))
 			{
 				return;
 			}
 
 			var aimInputProcessed = AimInput;
-			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
+			var special = playerInventory->Specials[SpecialIndex];
 			
 			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero && f.TryGet<Transform3D>(characterEntity, out var transform))
 			{
@@ -40,7 +40,7 @@ namespace Quantum.Commands
 			
 			if (special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex))
 			{
-				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
+				playerInventory->Specials[SpecialIndex] = special;
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace Quantum.Commands
 	{
 		public FPVector2 AimInput;
 		public int SpecialIndex;
-		
+
 		/// <inheritdoc />
 		public override void Serialize(BitStream stream)
 		{
@@ -32,16 +32,15 @@ namespace Quantum.Commands
 
 			var aimInputProcessed = AimInput;
 			var special = playerInventory->Specials[SpecialIndex];
-			
-			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero && f.TryGet<Transform3D>(characterEntity, out var transform))
+
+			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero &&
+				f.TryGet<Transform3D>(characterEntity, out var transform))
 			{
-				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
+				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized *
+					Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
 			}
-			
-			if (special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex))
-			{
-				playerInventory->Specials[SpecialIndex] = special;
-			}
+
+			special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex);
 		}
 	}
 }

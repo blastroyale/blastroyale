@@ -10,18 +10,19 @@ namespace Quantum
 	{
 		public bool IsAimable => MaxRange > FP._0;
 		public bool IsValid => SpecialId != GameId.Random;
-		
+
 		/// <summary>
 		/// Initializes this Special with all the necessary data
 		/// </summary>
 		public Special(Frame f, GameId specialId) : this()
 		{
 			var config = f.SpecialConfigs.GetConfig(specialId);
-			var specialsCooldownsMutatorExists = f.Context.TryGetMutatorByType(MutatorType.SpecialsCooldowns, out var specialsCooldownsMutatorConfig);
+			var specialsCooldownsMutatorExists = f.Context.TryGetMutatorByType(MutatorType.SpecialsCooldowns,
+				out var specialsCooldownsMutatorConfig);
 
 			SpecialId = specialId;
 			SpecialType = config.SpecialType;
-			Cooldown = specialsCooldownsMutatorExists?specialsCooldownsMutatorConfig.Param1:config.Cooldown;
+			Cooldown = specialsCooldownsMutatorExists ? specialsCooldownsMutatorConfig.Param1 : config.Cooldown;
 			Radius = config.Radius;
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
@@ -53,41 +54,46 @@ namespace Quantum
 			}
 
 			AvailableTime = f.Time + Cooldown;
-			// TODO Charges--;
-			
+			Charges--;
+
 			f.Signals.SpecialUsed(playerEntity, specialIndex);
 			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
 
+			var inventory = f.Unsafe.GetPointer<PlayerInventory>(playerEntity);
 			if (Charges == 0)
 			{
-				// TODO Trigger update signal
-				//f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->Specials[specialIndex] = default;
+				inventory->Specials[specialIndex] = default;
+				f.Events.OnLocalPlayerSpecialUpdated(playerRef, (uint) specialIndex, default);
 			}
-			
+			else
+			{
+				inventory->Specials[specialIndex] = this;
+			}
+
 			return true;
 		}
-		
+
 		private bool TryUse(Frame f, EntityRef entity, PlayerRef playerRef, FPVector2 aimInput)
 		{
 			switch (SpecialType)
-				{
-					case SpecialType.Airstrike:
-						return SpecialAirstrike.Use(f, entity, ref this, aimInput, MaxRange);
-					case SpecialType.ShieldSelfStatus:
-						return SpecialSelfStatusModifier.Use(f, entity, ref this );
-					case SpecialType.StunGrenade:
-						return SpecialStunGrenade.Use(f, entity, ref this , aimInput, MaxRange);
-					case SpecialType.HazardAimSpawn:
-						return SpecialHazardAimSpawn.Use(f, entity, ref this, aimInput, MaxRange);
-					case SpecialType.ShieldedCharge:
-						return SpecialShieldedCharge.Use(f, entity, ref this, aimInput, MaxRange);
-					case SpecialType.Grenade:
-						return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
-					case SpecialType.Radar:
-						return SpecialRadar.Use(f, entity, playerRef, ref this);
-					default:
-						return false;
-				}
+			{
+				case SpecialType.Airstrike:
+					return SpecialAirstrike.Use(f, entity, ref this, aimInput, MaxRange);
+				case SpecialType.ShieldSelfStatus:
+					return SpecialSelfStatusModifier.Use(f, entity, ref this);
+				case SpecialType.StunGrenade:
+					return SpecialStunGrenade.Use(f, entity, ref this, aimInput, MaxRange);
+				case SpecialType.HazardAimSpawn:
+					return SpecialHazardAimSpawn.Use(f, entity, ref this, aimInput, MaxRange);
+				case SpecialType.ShieldedCharge:
+					return SpecialShieldedCharge.Use(f, entity, ref this, aimInput, MaxRange);
+				case SpecialType.Grenade:
+					return SpecialGrenade.Use(f, entity, ref this, aimInput, MaxRange);
+				case SpecialType.Radar:
+					return SpecialRadar.Use(f, entity, playerRef, ref this);
+				default:
+					return false;
+			}
 		}
 	}
 }

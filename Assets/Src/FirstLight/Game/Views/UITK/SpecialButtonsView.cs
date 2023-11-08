@@ -1,4 +1,5 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -54,16 +55,30 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUsed>(OnLocalPlayerSpecialUsed);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(OnLocalPlayerSpecialUpdated);
+		}
+
+		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		{
+			switch (callback.SpecialIndex)
+			{
+				case 0:
+					UpdateSpecial(callback.Game.Frames.Verified, callback.Special, _special0Button);
+					break;
+				case 1:
+					UpdateSpecial(callback.Game.Frames.Verified, callback.Special, _special1Button);
+					break;
+			}
 		}
 
 		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		public void UpdateFromLatestVerifiedFrame()
 		{
-			var playerEntity = 	QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
+			var playerEntity = QuantumRunner.Default.Game.GetLocalPlayerEntityRef();
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var inventory = f.Get<PlayerInventory>(playerEntity);
 			UpdateSpecials(f, inventory);
@@ -82,23 +97,22 @@ namespace FirstLight.Game.Views.UITK
 			{
 				case 0:
 					// TODO: Callback to enable input
-					_special0Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
+					_special0Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
 				case 1:
 					// TODO: Callback to enable input
-					_special1Button.DisableFor((long)(1000L * callback.Special.Cooldown.AsFloat), null);
+					_special1Button.DisableFor((long) (1000L * callback.Special.Cooldown.AsFloat), null);
 					break;
 			}
 		}
 
-		private void UpdateSpecial(Frame f, PlayerInventory inventory, int slot, SpecialButtonElement button)
+		private void UpdateSpecial(Frame f, Special special, SpecialButtonElement button)
 		{
-			var special = inventory.Specials[slot];
 			if (special.IsValid)
 			{
 				button.SetVisibility(true);
 				button.SetSpecial(special.SpecialId, special.IsAimable,
-					Math.Max(0L, (long)(special.AvailableTime - f.Time).AsFloat * 1000L));
+					Math.Max(0L, (long) (special.AvailableTime - f.Time).AsFloat * 1000L));
 			}
 			else
 			{
@@ -115,9 +129,9 @@ namespace FirstLight.Game.Views.UITK
 				_special1Button.SetVisibility(false);
 				return;
 			}
-			
-			UpdateSpecial(f, inventory, 0, _special0Button);
-			UpdateSpecial(f, inventory, 1, _special1Button);
+
+			UpdateSpecial(f, inventory.Specials[0], _special0Button);
+			UpdateSpecial(f, inventory.Specials[1], _special1Button);
 		}
 	}
 }

@@ -12,9 +12,11 @@ namespace FirstLight.Game.Views
 {
 	public enum RewardState
 	{
-		Claimed, Claimable, NotReached
+		Claimed,
+		Claimable,
+		NotReached
 	}
-	
+
 	/// <summary>
 	/// This class manages the visual elements of battle pass segments on the battle pass screen
 	/// </summary>
@@ -24,6 +26,7 @@ namespace FirstLight.Game.Views
 		private const string UssClaimableButton = "reward__button-claimable";
 		private const string UssUnclaimedFree = "reward__button--unclaimed-free";
 		private const string UssUnclaimedPaid = "reward__button--unclaimed-paid";
+		private const string UssRootModifier = "reward__root--";
 		public event Action<BattlePassSegmentView> Clicked;
 		private VisualElement _rewardRoot;
 		private VisualElement _blocker;
@@ -37,7 +40,7 @@ namespace FirstLight.Game.Views
 		private AutoSizeLabel _type;
 		private ImageButton _button;
 		private VisualElement _lock;
-		
+
 		public BattlePassSegmentData SegmentData { get; private set; }
 		private IGameDataProvider _dataProvider;
 
@@ -59,22 +62,22 @@ namespace FirstLight.Game.Views
 			_button.clicked += () => Clicked?.Invoke(this);
 			_dataProvider = MainInstaller.ResolveData();
 		}
-		
+
 		private uint PointsRequired => _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) SegmentData.SegmentLevel);
 
 		public RewardState GetRewardState()
 		{
 			if (_dataProvider.BattlePassDataProvider.IsRewardClaimed(
-					SegmentData.LevelNeededToClaim, SegmentData.PassType)) 
+					SegmentData.LevelNeededToClaim, SegmentData.PassType))
 				return RewardState.Claimed;
-			
+
 			if (SegmentData.RewardConfig.GameId != GameId.Random && _dataProvider.BattlePassDataProvider.IsRewardClaimable(
-					SegmentData.LevelAfterClaiming, SegmentData.LevelNeededToClaim, SegmentData.PassType)) 
+					SegmentData.LevelAfterClaiming, SegmentData.LevelNeededToClaim, SegmentData.PassType))
 				return RewardState.Claimable;
-			
+
 			return RewardState.NotReached;
 		}
-		
+
 		/// <summary>
 		/// Sets the data needed to fill the segment visuals
 		/// </summary>
@@ -83,6 +86,8 @@ namespace FirstLight.Game.Views
 			SegmentData = data;
 			DrawIcon();
 			SetStatusVisuals();
+			_rewardRoot.RemoveModifiers();
+			_rewardRoot.AddToClassList(UssRootModifier + data.PassType.ToString().ToLowerInvariant());
 		}
 
 		private void SetStatusVisuals()
@@ -95,7 +100,7 @@ namespace FirstLight.Game.Views
 			_claimBubble.SetDisplay(state == RewardState.Claimable && !locked);
 			_blocker.SetDisplay(state == RewardState.Claimed || locked);
 			_claimedCheckmark.SetDisplay(state == RewardState.Claimed);
-			if(state == RewardState.Claimable) 	_button.AddToClassList(UssClaimableButton);
+			if (state == RewardState.Claimable) _button.AddToClassList(UssClaimableButton);
 			else if (SegmentData.PassType == PassType.Free) _button.AddToClassList(UssUnclaimedFree);
 			else if (SegmentData.PassType == PassType.Paid) _button.AddToClassList(UssUnclaimedPaid);
 		}
@@ -107,6 +112,7 @@ namespace FirstLight.Game.Views
 			{
 				return;
 			}
+
 			var item = ItemFactory.Legacy(new LegacyItemData()
 			{
 				RewardId = reward.GameId,
@@ -130,6 +136,5 @@ namespace FirstLight.Game.Views
 		public EquipmentRewardConfig RewardConfig;
 		public PassType PassType;
 		public uint LevelNeededToClaim => SegmentLevel + 1;
-
 	}
 }

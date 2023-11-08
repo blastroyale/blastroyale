@@ -8,6 +8,7 @@
     --sprite-shared__highlight-leaderboard-localplayer: url('/Assets/Art/UI/Sprites/Shared/highlight-leaderboard-localplayer.png');
     --sprite-shared__icon_edit: url('/Assets/Art/UI/Sprites/Shared/icon_edit.png');
     --sprite-shared__icon-back: url('/Assets/Art/UI/Sprites/Shared/icon-back.png');
+    --sprite-shared__icon-currency-blastbuck: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blastbuck.png');
     --sprite-shared__icon-currency-blst: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blst.png');
     --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
     --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
@@ -85,6 +86,12 @@
     background-image: var(--sprite-shared__icon-back);
     width: 63px;
     height: 75px;
+}
+
+.sprite-shared__icon-currency-blastbuck {
+    background-image: var(--sprite-shared__icon-currency-blastbuck);
+    width: 160px;
+    height: 160px;
 }
 
 .sprite-shared__icon-currency-blst {

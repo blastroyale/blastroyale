@@ -4,7 +4,6 @@
         <ui:VisualElement name="BarShadow" class="bar-shadow" />
         <ui:VisualElement name="CompletedBar" class="completed-bar">
             <ui:VisualElement name="BarShadow" class="completed-bar__shadow" />
-            <ui:VisualElement name="BarLight" class="completed-bar__light" />
         </ui:VisualElement>
         <ui:VisualElement name="BarLevel" class="bar__level">
             <ui:Label tabindex="-1" text="77" display-tooltip-when-elided="true" name="BarLevelLabel" enable-rich-text="true" class="bar__level__label" />

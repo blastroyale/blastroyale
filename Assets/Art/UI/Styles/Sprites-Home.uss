@@ -107,6 +107,7 @@
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
+    --sprite-home__icon-blasthub: url('/Assets/Art/UI/Sprites/Home/icon-blasthub.png');
     --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
@@ -778,6 +779,12 @@
     height: 88px;
 }
 
+.sprite-home__icon-blasthub {
+    background-image: var(--sprite-home__icon-blasthub);
+    width: 48px;
+    height: 48px;
+}
+
 .sprite-home__icon-characters {
     background-image: var(--sprite-home__icon-characters);
     width: 42px;
@@ -846,8 +853,8 @@
 
 .sprite-home__icon-discord {
     background-image: var(--sprite-home__icon-discord);
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 }
 
 .sprite-home__icon-durability {
@@ -900,8 +907,8 @@
 
 .sprite-home__icon-instagram {
     background-image: var(--sprite-home__icon-instagram);
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 }
 
 .sprite-home__icon-jetpack {
@@ -1026,14 +1033,14 @@
 
 .sprite-home__icon-tiktok {
     background-image: var(--sprite-home__icon-tiktok);
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 }
 
 .sprite-home__icon-youtube {
     background-image: var(--sprite-home__icon-youtube);
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 }
 
 .sprite-home__logo-blasthub {

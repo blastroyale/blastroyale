@@ -11,6 +11,7 @@
     --sprite-battlepass__level-reached: url('/Assets/Art/UI/Sprites/BattlePass/level-reached.png');
     --sprite-battlepass__level-unreached: url('/Assets/Art/UI/Sprites/BattlePass/level-unreached.png');
     --sprite-battlepass__pass-back: url('/Assets/Art/UI/Sprites/BattlePass/pass-back.png');
+    --sprite-battlepass__Rectangle 41: url('/Assets/Art/UI/Sprites/BattlePass/Rectangle 41.png');
     --sprite-battlepass__slot-claimed: url('/Assets/Art/UI/Sprites/BattlePass/slot-claimed.png');
     --sprite-battlepass__slot-free-unreached: url('/Assets/Art/UI/Sprites/BattlePass/slot-free-unreached.png');
     --sprite-battlepass__slot-premium-reached: url('/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png');
@@ -82,6 +83,12 @@
     background-image: var(--sprite-battlepass__pass-back);
     width: 315px;
     height: 330px;
+}
+
+.sprite-battlepass__Rectangle 41 {
+    background-image: var(--sprite-battlepass__Rectangle 41);
+    width: 318px;
+    height: 300px;
 }
 
 .sprite-battlepass__slot-claimed {

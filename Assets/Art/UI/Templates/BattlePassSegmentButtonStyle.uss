@@ -81,8 +81,8 @@
     background-image: url('project://database/Assets/Art/UI/Textures/battlepass-claimreward.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#battlepass-claimreward');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    width: 1000px; 
-    height: 1000px; 
+    width: 1000px;
+    height: 1000px;
     display: flex;
 }
 
@@ -104,7 +104,7 @@
     justify-content: center;
     bottom: 242px;
     position: absolute;
-    display: flex; 
+    display: flex;
     overflow: visible
 }
 
@@ -115,9 +115,9 @@
 .reward-holder__image {
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&amp;guid=200f11153aed542e3aeb0adb534ade89&amp;type=3#flag-demon'); 
-    width: 338px; 
-    height: 306px; 
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&amp;guid=200f11153aed542e3aeb0adb534ade89&amp;type=3#flag-demon');
+    width: 338px;
+    height: 306px;
     top: -167px;
 }
 
@@ -188,6 +188,13 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.reward__root--free {
+    scale: 0.8 0.8;
+}
+
+.reward__root--paid {
+}
+
 .reward__button-premium {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-unreached.png?fileID=21300000&guid=e8ebf9155fe754c088e68a1c3533b81e&type=3#slot-premium-unreached');
 }
@@ -204,21 +211,15 @@
 
 .bar__level {
     flex-grow: 0;
-    background-color: rgb(13, 239, 249);
+    background-color: rgb(126, 250, 213);
     height: 70px;
     width: 70px;
     margin-top: 0;
     margin-bottom: 0;
     background-image: none;
     -unity-background-scale-mode: stretch-to-fill;
-    border-left-color: rgb(36, 121, 128);
-    border-right-color: rgb(36, 121, 128);
-    border-top-color: rgb(36, 121, 128);
-    border-bottom-color: rgb(36, 121, 128);
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-top-width: 3px;
-    border-bottom-width: 3px;
+    border-color: rgb(98, 204, 202);
+    border-width: 4px;
     border-top-left-radius: 35px;
     border-bottom-left-radius: 35px;
     border-top-right-radius: 35px;
@@ -246,7 +247,7 @@
 
 .completed-bar {
     flex-grow: 0;
-    background-color: rgb(0, 238, 255);
+    background-color: rgb(126, 250, 213);
     height: 100%;
     width: 100%;
     margin-top: 0;
@@ -277,8 +278,8 @@
 
 .completed-bar__shadow {
     flex-grow: 0;
-    background-color: rgb(31, 90, 94);
-    height: 20%;
+    background-color: rgb(77, 182, 180);
+    height: 8px;
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
@@ -305,41 +306,11 @@
     bottom: 2px;
 }
 
-.completed-bar__light {
-    flex-grow: 0;
-    background-color: rgb(193, 242, 245);
-    height: 20%;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-image: none;
-    -unity-background-scale-mode: stretch-to-fill;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    left: auto;
-    align-items: auto;
-    min-height: 20%;
-    margin-left: 0;
-    margin-right: 0;
-    position: absolute;
-    bottom: auto;
-    top: 3px;
-}
 
 .bar-shadow {
     flex-grow: 0;
-    background-color: rgb(7, 21, 22);
-    height: 20%;
+    background-color: rgb(35, 33, 54);
+    height: 8px;
     width: 459px;
     margin-top: 0;
     margin-bottom: 0;
@@ -368,21 +339,18 @@
 
 .segment-levelbar {
     flex-grow: 0;
-    background-color: rgb(27, 61, 63);
-    height: 60px;
+    background-color: rgb(26, 26, 44);
+    height: 26px;
     width: 475px;
     margin-top: 0;
     margin-bottom: 0;
     background-image: none;
     -unity-background-scale-mode: stretch-to-fill;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-color: rgb(35, 33, 54);
     border-left-width: 0;
     border-right-width: 0;
-    border-top-width: 5px;
-    border-bottom-width: 5px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
@@ -400,11 +368,8 @@
 }
 
 .bar__level--gray {
-    background-color: rgb(183, 183, 183);
-    border-left-color: rgb(87, 87, 87);
-    border-right-color: rgb(87, 87, 87);
-    border-top-color: rgb(87, 87, 87);
-    border-bottom-color: rgb(87, 87, 87);
+    background-color: rgb(48, 46, 70);
+    border-color: rgb(26, 26, 44);
 }
 
 .reward__lock {

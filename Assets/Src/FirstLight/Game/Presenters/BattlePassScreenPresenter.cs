@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 		private Button _activateButton;
 		private ImageButton _fullScreenClaimButton;
 		private Label _bppProgressLabel;
-		private Label _currentLevelLabel;
+		private Label _seasonNumber;
 		private Label _nextLevelValueLabel;
 		private Label _timeLeftLabel;
 		private LocalizedLabel _seasonEndsLabel;
@@ -80,8 +80,8 @@ namespace FirstLight.Game.Presenters
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
 			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
 			_fullScreenClaimButton = root.Q<ImageButton>("FullScreenClaim").Required();
-			_currentLevelLabel = root.Q<Label>("CurrentLevelValue").Required();
-			_nextLevelValueLabel = root.Q<Label>("NextLevelValue").Required();
+			_nextLevelValueLabel = root.Q<Label>("NextLevelLabel").Required();
+			_seasonNumber = root.Q<Label>("SeasonNumber").Required();
 			_bppProgressLabel = root.Q<Label>("BppProgressLabel").Required();
 			_bppProgressBackground = root.Q("BppBackground").Required();
 			_bppProgressFill = root.Q("BppProgress").Required();
@@ -93,8 +93,7 @@ namespace FirstLight.Game.Presenters
 			_activateButton = root.Q<Button>("ActivateButton").Required();
 			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
-			root.Q<CurrencyDisplayElement>("CSCurrency").AttachView(this, out CurrencyDisplayView _);
-			root.Q<CurrencyDisplayElement>("CoinCurrency").AttachView(this, out CurrencyDisplayView _);
+			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
@@ -170,7 +169,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var duration = endsAt - now;
 				_seasonEndsLabel.text = "SEASON ENDS IN ";
-				_timeLeftLabel.text = duration.ToDayAndHours().ToUpperInvariant();
+				_timeLeftLabel.text = duration.ToDayAndHours(true);
 				_seasonEndsLabel.SetVisibility(true);
 				_timeLeftLabel.SetVisibility(true);
 			}
@@ -224,17 +223,12 @@ namespace FirstLight.Game.Presenters
 			var predictedMaxProgress =
 				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedProgress.Item1);
 			_bppProgressLabel.text = predictedProgress.Item2 + "/" + predictedMaxProgress;
-			_currentLevelLabel.text = (predictedProgress.Item1 + 1).ToString();
-			_nextLevelValueLabel.text = (predictedProgress.Item1 + 2).ToString();
+			_nextLevelValueLabel.text = (predictedProgress.Item1 + 1).ToString();
 			float pctCurrentLevel = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.flexGrow = pctCurrentLevel;
-			if (predictedProgress.Item1 >= _dataProvider.BattlePassDataProvider.MaxLevel)
-			{
-				_currentLevelLabel.text = _bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
-			}
 
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number,
-				battlePassConfig.Season.Number));
+			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
+				battlePassConfig.Season.Number);
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{

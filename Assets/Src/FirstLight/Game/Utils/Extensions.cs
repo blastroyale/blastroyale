@@ -220,16 +220,18 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Formats a string in seconds to Hours and Minutes and Seconds.
+		/// Formats a string in seconds to Days and Hours.
 		/// </summary>
-		public static string ToDayAndHours(this TimeSpan ts)
+		public static string ToDayAndHours(this TimeSpan ts, bool simplified = false)
 		{
 			if (ts.Days > 0)
 			{
-				return string.Format("{0} days and {1} hours", ts.Days.ToString(), ts.Hours.ToString());
+				return simplified
+					? $"{ts.Days.ToString()}d {ts.Hours.ToString()}h"
+					: $"{ts.Days.ToString()} days and {ts.Hours.ToString()} hours";
 			}
 
-			return string.Format("{0} hours", ts.Hours.ToString());
+			return ts.Hours + (simplified ? "h" : " hours");
 		}
 
 		/// <summary>

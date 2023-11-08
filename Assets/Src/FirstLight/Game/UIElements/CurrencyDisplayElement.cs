@@ -84,7 +84,7 @@ namespace FirstLight.Game.UIElements
 			var amount = _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(currency);
 			
 			// We always Display coins and show other currencies only if the amount is positive
-			this.SetDisplay(currency == GameId.COIN || amount > 0);
+			//this.SetDisplay(currency == GameId.COIN || amount > 0);
 			_label.text = amount.ToString();
 		}
 

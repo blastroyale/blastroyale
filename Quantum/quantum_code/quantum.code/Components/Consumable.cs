@@ -9,23 +9,28 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Consumable with all the necessary data
 		/// </summary>
-		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, ref QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
+		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
+						   ref QuantumConsumableConfig config, EntityRef spawner, FPVector3 originPos)
 		{
-			var collectable = new Collectable {GameId = config.Id, PickupRadius = config.CollectableConsumablePickupRadius, AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION};
+			var collectable = new Collectable
+			{
+				GameId = config.Id, PickupRadius = config.CollectableConsumablePickupRadius,
+				AllowedToPickupTime = f.Time + Constants.CONSUMABLE_POPOUT_DURATION
+			};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			
+
 			ConsumableType = config.ConsumableType;
 			Amount = config.Amount.Get(f);
 			CollectTime = config.ConsumableCollectTime.Get(f);
 
 			collectable.Spawner = spawner;
 			collectable.OriginPosition = originPos;
-			
+
 			transform->Position = position;
 			transform->Rotation = rotation;
-			
+
 			f.Add(e, collectable);
-			
+
 			var collider = f.Unsafe.GetPointer<PhysicsCollider3D>(e);
 			collider->Shape.Sphere.Radius = config.CollectableConsumablePickupRadius;
 		}
@@ -61,18 +66,22 @@ namespace Quantum
 				case ConsumableType.Energy:
 					playerChar->GainEnergy(f, playerEntity, Amount.AsInt);
 					break;
+				case ConsumableType.Special:
+					f.Unsafe.GetPointer<PlayerInventory>(playerEntity)->TryAddSpecial(f, player,
+						new Special(f, f.Unsafe.GetPointer<Collectable>(entity)->GameId));
+					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-			
+
 			if (isTeamsMode && f.Context.TryGetMutatorByType(MutatorType.ConsumablesSharing, out _))
 			{
 				ShareCollectWithTeammates(f, playerEntity, team);
 			}
-			
+
 			f.Events.OnConsumableCollected(entity, player, playerEntity);
 		}
-		
+
 		private void ShareCollectWithTeammates(Frame f, EntityRef playerEntity, int team)
 		{
 			// Rage and ShieldsCapacity are not shared with teammates
@@ -80,7 +89,7 @@ namespace Quantum
 			{
 				return;
 			}
-			
+
 			foreach (var teammateCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
 				if (teammateCandidate.Entity != playerEntity &&

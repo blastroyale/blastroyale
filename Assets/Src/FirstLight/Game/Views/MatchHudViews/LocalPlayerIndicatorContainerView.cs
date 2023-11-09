@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			for (var i = 0; i < inventory.Specials.Length; i++)
 			{
-				SetupIndicator(i, inventory.Specials[i].SpecialId, _playerView);
+				SetupIndicator(i, inventory.Specials[i].SpecialId);
 			}
 		}
 
@@ -223,7 +223,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups the indicator configs for the specials
 		/// </summary>
-		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
+		public void SetupIndicator(int index, GameId specialId)
 		{
 			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var config);
 			if (_specialIndicators[index] != null)
@@ -241,10 +241,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 					.GetComponent<RangeIndicatorMonoComponent>();
 			}
 
-			_specialRadiusIndicators[index].Init(playerView);
+			_specialRadiusIndicators[index].Init(_playerView);
 			_specialRadiusIndicators[index].SetVisualProperties(config.MaxRange.AsFloat,
 				config.MaxRange.AsFloat, config.MaxRange.AsFloat);
-			_specialIndicators[index].Init(playerView);
+			_specialIndicators[index].Init(_playerView);
 
 			_specialIndicators[index].SetVisualProperties(
 				config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,

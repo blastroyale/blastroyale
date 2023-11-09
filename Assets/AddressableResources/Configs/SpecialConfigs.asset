@@ -24,7 +24,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 229376
       SpecialPower:
@@ -42,7 +42,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 98304
       SpecialPower:
@@ -60,7 +60,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 0
       SpecialPower:
@@ -78,7 +78,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 114688
       SpecialPower:
@@ -96,7 +96,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 0
       SpecialPower:
@@ -114,7 +114,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 180224
       SpecialPower:
@@ -132,7 +132,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 0
       SpecialPower:
@@ -150,7 +150,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 2621440
       SpecialPower:
@@ -168,7 +168,7 @@ MonoBehaviour:
       Cooldown:
         RawValue: 196608
       InitialCooldown:
-        RawValue: 196608
+        RawValue: 0
       Radius:
         RawValue: 180224
       SpecialPower:

@@ -191,6 +191,15 @@
     display: none;
 }
 
+.player-status-bar__notification--special {
+    color: rgb(255, 255, 255);
+    left: 70px;
+}
+
+.player-status-bar__notification--special > .player-status-bar__notification-icon {
+    display: none;
+}
+
 .player-status-bar__icon {
     width: 15px;
     height: 15px;

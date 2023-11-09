@@ -37,6 +37,7 @@ namespace FirstLight.Game.Services
 
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDied);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpecialUpdated>(this, OnLocalPlayerSpecialUpdated);
 		}
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
@@ -117,6 +118,11 @@ namespace FirstLight.Game.Services
 			}
 
 			InitializeLocalPlayer(callback.Game);
+		}
+		
+		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
+		{
+			_indicatorContainerView.SetupIndicator((int) callback.SpecialIndex, callback.Special.SpecialId);
 		}
 
 		private void OnSpecial0(InputAction.CallbackContext c)

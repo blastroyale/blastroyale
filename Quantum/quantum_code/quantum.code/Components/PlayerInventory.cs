@@ -18,5 +18,18 @@ namespace Quantum
 
 			return false;
 		}
+
+		public bool HasSpaceForSpecial()
+		{
+			for (var i = 0; i < Specials.Length; i++)
+			{
+				if (!Specials[i].IsValid)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }

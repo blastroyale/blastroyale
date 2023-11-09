@@ -129,12 +129,6 @@ namespace Quantum
 				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
-			else
-			{
-				// TODO mihak: Temporary for testing
-				pi->Specials[0] = new Special(f, GameId.SpecialDefaultDash);
-				pi->Specials[1] = new Special(f, GameId.SpecialAimingGrenade);
-			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);

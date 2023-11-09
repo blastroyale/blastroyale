@@ -1463,6 +1463,7 @@ namespace I2.Loc
 		{
 			public static string airdrop_landing 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/airdrop_landing"); } }
 			public static string area_shrinking 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/area_shrinking"); } }
+			public static string full 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/full"); } }
 			public static string go_to_safe_area 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/go_to_safe_area"); } }
 			public static string lvl_up 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/lvl_up"); } }
 			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/max"); } }
@@ -3137,6 +3138,7 @@ namespace I2.Loc
 		{
 		    public const string airdrop_landing = "UITMatch/airdrop_landing";
 		    public const string area_shrinking = "UITMatch/area_shrinking";
+		    public const string full = "UITMatch/full";
 		    public const string go_to_safe_area = "UITMatch/go_to_safe_area";
 		    public const string lvl_up = "UITMatch/lvl_up";
 		    public const string max = "UITMatch/max";

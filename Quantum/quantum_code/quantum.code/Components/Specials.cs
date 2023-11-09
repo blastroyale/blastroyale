@@ -95,5 +95,20 @@ namespace Quantum
 					return false;
 			}
 		}
+
+		public static GameId GetRandomSpecialId(Frame f)
+		{
+			return f.RNG->Next(0, 7) switch
+			{
+				0 => GameId.SpecialRadar,
+				1 => GameId.SpecialAimingGrenade,
+				2 => GameId.SpecialDefaultDash,
+				3 => GameId.SpecialShieldedCharge,
+				4 => GameId.SpecialShieldSelf,
+				5 => GameId.SpecialAimingStunGrenade,
+				6 => GameId.SpecialSkyLaserBeam,
+				_ => throw new Exception("Shouldn't happen")
+			};
+		}
 	}
 }

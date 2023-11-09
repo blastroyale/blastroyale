@@ -95,9 +95,15 @@ namespace FirstLight.Game.Views
 			var state = GetRewardState();
 			var locked = SegmentData.PassType == PassType.Paid && !_dataProvider.BattlePassDataProvider.HasPurchasedSeason();
 			_lock.SetDisplay(locked);
-			_readyToClaimOutline.SetDisplay(state == RewardState.Claimable && !locked);
-			_readyToClaimShine.SetDisplay(state == RewardState.Claimable && !locked);
-			_claimBubble.SetDisplay(state == RewardState.Claimable && !locked);
+			var isClaimable = state == RewardState.Claimable && !locked;
+			_readyToClaimOutline.SetDisplay(isClaimable);
+			_readyToClaimShine.SetDisplay(isClaimable);
+			_claimBubble.SetDisplay(isClaimable);
+			if (isClaimable)
+			{
+				_readyToClaimShine.AddRotatingEffect(1,10);
+				_claimBubble.AnimatePing(1.5f, 500, true);
+			}
 			_blocker.SetDisplay(state == RewardState.Claimed || locked);
 			_claimedCheckmark.SetDisplay(state == RewardState.Claimed);
 			if (state == RewardState.Claimable) _button.AddToClassList(UssClaimableButton);

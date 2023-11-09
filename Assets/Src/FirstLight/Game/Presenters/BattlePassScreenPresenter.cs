@@ -95,6 +95,7 @@ namespace FirstLight.Game.Presenters
 			_activateButton = root.Q<Button>("ActivateButton").Required();
 			_timeLeftLabel = root.Q<Label>("TimeLeftLabel").Required();
 			_seasonEndsLabel = root.Q<LocalizedLabel>("SeasonEndsLabel").Required();
+			root.Q("LastRewardBalloon").RegisterCallback<PointerDownEvent>(e => OnClickLastRewardIcon());
 			root.Q<CurrencyDisplayElement>("BBCurrency").AttachView(this, out CurrencyDisplayView _);
 
 			_screenHeader.backClicked += Data.BackClicked;
@@ -104,7 +105,8 @@ namespace FirstLight.Game.Presenters
 			_activateButton.clicked += ActivateClicked;
 
 			_fullScreenClaimButton.SetDisplay(false);
-
+			root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
+			root.Q("RewardShineYellow").Required().AddRotatingEffect(5, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
 		}
 		
@@ -118,6 +120,11 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 			InitScreenAndSegments();
 			FixSafeZone();
+		}
+
+		private void OnClickLastRewardIcon()
+		{
+			this.ScrollToBpLevel((int)_dataProvider.BattlePassDataProvider.MaxLevel, 1000);
 		}
 
 		private void FixSafeZone()
@@ -310,7 +317,8 @@ namespace FirstLight.Game.Presenters
 
 		private void ScrollToBpLevel(int index, int durationMs)
 		{
-			var targetX = ((index + 1) * BpSegmentWidth) - BpSegmentWidth;
+			if (index >= _dataProvider.BattlePassDataProvider.MaxLevel) index = (int)_dataProvider.BattlePassDataProvider.MaxLevel - 1;
+			var targetX = ((index + 1) * BpSegmentWidth) - (BpSegmentWidth * 3);
 			_rewardsScroll.experimental.animation.Start(0, 1f, durationMs, (element, percent) =>
 			{
 				var scrollView = (ScrollView) element;

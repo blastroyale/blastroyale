@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
-        <ui:VisualElement name="SeasonContent" class="season-content" >
+        <ui:VisualElement name="SeasonContent" class="season-content">
             <ui:VisualElement picking-mode="Ignore" name="HalfOpacity" class="bottom-bar-opacity" />
             <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
                 <ui:VisualElement name="BpRows" class="bp-rows">
@@ -12,18 +12,18 @@
                 </ui:VisualElement>
             </ui:ScrollView>
             <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">
-                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow"  />
-                <ui:VisualElement name="PaidContainerBorder" class="paid-container-border"  />
+                <ui:VisualElement name="PaidContainerShadow" class="paid-container-shadow" />
+                <ui:VisualElement name="PaidContainerBorder" class="paid-container-border" />
                 <ui:VisualElement name="PaidContainer" class="paid-container">
                     <ui:VisualElement name="IconBackground" class="paid-icon-background">
                         <ui:VisualElement name="PassIcon" class="paid-pass-icon" />
-                        <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title"/>
+                        <ui:Label tabindex="-1" text="PREMIUM&#10;&lt;size=32&gt;PASS&lt;/size&gt;" display-tooltip-when-elided="true" name="PremiumTitle" class="premium-title" />
                         <ui:VisualElement name="PremiumLock" class="premium-lock" />
                     </ui:VisualElement>
                     <ui:Button text="ACTIVATE" display-tooltip-when-elided="true" name="ActivateButton" class="activate-button" />
                 </ui:VisualElement>
-                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow"  />
-                <ui:VisualElement name="FreeContainerBorder" class="free-container-border"  />
+                <ui:VisualElement name="FreeContainerShadow" class="free-container-shadow" />
+                <ui:VisualElement name="FreeContainerBorder" class="free-container-border" />
                 <ui:VisualElement name="FreeContainer" class="free-container">
                     <ui:VisualElement name="IconBackground" class="free-icon-background">
                         <ui:VisualElement name="PassIcon" class="free-pass-icon" />
@@ -33,6 +33,13 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="sfx-click-forwards claim-button button-long button-long--yellow anim-delay-0 anim-translate anim-translate--up-s" />
             <FirstLight.Game.UIElements.ImageButton name="FullScreenClaim" class="fullscreen-claim" />
+            <ui:VisualElement name="LastRewardBalloon" tabindex="5" class="last-reward-widget">
+                <ui:VisualElement name="LastRewardContainer" class="last-reward-container">
+                    <ui:VisualElement name="LastRewardSprite" class="last-reward-sprite" />
+                    <ui:VisualElement name="RewardShineBlue" class="reward-shine-blue" />
+                    <ui:VisualElement name="RewardShineYellow" class="reward-shine-yellow" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />

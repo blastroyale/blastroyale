@@ -64,7 +64,7 @@
     justify-content: flex-end;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     display: flex;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/header.png?fileID=21300000&amp;guid=2eb3dec7717e891448c766eef3c6ebc9&amp;type=3#header');
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/header.png?fileID=21300000&guid=2eb3dec7717e891448c766eef3c6ebc9&type=3#header');
     -unity-background-scale-mode: scale-and-crop;
 }
 
@@ -124,7 +124,6 @@
     -unity-text-align: upper-center;
 }
 
-
 .bpp-bar {
     align-items: flex-start;
     justify-content: center;
@@ -174,7 +173,7 @@
 
 .bpp-bar__arrow {
     flex-grow: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/arrow.png?fileID=2800000&amp;guid=9701a4b122d774f5abadb31755ff50ee&amp;type=3#arrow');
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/arrow.png?fileID=21300000&guid=9701a4b122d774f5abadb31755ff50ee&type=3#arrow');
     width: 52px;
     height: 52px;
     -unity-background-scale-mode: scale-to-fit;
@@ -812,7 +811,6 @@
     min-height: auto;
 }
 
-
 .completed-bar__shadow {
     flex-grow: 0;
     background-color: rgb(77, 182, 180);
@@ -843,4 +841,57 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+}
+
+.last-reward-widget {
+    flex-grow: 1;
+    width: 260px;
+    height: 200px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/cloud-final-reward.png?fileID=21300000&guid=f4015771d7e0942cead63273bd529e44&type=3#cloud-final-reward');
+    position: absolute;
+    right: 0;
+    top: 20px;
+    overflow: hidden;
+}
+
+.last-reward-container {
+    flex-grow: 1;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 193px;
+    background-image: none;
+}
+
+.last-reward-sprite {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/AssassinMale/character-maleassassin.png?fileID=21300000&guid=0f98b04066aac0445be253c05eaec55e&type=3#character-maleassassin');
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    width: 256px;
+    height: 232px;
+    top: 11px;
+    left: 6px;
+}
+
+.reward-shine-yellow {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    height: 58px;
+    width: 65px;
+    position: absolute;
+    top: -2px;
+    left: 165px;
+    -unity-background-image-tint-color: rgb(249, 186, 45);
+}
+
+.reward-shine-blue {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Match/icon-star.png?fileID=21300000&guid=9abc186c83592ff419ca692f8c9f531b&type=3#icon-star');
+    height: 58px;
+    width: 65px;
+    position: absolute;
+    top: 140px;
+    left: 15px;
+    -unity-background-image-tint-color: rgb(86, 164, 244);
 }

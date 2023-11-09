@@ -173,13 +173,13 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
-    --sprite-home__reward_blastbucks_1: url('/Assets/Art/UI/Sprites/Home/reward_blastbucks_1.png');
-    --sprite-home__reward_blastbucks_2: url('/Assets/Art/UI/Sprites/Home/reward_blastbucks_2.png');
-    --sprite-home__reward_blastbucks_3: url('/Assets/Art/UI/Sprites/Home/reward_blastbucks_3.png');
-    --sprite-home__reward_coins_1: url('/Assets/Art/UI/Sprites/Home/reward_coins_1.png');
-    --sprite-home__reward_coins_2: url('/Assets/Art/UI/Sprites/Home/reward_coins_2.png');
-    --sprite-home__reward_coins_3: url('/Assets/Art/UI/Sprites/Home/reward_coins_3.png');
+    --sprite-home__reward-blastbuck: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck.png');
+    --sprite-home__reward-blastbuck2: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck2.png');
+    --sprite-home__reward-blastbuck3: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck3.png');
     --sprite-home__reward-bpp: url('/Assets/Art/UI/Sprites/Home/reward-bpp.png');
+    --sprite-home__reward-coin: url('/Assets/Art/UI/Sprites/Home/reward-coin.png');
+    --sprite-home__reward-coin2: url('/Assets/Art/UI/Sprites/Home/reward-coin2.png');
+    --sprite-home__reward-coin3: url('/Assets/Art/UI/Sprites/Home/reward-coin3.png');
     --sprite-home__reward-cs: url('/Assets/Art/UI/Sprites/Home/reward-cs.png');
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
@@ -1184,44 +1184,44 @@
     height: 14px;
 }
 
-.sprite-home__reward_blastbucks_1 {
-    background-image: var(--sprite-home__reward_blastbucks_1);
+.sprite-home__reward-blastbuck {
+    background-image: var(--sprite-home__reward-blastbuck);
     width: 512px;
     height: 512px;
 }
 
-.sprite-home__reward_blastbucks_2 {
-    background-image: var(--sprite-home__reward_blastbucks_2);
+.sprite-home__reward-blastbuck2 {
+    background-image: var(--sprite-home__reward-blastbuck2);
     width: 512px;
     height: 512px;
 }
 
-.sprite-home__reward_blastbucks_3 {
-    background-image: var(--sprite-home__reward_blastbucks_3);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward_coins_1 {
-    background-image: var(--sprite-home__reward_coins_1);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward_coins_2 {
-    background-image: var(--sprite-home__reward_coins_2);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward_coins_3 {
-    background-image: var(--sprite-home__reward_coins_3);
+.sprite-home__reward-blastbuck3 {
+    background-image: var(--sprite-home__reward-blastbuck3);
     width: 512px;
     height: 512px;
 }
 
 .sprite-home__reward-bpp {
     background-image: var(--sprite-home__reward-bpp);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__reward-coin {
+    background-image: var(--sprite-home__reward-coin);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__reward-coin2 {
+    background-image: var(--sprite-home__reward-coin2);
+    width: 512px;
+    height: 512px;
+}
+
+.sprite-home__reward-coin3 {
+    background-image: var(--sprite-home__reward-coin3);
     width: 512px;
     height: 512px;
 }

@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using I2.Loc;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -16,8 +17,9 @@ namespace FirstLight.Game.Data.DataTypes
 		public uint Amount => _amount;
 		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
 		public string Description => $"X {_amount}";
-		
-		public string ItemTypeDisplayName => GameIdGroup.Currency.ToString();
+
+
+		public string ItemTypeDisplayName => GameIdGroup.Currency.GetGameIdGroupLocalization();
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore

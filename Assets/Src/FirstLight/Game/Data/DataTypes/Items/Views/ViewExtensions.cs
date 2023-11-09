@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
 
@@ -9,15 +10,7 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public static string GetCollectionCategoryDisplayName(this CollectionCategory category)
 		{
-			return category.Id switch
-			{
-				GameIdGroup.Glider         => ScriptLocalization.UITCollectionScreen.gliders,
-				GameIdGroup.PlayerSkin     => ScriptLocalization.UITCollectionScreen.characters,
-				GameIdGroup.DeathMarker    => ScriptLocalization.UITCollectionScreen.banners,
-				GameIdGroup.MeleeSkin      => ScriptLocalization.UITCollectionScreen.meleeskins,
-				GameIdGroup.ProfilePicture => ScriptLocalization.UITCollectionScreen.avatars,
-				_                          => category.Id.ToString()
-			};
+			return category.Id.GetGameIdGroupLocalization();
 		}
 
 		/// <summary>

@@ -61,6 +61,15 @@ namespace FirstLight.Game.Utils
 
 			return LocalizationManager.GetTranslation(key);
 		}
+		
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetGameIdGroupLocalization(this GameIdGroup id)
+		{
+			var key = id.GetLocalizationKey();
+			return LocalizationManager.GetTranslation(key);
+		}
 
 		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/> + Description;
@@ -102,6 +111,14 @@ namespace FirstLight.Game.Utils
 		public static string GetLocalizationKey(this GameId id)
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
+		}
+		
+		/// <summary>
+		/// Gets the translation term of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetLocalizationKey(this GameIdGroup id)
+		{
+			return $"{nameof(ScriptTerms.GameIdGroups)}/{id.ToString()}";
 		}
 
 		/// <summary>

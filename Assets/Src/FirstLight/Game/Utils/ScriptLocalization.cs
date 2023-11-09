@@ -403,6 +403,19 @@ namespace I2.Loc
 			public static string Welcome 		{ get{ return LocalizationManager.GetTranslation ("FTUE/Welcome"); } }
 		}
 
+		public static class GameIdGroups
+		{
+			public static string Collection 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/Collection"); } }
+			public static string Core 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/Core"); } }
+			public static string Currency 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/Currency"); } }
+			public static string DeathMarker 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/DeathMarker"); } }
+			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/Equipment"); } }
+			public static string Glider 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/Glider"); } }
+			public static string MeleeSkin 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/MeleeSkin"); } }
+			public static string PlayerSkin 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/PlayerSkin"); } }
+			public static string ProfilePicture 		{ get{ return LocalizationManager.GetTranslation ("GameIdGroups/ProfilePicture"); } }
+		}
+
 		public static class GameIds
 		{
 			public static string Adventure 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Adventure"); } }
@@ -1496,6 +1509,7 @@ namespace I2.Loc
 
 		public static class UITSettings
 		{
+			public static string InvertSpecialCancel 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/InvertSpecialCancel"); } }
 			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
 			public static string account_deleted_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_title"); } }
 			public static string account_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_title"); } }
@@ -2061,6 +2075,19 @@ namespace I2.Loc
 		    public const string UseJoystick = "FTUE/UseJoystick";
 		    public const string UseSpecial = "FTUE/UseSpecial";
 		    public const string Welcome = "FTUE/Welcome";
+		}
+
+		public static class GameIdGroups
+		{
+		    public const string Collection = "GameIdGroups/Collection";
+		    public const string Core = "GameIdGroups/Core";
+		    public const string Currency = "GameIdGroups/Currency";
+		    public const string DeathMarker = "GameIdGroups/DeathMarker";
+		    public const string Equipment = "GameIdGroups/Equipment";
+		    public const string Glider = "GameIdGroups/Glider";
+		    public const string MeleeSkin = "GameIdGroups/MeleeSkin";
+		    public const string PlayerSkin = "GameIdGroups/PlayerSkin";
+		    public const string ProfilePicture = "GameIdGroups/ProfilePicture";
 		}
 
 		public static class GameIds
@@ -3156,6 +3183,7 @@ namespace I2.Loc
 
 		public static class UITSettings
 		{
+		    public const string InvertSpecialCancel = "UITSettings/InvertSpecialCancel";
 		    public const string account_deleted_desc = "UITSettings/account_deleted_desc";
 		    public const string account_deleted_title = "UITSettings/account_deleted_title";
 		    public const string account_title = "UITSettings/account_title";

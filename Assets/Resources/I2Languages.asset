@@ -4943,9 +4943,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DEMON
-      - Demon Flag
-      - Demon Flag
+      - Evil Flag
+      - Evil Flag
+      - Bandeira do Tinhoso
       - 
       - 
       Flags: 0000000000
@@ -7827,6 +7827,105 @@ MonoBehaviour:
       - BLAST BUCKS
       - BLAST BUCKS
       - BLAST BUCKS
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - Equipment
+      - Equipamento
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/PlayerSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Skin
+      - Skin
+      - Skin
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Glider
+      TermType: 0
+      Description: 
+      Languages:
+      - Glider
+      - Glider
+      - Paraglider
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/DeathMarker
+      TermType: 0
+      Description: 
+      Languages:
+      - Death Flag
+      - Death Flag
+      - Bandeira de Morte
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/MeleeSkin
+      TermType: 0
+      Description: 
+      Languages:
+      - Melee Skin
+      - Melee Skin
+      - Skin de Arma Branca
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/ProfilePicture
+      TermType: 0
+      Description: 
+      Languages:
+      - Profile Picture
+      - Profile Picture
+      - Imagem de Perfil
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Currency
+      TermType: 0
+      Description: 
+      Languages:
+      - Currency
+      - Currency
+      - Moeda
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Collection
+      TermType: 0
+      Description: 
+      Languages:
+      - Collection Item
+      - Collection Item
+      - Item de Colecao
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: GameIdGroups/Core
+      TermType: 0
+      Description: 
+      Languages:
+      - Core
+      - Core
+      - Core
       - 
       - 
       Flags: 0000000000
@@ -16696,6 +16795,17 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UITSettings/InvertSpecialCancel
+      TermType: 0
+      Description: 
+      Languages:
+      - Invert Special Cancelling
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: UITInbox/inbox_community
       TermType: 0
       Description: 
@@ -17817,7 +17927,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1698148843226
+    Google_LastUpdatedVersion: 1699450553782
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

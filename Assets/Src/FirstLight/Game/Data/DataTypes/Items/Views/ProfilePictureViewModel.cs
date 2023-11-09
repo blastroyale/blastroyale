@@ -16,7 +16,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public GameId GameId { get; }
 		public uint Amount => 1;
 		public string DisplayName { get; }
-		public string ItemTypeDisplayName => GameIdGroup.ProfilePicture.ToString();
+		public string ItemTypeDisplayName => GameIdGroup.ProfilePicture.GetGameIdGroupLocalization();
 		public string Description => null;
 		
 		public VisualElement ItemCard => new ProfilePictureRewardSummaryItemElement()

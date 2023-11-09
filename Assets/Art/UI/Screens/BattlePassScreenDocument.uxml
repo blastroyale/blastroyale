@@ -3,12 +3,9 @@
     <Style src="project://database/Assets/Art/UI/Styles/ProfilePictures.uss?fileID=7433441132597879392&amp;guid=9c709a527dcc84effb4acf8d96656258&amp;type=3#ProfilePictures" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
-            <ui:VisualElement picking-mode="Ignore" name="HalfOpacity" class="bottom-bar-opacity" />
-            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
-                <ui:VisualElement name="BpRows" class="bp-rows">
-                    <ui:VisualElement name="UpperRow" class="upper-row" />
-                    <ui:VisualElement name="LevelBar" class="level-bar" />
-                    <ui:VisualElement name="BottomRow" class="bottom-row" />
+            <ui:VisualElement picking-mode="Ignore" name="Opacity" class="bottom-bar-opacity" />
+            <ui:ScrollView focusable="true" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="RewardsScroll" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl season-content__scroll--doublelines">
+                <ui:VisualElement name="ColumnHolder" class="column-holder">
                 </ui:VisualElement>
             </ui:ScrollView>
             <ui:VisualElement name="LeftBar" class="anim-delay-0 anim-translate anim-translate--right-xl left-bar">

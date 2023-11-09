@@ -207,12 +207,14 @@
 .bottom-bar-opacity {
     flex-grow: 1;
     position: absolute;
-    left: 0;
-    top: 50%;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.37);
     display: flex;
+    height: 50%;
+    width: 150%;
+    left: -36px;
+    top: 544px;
+    right: auto;
+    bottom: auto;
+    background-color: rgba(19, 34, 74, 0.57);
 }
 
 .season-content {
@@ -231,16 +233,14 @@
     margin-top: -3px;
 }
 
-.season-content__scroll {
-    background-color: rgba(255, 0, 0, 0);
-    position: relative;
-    height: 800px;
-    left: auto;
-    right: auto;
-}
 
 .season-content__scroll .unity-scroll-view__content-container {
     flex-direction: row-reverse;
+    height: 100%;
+}
+
+.season-content__scroll .unity-scroll-view__content-and-vertical-scroll-container {
+    height: 100%;
 }
 
 .season-image {
@@ -354,6 +354,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 110px;
+    padding-left: 265px;
 }
 
 .left-bar {
@@ -574,7 +575,7 @@
     background-image: url('project://database/Assets/Art/UI/Vectors/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
     -unity-background-scale-mode: scale-and-crop;
     margin-right: 9%;
-    -unity-background-image-tint-color: rgb(39, 26, 41);
+    -unity-background-image-tint-color: rgb(36, 32, 55);
     display: flex;
     width: 100%;
     align-self: stretch;
@@ -764,21 +765,26 @@
     justify-content: flex-start;
 }
 
-.bottom-row {
-    flex-grow: 1;
+.column-holder {
     background-color: rgba(0, 0, 0, 0);
-    flex-wrap: nowrap;
-    flex-direction: row;
     width: auto;
     height: 100%;
     flex-shrink: 1;
-    align-items: auto;
     min-height: auto;
-    min-width: auto;
     max-width: none;
     max-height: 100%;
     position: relative;
     align-self: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    flex-grow: 0;
+    left: -90px;
+    min-width: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 21px;
+    padding-right: 0;
+    margin-left: 0;
 }
 
 .completed-bar {

@@ -1,19 +1,20 @@
 .segment {
-    width: 475px;
     height: 100%;
     align-items: center;
     justify-content: center;
     flex-direction: column-reverse;
     align-self: center;
+    width: 310px;
+    margin-left: 129px;
 }
 
 .reward {
-    width: 356px;
-    height: 400px;
     bottom: 0;
     justify-content: center;
     align-items: center;
     right: 0;
+    width: 324px;
+    height: 318px;
 }
 
 .first-reward-segment {
@@ -24,14 +25,25 @@
     font-size: 50px;
     color: rgb(255, 215, 0);
     -unity-text-align: middle-center;
-    position: absolute;
-    top: 251px;
     right: auto;
-    width: 265px;
     height: 65px;
-    text-shadow: 3px 23px 0 rgba(0, 0, 0, 0.96);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    letter-spacing: -4px;
+    top: auto;
+    position: relative;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: -15px;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    text-shadow: 2px 4px 0 rgba(0, 0, 0, 0.96);
+    -unity-text-outline-width: 1px;
+    width: 100%;
+    align-self: center;
 }
 
 .reward__button {
@@ -53,6 +65,7 @@
     height: 100%;
     right: 4px;
     bottom: 17px;
+    visibility: hidden;
 }
 
 .reward__blocker {
@@ -66,24 +79,24 @@
     top: auto;
     right: auto;
     bottom: auto;
-    width: 373px;
     justify-content: center;
     align-self: center;
-    height: 354px;
     display: flex;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/Rectangle%2041.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#Rectangle 41');
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
     align-items: center;
+    height: 100%;
+    width: 337px
 }
 
 .reward__ready-to-claim-shine {
     background-image: url('project://database/Assets/Art/UI/Textures/battlepass-claimreward.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#battlepass-claimreward');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    width: 1000px;
-    height: 1000px;
     display: flex;
+    width: 700px;
+    height: 700px;
 }
 
 .reward__button-outline--claimed {
@@ -94,9 +107,9 @@
     width: 88px;
     height: 72px;
     background-image: var(--sprite-home__icon-checkmark);
-    right: 0;
-    top: 2px;
     position: absolute;
+    top: -3px;
+    right: -17px;
 }
 
 .reward__reward-holder {
@@ -105,7 +118,8 @@
     bottom: 242px;
     position: absolute;
     display: flex;
-    overflow: visible
+    overflow: visible;
+    bottom: 179px;
 }
 
 .circle-border-radius {
@@ -115,10 +129,24 @@
 .reward-holder__image {
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&amp;guid=200f11153aed542e3aeb0adb534ade89&amp;type=3#flag-demon');
-    width: 338px;
-    height: 306px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
     top: -167px;
+    width: 300px;
+    height: 300px;
+}
+
+.text-holder {
+    flex-grow: 1;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 10px;
+    right: 23px;
+    min-height: auto;
+    min-width: 90%;
+    letter-spacing: -4px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .reward-holder__rarity {
@@ -134,8 +162,6 @@
     width: auto;
     height: 64px;
     position: absolute;
-    top: -13px;
-    left: 180px;
     align-items: center;
     justify-content: center;
     background-color: rgb(255, 255, 255);
@@ -151,8 +177,10 @@
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-right: 8px;
+    padding-left: 8px;
+    top: -24px;
+    left: 177px;
 }
 
 .claim-bubble__label {
@@ -172,19 +200,29 @@
 .reward__type {
     display: flex;
     color: rgb(255, 255, 255);
-    font-size: 198px;
     -unity-font-style: normal;
-    -unity-text-align: middle-left;
     text-overflow: ellipsis;
-    position: absolute;
-    top: 305px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    top: auto;
+    position: relative;
+    font-size: 32px;
+    letter-spacing: -4px;
+    text-shadow: 2px 4px 0 rgb(0, 0, 0);
+    min-width: 100%;
+    width: 100%;
+    align-self: center;
+    align-items: center;
+    -unity-text-align: middle-center;
 }
 
 .reward__button-claimable {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-premium-reached.png?fileID=21300000&guid=dec701178c78d44d2adbb415c0a74573&type=3#slot-premium-reached');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.reward__button--claimed {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/slot-claimed.png?fileID=21300000&guid=440491fac6ddb4da4853ee6474f7937f&type=3#slot-claimed');
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -306,7 +344,6 @@
     bottom: 2px;
 }
 
-
 .bar-shadow {
     flex-grow: 0;
     background-color: rgb(35, 33, 54);
@@ -374,9 +411,10 @@
 
 .reward__lock {
     position: absolute;
-    width: 70px;
-    height: 80px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon-lock.png?fileID=21300000&guid=263366e3a84b54d6fa1dc43028346628&type=3#icon-lock');
-    top: -1px;
-    left: -15px;
+    top: -15px;
+    left: -1px;
+    width: 48px;
+    height: 66px;
+    -unity-background-scale-mode: scale-to-fit;
 }

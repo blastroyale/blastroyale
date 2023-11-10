@@ -19501,8 +19501,8 @@ Transform:
   m_GameObject: {fileID: 7840619830654987685}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.92387956, z: 0, w: 0.38268343}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.7, z: 1}
+  m_LocalPosition: {x: 0.028, y: 0.13, z: 0.054}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8227056498566702557}
@@ -19867,10 +19867,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -180
       objectReference: {fileID: 0}
-    - target: {fileID: 8394961782085835017, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
-      propertyPath: _idleClip
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7273039971299085642, guid: e7f8488bfba364d6ca7639c3f5455f94, type: 3}
@@ -19913,7 +19909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd1384b8d11766d44a07518192c189cb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.35
+      value: 1.23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd1384b8d11766d44a07518192c189cb, type: 3}
       propertyPath: m_LocalPosition.x

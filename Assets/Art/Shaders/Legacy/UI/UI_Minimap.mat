@@ -51,9 +51,9 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DangerAreaColor: {r: 1, g: 0.43867922, b: 0.43867922, a: 1}
+    - _DangerAreaColor: {r: 1, g: 0.6666667, b: 0.6666667, a: 1}
     - _DangerAreaOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _DangerRingColor: {r: 1, g: 0, b: 0, a: 1}
+    - _DangerRingColor: {r: 1, g: 0.5019608, b: 0.5019608, a: 1}
     - _EnemiesColor: {r: 1, g: 0.23137255, b: 0, a: 1}
     - _FriendliesColor: {r: 0, g: 0.69860935, b: 1, a: 1}
     - _OuterRingColor: {r: 1, g: 1, b: 1, a: 1}

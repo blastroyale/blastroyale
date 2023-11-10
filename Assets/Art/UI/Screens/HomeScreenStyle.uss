@@ -786,7 +786,7 @@
 }
 
 .button-with-icon--heroes > .button-with-icon__icon {
-    background-image: var(--sprite-home__icon-heroes);
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection.png?fileID=21300000&guid=9eb74582f82fb15428c6bb7b432a45d5&type=3#icon-collection');
 }
 
 .button-with-icon--leaderboards > .button-with-icon__icon {

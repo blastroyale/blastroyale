@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MM_Humanoid_FemaleFitness
+  m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 323a8d754db39457f8bb3ca4d5c254a8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ff9416bb7a4dd4990aee2728d73cff02, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 87cc7cf0f1edbec40846a2709c28096f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 85879bfff251b405bada2e2bae22d8cd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a5fb31774b00840faa2fc6c39bd95410, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 98637c198e58d4d839216d0dd64b018c, type: 2}

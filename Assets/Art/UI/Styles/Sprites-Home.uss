@@ -113,6 +113,7 @@
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
     --sprite-home__icon-close-white: url('/Assets/Art/UI/Sprites/Home/icon-close-white.png');
+    --sprite-home__icon-collection: url('/Assets/Art/UI/Sprites/Home/icon-collection.png');
     --sprite-home__icon-collection-lock: url('/Assets/Art/UI/Sprites/Home/icon-collection-lock.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
@@ -822,6 +823,12 @@
     background-image: var(--sprite-home__icon-close-white);
     width: 26px;
     height: 26px;
+}
+
+.sprite-home__icon-collection {
+    background-image: var(--sprite-home__icon-collection);
+    width: 133px;
+    height: 91px;
 }
 
 .sprite-home__icon-collection-lock {

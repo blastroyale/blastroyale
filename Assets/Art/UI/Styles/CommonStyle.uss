@@ -579,8 +579,6 @@
 
 .fame-lock {
     opacity: 1;
-    -unity-background-image-tint-color: rgb(99, 99, 99);
-    color: rgb(68, 65, 75);
 }
 
 .fame-lock .fame-lock__holder {
@@ -604,12 +602,29 @@
 .fame-lock__icon {
     background-color: rgba(0, 0, 0, 0);
     background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-collection-lock.png?fileID=21300000&guid=d5576ea5fdc864a9ba95bd20ee8e9a1b&type=3#icon-collection-lock');
-    width: 200px;
-    height: 175px;
+    width: 130px;
+    height: 136px;
     -unity-background-scale-mode: scale-to-fit;
-    scale: 1.5 1.5;
+    position: absolute;
+    top: -34px;
+    right: -50px;
 }
 
 .fame-lock .button-with-icon__icon {
-    -unity-background-image-tint-color: rgb(83, 83, 84);
+}
+
+.player-header__leaderboards-button .fame-lock__icon {
+    position: absolute;
+    right: -40px;
+    top: -62px;
+    width: 73px;
+}
+
+.button-party__icon {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/icon-heroes.png?fileID=21300000&guid=270a8fbd99be94e3f866a62bc26685fb&type=3#icon-heroes');
+    width: 116px;
+    height: 80px;
+    left: -42px;
+    top: -9px;
 }

@@ -71,8 +71,8 @@
 
 .sprite-battlepass__icon-lock {
     background-image: var(--sprite-battlepass__icon-lock);
-    width: 52px;
-    height: 66px;
+    width: 212px;
+    height: 194px;
 }
 
 .sprite-battlepass__level-reached {

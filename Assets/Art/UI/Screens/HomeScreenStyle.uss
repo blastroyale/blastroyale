@@ -534,6 +534,10 @@
     -unity-text-align: middle-center;
     padding-top: 0;
     margin-bottom: 20px;
+    overflow: visible;
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .button-party:active {

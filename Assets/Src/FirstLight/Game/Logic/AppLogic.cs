@@ -65,7 +65,12 @@ namespace FirstLight.Game.Logic
 		/// If should show the real damage instead of percentage damage
 		/// </summary>
 		ref bool ShowRealDamage { get; }
-		
+
+		/// <summary>
+		/// What kind of special cancelling system is used
+		/// </summary>
+		bool InvertSpecialCancellling { get; set; }
+
 		/// <summary>
 		/// Requests the enable property for dynamic camera movement
 		/// </summary>
@@ -263,7 +268,8 @@ namespace FirstLight.Game.Logic
 		}
 
 		public ref bool ShowRealDamage => ref Data.ShowRealDamage;
-		
+
+
 		/// <inheritdoc />
 		public bool IsDialogueEnabled
 		{
@@ -282,6 +288,15 @@ namespace FirstLight.Game.Logic
 			set
 			{
 				Data.HapticEnabled = value;
+			}
+		}
+
+		public bool InvertSpecialCancellling
+		{
+			get => Data.InvertSpecialCancellling;
+			set
+			{
+				Data.InvertSpecialCancellling = value;
 			}
 		}
 

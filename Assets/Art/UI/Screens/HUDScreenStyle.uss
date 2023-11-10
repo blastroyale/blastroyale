@@ -83,6 +83,14 @@
     opacity: 1;
 }
 
+.special-button--pressed--inverted .special-button__cancel-circle {
+    background-image: var(--sprite-match__icon-x-red);
+    width: 65px;
+    height: 65px;
+    opacity: 1;
+}
+
+
 .special-button__cancel-circle__small {
     width: 210px;
     height: 210px;

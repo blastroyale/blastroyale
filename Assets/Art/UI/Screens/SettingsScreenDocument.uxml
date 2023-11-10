@@ -26,6 +26,7 @@
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/cone_aim" name="AimBackground" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/dynamic_joystick" name="DynamicJoystick" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/show_real_damage" name="ShowRealDamage" class="settings-toggle" />
+                            <FirstLight.Game.UIElements.LocalizedToggle localization-key="UITSettings/InvertSpecialCancel" name="InvertSpecialCancelling" label="Invert Special Cancelling" class="settings-toggle" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSettings/hud_customization" name="CustomizeHud" class="button-long sfx-click-forwards" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Account" class="settings-container settings-container--account" style="width: initial;">

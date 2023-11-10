@@ -79,7 +79,12 @@ namespace FirstLight.Game.Presenters
 			SetupToggle(root.Q<LocalizedToggle>("HapticFeedback").Required(),
 				() => _gameDataProvider.AppDataProvider.IsHapticOn,
 				val => _gameDataProvider.AppDataProvider.IsHapticOn = val);
-			
+
+			//root.Q<LocalizedToggle>("InvertSpecialCancelling").SetDisplay(false);
+			SetupToggle(root.Q<LocalizedToggle>("InvertSpecialCancelling").Required(),
+				() => _gameDataProvider.AppDataProvider.InvertSpecialCancellling,
+				val => _gameDataProvider.AppDataProvider.InvertSpecialCancellling = val);
+
 			SetupToggle(root.Q<LocalizedToggle>("ScreenShake").Required(),
 				() => _gameDataProvider.AppDataProvider.UseScreenShake,
 				val => _gameDataProvider.AppDataProvider.UseScreenShake = val);

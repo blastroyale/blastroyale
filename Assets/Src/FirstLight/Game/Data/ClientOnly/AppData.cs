@@ -49,6 +49,7 @@ namespace FirstLight.Game.Data
 		public bool UseDynamicJoystick = false;
 		public bool UseDynamicCamera = true;
 		public bool UseScreenShake = true;
+		public bool InvertSpecialCancellling = true;
 
 		public Environment LastEnvironment;
 		public string DeviceId;

@@ -129,6 +129,11 @@ namespace Quantum
 				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
+			else
+			{
+				var slot = GetDefaultWeaponSlot();
+				SetSlotWeapon(f, e, slot);
+			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
 			f.Events.OnLocalPlayerSpawned(Player, e, isRespawning);

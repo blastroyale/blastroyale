@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using FirstLight.Game.Utils;
-using I2.Loc;
 using Quantum;
 
 namespace FirstLight.Game.Data.DataTypes
@@ -10,7 +9,7 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public static string GetCollectionCategoryDisplayName(this CollectionCategory category)
 		{
-			return category.Id.GetGameIdGroupLocalization();
+			return $"UITCollectionScreen/cat_{category.Id.ToString().ToLowerInvariant()}".LocalizeKey();
 		}
 
 		/// <summary>

@@ -101,9 +101,9 @@
 .player-status-bar__health-holder {
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    left: 42px;
-    bottom: 14px;
-    right: 7px;
+    left: 26px;
+    bottom: 13px;
+    right: 5px;
     height: 15px;
     flex-direction: row;
 }
@@ -116,9 +116,9 @@
 .player-status-bar__shield-holder {
     height: 10px;
     position: absolute;
-    right: 5px;
-    left: 32px;
-    bottom: 32px;
+    right: 3px;
+    left: 31px;
+    bottom: 31px;
     flex-direction: row;
 }
 

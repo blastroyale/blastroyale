@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -77,17 +78,17 @@ namespace FirstLight.Game.UIElements
 
 			Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
-			
+
 			Add(_iconBackground = new VisualElement() {name = "icon-border"});
 			_iconBackground.AddToClassList(USS_ICON_BORDER);
-			
+
 			Add(_icon = new VisualElement() {name = "icon"});
 			_icon.AddToClassList(USS_ICON);
-			
+
 			//TODO: Make them visible again when we implement them properly
 			_iconBackground.SetVisibility(false);
 			_icon.SetVisibility(false);
-			
+
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -116,6 +117,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_level = new Label("10") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
+			_level.SetDisplay(QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS);
 
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
@@ -160,7 +162,7 @@ namespace FirstLight.Game.UIElements
 			SetIsFriendly(true);
 			//SetMagazine(4, 6);
 		}
-		
+
 		public void SetIconColor(Color color)
 		{
 			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
@@ -175,7 +177,7 @@ namespace FirstLight.Game.UIElements
 				_icon.SetVisibility(true);
 			}
 		}
-		
+
 		/// <summary>
 		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
 		/// </summary>
@@ -208,6 +210,7 @@ namespace FirstLight.Game.UIElements
 				damageNumberLabel.style.fontSize = GetDamageNumberSize(damagePct);
 				damageNumberLabel.text = damagePct.ToString();
 			}
+
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
@@ -221,7 +224,7 @@ namespace FirstLight.Game.UIElements
 
 		private float GetDamageNumberSize(int damagePct)
 		{
-			return _smallDamage + (_damageScale * damagePct/100);
+			return _smallDamage + (_damageScale * damagePct / 100);
 		}
 
 		/// <summary>
@@ -291,6 +294,8 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetLevel(int level)
 		{
+			if (QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS) return;
+
 			_level.text = level.ToString();
 			_level.AnimatePing();
 		}
@@ -369,7 +374,7 @@ namespace FirstLight.Game.UIElements
 			var index = (int) damageNumber.userData;
 			var offset = _damageNumberAnimOffsets[index];
 			var damage = _damageNumberAnimValues[index];
-			
+
 			// Bezier curve
 			var p0 = new Vector2(0, 0) + Vector2.one * offset / 2f; // Less random offset on first point
 			var p1 = new Vector2(50, -10) + Vector2.one * offset;
@@ -387,7 +392,7 @@ namespace FirstLight.Game.UIElements
 			var scale = t < 0.1 ? Mathf.Lerp(0, 1.5f + scaleMagnitude, t * 10) :
 				t < 0.3 ? Mathf.Lerp(1.5f + scaleMagnitude, 1f, (t - 0.1f) * 10) :
 				1f;
-			
+
 			// Color
 			// var color = t < 0.3 ? Color.Lerp(Color.red, Color.white, t * 3.33f) : Color.white;
 

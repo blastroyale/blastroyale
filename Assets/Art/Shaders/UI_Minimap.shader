@@ -122,9 +122,6 @@ Shader "FLG/UI/Minimap"
 
             int _EnemiesCount = 0;
             half4 _Enemies[30];
-            int _FriendliesCount = 0;
-            half4 _Friendlies[30];
-            fixed4 _FriendliesColors[30];
             half _EnemiesOpacity;
 
             half _PingSize;
@@ -198,16 +195,6 @@ Shader "FLG/UI/Minimap"
 
                     color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
                     color = color * (1 - playerCircle) + playerCircle * _EnemiesColor;
-                }
-
-                for (int i = 0; i < _FriendliesCount; i++)
-                {
-                    const half2 playerPos = stMod - _Friendlies[i];
-                    const half playerCircle = circle(playerPos, _PlayersSize);
-                    const half playerCircleOuter = circle(playerPos, _PlayersSize * 1.15);
-
-                    color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
-                    color = color * (1 - playerCircle) + playerCircle * _FriendliesColors[i];
                 }
 
                 // Draw Ping ring

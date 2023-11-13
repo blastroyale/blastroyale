@@ -1283,7 +1283,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88d02c5f6700a4b818733c8181483866
-    m_Address: Assets/Art/Materials/M_Baked_Bush.mat
+    m_Address: terials/M_Baked_Bush.mataked_Bush.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -3406,6 +3406,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2953c2b5dfa4f864a85fd9ba191c7c19
     m_Address: Assets/Art/UI/Sprites/Home/icon-tiktok.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a18f37ac528733142a9b88762f8af958
+    m_Address: Assets/Art/Materials/M_Baked_Bush_Desert.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

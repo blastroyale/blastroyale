@@ -81,7 +81,7 @@ namespace Quantum.Systems
 		/// This creates a sub-projectile based on the parent projectile just changing its entity prototype and
 		/// a couple specific veriables specified per projectile hit type
 		/// </summary>
-		private void CreateSubProjectile(Frame f, Projectile p, FPVector3 hitPosition, bool onHit)
+		private void CreateSubProjectile(Frame f, in Projectile p, in FPVector3 hitPosition, in bool onHit)
 		{
 			var cfg = f.WeaponConfigs.GetConfig(p.SourceId);
 			var subProjectile = p;
@@ -102,7 +102,7 @@ namespace Quantum.Systems
 			f.Add(entity, subProjectile);
 		}
 
-		private void OnProjectileHit(Frame f, EntityRef targetHit, EntityRef projectileEntity, Projectile projectile)
+		private void OnProjectileHit(Frame f, in EntityRef targetHit, in EntityRef projectileEntity, in Projectile projectile)
 		{
 			
 			var position = f.Get<Transform3D>(projectileEntity).Position;
@@ -159,7 +159,7 @@ namespace Quantum.Systems
 		/// </summary>
 		/// <param name="f"></param>
 		/// <param name="e"></param>
-		public static void Shoot(Frame f, EntityRef e)
+		public static void Shoot(Frame f, in EntityRef e)
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
@@ -203,7 +203,7 @@ namespace Quantum.Systems
 			}
 		}
 		
-		private static void CreateProjectile(Frame f, EntityRef shooter, FP range, FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
+		private static void CreateProjectile(Frame f, in EntityRef shooter, in FP range, in FPVector2 aimingDirection, FPVector3 projectileStartPosition, QuantumWeaponConfig weaponConfig)
 		{
 			FP accuracyMod = FP._0;
 			if(weaponConfig.MinAttackAngle > FP._0 && !weaponConfig.IsMeleeWeapon)

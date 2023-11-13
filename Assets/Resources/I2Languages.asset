@@ -7890,9 +7890,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profile Picture
-      - Profile Picture
-      - Imagem de Perfil
+      - Avatar
+      - Avatar
+      - Avatar
       - 
       - 
       Flags: 0000000000
@@ -15374,7 +15374,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SQUAD
+      - SQUAD UP
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
       - 

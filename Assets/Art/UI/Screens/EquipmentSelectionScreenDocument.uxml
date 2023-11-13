@@ -20,14 +20,6 @@
                         <ui:VisualElement class="equipment-tag__icon" />
                         <FirstLight.Game.UIElements.AutoSizeLabel text="ITEM ON COOLDOWN&#10;23H 14M" name="Title" min-font-size="22" max-font-size="22" class="equipment-tag__label" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Special0Tag" class="equipment-tag equipment-tag--special">
-                        <ui:VisualElement name="Icon" class="equipment-tag__icon" />
-                        <FirstLight.Game.UIElements.AutoSizeLabel text="AIRSTRIKE" name="Title" min-font-size="22" max-font-size="30" class="equipment-tag__label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Special1Tag" class="equipment-tag equipment-tag--special">
-                        <ui:VisualElement name="Icon" class="equipment-tag__icon" />
-                        <FirstLight.Game.UIElements.AutoSizeLabel text="AIRSTRIKE" name="Title" min-font-size="22" max-font-size="30" class="equipment-tag__label" />
-                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="stats-list-holder anim-delay-2 anim-translate anim-translate--left-xxl">
                     <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" horizontal-scrolling="false" class="stats-list" />

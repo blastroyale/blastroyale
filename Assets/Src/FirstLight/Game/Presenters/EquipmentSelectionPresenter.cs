@@ -35,9 +35,6 @@ namespace FirstLight.Game.Presenters
 
 		private const string UssEquipmentTagRarity = "equipment-tag--rarity";
 		private const string UssEquipmentTagRarityModifier = UssEquipmentTagRarity + "-{0}";
-		private const string UssEquipmentTagSpecial = "equipment-tag--special";
-
-		private const string UssSpriteSpecial = "sprite-shared__icon-special-{0}";
 
 		public struct StateData
 		{
@@ -69,10 +66,6 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
-		private VisualElement _special0Tag;
-		private VisualElement _special0Icon;
-		private VisualElement _special1Tag;
-		private VisualElement _special1Icon;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -82,7 +75,7 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
 
-		private readonly List<UniqueId> _seenItems = new();
+		private readonly List<UniqueId> _seenItems = new ();
 
 		private UniqueId _equippedItem;
 
@@ -113,10 +106,6 @@ namespace FirstLight.Game.Presenters
 
 			_cooldownTag = root.Q("CooldownTag").Required();
 			_rarityTag = root.Q("RarityTag").Required();
-			_special0Tag = root.Q("Special0Tag").Required();
-			_special0Icon = _special0Tag.Q<VisualElement>("Icon").Required();
-			_special1Tag = root.Q("Special1Tag").Required();
-			_special1Icon = _special1Tag.Q<VisualElement>("Icon").Required();
 
 			_equipButton = root.Q<Button>("EquipButton").Required();
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
@@ -157,7 +146,7 @@ namespace FirstLight.Game.Presenters
 
 			if (_seenItems.Count > 0)
 			{
-				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand { Ids = _seenItems.ToList() });
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems.ToList()});
 				_seenItems.Clear();
 			}
 
@@ -183,7 +172,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return null;
 			}
-			
+
 			return _equipmentList.GetRootElementForIndex(row)
 				.Children()
 				.OfType<EquipmentCardElement>()
@@ -316,44 +305,19 @@ namespace FirstLight.Game.Presenters
 			_rarityTag.Q<Label>("Title").text = string.Format(RARITY_LOC_KEY,
 				info.Equipment.Rarity.ToString().ToLowerInvariant()).LocalizeKey();
 
-			// Specials tags
-			_special0Tag.style.display = DisplayStyle.None;
-			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId0, out var special0))
-			{
-				var special0ID = (GameId)special0;
-				_special0Tag.style.display = DisplayStyle.Flex;
-
-				_special0Icon.RemoveSpriteClasses();
-				_special0Icon.AddToClassList(string.Format(UssSpriteSpecial,
-					special0ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special0Tag.Q<Label>("Title").text = special0ID.GetLocalization();
-			}
-
-			_special1Tag.style.display = DisplayStyle.None;
-			_special1Tag.RemoveModifiers();
-			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId1, out var special1))
-			{
-				var special1ID = (GameId)special1;
-				_special1Tag.style.display = DisplayStyle.Flex;
-
-				_special1Icon.RemoveSpriteClasses();
-				_special1Icon.AddToClassList(string.Format(UssSpriteSpecial,
-					special1ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special1Tag.Q<Label>("Title").text = special1ID.GetLocalization();
-			}
-
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
 			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 
 			bool[] sufficientFuseCost = new bool[info.FuseCost.Length];
-			for(int i = 0; i < info.FuseCost.Length; i++)
+			for (int i = 0; i < info.FuseCost.Length; i++)
 			{
-				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]); 
+				sufficientFuseCost[i] = !HasEnoughCurrency(info.FuseCost[i]);
 			}
+
 			_fuseButton.SetPrice(info.FuseCost, info.IsNft, sufficientFuseCost);
-			
+
 			// TODO: Uncomment when/if we use Fusion again
 			// _fuseButton.SetEnabled(info.Equipment.Rarity < (EquipmentRarity.TOTAL - 1));
 			// _fuseButton.SetDisplay(!info.IsNft);
@@ -415,8 +379,8 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			var item1 = new EquipmentCardElement { name = "item-1" };
-			var item2 = new EquipmentCardElement { name = "item-2" };
+			var item1 = new EquipmentCardElement {name = "item-1"};
+			var item2 = new EquipmentCardElement {name = "item-2"};
 
 			item1.clicked += OnEquipmentClicked;
 			item2.clicked += OnEquipmentClicked;
@@ -462,7 +426,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (index < 0 || index >= _statItems.Count) return;
 
-			var statElement = (EquipmentStatBarElement)visualElement;
+			var statElement = (EquipmentStatBarElement) visualElement;
 
 			var stat = _statItems[index];
 			statElement.SetValue(stat.Key, stat.Value);
@@ -470,7 +434,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipmentClicked(Equipment equipment, UniqueId id)
 		{
-			_services.MessageBrokerService.Publish(new SelectedEquipmentItemMessage() { ItemID = id });
+			_services.MessageBrokerService.Publish(new SelectedEquipmentItemMessage() {ItemID = id});
 
 			if (id == SelectedItem) return;
 
@@ -522,13 +486,13 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
+			_services.CommandService.ExecuteCommand(new EquipItemCommand {Item = item});
 			_services.AnalyticsService.EquipmentCalls.EquipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
 		}
 
 		private void UnequipItem(UniqueId item)
 		{
-			_services.CommandService.ExecuteCommand(new UnequipItemCommand { Item = item });
+			_services.CommandService.ExecuteCommand(new UnequipItemCommand {Item = item});
 			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider
 				.GetInfo(item));
 		}

@@ -66,7 +66,7 @@ namespace Quantum
 			return (rotation * FPVector3.Forward).XZ.Normalized;
 		}
 
-		public static bool HasLineOfSight(Frame f, FPVector3 source, FPVector3 destination, out EntityRef? firstHit)
+		public static bool HasLineOfSight(Frame f, in FPVector3 source, in FPVector3 destination, out EntityRef? firstHit)
 		{
 			return HasLineOfSight(f, source, destination, f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitStatics |
 				QueryOptions.HitKinematics, out firstHit);
@@ -75,7 +75,7 @@ namespace Quantum
 		/// <summary>
 		/// Checks for map line of sight. Ignores players and other stuff.
 		/// </summary>
-		public static bool HasMapLineOfSight(Frame f, EntityRef one, EntityRef two)
+		public static bool HasMapLineOfSight(Frame f, in EntityRef one, in EntityRef two)
 		{
 			if (f.Has<Destructible>(two)) return true;
 			if (f.TryGet<Transform3D>(one, out var onePosition) && f.TryGet<Transform3D>(two, out var twoPosition))

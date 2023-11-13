@@ -461,6 +461,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					SpawnAirdrop(entity, airDrop);
 				}
+
+				foreach (var (entity, pc) in msg.Game.Frames.Predicted.GetComponentIterator<PlayerCharacter>())
+				{
+					var spectatedPlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+					if (pc.TeamId > 0 && pc.TeamId == spectatedPlayer.Team && spectatedPlayer.Entity != entity)
+					{
+						SpawnFriendlyPlayer(entity);
+					}
+				}
 			}
 		}
 

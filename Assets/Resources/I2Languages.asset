@@ -7868,9 +7868,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Death Flag
-      - Death Flag
-      - Bandeira de Morte
+      - Flag
+      - Flag
+      - Bandeira
       - 
       - 
       Flags: 0000000000

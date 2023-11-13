@@ -105,6 +105,7 @@
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
+    --sprite-home__icon-avatar: url('/Assets/Art/UI/Sprites/Home/icon-avatar.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
     --sprite-home__icon-blastbucks: url('/Assets/Art/UI/Sprites/Home/icon-blastbucks.png');
@@ -775,6 +776,12 @@
     background-image: var(--sprite-home__icon-arrow-upgrade);
     width: 36px;
     height: 26px;
+}
+
+.sprite-home__icon-avatar {
+    background-image: var(--sprite-home__icon-avatar);
+    width: 30px;
+    height: 38px;
 }
 
 .sprite-home__icon-banner {

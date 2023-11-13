@@ -20,6 +20,8 @@ namespace FirstLight.Game.UIElements
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
+		private const int HEALTH_SEPARATORS = 6; // +2 for first and last one that aren't visible
+
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
@@ -32,6 +34,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_HEALTH_HOLDER = USS_BLOCK + "__health-holder";
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
 		private const string USS_AMMO_HOLDER = USS_BLOCK + "__ammo-holder";
+		private const string USS_SEPARATOR_HOLDER = USS_BLOCK + "__separator-holder";
+		private const string USS_HEALTH_SEPARATOR = USS_BLOCK + "__health-separator";
 		private const string USS_AMMO_RELOAD_BAR = USS_BLOCK + "__ammo-reload-bar";
 		private const string USS_AMMO_SEGMENT = USS_BLOCK + "__ammo-segment";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
@@ -62,11 +66,11 @@ namespace FirstLight.Game.UIElements
 		private bool _isFriendly;
 		private float _smallDamage = 32;
 		private float _damageScale = 64;
-		private bool _showRealDamage = false;
+		private bool _showRealDamage;
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
-		private readonly StyleColor _defaultPingDmgColor = new StyleColor(new Color(1f, 1f, 1f));
+		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
 
 		private ValueAnimation<Vector3> _reloadAnimation;
 
@@ -107,6 +111,16 @@ namespace FirstLight.Game.UIElements
 			{
 				healthHolder.Add(_healthBar = new VisualElement {name = "health-bar"});
 				_healthBar.AddToClassList(USS_HEALTH_BAR);
+
+				var healthSeparatorHolder = new VisualElement() {name = "separator-holder"};
+				healthHolder.Add(healthSeparatorHolder);
+				healthSeparatorHolder.AddToClassList(USS_SEPARATOR_HOLDER);
+				for (int i = 0; i < HEALTH_SEPARATORS; i++)
+				{
+					var separator = new VisualElement {name = $"separator-{i}"};
+					separator.AddToClassList(USS_HEALTH_SEPARATOR);
+					healthSeparatorHolder.Add(separator);
+				}
 			}
 
 			Add(_ammoHolder = new VisualElement {name = "ammo-holder"});

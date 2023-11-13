@@ -73,6 +73,7 @@
     --sprite-match__progress-damage: url('/Assets/Art/UI/Sprites/Match/progress-damage.png');
     --sprite-match__progress-health: url('/Assets/Art/UI/Sprites/Match/progress-health.png');
     --sprite-match__progress-health-squads: url('/Assets/Art/UI/Sprites/Match/progress-health-squads.png');
+    --sprite-match__progress-separator: url('/Assets/Art/UI/Sprites/Match/progress-separator.png');
     --sprite-match__progress-shield: url('/Assets/Art/UI/Sprites/Match/progress-shield.png');
     --sprite-match__text-beast: url('/Assets/Art/UI/Sprites/Match/text-beast.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
@@ -534,6 +535,12 @@
     background-image: var(--sprite-match__progress-health-squads);
     width: 9px;
     height: 11px;
+}
+
+.sprite-match__progress-separator {
+    background-image: var(--sprite-match__progress-separator);
+    width: 4px;
+    height: 16px;
 }
 
 .sprite-match__progress-shield {

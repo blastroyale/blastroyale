@@ -12,14 +12,16 @@ namespace FirstLight.Game.Data.DataTypes
 	/// </summary>
 	public class CurrencyItemViewModel : IItemViewModel
 	{
+		private const string USS_SPRITE_REWARD = "sprite-home__reward-{0}";
+
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
 		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
 		public string Description => $"X {_amount}";
 
-
 		public string ItemTypeDisplayName => GameIdGroup.Currency.GetGameIdGroupLocalization();
+
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
 			pickingMode = PickingMode.Ignore
@@ -28,10 +30,7 @@ namespace FirstLight.Game.Data.DataTypes
 		public void DrawIcon(VisualElement icon)
 		{
 			icon.RemoveSpriteClasses();
-			icon.style.backgroundImage = StyleKeyword.Null;
-#pragma warning disable CS4014
-			UIUtils.SetSprite(GameId, icon);
-#pragma warning restore CS4014
+			icon.AddToClassList(string.Format(USS_SPRITE_REWARD, GameId.ToString().ToLowerInvariant()));
 		}
 
 		private GameId _gameId;
@@ -41,7 +40,7 @@ namespace FirstLight.Game.Data.DataTypes
 		{
 			Item = item;
 			_gameId = item.Id;
-			_amount = (uint)item.GetMetadata<CurrencyMetadata>().Amount;
+			_amount = (uint) item.GetMetadata<CurrencyMetadata>().Amount;
 		}
 	}
 }

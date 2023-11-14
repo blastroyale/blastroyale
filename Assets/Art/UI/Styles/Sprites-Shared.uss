@@ -90,8 +90,8 @@
 
 .sprite-shared__icon-currency-blastbuck {
     background-image: var(--sprite-shared__icon-currency-blastbuck);
-    width: 160px;
-    height: 160px;
+    width: 128px;
+    height: 128px;
 }
 
 .sprite-shared__icon-currency-blst {

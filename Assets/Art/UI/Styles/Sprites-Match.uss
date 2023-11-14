@@ -12,6 +12,7 @@
     --sprite-match__background-healthbar: url('/Assets/Art/UI/Sprites/Match/background-healthbar.png');
     --sprite-match__background-killstreak: url('/Assets/Art/UI/Sprites/Match/background-killstreak.png');
     --sprite-match__background-playerbar: url('/Assets/Art/UI/Sprites/Match/background-playerbar.png');
+    --sprite-match__background-player-notification: url('/Assets/Art/UI/Sprites/Match/background-player-notification.png');
     --sprite-match__background-reward-bpp: url('/Assets/Art/UI/Sprites/Match/background-reward-bpp.png');
     --sprite-match__background-reward-normal: url('/Assets/Art/UI/Sprites/Match/background-reward-normal.png');
     --sprite-match__background-squadmember: url('/Assets/Art/UI/Sprites/Match/background-squadmember.png');
@@ -171,6 +172,12 @@
     background-image: var(--sprite-match__background-playerbar);
     width: 62px;
     height: 44px;
+}
+
+.sprite-match__background-player-notification {
+    background-image: var(--sprite-match__background-player-notification);
+    width: 180px;
+    height: 74px;
 }
 
 .sprite-match__background-reward-bpp {

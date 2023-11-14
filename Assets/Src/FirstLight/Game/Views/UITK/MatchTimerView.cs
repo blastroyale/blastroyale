@@ -1,31 +1,21 @@
-using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Deterministic;
 using Quantum;
-using Quantum.Core;
-using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Views.UITK
 {
-	public class MatchStatusView : UIView
+	public class MatchTimerView : UIView
 	{
-		private Label _aliveCountLabel;
-		private Label _killsCountLabel;
 		private Label _timerLabel;
 		private VisualElement _pingElement;
 		private VisualElement _counterElement;
 		private Label _notificationLabel;
-
-		private IMatchServices _matchServices;
-		private IGameServices _gameServices;
 
 		private PlayableDirector _notificationDirector;
 
@@ -38,11 +28,7 @@ namespace FirstLight.Game.Views.UITK
 		public override void Attached(VisualElement element)
 		{
 			base.Attached(element);
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			_aliveCountLabel = element.Q<Label>("AliveCountText").Required();
-			_killsCountLabel = element.Q<Label>("KilledCountText").Required();
 			_pingElement = element.Q<VisualElement>("PingBG").Required();
 			_timerLabel = element.Q<Label>("TimerText").Required();
 			_counterElement = element.Q<VisualElement>("Counter");
@@ -65,9 +51,7 @@ namespace FirstLight.Game.Views.UITK
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
-			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirDropDropped);
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -78,7 +62,6 @@ namespace FirstLight.Game.Views.UITK
 		public override void UnsubscribeFromEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
-			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
@@ -111,47 +94,6 @@ namespace FirstLight.Game.Views.UITK
 				var shrinkingDuration = circle.ShrinkingDurationTime;
 
 				StartCountdown(warningStart, shrinkingStart, shrinkingDuration);
-			}
-		}
-
-		private void OnPlayerDead(EventOnPlayerDead callback)
-		{
-			UpdatePlayerCounts(callback.Game.Frames.Verified);
-		}
-
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer current)
-		{
-			if (!current.Entity.IsValid) return;
-
-			UpdatePlayerCounts(QuantumRunner.Default.Game.Frames.Verified);
-		}
-
-		private void UpdatePlayerCounts(Frame f)
-		{
-			var container = f.GetSingleton<GameContainer>();
-			
-			// We count all alive players in a match and display this number
-			var playersAlive = 0;
-			for (int i = 0; i < container.PlayersData.Length; i++)
-			{
-				var data = container.PlayersData[i];
-
-				if (data.IsValid && data.Entity.IsAlive(f))
-				{
-					playersAlive++;
-				}
-			}
-			_aliveCount = (int) playersAlive;
-			_aliveCountLabel.text = playersAlive.ToString();
-			_aliveCountLabel.AnimatePing();
-			
-			var killsCount = container.PlayersData[_matchServices.SpectateService.SpectatedPlayer.Value.Player]
-				.PlayersKilledCount;
-			if (killsCount != _killsCount)
-			{
-				_killsCount = (int) killsCount;
-				_killsCountLabel.text = killsCount.ToString();
-				_killsCountLabel.AnimatePing();
 			}
 		}
 

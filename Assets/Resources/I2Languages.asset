@@ -15216,9 +15216,15 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
-      - BATTLE ROYALE\nTRIOS
+      - 'BATTLE ROYALE
+
+        TRIOS'
+      - 'BATTLE ROYALE
+
+        TRIOS'
+      - 'BATTLE ROYALE
+
+        TRIOS'
       - 
       - 
       Flags: 0000000000
@@ -15227,9 +15233,15 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BATTLE ROYALE\nDUOS
-      - BATTLE ROYALE\nDUOS
-      - BATTLE ROYALE\nDUOS
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
+      - 'BATTLE ROYALE
+
+        DUOS'
       - 
       - 
       Flags: 0000000000

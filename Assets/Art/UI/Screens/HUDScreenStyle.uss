@@ -24,13 +24,13 @@
 
 .special-button--special0 {
     position: absolute;
-    right: 215px; 
+    right: 215px;
     bottom: 411px;
 }
 
 .special-button--special1 {
     position: absolute;
-    right: 425px; 
+    right: 425px;
     bottom: 285px;
 }
 
@@ -89,7 +89,6 @@
     height: 65px;
     opacity: 1;
 }
-
 
 .special-button__cancel-circle__small {
     width: 210px;
@@ -212,7 +211,7 @@
 }
 
 .joystick--aim {
-    right: 142px; 
+    right: 142px;
     bottom: 83px;
     width: 300px;
     height: 300px;
@@ -341,8 +340,8 @@
 
 .device-status-bar {
     position: absolute;
-    right: 112px;
-    top: 34px;
+    right: 283px;
+    top: 35px;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
@@ -353,7 +352,7 @@
     position: absolute;
     width: 216px;
     height: 193px;
-    right: 521px; 
+    right: 521px;
     bottom: 65px;
 }
 
@@ -633,18 +632,6 @@
     justify-content: center;
 }
 
-.match-status__kills-container {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    flex-direction: row;
-}
-
-.match-status__alive-container {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    flex-direction: row;
-}
-
 .match-status__ping-bg {
     width: 120px;
     height: 120px;
@@ -685,20 +672,6 @@
     padding-bottom: 0;
 }
 
-.match-status__playercount {
-    width: 50px;
-    -unity-text-align: upper-center;
-    margin-left: 10px;
-    margin-right: 12px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    -unity-text-outline-width: 1.2px;
-    -unity-text-outline-color: rgb(49, 46, 72);
-    text-shadow: 2px 2px 0 rgb(49, 46, 72);
-}
-
 .squad-members-container {
     position: absolute;
     top: 252px;
@@ -707,7 +680,7 @@
 
 .equipment-display {
     position: absolute;
-    left: 473px; 
+    left: 473px;
     bottom: 72px;
     flex-direction: row;
     align-items: center;
@@ -807,4 +780,62 @@
 .low-hp__gradient--right {
     right: 0;
     rotate: 180deg;
+}
+
+.player-counts {
+    position: absolute;
+    right: 356px;
+    top: 121px;
+}
+
+.skydiving .player-counts {
+    display: none;
+}
+
+.player-counts__kills-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.player-counts__alive-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.player-counts__label {
+    width: 50px;
+    -unity-text-align: upper-center;
+    margin-right: 6px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(49, 46, 72);
+    text-shadow: 2px 2px 0 rgb(49, 46, 72);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.player-counts__icon {
+    width: 45px;
+    height: 45px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.player-counts__ping-background {
+    position: absolute;
+    left: -22px;
+    top: -13px;
+    right: -11px;
+    bottom: -13px;
+    background-image: var(--sprite-match__background-player-notification);
+    opacity: 0;
 }

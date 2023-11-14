@@ -40,6 +40,35 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Animates the opacity from 0 up to <paramref name="amount"/> and back to 0;
+		/// </summary>
+		public static IValueAnimation AnimatePingOpacity(this VisualElement element, float amount = 1f, int duration = 150, bool repeat = false)
+		{
+			var from = new StyleValues
+			{
+				opacity = 0f
+			};
+
+			var to = new StyleValues
+			{
+				opacity = amount
+			};
+
+			var anim = element.experimental.animation.Start(from, to, duration).OnCompleted(() =>
+			{
+				element.experimental.animation.Start(to, from, duration).OnCompleted(() =>
+				{
+					if (repeat)
+					{
+						element.AnimatePingOpacity(amount, duration, repeat);
+					}
+				}).Start();
+			});
+			anim.Start();
+			return anim;
+		}
+
+		/// <summary>
 		/// Rotates element slowly. Can be used to let elements rotating forever.
 		/// </summary>
 		public static void AddRotatingEffect(this VisualElement element, float angleDelta, int delay)

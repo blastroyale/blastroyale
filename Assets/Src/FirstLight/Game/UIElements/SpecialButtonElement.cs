@@ -124,7 +124,10 @@ namespace FirstLight.Game.UIElements
 			_icon.RemoveSpriteClasses();
 			_icon.AddToClassList(string.Format(USS_SPRITE_SPECIAL,
 				special.ToString().ToLowerInvariant().Replace("special", "")));
-			this.AnimatePing();
+			if (Application.isPlaying)
+			{
+				this.AnimatePing();
+			}
 
 			_disableScheduledItem?.Pause();
 			if (availableIn > 0)

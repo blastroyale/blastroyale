@@ -19,22 +19,14 @@
             <FirstLight.Game.UIElements.ImageButton name="MenuButton" class="menu-button customizable-hud">
                 <ui:VisualElement name="Icon" class="menu-button__icon" style="height: 40px;" />
             </FirstLight.Game.UIElements.ImageButton>
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0 customizable-hud"/>
-            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="customizable-hud special-button--special1"/>
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special0" class="special-button--special0 customizable-hud" />
+            <FirstLight.Game.UIElements.SpecialButtonElement name="Special1" class="customizable-hud special-button--special1" />
             <ui:VisualElement name="TopCenterContainer" picking-mode="Ignore" class="top-center-container">
                 <ui:VisualElement name="MatchStatus" class="match-status">
-                    <ui:VisualElement name="AliveContainer" class="match-status__alive-container customizable-hud">
-                        <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive" />
-                        <ui:Label text="12" name="AliveCountText" class="match-status__playercount" />
-                    </ui:VisualElement>
                     <ui:VisualElement name="Counter" class="match-status__counter customizable-hud">
                         <ui:VisualElement name="PingBG" usage-hints="DynamicTransform" class="match-status__ping-bg" />
                         <ui:VisualElement name="BG" class="match-status__bg" />
                         <ui:Label text="30" name="TimerText" class="match-status__counter-text" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="KillContainer" class="customizable-hud match-status__kills-container">
-                        <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed" />
-                        <ui:Label text="12" name="KilledCountText" class="match-status__playercount" />
                     </ui:VisualElement>
                     <ui:Label text="AREA SHRINKING" name="NotificationText" class="customizable-hud status-areashrinking" />
                 </ui:VisualElement>
@@ -87,6 +79,18 @@
                     <ui:VisualElement name="Shield" picking-mode="Ignore" class="equipment-display__gear-item equipment-display__gear-item--shield" />
                 </ui:VisualElement>
                 <ui:Label text="0/4" name="Count" class="equipment-display__count" style="display: none;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PlayerCounts" class="customizable-hud player-counts">
+                <ui:VisualElement name="KillContainer" class="player-counts__kills-container">
+                    <ui:VisualElement name="KilledCountPing" class="player-counts__ping-background" />
+                    <ui:VisualElement name="KilledIcon" class="sprite-match__icon-players-killed player-counts__icon" />
+                    <ui:Label text="12" name="KilledCountText" class="player-counts__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="AliveContainer" class="player-counts__alive-container">
+                    <ui:VisualElement name="AliveCountPing" class="player-counts__ping-background" />
+                    <ui:VisualElement name="AliveIcon" class="sprite-match__icon-players-alive player-counts__icon" />
+                    <ui:Label text="12" name="AliveCountText" class="player-counts__label" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="StatusNotifications" picking-mode="Ignore" class="non-customizable-hud fill-parent">
@@ -147,7 +151,7 @@
                     <ui:VisualElement name="StarIcon" class="status-kill__star" style="display: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0;">
+            <ui:VisualElement name="LowHP" picking-mode="Ignore" class="low-hp" style="opacity: 0; top: 0; right: 0; left: 0; bottom: 0;">
                 <FirstLight.Game.UIElements.GradientElement name="Left" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--left" />
                 <FirstLight.Game.UIElements.GradientElement name="Right" picking-mode="Ignore" class="low-hp__gradient low-hp__gradient--right" />
             </ui:VisualElement>

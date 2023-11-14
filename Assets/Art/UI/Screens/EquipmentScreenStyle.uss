@@ -6,14 +6,6 @@
     justify-content: space-between;
 }
 
-.specials-holder {
-    position: absolute;
-    right: 90px;
-    bottom: 264px;
-    height: 300px;
-    justify-content: space-between;
-}
-
 .might-display {
     position: absolute;
     left: 0;

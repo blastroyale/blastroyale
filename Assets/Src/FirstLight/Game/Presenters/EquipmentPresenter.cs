@@ -27,7 +27,6 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private List<EquipmentSlotElement> _categories;
-		private VisualElement _specialsHolder;
 		private MightElement _might;
 
 		private IGameServices _services;
@@ -41,7 +40,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_specialsHolder = root.Q("SpecialsHolder").Required();
 			_might = root.Q<MightElement>("Might").Required();
 			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
 
@@ -62,7 +60,6 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			RefreshCategories();
-			RefreshSpecials();
 			RefreshMight();
 			
 			_services.MessageBrokerService.Publish(new EquipmentScreenOpenedMessage());
@@ -85,30 +82,6 @@ namespace FirstLight.Game.Presenters
 				else
 				{
 					element.SetEquipment(default, false, unseenItems);
-				}
-			}
-		}
-
-		private void RefreshSpecials()
-		{
-			_specialsHolder.Clear();
-
-			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var uniqueId))
-			{
-				var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
-
-				foreach (var (type, value) in info.Stats)
-				{
-					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
-					{
-						var specialId = (GameId) value;
-						var element = new SpecialDisplayElement(specialId);
-						element.clicked += () =>
-							element.OpenTooltip(Root, specialId.GetDescriptionLocalization(), TooltipDirection.TopRight,
-								TooltipPosition.BottomLeft, 20, 20);
-
-						_specialsHolder.Add(element);
-					}
 				}
 			}
 		}

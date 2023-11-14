@@ -101,9 +101,9 @@
 .player-status-bar__health-holder {
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    left: 42px;
-    bottom: 14px;
-    right: 7px;
+    left: 24px;
+    bottom: 13px;
+    right: 4px;
     height: 15px;
     flex-direction: row;
 }
@@ -116,15 +116,31 @@
 .player-status-bar__shield-holder {
     height: 10px;
     position: absolute;
-    right: 5px;
-    left: 32px;
-    bottom: 32px;
+    right: 2px;
+    left: 29px;
+    bottom: 31px;
     flex-direction: row;
 }
 
 .player-status-bar__shield-bar {
     flex-grow: 1;
     background-image: var(--sprite-match__progress-shield);
+}
+
+.player-status-bar__separator-holder {
+    position: absolute;
+    left: -1px;
+    top: 0;
+    right: -2px;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.player-status-bar__health-separator {
+    background-image: var(--sprite-match__progress-separator);
+    width: 4px;
+    height: 10px;
 }
 
 .player-status-bar__background {
@@ -188,6 +204,15 @@
 }
 
 .player-status-bar__notification--lvlup > .player-status-bar__notification-icon {
+    display: none;
+}
+
+.player-status-bar__notification--special {
+    color: rgb(255, 255, 255);
+    left: 70px;
+}
+
+.player-status-bar__notification--special > .player-status-bar__notification-icon {
     display: none;
 }
 

@@ -31,12 +31,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		[SerializeField, Required] private Animation _animation;
 
 		//[SerializeField, Required] private AnimationClip _spawnClip;
-		[SerializeField, Required] private AnimationClip _idleClip;
+		[SerializeField] private AnimationClip _idleClip;
 		[SerializeField] private AnimationClip _collectClip;
 		[SerializeField] private Transform _pickupCircle;
 		[SerializeField] private bool _spawnAnim = true;
 
-		private readonly Dictionary<EntityRef, CollectingData> _collectors = new();
+		private readonly Dictionary<EntityRef, CollectingData> _collectors = new ();
 		private EntityRef _displayedCollector;
 		private CollectableIndicatorVfxMonoComponent _collectingVfx;
 
@@ -63,7 +63,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			MatchServices = MainInstaller.Resolve<IMatchServices>();
 
 			//_animation.AddClip(_spawnClip, CLIP_SPAWN);
-			_animation.AddClip(_idleClip, CLIP_IDLE);
+			if (_idleClip != null)
+			{
+				_animation.AddClip(_idleClip, CLIP_IDLE);
+			}
+
 			if (_collectClip != null)
 			{
 				_animation.AddClip(_collectClip, CLIP_COLLECT);
@@ -139,7 +143,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			//_animation.Play(CLIP_SPAWN);
 			//_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 
-			_animation.Play(CLIP_IDLE);
+			if (_idleClip != null)
+			{
+				_animation.Play(CLIP_IDLE);
+			}
 		}
 
 		private void RefreshIndicator(Frame f, EntityRef entity, ConsumableType type)

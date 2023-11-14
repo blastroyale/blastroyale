@@ -294,6 +294,9 @@ namespace FirstLight.Game.Views.UITK
 				case ConsumableType.Ammo:
 					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxAmmo);
 					break;
+				case ConsumableType.Special:
+					bar.ShowNotification(PlayerStatusBarElement.NotificationType.MaxSpecials);
+					break;
 				default:
 					FLog.Error($"Unknown collectable: {callback.CollectableId}");
 					break;

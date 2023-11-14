@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Art/Materials/M_Baked_Bush_desert.mat.meta
 guid: a18f37ac528733142a9b88762f8af958
 NativeFormatImporter:
-========
-guid: ca5fc3ccd92c2467f811d7e0ca2683b8
-folderAsset: yes
-DefaultImporter:
->>>>>>>> develop:Assets/Libs/Best HTTP.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

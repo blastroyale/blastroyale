@@ -1,7 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Services;
+using GameLogicService.Models;
+using Npgsql.Internal.TypeHandlers;
+using PlayFab;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 
@@ -32,6 +39,26 @@ namespace IntegrationTests
 			var responseStats = ModelSerializer.Deserialize<Dictionary<EquipmentStatType, float>>(response);
 			
 			Assert.Greater(responseStats[EquipmentStatType.Power], 0);
+		}
+		
+		[Test]
+		public async Task TestAddRemoveEquipment()
+		{
+			var playerId = PlayFabClientAPI.LoginWithCustomIDAsync(new()
+			{
+				CustomId = Guid.NewGuid().ToString(), CreateAccount = true
+			}).GetAwaiter().GetResult().Result.PlayFabId;
+			var token = Guid.NewGuid().ToString();
+			var equip = new Equipment(GameId.ApoRifle);
+			var uniqueId = _server.Post("/equipment/AddEquipment?key=devkey", new AddEquipmentRequest()
+			{
+				Equipment = equip ,
+				PlayerId = playerId,
+				TokenId = token
+			});
+			
+			var equips = _server.Get("/equipment/GetEquipment?key=devkey&playerId="+playerId);
+			Assert.That(equips.Contains(token));
 		}
 	}
 }

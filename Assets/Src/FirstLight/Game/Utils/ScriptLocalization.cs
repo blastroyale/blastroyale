@@ -1463,6 +1463,7 @@ namespace I2.Loc
 		{
 			public static string airdrop_landing 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/airdrop_landing"); } }
 			public static string area_shrinking 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/area_shrinking"); } }
+			public static string full 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/full"); } }
 			public static string go_to_safe_area 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/go_to_safe_area"); } }
 			public static string lvl_up 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/lvl_up"); } }
 			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITMatch/max"); } }
@@ -1657,6 +1658,7 @@ namespace I2.Loc
 			public static string nice_proceed_chest_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_chest_area"); } }
 			public static string nice_proceed_dummy_area 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/nice_proceed_dummy_area"); } }
 			public static string open_chest 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/open_chest"); } }
+			public static string pick_up_special 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/pick_up_special"); } }
 			public static string pick_up_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/pick_up_weapon"); } }
 			public static string proceed_iron_gate 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/proceed_iron_gate"); } }
 			public static string select_map_position 		{ get{ return LocalizationManager.GetTranslation ("UITTutorial/select_map_position"); } }
@@ -3137,6 +3139,7 @@ namespace I2.Loc
 		{
 		    public const string airdrop_landing = "UITMatch/airdrop_landing";
 		    public const string area_shrinking = "UITMatch/area_shrinking";
+		    public const string full = "UITMatch/full";
 		    public const string go_to_safe_area = "UITMatch/go_to_safe_area";
 		    public const string lvl_up = "UITMatch/lvl_up";
 		    public const string max = "UITMatch/max";
@@ -3331,6 +3334,7 @@ namespace I2.Loc
 		    public const string nice_proceed_chest_area = "UITTutorial/nice_proceed_chest_area";
 		    public const string nice_proceed_dummy_area = "UITTutorial/nice_proceed_dummy_area";
 		    public const string open_chest = "UITTutorial/open_chest";
+		    public const string pick_up_special = "UITTutorial/pick_up_special";
 		    public const string pick_up_weapon = "UITTutorial/pick_up_weapon";
 		    public const string proceed_iron_gate = "UITTutorial/proceed_iron_gate";
 		    public const string select_map_position = "UITTutorial/select_map_position";

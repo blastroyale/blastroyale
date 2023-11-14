@@ -45,6 +45,18 @@ public class TestService<T> : WebApplicationFactory<T> where T : class
 		var responseString = response.Content.ReadAsStringAsync().Result;
 		return responseString;
 	}
+	
+	public ResponseType Post<ResponseType>(string url, object param)
+	{
+		return JsonConvert.DeserializeObject<ResponseType>(Post(url, param))!;
+	}
+	
+	public dynamic PostGetDynamic(string url, object param)
+	{
+		return JsonConvert.DeserializeObject(Post(url, param))!;
+	}
+
+	
 
 	/// <summary>
 	/// Performs a post request to webservice.

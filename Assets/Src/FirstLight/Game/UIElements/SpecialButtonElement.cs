@@ -47,7 +47,7 @@ namespace FirstLight.Game.UIElements
 		/// Triggered with 0f when button is pressed and with 1f when button is released.
 		/// </summary>
 		public event Action<float> OnPress;
-		
+
 		/// <summary>
 		/// Triggered with 0f when button is pressed and with 1f when button is released.
 		/// </summary>
@@ -60,7 +60,11 @@ namespace FirstLight.Game.UIElements
 
 		public SpecialButtonElement()
 		{
-			_invertedSpecialCancel = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.InvertSpecialCancellling;
+			// TODO This shouldn't be here - we should not resolve services in custom elements as they are instantiated at edit time
+			if (Application.isPlaying)
+			{
+				_invertedSpecialCancel = MainInstaller.Resolve<IGameDataProvider>().AppDataProvider.InvertSpecialCancellling;
+			}
 
 			AddToClassList(USS_BLOCK);
 			pickingMode = PickingMode.Ignore;
@@ -87,7 +91,7 @@ namespace FirstLight.Game.UIElements
 			_container.Add(_cooldown = new VisualElement {name = "cooldown"});
 			_cooldown.AddToClassList(USS_COOLDOWN);
 			_cooldown.SetVisibility(false);
-			
+
 			EnableInClassList(USS_DRAGGABLE, true);
 
 			_cooldown.Add(_cooldownLabel = new Label("14") {name = "cooldown-label"});
@@ -110,17 +114,17 @@ namespace FirstLight.Game.UIElements
 			{
 				special = GameId.SpecialAimingGrenade;
 			}
-			
-			if ( _currentPointerId != null && _container.HasPointerCapture((int)_currentPointerId))
+
+			if (_currentPointerId != null && _container.HasPointerCapture((int) _currentPointerId))
 			{
-				ResetBtnState((int)_currentPointerId);
+				ResetBtnState((int) _currentPointerId);
 			}
 
 			_needsAim = needsAim;
 			_icon.RemoveSpriteClasses();
 			_icon.AddToClassList(string.Format(USS_SPRITE_SPECIAL,
 				special.ToString().ToLowerInvariant().Replace("special", "")));
-			
+
 			_disableScheduledItem?.Pause();
 			if (availableIn > 0)
 			{
@@ -193,7 +197,7 @@ namespace FirstLight.Game.UIElements
 
 			_container.CapturePointer(evt.pointerId);
 			_currentPointerId = evt.pointerId;
-			
+
 			if (_needsAim)
 			{
 				_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
@@ -203,6 +207,7 @@ namespace FirstLight.Game.UIElements
 			{
 				_cancelCircle.AddToClassList(USS_CANCEL_CIRCLE_SMALL);
 			}
+
 			AddToClassList(USS_DRAGGING);
 
 			var parentPosition = parent.WorldToLocal(evt.position);
@@ -216,8 +221,7 @@ namespace FirstLight.Game.UIElements
 			if (_onCooldown || !_container.HasPointerCapture(evt.pointerId)) return;
 
 
-			var maxRange = _invertedSpecialCancel ? worldBound.width / 2f :
-				worldBound.width / (_inCancel ? 1 : 2f);
+			var maxRange = _invertedSpecialCancel ? worldBound.width / 2f : worldBound.width / (_inCancel ? 1 : 2f);
 			var parentPosition = parent.WorldToLocal(evt.position);
 			var offsetPosition = parentPosition - new Vector2(worldBound.width / 2f, worldBound.height / 2f);
 
@@ -227,8 +231,9 @@ namespace FirstLight.Game.UIElements
 
 			_stick.transform.position = stickPositionClamped;
 
-			var inCancelArea = _invertedSpecialCancel ? _cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position)) :
-				!_cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position));
+			var inCancelArea = _invertedSpecialCancel
+				? _cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position))
+				: !_cancelCircle.ContainsPoint(_cancelCircle.WorldToLocal(evt.position));
 
 			if (inCancelArea != _inCancel)
 			{
@@ -239,6 +244,7 @@ namespace FirstLight.Game.UIElements
 					// TODO: Maybe cancel the previous animation if it looks weird when quickly cycling
 					_cancelIcon.AnimatePing(1.2f);
 				}
+
 				OnCancel?.Invoke(_inCancel ? 0.1f : 0f);
 			}
 
@@ -258,13 +264,13 @@ namespace FirstLight.Game.UIElements
 		{
 			_container.ReleasePointer(pointerId);
 			_currentPointerId = null;
-			
+
 			RemoveFromClassList(_invertedSpecialCancel ? USS_PRESSED_INVERT : USS_PRESSED);
 			RemoveFromClassList(USS_DRAGGING);
 			_cancelCircle.RemoveFromClassList(USS_CANCEL_CIRCLE_SMALL);
-			
+
 			_stick.transform.position = Vector3.zero;
-			
+
 			if (_inCancel)
 			{
 				_cancelIcon.SetVisibility(false);
@@ -274,7 +280,7 @@ namespace FirstLight.Game.UIElements
 			OnPress?.Invoke(0f);
 			_inCancel = false;
 		}
-		
+
 		public new class UxmlFactory : UxmlFactory<SpecialButtonElement, UxmlTraits>
 		{
 		}

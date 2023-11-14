@@ -39,7 +39,7 @@ namespace Quantum
 		{
 			var transform = f.Get<Transform3D>(e);
 
-			if (GameId.IsInGroup(GameIdGroup.Consumable))
+			if (GameId.IsInGroup(GameIdGroup.Consumable) || GameId.IsInGroup(GameIdGroup.Special))
 			{
 				Collectable = SpawnConsumable(f, GameId, &transform, e);
 			}

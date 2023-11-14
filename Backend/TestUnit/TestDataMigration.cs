@@ -21,6 +21,7 @@ public class TestDataMigration
 	{
 		_migrations = new StateMigrations();
 	}
+
 	
 	[Test]
 	public void TestUnversionedWorksFine()

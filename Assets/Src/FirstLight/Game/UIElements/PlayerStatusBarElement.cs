@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -19,6 +20,8 @@ namespace FirstLight.Game.UIElements
 		private const int DAMAGE_NUMBER_ANIM_DURATION = 1000;
 		private const int DAMAGE_ANIMATION_DURATION = 1500; // How long the bar takes to fade out after taking damage.
 
+		private const int HEALTH_SEPARATORS = 6; // +2 for first and last one that aren't visible
+
 		private const string USS_BLOCK = "player-status-bar";
 		private const string USS_FRIENDLY = USS_BLOCK + "--friendly";
 		private const string USS_BACKGROUND = USS_BLOCK + "__background";
@@ -31,6 +34,8 @@ namespace FirstLight.Game.UIElements
 		private const string USS_HEALTH_HOLDER = USS_BLOCK + "__health-holder";
 		private const string USS_HEALTH_BAR = USS_BLOCK + "__health-bar";
 		private const string USS_AMMO_HOLDER = USS_BLOCK + "__ammo-holder";
+		private const string USS_SEPARATOR_HOLDER = USS_BLOCK + "__separator-holder";
+		private const string USS_HEALTH_SEPARATOR = USS_BLOCK + "__health-separator";
 		private const string USS_AMMO_RELOAD_BAR = USS_BLOCK + "__ammo-reload-bar";
 		private const string USS_AMMO_SEGMENT = USS_BLOCK + "__ammo-segment";
 		private const string USS_NOTIFICATION = USS_BLOCK + "__notification";
@@ -39,6 +44,7 @@ namespace FirstLight.Game.UIElements
 		private const string USS_NOTIFICATION_HEALTH = USS_NOTIFICATION + "--health";
 		private const string USS_NOTIFICATION_AMMO = USS_NOTIFICATION + "--ammo";
 		private const string USS_NOTIFICATION_LVLUP = USS_NOTIFICATION + "--lvlup";
+		private const string USS_NOTIFICATION_SPECIAL = USS_NOTIFICATION + "--special";
 		private const string USS_DAMAGE_HOLDER = USS_BLOCK + "__damage-holder";
 		private const string USS_DAMAGE_NUMBER = USS_BLOCK + "__damage-number";
 
@@ -60,11 +66,11 @@ namespace FirstLight.Game.UIElements
 		private bool _isFriendly;
 		private float _smallDamage = 32;
 		private float _damageScale = 64;
-		private bool _showRealDamage = false;
+		private bool _showRealDamage;
 		private readonly ValueAnimation<float> _opacityAnimation;
 		private readonly IVisualElementScheduledItem _opacityAnimationHandle;
 		private readonly IVisualElementScheduledItem _notificationHandle;
-		private readonly StyleColor _defaultPingDmgColor = new StyleColor(new Color(1f, 1f, 1f));
+		private readonly StyleColor _defaultPingDmgColor = new (new Color(1f, 1f, 1f));
 
 		private ValueAnimation<Vector3> _reloadAnimation;
 
@@ -76,17 +82,17 @@ namespace FirstLight.Game.UIElements
 
 			Add(_name = new Label("PLAYER NAME") {name = "name"});
 			_name.AddToClassList(USS_NAME);
-			
+
 			Add(_iconBackground = new VisualElement() {name = "icon-border"});
 			_iconBackground.AddToClassList(USS_ICON_BORDER);
-			
+
 			Add(_icon = new VisualElement() {name = "icon"});
 			_icon.AddToClassList(USS_ICON);
-			
+
 			//TODO: Make them visible again when we implement them properly
 			_iconBackground.SetVisibility(false);
 			_icon.SetVisibility(false);
-			
+
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(USS_BACKGROUND);
@@ -105,6 +111,16 @@ namespace FirstLight.Game.UIElements
 			{
 				healthHolder.Add(_healthBar = new VisualElement {name = "health-bar"});
 				_healthBar.AddToClassList(USS_HEALTH_BAR);
+
+				var healthSeparatorHolder = new VisualElement() {name = "separator-holder"};
+				healthHolder.Add(healthSeparatorHolder);
+				healthSeparatorHolder.AddToClassList(USS_SEPARATOR_HOLDER);
+				for (int i = 0; i < HEALTH_SEPARATORS; i++)
+				{
+					var separator = new VisualElement {name = $"separator-{i}"};
+					separator.AddToClassList(USS_HEALTH_SEPARATOR);
+					healthSeparatorHolder.Add(separator);
+				}
 			}
 
 			Add(_ammoHolder = new VisualElement {name = "ammo-holder"});
@@ -115,6 +131,7 @@ namespace FirstLight.Game.UIElements
 
 			Add(_level = new Label("10") {name = "level"});
 			_level.AddToClassList(USS_LEVEL);
+			_level.SetDisplay(QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS);
 
 			Add(_notificationLabel = new Label("MAX") {name = "notification-label"});
 			_notificationLabel.AddToClassList(USS_NOTIFICATION);
@@ -159,7 +176,7 @@ namespace FirstLight.Game.UIElements
 			SetIsFriendly(true);
 			//SetMagazine(4, 6);
 		}
-		
+
 		public void SetIconColor(Color color)
 		{
 			if (!_name.visible || string.IsNullOrEmpty(_name.text) || color == GameConstants.PlayerName.DEFAULT_COLOR)
@@ -174,7 +191,7 @@ namespace FirstLight.Game.UIElements
 				_icon.SetVisibility(true);
 			}
 		}
-		
+
 		/// <summary>
 		/// Marks this bar as friendly (always visible with ammo) or not (only visible when damaged and no ammo info).
 		/// </summary>
@@ -207,6 +224,7 @@ namespace FirstLight.Game.UIElements
 				damageNumberLabel.style.fontSize = GetDamageNumberSize(damagePct);
 				damageNumberLabel.text = damagePct.ToString();
 			}
+
 			damageNumberLabel.BringToFront();
 			damageNumberAnim.Stop();
 			damageNumberAnim.Start();
@@ -220,7 +238,7 @@ namespace FirstLight.Game.UIElements
 
 		private float GetDamageNumberSize(int damagePct)
 		{
-			return _smallDamage + (_damageScale * damagePct/100);
+			return _smallDamage + (_damageScale * damagePct / 100);
 		}
 
 		/// <summary>
@@ -290,6 +308,8 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetLevel(int level)
 		{
+			if (QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS) return;
+
 			_level.text = level.ToString();
 			_level.AnimatePing();
 		}
@@ -329,6 +349,10 @@ namespace FirstLight.Game.UIElements
 					_notificationLabel.text = ScriptLocalization.UITMatch.max;
 					_notificationLabel.AddToClassList(USS_NOTIFICATION_HEALTH);
 					break;
+				case NotificationType.MaxSpecials:
+					_notificationLabel.text = ScriptLocalization.UITMatch.full;
+					_notificationLabel.AddToClassList(USS_NOTIFICATION_SPECIAL);
+					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
@@ -364,7 +388,7 @@ namespace FirstLight.Game.UIElements
 			var index = (int) damageNumber.userData;
 			var offset = _damageNumberAnimOffsets[index];
 			var damage = _damageNumberAnimValues[index];
-			
+
 			// Bezier curve
 			var p0 = new Vector2(0, 0) + Vector2.one * offset / 2f; // Less random offset on first point
 			var p1 = new Vector2(50, -10) + Vector2.one * offset;
@@ -382,7 +406,7 @@ namespace FirstLight.Game.UIElements
 			var scale = t < 0.1 ? Mathf.Lerp(0, 1.5f + scaleMagnitude, t * 10) :
 				t < 0.3 ? Mathf.Lerp(1.5f + scaleMagnitude, 1f, (t - 0.1f) * 10) :
 				1f;
-			
+
 			// Color
 			// var color = t < 0.3 ? Color.Lerp(Color.red, Color.white, t * 3.33f) : Color.white;
 
@@ -397,7 +421,8 @@ namespace FirstLight.Game.UIElements
 			MaxShields,
 			MaxHealth,
 			MaxAmmo,
-			LevelUp
+			LevelUp,
+			MaxSpecials
 		}
 
 		public new class UxmlFactory : UxmlFactory<PlayerStatusBarElement, UxmlTraits>

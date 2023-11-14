@@ -86,7 +86,7 @@ namespace Quantum.Systems
 				}
 				else
 				{
-					membersByTeam["p" + i] = new HashSet<int>() { i };
+					membersByTeam["p" + i] = new HashSet<int>() {i};
 				}
 			}
 
@@ -183,9 +183,13 @@ namespace Quantum.Systems
 					consumablesToDrop.Add(consumable);
 				}
 
-				if (QuantumFeatureFlags.DropEnergyCubes)
+				if (QuantumFeatureFlags.ENERGY_CUBES_REPLACE_SPECIALS)
 				{
 					consumablesToDrop.Add(GameId.EnergyCubeLarge);
+				}
+				else
+				{
+					consumablesToDrop.Add(Special.GetRandomSpecialId(f));
 				}
 
 				if (!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
@@ -223,7 +227,7 @@ namespace Quantum.Systems
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 				new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 					f.RNG->Next(-gridSquareSize, gridSquareSize));
-			var spawnTransform = new Transform3D { Position = FPVector3.Zero, Rotation = FPQuaternion.Identity };
+			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 
 			spawnTransform.Position = spawnPosition.XOY;
 
@@ -389,7 +393,7 @@ namespace Quantum.Systems
 					return;
 				}
 
-				var spell = new Spell() { PowerAmount = (uint)health };
+				var spell = new Spell() {PowerAmount = (uint) health};
 				if (health > 0)
 				{
 					stats->GainHealth(f, filter.Entity, &spell);

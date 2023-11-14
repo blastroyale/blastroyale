@@ -12,7 +12,7 @@ namespace Quantum
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var specials = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot->Specials;
+			var specials = f.Unsafe.GetPointer<PlayerInventory>(e)->Specials;
 
 			for(var i = 0; i < specials.Length; i++)
 			{

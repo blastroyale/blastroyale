@@ -9,5 +9,6 @@ namespace GameLogicService.Models
 	{
 		public string PlayerId;
 		public Equipment Equipment;
+		public string TokenId;
 	}
 }

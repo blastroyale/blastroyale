@@ -392,7 +392,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			for (var i = 0; i < _friendliesPool.SpawnedReadOnly.Count; i++)
 			{
 				var indicator = _friendliesPool.SpawnedReadOnly[i];
-				indicator.SetPosition(ViewportToMinimapPosition(_minimapCamera.WorldToViewportPoint(indicator.PlayerTransform.position),
+				indicator.SetPosition(ViewportToMinimapPosition(_minimapCamera.WorldToViewportPoint(indicator.PlayerTransformPosition),
 					playerViewportPoint));
 			}
 		}
@@ -521,9 +521,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			foreach (var friendlyView in poolSpawnedReadOnly)
 			{
 				if (friendlyView.Entity != callback.Entity) continue;
-
-				// TODO mihak Instead of despawning set a "dead state" with an X or something
-				_friendliesPool.Despawn(friendlyView);
+				friendlyView.SetAlive(false);
 				break;
 			}
 		}

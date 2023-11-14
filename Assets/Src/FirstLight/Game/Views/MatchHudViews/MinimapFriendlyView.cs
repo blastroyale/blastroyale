@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -87,6 +88,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			Alive = alive;
 			_alive.SetActive(alive);
 			_dead.SetActive(!alive);
+
+			if (!alive)
+			{
+				_dead.transform.DOPunchScale(Vector3.one * 1.4f, 0.3f, 0, 0);
+			}
 		}
 
 		/// <summary>

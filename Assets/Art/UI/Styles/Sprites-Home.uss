@@ -105,6 +105,7 @@
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
+    --sprite-home__icon-avatar: url('/Assets/Art/UI/Sprites/Home/icon-avatar.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
     --sprite-home__icon-blastbucks: url('/Assets/Art/UI/Sprites/Home/icon-blastbucks.png');
@@ -113,6 +114,7 @@
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
     --sprite-home__icon-close-white: url('/Assets/Art/UI/Sprites/Home/icon-close-white.png');
+    --sprite-home__icon-collection: url('/Assets/Art/UI/Sprites/Home/icon-collection.png');
     --sprite-home__icon-collection-lock: url('/Assets/Art/UI/Sprites/Home/icon-collection-lock.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
@@ -776,6 +778,12 @@
     height: 26px;
 }
 
+.sprite-home__icon-avatar {
+    background-image: var(--sprite-home__icon-avatar);
+    width: 30px;
+    height: 38px;
+}
+
 .sprite-home__icon-banner {
     background-image: var(--sprite-home__icon-banner);
     width: 42px;
@@ -822,6 +830,12 @@
     background-image: var(--sprite-home__icon-close-white);
     width: 26px;
     height: 26px;
+}
+
+.sprite-home__icon-collection {
+    background-image: var(--sprite-home__icon-collection);
+    width: 133px;
+    height: 91px;
 }
 
 .sprite-home__icon-collection-lock {

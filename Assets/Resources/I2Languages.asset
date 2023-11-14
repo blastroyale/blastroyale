@@ -7868,9 +7868,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Death Flag
-      - Death Flag
-      - Bandeira de Morte
+      - Flag
+      - Flag
+      - Bandeira
       - 
       - 
       Flags: 0000000000
@@ -7890,9 +7890,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Profile Picture
-      - Profile Picture
-      - Imagem de Perfil
+      - Avatar
+      - Avatar
+      - Avatar
       - 
       - 
       Flags: 0000000000
@@ -13785,11 +13785,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/banners
+    - Term: UITCollectionScreen/cat_deathmarker
       TermType: 0
       Description: 
       Languages:
-      - FLAGS
+      - FLAG
       - "\u0411\u0430\u043D\u043D\u0435\u0440\u044B"
       - Banners
       - 
@@ -13807,11 +13807,11 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/characters
+    - Term: UITCollectionScreen/cat_playerskin
       TermType: 0
       Description: 
       Languages:
-      - CHARACTERS
+      - CHARACTER
       - "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416\u0418"
       - PERSONAGENS
       - 
@@ -13840,34 +13840,34 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/gliders
+    - Term: UITCollectionScreen/cat_glider
       TermType: 0
       Description: 
       Languages:
-      - GLIDERS
+      - GLIDER
       - "\u041F\u043B\u0430\u043D\u0435\u0440\u044B"
       - Planadores
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/avatars
+    - Term: UITCollectionScreen/cat_profilepicture
       TermType: 0
       Description: 
       Languages:
-      - AVATARS
+      - AVATAR
       - "\u0410\u0412\u0410\u0422\u0410\u0420\u042B"
       - AVATARES
       - 
       - 
       Flags: 0000000000
       Languages_Touch: []
-    - Term: UITCollectionScreen/meleeskins
+    - Term: UITCollectionScreen/cat_meleeskin
       TermType: 0
       Description: 
       Languages:
-      - HAMMERS
-      - "\u041C\u043E\u043B\u043E\u0442\u043A\u0438"
+      - MELEE
+      - "\u0420\u0443\u043A\u043E\u043F\u0430\u0448\u043D\u044B\u043C \u0431\u043E\u0435\u043C"
       - MARTELOS
       - 
       - 
@@ -15374,7 +15374,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SQUAD
+      - SQUAD UP
       - "\u041E\u0422\u0420\u042F\u0414"
       - "ESQUADR\xC3O"
       - 
@@ -17961,7 +17961,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1699882387821
+    Google_LastUpdatedVersion: 1699972256670
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

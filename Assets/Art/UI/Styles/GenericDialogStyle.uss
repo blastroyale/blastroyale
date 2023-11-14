@@ -23,6 +23,12 @@
     height: auto;
 }
 
+.popup--xl {
+    display: flex;
+    width: 1392px;
+    height: 793px;
+}
+
 .popup__window {
     background-color: rgb(255, 255, 255);
     overflow: hidden;
@@ -41,12 +47,32 @@
     bottom: 10px;
 }
 
+.popup__window--full {
+    height: 100%;
+}
+
 .window__header {
     height: 70px;
     overflow: hidden;
     background-color: rgb(128, 87, 227);
     align-items: center;
     justify-content: center;
+}
+
+.window__close-button {
+    background-image: var(--sprite-home__icon-close-white);
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 23px;
+    left: auto;
+    -unity-background-scale-mode: stretch-to-fill;
+    right: 24px;
+}
+
+.window__header--xl {
+    display: flex;
+    height: 98px;
 }
 
 .window__content {
@@ -56,6 +82,15 @@
     flex-direction: column;
     flex-wrap: nowrap;
     padding: 25px 12px;
+}
+
+.window__content--purchase {
+    bottom: auto;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    padding-bottom: 41px;
+    padding-top: 41px;
 }
 
 .window__dim {
@@ -80,11 +115,12 @@
 }
 
 .content__controls {
-    flex-direction: row;
+    flex-direction: column;
     flex-shrink: 1;
     justify-content: center;
     align-items: center;
     width: 100%;
+    align-self: auto;
 }
 
 .hidden {
@@ -144,4 +180,145 @@
     font-size: 24px;
     -unity-font-style: normal;
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset?fileID=11400000&guid=b745807711bab4fc0891193a62f7419f&type=2#Stawix-Bold-Static');
+}
+
+.buy-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-main-yellow.png?fileID=2800000&guid=fec2c038b4fd64e349c7afb5d98f3cee&type=3#button-main-yellow');
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(147, 35, 14);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    margin-top: auto;
+    margin-right: 28px;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: 40px;
+    width: 321px;
+    -unity-font-style: bold;
+    letter-spacing: -8px;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 85px;
+}
+
+.purchase-confirmation-root {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-image: none;
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-text-align: middle-center;
+}
+
+.purchase-confirmation-root--no-bg {
+}
+
+.purchase-confirmation__item-icon {
+    flex-grow: 0;
+    width: 85%;
+    height: 85%;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.purchase-confirmation__item-price-label {
+    height: 36px;
+    width: 47px;
+    font-size: 44px;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-grow: 0;
+    -unity-text-align: middle-right;
+    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    -unity-text-outline-color: rgb(156, 36, 12);
+    letter-spacing: -4px;
+}
+
+.purchase-confirmation__button-icon {
+    flex-grow: 0;
+    background-image: var(--sprite-home__icon-blastbucks);
+    width: 64px;
+    height: 64px;
+    margin-left: 5px;
+}
+
+.purchase-confirmation-root--insufficient .purchase-confirmation__item-icon {
+    width: 50%;
+    height: 50%;
+}
+
+.purchase-confirmation-root--insufficient .purchase-confirmation__button-icon {
+    display: none;
+}
+
+.purchase-confirmation-root--insufficient .purchase-confirmation__item-price-label {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+}
+
+.purchase-confirmation__item-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 375px;
+    height: 100px;
+}
+
+.purchase-confirmation__desc {
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 112px;
+    width: 100%;
+    font-size: 38px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2.7px 2.7px 0 rgb(0, 0, 0);
+    letter-spacing: -2px;
+}
+
+.purchase-confirmation__background-image {
+    flex-grow: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GenericPurchaseDialog/background.png?fileID=2800000&amp;guid=4cb250eba39458044ab28897d3200b17&amp;type=3#background');
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 124px;
+    height: 353px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.purchase-confirmation__item-slot {
+    flex-grow: 0;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(211, 208, 217);
+    border-top-left-radius: 27px;
+    border-top-right-radius: 27px;
+    border-bottom-right-radius: 27px;
+    border-bottom-left-radius: 27px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+}
+
+.purchase-confirmation__title {
+    font-size: 42px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }

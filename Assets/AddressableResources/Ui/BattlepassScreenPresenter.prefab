@@ -82,9 +82,9 @@ MonoBehaviour:
   _document: {fileID: 7388267820579563775}
   _background: {fileID: 0}
   _millisecondsToClose: 0
-  _battlePassSegmentBarAsset: {fileID: 9197481963319205126, guid: dcd6238cca50f4181b0953d56e9abee6, type: 3}
-  _battlePassSegmentAsset: {fileID: 9197481963319205126, guid: b696482fc2572a84da652c85e867d617, type: 3}
   _scrollToDurationMs: 1500
+  _battlepassLevelSprite: {fileID: 21300000, guid: f8b4c677be302ff44be35fb2a261cd5b, type: 3}
+  _battlepassPremiumSprite: {fileID: 21300000, guid: 48f9187df2ec3a7408325105da0c6a65, type: 3}
 --- !u!1001 &5379980170040574766
 PrefabInstance:
   m_ObjectHideFlags: 0

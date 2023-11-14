@@ -68,8 +68,12 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericInputDialog.prefab
-    Layer: 8
+    Layer: 0
     UiType: FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GenericPurchaseDialog.prefab
+    Layer: 8
+    UiType: FirstLight.Game.Presenters.GenericPurchaseDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GlobalLeaderboardScreen.prefab
     Layer: 0
@@ -183,8 +187,6 @@ MonoBehaviour:
   - SetId: 0
     UiConfigsType:
     - FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

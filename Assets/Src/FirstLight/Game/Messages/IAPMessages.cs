@@ -11,4 +11,10 @@ namespace FirstLight.Game.Messages
 	public struct BattlePassPurchasedMessage : IMessage
 	{
 	}
+
+
+	public struct BattlePassLevelPurchasedMessage : IMessage
+	{
+		
+	}
 }

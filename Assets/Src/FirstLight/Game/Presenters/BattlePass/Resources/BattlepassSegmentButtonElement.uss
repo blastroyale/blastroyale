@@ -82,12 +82,12 @@
     justify-content: center;
     align-self: center;
     display: flex;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/Rectangle%2041.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#Rectangle 41');
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/rectangle.png?fileID=21300000&guid=5008ecfd4171e40928f4a171597f84b1&type=3#rectangle');
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
     align-items: center;
     height: 100%;
-    width: 337px
+    width: 337px;
 }
 
 .reward__ready-to-claim-shine {
@@ -348,7 +348,7 @@
     flex-grow: 0;
     background-color: rgb(35, 33, 54);
     height: 8px;
-    width: 459px;
+    width: 100%;
     margin-top: 0;
     margin-bottom: 0;
     background-image: none;
@@ -378,7 +378,6 @@
     flex-grow: 0;
     background-color: rgb(26, 26, 44);
     height: 26px;
-    width: 475px;
     margin-top: 0;
     margin-bottom: 0;
     background-image: none;
@@ -392,7 +391,6 @@
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    left: 0;
     align-items: auto;
     min-height: auto;
     margin-left: 0;
@@ -401,12 +399,51 @@
     flex-direction: row;
     align-self: auto;
     display: flex;
-    translate: -50% 0;
+    width: 100%;
+    left: auto;
 }
 
 .bar__level--gray {
     background-color: rgb(48, 46, 70);
     border-color: rgb(26, 26, 44);
+}
+
+.bar__buy-button__blastbucks-icon {
+    flex-grow: 0;
+    background-image: var(--sprite-home__icon-blastbucks);
+    width: 64px;
+    height: 83px;
+    position: absolute;
+    top: 10px;
+    left: 46px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.bar__buy-button__label {
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    width: 94px;
+    position: absolute;
+    top: 10px;
+    left: 116px;
+    font-size: 64px;
+    height: 78px;
+    -unity-text-align: middle-left;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 2.5px 2.5px 0 rgb(156, 36, 12);
+}
+
+.bar__buy-button {
+    flex-grow: 0;
+    width: 255px;
+    height: 109px;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    left: 22%;
+    bottom: auto;
+    top: -200%;
+    background-image: var(--sprite-battlepass__buy-level-button);
 }
 
 .reward__lock {

@@ -35,14 +35,15 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action BackClicked;
 			public IGameUiService UiService;
+			public bool DisableInitialScrollAnimation;
 		}
 
 		private const string UssBpSegmentFiller = "bp-segment-filler";
-		private const float BpSegmentWidth = 475f;
+		private const float BpSegmentWidth = 450f;
 
-		[SerializeField] private VisualTreeAsset _battlePassSegmentBarAsset;
-		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
 		[SerializeField] private int _scrollToDurationMs = 1500;
+		[SerializeField] private Sprite _battlepassLevelSprite;
+		[SerializeField] private Sprite _battlepassPremiumSprite;
 
 		private ScrollView _rewardsScroll;
 		private VisualElement _leftBar;
@@ -66,6 +67,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private Dictionary<PassType, List<BattlePassSegmentData>> _segmentData;
+		private Dictionary<int, BattlepassLevelColumnElement> _levelElements;
 		private bool _finishedTutorialBpThisCycle = false;
 
 		private void Awake()
@@ -77,6 +79,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
+			_levelElements = new Dictionary<int, BattlepassLevelColumnElement>();
 			_leftBar = root.Q<VisualElement>("LeftBar").Required();
 			_seasonHeader = root.Q<VisualElement>("SeasonHeader").Required();
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
@@ -107,6 +110,12 @@ namespace FirstLight.Game.Presenters
 			root.Q("RewardShineBlue").Required().AddRotatingEffect(3, 10);
 			root.Q("RewardShineYellow").Required().AddRotatingEffect(5, 10);
 			_services.MessageBrokerService.Subscribe<BattlePassPurchasedMessage>(OnBpPurchase);
+			_services.MessageBrokerService.Subscribe<BattlePassLevelPurchasedMessage>(OnBoughtBpLevel);
+		}
+
+		private void OnBoughtBpLevel(BattlePassLevelPurchasedMessage obj)
+		{
+			InitScreen(true);
 		}
 
 		private void OnBpPurchase(BattlePassPurchasedMessage msg)
@@ -123,7 +132,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClickLastRewardIcon()
 		{
-			this.ScrollToBpLevel((int)_dataProvider.BattlePassDataProvider.MaxLevel, 1000);
+			this.ScrollToBpLevel((int) _dataProvider.BattlePassDataProvider.MaxLevel, 1000);
 		}
 
 		private void FixSafeZone()
@@ -153,14 +162,38 @@ namespace FirstLight.Game.Presenters
 
 		private void ActivateClicked()
 		{
-			// TODO: Remove, should display/disable in the button
-			if (!_dataProvider.BattlePassDataProvider.HasCurrencyForPurchase())
-			{
-				_services.GenericDialogService.OpenSimpleMessage("[Debug]", "Not enough BBs go buy some");
-				return;
-			}
+			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.Price;
 
-			_services.CommandService.ExecuteCommand(new ActivateBattlepassCommand());
+			_services.GenericDialogService.OpenPurchaseOrNotEnough(
+				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
+				{
+					ItemSprite = _battlepassPremiumSprite,
+					OverwriteTitle = "BUY PREMIUM BATTLEPASS",
+					OverwriteItemName = "BUY PREMIUM BATTLEPASS",
+					Value = price,
+					OnConfirm = () =>
+					{
+						_services.CommandService.ExecuteCommand(new ActivateBattlepassCommand());
+					}
+				});
+		}
+
+		private void BuyLevelClicked()
+		{
+			var price = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig().Season.BuyLevelPrice;
+
+			_services.GenericDialogService.OpenPurchaseOrNotEnough(
+				new GenericPurchaseDialogPresenter.GenericPurchaseOptions()
+				{
+					Value = price,
+					ItemSprite = _battlepassLevelSprite,
+					OverwriteTitle = "BUY A LEVEL OF BATTLE PASS",
+					OverwriteItemName = "YOU ARE GOING TO BUY 1 LEVEL OF BATTLE PASS",
+					OnConfirm = () =>
+					{
+						_services.CommandService.ExecuteCommand(new BuyBattlepassLevelCommand());
+					}
+				});
 		}
 
 		protected override void SubscribeToEvents()
@@ -228,7 +261,7 @@ namespace FirstLight.Game.Presenters
 			//TODO: DO WE NEED ?
 		}
 
-		private void InitScreen()
+		private void InitScreen(bool update = false)
 		{
 			_segmentData = new ()
 			{
@@ -239,6 +272,7 @@ namespace FirstLight.Game.Presenters
 			var battlePassConfig = _dataProvider.BattlePassDataProvider.GetCurrentSeasonConfig();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+
 
 			_activateButton.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
 			_premiumLock.SetDisplay(!_dataProvider.BattlePassDataProvider.HasPurchasedSeason());
@@ -254,6 +288,7 @@ namespace FirstLight.Game.Presenters
 
 			_seasonNumber.text = string.Format(ScriptLocalization.UITBattlePass.season_number,
 				battlePassConfig.Season.Number);
+
 
 			for (var i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
@@ -278,22 +313,26 @@ namespace FirstLight.Game.Presenters
 				_segmentData[PassType.Free].Add(freeSegmentData);
 				_segmentData[PassType.Paid].Add(paidSegmentData);
 
-				var levelBarPct = 1f;
-				if (paidSegmentData.LevelAfterClaiming == i) levelBarPct = pctCurrentLevel;
-				else if (paidSegmentData.LevelAfterClaiming < i) levelBarPct = 0;
+				var completed = paidSegmentData.LevelAfterClaiming > i;
+				var currentLevel = paidSegmentData.LevelAfterClaiming == i;
+				var column = update ? _levelElements[i] : new BattlepassLevelColumnElement();
+				ConfigureSegment(column.FreeReward, freeSegmentData, update);
+				ConfigureSegment(column.PaidReward, paidSegmentData, update);
+				column.SetBarData((uint) i + 1, completed, currentLevel, battlePassConfig.Season.BuyLevelPrice);
+				if (!update)
+				{
+					column.OnBuyLevelClicked += BuyLevelClicked;
+					_columnHolder.Insert(0, column);
+				}
 
-				var column = new BattlepassLevelColumnElement();
-				ConfigureSegment(column.FreeReward, freeSegmentData);
-				ConfigureSegment(column.PaidReward, paidSegmentData);
-				column.SetBarData((uint)i+1, levelBarPct);
-				_columnHolder.Insert(0, column);
+				_levelElements[i] = column;
 			}
 
 			SpawnScrollFiller();
 
 			if (predictedProgress.Item1 > 1)
 			{
-				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs);
+				ScrollToBpLevel((int) predictedProgress.Item1, _scrollToDurationMs, Data.DisableInitialScrollAnimation && !update);
 			}
 		}
 
@@ -311,21 +350,36 @@ namespace FirstLight.Game.Presenters
 		}
 
 
-		private void ConfigureSegment(BattlepassSegmentButtonElement element, BattlePassSegmentData segment)
+		private void ConfigureSegment(BattlepassSegmentButtonElement element, BattlePassSegmentData segment, bool update)
 		{
+			var state = GetRewardState(segment);
+			if (update && element.RewardState == state)
+			{
+				return;
+			}
+
 			element.SetData(segment, GetRewardState(segment), _dataProvider.BattlePassDataProvider.HasPurchasedSeason());
+			if (update) return;
 			element.Clicked += OnSegmentRewardClicked;
 		}
 
-		private void ScrollToBpLevel(int index, int durationMs)
+		private void ScrollToBpLevel(int index, int durationMs, bool instant = false)
 		{
-			if (index >= _dataProvider.BattlePassDataProvider.MaxLevel) index = (int)_dataProvider.BattlePassDataProvider.MaxLevel - 1;
+			if (index >= _dataProvider.BattlePassDataProvider.MaxLevel) index = (int) _dataProvider.BattlePassDataProvider.MaxLevel - 1;
 			var targetX = ((index + 1) * BpSegmentWidth) - (BpSegmentWidth * 3);
+			if (instant)
+			{
+				_rewardsScroll.scrollOffset = new Vector2(targetX, _rewardsScroll.scrollOffset.y);
+				return;
+			}
+
+			var startX = _rewardsScroll.scrollOffset.x;
+			var offset = targetX - startX;
 			_rewardsScroll.experimental.animation.Start(0, 1f, durationMs, (element, percent) =>
 			{
 				var scrollView = (ScrollView) element;
 				var currentScroll = scrollView.scrollOffset;
-				scrollView.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
+				scrollView.scrollOffset = new Vector2(startX + (offset * percent), currentScroll.y);
 			}).Ease(Easing.OutCubic);
 		}
 
@@ -344,14 +398,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
-			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			ScrollToBpLevel((int) predictedProgress.Item1, 0);
 			ShowRewards(message.Rewards);
 		}
 
 		private void ShowRewards(IEnumerable<ItemData> rewards)
 		{
 			var battlePassData = Data;
+			battlePassData.DisableInitialScrollAnimation = true;
 			Data.UiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(new RewardsScreenPresenter.StateData()
 			{
 				Items = rewards,

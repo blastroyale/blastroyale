@@ -64,14 +64,15 @@ namespace FirstLight.Tests.EditorMode
 			TestTutorial = new TutorialService(TestUI);
 			TestNetwork.EnableClientUpdate(true);
 			TestTutorial.BindServicesAndData(TestLogic, TestServices);
-			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			
 			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
-			                          audioFxService);
+				audioFxService);
+			var genericDialogService = new GenericDialogService(TestUI, TestLogic.CurrencyDataProvider);
+
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
 			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, TestUI);

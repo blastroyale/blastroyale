@@ -18,16 +18,20 @@ namespace FirstLight.Game.Presenters.BattlePass
 	/// </summary>
 	public class BattlepassLevelColumnElement : VisualElement
 	{
-		private const string UssBarGray = "bar__level--gray";
+		private const string USS_BAR_GRAY = "bar__level--gray";
 
 		// Bar stuff
 		private VisualElement _completedBar;
 		private Label _number;
+		private Label _priceLabel;
 		private VisualElement _barLevel;
+		private ImageButton _buyLevelButton;
 
 		public BattlepassSegmentButtonElement PaidReward { get; private set; }
 		public BattlepassSegmentButtonElement FreeReward { get; private set; }
-
+		
+		public uint Level { get; private set; }
+		public event Action OnBuyLevelClicked;
 
 		public BattlepassLevelColumnElement()
 		{
@@ -38,8 +42,7 @@ namespace FirstLight.Game.Presenters.BattlePass
 			FreeReward = this.Q<BattlepassSegmentButtonElement>("FreeReward").Required();
 			QueryBar();
 		}
-		
-		
+
 
 		private void QueryBar()
 		{
@@ -47,13 +50,27 @@ namespace FirstLight.Game.Presenters.BattlePass
 			_completedBar = element.Q("CompletedBar").Required();
 			_number = element.Q<Label>("BarLevelLabel").Required();
 			_barLevel = element.Q("BarLevel").Required();
+			_buyLevelButton = element.Q<ImageButton>("BuyLevelButton").Required();
+			_priceLabel = element.Q<Label>("PriceLabel").Required();
+			_buyLevelButton.clicked += () =>
+			{
+				OnBuyLevelClicked?.Invoke();
+			};
 		}
 
-		public void SetBarData(uint level, float pctFilled)
+		public void SetBarData(uint level, bool completed, bool currentLevel,uint buyLevelPrice)
 		{
-			_completedBar.style.width = Length.Percent(pctFilled * 100);
+			Level = level;
+			_completedBar.style.width = Length.Percent(completed ? 100 : 0);
 			_number.text = level.ToString();
-			if (pctFilled < 1) _barLevel.AddToClassList(UssBarGray);
+			_barLevel.EnableInClassList(USS_BAR_GRAY,!completed);
+			_buyLevelButton.SetVisibility(currentLevel);
+			_priceLabel.text = buyLevelPrice.ToString();
+			if (!currentLevel)
+			{
+				return;
+			}
+			_completedBar.style.width = Length.Percent(50);
 		}
 
 		public new class UxmlFactory : UxmlFactory<BattlepassLevelColumnElement, UxmlTraits>
@@ -62,7 +79,6 @@ namespace FirstLight.Game.Presenters.BattlePass
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-		
 		}
 	}
 }

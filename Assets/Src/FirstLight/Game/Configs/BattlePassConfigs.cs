@@ -17,6 +17,8 @@ namespace FirstLight.Game.Configs
 			public uint Number;
 			[Tooltip("The price of the Pro BP in BlastBucks")]
 			public uint Price;
+			[Tooltip("Buy level price, set 0 to disable functionality")]
+			public uint BuyLevelPrice;
 			public uint DefaultPointsPerLevel;
 			/// <summary>
 			/// Format dd/MM/yyyy

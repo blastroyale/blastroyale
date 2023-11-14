@@ -621,6 +621,7 @@ namespace FirstLight.Game.Logic
 				Unequip(equippedId);
 			}
 			_inventory.Remove(equipment);
+			_nftInventory.Remove(equipment);
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
 		}
 	}

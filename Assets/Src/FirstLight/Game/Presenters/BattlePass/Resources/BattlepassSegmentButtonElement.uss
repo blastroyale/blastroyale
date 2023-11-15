@@ -120,7 +120,6 @@
 .reward-holder__image {
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
     top: -167px;
     width: 300px;
     height: 300px;
@@ -401,7 +400,7 @@
 
 .bar__buy-button__blastbucks-icon {
     flex-grow: 0;
-    background-image: var(--sprite-home__icon-blastbucks);
+    background-image: var(--sprite-currencies__blastbuck-default);
     width: 64px;
     height: 83px;
     position: absolute;

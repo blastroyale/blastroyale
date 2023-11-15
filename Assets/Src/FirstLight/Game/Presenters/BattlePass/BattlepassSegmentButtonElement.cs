@@ -61,19 +61,6 @@ namespace FirstLight.Game.Presenters.BattlePass
 			_lock = element.Q("Lock").Required();
 			_imageContainer = _rewardImage.parent;
 			_button.clicked += () => Clicked?.Invoke(this);
-
-			SetData(new BattlePassSegmentData()
-			{
-				PassType = PassType.Paid,
-				RewardConfig = new EquipmentRewardConfig()
-				{
-					GameId = GameId.MaleAssassin,
-					Amount = 1,
-				},
-				SegmentLevel = 1,
-				LevelAfterClaiming = 2,
-				PointsAfterClaiming = 2,
-			}, RewardState.Claimable, false);
 		}
 
 		/// <summary>
@@ -109,11 +96,11 @@ namespace FirstLight.Game.Presenters.BattlePass
 			{
 				_claimBubble.AnimatePing(1.3f, 500, true);
 			}
+
 			if (RewardState == RewardState.Claimed) _button.AddToClassList(UssClaimedButton);
 			else if (RewardState == RewardState.Claimable) _button.AddToClassList(UssClaimableButton);
 			else if (SegmentData.PassType == PassType.Free) _button.AddToClassList(UssUnclaimedFree);
 			else if (SegmentData.PassType == PassType.Paid) _button.AddToClassList(UssUnclaimedPaid);
-			
 		}
 
 		private void DrawIcon()
@@ -141,6 +128,12 @@ namespace FirstLight.Game.Presenters.BattlePass
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
+			private readonly UxmlBoolAttributeDescription _debugMode = new ()
+			{
+				name = "debug-mode",
+				defaultValue = false,
+			};
+
 			private readonly UxmlEnumAttributeDescription<RewardState> _state = new ()
 			{
 				name = "state",
@@ -168,13 +161,23 @@ namespace FirstLight.Game.Presenters.BattlePass
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
+
 				var el = (BattlepassSegmentButtonElement) ve;
 				el.RewardState = _state.GetValueFromBag(bag, cc);
 				el.UnlockedPremium = _unlockedPremium.GetValueFromBag(bag, cc);
-				el.SegmentData.RewardConfig.GameId = _rewardId.GetValueFromBag(bag, cc);
-				el.SegmentData.PassType = _passType.GetValueFromBag(bag, cc);
-				el.UnlockedPremium = _unlockedPremium.GetValueFromBag(bag, cc);
-				el.SetStatusVisuals();
+				if (_debugMode.GetValueFromBag(bag, cc))
+					el.SetData(new BattlePassSegmentData()
+					{
+						PassType = _passType.GetValueFromBag(bag, cc),
+						RewardConfig = new EquipmentRewardConfig()
+						{
+							GameId = _rewardId.GetValueFromBag(bag, cc),
+							Amount = 1,
+						},
+						SegmentLevel = 1,
+						LevelAfterClaiming = 2,
+						PointsAfterClaiming = 2,
+					}, RewardState.Claimable, false);
 			}
 		}
 	}

@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -17,10 +20,10 @@ namespace FirstLight.Game.Data.DataTypes
 		public ItemData Item { get; }
 		public GameId GameId => _gameId;
 		public uint Amount => _amount;
-		public string DisplayName => GameId.GetCurrencyLocalization(_amount).ToUpper();
+		public string DisplayName => _amount.ToString();
 		public string Description => $"X {_amount}";
 
-		public string ItemTypeDisplayName => GameIdGroup.Currency.GetGameIdGroupLocalization();
+		public string ItemTypeDisplayName => GameId.GetCurrencyLocalization(_amount).ToUpperInvariant();
 
 		public VisualElement ItemCard => new CurrencyRewardSummaryItemElement()
 		{
@@ -29,9 +32,24 @@ namespace FirstLight.Game.Data.DataTypes
 
 		public void DrawIcon(VisualElement icon)
 		{
-			icon.RemoveSpriteClasses();
-			icon.AddToClassList(string.Format(USS_SPRITE_REWARD, GameId.ToString().ToLowerInvariant()));
+			if (MainInstaller.TryResolve<IGameServices>(out var services))
+			{
+				var config = services.ConfigsProvider.GetConfig<CurrencySpriteConfig>();
+
+				if (config.TryGetConfig(GameId, out var entry))
+				{
+					var clazz = entry.GetClassForAmount(Amount);
+					icon.style.backgroundImage = StyleKeyword.Null;
+					icon.RemoveSpriteClasses();
+					icon.AddToClassList(clazz);
+					return;
+				}
+
+				throw new Exception("Unable to set icon for currency " + GameId);
+			}
+			
 		}
+
 
 		private GameId _gameId;
 		private uint _amount;

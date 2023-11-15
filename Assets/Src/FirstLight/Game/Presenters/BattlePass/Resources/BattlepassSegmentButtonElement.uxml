@@ -10,7 +10,7 @@
             <ui:VisualElement name="Checkmark" picking-mode="Ignore" class="reward__checkmark" />
             <ui:VisualElement name="RewardHolder" picking-mode="Ignore" class="reward__reward-holder">
                 <ui:VisualElement name="RewardRarity" picking-mode="Ignore" class="reward-holder__rarity" />
-                <ui:VisualElement name="RewardImage" picking-mode="Ignore" class="reward-holder__image sprite-home__icon-questionmark" />
+                <ui:VisualElement name="RewardImage" picking-mode="Ignore" class="reward-holder__image sprite-home__flag-demon" />
             </ui:VisualElement>
             <ui:VisualElement name="TextHolder" class="text-holder">
                 <FirstLight.Game.UIElements.AutoSizeLabel text="DEMON" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" max-font-size="44" min-font-size="20" class="reward__title" />

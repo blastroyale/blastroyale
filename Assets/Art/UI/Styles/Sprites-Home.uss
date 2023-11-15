@@ -109,7 +109,6 @@
     --sprite-home__header-popup-equipment: url('/Assets/Art/UI/Sprites/Home/header-popup-equipment.png');
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
-    --sprite-home__icon_coins_3: url('/Assets/Art/UI/Sprites/Home/icon_coins_3.png');
     --sprite-home__icon_premium-pass_no_gradient: url('/Assets/Art/UI/Sprites/Home/icon_premium-pass_no_gradient.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
@@ -118,7 +117,6 @@
     --sprite-home__icon-avatar: url('/Assets/Art/UI/Sprites/Home/icon-avatar.png');
     --sprite-home__icon-banner: url('/Assets/Art/UI/Sprites/Home/icon-banner.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
-    --sprite-home__icon-blastbucks: url('/Assets/Art/UI/Sprites/Home/icon-blastbucks.png');
     --sprite-home__icon-blasthub: url('/Assets/Art/UI/Sprites/Home/icon-blasthub.png');
     --sprite-home__icon-characters: url('/Assets/Art/UI/Sprites/Home/icon-characters.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
@@ -185,14 +183,6 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
-    --sprite-home__reward-blastbuck: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck.png');
-    --sprite-home__reward-blastbuck2: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck2.png');
-    --sprite-home__reward-blastbuck3: url('/Assets/Art/UI/Sprites/Home/reward-blastbuck3.png');
-    --sprite-home__reward-bpp: url('/Assets/Art/UI/Sprites/Home/reward-bpp.png');
-    --sprite-home__reward-coin: url('/Assets/Art/UI/Sprites/Home/reward-coin.png');
-    --sprite-home__reward-coin2: url('/Assets/Art/UI/Sprites/Home/reward-coin2.png');
-    --sprite-home__reward-coin3: url('/Assets/Art/UI/Sprites/Home/reward-coin3.png');
-    --sprite-home__reward-cs: url('/Assets/Art/UI/Sprites/Home/reward-cs.png');
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
@@ -813,12 +803,6 @@
     background-image: var(--sprite-home__header-profile-pressed);
 }
 
-.sprite-home__icon_coins_3 {
-    background-image: var(--sprite-home__icon_coins_3);
-    width: 512px;
-    height: 512px;
-}
-
 .sprite-home__icon_premium-pass_no_gradient {
     background-image: var(--sprite-home__icon_premium-pass_no_gradient);
     width: 317px;
@@ -865,12 +849,6 @@
     background-image: var(--sprite-home__icon-battlepass-crown);
     width: 104px;
     height: 88px;
-}
-
-.sprite-home__icon-blastbucks {
-    background-image: var(--sprite-home__icon-blastbucks);
-    width: 160px;
-    height: 160px;
 }
 
 .sprite-home__icon-blasthub {
@@ -1267,54 +1245,6 @@
     background-image: var(--sprite-home__progress-stats);
     width: 54px;
     height: 14px;
-}
-
-.sprite-home__reward-blastbuck {
-    background-image: var(--sprite-home__reward-blastbuck);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-blastbuck2 {
-    background-image: var(--sprite-home__reward-blastbuck2);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-blastbuck3 {
-    background-image: var(--sprite-home__reward-blastbuck3);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-bpp {
-    background-image: var(--sprite-home__reward-bpp);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-coin {
-    background-image: var(--sprite-home__reward-coin);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-coin2 {
-    background-image: var(--sprite-home__reward-coin2);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-coin3 {
-    background-image: var(--sprite-home__reward-coin3);
-    width: 512px;
-    height: 512px;
-}
-
-.sprite-home__reward-cs {
-    background-image: var(--sprite-home__reward-cs);
-    width: 512px;
-    height: 512px;
 }
 
 .sprite-home__rewards-gradient-purple {

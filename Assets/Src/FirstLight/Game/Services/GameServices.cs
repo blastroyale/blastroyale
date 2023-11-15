@@ -257,7 +257,7 @@ namespace FirstLight.Game.Services
 				tutorialService);
 			RoomService = new RoomService.RoomService(NetworkService, GameBackendService, ConfigsProvider, CoroutineService, gameLogic, LeaderboardService);
 			CollectionService = new CollectionService(AssetResolverService, ConfigsProvider, MessageBrokerService, gameLogic, CommandService);
-			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, CommandService);
+			BattlePassService = new BattlePassService(MessageBrokerService, gameLogic, this);
 		}
 
 		/// <inheritdoc />

@@ -15,6 +15,10 @@ MonoBehaviour:
   _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter,
     FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
+  - AddressableAddress: Ui/BattlePassSeasonBannerPresenter.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.BattlePassSeasonBannerPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/BattlepassScreenPresenter.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.BattlePassScreenPresenter, FirstLight.Game,

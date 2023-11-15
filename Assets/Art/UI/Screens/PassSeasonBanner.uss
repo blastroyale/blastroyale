@@ -1,0 +1,380 @@
+.blocker {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.67);
+    top: 0;
+    left: 0;
+}
+
+.banner {
+    flex-grow: 0;
+    width: 100%;
+    height: 647px;
+    background-color: rgb(103, 0, 149);
+    align-self: center;
+}
+
+.banner-background__left {
+    flex-grow: 0;
+    width: 703px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -25px;
+    -unity-background-image-tint-color: rgb(68, 4, 95);
+    align-self: flex-start;
+    margin-left: -189px;
+}
+
+.purple-fill {
+    flex-grow: 0;
+    width: 482px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -216px;
+    -unity-background-image-tint-color: rgb(68, 4, 95);
+    align-self: flex-start;
+}
+
+.banner-dots {
+    flex-grow: 0;
+    width: 862px;
+    height: 848px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/DorsRotated.png?fileID=21300000&guid=53ba4d982ebfe2f4dad7b4860aebb807&type=3#DorsRotated');
+    left: auto;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.1);
+    align-self: flex-end;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: -107px;
+    rotate: -282deg;
+    -unity-background-scale-mode: scale-and-crop;
+    right: 353px;
+}
+
+.banner-background__right {
+    flex-grow: 0;
+    width: 617px;
+    height: 100%;
+    flex-direction: row;
+    background-color: rgb(255, 196, 0);
+    margin-right: -114px;
+}
+
+.banner-pink-border {
+    flex-grow: 0;
+    width: 835px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: -176px;
+    -unity-background-image-tint-color: rgb(234, 59, 121);
+    align-self: flex-end;
+    background-color: rgba(255, 19, 195, 0);
+}
+
+.banner-background__right-yellow {
+    flex-grow: 0;
+    width: 622px;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureHud/321Countdown/DiagonalWiper.png?fileID=21300000&guid=f26621d71421141298a9a8cf0dc80574&type=3#DiagonalWiper');
+    left: 38px;
+    -unity-background-image-tint-color: rgb(255, 196, 0);
+    align-self: stretch;
+}
+
+.banner-dots-white {
+    flex-grow: 0;
+    width: 572px;
+    height: 592px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/DorsRotated.png?fileID=21300000&guid=53ba4d982ebfe2f4dad7b4860aebb807&type=3#DorsRotated');
+    left: auto;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.43);
+    align-self: flex-end;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 130px;
+    rotate: -175deg;
+    -unity-background-scale-mode: scale-and-crop;
+    right: 20px;
+}
+
+.banner-contents {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.banner-contents__left {
+    flex-grow: 0;
+    height: 799px;
+    width: 500px;
+    -unity-background-scale-mode: scale-and-crop;
+    position: relative;
+    top: auto;
+    left: auto;
+    flex-shrink: 0;
+}
+
+.banner-icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/icon_premium-pass.png?fileID=21300000&guid=958626dbd35094e5d98703802369a31a&type=3#icon_premium-pass');
+    position: absolute;
+    width: 749px;
+    height: 771px;
+    top: -128px;
+    left: -67px;
+}
+
+.begin-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/button-long-yellow.png?fileID=21300000&guid=9da5c1bf95cb14250aacab06348ab34d&type=3#button-long-yellow');
+    height: 119px;
+    position: absolute;
+    width: 488px;
+    top: 494px;
+    left: 303px;
+    font-size: 60px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 4px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+}
+
+.time-left-widget {
+    flex-grow: 1;
+    width: auto;
+    height: 110px;
+    position: absolute;
+    top: 499px;
+    left: 857px;
+    flex-direction: row;
+    padding-right: 25px;
+    padding-left: 25px;
+    background-color: rgb(68, 4, 95);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.time-left-widget__title {
+    position: relative;
+    width: auto;
+    height: 100px;
+    top: auto;
+    left: auto;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.time-left-widget__time {
+    position: relative;
+    width: auto;
+    height: 100px;
+    top: auto;
+    left: 12px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.season-text-container {
+    flex-grow: 0;
+    flex-direction: column;
+    -unity-text-align: upper-left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 135px;
+    width: 360px;
+    flex-shrink: 0;
+}
+
+.season-text-container__title {
+    font-size: 80px;
+    color: rgb(248, 205, 45);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.season-text-container__season {
+    font-size: 80px;
+    color: rgb(248, 205, 45);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.season-text-container__desc {
+    font-size: 75px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 6px 6px 0 rgb(0, 0, 0);
+}
+
+.banner-rewards {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: auto;
+    width: 1280px;
+    max-width: none;
+    left: auto;
+    top: -61px;
+    padding-left: 0;
+}
+
+.reward-display {
+    flex-grow: 0;
+    background-color: rgb(68, 4, 95);
+    width: 180px;
+    height: 180px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    margin-left: 9px;
+    flex-shrink: 0;
+}
+
+.reward-display__icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/Home/flag-demon.png?fileID=21300000&guid=200f11153aed542e3aeb0adb534ade89&type=3#flag-demon');
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: -26px;
+    left: auto;
+}
+
+.get-rewards-text {
+    font-size: 56px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 6px 6px 0 rgb(156, 36, 12);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    position: absolute;
+    top: 221px;
+    left: -404px;
+    -unity-font-style: bold;
+}
+
+.banner-contents__right {
+    flex-grow: 0;
+    width: 628px;
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+    visibility: visible;
+    flex-shrink: 0;
+}
+
+.final-reward {
+    flex-grow: 0;
+    background-color: rgb(241, 125, 0);
+    width: 420px;
+    height: 80%;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    margin-right: 121px;
+    overflow: visible;
+    left: 91px;
+}
+
+.final-reward__icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/AddressableResources/Collections/CharacterSkins/PunkFemale/character-femalepunk.png?fileID=21300000&guid=d59bff88338df8840a6fbb2bccfa8122&type=3#character-femalepunk');
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    width: 482px;
+    height: 100%;
+    bottom: -20px;
+    overflow: visible;
+    left: -42px;
+    top: -5px;
+}
+
+.banner-background {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+}
+
+.banner-root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}

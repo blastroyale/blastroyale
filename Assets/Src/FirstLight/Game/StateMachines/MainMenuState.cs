@@ -14,6 +14,7 @@ using FirstLight.Game.Presenters.Store;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using UnityEngine;
@@ -228,6 +229,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.MessageBrokerService.Subscribe<NewBattlePassSeasonMessage>(OnBattlePassNewSeason);
 		}
 
 		private void UnsubscribeEvents()
@@ -446,6 +448,11 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
+		}
+
+		private void OnBattlePassNewSeason(NewBattlePassSeasonMessage msg)
+		{
+			_statechartTrigger(BattlePassClickedEvent);
 		}
 
 		private void OpenBattlePassUI(IWaitActivity activity)

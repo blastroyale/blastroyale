@@ -165,14 +165,14 @@ namespace Quantum
 		/// On each hit, the <paramref name="onHitCallback"/> will be called.
 		/// Return true if at least one hit was successful, false otherwise.
 		/// </summary>
-		public static bool ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue, SpellCallBack onHitCallback = null)
+		public static uint ProcessAreaHit(Frame f, FP radius, Spell* spell, uint maxHitCount = uint.MaxValue, SpellCallBack onHitCallback = null)
 		{
 			if (f.GetSingleton<GameContainer>().IsGameOver)
 			{
-				return false;
+				return 0;
 			}
 			
-			var hitCount = 0;
+			uint hitCount = 0;
 			var shape = Shape3D.CreateSphere(radius);
 			var hits = f.Physics3D.OverlapShape(spell->OriginalHitPosition, FPQuaternion.Identity, shape, 
 			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
@@ -206,7 +206,7 @@ namespace Quantum
 				}
 			}
 
-			return hitCount > 0;
+			return hitCount;
 		}
 
 		/// <summary>

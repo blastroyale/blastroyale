@@ -31,6 +31,7 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		public static readonly IStatechartEvent ProceedTutorialEvent = new StatechartEvent("TUTORIAL - Proceed tutorial event");
+		public static readonly IStatechartEvent GrenadeMissedTutorialEvent = new StatechartEvent("TUTORIAL - Grenade Missed");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
@@ -46,7 +47,9 @@ namespace FirstLight.Game.StateMachines
 		private MetaTutorialSequence _sequence;
 		private GameplayProceedEventData _currentGameplayProceedData;
 		private short _currentKillProceedProgress;
-		private bool _hasSpecial;
+		
+		private bool _hasSpecial0;
+		private bool _hasSpecial1;
 
 		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
 									  IInternalTutorialService tutorialService,
@@ -78,6 +81,7 @@ namespace FirstLight.Game.StateMachines
 			var specialDecision = stateFactory.Choice("Already Has Special?");
 			var pickupSpecial = stateFactory.State("Pickup Special");
 			var kill1BotSpecial = stateFactory.State("Kill 1 bot special");
+			var grenadeMissed = stateFactory.Choice("Grenade Missed");
 			var moveToGateArea = stateFactory.State("Proceed through iron gate");
 			var moveToChestArea = stateFactory.State("Move to chest area");
 			var openBox = stateFactory.State("Open box");
@@ -132,7 +136,7 @@ namespace FirstLight.Game.StateMachines
 			kill2Bots.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill2Bots.Event(ProceedTutorialEvent).Target(specialDecision);
 			
-			specialDecision.Transition().Condition(() => _hasSpecial).Target(kill1BotSpecial);
+			specialDecision.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
 			specialDecision.Transition().Target(pickupSpecial);
 
 			pickupSpecial.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.PickupSpecial); });
@@ -144,6 +148,10 @@ namespace FirstLight.Game.StateMachines
 			kill1BotSpecial.OnEnter(OnEnterKill1BotSpecial);
 			kill1BotSpecial.Event(MatchState.MatchUnloadedEvent).Target(final);
 			kill1BotSpecial.Event(ProceedTutorialEvent).Target(moveToGateArea);
+			kill1BotSpecial.Event(GrenadeMissedTutorialEvent).Target(grenadeMissed);
+			
+			grenadeMissed.Transition().Condition(() => _hasSpecial0 || _hasSpecial1).Target(kill1BotSpecial);
+			grenadeMissed.Transition().Target(pickupSpecial);
 
 			moveToGateArea.OnEnter(() => { _sequence.EnterStep(TutorialClientStep.MoveToGateArea); });
 			moveToGateArea.OnEnter(OnEnterMoveToGateArea);
@@ -271,6 +279,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 
 			CheckGameplayProceedConditions(typeof(EventOnHazardLand), callback.sourceId.ToString());
+
+			if (callback.Hits == 0)
+			{
+				_statechartTrigger(GrenadeMissedTutorialEvent);
+			}
 		}
 
 		private async void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -296,7 +309,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerSpecialUpdated(EventOnLocalPlayerSpecialUpdated callback)
 		{
-			_hasSpecial = callback.Special.IsValid;
+			if (callback.SpecialIndex == 0)
+			{
+				_hasSpecial0 = callback.Special.IsValid;
+			}
+			else
+			{
+				_hasSpecial1 = callback.Special.IsValid;
+			}
+			
 			CheckGameplayProceedConditions(typeof(EventOnLocalPlayerSpecialUpdated));
 		}
 
@@ -465,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 			DespawnPointers();
 			SpawnNewPointer(_tutorialObjectRefs[GameConstants.Tutorial.INDICATOR_BOT3].transform.position, GetLocalPlayerView().transform);
 
-			SetFingerPosition(_hud.Special0, 90);
+			SetFingerPosition(_hasSpecial0 ? _hud.Special0 : _hud.Special1, 90);
 
 			_currentKillProceedProgress = 0;
 			_currentGameplayProceedData = new GameplayProceedEventData()

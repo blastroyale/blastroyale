@@ -15,11 +15,15 @@ namespace FirstLight.Game.Presenters.Store
 	public class StoreGameProductElement : VisualElement
 	{
 		public const string UssSmall = "product-widget--small";
-		
-		public const string UssBundleImage = "bundle-image";
-		public const string UssGradientSides = "gradient-sides";
-		public const string UssGradientBig = "gradient-big";
-		public const string UssGradientSmall = "gradient-small";
+
+		public const string UssProductName = "product-name";
+		public const string UssProductImage = "product-image";
+		public const string UssProductPrice = "product-price";
+		public const string UssProductWidget = "product-widget";
+		public const string UssBundleImage = "product-background-image";
+		public const string UssGradientSides = "product-image-gradient-sides";
+		public const string UssGradientBig = "product-image-gradient-big";
+		public const string UssGradientSmall = "product-image-gradient-small";
 		public const string UssWidgetEffects = "widget-effect";
 		
 		public StoreDisplaySize size { get; set; }
@@ -34,12 +38,15 @@ namespace FirstLight.Game.Presenters.Store
 		/// </summary>
 		private string[] _modifiable =
 		{
-			UssBundleImage, UssGradientSides, UssGradientBig, UssGradientSmall, UssWidgetEffects
+			UssBundleImage, UssGradientSides, UssGradientBig, 
+			UssGradientSmall, UssWidgetEffects
 		};
 
 		private string[] _sizeable =
 		{
-			UssBundleImage, UssGradientSides, UssGradientBig, UssGradientSmall, UssWidgetEffects
+			UssBundleImage, UssGradientSides, UssGradientBig, 
+			UssGradientSmall, UssWidgetEffects, UssProductWidget,
+			UssProductPrice, UssProductImage, UssProductName
 		};
 
 		private Label _name;
@@ -85,23 +92,21 @@ namespace FirstLight.Game.Presenters.Store
 		
 		private void FormatByStoreData()
 		{
+			size = _product.PlayfabProductConfig.StoreItemData.Size;
 			if (_product.PlayfabProductConfig.StoreItemData.Size == StoreDisplaySize.Half)
 			{
 				foreach (var sizeable in _sizeable)
 				{
-					var elementName = ClassNameToElementName(sizeable);
-					var element = this.Q(elementName);
+					var element = this.Q(ClassNameToElementName(sizeable));
 					element.AddToClassList($"{sizeable}--small");
 				}
 			}
-			else _root.AddToClassList(UssSmall);
 			var customModifier = _product.PlayfabProductConfig.StoreItemData.UssModifier;
 			if (!string.IsNullOrEmpty(customModifier))
 			{
 				foreach (var modifiable in _modifiable)
 				{
-					var elementName = ClassNameToElementName(modifiable);
-					var element = this.Q(elementName);
+					var element = this.Q(ClassNameToElementName(modifiable));
 					element.AddToClassList($"{modifiable}--{customModifier}");
 				}
 			}

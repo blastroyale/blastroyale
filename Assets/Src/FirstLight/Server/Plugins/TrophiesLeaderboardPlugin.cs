@@ -28,8 +28,8 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.LEADERBOARD_LADDER_NAME, false);
 
 			var evManager = _ctx.PluginEventManager!;
-			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
-			evManager.RegisterEventListener<GameLogicMessageEvent<TrophiesUpdatedMessage>>(OnTrophiesUpdate);
+			// evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
+			// evManager.RegisterEventListener<GameLogicMessageEvent<TrophiesUpdatedMessage>>(OnTrophiesUpdate);
 		}
 
 		private async Task OnTrophiesUpdate(GameLogicMessageEvent<TrophiesUpdatedMessage> ev)

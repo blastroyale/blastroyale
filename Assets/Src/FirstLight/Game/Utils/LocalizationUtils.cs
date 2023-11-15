@@ -1,3 +1,4 @@
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services.Party;
@@ -210,7 +211,18 @@ namespace FirstLight.Game.Utils
 				return translation;
 			}
 
-			return gameModeId.ToUpper();
+			return gameModeId.ToUpperInvariant();
+		}
+
+		public static string GetTranslation(this UnlockSystem unlockSystem)
+		{
+			var term = $"{nameof(ScriptTerms.UnlockSystems)}/"+unlockSystem.ToString();
+			if (LocalizationManager.TryGetTranslation(term, out var translation))
+			{
+				return translation;
+			}
+
+			return unlockSystem.ToString().ToUpperInvariant();
 		}
 	}
 }

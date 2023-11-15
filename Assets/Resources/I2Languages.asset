@@ -7930,6 +7930,83 @@ MonoBehaviour:
       - 
       Flags: 0000000000
       Languages_Touch: []
+    - Term: UnlockSystems/Shop
+      TermType: 0
+      Description: 
+      Languages:
+      - Shop
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Collection
+      TermType: 0
+      Description: 
+      Languages:
+      - Collection
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Leaderboards
+      TermType: 0
+      Description: 
+      Languages:
+      - Leaderboards
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/GameModes
+      TermType: 0
+      Description: 
+      Languages:
+      - GameModes
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/Squads
+      TermType: 0
+      Description: 
+      Languages:
+      - Squads
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
+    - Term: UnlockSystems/PaidBattlePass
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations, you got premium battle pass
+      - 
+      - 
+      - 
+      - 
+      Flags: 0000000000
+      Languages_Touch: []
     - Term: General/ATTDescription
       TermType: 0
       Description: 
@@ -17961,7 +18038,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyRYRrj56OtxWdUmUX4XY7JEluWZXfvmU1RkggLneSx5uVfLCbOKGGfN8KDg2e3AGwwbQ/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Blast Royale Localization
-    Google_LastUpdatedVersion: 1699972256670
+    Google_LastUpdatedVersion: 1700008029524
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

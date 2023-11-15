@@ -1239,14 +1239,14 @@ namespace I2.Loc
 
 		public static class UITCollectionScreen
 		{
-			public static string avatars 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/avatars"); } }
-			public static string banners 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/banners"); } }
 			public static string buy 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/buy"); } }
-			public static string characters 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/characters"); } }
+			public static string cat_deathmarker 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/cat_deathmarker"); } }
+			public static string cat_glider 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/cat_glider"); } }
+			public static string cat_meleeskin 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/cat_meleeskin"); } }
+			public static string cat_playerskin 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/cat_playerskin"); } }
+			public static string cat_profilepicture 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/cat_profilepicture"); } }
 			public static string collection 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/collection"); } }
 			public static string comingsoon 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/comingsoon"); } }
-			public static string gliders 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/gliders"); } }
-			public static string meleeskins 		{ get{ return LocalizationManager.GetTranslation ("UITCollectionScreen/meleeskins"); } }
 		}
 
 		public static class UITDisconnected
@@ -1675,6 +1675,17 @@ namespace I2.Loc
 		{
 			public static string winner 		{ get{ return LocalizationManager.GetTranslation ("UITWinners/winner"); } }
 			public static string winners 		{ get{ return LocalizationManager.GetTranslation ("UITWinners/winners"); } }
+		}
+
+		public static class UnlockSystems
+		{
+			public static string Collection 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Collection"); } }
+			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Equipment"); } }
+			public static string GameModes 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/GameModes"); } }
+			public static string Leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Leaderboards"); } }
+			public static string PaidBattlePass 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/PaidBattlePass"); } }
+			public static string Shop 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Shop"); } }
+			public static string Squads 		{ get{ return LocalizationManager.GetTranslation ("UnlockSystems/Squads"); } }
 		}
 	}
 
@@ -2915,14 +2926,14 @@ namespace I2.Loc
 
 		public static class UITCollectionScreen
 		{
-		    public const string avatars = "UITCollectionScreen/avatars";
-		    public const string banners = "UITCollectionScreen/banners";
 		    public const string buy = "UITCollectionScreen/buy";
-		    public const string characters = "UITCollectionScreen/characters";
+		    public const string cat_deathmarker = "UITCollectionScreen/cat_deathmarker";
+		    public const string cat_glider = "UITCollectionScreen/cat_glider";
+		    public const string cat_meleeskin = "UITCollectionScreen/cat_meleeskin";
+		    public const string cat_playerskin = "UITCollectionScreen/cat_playerskin";
+		    public const string cat_profilepicture = "UITCollectionScreen/cat_profilepicture";
 		    public const string collection = "UITCollectionScreen/collection";
 		    public const string comingsoon = "UITCollectionScreen/comingsoon";
-		    public const string gliders = "UITCollectionScreen/gliders";
-		    public const string meleeskins = "UITCollectionScreen/meleeskins";
 		}
 
 		public static class UITDisconnected
@@ -3351,6 +3362,17 @@ namespace I2.Loc
 		{
 		    public const string winner = "UITWinners/winner";
 		    public const string winners = "UITWinners/winners";
+		}
+
+		public static class UnlockSystems
+		{
+		    public const string Collection = "UnlockSystems/Collection";
+		    public const string Equipment = "UnlockSystems/Equipment";
+		    public const string GameModes = "UnlockSystems/GameModes";
+		    public const string Leaderboards = "UnlockSystems/Leaderboards";
+		    public const string PaidBattlePass = "UnlockSystems/PaidBattlePass";
+		    public const string Shop = "UnlockSystems/Shop";
+		    public const string Squads = "UnlockSystems/Squads";
 		}
 	}
 }

@@ -14,7 +14,9 @@ namespace FirstLight.Game.Data.DataTypes
 		public GameId GameId { get; }
 		public uint Amount { get; }
 		public string Description => null;
-		public string DisplayName => UnlockSystem.ToString().ToUpper() + "<br>SCREEN"; // TODO: Move to localizations
+		public string DisplayName => UnlockSystem.GetTranslation();
+
+		// TODO: Move to localizations
 		public string ItemTypeDisplayName => "Unlock";
 
 		public VisualElement ItemCard => new UnlockRewardSummaryElement()
@@ -35,7 +37,7 @@ namespace FirstLight.Game.Data.DataTypes
 					icon.AddToClassList("sprite-home__icon-heroes");
 					break;
 				case UnlockSystem.PaidBattlePass:
-					icon.AddToClassList("sprite-home__icon-battlepass-crown");
+					icon.AddToClassList("sprite-home__icon_premium-pass_no_gradient");
 					break;
 				case UnlockSystem.Leaderboards:
 					icon.AddToClassList("sprite-home__icon-leaderboards");

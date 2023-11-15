@@ -110,6 +110,7 @@
     --sprite-home__header-profile: url('/Assets/Art/UI/Sprites/Home/header-profile.png');
     --sprite-home__header-profile-pressed: url('/Assets/Art/UI/Sprites/Home/header-profile-pressed.png');
     --sprite-home__icon_coins_3: url('/Assets/Art/UI/Sprites/Home/icon_coins_3.png');
+    --sprite-home__icon_premium-pass_no_gradient: url('/Assets/Art/UI/Sprites/Home/icon_premium-pass_no_gradient.png');
     --sprite-home__icon-airplane: url('/Assets/Art/UI/Sprites/Home/icon-airplane.png');
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-settingstab: url('/Assets/Art/UI/Sprites/Home/icon-arrow-settingstab.png');
@@ -195,6 +196,7 @@
     --sprite-home__rewards-gradient-purple: url('/Assets/Art/UI/Sprites/Home/rewards-gradient-purple.png');
     --sprite-home__rewards-impact-circle: url('/Assets/Art/UI/Sprites/Home/rewards-impact-circle.png');
     --sprite-home__reward-slot: url('/Assets/Art/UI/Sprites/Home/reward-slot.png');
+    --sprite-home__shop-screen: url('/Assets/Art/UI/Sprites/Home/shop-screen.png');
     --sprite-home__tag-body: url('/Assets/Art/UI/Sprites/Home/tag-body.png');
     --sprite-home__temp-icon-profile-neil: url('/Assets/Art/UI/Sprites/Home/temp-icon-profile-neil.png');
     --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
@@ -817,6 +819,12 @@
     height: 512px;
 }
 
+.sprite-home__icon_premium-pass_no_gradient {
+    background-image: var(--sprite-home__icon_premium-pass_no_gradient);
+    width: 317px;
+    height: 303px;
+}
+
 .sprite-home__icon-airplane {
     background-image: var(--sprite-home__icon-airplane);
     width: 70px;
@@ -843,8 +851,8 @@
 
 .sprite-home__icon-avatar {
     background-image: var(--sprite-home__icon-avatar);
-    width: 30px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
 }
 
 .sprite-home__icon-banner {
@@ -1325,6 +1333,12 @@
     background-image: var(--sprite-home__reward-slot);
     width: 270px;
     height: 270px;
+}
+
+.sprite-home__shop-screen {
+    background-image: var(--sprite-home__shop-screen);
+    width: 2048px;
+    height: 945px;
 }
 
 .sprite-home__tag-body {

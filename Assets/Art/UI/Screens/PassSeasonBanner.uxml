@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="banner-root">
         <ui:VisualElement name="Blocker" class="blocker" />
         <ui:VisualElement name="Banner" class="banner">
-            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" style="position: absolute; right: 23px; width: 40px; height: 40px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&amp;guid=4df85ce872a81074581fef9150897ae5&amp;type=3#icon-close-white&apos;); top: -74px;" />
+            <ui:Button name="CloseButton" parse-escape-sequences="true" display-tooltip-when-elided="true" style="position: absolute; right: 23px; width: 40px; height: 40px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Home/icon-close-white.png?fileID=21300000&amp;guid=4df85ce872a81074581fef9150897ae5&amp;type=3#icon-close-white&apos;); top: -74px;" />
             <ui:VisualElement name="Background" class="banner-background">
                 <ui:VisualElement name="DotLeft" class="banner-dots" style="rotate: -450deg; left: 135px;" />
                 <ui:VisualElement name="LeftPart" class="banner-background__left">

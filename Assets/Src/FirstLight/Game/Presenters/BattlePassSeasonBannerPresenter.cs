@@ -19,6 +19,7 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class BattlePassSeasonBannerPresenter : UiToolkitPresenter
 	{
+        
 		private Label _seasonText;
 		private Label _timeLeft;
 		private VisualElement[] _rewards;
@@ -33,6 +34,18 @@ namespace FirstLight.Game.Presenters
 			_rewards = rewards.Children().Select(r => r.Q("RewardIcon").Required()).ToArray();
 			_finalReward = root.Q("FinalRewardIcon").Required();
 			root.Q<Button>("StartButton").Required().clicked += OnClick;
+			root.Q<Button>("CloseButton").clicked += ClosePopup;
+			root.Q<VisualElement>("Blocker").RegisterCallback<ClickEvent>(ClickedOutside);
+		}
+
+		private void ClickedOutside(ClickEvent evt)
+		{
+			ClosePopup();
+		}
+
+		private void ClosePopup()
+		{
+			Close(true);
 		}
 
 		private void OnClick()
